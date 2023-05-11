@@ -2,9 +2,11 @@
 layout: default
 title: CAT count
 parent: CAT API
-
 nav_order: 10
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-count/
+
 ---
 
 # CAT count

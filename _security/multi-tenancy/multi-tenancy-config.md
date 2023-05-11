@@ -15,19 +15,23 @@ config:
   dynamic:
     kibana:
       multitenancy_enabled: true
+      private_tenant_enabled: true
+      default_tenant: global tenant
       server_username: kibanaserver
       index: '.kibana'
     do_not_fail_on_forbidden: false
 ```
 
-Setting | Description
-:--- | :---
-`multitenancy_enabled` | Enable or disable multi-tenancy. Default is true.
-`server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `kibanaserver`.
-`index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`.
-`do_not_fail_on_forbidden` | If true, the security plugin removes any content that a user is not allowed to see from search results. If false, the plugin returns a security exception. Default is false.
+| Setting | Description |
+| :--- | :--- |
+| `multitenancy_enabled` | Enable or disable multi-tenancy. Default is `true`. |
+| `private_tenant_enabled` | Enable or disable the private tenant. Default is `true`. |
+| `default_tenant` | Use to set the tenant that is available when users log in. |
+| `server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `kibanaserver`. |
+| `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`. |
+| `do_not_fail_on_forbidden` | When `true`, the Security plugin removes any content that a user is not allowed to see from the search results. When `false`, the plugin returns a security exception. Default is `false`. |
 
-`opensearch_dashboards.yml` has some additional settings:
+The `opensearch_dashboards.yml` file includes additional settings:
 
 ```yml
 opensearch.username: kibanaserver
@@ -40,14 +44,14 @@ opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
 opensearch_security.multitenancy.enable_filter: false
 ```
 
-Setting | Description
-:--- | :---
-`opensearch.requestHeadersAllowlist` | OpenSearch Dashboards requires that you add all HTTP headers to the allow list so that the headers pass to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not on the allow list, OpenSearch Dashboards starts with a red status.
-`opensearch_security.multitenancy.enabled` | Enables or disables multi-tenancy in OpenSearch Dashboards. Default is true.
-`opensearch_security.multitenancy.tenants.enable_global` | Enables or disables the global tenant. Default is true.
-`opensearch_security.multitenancy.tenants.enable_private` | Enables or disables the private tenant. Default is true.
-`opensearch_security.multitenancy.tenants.preferred` | Lets you change ordering in the **Tenants** tab of OpenSearch Dashboards. By default, the list starts with global and private (if enabled) and then proceeds alphabetically. You can add tenants here to move them to the top of the list.
-`opensearch_security.multitenancy.enable_filter` | If you have many tenants, you can add a search bar to the top of the list. Default is false.
+| Setting | Description |
+| :--- | :--- |
+| `opensearch.requestHeadersAllowlist` | OpenSearch Dashboards requires that you add all HTTP headers to the allow list so that the headers pass to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not on the allow list, OpenSearch Dashboards starts with a red status.
+| `opensearch_security.multitenancy.enabled` | Enables or disables multi-tenancy in OpenSearch Dashboards. Default is `true`. |
+| `opensearch_security.multitenancy.tenants.enable_global` | Enables or disables the global tenant. Default is `true`. |
+| `opensearch_security.multitenancy.tenants.enable_private` | Enables or disables private tenants. Default is `true`. |
+| `opensearch_security.multitenancy.tenants.preferred` | Lets you change ordering in the **Tenants** tab of OpenSearch Dashboards. By default, the list starts with Global and Private (if enabled) and then proceeds alphabetically. You can add tenants here to move them to the top of the list. |
+| `opensearch_security.multitenancy.enable_filter` | If you have many tenants, you can add a search bar to the top of the list. Default is `false`. |
 
 
 ## Add tenants
@@ -134,14 +138,14 @@ _meta:
 
 ## Manage OpenSearch Dashboards indices
 
-The open source version of OpenSearch Dashboards saves all objects to a single index: `.kibana`. The security plugin uses this index for the global tenant, but separate indices for every other tenant. Each user also has a private tenant, so you might see a large number of indices that follow two patterns:
+The open source version of OpenSearch Dashboards saves all objects to a single index: `.kibana`. The Security plugin uses this index for the global tenant, but separate indices for every other tenant. Each user also has a private tenant, so you might see a large number of indices that follow two patterns:
 
 ```
 .kibana_<hash>_<tenant_name>
 .kibana_<hash>_<username>
 ```
 
-The security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.
+The Security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.
 {: .tip }
 
 To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/) of all tenant indexes using an index pattern such as `.kibana*`.

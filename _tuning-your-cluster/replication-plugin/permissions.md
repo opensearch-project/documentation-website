@@ -9,7 +9,7 @@ redirect_from:
 
 # Cross-cluster replication security
 
-You can use the [security plugin]({{site.url}}{{site.baseurl}}/security/index/) with cross-cluster replication to limit users to certain actions. For example, you might want certain users to only perform replication activity on the leader or follower cluster.
+You can use the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) with cross-cluster replication to limit users to certain actions. For example, you might want certain users to only perform replication activity on the leader or follower cluster.
 
 Because cross-cluster replication involves multiple clusters, it's possible that clusters might have different security configurations. The following configurations are supported:
 
@@ -23,7 +23,7 @@ Enable node-to-node encryption on both the leader and the follower cluster to en
 
 In order for non-admin users to perform replication activities, they must be mapped to the appropriate permissions.  
 
-The security plugin has two built-in roles that cover most replication use cases: `cross_cluster_replication_leader_full_access`, which provides replication permissions on the leader cluster, and `cross_cluster_replication_follower_full_access`, which provides replication permissions on the follower cluster. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+The Security plugin has two built-in roles that cover most replication use cases: `cross_cluster_replication_leader_full_access`, which provides replication permissions on the leader cluster, and `cross_cluster_replication_follower_full_access`, which provides replication permissions on the follower cluster. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 If you don't want to use the default roles, you can combine individual replication [permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions) to meet your needs. Most permissions correspond to specific REST API operations. For example, the `indices:admin/plugins/replication/index/pause` permission lets you pause replication.
 
@@ -56,7 +56,7 @@ The following sections list the available index and cluster-level permissions fo
 
 ### Follower cluster
 
-The security plugin supports these permissions for the follower cluster:
+The Security plugin supports these permissions for the follower cluster:
 
 ```
 indices:admin/plugins/replication/index/setup/validate
@@ -72,7 +72,7 @@ cluster:admin/plugins/replication/autofollow/update
 
 ### Leader cluster
 
-The security plugin supports these permissions for the leader cluster:
+The Security plugin supports these permissions for the leader cluster:
 
 ```
 indices:admin/plugins/replication/validate

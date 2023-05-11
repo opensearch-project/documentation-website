@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Rename keys processor
+title: rename_keys
 parent: Processors
 grand_parent: Pipelines
 nav_order: 85
@@ -14,7 +14,7 @@ The `rename_keys` processor renames keys in an event.
 
 You can configure the `rename_keys` processor with the following options.
 
-Option | Required | Description |
+| Option | Required | Description |
 | :--- | :--- | :--- |
 | `entries` | Yes | A list of event entries to rename. |
 | `from_key` | Yes | The key of the entry to be renamed. |

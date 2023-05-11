@@ -43,7 +43,7 @@ Query parameters are optional.
 
 Query parameter | Data type | Description
 :--- | :--- | :---
-accept_data_loss | Boolean | Must be set to `true` for an `import` or `delete` because Opensearch is unaware of where the dangling index data came from.
+accept_data_loss | Boolean | Must be set to `true` for an `import` or `delete` because OpenSearch is unaware of where the dangling index data came from.
 timeout | Time units | The amount of time to wait for a response. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
 master_timeout | Time units | The amount of time to wait for the connection to the cluster manager. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
 

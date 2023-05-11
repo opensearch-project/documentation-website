@@ -1,0 +1,9 @@
+extends: existence
+message: "There should be no space before and one space after the punctuation mark in '%s'."
+level: error
+nonword: true
+tokens:
+  - '[A-Za-z]+[.?] {2,}[A-Za-z]+'
+  - '[A-Za-z]+[.?][A-Za-z]+'
+  - '[A-Za-z]+[,;] {2,}[A-Za-z]+'
+  - '[A-Za-z]+[,;][A-Za-z]+'

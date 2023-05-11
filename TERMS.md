@@ -403,7 +403,7 @@ Located _in_ (a folder, directory, path), located on a disk drive or instance.
 
 Use with technologies with interfaces that use this verb. Also note that you log in to an instance, not log into. Also use log out and logout.
 
-**LogStash**
+**Logstash**
 
 A light-weight, open-source, server-side data processing pipeline that allows you to collect data from a variety of sources, transform it on the fly, and send it to your desired destination.
 
@@ -534,10 +534,6 @@ Tools inside of OpenSearch that can be customized to enhance OpenSearch’s func
 
 **pop-up**
 
-**precision**
-
-The accuracy of the results returned from a query.
-
 **premise, premises**
 
 With reference to property and buildings, always form as plural.
@@ -667,6 +663,14 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 **trigger**
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
+
+**turn on, turn off**
+
+Use *turn on* and *turn off* in reference to a toggle to describe switching a setting or mode on or off.
+
+Don't use *choose*, *select*, *clear*, *slide*, *enable*, or *disable* for a toggle.
+
+For making a feature available or unavailable, use *enable*.
 
 ## U 
 

@@ -2,6 +2,8 @@
 layout: default
 title: Count
 nav_order: 21
+redirect_from: 
+ - /opensearch/rest-api/count/
 ---
 
 # Count
@@ -78,13 +80,13 @@ All count parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-`allow_no_indices` | Boolean | If false, the request returns an error if any wildcard expression or index alias targets any closed or missing indices. Default is false.
+`allow_no_indices` | Boolean | If false, the request returns an error if any wildcard expression or index alias targets any closed or missing indexes. Default is false.
 `analyzer` | String | The analyzer to use in the query string.
 `analyze_wildcard` | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is false.
 `default_operator` | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR.
 `df` | String | The default field in case a field prefix is not provided in the query string.
-`expand_wildcards` | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indices), `closed` (match closed, non-hidden indices), `hidden` (match hidden indices), and `none` (deny wildcard expressions). Default is `open`.
-`ignore_unavailable` | Boolean | Specifies whether to include missing or closed indices in the response. Default is false.
+`expand_wildcards` | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
+`ignore_unavailable` | Boolean | Specifies whether to include missing or closed indexes in the response. Default is false.
 `lenient` | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
 `min_score` | Float |	Include only documents with a minimum `_score` value in the result.
 `routing` | String | Value used to route the operation to a specific shard.

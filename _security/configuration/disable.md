@@ -7,28 +7,28 @@ nav_order: 40
 
 # Disabling security
 
-You might want to temporarily disable the security plugin to make testing or internal usage more straightforward. To disable the plugin, add the following line in `opensearch.yml`:
+You might want to temporarily disable the Security plugin to make testing or internal usage more straightforward. To disable the plugin, add the following line in `opensearch.yml`:
 
 ```yml
 plugins.security.disabled: true
 ```
 
-A more permanent option is to remove the security plugin entirely:
+A more permanent option is to remove the Security plugin entirely:
 
 1. Delete the `plugins/opensearch-security` folder on all nodes.
 1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
 
 To perform these steps on the Docker image, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins).
 
-Disabling or removing the plugin exposes the configuration index for the security plugin. If the index contains sensitive information, be sure to protect it through some other means. If you no longer need the index, delete it.
+Disabling or removing the plugin exposes the configuration index for the Security plugin. If the index contains sensitive information, be sure to protect it through some other means. If you no longer need the index, delete it.
 {: .warning }
 
 
 ## Remove OpenSearch Dashboards plugin
 
-The security plugin is actually two plugins: one for OpenSearch and one for OpenSearch Dashboards. You can use the OpenSearch plugin independently, but the OpenSearch Dashboards plugin depends on a secured OpenSearch cluster.
+The Security plugin is actually two plugins: one for OpenSearch and one for OpenSearch Dashboards. You can use the OpenSearch plugin independently, but the OpenSearch Dashboards plugin depends on a secured OpenSearch cluster.
 
-If you disable the security plugin in `opensearch.yml` (or delete the plugin entirely) and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards plugin. For more information, see [OpenSearch Dashboards remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#remove-plugins).
+If you disable the Security plugin in `opensearch.yml` (or delete the plugin entirely) and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards plugin. For more information, see [OpenSearch Dashboards remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#remove-plugins).
 
 
 ### Docker
@@ -41,7 +41,7 @@ If you disable the security plugin in `opensearch.yml` (or delete the plugin ent
    COPY --chown=opensearch-dashboards:opensearch-dashboards opensearch_dashboards.yml /usr/share/opensearch-dashboards/config/
    ```
 
-   In this case, `opensearch_dashboards.yml` is a "vanilla" version of the file with no entries for the security plugin. It might look like this:
+   In this case, `opensearch_dashboards.yml` is a "vanilla" version of the file with no entries for the Security plugin. It might look like this:
 
    ```yml
    ---

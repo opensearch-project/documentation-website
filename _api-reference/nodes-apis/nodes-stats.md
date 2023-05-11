@@ -978,4 +978,4 @@ enforced | Boolean | If true, the shard indexing pressure runs in enforced mode 
 
 ## Required permissions
 
-If you use the security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/stats`.
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/stats`.

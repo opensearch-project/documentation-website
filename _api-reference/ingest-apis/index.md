@@ -4,7 +4,7 @@ title: Ingest APIs
 has_children: true
 nav_order: 40
 redirect_from:
-  - /opensearch/rest-api/ingest-apis/
+  - /opensearch/rest-api/ingest-apis/index/
 ---
 
 # Ingest APIs
