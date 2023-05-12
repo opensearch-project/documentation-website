@@ -1,14 +1,8 @@
 ---
 layout: default
-<<<<<<<< HEAD:_security/access-control/multi-tenancy.md
 title: OpenSearch Dashboards multi-tenancy
 parent: Access control
-nav_order: 30
-========
-title: Multi-tenancy configuration
-parent: OpenSearch Dashboards multi-tenancy
 nav_order: 145
->>>>>>>> d04e88b4 (Reorganize Configuration section of the Security TOC (#2212)):_security/multi-tenancy/multi-tenancy-config.md
 ---
 
 # OpenSearch Dashboards multi-tenancy

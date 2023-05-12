@@ -1,11 +1,7 @@
 ---
 layout: default
 title: Audit logs
-<<<<<<< HEAD:_security-plugin/audit-logs/index.md
-nav_order: 90
-=======
 nav_order: 125
->>>>>>> d04e88b4 (Reorganize Configuration section of the Security TOC (#2212)):_security/audit-logs/index.md
 has_children: true
 has_toc: false
 redirect_from:
