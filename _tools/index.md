@@ -5,7 +5,7 @@ nav_order: 50
 has_children: false
 nav_exclude: true
 redirect_from:
-  - /clients/agents-and-ingestion-tools/
+  - /clients/agents-and-ingestion-tools/index/
 ---
 
 # OpenSearch tools
@@ -15,6 +15,8 @@ This section provides documentation for OpenSearch-supported tools, including:
 - [Agents and ingestion tools](#agents-and-ingestion-tools)
 - [OpenSearch CLI](#opensearch-cli)
 - [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
+
+For information about Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index.md).
 
 ## Agents and ingestion tools
 
