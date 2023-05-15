@@ -29,7 +29,7 @@ Then import the client into OpenSearch like any other module:
 
 ```python
 from opensearchpy import OpenSearch
-import openseach_py_ml as oml
+import opensearch_py_ml as oml
 ```
 {% include copy.html %}
 
