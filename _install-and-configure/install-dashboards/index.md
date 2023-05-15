@@ -4,17 +4,14 @@ title: Installing OpenSearch Dashboards
 nav_order: 3
 has_children: true
 redirect_from:
-  - /dashboards/install/
+  - /dashboards/install/index/
   - /dashboards/compatibility/
+  - /install-and-configure/install-dashboards/index/
 ---
 
 # Installing OpenSearch Dashboards
 
-This section details how to install and configure OpenSearch Dashboards.
-
-## Installation options
-
-OpenSearch Dashboards has the following installation options:
+OpenSearch Dashboards provides a fully integrated solution for visually exploring, discovering, and querying your observability data. You can install OpenSearch Dashboards with any of the following options:
 
 - [Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/docker/)
 - [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/)

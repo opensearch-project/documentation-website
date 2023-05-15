@@ -2,6 +2,8 @@
 layout: default
 title: Multi-search
 nav_order: 45
+redirect_from: 
+ - /opensearch/rest-api/multi-search/
 ---
 
 # Multi-search
@@ -46,7 +48,7 @@ Query\n
 
 ```
 
-- Metadata lines include options, such as which indices to search and the type of search.
+- Metadata lines include options, such as which indexes to search and the type of search.
 - Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
 
 Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
@@ -58,11 +60,11 @@ All multi-search URL parameters are optional. Some can also be applied per-searc
 
 Parameter | Type | Description | Supported in metadata line
 :--- | :--- | :---
-allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indices. Default is `true`. | Yes
+allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`. | Yes
 cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is:<br> 1. Child-level parameter<br> 2. Parent-level parameter<br> 3. [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings).<br>Default is -1. | Yes
 css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
-expand_wildcards | Enum | Expands wildcard expressions to concrete indices. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
-ignore_unavailable | Boolean | If an index from the indices list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
+expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
+ignore_unavailable | Boolean | If an index from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
 max_concurrent_searches | Integer | The maximum number of concurrent searches. The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster. | No
 max_concurrent_shard_requests | Integer | Maximum number of concurrent shard requests that each search executes per node. Default is 5. Higher values can improve performance, but risk overloading the cluster. | No
 pre_filter_shard_size | Integer | Default is 128. | No
@@ -81,10 +83,10 @@ Some options can't be applied as URL parameters to the entire request. Instead, 
 
 Option | Type | Description
 :--- | :--- | :---
-index | String, string array | If you don't specify an index or multiple indices as part of the URL (or want to override the URL value for an individual search), you can include it here. Examples include `"logs-*"` and `["my-store", "sample_data_ecommerce"]`.
+index | String, string array | If you don't specify an index or multiple indexes as part of the URL (or want to override the URL value for an individual search), you can include it here. Examples include `"logs-*"` and `["my-store", "sample_data_ecommerce"]`.
 preference | String | The nodes or shards that you'd like to perform the search. This setting can be useful for testing, but in most situations, the default behavior provides the best search latencies. Options include `_local`, `_only_local`, `_prefer_nodes`, `_only_nodes`, and `_shards`. These last three options accept a list of nodes or shards. Examples include `"_only_nodes:data-node1,data-node2"` and `"_shards:0,1`.
-request_cache | Boolean | Whether to cache results, which can improve latency for repeat searches. Default is to use the `index.requests.cache.enable` setting for the index (which defaults to `true` for new indices).
-routing | String | Comma-separated custom routing values (e.g. `"routing": "value1,value2,value3"`.
+request_cache | Boolean | Whether to cache results, which can improve latency for repeat searches. Default is to use the `index.requests.cache.enable` setting for the index (which defaults to `true` for new indexes).
+routing | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.
 
 
 ## Response
