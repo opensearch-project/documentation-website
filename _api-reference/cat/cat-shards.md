@@ -29,7 +29,7 @@ GET _cat/shards/<index>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indices with commas:
+If you want to get information for more than one index, separate the indexes with commas:
 
 ```
 GET _cat/shards/index1,index2,index3

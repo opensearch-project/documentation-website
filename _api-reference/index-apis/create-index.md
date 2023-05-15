@@ -5,13 +5,14 @@ parent: Index APIs
 nav_order: 1
 redirect_from:
   - /opensearch/rest-api/index-apis/create-index/
+  - opensearch/rest-api/create-index/
 ---
 
 # Create index
 Introduced 1.0
 {: .label .label-purple }
 
-While you can create an index by using a document as a base, you can also create an empty index for use later.
+While you can create an index by using a document as a base, you can also create an empty index for later use.
 
 ## Example
 
@@ -85,7 +86,7 @@ index.codec | The compression type to use to compress stored data. Available val
 index.routing_partition_size | The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than just a single shard. To enable, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 index.soft_deletes.retention_lease.period | The maximum amount of time to retain a shard's history of operations. Default is `12h`.
 index.load_fixed_bitset_filters_eagerly | Whether OpenSearch should pre-load cached filters. Available options are `true` and `false`. Default is `true`.
-index.hidden | Whether the index should be hidden. Hidden indices are not returned as part of queries that have wildcards. Available options are `true` and `false`. Default is `false`.
+index.hidden | Whether the index should be hidden. Hidden indexes are not returned as part of queries that have wildcards. Available options are `true` and `false`. Default is `false`.
 
 #### Dynamic index Settings
 

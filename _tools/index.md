@@ -5,7 +5,7 @@ nav_order: 50
 has_children: false
 nav_exclude: true
 redirect_from:
-  - /clients/agents-and-ingestion-tools/
+  - /clients/agents-and-ingestion-tools/index/
 ---
 
 # OpenSearch tools
@@ -15,6 +15,8 @@ This section provides documentation for OpenSearch-supported tools, including:
 - [Agents and ingestion tools](#agents-and-ingestion-tools)
 - [OpenSearch CLI](#opensearch-cli)
 - [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
+
+For information about Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/).
 
 ## Agents and ingestion tools
 
@@ -51,7 +53,7 @@ ecs_compatibility => disabled
 
 You can download the OpenSearch output plugin for Logstash from [OpenSearch downloads](https://opensearch.org/downloads.html). The Logstash output plugin is compatible with OpenSearch and Elasticsearch OSS (7.10.2 or lower).
 
-These are the latest versions of Beats OSS with OpenSearch compatibility. For more information, see the [compatibility matrices](#compatibility-matrices).
+These are the latest versions of Beats OSS with OpenSearch compatibility. For more information, see the Compatibility matrices section, below.
 
 - [Filebeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/filebeat-oss-7-12-1)
 - [Metricbeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/metricbeat-oss-7-12-1)
@@ -64,12 +66,12 @@ Some users report compatibility issues with ingest pipelines on these versions o
 {: .note }
 
 
-## Compatibility Matrices
+## Compatibility matrices
 
 *Italicized* cells are untested, but indicate what a value theoretically should be based on existing information.
 
 
-### Compatibility Matrix for Logstash
+### Compatibility matrix for Logstash
 
 | | Logstash OSS 7.0.0 to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x-7.16.x without OpenSearch output plugin | Logstash 7.13.x-7.16.x with OpenSearch output plugin | Logstash 8.x+ with OpenSearch output plugin 
 | :---| :--- | :--- | :--- | :--- | :--- |
@@ -82,7 +84,7 @@ Some users report compatibility issues with ingest pipelines on these versions o
 \* Most current compatible version with Elasticsearch OSS.
 
 
-### Compatibility Matrix for Beats
+### Compatibility matrix for Beats
 
 | | Beats OSS 7.0.0 to 7.11.x\*\* | Beats OSS 7.12.x\* | Beats 7.13.x |
 | :--- | :--- | :--- | :--- |
@@ -97,15 +99,15 @@ Some users report compatibility issues with ingest pipelines on these versions o
 
 \* Most current compatible version with Elasticsearch OSS.
 
-\*\* Beats OSS includes all Apache 2.0 Beats agents (i.e. Filebeat, Metricbeat, Auditbeat, Heartbeat, Winlogbeat, Packetbeat).
+\*\* Beats OSS includes all Apache 2.0 Beats agents (that is, Filebeat, Metricbeat, Auditbeat, Heartbeat, Winlogbeat, and Packetbeat).
 
 Beats versions newer than 7.12.x are not supported by OpenSearch. If you must update the Beats agent(s) in your environment to a newer version, you can work around the incompatibility by directing traffic from Beats to Logstash and using the Logstash Output plugin to ingest the data to OpenSearch.
 {: .warning }
 
 ## OpenSearch CLI
 
-The OpenSearch CLI command line interface (opensearch-cli) lets you manage your OpenSearch cluster from the command line and automate tasks. For more information on OpenSearch CLI, see [OpenSearch CLI]({{site.url}}{{site.baseurl}}/tools/cli/).
+The OpenSearch CLI command line interface (opensearch-cli) lets you manage your OpenSearch cluster from the command line and automate tasks. For more information about OpenSearch CLI, see [OpenSearch CLI]({{site.url}}{{site.baseurl}}/tools/cli/).
 
 ## OpenSearch Kubernetes operator
 
-The OpenSearch Kubernetes (K8s) Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information on how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)
+The OpenSearch Kubernetes (K8s) Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)

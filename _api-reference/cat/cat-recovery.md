@@ -29,7 +29,7 @@ GET _cat/recovery/<index>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indices with commas:
+If you want to get information for more than one index, separate the indexes with commas:
 
 ```json
 GET _cat/recovery/index1,index2,index3
