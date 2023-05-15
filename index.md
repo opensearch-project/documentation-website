@@ -12,8 +12,8 @@ permalink: /
 
 - [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
 - [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
-- [Install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
+- [Install OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/)
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [See the FAQ](https://opensearch.org/faq)
 
 ## Why use OpenSearch?
