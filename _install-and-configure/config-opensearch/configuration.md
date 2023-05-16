@@ -4,6 +4,7 @@ title: Configuring OpenSearch
 nav_order: 4
 has_children: true
 redirect_from:
+  - /install-and-configure/configuration/
 ---
 
 # Configuring OpenSearch
