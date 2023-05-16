@@ -5,6 +5,7 @@ nav_order: 1
 nav_exclude: true
 redirect_from: 
   - /opensearch/mappings/
+  - /field-types/mappings/
 ---
 
 # Mappings and field types
