@@ -9,9 +9,35 @@ nav_order: 5
 
 Configuration file settings customize your distribution. They are contained in a number of different YAML files. Files and their associated settings are listed and described in the following tables.
 
-## opensearch.yml
+## opensearch.yml settings
 
-You can use the settings in the following table to configure your `opensearch.yml` file. 
+You can use the settings in the following tables to configure your `opensearch.yml` file for core OpenSearch and whichever plugins you run.
+
+### OpenSearch core settings
+
+The settings in the following table apply specifically to OpenSearch core.
+
+| Setting | Description |
+| :--- | :--- |
+| `network.host` | The IP address used for binding to the port. |
+| `http.port` | Used for setting the custom port for HTTP. |
+| `discovery.seed_hosts` | The list of hosts that perform discovery when a node is started. The default list of hosts is `["127.0.0.1", "[::1]"]`.
+| `cluster.initial_cluster_manager_nodes` | A list of cluster-manager-eligible nodes used to bootstrap the cluster. |
+| `discovery.zen.minimum_master_nodes` | The minimum number of master nodes. Set to 1 to allow single node clusters. |
+| `discovery.type` | na |
+| `cluster.name` | Enter a name for the cluster |
+| `node.name` | a descriptive name for the node |
+| `node.attr.rack` | Custom attributes for the node |
+| `path.data` | A path to the directory where your data is stored. Separate multiple locations with commas. |
+| `path.logs` | A path to log files |
+| `bootstrap.memory_lock` | Locks the memory at startup. Make sure that the heap size is set to about half the memory available on the system and that the owner of the process is allowed to use this limit. OpenSearch doesn't perform well when the system is swapping the memory. |
+| `discovery.type` | na |
+
+
+
+### Security plugin settings
+
+The settings in the following table apply specifically to the Security plugin.
 
 | Setting | Description |
 | :--- | :--- |
@@ -44,8 +70,18 @@ You can use the settings in the following table to configure your `opensearch.ym
 
 The following YAML file provides the same settings as those in the previous section along with example values.
 
-```yml
+### OpenSearch settings examples
 
+```yml
+network.host: 5601
+discovery.zen.minimum_master_nodes: 1
+discovery.type: single-node
+
+```
+
+### Security plugin settings examples
+
+```yml
 plugins.security.ssl.transport.pemcert_filepath: esnode.pem
 plugins.security.ssl.transport.pemkey_filepath: esnode-key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
