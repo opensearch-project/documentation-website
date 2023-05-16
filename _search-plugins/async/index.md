@@ -102,7 +102,7 @@ POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1
 Options | Description
 :--- | :---
 `id` | The ID of an asynchronous search. Use this ID to monitor the progress of the search, get its partial results, and/or delete the results. If the asynchronous search finishes within the timeout period, the response doesn't include the ID because the results aren't stored in the cluster.
-`state` | Specifies whether the search is still running or if it has finished, and if the results persist in the cluster. The possible states are `RUNNING`, `COMPLETED`, and `PERSISTED`.
+`state` | Specifies whether the search is still running or if it has finished, and if the results persist in the cluster. The possible states are `RUNNING`, `SUCCEEDED`, `FAILED`, `PERSISTING`, `PERSIST_SUCCEEDED`, `PERSIST_FAILED`, `CLOSED` and `STORE_RESIDENT`.
 `start_time_in_millis` | The start time in milliseconds.
 `expiration_time_in_millis` | The expiration time in milliseconds.
 `took` | The total time that the search is running.
