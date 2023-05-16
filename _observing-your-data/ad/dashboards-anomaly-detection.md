@@ -30,28 +30,15 @@ Anomaly detection visualizations are intended for use with streaming time-series
 
 To create an anomaly detector in Dashboard:
 
-1. Select **Dashboard** from the OpenSearch Dashboards main menu.
-2. From the <name> window, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
-3. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** pop-up window, choose **Anomaly Detection** > **Add anomaly detector**.
-4. Select **Create new detector**.
-5. From the Add anomaly detector window, define the metrics and set thresholds under **Detector details** and **Model features**. To view the visualization within this window, toggle the **Show visualization** button.
-6. Under **Detector details**, select <option> from the dropdown menu to configure the detector details.
-7. Under **Model features**, select <option> from the dropdown menu to configure the evaluation metrics. You can add and delete model features as best suited your use case and data, but you are limited to five model features for that detector.
-8. Select **Create detector**.
-
-Once you have created a new detector, the detector is added to the visualization, as shown in the following image.  
-
-<insert UI>
-
-
-### Creating an alerting monitor from the detector
-
-You can set up an alerting monitor based on your detector in one flow from the visualization. To set up an alerting monitor based on the detector created in the preceding steps, follow these steps:
-
-1. In the notification pop-up window that appears after you have created the detector, select **Set up alerts**.
-2. Follow the steps described in [Creating alerting monitors](#creating-alerting-monitors).
-
-You now have an alerting monitor and anomaly detector associated with the visualization.
+1. Choose **Dashboard** from the OpenSearch Dashboards main menu.
+2. Choose a dataset. For example, choose **test line**. A pre-populated dashboard with line chart visualizations is displayed..
+3. From the visualization pane, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}).
+4. From the **Options** menu, choose **Anomaly Detection** > **Add anomaly detector**.
+5. Select **Create new detector**.
+6. From the Add anomaly detector window, define the metrics and set thresholds under **Detector details** and **Model features**. To view the visualization within this window, toggle the **Show visualization** button.
+7. Under **Detector details**, select <option> from the dropdown menu to configure the detector details.
+8. Under **Model features**, select <option> from the dropdown menu to configure the evaluation metrics. You can add and delete model features as best suited your use case and data, but you are limited to five model features for that detector.
+9. Select **Create detector**. Once you have created a new detector, the detector is added to the visualization.  
 
 <insert UI>
 
