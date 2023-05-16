@@ -24,14 +24,19 @@ The settings in the following table apply specifically to OpenSearch core.
 | `discovery.seed_hosts` | The list of hosts that perform discovery when a node is started. The default list of hosts is `["127.0.0.1", "[::1]"]`.
 | `cluster.initial_cluster_manager_nodes` | A list of cluster-manager-eligible nodes used to bootstrap the cluster. |
 | `discovery.zen.minimum_master_nodes` | The minimum number of master nodes. Set to 1 to allow single node clusters. |
+| `gateway.recover_after_nodes` | After a full cluster restart, the number of nodes that must start before recovery can begin.
 | `discovery.type` | na |
 | `cluster.name` | Enter a name for the cluster |
 | `node.name` | a descriptive name for the node |
 | `node.attr.rack` | Custom attributes for the node |
 | `path.data` | A path to the directory where your data is stored. Separate multiple locations with commas. |
 | `path.logs` | A path to log files |
-| `bootstrap.memory_lock` | Locks the memory at startup. Make sure that the heap size is set to about half the memory available on the system and that the owner of the process is allowed to use this limit. OpenSearch doesn't perform well when the system is swapping the memory. |
-| `discovery.type` | na |
+| `bootstrap.memory_lock` | Locks the memory at startup. We recommend setting the heap size to about half the memory available on the system and that the owner of the process is allowed to use this limit. OpenSearch doesn't perform well when the system is swapping the memory. |
+| `action.destructive_requires_name` | Determines whether explicit names are required to delete indexes. Default is `true`. |
+| `cluster.remote_store.enabled` | Determines whether the cluster forces index creation when remote store is enabled. Default is `true`. |
+| `cluster.remote_store.repository` | The repository used for segment upload when enforcing remote store for an index. |
+| `cluster.remote_store.translog.enabled` | Determines whether the cluster forces index creation when translog remote store is enabled. Default is `true`. |
+| `cluster.remote_store.translog.repository` | The repository used for translog upload when enforcing remote store for an index. |
 
 
 
@@ -66,6 +71,17 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.` | na |
 
 
+### Currently experimental feature settings
+
+| Setting | Description |
+| :--- | :--- |
+| `opensearch.experimental.feature.replication_type.enabled` | Enables the index setting that allows for changing the replication type. |
+| `opensearch.experimental.feature.remote_store.enabled` | Enables the index setting that allows for persisting data to remote store in addition to the local disk. |
+| `opensearch.experimental.feature.searchable_snapshot.enabled` | Enables a new parameter for the snapshot restore API that allows for creation of a new index type, which searches a snapshot directly in a remote repository without restoring all index data to disk ahead of time. |
+| `opensearch.experimental.feature.extensions.enabled` | Enables extensions to work with OpenSearch and extend application features of OpenSearch outside of the core. |
+| `opensearch.experimental.feature.search_pipeline.enabled: false` | Enables configurable processors for search requests and search responses, similar to ingest pipelines. |
+
+
 ## opensearch.yml examples
 
 The following YAML file provides the same settings as those in the previous section along with example values.
@@ -73,10 +89,24 @@ The following YAML file provides the same settings as those in the previous sect
 ### OpenSearch settings examples
 
 ```yml
-network.host: 5601
+network.host: 192.168.0.1
+http.port: 9200
+discovery.seed_hosts: ["host1", "host2"]
+cluster.initial_cluster_manager_nodes: ["node-1", "node-2"]
 discovery.zen.minimum_master_nodes: 1
+gateway.recover_after_nodes: 3
 discovery.type: single-node
-
+cluster.name: my-application
+node.name: node-1
+node.attr.rack: r1
+path.data: path/to/data/datafile/
+path.logs: path/to/logs/logfile/
+bootstrap.memory_lock: true
+action.destructive_requires_name: true
+cluster.remote_store.enabled: true
+cluster.remote_store.repository: my-repo-1
+cluster.remote_store.translog.enabled: true
+cluster.remote_store.translog.repository: my-repo-1
 ```
 
 ### Security plugin settings examples
@@ -108,5 +138,15 @@ plugins.security.restapi.password_validation_error_message: "Password must be mi
 plugins.security.allow_default_init_securityindex: true
 plugins.security.cache.ttl_minutes: 60
 
+```
+
+### Example settings for currently experimental features
+
+```yml
+opensearch.experimental.feature.replication_type.enabled: false
+opensearch.experimental.feature.remote_store.enabled: false
+opensearch.experimental.feature.searchable_snapshot.enabled: false
+opensearch.experimental.feature.extensions.enabled: false
+opensearch.experimental.feature.search_pipeline.enabled: false
 ```
 
