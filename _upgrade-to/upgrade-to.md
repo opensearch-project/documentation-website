@@ -144,7 +144,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
 
    1. Port your settings from `elasticsearch.yml` to `opensearch.yml`. Most settings use the same names. At a minimum, specify `cluster.name`, `node.name`, `discovery.seed_hosts`, and `cluster.initial_cluster_manager_nodes`.
 
-   1. (Optional) If you're actively connecting to the cluster with legacy clients that check for a particular version number, such as Logstash OSS, add a [compatibility setting]({{site.url}}{{site.baseurl}}/clients/agents-and-ingestion-tools/) to `opensearch.yml`:
+   1. (Optional) If you're actively connecting to the cluster with legacy clients that check for a particular version number, such as Logstash OSS, add a [compatibility setting]({{site.url}}{{site.baseurl}}/tools/index/) to `opensearch.yml`:
 
       ```yml
       compatibility.override_main_response_version: true

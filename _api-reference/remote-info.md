@@ -2,6 +2,8 @@
 layout: default
 title: Remote cluster information
 nav_order: 67
+redirect_from: 
+ - /opensearch/rest-api/remote-info/
 ---
 
 # Remote cluster information

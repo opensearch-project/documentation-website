@@ -52,7 +52,7 @@ layout: table_wrappers
     <div id="main-header"></div>
     <div class="side-bar">
       <div class="site-header">
-        <a href="#" id="menu-button" class="site-button">
+        <a href="/docs/latest/" id="menu-button" class="site-button">
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
@@ -82,12 +82,14 @@ layout: table_wrappers
                       {%- if collection.size > 0 -%}
                       <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                       {%- endif -%}
-                      <div class="nav-category">{{ collection_value.name }}</div>
+                      {% assign collection_url_path = collection_key | append: "/index/" %}
+                      <div class="nav-category"><a href="{{ collection_url_path | relative_url  }}">{{ collection_value.name }}</a></div>
                       {% include nav.html pages=collection key=collection_key %}
                     </li>
                   </ul>
                 {% else %}
-                  <div class="nav-category">{{ collection_value.name }}</div>
+                  {% assign collection_url_path = collection_key | append: "/index/" %}
+                  <div class="nav-category"><a href="{{ collection_url_path | relative_url }}">{{ collection_value.name }}</a></div>
                   {% include nav.html pages=collection key=collection_key %}
                 {% endif %}
               {% else %}
@@ -100,7 +102,7 @@ layout: table_wrappers
     </div>
     <div class="copy-banner">
       <div class="container">
-        <h1><a href="#">Documentation</a></h1>
+        <h1><a href="/docs/latest/">Documentation</a></h1>
         {% if site.search_enabled != false or site.use_custom_search == true %}
         <div class="search">
           <div class="search-input-wrap">
