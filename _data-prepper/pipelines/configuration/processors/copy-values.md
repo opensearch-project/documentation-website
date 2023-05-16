@@ -54,4 +54,4 @@ When you run this processor, it parses the message into the following output:
 {"message": "hello", "newMessage": "hello"}
 ```
 
-> If `newMessage` already exists, its existing value is overwritten with `value`.
+If `newMessage` already exists, its existing value is overwritten with `value`.
