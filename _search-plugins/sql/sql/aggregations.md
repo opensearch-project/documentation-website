@@ -4,6 +4,8 @@ title: Aggregate Functions
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 11
+Redirect_from:
+  - /search-plugins/sql/aggregations/
 ---
 
 # Aggregate functions

@@ -22,14 +22,14 @@ If these roles don't meet your needs, mix and match individual alerting [permiss
 
 ## How monitors access data
 
-Monitors run with the permissions of the user who created or last modified them. For example, consider the user `jdoe`, who works at a chain of retail stores. `jdoe` has two roles. Together, these two roles allow read access to three indices: `store1-returns`, `store2-returns`, and `store3-returns`.
+Monitors run with the permissions of the user who created or last modified them. For example, consider the user `jdoe`, who works at a chain of retail stores. `jdoe` has two roles. Together, these two roles allow read access to three indexes: `store1-returns`, `store2-returns`, and `store3-returns`.
 
-`jdoe` creates a monitor that sends an email to management whenever the number of returns across all three indices exceeds 40 per hour.
+`jdoe` creates a monitor that sends an email to management whenever the number of returns across all three indexes exceeds 40 per hour.
 
 Later, the user `psantos` wants to edit the monitor to run every two hours, but `psantos` only has access to `store1-returns`. To make the change, `psantos` has two options:
 
 - Update the monitor so that it only checks `store1-returns`.
-- Ask an administrator for read access to the other two indices.
+- Ask an administrator for read access to the other two indexes.
 
 After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
 

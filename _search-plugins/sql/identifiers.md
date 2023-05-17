@@ -3,6 +3,8 @@ layout: default
 title: Identifiers
 parent: SQL and PPL
 nav_order: 6
+redirect_from:
+  - /search-plugins/ppl/identifiers/
 ---
 
 

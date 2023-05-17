@@ -4,6 +4,8 @@ title: Functions
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 7
+Redirect_from:
+  - /search-plugins/sql/functions/
 ---
 
 # Functions

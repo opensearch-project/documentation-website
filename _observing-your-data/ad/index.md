@@ -29,7 +29,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
 1. Add in the detector details.
    - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
 1. Specify the data source.   
-   - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indices.
+   - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indexes.
    - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query.
 1. Specify a timestamp.    
    - Select the **Timestamp field** in your index.
@@ -55,12 +55,12 @@ A detector is an individual anomaly detection task. You can define multiple dete
    - To use the custom result index option, you need the following permissions:
       - `indices:admin/create` - If the custom index already exists, you don't need this.
       - `indices:data/write/index` - You need the `write` permission for the anomaly detection plugin to write results into the custom index for a single-entity detector.
-      - `indices:data/read/search` - You need the `search` permission because the anomaly detection plugin needs to search custom result indices to show results on the anomaly detection UI.
+      - `indices:data/read/search` - You need the `search` permission because the Anomaly Detection plugin needs to search custom result indexes to show results on the anomaly detection UI.
       - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
       - `indices:data/write/bulk*` -  You need the `bulk*` permission because the anomaly detection plugin uses the bulk API to write results into the custom index.
    - Managing the custom result index:
-      - The anomaly detection dashboard queries all detectors’ results from all custom result indices. Having too many custom result indices might impact the performance of the anomaly detection plugin.
-      - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indices. You can also manually delete or archive any old result indices. We recommend reusing a custom result index for multiple detectors.
+      - The anomaly detection dashboard queries all detectors’ results from all custom result indexes. Having too many custom result indexes might impact the performance of the Anomaly Detection plugin.
+      - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indexes. You can also manually delete or archive any old result indexes. We recommend reusing a custom result index for multiple detectors.
 1. Choose **Next**.   
 
 After you define the detector, the next step is to configure the model.
