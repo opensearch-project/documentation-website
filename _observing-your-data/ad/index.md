@@ -59,7 +59,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
       - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
       - `indices:data/write/bulk*` -  You need the `bulk*` permission because the anomaly detection plugin uses the bulk API to write results into the custom index.
    - Managing the custom result index:
-      - The anomaly detection dashboard queries all detectors’ results from all custom result indexes. Having too many custom result indexes might impact the performance of the anomaly detection plugin.
+      - The anomaly detection dashboard queries all detectors’ results from all custom result indexes. Having too many custom result indexes might impact the performance of the Anomaly Detection plugin.
       - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indexes. You can also manually delete or archive any old result indexes. We recommend reusing a custom result index for multiple detectors.
 1. Choose **Next**.   
 
