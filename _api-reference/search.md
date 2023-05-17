@@ -60,7 +60,7 @@ ignore_unavailable | Boolean | Specifies whether to include missing or closed in
 lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
 max_concurrent_shard_requests | Integer | How many concurrent shard requests this request should execute on each node. Default is 5.
 pre_filter_shard_size | Integer | A prefilter size threshold that triggers a prefilter operation if the request exceeds the threshold. Default is 128 shards.
-preference | String | Specifies on which shard or node OpenSearch should perform the search. For valid values, see [The `preference` query parameter](#the-preference-query-parameter). 
+preference | String | Specifies the shards or nodes on which OpenSearch should perform the search. For valid values, see [The `preference` query parameter](#the-preference-query-parameter). 
 q | String | Lucene query string’s query.
 request_cache | Boolean | Specifies whether OpenSearch should use the request cache. Default is whether it’s enabled in the index’s settings.
 rest_total_hits_as_int | Boolean | Whether to return `hits.total` as an integer. Returns an object otherwise. Default is false.
@@ -88,7 +88,7 @@ version | Boolean | Whether to include the document version as a match.
 
 ### The `preference` query parameter
 
-The `preference` query parameter specifies on which shard or node OpenSearch should perform the search. Valid values are:
+The `preference` query parameter specifies the shards or nodes on which OpenSearch should perform the search. Valid values are:
 
 - `_primary`: Perform the search only on primary shards.
 - `_replica`: Perform the search only on replica shards.
