@@ -27,13 +27,13 @@ Security Analytics includes a number of tools and features elemental to its oper
 
 ### Detectors
 
-Detectors are core components that are configured to identify a range of cybersecurity threats corresponding to an ever-growing knowldege base of adversary tactics and techniques maintained by the [MITRE ATT&CK](https://attack.mitre.org/) organization. Detectors use log data to evaluate events occuring in the system. They then apply a set of security rules specified for the detector and determine findings from these events.
+Detectors are core components that are configured to identify a range of cybersecurity threats corresponding to an ever-growing knowledge base of adversary tactics and techniques maintained by the [MITRE ATT&CK](https://attack.mitre.org/) organization. Detectors use log data to evaluate events occurring in the system. They then apply a set of security rules specified for the detector and determine findings from these events.
 
-For information on configuring detectors, see [Creating detectors]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/).
+For information about configuring detectors, see [Creating detectors]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/).
 
 ### Log types
 
-Log types provide the data used to evaluate events occuring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log sources include:
+Log types provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log sources include:
 * Network events
 * DNS logs
 * Apache access logs
@@ -54,7 +54,7 @@ Log types are specified during the creation of detectors, including steps for ma
 
 Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security Analytics uses prepackaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide users of Security Analytics with options for importing and customizing the rules. You can take advantage of these options using either Dashboards or the API.
 
-For information on configuring rules, see [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/).
+For information about configuring rules, see [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/).
 
 ### Findings
 
@@ -66,7 +66,7 @@ To learn more about findings, see [Working with findings]({{site.url}}{{site.bas
 
 When defining a detector, you can specify certain conditions that will trigger an alert. When an event triggers an alert, the system sends a notification to a preferred channel, such as Amazon Chime, Slack, or email. The alert can be triggered when the detector matches one or multiple rules. Further conditions can be set by rule severity and tags. You can also create a notification message with a customized subject line and message body.
 
-For information on setting up alerts, see [Step 3. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation. For information on managing alerts on the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
+For information about setting up alerts, see [Step 3. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation. For information about managing alerts on the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
 
 ### Correlation engine
 

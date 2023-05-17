@@ -52,7 +52,7 @@ search source=accounts
 | fields firstname, lastname
 ```
 
-#### Sample Response
+#### Example response
 
 firstname | lastname |
 :--- | :--- |
