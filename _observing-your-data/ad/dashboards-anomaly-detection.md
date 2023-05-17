@@ -9,7 +9,9 @@ nav_order: 50
 Introduced 2.8
 {: .label .label-purple }
 
- Create, run, and view anomaly alarms and results from visualizations using the **Dashboard** app. With just a couple clicks, you can visualize the data you're interested in and create anomaly detectors on that same data.
+Anomaly detection in OpenSearch Dashboards provides an automated means of detecting harmful outliers and protects your data. When you enable anomaly detection for a metric, OpenSearch applies algorithms to continuously analyze systems and applications, determine normal baselines, and surface anomalies. 
+
+You can connect data visualizations to OpenSearch datasets and then create, run, and view anomaly alarms and results from visualizations in the **Dashboard** application. With just a couple clicks you can bring together end-to-end traces, metrics, and logs to make your applications and infrastructure fully observable.
  
 ## Getting started 
 
@@ -26,35 +28,31 @@ Anomaly detection visualizations are intended for use with streaming time-series
 
  You can only access, create, or manage alerts for resources for which you have permissions. Access to anomaly detection dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges, and you can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature under **Stack Management** > **Advanced Settings** > **Visualizations**. If the setting is disabled, it does not appear under Stack Management. The setting is disabled at the cluster level through the `opensearch-dashboards.yml` file.
 
-## Creating anomaly detectors and visualizing anomaly results
+## Creating anomaly detection visualizations
 
-To create an anomaly detector in Dashboard:
+To start, first create an anomaly detector:
 
 1. Choose **Dashboard** from the OpenSearch Dashboards main menu.
-2. Choose a dataset. For example, choose **test line**. A pre-populated dashboard with line chart visualizations is displayed..
+2. Choose a dataset. For example, choose **test Chart**. A pre-populated dashboard with line chart visualization is displayed..
 3. From the visualization pane, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}).
 4. From the **Options** menu, choose **Anomaly Detection** > **Add anomaly detector**.
 5. Select **Create new detector**.
-6. From the Add anomaly detector window, define the metrics and set thresholds under **Detector details** and **Model features**. To view the visualization within this window, toggle the **Show visualization** button.
-7. Under **Detector details**, select <option> from the dropdown menu to configure the detector details.
-8. Under **Model features**, select <option> from the dropdown menu to configure the evaluation metrics. You can add and delete model features as best suited your use case and data, but you are limited to five model features for that detector.
-9. Select **Create detector**. Once you have created a new detector, the detector is added to the visualization.  
+6. Define the metrics and set thresholds under **Detector details** and **Model features** (five is the maximum number of model features allowed).Toggle the **Show visualization** button to preview the visualization within this window.
+7. Select **Create detector**. Once you have created a new detector, the detector is added to the visualization.  
 
-<insert UI>
+![Interface of adding a detector]({{site.url}}{{site.baseurl}}/images/dashboards/add-detector.png)
 
 ## Adding associated anomaly detectors
 
-You can add existing detectors to a visualization using the Discover application instead of Stack Management, giving you a single user interface where can add, view, and edit monitors and monitor details. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an anomaly detector to a visualization: 
+Use a single interface to add, view, and edit anomaly detectors that you want to associate to a visualization. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an anomaly detector to a visualization: 
  
 1. From the dashboard, select the ellipsis icon on the **<name>**, then **Anomaly Detection**.
 2. Select **Associate a detector**.
-3. From the **Select detector to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. In this example, select **<name>**. Note that basic information about the monitor is summarized in the window. To view more comprehensive details, select **View detector page**, which opens the detector details from the Anomaly Detection plugin page. 
-4. Verify you have selected the appropriate detector, and then select **Associate detector**. 
+3. From the **Select detector to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. For example, select **<name>**. Basic information about the monitor is summarized in this window. For comprehensive details, select **View detector page**, which opens the detector details from the Anomaly Detection plugin page. 
+4. Select **Associate detector**. An existing detector is now associated to the visualization.
 
-An existing detector is now associated to the visualization, as shown in the following image:
-
-<insert UI>
+![Interface and confirmation message of associating a detector]({{site.url}}{{site.baseurl}}/images/dashboards/associated-detector.png)
 
 ## Refreshing the visualization
 
-Depending on the threshold settings, the visualization refreshes at the set interval. To manually refresh the visualization to display real-time alerts and anomalies, select **Refresh** from the Dashboard page.
+Depending on the threshold settings, the visualization refreshes at a set interval. To manually refresh the visualization, select **Refresh** button from the Dashboard page.
