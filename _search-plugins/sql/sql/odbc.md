@@ -4,6 +4,8 @@ title: ODBC Driver
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 72
+redirect_from:
+  - /search-plugins/sql/odbc/
 ---
 
 # ODBC driver
@@ -184,7 +186,7 @@ Pre-requisites:
 2. In the **DSN drop-down**, select the OpenSearch DSN you set up in the previous set of steps. The options you added will be automatically filled in under the **Connection Attributes**.
 
 3. Select **Sign In**. After a few seconds, Tableau connects to your OpenSearch server. Once connected, you will be directed to the **Datasource** window. The **Database** will be already be populated with the name of the OpenSearch cluster.
-To list all the indices, click the search icon under **Table**.
+To list all the indexes, click the search icon under **Table**.
 
 4. Start experimenting with data by dragging the table to the connection area. Choose **Update Now** or **Automatically Update** to populate the table data.
 

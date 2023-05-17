@@ -44,7 +44,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 ...
@@ -194,7 +194,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 ...
@@ -621,7 +621,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 ...

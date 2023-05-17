@@ -10,9 +10,9 @@ redirect_from:
 # Management
 
 
-## Alerting indices
+## Alerting indexes
 
-The alerting feature creates several indices and one alias. The Security plugin demo script configures them as [system indices]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) for an extra layer of protection. Don't delete these indices or modify their contents without using the alerting APIs.
+The alerting feature creates several indexes and one alias. The Security plugin demo script configures them as [system indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) for an extra layer of protection. Don't delete these indexes or modify their contents without using the alerting APIs.
 
 Index | Purpose
 :--- | :---
@@ -21,7 +21,7 @@ Index | Purpose
 `.opendistro-alerting-config` | Stores monitors, triggers, and destinations. [Take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of this index to back up your alerting configuration.
 `.opendistro-alerting-alert-history-write` (alias) | Provides a consistent URI for the `.opendistro-alerting-alert-history-<date>` index.
 
-All alerting indices are hidden by default. For a summary, make the following request:
+All alerting indexes are hidden by default. For a summary, make the following request:
 
 ```
 GET _cat/indices?expand_wildcards=open,hidden
@@ -44,14 +44,14 @@ Setting | Default | Description
 `plugins.alerting.bulk_timeout` | 120s | How long the monitor can write alerts to the alert index.
 `plugins.alerting.alert_backoff_count` | 3 | The number of retries for writing alerts before the operation fails.
 `plugins.alerting.alert_backoff_millis` | 50ms | The amount of time to wait between retries---increases exponentially after each failed retry.
-`plugins.alerting.alert_history_rollover_period` | 12h | How frequently to check whether the `.opendistro-alerting-alert-history-write` alias should roll over to a new history index and whether the Alerting plugin should delete any history indices.
+`plugins.alerting.alert_history_rollover_period` | 12h | How frequently to check whether the `.opendistro-alerting-alert-history-write` alias should roll over to a new history index and whether the Alerting plugin should delete any history indexes.
 `plugins.alerting.move_alerts_backoff_millis` | 250 | The amount of time to wait between retries---increases exponentially after each failed retry.
 `plugins.alerting.move_alerts_backoff_count` | 3 | The number of retries for moving alerts to a deleted state after their monitor or trigger has been deleted.
 `plugins.alerting.monitor.max_monitors` | 1000 | The maximum number of monitors users can create.
 `plugins.alerting.alert_history_max_age` | 30d | The oldest document to store in the `.opendistro-alert-history-<date>` index before creating a new index. If the number of alerts in this time period does not exceed `alert_history_max_docs`, alerting creates one history index per period (e.g. one index every 30 days).
 `plugins.alerting.alert_history_max_docs` | 1000 | The maximum number of alerts to store in the `.opendistro-alert-history-<date>` index before creating a new index.
-`plugins.alerting.alert_history_enabled` | true | Whether to create `.opendistro-alerting-alert-history-<date>` indices.
-`plugins.alerting.alert_history_retention_period` | 60d | The amount of time to keep history indices before automatically deleting them.
+`plugins.alerting.alert_history_enabled` | true | Whether to create `.opendistro-alerting-alert-history-<date>` indexes.
+`plugins.alerting.alert_history_retention_period` | 60d | The amount of time to keep history indexes before automatically deleting them.
 `plugins.alerting.destination.allow_list` | ["chime", "slack", "custom_webhook", "email", "test_action"] | The list of allowed destinations. If you don't want to allow users to a certain type of destination, you can remove it from this list, but we recommend leaving this setting as-is.
 `plugins.alerting.filter_by_backend_roles` | "false" | Restricts access to monitors by backend role. See [Alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
 `plugins.scheduled_jobs.sweeper.period` | 5m | The alerting feature uses its "job sweeper" component to periodically check for new or updated jobs. This setting is the rate at which the sweeper checks to see if any jobs (monitors) have changed and need to be rescheduled.

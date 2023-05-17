@@ -37,7 +37,7 @@ saml:
 
 ## Check the SAML assertion consumer service URL
 
-After a successful login, your IdP sends a SAML response using HTTP POST to OpenSearch Dashboards's "assertion consumer service URL" (ACS).
+After a successful login, your IdP sends a SAML response using HTTP POST to the OpenSearch Dashboards "assertion consumer service URL" (ACS).
 
 The endpoint the OpenSearch Dashboards Security plugin provides is:
 
