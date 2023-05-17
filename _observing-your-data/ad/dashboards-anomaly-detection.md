@@ -1,18 +1,20 @@
 ---
 layout: default
-title: Creating anomaly detection visualizations
+title: Anomaly detection using Dashboard
 parent: Anomaly detection
 nav_order: 50
 ---
 
-# Creating anomaly detection visulizations
+# Anomaly detection using Dashboard
 Introduced 2.8
 {: .label .label-purple }
 
 Anomaly detection in OpenSearch Dashboards provides an automated means of detecting harmful outliers and protects your data. When you enable anomaly detection for a metric, OpenSearch applies algorithms to continuously analyze systems and applications, determine normal baselines, and surface anomalies. 
 
 You can connect data visualizations to OpenSearch datasets and then create, run, and view anomaly alarms and results from visualizations in the **Dashboard** application. With just a couple clicks you can bring together end-to-end traces, metrics, and logs to make your applications and infrastructure fully observable.
- 
+
+<insert example anomaly detection visualization>
+
 ## Getting started 
 
 Before getting started, you must have:
@@ -56,3 +58,8 @@ Use a single interface to add, view, and edit anomaly detectors that you want to
 ## Refreshing the visualization
 
 Depending on the threshold settings, the visualization refreshes at a set interval. To manually refresh the visualization, select **Refresh** button from the Dashboard page.
+
+## Next steps
+
+- [Learn more about Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/)
+- [Learn more about anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/)
