@@ -55,7 +55,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
    - To use the custom result index option, you need the following permissions:
       - `indices:admin/create` - If the custom index already exists, you don't need this.
       - `indices:data/write/index` - You need the `write` permission for the anomaly detection plugin to write results into the custom index for a single-entity detector.
-      - `indices:data/read/search` - You need the `search` permission because the anomaly detection plugin needs to search custom result indexes to show results on the anomaly detection UI.
+      - `indices:data/read/search` - You need the `search` permission because the Anomaly Detection plugin needs to search custom result indexes to show results on the anomaly detection UI.
       - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
       - `indices:data/write/bulk*` -  You need the `bulk*` permission because the anomaly detection plugin uses the bulk API to write results into the custom index.
    - Managing the custom result index:
