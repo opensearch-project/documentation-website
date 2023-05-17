@@ -3,6 +3,8 @@ layout: default
 title: Limitations
 parent: SQL and PPL
 nav_order: 99
+redirect_from:
+  - /search-plugins/sql/limitation/
 ---
 
 # Limitations

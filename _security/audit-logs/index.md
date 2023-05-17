@@ -5,7 +5,7 @@ nav_order: 125
 has_children: true
 has_toc: false
 redirect_from:
-  - /security/audit-logs/
+  - /security/audit-logs/index/
 ---
 
 # Audit logs
@@ -98,7 +98,7 @@ plugins.security.audit.log_request_body: false
 
 ## Log index names
 
-By default, the Security plugin logs all indices affected by a request. Because index names can be aliases and contain wildcards/date patterns, the Security plugin logs the index name that the user submitted *and* the actual index name to which it resolves.
+By default, the Security plugin logs all indexes affected by a request. Because index names can be aliases and contain wildcards/date patterns, the Security plugin logs the index name that the user submitted *and* the actual index name to which it resolves.
 
 For example, if you use an alias or a wildcard, the audit event might look like:
 
@@ -168,7 +168,7 @@ By default, the Security plugin stores audit events in a daily rolling index nam
 plugins.security.audit.config.index: myauditlogindex
 ```
 
-Use a date pattern in the index name to configure daily, weekly, or monthly rolling indices:
+Use a date pattern in the index name to configure daily, weekly, or monthly rolling indexes:
 
 ```yml
 plugins.security.audit.config.index: "'auditlog-'YYYY.MM.dd"

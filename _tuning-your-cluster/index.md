@@ -257,13 +257,13 @@ The `routing.allocation.awareness.balance` setting is false by default. When it 
 `routing.allocation.awareness.balance` takes effect only if `cluster.routing.allocation.awareness.attributes` and `cluster.routing.allocation.awareness.force.zone.values` are set.
 {: .note}
 
-`routing.allocation.awareness.balance` applies to all operations that create or update indices. For example, let's say you're running a cluster with three nodes and three zones in a zone-aware setting. If you try to create an index with one replica or update an index's settings to one replica, the attempt will fail with a validation exception because the number of shards must be a multiple of three. Similarly, if you try to create an index template with one shard and no replicas, the attempt will fail for the same reason. However, in all of those operations, if you set the number of shards to one and the number of replicas to two, the total number of shards is three and the attempt will succeed. 
+`routing.allocation.awareness.balance` applies to all operations that create or update indexes. For example, let's say you're running a cluster with three nodes and three zones in a zone-aware setting. If you try to create an index with one replica or update an index's settings to one replica, the attempt will fail with a validation exception because the number of shards must be a multiple of three. Similarly, if you try to create an index template with one shard and no replicas, the attempt will fail for the same reason. However, in all of those operations, if you set the number of shards to one and the number of replicas to two, the total number of shards is three and the attempt will succeed. 
 
 ## (Advanced) Step 7: Set up a hot-warm architecture
 
 You can design a hot-warm architecture where you first index your data to hot nodes---fast and expensive---and after a certain period of time move them to warm nodes---slow and cheap.
 
-If you analyze time series data that you rarely update and want the older data to go onto cheaper storage, this architecture can be a good fit.
+If you analyze time-series data that you rarely update and want the older data to go onto cheaper storage, this architecture can be a good fit.
 
 This architecture helps save money on storage costs. Rather than increasing the number of hot nodes and using fast, expensive storage, you can add warm nodes for data that you don't access as frequently.
 

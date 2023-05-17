@@ -264,7 +264,7 @@ GET _search/template
 
 ### Loops
 
-You can also use the section tag to implement a foreach loop:
+You can also use the section tag to implement a for each loop:
 
 ```
 {% raw %}{{#var}}{{.}}}{{/var}}{% endraw %}

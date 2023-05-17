@@ -3,6 +3,8 @@ layout: default
 title: Settings
 parent: SQL and PPL
 nav_order: 77
+redirect_from:
+  - /search-plugins/sql/settings/
 ---
 
 # Settings

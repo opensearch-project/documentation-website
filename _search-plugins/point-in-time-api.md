@@ -167,7 +167,7 @@ The Delete PITs by ID API fully supports deleting cross-cluster PITs.
 
 The Delete All PITs API deletes only local PITs or mixed PITs (PITs created in both local and remote clusters). It does not delete fully remote PITs. 
 
-#### Sample Request: Delete all PITs
+#### Example request: Delete all PITs
 
 ```json
 DELETE /_search/point_in_time/_all

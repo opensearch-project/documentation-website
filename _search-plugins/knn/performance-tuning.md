@@ -8,7 +8,7 @@ nav_order: 45
 # Performance tuning
 
 This topic provides performance tuning recommendations to improve indexing and search performance for approximate k-NN (ANN). From a high level, k-NN works according to these principles:
-* Native library indices are created per knn_vector field / (Lucene) segment pair.
+* Native library indexes are created per knn_vector field / (Lucene) segment pair.
 * Queries execute on segments sequentially inside the shard (same as any other OpenSearch query).
 * Each native library index in the segment returns <=k neighbors.
 * The coordinator node picks up final size number of neighbors from the neighbors returned by each shard.
@@ -35,7 +35,7 @@ Take the following steps to improve indexing performance, especially when you pl
 
 * **Disable replicas (no OpenSearch replica shard)**
 
-   Set replicas to `0` to prevent duplicate construction of native library indices in both primary and replica shards. When you enable replicas after indexing finishes, the serialized native library indices are directly copied. If you have no replicas, losing nodes might cause data loss, so it's important that the data lives elsewhere so this initial load can be retried in case of an issue.
+   Set replicas to `0` to prevent duplicate construction of native library indexes in both primary and replica shards. When you enable replicas after indexing finishes, the serialized native library indexes are directly copied. If you have no replicas, losing nodes might cause data loss, so it's important that the data lives elsewhere so this initial load can be retried in case of an issue.
 
 * **Increase the number of indexing threads**
 
@@ -57,11 +57,11 @@ Take the following steps to improve search performance:
 
 * **Warm up the index**
 
-   Native library indices are constructed during indexing, but they're loaded into memory during the first search. In Lucene, each segment is searched sequentially (so, for k-NN, each segment returns up to k nearest neighbors of the query point), and the top 'size' number of results based on the score are returned from all the results returned by segements at a shard level (higher score = better result).
+   Native library indexes are constructed during indexing, but they're loaded into memory during the first search. In Lucene, each segment is searched sequentially (so, for k-NN, each segment returns up to k nearest neighbors of the query point), and the top 'size' number of results based on the score are returned from all the results returned by segments at a shard level (higher score = better result).
 
-   Once a native library index is loaded (native library indices are loaded outside OpenSearch JVM), OpenSearch caches them in memory. Initial queries are expensive and take a few seconds, while subsequent queries are faster and take milliseconds (assuming the k-NN circuit breaker isn't hit).
+   Once a native library index is loaded (native library indexes are loaded outside OpenSearch JVM), OpenSearch caches them in memory. Initial queries are expensive and take a few seconds, while subsequent queries are faster and take milliseconds (assuming the k-NN circuit breaker isn't hit).
 
-   To avoid this latency penalty during your first queries, you can use the warmup API operation on the indices you want to search:
+   To avoid this latency penalty during your first queries, you can use the warmup API operation on the indexes you want to search:
 
    ```json
    GET /_plugins/_knn/warmup/index1,index2,index3?pretty
@@ -74,9 +74,9 @@ Take the following steps to improve search performance:
    }
    ```
 
-   The warmup API operation loads all native library indices for all shards (primary and replica) for the specified indices into the cache, so there's no penalty to load native library indices during initial searches.
+   The warmup API operation loads all native library indexes for all shards (primary and replica) for the specified indexes into the cache, so there's no penalty to load native library indexes during initial searches.
 
-   **Note**: This API operation only loads the segments of the indices it ***sees*** into the cache. If a merge or refresh operation finishes after the API runs, or if you add new documents, you need to rerun the API to load those native library indices into memory.
+   **Note**: This API operation only loads the segments of the indexes it ***sees*** into the cache. If a merge or refresh operation finishes after the API runs, or if you add new documents, you need to rerun the API to load those native library indexes into memory.
 
 * **Avoid reading stored fields**
 

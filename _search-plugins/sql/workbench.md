@@ -4,6 +4,9 @@ title: Query Workbench
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 1
+redirect_from:
+  - /search-plugins/sql/workbench/
+
 ---
 
 # Query Workbench
@@ -30,9 +33,9 @@ PUT accounts/_bulk?refresh
 Then return to SQL Workbench.
 
 
-### List indices
+### List indexes
 
-To list all your indices:
+To list all your indexes:
 
 ```sql
 SHOW TABLES LIKE %

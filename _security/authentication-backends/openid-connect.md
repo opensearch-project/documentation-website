@@ -3,6 +3,8 @@ layout: default
 title: OpenID Connect
 parent: Authentication backends
 nav_order: 50
+redirect_from:
+  - /security-plugin/configuration/openid-connect/
 ---
 
 # OpenID Connect
