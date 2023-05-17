@@ -127,7 +127,7 @@ APT, the primary package management tool for Debian–based operating systems, a
 
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
 
-When OpenSearch is installed using the Debian package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-4-set-up-opensearch-in-your-environment).
+When OpenSearch is installed using the Debian package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-3-set-up-opensearch-in-your-environment).
 
 An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
