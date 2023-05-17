@@ -651,11 +651,11 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ## derivative
 
-The `derivative` aggregation is a parent aggregation that calculates 1st order and 2nd order derivates of each bucket of a previous aggregation.
+The `derivative` aggregation is a parent aggregation that calculates 1st order and 2nd order derivatives of each bucket of a previous aggregation.
 
-In mathematics, the derivative of a function measures its sensitivity to change. In other words, a derivative evaluates the rate of change in some function with respect to some variable. To learn more about derivates, see [Wikipedia](https://en.wikipedia.org/wiki/Derivative).
+In mathematics, the derivative of a function measures its sensitivity to change. In other words, a derivative evaluates the rate of change in some function with respect to some variable. To learn more about derivatives, see [Wikipedia](https://en.wikipedia.org/wiki/Derivative).
 
-You can use derivates to calculate the rate of change of numeric values compared to its previous time periods.
+You can use derivatives to calculate the rate of change of numeric values compared to its previous time periods.
 
 The 1st order derivative indicates whether a metric is increasing or decreasing, and by how much it's increasing or decreasing.
 
