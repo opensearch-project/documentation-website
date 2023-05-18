@@ -24,9 +24,9 @@ Before getting started, you must have:
 - Installed OpenSearch and OpenSearch Dashboards version 2.8 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
 - Installed Alerting and Notifications Dashboards plugins. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
 
-### Configuring admin settings
+## Configuring admin settings
 
- You can only access, create, or manage alerts for resources for which you have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges, and you can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management** > **Advanced Settings** > **Visualizations** window. If the setting is disabled, it does not appear in this window. The setting is disabled at the cluster level through the `opensearch-dashboards.yml` file.
+You can only access, create, or manage alerts for resources for which you have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges, and you can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management** > **Advanced Settings** > **Visualizations** window. If the setting is disabled, it does not appear in this window. The setting is disabled at the cluster level through the `opensearch-dashboards.yml` file.
 
 ## General requirements for alerting visualizations
 
@@ -84,7 +84,7 @@ Once you've created or associated alerting monitors, verify the monitor is gener
 4. Choose an alerting monitor from the list. Information such as history, alerts, and associated visualizations are shown within the visualization panel.
 5. Explore unlinking or editing a monitor. 
    1. Unlink a monitor from the visualization by selecting the link icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class="inline-icon" alt="link icon"/>{:/}) under **Actions**. This unlinks the monitor from the visualization only; it does not delete the monitor.
-   2. Edit the monitor's metrics by selecting the edit icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class="inline-icon" alt="link icon"/>{:/}).
+   2. Edit the monitor's metrics by selecting the edit icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/}).
 
 ## Next steps
 
