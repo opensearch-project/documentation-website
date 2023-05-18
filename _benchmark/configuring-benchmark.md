@@ -56,13 +56,14 @@ This section contains the settings that can be customized in the OpenSearch Benc
 | :---- | :---- | :---- |
 | `local.dataset.cache` | String | The directory in which benchmark data sets are stored. Depending on the benchmarks that are run, this directory may contain hundreds of GB of data. |
 
-## reporting
+## results_publishing
 
 This section defines how benchmark metrics are stored.
 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
-| `datastore.type` | String | If set to `in-memory` all metrics will be kept in memory while running the benchmark. If set to `opensearch` all metrics will instead be written to a persistent metrics store and the data are available for further analysis. Default is `in-memory`. |
+| `datastore.type` | String | If set to `in-memory` all metrics will be kept in memory while running the benchmark. If set to `opensearch` all metrics will instead be written to a persistent metrics store and the data
+are available for further analysis. Default is `in-memory`. |
 | `sample.queue.size` | Function | The number of metrics samples that can be stored in OpenSearch Benchmark’s in-memory queue. Default is `2^20`. | 
 | metrics.request.downsample.factor | Integer| (default: 1): Determines how many service time and latency samples should be kept in the metrics store. By default all values will be kept. If you want to, for example. keep only every 100th sample, specify `100`. This is useful to avoid overwhelming the metrics store in benchmarks with many clients. Default is `1`. |
 | `output.processingtime` | Boolean | If set to `true`, OpenSearch will show the additional metric processing time in the command line report. Default is `false`. |
@@ -77,21 +78,21 @@ When `datastore.type` is set to `opensearch`, the following reporting settings c
 | datastore.port| Port | The port number of the metrics store, for example, `9200`. |
 | `datastore.secure` | Boolean | If set to `false`, OpenSearch assumes a HTTP connection. If set to true, it assumes a HTTPS connection. |
 | `datastore.ssl.verification_mode` | String | When set to the default `full`, the metric store’s SSL certificate is checked. To disable certificate verification set this value to `none`. |
-| `datastore.ssl.certificate_authorities` (default: empty): Determines the path on the local file system to the certificate authority’s signing certificate.
+| `datastore.ssl.certificate_authorities` | String | Determines the path on the local file system to the certificate authority’s signing certificate.
 | `datastore.user` | Username |  Sets the name of the OpenSearch user for the metrics store. |
 | `datastore.password`: | String | Sets the password of the OpenSearch user for the metrics store. Alternatively, this password can be configured using the `OPENSEARCH_REPORTING_DATASTORE_PASSWORD` environment variable, which avoids storing credentials in a plain text file. The environment variable will take precedence over the config file if both define a password. |
 | `datastore.probe.cluster_version` | String | Enables automatic detection of the metric store’s version. Default is `true`. |
 | `datastore.number_of_shards` | Integer | The number of primary shards that the `opensearch-*` indexes should have. Any updates to this setting after initial index creation will only be applied to new `opensearch-*` index. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#static-index-settings).
 | `datastore.number_of_replicas` | Integer |  The number of replicas each primary shard has. Any updates to this setting after initial index creation will only be applied to any new `opensearch-* `indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#static-index-settings). |
 
-### Reporting examples
+### Examples
 
 You can use the following examples to set reporting values in your own cluster.
 
 This example defines an unprotected metrics store in the local network:
 
 ```
-[reporting]
+[results_publishing]
 datastore.type = opensearch
 datastore.host = 192.168.10.17
 datastore.port = 9200
@@ -103,7 +104,7 @@ datastore.password =
 This example defines a secure connection to a metrics store in the local network with a self-signed certificate:
 
 ```
-[reporting]
+[results_publishing]
 datastore.type = opensearch
 datastore.host = 192.168.10.22
 datastore.port = 9200
@@ -115,7 +116,7 @@ datastore.password = the-password-to-your-cluster
 
 ## workloads
 
-This section defines how workloads are retrieved. All keys are read by OpenSearch using the syntax `<<workload-repository-name>>.url`, which you can select using the OpenSearch Benchmark CLI  `--track-repository=workload-repository-name"` option. By default, OpenSearch chooses the track repository using the `default.url`, which is `https://github.com/opensearch-project/opensearch-benchmark-workloads`.
+This section defines how workloads are retrieved. All keys are read by OpenSearch using the syntax `<<workload-repository-name>>.url`, which you can select using the OpenSearch Benchmark CLI  `--track-repository=workload-repository-name"` option. By default, OpenSearch chooses the track repository using the `default.url`, `https://github.com/opensearch-project/opensearch-benchmark-workloads`.
 
 ## teams
 
@@ -141,8 +142,55 @@ This section defines how OpenSearch versions are distributed.
 
 OpenSearch automatically downloads all the necessary proxy data for you, including:
 
+- OpenSearch distributions when you specify `--distribution-version=<OPENSEARCH-VERSION>`. 
+- OpenSearch source code when you specify a Git revision number, for example `--revision=1e04b2w`. 
+- Any metadata tracked from the [OpenSearch GitHub repository](https://github.com/opensearch-project/OpenSearch).
+
+As of OpenSearch Benchmark 0.5.0, only `http_proxy` is supported.
+{: .warning}
+
+You can use an `http_proxy` to connect OpenSearch Benchmark to a specific proxy and connect the proxy to a Benchmark workload. To add the proxy: 
 
 
+1. Add your proxy URL to your shell profile:
+
+  ```
+  export http_proxy=http://proxy.proxy.org:4444/
+  ```
+
+2. Source your shell profile and verify that the proxy URL is correctly set:
+
+  ```
+  source ~/.bash_profile ; echo $http_proxy
+  ```
+
+3. Configure Git to connect to your proxy. For more information, see the [Git Documentation](https://git-scm.com/docs/git-config).
+
+```
+git config --global http_proxy $http_proxy
+```
+
+4. Use `git clone` to clone the workloads repository. If the proxy configured correctly, the clone will be successfull.
+
+  ```
+  git clone http://github.com/opensearch-project/opensearch-benchmark-workloads.git
+  ```
+
+5. Lastly, verify that OpenSearch Benchmarks can connect to the proxy server by checking the `/.benchmark/logs/benchmark.log` log. When OpenSearch Benchmark starts, you should see the following at the top of log:
+
+  ```
+  Connecting via proxy URL [http://proxy.proxy.org:4444/] to the Internet (picked up from the environment variable [http_proxy]).
+  ```
+
+## Logging
+
+Logs from OpenSearch Benchmark can be configured in the `~/.benchmark/logging.json` file. For more information on how to format the log file, see the following Python documentation:
+
+- For general tips and tricks, use the [Python logging cookbook](https://docs.python.org/3/howto/logging-cookbook.html).
+- For the file format, see the Python [logging configuration schema](https://docs.python.org/3/library/logging.config.html#logging-config-dictschema).
+- For instructions on how to customize where the log output is written, see the [logging handler documentation](https://docs.python.org/3/library/logging.handlers.html).
+
+By default, OpneSearch Benchmark logs all output to `~/.benchmark/logs/benchmark.log`.
 
 
 

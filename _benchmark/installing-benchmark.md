@@ -62,34 +62,36 @@ Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Pytho
 
 - Check that Python 3.8 or newer is installed:
 
-```bash
-python3 --version
-```
-{% include copy.html %}
+  ```bash
+  python3 --version
+  ```
+  {% include copy.html %}
 
 - Check that `pip` is installed and functions:
 
-```bash
-pip --version
-```
-{% include copy.html %}
+  ```bash
+  pip --version
+  ```
+  {% include copy.html %}
 
 - _Optional_ Check that your installed version of `git` is **Git 1.9 or newer**. `git` is not required for OpenSearch Benchmark installation, but it is required to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git. 
 
-```bash
-git --version
-```
-{% include copy.html %}
+  ```bash
+  git --version
+  ```
+  {% include copy.html %}
 
 ### Completing the installation
 
 After the prerequisites are installed, you can install OpenSearch Benchmark using the following command:
+
 ```bash
 pip install opensearch-benchmark
 ```
 {% include copy.html %}
 
 After the installation completes you can use the following command to display help information:
+
 ```bash
 opensearch-benchmark -h
 ```
@@ -123,6 +125,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 To run OpenSearch Benchmark, you use `docker run` to launch a container. OpenSearch Benchmark subcommands are passed as arguments when you start the container. OpenSearch Benchmark then processes the command, then stops the container after the requested operation completes.
 
 For example, the following command will print the help text for OpenSearch Benchmark to the command line, and then stop the container:
+
 ```bash
 docker run opensearchproject/opensearch-benchmark -h
 ```
