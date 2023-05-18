@@ -4,6 +4,7 @@ title: Data Prepper
 nav_order: 1
 has_children: false
 has_toc: false
+nav_exclude: true
 redirect_from: 
   - /clients/data-prepper/index/
   - /data-prepper/

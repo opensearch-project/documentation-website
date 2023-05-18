@@ -3,6 +3,8 @@ layout: default
 title: Functions
 parent: SQL and PPL
 nav_order: 10
+redirect_from:
+  - /search-plugins/sql/functions/
 ---
 
 # Functions

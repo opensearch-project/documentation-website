@@ -16,7 +16,7 @@ To use the analyzer when you map an index, specify the value within your query. 
  "analyzer": "french"
  ```
 
-#### Sample Request
+#### Example request
 
 The following query maps an index with the language analyzer set to `french`:
 
