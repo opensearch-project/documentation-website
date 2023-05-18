@@ -25,4 +25,128 @@ This section contains global information for the current benchmark environment. 
 | :---- | :---- | :---- |
 | `env.name` | String | The name of the benchmark environment used a meta-data in metrics documents when an OpenSearch metrics store is configured.  Only alphanumeric characters are allowed. Default is `local`. |
 | `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one asyncio event loop per core and distributes to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
-| `async.debug` | Boolean | 
+| `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's asyncio event loop. Default is `false`. |
+| `passenv` | String | A comma-separated list of environment variable names that should be passed to OpneSearch for processing. |
+
+## node
+
+This section contains node-specific information that can be customized according to the your cluster.
+
+| Parameter | Type | Description |
+| :---- | :---- | :---- |
+| `root.dir` | String | The directory that stores all OpenSearch Benchmark data. OpenSearch Benchmark assumes control over this directory and all subdirectories therein. |
+| `src.root.dir` | String | The directory where the OpenSearch source code and any OpenSearch plugins are called. Only relevant for benchmarks from [sources](#source). |
+
+## source
+
+This section contains more details about the OpenSearch source tree.
+
+| Parameter | Type | Description |
+| :---- | :---- | :---- |
+| `remote.repo.url` | URL | The URL from which to checkout OpenSearch.  Default is `https://github.com/opensearch-project/OpenSearch.git`.
+| `opensearch.src.subdir` | String | The local path relative to `src.root.dir` of the OpenSearch search tree. Default is `OpenSearch`. 
+| `cache` | Boolean | Enables OpenSearch's internal source artifact cache `opensearch*.tar.gz` and any plugin zip files. Artifacts are cached based on their git revision. Default is `true`. |
+| `cache.days` | Integer | The number of days for which an artifact should be kept in the source artifact cache. Default is `7`. |
+
+## benchmarks
+
+This section contains the settings that can be customized in the OpenSearch Benchmark data directory.
+
+| Parameter | Type | Description |
+| :---- | :---- | :---- |
+| `local.dataset.cache` | String | The directory in which benchmark data sets are stored. Depending on the benchmarks that are run, this directory may contain hundreds of GB of data. |
+
+## reporting
+
+This section defines how benchmark metrics are stored.
+
+| Parameter | Type | Description |
+| :---- | :---- | :---- |
+| `datastore.type` | String | If set to `in-memory` all metrics will be kept in memory while running the benchmark. If set to `opensearch` all metrics will instead be written to a persistent metrics store and the data are available for further analysis. Default is `in-memory`. |
+| `sample.queue.size` | Function | The number of metrics samples that can be stored in OpenSearch Benchmark’s in-memory queue. Default is `2^20`. | 
+| metrics.request.downsample.factor | Integer| (default: 1): Determines how many service time and latency samples should be kept in the metrics store. By default all values will be kept. If you want to, for example. keep only every 100th sample, specify `100`. This is useful to avoid overwhelming the metrics store in benchmarks with many clients. Default is `1`. |
+| `output.processingtime` | Boolean | If set to `true`, OpenSearch will show the additional metric processing time in the command line report. Default is `false`. |
+
+### `datastore.type` parameters
+
+When `datastore.type` is set to `opensearch`, the following reporting settings can be customized.
+
+| Parameter | Type | Description |
+| :---- | :---- | :---- |
+| `datastore.host` | IP address | The host name of the metrics store, for example `124.340.200.22`. |
+| datastore.port| Port | The port number of the metrics store, for example, `9200`. |
+| `datastore.secure` | Boolean | If set to `false`, OpenSearch assumes a HTTP connection. If set to true, it assumes a HTTPS connection. |
+| `datastore.ssl.verification_mode` | String | When set to the default `full`, the metric store’s SSL certificate is checked. To disable certificate verification set this value to `none`. |
+| `datastore.ssl.certificate_authorities` (default: empty): Determines the path on the local file system to the certificate authority’s signing certificate.
+| `datastore.user` | Username |  Sets the name of the OpenSearch user for the metrics store. |
+| `datastore.password`: | String | Sets the password of the OpenSearch user for the metrics store. Alternatively, this password can be configured using the `OPENSEARCH_REPORTING_DATASTORE_PASSWORD` environment variable, which avoids storing credentials in a plain text file. The environment variable will take precedence over the config file if both define a password. |
+| `datastore.probe.cluster_version` | String | Enables automatic detection of the metric store’s version. Default is `true`. |
+| `datastore.number_of_shards` | Integer | The number of primary shards that the `opensearch-*` indexes should have. Any updates to this setting after initial index creation will only be applied to new `opensearch-*` index. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#static-index-settings).
+| `datastore.number_of_replicas` | Integer |  The number of replicas each primary shard has. Any updates to this setting after initial index creation will only be applied to any new `opensearch-* `indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#static-index-settings). |
+
+### Reporting examples
+
+You can use the following examples to set reporting values in your own cluster.
+
+This example defines an unprotected metrics store in the local network:
+
+```
+[reporting]
+datastore.type = opensearch
+datastore.host = 192.168.10.17
+datastore.port = 9200
+datastore.secure = false
+datastore.user =
+datastore.password =
+```
+
+This example defines a secure connection to a metrics store in the local network with a self-signed certificate:
+
+```
+[reporting]
+datastore.type = opensearch
+datastore.host = 192.168.10.22
+datastore.port = 9200
+datastore.secure = true
+datastore.ssl.verification_mode = none
+datastore.user = user-name
+datastore.password = the-password-to-your-cluster
+```
+
+## workloads
+
+This section defines how workloads are retrieved. All keys are read by OpenSearch using the syntax `<<workload-repository-name>>.url`, which you can select using the OpenSearch Benchmark CLI  `--track-repository=workload-repository-name"` option. By default, OpenSearch chooses the track repository using the `default.url`, which is `https://github.com/opensearch-project/opensearch-benchmark-workloads`.
+
+## teams
+
+What is Benchmark teams equivalent?
+
+## defaults
+
+This section defines the default values of certain OpenSearch Benchmark CLI parameters.
+
+| Parameter | Type | Description |
+| :---- | :---- | :---- |
+| `preserve_benchmark_candidate` | Boolean | Determines whether OpenSearch installations will be preserved or wiped by default after a benchmark. For preserving an installation for a single benchmark, use the command line flag `--preserve-install`. Default is `false`. 
+
+## distributions
+
+This section defines how OpenSearch versions are distributed.
+
+| Parameter | Type | Description |
+| :---- | :---- | :---- |
+| `release.cache` | Boolean | Determines whether newly released OpenSearch versions should be cached locally. |
+
+## Proxy configurations
+
+OpenSearch automatically downloads all the necessary proxy data for you, including:
+
+
+
+
+
+
+
+
+
+
