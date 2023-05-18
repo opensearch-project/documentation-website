@@ -100,7 +100,7 @@ opensearch-benchmark -h
 OpenSearch Benchmark will exit with an error if no arguments are supplied. Use the `-h` option to print the help text in the command line if you want to test the installation.
 {: .warning}
 
-Now that OpenSearch Benchmark is installed on your host you can learn about [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/configuring-benchmark/).
+Now that OpenSearch Benchmark is installed on your host you can learn about [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 
 ## Installing with Docker
 

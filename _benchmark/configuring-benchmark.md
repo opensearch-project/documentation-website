@@ -5,6 +5,8 @@ nav_order: 7
 has_children: false
 ---
 
+# Configuring OpenSearch Benchmark
+
 OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini` which is automatically created the first time OpenSearch Benchmark runs. 
 
 The file is separated into the following sections that you can customize based on the needs of your cluster.
@@ -154,33 +156,33 @@ You can use an `http_proxy` to connect OpenSearch Benchmark to a specific proxy 
 
 1. Add your proxy URL to your shell profile:
 
-  ```
-  export http_proxy=http://proxy.proxy.org:4444/
-  ```
+   ```
+   export http_proxy=http://proxy.proxy.org:4444/
+   ```
 
 2. Source your shell profile and verify that the proxy URL is correctly set:
 
-  ```
-  source ~/.bash_profile ; echo $http_proxy
-  ```
+   ```
+   source ~/.bash_profile ; echo $http_proxy
+   ```
 
 3. Configure Git to connect to your proxy. For more information, see the [Git Documentation](https://git-scm.com/docs/git-config).
 
-```
-git config --global http_proxy $http_proxy
-```
+   ```
+   git config --global http_proxy $http_proxy
+   ```
 
 4. Use `git clone` to clone the workloads repository. If the proxy configured correctly, the clone will be successfull.
 
-  ```
-  git clone http://github.com/opensearch-project/opensearch-benchmark-workloads.git
-  ```
+   ```
+   git clone http://github.com/opensearch-project/opensearch-benchmark-workloads.git
+   ```
 
 5. Lastly, verify that OpenSearch Benchmarks can connect to the proxy server by checking the `/.benchmark/logs/benchmark.log` log. When OpenSearch Benchmark starts, you should see the following at the top of log:
 
-  ```
-  Connecting via proxy URL [http://proxy.proxy.org:4444/] to the Internet (picked up from the environment variable [http_proxy]).
-  ```
+    ```
+    Connecting via proxy URL [http://proxy.proxy.org:4444/] to the Internet (picked up from the environment variable [http_proxy]).
+    ```
 
 ## Logging
 
