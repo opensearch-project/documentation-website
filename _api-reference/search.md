@@ -88,17 +88,17 @@ version | Boolean | Whether to include the document version as a match.
 
 ### The `preference` query parameter
 
-The `preference` query parameter specifies the shards or nodes on which OpenSearch should perform the search. Valid values are:
+The `preference` query parameter specifies the shards or nodes on which OpenSearch should perform the search. The following are valid values:
 
 - `_primary`: Perform the search only on primary shards.
 - `_replica`: Perform the search only on replica shards.
-- `_primary_first`: Perform the search on primary shards, but fail over to other available shards if primary shards are not available.
-- `_replica_first`: Perform the search on replica shards, but fail over to other available shards if replica shards are not available.
+- `_primary_first`: Perform the search on primary shards but fail over to other available shards if primary shards are not available.
+- `_replica_first`: Perform the search on replica shards but fail over to other available shards if replica shards are not available.
 - `_local`: If possible, perform the search on the local node's shards.
 - `_prefer_nodes:<node-id-1>,<node-id-2>`: If possible, perform the search on the specified nodes. Use a comma-separated list to specify multiple nodes.
 - `_shards:<shard-id-1>,<shard-id-2>`: Perform the search only on the specified shards. Use a comma-separated list to specify multiple shards. When combined with other preferences, the `_shards` preference must be listed first. For example, `_shards:1,2|_replica`.
 - `_only_nodes:<node-id-1>,<node-id-2>`: Perform the search only on the specified nodes. Use a comma-separated list to specify multiple nodes.
-- `<string>`: Specifies a custom string to use for search. The string cannot start with an underscore character (`_`). Searches with the same custom string are routed to the same shards.
+- `<string>`: Specifies a custom string to use for the search. The string cannot start with an underscore character (`_`). Searches with the same custom string are routed to the same shards.
 
 ## Request body
 
