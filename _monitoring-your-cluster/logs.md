@@ -66,18 +66,18 @@ There are other ways to change log levels:
 
 2. Modify `log4j2.properties`:
 
-   ```
+   ```properties
    # Define a new logger with unique ID of reindex
    logger.reindex.name = org.opensearch.index.reindex
    # Set the log level for that ID
    logger.reindex.level = debug
    ```
 
-   This approach is extremely flexible, but requires familiarity with the [Log4j 2 property file syntax](https://logging.apache.org/log4j/2.x/manual/configuration.html#Properties). In general, the other options offer a simpler configuration experience.
+   This approach is extremely flexible but requires familiarity with the [Log4j 2 property file syntax](https://logging.apache.org/log4j/2.x/manual/configuration.html#Properties). In general, the other options offer a simpler configuration experience.
 
    If you examine the default `log4j2.properties` file in the configuration directory, you can see a few OpenSearch-specific variables:
 
-   ```
+   ```properties
    appender.console.layout.pattern = [%d{ISO8601}][%-5p][%-25c{1.}] [%node_name]%marker %m%n
    appender.rolling_old.fileName = ${sys:os.logs.base_path}${sys:file.separator}${sys:os.logs.cluster_name}.log
    ```
@@ -91,7 +91,7 @@ There are other ways to change log levels:
 
 OpenSearch has two *slow logs*, logs that help you identify performance issues: the search slow log and the indexing slow log.
 
-These logs rely on thresholds to define what qualifies as a "slow" search or indexing operation. For example, you might decide that a query is slow if it takes more than 15 seconds to complete. Unlike application logs, which you configure for modules, you configure slow logs for indexes. By default, both logs are disabled (all thresholds are set to `-1`):
+These logs rely on thresholds to define what qualifies as a "slow" search or "slow" indexing operation. For example, you might decide that a query is slow if it takes more than 15 seconds to complete. Unlike application logs, which you configure for modules, you configure slow logs for indexes. By default, both logs are disabled (all thresholds are set to `-1`):
 
 ```json
 GET <some-index>/_settings?include_defaults=true
@@ -172,7 +172,7 @@ Slow logs can consume considerable disk space if you set thresholds or levels to
 
 ## Task logs
 
-OpenSearch can log CPU time and memory utilization for the top N memory expensive search tasks when task resource consumers are enabled. By default, task resource consumers will log the top 10 search tasks at 60 second intervals. These values can be configured in `opensearch.yml`.
+OpenSearch can log CPU time and memory utilization for the top N memory-expensive search tasks when task resource consumers are enabled. By default, task resource consumers will log the top 10 search tasks at 60 second intervals. These values can be configured in `opensearch.yml`.
 
 Task logging is enabled dynamically through the cluster settings API:
 
