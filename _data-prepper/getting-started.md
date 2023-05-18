@@ -8,7 +8,7 @@ redirect_from:
 
 # Getting started with Data Prepper
 
-Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
+Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. You need to install it separately from OpenSearch because it is not bundled with the all-in-one OpenSearch installation packages.
 
 If you are migrating from Open Distro Data Prepper, see [Migrating from Open Distro]({{site.url}}{{site.baseurl}}/data-prepper/migrate-open-distro/). 
 {: .note}
