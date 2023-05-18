@@ -18,11 +18,12 @@ redirect_from:
 
 ## Monitor types
 
-The OpenSearch Dashboard Alerting plugin provides four monitor types:
+The OpenSearch Dashboard Alerting plugin provides four basic monitor types, as well as a composite monitor that can utilize any or all monitor types:
 * **per query** – This monitor runs a query and generates alert notifications based on criteria that matches.
 * **per bucket** – This monitor runs a query that evaluates trigger criteria based on aggregated values in the dataset.
 * **per cluster metrics** – This monitor runs API requests on the cluster to monitor its health.
 * **per document** – This monitor runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
+* **composite monitor** — The composite monitor allows you to chain the execution of multiple monitors of different types into a single flow, where the analysis and findings of one monitor becomes the input or source data of the next monitor in the chain. See [Composite monitors]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for information on creating and using these types of monitors.
 
 ## Key terms
 
@@ -35,7 +36,7 @@ Alert | An event associated with a trigger. When an alert is created, the trigge
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
 Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index: `.opensearch-alerting-finding*`.
-Channel | A notification channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for more information.
+Channel | A notification channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/comp-monitors) for more information.
 
 ## Per document monitors
 
@@ -341,9 +342,10 @@ if (score > 99) {
 }
 ```
 
-Below are some variables you can include in your message using Mustache templates to see more information about your monitors.
 
 ### Available variables
+
+You can include the following variables in your message using Mustache templates to see more information about your monitors.
 
 #### Monitor variables
 
