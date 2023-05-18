@@ -60,7 +60,7 @@ ignore_unavailable | Boolean | Specifies whether to include missing or closed in
 lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
 max_concurrent_shard_requests | Integer | How many concurrent shard requests this request should execute on each node. Default is 5.
 pre_filter_shard_size | Integer | A prefilter size threshold that triggers a prefilter operation if the request exceeds the threshold. Default is 128 shards.
-preference | String | Specifies which shard or node OpenSearch should perform the count operation on.
+preference | String | Specifies the shards or nodes on which OpenSearch should perform the search. For valid values, see [The `preference` query parameter](#the-preference-query-parameter). 
 q | String | Lucene query string’s query.
 request_cache | Boolean | Specifies whether OpenSearch should use the request cache. Default is whether it’s enabled in the index’s settings.
 rest_total_hits_as_int | Boolean | Whether to return `hits.total` as an integer. Returns an object otherwise. Default is false.
@@ -85,6 +85,20 @@ track_scores | Boolean | Whether to return document scores. Default is false.
 track_total_hits | Boolean or Integer | Whether to return how many documents matched the query.
 typed_keys | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is true.
 version | Boolean | Whether to include the document version as a match.
+
+### The `preference` query parameter
+
+The `preference` query parameter specifies the shards or nodes on which OpenSearch should perform the search. The following are valid values:
+
+- `_primary`: Perform the search only on primary shards.
+- `_replica`: Perform the search only on replica shards.
+- `_primary_first`: Perform the search on primary shards but fail over to other available shards if primary shards are not available.
+- `_replica_first`: Perform the search on replica shards but fail over to other available shards if replica shards are not available.
+- `_local`: If possible, perform the search on the local node's shards.
+- `_prefer_nodes:<node-id-1>,<node-id-2>`: If possible, perform the search on the specified nodes. Use a comma-separated list to specify multiple nodes.
+- `_shards:<shard-id-1>,<shard-id-2>`: Perform the search only on the specified shards. Use a comma-separated list to specify multiple shards. When combined with other preferences, the `_shards` preference must be listed first. For example, `_shards:1,2|_replica`.
+- `_only_nodes:<node-id-1>,<node-id-2>`: Perform the search only on the specified nodes. Use a comma-separated list to specify multiple nodes.
+- `<string>`: Specifies a custom string to use for the search. The string cannot start with an underscore character (`_`). Searches with the same custom string are routed to the same shards.
 
 ## Request body
 
