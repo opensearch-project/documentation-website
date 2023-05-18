@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenSearch Dashboards plugin
-parent: Trace analytics
+parent: Trace Analytics
 nav_order: 50
 redirect_from:
   - /observability-plugin/trace/ta-dashboards/
