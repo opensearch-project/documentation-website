@@ -19,13 +19,13 @@ The settings in the following table apply specifically to OpenSearch core.
 
 | Setting | Description |
 | :--- | :--- |
-| `network.host` | The IP address used for binding to the port. |
+| `network.host` | Bind OpenSearch to the correct network interface. Use 0.0.0.0 to include all available interfaces, or specify an IP address assigned to a specific interface. |
 | `http.port` | Used for setting the custom port for HTTP. |
 | `discovery.seed_hosts` | The list of hosts that perform discovery when a node is started. The default list of hosts is `["127.0.0.1", "[::1]"]`.
 | `cluster.initial_cluster_manager_nodes` | A list of cluster-manager-eligible nodes used to bootstrap the cluster. |
 | `discovery.zen.minimum_master_nodes` | The minimum number of master nodes. Set to 1 to allow single node clusters. |
 | `gateway.recover_after_nodes` | After a full cluster restart, the number of nodes that must start before recovery can begin.
-| `discovery.type` | na |
+| `discovery.type` | Before configuring a cluster, set discovery.type to single-node to prevent the bootstrap checks from failing when you start the service. |
 | `cluster.name` | Enter a name for the cluster |
 | `node.name` | a descriptive name for the node |
 | `node.attr.rack` | Custom attributes for the node |
@@ -46,7 +46,7 @@ The settings in the following table apply specifically to the Security plugin.
 
 | Setting | Description |
 | :--- | :--- |
-| `plugins.security.ssl.transport.pemcert_filepath` | na|
+| `plugins.security.ssl.transport.pemcert_filepath` | na |
 | `plugins.security.ssl.transport.pemkey_filepath` | na |
 | `plugins.security.ssl.transport.pemtrustedcas_filepath` | na |
 | `plugins.security.ssl.transport.enforce_hostname_verification` | na |
@@ -55,8 +55,9 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.ssl.http.pemkey_filepath` | na |
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | na |
 | `plugins.security.allow_default_init_securityindex` | na |
-| `plugins.security.authcz.admin_dn` | na |
-| `plugins.security.nodes_dn` | na |
+| `plugins.security.authcz.admin_dn` | Defines the DNs (distinguished names) of certificates to which admin privileges should be assigned. Required. |
+| `plugins.security.nodes_dn` | Specifies a list of distinguished names (DNs) which denote the other nodes in the cluster. This settings support wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the .yml configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. |
+| `plugins.security.nodes_dn_dynamic_config_enabled` | Relevant for cross_cluster usecases where there is a need to manage the whitelisted nodes_dn without having to restart the nodes everytime a new cross_cluster remote is configured. Setting nodes_dn_dynamic_config_enabled to true enables **super-admin callable** /_opendistro/_security/api/nodesdn APIs which provide means to update/retrieve nodesdn dynamically. This setting only has effect if 'plugins.security.cert.intercluster_request_evaluator_class' is not set. Default is `false`. |
 | `plugins.security.audit.type` | na |
 | `plugins.security.enable_snapshot_restore_privilege` | na |
 | `plugins.security.check_snapshot_restore_write_privileges` | na |
@@ -68,8 +69,18 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.restapi.password_validation_error_message` | na |
 | `plugins.security.allow_default_init_securityindex` | na |
 | `plugins.security.cache.ttl_minutes` | na |
+| `plugins.security.roles_mapping_resolution` | Defines how backend roles are mapped to Security roles.<br>MAPPING_ONLY - mappings must be configured explicitely in roles_mapping.yml (default)<br>BACKENDROLES_ONLY - backend roles are mapped to Security roles directly. Settings in roles_mapping.yml have no effect.<br>BOTH - backend roles are mapped to Security roles mapped directly and via roles_mapping.yml in addition.  |
+| `plugins.security.restapi.roles_enabled` | Enables role based access to the REST management API for listed roles. Roles are separated by a comma. Default is that no role is allowed to access the REST management API (an empty list). |
+| `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. |
+| `plugins.security.audit.enable_rest` | Enables or disables rest request logging. Default is `true`, enabled. |
+| `plugins.security.audit.enable_transport` | Enables or disables transport request logging. Default is `false', disabled. |
 | `plugins.` | na |
-
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
 
 ### Currently experimental feature settings
 
@@ -112,6 +123,13 @@ cluster.remote_store.translog.repository: my-repo-1
 ### Security plugin settings examples
 
 ```yml
+# Common configuration settings
+plugins.security.nodes_dn:
+  - "CN=*.example.com, OU=SSL, O=Test, L=Test, C=DE"
+  - "CN=node.other.com, OU=SSL, O=Test, L=Test, C=DE"
+plugins.security.authcz.admin_dn:
+  - CN=kirk,OU=client,O=client,L=test, C=de
+plugins.security.roles_mapping_resolution: MAPPING_ONLY
 plugins.security.ssl.transport.pemcert_filepath: esnode.pem
 plugins.security.ssl.transport.pemkey_filepath: esnode-key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
@@ -122,9 +140,7 @@ plugins.security.ssl.http.pemkey_filepath: esnode-key.pem
 plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
 plugins.security.allow_unsafe_democertificates: true
 plugins.security.allow_default_init_securityindex: true
-plugins.security.authcz.admin_dn:
-  - CN=kirk,OU=client,O=client,L=test, C=de
-
+plugins.security.nodes_dn_dynamic_config_enabled: false
 plugins.security.audit.type: internal_opensearch
 plugins.security.enable_snapshot_restore_privilege: true
 plugins.security.check_snapshot_restore_write_privileges: true
@@ -137,6 +153,12 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 plugins.security.allow_default_init_securityindex: true
 plugins.security.cache.ttl_minutes: 60
+# REST Management API configuration settings
+plugins.security.restapi.roles_enabled: ["all_access","xyz_role"]
+plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.LICENSE: ["DELETE"] #
+# Audit logging settings
+plugins.security.audit.enable_rest: true
+plugins.security.audit.enable_transport: false
 
 ```
 
