@@ -45,6 +45,9 @@ The OpenSearch Java high-level REST client will be deprecated starting with Open
 
 Most clients that work with Elasticsearch OSS 7.10.2 *should* work with OpenSearch, but the latest versions of those clients might include license or version checks that artificially break compatibility. This page includes recommendations around which versions of those clients to use for best compatibility with OpenSearch.
 
+OpenSearch 2.0.0 no longer supports compatibility with legacy clients. Due to breaking changes with REST APIs, some features are not supported when using OpenSearch 1.x clients to connect to OpenSearch 2.0.
+{: .note}
+
 Client | Recommended version
 :--- | :---
 [Elasticsearch Java low-level REST client](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-client/7.13.4/jar) | 7.13.4
