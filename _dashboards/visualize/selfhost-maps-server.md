@@ -21,7 +21,7 @@ You can access the `maps-server` image via the official OpenSearch [Docker Hub r
 
 Open your terminal and run the following command:
 
-`docker pull opensearch/opensearch-maps-server`
+`docker pull opensearchproject/opensearch-maps-server:1.0.0`
 
 ## Setting up the server
 
