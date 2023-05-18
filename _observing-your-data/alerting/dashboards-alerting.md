@@ -65,12 +65,13 @@ You can associate existing monitors with a visualization using the Dashboard app
 
 #### To associate a monitor
 
-Continuing with the alerting visualization and dashboard created in the preceding tutorial, to associate an existing monitor with a visualization:
+Continuing with the alerting visualization and dashboard created in the preceding tutorial, to associate an existing monitor with a visualization, follow these steps. 
 
 1. On the visualization pane, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}).
 2. Select **Associated monitors**.
-3. From the **Select monitor to associate** dropdown menu, view the list of existing monitors and then select the desired monitor, for example,  **<name>**. Basic information about the monitor is summarized in the window. To view more comprehensive details, select **View monitor page**, which opens the monitor details from the Alerting plugin page.
-4. Select **Associate monitor**. An existing monitor is now associated to the visualization.
+3. From the **Select monitor to associate** dropdown menu, view the list of monitors and then select a monitor. Only eligible monitors are listed in the dropdown menu. 
+4. View the monitor's basic information. To view more comprehensive details, select **View monitor page**, which opens detailed monitor information on the Alerting plugin page.
+5. Select **Associate monitor**. An existing monitor is now associated to the visualization.
 
 <insert UI>
 
