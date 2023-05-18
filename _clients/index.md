@@ -35,9 +35,11 @@ OpenSearch provides clients for the following programming languages and platform
 * **Rust**
   * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
 
-All clients are compatible with any version of OpenSearch.
+All clients are compatible with any version of OpenSearch. However, major versions of OpenSearch introduce breaking changes that require careful upgrades of the clients. For example, while clients 2.0.0 work against the latest OpenSearch 1.x, certain deprecated features removed in OpenSearch 2.0 have also been removed from the clients. For a client compatibility matrix, see the COMPATIBILITY.md file in the client's repository.
 {: .note}
 
+The OpenSearch Java high-level REST client will be deprecated starting with OpenSearch version 3.0.0 and will be removed in a future release. We recommend switching to the [Java client]({{site.url}}{{site.baseurl}}/clients/java/) instead.
+{: .warning}
 
 ## Legacy clients
 
