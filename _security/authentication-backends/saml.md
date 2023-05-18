@@ -176,6 +176,8 @@ Name | Description
 `sp.signature_private_key_filepath` | Path to the private key. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to that same directory.
 `sp.signature_algorithm` | The algorithm used to sign the requests. See the next table for possible values.
 
+The private key must be in PKCS#8 format. If you want to use an encrypted key, it must be encrypted with a PKCS#12-compatible algorithm (3DES).
+
 The Security plugin supports the following signature algorithms.
 
 Algorithm | Value
