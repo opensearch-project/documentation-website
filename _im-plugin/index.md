@@ -11,8 +11,6 @@ redirect_from:
 ---
 
 # Managing indexes
-OpenSearch Dashboards
-{: .label .label-yellow :}
 
 You index data using the OpenSearch REST API. Two APIs exist: the index API and the `_bulk` API.
 
