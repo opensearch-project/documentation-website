@@ -5,6 +5,7 @@ parent: Installing OpenSearch Dashboards
 nav_order: 1
 redirect_from: 
   - /dashboards/install/docker/
+  - /opensearch/install/docker-security/
 ---
 
 # Run OpenSearch Dashboards using Docker
