@@ -28,7 +28,7 @@ This section contains global information for the current benchmark environment. 
 | `env.name` | String | The name of the benchmark environment used a meta-data in metrics documents when an OpenSearch metrics store is configured.  Only alphanumeric characters are allowed. Default is `local`. |
 | `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one asyncio event loop per core and distributes to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
 | `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's asyncio event loop. Default is `false`. |
-| `passenv` | String | A comma-separated list of environment variable names that should be passed to OpneSearch for processing. |
+| `passenv` | String | A comma-separated list of environment variable names that should be passed to OpenSearch for processing. |
 
 ## node
 
