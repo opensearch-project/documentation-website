@@ -11,7 +11,7 @@ redirect_from:
 
 # REST API reference
 
-You can use REST APIs for most operations in OpenSearch. In this reference, we describe how to use each API, including the paths and HTTP methods, supported parameters, and example requests and responses.
+You can use REST APIs for most operations in OpenSearch. In this reference, we provide a description of the API, and details that include the paths and HTTP methods, supported parameters, and example requests and responses.
 
 Most REST APIs supported by OpenSearch are included in this reference. If you know of any that are missing, feel free to enter feedback or submit a pull request. 
 {: .tip }
