@@ -18,7 +18,7 @@ If you use the Security plugin, you must have the `manage index` privileges.
 | Parameter | Data type | Description |
 :--- | :--- | :---
 | target | String | Comma-delimited list of data streams, indexes, and index aliases to which cache clearing will be applied. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, omit this parameter or use `_all` or `*`. Optional. |
-
+| file | Boolean | If `true`, clears the unused entries from the filecache on 'search' capable nodes. Defaults to `false`. |
 
 ### Query parameters
 
@@ -90,6 +90,13 @@ The following request clears the cache for all data streams and indexes:
 
 ````json
 POST /_cache/clear
+````
+{% include copy-curl.html %}
+
+#### Clear unused entries from the cache on search-capable nodes
+
+````json
+POST http://localhost:9200/*/_cache/clear?file=true 
 ````
 {% include copy-curl.html %}
 
