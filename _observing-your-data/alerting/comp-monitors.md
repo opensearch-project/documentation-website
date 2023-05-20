@@ -20,8 +20,8 @@ Basic [monitor types]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/
 | Execution schema | Conditions that, if met, generate *alerts*. |
 | Execution Id | Conditions that, if met, generate *alerts*. |
 
-## Simplifed workflow
+## Simplified workflow
 
 The following image shows the simplified workflow of a compound monitor.
 
-![Simplified composite monitor workflow]({{site.url}}{{site.baseurl}}/images/alerting/compound-monitor.gif)
+![Simplified composite monitor workflow]({{site.url}}{{site.baseurl}}/images/alerting/compound_monitor.gif)
