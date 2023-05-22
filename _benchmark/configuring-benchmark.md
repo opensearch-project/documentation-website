@@ -192,7 +192,7 @@ Logs from OpenSearch Benchmark can be configured in the `~/.benchmark/logging.js
 - For the file format, see the Python [logging configuration schema](https://docs.python.org/3/library/logging.config.html#logging-config-dictschema).
 - For instructions on how to customize where the log output is written, see the [logging handler documentation](https://docs.python.org/3/library/logging.handlers.html).
 
-By default, OpneSearch Benchmark logs all output to `~/.benchmark/logs/benchmark.log`.
+By default, OpenSearch Benchmark logs all output to `~/.benchmark/logs/benchmark.log`.
 
 
 
