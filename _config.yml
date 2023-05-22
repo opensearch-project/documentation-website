@@ -40,6 +40,9 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
+  opensearch-benchmark:
+    permalink: /:collection/:path/
+    output: true
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -108,6 +111,9 @@ just_the_docs:
       nav_fold: true
     tuning-your-cluster:
       name: Tuning your cluster
+      nav_fold: true
+    opensearch-benchmark:
+      name: OpenSearch Benchmark
       nav_fold: true
     security:
       name: Security in OpenSearch
