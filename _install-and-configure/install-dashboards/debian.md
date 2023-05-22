@@ -73,7 +73,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```
 1. Import the public GPG key. This key is used to verify that the APT repository is signed.
     ```bash
-    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp  | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring
+    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring
     ```
 1. Create an APT repository for OpenSearch.
    ```bash
