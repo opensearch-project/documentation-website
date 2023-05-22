@@ -94,7 +94,7 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
-1. Install necessary packages.
+1. Install the necessary packages.
    ```bash
    sudo apt-get update && sudo apt-get -y install lsb-release ca-certificates curl gnupg2
    ```
