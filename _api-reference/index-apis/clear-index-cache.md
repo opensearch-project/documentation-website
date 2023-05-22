@@ -95,7 +95,7 @@ POST /_cache/clear
 
 #### Clear unused entries from the cache on search-capable nodes
 
-````json
+```json
 POST http://localhost:9200/*/_cache/clear?file=true 
 ````
 {% include copy-curl.html %}
