@@ -186,7 +186,7 @@ You can use an `http_proxy` to connect OpenSearch Benchmark to a specific proxy 
 
 ## Logging
 
-Logs from OpenSearch Benchmark can be configured in the `~/.benchmark/logging.json` file. For more information on how to format the log file, see the following Python documentation:
+Logs from OpenSearch Benchmark can be configured in the `~/.benchmark/logging.json` file. For more information about how to format the log file, see the following Python documentation:
 
 - For general tips and tricks, use the [Python logging cookbook](https://docs.python.org/3/howto/logging-cookbook.html).
 - For the file format, see the Python [logging configuration schema](https://docs.python.org/3/library/logging.config.html#logging-config-dictschema).
