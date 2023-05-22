@@ -122,7 +122,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 
 ### Running Benchmark with Docker
 
-To run OpenSearch Benchmark, you use `docker run` to launch a container. OpenSearch Benchmark subcommands are passed as arguments when you start the container. OpenSearch Benchmark then processes the command, then stops the container after the requested operation completes.
+To run OpenSearch Benchmark, use `docker run` to launch a container. OpenSearch Benchmark sub-commands are passed as arguments when you start the container. OpenSearch Benchmark then processes the command, then stops the container after the requested operation completes.
 
 For example, the following command will print the help text for OpenSearch Benchmark to the command line, and then stop the container:
 
