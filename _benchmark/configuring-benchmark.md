@@ -120,9 +120,6 @@ datastore.password = the-password-to-your-cluster
 
 This section defines how workloads are retrieved. All keys are read by OpenSearch using the syntax `<<workload-repository-name>>.url`, which you can select using the OpenSearch Benchmark CLI  `--workload-repository=workload-repository-name"` option. By default, OpenSearch chooses the workload repository using the `default.url`, `https://github.com/opensearch-project/opensearch-benchmark-workloads`.
 
-## teams
-
-What is Benchmark teams equivalent?
 
 ## defaults
 
