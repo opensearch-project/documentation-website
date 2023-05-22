@@ -9,11 +9,6 @@ has_children: false
 
 You can install OpenSearch Benchmark directly on a host running Linux or macOS or you can run OpenSearch Benchmark in a Docker container on any compatible host. This page describes high-level considerations for your OpenSearch Benchmark host, as well as instructions for installing OpenSearch Benchmark.
 
-## Docker limitations
-
-Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch Benchmark in a Docker container. Specifically, the following restrictions apply:
-- You cannot distribute load worker coordinator hosts.
-- You can only use the `benchmark-only` pipeline.
 
 ## Choosing appropriate hardware
 
@@ -22,7 +17,7 @@ OpenSearch Benchmark can be used to provision OpenSearch nodes for testing. If y
 Remember that OpenSearch Benchmark cannot be used to provision OpenSearch nodes when you run OpenSearch Benchmark in a Docker container. If you want to use OpenSearch Benchmark to provision nodes, or if you want to distribute the benchmark workload with the OpenSearch Benchmark daemon, then you must install OpenSearch Benchmark directly on each host using Python and pip.
 {: .important}
 
-When you select a host, you should also think about which workloads you want to run. To see a list of default benchmark workload, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the fully decompressed data corpus once OpenSearch Benchmark is installed.
+When you select a host, you should also think about which workloads you want to run. To see a list of default benchmark workloads, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the fully decompressed data corpus once OpenSearch Benchmark is installed.
 
 If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size:
 
@@ -97,14 +92,22 @@ opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-OpenSearch Benchmark will exit with an error if no arguments are supplied. Use the `-h` option to print the help text in the command line if you want to test the installation.
-{: .warning}
 
 Now that OpenSearch Benchmark is installed on your host you can learn about [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 
 ## Installing with Docker
 
 You can find the official Docker images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
+
+
+### Docker limitations
+
+Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch Benchmark in a Docker container. Specifically, the following restrictions apply:
+
+- OpenSearch Benchmark cannot distribute load from multiple hosts, such as load worker coordinator hosts.
+- OpenSearch Benchmark cannot provision OpenSearch nodes and can only run tests on previously existing clusters. You can only invoke OpenSearch Benchmark commands using the `benchmark-only` pipeline.
+
+### Pulling the the Docker images
 
 To pull the image from Docker Hub:
 
@@ -131,8 +134,6 @@ docker run opensearchproject/opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-OpenSearch Benchmark will exit with an error if no arguments are supplied. Use the `-h` option to print the help text in the command line if you want to test the installation.
-{: .warning}
 
 ### Establishing volume persistence in a Docker container
 
