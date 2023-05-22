@@ -69,7 +69,7 @@ scroll | Time | How long to keep the search context open.
 scroll_size | Integer | Size of the operation's scroll request. Default is 1000.
 search_type | String | Whether OpenSearch should use global term and document frequencies calculating relevance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
 search_timeout | Time | How long to wait until OpenSearch deems the request timed out. Default is no timeout.
-slices | Integer | Number of sub-tasks OpenSearch should divide this task into. Default is 1, which means OpenSearch should not divide this task.
+slices | String or integer | The number slices to split an operation into for faster processing, specified by integer. When set to `auto` OpenSearch it should decides how many the number of slices for the operation. Default is `1`, which indicates an operation will not be split.
 sort | List | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
 _source | String | Whether to include the `_source` field in the response.
 _source_excludes | String | A comma-separated list of source fields to exclude from the response.
