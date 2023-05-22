@@ -97,7 +97,6 @@ POST /_cache/clear
 
 ```json
 POST http://localhost:9200/*/_cache/clear?file=true 
-````
 {% include copy-curl.html %}
 
 #### Example response
