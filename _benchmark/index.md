@@ -18,4 +18,4 @@ OpenSearch Benchmark can be installed directly on a compatible host running Linu
 
 ## OpenSearch Benchmark documentation status
 
-We are working diligently to provide complete documentation for OpenSearch Benchmark and will publish additional documentation as  To see the current status of documentation efforts, or to request a specific topic, please make an issue on the [OpenSearch documentation-website](https://github.com/opensearch-project/documentation-website) repo.
+We are working diligently to provide complete documentation for OpenSearch Benchmark and will continue to evolve the published documentation. To see the current status of documentation efforts or to request a specific topic, please create an issue on the [OpenSearch documentation-website](https://github.com/opensearch-project/documentation-website) repo.
