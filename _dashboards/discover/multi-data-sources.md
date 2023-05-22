@@ -44,7 +44,9 @@ To create a new data source connection:
     - **Username & Password**: A basic username and password are used to connect to the data source.
     - **AWS Sigv4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Sigv4 requires an access key and a secret key.
       
-      For SigV4 authentication, first specify the **Region**. Next, select the type of service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more about Sigv4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+      For SigV4 authentication, first specify the **Region**. Next, select the type of service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. 
+      
+      For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more about Sigv4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
     
     When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
 
