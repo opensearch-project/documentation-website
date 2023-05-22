@@ -76,7 +76,7 @@ When `datastore.type` is set to `opensearch`, the following reporting settings c
 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
-| `datastore.host` | IP address | The host name of the metrics store, for example `124.340.200.22`. |
+| `datastore.host` | IP address | The hostname of the metrics store, for example `124.340.200.22`. |
 | datastore.port| Port | The port number of the metrics store, for example, `9200`. |
 | `datastore.secure` | Boolean | If set to `false`, OpenSearch assumes a HTTP connection. If set to true, it assumes a HTTPS connection. |
 | `datastore.ssl.verification_mode` | String | When set to the default `full`, the metric store’s SSL certificate is checked. To disable certificate verification set this value to `none`. |
@@ -118,7 +118,7 @@ datastore.password = the-password-to-your-cluster
 
 ## workloads
 
-This section defines how workloads are retrieved. All keys are read by OpenSearch using the syntax `<<workload-repository-name>>.url`, which you can select using the OpenSearch Benchmark CLI  `--track-repository=workload-repository-name"` option. By default, OpenSearch chooses the track repository using the `default.url`, `https://github.com/opensearch-project/opensearch-benchmark-workloads`.
+This section defines how workloads are retrieved. All keys are read by OpenSearch using the syntax `<<workload-repository-name>>.url`, which you can select using the OpenSearch Benchmark CLI  `--workload-repository=workload-repository-name"` option. By default, OpenSearch chooses the workload repository using the `default.url`, `https://github.com/opensearch-project/opensearch-benchmark-workloads`.
 
 ## teams
 
@@ -172,7 +172,7 @@ You can use an `http_proxy` to connect OpenSearch Benchmark to a specific proxy 
    git config --global http_proxy $http_proxy
    ```
 
-4. Use `git clone` to clone the workloads repository. If the proxy configured correctly, the clone will be successfull.
+4. Use `git clone` to clone the workloads repository. If the proxy configured correctly, the clone will be successful.
 
    ```
    git clone http://github.com/opensearch-project/opensearch-benchmark-workloads.git
