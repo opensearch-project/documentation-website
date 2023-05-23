@@ -32,7 +32,7 @@ At a minimum, you should be:
 - [Reviewing the OpenSearch tools compatibility matrices](#reviewing-the-opensearch-tools-compatibility-matrices).
 - [Reviewing plugin compatibility](#reviewing-plugin-compatibility).
 - [Backing up configuration files](#backing-up-configuration-files).
-- [Ceating a snapshot](#creating-a-snapshot).
+- [Creating a snapshot](#creating-a-snapshot).
 
 Stop any nonessential indexing before you begin the upgrade procedure to eliminate unnecessary resource demands on the cluster while you perform the upgrade.
 {: .tip}
