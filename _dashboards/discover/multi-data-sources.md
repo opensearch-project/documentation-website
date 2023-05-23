@@ -44,7 +44,9 @@ To create a new data source connection:
     - **Username & Password**: A basic username and password are used to connect to the data source.
     - **AWS Sigv4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Sigv4 requires an access key and a secret key.
       
-      For SigV4 authentication, first specify the **Region**. Next, select the type of service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. 
+      For SigV4 authentication, first specify the **Region**. Next, select the type of service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. For an example setup, see the following image.
+
+      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/SigV4-setup.png" alt="SigV4 auth type setup" width="40%">
       
       For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more about Sigv4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
     
@@ -52,7 +54,7 @@ To create a new data source connection:
 
     After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source connection** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
-4. Select **Create data source connection** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
+4. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
 5. Delete the data source connection by selecting the check box to the left of the title and then choosing **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported.
 
