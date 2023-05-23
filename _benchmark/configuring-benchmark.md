@@ -9,7 +9,7 @@ has_children: false
 
 OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini` which is automatically created the first time OpenSearch Benchmark runs. 
 
-The file is separated into the following sections that you can customize based on the needs of your cluster.
+The file is separated into the following sections, which you can customize based on the needs of your cluster.
 
 ## meta
 
@@ -21,12 +21,12 @@ This section contains meta information about the configuration file.
 
 ## system
 
-This section contains global information for the current benchmark environment. This information should be identical on all machines where OpenSearch Benchmark is installed.
+This section contains global information for the current benchmark environment. This information should be identical on all machines on which OpenSearch Benchmark is installed.
 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
-| `env.name` | String | The name of the benchmark environment used as metadata in metrics documents when an OpenSearch metrics store is configured.  Only alphanumeric characters are allowed. Default is `local`. |
-| `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one asyncio event loop per core and distributes to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
+| `env.name` | String | The name of the benchmark environment used as metadata in metrics documents when an OpenSearch metrics store is configured. Only alphanumeric characters are allowed. Default is `local`. |
+| `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one asyncio event loop per core and distributes it to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
 | `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's asyncio event loop. Default is `false`. |
 | `passenv` | String | A comma-separated list of environment variable names that should be passed to OpenSearch for processing. |
 
@@ -45,10 +45,10 @@ This section contains more details about the OpenSearch source tree.
 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
-| `remote.repo.url` | URL | The URL from which to check out OpenSearch.  Default is `https://github.com/opensearch-project/OpenSearch.git`.
-| `opensearch.src.subdir` | String | The local path relative to `src.root.dir` of the OpenSearch search tree. Default is `OpenSearch`. 
-| `cache` | Boolean | Enables OpenSearch's internal source artifact cache `opensearch*.tar.gz` and any plugin zip files. Artifacts are cached based on their git revision. Default is `true`. |
-| `cache.days` | Integer | The number of days for which an artifact should be kept in the source artifact cache. Default is `7`. |
+| `remote.repo.url` | URL | The URL from which to check out OpenSearch. Default is `https://github.com/opensearch-project/OpenSearch.git`.
+| `opensearch.src.subdir` | String | The local path relative to the `src.root.dir` of the OpenSearch search tree. Default is `OpenSearch`. 
+| `cache` | Boolean | Enables OpenSearch's internal source artifact cache, `opensearch*.tar.gz`, and any plugin zip files. Artifacts are cached based on their Git revision. Default is `true`. |
+| `cache.days` | Integer | The number of days that an artifact should be kept in the source artifact cache. Default is `7`. |
 
 ## benchmarks
 
@@ -56,7 +56,7 @@ This section contains the settings that can be customized in the OpenSearch Benc
 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
-| `local.dataset.cache` | String | The directory in which benchmark data sets are stored. Depending on the benchmarks that are run, this directory may contain hundreds of GB of data. Default path is `$HOME/.benchmark/benchmarks/data`. |
+| `local.dataset.cache` | String | The directory in which benchmark datasets are stored. Depending on the benchmarks that are run, this directory may contain hundreds of GB of data. Default path is `$HOME/.benchmark/benchmarks/data`. |
 
 ## results_publishing
 
@@ -64,10 +64,10 @@ This section defines how benchmark metrics are stored.
 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
-| `datastore.type` | String | If set to `in-memory` all metrics are kept in memory while running the benchmark. If set to `opensearch` all metrics are instead written to a persistent metrics store and the data
+| `datastore.type` | String | If set to `in-memory`, all metrics are kept in memory while running the benchmark. If set to `opensearch`, all metrics are instead written to a persistent metrics store and the data
 is available for further analysis. Default is `in-memory`. |
-| `sample.queue.size` | Function | The number of metrics samples that can be stored in OpenSearch Benchmark’s in-memory queue. Default is `2^20`. | 
-| metrics.request.downsample.factor | Integer| (default: 1): Determines how many service time and latency samples are saved in the metrics store. By default, all values are saved. If you want to, for example. keep only every 100th sample, specify `100`. This is useful to avoid overwhelming the metrics store in benchmarks with many clients. Default is `1`. |
+| `sample.queue.size` | Function | The number of metric samples that can be stored in OpenSearch Benchmark’s in-memory queue. Default is `2^20`. | 
+| metrics.request.downsample.factor | Integer | (default: 1): Determines how many service time and latency samples are saved in the metrics store. By default, all values are saved. If you want to, for example, keep only every 100th sample, specify `100`. This is useful for avoiding overwhelming the metrics store in benchmarks with many clients. Default is `1`. |
 | `output.processingtime` | Boolean | If set to `true`, OpenSearch shows the additional metric processing time in the command line report. Default is `false`. |
 
 ### `datastore.type` parameters
