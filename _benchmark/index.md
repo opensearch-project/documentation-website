@@ -16,6 +16,3 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 OpenSearch Benchmark can be installed directly on a compatible host running Linux and macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) for more information.
 
-## OpenSearch Benchmark documentation status
-
-We are working diligently to provide complete documentation for OpenSearch Benchmark and will continue to evolve the published documentation. To see the current status of documentation efforts or to request a specific topic, please create an issue in the [OpenSearch documentation-website](https://github.com/opensearch-project/documentation-website) repo.

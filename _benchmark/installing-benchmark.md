@@ -69,7 +69,7 @@ Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Pytho
   ```
   {% include copy.html %}
 
-- _Optional_: Check that your installed version of `git` is **Git 1.9 or later**. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git. 
+- _Optional_: Check that your installed version of `git` is **Git 1.9 or later** using the following command. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git. 
 
   ```bash
   git --version
@@ -78,7 +78,7 @@ Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Pytho
 
 ### Completing the installation
 
-After the prerequisites are installed, you can install OpenSearch Benchmark using the following command:
+After the required is installed, you can install OpenSearch Benchmark using the following command:
 
 ```bash
 pip install opensearch-benchmark
@@ -109,7 +109,7 @@ Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch B
 
 ### Pulling the Docker images
 
-To pull the image from Docker Hub:
+To pull the image from Docker Hub, run the following command:
 
 ```bash
 docker pull opensearchproject/opensearch-benchmark:latest
