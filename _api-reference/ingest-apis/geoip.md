@@ -1,23 +1,62 @@
 ---
 layout: default
-title: Automate IP geolocation databases
+title: IP geolocation processor
 parent: Ingest APIs
 nav_order: 30
 ---
 
-# Automate IP geolocation databases 
+# IP geolocation processor 
 Introduced 2.8
 {: .label .label-purple }
 
 Information about the geolocation of an IP address can be used for a variety of purposes:
 
--   Content personalization: You cna use GeoIP to personalize content for your users based on their location. For example, you could show different versions of your website to users from different countries. 
--   Security: You can use GeoIP to block access to your website from certain countries. This can be helpful to protect your website from attacks or to comply with regulations.
--   Analytics: You can use GeoIP to track the geographic location of your website visitors. This information can be used to learn more about your audience and to improve your marketing campaigns. 
+-   **Content personalization:** You can use IP geolocation information to personalize content for your users based on their location. For example, you could show different versions of your website to users from different countries. 
+-   **Security:** You can use GeoIP to block access to your website from certain countries. This can be helpful to protect your website from attacks or to comply with regulations.
+-   **Analytics:** You can use GeoIP to track the geographic location of your website visitors. This information can be used to learn more about your audience and to improve your marketing campaigns. 
 
-The OpenSearch  `IP2geo` processor adds geographical information about IP addresses based on data from the [MaxMind GeoIP2 databases](https://www.maxmind.com/en/geoip2-databases). The processor adds this information by default under the `<field_name>` and auto-updates the databases based on a set interval. 
+The OpenSearch `Ip2geo` processor adds geographical information about IP addresses based on data from the [MaxMind GeoIP2 databases](https://www.maxmind.com/en/geoip2-databases). This processor adds the geolocation information by default under the `<field_name>` and auto-updates the GeoIP2 databases based on a set interval, keeping geolocation data up-to-date and accurate. 
+
+## Installing the Ip2geo processor
+
+To install the `Ip2geo` processor, the `opensearch-geospatial` plugin must be installed first. Learn more in the [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) documentation.
+
+## Creating the data source
+
+Once you've installed the `Ip2geo` processor, create the  IP geolocation data source by defining the endpoint value to download geolocation data and specify the data update interval. The endpoint value must contain valid data formats, for example, JSON. The minimum update interval is 1 day. The maximum is determined by the database provider. 
+
+The following code example shows how to create a data source using the OpenSearch default endpoint value, which is used if the endpoint value is empty, and update interval of 3 days.
+
+#### Example: JSON POST request
+
+``json
+    {
+        "endpoint" : "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
+        "update_interval_in_days" : 3
+    }
+    ```
+
+The following code example shows the JSON reponse to the preceding request. A true JSON response means the request was successful and the server was able to process the request. If you receive a false JSON reponse, check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
+
+#### Example: JSON response
+
+`json
+    {
+        "acknowledged" : true
+    }
+    ```
+
+## Sending a GET request
+
+To request data from the specifed database you created, send a GET request.  
+
+#### Example: GET request
+
+
 
 ## Using the IP2geo processor in a pipeline
+
+The following table describes <what>.
 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
@@ -32,7 +71,10 @@ The OpenSearch  `IP2geo` processor adds geographical information about IP addres
 
 The following code is an example of using <example_name> and adds the geographical information to the `geoip` field based on the `ip` field.
 
+## Mapping IP geolocation data
 
-## Automating updates for MaxMind databases
 
-The `IP2geo` processor auto-updates the MaxMind databases based on the specified interval. 
+
+## Automatically updating geolocation data
+
+The `IP2geo` processor auto-updates the geolocation databases based on the specified interval. 
