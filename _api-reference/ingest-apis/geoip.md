@@ -30,20 +30,20 @@ The following code example shows how to create a data source using the OpenSearc
 #### Example: JSON POST request
 
 ````json
-    {
-        "endpoint" : "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
-        "update_interval_in_days" : 3
-    }
+{
+    "endpoint" : "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
+    "update_interval_in_days" : 3
+}
 ```
 
-The following code example shows the JSON reponse to the preceding request. A true JSON response means the request was successful and the server was able to process the request. If you receive a false JSON reponse, check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
+The following code example shows the JSON reponse to the preceding request. A true JSON responvnxcse means the request was successful and the server was able to process the request. If you receive a false JSON reponse, check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 
 #### Example: JSON response
 
 ```json
-    {
-        "acknowledged" : true
-    }
+{
+    "acknowledged":true
+}
 ```
 
 ## Sending a GET request
@@ -66,12 +66,49 @@ The reponse shows information for each field (for example, `name`, `endpoint`, `
 
 ## Updating the data source
 
-To update the data source file, send a PUT request.
+To update the data source file, send a PUT request. You can continue using the current endpoint value or change it. Note that if the new endpoint value contains fields that are not in the current data source file, the update fails. You also can change the update interval.  
 
 #### Example: PUT request
 
 ```json
+{
+    "endpoint": https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json
+    "update_interval_in_days": 1
+}
+```
 
+#### Example: Response
+
+```json
+{
+    "acknowledged":true
+}
+```
+
+## Creating the IP2geo processor
+
+Once the data source is created, you can create the `Ip2geo` processor. To create the processor, send a PUT request.
+
+#### Example: PUT request
+
+```json
+{
+   "description":"convert ip to geo",
+   "processors":[
+    {
+        "ip2geo":{
+            "field":"_ip",
+            "datsource"::"test1"
+        }
+    }
+   ] 
+}
+
+
+#### Example: Response
+
+```json
+<insert-example-response>
 ```
 
 ## Using the IP2geo processor in a pipeline
@@ -81,20 +118,55 @@ The following table describes <what>.
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
 | field | yes | - | The field to get the ip address from for the geographical lookup. |
-| target_field | no | geoip | The field that will hold the geographical information looked up from the Maxmind database. |
-| database_file | no | GeoLite2-City.mmdb | The database filename referring to a database the module ships with (GeoLite2-City.mmdb, GeoLite2-Country.mmdb, or GeoLite2-ASN.mmdb) or a custom database in the ingest-geoip config directory. |
-| properties | no | [continent_name, country_iso_code, country_name, region_iso_code, region_name, city_name, location]* | Controls what properties are added to the target_field based on the geoip lookup. |
+| target_field | no | ip2geo | The field that will hold the geographical information looked up from the Maxmind database. |
+| database | no | geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The database filename referring to a database the module ships with or a custom database in the ingest-geoip config directory. |
+| properties | no |  Default field depends on what is available in `database`. | Controls what properties are added to the target_field based on the geoip lookup. |
 | ignore_missing | no | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
 | first_only | no | true | If `true` only first found geoip data will be returned, even if field contains array. |
 
-* Default field depends on what is available in `database_file`.
 
 The following code is an example of using <example_name> and adds the geographical information to the `geoip` field based on the `ip` field.
 
-## Mapping IP geolocation data
+### Simulating the pipeline
 
+To simulate the pipeline, specify the pipeline in the POST request.
 
+#### Example: POST request
 
-## Automatically updating geolocation data
+```json
+<insert-example-request>
+```
 
-The `IP2geo` processor auto-updates the geolocation databases based on the specified interval. 
+## Deleting the Ip2geo processor
+
+To delete the `IP2geo` processor, send a DELETE request. 
+
+#### Example: DELETE request
+
+```json
+{
+    DELETE https://<host>:<port>/_ingest/pipeline/<processor>
+}
+```
+## Deleting the data source
+
+To delete the data source, send a DELETE request. Note that if you have another processors that uses the data source, the delete fails. To delete the dat source, you must delete all processors associated with the data source. 
+
+#### Example: DELETE request
+
+```json
+{
+    DELETE https://<host>:<port>/_plugins/geospatial/ip2geo/datasource/_all
+}
+```
+
+#### Example: Failed DELETE request
+
+```json
+<insert-example-failed-request>
+```
+
+## Next steps
+
+<Do we want to link to any Data Prepper processor information?>
+<What other documentation or GitHub resources should we include?>
