@@ -2,7 +2,7 @@
 layout: default
 title: Dangling indexes
 parent: index-apis
-nav_order: 84
+nav_order: 30
 ---
 
 # Dangling indexes API

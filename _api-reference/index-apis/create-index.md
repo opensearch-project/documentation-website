@@ -2,10 +2,10 @@
 layout: default
 title: Create index
 parent: Index APIs
-nav_order: 1
+nav_order: 25
 redirect_from:
   - /opensearch/rest-api/index-apis/create-index/
-  - opensearch/rest-api/create-index/
+  - /opensearch/rest-api/create-index/
 ---
 
 # Create index

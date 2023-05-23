@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Alias
+parent: Index APIs
 nav_order: 5
 redirect_from: 
  - /opensearch/rest-api/alias/
+ - /api-reference/alias/
 ---
 
 # Alias

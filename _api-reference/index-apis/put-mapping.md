@@ -2,7 +2,7 @@
 layout: default
 title: Create or update mappings
 parent: Index APIs
-nav_order: 220
+nav_order: 27
 redirect_from:
   - /opensearch/rest-api/index-apis/update-mapping/
 ---

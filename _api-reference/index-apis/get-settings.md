@@ -2,7 +2,7 @@
 layout: default
 title: Get settings
 parent: Index APIs
-nav_order: 100
+nav_order: 45
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
 ---
