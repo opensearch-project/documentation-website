@@ -2,7 +2,7 @@
 layout: default
 title: Clone index
 parent: Index APIs
-nav_order: 70
+nav_order: 15
 redirect_from:
   - /opensearch/rest-api/index-apis/clone/
 ---
