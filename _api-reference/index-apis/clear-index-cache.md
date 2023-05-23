@@ -44,68 +44,68 @@ The following example requests show multiple clear cache API uses.
 
 The following request clears the fields cache only:
 
-````json
+```json
 POST /my-index/_cache/clear?fielddata=true
-````
+```
 {% include copy-curl.html %}
 
 <hr />
 
 The following request clears the query cache only:
 
-````json
+```json
 POST /my-index/_cache/clear?query=true
-````
+```
 {% include copy-curl.html %}
 
 <hr />
 
 The following request clears the request cache only:
 
-````json
+```json
 POST /my-index/_cache/clear?request=true
-````
+```
 {% include copy-curl.html %}
 
 ##### Clear the cache for specific fields
 
 The following request clears the fields caches of `fielda` and `fieldb`:
 
-````json
+```json
 POST /my-index/_cache/clear?fields=fielda,fieldb
-````
+```
 {% include copy-curl.html %}
 
 ##### Clear caches for specific data streams and indexes
 
 The following request clears the cache for two specific indexes:
 
-````json
+```json
 POST /my-index,my-index2/_cache/clear
-````
+```
 {% include copy-curl.html %}
 
 ##### Clear caches for all data streams and indexes
 
 The following request clears the cache for all data streams and indexes:
 
-````json
+```json
 POST /_cache/clear
-````
+```
 {% include copy-curl.html %}
 
 #### Clear unused entries from the cache on search-capable nodes
 
-````json
+```json
 POST /*/_cache/clear?file=true 
-````
+```
 {% include copy-curl.html %}
 
 #### Example response
 
 The `POST /books,hockey/_cache/clear` request returns the following fields:
 
-````json
+```json
 {
   "_shards" : {
     "total" : 4,
@@ -113,7 +113,7 @@ The `POST /books,hockey/_cache/clear` request returns the following fields:
     "failed" : 0
   }
 }
-````
+```
 
 ### Response fields
 
