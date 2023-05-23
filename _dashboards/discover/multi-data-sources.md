@@ -53,8 +53,7 @@ To create a new data source connection:
     
     When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
 
-    After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source
-    ** buttons become active. You can select **Test connection** to confirm that the connection is valid.
+    After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
 4. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
