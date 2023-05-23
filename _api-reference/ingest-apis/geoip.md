@@ -71,10 +71,8 @@ To update the data source file, send a PUT request.
 #### Example: PUT request
 
 ```json
-   {
-        "acknowledged" : true
-    }
 
+```
 
 ## Using the IP2geo processor in a pipeline
 
@@ -85,7 +83,7 @@ The following table describes <what>.
 | field | yes | - | The field to get the ip address from for the geographical lookup. |
 | target_field | no | geoip | The field that will hold the geographical information looked up from the Maxmind database. |
 | database_file | no | GeoLite2-City.mmdb | The database filename referring to a database the module ships with (GeoLite2-City.mmdb, GeoLite2-Country.mmdb, or GeoLite2-ASN.mmdb) or a custom database in the ingest-geoip config directory. |
-| properties | no | [continent_name, country_iso_code, country_name, region_iso_code, region_name, city_name, location] * | Controls what properties are added to the target_field based on the geoip lookup. |
+| properties | no | [continent_name, country_iso_code, country_name, region_iso_code, region_name, city_name, location]* | Controls what properties are added to the target_field based on the geoip lookup. |
 | ignore_missing | no | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
 | first_only | no | true | If `true` only first found geoip data will be returned, even if field contains array. |
 
