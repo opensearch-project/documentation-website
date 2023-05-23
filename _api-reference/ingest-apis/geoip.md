@@ -36,7 +36,7 @@ The following code example shows how to create a data source using the OpenSearc
 }
 ```
 
-The following code example shows the JSON reponse to the preceding request. A true JSON responvnxcse means the request was successful and the server was able to process the request. If you receive a false JSON reponse, check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
+The following code example shows the JSON reponse to the preceding request. A true JSON response means the request was successful and the server was able to process the request. If you receive a false JSON reponse, check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 
 #### Example: JSON response
 
