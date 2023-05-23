@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Clear Index or Data Stream Cache
+title: Clear cache
 parent: Index APIs
 nav_order: 320
 ---
 
-# Clear index or data stream cache
+# Clear cache
 
 The clear cache API operation clears the caches of one or more indexes. For data streams, the API clears the caches of the stream’s backing indexes.
 
@@ -101,7 +101,7 @@ POST /*/_cache/clear?file=true
 ```
 {% include copy-curl.html %}
 
-## Example response
+#### Example response
 
 The `POST /books,hockey/_cache/clear` request returns the following fields:
 
@@ -115,7 +115,7 @@ The `POST /books,hockey/_cache/clear` request returns the following fields:
 }
 ```
 
-## Response fields
+#### Response fields
 
 The `POST /books,hockey/_cache/clear` request returns the following response fields:
 
