@@ -23,28 +23,28 @@ To install the `Ip2geo` processor, the `opensearch-geospatial` plugin must be in
 
 ## Creating the data source
 
-Once you've installed the `Ip2geo` processor, create the  IP geolocation data source by defining the endpoint value to download geolocation data and specify the data update interval. The endpoint value must contain valid data formats, for example, JSON. The minimum update interval is 1 day. The maximum is determined by the database provider. 
+Once you've installed the `Ip2geo` processor, create the  IP geolocation data source by defining the endpoint value to download geolocation data and specify the data update interval. The endpoint value must contain valid data formats, for example, <insert-example>. The minimum update interval is 1 day. The maximum is determined by the database provider. 
 
 The following code example shows how to create a data source using the OpenSearch default endpoint value, which is used if the endpoint value is empty, and update interval of 3 days.
 
 #### Example: JSON POST request
 
-``json
+````json
     {
         "endpoint" : "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
         "update_interval_in_days" : 3
     }
-    ```
+```
 
 The following code example shows the JSON reponse to the preceding request. A true JSON response means the request was successful and the server was able to process the request. If you receive a false JSON reponse, check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 
 #### Example: JSON response
 
-`json
+```json
     {
         "acknowledged" : true
     }
-    ```
+```
 
 ## Sending a GET request
 
@@ -52,6 +52,28 @@ To request data from the specifed database you created, send a GET request.
 
 #### Example: GET request
 
+```
+GET https://<host>:<port>/_plugins/geospatial/ip2geo/datasource/_all
+```
+
+#### Example: GET response
+
+```
+<insert-response-example>
+```
+
+The reponse shows information for each field (for example, `name`, `endpoint`, `provider`) in the data source file, when the data source file last updated successfully or failed (for example, `last_succeeded_at_in_epoch_millis`), and fields (for example, `fields`) added to the file since you last updated it.
+
+## Updating the data source
+
+To update the data source file, send a PUT request.
+
+#### Example: PUT request
+
+```json
+   {
+        "acknowledged" : true
+    }
 
 
 ## Using the IP2geo processor in a pipeline
