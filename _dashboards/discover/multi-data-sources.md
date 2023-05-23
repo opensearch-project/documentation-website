@@ -49,6 +49,7 @@ To create a new data source connection:
       <img src="{{site.url}}{{site.baseurl}}/images/dashboards/SigV4-setup.png" alt="SigV4 auth type setup" width="40%">
       
       For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more about Sigv4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+      {: .note }
     
     When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
 
