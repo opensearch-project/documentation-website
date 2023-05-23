@@ -76,7 +76,7 @@ POST /my-index/_cache/clear?fields=fielda,fieldb
 ```
 {% include copy-curl.html %}
 
-### Clear caches for specific data streams and indexes
+### Clear caches for specific data streams or indexes
 
 The following request clears the cache for two specific indexes:
 
