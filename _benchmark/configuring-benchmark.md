@@ -78,7 +78,7 @@ When `datastore.type` is set to `opensearch`, the following reporting settings c
 | `datastore.host` | IP address | The hostname of the metrics store, for example, `124.340.200.22`. |
 | datastore.port| Port | The port number of the metrics store, for example, `9200`. |
 | `datastore.secure` | Boolean | If set to `false`, OpenSearch assumes an HTTP connection. If set to true, it assumes an HTTPS connection. |
-| `datastore.ssl.verification_mode` | String | When set to the default `full`, the metric store’s SSL certificate is checked. To disable certificate verification set this value to `none`. |
+| `datastore.ssl.verification_mode` | String | When set to the default `full`, the metrics store’s SSL certificate is checked. To disable certificate verification, set this value to `none`. |
 | `datastore.ssl.certificate_authorities` | String | Determines the local file system path to the certificate authority’s signing certificate.
 | `datastore.user` | Username | Sets the username for the metrics store |
 | `datastore.password`: | String | Sets the password for the metrics store. Alternatively, this password can be configured using the `OSB_DATASTORE_PASSWORD` environment variable, which avoids storing credentials in a plain text file. The environment variable takes precedence over the config file if both define a password. |
