@@ -198,11 +198,11 @@ This code example uses basic credentials that come with the default OpenSearch c
 The following sample code initializes a client with SSL and TLS enabled:
 
 ```java
-import org.apache.hc.client5.http.auth.AuthScope;
-import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
-import org.apache.hc.client5.http.impl.async.HttpAsyncClientBuilder;
-import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
-import org.apache.hc.core5.http.HttpHost;
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.opensearch.client.RestClient;
 import org.opensearch.client.RestClientBuilder;
 import org.opensearch.client.json.jackson.JacksonJsonpMapper;
@@ -215,10 +215,10 @@ public class OpenSearchClientExample {
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
 
-    final HttpHost host = new HttpHost("https", "localhost", 9200);
+    final HttpHost host = new HttpHost("https", 9200, "localhost");
     final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     //Only for demo purposes. Don't specify your credentials in code.
-    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin".toCharArray()));
+    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin"));
 
     //Initialize the client with SSL and TLS enabled
     final RestClient restClient = RestClient.builder(host).
