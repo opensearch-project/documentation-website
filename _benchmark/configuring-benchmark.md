@@ -7,7 +7,7 @@ has_children: false
 
 # Configuring OpenSearch Benchmark
 
-OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini` which is automatically created the first time OpenSearch Benchmark runs. 
+OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini`, which is automatically created the first time OpenSearch Benchmark runs. 
 
 The file is separated into the following sections, which you can customize based on the needs of your cluster.
 
