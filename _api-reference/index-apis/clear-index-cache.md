@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 320
 ---
 
-## Clear index or data stream cache
+# Clear index or data stream cache
 
 The clear cache API operation clears the caches of one or more indexes. For data streams, the API clears the caches of the stream’s backing indexes.
 
@@ -13,14 +13,14 @@ The clear cache API operation clears the caches of one or more indexes. For data
 If you use the Security plugin, you must have the `manage index` privileges.
 {: .note}
 
-### Path parameters
+## Path parameters
 
 | Parameter | Data type | Description |
 :--- | :--- | :---
 | target | String | Comma-delimited list of data streams, indexes, and index aliases to which cache clearing is applied. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, omit this parameter or use `_all` or `*`. Optional. |
 
 
-### Query parameters
+## Query parameters
 
 All query parameters are optional.
 
@@ -30,17 +30,17 @@ All query parameters are optional.
 | expand_wildcards | String | Determines the index types that wildcard expressions can expand to. Accepts multiple values separated by a comma, such as  `open,hidden`. Valid values are: <br /><br /> `all` -- Expand to open, closed, and hidden indexes.<br /><br />`open` -- Expand only to open indexes.<br /><br />`closed` -- Expand only to closed indexes<br /><br />`hidden` -- Expand to include hidden indexes. Must be combined with `open`, `closed`, or `both`.<br /><br />`none` -- Expansions are not accepted.<br /><br /> Defaults to `open`. |
 | fielddata | Boolean | If `true`, clears the fields cache. Use the `fields` parameter to clear specific fields' caches.  Defaults to `true`. |
 | fields | String | Used in conjunction with the `fielddata` parameter. Comma-delimited list of field names that are cleared out of the cache. Does not support objects or field aliases. Defaults to all fields. |
-| file | Boolean | If `true`, clears the unused entries from the file cache on search-capable nodes. Defaults to `false`. |
+| file | Boolean | If `true`, clears the unused entries from the file cache on nodes with the Search role. Defaults to `false`. |
 | index | String | Comma-delimited list of index names that are cleared out of the cache. |
 | ignore_unavailable | Boolean | If `true`, OpenSearch ignores missing or closed indexes. Defaults to `false`. |
 | query | Boolean | If `true`, clears the query cache. Defaults to `true`. |
 | request | Boolean | If `true`, clears the request cache. Defaults to `true`. |
 
-#### Example requests
+## Example requests
 
 The following example requests show multiple clear cache API uses.
 
-##### Clear a specific cache
+### Clear a specific cache
 
 The following request clears the fields cache only:
 
@@ -67,7 +67,7 @@ POST /my-index/_cache/clear?request=true
 ```
 {% include copy-curl.html %}
 
-##### Clear the cache for specific fields
+### Clear the cache for specific fields
 
 The following request clears the fields caches of `fielda` and `fieldb`:
 
@@ -76,7 +76,7 @@ POST /my-index/_cache/clear?fields=fielda,fieldb
 ```
 {% include copy-curl.html %}
 
-##### Clear caches for specific data streams and indexes
+### Clear caches for specific data streams and indexes
 
 The following request clears the cache for two specific indexes:
 
@@ -85,7 +85,7 @@ POST /my-index,my-index2/_cache/clear
 ```
 {% include copy-curl.html %}
 
-##### Clear caches for all data streams and indexes
+### Clear caches for all data streams and indexes
 
 The following request clears the cache for all data streams and indexes:
 
@@ -94,14 +94,14 @@ POST /_cache/clear
 ```
 {% include copy-curl.html %}
 
-#### Clear unused entries from the cache on search-capable nodes
+### Clear unused entries from the cache on search-capable nodes
 
 ```json
 POST /*/_cache/clear?file=true 
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The `POST /books,hockey/_cache/clear` request returns the following fields:
 
@@ -115,7 +115,7 @@ The `POST /books,hockey/_cache/clear` request returns the following fields:
 }
 ```
 
-### Response fields
+## Response fields
 
 The `POST /books,hockey/_cache/clear` request returns the following response fields:
 
