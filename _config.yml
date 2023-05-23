@@ -73,6 +73,9 @@ collections:
   clients:
     permalink: /:collection/:path/
     output: true
+  benchmark:
+    permalink: /:collection/:path/
+    output: true
   data-prepper: 
     permalink: /:collection/:path/
     output: true
@@ -138,6 +141,9 @@ just_the_docs:
       nav_fold: true
     clients:
       name: Clients
+      nav_fold: true
+    benchmark:
+      name: OpenSearch Benchmark
       nav_fold: true
     data-prepper: 
       name: Data Prepper
