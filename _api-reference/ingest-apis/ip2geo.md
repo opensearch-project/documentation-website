@@ -10,24 +10,24 @@ nav_order: 10
 Introduced 2.8
 {: .label .label-purple }
 
-Information about the geolocation of an IP address can be used for a variety of purposes:
+The OpenSearch `IP2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `IP2geo` processor uses GeoIP data from an external endpoint and therefore requires an additional component `datasource` that defines from where to download GeoIP data and how frequently to update the data.
 
--   **Content personalization:** You can use IP geolocation information to personalize content for your users based on their location. For example, you could show different versions of your website to users from different countries. 
--   **Security:** You can use GeoIP to block access to your website from certain countries. This can be helpful to protect your website from attacks or to comply with regulations.
--   **Analytics:** You can use GeoIP to track the geographic location of your website visitors. This information can be used to learn more about your audience and to improve your marketing campaigns. 
+## Installing the IP2geo processor
 
-The OpenSearch `Ip2geo` processor adds geographical information about IP addresses based on data from the [MaxMind GeoIP2 databases](https://www.maxmind.com/en/geoip2-databases). This processor adds the geolocation information by default under the `<field_name>` and auto-updates the GeoIP2 databases based on a set interval, keeping geolocation data up-to-date and accurate. 
+To use the `IP2geo` processor, the `opensearch-geospatial` plugin must be installed first. Learn more in the [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) documentation.
 
-## Installing the Ip2geo processor
+## Creating the IP2geo processor
 
 OpenSearch provides three endpoints for GeoLite2 City, GeoLite2 Country, and GeoLite2 ASN GeoIP2 databases from [MaxMind](http://dev.maxmind.com/geoip/geoip2/geolite2/), shared under the CC BY-SA 4.0 license.
+
 * GeoLite2 City: https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json
 * GeoLite2 Country: https://geoip.maps.opensearch.org/v1/geolite2-country/manifest.json
 * GeoLite2 ASN: https://geoip.maps.opensearch.org/v1/geolite2-asn/manifest.json
 
-If OpenSearch cannot update a datasource from those three endpoints above in 30 days, OpenSearch will not add GeoIP data in documents. Instead it will add `"error":"ip2geo_data_expired"`
+If OpenSearch cannot update a datasource from those three endpoints in 30 days, OpenSearch does not add GeoIP data to documents, instead it adds `"error":"ip2geo_data_expired"`.
 
-The following table describes options of IP2geo datasource
+The following table describes the IP2geo datasource options.
+
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
 | endpoint | no | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint to download GeoIP data|
@@ -35,9 +35,10 @@ The following table describes options of IP2geo datasource
 
 The following code example shows how to create a Ip2Geo datasource.
 
-#### Example: JSON POST request
+#### Example: Request
 
 ````json
+PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 {
     "endpoint" : "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
     "update_interval_in_days" : 3
@@ -58,29 +59,60 @@ The following code example shows the JSON reponse to the preceding request. A tr
 
 To get information about one or more IP2geo datasource, send a GET request.  
 
-#### Example: GET request
+#### Example: Request
 
 ```
-GET https://<host>:<port>/_plugins/geospatial/ip2geo/datasource/_all
+GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 
-#### Example: GET response
+#### Example: Response
 
 ```
-<insert-response-example>
+{
+  "datasources": [
+    {
+      "name": "my-datasource",
+      "state": "AVAILABLE",
+      "endpoint": "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
+      "update_interval_in_days": 3,
+      "next_update_at_in_epoch_millis": 1685125612373,
+      "database": {
+        "provider": "maxmind",
+        "sha256_hash": "0SmTZgtTRjWa5lXR+XFCqrZcT495jL5XUcJlpMj0uEA=",
+        "updated_at_in_epoch_millis": 1684429230000,
+        "valid_for_in_days": 30,
+        "fields": [
+          "country_iso_code",
+          "country_name",
+          "continent_name",
+          "region_iso_code",
+          "region_name",
+          "city_name",
+          "time_zone",
+          "location"
+        ]
+      },
+      "update_stats": {
+        "last_succeeded_at_in_epoch_millis": 1684866730192,
+        "last_processing_time_in_millis": 317640,
+        "last_failed_at_in_epoch_millis": 1684866730492,
+        "last_skipped_at_in_epoch_millis": 1684866730292
+      }
+    }
+  ]
+}
 ```
-
 
 ## Updating IP2geo datasource
 
 Update IP2geo datasource. The GeoIP data from the new endpoint should contain all fields in GeoIP data from the current endpoint for the update to succeed.
 
-#### Example: PUT request
+#### Example: Request
 
 ```json
 {
-    "endpoint": https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json
-    "update_interval_in_days": 1
+    "endpoint": https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json,
+    "update_interval_in_days": 10
 }
 ```
 
@@ -94,9 +126,9 @@ Update IP2geo datasource. The GeoIP data from the new endpoint should contain al
 
 ## Creating the IP2geo processor
 
-Create an IP2geo processor
 
-#### Example: PUT request
+
+#### Example: Request
 
 ```json
 {
@@ -104,18 +136,19 @@ Create an IP2geo processor
    "processors":[
     {
         "ip2geo":{
-            "field":"_ip",
-            "datsource"::"test1"
+            "field":"ip",
+            "datasource":"my-datasource"
         }
     }
    ] 
 }
 
-
 #### Example: Response
 
 ```json
-<insert-example-response>
+{
+	"acknowledged": true
+}
 ```
 
 ## Using the IP2geo processor in a pipeline
