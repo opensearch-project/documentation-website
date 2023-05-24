@@ -19,7 +19,7 @@ The IP2geo processor adds information about the geographical location of an IPv4
 
 IP2geo processor uses GeoIP data from an external endpoint. Therefore, it requires an additional component `datasource` which defines where to download a GeoIP data from and how frequently we want to update the data.
 
-## Installing the Ip2geo processor
+## Installing the IP2geo processor
 
 To use the `IP2geo` processor, the `opensearch-geospatial` plugin must be installed first. Learn more in the [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) documentation.
 
