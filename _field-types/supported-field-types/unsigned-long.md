@@ -52,7 +52,7 @@ If a field of type `unsigned_long` has the `store` parameter set to `true` (that
 
 ## Querying
 
-`unsigned_long` fields support most of the queries that other numeric types support. For example you can use a term query on `unsigned_long` fields:
+`unsigned_long` fields support most of the queries that other numeric types support. For example, you can use a term query on `unsigned_long` fields:
 
 ```json
 POST _search
