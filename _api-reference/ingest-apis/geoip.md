@@ -21,7 +21,7 @@ IP2geo processor uses GeoIP data from an external endpoint. Therefore, it requir
 
 ## Installing the Ip2geo processor
 
-To install the `Ip2geo` processor, the `opensearch-geospatial` plugin must be installed first. Learn more in the [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) documentation.
+To use the `IP2geo` processor, the `opensearch-geospatial` plugin must be installed first. Learn more in the [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) documentation.
 
 ## Creating the data source
 
