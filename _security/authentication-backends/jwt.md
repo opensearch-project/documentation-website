@@ -4,12 +4,13 @@ title: JSON Web Token
 parent: Authentication backends
 nav_order: 47
 redirect_from:
-  - /security-plugin/configuration/openid-connect/
+  - /security/configuration/configuration/
 ---
+
 
 # JSON Web Token
 
-JWTs are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems:
+JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems:
 
 1. A user logs in to an authentication server by providing credentials (for example, a user name and password).
 1. The authentication server validates the credentials.
@@ -21,6 +22,7 @@ JWTs are JSON-based access tokens that assert one or more claims. They are commo
 
 A JWT is self-contained in the sense that it carries within itself all of the information necessary to verify a user. The tokens are base64-encoded, signed JSON objects.
 
+
 ## JWT elements
 
 JWTs consist of three parts:
@@ -29,7 +31,6 @@ JWTs consist of three parts:
 1. Payload
 1. Signature
 
-Each part of the JWT is described in the following sections.
 
 ### Header
 
@@ -42,12 +43,12 @@ The header contains information about the used signing mechanism, as shown in th
 }
 ```
 
-In this case, the header states that the message was signed using HMAC-SHA256.
+In this case, the header states that the message was signed using the hashing algorithm HMAC-SHA256.
 
 
 ### Payload
 
-The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim can be any piece of information about the user that the application that created the token has verified.
+The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim is a piece of information about a user that serves as a unique identifier, which allows the issuer of the token to verify identity. Claims are key/value pairs, and a payload typically includes multiple claims. While there are many types of claims, common practice is to keep their number at a minumum to avoid making the payload too large.
 
 The specification defines a set of standard claims with reserved names, referred to as [registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims). Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
 
@@ -222,7 +223,7 @@ Ensure that the JWT token contains the correct `iat` (issued at), `nbf` (not bef
 
 #### JWT URL parameter
 
-When using  the JWT URL parameter containing the default admin role `all_access` against OpenSearch (for example, `curl http://localhost:9200?jwtToken=<jwt-token>`) the request fails with:
+When using the JWT URL parameter containing the default admin role `all_access` against OpenSearch (for example, `curl http://localhost:9200?jwtToken=<jwt-token>`) the request fails with:
 
 ```json
 {
@@ -253,7 +254,7 @@ The user should appear in the **Mapped Users** tab.
 
 Even though JWT URL parameter authentication works when querying OpenSearch directly, it fails when used to access OpenSearch Dashboards. 
 
-**Solution:** Ensure the following lines are present in the OpenSearch Dashboards config file `opensearch_dashboards.yml`
+**Solution:** Ensure the following lines are present in the OpenSearch Dashboards configuration file `opensearch_dashboards.yml`
 
 ```yml
 opensearch_security.auth.type: "jwt"
