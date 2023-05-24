@@ -152,7 +152,7 @@ To delete the `IP2geo` processor, send a DELETE request.
 ```
 ## Deleting the data source
 
-To delete the data source, send a DELETE request. Note that if you have another processors that uses the data source, the delete fails. To delete the dat source, you must delete all processors associated with the data source. 
+Delete GeoIP datasource. Note that if you have processors that use the datasource, the delete requests will fail. To delete the datasource, you must delete all processors associated with the datasource first. 
 
 #### Example: DELETE request
 
