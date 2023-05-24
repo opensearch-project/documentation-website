@@ -1,6 +1,6 @@
 ---
 layout: default
-title: IP geolocation processor
+title: IP2geo processor
 parent: Ingest APIs
 nav_order: 30
 ---
