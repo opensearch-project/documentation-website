@@ -15,7 +15,9 @@ Information about the geolocation of an IP address can be used for a variety of 
 -   **Security:** You can use GeoIP to block access to your website from certain countries. This can be helpful to protect your website from attacks or to comply with regulations.
 -   **Analytics:** You can use GeoIP to track the geographic location of your website visitors. This information can be used to learn more about your audience and to improve your marketing campaigns. 
 
-The OpenSearch `Ip2geo` processor adds geographical information about IP addresses based on data from the [MaxMind GeoIP2 databases](https://www.maxmind.com/en/geoip2-databases). This processor adds the geolocation information by default under the `<field_name>` and auto-updates the GeoIP2 databases based on a set interval, keeping geolocation data up-to-date and accurate. 
+The IP2geo processor adds information about the geographical location of an IPv4 or IPv6 address.
+
+IP2geo processor uses GeoIP data from an external endpoint. Therefore, it requires an additional component `datasource` which defines where to download a GeoIP data from and how frequently we want to update the data.
 
 ## Installing the Ip2geo processor
 
