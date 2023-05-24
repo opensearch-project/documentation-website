@@ -23,7 +23,7 @@ IP2geo processor uses GeoIP data from an external endpoint. Therefore, it requir
 
 To use the `IP2geo` processor, the `opensearch-geospatial` plugin must be installed first. Learn more in the [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) documentation.
 
-## Creating the data source
+## Creating the IP2geo datasource
 
 Once you've installed the `Ip2geo` processor, create the  IP geolocation data source by defining the endpoint value to download geolocation data and specify the data update interval. The endpoint value must contain valid data formats, for example, <insert-example>. The minimum update interval is 1 day. The maximum is determined by the database provider. 
 
