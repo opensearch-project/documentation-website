@@ -40,7 +40,7 @@ The following table describes options of IP2geo datasource
 | endpoint | no | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint to download GeoIP data|
 | update_interval_in_days | no | 3 | The frequency in days to update GeoIP data with minimum value as 1 |
 
-The following code example shows how to create a data source using the OpenSearch default endpoint value, which is used if the endpoint value is empty, and update interval of 3 days.
+The following code example shows how to create a Ip2Geo datasource.
 
 #### Example: JSON POST request
 
