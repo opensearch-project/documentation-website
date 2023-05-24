@@ -18,7 +18,6 @@ Most REST APIs supported by OpenSearch are included in this reference. If you kn
 
 ## Related articles 
 
-- [Alias]({{site.url}}{{site.baseurl}}/api-reference/alias/)
 - [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/index/)
 - [CAT APIs]({{site.url}}{{site.baseurl}}/api-reference/cat/index/)
 - [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/)
