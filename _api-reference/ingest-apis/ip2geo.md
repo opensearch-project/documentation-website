@@ -1,11 +1,12 @@
 ---
 layout: default
 title: IP2geo processor
-parent: Ingest APIs
-nav_order: 30
+grand_parent: Ingest APIs
+parent: Processors
+nav_order: 10
 ---
 
-# IP geolocation processor 
+# IP2geo processor 
 Introduced 2.8
 {: .label .label-purple }
 
@@ -15,17 +16,9 @@ Information about the geolocation of an IP address can be used for a variety of 
 -   **Security:** You can use GeoIP to block access to your website from certain countries. This can be helpful to protect your website from attacks or to comply with regulations.
 -   **Analytics:** You can use GeoIP to track the geographic location of your website visitors. This information can be used to learn more about your audience and to improve your marketing campaigns. 
 
-The IP2geo processor adds information about the geographical location of an IPv4 or IPv6 address.
+The OpenSearch `Ip2geo` processor adds geographical information about IP addresses based on data from the [MaxMind GeoIP2 databases](https://www.maxmind.com/en/geoip2-databases). This processor adds the geolocation information by default under the `<field_name>` and auto-updates the GeoIP2 databases based on a set interval, keeping geolocation data up-to-date and accurate. 
 
-IP2geo processor uses GeoIP data from an external endpoint. Therefore, it requires an additional component `datasource` which defines where to download a GeoIP data from and how frequently we want to update the data.
-
-## Installing the IP2geo processor
-
-To use the `IP2geo` processor, the `opensearch-geospatial` plugin must be installed first. Learn more in the [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) documentation.
-
-## Creating the IP2geo datasource
-
-Create the IP2geo datasource by defining the endpoint value to download GeoIP data and specify the update interval. 
+## Installing the Ip2geo processor
 
 OpenSearch provides three endpoints for GeoLite2 City, GeoLite2 Country, and GeoLite2 ASN GeoIP2 databases from [MaxMind](http://dev.maxmind.com/geoip/geoip2/geolite2/), shared under the CC BY-SA 4.0 license.
 * GeoLite2 City: https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json
