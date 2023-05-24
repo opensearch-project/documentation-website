@@ -77,7 +77,6 @@ GET https://<host>:<port>/_plugins/geospatial/ip2geo/datasource/_all
 <insert-response-example>
 ```
 
-The reponse shows information for each field (for example, `name`, `endpoint`, `provider`) in the data source file, when the data source file last updated successfully or failed (for example, `last_succeeded_at_in_epoch_millis`), and fields (for example, `fields`) added to the file since you last updated it.
 
 ## Updating the data source
 
