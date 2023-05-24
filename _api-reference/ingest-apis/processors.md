@@ -43,3 +43,8 @@ Here is an example of an ingest pipeline that uses a few different processors.
 ```
 
 The pipeline would remove th ip_address field for incoming documents, set the last_updated field to the current date and time, and convert the value of the name field to lowercase.
+
+## Next steps
+
+- Learn about ingest processors in OpenSearch under the Processors section.
+- Learn about ingest pipelines in OpenSearch under the [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) section.
