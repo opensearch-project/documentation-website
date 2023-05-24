@@ -80,7 +80,7 @@ GET https://<host>:<port>/_plugins/geospatial/ip2geo/datasource/_all
 
 ## Updating IP2geo datasource
 
-To update the data source file, send a PUT request. You can continue using the current endpoint value or change it. Note that if the new endpoint value contains fields that are not in the current data source file, the update fails. You also can change the update interval.  
+Update IP2geo datasource. The GeoIP data from the new endpoint should contain all fields in GeoIP data from the current endpoint for the update to succeed.
 
 #### Example: PUT request
 
