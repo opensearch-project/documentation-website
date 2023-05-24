@@ -63,7 +63,7 @@ The following code example shows the JSON reponse to the preceding request. A tr
 
 ## Sending a GET request
 
-To request data from the specifed database you created, send a GET request.  
+To get information about one or more IP2geo datasource, send a GET request.  
 
 #### Example: GET request
 
