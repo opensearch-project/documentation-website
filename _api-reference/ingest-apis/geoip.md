@@ -127,7 +127,7 @@ Create an IP2geo processor
 
 ## Using the IP2geo processor in a pipeline
 
-The following table describes <what>.
+The following table describes `ip2geo` options
 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
