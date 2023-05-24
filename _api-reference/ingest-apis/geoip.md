@@ -25,7 +25,20 @@ To use the `IP2geo` processor, the `opensearch-geospatial` plugin must be instal
 
 ## Creating the IP2geo datasource
 
-Once you've installed the `Ip2geo` processor, create the  IP geolocation data source by defining the endpoint value to download geolocation data and specify the data update interval. The endpoint value must contain valid data formats, for example, <insert-example>. The minimum update interval is 1 day. The maximum is determined by the database provider. 
+Create the IP2geo datasource by defining the endpoint value to download GeoIP data and specify the update interval. 
+
+OpenSearch provides three endpoints for GeoLite2 City, GeoLite2 Country, and GeoLite2 ASN GeoIP2 databases from [MaxMind](http://dev.maxmind.com/geoip/geoip2/geolite2/), shared under the CC BY-SA 4.0 license.
+* GeoLite2 City: https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json
+* GeoLite2 Country: https://geoip.maps.opensearch.org/v1/geolite2-country/manifest.json
+* GeoLite2 ASN: https://geoip.maps.opensearch.org/v1/geolite2-asn/manifest.json
+
+If OpenSearch cannot update a datasource from those three endpoints above in 30 days, OpenSearch will not add GeoIP data in documents. Instead it will add `"error":"ip2geo_data_expired"`
+
+The following table describes options of IP2geo datasource
+| Name | Required | Default | Description |
+|------|----------|---------|-------------|
+| endpoint | no | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint to download GeoIP data|
+| update_interval_in_days | no | 3 | The frequency in days to update GeoIP data with minimum value as 1 |
 
 The following code example shows how to create a data source using the OpenSearch default endpoint value, which is used if the endpoint value is empty, and update interval of 3 days.
 
