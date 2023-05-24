@@ -101,7 +101,7 @@ Update IP2geo datasource. The GeoIP data from the new endpoint should contain al
 
 ## Creating the IP2geo processor
 
-Once the data source is created, you can create the `Ip2geo` processor. To create the processor, send a PUT request.
+Create an IP2geo processor
 
 #### Example: PUT request
 
