@@ -34,7 +34,7 @@ a33845cc-c2e5-4488-a2db-b0670741ff9b  20230523T213145Z           geonames       
 
 ```
 
-Then, use `compare` to call a `--baseline` test and a  `--contender` test to compare to the baseline.
+Then, use `compare` to call a `--baseline` test and a  `--contender` test for comparison.
 
 ```
 opensearch-benchmark compare --baseline=417ed42-6671-9i79-11a1-e367636068ce --contender=beb154e4-0a05-4f45-ad9f-e34f9a9e51f7
@@ -122,11 +122,11 @@ Query latency country_agg_cached (100.0 percentile) [ms]     3.42547      2.8681
 
 You can use the following options to customize the results of your test comparison:
 
-- `--baseline`: The baseline TestExecution ID for which to compare the contender TestExecution. 
-- `--contender`: The TestExecution ID for the contender for which to compare the baseline.
+- `--baseline`: The baseline TestExecution ID used to compare the contender TestExecution. 
+- `--contender`: The TestExecution ID for the contender being compared to the baseline.
 - `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
 - `--results-number-align`: Defines the column number alignment for when the `compare` command outputs results. Default is `right`.
-- `--results-file`: When provided a file path, writes the compare results to the file indicated.
+- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path.
 - `--show-in-results`: Determines whether or not to include the comparison in the results file.
 
 

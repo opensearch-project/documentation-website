@@ -7,7 +7,7 @@ has_children: true
 
 # OpenSearch Benchmark command reference
 
-This section provides a list of command supported by OpenSearch Benchmark, including for commonly used commands such as `execute-test` and `list`.
+This section provides a list of commands supported by OpenSearch Benchmark, including commonly used commands such as `execute-test` and `list`.
 
 - [compare]({{site.url}}{{site.baseurl}}/benchmark/commands/compare/)
 - [download]({{site.url}}{{site.baseurl}}/benchmark/commands/download/)

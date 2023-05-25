@@ -60,7 +60,7 @@ ba643ed3-0db5-452e-a680-2b0dc0350cf2  20230522T224450Z           geonames       
 
 ## Options
 
-You can use the following options with the `test` command.
+You can use the following options with the `test` command:
 
 - `--limit`: Limits the number of search results for recent test executions. Default is `10`.
 - `--workload-repository`: Defines the repository from where OpenSearch Benchmark loads workloads.

@@ -35,6 +35,6 @@ Use the following options to customize how OpenSearch Benchmark downloads OpenSe
 - `--distribution-version`: Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history](https://opensearch.org/docs/version-history/).
 - `--distribution-repository`: Defines the repository from where the OpenSearch distribution should be downloaded. Default is `release`.
 - `--provision-config-instance`: Defines the `--provision-config-instance` to use. You can see possible configuration instances using the command `opensearch-benchmark list provision-config-instances`. 
-- `--provision-config-instance-params`: A comma-separated list of key:value pairs injected verbatim as variables for the `provision-config-instance`.
+- `--provision-config-instance-params`: A comma-separated list of key-value pairs injected verbatim as variables for the `provision-config-instance`.
 - `--target-os`: The target operating system (OS) for which the OpenSearch artifact should be downloaded. Default is the current OS.
 - `--target-arch`: The name of the CPU architecture for which an artifact should be downloaded.

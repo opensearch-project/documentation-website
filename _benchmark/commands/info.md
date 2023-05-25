@@ -146,7 +146,7 @@ Schedule:
 
 ## Options
 
-You can use the following options with the `info` command.
+You can use the following options with the `info` command:
 
 
 - `--workload-repository`: Defines the repository from where OpenSearch Benchmark loads workloads.
