@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Creating a custom workload
+title: Creating custom workloads
 nav_order: 10
 has_children: false
 ---
 
-# Creating a custom workload
+# Creating custom workloads
 
 OpenSearch Benchmark includes a set of [workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) that you can use to benchmark data from your cluster. Additionally, if you want to create a workload that is tailored to your own data, you can create a custom workload using one of the following options:
 
