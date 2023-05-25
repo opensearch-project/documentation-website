@@ -39,10 +39,10 @@ opensearch-benchmark create-workload \
 Replace the following options in the preceding example with information specific to your existing cluster:
 
 - `--workload`: A custom name for your custom workload.
-- `--target-hosts:` A comma-separated list of host:port pairs that workload targets.
+- `--target-hosts:` A comma-separated list of host:port pairs for the cluster to extract data from.
 - `--client-options`: The basic auth client options OpenSearch Benchmark uses to access the cluster.
 - `--indices`: One or more indexes inside your OpenSearch cluster which contain data.
-- `--out-path`: The directory from which the workload outputs Benchmark metrics.
+- `--output-path`: The directory where OpenSearch Benchmark creates the workload and the workload's configuration files.
 
 The following example response creates a workload named `movies` from a cluster with an index named `movies-info`. The `movies-info` index contains over 2000 documents.
 
@@ -67,11 +67,11 @@ Extracting documents for index [movies]...                    2000/2000 docs [10
 -------------------------------
 ```
 
-As part of workload creation, OpenSearch Benchmark generates the following files. You can access them in directory specified by the `--out-path` option.
+As part of workload creation, OpenSearch Benchmark generates the following files. You can access them in directory specified by the `--output-path` option.
 
 - `workload.json`: Contains general workload specifications.
 - `<index>.json`: Contains mappings and settings for the extracted indexes.
-- `<index>-documents.json`: Contains the sources of every document from the extracted indexes. Any sources suffixed with `-1k` encompasses only a fraction of the document corpus of the workload and will primarily run in the text mode.
+- `<index>-documents.json`: Contains the sources of every document from the extracted indexes. Any sources suffixed with `-1k` encompasses only a fraction of the document corpus of the workload and will only be used when running the workload in test mode.
 
 By default, OpenSearch Benchmark does not contain a reference to generate queries. Because you know your own data the best, we recommend adding a `match_all` query to your `workload.json` file based on your index's specifications, as shown in the following example query:
 

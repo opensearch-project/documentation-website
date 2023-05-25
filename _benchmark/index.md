@@ -18,7 +18,7 @@ OpenSearch Benchmark can be installed directly on a compatible host running Linu
 
 ## Concepts
 
-Before using OpenSearch Benchmark, familarize yourself with the following concepts:
+Before using OpenSearch Benchmark, familiarize yourself with the following concepts:
 
 - **Workload**: The description of one or more benchmarking scenarios that use a specific document corpus from which to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workflow runs. You can list any available workloads by using `opensearch-benchmark list workloads`. You can also view workloads inside the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). If you want more information on building a custom workload, see [Creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-a-custom-workload/).
 
