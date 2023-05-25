@@ -16,3 +16,9 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 OpenSearch Benchmark can be installed directly on a compatible host running Linux and macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) for more information.
 
+## Concepts
+
+Before using OpenSearch Benchmark, familarize yourself with the following concepts:
+
+- **Workload**: The description of one or more benchmarking scenarios that use a specific document corpus from which to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workflow runs. You can list any any available workloads with `opensearch-benchmark list workloads`. You can also view workloads inside the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). If you want more information on building a custom workload, see [Creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-a-custom-workload/).
+- **Test**: A single invocation of the OpenSearch Benchmark binary.

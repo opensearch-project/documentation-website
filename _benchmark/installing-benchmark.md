@@ -153,3 +153,4 @@ See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/co
 ## Next steps
 
 - [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)
+- [Creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-a-custom-workload/)
