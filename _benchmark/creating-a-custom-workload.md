@@ -102,11 +102,11 @@ To build a workload with source files, create a directory for your workload and 
 1. Build a `<index>-documents.json` file, which contains rows of documents that comprises the document corpora of the workload and houses all data to be ingested and queried into the cluster. The following example shows the first few rows of a `movies-documents.json` file that contains rows of documents about famous movies:
 
    ```json
-   # First few rows of movies-documents.json 
-   {"title": "Back to the Future", "director": "Alice Luu", "revenue": "$5769825 USD", "rating": "5 out of 10", "image_url": "https://imdb.com/images/32"}
-   {"title": "Avengers: Endgame", "director": "Charlie Kamat", "revenue": "$8570054 USD", "rating": "3 out of 10", "image_url": "https://imdb.com/images/2"}
-   {"title": "The Grand Budapest Hotel", "director": "David Luu", "revenue": "$2359060 USD", "rating": "8 out of 10", "image_url": "https://imdb.com/images/65"}
-   {"title": "The Godfather: Part II", "director": "Charlie Edwards", "revenue": "$4530696 USD", "rating": "4 out of 10", "image_url": "https://imdb.com/images/7"}
+  # First few rows of movies-documents.json 
+  {"title": "Back to the Future", "director": "Robert Zemeckis", "revenue": "$212,259,762 USD", "rating": "8.5 out of 10",  "image_url": "https://imdb.com/images/32"}
+  {"title": "Avengers: Endgame", "director": "Anthony and Joe Russo", "revenue": "$2,800,000,000 USD", "rating": "8.4 out   of 10", "image_url": "https://imdb.com/images/2"}
+  {"title": "The Grand Budapest Hotel", "director": "Wes Anderson", "revenue": "$173,000,000 USD", "rating": "8.1 out of 10", "image_url": "https://imdb.com/images/65"}
+  {"title": "The Godfather: Part II", "director": "Francis Ford Coppola", "revenue": "$48,000,000 USD", "rating": "9 out of 10", "image_url": "https://imdb.com/images/7"}
    ```
 
 2. In the same directory, build a `index.json` file. The workload uses this file as a reference for data mappings and index settings for the documents contained in `<index>-documents.json`. The following example creates mappings and settings specific to the `movie-documents.json` data from the previous step:
