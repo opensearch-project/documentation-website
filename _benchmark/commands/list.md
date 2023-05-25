@@ -19,7 +19,7 @@ The `list` command lists the following elements used by OpenSearch Benchmark:
 
 ## Usage
 
-The following example lists tests ran inside a workload:
+The following example lists any workload test runs and detailed information about each test.
 
 ```
 `opensearch-benchmark list test_executions
