@@ -17,7 +17,7 @@ Field data type | Description
 :--- | :--- 
 [`alias`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/alias/) | An additional name for an existing field.
 [`binary`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) |  A binary value in Base64 encoding. 
-[Numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) | `byte`, `double`, `float`, `half_float`, `integer`, `long`, `scaled_float`, `short`.
+[Numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) | `byte`, `double`, `float`, `half_float`, `integer`, `long`, `unsigned_long`, `scaled_float`, `short`.
 [`boolean`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/boolean/) | A Boolean value. 
 [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) | A date value as a formatted string, a long value, or an integer. 
 [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) | An IP address in IPv4 or IPv6 format. 
