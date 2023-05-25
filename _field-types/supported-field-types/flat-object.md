@@ -5,6 +5,8 @@ nav_order: 43
 has_children: false
 parent: Object field types
 grand_parent: Supported field types
+redirect_from:
+  - /field-types/flat-object/
 ---
 
 # Flat object field type

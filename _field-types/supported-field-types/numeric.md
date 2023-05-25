@@ -3,7 +3,7 @@ layout: default
 title: Numeric field types
 parent: Supported field types
 nav_order: 15
-has_children: false
+has_children: true
 redirect_from:
   - /opensearch/supported-field-types/numeric/
   - /field-types/numeric/
@@ -15,15 +15,14 @@ The following table lists all numeric field types that OpenSearch supports.
 
 Field data type | Description  
 :--- | :--- 
-`byte` | A signed 8-bit integer. Minimum is -128. Maximum is 127.
-`double` | A double-precision 64-bit IEEE 754 floating-point value. Minimum magnitude is 2<sup>-1074 </sup>. Maximum magnitude is (2 &minus; 2<sup>-52</sup>) &middot; 2<sup>1023</sup>. The number of significant bits is 53. The number of significant digits is 15.95.
-`float` | A single-precision 32-bit IEEE 754 floating-point value. Minimum magnitude is 2<sup>-149 </sup>. Maximum magnitude is (2 &minus; 2<sup>-23</sup>) &middot; 2<sup>127</sup>. The number of significant bits is 24. The number of significant digits is 7.22.
-`half_float` | A half-precision 16-bit IEEE 754 floating-point value. Minimum magnitude is 2<sup>-24 </sup>. Maximum magnitude is 65504. The number of significant bits is 11. The number of significant digits is 3.31.
-`integer` | A signed 32-bit integer. Minimum is -2<sup>31</sup>. Maximum is 2<sup>31</sup> &minus; 1.
-`long` | A signed 64-bit integer. Minimum is -2<sup>63</sup>. Maximum is 2<sup>63</sup> &minus; 1.
-`short` | A signed 16-bit integer. Minimum is -2<sup>15</sup>. Maximum is 2<sup>15</sup> &minus; 1. 
-
-:--- | :--- 
+`byte` | A signed 8-bit integer. Minimum is &minus;128. Maximum is 127.
+`double` | A double-precision 64-bit IEEE 754 floating-point value. Minimum magnitude is 2<sup>&minus;1074 </sup>. Maximum magnitude is (2 &minus; 2<sup>&minus;52</sup>) &middot; 2<sup>1023</sup>. The number of significant bits is 53. The number of significant digits is 15.95.
+`float` | A single-precision 32-bit IEEE 754 floating-point value. Minimum magnitude is 2<sup>&minus;149 </sup>. Maximum magnitude is (2 &minus; 2<sup>&minus;23</sup>) &middot; 2<sup>127</sup>. The number of significant bits is 24. The number of significant digits is 7.22.
+`half_float` | A half-precision 16-bit IEEE 754 floating-point value. Minimum magnitude is 2<sup>&minus;24 </sup>. Maximum magnitude is 65504. The number of significant bits is 11. The number of significant digits is 3.31.
+`integer` | A signed 32-bit integer. Minimum is &minus;2<sup>31</sup>. Maximum is 2<sup>31</sup> &minus; 1.
+`long` | A signed 64-bit integer. Minimum is &minus;2<sup>63</sup>. Maximum is 2<sup>63</sup> &minus; 1.
+[`unsigned_long`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/unsigned-long/) | An unsigned 64-bit integer. Minimum is 0. Maximum is 2<sup>64</sup> &minus; 1.
+`short` | A signed 16-bit integer. Minimum is &minus;2<sup>15</sup>. Maximum is 2<sup>15</sup> &minus; 1. 
 [`scaled_float`](#scaled-float-field-type) | A floating-point value that is multiplied by the double scale factor and stored as a long value.
 
 Integer, long, float, and double field types have corresponding [range field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/).
