@@ -70,35 +70,80 @@ sinh | `sinh(number T) -> double` | `SELECT sinh(0.5) FROM my-index LIMIT 1`
 tan | `tan(number T) -> double` | `SELECT tan(0.5) FROM my-index LIMIT 1`
 
 ## Date and time
+Functions marked with * are only available in SQL.
 
 Function | Specification | Example
 :--- | :--- | :---
 adddate | `adddate(date, INTERVAL expr unit) -> date` | `SELECT adddate(date('2020-08-26'), INTERVAL 1 hour) FROM my-index LIMIT 1`
+addtime | `addtime(date, date) -> date` | `SELECT addtime(date('2008-12-12'), date('2008-12-12'))`
+convert_tz | `convert_tz(date, string, string) -> date` | `SELECT convert_tz('2008-12-25 05:30:00', '+00:00', 'America/Los_Angeles')`
+curtime | `curtime() -> time` | `SELECT curtime()`
 curdate | `curdate() -> date` | `SELECT curdate() FROM my-index LIMIT 1`
+current_date | `current_date() -> date` | `SELECT current_date() FROM my-index LIMIT 1`
+current_time | `current_time() -> time` | `SELECT current_time()`
+current_timestamp | `current_timestamp() -> date` | `SELECT current_timestamp() FROM my-index LIMIT 1`
 date | `date(date) -> date` | `SELECT date() FROM my-index LIMIT 1`
+datediff | `datediff(date, date) -> integer` | `SELECT datediff(date('2000-01-02'), date('2000-01-01'))`
+datetime | `datetime(string) -> datetime` | `SELECT datetime('2008-12-25 00:00:00')`
+date_add | `date_add(date, INTERVAL integer UNIT)` | `SELECT date_add('2020-08-26'), INTERVAL 1 HOUR)`
 date_format | `date_format(date, string) -> string` or `date_format(date, string, string) -> string` | `SELECT date_format(date, 'Y') FROM my-index LIMIT 1`
 date_sub | `date_sub(date, INTERVAL expr unit) -> date` | `SELECT date_sub(date('2008-01-02'), INTERVAL 31 day) FROM my-index LIMIT 1`
 dayofmonth | `dayofmonth(date) -> integer` | `SELECT dayofmonth(date) FROM my-index LIMIT 1`
+day | `day(date) -> integer` | `SELECT day(date('2020-08-25'))`
 dayname | `dayname(date) -> string` | `SELECT dayname(date('2020-08-26')) FROM my-index LIMIT 1`
+dayofmonth |  `dayofmonth(date) -> integer` | `SELECT dayofmonth(date) FROM my-index LIMIT 1`
+dayofweek |  `dayofweek(date) -> integer` | `SELECT dayofweek(date) FROM my-index LIMIT 1`
 dayofyear | `dayofyear(date) -> integer` | `SELECT dayofyear(date('2020-08-26')) FROM my-index LIMIT 1`
 dayofweek | `dayofweek(date) -> integer` | `SELECT dayofweek(date('2020-08-26')) FROM my-index LIMIT 1`
+day_of_month\* | `day_of_month(date) -> integer` | `SELECT day_of_month(date) FROM my-index LIMIT 1`
+day_of_week\* | `day_of_week(date) -> integer` | `SELECT day_of_week(date('2020-08-26')) FROM my-index LIMIT 1`
+day_of_year\* | `day_of_year(date) -> integer` | `SELECT day_of_year(date('2020-08-26')) FROM my-index LIMIT 1`
+extract\* | `extract(part FROM date) -> integer` | `SELECT extract(MONTH FROM datetime('2020-08-26 10:11:12'))`
 from_days | `from_days(N) -> integer` | `SELECT from_days(733687) FROM my-index LIMIT 1`
+from_unixtime | `from_unixtime(N) -> date` | `SELECT from_unixtime(1220249547)`
+get_format | `get_format(PART, string) -> string` | `SELECT get_format(DATE, 'USA')`
 hour | `hour(time) -> integer` | `SELECT hour((time '01:02:03')) FROM my-index LIMIT 1`
+hour_of_day\* | `hour_of_day(time) -> integer` | `SELECT hour_of_day((time '01:02:03')) FROM my-index LIMIT 1`
+last_day\* | `last_day(date) -> integer` | `SELECT last_day(date('2020-08-26'))`
+localtime | `localtime() -> date` | `SELECT localtime() FROM my-index LIMIT 1`
+localtimestamp | `localtimestamp() -> date` | `SELECT localtimestamp() FROM my-index LIMIT 1`
+makedate | `makedate(double, double) -> date` | `SELECT makedate(1945, 5.9)`
 maketime | `maketime(integer, integer, integer) -> date` | `SELECT maketime(1, 2, 3) FROM my-index LIMIT 1`
 microsecond | `microsecond(expr) -> integer` | `SELECT microsecond((time '01:02:03.123456')) FROM my-index LIMIT 1`
 minute | `minute(expr) -> integer` | `SELECT minute((time '01:02:03')) FROM my-index LIMIT 1`
+minute_of_day\* | `minute_of_day(expr) -> integer` | `SELECT minute_of_day((time '01:02:03')) FROM my-index LIMIT 1`
+minute_of_hour\* | `minute_of_hour(expr) -> integer` | `SELECT minute_of_hour((time '01:02:03')) FROM my-index LIMIT 1`
 month | `month(date) -> integer` | `SELECT month(date) FROM my-index`
+month_of_year\* | `month_of_year(date) -> integer` | `SELECT month_of_year(date) FROM my-index`
 monthname | `monthname(date) -> string` | `SELECT monthname(date) FROM my-index`
 now | `now() -> date` | `SELECT now() FROM my-index LIMIT 1`
+period_add | `period_add(integer, integer)` | `SELECT period_add(200801, 2)`
+period_diff | `period_diff(integer, integer)` | `SELECT period_diff(200802, 200703)`
 quarter | `quarter(date) -> integer` | `SELECT quarter(date('2020-08-26')) FROM my-index LIMIT 1`
 second | `second(time) -> integer` | `SELECT second((time '01:02:03')) FROM my-index LIMIT 1`
+second_of_minute\* | `second_of_minute(time) -> integer` | `SELECT second_of_minute((time '01:02:03')) FROM my-index LIMIT 1`
+sec_to_time\* | `sec_to_time(integer) -> date` | `SELECT sec_to_time(10000)`
 subdate | `subdate(date, INTERVAL expr unit) -> date, datetime` | `SELECT subdate(date('2008-01-02'), INTERVAL 31 day) FROM my-index LIMIT 1`
+subtime | `subtime(date, date) -> date` | `SELECT subtime(date('2008-12-12'), date('2008-11-15'))`
+str_to_date\* | `str_to_date(string, format) -> date` | `SELECT str_to_date("March 10 2000", %M %d %Y")`
 time | `time(expr) -> time` | `SELECT time('13:49:00') FROM my-index LIMIT 1`
-time_to_sec | `time_to_sec(time) -> long` | `SELECT time_to_sec(time '22:23:00') FROM my-index LIMIT 1`
+timediff | `timediff(time, time) -> time` | `SELECT timediff(time('23:59:59'), time('13:00:00'))`
 timestamp | `timestamp(date) -> date` | `SELECT timestamp(date) FROM my-index LIMIT 1`
+timestampadd | `timestampadd(interval, integer, date) -> date)` | `SELECT timestampadd(DAY, 17, datetime('2000-01-01 00:00:00'))`
+timestampdiff | `timestampdiff(interval, date, date) -> integer` | `SELECT timestampdiff(YEAR, '1997-01-01 00:00:00, '2001-03-06 00:00:00')`
+time_format | `time_format(date, string) -> string` | `SELECT time_format('1998-01-31 13:14:15.012345', '%f %H %h %I %i %p %r %S %s %T')`
+time_to_sec | `time_to_sec(time) -> long` | `SELECT time_to_sec(time '22:23:00') FROM my-index LIMIT 1`
 to_days | `to_days(date) -> long` | `SELECT to_days(date '2008-10-07') FROM my-index LIMIT 1`
+to_seconds | `to_seconds(date) -> integer` | `SELECT to_seconds(date('2008-10-07')`
+unix_timestamp | `unix_timestamp(date) -> double` | `SELECT unix_timestamp(timestamp('1996-11-15 17:05:42'))`
+utc_date | `utc_date() -> date` | `SELECT utc_date()`
+utc_time | `utc_time() -> date` | `SELECT utc_time()`
+utc_timestamp | `utc_timestamp() -> date` | `SELECT utc_timestamp()`
 week | `week(date[mode])  -> integer` | `SELECT week(date('2008-02-20')) FROM my-index LIMIT 1`
+weekofyear | `weekofyear(date[mode])  -> integer` | `SELECT weekofyear(date('2008-02-20')) FROM my-index LIMIT 1`
+week_of_year\* | `week_of_year(date[mode])  -> integer` | `SELECT week_of_year(date('2008-02-20')) FROM my-index LIMIT 1`
 year | `year(date) -> integer` | `SELECT year(date) FROM my-index LIMIT 1`
+yearweek\* | `yearweek(date[mode])  -> integer` | `SELECT yearweek(date('2008-02-20')) FROM my-index LIMIT 1`
 
 ## String
 
