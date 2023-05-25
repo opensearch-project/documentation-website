@@ -78,7 +78,7 @@ Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Pytho
 
 ### Completing the installation
 
-After the required is installed, you can install OpenSearch Benchmark using the following command:
+After the required software is installed, you can install OpenSearch Benchmark using the following command:
 
 ```bash
 pip install opensearch-benchmark
@@ -153,3 +153,4 @@ See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/co
 ## Next steps
 
 - [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)
+- [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/)
