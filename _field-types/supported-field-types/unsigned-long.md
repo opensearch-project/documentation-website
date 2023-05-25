@@ -47,12 +47,12 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-If a field of type `unsigned_long` has the `store` parameter set to `true` (that is, the field is a stored field), it will be stored and returned as a string. `unsigned_long` values do not support the decimal part, so if supplied, the decimal part is truncated.
+If a field of type `unsigned_long` has the `store` parameter set to `true` (that is, the field is a stored field), it will be stored and returned as a string. `unsigned_long` values do not support the decimal part, so, if supplied, the decimal part is truncated.
 {: .note}
 
 ## Querying
 
-`unsigned_long` fields support most of the queries that other numeric types support. For example you can use a term query on `unsigned_long` fields:
+`unsigned_long` fields support most of the queries that other numeric types support. For example, you can use a term query on `unsigned_long` fields:
 
 ```json
 POST _search
@@ -68,7 +68,7 @@ POST _search
 ```
 {% include copy-curl.html %}
 
-You can also use a range query as follows:
+You can also use a range query:
 
 ```json
 POST _search
@@ -159,6 +159,6 @@ POST _search
 
 Note the following limitations of the `unsigned_long` field type:
 
-- When aggregations are performed across different numeric types and one of the types is `unsigned_long`, the values are converted to the `double` type and `double` arithmetic is used with high likelihood of precision loss.
+- When aggregations are performed across different numeric types and one of the types is `unsigned_long`, the values are converted to the `double` type and `double` arithmetic is used, with high likelihood of precision loss.
 
-- An `unsigned_long` field cannot be used as an index sort field (in the `sort.field` index setting). This limitation also applies when a search is performed over multiple indexes and the results are sorted by the field that has the `unsigned_long` type in at least one of the indexes but different numeric type or types in others. 
+- An `unsigned_long` field cannot be used as an index sort field (in the `sort.field` index setting). This limitation also applies when a search is performed on multiple indexes and the results are sorted by the field that has the `unsigned_long` type in at least one of the indexes but a different numeric type or types in others. 
