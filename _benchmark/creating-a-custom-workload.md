@@ -7,7 +7,7 @@ has_children: false
 
 # Creating a custom workload
 
-OpenSearch Benchmark comes packaged with a set of [workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) you can use to benchmark data from your cluster. However, if you want to create workload tailored to your own data, create a custom workload using one of the following options:
+OpenSearch Benchmark includes a set of [workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) that you can use to benchmark data from your cluster. Additionally, if you want to create a workload that is tailored to your own data, you can create a custom workload using one of the following options:
 
 - [Creating a workload from an existing cluster](#creating-a-workload-from-an-existing-cluster)
 - [Creating a workload without an existing cluster](#creating-a-workload-without-an-existing-cluster)
@@ -20,12 +20,12 @@ If you already have an OpenSearch cluster with indexed data, use the following s
 
 Before creating a custom workload, make sure you have the following prerequisites:
 
-- An OpenSearch cluster with an index that contains over 1000 documents. If your cluster's index does not contain at least 1000 documents, the workload can still run tests, however, you will not be able to run workloads using `--test-mode`.
-- Make sure you have the correct permissions to access your OpenSearch cluster. For more information about cluster permissions, see [Permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/).
+- An OpenSearch cluster with an index that contains 1000 or more documents. If your cluster's index does not contain at least 1000 documents, the workload can still run tests, however, you cannot run workloads using `--test-mode`.
+- You must have the correct permissions to access your OpenSearch cluster. For more information about cluster permissions, see [Permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/).
 
 ### Customizing the workload
 
-To begin creating your custom workload, use the `opensearch-benchmark create-workload` command. 
+To begin creating a custom workload, use the `opensearch-benchmark create-workload` command. 
 
 ```
 opensearch-benchmark create-workload \
@@ -40,9 +40,9 @@ Replace the following options in the preceding example with information specific
 
 - `--workload`: A custom name for your custom workload.
 - `--target-hosts:` A comma-separated list of host:port pairs for the cluster to extract data from.
-- `--client-options`: The basic auth client options OpenSearch Benchmark uses to access the cluster.
-- `--indices`: One or more indexes inside your OpenSearch cluster which contain data.
-- `--output-path`: The directory where OpenSearch Benchmark creates the workload and the workload's configuration files.
+- `--client-options`: The basic authentication client options that OpenSearch Benchmark uses to access the cluster.
+- `--indices`: One or more indexes inside your OpenSearch cluster that contain data.
+- `--output-path`: The directory where OpenSearch Benchmark creates the workload and its configuration files.
 
 The following example response creates a workload named `movies` from a cluster with an index named `movies-info`. The `movies-info` index contains over 2000 documents.
 
@@ -71,9 +71,9 @@ As part of workload creation, OpenSearch Benchmark generates the following files
 
 - `workload.json`: Contains general workload specifications.
 - `<index>.json`: Contains mappings and settings for the extracted indexes.
-- `<index>-documents.json`: Contains the sources of every document from the extracted indexes. Any sources suffixed with `-1k` encompasses only a fraction of the document corpus of the workload and will only be used when running the workload in test mode.
+- `<index>-documents.json`: Contains the sources of every document from the extracted indexes. Any sources suffixed with `-1k` encompasses only a fraction of the document corpus of the workload and are only used when running the workload in test mode.
 
-By default, OpenSearch Benchmark does not contain a reference to generate queries. Because you have the best understanding your data, we recommend adding a query to `workload.json` that matches your index's specifications. Use the following `match_all` query as an example of a query added to your workload:
+By default, OpenSearch Benchmark does not contain a reference to generate queries. Because you have the best understanding of your data, we recommend adding a query to `workload.json` that matches your index's specifications. Use the following `match_all` query as an example of a query added to your workload:
 
 ```
 {
@@ -95,11 +95,11 @@ By default, OpenSearch Benchmark does not contain a reference to generate querie
 
 ### Creating a workload without an existing cluster
 
-If you want to create a custom workload but do not have an existing OpenSearch cluster with indexed data, you can create the workload using by building the workload source files directly. All you need is data that can be exported into a JSON format.
+If you want to create a custom workload but do not have an existing OpenSearch cluster with indexed data, you can create the workload by building the workload source files directly. All you need is data that can be exported into a JSON format.
 
 To build a workload with source files, create a directory for your workload and perform the following steps:
 
-1. Build a `<index>-documents.json` file, which contains rows of documents that comprises the document corpora of the workload and houses all data to be ingested and queried into the cluster. The following example shows the first few rows of a `movies-documents.json` file that contains rows of documents about famous movies:
+1. Build a `<index>-documents.json` file that contains rows of documents that comprise the document corpora of the workload, and houses all data to be ingested and queried into the cluster. The following example shows the first few rows of a `movies-documents.json` file that contains rows of documents about famous movies:
 
    ```json
   # First few rows of movies-documents.json 
@@ -139,7 +139,7 @@ To build a workload with source files, create a directory for your workload and 
     }
     ```
 
-3. Next, build a `workload.json` file, which provides a high-level overview of your workload and determines how your workload runs benchmark tests. The `workload.json` file contains the following sections:
+3. Next, build a `workload.json` file that provides a high-level overview of your workload and determines how your workload runs benchmark tests. The `workload.json` file contains the following sections:
   
    - `indices`: Defines the name of the index to be created in your OpenSearch cluster using the mappings from the workload's `index.json` file created in the previous step.
    - `corpora`: Defines the corpora and the source file, including the:
@@ -147,7 +147,7 @@ To build a workload with source files, create a directory for your workload and 
       - `uncompressed-bytes`: The number of bytes inside the index. To get an accurate number of bytes, run `stat -f %z <index>-documents.json` on macOS or `stat -c %s <index>-documents.json` on GNU/Linux. Alternatively, run `ls -lrt | grep <index>-documents.json`.
    - `schedule`: Defines the sequence of operations and available test procedures for the workload.
 
-   The following example `workload.json` provides the entry point for the `movies` workload. The `indices` section creates an index called `movies`. The corpora section refers to the source file created in step one, `movie-documents.json` and provides the document count and uncompressed bytes. Lastly, the schedule section defines a few operations the workload will perform when invoked, including:
+   The following example `workload.json` provides the entry point for the `movies` workload. The `indices` section creates an index called `movies`. The corpora section refers to the source file created in step one, `movie-documents.json` and provides the document count and uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including:
 
    - Deleting any current index named `movies`.
    - Creating an index named `movies` based on data from `movie-documents.json` and the mappings from `index.json`.
@@ -255,7 +255,7 @@ You can enhance your custom workload's functionality with the following advanced
 
 ### Test mode
 
-If you want run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1000 documents from each index provided and run query operations against them. 
+If you want run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1000 documents from each index provided and runs query operations against them. 
 
 To use test mode, create a `<index>-documents-1k.json` file that contains the first 1000 documents from `<index>-documents.json` using the following command:
 
@@ -365,7 +365,7 @@ If you want to make your `workload.json` file more readable, you can separate yo
 ## Next steps
 
 - For more information about configuring OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
-- To access a list of pre-packaged workloads for OpenSearch Benchmark, see the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repo.
+- To show a list of pre-packaged workloads for OpenSearch Benchmark, see the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repo.
 
 
 
