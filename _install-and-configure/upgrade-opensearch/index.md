@@ -91,7 +91,10 @@ Upgrades spanning more than a single major version of OpenSearch will require ad
 
 A rolling upgrade is a great option if you want to keep your cluster operational throughout the process. Data may continue to be ingested, analyzed, and queried as nodes are individually stopped, upgraded, and restarted. A variation of the rolling upgrade referred to as "node replacement" follows exactly the same process except that hosts and containers are not reused for the new node. You might perform node replacement if you are upgrading the underlying host(s) as well.
 
+[Segment replication](/tuning-your-cluster/availability-and-recovery/segment-replication/index/) could help you continue to index data on your primary shard as you being a rolling upgrade especially if your cluster has a high index count and lower replica shard count. Enabling segment replication gives you the ability upgrade nodes without need to disable than reenable replica shards, allowing indexing to continue even as you perform a rolling upgrade.
+
 OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, upgrade the cluster-manager-eligible nodes last.
+
 
 See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/) for more information about the process.
 
