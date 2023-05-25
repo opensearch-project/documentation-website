@@ -11,7 +11,8 @@ The `compare` command helps you analyze the difference between two benchmark tes
 
 ## Usage
 
-You can compare two different workload tests using their `TestExecution IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test-executions`. You should receive an output similar to the following:
+You can compare two different workload tests using their `TestExecution IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test_executions`. You should receive an output similar to the following:
+
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -22,11 +23,14 @@ You can compare two different workload tests using their `TestExecution IDs`. To
     /_/
 Recent test-executions:
 
-TestExecution ID                      Test Timestamp    Workload  Workload Parameters  Test procedures      Config      User Tags
-------------------------------------  ----------------  --------  -------------------  ------------------   --------    ------------------------------
-beb154e4-0a05-4f45-ad9f-e34f9a9e51f7  20160518T122341Z  tmz                            append-no-conflicts  defaults    intention:reduce_alloc_1234
-0bfd4542-3821-4c79-81a2-0858636068ce  20160518T112057Z  tmz                            append-no-conflicts  defaults    intention:baseline_github_1234
-0cfb3576-3025-4c17-b672-d6c9e811b93e  20160518T101957Z  tmz                            append-no-conflicts  defaults
+Recent test_executions:
+
+TestExecution ID                      TestExecution Timestamp    Workload    Workload Parameters    TestProcedure        ProvisionConfigInstance    User Tags    workload Revision    Provision Config Revision
+------------------------------------  -------------------------  ----------  ---------------------  -------------------  -------------------------  -----------  -------------------  ---------------------------
+729291a0-ee87-44e5-9b75-cc6d50c89702  20230524T181718Z           geonames                           append-no-conflicts  4gheap                                  30260cf
+f91c33d0-ec93-48e1-975e-37476a5c9fe5  20230524T170134Z           geonames                           append-no-conflicts  4gheap                                  30260cf
+d942b7f9-6506-451d-9dcf-ef502ab3e574  20230524T144827Z           geonames                           append-no-conflicts  4gheap                                  30260cf
+a33845cc-c2e5-4488-a2db-b0670741ff9b  20230523T213145Z           geonames                           append-no-conflicts  
 
 ```
 
@@ -47,12 +51,12 @@ You should receive the following response comparing the final benchmark metrics 
     /_/
 
 Comparing baseline
-  TestExecution ID: 0bfd4542-3821-4c79-81a2-0858636068ce
-  TestExecution timestamp: 2016-05-18 11:20:57
+  TestExecution ID: 729291a0-ee87-44e5-9b75-cc6d50c89702
+  TestExecution timestamp: 2023-05-24 18:17:18 
 
 with contender
-  TestExecution ID: beb154e4-0a05-4f45-ad9f-e34f9a9e51f7
-  TestExecution timestamp: 2016-05-18 12:23:41
+  TestExecution ID: a33845cc-c2e5-4488-a2db-b0670741ff9b
+  TestExecution timestamp: 2023-05-23 21:31:45
 
 
 ------------------------------------------------------
