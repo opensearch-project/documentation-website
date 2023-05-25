@@ -146,7 +146,7 @@ The following options determine which workload is used to run the test.
 
 ### Test procedures
 
-The following options define what test procedures the test uses and which tasks are contained inside the procedure.
+The following options define what test procedures the test uses and which operations are contained inside the procedure.
 
 - `--test-execution-id`: Defines a unique ID for this test run.
 - `--test-procedure`: Defines a test procedure to use. You can find a list of test procedures using `opensearch-benchmark list test-procedures`.
@@ -175,4 +175,4 @@ The following options set how OpenSearch Benchmark handles errors when running t
   - `continue`: Continues to run the test despite the error.
   - `abort`: Aborts the test when an error occurs.
 - `--preserve-install`: Keeps the Benchmark candidate and its index. Default is `false`.
-- `--kill-running-processes`: When set to `true`, stops any OpenSearch processes currently running and allows OpenSearch Benchmark to continue to run. Default is `false`.
+- `--kill-running-processes`: When set to `true`, stops any OpenSearch Benchmark processes currently running and allows OpenSearch Benchmark to continue to run. Default is `false`.
