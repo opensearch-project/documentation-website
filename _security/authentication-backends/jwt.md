@@ -215,7 +215,7 @@ ES512: ECDSA using P-521 and SHA-512
 
 ## Using a JWKS endpoint to validate a JWT
 
-Validating the signature of the signed JWT is the last step in tranmitting it from issuer to client. Rather than store the cryptographic key---either "shared secret" or "public key", depeding on the algorithm used for the signature---in the local `config.yml` file `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
+Validating the signature of the signed JWT is the last step in transmitting it from issuer to client. Rather than store the cryptographic key---either "shared secret" or "public key", depending on the algorithm used for signature validation---in the local `config.yml` file `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
 
 In OpenSearch, this method of validation makes use of the [OpenID Connect authentication domain configuration]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#configure-openid-connect-integration). To specify the JWKS endpoint, replace the `openid_connect_url` setting in the configuration with the `jwks_uri` setting and add the URL to the setting as its value. This is shown in the following example:
 
