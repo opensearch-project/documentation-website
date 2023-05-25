@@ -73,7 +73,7 @@ As part of workload creation, OpenSearch Benchmark generates the following files
 - `<index>.json`: Contains mappings and settings for the extracted indexes.
 - `<index>-documents.json`: Contains the sources of every document from the extracted indexes. Any sources suffixed with `-1k` encompasses only a fraction of the document corpus of the workload and will only be used when running the workload in test mode.
 
-By default, OpenSearch Benchmark does not contain a reference to generate queries. Because you know your own data the best, we recommend adding a `match_all` query to your `workload.json` file based on your index's specifications, as shown in the following example query:
+By default, OpenSearch Benchmark does not contain a reference to generate queries. Because you have the best understanding your data, we recommend adding a query to `workload.json` that matches your index's specifications. Use the following `match_all` query as an example of a query added to your workload:
 
 ```
 {
@@ -281,7 +281,7 @@ After using your custom workload several times, you might want to use the same w
 To add variance, go to your `workload.json` file and replace the `schedule` section with a `test_procedures` array, as shown in the following example. Each item in the array contains the following:
 
 - `name`: The name of the test procedure.
-- `default`: When set to `true`, the default `test-procedure` is used even when no operations are specified. 
+- `default`: When set to `true`, OpenSearch Benchmark defaults to the test procedure specified as `default` in the workload if no other test procedures are specified. 
 - `schedule`: All the operations the test procedure will run.
 
 
@@ -348,7 +348,7 @@ To add variance, go to your `workload.json` file and replace the `schedule` sect
 
 If you want to make your `workload.json` file more readable, you can separate your operations and test procedures into different directories and reference the path to each in `workload.json`. To separate operations and procedures, perform the following steps:
 
-1. Add all test procedures to a file named `index-and-query.json`. 
+1. Add all test procedures to a single file. You can give the file any name. Because the `movies` workload in the preceding contains and index task and queries, this step names the test procedures file `index-and-query.json`. 
 2. Add all operations to a file named `operations.json`.
 3. Reference the new files in `workloads.json` by adding the following syntax, replacing `parts` with the relative path to each file, as showing in the following example:
 
