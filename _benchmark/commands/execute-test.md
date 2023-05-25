@@ -105,16 +105,22 @@ The following options set which version OpenSearch and OpenSearch plugins the be
    - `current`: Uses the source tree's current revision based on your OpenSearch distribution. 
    - `latest`: Fetches the latest revision from the main branch of the source tree.
    - You can also a time stamp or commit ID from the source tree. When using a timestamp, specify `@ts` where "ts" is a valid ISO 8601 timestamp, for example `@2013-07-27T10:37:00Z`.
--  `--opensearch-plugins`: Defines which [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to install. By default, not plugins are installed.
+-  `--opensearch-plugins`: Defines which [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to install. By default, no plugins are installed.
 - `--plugin-params:` Defines a comma-separated list of key:value pairs that are injected verbatim into all plugins as variables.
 - `--runtime-jdk`: The major version of JDK to use.
 - `--client-options`: Defines a comma-separated lists of clients to use. All options are passed to the OpenSearch Python client. Default is `timeout:60`.
 
 ### Cluster
 
-The following options set which cluster options. 
+The following options relate to the target cluster of the benchmark.
 
 - `--target-hosts`: Defines a comma-separated list of host:port pairs which should be targeted if using the pipeline `benchmark-only`. Default is `localhost:9200`.
+
+
+### Distributed workload generation
+
+The following options help those who want to use multiple hosts to generate load to the benchmark cluster.
+
 - `--load-worker-coordinator-hosts`: Defines a comma-separated list of hosts that coordinate loads. Default is `localhost`.
 - `--enable-worker-coordinator-profiling`: Enables an analysis of the performance of call in OpenSearch Benchmark's worker coordinator. Default is `false`.
 
