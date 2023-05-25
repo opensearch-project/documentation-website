@@ -122,7 +122,7 @@ These are the possible values for `type`:
 ## HTTP basic authentication
 
 To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration:
-<!--- provide more description about what basic gives you and the internal database --->
+<!--- provide more description about what basic gives you and describe the function of the internal database --->
 
 ```yml
 http_authenticator:

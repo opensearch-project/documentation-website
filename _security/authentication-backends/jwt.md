@@ -34,7 +34,7 @@ JWTs consist of three parts:
 
 ### Header
 
-The header contains information about the used signing mechanism, as shown in the following example:
+The header contains information about the signing mechanism being used, as shown in the following example:
 
 ```json
 {
@@ -48,7 +48,7 @@ In this case, the header states that the message was signed using the hashing al
 
 ### Payload
 
-The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim is a piece of information about a user that serves as a unique identifier, which allows the issuer of the token to verify identity. Claims are key/value pairs, and a payload typically includes multiple claims. While there are several types of claims, best practice is to avoid adding too many, thereby making the payload excessively large.
+The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim is a piece of information about a user that serves as a unique identifier, which allows the issuer of the token to verify identity. Claims are key-value pairs, and a payload typically includes multiple claims. While there are several types of claims, best practice is to avoid adding too many, thereby making the payload excessively large.
 
 The specification defines a set of standard claims with reserved names, referred to as [registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims). Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
 
@@ -215,18 +215,40 @@ ES512: ECDSA using P-521 and SHA-512
 
 ## Using a JWKS endpoint to validate a JWT
 
-Validating the signature of the signed JWT is the last step in transport of the JWT. Rather than store the "shared secret", or, the signed public key, in the local `config.yml` file, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the public key where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates. 
+Validating the signature of the signed JWT is the last step in tranmitting it from issuer to client. Rather than store the cryptographic key---either "shared secret" or "public key", depeding on the algorithm used for the signature---in the local `config.yml` file `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
+
+In OpenSearch, this method of validation makes use of the [OpenID Connect authentication domain configuration]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#configure-openid-connect-integration). To specify the JWKS endpoint, replace the `openid_connect_url` setting in the configuration with the `jwks_uri` setting and add the URL to the setting as its value. This is shown in the following example:
+
+```yml
+openid_auth_domain:
+  http_enabled: true
+  transport_enabled: true
+  order: 0
+  http_authenticator:
+    type: openid
+    challenge: false
+    config:
+      subject_key: preferred_username
+      roles_key: roles
+      jwks_uri: https://keycloak.example.com:8080/auth/realms/master/.well-known/jwks-keys.json
+  authentication_backend:
+    type: noop
+```
+
+The endpoint should be documented by the JWT issuer. You can use it to retrieve the keys needed to validate the signed JWT. For more information about the content and format of a JSON Web Key, see [JSON Web Key (JWK) format](https://datatracker.ietf.org/doc/html/rfc7517#section-4).
+
 
 ## Troubleshooting common issues
 
-This section details how to troubleshoot common issues with your Security plugin configuration.
+This section details how to troubleshoot common issues with your Security configuration.
 
 
-#### Correct iat 
+### Correct iat 
 
 Ensure that the JWT token contains the correct `iat` (issued at), `nbf` (not before), and `exp` (expiry) claims, all of which are validated automatically by OpenSearch.
 
-#### JWT URL parameter
+
+### JWT URL parameter
 
 When using the JWT URL parameter containing the default admin role `all_access` against OpenSearch (for example, `curl http://localhost:9200?jwtToken=<jwt-token>`) the request fails with:
 
@@ -255,7 +277,7 @@ The user should appear in the **Mapped Users** tab.
 ![image](https://user-images.githubusercontent.com/5849965/179158750-1bb5e232-dd61-449a-a561-0613b71bfd68.png)
 
 
-#### OpenSearch Dashboards configuration
+### OpenSearch Dashboards configuration
 
 Even though JWT URL parameter authentication works when querying OpenSearch directly, it fails when used to access OpenSearch Dashboards. 
 
