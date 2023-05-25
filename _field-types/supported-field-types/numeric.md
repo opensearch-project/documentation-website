@@ -21,7 +21,7 @@ Field data type | Description
 `half_float` | A half-precision 16-bit IEEE 754 floating-point value. Minimum magnitude is 2<sup>&minus;24 </sup>. Maximum magnitude is 65504. The number of significant bits is 11. The number of significant digits is 3.31.
 `integer` | A signed 32-bit integer. Minimum is &minus;2<sup>31</sup>. Maximum is 2<sup>31</sup> &minus; 1.
 `long` | A signed 64-bit integer. Minimum is &minus;2<sup>63</sup>. Maximum is 2<sup>63</sup> &minus; 1.
-[`unsigned_long`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/unsigned-long) | An unsigned 64-bit integer. Minimum is 0. Maximum is 2<sup>64</sup> &minus; 1.
+[`unsigned_long`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/unsigned-long/) | An unsigned 64-bit integer. Minimum is 0. Maximum is 2<sup>64</sup> &minus; 1.
 `short` | A signed 16-bit integer. Minimum is &minus;2<sup>15</sup>. Maximum is 2<sup>15</sup> &minus; 1. 
 [`scaled_float`](#scaled-float-field-type) | A floating-point value that is multiplied by the double scale factor and stored as a long value.
 
