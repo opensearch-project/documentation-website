@@ -247,7 +247,7 @@ opensearch-benchmark execute_test \
 --client-options="basic_auth_user:'<USERNAME>',basic_auth_password:'<PASSWORD>'"
 ```
 
-Results from the test appear in the directory set by `--out-path` option in `workloads.json`.
+Results from the test appear in the directory set by `--output-path` option in `workloads.json`.
 
 ## Advanced options
 
