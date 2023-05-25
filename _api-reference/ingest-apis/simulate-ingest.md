@@ -1,15 +1,17 @@
 ---
 layout: default
 title: Simulate an ingest pipeline
-parent: Ingest APIs
-nav_order: 13
+parent: Pipelines
+grand_parent: Ingest APIs
+nav_order: 12
 redirect_from:
   - /opensearch/rest-api/ingest-apis/simulate-ingest/
+  - /api-reference/ingest-apis/simulate-ingest/
 ---
 
 # Simulate a pipeline
 
-Simulates an ingest pipeline with any example documents you specify.
+Simulate an ingest pipeline with any example documents you specify.
 
 ## Example
 

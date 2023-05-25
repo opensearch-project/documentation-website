@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Get ingest pipeline
-parent: Ingest APIs
+parent: Pipelines
+grand_parent: Ingest APIs
 nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/get-ingest/
+  - /api-reference/ingest-apis/index/
 ---
 
 ## Get ingest pipeline
