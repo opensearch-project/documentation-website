@@ -5,9 +5,9 @@ nav_order: 65
 parent: Command reference
 ---
 
-# execute_test
+# execute-test
 
-Whether you're using preconfigured [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or a [custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-a-custom-workload/), use the `execute-test` command to gather data about the performance of your OpenSearch cluster according the selected workload.
+Whether you're using the included [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or a [custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-a-custom-workload/), use the `execute-test` command to gather data about the performance of your OpenSearch cluster according the selected workload.
 
 ## Usage
 
@@ -150,7 +150,7 @@ The following options define what test procedures the test uses and which tasks 
 
 ### Pipelines
 
-The `--pipeline` option selects a pipeline to run.
+The `--pipeline` option selects a pipeline to run. You can find a list of pipelines supported by OpenSearch Benchmark by running `opensearch-benchmark list pipelines`.
 
 
 ### Telemetry
