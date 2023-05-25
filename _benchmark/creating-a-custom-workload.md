@@ -278,7 +278,7 @@ opensearch-benchmark execute_test \
 
 After using your custom workload several times, you might want to use the same workload but perform the workload's operations in a different order. Instead of creating a new workload or reorganizing the procedures directly, you can provide test procedures to vary workload operations. 
 
-To add variance, go to your `workload.json` file and replace the `schedule` section with a `test_procedures` array, as shown in the following example. Each item in the array contains the following:
+To add variance to your workload operations, go to your `workload.json` file and replace the `schedule` section with a `test_procedures` array, as shown in the following example. Each item in the array contains the following:
 
 - `name`: The name of the test procedure.
 - `default`: When set to `true`, OpenSearch Benchmark defaults to the test procedure specified as `default` in the workload if no other test procedures are specified. 
