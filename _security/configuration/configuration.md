@@ -92,7 +92,7 @@ authentication_backend:
 
 These are the possible values for `type`:
 
-- `noop`: No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT, Kerberos, or client certificate authentication.
+- `noop`: No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT or client certificate authentication.
 - `internal`: Use the users and roles defined in `internal_users.yml` for authentication.
 - `ldap`: Authenticate users against an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
 
@@ -134,11 +134,17 @@ In most cases, you set the `challenge` flag to `true`. The flag defines the beha
 
 If `challenge` is set to `true`, the Security plugin sends a response with status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a user name and password.
 
-If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. You might want to use this setting if you have another challenge `http_authenticator` in your configured authentication domains. One such scenario is when you plan to use basic authentication and Kerberos together.
+If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. You might want to use this setting if you have another challenge `http_authenticator` in your configured authentication domains. One such scenario is when you plan to use basic authentication and OpenID Connect together.
+
 
 ## Backend configuration examples
 
-The default `config/opensearch-security/config.yml` that ships with OpenSearch contains many configuration examples. Use these examples as a starting point, and customize them to your needs. To learn about configuring other backends, see specific documentation for each type in the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation.
+The default `config/opensearch-security/config.yml` file included in your OpenSearch distribution contains many configuration examples. Use these examples as a starting point and customize them to your needs. 
+
+
+## Next steps
+
+To learn about configuring supported authentication backends, see specific documentation for each type in the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation.
 
 <!--- Remvoving Kerberos documentation until issue #907 is resolved.
 ### Kerberos

@@ -48,7 +48,7 @@ In this case, the header states that the message was signed using the hashing al
 
 ### Payload
 
-The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim is a piece of information about a user that serves as a unique identifier, which allows the issuer of the token to verify identity. Claims are key/value pairs, and a payload typically includes multiple claims. While there are many types of claims, common practice is to keep their number at a minumum to avoid making the payload too large.
+The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim is a piece of information about a user that serves as a unique identifier, which allows the issuer of the token to verify identity. Claims are key/value pairs, and a payload typically includes multiple claims. While there are several types of claims, best practice is to avoid adding too many, thereby making the payload excessively large.
 
 The specification defines a set of standard claims with reserved names, referred to as [registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims). Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
 
@@ -81,7 +81,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI
 ```
 
 
-## Configure JWTs
+## Configuring JWTs
 
 If you use a JWT as your only authentication method, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
 {: .warning }
@@ -211,6 +211,11 @@ ES256: ECDSA using P-256 and SHA-256
 ES384: ECDSA using P-384 and SHA-384
 ES512: ECDSA using P-521 and SHA-512
 ```
+
+
+## Using a JWKS endpoint to validate a JWT
+
+Validating the signature of the signed JWT is the last step in transport of the JWT. Rather than store the "shared secret", or, the signed public key, in the local `config.yml` file, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the public key where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates. 
 
 ## Troubleshooting common issues
 
