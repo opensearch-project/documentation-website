@@ -5,6 +5,7 @@ parent: Audit logs
 nav_order: 130
 redirect_from:
   - /security/audit-logs/field-reference/
+  - /security-plugin/audit-logs/field-reference/
 ---
 
 # Audit log field reference

@@ -5,6 +5,8 @@ parent: Aggregations
 nav_order: 5
 permalink: /aggregations/pipeline-agg/
 has_children: false
+redirect_from:
+  - /opensearch/pipeline-agg/
 ---
 
 # Pipeline aggregations

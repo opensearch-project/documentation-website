@@ -3,6 +3,8 @@ layout: default
 title: Logstash execution model
 parent: Logstash
 nav_order: 210
+redirect_from:
+ - /clients/logstash/execution-model/
 ---
 
 # Logstash execution model
@@ -19,7 +21,7 @@ After receiving an event and possibly applying an input codec, Logstash sends th
 
 A pipeline worker consumes events from the work queue in batches to optimize the throughput of the pipeline as a whole.
 
-One reason why Logstash works in batches is that some code needs to be executed regardless of how many events are processed at a time within the pipeline worker. Instead of executing that code 100 times for 100 events, it’s more efficient to execute it once for a batch of 100 events.
+One reason why Logstash works in batches is that some code needs to be executed regardless of how many events are processed at a time within the pipeline worker. Instead of executing that code 100 times for 100 events, it’s more efficient to run it once for a batch of 100 events.
 
 Another reason is that a few output plugins group together events as batches. For example, if you send 100 requests to OpenSearch, the OpenSearch output plugin uses the bulk API to send a single request that groups together the 100 requests.
 

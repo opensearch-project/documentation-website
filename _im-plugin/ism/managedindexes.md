@@ -4,6 +4,8 @@ title: Managed indexes
 nav_order: 3
 parent: Index State Management
 has_children: false
+redirect_from: 
+ - /im-plugin/ism/managedindices/
 ---
 
 # Managed indexes

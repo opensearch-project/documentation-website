@@ -3,6 +3,8 @@ layout: default
 title: Configuring the Security backend
 parent: Configuration
 nav_order: 5
+redirect_from:
+ - /security-plugin/configuration/configuration/
 ---
 
 # Configuring the Security backend
