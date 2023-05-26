@@ -3,6 +3,8 @@ layout: default
 title: Advanced configurations
 parent: Logstash
 nav_order: 230
+redirect_from:
+ - /clients/logstash/advanced-config/
 ---
 
 # Advanced configurations
@@ -89,7 +91,7 @@ if EXPR {
 }
 ```
 
-`EXPR` is any valid Logstash syntax that evaluates to a boolean value.
+`EXPR` is any valid Logstash syntax that evaluates to a Boolean value.
 For example, you can check if an event type is set to `access` or `error` and perform some action based on that:
 
 ```yml
@@ -126,7 +128,7 @@ if [some_field] in ["one", "two", "three"] {
 }
 ```
 
-You can use boolean operators:
+You can use Boolean operators:
 
 ```yml
 if [type] == "access" or [type] == "error" {
@@ -235,7 +237,7 @@ geoip {
 
 Start Logstash and send an HTTP request.
 
-Within the terminal, you see a new field named `geoip` that contains information such as the time zone, country, continent, city, postal code, and the latitude / longitude pair.
+Within the terminal, you see a new field named `geoip` that contains information such as the time zone, country, continent, city, postal code, and the latitude/longitude pair.
 
 If you only need the country name for instance, include an option named `fields` with an array of the field names that you want the `geoip` plugin to return.
 
