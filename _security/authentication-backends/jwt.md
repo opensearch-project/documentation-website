@@ -18,6 +18,7 @@ JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more clai
 1. The user stores the access token.
 1. The user sends the access token alongside every request to the service that it wants to use.
 1. The service verifies the token and grants or denies access.
+1. With granted access, the user has access until the expiration time of the token elapses. The expiration of the token is typically set by the issuer in the token's payload.
 
 A JWT is self-contained in the sense that it carries all of the information necessary to verify a user. The tokens are base64-encoded, signed JSON objects.
 
@@ -218,7 +219,9 @@ ES512: ECDSA using P-521 and SHA-512
 
 ## Using a JWKS endpoint to validate a JWT
 
-Validating the signature of the signed JWT is the last step in transmitting it from issuer to client. Rather than store the cryptographic key in the local `config.yml` file's `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
+Validating the signature of the signed JWT is the last step in transmitting it from issuer to client. OpenSearch validates the signature when the client sends the JWT with a REST request. The signature is verified in every authentication request.
+
+Rather than store the cryptographic key used for validation in the local `config.yml` file's `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
 
 In OpenSearch, this method of validation makes use of the [OpenID Connect authentication domain configuration]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#configure-openid-connect-integration). To specify the JWKS endpoint, replace the `openid_connect_url` setting in the configuration with the `jwks_uri` setting and add the URL to the setting as its value. This is shown in the following example:
 
