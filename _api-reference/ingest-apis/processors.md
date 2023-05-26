@@ -8,7 +8,7 @@ nav_order: 10
 
 # Processors
 
-A processor is a component of an ingest pipeline that performs a specfic transformation on incoming data. [Ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) are a powerful way to transform your data before it is indexed in OpenSearch. By using ingest processors, you can make your data easier to analyze and visualize, and you can improve the performance of your queries. 
+A processor is a component of an ingest pipeline that performs a specific transformation on incoming data. [Ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) are a powerful way to transform your data before it is indexed in OpenSearch. By using ingest processors, you can make your data easier to analyze and visualize, and you can improve the performance of your queries. 
 
 Here are a few examples of ingest processors:
 
