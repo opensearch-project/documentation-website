@@ -4,7 +4,6 @@ title: JSON Web Token
 parent: Authentication backends
 nav_order: 47
 redirect_from:
-  - /security/configuration/configuration/
 ---
 
 
@@ -20,7 +19,7 @@ JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more clai
 1. The user sends the access token alongside every request to the service that it wants to use.
 1. The service verifies the token and grants or denies access.
 
-A JWT is self-contained in the sense that it carries within itself all of the information necessary to verify a user. The tokens are base64-encoded, signed JSON objects.
+A JWT is self-contained in the sense that it carries all of the information necessary to verify a user. The tokens are base64-encoded, signed JSON objects.
 
 
 ## JWT elements
@@ -34,7 +33,7 @@ JWTs consist of three parts:
 
 ### Header
 
-The header contains information about the signing mechanism being used, as shown in the following example:
+The header contains information about the signing mechanism being used, including the algorithm used for encoding the token. The following example shows typical properties and values for the header:
 
 ```json
 {
@@ -48,12 +47,15 @@ In this case, the header states that the message was signed using the hashing al
 
 ### Payload
 
-The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim is a piece of information about a user that serves as a unique identifier, which allows the issuer of the token to verify identity. Claims are key-value pairs, and a payload typically includes multiple claims. While there are several types of claims, best practice is to avoid adding too many, thereby making the payload excessively large.
+The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim is a piece of information about a user of the token that serves as a unique identifier, which allows the issuer of the token to verify identity. Claims are name-value pairs, and a payload typically includes multiple claims. While the options for adding claims are numerous, best practice is to avoid adding too many and making the payload excessively large, which would defeat the purpose of the JWT being compact.
 
-The specification defines a set of standard claims with reserved names, referred to as [registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims). Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
+There are three types of claims:
 
-Public claims, on the other hand, can be created freely by the token issuer. They can contain arbitrary information, such as the user name and the roles of the user.
+* [Registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) are defined by the JWT specification and comprise a set of standard claims with reserved names. Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
+* Public claims, on the other hand, are defined at the will of the parties sharing the token. They can contain arbitrary information, such as the user name and the roles of the user. As a precaution, the specification advises either registering the name or, at least, ensuring the name is [collision resistant](https://www.rfc-editor.org/rfc/rfc7519#section-4.2) with other claims.
+* Private claims provide another option for assigning custom information to the payload: for example, an email address. As such, they are also referred to as custom claims. The two parties sharing the token must agree on their use, as they are considered neither registered nor public claims. 
 
+The following example shows these JSON properties as name-value pairs:
 
 ```json
 {
@@ -64,10 +66,11 @@ Public claims, on the other hand, can be created freely by the token issuer. The
 }
 ```
 
-
 ### Signature
 
-The issuer of the token calculates the signature of the token by applying a cryptographic hash function on the base64-encoded header and payload. These three parts are then concatenated using periods to form a complete JWT:
+The issuer of the token generates the token's signature by applying a cryptographic hash function on the base64-encoded header and payload. The client receiving the JWT decrypts and validates this signature in the final step of transmission.
+
+These three parts---header, payload, signature---are then concatenated using periods to form a complete JWT:
 
 ```
 encoded = base64UrlEncode(header) + "." + base64UrlEncode(payload)
@@ -84,7 +87,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI
 ## Configuring JWTs
 
 If you use a JWT as your only authentication method, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
-{: .warning }
+{: .important }
 
 Set up an authentication domain and choose `jwt` as the HTTP authentication type. Because the tokens already contain all required information to verify the request, `challenge` must be set to `false` and `authentication_backend` to `noop`.
 
@@ -215,7 +218,7 @@ ES512: ECDSA using P-521 and SHA-512
 
 ## Using a JWKS endpoint to validate a JWT
 
-Validating the signature of the signed JWT is the last step in transmitting it from issuer to client. Rather than store the cryptographic key---either "shared secret" or "public key", depending on the algorithm used for signature validation---in the local `config.yml` file's `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
+Validating the signature of the signed JWT is the last step in transmitting it from issuer to client. Rather than store the cryptographic key in the local `config.yml` file's `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from where it's stored on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
 
 In OpenSearch, this method of validation makes use of the [OpenID Connect authentication domain configuration]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#configure-openid-connect-integration). To specify the JWKS endpoint, replace the `openid_connect_url` setting in the configuration with the `jwks_uri` setting and add the URL to the setting as its value. This is shown in the following example:
 
