@@ -3,6 +3,8 @@ layout: default
 title: Common filter plugins
 parent: Logstash
 nav_order: 220
+redirect_from:
+ - /clients/logstash/common-filters/
 ---
 
 # Common filter plugins

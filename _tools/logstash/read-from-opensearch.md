@@ -3,6 +3,8 @@ layout: default
 title: Read from OpenSearch
 parent: Logstash
 nav_order: 220
+redirect_from:
+ - /clients/logstash/ship-to-opensearch/
 ---
 
 # Read from OpenSearch
