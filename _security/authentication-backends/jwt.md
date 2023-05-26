@@ -70,7 +70,7 @@ The following example shows these JSON properties as name-value pairs:
 
 The issuer of the token generates the token's signature by applying a cryptographic hash function on the base64-encoded header and payload. The client receiving the JWT decrypts and validates this signature in the final step of transmission.
 
-These three parts---header, payload, signature---are then concatenated using periods to form a complete JWT:
+These three parts---header, payload, signature---are concatenated using periods to form a complete JWT:
 
 ```
 encoded = base64UrlEncode(header) + "." + base64UrlEncode(payload)
