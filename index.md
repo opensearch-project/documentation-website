@@ -49,7 +49,7 @@ OpenSearch has several features and plugins to help index, secure, monitor, and 
 - [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) - Identify atypical data and receive automatic notifications
 - [KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) - Find “nearest neighbors” in your vector data
 - [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) - Monitor and optimize your cluster
-- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/) - Use SQL or a piped processing language to query your data
+- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) - Use SQL or a piped processing language to query your data
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/) - Automate index operations
 - [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) - Train and execute machine-learning models
 - [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) - Run search requests in the background
