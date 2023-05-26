@@ -3,7 +3,7 @@ layout: default
 title: Managing OpenSearch Dashboards plugins
 nav_order: 100
 redirect_from: 
-  - /dashboards/install/plugins
+  - /dashboards/install/plugins/
   - /install-and-configure/install-dashboards/plugins/
 ---
 
@@ -149,7 +149,7 @@ sudo bin/opensearch-dashboards-plugin remove <plugin-name>
 
 Then remove all associated entries from `opensearch_dashboards.yml`.
 
-For certain plugins, you must also remove the "optimze" bundle. This is a sample command for the Anomaly Detection plugin:
+For certain plugins, you must also remove the "optimize" bundle. This is a sample command for the Anomaly Detection plugin:
 
 ```bash
 sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
@@ -181,7 +181,7 @@ OpenSearch Dashboards doesn’t update plugins. Instead, you have to remove the 
 
 1. Restart OpenSearch Dashboards.
 
-For example, to remove and reinstall the anomaly detection plugin:
+For example, to remove and reinstall the Anomaly Detection plugin:
 
 ```bash
 sudo bin/opensearch-plugin remove opensearch-anomaly-detection
