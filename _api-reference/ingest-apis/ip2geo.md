@@ -1,22 +1,24 @@
 ---
 layout: default
-title: IP2geo 
+title: IP2Geo 
 grand_parent: Ingest APIs
 parent: Processors
 nav_order: 20
 ---
 
-# IP2geo processor 
+# IP2Geo
 Introduced 2.9
 {: .label .label-purple }
 
-The OpenSearch `IP2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `IP2geo` processor uses IP geolocation (GeoIP) data from an external endpoint and therefore requires an additional component, `datasource`, that defines from where to download GeoIP data and how frequently to update the data.
+The `ip2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `ip2geo` processor uses IP geolocation (GeoIP) data from an external endpoint and therefore requires an additional component, `datasource`, that defines from where to download GeoIP data and how frequently to update the data.
 
-## Installing the geospatial plugin
+## Getting started
 
-Before getting started with using the `IP2geo` processor, the `opensearch-geospatial` plugin must be installed. Learn more in the [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) section.
+To get started with using the `ip2geo` processor, the `opensearch-geospatial` plugin must be installed. Learn more at [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
-## Creating the IP2geo data source
+## Creating the IP2Geo data source
+
+Create the IP2Geo data source by defining the endpoint value to download GeoIP data and specify the update interval.
 
 OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country, and GeoLite2 ASN databases from [MaxMind](http://dev.maxmind.com/geoip/geoip2/geolite2/), shared under the CC BY-SA 4.0 license:
 
@@ -24,13 +26,13 @@ OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country,
 * GeoLite2 Country: https://geoip.maps.opensearch.org/v1/geolite2-country/manifest.json
 * GeoLite2 ASN: https://geoip.maps.opensearch.org/v1/geolite2-asn/manifest.json
 
-If OpenSearch cannot update a data source from those endpoints in 30 days, OpenSearch does not add GeoIP data to documents, instead it adds `"error":"ip2geo_data_expired"`.
+If OpenSearch cannot update a data source from the endpoints in 30 days, OpenSearch does not add GeoIP data to the documents, instead it adds `"error":"ip2geo_data_expired"`.
 
-The following table lists the IP2geo data source options.
+The following table lists the IP2Geo data source options.
 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
-| endpoint | no | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint for downloading the GeoIP data|
+| endpoint | no | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint for downloading the GeoIP data. |
 | update_interval_in_days | no | 3 | The frequency in days for updating the GeoIP data; minimum value is 1. |
 
 The following code example shows how to create an IP2Geo data source.
@@ -47,7 +49,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 
 The following code example shows the reponse to the preceding request. A true response means the request was successful and the server was able to process the request. A false reponse means check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 
-#### Example: Response
+#### Example: Successful response
 
 ```json
 {
@@ -57,11 +59,11 @@ The following code example shows the reponse to the preceding request. A true re
 
 ## Sending a GET request
 
-To get information about an IP2geo data source, send a GET request.  
+To get information about one or more IP2Geo data sources, send a GET request.  
 
 #### Example: GET Request
 
-```
+```bash
 GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 
@@ -103,9 +105,9 @@ GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 }
 ```
 
-## Updating an IP2geo data source
+## Updating an IP2Geo data source
 
-To update succesfully an IP2geo data source, the GeoIP database from the latest-released database's endpoint must contain the same fields as those in the currently used database. Otherwise, the update fails. 
+To update succesfully an IP2Geo data source, the GeoIP database from the latest-released database's endpoint must contain the same fields as those in the currently used database. Otherwise, the update fails. 
 
 #### Example: Update request
 
@@ -124,25 +126,27 @@ To update succesfully an IP2geo data source, the GeoIP database from the latest-
 }
 ```
 
-## Deleting an IP2geo data source
+## Deleting the IP2Geo data source
 
- To delete an IP2geo data source, you first must delete all processors associated with the data source. Otherwise, if you have other processors that use the data source, the DELETE request fails. 
+ To delete the IP2Geo data source, you first must delete all processors associated with the data source. Otherwise, if you have other processors that use the data source, the DELETE request fails. 
 
 #### Example: DELETE request
 
-```
+```bash
 DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 
 #### Example: Response
+
+```json
 {
   "acknowledged": true
 }
+```
 
+## Creating the processor
 
-## Creating the IP2geo processor
-
-Once the IP2geo data source is created, you can create the processor. 
+Once the IP2Geo data source is created, you can create the `ip2geo` processor. 
 
 #### Example: Create processor request
 
@@ -167,21 +171,21 @@ Once the IP2geo data source is created, you can create the processor.
 }
 ```
 
-## Using the IP2geo processor in a pipeline
+## Creating the IP2Geo pipeline
 
-The following table lists `ip2geo` field options:
+The following table lists the `ip2geo` fields options for creating an IP2Geo pipeline.
 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
 | field | yes | - | The field to get the ip address for the geographical lookup. |
 | datasource | yes | - | The data source name to look up geographical information. |
-| properties | no |  All fields in `datasource`. | The field that controls what properties are added to `target_field` based on the GeoIP lookup. |
+| properties | no |  All fields in `datasource`. | The field that controls what properties are added to `target_field` from `datasource`. |
 | target_field | no | ip2geo | The field that holds the geographical information looked up from the data source. |
 | database | no | geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The database filename referring to a database the module ships with or a custom database in the ingest-geoip config directory. |
 | ignore_missing | no | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
-| first_only | no | true | If `true` only first found geoip data is returned, even if field contains an array. |
+| first_only | no | true | If `true` only first-found GeoIP data is added. This only applies when field contains multiple IPs in an array. |
 
-The following code is an example of using the `IP2geo` processor to add the geographical information to the `ip2geo` field based on the `ip` field.
+The following code is an example of using the `ip2geo` processor to add the geographical information to the `ip2geo` field based on the `ip` field.
 
 ```json
 PUT /_ingest/pipeline/ip2geo
@@ -202,8 +206,11 @@ PUT /my-index/_doc/my-id?pipeline=ip2geo
   "ip": "172.0.0.1"
 }
 
+```bash
 GET /my-index/_doc/my-id
-Which returns:
+```
+
+which returns,
 
 {
    "_index":"my-index",
@@ -230,16 +237,15 @@ Which returns:
 
 ## Node settings
 
-The IP2geo data source and `IP2geo` processor have the following node settings.
+The IP2Geo data source and `ip2geo` processor have the node settings described in the following table.
 
-
-| IP2geo Data source | Description | Setting |
+| IP2Geo data source | Description | Setting |
 |--------------------|-------------|---------|
 | plugins.geospatial.ip2geo.datasource.endpoint | Default endpoint for creating the data source API. | Defaults to https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json. |
 | plugins.geospatial.ip2geo.datasource.update_interval_in_days | Default update interval for creating the data source API. | Defaults to 3. |
-| plugins.geospatial.ip2geo.datasource.indexing_bulk_size | Maximum number of documents to ingest in a bulk request during the IP2geo data source creation process. | Defaults to 10,000. |
+| plugins.geospatial.ip2geo.datasource.indexing_bulk_size | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Defaults to 10,000. |
 
- IP2geo processor | Description | Setting |
-|--------------------|-------------|---------|
+ `ip2geo` processor | Description | Setting |
+|-------------------|-------------|---------|
 | plugins.geospatial.ip2geo.processor.max_bundle_size | Maximum number of searches to include in a multi-search request when enriching documents. | Defaults to 100.
 | plugins.geospatial.ip2geo.processor.max_concurrent_searches | Maximum number of concurrent multi-search requests to run when enriching documents. | The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster.
