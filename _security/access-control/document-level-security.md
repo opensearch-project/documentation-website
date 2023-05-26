@@ -6,6 +6,7 @@ nav_order: 85
 redirect_from:
  - /security/access-control/document-level-security/
  - /security-plugin/access-control/document-level-security/
+---
 
 # Document-level security (DLS)
 
