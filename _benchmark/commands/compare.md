@@ -7,11 +7,11 @@ parent: Command reference
 
 # compare
 
-The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision.
+The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision. 
 
 ## Usage
 
-You can compare two different workload tests using their `TestExecution IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test_executions`. You should receive an output similar to the following:
+You can compare two different workload tests using their `TestExecution IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test_executions`. You should receive an output similar to the following: 
 
 
 ```
@@ -120,13 +120,13 @@ Query latency country_agg_cached (100.0 percentile) [ms]     3.42547      2.8681
 
 ## Options
 
-You can use the following options to customize the results of your test comparison:
+You can use the following options to customize the results of your test comparison: 
 
-- `--baseline`: The baseline TestExecution ID used to compare the contender TestExecution. 
-- `--contender`: The TestExecution ID for the contender being compared to the baseline.
+- `--baseline`: The baseline TestExecution ID used to compare the contender TestExecution.  
+- `--contender`: The TestExecution ID for the contender being compared to the baseline. 
 - `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
 - `--results-number-align`: Defines the column number alignment for when the `compare` command outputs results. Default is `right`.
-- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path.
-- `--show-in-results`: Determines whether or not to include the comparison in the results file.
+- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path. 
+- `--show-in-results`: Determines whether or not to include the comparison in the results file. 
 
 
