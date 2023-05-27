@@ -7,7 +7,7 @@ parent: Command reference
 
 # execute-test
 
-Whether you're using the included [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or a [custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/), use the `execute-test` command to gather data about the performance of your OpenSearch cluster according the selected workload. 
+Whether you're using the included [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or a [custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/), use the `execute-test` command to gather data about the performance of your OpenSearch cluster according to the selected workload. 
 
 ## Usage
 
@@ -85,7 +85,7 @@ Use the following options to customize the `execute-test` command for your use c
 
 ## General settings
 
-The following options shape how each test runs and how results are output. 
+The following options shape how each test runs and how results appear: 
 
 - `--test-mode`: Runs the given workload in test mode, which is useful when checking a workload for errors.
 - `--user-tag`: Defines user-specific key-value pairs to be used in metric record as meta information, for example, `intention:baseline-ticket-12345`.
@@ -97,14 +97,14 @@ The following options shape how each test runs and how results are output.
 
 ### Distributions
 
-The following options set which version OpenSearch and OpenSearch plugins the benchmark test uses. 
+The following options set which version of OpenSearch and the OpenSearch plugins the benchmark test uses: 
 
 - `--distribution-version`: Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history](https://opensearch.org/docs/version-history/). 
 - `--distribution-repository`: Defines the repository from where the OpenSearch distribution should be downloaded. Default is `release`.
 - `--revision`: Defines the current source code revision to use for running a benchmark test. Default is `current`.
    - `current`: Uses the source tree's current revision based on your OpenSearch distribution. 
    - `latest`: Fetches the latest revision from the main branch of the source tree. 
-   - You can also use a timestamp or commit ID from the source tree. When using a timestamp, specify `@ts` where "ts" is a valid ISO 8601 timestamp, for example `@2013-07-27T10:37:00Z`. 
+   - You can also use a timestamp or commit ID from the source tree. When using a timestamp, specify `@ts`, where "ts" is a valid ISO 8601 timestamp, for example, `@2013-07-27T10:37:00Z`. 
 -  `--opensearch-plugins`: Defines which [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to install. By default, no plugins are installed.
 - `--plugin-params:` Defines a comma-separated list of key:value pairs that are injected verbatim into all plugins as variables.
 - `--runtime-jdk`: The major version of JDK to use. 
@@ -114,19 +114,19 @@ The following options set which version OpenSearch and OpenSearch plugins the be
 
 The following option relates to the target cluster of the benchmark.
 
-- `--target-hosts`: Defines a comma-separated list of host-port pairs which should be targeted if using the pipeline `benchmark-only`. Default is `localhost:9200`. 
+- `--target-hosts`: Defines a comma-separated list of host-port pairs that should be targeted if using the pipeline `benchmark-only`. Default is `localhost:9200`. 
 
 
 ### Distributed workload generation
 
-The following options help those who want to use multiple hosts to generate load to the benchmark cluster. 
+The following options help those who want to use multiple hosts to generate load to the benchmark cluster: 
 
 - `--load-worker-coordinator-hosts`: Defines a comma-separated list of hosts that coordinate loads. Default is `localhost`.
 - `--enable-worker-coordinator-profiling`: Enables an analysis of the performance of OpenSearch Benchmark's worker coordinator. Default is `false`.
 
 ### Provisioning
 
-The following options help customize how OpenSearch Benchmark provisions OpenSearch and workloads. 
+The following options help customize how OpenSearch Benchmark provisions OpenSearch and workloads: 
 
 - `--provision-config-repository`: Defines the repository from which OpenSearch Benchmark loads `provision-configs` and `provision-config-instances`. 
 - `--provision-config-path`: Defines the path to the `--provision-config-instance` and any OpenSearch plugin configurations to use.
@@ -137,16 +137,16 @@ The following options help customize how OpenSearch Benchmark provisions OpenSea
 
 ### Workload
 
-The following options determine which workload is used to run the test.
+The following options determine which workload is used to run the test:
 
-- `--workload-repository`: Defines the repository from where OpenSearch Benchmark loads workloads. 
+- `--workload-repository`: Defines the repository from which OpenSearch Benchmark loads workloads. 
 - `--workload-path`: Defines the path to a downloaded or custom workload.
 - `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use.
 - `--workload`: Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`.
 
 ### Test procedures
 
-The following options define what test procedures the test uses and which operations are contained inside the procedure. 
+The following options define what test procedures the test uses and which operations are contained inside the procedure: 
 
 - `--test-execution-id`: Defines a unique ID for this test run.
 - `--test-procedure`: Defines a test procedure to use. You can find a list of test procedures using `opensearch-benchmark list test-procedures`.
@@ -161,7 +161,7 @@ The `--pipeline` option selects a pipeline to run. You can find a list of pipeli
 
 ### Telemetry
 
-The following options enable telemetry devices on OpenSearch Benchmark. 
+The following options enable telemetry devices on OpenSearch Benchmark: 
  
 - `--telemetry`: Enables the provided telemetry devices when the devices are provided using a comma-separated list. You can find a list of possible telemetry devices by using `opensearch-benchmark list telemetry`.
 - `--telemetry-params`: Defines a comma-separated list of key-value pairs that are injected verbatim into the telemetry devices as parameters.
