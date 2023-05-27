@@ -7,17 +7,17 @@ parent: Command reference
 
 # info
 
-The `info` command prints details about a OpenSearch Benchmark component. 
+The `info` command prints details about an OpenSearch Benchmark component. 
 
 ## Usage
 
-The following example returns information about a workload named `nyc_taxis`. 
+The following example returns information about a workload named `nyc_taxis`: 
 
 ```
 opensearch-benchmark info --workload=nyc_taxis
 ```
 
-OpenSearch Benchmark returns information about the workload, as shown in the following example response. 
+OpenSearch Benchmark returns information about the workload, as shown in the following example response: 
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -67,7 +67,7 @@ Schedule:
 TestProcedure [append-no-conflicts] (run by default) 
 ====================================================
 
-Indexes the whole document corpus using a setup that will lead to a larger indexing throughput than the default settings and produce a smaller index (higher compression rate). Document ids are unique so all index operations are append only. After that a couple of queries are run. 
+Indexes the entire document corpus using a setup that will lead to a larger indexing throughput than the default settings and produce a smaller index (higher compression rate). Document IDs are unique, so all index operations are append only. After that, a couple of queries are run. 
 
 Schedule:
 ----------

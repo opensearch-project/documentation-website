@@ -22,5 +22,5 @@ All OpenSearch Benchmark commands support the following options:
 
 - `--h` or `--help`: Provides options and other useful information about each command. 
 - `--quiet`: Hides as much of the results output as possible. Default is `false`. 
-- `--offline`: Indicates whether OpenSearch Benchmark has a connection to the Internet. Default is `false`. 
+- `--offline`: Indicates whether OpenSearch Benchmark has a connection to the internet. Default is `false`. 
 

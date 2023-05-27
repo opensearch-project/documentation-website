@@ -39,12 +39,12 @@ opensearch-benchmark create-workload \
 Replace the following options in the preceding example with information specific to your existing cluster:
 
 - `--workload`: A custom name for your custom workload.
-- `--target-hosts:` A comma-separated list of host:port pairs for the cluster to extract data from. 
+- `--target-hosts:` A comma-separated list of host:port pairs from which the cluster extracts data. 
 - `--client-options`: The basic authentication client options that OpenSearch Benchmark uses to access the cluster. 
 - `--indices`: One or more indexes inside your OpenSearch cluster that contain data. 
-- `--output-path`: The directory where OpenSearch Benchmark creates the workload and its configuration files. 
+- `--output-path`: The directory in which OpenSearch Benchmark creates the workload and its configuration files. 
 
-The following example response creates a workload named `movies` from a cluster with an index named `movies-info`. The `movies-info` index contains over 2000 documents. 
+The following example response creates a workload named `movies` from a cluster with an index named `movies-info`. The `movies-info` index contains over 2,000 documents. 
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -67,11 +67,11 @@ Extracting documents for index [movies]...                    2000/2000 docs [10
 -------------------------------
 ```
 
-As part of workload creation, OpenSearch Benchmark generates the following files. You can access them in directory specified by the `--output-path` option. 
+As part of workload creation, OpenSearch Benchmark generates the following files. You can access them in the directory specified by the `--output-path` option. 
 
 - `workload.json`: Contains general workload specifications. 
 - `<index>.json`: Contains mappings and settings for the extracted indexes. 
-- `<index>-documents.json`: Contains the sources of every document from the extracted indexes. Any sources suffixed with `-1k` encompasses only a fraction of the document corpus of the workload and are only used when running the workload in test mode. 
+- `<index>-documents.json`: Contains the sources of every document from the extracted indexes. Any sources suffixed with `-1k` encompass only a fraction of the document corpus of the workload and are only used when running the workload in test mode. 
 
 By default, OpenSearch Benchmark does not contain a reference to generate queries. Because you have the best understanding of your data, we recommend adding a query to `workload.json` that matches your index's specifications. Use the following `match_all` query as an example of a query added to your workload: 
 
@@ -99,7 +99,7 @@ If you want to create a custom workload but do not have an existing OpenSearch c
 
 To build a workload with source files, create a directory for your workload and perform the following steps:
 
-1. Build a `<index>-documents.json` file that contains rows of documents that comprise the document corpora of the workload, and houses all data to be ingested and queried into the cluster. The following example shows the first few rows of a `movies-documents.json` file that contains rows of documents about famous movies: 
+1. Build a `<index>-documents.json` file that contains rows of documents that comprise the document corpora of the workload and houses all data to be ingested and queried into the cluster. The following example shows the first few rows of a `movies-documents.json` file that contains rows of documents about famous movies: 
 
    ```json
   # First few rows of movies-documents.json 
@@ -147,11 +147,11 @@ To build a workload with source files, create a directory for your workload and 
       - `uncompressed-bytes`: The number of bytes inside the index. To get an accurate number of bytes, run `stat -f %z <index>-documents.json` on macOS or `stat -c %s <index>-documents.json` on GNU/Linux. Alternatively, run `ls -lrt | grep <index>-documents.json`. 
    - `schedule`: Defines the sequence of operations and available test procedures for the workload.
 
-   The following example `workload.json` provides the entry point for the `movies` workload. The `indices` section creates an index called `movies`. The corpora section refers to the source file created in step one, `movie-documents.json` and provides the document count and uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including: 
+   The following example `workload.json` file provides the entry point for the `movies` workload. The `indices` section creates an index called `movies`. The corpora section refers to the source file created in step one, `movie-documents.json`, and provides the document count and the amount of uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including: 
 
    - Deleting any current index named `movies`. 
    - Creating an index named `movies` based on data from `movie-documents.json` and the mappings from `index.json`.
-   - Verifying the cluster is in good health and can ingest the new index. 
+   - Verifying that the cluster is in good health and can ingest the new index. 
    - Ingesting the data corpora from `workload.json` into the cluster. 
    - Querying the results. 
 
@@ -229,7 +229,7 @@ To build a workload with source files, create a directory for your workload and 
     }
     ```
 
-4. With all the workload files created, verify the workload runs by executing a test. To verify the workload, run the following command, replacing `--workload-path` with a path to your workload directory: 
+4. For all the workload files created, verify that the workload is functional by running a test. To verify the workload, run the following command, replacing `--workload-path` with a path to your workload directory: 
 
     ```
     opensearch-benchmark list workloads --workload-path=</path/to/workload/>
@@ -350,7 +350,7 @@ If you want to make your `workload.json` file more readable, you can separate yo
 
 1. Add all test procedures to a single file. You can give the file any name. Because the `movies` workload in the preceding contains and index task and queries, this step names the test procedures file `index-and-query.json`. 
 2. Add all operations to a file named `operations.json`. 
-3. Reference the new files in `workloads.json` by adding the following syntax, replacing `parts` with the relative path to each file, as showing in the following example: 
+3. Reference the new files in `workloads.json` by adding the following syntax, replacing `parts` with the relative path to each file, as shown in the following example: 
 
     ```json
     "operations": [
@@ -365,7 +365,7 @@ If you want to make your `workload.json` file more readable, you can separate yo
 ## Next steps
 
 - For more information about configuring OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/). 
-- To show a list of pre-packaged workloads for OpenSearch Benchmark, see the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repo. 
+- To show a list of prepackaged workloads for OpenSearch Benchmark, see the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository. 
 
 
 

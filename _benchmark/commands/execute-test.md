@@ -169,7 +169,7 @@ The following options enable telemetry devices on OpenSearch Benchmark:
 
 ### Errors
 
-The following options set how OpenSearch Benchmark handles errors when running tests. 
+The following options set how OpenSearch Benchmark handles errors when running tests: 
 
 - `--on-error`: Controls how OpenSearch Benchmark responds to errors. Default is `continue`. 
   - `continue`: Continues to run the test despite the error.

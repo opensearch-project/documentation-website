@@ -5,11 +5,11 @@ nav_order: 70
 parent: Command reference
 ---
 
-The `generate` command generates visualization based on benchmark results. 
+The `generate` command generates visualizations based on benchmark results. 
 
 ## Usage
 
-The following example generates a time-series chart, which outputs into the `.benchmark` directory. 
+The following example generates a time-series chart, which outputs into the `.benchmark` directory: 
 
 ```
 opensearch-benchmark generate --chart-type="time-series" 
