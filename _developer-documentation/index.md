@@ -20,4 +20,4 @@ We welcome your contributions to the OpenSearch Project. Here are some helpful l
 
 ## What's new
 
-New in version 2.8, OpenSearch introduces _extensions_---an easier to develop and more secure alternative to OpenSearch plugins that simplifies creating custom functionality for OpenSearch. To learn more about building extensions using _OpenSearch SDK for Java_, see [Extensions]({{site.url}}{{site.baseurl}}/developer-documentation/extensions/).
+New in version 2.8, OpenSearch introduces _extensions_---an easier to develop and more secure alternative to plugins, which simplifies creating custom functionality for OpenSearch. To learn more about building extensions using _OpenSearch SDK for Java_, see [Extensions]({{site.url}}{{site.baseurl}}/developer-documentation/extensions/).
