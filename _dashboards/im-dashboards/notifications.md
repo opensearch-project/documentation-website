@@ -31,7 +31,7 @@ If you don't have permissions to view notification settings, you will not be abl
 
 ## Configuring notification settings for an individual operation
 
-You can view or override default notification settings when you perform an indexing operation. For example, if you want to configure additional notification for a reindex operation, perform the following steps:
+You can view default notification settings when you perform an indexing operation. You can also set up additional notifications. For example, if you want to configure additional notification for a reindex operation, perform the following steps:
 
 1. From the top menu, select **OpenSearch Plugins** > **Index Management**.
 1. Under **Index Management**, select **Indices**.
