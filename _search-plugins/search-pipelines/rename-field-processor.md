@@ -9,6 +9,9 @@ grand_parent: Search
 
 # Rename field processor
 
+Rename field processor is part of search pipeline functionality. Search pipelines is an experimental feature. For updates on the progress of search pipelines, or if you want to leave feedback that could help improve the feature, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
+{: .warning}
+
 The `rename_field` search response processor intercepts a search response and renames the specified field. This is useful when you have different names for one field in your index but your application requires one field name or a different field name.
 
 ## Request fields
