@@ -125,6 +125,34 @@ To split an index, select the index you want to split from the **Indices** list 
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/split-expanded.png" alt="User interface showing split page">
 
+### Refreshing an index
+
+Refreshing an index makes new updates to the index visible to search operations. 
+
+The refresh operation can be applied only to open indexes. 
+
+To refresh all indexes, from the **Actions** dropdown list, select **Refresh**.
+
+To refresh a particular index, select the index from the **Indices** list under **Index Management**. Then from the **Actions** dropdown list, select **Refresh**. 
+
+### Flushing an index
+
+The flush operation performs a Lucene commit, writing segments to disk and starting a new translog. 
+
+The flush operation can be applied only to open indexes. 
+
+To flush all indexes, from the **Actions** dropdown list, select **Flush**.
+
+To flush a particular index, select the index from the **Indices** list under **Index Management**. Then from the **Actions** dropdown list, select **Flush**. 
+
+### Clearing an index's cache
+
+The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes. 
+
+To clear cache for all indexes, from the **Actions** dropdown list, select **Clear cache**.
+
+To clear cache for a particular index, select the index from the **Indices** list under **Index Management**. Then from the **Actions** dropdown list, select **Clear cache**. 
+
 ### Deleting an index
 
 If you no longer need an index, you can use the [delete index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/) operation to delete it.
@@ -170,6 +198,8 @@ An alias is a virtual index name that can point to one or more indexes. If your 
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/aliases.PNG" alt="User interface showing Alias page">
 
+### Creating an alias
+
 To create an alias, perform the following steps:
 
 1. Choose the **Create Alias** button on the **Aliases** page under **Index Management**.
@@ -179,17 +209,47 @@ To create an alias, perform the following steps:
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-alias.PNG" alt="User interface showing creat Alias page">
 
+### Editing an alias
+
 To edit an alias, perform the following steps:
 
 1. Select the alias you want to edit.
 2. Choose the **Actions** button.
 3. Choose **Edit** from the dropdown list.
 
+### Deleting an alias
+
 To delete an alias, perform the following steps:
 
 1. Select the alias you want to edit.
 2. Choose the **Actions** button.
 3. Choose **Delete** from the dropdown list.
+
+### Refreshing an alias
+
+Refreshing an alias makes new updates to the index visible to search operations. 
+
+The refresh operation can be applied only to open indexes associated with the specified aliases.
+
+To refresh a particular alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Refresh**. 
+
+### Flushing an alias
+
+The flush operation performs a Lucene commit, writing segments to disk and starting a new translog. 
+
+The flush operation can be applied only to open indexes associated with the specified aliases.
+
+To flush all aliases, from the **Actions** dropdown list, select **Flush**.
+
+To flush a particular alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Flush**. 
+
+### Clearing an alias's cache
+
+The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes associated with the specified aliases.
+
+To clear cache for all open aliases, from the **Actions** dropdown list, select **Clear cache**.
+
+To clear cache for a particular alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Clear cache**. 
 
 ## Rollup jobs
 

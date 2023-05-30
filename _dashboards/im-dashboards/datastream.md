@@ -91,3 +91,31 @@ To perform a force merge operation on two or more indexes, perform the following
 1. Optionally, under **Advanced settings** you can to choose to **Flush indices** or **Only expunge delete** and then specify the **Max number of segments** to merge to as shown in the following image.
 
     ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
+
+## Refreshing a data stream
+
+Refreshing a data stream makes new updates to the index visible to search operations. 
+
+The refresh operation can be applied only to open indexes associated with the specified data streams.
+
+To refresh all data streams, from the **Actions** dropdown list, select **Refresh**.
+
+To refresh a particular data stream, select the data stream from the **Data streams** list under **Index Management**. Then from the **Actions** dropdown list, select **Refresh**. 
+
+## Flushing a data stream
+
+The flush operation performs a Lucene commit, writing segments to disk and starting a new translog. 
+
+The flush operation can be applied only to open indexes associated with the specified data streams. 
+
+To flush all data streams, from the **Actions** dropdown list, select **Flush**.
+
+To flush a particular data stream, select the data stream from the **Data streams** list under **Index Management**. Then from the **Actions** dropdown list, select **Flush**. 
+
+## Clearing a data stream's cache
+
+The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes associated with the specified data streams. 
+
+To clear cache for all data streams, from the **Actions** dropdown list, select **Clear cache**.
+
+To clear cache for a particular data stream, select the index from the **Indices** list under **Index Management**. Then from the **Actions** dropdown list, select **Clear cache**. 
