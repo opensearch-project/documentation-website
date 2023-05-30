@@ -32,39 +32,27 @@ For request field definitions, see [search request fields]({{site.url}}{{site.ba
 The following table lists all available request fields.
 
 `source` | Inline script | The script to run. Required.
+`lang` | String | The script language. Optional. Only `painless` is supported.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | Description of the processor. Optional.
 
 ## Example 
 
-The following request creates a search pipeline with a `script` request processor. If the query contains at least two words, the script takes every adjacent pair of words and joins them with an `and`. The resulting pairs are joined with an `or`:
+The following request creates a search pipeline with a `script` request processor. The script limits score explanation to be included for one document only:
 
 ```json
-PUT /_search/pipeline/my_pipeline
+PUT /_search/pipeline/explain_one_result
 {
+  "description": "A pipeline to limit the explain operation to one result only",
   "request_processors": [
     {
       "script": {
-        "source": """
-        if (cxt.source['query'] != null) {
-            StringBuilder queryBuilder = new StringBuilder();
-            String[] terms = cxt.source['query'].splitOnToken(' ');
-            if (terms.length >= 2) {
-            for (int i = 1; i < terms.length; i++) {
-                if (queryBuilder.length() > 0) {
-                queryBuilder.append(' OR ');
-                }
-                queryBuilder.append('(').append(terms[i-1]).append(' AND ').append(terms[i]).append(')');
-            }
-            cxt.source['query'] = queryBuilder.toString();
-            }
-        }
-        """
+        "lang": "painless",
+        "source": "if (ctx._source['size'] > 1) { ctx._source['explain'] = false } else { ctx._source['explain'] = true }"
       }
     }
   ]
-}
+} 
 ```
 {% include copy-curl.html %}
 
-For example, if the `query` is `x y z`, then after running the script it becomes `(x AND y) OR (y AND z)`.
