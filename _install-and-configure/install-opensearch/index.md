@@ -92,9 +92,9 @@ Do not declare the same JVM options in multiple locations because it can result 
 
 ## Important system properties
 
-The OpenSearch has a number of system properties that you can specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS` using `-D` command line argument notation, for example:
+OpenSearch has a number of system properties that you can specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS` using `-D` command line argument notation, for example:
 
 - `opensearch.xcontent.string.length.max=<value>`
 
-By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example `-Dopensearch.xcontent.string.length.max=5000000`.
+By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.
 
