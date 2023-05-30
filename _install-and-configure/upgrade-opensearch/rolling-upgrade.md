@@ -70,18 +70,6 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    }
    ```
 
-   If you have low replica count and prefer to keep shard replicas indexing data while you preform a rolling upgrade, you can enable [Segment replication](/tuning-your-cluster/availability-and-recovery/segment-replication/index/), as shown in the following example. This allows you to keep indexing data even as you take indexing nodes down for upgrades. 
-  
-  ```json
-  PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json' -d'
-  {
-    "persistent": {
-    "cluster.routing.allocation.balance.prefer_primary": true,
-    "segrep.pressure.enabled": true
-   }
-  }
-  ```
-
 1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
    ```json
    POST "/_flush?pretty"
