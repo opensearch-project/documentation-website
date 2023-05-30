@@ -90,3 +90,11 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/install-and-configu
 Do not declare the same JVM options in multiple locations because it can result in unexpected behavior or a failure of the OpenSearch service to start. If you declare JVM options using an environment variable, such as `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`, then you should comment out any references to that JVM option in `config/jvm.options`. Conversely, if you define JVM options in `config/jvm.options`, then you should not define those JVM options using environment variables.
 {: .note}
 
+## Important system properties
+
+OpenSearch has a number of system properties that you can specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS` using `-D` command line argument notation, for example:
+
+- `opensearch.xcontent.string.length.max=<value>`
+
+By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.
+
