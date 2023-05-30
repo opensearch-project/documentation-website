@@ -51,7 +51,7 @@ Segment replication currently does not support the `wait_for` value in the `refr
 
 For the best performance, we recommend enabling both of the following settings:
 
-1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
+1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
 2. Balanced primary shard allocation:
 
 ```json
@@ -70,7 +70,6 @@ curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json'
 When using segment replication, consider the following:
 
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
-1. Rolling upgrades are not currently supported. Full cluster restarts are required when upgrading indexes using segment replication. See [Issue 3881](https://github.com/opensearch-project/OpenSearch/issues/3881).
 1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Segment replication leads to increased network congestion on primary shards. See [Issue - Optimize network bandwidth on primary shards](https://github.com/opensearch-project/OpenSearch/issues/4245).
 1. Integration with remote-backed storage as the source of replication is [currently not supported](https://github.com/opensearch-project/OpenSearch/issues/4448). 
@@ -81,7 +80,7 @@ When using segment replication, consider the following:
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
-The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
+The following benchmarks were collected with [OpenSearch-benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
 
 The benchmarks demonstrate the effect of the following configurations on segment replication:
 
@@ -364,4 +363,4 @@ The benchmarking results show a non-zero error rate as the number of replicas in
 ## Next steps
 
 1. Track [future enhancements to segment replication](https://github.com/orgs/opensearch-project/projects/99).
-1. Read [this blog post about segment replication](https://opensearch.org/blog).
+1. Read [this blog post about segment replication](https://opensearch.org/blog/segment-replication/).
