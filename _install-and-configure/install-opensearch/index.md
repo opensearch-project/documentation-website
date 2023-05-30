@@ -96,5 +96,5 @@ The OpenSearch has a number of system properties that you can specify in `config
 
 - `opensearch.xcontent.string.length.max=<value>`
 
-  By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your clusters from pontential DDoS or memory issues, you could set the system property `opensearch.xcontent.string.length.max` to the reasonable boundary (the maximum is `2147483647`), for example: `-Dopensearch.xcontent.string.length.max=5000000`.
+By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example `-Dopensearch.xcontent.string.length.max=5000000`.
 
