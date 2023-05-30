@@ -9,7 +9,7 @@ redirect_from:
 
 # JSON Web Token
 
-JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems:
+JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems. The basic information-transmission and identity-verification lifecycle for a JWT is described in the following steps:
 
 1. A user logs in to an authentication server by providing credentials (for example, a user name and password).
 1. The authentication server validates the credentials.
@@ -27,9 +27,9 @@ A JWT is self-contained in the sense that it carries all of the information nece
 
 JWTs consist of three parts:
 
-1. Header
-1. Payload
-1. Signature
+* Header
+* Payload
+* Signature
 
 
 ### Header
@@ -249,7 +249,7 @@ The endpoint should be documented by the JWT issuer. You can use it to retrieve 
 This section details how to troubleshoot common issues with your Security configuration.
 
 
-### Correct iat 
+### Verify correct claims
 
 Ensure that the JWT token contains the correct `iat` (issued at), `nbf` (not before), and `exp` (expiry) claims, all of which are validated automatically by OpenSearch.
 
@@ -274,7 +274,7 @@ When using the JWT URL parameter containing the default admin role `all_access` 
 }
 ```
 
-To solve this, ensure that the role `all_access` is mapped directly to the internal user and not a backend role. To do this, navigate to **Security > Roles > all_access** and switch to the tab to **Mapped Users**. Select **Manage mapping** and add "admin" to the **Users** section.
+To solve this, ensure that the role `all_access` is mapped directly to the internal user and not a backend role. To do this, navigate to **Security > Roles > all_access** and select the **Mapped users** tab. Select **Manage mapping** and add "admin" to the **Users** section.
 
 ![image](https://user-images.githubusercontent.com/5849965/179158704-b2bd6d48-8816-4b03-a960-8c612465cf75.png)
 
@@ -287,7 +287,7 @@ The user should appear in the **Mapped Users** tab.
 
 Even though JWT URL parameter authentication works when querying OpenSearch directly, it fails when used to access OpenSearch Dashboards. 
 
-**Solution:** Ensure the following lines are present in the OpenSearch Dashboards configuration file `opensearch_dashboards.yml`
+**Solution:** Ensure the following lines are present in the `opensearch_dashboards.yml` configuration file:
 
 ```yml
 opensearch_security.auth.type: "jwt"
