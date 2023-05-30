@@ -92,7 +92,7 @@ Do not declare the same JVM options in multiple locations because it can result 
 
 ## Important system properties
 
-The OpenSearch has a number of system properties that you could specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS`, using `-D` command line arguments notation.
+The OpenSearch has a number of system properties that you can specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS` using `-D` command line argument notation.
 
 - `opensearch.xcontent.string.length.max=<value>`
 
