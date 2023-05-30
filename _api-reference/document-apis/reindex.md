@@ -4,7 +4,8 @@ title: Reindex document
 parent: Document APIs
 nav_order: 60
 redirect_from: 
- - /opensearch/reindex-data/
+  - /opensearch/reindex-data/
+  - /opensearch/rest-api/document-apis/reindex/
 ---
 
 # Reindex document

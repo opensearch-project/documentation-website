@@ -2,7 +2,7 @@
 layout: default
 title: Clear cache
 parent: Index APIs
-nav_order: 320
+nav_order: 10
 ---
 
 # Clear cache

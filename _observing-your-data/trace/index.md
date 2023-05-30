@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /observability-plugin/trace/index/
+  - /monitoring-plugins/trace/index/
 ---
 
 # Trace Analytics
