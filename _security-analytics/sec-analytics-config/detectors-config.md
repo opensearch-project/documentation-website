@@ -22,14 +22,14 @@ You can define a new detector by naming the detector, selecting a data source an
 
 1. In the **Log types and rules** section, select the log type for the data source. The Sigma security rules associated with the log data are automatically populated in the **Detection rules** section, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="80%">
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="85%">
 
     When selecting **Network events**, **CloudTrail logs**, or **S3 access logs** as the log type, a detector dashboard is automatically created. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
     
     You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
     {: .note }
 
-1. In the **Detection rules** section, specify only those rules you want applied to the detector, as shown in the following image.
+1. Select the **Detection rules** arrow to expand the list of available detection rules for the selected log type. Specify only those rules you want applied to the detector, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that detector will use for findings" width="85%">
 
