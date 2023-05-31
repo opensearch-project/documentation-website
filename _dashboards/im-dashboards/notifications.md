@@ -37,7 +37,7 @@ You can view default notification settings when you perform an indexing operatio
 1. Under **Index Management**, select **Indices**.
 1. Select the index you want to reindex.
 1. In the **Actions** dropdown list, select **Reindex**.
-1. After selecting all reindex options, expand **Advanced settings**. Under **Notify on reindex status**, default notifications are listed. 
+1. After selecting all reindex options, expand **Advanced settings**. Under **Notifications**, default notifications are listed. 
     
     If you don't have permissions to view notification settings, you will not be able to view the default settings. 
     {: .note}
@@ -47,4 +47,7 @@ You can view default notification settings when you perform an indexing operatio
 1. Select the options to be notified when the operation has failed or completed.
 1. In the **Notification channels** dropdown list, select the channel where you want to be notified. If you want to configure a new notification channel, select **Manage channels**.
 1. Select the **Reindex** button.
+
+Please make sure the dashboards-notification plugin has been enabled in your OpenSearch Dashboards if you want to configure a new notification channel. 
+    {: .note}
 
