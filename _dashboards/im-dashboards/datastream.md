@@ -98,9 +98,7 @@ Refreshing a data stream makes new updates to the index visible to search operat
 
 The refresh operation can be applied only to open indexes associated with the specified data streams.
 
-To refresh all data streams, from the **Actions** dropdown list, select **Refresh**.
-
-To refresh a particular data stream, select the data stream from the **Data streams** list under **Index Management**. Then from the **Actions** dropdown list, select **Refresh**. 
+To refresh a data stream, select the data stream from the **Data streams** list under **Index Management**. Then from the **Actions** dropdown list, select **Refresh**. 
 
 ## Flushing a data stream
 

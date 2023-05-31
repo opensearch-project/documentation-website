@@ -7,7 +7,7 @@ nav_order: 60
 
 # Notification settings
 
-You can configure default notification settings for index operations globally on the **Notification settings** page. If you need to override any of the settings, you can also configure notification settings for individual index operations.
+You can configure default notification settings for index operations globally on the **Notification settings** page.  You can also configure additional notification settings for individual index operations.
 
 ## Configuring default notification settings
 
