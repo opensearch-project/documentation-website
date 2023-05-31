@@ -352,7 +352,7 @@ PUT _search/pipeline/my_pipeline
 ```
 {% include copy-curl.html %}
 
-In subsequent search responses, the version is provided:
+The version is provided in all subsequent responses to `get pipeline` requests:
 
 ```json
 GET _search/pipeline/my_pipeline
