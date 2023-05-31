@@ -9,6 +9,7 @@ nav_order: 15
 
 Security Analytics provides the options and functionality to monitor and respond to a wide range of security threats. Detectors are the essential components that determine what to look for and how to respond to those threats. This section covers their creation and configuration. 
 
+
 ## Step 1. Define a detector
 
 You can define a new detector by naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
@@ -40,20 +41,20 @@ You can define a new detector by naming the detector, selecting a data source an
     To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **Rule name** toggle to the left, then search for your target rule names and select each individually by moving its toggle to the right.
     {: .tip }
 
-1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval.
-1. Choose **Next** in the lower-right corner of the screen to continue. The **Configure field mapping** page appears.
 
 ## Step 2. Create field mappings
 
 The field mapping step matches field names from the rule with field names from the log index being used to provide data. Creating field mappings allows the system to accurately pass event data from the log to the detector and then use the data to trigger alerts.
 
-The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter, along with the specific detection rules, determines the list of rule field names available for the mapping. Similarly, the selected data source (log index) determines the list of log source field names that are available for the mapping.
+The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter, along with the specific detection rules, determines the list of detection field names available for the mapping. Similarly, the selected data source determines the list of log source field names that are available for the mapping.
 
-Because the system uses prepackaged Sigma rules for detector creation, it can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes custom rules, you can follow this step to manually map rule field names to log source field names.
+Because the system uses prepackaged Sigma rules for detector creation, it can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes customized rules, you can follow this step to manually map rule field names to log source field names.
+
+Because the system has the ability to automatically map field names, this step is optional. However, the more fields that can be mapped between detector fields and log source fields, the greater the accuracy of generated findings.
 
 #### A note on field names
 
-The field mapping process requires that you are familiar with the field names in the log index and have an understanding of the data contained in those fields. If you have an understanding of the log fields in the index, the mapping is typically a straightforward process.
+If you choose to perform manual field mapping, the expectation is that you are familiar with the field names in the log index and have an understanding of the data contained in those fields. If you have an understanding of the log source fields in the index, the mapping is typically a straightforward process.
 
 Security Analytics takes advantage of prepackaged Sigma rules for security event detection. Therefore, the field names are derived from a Sigma rule field standard. To make them easier to identify, however, we have created aliases for the Sigma rule fields based on the open-source Elastic Common Schema (ECS) specification. These alias rule field names are the field names used in these steps. They appear in the **Detector field name** column of the mapping tables.
 
@@ -61,7 +62,7 @@ Although the ECS rule field names are largely self-explanatory, you can find pre
 
 ### Automatically mapped fields
 
-Once you navigate to the **Configure field mapping** page, the system attempts to automatically map fields between the two sources. The **Automatically mapped fields** table contains mappings that the system created automatically after defining the detector. When the field names are similar to one another, the system can successfully match the two, as shown in the following image.
+Once you select a data source and log type, the system attempts to automatically map fields between the log and rule fields. Select the **Automatically mapped fields** arrow to expand the list of these mappings. When the field names are similar to one another, the system can successfully match the two, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/automatic-mappings.png" alt="Field mapping example for automatic mappings" width="85%">
 
@@ -77,17 +78,25 @@ While mapping fields, consider the following:
 * The **Detector field name** column lists field names based on all of the prepackaged rules associated with the selected log type.
 * The **Log source field name** column includes a dropdown list for each of the detector fields. Each dropdown list contains field names extracted from the log index.
 * To map a detector field name to a log source field name, use the dropdown arrow to open the list of log source fields and select the log field name from the list. To search for names in the log field list, enter text in the **Select a mapping field** box, as shown in the following image.
- 
- <img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="60%">
- 
-* Once the log source field name is selected and mapped to the detector field name, the icon in the **Status** column to the right changes to a green check mark.
+  
+  <img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="60%">
+  
+* Once the log source field name is selected and mapped to the detector field name, the icon in the **Status** column to the right changes from the alert icon to a check mark.
 * Make as many matches between field names as possible to complete an accurate mapping for the detector and log source fields.
 
-After completing the mappings, choose **Next** in the lower-right corner of the screen. The **Set up alerts** page appears and displays settings for an alert trigger.
 
-## Step 3. Set up alerts
+## Step 3. Create a detector schedule
 
-The third step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select rule names, rule severity, and tags in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
+1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval.
+  
+  <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png" alt="Detector schedule settings to determine how often the detector runs" width="40%">
+  
+1. After specifying how often the detector will run, select **Next** in the lower-right corner of the screen. The **Set up alerts** page appears and displays settings for an alert trigger.
+
+
+## Step 4. Set up alerts
+
+The fourth step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select rule names, rule severity, and tags in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
 
 At least one alert condition is required before a detector can begin generating findings.
 {: .note }
@@ -119,6 +128,7 @@ To set up an alert for a detector, continue with the following steps:
 1. After configuring the conditions in the preceding fields, select **Next** in the lower-right corner of the screen. The **Review and create** page opens.
 
 After reviewing the specifications for the detector, choose **Create** in the lower-right corner of the screen to create the detector. The screen returns to the list of all detectors, and the new detector appears in the list.
+
 
 ## What's next
 
