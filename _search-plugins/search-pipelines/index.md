@@ -40,33 +40,7 @@ OpenSearch supports the following search response processors:
 
 - [`rename_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rename-field-processor/): Renames an existing field.
 
-## Creating a search pipeline
-
-Search pipelines are stored in the cluster state. To create a search pipeline, you must configure an ordered list of processors in your OpenSearch cluster. You can have more than one processor of the same type in the pipeline. Each processor has a `tag` identifier that distinguishes it from the others. Tagging a specific processor can be helpful for error messages, especially if you add multiple processors of the same type.
-
-#### Example request
-
-The following request creates a search pipeline with a `filter_query` request processor that uses a term query to return only public messages:
-
-```json
-PUT /_search/pipeline/my_pipeline 
-{
-  "request_processors": [
-    {
-      "filter_query" : {
-        "tag" : "tag1",
-        "description" : "This processor is going to restrict to publicly visible documents",
-        "query" : {
-          "term": {
-            "visibility": "public"
-          }
-        }
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
+## Viewing available processor types
 
 You can use the Nodes Search Pipelines API to view the available processor types:
 
@@ -74,9 +48,6 @@ You can use the Nodes Search Pipelines API to view the available processor types
 GET /_nodes/search_pipelines
 ```
 {% include copy-curl.html %}
-
-In addition to the processors provided by OpenSearch, additional processors may be provided by plugins.
-{: .note}
 
 The response contains the `search_pipelines` object that lists the possible request and response processors:
 
@@ -134,9 +105,42 @@ The response contains the `search_pipelines` object that lists the possible requ
 ```
 </details>
 
+In addition to the processors provided by OpenSearch, additional processors may be provided by plugins.
+{: .note}
+
+## Creating a search pipeline
+
+Search pipelines are stored in the cluster state. To create a search pipeline, you must configure an ordered list of processors in your OpenSearch cluster. You can have more than one processor of the same type in the pipeline. Each processor has a `tag` identifier that distinguishes it from the others. Tagging a specific processor can be helpful for error messages, especially if you add multiple processors of the same type.
+
+#### Example request
+
+The following request creates a search pipeline with a `filter_query` request processor that uses a term query to return only public messages:
+
+```json
+PUT /_search/pipeline/my_pipeline 
+{
+  "request_processors": [
+    {
+      "filter_query" : {
+        "tag" : "tag1",
+        "description" : "This processor is going to restrict to publicly visible documents",
+        "query" : {
+          "term": {
+            "visibility": "public"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
 ## Retrieving search pipelines
 
-To retrieve existing search pipeline details, use the Search Pipeline API:
+To retrieve existing search pipeline details, use the Search Pipeline API. 
+
+To view all search pipelines, use the following request:
 
 ```json
 GET /_search/pipeline
@@ -170,6 +174,21 @@ The response contains the pipeline that you set up in the previous section:
 }
 ```
 </details>
+
+To view a particular pipeline, specify the pipeline name as a path parameter:
+
+```json
+GET /_search/pipeline/my_pipeline
+```
+{% include copy-curl.html %}
+
+You can also use wildcard patterns to view a subset of pipelines, for example:
+
+```json
+GET /_search/pipeline/my*
+```
+{% include copy-curl.html %}
+
 
 ## Using a search pipeline
 
