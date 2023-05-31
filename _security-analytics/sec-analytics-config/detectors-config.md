@@ -48,7 +48,7 @@ The field mapping step matches field names from the rule with field names from t
 
 The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter, along with the specific detection rules, determines the list of detection field names available for the mapping. Similarly, the selected data source determines the list of log source field names that are available for the mapping.
 
-Because the system uses prepackaged Sigma rules for detector creation, it can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes customized rules, you can follow this step to manually map rule field names to log source field names.
+The system uses prepackaged Sigma rules for detector creation and it can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes customized rules, you can follow this step to manually map rule field names to log source field names.
 
 Because the system has the ability to automatically map field names, this step is optional. However, the more fields that can be mapped between detector fields and log source fields, the greater the accuracy of generated findings.
 
@@ -114,7 +114,7 @@ To set up an alert for a detector, continue with the following steps:
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules" width="45%">
 
-    * Select one or more rule severities as conditions for the alert.
+    * Select one or more rule severity levels as conditions for the alert.
     * Select from a list of tags to include as conditions for the alert.
 
 1. To define a notification for the alert, assign an alert severity, select a channel for the notification, and customize a message generated for the alert.
@@ -123,12 +123,12 @@ To set up an alert for a detector, continue with the following steps:
 
     * Assign a level of severity for the alert to give the recipient an indication of its urgency.
     * Select a channel for the notification from the **Select channel to notify** dropdown list. Examples include Slack, Chime, or email. To create a new channel, select the  **Manage channels** link to the right of the field. The **Channels** page for Notifications opens in a new tab where you can edit and create new channels. For more information about notifications, see the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) documentation.
-    * Select the **Show notify message** arrow to expand message preferences. The message subject and message body are populated with details about the current alert configuration. You can edit these text fields to customize the message.
+    * Select the **Show notify message** arrow to expand message preferences. The message subject and message body are populated with details about the current alert configuration. You can edit these text fields to customize the message. Beneath the message body text box, you can select **Generate message** to populate more details in the message, such as rule names, rule severity levels, and rule tags.
     * Select **Add another alert trigger** to configure an additional alert.
 
 1. After configuring the conditions in the preceding fields, select **Next** in the lower-right corner of the screen. The **Review and create** page opens.
 
-After reviewing the specifications for the detector, choose **Create** in the lower-right corner of the screen to create the detector. The screen returns to the list of all detectors, and the new detector appears in the list.
+1. Review the specifications for the detector and select **Create detector** in the lower-right corner of the screen. The detector details for the new detector are displayed. When you navigate to the main **Threat detectors** page, the new detector appears in the list.
 
 
 ## What's next
