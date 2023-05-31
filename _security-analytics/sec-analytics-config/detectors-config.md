@@ -17,10 +17,10 @@ You can define a new detector by naming the detector, selecting a data source an
 1. On the **Threat detectors** page, choose **Create detector**. The **Define detector** page opens.
 1. In **Detector details**, give the detector a name. Adding a description for the detector is optional. 
 1. In the **Data source** section, select the dropdown arrow and select one or multiple sources for the log data.
-
+    
     When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
     {: .note }
-
+    
 1. In the **Log types and rules** section, select the log type for the data source. The Sigma security rules associated with the log data are automatically populated in the **Detection rules** section, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="85%">
