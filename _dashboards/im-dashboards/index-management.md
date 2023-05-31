@@ -239,17 +239,13 @@ The flush operation performs a Lucene commit, writing segments to disk and start
 
 The flush operation can be applied only to open indexes associated with the specified aliases.
 
-To flush all aliases, from the **Actions** dropdown list, select **Flush**.
-
-To flush a particular alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Flush**. 
+To flush an alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Flush**. 
 
 ### Clearing an alias's cache
 
 The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes associated with the specified aliases.
 
-To clear cache for all open aliases, from the **Actions** dropdown list, select **Clear cache**.
-
-To clear cache for a particular alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Clear cache**. 
+To clear cache for an alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Clear cache**. 
 
 ## Rollup jobs
 
