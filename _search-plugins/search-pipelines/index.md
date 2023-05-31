@@ -42,7 +42,7 @@ OpenSearch supports the following search response processors:
 
 ## Creating a search pipeline
 
-Search pipelines are stored in the cluster state. To create a search pipeline, you must configure an ordered list of processors in your OpenSearch cluster. You can have more than one processor of the same type in the pipeline. Each processor has a `tag` identifier that distinguishes it from the others. 
+Search pipelines are stored in the cluster state. To create a search pipeline, you must configure an ordered list of processors in your OpenSearch cluster. You can have more than one processor of the same type in the pipeline. Each processor has a `tag` identifier that distinguishes it from the others. Tagging a specific processor can be helpful for error messages, especially if you add multiple processors of the same type.
 
 #### Example request
 
@@ -68,12 +68,15 @@ PUT /_search/pipeline/my_pipeline
 ```
 {% include copy-curl.html %}
 
-You can use the Nodes Search Pipelines API to view the processor types:
+You can use the Nodes Search Pipelines API to view the available processor types:
 
 ```json
 GET /_nodes/search_pipelines
 ```
 {% include copy-curl.html %}
+
+In addition to the processors provided by OpenSearch, additional processors may be provided by plugins.
+{: .note}
 
 The response contains the `search_pipelines` object that lists the possible request and response processors:
 
@@ -273,11 +276,11 @@ PUT /my_index/_settings
 
 ## Updating a search pipeline
 
-You can update a search pipeline dynamically using the Search Pipeline API. To update an existing search processor, make sure to specify its ID in the `tag` field.
+To update a search pipeline dynamically, replace the search pipeline using the Search Pipeline API. 
 
 #### Example request
 
-The following request adds a `rename_field` response processor to `my_pipeline`:
+The following request upserts `my_pipeline` by adding a `filter_query` request processor and a `rename_field` response processor:
 
 ```json
 PUT /_search/pipeline/my_pipeline
@@ -309,4 +312,57 @@ PUT /_search/pipeline/my_pipeline
 
 ## Search pipeline versions
 
-You can specify a version for your pipeline when creating or updating it. 
+You can specify a version for your pipeline when creating it in the `version` parameter:
+
+```json
+PUT _search/pipeline/my_pipeline
+{
+  "version": 1234,
+  "request_processors": [
+    {
+      "script": {
+        "source": """
+           if (ctx._source['size'] > 100) {
+             ctx._source['explain'] = false;
+           }
+         """
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+In subsequent search responses, the version is provided:
+
+```json
+GET _search/pipeline/my_pipeline
+```
+
+The response contains the pipeline version:
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "my_pipeline": {
+    "version": 1234,
+    "request_processors": [
+      {
+        "script": {
+          "source": """
+           if (ctx._source['size'] > 100) {
+             ctx._source['explain'] = false;
+           }
+         """
+        }
+      }
+    ]
+  }
+}
+```
+</details>
