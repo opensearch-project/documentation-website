@@ -88,9 +88,9 @@ While mapping fields, consider the following:
 ## Step 3. Create a detector schedule
 
 1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval.
-  
-  <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png" alt="Detector schedule settings to determine how often the detector runs" width="40%">
-  
+    
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png" alt="Detector schedule settings to determine how often the detector runs" width="40%">
+    
 1. After specifying how often the detector will run, select **Next** in the lower-right corner of the screen. The **Set up alerts** page appears and displays settings for an alert trigger.
 
 
