@@ -32,37 +32,6 @@ Segment replication is the first feature in a series of features designed to dec
 
 Setting the default replication type on a cluster affects all newly created indexes. However, you can specify a different replication type when creating an index. Index-level settings always override cluster-level settings.
 
-### Setting the replication type on a cluster
-
-You can set the default replication type for newly created indexes in a cluster in the `opensearch.yml` file as follows:
-
-```yaml
-cluster.indices.replication.strategy: 'SEGMENT'
-```
-{% include copy.html %}
-
-This cluster-level setting cannot be enabled through the REST API.
-{: .note}
-
-This setting is not applied for system indexes and hidden indexes. By default, all system and hidden indexes in OpenSearch will still use document replication even if this setting is enabled.
-{: .note}
-
-### Creating an index with document replication type
-
-Even when the default replication type is set to segment replication, you can create an index that uses document replication by setting `replication.type` to `DOCUMENT`:
-
-```json
-PUT /my-index1
-{
-  "settings": {
-    "index": {
-      "replication.type": "DOCUMENT" 
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
 ### Creating an index with segment replication type
 
 To set segment replication as the replication strategy for an index, create the index with `replication.type` set to `SEGMENT`:
@@ -97,6 +66,37 @@ curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json'
     "segrep.pressure.enabled": true
    }
   }
+```
+{% include copy-curl.html %}
+
+### Setting the replication type on a cluster
+
+You can set the default replication type for newly created indexes in a cluster in the `opensearch.yml` file as follows:
+
+```yaml
+cluster.indices.replication.strategy: 'SEGMENT'
+```
+{% include copy.html %}
+
+This cluster-level setting cannot be enabled through the REST API.
+{: .note}
+
+This setting is not applied for system indexes and hidden indexes. By default, all system and hidden indexes in OpenSearch will still use document replication even if this setting is enabled.
+{: .note}
+
+### Creating an index with document replication type
+
+Even when the default replication type is set to segment replication, you can create an index that uses document replication by setting `replication.type` to `DOCUMENT`:
+
+```json
+PUT /my-index1
+{
+  "settings": {
+    "index": {
+      "replication.type": "DOCUMENT" 
+    }
+  }
+}
 ```
 {% include copy-curl.html %}
 
