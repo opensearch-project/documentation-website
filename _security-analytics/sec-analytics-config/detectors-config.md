@@ -122,8 +122,9 @@ To set up an alert for a detector, continue with the following steps:
     <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert" width="45%">
 
     * Assign a level of severity for the alert to give the recipient an indication of its urgency.
-    * Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to link the notification to a preferred channel.
-    * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
+    * Select a channel for the notification from the **Select channel to notify** dropdown list. Examples include Slack, Chime, or email. To create a new channel, select the  **Manage channels** link to the right of the field. The **Channels** page for Notifications opens in a new tab where you can edit and create new channels. For more information about notifications, see the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) documentation.
+    * Select the **Show notify message** arrow to expand message preferences. The message subject and message body are populated with details about the current alert configuration. You can edit these text fields to customize the message.
+    * Select **Add another alert trigger** to configure an additional alert.
 
 1. After configuring the conditions in the preceding fields, select **Next** in the lower-right corner of the screen. The **Review and create** page opens.
 
