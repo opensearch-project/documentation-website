@@ -10,6 +10,8 @@ redirect_from:
   - /search-plugins/ppl/
   - /observability-plugin/ppl/
   - /search-plugins/ppl/index/
+  - /search-plugins/ppl/endpoint/
+  - /search-plugins/ppl/protocol/
 ---
 
 # PPL &ndash; Piped Processing Language

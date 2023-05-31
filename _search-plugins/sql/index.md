@@ -5,7 +5,7 @@ nav_order: 38
 has_children: true
 has_toc: false
 redirect_from:
-  - /search-plugins/sql/
+  - /search-plugins/sql/index/
 ---
 
 # SQL and PPL

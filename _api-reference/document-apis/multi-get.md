@@ -4,14 +4,14 @@ title: Multi-get document
 parent: Document APIs
 nav_order: 30
 redirect_from: 
- - /opensearch/rest-api/document-apis/mulit-get/
+ - /opensearch/rest-api/document-apis/multi-get/
 ---
 
 # Multi-get documents
 Introduced 1.0 
 {: .label .label-purple }
 
-The multi-get operation allows you to execute multiple GET operations in one request, so you can get back all documents that match your criteria.
+The multi-get operation allows you to run multiple GET operations in one request, so you can get back all documents that match your criteria.
 
 ## Example without specifying index in URL
 
