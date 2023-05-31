@@ -8,7 +8,7 @@ has_toc: false
 
 # Search pipelines
 
-Search pipelines is an experimental feature. For updates on the progress of search pipelines, or if you want to leave feedback that could help improve the feature, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
+Search pipelines is an experimental feature. Therefore, we do not recommend the use of search pipelines in a production environment. For updates on the progress of search pipelines, or if you want to leave feedback that could help improve the feature, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
 {: .warning}
 
 To integrate result rerankers, query rewriters, and other components that operate on queries or results, you can use _search pipelines_. Search pipelines make it easier for you to process search queries and search results right in OpenSearch, as opposed to building plugins or creating additional logic elsewhere in your application. Thus, you can customize search results without adding complexity to your application. Search pipelines also provide a mechanism for modularizing your processors so you can add and reorder them easily. 
