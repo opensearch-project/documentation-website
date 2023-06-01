@@ -23,9 +23,9 @@ The following table lists the operating system versions that we currently suppor
 
 OS | Version
 :---------- | :-------- 
-RHEL/CentOS |	7/8
+RHEL / CentOS |	7 / 8
 Rocky Linux / AlmaLinux |	8
-Ubuntu | 16.04/18.04/20.04
+Ubuntu | 16.04 / 18.04 / 20.04
 Windows Server | 2019
 
 
