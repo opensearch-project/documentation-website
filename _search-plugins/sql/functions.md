@@ -33,11 +33,11 @@ ln | `ln(number T) -> double` | `SELECT ln(10) FROM my-index LIMIT 1`
 log | `log(number T) -> double` or `log(number T, number) -> double` | `SELECT log(10) FROM my-index LIMIT 1`
 log2 | `log2(number T) -> double` | `SELECT log2(10) FROM my-index LIMIT 1`
 log10 | `log10(number T) -> double` | `SELECT log10(10) FROM my-index LIMIT 1`
-mod | `mod(number T, number) -> T` | `SELECT mod(2, 3) FROM my-index LIMIT 1`
+mod | `mod(number T, number T) -> T` | `SELECT mod(2, 3) FROM my-index LIMIT 1`
 modulus | `modulus(number T, number T) -> T` | `SELECT modulus(2, 3) FROM my-index LIMIT 1`
 multiply | `multiply(number T, number T) -> T` | `SELECT multiply(2, 3) FROM my-index LIMIT 1`
 pi | `pi() -> double` | `SELECT pi() FROM my-index LIMIT 1`
-pow | `pow(number T, number) -> T` | `SELECT pow(2, 3) FROM my-index LIMIT 1`
+pow | `pow(number T, number T) -> T` | `SELECT pow(2, 3) FROM my-index LIMIT 1`
 power | `power(number T, number) -> T` | `SELECT power(2, 3) FROM my-index LIMIT 1`
 rand | `rand() -> number` or `rand(number T) -> T` | `SELECT rand(0.5) FROM my-index LIMIT 1`
 rint | `rint(number T) -> T` | `SELECT rint(1.5) FROM my-index LIMIT 1`
