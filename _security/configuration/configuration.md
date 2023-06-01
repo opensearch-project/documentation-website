@@ -144,7 +144,7 @@ The default `config/opensearch-security/config.yml` file included in your OpenSe
 
 ## Next steps
 
-To learn about configuring supported authentication backends, see specific documentation for each type in the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation.
+To learn about configuring supported authentication backends, see the relevant topic for each type in the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation.
 
 <!--- Remvoving Kerberos documentation until issue #907 is resolved.
 ### Kerberos
