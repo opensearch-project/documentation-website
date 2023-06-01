@@ -3,7 +3,7 @@ layout: default
 title: Stats API
 parent: Shard indexing backpressure
 nav_order: 2
-grand_parent: Availability and Recovery
+grand_parent: Availability and recovery
 has_children: false
 redirect_from: 
   - /opensearch/stats-api/

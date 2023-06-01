@@ -2,9 +2,11 @@
 layout: default
 title: Remote-backed storage
 nav_order: 40
-parent: Availability and Recovery
+has_children: true
+parent: Availability and recovery
 redirect_from: 
   - /opensearch/remote/
+  - /tuning-your-cluster/availability-and-recovery/remote/
 ---
 
 # Remote-backed storage
