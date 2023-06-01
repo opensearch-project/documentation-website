@@ -31,6 +31,8 @@ For request field definitions, see [search request fields]({{site.url}}{{site.ba
 
 The following table lists all available request fields.
 
+Field | Data type | Description
+:--- | :--- | :---
 `source` | Inline script | The script to run. Required.
 `lang` | String | The script language. Optional. Only `painless` is supported.
 `tag` | String | The processor's identifier. Optional.
