@@ -34,19 +34,27 @@ If you don't have permissions to view notification settings, you will not be abl
 You can view default notification settings when you perform an indexing operation. You can also set up additional notifications. For example, if you want to configure an additional notification for a reindex operation, perform the following steps:
 
 1. From the top menu, select **OpenSearch Plugins** > **Index Management**.
+
 1. Under **Index Management**, select **Indices**.
+
 1. Select the index you want to reindex.
+
 1. In the **Actions** dropdown list, select **Reindex**.
+
 1. After selecting all reindex options, expand **Advanced settings**. Under **Notifications**, default notifications are listed. 
     
     If you don't have permissions to view notification settings, you will not be able to view the default settings. 
     {: .note}
+
 1. To receive additional notifications, select **Send additional notifications**, as shown in the following image.
 
     ![Individual notification settings]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications-individual.png)
+
 1. Select the options to be notified when the operation has failed or completed.
+
 1. In the **Notification channels** dropdown list, select the channel where you want to be notified. If you want to configure a new notification channel, select **Manage channels**.
     
     To configure a new notification channel, ensure the `dashboards-notification` plugin is enabled in your OpenSearch Dashboards. 
     {: .note}
+    
 1. Select the **Reindex** button.
