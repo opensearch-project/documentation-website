@@ -207,7 +207,7 @@ To create an alias, perform the following steps:
 3. Enter the index, or index patterns, to be included in the alias.
 4. Choose **Create alias** as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-alias.PNG" alt="User interface showing creat Alias page">
+<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-alias.PNG" alt="User interface showing create Alias page">
 
 ### Editing an alias
 
