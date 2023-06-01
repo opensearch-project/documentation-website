@@ -8,7 +8,7 @@ grand_parent: Availability and recovery
 
 # Remote segment backpressure
 
-Remote-backed storage is an experimental feature. Therefore, we do not recommend the use of remote-backed storage in a production environment. For updates on the progress of remote-backed storage, or if you want leave feedback that could help improve the feature, refer to the issue on [GitHub](https://github.com/opensearch-project/OpenSearch/issues/1968).
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/1968).
 {: .warning}
 
 Remote segment backpressure is a shard-level rejection mechanism that dynamically rejects indexing requests as remote segment store falls behind the local committed segments on the primary shard. With remote segment backpressure, you can prevent the lag between the remote store and local primary store. The lag can be caused by slow or failed remote store interaction, remote store throttling, long garbage collection pauses, or high CPU utilization.
