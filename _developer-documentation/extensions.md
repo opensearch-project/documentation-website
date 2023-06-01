@@ -9,7 +9,7 @@ nav_order: 10
 Extensions is an experimental feature. For updates on the progress of extensions, or if you want leave feedback that could help improve the feature, refer to the [issue on GitHub](https://github.com/opensearch-project/OpenSearch/issues/2447).
 {: .warning}
 
-Until _extensions_ were introduced, plugins were the only way to extend OpenSearch functionality. However, plugins have significant shortcomings: they require frequent updates to be up to date with OpenSearch core, they pose a security risk because they run in the same process as OpenSearch, and updating or installing them requires a full cluster restart. Moreover, plugins can fatally impact the cluster in the event of failure.
+Until _extensions_ were introduced, plugins were the only way to extend OpenSearch functionality. However, plugins have significant shortcomings: they require frequent updates to stay up to date with OpenSearch core, they pose a security risk because they run in the same process as OpenSearch, and updating or installing them requires a full cluster restart. Moreover, plugins can fatally impact the cluster in the event of failure.
 
 Extensions provide an easier, more secure way to customize OpenSearch. Extensions support all plugin functionality and let you build additional modular features for OpenSearch. The [OpenSearch SDK for Java](https://github.com/opensearch-project/opensearch-sdk-java/) provides the library of classes and interfaces that you can use to develop extensions. Extensions are decoupled from OpenSearch core and do not need frequent updates. Additionally, they can run in a separate process or on another node and can be installed while a cluster is running.
 
