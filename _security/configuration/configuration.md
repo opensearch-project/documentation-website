@@ -78,7 +78,7 @@ http_authenticator:
 These are the allowed values for `type`:
 
 - `basic`: HTTP basic authentication. No additional configuration is needed.
-- `jwt`: JSON Web Token (JWT) authentication. Additional [JWT-specific configuration](#json-web-token) is needed.
+- `jwt`: JSON Web Token (JWT) authentication. Additional configuration is needed. See [Configuring JWTs]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/#configuring-jwts) for more information.
 - `clientcert`: Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes.
 
 After setting an HTTP authenticator, you must specify against which backend system you want to authenticate the user:
