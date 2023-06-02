@@ -23,7 +23,7 @@ Remote segment backpressure is activated if any of the following thresholds is b
 
 ## Handling segment merges 
 
-At every segment merge, a corresponding refresh is initiated. Because this refresh has new merged segments, the bytes lag instantly spikes. To compensate for this spike, the bytes lag and time lag are evaluated only if the remote store is behind the local primary store by more than one refresh. However, backpressure induced by consecutive failure activates regardless of refresh lag (the number of refreshes by which the remote store is lagging behind the local store).
+At every segment merge, a corresponding refresh is initiated. Because this refresh has new merged segments, the bytes lag instantly spikes. To compensate for this spike, the bytes lag and time lag are evaluated only if the remote store is behind the local primary store by more than one refresh. However, backpressure induced by consecutive failures activates regardless of refresh lag (the number of refreshes by which the remote store is lagging behind the local store).
 
 ## Remote segment backpressure settings
 
