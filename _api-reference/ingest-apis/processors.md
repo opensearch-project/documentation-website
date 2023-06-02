@@ -10,7 +10,18 @@ nav_order: 10
 
 A processor is a component of an ingest pipeline that performs a specific transformation on incoming data. Processors ingest, filter, transform, enrich, and route data to an OpenSearch domain, ingesting data from a variety of sources and has a rich ecosystem of built-in processors to take care of your most complex data transformation needs. [Ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) are a powerful way to transform your data before it is indexed in OpenSearch. By using ingest processors, you can make your data easier to analyze and visualize, and you can improve the performance of your queries. 
 
-OpenSearch includes several configurable processors. To get a list of available processors, use the [nodes info API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/). The following code examples show how to generally create, update, and delete processors and data sources in OpenSearch. 
+OpenSearch includes several configurable ingest processors. To get a list of available processors, send the following request:
+
+````
+```json
+GET /_nodes/ingest
+```
+{% include copy-curl.html %}
+````
+
+For more information about individual nodes within your OpenSearch domain, see [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/). 
+
+The following code examples show how to generally create, update, and delete processors and data sources in OpenSearch.
 
 ## Setting up a processor
 
