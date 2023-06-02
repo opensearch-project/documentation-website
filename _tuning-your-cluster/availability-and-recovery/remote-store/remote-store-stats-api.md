@@ -31,7 +31,7 @@ Parameter | Type | Description
 `index_name` | String | The index name.
 `shard_id` | String | The shard ID.
 
-## Index stats
+## Remote store stats for an index
 
 Use the following API to get remote store statistics for all shards of an index. 
 
@@ -137,7 +137,7 @@ The following table lists the available response fields.
 |`upload_latency_in_bytes_per_sec.moving_avg`	|The average speed of remote store uploads (in bytes per second) for the last _N_ uploads. _N_ is defined in `remote_store.segment.pressure.upload_bytes_per_sec_moving_average_window_size`. For details, see [Remote segment backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).		|
 |`remote_refresh_latency_in_millis.moving_avg`	|The average time taken by a single remote refresh during the last _N_ remote refreshes. _N_ is defined in `remote_store.segment.pressure.upload_time_moving_average_window_size`. For details, see [Remote segment backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).	|
 
-## Single shard stats
+## Remote store stats for a single shard
 
 Use the following API to get remote store statistics for a single shard.
 
@@ -197,7 +197,7 @@ GET _remotestore/stats/<index_name>/<shard_id>
 ```
 </details>
 
-### Single local shard stats
+### Remote store stats for a local shard
 
 Provide the `local` query parameter set to `true` to only fetch the shards present on the node that is serving the request:
 
