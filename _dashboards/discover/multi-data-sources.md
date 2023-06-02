@@ -39,16 +39,16 @@ To create a new data source connection:
 
    In the **Endpoint** window, enter the **Endpoint URL**. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
 
-   In the **Authentication** window, select an **Authentication Method**. The applicable fields for the selected method appear. You can then enter the required details. The options for authentication methods include:
+   In the **Authentication** window, select an **Authentication Method**. The applicable fields for the selected method appear. You can then enter the required details. The authentication method options include:
     - **No authentication**: No authentication is used to connect to the data source.
     - **Username & Password**: A basic username and password are used to connect to the data source.
-    - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS SigV4 requires an access key and a secret key.
+    - **AWS SigV4**: An AWS Signature Version 4 (SigV4) authenticating request is used to connect to the data source. AWS SigV4 requires an access key and a secret key.
 
-      For SigV4 authentication, first specify the **Region**. Next, select the type of service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. For an example setup, see the following image.
+      For SigV4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. For an example setup, see the following image.
 
       <img src="{{site.url}}{{site.baseurl}}/images/dashboards/SigV4-setup.png" alt="SigV4 auth type setup" width="40%">
       
-      For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more about SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+      For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more information about SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
       {: .note }
 
     After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
