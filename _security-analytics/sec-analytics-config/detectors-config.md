@@ -32,7 +32,7 @@ You can define a new detector by naming the detector, selecting a data source an
 
 1. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following image shows all of the toggles for the rules on and selected.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that detector will use for findings" width="85%">
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that the detector will use for findings" width="85%">
 
     * Use the toggle to the left of **Rule name** to select or deselect rules.
     * Use the **Rule severity** and **Source** dropdown lists to filter the rules you want to select from. 
@@ -79,7 +79,7 @@ While mapping fields, consider the following:
 * The **Log source field name** column includes a dropdown list for each of the detector fields. Each dropdown list contains field names extracted from the log index.
 * To map a detector field name to a log source field name, use the dropdown arrow to open the list of log source fields and select the log field name from the list. To search for names in the log field list, enter text in the **Select a mapping field** box, as shown in the following image.
   
-  <img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="60%">
+  <img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Mapping the log field to a detector rule field" width="60%">
   
 * Once the log source field name is selected and mapped to the detector field name, the icon in the **Status** column to the right changes from the alert icon to a check mark.
 * Make as many matches between field names as possible to complete an accurate mapping for the detector and log source fields.
@@ -108,7 +108,7 @@ To set up an alert for a detector, continue with the following steps:
 1. In the **Trigger name** box, enter a name for the trigger.
 1. To define rule matches for the alert, select security rules, severity levels, and tags.
     
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert" width="70%">
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Defining an alert" width="70%">
 
     * Select one rule or multiple rules that will trigger the alert. Put the cursor in the **Rule names** box and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown list's down arrow.
 
