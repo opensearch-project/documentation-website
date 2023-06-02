@@ -159,11 +159,11 @@ which results in the following response:
 
 ## Delete 
 
-The following DELETE request example removes the notifications setting:
+The following DELETE request example removes a notifications setting:
 
 DELETE /_plugins/_im/lron/{lronID}
 
 ## Next steps
 
-- Learn more about the ISM API.
-- Learn more about the [Notifications](observing-your-data/notifications/index/) application. 
+- Learn more about the [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
+- Learn more about the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) application. 
