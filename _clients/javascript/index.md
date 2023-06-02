@@ -11,7 +11,9 @@ redirect_from:
 
 The OpenSearch JavaScript (JS) client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/2.2/index.html).
 
-The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body. The example here demonstrates some basic operations like creating an index, adding documents, and searching your data. For more information and advanced index actions, see the [opensearch-js guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
+The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body. The example here demonstrates some basic operations like creating an index, adding documents, and searching your data. 
+
+You can use helper methods to simplify the use of complicated API tasks. For more information, see [Helper methods]({{site.url}}{{site.baseurl}}/clients/javascript/helpers/) and for more advanced index actions, see the [opensearch-js guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
 
 ## Setup
 
