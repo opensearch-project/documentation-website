@@ -39,16 +39,21 @@ To create a new data source connection:
 
    In the **Endpoint** window, enter the **Endpoint URL**. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
 
-   In the **Authentication** window, select an **Authentication Method**. The options are:
+   In the **Authentication** window, select an **Authentication Method**. The applicable fields for the selected method appear. You can then enter the required details. The authentication method options include:
     - **No authentication**: No authentication is used to connect to the data source.
     - **Username & Password**: A basic username and password are used to connect to the data source.
-    - **AWS Sigv4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Sigv4 requires an access key and a secret key. First specify the **Region**, and then enter the **Access Key** and **Secret Key** for authorization. For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more about Sigv4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
-    
-    When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
+    - **AWS SigV4**: An AWS Signature Version 4 (SigV4) authenticating request is used to connect to the data source. AWS SigV4 requires an access key and a secret key.
 
-    After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source connection** buttons become active. You can select **Test connection** to confirm that the connection is valid.
+      For SigV4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. For an example setup, see the following image.
 
-4. Select **Create data source connection** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
+      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/SigV4-setup.png" alt="SigV4 auth type setup" width="40%">
+      
+      For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more information about SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+      {: .note }
+
+    After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
+
+4. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
 5. Delete the data source connection by selecting the check box to the left of the title and then choosing **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported.
 
@@ -58,9 +63,9 @@ To make changes to the data source connection, select a connection in the list o
 
 To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
 
-When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
+When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
 
-When **AWS Sigv4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new  access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
+When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
 To delete the data source connection, select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}).
 
