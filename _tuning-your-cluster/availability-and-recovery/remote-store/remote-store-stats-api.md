@@ -121,6 +121,8 @@ GET _remotestore/stats/<index_name>
 
 ### Response fields
 
+The following table lists the available response fields. 
+
 |Field	|Description	|
 |:---	|:---	|
 |`refresh_time_lag_in_millis`	|The time (in milliseconds) the remote refresh is behind the local refresh.	|
