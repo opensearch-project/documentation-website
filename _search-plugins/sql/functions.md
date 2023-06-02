@@ -48,11 +48,11 @@ sqrt | `sqrt(number T) -> T` | `SELECT sqrt(0.5) FROM my-index LIMIT 1`
 strcmp | `strcmp(string T, string T) -> T` | `SELECT strcmp('hello', 'hello') FROM my-index LIMIT 1`
 subtract | `subtract(number T, number T) -> T` | `SELECT subtract(3, 2) FROM my-index LIMIT 1`
 truncate | `truncate(number T, number T) -> T` | `SELECT truncate(56.78, 1) FROM my-index LIMIT 1`
-+ | `number [op] number -> number` | `SELECT 1 + 100 FROM my-index LIMIT 1`
-- | `number [op] number -> number` | `SELECT 1 - 100 FROM my-index LIMIT 1`
-* | `number [op] number -> number` | `SELECT 1 * 100 FROM my-index LIMIT 1`
-/ | `number [op] number -> number` | `SELECT 1 / 100 FROM my-index LIMIT 1`
-% | `number [op] number -> number` | `SELECT 1 % 100 FROM my-index LIMIT 1`
++ | `number + number -> number` | `SELECT 1 + 5 FROM my-index LIMIT 1`
+- | `number - number -> number` | `SELECT 3 - 2 FROM my-index LIMIT 1`
+* | `number * number -> number` | `SELECT 2 * 3 FROM my-index LIMIT 1`
+/ | `number / number -> number` | `SELECT 1 / 0.5 FROM my-index LIMIT 1`
+% | `number % number -> number` | `SELECT 2 % 3 FROM my-index LIMIT 1`
 
 ## Trigonometric
 
