@@ -18,6 +18,8 @@ The following notification types are supported:
 - Email: When email notifications are enabled, you receive email notifications about index events. The email notifications are sent to the email address that is associated with the user's account.
 - Slack: When Slack channel notifications are enable, you recieve notifications in the designated Slack channel. For example, your OpenSearch domain must be able to connect to the internet to notify a Slack channel or send a custom webhook to a third-party server. The custom webhook must have a public IP address in order for an OpenSearch domain to send alerts to it.
 
+You can access the Notifications application through the Dev Tools Console under the main menu in OpenSearch Dashboards.
+
 ## Create, read, update, and delete (CRUD) operations
 
 The following code examples show how to configure notifications settings for monitoring long-running index operations.
