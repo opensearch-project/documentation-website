@@ -30,7 +30,7 @@ You can define a new detector by naming the detector, selecting a data source an
     You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
     {: .note }
 
-1. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following image shows all of the toggles for the rules on and selected.
+1. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following image illustrates this.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that the detector will use for findings" width="85%">
 
@@ -48,13 +48,13 @@ The field mapping step matches field names from the detector rule with field nam
 
 The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter, along with the specific detection rules, determines the list of detection field names available for the mapping. Similarly, the selected data source determines the list of log source field names that are available for the mapping.
 
-The system uses prepackaged Sigma rules for detector creation and it can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes customized rules, you can follow this step to manually map detector rule field names to log source field names.
+The system uses prepackaged Sigma rules for detector creation. It can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes customized rules, you can follow this step to manually map detector rule field names to log source field names.
 
 Because the system has the ability to automatically map field names, this step is optional. However, the more fields that can be mapped between detector fields and log source fields, the greater the accuracy of generated findings.
 
 #### A note on field names
 
-If you choose to perform manual field mapping, the expectation is that you are familiar with the field names in the log index and have an understanding of the data contained in those fields. If you have an understanding of the log source fields in the index, the mapping is typically a straightforward process.
+If you choose to perform manual field mapping, you should be familiar with the field names in the log index and have an understanding of the data contained in those fields. If you have an understanding of the log source fields in the index, the mapping is typically a straightforward process.
 
 Security Analytics takes advantage of prepackaged Sigma rules for security event detection. Therefore, the field names are derived from a Sigma rule field standard. To make them easier to identify, however, we have created aliases for the Sigma rule fields based on the open-source Elastic Common Schema (ECS) specification. These alias rule field names are the field names used in these steps. They appear in the **Detector field name** column of the mapping tables.
 
@@ -96,7 +96,7 @@ While mapping fields, consider the following:
 
 ## Step 4. Set up alerts
 
-The fourth step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select rule names, rule severity, and tags in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
+The fourth step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send notifications of possible security events. You can select rule names, rule severity, and tags in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
 
 At least one alert condition is required before a detector can begin generating findings.
 {: .note }
@@ -122,7 +122,7 @@ To set up an alert for a detector, continue with the following steps:
     <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert" width="45%">
 
     * Assign a level of severity for the alert to give the recipient an indication of its urgency.
-    * Select a channel for the notification from the **Select channel to notify** dropdown list. Examples include Slack, Chime, or email. To create a new channel, select the  **Manage channels** link to the right of the field. The **Channels** page for Notifications opens in a new tab where you can edit and create new channels. For more information about notifications, see the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) documentation.
+    * Select a channel for the notification from the **Select channel to notify** dropdown list. Examples include Slack, Chime, or email. To create a new channel, select the **Manage channels** link to the right of the field. The **Channels** page for Notifications opens in a new tab where you can edit and create new channels. For more information about notifications, see the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) documentation.
     * Expand **Show notify message** to show message preferences. The message subject and message body are populated with details about the current alert configuration. You can edit these text fields to customize the message. Beneath the message body text box, you can select **Generate message** to populate more details in the message, such as rule names, rule severity levels, and rule tags.
     * Select **Add another alert trigger** to configure an additional alert.
 
