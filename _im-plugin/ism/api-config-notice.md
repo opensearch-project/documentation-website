@@ -29,7 +29,7 @@ The following code examples show how to configure notifications settings for mon
 
 The following example request creates the notification using the `channels` field:
 
-````json
+```json
 POST /_plugins/_im/lron
 {
   "lron_config": {
