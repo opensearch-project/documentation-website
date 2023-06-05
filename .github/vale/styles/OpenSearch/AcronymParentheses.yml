@@ -5,7 +5,7 @@ level: warning
 scope: summary
 ignorecase: false
 # Ensures that the existence of 'first' implies the existence of 'second'.
-first: '\b([A-Z]{1,3}\/?[A-Z]{1,3}\d{0,2})\b'
+first: '\b((?<!k-)[A-Z]{1,3}\/?[A-Z]{1,3}\d{0,2}\b(?!\sCommons))'
 second: '(?:\b[A-Za-z-]+ )+\(([A-Z]{1,3}\/?[A-Z]{1,3}\d{0,2})\)'
 # ... with the exception of these:
 exceptions:
