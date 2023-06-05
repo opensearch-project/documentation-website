@@ -3,7 +3,7 @@ layout: default
 title: Segment replication 
 nav_order: 70
 has_children: true
-parent: Availability and Recovery
+parent: Availability and recovery
 datatable: true
 redirect_from:
   - /opensearch/segment-replication/
