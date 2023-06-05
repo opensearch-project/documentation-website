@@ -99,4 +99,4 @@ The following limitations apply to environment variable usage with the Reporting
 
 ## Troubleshooting
 
-To resolve **MessageRejected: Email address is not verified**, see [Why am I getting a 400 "message rejected" error with the message "Email address is not verified" from Amazon SES?](https://aws.amazon.com/premiumsupport/knowledge-center/ses-554-400-message-rejected-error/) in the AWS Knowledge Center.
+To resolve **MessageRejected: Email address is not verified**, see [Why am I getting a 400 "message rejected" error with the message "Email address is not verified" from Amazon SES?](https://repost.aws/knowledge-center/ses-554-400-message-rejected-error) in the AWS Knowledge Center.
