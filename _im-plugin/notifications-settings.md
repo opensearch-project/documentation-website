@@ -1,28 +1,24 @@
 ---
 layout: default
-title: Configuring ISM notifications settings
-parent: ISM API
-grand_parent: Index State Management
-nav_order: 10
+title: Configuring notifications settings
+parent: Managing indexes
+nav_order: 100
 ---
 
-## Configuring ISM notifications settings
+## Configuring notifications settings
 
 Introduced 2.8
 {: .label .label-purple }
 
-Notifications settings are configured globally, so they do not need to be configured manually for each operation. Notifications settings allow users to control how they receive notifications about index events. For example, you can choose to receive email notifications, Slack channel notifications, or both. This documentation is intended for IT administrators as a guide to configuring notifications settings.
+Notifications settings allow users to control how they receive notifications about index events. You can use either OpenSearch Dashboards or the REST API to configure notifications. Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks. Supported index operations include resize, reindex, open, and force merge. See [Notifications](https://opensearch.org/docs/latest/observing-your-data/notifications/index/) for further details. 
 
-The following notification types are supported: 
+To configure configure the notifications settings for long-running index operations using OpenSearch Dashboards, go to **Dev Tools** under the main menu. When creating notifications using the API, the LRON setting can be configured two ways: as a concrete task or as a global and persistent task. The LRON setting with `task_id` is ad hoc and automatically deletes when the task ends. The LRON setting using `action_name` is global and persists and applies to all operations of this action type.
 
-- Email: When email notifications are enabled, you receive email notifications about index events. The email notifications are sent to the email address that is associated with the user's account.
-- Slack: When Slack channel notifications are enable, you recieve notifications in the designated Slack channel. For example, your OpenSearch domain must be able to connect to the internet to notify a Slack channel or send a custom webhook to a third-party server. The custom webhook must have a public IP address in order for an OpenSearch domain to send alerts to it.
-
-You can access the Notifications application through the Dev Tools Console under the main menu in OpenSearch Dashboards.
+This documentation is intended for IT administrators as a guide to configuring notifications settings.
 
 ## Create, read, update, and delete (CRUD) operations
 
-The following code examples show how to configure notifications settings for monitoring long-running index operations.
+The following code examples show how to configure notifications settings for long-running index operations.
 
 ### Create 
 
@@ -72,7 +68,7 @@ which results in the following response:
 
 ## Read
 
-The following GET request examples retrieve the current notifications settings for a user or group. This information can be used to determine what types of notifications the user or group is currently receiveing, and to make changes to the notifications settings as needed. 
+The following GET request examples retrieve the current notifications settings for a user or group. This information can be used to determine what types of notifications the user or group is currently recieveing, and to make changes to the notifications settings as needed. 
 
 
 Get one document
@@ -115,7 +111,6 @@ The following code example modifies an existing notifications setting:
 
 ```json
 PUT /_plugins/_im/lron/{lronID}
-POST /_plugins/_im/lron
 {
   "lron_config": {
       "task_id":"dQlcQ0hQS2mwF-AQ7icCMw:12354",
