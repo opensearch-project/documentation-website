@@ -31,7 +31,7 @@ The train operation trains a model based on a selected algorithm. Training can o
 
 ### Request 
 
-The following examples use the kmeans algorithm to train index data.
+The following examples use the k-means algorithm to train index data.
 
 **Train with kmeans synchronously** 
 
@@ -52,8 +52,9 @@ POST /_plugins/_ml/_train/kmeans
     ]
 }
 ```
+{% include copy-curl.html %}
 
-**Train with kmeans asynchronously**
+**Train with k-means asynchronously**
 
 ```json
 POST /_plugins/_ml/_train/kmeans?async=true
@@ -72,10 +73,11 @@ POST /_plugins/_ml/_train/kmeans?async=true
     ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
-**Synchronously**
+**Synchronous**
 
 For synchronous responses, the API returns the model_id, which can be used to get or delete a model.
 
@@ -86,7 +88,7 @@ For synchronous responses, the API returns the model_id, which can be used to ge
 }
 ```
 
-**Asynchronously**
+**Asynchronous**
 
 For asynchronous responses, the API returns the task_id, which can be used to get or delete a task.
 
@@ -99,11 +101,12 @@ For asynchronous responses, the API returns the task_id, which can be used to ge
 
 ## Getting model information
 
-You can retrieve information on your model using the model_id.
+You can retrieve information on your model using the `model_id`.
 
 ```json
 GET /_plugins/_ml/models/<model-id>
 ```
+{% include copy-curl.html %}
 
 The API returns information on the model, the algorithm used, and the content found within the model.
 
@@ -123,6 +126,7 @@ Use the register operation to register a custom model to a model index. ML Commo
 ```json
 POST /_plugins/_ml/models/_register
 ```
+{% include copy-curl.html %}
 
 ### Request fields
 
@@ -155,6 +159,7 @@ POST /_plugins/_ml/models/_register
   "url": "https://github.com/opensearch-project/ml-commons/raw/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip?raw=true"
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -197,6 +202,7 @@ In this example request, OpenSearch deploys the model to any available OpenSearc
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
+{% include copy-curl.html %}
 
 ### Example: Deploying to a specific node
 
@@ -208,6 +214,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
     "node_ids": ["4PLK7KJWReyX0oWKnBA8nA"]
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -231,6 +238,7 @@ POST /_plugins/_ml/models/<model_id>/_undeploy
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
 ```
+{% include copy-curl.html %}
 
 ### Response: Undeploying a model from all ML nodes
 
@@ -253,7 +261,7 @@ POST /_plugins/_ml/models/_undeploy
   "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
 }
 ```
-
+{% include copy-curl.html %}
 
 ### Response: Undeploying specific models from specific nodes
 
@@ -287,6 +295,7 @@ POST /_plugins/_ml/models/_undeploy
   "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
 }
 ```
+{% include copy-curl.html %}
 
 ### Response: Undeploying specific models from all nodes
 
@@ -321,6 +330,7 @@ POST /_plugins/_ml/models/_search
   "size": 1000
 }
 ```
+{% include copy-curl.html %}
 
 ### Example: Querying models with algorithm "FIT_RCF"
 
@@ -336,6 +346,7 @@ POST /_plugins/_ml/models/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -396,6 +407,7 @@ Deletes a model based on the `model_id`.
 ```json
 DELETE /_plugins/_ml/models/<model_id>
 ```
+{% include copy-curl.html %}
 
 The API returns the following:
 
@@ -455,6 +467,7 @@ GET /_plugins/_ml/profile
   "return_all_models": true
 }
 ```
+{% include copy-curl.html %}
 
 ### Response: Returning all tasks and models on a specific node
 
@@ -518,6 +531,7 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
     ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -587,14 +601,13 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
 
 ## Train and predict
 
-Use to train and then immediately predict against the same training data set. Can only be used with unsupervised learning models and the following algorithms:
+Use to train and then immediately predict against the same training dataset. Can only be used with unsupervised learning models and the following algorithms:
 
 - BATCH_RCF
 - FIT_RCF
-- kmeans
+- k-means
 
 ### Example: Train and predict with indexed data
-
 
 ```json
 POST /_plugins/_ml/_train_predict/kmeans
@@ -625,6 +638,7 @@ POST /_plugins/_ml/_train_predict/kmeans
     ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Example: Train and predict with data directly
 
@@ -724,6 +738,7 @@ POST /_plugins/_ml/_train_predict/kmeans
     }
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -798,6 +813,7 @@ You can retrieve information about a task using the task_id.
 ```json
 GET /_plugins/_ml/tasks/<task_id>
 ```
+{% include copy-curl.html %}
 
 The response includes information about the task.
 
@@ -825,7 +841,7 @@ GET /_plugins/_ml/tasks/_search
 ```
 
 
-### Example: Search task which "function_name" is "KMEANS"
+### Example: Search task which `function_name` is `KMEANS`
 
 ```json
 GET /_plugins/_ml/tasks/_search
@@ -843,6 +859,7 @@ GET /_plugins/_ml/tasks/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -916,6 +933,7 @@ ML Commons does not check the task status when running the `Delete` request. The
 ```json
 DELETE /_plugins/_ml/tasks/{task_id}
 ```
+{% include copy-curl.html %}
 
 The API returns the following:
 
@@ -944,24 +962,28 @@ To receive all stats, use:
 ```json
 GET /_plugins/_ml/stats
 ```
+{% include copy-curl.html %}
 
 To receive stats for a specific node, use:
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/
 ```
+{% include copy-curl.html %}
 
-To receive stats for a specific node and  return a specified stat, use:
+To receive stats for a specific node and return a specified stat, use:
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/<stat>
 ```
+{% include copy-curl.html %}
 
 To receive information on a specific stat from all nodes, use:
 
 ```json
 GET /_plugins/_ml/stats/<stat>
 ```
+{% include copy-curl.html %}
 
 
 ### Example: Get all stats
@@ -969,6 +991,7 @@ GET /_plugins/_ml/stats/<stat>
 ```json
 GET /_plugins/_ml/stats
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -1033,6 +1056,7 @@ POST /_plugins/_ml/_execute/anomaly_localization
   "num_outputs": 10
 }
 ```
+{% include copy-curl.html %}
 
 Upon execution, the API returns the following:
 
