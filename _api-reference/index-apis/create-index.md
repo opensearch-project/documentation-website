@@ -82,7 +82,7 @@ Setting | Description
 index.number_of_shards | The number of primary shards in the index. Default is 1.
 index.number_of_routing_shards | The number of routing shards used to split an index.
 index.shard.check_on_startup | Whether the index's shards should be checked for corruption. Available options are `false` (do not check for corruption), `checksum` (check for physical corruption), and `true` (check for both physical and logical corruption). Default is `false`.
-index.codec | The compression type to use to compress stored data. Available values are `default` (optimizes for retrieval speed) and `best_compression` (optimizes for better compression at the expense of speed, leading to smaller data sizes on disk).
+index.codec | The compression type to use to compress stored data. Available values are `default` (optimizes for retrieval speed) and `best_compression` (optimizes for better compression at the expense of speed, leading to smaller data sizes on disk). For snapshot distributions built with the sandbox feature enabled, `-Dsandbox.enabled=true`, OpenSearch offers a custom-codecs plugin that supports the value `zstd` for Zstandard compression.
 index.routing_partition_size | The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than just a single shard. To enable, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 index.soft_deletes.retention_lease.period | The maximum amount of time to retain a shard's history of operations. Default is `12h`.
 index.load_fixed_bitset_filters_eagerly | Whether OpenSearch should pre-load cached filters. Available options are `true` and `false`. Default is `true`.
