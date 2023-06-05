@@ -9,7 +9,7 @@ grand_parent: Search
 
 # Script processor
 
-Script processor is part of search pipeline functionality. Search pipelines is an experimental feature. For updates on the progress of search pipelines, or if you want to leave feedback that could help improve the feature, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/rfc-search-pipelines/12099).    
 {: .warning}
 
 The `script` search request processor intercepts a search request and adds an inline Painless script that is run on incoming requests. The script can only run on the following request fields:
@@ -40,7 +40,7 @@ Field | Data type | Description
 
 ## Example 
 
-The following request creates a search pipeline with a `script` request processor. The script limits score explanation to be included for one document only:
+The following request creates a search pipeline with a `script` request processor. The script limits score explanation to only one document because `explain` is an expensive operation:
 
 ```json
 PUT /_search/pipeline/explain_one_result

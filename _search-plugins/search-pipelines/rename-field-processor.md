@@ -9,7 +9,7 @@ grand_parent: Search
 
 # Rename field processor
 
-Rename field processor is part of search pipeline functionality. Search pipelines is an experimental feature. For updates on the progress of search pipelines, or if you want to leave feedback that could help improve the feature, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/rfc-search-pipelines/12099).    
 {: .warning}
 
 The `rename_field` search response processor intercepts a search response and renames the specified field. This is useful when your index and your application use different names for the same field. For example, if you rename a field in your index, the `rename_field` processor can change the new name to the old one before sending the response to your application.
@@ -63,7 +63,7 @@ PUT /_search/pipeline/my_pipeline
 
 ### Using a search pipeline
 
-Search for documents in `my_index` without search pipelines:
+Search for documents in `my_index` without a search pipeline:
 
 ```json
 GET /my_index/_search
@@ -155,7 +155,7 @@ The `message` field has been renamed to `notification`:
 ```
 </details>
 
-You can also use the `fields` option to search for specific fields in the document:
+You can also use the `fields` option to search for specific fields in a document:
 
 ```json
 POST /my_index/_search?pretty&search_pipeline=my_pipeline

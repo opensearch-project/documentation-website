@@ -8,10 +8,10 @@ has_toc: false
 
 # Search pipelines
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/rfc-search-pipelines/12099).    
 {: .warning}
 
-To integrate result rerankers, query rewriters, and other components that operate on queries or results, you can use _search pipelines_. Search pipelines make it easier for you to process search queries and search results within OpenSearch as opposed to building plugins or creating additional logic elsewhere in your application. Thus, you can customize search results without adding complexity to your application. Search pipelines also provide a mechanism for modularizing your processors so you can add and reorder them easily. 
+You can use _search pipelines_ to build new or reuse existing result rerankers, query rewriters, and other components that operate on queries or results. Search pipelines make it easier for you to process search queries and search results within OpenSearch. Moving some of your application functionality into an OpenSearch search pipeline reduces the overall complexity of your application. As part of a search pipeline, you specify a list of processors that perform modular tasks. You can then easily add or reorder these processors to customize search results for your application. 
 
 ## Terminology
 
@@ -49,7 +49,7 @@ GET /_nodes/search_pipelines
 ```
 {% include copy-curl.html %}
 
-The response contains the `search_pipelines` object that lists the possible request and response processors:
+The response contains the `search_pipelines` object that lists the available request and response processors:
 
 <details open markdown="block">
   <summary>
@@ -110,7 +110,7 @@ In addition to the processors provided by OpenSearch, additional processors may 
 
 ## Creating a search pipeline
 
-Search pipelines are stored in the cluster state. To create a search pipeline, you must configure an ordered list of processors in your OpenSearch cluster. You can have more than one processor of the same type in the pipeline. Each processor has a `tag` identifier that distinguishes it from the others. Tagging a specific processor can be helpful for error messages, especially if you add multiple processors of the same type.
+Search pipelines are stored in the cluster state. To create a search pipeline, you must configure an ordered list of processors in your OpenSearch cluster. You can have more than one processor of the same type in the pipeline. Each processor has a `tag` identifier that distinguishes it from the others. Tagging a specific processor can be helpful for debugging error messages, especially if you add multiple processors of the same type.
 
 #### Example request
 
@@ -138,7 +138,7 @@ PUT /_search/pipeline/my_pipeline
 
 ## Retrieving search pipelines
 
-To retrieve existing search pipeline details, use the Search Pipeline API. 
+To retrieve the details of an existing search pipeline, use the Search Pipeline API. 
 
 To view all search pipelines, use the following request:
 
@@ -331,7 +331,7 @@ PUT /_search/pipeline/my_pipeline
 
 ## Search pipeline versions
 
-You can specify a version for your pipeline when creating it in the `version` parameter:
+When creating your pipeline, you can specify a version for it in the `version` parameter:
 
 ```json
 PUT _search/pipeline/my_pipeline
