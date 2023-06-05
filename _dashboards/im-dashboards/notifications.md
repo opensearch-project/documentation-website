@@ -7,7 +7,7 @@ nav_order: 60
 
 # Notification settings
 
-You can configure default notification settings for index operations globally on the **Notification settings** page. You can also configure additional notification settings for individual index operations.
+You can configure global default notification settings for index operations on the **Notification settings** page. You can also configure additional notification settings for individual index operations.
 
 ## Configuring default notification settings
 
@@ -26,7 +26,7 @@ You can choose to be notified when the operation has completed or failed. Additi
 
 ![Default notification settings]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications.png)
 
-If you don't have permissions to view notification settings, you will not be able to view the default settings. 
+If you don't have permission to view notification settings, you will not be able to view the default settings. 
 {: .note}
 
 ## Configuring notification settings for an individual operation
@@ -43,14 +43,14 @@ You can view default notification settings when you perform an indexing operatio
 
 1. After selecting all reindex options, expand **Advanced settings**. Under **Notifications**, default notifications are listed. 
     
-    If you don't have permissions to view notification settings, you will not be able to view the default settings. 
+    If you don't have permission to view notification settings, you will not be able to view the default settings. 
     {: .note}
 
 1. To receive additional notifications, select **Send additional notifications**, as shown in the following image.
 
     ![Individual notification settings]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications-individual.png)
 
-1. Select the options to be notified when the operation has failed or completed.
+1. Select whether you want to be notified when the operation has failed or completed.
 
 1. In the **Notification channels** dropdown list, select the channel where you want to be notified. If you want to configure a new notification channel, select **Manage channels**.
     
