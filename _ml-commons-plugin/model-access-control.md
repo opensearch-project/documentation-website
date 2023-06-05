@@ -565,7 +565,7 @@ GET /_plugins/_ml/model_groups/_search
 You can only delete a model group if it does not contain any model versions. 
 {: .important}
 
-If model access control is enabled on your cluster, only the owner or users with matching backend roles can delete the model group. Users with the `delete model group API` permission can delete any public model group.
+If model access control is enabled on your cluster, only the owner or users with matching backend roles can delete the model group. Any users can delete any public model group.
 
 If model access control is disabled on your cluster, users with the `delete model group API` permission can delete any model group. 
 
