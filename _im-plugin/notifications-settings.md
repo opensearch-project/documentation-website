@@ -10,7 +10,7 @@ nav_order: 100
 Introduced 2.8
 {: .label .label-purple }
 
-Notifications settings allow users to control how they receive notifications about index events. You can use either OpenSearch Dashboards or the REST API to configure notifications. See [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) and [Configuring notifications through Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/notifications/) for further details. 
+Notifications settings allow users to control how they receive notifications about index events. Set up automatic [notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) when long-running index operations are complete by [using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/notifications/), the command line, or [index state management (ISM) policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 
 Configuring notifications settings is useful for long-running index operations. When creating long-running operation notifications using the API, you can configure the `lron_config` setting in two ways:
 
