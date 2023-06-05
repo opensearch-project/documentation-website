@@ -131,9 +131,9 @@ Refreshing an index makes new updates to the index visible to search operations.
 
 The refresh operation can be applied only to open indexes. 
 
-To refresh all indexes, from the **Actions** dropdown list, select **Refresh**.
+To refresh all indexes, select **Refresh** from the **Actions** dropdown list.
 
-To refresh a particular index, select the index from the **Indices** list under **Index Management**. Then from the **Actions** dropdown list, select **Refresh**. 
+To refresh a particular index, select the index from the **Indices** list under **Index Management**. Then select **Refresh** from the **Actions** dropdown list. 
 
 ### Flushing an index
 
@@ -141,17 +141,17 @@ The flush operation performs a Lucene commit, writing segments to disk and start
 
 The flush operation can be applied only to open indexes. 
 
-To flush all indexes, from the **Actions** dropdown list, select **Flush**.
+To flush all indexes, select **Flush** from the **Actions** dropdown list.
 
-To flush a particular index, select the index from the **Indices** list under **Index Management**. Then from the **Actions** dropdown list, select **Flush**. 
+To flush a particular index, select the index from the **Indices** list under **Index Management**. Then select **Flush** from the **Actions** dropdown list. 
 
-### Clearing an index's cache
+### Clearing an index cache
 
 The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes. 
 
-To clear cache for all indexes, from the **Actions** dropdown list, select **Clear cache**.
+To clear all index caches, select **Clear cache** from the **Actions** dropdown list.
 
-To clear cache for a particular index, select the index from the **Indices** list under **Index Management**. Then from the **Actions** dropdown list, select **Clear cache**. 
+To clear a particular index cache, select the index from the **Indices** list under **Index Management**. Then select **Clear cache** from the **Actions** dropdown list. 
 
 ### Deleting an index
 
@@ -231,7 +231,7 @@ Refreshing an alias makes new updates to the index visible to search operations.
 
 The refresh operation can be applied only to open indexes associated with the specified aliases.
 
-To refresh a particular alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Refresh**. 
+To refresh a particular alias, select the alias from the **Aliases** list under **Index Management**. Then select **Refresh** from the **Actions** dropdown list. 
 
 ### Flushing an alias
 
@@ -239,13 +239,13 @@ The flush operation performs a Lucene commit, writing segments to disk and start
 
 The flush operation can be applied only to open indexes associated with the specified aliases.
 
-To flush an alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Flush**. 
+To flush an alias, select the alias from the **Aliases** list under **Index Management**. Then select **Flush** from the **Actions** dropdown list. 
 
-### Clearing an alias's cache
+### Clearing an alias cache
 
 The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes associated with the specified aliases.
 
-To clear cache for an alias, select the alias from the **Aliases** list under **Index Management**. Then from the **Actions** dropdown list, select **Clear cache**. 
+To clear an alias cache, select the alias from the **Aliases** list under **Index Management**. Then select **Clear cache** from the **Actions** dropdown list. 
 
 ## Rollup jobs
 

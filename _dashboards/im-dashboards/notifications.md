@@ -11,7 +11,7 @@ You can configure default notification settings for index operations globally on
 
 ## Configuring default notification settings
 
-On the **Notification settings** page, you can configure the default notification settings for the following index operations that may take longer time to complete:
+On the **Notification settings** page, you can configure the default notification settings for the following index operations that may take longer to complete:
 
 - Open
 - Reindex
@@ -20,9 +20,9 @@ On the **Notification settings** page, you can configure the default notificatio
 - Clone
 - Force merge
 
-To get started, from the top menu, select **OpenSearch Plugins** > **Index Management**. Under **Index Management**, select **Notification settings**.
+To get started, select **OpenSearch Plugins** > **Index Management** from the top menu. Under **Index Management**, select **Notification settings**.
 
-You can choose to be notified when the operation has completed or failed. Additionally, you can select the notification channels for this notification, as shown in the following image:
+You can choose to be notified when the operation has completed or failed. Additionally, you can select the notification channels for this notification, as shown in the following image.
 
 ![Default notification settings]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications.png)
 
@@ -39,7 +39,7 @@ You can view default notification settings when you perform an indexing operatio
 
 1. Select the index you want to reindex.
 
-1. In the **Actions** dropdown list, select **Reindex**.
+1. Select **Reindex** from the **Actions** dropdown list.
 
 1. After selecting all reindex options, expand **Advanced settings**. Under **Notifications**, default notifications are listed. 
     
@@ -52,9 +52,9 @@ You can view default notification settings when you perform an indexing operatio
 
 1. Select the options to be notified when the operation has failed or completed.
 
-1. In the **Notification channels** dropdown list, select the channel where you want to be notified. If you want to configure a new notification channel, select **Manage channels**.
+1. Select a channel from the **Notification channels** dropdown list. If you want to configure a new notification channel, select **Manage channels**.
     
-    To configure a new notification channel, ensure the `dashboards-notification` plugin is enabled in your OpenSearch Dashboards. 
+    To configure a new notification channel, ensure the `dashboards-notification` plugin is enabled in OpenSearch Dashboards. 
     {: .note}
     
 1. Select the **Reindex** button.
