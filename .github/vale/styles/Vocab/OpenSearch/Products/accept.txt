@@ -27,12 +27,14 @@ Fluentd
 Helm
 Hugging Face
 Inferentia
+IP2Geo
 IPv4
 IPv6
 Iris
 JavaScript
 Jaeger
 Jaeger HotROD
+JSON
 Keycloak
 Kerberos
 Kibana
@@ -71,7 +73,7 @@ Querqy
 Query Workbench
 RPM Package Manager
 Ruby
-Sigv4 
+SigV4 
 Simple Schema for Observability
 Tableau
 TorchScript
