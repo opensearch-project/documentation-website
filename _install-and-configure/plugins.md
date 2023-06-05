@@ -297,7 +297,7 @@ OpenSearch offers experimental plugins that may be used in a snapshot distributi
 | :--- | :--- |
 | custom-codecs | Provides additional compression codecs. | 1.0.0 |
 
-#### Example usage:
+Use the following example command to enable the sandbox feature:
 ```bash
 ./gradlew assemble -Dsandbox.enabled=true
 bin/opensearch-plugin install file:///path/to/plugin-<version>-SNAPSHOT.zip
