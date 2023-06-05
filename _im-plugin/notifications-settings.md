@@ -19,13 +19,15 @@ Configuring notifications settings is useful for long-running index operations. 
 
 The following table lists the parameters for long-running index operations. 
 
-Parameter | Type | Description
-:--- | :--- | :---
-`lron_config` | String | Long-running index operation configuration setting.
-`lron_config.task_id` | String | The identifier assigned to a specific task or operation. Optional.
-`action_name` | String | Specifies a specific action or operation to be performed. Optional.
-`lron_condition` | String | Specifies one or more conditions that must be met for the event to be handled. Conditions are `success` or `failure`. If either condition is set to `true`, you receive a notification through the specified channel when the operation succeeds or fails. If either condition is set to `false`, you do not receive a notification when the operation succeeds or fails. Required.
-`channels` | String | Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks. Required.
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `lron_config` | String | Long-running index operation configuration setting. |
+| `task_id` | String | The identifier assigned to a specific task or operation. Optional. |
+| `action_name` | String | Specifies a specific action or operation to be performed. Supported actions are resize, reindex, open index, and force merge. Optional. |
+| `lron_condition` | String | Specifies one or more conditions that must be met for the event to be handled. Conditions are `success` or `failure`. If either condition is set to `true`, you receive a notification through the specified channel when the operation succeeds or fails. If either condition is set to `false`, you do not receive a notification when the operation succeeds or fails. Required. |
+| `channels.id` | String | Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks. Required. |
+| `lron_config._id` | String | <description> |
+
 
 ## Create, read, update, and delete (CRUD) operations
 
@@ -53,7 +55,6 @@ POST /_plugins/_im/lron
 }
 ```
 {% include copy-curl.html %}
-
 
 The preceding request results in the following response:
 
