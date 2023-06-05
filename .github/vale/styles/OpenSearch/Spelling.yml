@@ -1,5 +1,5 @@
 extends: spelling
-message: "%s"
+message: "Error: %s. If you are referencing a setting, variable, format, function, or repository, surround it with tic marks."
 level: error
 action:
   name: suggest
