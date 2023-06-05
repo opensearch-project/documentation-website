@@ -289,6 +289,21 @@ Members of the OpenSearch community have built countless plugins for the service
 | store-smb | 1.0.0 |
 | transport-nio | 1.0.0 |
 
+### Experimental plugins
+
+OpenSearch offers experimental plugins that may be used in a snapshot distribution that has the [sandbox feature enabled](https://github.com/opensearch-project/OpenSearch/blob/main/sandbox/build.gradle).
+
+| Plugin Name | Description | Earliest Available Version |
+| :--- | :--- |
+| custom-codecs | Provides additional compression codecs. | 1.0.0 |
+
+Use the following example command to enable the sandbox feature:
+
+```bash
+./gradlew assemble -Dsandbox.enabled=true
+bin/opensearch-plugin install file:///path/to/plugin-<version>-SNAPSHOT.zip
+```
+
 ## Related links
 
 - [About Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
