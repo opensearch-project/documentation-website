@@ -19,12 +19,12 @@ The SQL plugin supports the following functions.
 Function | Specification | Example
 :--- | :--- | :---
 abs | `abs(number T) -> T` | `SELECT abs(0.5) FROM my-index LIMIT 1`
-add | `add(number T, number) -> T` | `SELECT add(1, 5) FROM my-index LIMIT 1`
+add | `add(number T, number T) -> T` | `SELECT add(1, 5) FROM my-index LIMIT 1`
 cbrt | `cbrt(number T) -> T` | `SELECT cbrt(0.5) FROM my-index LIMIT 1`
 ceil | `ceil(number T) -> T` | `SELECT ceil(0.5) FROM my-index LIMIT 1`
 conv | `conv(string T, int a, int b) -> T` | `SELECT CONV('12', 10, 16), CONV('2C', 16, 10), CONV(12, 10, 2), CONV(1111, 2, 10) FROM my-index LIMIT 1`
 crc32 | `crc32(string T) -> T` | `SELECT crc32('MySQL') FROM my-index LIMIT 1`
-divide | `divide(number T, number) -> T` | `SELECT divide(1, 0.5) FROM my-index LIMIT 1`
+divide | `divide(number T, number T) -> T` | `SELECT divide(1, 0.5) FROM my-index LIMIT 1`
 e | `e() -> double` | `SELECT e() FROM my-index LIMIT 1`
 exp | `exp(number T) -> T` | `SELECT exp(0.5) FROM my-index LIMIT 1`
 expm1 | `expm1(number T) -> T` | `SELECT expm1(0.5) FROM my-index LIMIT 1`
@@ -33,11 +33,12 @@ ln | `ln(number T) -> double` | `SELECT ln(10) FROM my-index LIMIT 1`
 log | `log(number T) -> double` or `log(number T, number) -> double` | `SELECT log(10) FROM my-index LIMIT 1`
 log2 | `log2(number T) -> double` | `SELECT log2(10) FROM my-index LIMIT 1`
 log10 | `log10(number T) -> double` | `SELECT log10(10) FROM my-index LIMIT 1`
-mod | `mod(number T, number) -> T` | `SELECT modulus(2, 3) FROM my-index LIMIT 1`
-multiply | `multiply(number T, number) -> number` | `SELECT multiply(2, 3) FROM my-index LIMIT 1`
+mod | `mod(number T, number T) -> T` | `SELECT mod(2, 3) FROM my-index LIMIT 1`
+modulus | `modulus(number T, number T) -> T` | `SELECT modulus(2, 3) FROM my-index LIMIT 1`
+multiply | `multiply(number T, number T) -> T` | `SELECT multiply(2, 3) FROM my-index LIMIT 1`
 pi | `pi() -> double` | `SELECT pi() FROM my-index LIMIT 1`
-pow | `pow(number T) -> T` or `pow(number T, number) -> T` | `SELECT pow(2, 3) FROM my-index LIMIT 1`
-power | `power(number T) -> T` or `power(number T, number) -> T` | `SELECT power(2, 3) FROM my-index LIMIT 1`
+pow | `pow(number T, number T) -> T` | `SELECT pow(2, 3) FROM my-index LIMIT 1`
+power | `power(number T, number) -> T` | `SELECT power(2, 3) FROM my-index LIMIT 1`
 rand | `rand() -> number` or `rand(number T) -> T` | `SELECT rand(0.5) FROM my-index LIMIT 1`
 rint | `rint(number T) -> T` | `SELECT rint(1.5) FROM my-index LIMIT 1`
 round | `round(number T) -> T` | `SELECT round(1.5) FROM my-index LIMIT 1`
@@ -45,10 +46,13 @@ sign | `sign(number T) -> T` | `SELECT sign(1.5) FROM my-index LIMIT 1`
 signum | `signum(number T) -> T` | `SELECT signum(0.5) FROM my-index LIMIT 1`
 sqrt | `sqrt(number T) -> T` | `SELECT sqrt(0.5) FROM my-index LIMIT 1`
 strcmp | `strcmp(string T, string T) -> T` | `SELECT strcmp('hello', 'hello') FROM my-index LIMIT 1`
-subtract | `subtract(number T, number) -> T` | `SELECT subtract(3, 2) FROM my-index LIMIT 1`
+subtract | `subtract(number T, number T) -> T` | `SELECT subtract(3, 2) FROM my-index LIMIT 1`
 truncate | `truncate(number T, number T) -> T` | `SELECT truncate(56.78, 1) FROM my-index LIMIT 1`
-/ | `number [op] number -> number` | `SELECT 1 / 100 FROM my-index LIMIT 1`
-% | `number [op] number -> number` | `SELECT 1 % 100 FROM my-index LIMIT 1`
++ | `number + number -> number` | `SELECT 1 + 5 FROM my-index LIMIT 1`
+- | `number - number -> number` | `SELECT 3 - 2 FROM my-index LIMIT 1`
+* | `number * number -> number` | `SELECT 2 * 3 FROM my-index LIMIT 1`
+/ | `number / number -> number` | `SELECT 1 / 0.5 FROM my-index LIMIT 1`
+% | `number % number -> number` | `SELECT 2 % 3 FROM my-index LIMIT 1`
 
 ## Trigonometric
 
