@@ -3,7 +3,7 @@ layout: default
 title: Search backpressure
 nav_order: 60
 has_children: false
-parent: Availability and recovery
+parent: Availability and Recovery
 redirect_from: 
   - /opensearch/search-backpressure/
 ---

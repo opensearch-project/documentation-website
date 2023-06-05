@@ -3,7 +3,7 @@ layout: default
 title: Shard indexing backpressure
 nav_order: 62
 has_children: true
-parent: Availability and recovery
+parent: Availability and Recovery
 redirect_from: 
   - /opensearch/shard-indexing-backpressure/
 ---

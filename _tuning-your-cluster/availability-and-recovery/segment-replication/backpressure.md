@@ -4,7 +4,7 @@ title: Segment replication backpressure
 nav_order: 75
 parent: Segment replication
 has_children: false
-grand_parent: Availability and recovery
+grand_parent: Availability and Recovery
 ---
 
 # Segment replication backpressure
