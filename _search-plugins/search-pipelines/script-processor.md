@@ -36,7 +36,7 @@ Field | Data type | Description
 `source` | Inline script | The script to run. Required.
 `lang` | String | The script language. Optional. Only `painless` is supported.
 `tag` | String | The processor's identifier. Optional.
-`description` | String | Description of the processor. Optional.
+`description` | String | A description of the processor. Optional.
 
 ## Example 
 

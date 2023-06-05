@@ -20,9 +20,9 @@ The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`query` | Object | A query in query domain-specific language. For a list of OpenSearch query types, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). Required. 
+`query` | Object | A query in query domain-specific language (DSL). For a list of OpenSearch query types, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). Required. 
 `tag` | String | The processor's identifier. Optional.
-`description` | String | Description of the processor. Optional.
+`description` | String | A description of the processor. Optional.
 
 ## Example 
 
@@ -30,7 +30,7 @@ The following example demonstrates using a search pipeline with a `filter_query`
 
 ### Setup
 
-Create an index `my_index` and index two documents, one public and one private:
+Create an index named `my_index` and index two documents, one public and one private:
 
 ```json
 POST /my_index/_doc/1
@@ -76,7 +76,7 @@ PUT /_search/pipeline/my_pipeline
 
 ### Using a search pipeline
 
-Search for documents in `my_index` without search pipelines:
+Search for documents in `my_index` without a search pipeline:
 
 ```json
 GET /my_index/_search
@@ -138,7 +138,7 @@ GET /my_index/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains only the document whose visibility is `public`:
+The response contains only the document with `public` visibility:
 
 <details open markdown="block">
   <summary>

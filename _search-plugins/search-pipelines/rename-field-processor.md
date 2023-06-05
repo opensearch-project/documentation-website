@@ -12,7 +12,7 @@ grand_parent: Search
 Rename field processor is part of search pipeline functionality. Search pipelines is an experimental feature. For updates on the progress of search pipelines, or if you want to leave feedback that could help improve the feature, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
 {: .warning}
 
-The `rename_field` search response processor intercepts a search response and renames the specified field. This is useful when your index and your application have different names for the same field. For example, if you rename a field in your index, the `rename_field` processor can change the new name to the old one before sending the response to your application.
+The `rename_field` search response processor intercepts a search response and renames the specified field. This is useful when your index and your application use different names for the same field. For example, if you rename a field in your index, the `rename_field` processor can change the new name to the old one before sending the response to your application.
 
 ## Request fields
 
@@ -23,7 +23,7 @@ Field | Data type | Description
 `field` | String | The field to rename. Required.
 `target_field` | String | The new field name. Required.
 `tag` | String | The processor's identifier. 
-`description` | String | Description of the processor. 
+`description` | String | A description of the processor. 
 
 ## Example 
 
@@ -31,7 +31,7 @@ The following example demonstrates using a search pipeline with a `rename_field`
 
 ### Setup
 
-Create an index `my_index` and index a document with the field `message`:
+Create an index named `my_index` and index a document with the field `message`:
 
 ```json
 POST /my_index/_doc/1

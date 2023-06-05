@@ -8,23 +8,23 @@ has_toc: false
 
 # Search pipelines
 
-Search pipelines is an experimental feature. Therefore, we do not recommend the use of search pipelines in a production environment. For updates on the progress of search pipelines, or if you want to leave feedback that could help improve the feature, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6278).    
 {: .warning}
 
-To integrate result rerankers, query rewriters, and other components that operate on queries or results, you can use _search pipelines_. Search pipelines make it easier for you to process search queries and search results right in OpenSearch, as opposed to building plugins or creating additional logic elsewhere in your application. Thus, you can customize search results without adding complexity to your application. Search pipelines also provide a mechanism for modularizing your processors so you can add and reorder them easily. 
+To integrate result rerankers, query rewriters, and other components that operate on queries or results, you can use _search pipelines_. Search pipelines make it easier for you to process search queries and search results within OpenSearch as opposed to building plugins or creating additional logic elsewhere in your application. Thus, you can customize search results without adding complexity to your application. Search pipelines also provide a mechanism for modularizing your processors so you can add and reorder them easily. 
 
 ## Terminology
 
 The following is a list of search pipeline terminology:
 
-* _Search request processor_: A component that takes a search request (the query and the metadata passed in the request), performs some operation with or on the search request, and returns a search request.
-* _Search response processor_: A component that takes a search response and search request (the query, results, and metadata passed in the request), performs some operation with or on the search response, and returns a search response.
+* _Search request processor_: A component that takes a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and returns a search request.
+* _Search response processor_: A component that takes a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns a search response.
 * _Processor_: Either a search request processor or a search response processor.
 * _Search pipeline_: An ordered list of processors that is integrated into OpenSearch. The pipeline intercepts a query, performs processing on the query, sends it to OpenSearch, intercepts the results, performs processing on the results, and returns them to the calling application, as shown in the following diagram. 
 
 ![Search processor diagram]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
 
-Both request and response processing for the pipeline are performed on the coordinator node so there is no shard-level processing.
+Both request and response processing for the pipeline are performed on the coordinator node, so there is no shard-level processing.
 {: .note}
 
 ## Search request processors
@@ -203,11 +203,11 @@ For a complete example of using a search pipeline with a `filter_query` processo
 
 ## Default search pipeline
 
-For convenience, you can set a default search pipeline on an index. Once your index has a default pipeline, you don't need to specify the `search_pipeline` query parameter with every search request.
+For convenience, you can set a default search pipeline for an index. Once your index has a default pipeline, you don't need to specify the `search_pipeline` query parameter in every search request.
 
-### Setting a default search pipeline on an index
+### Setting a default search pipeline for an index
 
-To set a default search pipeline on an index, specify the `index.search.default_pipeline` in the index's settings:
+To set a default search pipeline for an index, specify the `index.search.default_pipeline` in the index's settings:
 
 ```json
 PUT /my_index/_settings 
@@ -217,7 +217,7 @@ PUT /my_index/_settings
 ```
 {% include copy-curl.html %}
 
-After setting the default pipeline on `my_index`, you can try the same search for all documents:
+After setting the default pipeline for `my_index`, you can try the same search for all documents:
 
 ```json
 GET /my_index/_search
