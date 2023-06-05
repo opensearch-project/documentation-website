@@ -14,11 +14,9 @@ Notifications settings allow users to control how they receive notifications abo
 
 To configure configure the notifications settings for long-running index operations using OpenSearch Dashboards, go to **Dev Tools** under the main menu. When creating notifications using the API, the LRON setting can be configured two ways: as a concrete task or as a global and persistent task. The LRON setting with `task_id` is ad hoc and automatically deletes when the task ends. The LRON setting using `action_name` is global and persists and applies to all operations of this action type.
 
-This documentation is intended for IT administrators as a guide to configuring notifications settings.
-
 ## Create, read, update, and delete (CRUD) operations
 
-The following code examples show how to configure notifications settings for long-running index operations.
+The following examples show how to configure notifications settings for long-running index operations.
 
 ### Create 
 
@@ -68,16 +66,16 @@ which results in the following response:
 
 ## Read
 
-The following GET request examples retrieve the current notifications settings for a user or group. This information can be used to determine what types of notifications the user or group is currently recieveing, and to make changes to the notifications settings as needed. 
+The following examples retrieve the current notifications settings for a user or group. This information can be used to determine what types of notifications the user or group is currently receiving, and to make changes to the notifications settings as needed. 
 
 
-Get one document
+The following example shows how to get one document:
 
-```bash
- GET /_plugins/_im/lron/{lronID}
+```json
+ GET /_plugins/_im/lron/<lronID>
 ```
 
-Get all documents
+The following example shows how to get all documents:
 
 ```bash
 GET /_plugins/_im/lron
@@ -107,7 +105,7 @@ which result in the following response:
 
 ## Update
 
-The following code example modifies an existing notifications setting:
+The following example modifies an existing notifications setting:
 
 ```json
 PUT /_plugins/_im/lron/{lronID}
@@ -153,9 +151,11 @@ which results in the following response:
 
 ## Delete 
 
-The following DELETE request example removes a notifications setting:
+The following example shows how to remove a notifications setting:
 
-DELETE /_plugins/_im/lron/{lronID}
+```json
+DELETE /_plugins/_im/lron/<lronID>
+```
 
 ## Next steps
 
