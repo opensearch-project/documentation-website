@@ -28,7 +28,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Type | Description
 :--- | :--- | :---
-`index_name` | String | The index name.
+`index_name` | String | The index name or index pattern.
 `shard_id` | String | The shard ID.
 
 ## Remote store stats for an index
