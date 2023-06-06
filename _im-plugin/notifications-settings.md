@@ -217,7 +217,7 @@ The response contains the updated setting:
 
 ## Delete notification settings 
 
-The following example shows how to remove a notifications setting with the specified [notification setting ID](#notification-setting-id):
+The following example removes a notifications setting with the specified [notification setting ID](#notification-setting-id):
 
 ```json
 DELETE /_plugins/_im/lron/<lronID>
