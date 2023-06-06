@@ -36,6 +36,37 @@ plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 ```
 {% include copy.html %}
 
+You can also control access to specific rest APIs via roles. Here is an example role which allows access to all endpoints supported by this feature currently:
+```yml
+rest_api_admin_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'restapi:admin/actiongroups'
+    - 'restapi:admin/allowlist'
+    - 'restapi:admin/internalusers'
+    - 'restapi:admin/nodesdn'
+    - 'restapi:admin/roles'
+    - 'restapi:admin/rolesmapping'
+    - 'restapi:admin/ssl/certs/info'
+    - 'restapi:admin/ssl/certs/reload'
+    - 'restapi:admin/tenants'
+```
+You can add/remove these as required to your role definition. It currently supports access control to these 9 endpoints:
+```
+/nodesdn
+/allowlist
+/actiongroups
+/user 
+/internalusers
+/roles
+/rolesmapping
+/ssl/certs/info
+/ssl/certs/reload
+/tenants
+```
+
+
+
 Possible values for `endpoint` are:
 
 - ACTIONGROUPS
@@ -45,6 +76,8 @@ Possible values for `endpoint` are:
 - CONFIG
 - CACHE
 - SYSTEMINFO
+- NODESDN
+- SSL
 
 Possible values for `method` are:
 
@@ -1256,7 +1289,7 @@ PATCH _plugins/_security/api/securityconfig
 
 ## Distinguished names
 
-These REST APIs let a super admin add, retrieve, update, or delete any distinguished names from an allow list to enable communication between clusters and/or nodes.
+These REST APIs let a super admin (or a user with sufficient permissions to access this API) add, retrieve, update, or delete any distinguished names from an allow list to enable communication between clusters and/or nodes.
 
 Before you can use the REST API to configure the allow list, you must first add the following line to `opensearch.yml`:
 
@@ -1336,6 +1369,29 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 }
 ```
 
+### Update all distinguished names
+#### Request
+
+```json
+PATCH _plugins/_security/api/nodesdn
+[
+   {
+      "op":"remove",
+      "path":"/cluster1/nodes_dn/0"
+   }
+]
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status":"OK",
+  "message":"Resources updated."
+}
+```
+
 
 ### Delete distinguished names
 
@@ -1399,31 +1455,44 @@ GET _plugins/_security/api/ssl/certs
   ]
 }
 ```
-### Reload certificates
-Introduced 1.0
-{: .label .label-purple }
 
-Reloads SSL certificates that are about to expire without restarting the OpenSearch node. 
+### Reload Transport Certificates
 
-This call assumes that new certificates are in the same location specified by the security configurations in `opensearch.yml`. To keep sensitive certificate reloads secure, this call only allows hot reload with certificates issued by the same issuer and subject DN and SAN with expiry dates after the current certificate.
+Reload transport layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload transport layer certificates.
 
 #### Request
 
 ```json
-PUT _opendistro/_security/api/ssl/transport/reloadcerts
-```
-{% include copy-curl.html %}
-
-```json
-PUT _opendistro/_security/api/ssl/http/reloadcerts
+GET _opendistro/_security/api/ssl/transport/reloadcerts
 ```
 {% include copy-curl.html %}
 
 #### Example response
 
 ```json
-{ 
-  "message": "updated http certs" 
+{
+  "status": "OK",
+  "message": "updated transport certs"
+}
+```
+
+### Reload HTTP Certificates
+
+Reload HTTP layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload HTTP layer certificates.
+
+#### Request
+
+```json
+GET _opendistro/_security/api/ssl/http/reloadcerts
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status": "OK",
+  "message": "updated http certs"
 }
 ```
 ---
