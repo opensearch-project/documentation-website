@@ -1,8 +1,10 @@
-# API reference page template
+# API Style Guide
 
-This template provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. 
+This guide provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. 
 
 Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*.
+
+Use the [API_TEMPLATE](templates/API_TEMPLATE.md) to create an API documentation page.
 
 ### A note on terminology ###
 
@@ -24,7 +26,7 @@ Provide a REST API call example in `json` format. Optionally, also include the `
 
 ## Basic elements for documentation
 
-The following sections describe the basic API documentation structure. Each section is discussed under its respective heading below. You can include only those elements appropriate to the API. 
+The following sections describe the basic API documentation structure. Each section is discussed under its respective heading. You can include only those elements appropriate to the API. 
 
 Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
@@ -73,7 +75,7 @@ While the API endpoint states a point of entry to a resource, the path parameter
 ```json
 GET _search/scroll/<scroll_id>
 ```
-In the example above, the resource is `scroll` and its path parameter is `<scroll_id>`.
+In the preceding example, the resource is `scroll` and its path parameter is `<scroll_id>`.
 
 Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* – Parameter name in plain font.
@@ -91,7 +93,7 @@ In terms of placement, query parameters are always appended to the end of the UR
 GET _cat/aliases?v
 ```
 
-In the example above, the endpoint is `aliases` and its query parameter is `v` (provides verbose output).
+In the preceding example, the endpoint is `aliases` and its query parameter is `v` (provides verbose output).
 
 Include a paragraph that describes how to use the query parameters with an example in code font. Include the query parameter operator "?" to delineate query parameters from path parameters.
 
@@ -114,7 +116,7 @@ Field | Data type | Description
 
 #### Example request
 
-Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works. See the examples below.
+Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works. See the following examples.
 
 The following request gets all the settings in your index:
 
@@ -138,7 +140,7 @@ POST _reindex
 
 #### Example response
 
-Include a JSON example response to show what the API returns. See the examples below.
+Include a JSON example response to show what the API returns. See the following examples.
 
 The `GET /sample-index1/_settings` request returns the following response fields: 
 

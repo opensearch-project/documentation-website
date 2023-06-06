@@ -9,6 +9,7 @@ This guide provides an overview of the formatted elements commonly used in the O
 * [Adding pages or sections](#adding-pages-or-sections)
 * [Buttons](#buttons)
 * [Callouts](#callouts)
+* [Collapsible blocks](#collapsible-blocks)
 * [Dashes](#dashes)
 * [Horizontal rule](#horizontal-rule)
 * [Images](#images)
@@ -90,6 +91,31 @@ For a callout with multiple paragraphs or lists, use `>`:
 {: .note}
 
 ```
+
+## Collapsible blocks
+
+To insert a collapsible block, use the `<details>` element as follows:
+
+````html
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "_nodes" : {
+    "total" : 1,
+    "successful" : 1,
+    "failed" : 0
+  }
+}
+```
+</details>
+````
+
+Collapsible blocks are useful for long responses and for the Table of Contents at the beginning of a page.
 
 ## Dashes
 
