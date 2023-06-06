@@ -28,3 +28,5 @@ OpenSearch provides several features for customizing your search use cases and i
 - [Paginate]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/) and [sort]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/) search results, [highlight]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) search terms, and use the [autocomplete]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/) and [did-you-mean]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/) functionality.
 
 - Rewrite queries with [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/).
+
+- Process search queries and search results with [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/).
