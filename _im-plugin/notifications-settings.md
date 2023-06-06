@@ -9,7 +9,7 @@ nav_order: 100
 Introduced 2.8
 {: .label .label-purple }
 
-Use notification settings to configure notifications about long-running index operations. Set up automatic [notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) when long-running index operations are complete by [using Notifications in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/notifications/) or through the API.
+You can use notification settings to configure notifications about long-running index operations. Set up automatic [notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) when long-running index operations are complete by [using Notifications in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/notifications/) or through the API.
 
 Configuring notification settings is useful for long-running index operations, such as `open`, `reindex`, `resize`, and `force merge`. When you send a request for those operations and set the `wait_for_completion` parameter to `false`, the operation returns immediately and the response contains a task ID. You can use that task ID to configure notifications for this operation.
 
