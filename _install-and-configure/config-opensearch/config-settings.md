@@ -74,6 +74,11 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. |
 | `plugins.security.audit.enable_rest` | Enables or disables rest request logging. Default is `true`, enabled. |
 | `plugins.security.audit.enable_transport` | Enables or disables transport request logging. Default is `false', disabled. |
+| `plugins.security.audit.resolve_bulk_requests` | Enable or disable bulk request logging. When enabled, all subrequests in bulk requests are also logged. The default is false, disabled. |
+| `plugins.security.audit.config.disabled_categories` | Disables the specified event categories. |
+| `plugins.security.audit.ignore_requests` | Excludes the specified requests from being logged. Allows wildcards, regex of actions, and REST request paths. |
+| `plugins.security.audit.threadpool.size` | Determines the number of threads in the thread pool used to log events. Default is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously. |
+| `plugins.security.audit.threadpool.max_queue_len` | Sets the maximum queue length per thread. Default is `100000`. |
 | `plugins.` | na |
 | `plugins.` | na |
 | `plugins.` | na |
@@ -81,6 +86,15 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.` | na |
 | `plugins.` | na |
 | `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+| `plugins.` | na |
+
 
 ### Currently experimental feature settings
 
@@ -156,9 +170,15 @@ plugins.security.cache.ttl_minutes: 60
 # REST Management API configuration settings
 plugins.security.restapi.roles_enabled: ["all_access","xyz_role"]
 plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.LICENSE: ["DELETE"] #
-# Audit logging settings
+# Audit log configuration settings
 plugins.security.audit.enable_rest: true
 plugins.security.audit.enable_transport: false
+plugins.security.audit.resolve_bulk_requests: false
+plugins.security.audit.config.disabled_categories: ["AUTHENTICATED","GRANTED_PRIVILEGES"]
+plugins.security.audit.ignore_requests: ["indices:data/read/*","*_bulk"]
+plugins.security.audit.threadpool.size: 10
+plugins.security.audit.threadpool.max_queue_len: 100000
+
 
 ```
 
