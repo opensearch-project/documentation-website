@@ -2,14 +2,16 @@
 layout: default
 title: Remote-backed storage
 nav_order: 40
-parent: Availability and Recovery
+has_children: true
+parent: Availability and recovery
 redirect_from: 
   - /opensearch/remote/
+  - /tuning-your-cluster/availability-and-recovery/remote/
 ---
 
 # Remote-backed storage
 
-Remote-backed storage is an experimental feature. Therefore, we do not recommend the use of remote-backed storage in a production environment. For updates on the progress of remote-backed storage, or if you want leave feedback that could help improve the feature, refer to the issue on [GitHub](https://github.com/opensearch-project/OpenSearch/issues/1968).
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/1968).
 {: .warning}
 
 Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
