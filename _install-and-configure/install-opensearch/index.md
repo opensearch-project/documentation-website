@@ -17,7 +17,17 @@ This section details how to install OpenSearch on your host, including which ope
 
 ## Operating system compatibility
 
-We recommend installing OpenSearch on Red Hat Enterprise Linux (RHEL) or Debian-based Linux distributions that use [systemd](https://en.wikipedia.org/wiki/Systemd), such as CentOS, Amazon Linux 2, or Ubuntu Long-Term Support (LTS). OpenSearch should work on most Linux distributions, but we only test a handful. We recommend RHEL 7 or 8, CentOS 7 or 8, Amazon Linux 2, or Ubuntu 16.04, 18.04, or 20.04 for any version of OpenSearch. OpenSearch also supports Windows Server 2019.
+OpenSearch and OpenSearch Dashboards are compatible with Red Hat Enterprise Linux (RHEL) and Debian-based Linux distributions that use [`systemd`](https://en.wikipedia.org/wiki/Systemd), such as CentOS, Amazon Linux 2, and Ubuntu Long-Term Support (LTS). While OpenSearch and OpenSearch Dashboards should work on most Linux distributions, we only test a subset. 
+
+The following table lists the operating system versions that we currently support. 
+
+OS | Version
+:---------- | :-------- 
+RHEL/CentOS |	7/8
+Rocky Linux/AlmaLinux |	8
+Ubuntu | 16.04/18.04/20.04
+Windows Server | 2019
+
 
 ## File system recommendations
 

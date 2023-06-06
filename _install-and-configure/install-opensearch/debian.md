@@ -2,6 +2,8 @@
 layout: default
 title: Debian
 parent: Installing OpenSearch
+redirect_from:
+- /opensearch/install/deb/
 nav_order: 55
 ---
 
