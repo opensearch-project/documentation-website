@@ -82,7 +82,7 @@ The following table lists all response fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `response_field` | Type | Required field description. |
+| `response_field` | Type | Response field description. |
 
 ## Required permissions
 
