@@ -224,7 +224,7 @@ DELETE /_plugins/_im/lron/<lronID>
 ```
 {% include copy-curl.html %}
 
-For example the following request deletes the notification setting for the `reindex` operation:
+For example, the following request deletes the notification setting for the `reindex` operation:
 
 ```json
 DELETE _plugins/_im/lron/LRON:indices:data%2Fwrite%2Freindex
