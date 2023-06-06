@@ -91,7 +91,7 @@ Such queries are successfully executed by the `V2` engine unless they have `V1`-
 
 * The [cursor feature](#pagination-only-supports-basic-queries) is supported by the `V1` engine only.
 For support of `cursor`/`pagination` in the `V2` engine, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656).
-* `JSON` formatted output support is no longer supported. 
+* `json` formatted output is no longer supported. 
 * The `V2` engine does not track query execution time, so slow queries are not reported.
 * The `V2` query engine not only runs queries in the OpenSearch engine but also supports post-processing for complicated queries. Accordingly, the explain output is no longer pure OpenSearch domain-specific language (DSL) but also includes query plan information from the `V2` query engine.
 * The `V2` query engine does not support aggregation queries (historgram, date_histogram, percentiles, topHits, stats, extended_stats, terms, range)
