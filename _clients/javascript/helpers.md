@@ -68,7 +68,7 @@ When creating a new bulk helper instance, you can use the following configuratio
 
 ### Examples
 
-The following examples illustrate the index, create, update, and delete bulk helper operations. For more information and advanced index actions, see the [opensearch-js guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
+The following examples illustrate the index, create, update, and delete bulk helper operations. For more information and advanced index actions, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
 
 #### Index
 
