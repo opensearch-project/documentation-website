@@ -17,8 +17,8 @@ Configuring notification settings is useful for long-running index operations, s
 
 When creating long-running operation notifications using the API, you can configure the `lron_config` using the `task_id` and `action_name` parameters as follows:
 
-- **One-time task**: If you pass a `task_id` in the `lron_config` object, the task is one-time and the setting is automatically deleted when the task ends. If you pass both `task_id` and `action_name`, `action_name` is ignored but may be useful to you for searching and debugging notification settings.
-- **Global, persistent task**: If you pass an `action_name` and don't pass a `task_id` in the `lron_config` object, the task is global, persistent, and applies to all operations of this action type.
+- **One-time setting**: If you pass a `task_id` in the `lron_config` object, the task is one-time and the setting is automatically deleted when the task ends. If you pass both `task_id` and `action_name`, `action_name` is ignored but may be useful to you for searching and debugging notification settings.
+- **Global, persistent setting**: If you pass an `action_name` and don't pass a `task_id` in the `lron_config` object, the task is global, persistent, and applies to all operations of this action type.
 
 The following table lists the parameters for long-running index operation notifications. 
 
@@ -99,6 +99,32 @@ Use the following request to retrieve a notification setting with the specified 
 ```
 {% include copy-curl.html %}
 
+For example, the following request retrieves the notification setting for the `reindex` operation:
+
+```json
+{
+  "lron_configs": [
+    {
+      "_id": "LRON:indices:data/write/reindex",
+      "lron_config": {
+        "lron_condition": {
+          "success": false,
+          "failure": true
+        },
+        "action_name": "indices:data/write/reindex",
+        "channels": [
+          {
+            "id": "my_chime"
+          }
+        ]
+      }
+    }
+  ],
+  "total_number": 1
+}
+```
+{% include copy-curl.html %}
+
 Use the following request to retrieve all notification settings:
 
 ```json
@@ -112,15 +138,29 @@ The response contains all configured notification settings with their IDs:
 {
   "lron_configs": [
     {
-      "_id": "LRON:dQlcQ0hQS2mwF-AQ7icCMw:12354",
+      "_id": "LRON:indices:admin/open",
       "lron_config": {
-           xxxxxxxxx
+        "lron_condition": {
+          "success": false,
+          "failure": false
+        },
+        "action_name": "indices:admin/open",
+        "channels": []
       }
     },
-   {
-      "_id": "LRON:dQlcQ0hQS2mwF-AQ7icCMw:12355",
+    {
+      "_id": "LRON:indices:data/write/reindex",
       "lron_config": {
-           xxxxxxxxx
+        "lron_condition": {
+          "success": false,
+          "failure": true
+        },
+        "action_name": "indices:data/write/reindex",
+        "channels": [
+          {
+            "id": "my_chime"
+          }
+        ]
       }
     }
   ],
@@ -181,6 +221,13 @@ The following example shows how to remove a notifications setting with the speci
 
 ```json
 DELETE /_plugins/_im/lron/<lronID>
+```
+{% include copy-curl.html %}
+
+For example the following request deletes the notification setting for the `reindex` operation:
+
+```json
+DELETE _plugins/_im/lron/LRON:indices:data%2Fwrite%2Freindex
 ```
 {% include copy-curl.html %}
 
