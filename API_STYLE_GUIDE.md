@@ -1,6 +1,6 @@
 # API Style Guide
 
-This guide provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the API documentation and their descriptions.
+This guide provides the basic structure for creating OpenSearch API documentation. It includes the various elements that we feel are most important to creating complete and useful API documentation, as well as description and examples where appropriate.
 
 Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*.
 
