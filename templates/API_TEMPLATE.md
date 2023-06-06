@@ -34,7 +34,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `query_parameter` | String | Example query parameter description. Default is ... |
 
-### Request fields
+## Request fields
 
 The following table lists the available request fields.
 

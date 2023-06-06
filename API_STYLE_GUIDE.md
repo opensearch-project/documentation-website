@@ -1,6 +1,6 @@
 # API Style Guide
 
-This guide provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. 
+This guide provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the API documentation and their descriptions.
 
 Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*.
 
@@ -8,7 +8,7 @@ Use the [API_TEMPLATE](templates/API_TEMPLATE.md) to create an API documentation
 
 ### A note on terminology ###
 
-Terminology for API parameters varies in the software industry, where two or even three names may be used to label the same type of parameter. For the sake of consistency, we use the following nomenclature for parameters in our API documentation:
+Terminology for API parameters varies in the software industry, where two or even three names may be used to label the same type of parameter. For consistency, we use the following nomenclature for parameters in our API documentation:
 * *Path parameter* – "path parameter" and "URL parameter" are sometimes used synonymously. To avoid confusion, we use "path parameter" in this documentation.
 * *Query parameter* – This parameter name is often used synonymously with "request parameter." We use "query parameter" to be consistent.
 
@@ -26,7 +26,7 @@ Provide a REST API call example in `json` format. Optionally, also include the `
 
 ## Basic elements for documentation
 
-The following sections describe the basic API documentation structure. Each section is discussed under its respective heading. You can include only those elements appropriate to the API. 
+The following sections describe the basic API documentation structure. Each section is discussed under its respective heading. Include only those elements appropriate to the API. 
 
 Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
@@ -72,10 +72,11 @@ GET /_nodes/<node_id>/stats/<metric>/<index_metric>
 
 While the API endpoint states a point of entry to a resource, the path parameter acts on the resource that precedes it. Path parameters come after the resource name in the URL.
 
+In the following example, the resource is `scroll` and its path parameter is `<scroll_id>`:
+
 ```json
 GET _search/scroll/<scroll_id>
 ```
-In the preceding example, the resource is `scroll` and its path parameter is `<scroll_id>`.
 
 Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* – Parameter name in plain font.
@@ -89,11 +90,11 @@ Parameter | Data type | Description
 
 In terms of placement, query parameters are always appended to the end of the URL and located to the right of the operator "?". Query parameters serve the purpose of modifying information to be retrieved from the resource.
 
+In the following example, the endpoint is `aliases` and its query parameter is `v` (provides verbose output):
+
 ```json
 GET _cat/aliases?v
 ```
-
-In the preceding example, the endpoint is `aliases` and its query parameter is `v` (provides verbose output).
 
 Include a paragraph that describes how to use the query parameters with an example in code font. Include the query parameter operator "?" to delineate query parameters from path parameters.
 
