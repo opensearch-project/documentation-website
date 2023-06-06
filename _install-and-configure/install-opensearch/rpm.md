@@ -2,6 +2,8 @@
 layout: default
 title: RPM
 parent: Installing OpenSearch
+redirect_from:
+- /opensearch/install/rpm/
 nav_order: 51
 ---
 
@@ -25,7 +27,7 @@ Generally speaking, installing OpenSearch from the RPM distribution can be broke
 1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The RPM distribution provides everything you need to run OpenSearch inside Red Hat or Red Hat–based Linux Distributions, such as supported CentOS and RHEL versions, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
+The RPM distribution provides everything you need to run OpenSearch inside Red Hat or Red Hat–based Linux Distributions. For a list of supported operating systems, see [Operating system compatibility]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#operating-system-compatibility).
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
