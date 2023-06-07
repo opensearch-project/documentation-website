@@ -2,43 +2,59 @@
 layout: default
 title: Delete a pipeline
 parent: Ingest APIs
-nav_order: 14
+nav_order: 25
 redirect_from:
   - /opensearch/rest-api/ingest-apis/delete-ingest/
 ---
 
 # Delete a pipeline
 
-If you no longer want to use an ingest pipeline, use the delete ingest pipeline API operation.
+The delete ingest pipeline API deletes a pipeline. 
 
-## Example
+#### Request
 
-```
-DELETE _ingest/pipeline/12345
+```json
+DELETE _ingest/pipeline/<pipeline>
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## Path parameters
 
-Delete an ingest pipeline based on that pipeline's ID.
-
-```
-DELETE _ingest/pipeline/
-```
-
-## URL parameters
-
-All URL parameters are optional.
+Path parameters are required.
 
 Parameter | Type | Description
 :--- | :--- | :---
-master_timeout | time | How long to wait for a connection to the master node.
-timeout | time | How long to wait for the request to return.
+`pipeline` | String | Pipeline ID or wildcard expression of pipeline IDs used to limit the request. 
 
-## Response
+To delete all ingest pipelines in a cluster, use a value of *.
+
+## Query parameters
+
+Query parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :---
+`master_timeout` | Time | Period to wait for a connection to the primary node. Defaults to #s.
+`timeout` | Time | Period to wait for a response. Defaults to #s.
+
+## Examples
+
+The following are delete pipeline examples.
+
+### Delete a specific pipeline
 
 ```json
-{
-  "acknowledged" : true
-}
+DELETE /_ingest/pipeline/pipeline-specific
+```
+
+### Delete pipelines using a wildcard expression
+
+```json
+DELETE /_ingest/pipeline/pipeline-*
+```
+
+### Delete all pipelines
+
+```json
+DELETE /_ingest/pipeline/*
 ```

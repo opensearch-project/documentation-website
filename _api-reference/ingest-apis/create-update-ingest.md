@@ -2,21 +2,21 @@
 layout: default
 title: Create or update ingest pipeline
 parent: Ingest APIs
-nav_order: 11
+nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
 ---
 
 # Create and update a pipeline
 
-The create ingest pipeline API operation creates or updates an ingest pipeline. Each pipeline requires an ingest definition defining how each processor transforms your documents. 
+The create ingest pipeline API operation creates or updates an ingest pipeline. Each pipeline requires an ingest definition defining how each processor transforms your data. 
 
-## Example
+The following is an example of a create pipeline API request and response: 
 
-```
+```json
 PUT _ingest/pipeline/12345
 {
-  "description" : "A description for your pipeline",
+  "description" : "Example pipeline",
   "processors" : [
     {
       "set" : {
@@ -29,31 +29,24 @@ PUT _ingest/pipeline/12345
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+```json
+{
+  "acknowledged" : true
+}
 ```
+
+## Path and HTTP methods
+
+```json
 PUT _ingest/pipeline/{id}
 ```
 
 ## Request body fields
 
-Field | Required | Type | Description
-:--- | :--- | :--- | :---
-description | Optional | string | Description of your ingest pipeline. 
-processors | Required | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
-
-```json
-{
-  "description" : "A description for your pipeline",
-  "processors" : [
-    {
-      "set" : {
-        "field": "field-name",
-        "value": "value"
-      }
-    }
-  ]
-}
-```
+Field | Type | Description
+:--- | :--- | :---
+`description` | String | Description of the ingest pipeline. Optional. 
+`processors` | Array | The processor that performs an ingest action on the data. Processors run sequentially. Required.
 
 ## URL parameters
 
@@ -63,17 +56,3 @@ Parameter | Type | Description
 :--- | :--- | :---
 master_timeout | time | How long to wait for a connection to the master node.
 timeout | time | How long to wait for the request to return. 
-
-## Response
-
-```json
-{
-  "acknowledged" : true
-}
-```
-
-
-
-
-
-

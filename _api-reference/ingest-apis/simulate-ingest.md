@@ -2,7 +2,7 @@
 layout: default
 title: Simulate an ingest pipeline
 parent: Ingest APIs
-nav_order: 13
+nav_order: 20
 redirect_from:
   - /opensearch/rest-api/ingest-apis/simulate-ingest/
 ---
@@ -58,7 +58,7 @@ All URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-verbose | boolean | Verbose mode. Display data output for each processor in executed pipeline.
+`verbose` | Boolean | Verbose mode. Display data output for each processor in executed pipeline.
 
 ## Request body fields
 
