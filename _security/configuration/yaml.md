@@ -120,31 +120,7 @@ plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opend
 node.max_local_storage_nodes: 3
 ```
 
-If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
-
-Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API.
-
-```yml
-plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
-plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
-```
-
-A further option allows you to implement a score-based password strength estimator to set a threshold for password strength when creating a new internal user or resetting a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
-
-Score-based password strength requires two settings to configure the feature. The following table describes the two settings.
-
-| Setting | Description |
-| :--- | :--- |
-| `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length. The default is `8`, and this is also the minimum. |
-| `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. There are four values that require increasing complexity.<br>`fair`--A very "guessable" password: provides protection from throttled online attacks.<br>`good`--A somewhat guessable password: provides protection from unthrottle online attacks.<br>`strong`--A safely unguessable password: provides moderate protection from an offline slow-hash attack scenario.<br>`very_strong`--A very unguessable password: provides strong protection from an offline slow-hash attack scenario. |
-
-
-```json
-{
-  "status": "error",
-  "reason": "Weak password"
-}
-```
+### Refining your configuration
 
 The opensearch.yml file also contains the `plugins.security.allow_default_init_securityindex` property. When set to `true`, the Security plugin uses default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
 
@@ -156,6 +132,42 @@ Authentication cache for the Security plugin exists to help speed up authenticat
 
 ```yml
 plugins.security.cache.ttl_minutes: 60
+```
+
+### Password settings
+
+If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
+
+Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API.
+
+```yml
+plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
+plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
+```
+
+A further option allows you to implement a score-based password strength estimator to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
+
+For information about creating users, see [Create users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users).
+
+This feature is not compatible with users specified as reserved. For information about reserved resources, see [Reserved and hidden resources]({{site.url}}{{site.baseurl}}/security/access-control/api#reserved-and-hidden-resources).
+{: .note }
+
+Score-based password strength requires two settings to configure the feature. The following table describes the two settings.
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length. The default is `8`, and this is also the minimum. |
+| `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. There are four values that represent a threshold's increasing complexity.<br>`fair`--A very "guessable" password: provides protection from throttled online attacks.<br>`good`--A somewhat guessable password: provides protection from unthrottled online attacks.<br>`strong`--A safely unguessable password: provides moderate protection from an offline, slow-hash scenario.<br>`very_strong`--A very unguessable password: provides strong protection from an offline, slow-hash scenario. |
+
+When you try to create a user with a password that doesn't reach the specified threshold, the generates a "weak password" warning, indicating that the password needs to be modified before saving the user. 
+
+The following example shows the response from the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-user) API when the password is weak:
+
+```json
+{
+  "status": "error",
+  "reason": "Weak password"
+}
 ```
 
 ## allowlist.yml
