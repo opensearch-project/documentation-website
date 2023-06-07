@@ -159,7 +159,14 @@ Score-based password strength requires two settings to configure the feature. Th
 | `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length. The default is `8`, and this is also the minimum. |
 | `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. There are four values that represent a threshold's increasing complexity.<br>`fair`--A very "guessable" password: provides protection from throttled online attacks.<br>`good`--A somewhat guessable password: provides protection from unthrottled online attacks.<br>`strong`--A safely unguessable password: provides moderate protection from an offline, slow-hash scenario.<br>`very_strong`--A very unguessable password: provides strong protection from an offline, slow-hash scenario. |
 
-When you try to create a user with a password that doesn't reach the specified threshold, the generates a "weak password" warning, indicating that the password needs to be modified before saving the user. 
+The following example shows the settings configured for the `opensearch.yml` file and enabling a password with a minimum of 10 characters and a threshold requiring the highest strength:
+
+```yml
+plugins.security.restapi.password_min_length: 10
+plugins.security.restapi.password_score_based_validation_strength: very_strong
+```
+
+When you try to create a user with a password that doesn't reach the specified threshold, the system generates a "weak password" warning, indicating that the password needs to be modified before you can save the user. 
 
 The following example shows the response from the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-user) API when the password is weak:
 
