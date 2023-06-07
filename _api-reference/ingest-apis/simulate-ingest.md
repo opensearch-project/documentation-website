@@ -9,12 +9,10 @@ redirect_from:
 
 # Simulate a pipeline
 
-Simulates an ingest pipeline with any example documents you specify.
-
-## Example
+The simulate pipeline API runs a pipeline against a set of documents.
 
 ```
-POST /_ingest/pipeline/35678/_simulate
+POST /_ingest/pipeline/pipeline-id/_simulate
 {
   "docs": [
     {
@@ -36,48 +34,54 @@ POST /_ingest/pipeline/35678/_simulate
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## Example requests
 
-Simulate the last ingest pipeline created.
+Requests to simulate the lastest ingest pipeline created:
 
 ```
 GET _ingest/pipeline/_simulate
 POST _ingest/pipeline/_simulate
 ```
 
-Simulate a single pipeline based on the pipeline's ID.
+Requests to simulate a single pipeline based on the pipeline identifier.
 
 ```
-GET _ingest/pipeline/{id}/_simulate
-POST _ingest/pipeline/{id}/_simulate
+GET _ingest/pipeline/pipeline-id/_simulate
+POST _ingest/pipeline/pipeline-id/_simulate
 ```
 
-## URL parameters
-
-All URL parameters are optional.
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
-`verbose` | Boolean | Verbose mode. Display data output for each processor in executed pipeline.
+`pipeline` | String | Pipeline identifier or wildcard expression of pipeline identifiers used to limit the request. 
+
+## Query parameters 
+
+Query parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :---
+`verbose` | Boolean | Verbose mode. Display data output for each processor in the executed pipeline.
 
 ## Request body fields
 
-Field | Required | Type | Description
-:--- | :--- | :--- | :---
-`pipeline` | Optional | object | The pipeline you want to simulate. When included without the pipeline `{id}` inside the request path, the response simulates the last pipeline created.
-`docs` | Required | array of objects | The documents you want to use to test the pipeline.
+Field | Type | Description
+:--- | :--- | :---
+`pipeline` | Object | The pipeline to be simulated. If the pipeline identifier is not included, then the response simulates the lastest pipeline created. Optional.
+`docs` | Array | The documents to be used to test the pipeline. Required.
 
 The `docs` field can include the following subfields:
 
-Field | Required | Type | Description
+Field | Type | Description
 :--- | :--- | :---
-`id` | Optional |string | An optional identifier for the document. The identifier cannot be used elsewhere in the index.
-`index` | Optional | string | The index where the document's transformed data appears.
-`source` | Required | object | The document's JSON body.
+`id` | String | A unique identifier for a document. The identifier cannot be used elsewhere in the index. Optional.
+`index` | String | A collection of documents that have undergone specfic data transformation within an ingest pipeline. Optional.
+`source` | Object | The document's JSON body. Required.
 
-## Response
+## Example response
 
-Responses vary based on which path and HTTP method you choose. 
+Responses vary based on the path and HTTP method you choose. 
 
 ### Specify pipeline in request body
 
@@ -114,7 +118,7 @@ Responses vary based on which path and HTTP method you choose.
 }
 ```
 
-### Specify pipeline ID inside HTTP path
+### Specify pipeline identifier in an HTTP path
 
 ```json
 {
@@ -149,9 +153,9 @@ Responses vary based on which path and HTTP method you choose.
 }
 ```
 
-### Receive verbose response 
+### Receive a verbose response 
 
-With the `verbose` parameter set to `true`, the response shows how each processor transforms the specified document. 
+When the `verbose` parameter is set to `true`, the response shows the prcoessor results, that is, how the processor transformed the data. 
 
 ```json
 {
