@@ -36,7 +36,7 @@ plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 ```
 {% include copy.html %}
 
-You can also control access to specific rest APIs via roles. Here is an example role which allows access to all endpoints supported by this feature currently:
+You can also control access to specific rest APIs using roles. Here is an example list `cluster_permissions` that you can attach to a role which will allow access to all endpoints supported by this feature:
 ```yml
 rest_api_admin_full_access:
   reserved: true
