@@ -122,13 +122,13 @@ node.max_local_storage_nodes: 3
 
 ### Refining your configuration
 
-The opensearch.yml file also contains the `plugins.security.allow_default_init_securityindex` property. When set to `true`, the Security plugin uses default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
+The `plugins.security.allow_default_init_securityindex` setting, when set to `true`, sets the Security plugin to its default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
 
 ```yml
 plugins.security.allow_default_init_securityindex: true
 ```
 
-Authentication cache for the Security plugin exists to help speed up authentication by temporarily storing user objects returned from the backend so that the Security plugin is not required to make repeated requests for them. To determine how long it takes for caching to time out, you can use the `plugins.security.cache.ttl_minutes` property to set a value in minutes. The default is `60`. You can disable caching by setting the value to `0`.
+An authentication cache for the Security plugin exists to help speed up authentication by temporarily storing user objects returned from the backend so that the Security plugin is not required to make repeated requests for them. To determine how long it takes for caching to time out, you can use the `plugins.security.cache.ttl_minutes` property to set a value in minutes. The default is `60`. You can disable caching by setting the value to `0`.
 
 ```yml
 plugins.security.cache.ttl_minutes: 60
@@ -145,12 +145,12 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
-A further option allows you to implement a score-based password strength estimator to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
+In addition, a score-based password strength estimator allows you to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
 
 For information about creating users, see [Create users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users).
 
 This feature is not compatible with users specified as reserved. For information about reserved resources, see [Reserved and hidden resources]({{site.url}}{{site.baseurl}}/security/access-control/api#reserved-and-hidden-resources).
-{: .note }
+{: .important }
 
 Score-based password strength requires two settings to configure the feature. The following table describes the two settings.
 
