@@ -7,45 +7,34 @@ redirect_from:
   - /opensearch/rest-api/ingest-apis/get-ingest/
 ---
 
-## Get ingest pipeline
+# Get ingest pipeline
 
-After you create a pipeline, use the get ingest pipeline API operation to return all the information about a specific ingest pipeline.
+After creating a pipeline, use the get ingest pipeline API operation to return all the information about the pipeline.
 
-## Example
+## Examples
+
+The following examples return a specific pipeline or all pipelines.
+
+### Return a specific pipeline
 
 ```
-GET _ingest/pipeline/12345
+GET _ingest/pipeline/pipeline-id
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
-
-Return all ingest pipelines.
+### Return all ingest pipelines
 
 ```
 GET _ingest/pipeline
 ```
+{% include copy-curl.html %}
 
-Returns a single ingest pipeline based on the pipeline's ID.
-
-```
-GET _ingest/pipeline/{id}
-```
-
-## URL parameters
-
-All parameters are optional.
-
-Parameter | Type | Description
-:--- | :--- | :---
-master_timeout | time | How long to wait for a connection to the master node.
-
-## Response
+#### Example response
 
 ```json
 {
   "pipeline-id" : {
-    "description" : "A description for your pipeline",
+    "description" : "Example description",
     "processors" : [
       {
         "set" : {
@@ -57,3 +46,11 @@ master_timeout | time | How long to wait for a connection to the master node.
   }
 }
 ```
+
+## Query parameters
+
+Query parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :---
+master_timeout | Time | Period to wait for a connection to the primary node. Defaults to #s.
