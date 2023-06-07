@@ -129,6 +129,23 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
+A further option allows you to implement a score-based password strength estimator to set a threshold for password strength when creating a new internal user or resetting a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
+
+Score-based password strength requires two settings to configure the feature. The following table describes the two settings.
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length. The default is `8`, and this is also the minimum. |
+| `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. There are four values that require increasing complexity.<br>`fair`--A very "guessable" password: provides protection from throttled online attacks.<br>`good`--A somewhat guessable password: provides protection from unthrottle online attacks.<br>`strong`--A safely unguessable password: provides moderate protection from an offline slow-hash attack scenario.<br>`very_strong`--A very unguessable password: provides strong protection from an offline slow-hash attack scenario. |
+
+
+```json
+{
+  "status": "error",
+  "reason": "Weak password"
+}
+```
+
 The opensearch.yml file also contains the `plugins.security.allow_default_init_securityindex` property. When set to `true`, the Security plugin uses default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
 
 ```yml
