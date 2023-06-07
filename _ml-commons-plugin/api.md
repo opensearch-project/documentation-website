@@ -507,6 +507,22 @@ POST /_plugins/_ml/models/_search
 
 Deletes a model based on the `model_id`.
 
+### Model access control considerations
+
+For clusters with model access control enabled, the following users can delete models in model groups with the specified access levels:
+
+- `public` model group: Any user.
+- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
+-  `private` model group: Only the model owner. 
+
+For clusters with model access control disabled, any user can delete a model in any model group. 
+
+Admin users can delete models in any model group. 
+
+For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+
+### Path and HTTP methods
+
 ```json
 DELETE /_plugins/_ml/models/<model_id>
 ```
