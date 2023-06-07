@@ -14,6 +14,8 @@ You can use the Security plugin with ML Commons to limit non-admin users' abilit
 
 Users can be assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/) to configure fine-grained access to models based on [_user roles_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index#permissions). A backend role helps map a set of users to the same user role. For example, users with the `IT` backend role may be assigned the `ml_full_access` user role that grants full access to all ML Commons features.
 
+## Model groups
+
 For access control, models are organized into _model groups_---collections of versions of a particular model. Like users, model groups can be assigned one or more backend roles. All versions of the same model share the same model name and have the same backend role or roles. 
 
 You are considered a model _owner_ when you create a new model or upload a new version of a model. When a model owner creates a model group, the owner can specify one of the following _access modes_ for this model group:
