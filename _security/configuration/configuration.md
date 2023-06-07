@@ -139,6 +139,37 @@ If `challenge` is set to `true`, the Security plugin sends a response with statu
 If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. You might want to use this setting if you have another challenge `http_authenticator` in your configured authentication domains. One such scenario is when you plan to use basic authentication and OpenID Connect together.
 
 
+## Rate limiting
+
+| Setting | Description |
+| :--- | :--- |
+| `opensearch_security.ui.openid.login.buttonname` |  Display name for the login button. "Log in with single sign-on" by default. |
+
+
+```yml
+auth_failure_listeners:
+      internal_authentication_backend_limiting:
+        type: username
+        authentication_backend: intern
+        allowed_tries: 3
+        time_window_seconds: 60
+        block_expiry_seconds: 60
+        max_blocked_clients: 100000
+        max_tracked_clients: 100000
+```
+
+```yml
+auth_failure_listeners:
+      ip_rate_limiting:
+        type: ip
+        allowed_tries: 1
+        time_window_seconds: 20
+        block_expiry_seconds: 180
+        max_blocked_clients: 100000
+        max_tracked_clients: 100000
+```
+
+
 ## Backend configuration examples
 
 The default `config/opensearch-security/config.yml` file included in your OpenSearch distribution contains many configuration examples. Use these examples as a starting point and customize them to your needs. 
