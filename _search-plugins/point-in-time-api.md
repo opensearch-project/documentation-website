@@ -94,8 +94,7 @@ GET /_search
     "keep_alive": "100m"
   },
   "sort": [ 
-    {"@timestamp": {"order": "asc", "format": "strict_date_optional_time_nanos"}},
-    {"_shard_doc": "desc"}
+    {"@timestamp": {"order": "asc"}}
   ],
   "search_after": [  
     "2021-05-20T05:30:04.832Z"
