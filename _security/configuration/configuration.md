@@ -141,7 +141,7 @@ If `challenge` is set to `false` and no `Authorization` header field is set, the
 
 ## API rate limiting
 
-API rate limiting is typically used to restrict the number of API calls that users can make in a set span of time and thereby help manage the rate of API traffic. For security purposes, rate limiting features have the potential to defend against DoS attacks, or repeated login attempts to gain access through trial and error, by restricting failed login attempts.
+API rate limiting is typically used to restrict the number of API calls that users can make in a set span of time, and it can thereby help manage the rate of API traffic. For security purposes, rate limiting features have the potential to defend against DoS attacks, or repeated login attempts to gain access through trial and error, by restricting failed login attempts.
 
 You have the option to configure the Security plugin for username rate limiting, IP address rate limiting, or both. These configurations are made in the `config.yml` file. See the following sections for information about each type of rate limiting configuration.
 
