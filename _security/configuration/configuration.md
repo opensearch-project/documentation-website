@@ -192,7 +192,7 @@ auth_failure_listeners:
 ```
 {% include copy.html %}
 
-In addition to the IP rate limiting configuration, make sure to set the `challenge` setting to `false` in the `http_authenticator` section of the `config.yml` file.<br>```yml<br>http_authenticator:<br>&nbsp;&nbsp;&nbsp;type: basic<br>&nbsp;&nbsp;&nbsp;challenge: false<br>For more information about this setting, see [HTTP basic authentication](/security/configuration/configuration/#http-basic-authentication).
+In addition to the IP rate limiting configuration, make sure to set the `challenge` setting to `false` in the `http_authenticator` section of the `config.yml` file.<br>`challenge: false`<br>For more information about this setting, see [HTTP basic authentication](/security/configuration/configuration/#http-basic-authentication).
 {: .important }
 
 The following table describes the settings for this type of configuration.
