@@ -18,58 +18,58 @@ The SQL plugin supports the following functions.
 
 Function | Specification | Example
 :--- | :--- | :---
-abs | `abs(number T) -> T` | `SELECT abs(0.5) FROM my-index LIMIT 1`
-add | `add(number T, number T) -> T` | `SELECT add(1, 5) FROM my-index LIMIT 1`
-cbrt | `cbrt(number T) -> T` | `SELECT cbrt(0.5) FROM my-index LIMIT 1`
-ceil | `ceil(number T) -> T` | `SELECT ceil(0.5) FROM my-index LIMIT 1`
-conv | `conv(string T, int a, int b) -> T` | `SELECT CONV('12', 10, 16), CONV('2C', 16, 10), CONV(12, 10, 2), CONV(1111, 2, 10) FROM my-index LIMIT 1`
-crc32 | `crc32(string T) -> T` | `SELECT crc32('MySQL') FROM my-index LIMIT 1`
-divide | `divide(number T, number T) -> T` | `SELECT divide(1, 0.5) FROM my-index LIMIT 1`
-e | `e() -> double` | `SELECT e() FROM my-index LIMIT 1`
-exp | `exp(number T) -> T` | `SELECT exp(0.5) FROM my-index LIMIT 1`
-expm1 | `expm1(number T) -> T` | `SELECT expm1(0.5) FROM my-index LIMIT 1`
-floor | `floor(number T) -> T` | `SELECT floor(0.5) AS Rounded_Down FROM my-index LIMIT 1`
-ln | `ln(number T) -> double` | `SELECT ln(10) FROM my-index LIMIT 1`
-log | `log(number T) -> double` or `log(number T, number) -> double` | `SELECT log(10) FROM my-index LIMIT 1`
-log2 | `log2(number T) -> double` | `SELECT log2(10) FROM my-index LIMIT 1`
-log10 | `log10(number T) -> double` | `SELECT log10(10) FROM my-index LIMIT 1`
-mod | `mod(number T, number T) -> T` | `SELECT mod(2, 3) FROM my-index LIMIT 1`
-modulus | `modulus(number T, number T) -> T` | `SELECT modulus(2, 3) FROM my-index LIMIT 1`
-multiply | `multiply(number T, number T) -> T` | `SELECT multiply(2, 3) FROM my-index LIMIT 1`
-pi | `pi() -> double` | `SELECT pi() FROM my-index LIMIT 1`
-pow | `pow(number T, number T) -> T` | `SELECT pow(2, 3) FROM my-index LIMIT 1`
-power | `power(number T, number) -> T` | `SELECT power(2, 3) FROM my-index LIMIT 1`
-rand | `rand() -> number` or `rand(number T) -> T` | `SELECT rand(0.5) FROM my-index LIMIT 1`
-rint | `rint(number T) -> T` | `SELECT rint(1.5) FROM my-index LIMIT 1`
-round | `round(number T) -> T` | `SELECT round(1.5) FROM my-index LIMIT 1`
-sign | `sign(number T) -> T` | `SELECT sign(1.5) FROM my-index LIMIT 1`
-signum | `signum(number T) -> T` | `SELECT signum(0.5) FROM my-index LIMIT 1`
-sqrt | `sqrt(number T) -> T` | `SELECT sqrt(0.5) FROM my-index LIMIT 1`
-strcmp | `strcmp(string T, string T) -> T` | `SELECT strcmp('hello', 'hello') FROM my-index LIMIT 1`
-subtract | `subtract(number T, number T) -> T` | `SELECT subtract(3, 2) FROM my-index LIMIT 1`
-truncate | `truncate(number T, number T) -> T` | `SELECT truncate(56.78, 1) FROM my-index LIMIT 1`
-+ | `number + number -> number` | `SELECT 1 + 5 FROM my-index LIMIT 1`
-- | `number - number -> number` | `SELECT 3 - 2 FROM my-index LIMIT 1`
-* | `number * number -> number` | `SELECT 2 * 3 FROM my-index LIMIT 1`
-/ | `number / number -> number` | `SELECT 1 / 0.5 FROM my-index LIMIT 1`
-% | `number % number -> number` | `SELECT 2 % 3 FROM my-index LIMIT 1`
+abs | `abs(number T) -> T` | `SELECT abs(0.5)`
+add | `add(number T, number T) -> T` | `SELECT add(1, 5)`
+cbrt | `cbrt(number T) -> T` | `SELECT cbrt(0.5)`
+ceil | `ceil(number T) -> T` | `SELECT ceil(0.5)`
+conv | `conv(string T, int a, int b) -> T` | `SELECT CONV('12', 10, 16), CONV('2C', 16, 10), CONV(12, 10, 2), CONV(1111, 2, 10)`
+crc32 | `crc32(string T) -> T` | `SELECT crc32('MySQL')`
+divide | `divide(number T, number T) -> T` | `SELECT divide(1, 0.5)`
+e | `e() -> double` | `SELECT e()`
+exp | `exp(number T) -> T` | `SELECT exp(0.5)`
+expm1 | `expm1(number T) -> T` | `SELECT expm1(0.5)`
+floor | `floor(number T) -> T` | `SELECT floor(0.5) AS Rounded_Down`
+ln | `ln(number T) -> double` | `SELECT ln(10)`
+log | `log(number T) -> double` or `log(number T, number) -> double` | `SELECT log(10)`
+log2 | `log2(number T) -> double` | `SELECT log2(10)`
+log10 | `log10(number T) -> double` | `SELECT log10(10)`
+mod | `mod(number T, number T) -> T` | `SELECT mod(2, 3)`
+modulus | `modulus(number T, number T) -> T` | `SELECT modulus(2, 3)`
+multiply | `multiply(number T, number T) -> T` | `SELECT multiply(2, 3)`
+pi | `pi() -> double` | `SELECT pi()`
+pow | `pow(number T, number T) -> T` | `SELECT pow(2, 3)`
+power | `power(number T, number) -> T` | `SELECT power(2, 3)`
+rand | `rand() -> number` or `rand(number T) -> T` | `SELECT rand(0.5)`
+rint | `rint(number T) -> T` | `SELECT rint(1.5)`
+round | `round(number T) -> T` | `SELECT round(1.5)`
+sign | `sign(number T) -> T` | `SELECT sign(1.5)`
+signum | `signum(number T) -> T` | `SELECT signum(0.5)`
+sqrt | `sqrt(number T) -> T` | `SELECT sqrt(0.5)`
+strcmp | `strcmp(string T, string T) -> T` | `SELECT strcmp('hello', 'hello')`
+subtract | `subtract(number T, number T) -> T` | `SELECT subtract(3, 2)`
+truncate | `truncate(number T, number T) -> T` | `SELECT truncate(56.78, 1)`
++ | `number + number -> number` | `SELECT 1 + 5`
+- | `number - number -> number` | `SELECT 3 - 2`
+* | `number * number -> number` | `SELECT 2 * 3`
+/ | `number / number -> number` | `SELECT 1 / 0.5`
+% | `number % number -> number` | `SELECT 2 % 3`
 
 ## Trigonometric
 
 Function | Specification | Example
 :--- | :--- | :---
-acos | `acos(number T) -> double` | `SELECT acos(0.5) FROM my-index LIMIT 1`
-asin | `asin(number T) -> double` | `SELECT asin(0.5) FROM my-index LIMIT 1`
-atan | `atan(number T) -> double` | `SELECT atan(0.5) FROM my-index LIMIT 1`
-atan2 | `atan2(number T, number) -> double` | `SELECT atan2(1, 0.5) FROM my-index LIMIT 1`
-cos | `cos(number T) -> double` | `SELECT cos(0.5) FROM my-index LIMIT 1`
-cosh | `cosh(number T) -> double` | `SELECT cosh(0.5) FROM my-index LIMIT 1`
-cot | `cot(number T) -> double` | `SELECT cot(0.5) FROM my-index LIMIT 1`
-degrees | `degrees(number T) -> double` | `SELECT degrees(0.5) FROM my-index LIMIT 1`
-radians | `radians(number T) -> double` | `SELECT radians(0.5) FROM my-index LIMIT 1`
-sin | `sin(number T) -> double` | `SELECT sin(0.5) FROM my-index LIMIT 1`
-sinh | `sinh(number T) -> double` | `SELECT sinh(0.5) FROM my-index LIMIT 1`
-tan | `tan(number T) -> double` | `SELECT tan(0.5) FROM my-index LIMIT 1`
+acos | `acos(number T) -> double` | `SELECT acos(0.5)`
+asin | `asin(number T) -> double` | `SELECT asin(0.5)`
+atan | `atan(number T) -> double` | `SELECT atan(0.5)`
+atan2 | `atan2(number T, number) -> double` | `SELECT atan2(1, 0.5)`
+cos | `cos(number T) -> double` | `SELECT cos(0.5)`
+cosh | `cosh(number T) -> double` | `SELECT cosh(0.5)`
+cot | `cot(number T) -> double` | `SELECT cot(0.5)`
+degrees | `degrees(number T) -> double` | `SELECT degrees(0.5)`
+radians | `radians(number T) -> double` | `SELECT radians(0.5)`
+sin | `sin(number T) -> double` | `SELECT sin(0.5)`
+sinh | `sinh(number T) -> double` | `SELECT sinh(0.5)`
+tan | `tan(number T) -> double` | `SELECT tan(0.5)`
 
 ## Date and time
 
@@ -106,32 +106,32 @@ year | `year(date) -> integer` | `SELECT year(date) FROM my-index LIMIT 1`
 
 Function | Specification | Example
 :--- | :--- | :---
-ascii | `ascii(string T) -> integer` | `SELECT ascii(name.keyword) FROM my-index LIMIT 1`
-concat | `concat(str1, str2) -> string` | `SELECT concat('hello', 'world') FROM my-index LIMIT 1`
-concat_ws | `concat_ws(separator, string, string…) -> string` | `SELECT concat_ws("-", "Tutorial", "is", "fun!") FROM my-index LIMIT 1`
-left | `left(string T, integer) -> T` | `SELECT left('hello', 2) FROM my-index LIMIT 1`
-length | `length(string) -> integer` | `SELECT length('hello') FROM my-index LIMIT 1`
-locate | `locate(string, string, integer) -> integer` or `locate(string, string) -> INTEGER` | `SELECT locate('o', 'hello') FROM my-index LIMIT 1`, `SELECT locate('l', 'hello', 3) FROM my-index LIMIT 1`
-replace | `replace(string T, string, string) -> T` | `SELECT replace('hello', 'l', 'x') FROM my-index LIMIT 1`
-right | `right(string T, integer) -> T` | `SELECT right('hello', 1) FROM my-index LIMIT 1`
-rtrim | `rtrim(string T) -> T` | `SELECT rtrim(name.keyword) FROM my-index LIMIT 1`
-substring | `substring(string T, integer, integer) -> T` | `SELECT substring(name.keyword, 2,5) FROM my-index LIMIT 1`
-trim | `trim(string T) -> T` | `SELECT trim('   hello') FROM my-index LIMIT 1`
-upper | `upper(string T) -> T` | `SELECT upper('helloworld') FROM my-index LIMIT 1`
+ascii | `ascii(string T) -> integer` | `SELECT ascii('h')`
+concat | `concat(str1, str2) -> string` | `SELECT concat('hello', 'world')`
+concat_ws | `concat_ws(separator, string, string…) -> string` | `SELECT concat_ws("-", "Tutorial", "is", "fun!")`
+left | `left(string T, integer) -> T` | `SELECT left('hello', 2)`
+length | `length(string) -> integer` | `SELECT length('hello')`
+locate | `locate(string, string, integer) -> integer` or `locate(string, string) -> INTEGER` | `SELECT locate('o', 'hello')`, `SELECT locate('l', 'hello', 3)`
+replace | `replace(string T, string, string) -> T` | `SELECT replace('hello', 'l', 'x')`
+right | `right(string T, integer) -> T` | `SELECT right('hello', 1)`
+rtrim | `rtrim(string T) -> T` | `SELECT rtrim('hello   ')`
+substring | `substring(string T, integer, integer) -> T` | `SELECT substring('hello, 2, 4)`
+trim | `trim(string T) -> T` | `SELECT trim('   hello')`
+upper | `upper(string T) -> T` | `SELECT upper('hello world')`
 
 ## Aggregate
 
 Function | Specification | Example
 :--- | :--- | :---
-avg | `avg(number T) -> T` | `SELECT avg(2, 3) FROM my-index LIMIT 1`
-count | `count(number T) -> T` | `SELECT count(date) FROM my-index LIMIT 1`
-min | `min(number T, number) -> T` | `SELECT min(2, 3) FROM my-index LIMIT 1`
+avg | `avg(number T) -> T` | `SELECT avg(2, 3)`
+count | `count(number T) -> T` | `SELECT count(date) FROM my-index`
+min | `min(number T, number) -> T` | `SELECT min(2, 3)`
 show | `show(string T) -> T` | `SHOW TABLES LIKE my-index`
 
 ## Advanced
 
 Function | Specification | Example
 :--- | :--- | :---
-if | `if(boolean, es_type, es_type) -> es_type` | `SELECT if(false, 0, 1) FROM my-index LIMIT 1`, `SELECT if(true, 0, 1) FROM my-index LIMIT 1`
-ifnull | `ifnull(es_type, es_type) -> es_type` | `SELECT ifnull('hello', 1) FROM my-index LIMIT 1`, `SELECT ifnull(null, 1) FROM my-index LIMIT 1`
-isnull | `isnull(es_type) -> integer` | `SELECT isnull(null) FROM my-index LIMIT 1`, `SELECT isnull(1) FROM my-index LIMIT 1`
+if | `if(boolean, es_type, es_type) -> es_type` | `SELECT if(false, 0, 1)`, `SELECT if(true, 0, 1)`
+ifnull | `ifnull(es_type, es_type) -> es_type` | `SELECT ifnull('hello', 1)`, `SELECT ifnull(null, 1)`
+isnull | `isnull(es_type) -> integer` | `SELECT isnull(null)`, `SELECT isnull(1)`
