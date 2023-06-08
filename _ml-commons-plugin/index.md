@@ -19,7 +19,7 @@ Should you not want to use a model, you can use the [Train and Predict]({{site.u
 
 # Permissions
 
-The ML Commons plugin has two reserved user roles:
+The ML Commons plugin has two reserved roles:
 
 - `ml_full_access`: Grants full access to all ML features, including starting new ML tasks and reading or deleting models.
 - `ml_readonly_access`: Grants read-only access to ML tasks, trained models, and statistics relevant to the model's cluster. Does not grant permissions to start or delete ML tasks or models.

@@ -12,7 +12,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 You can use the Security plugin with ML Commons to limit non-admin users' ability to access specific models. For example, users of different departments in an organization might want to restrict access to their models only to users in their own department.
 
-Users can be assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/) to configure fine-grained access to models based on [_user roles_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index#permissions). A backend role helps map a set of users to the same user role. For example, users with the `IT` backend role may be assigned the `ml_full_access` user role that grants full access to all ML Commons features.
+Users can be assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/) to configure fine-grained access to models based on [_roles_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index#permissions). A backend role helps map a set of users to the same role. For example, users with the `IT` backend role may be assigned the `ml_full_access` role that grants full access to all ML Commons features.
 
 ## Model groups
 
@@ -22,7 +22,7 @@ You are considered a model _owner_ when you create a new model or upload a new v
 
 - `public`: All users who have access to the cluster can access this model group.
 - `private`: Only the model owner or an admin user can access this model group.
-- `restricted`: The owner, an admin user, or any user who shares one of the model group's backend roles can access any model in this model group. When creating a `restricted` model group, the owner must attach one or more of the owner's backend roles to the model. For a user to be able to access a model group, one of the user's backend roles must match one of the model group's backend roles. This grants the user permissions associated with the user role to which that backend role is mapped. For example, if the backend role is mapped to the `ml_full_access` user role, users with this role can use the Register, Deploy, Predict, Delete, Search and Get Model APIs on any model in this model group. 
+- `restricted`: The owner, an admin user, or any user who shares one of the model group's backend roles can access any model in this model group. When creating a `restricted` model group, the owner must attach one or more of the owner's backend roles to the model. For a user to be able to access a model group, one of the user's backend roles must match one of the model group's backend roles. This grants the user permissions associated with the user's role. For example, if a user has the `ml_full_access` role and a backend role that matches one of the backend roles of a model group, then the user can perform all API actions on the models in this model group.
 
 An admin can access all model groups in the cluster regardless of their access mode.
 {: .note}
