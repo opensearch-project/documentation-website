@@ -141,26 +141,14 @@ If `challenge` is set to `false` and no `Authorization` header field is set, the
 
 ## API rate limiting
 
-API rate limiting is a way of restricting the number of API calls that users can make in a set span of time; it can help manage the rate of API traffic. For security purposes, rate limiting has the potential to defend against DoS attacks or repeated login attempts to gain access by trial and error.
+API rate limiting is typically used to restrict the number of API calls that users can make in a set span of time and thereby help manage the rate of API traffic. For security purposes, rate limiting features have the potential to defend against DoS attacks, or repeated login attempts to gain access through trial and error, by restricting failed login attempts.
 
-You have the option to configure the Security plugin for username rate limiting, IP address rate limiting, or both. These configurations are made in the `config.yml` file. See the following sections for information about each type of rate-limiting configuration.
+You have the option to configure the Security plugin for username rate limiting, IP address rate limiting, or both. These configurations are made in the `config.yml` file. See the following sections for information about each type of rate limiting configuration.
+
 
 ### Username rate limiting
 
-This configuration limits the rate of API usage by username. The following table describes the settings for this configuration.
-
-| Setting | Description |
-| :--- | :--- |
-| `type` |  The type of rate limiting. In this case, `username`. |
-| `authentication_backend` | The backend used for authentication and authorization. |
-| `allowed_tries` |  The number of login attempts allowed before login is blocked. |
-| `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries is `3` and `time_window_seconds` is `60`, a username has three attempts to log in successfully within a 60-second timespan before login is blocked.  |
-| `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the username can attempt successful login again. |
-| `max_blocked_clients` |  The maximum number of blocked usernames. This limits heap usage to avoid a potential DoS. |
-| `max_tracked_clients` | The maximum number of tracked usernames that have failed login. This limits heap usage to avoid a potential DoS. |
-
-
-
+This configuration limits login attempts by username. The following example shows `config.yml` file settings configured for username rate limiting:
 
 ```yml
 auth_failure_listeners:
@@ -173,6 +161,24 @@ auth_failure_listeners:
         max_blocked_clients: 100000
         max_tracked_clients: 100000
 ```
+{% include copy.html %}
+
+The following table describes the settings for this type of configuration.
+
+| Setting | Description |
+| :--- | :--- |
+| `type` |  The type of rate limiting. In this case, `username`. |
+| `authentication_backend` | The backend used for authentication and authorization. |
+| `allowed_tries` |  The number of login attempts allowed before login is blocked. Be aware that increasing the number increases heap usage. |
+| `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries is `3` and `time_window_seconds` is `60`, a username has three attempts to log in successfully within a 60-second time span before login is blocked.  |
+| `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the username can attempt successful login again. |
+| `max_blocked_clients` |  The maximum number of blocked usernames. This limits heap usage to avoid a potential DoS. |
+| `max_tracked_clients` | The maximum number of tracked usernames that have failed login. This limits heap usage to avoid a potential DoS. |
+
+
+### IP address rate limiting
+
+This configuration limits login attempts by IP address. The following example shows `config.yml` file settings configured for IP address rate limiting:
 
 ```yml
 auth_failure_listeners:
@@ -184,6 +190,18 @@ auth_failure_listeners:
         max_blocked_clients: 100000
         max_tracked_clients: 100000
 ```
+{% include copy.html %}
+
+The following table describes the settings for this type of configuration.
+
+| Setting | Description |
+| :--- | :--- |
+| `type` |  The type of rate limiting. In this case, `ip`. |
+| `allowed_tries` |  The number of login attempts allowed before login is blocked. Be aware that increasing the number increases heap usage. |
+| `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries is `3` and `time_window_seconds` is `60`, a username has three attempts to log in successfully within a 60-second time span before login is blocked.  |
+| `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the username can attempt successful login again. |
+| `max_blocked_clients` |  The maximum number of blocked IP addresses. This limits heap usage to avoid a potential DoS. |
+| `max_tracked_clients` | The maximum number of tracked IP addresses that have failed login. This limits heap usage to avoid a potential DoS. |
 
 
 ## Backend configuration examples
