@@ -139,18 +139,34 @@ If `challenge` is set to `true`, the Security plugin sends a response with statu
 If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. You might want to use this setting if you have another challenge `http_authenticator` in your configured authentication domains. One such scenario is when you plan to use basic authentication and OpenID Connect together.
 
 
-## Rate limiting
+## API rate limiting
+
+API rate limiting is a way of restricting the number of API calls that users can make in a set span of time; it can help manage the rate of API traffic. For security purposes, rate limiting has the potential to defend against DoS attacks or repeated login attempts to gain access by trial and error.
+
+You have the option to configure the Security plugin for username rate limiting, IP address rate limiting, or both. These configurations are made in the `config.yml` file. See the following sections for information about each type of rate-limiting configuration.
+
+### Username rate limiting
+
+This configuration limits the rate of API usage by username. The following table describes the settings for this configuration.
 
 | Setting | Description |
 | :--- | :--- |
-| `opensearch_security.ui.openid.login.buttonname` |  Display name for the login button. "Log in with single sign-on" by default. |
+| `type` |  The type of rate limiting. In this case, `username`. |
+| `authentication_backend` | The backend used for authentication and authorization. |
+| `allowed_tries` |  The number of login attempts allowed before login is blocked. |
+| `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries is `3` and `time_window_seconds` is `60`, a username has three attempts to log in successfully within a 60-second timespan before login is blocked.  |
+| `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the username can attempt successful login again. |
+| `max_blocked_clients` |  The maximum number of blocked usernames. This limits heap usage to avoid a potential DoS. |
+| `max_tracked_clients` | The maximum number of tracked usernames that have failed login. This limits heap usage to avoid a potential DoS. |
+
+
 
 
 ```yml
 auth_failure_listeners:
       internal_authentication_backend_limiting:
         type: username
-        authentication_backend: intern
+        authentication_backend: internal
         allowed_tries: 3
         time_window_seconds: 60
         block_expiry_seconds: 60
