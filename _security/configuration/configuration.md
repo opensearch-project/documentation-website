@@ -148,7 +148,7 @@ You have the option to configure the Security plugin for username rate limiting,
 
 ### Username rate limiting
 
-This configuration limits login attempts by username. The following example shows `config.yml` file settings configured for username rate limiting:
+This configuration limits login attempts by username. When a login fails, the username is blocked for any machine in the network. The following example shows `config.yml` file settings configured for username rate limiting:
 
 ```yml
 auth_failure_listeners:
@@ -168,7 +168,7 @@ The following table describes the settings for this type of configuration.
 | Setting | Description |
 | :--- | :--- |
 | `type` |  The type of rate limiting. In this case, `username`. |
-| `authentication_backend` | The backend used for authentication and authorization. |
+| `authentication_backend` | The internal backend. Enter `internal`. |
 | `allowed_tries` |  The number of login attempts allowed before login is blocked. Be aware that increasing the number increases heap usage. |
 | `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries` is `3` and `time_window_seconds` is `60`, a username has three attempts to log in successfully within a 60-second time span before login is blocked. |
 | `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the username can attempt successful login again. |
@@ -178,7 +178,7 @@ The following table describes the settings for this type of configuration.
 
 ### IP address rate limiting
 
-This configuration limits login attempts by IP address. The following example shows `config.yml` file settings configured for IP address rate limiting:
+This configuration limits login attempts by IP address. When a login fails, the IP address specific to the machine being used for login is blocked. The following example shows `config.yml` file settings configured for IP address rate limiting:
 
 ```yml
 auth_failure_listeners:
@@ -191,6 +191,9 @@ auth_failure_listeners:
         max_tracked_clients: 100000
 ```
 {% include copy.html %}
+
+In addition to the IP rate limiting configuration, make sure to set the `challenge` setting to `false` in the `http_authenticator` section of the `config.yml` file.<br>```yml<br>http_authenticator:<br>&nbsp;&nbsp;&nbsp;type: basic<br>&nbsp;&nbsp;&nbsp;challenge: false<br>For more information about this setting, see [HTTP basic authentication](/security/configuration/configuration/#http-basic-authentication).
+{: .important }
 
 The following table describes the settings for this type of configuration.
 
