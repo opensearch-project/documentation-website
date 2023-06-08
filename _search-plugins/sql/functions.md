@@ -24,13 +24,13 @@ The SQL plugin supports the following common functions shared across the SQL and
 | add      | `add(number T, number T) -> T`                                   | `SELECT add(1, 5)`                                                                  |
 | cbrt     | `cbrt(number T) -> double`                                       | `SELECT cbrt(0.5)`                                                                  |
 | ceil     | `ceil(number T) -> T`                                            | `SELECT ceil(0.5)`                                                                  |
-| conv     | `conv(string T, int a, int b) -> string`                         | `SELECT CONV('12', 10, 16), CONV('2C', 16, 10), CONV(12, 10, 2), CONV(1111, 2, 10)` |
-| crc32    | `crc32(string T) -> T`                                           | `SELECT crc32('MySQL')`                                                             |
-| divide   | `divide(number T, number) -> T`                                  | `SELECT divide(1, 0.5)`                                                             |
+| conv     | `conv(string T, integer, integer) -> string`                     | `SELECT CONV('12', 10, 16), CONV('2C', 16, 10), CONV(12, 10, 2), CONV(1111, 2, 10)` |
+| crc32    | `crc32(string) -> string`                                        | `SELECT crc32('MySQL')`                                                             |
+| divide   | `divide(number T, number T) -> T`                                | `SELECT divide(1, 0.5)`                                                             |
 | e        | `e() -> double`                                                  | `SELECT e()`                                                                        |
-| exp      | `exp(number T) -> T`                                             | `SELECT exp(0.5)`                                                                   |
-| expm1    | `expm1(number T) -> T`                                           | `SELECT expm1(0.5)`                                                                 |
-| floor    | `floor(number T) -> T`                                           | `SELECT floor(0.5) AS Rounded_Down`                                                 |
+| exp      | `exp(number T) -> double`                                        | `SELECT exp(0.5)`                                                                   |
+| expm1    | `expm1(number T) -> double`                                      | `SELECT expm1(0.5)`                                                                 |
+| floor    | `floor(number T) -> long`                                        | `SELECT floor(0.5) AS Rounded_Down`                                                 |
 | ln       | `ln(number T) -> double`                                         | `SELECT ln(10)`                                                                     |
 | log      | `log(number T) -> double` or `log(number T, number T) -> double` | `SELECT log(10)`                                                                    |
 | log2     | `log2(number T) -> double`                                       | `SELECT log2(10)`                                                                   |
@@ -39,22 +39,22 @@ The SQL plugin supports the following common functions shared across the SQL and
 | modulus  | `modulus(number T, number T) -> T`                               | `SELECT modulus(2, 3)`                                                              |
 | multiply | `multiply(number T, number T) -> T`                              | `SELECT multiply(2, 3)`                                                             |
 | pi       | `pi() -> double`                                                 | `SELECT pi()`                                                                       |
-| pow      | `pow(number T, number T) -> T`                                   | `SELECT pow(2, 3)`                                                                  |
-| power    | `power(number T, number T) -> T`                                 | `SELECT power(2, 3)`                                                                |
-| rand     | `rand() -> number` or `rand(number T) -> T`                      | `SELECT rand(0.5)`                                                                  |
+| pow      | `pow(number T, number T) -> double`                              | `SELECT pow(2, 3)`                                                                  |
+| power    | `power(number T, number T) -> double`                            | `SELECT power(2, 3)`                                                                |
+| rand     | `rand() -> float` or `rand(number T) -> float`                   | `SELECT rand(0.5)`                                                                  |
 | rint     | `rint(number T) -> double`                                       | `SELECT rint(1.5)`                                                                  |
-| round    | `round(number T) -> T`                                           | `SELECT round(1.5)`                                                                 |
-| sign     | `sign(number T) -> T`                                            | `SELECT sign(1.5)`                                                                  |
-| signum   | `signum(number T) -> int`                                        | `SELECT signum(0.5)`                                                                |
+| round    | `round(number T) -> T` or `round(number T, integer) -> T`        | `SELECT round(1.5)`                                                                 |
+| sign     | `sign(number T) -> integer`                                      | `SELECT sign(1.5)`                                                                  |
+| signum   | `signum(number T) -> integer`                                    | `SELECT signum(0.5)`                                                                |
 | sqrt     | `sqrt(number T) -> double`                                       | `SELECT sqrt(0.5)`                                                                  |
-| strcmp   | `strcmp(string T, string T) -> int`                              | `SELECT strcmp('hello', 'hello')`                                                   |
+| strcmp   | `strcmp(string T, string T) -> integer`                          | `SELECT strcmp('hello', 'hello')`                                                   |
 | subtract | `subtract(number T, number T) -> T`                              | `SELECT subtract(3, 2)`                                                             |
 | truncate | `truncate(number T, number T) -> T`                              | `SELECT truncate(56.78, 1)`                                                         |
-| +        | `number + number -> number`                                      | `SELECT 1 + 5`                                                                      |
-| -        | `number - number -> number`                                      | `SELECT 3 - 2`                                                                      |
-| *        | `number * number -> number`                                      | `SELECT 2 * 3`                                                                      |
-| /        | `number / number -> number`                                      | `SELECT 1 / 0.5`                                                                    |
-| %        | `number % number -> number`                                      | `SELECT 2 % 3`                                                                      |
+| +        | `number T + number T -> T`                                       | `SELECT 1 + 5`                                                                      |
+| -        | `number T - number T -> T`                                       | `SELECT 3 - 2`                                                                      |
+| *        | `number T * number T -> T`                                       | `SELECT 2 * 3`                                                                      |
+| /        | `number T / number T -> T`                                       | `SELECT 1 / 0.5`                                                                    |
+| %        | `number T % number T -> T`                                       | `SELECT 2 % 3`                                                                      |
 
 ## Trigonometric
 
@@ -153,27 +153,27 @@ Functions marked with * are only available in SQL.
 
 | Function  | Specification                                                                       | Example                                                         |
 |:----------|:------------------------------------------------------------------------------------|:----------------------------------------------------------------|
-| ascii     | `ascii(string T) -> integer`                                                        | `SELECT ascii('h')`                                             |
-| concat    | `concat(str1, str2) -> string`                                                      | `SELECT concat('hello', 'world')`                               |
+| ascii     | `ascii(string) -> integer`                                                          | `SELECT ascii('h')`                                             |
+| concat    | `concat(string, string) -> string`                                                  | `SELECT concat('hello', 'world')`                               |
 | concat_ws | `concat_ws(separator, string, string…) -> string`                                   | `SELECT concat_ws("-", "Tutorial", "is", "fun!")`               |
-| left      | `left(string T, integer) -> T`                                                      | `SELECT left('hello', 2)`                                       |
+| left      | `left(string, integer) -> string`                                                   | `SELECT left('hello', 2)`                                       |
 | length    | `length(string) -> integer`                                                         | `SELECT length('hello')`                                        |
-| locate    | `locate(string, string, integer) -> integer` or `locate(string, string) -> INTEGER` | `SELECT locate('o', 'hello')`, `SELECT locate('l', 'hello', 3)` |
-| replace   | `replace(string T, string, string) -> T`                                            | `SELECT replace('hello', 'l', 'x')`                             |
-| right     | `right(string T, integer) -> T`                                                     | `SELECT right('hello', 1)`                                      |
-| rtrim     | `rtrim(string T) -> T`                                                              | `SELECT rtrim('hello   ')`                                      |
-| substring | `substring(string T, integer, integer) -> T`                                        | `SELECT substring('hello, 2, 4)`                                |
-| trim      | `trim(string T) -> T`                                                               | `SELECT trim('   hello')`                                       |
-| upper     | `upper(string T) -> T`                                                              | `SELECT upper('hello world')`                                   |
+| locate    | `locate(string, string, integer) -> integer` or `locate(string, string) -> integer` | `SELECT locate('o', 'hello')`, `SELECT locate('l', 'hello', 3)` |
+| replace   | `replace(string, string, string) -> string`                                         | `SELECT replace('hello', 'l', 'x')`                             |
+| right     | `right(string, integer) -> string`                                                  | `SELECT right('hello', 1)`                                      |
+| rtrim     | `rtrim(string) -> string`                                                           | `SELECT rtrim('hello   ')`                                      |
+| substring | `substring(string, integer, integer) -> string`                                     | `SELECT substring('hello, 2, 4)`                                |
+| trim      | `trim(string) -> string`                                                            | `SELECT trim('   hello')`                                       |
+| upper     | `upper(string) -> string`                                                           | `SELECT upper('hello world')`                                   |
 
 ## Aggregate
 
-| Function | Specification          | Example                            |
-|:---------|:-----------------------|:-----------------------------------|
-| avg      | `avg(number T) -> T`   | `SELECT avg(column) FROM my-index` |
-| count    | `count(number T) -> T` | `SELECT count(date) FROM my-index` |
-| min      | `min(number T) -> T`   | `SELECT min(column) FROM my-index` |
-| show     | `show(string T) -> T`  | `SHOW TABLES LIKE my-index`        |
+| Function | Specification            | Example                            |
+|:---------|:-------------------------|:-----------------------------------|
+| avg      | `avg(number T) -> T`     | `SELECT avg(column) FROM my-index` |
+| count    | `count(number T) -> T`   | `SELECT count(date) FROM my-index` |
+| min      | `min(number T) -> T`     | `SELECT min(column) FROM my-index` |
+| show     | `show(string) -> string` | `SHOW TABLES LIKE my-index`        |
 
 ## Advanced
 
