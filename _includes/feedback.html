@@ -1,0 +1,15 @@
+<div class="div-feedback">
+    <div class="feedback-header">WAS THIS PAGE HELPFUL?</div>
+    <div class="feedback-radio-div">
+        <input id="yes" type="radio" name="radio-button" value="yes" class="feedback-button">
+        <label class="feedback-radio" for="yes">&#10004; Yes</label> 
+        <input id="no" type="radio" name="radio-button" value="no" class="feedback-button">
+        <label class="feedback-radio" for="no">&#10006; No</label>
+    </div>
+    <div class="feedback-text-header">Tell us why</div>
+    <textarea id="comment" class="feedback-text" placeholder="Enter comment" maxlength="350"></textarea>
+    <div class="text-small num-chars" id="num-chars">350 characters left</div>
+    <button id="send" class="send-button" disabled>Send</button>
+    <p class="text-small text-grey-dk-100 hidden" id="thank-you">Thank you for your feedback!</p>
+    <p class="text-small text-grey-dk-100">Want to contribute? <a class="feedback-edit" target="_blank" href="https://github.com/opensearch-project/documentation-website/edit/main/{{ page.path }}">Edit this page</a> or <a class="feedback-issue" target="_blank" href="https://github.com/opensearch-project/documentation-website/issues/new?assignees=&labels=untriaged&template=issue_template.md&title=%5BDOC%5D">create an issue</a>.</p>
+</div>

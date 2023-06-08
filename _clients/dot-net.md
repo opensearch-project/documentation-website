@@ -20,4 +20,4 @@ OpenSearch has two .NET clients: a low-level [OpenSearch.Net]({{site.url}}{{site
 
 You can use both .NET clients in a console program, a .NET core, an ASP.NET core, or in worker services.
 
-To get started with OpenSearch.Client, follow the instructions in [Getting started with the high-level .NET client]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net#installing-opensearchclient) or in [More advanced features of the high-level .NET client]({{site.url}}{{site.baseurl}}/clients/osc-example), a slightly more advanced walkthrough.
+To get started with OpenSearch.Client, follow the instructions in [Getting started with the high-level .NET client]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net#installing-opensearchclient) or in [More advanced features of the high-level .NET client]({{site.url}}{{site.baseurl}}/clients/OSC-example), a slightly more advanced walkthrough.

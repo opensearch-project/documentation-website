@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index State Management
-nav_order: 3
+nav_order: 16
 has_children: true
 redirect_from:
   - /im-plugin/ism/
@@ -9,8 +9,6 @@ has_toc: false
 ---
 
 # Index State Management
-OpenSearch Dashboards
-{: .label .label-yellow :}
 
 If you analyze time-series data, you likely prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
 
@@ -20,7 +18,7 @@ For example, you can define a policy that moves your index into a `read_only` st
 
 You might want to perform an index rollover after a certain amount of time or run a `force_merge` operation on an index during off-peak hours to improve search performance during peak hours.
 
-To use the ISM plugin, your user role needs to be mapped to the `all_access` role that gives you full access to the cluster. To learn more, see [Users and roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/).
+To use the ISM plugin, your user role needs to be mapped to the `all_access` role that gives you full access to the cluster. To learn more, see [Users and roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/).
 {: .note }
 
 ## Get started with ISM

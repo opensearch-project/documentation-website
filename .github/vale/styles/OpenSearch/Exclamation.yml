@@ -1,0 +1,6 @@
+extends: existence
+message: "Don't use exclamation points in documentation."
+nonword: true
+level: error
+tokens:
+  - '\w+!(?:\s|$)'

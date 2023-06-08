@@ -4,6 +4,16 @@ This is how we use our terms, but we’re always open to hearing your suggestion
 
 ## A
 
+**abort**
+
+Do not use because it has unpleasant associations and is unnecessarily harsh sounding. Use *stop*, *end*, or *cancel* instead.
+
+**above**
+
+Use only for physical space or screen descriptions, for example, "the outlet above the floor" or "the button above the bar pane."
+
+For orientation within a document use *previous*, *preceding*, or *earlier*.
+
 **ad hoc**
 
 Avoid. Use *one-time* instead.
@@ -89,6 +99,22 @@ For orientation within a document, use *following* or *later*.
 
 **big data**
 
+**black day**
+
+Do not use. Use *blocked day* instead.
+
+**blacklist**
+
+Do not use. Use *deny list* instead.
+
+**blackout**
+
+Avoid using. Use *service outage* or *blocked* instead.
+
+**BM25**
+
+A ranking function used to estimate the relevance of documents to a given search query. BM25 extends [TF–IDF](#t) by normalizing document length.
+
 **Boolean**
 
 Avoid using the name of a Boolean value at the beginning of a sentence or sentence fragment. In general, capitalize the word Boolean. For specific programming languages, follow the usage in that language.
@@ -167,9 +193,24 @@ Use one of the following date formats:
 - When a human-readable date format is preferred, spell out the date using the Month D, YYYY format (for example, _October 1, 2022_). Do not use an ordinal number for the day (use _1_, not _1st_). If the context is clear, you can omit the year on subsequent mention. If the specific day isn’t known, use the Month YYYY format (for example, _October 2022_).
 - When a numeric, lexicographically sortable date is required, use the YYYY-MM-DD format (for example, _2022-10-01_). Make sure to add a zero (0) in front of a single-digit month and day. This is the ISO 8601 standard date format. Make sure also that you use a hyphen (-) and avoid omitting the year. Doing so avoids the ambiguity that’s caused by the common, locally used formats of MM/DD and DD/MM.
 
+**demilitarized zone (DMZ)**
+
+Avoid using. Use *perimeter network* or *perimeter zone* instead.
+
 **deny list**
 
 Use to describe a list of items that aren’t allowed (blocked). Do not use _blacklist_.
+
+**disable**
+
+Use *disable* to describe making a feature or command unavailable. For example:
+
+- Clear the checkbox to disable automatic monitoring.
+- The feature is disabled by default.
+
+Note that alternatives to *disable*—such as *deactivate*, *turn off*, or *stop*—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
+
+Do not use *disable* to refer to users.
 
 **double-click**
 
@@ -181,7 +222,13 @@ Always hyphenated. Don’t use _double click_.
 
 Don’t use. Use _because of_ instead.
 
-## E 
+## E
+
+**easy, easier, easily**
+
+Avoid the use of *easy*, *easier*, or *easily* if possible when describing or comparing an OpenSearch Project product, feature, or procedure in technical content. Use of these terms is audience dependent. These terms are potentially misleading or inaccurate and might be perceived as condescending by some technical users. Instead, describe what the user can do.
+
+On documentation landing pages, it’s acceptable to use *easy*, *easier*, or *easily* within the service description only.
 
 **effect**
 
@@ -199,7 +246,14 @@ Use as a singular noun or adjective to refer to the collective concept, and use 
 
 **enable**
 
-Use _turn on_ or _activate_ instead of enable to support bias-free documentation, when possible. Otherwise, use enable to describe making a feature or command available.
+Use *enable* to describe making a feature or command available. For example:
+
+- Select the checkbox to enable automatic monitoring.
+- The feature is enabled by default.
+
+Note that alternatives to *enable*—such as *activate*, *turn on*, or *start*—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
+
+Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….”
 
 **enter**
 
@@ -211,6 +265,12 @@ Do not use.
 
 Generally speaking, etc. and its equivalents (such as and more or and so on) aren’t necessary.
 
+**execute**
+
+Replace with a more specific verb. In the sense of carrying out an action, use *run*, *process*, or *apply*. In the sense of initiating an operation, use *start*, *launch*, or *initiate*.
+
+Exception: *Execution* is unavoidable for third-party terms for which no alternative was determined, such as SQL execution plans. *Executable* is also unavoidable.
+
 ## F 
 
 **fail over (v.), failover (n.)**
@@ -220,8 +280,18 @@ Generally speaking, etc. and its equivalents (such as and more or and so on) are
 **frontend (n., adj.)**
 
 Use frontend as an adjective and a noun. Do not use front end or front-end. Do not make frontend possessive except as part of a compound noun, such as frontend system.
+
+## G
+
+**geopoint**
+
+**geoshape**
  
 ## H
+
+**hang**
+
+Do not use. This term is unnecessarily violent for technical documentation. Use *stop responding* instead.
 
 **hardcode**
 
@@ -257,19 +327,41 @@ Use *on the forum*. Whatever is on the internet (the various websites, etc.), yo
 
 **index, indexes**
 
-A collection of JSON documents.
+A collection of JSON documents. Non-hardcoded references to *indices* should be changed to *indexes*.
+
+**Index Management (IM)**
+
+**Index State Management (ISM)**
 
 **install in, on**
 
 install in a folder, directory, or path; install on a disk, drive, or instance.
 
+**internet**
+
+Do not capitalize.
+
+**invalid**
+
+Avoid using. Use *not valid* instead.
+
 **IP address**
 
 Don’t abbreviate as _IP only_.
 
-**Internet**
+## J
+
+**just**
+
+Use *just* in the sense of *just now* (as in "the resources that you just created"). Otherwise, use *only* in all other contexts (to mean "limited to; nothing more than").
 
 ## K
+
+**kill**
+
+Do not use. Replace with *stop*, *end*, *clear*, *remove*, or *cancel*.
+
+Exception: *Kill* is unavoidable when referring to Linux kill commands.
 
 **k-means**
 
@@ -311,9 +403,13 @@ Located _in_ (a folder, directory, path), located on a disk drive or instance.
 
 Use with technologies with interfaces that use this verb. Also note that you log in to an instance, not log into. Also use log out and logout.
 
-**LogStash**
+**Logstash**
 
 A light-weight, open-source, server-side data processing pipeline that allows you to collect data from a variety of sources, transform it on the fly, and send it to your desired destination.
+
+**lower left, lower right**
+
+Hyphenate as adjectives. Use instead of *bottom left* and *bottom right*, unless the field name uses *bottom*. For example, "The lower-right corner."
 
 **LTS**
 
@@ -333,9 +429,19 @@ Write as two words (no hyphen) in all cases, including when used as an adjective
 
 A new plugin that makes it easy to develop new ML features. It allows engineers to leverage existing open-source ML algorithms and reduce the efforts to build them from scratch.
 
+**master**
+
+Do not use. Use *primary*, *main*, or *leader* instead.
+
+**master account**
+
+Do not use. Use *management account* instead.
+
 **may**
 
 Avoid. Use _can_ or _might_ instead.
+
+**multilayer, multilayered**
 
 **must, shall, should**
 
@@ -410,9 +516,9 @@ The default scripting language for OpenSearch, either used inline or stored for 
 
 **percent**
 
-Spell out (for example, 30 percent).
+Spell out in blog posts (for example, 30 percent).
 
-Exceptions: Use % in headlines, quotations, art callouts, and tables.
+Use % in headlines, quotations, and tables or in technical copy.
 
 **Performance Analyzer**
 
@@ -440,17 +546,29 @@ Incorrect: an on-premise solution, an on-prem solution
 
 A Lucene instance that contains data for some or all of an index.
 
-### Q 
+**primitive**
+
+Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*.
+
+**purge**
+
+Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.
+
+## Q 
 
 **query**
 
 A call used to request information about your data.
 
-### R 
+## R 
 
 **real time (n.) real-time (adj.)**
 
 Use with caution; this term can imply a degree of responsiveness or speed that may not be true. When needed, use _real time_ as a noun (for example “The request is sent in real time”). Use _real-time_ as an adjective (“A real-time feed is displayed...”).
+
+**recall**
+
+The quantity of documents returned from a query.
 
 **replica shard**
 
@@ -472,6 +590,20 @@ A set of conditions, internals, and actions that create notifications.
 
 **screenshot**
 
+**segregate**
+
+Avoid using. Use *separate* or *isolate* instead.
+
+**setting**
+
+A key-value pair that creates a mapping in one of the many YAML configuration files used throughout OpenSearch. Sometimes alternatively called parameters, the programming language manipulating the key-value pair usually dictates the name of this mapping in a YAML file. For OpenSearch documentation (Java), they are properly a `Setting` object.
+
+The following examples of settings illustrate key-value pairs with a colon separating the two elements:
+
+`Settings.index.number_of_shards: 4`
+
+`plugins.security.audit.enable_rest: true`
+
 **set up (v.), setup (n., adj.)**
 
 Use _set up_ as a verb (“To set up a new user...”). Use _setup_ as a noun or adjective (“To begin setup...”).
@@ -480,9 +612,17 @@ Use _set up_ as a verb (“To set up a new user...”). Use _setup_ as a noun or
 
 A piece of an index that consumes CPU and memory. Operates as a full Lucene index.
 
+**simple, simply**
+
+Don't use. Both *simple* and *simply* are not neutral in tone and might sound condescending to some users. If you mean *only*, use *only* instead.
+
 **since**
 
 Use only to describe time events. Don’t use in place of because.
+
+**slave**
+
+Do not use. Use *replica*, *secondary*, or *standby* instead.
 
 **Snapshot Management (SM)**
 
@@ -500,7 +640,11 @@ Never hyphenated. Use _startup_ as a noun (for example, “The following startup
 
 **Stochastic Gradient Descent (SGD)**
 
-## T 
+## T
+
+**term frequency–inverse document frequency (TF–IDF)**
+
+A numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.
 
 **time out (verb), timeout (noun, adjective)**
 
@@ -508,15 +652,35 @@ Never hyphenate. Use _time out_ as a verb (“The request will time out if the s
 
 **time frame**
 
+**time-series data**
+
+Data that's provided as part of a metric. The time value is assumed to be when the value occurred.
+
 **timestamp**
 
 **time zone**
 
-### U 
+**trigger**
+
+Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
+
+**turn on, turn off**
+
+Use *turn on* and *turn off* in reference to a toggle to describe switching a setting or mode on or off.
+
+Don't use *choose*, *select*, *clear*, *slide*, *enable*, or *disable* for a toggle.
+
+For making a feature available or unavailable, use *enable*.
+
+## U 
 
 **UltraWarm**
 
 A storage tier that you can use to store and analyze your data with Elasticsearch and Kibana that is optimized for performance. To learn more about the service, see the introductory [blog post](https://aws.amazon.com/about-aws/whats-new/2020/05/aws-announces-amazon-elasticsearch-service-ultrawarm-general-availability/).
+
+**upper left, upper right**
+
+Hyphenate as adjectives. Use instead of *top left* and *top right*, unless the field name uses *top*. For example, "The upper-right corner."
 
 **US**
 
@@ -526,7 +690,11 @@ No periods, as specified in the Chicago Manual of Style.
 
 In most cases, replace with the more direct form you. Reserve _user_ for cases where you are referring to a third party (not the audience you are writing for).
 
-## V 
+**username**
+
+## V
+
+**version**
 
 **v., vs., versus**
 
@@ -551,6 +719,14 @@ Never _web site_.
 **while, although, whereas**
 
 Only use _while_ to mean “during an interval of time.” Don’t use it to mean although because it is often ambiguous. _Whereas_ is a better alternative to although in many cases, but it can sound overly formal.
+
+**white day**
+
+Do not use. Use *open day* instead.
+
+**whitelist**
+
+Do not use. Use *allow list* instead.
 
 **wish, want, desire, need**
 

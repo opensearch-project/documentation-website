@@ -24,9 +24,10 @@ In order to train tasks through the API, three inputs are required.
 - Model hyper parameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
+
 ## Train model
 
-Training can occur both synchronously and asynchronously.
+The train operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
 
 ### Request 
 
@@ -96,7 +97,7 @@ For asynchronous responses, the API returns the task_id, which can be used to ge
 }
 ```
 
-## Get model information
+## Getting model information
 
 You can retrieve information on your model using the model_id.
 
@@ -115,9 +116,193 @@ The API returns information on the model, the algorithm used, and the content fo
 }
 ```
 
-## Search model
+## Registering a model
 
-Use this command to search models you're already created.
+Use the register operation to register a custom model to a model index. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+
+```json
+POST /_plugins/_ml/models/_register
+```
+
+### Request fields
+
+All request fields are required. 
+
+Field | Data type | Description
+:---  | :--- | :--- 
+`name`| string | The name of the model. |
+`version` | integer | The version number of the model. |
+`model_format` | string | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
+`model_config`  | json object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string which contains all model configurations. |
+`url` | string | The URL which contains the model. |
+
+### Example
+
+The following example request registers a version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
+
+```json
+POST /_plugins/_ml/models/_register
+{
+  "name": "all-MiniLM-L6-v2",
+  "version": "1.0.0",
+  "description": "test model",
+  "model_format": "TORCH_SCRIPT",
+  "model_config": {
+    "model_type": "bert",
+    "embedding_dimension": 384,
+    "framework_type": "sentence_transformers",
+  },
+  "url": "https://github.com/opensearch-project/ml-commons/raw/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip?raw=true"
+}
+```
+
+### Response
+
+OpenSearch responds with the `task_id` and task `status`.
+
+```json
+{
+  "task_id" : "ew8I44MBhyWuIwnfvDIH", 
+  "status" : "CREATED"
+}
+```
+
+To see the status of your model registration, enter the `task_id` in the [task API] ...
+
+```json
+{
+  "model_id" : "WWQI44MBbzI2oUKAvNUt", 
+  "task_type" : "UPLOAD_MODEL",
+  "function_name" : "TEXT_EMBEDDING",
+  "state" : "REGISTERED",
+  "worker_node" : "KzONM8c8T4Od-NoUANQNGg",
+  "create_time" : 1665961344003,
+  "last_update_time" : 1665961373047,
+  "is_async" : true
+}
+```
+
+## Deploying a model
+
+The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`.
+
+```json
+POST /_plugins/_ml/models/<model_id>/_deploy
+```
+
+### Example: Deploying to all available ML nodes
+
+In this example request, OpenSearch deploys the model to any available OpenSearch ML node:
+
+```json
+POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
+```
+
+### Example: Deploying to a specific node
+
+If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model to a specific node(s) by specifying the `node_ids` in the request body:
+
+```json
+POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
+{
+    "node_ids": ["4PLK7KJWReyX0oWKnBA8nA"]
+}
+```
+
+### Response
+
+```json
+{
+  "task_id" : "hA8P44MBhyWuIwnfvTKP",
+  "status" : "DEPLOYING"
+}
+```
+
+## Undeploying a model
+
+To undeploy a model from memory, use the undeploy operation:
+
+```json
+POST /_plugins/_ml/models/<model_id>/_undeploy
+```
+
+### Example: Undeploying model from all ML nodes
+
+```json
+POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
+```
+
+### Response: Undeploying a model from all ML nodes
+
+```json
+{
+    "s5JwjZRqTY6nOT0EvFwVdA": {
+        "stats": {
+            "MGqJhYMBbbh0ushjm8p_": "UNDEPLOYED"
+        }
+    }
+}
+```
+
+### Example: Undeploying specific models from specific nodes
+
+```json
+POST /_plugins/_ml/models/_undeploy
+{
+  "node_ids": ["sv7-3CbwQW-4PiIsDOfLxQ"],
+  "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
+}
+```
+
+
+### Response: Undeploying specific models from specific nodes
+
+```json
+{
+  "sv7-3CbwQW-4PiIsDOfLxQ" : {
+    "stats" : {
+      "KDo2ZYQB-v9VEDwdjkZ4" : "UNDEPLOYED"
+    }
+  }
+}
+```
+
+### Response: Undeploying all models from specific nodes
+
+```json
+{
+  "sv7-3CbwQW-4PiIsDOfLxQ" : {
+    "stats" : {
+      "KDo2ZYQB-v9VEDwdjkZ4" : "UNDEPLOYED",
+      "-8o8ZYQBvrLMaN0vtwzN" : "UNDEPLOYED"
+    }
+  }
+}
+```
+
+### Example: Undeploying specific models from all nodes
+
+```json
+{
+  "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
+}
+```
+
+### Response: Undeploying specific models from all nodes
+
+```json
+{
+  "sv7-3CbwQW-4PiIsDOfLxQ" : {
+    "stats" : {
+      "KDo2ZYQB-v9VEDwdjkZ4" : "UNDEPLOYED"
+    }
+  }
+}
+```
+
+## Searching for a model
+
+Use this command to search models you've already created.
 
 
 ```json
@@ -125,7 +310,7 @@ POST /_plugins/_ml/models/_search
 {query}
 ```
 
-### Example: Query all models
+### Example: Querying all models
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -137,7 +322,7 @@ POST /_plugins/_ml/models/_search
 }
 ```
 
-### Example: Query models with algorithm "FIT_RCF"
+### Example: Querying models with algorithm "FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -204,9 +389,9 @@ POST /_plugins/_ml/models/_search
   }
 ```
 
-## Delete model
+## Deleting a model
 
-Deletes a model based on the model_id
+Deletes a model based on the `model_id`.
 
 ```json
 DELETE /_plugins/_ml/models/<model_id>
@@ -229,6 +414,87 @@ The API returns the following:
   "_primary_term" : 18
 }
 ```
+
+## Profile
+
+The profile operation returns runtime information on ML tasks and models. The profile operation can help debug issues with models at runtime.
+
+
+```json
+GET /_plugins/_ml/profile
+GET /_plugins/_ml/profile/models
+GET /_plugins/_ml/profile/tasks
+```
+
+### Path parameters
+
+Parameter | Data type | Description
+:--- | :--- | :---
+model_id | string | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
+tasks | string | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+
+### Request fields
+
+All profile body request fields are optional.
+
+Field | Data type | Description
+:--- | :--- | :--- 
+node_ids | string | Returns all tasks and profiles from a specific node. 
+model_ids | string | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
+task_ids | string | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+return_all_tasks | boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
+return_all_models | boolean | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
+
+### Example: Returning all tasks and models on a specific node
+
+```json
+GET /_plugins/_ml/profile
+{
+  "node_ids": ["KzONM8c8T4Od-NoUANQNGg"],
+  "return_all_tasks": true,
+  "return_all_models": true
+}
+```
+
+### Response: Returning all tasks and models on a specific node
+
+```json
+{
+  "nodes" : {
+    "qTduw0FJTrmGrqMrxH0dcA" : { # node id
+      "models" : {
+        "WWQI44MBbzI2oUKAvNUt" : { # model id
+          "worker_nodes" : [ # routing table
+            "KzONM8c8T4Od-NoUANQNGg"
+          ]
+        }
+      }
+    },
+...
+    "KzONM8c8T4Od-NoUANQNGg" : { # node id
+      "models" : {
+        "WWQI44MBbzI2oUKAvNUt" : { # model id
+          "model_state" : "DEPLOYED", # model status
+          "predictor" : "org.opensearch.ml.engine.algorithms.text_embedding.TextEmbeddingModel@592814c9",
+          "worker_nodes" : [ # routing table
+            "KzONM8c8T4Od-NoUANQNGg"
+          ],
+          "predict_request_stats" : { # predict request stats on this node
+            "count" : 2, # total predict requests on this node
+            "max" : 89.978681, # max latency in milliseconds
+            "min" : 5.402,
+            "average" : 47.6903405,
+            "p50" : 47.6903405,
+            "p90" : 81.5210129,
+            "p99" : 89.13291418999998
+          }
+        }
+      }
+    },
+...
+}
+```
+
 
 ## Predict
 
@@ -525,7 +791,7 @@ POST /_plugins/_ml/_train_predict/kmeans
 }
 ```
 
-## Get task information
+## Getting task information
 
 You can retrieve information about a task using the task_id.
 
@@ -549,7 +815,7 @@ The response includes information about the task.
 }
 ```
 
-## Search task
+## Searching for a task
 
 Search tasks based on parameters indicated in the request body.
 
@@ -640,7 +906,7 @@ GET /_plugins/_ml/tasks/_search
 }
 ```
 
-## Delete task
+## Deleting a task
 
 Delete a task based on the task_id.
 

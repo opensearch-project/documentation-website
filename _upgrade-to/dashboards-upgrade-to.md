@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Upgrade from Kibana OSS to OpenSearch Dashboards
+title: Migrating from Kibana OSS to OpenSearch Dashboards
 nav_order: 50
 ---
 
-# Upgrade from Kibana OSS to OpenSearch Dashboards
+# Migrating from Kibana OSS to OpenSearch Dashboards
 
-Kibana OSS stores its visualizations and dashboards in one or more indices (`.kibana*`) on the Elasticsearch OSS cluster. As such, the most important step is to leave those indices intact as you upgrade from Elasticsearch OSS to OpenSearch.
+Kibana OSS stores its visualizations and dashboards in one or more indexes (`.kibana*`) on the Elasticsearch OSS cluster. As such, the most important step is to leave those indexes intact as you migrate from Elasticsearch OSS to OpenSearch.
 
-Consider exporting all Kibana objects prior to starting the upgrade. In Kibana, choose **Stack Management**, **Saved Objects**, **Export objects**.
+Consider exporting all Kibana objects prior to starting the migration. In Kibana, choose **Stack Management**, **Saved Objects**, **Export objects**.
 {: .tip }
 
-1. After you upgrade your Elasticsearch OSS cluster to OpenSearch, stop Kibana.
+1. After you migrate your Elasticsearch OSS cluster to OpenSearch, stop Kibana.
 
 1. For safety, make a backup copy of `<kibana-dir>/config/kibana.yml`.
 
@@ -19,13 +19,13 @@ Consider exporting all Kibana objects prior to starting the upgrade. In Kibana, 
 
 1. Port your settings from `<kibana-dir>/config/kibana.yml` to `<dashboards-dir>/config/opensearch_dashboards.yml`.
 
-   In general, settings with `elasticsearch` in their names map to `opensearch` (e.g. `elasticsearch.shardTimeout` and `opensearch.shardTimeout`) and settings with `kibana` in their names map to `opensearchDashboards` (e.g. `kibana.defaultAppId` and `opensearchDashboards.defaultAppId`). Most other settings use the same names.
+   In general, settings with `elasticsearch` in their names map to `opensearch` (for example, `elasticsearch.shardTimeout` and `opensearch.shardTimeout`) and settings with `kibana` in their names map to `opensearchDashboards` (for example, `kibana.defaultAppId` and `opensearchDashboards.defaultAppId`). Most other settings use the same names.
 
-   For a full list of OpenSearch Dashboards settings, see [here](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml){:target='\_blank'}.
+   For a full list of OpenSearch Dashboards settings, see [opensearch_dashboards.yml](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml){:target='\_blank'}.
 
-1. If your OpenSearch cluster uses the security plugin, preserve and modify the default settings in `opensearch_dashboards.yml`, particularly `opensearch.username` and `opensearch.password`.
+1. If your OpenSearch cluster uses the Security plugin, preserve and modify the default settings in `opensearch_dashboards.yml`, particularly `opensearch.username` and `opensearch.password`.
 
-   If you disabled the security plugin on your OpenSearch cluster, remove or comment out all `opensearch_security` settings. Then run `rm -rf plugins/security-dashboards/` to remove the security plugin.
+   If you disabled the Security plugin on your OpenSearch cluster, remove or comment out all `opensearch_security` settings. Then run `rm -rf plugins/security-dashboards/` to remove the Security plugin.
 
 1. Start OpenSearch Dashboards:
 

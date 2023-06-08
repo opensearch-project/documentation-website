@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Monitoring
-parent: SQL
-nav_order: 15
+parent: SQL and PPL
+nav_order: 95
+redirect_from:
+  - /search-plugins/sql/monitoring/
 ---
 
 # Monitoring
