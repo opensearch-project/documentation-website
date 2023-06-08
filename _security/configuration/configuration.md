@@ -198,8 +198,8 @@ The following table describes the settings for this type of configuration.
 | :--- | :--- |
 | `type` |  The type of rate limiting. In this case, `ip`. |
 | `allowed_tries` |  The number of login attempts allowed before login is blocked. Be aware that increasing the number increases heap usage. |
-| `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries is `3` and `time_window_seconds` is `60`, a username has three attempts to log in successfully within a 60-second time span before login is blocked.  |
-| `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the username can attempt successful login again. |
+| `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries is `3` and `time_window_seconds` is `60`, an IP address has three attempts to log in successfully within a 60-second time span before login is blocked.  |
+| `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the IP address can attempt successful login again. |
 | `max_blocked_clients` |  The maximum number of blocked IP addresses. This limits heap usage to avoid a potential DoS. |
 | `max_tracked_clients` | The maximum number of tracked IP addresses that have failed login. This limits heap usage to avoid a potential DoS. |
 
