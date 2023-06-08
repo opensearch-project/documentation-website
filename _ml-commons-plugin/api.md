@@ -28,6 +28,20 @@ In order to train tasks through the API, three inputs are required:
 - Model hyperparameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
+## Model access control considerations
+
+For clusters with model access control enabled, the following users can perform API operations on models in model groups with the specified access levels:
+
+- `public` model group: Any user.
+- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
+-  `private` model group: Only the model owner. 
+
+For clusters with model access control disabled, any user can perform API operations on models in any model group. 
+
+Admin users can perform API operations  for models in any model group. 
+
+For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+
 
 ## Train model
 
@@ -107,19 +121,7 @@ For asynchronous responses, the API returns the task_id, which can be used to ge
 
 You can retrieve model information using the `model_id`.
 
-### Model access control considerations
-
-For clusters with model access control enabled, the following users can retrieve model information for models in model groups with the specified access levels:
-
-- `public` model group: Any user.
-- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
--  `private` model group: Only the model owner. 
-
-For clusters with model access control disabled, any user can retrieve model information for models in any model group. 
-
-Admin users can retrieve model information for models in any model group. 
-
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
 ### Path and HTTP methods
 
@@ -154,21 +156,9 @@ The response contains the following model information:
 
 ## Registering a model
 
-Use the register operation to register a custom model to a model index. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+Before you register a model, you must [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) for this model. The model group holds all versions of a particular model. Then use the register operation to register a model to a model group. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
 
-### Model access control considerations
-
-For clusters with model access control enabled, the following users can register new model versions for model groups with the specified access levels:
-
-- `public` model group: Any user.
-- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
--  `private` model group: Only the model owner. 
-
-For clusters with model access control disabled, any user can register a new model version for any model group. 
-
-Admin users can register new versions for any model group. 
-
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
 ### Path and HTTP methods
 
@@ -187,6 +177,7 @@ Field | Data type | Description
 `version` | Integer | The version number of the model. |
 `model_format` | String | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
 `model_group_id` | String | The model group ID for the model. 
+`model_content_hash_value` | String | The model content hash generated using the SHA-256 hashing algorithm.
 `model_config`  | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string which contains all model configurations. |
 `url` | String | The URL which contains the model. |
 
@@ -202,14 +193,14 @@ POST /_plugins/_ml/models/_register
     "description": "test model",
     "model_format": "TORCH_SCRIPT",
     "model_group_id": "FTNlQ4gBYW0Qyy5ZoxfR",
-    "model_content_hash_value": "9376c2ebd7c83f99ec2526323786c348d2382e6d86576f750c89ea544d6bbb14",
+    "model_content_hash_value": "c15f0d2e62d872be5b5bc6c84d2e0f4921541e29fefbef51d59cc10a8ae30e0f",
     "model_config": {
         "model_type": "bert",
         "embedding_dimension": 384,
         "framework_type": "sentence_transformers",
        "all_config": "{\"_name_or_path\":\"nreimers/MiniLM-L6-H384-uncased\",\"architectures\":[\"BertModel\"],\"attention_probs_dropout_prob\":0.1,\"gradient_checkpointing\":false,\"hidden_act\":\"gelu\",\"hidden_dropout_prob\":0.1,\"hidden_size\":384,\"initializer_range\":0.02,\"intermediate_size\":1536,\"layer_norm_eps\":1e-12,\"max_position_embeddings\":512,\"model_type\":\"bert\",\"num_attention_heads\":12,\"num_hidden_layers\":6,\"pad_token_id\":0,\"position_embedding_type\":\"absolute\",\"transformers_version\":\"4.8.2\",\"type_vocab_size\":2,\"use_cache\":true,\"vocab_size\":30522}"
     },
-    "url": "https://github.com/opensearch-project/ml-commons/raw/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip?raw=true"
+    "url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/all-MiniLM-L6-v2/1.0.1/torch_script/sentence-transformers_all-MiniLM-L6-v2-1.0.1-torch_script.zip"
 }
 ```
 {% include copy-curl.html %}
@@ -253,19 +244,7 @@ The response contains the model ID of the model version:
 
 The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`.
 
-### Model access control considerations
-
-For clusters with model access control enabled, the following users can deploy models in model groups with the specified access levels:
-
-- `public` model group: Any user.
-- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
--  `private` model group: Only the model owner. 
-
-For clusters with model access control disabled, any user can deploy a model in any model group. 
-
-Admin users can deploy models in any model group. 
-
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
 ### Path and HTTP methods
 
@@ -307,19 +286,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 
 To undeploy a model from memory, use the undeploy operation.
 
-### Model access control considerations
-
-For clusters with model access control enabled, the following users can undeploy models in model groups with the specified access levels:
-
-- `public` model group: Any user.
-- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
--  `private` model group: Only the model owner. 
-
-For clusters with model access control disabled, any user can undeploy a model in any model group. 
-
-Admin users can undeploy models in any model group. 
-
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
 ### Path and HTTP methods
 
@@ -507,19 +474,7 @@ POST /_plugins/_ml/models/_search
 
 Deletes a model based on the `model_id`.
 
-### Model access control considerations
-
-For clusters with model access control enabled, the following users can delete models in model groups with the specified access levels:
-
-- `public` model group: Any user.
-- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
--  `private` model group: Only the model owner. 
-
-For clusters with model access control disabled, any user can delete a model in any model group. 
-
-Admin users can delete models in any model group. 
-
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
 ### Path and HTTP methods
 
@@ -632,19 +587,9 @@ GET /_plugins/_ml/profile
 
 ML Commons can predict new data with your trained model either from indexed data or a data frame. To use the Predict API, the `model_id` is required.
 
-### Model access control considerations
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
-For clusters with model access control enabled, the following users can generate a prediction using models in model groups with the specified access levels:
-
-- `public` model group: Any user.
-- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
--  `private` model group: Only the model owner. 
-
-For clusters with model access control disabled, any user can generate a prediction using a model in any model group. 
-
-Admin users can generate a prediction using a model in any model group. 
-
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+### Path and HTTP methods
 
 ```json
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>

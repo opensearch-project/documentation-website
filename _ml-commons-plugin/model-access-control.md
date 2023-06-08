@@ -18,11 +18,11 @@ Users can be assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}
 
 For access control, models are organized into _model groups_---collections of versions of a particular model. Like users, model groups can be assigned one or more backend roles. All versions of the same model share the same model name and have the same backend role or roles. 
 
-You are considered a model _owner_ when you create a new model or upload a new version of a model. When a model owner creates a model group, the owner can specify one of the following _access modes_ for this model group:
+You are considered a model _owner_ when you create a new model group. You remain the owner of the model and all its versions even if another user registers a model to this model group. When a model owner creates a model group, the owner can specify one of the following _access modes_ for this model group:
 
 - `public`: All users who have access to the cluster can access this model group.
 - `private`: Only the model owner or an admin user can access this model group.
-- `restricted`: The owner, an admin user, or any user who shares one of the model group's backend roles can access any model in this model group. When creating a `restricted` model group, the owner must attach one or more of the owner's backend roles to the model. For a user to be able to access a model group, one of the user's backend roles must match one of the model group's backend roles. This grants the user permissions associated with the user's role. For example, if a user has the `ml_full_access` role and a backend role that matches one of the backend roles of a model group, then the user can perform all API actions on the models in this model group.
+- `restricted`: The owner, an admin user, or any user who shares one of the model group's backend roles can access any model in this model group. When creating a `restricted` model group, the owner must attach one or more of the owner's backend roles to the model. For a user to be able to access a model group, one of the user's backend roles must match one of the model group's backend roles. 
 
 An admin can access all model groups in the cluster regardless of their access mode.
 {: .note}
@@ -32,7 +32,7 @@ An admin can access all model groups in the cluster regardless of their access m
 To start using model access control, first perform the following steps:
 
 1. Enable the Security plugin on your cluster. For more information, see [Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/). 
-2. Ensure that an admin has [assigned backend roles to users](#assigning-backend-roles-to-users).
+2. For `restricted` model groups, ensure that an admin has [assigned backend roles to users](#assigning-backend-roles-to-users).
 3. [Enable model access control](#enabling-model-access-control) on your cluster. You can enable model access control dynamically by setting `plugins.ml_commons.model_access_control_enabled` to `true`.
 
 If either of the prerequisites is not met, all models in the cluster are `public` and can be accessed by any user who has access to the cluster.
