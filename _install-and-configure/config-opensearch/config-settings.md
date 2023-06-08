@@ -79,8 +79,8 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.audit.ignore_requests` | Excludes the specified requests from being logged. Allows wildcards, regex of actions, and REST request paths. |
 | `plugins.security.audit.threadpool.size` | Determines the number of threads in the thread pool used to log events. Default is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously. |
 | `plugins.security.audit.threadpool.max_queue_len` | Sets the maximum queue length per thread. Default is `100000`. |
-| `plugins.` | na |
-| `plugins.` | na |
+| `plugins.security.audit.ignore_users` | An array of users. Audit requests from the users in the list will not be logged. |
+| `plugins.security.audit.type` | The destination of audit log events. Options are `internal_opensearch`, `external_opensearch`, `debug`, and `webhook`. |
 | `plugins.` | na |
 | `plugins.` | na |
 | `plugins.` | na |
@@ -178,6 +178,8 @@ plugins.security.audit.config.disabled_categories: ["AUTHENTICATED","GRANTED_PRI
 plugins.security.audit.ignore_requests: ["indices:data/read/*","*_bulk"]
 plugins.security.audit.threadpool.size: 10
 plugins.security.audit.threadpool.max_queue_len: 100000
+plugins.security.audit.ignore_users: ['kibanaserver','some*user','/also.*regex possible/']
+plugins.security.audit.type: internal_opensearch
 
 
 ```
