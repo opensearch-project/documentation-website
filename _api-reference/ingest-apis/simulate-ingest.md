@@ -68,7 +68,7 @@ Parameter | Type | Description
 
 Field | Type | Description
 :--- | :--- | :---
-`pipeline` | Object | The pipeline to be simulated. If the pipeline identifier is not included, then the response simulates the lastest pipeline created. Optional.
+`pipeline` | Object | The pipeline to be simulated. If the pipeline identifier is not included, then the response simulates the latest pipeline created. Optional.
 `docs` | Array | The documents to be used to test the pipeline. Required.
 
 The `docs` field can include the following subfields:
