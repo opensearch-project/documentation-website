@@ -155,7 +155,7 @@ Responses vary based on the path and HTTP method you choose.
 
 ### Receive a verbose response 
 
-When the `verbose` parameter is set to `true`, the response shows the prcoessor results, that is, how the processor transformed the data. 
+When the `verbose` parameter is set to `true`, the response shows the processor results, that is, how the processor transformed the data. 
 
 ```json
 {
