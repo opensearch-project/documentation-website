@@ -53,4 +53,4 @@ Query parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-master_timeout | Time | Period to wait for a connection to the primary node. Defaults to #s.
+`cluster_manager_timeout` | Time | Period to wait for a connection to the cluster manager node. Defaults to 30s.
