@@ -26,7 +26,7 @@ Before getting started, you must have:
 
 ## Configuring admin settings
 
-You can only access, create, or manage alerts for resources for which you have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges, and you can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management** > **Advanced Settings** > **Visualizations** window. If the setting is disabled, it does not appear in this window. The setting is disabled at the cluster level through the `opensearch-dashboards.yml` file.
+You can only access, create, or manage alerts for resources for which you have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges, and you can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management** > **Advanced Settings** > **Visualizations** window. If the setting is disabled, it does not appear in this window. The setting can be disabled at the cluster level through the `opensearch-dashboards.yml` file.
 
 ## General requirements for alerting visualizations
 
@@ -44,7 +44,7 @@ Keep in mind the following requirements when setting up or creating alerting vis
 
 ## Creating alerting monitors with Dashboard
 
-By default, when you begin to create the alert monitor workflow using the Dashboard app, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop-up, pull-down, or dropdown, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can create query-level monitors only.
+By default, when you begin to create the alert monitor workflow using the Dashboard app, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop-up, pull-down, or dropdown, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-types) only.
 
 #### To create an alerting monitor 
 
@@ -62,7 +62,7 @@ An example of the create monitor steps is shown in the following screenshot.
 
 ## Associating monitors
 
-You can associate existing monitors with a visualization using the Dashboard app instead of the plugin page, giving you a single interface to add, view, and edit monitor data.
+You can associate certain monitors (existing and with a with a visualization using the Dashboard app instead of the plugin page, giving you a single interface to add, view, and edit monitor data. 
 
 #### To associate a monitor
 
