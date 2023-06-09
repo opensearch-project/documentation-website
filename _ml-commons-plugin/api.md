@@ -156,7 +156,7 @@ The response contains the following model information:
 
 ## Registering a model
 
-Before you register a model, you must [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) for this model. The model group holds all versions of a particular model. Then use the register operation to register a model to a model group. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+Before you register a model, you must [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) for this model. The model group holds all versions of a particular model. Then use the register operation to register a model to the model group. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
 
 For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
