@@ -13,6 +13,15 @@ This is an experimental feature and is not recommended for use in a production e
 
 You can use _search pipelines_ to build new or reuse existing result rerankers, query rewriters, and other components that operate on queries or results. Search pipelines make it easier for you to process search queries and search results within OpenSearch. Moving some of your application functionality into an OpenSearch search pipeline reduces the overall complexity of your application. As part of a search pipeline, you specify a list of processors that perform modular tasks. You can then easily add or reorder these processors to customize search results for your application. 
 
+## Enabling search pipelines
+
+Search pipeline functionality is disabled by default. To enable it, edit the configuration in `opensearch.yml` and then restart your cluster:
+
+1. Navigate to the OpenSearch config directory.
+1. Open the `opensearch.yml` configuration file. 
+1. Add `opensearch.experimental.feature.search_pipeline.enabled: true` and save the configuration file.
+1. Restart your cluster.
+
 ## Terminology
 
 The following is a list of search pipeline terminology:
