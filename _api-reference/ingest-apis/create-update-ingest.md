@@ -9,15 +9,22 @@ redirect_from:
 
 # Create or update a pipeline
 
-The create ingest pipeline API operation creates or updates an ingest pipeline. Each pipeline requires an ingest definition defining how each processor transforms your data. 
+Creating an ingest pipeline is a vital step in streamlining your data processing workflow. For example, you can enhance data quality, automate date processing tasks, and ensure your dta is prepared and optimized for downstream use. 
+
+Use the following path and HTTP method to create or update pipelines in OpenSearch.
+
+#### Path and HTTP method
+```json
+PUT _ingest/pipeline/{id}
+```
 
 The following is an example of a create pipeline API request: 
 
 ```json
-PUT _ingest/pipeline/my-pipeline-id
+PUT _ingest/pipeline/{id}
 {
-  "description" : "Example pipeline",
-  "processors" : [
+  "description" : "Example optional description of the pipeline",
+  "processors" : [ 
     {
       "set" : {
         "field": "field-name",
@@ -31,10 +38,10 @@ PUT _ingest/pipeline/my-pipeline-id
 
 ## Request body fields
 
-Field | Type | Description
-:--- | :--- | :---
-`description` | String | Description of the ingest pipeline. Optional. 
-`processors` | Array | The processor that performs an ingest action on the data. Processors run sequentially. Required.
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+`description` | Optional | String | Description of the ingest pipeline. 
+`processors` | Required | Array | The processor that performs a transformation on the documents. Processors run sequentially. 
 
 ## Path parameters
 
