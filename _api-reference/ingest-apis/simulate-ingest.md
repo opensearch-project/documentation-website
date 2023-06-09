@@ -76,7 +76,7 @@ The `docs` field can include the following subfields:
 Field | Type | Description
 :--- | :--- | :---
 `id` | String | A unique identifier for a document. The identifier cannot be used elsewhere in the index. Optional.
-`index` | String | A collection of documents that have undergone specfic data transformation within an ingest pipeline. Optional.
+`index` | String | The index where the document's transformed data appears. Optional.
 `source` | Object | The document's JSON body. Required.
 
 ## Example response
