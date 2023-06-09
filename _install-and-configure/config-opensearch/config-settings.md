@@ -7,13 +7,10 @@ nav_order: 5
 
 # Settings for opensearch.yml
 
-Configuration file settings customize your distribution. They are contained in a number of different YAML files. Files and their associated settings are listed and described in the following tables.
+Configuration file settings customize your distribution. You can use the settings in the following tables to configure your `opensearch.yml` file for core OpenSearch and whichever plugins you run. This section categorizes the settings and provides description for each. Examples for settings in the groupings follow each table. 
 
-## opensearch.yml settings
 
-You can use the settings in the following tables to configure your `opensearch.yml` file for core OpenSearch and whichever plugins you run.
-
-### OpenSearch core settings
+## OpenSearch core settings
 
 The settings in the following table apply specifically to OpenSearch core.
 
@@ -39,8 +36,31 @@ The settings in the following table apply specifically to OpenSearch core.
 | `cluster.remote_store.translog.repository` | The repository used for translog upload when enforcing remote store for an index. |
 
 
+### OpenSearch settings examples
 
-### Security plugin settings
+```yml
+network.host: 192.168.0.1
+http.port: 9200
+discovery.seed_hosts: ["host1", "host2"]
+cluster.initial_cluster_manager_nodes: ["node-1", "node-2"]
+discovery.zen.minimum_master_nodes: 1
+gateway.recover_after_nodes: 3
+discovery.type: single-node
+cluster.name: my-application
+node.name: node-1
+node.attr.rack: r1
+path.data: path/to/data/datafile/
+path.logs: path/to/logs/logfile/
+bootstrap.memory_lock: true
+action.destructive_requires_name: true
+cluster.remote_store.enabled: true
+cluster.remote_store.repository: my-repo-1
+cluster.remote_store.translog.enabled: true
+cluster.remote_store.translog.repository: my-repo-1
+```
+
+
+## Security plugin settings
 
 The settings in the following table apply specifically to the Security plugin.
 
@@ -81,6 +101,32 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.audit.threadpool.max_queue_len` | Sets the maximum queue length per thread. Default is `100000`. |
 | `plugins.security.audit.ignore_users` | An array of users. Audit requests from the users in the list will not be logged. |
 | `plugins.security.audit.type` | The destination of audit log events. Options are `internal_opensearch`, `external_opensearch`, `debug`, and `webhook`. |
+| `plugins.security.audit.config.http_endpoints` | Endpoints for `localhost`. |
+| `plugins.security.audit.config.index` | The audit log index. The default is `auditlog6`. The index can be static or an index that includes a date so that it rotates on a daily basis. For example: "'auditlog6-'YYYY.MM.dd". In both cases, make sure you secure the index properly. |
+| `plugins.security.audit.config.type` | Specify the audit log type as `auditlog`. |
+| `plugins.security.audit.config.username` | Username for the audit log configuration. [How does this differ from the admin's sign on?] |
+| `plugins.security.audit.config.password` | Password for the audit log configuration. [How does this differ from the admin's sign on?] |
+| `plugins.security.audit.config.enable_ssl` | Enables or disables SSL for audit logging. [More description needed] |
+| `plugins.security.audit.config.verify_hostnames` | [More description needed] |
+| `plugins.security.audit.config.enable_ssl_client_auth | [More description needed] |
+| `plugins.security.audit.config.cert_alias` | [More description needed] |
+| `plugins.security.audit.config.pemkey_filepath` | Filepath for the location where the pemkey is stored. |
+| `plugins.security.audit.config.pemkey_content` | [More description needed] |
+| `plugins.security.audit.config.pemkey_password` | [More description needed] |
+| `plugins.security.audit.config.pemcert_filepath` | [More description needed] |
+| `plugins.security.audit.config.pemcert_content` | [More description needed] |
+| `plugins.security.audit.config.pemtrustedcas_filepath` | [More description needed] |
+| `plugins.security.audit.config.pemtrustedcas_content` | [More description needed] |
+| `plugins.security.audit.config.webhook.url` | The webhook URL. |
+| `plugins.security.audit.config.webhook.format` | The format used for the webhook. The options are `URL_PARAMETER_GET`, `URL_PARAMETER_POST`, `TEXT`, `JSON`, `SLACK`. |
+| `plugins.security.audit.config.webhook.ssl.verify` | [More description needed] |
+| `plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath` | [More description needed] |
+| `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` | [More description needed] |
+| `plugins.security.audit.config.log4j.logger_name` | [More description needed] |
+| `plugins.security.audit.config.log4j.level` | [More description needed] |
+| `plugins.security.authcz.impersonation_dn` | Enables transport layer impersonation. This allows DNs (distinguished names) to impersonate as other users. |
+| `plugins.security.authcz.rest_impersonation_user` | Enables REST layer impersonation. This allows users to impersonate as other users. |
+| `plugins.` | na |
 | `plugins.` | na |
 | `plugins.` | na |
 | `plugins.` | na |
@@ -95,44 +141,6 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.` | na |
 | `plugins.` | na |
 
-
-### Currently experimental feature settings
-
-| Setting | Description |
-| :--- | :--- |
-| `opensearch.experimental.feature.replication_type.enabled` | Enables the index setting that allows for changing the replication type. |
-| `opensearch.experimental.feature.remote_store.enabled` | Enables the index setting that allows for persisting data to remote store in addition to the local disk. |
-| `opensearch.experimental.feature.searchable_snapshot.enabled` | Enables a new parameter for the snapshot restore API that allows for creation of a new index type, which searches a snapshot directly in a remote repository without restoring all index data to disk ahead of time. |
-| `opensearch.experimental.feature.extensions.enabled` | Enables extensions to work with OpenSearch and extend application features of OpenSearch outside of the core. |
-| `opensearch.experimental.feature.search_pipeline.enabled: false` | Enables configurable processors for search requests and search responses, similar to ingest pipelines. |
-
-
-## opensearch.yml examples
-
-The following YAML file provides the same settings as those in the previous section along with example values.
-
-### OpenSearch settings examples
-
-```yml
-network.host: 192.168.0.1
-http.port: 9200
-discovery.seed_hosts: ["host1", "host2"]
-cluster.initial_cluster_manager_nodes: ["node-1", "node-2"]
-discovery.zen.minimum_master_nodes: 1
-gateway.recover_after_nodes: 3
-discovery.type: single-node
-cluster.name: my-application
-node.name: node-1
-node.attr.rack: r1
-path.data: path/to/data/datafile/
-path.logs: path/to/logs/logfile/
-bootstrap.memory_lock: true
-action.destructive_requires_name: true
-cluster.remote_store.enabled: true
-cluster.remote_store.repository: my-repo-1
-cluster.remote_store.translog.enabled: true
-cluster.remote_store.translog.repository: my-repo-1
-```
 
 ### Security plugin settings examples
 
@@ -167,6 +175,7 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 plugins.security.allow_default_init_securityindex: true
 plugins.security.cache.ttl_minutes: 60
+#
 # REST Management API configuration settings
 plugins.security.restapi.roles_enabled: ["all_access","xyz_role"]
 plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.LICENSE: ["DELETE"] #
@@ -180,9 +189,88 @@ plugins.security.audit.threadpool.size: 10
 plugins.security.audit.threadpool.max_queue_len: 100000
 plugins.security.audit.ignore_users: ['kibanaserver','some*user','/also.*regex possible/']
 plugins.security.audit.type: internal_opensearch
+#
+# external_opensearch settings
+plugins.security.audit.config.http_endpoints: ['localhost:9200','localhost:9201','localhost:9202']
+plugins.security.audit.config.index: auditlog6
+plugins.security.audit.config.type: auditlog
+plugins.security.audit.config.username: auditloguser
+plugins.security.audit.config.password: auditlogpassword
+plugins.security.audit.config.enable_ssl: false
+plugins.security.audit.config.verify_hostnames: false
+plugins.security.audit.config.enable_ssl_client_auth: false
+plugins.security.audit.config.cert_alias: mycert
+plugins.security.audit.config.pemkey_filepath: key.pem
+plugins.security.audit.config.pemkey_content: <...pem base 64 content>
+plugins.security.audit.config.pemkey_password: secret
+plugins.security.audit.config.pemcert_filepath: cert.pem
+plugins.security.audit.config.pemcert_content: <...pem base 64 content>
+plugins.security.audit.config.pemtrustedcas_filepath: ca.pem
+plugins.security.audit.config.pemtrustedcas_content: <...pem base 64 content>
+#
+# webhook settings
+plugins.security.audit.config.webhook.url: "http://mywebhook/endpoint"
+plugins.security.audit.config.webhook.format: JSON
+plugins.security.audit.config.webhook.ssl.verify: false
+plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath: ca.pem
+plugins.security.audit.config.webhook.ssl.pemtrustedcas_content: <...pem base 64 content>
+#
+# log4j settings
+plugins.security.audit.config.log4j.logger_name: auditlogger
+plugins.security.audit.config.log4j.level: INFO
+#
+# Advanced configuration settings
+plugins.security.authcz.impersonation_dn:
+  "CN=spock,OU=client,O=client,L=Test,C=DE":
+    - worf
+  "cn=webuser,ou=IT,ou=IT,dc=company,dc=com":
+    - user2
+    - user1
+plugins.security.authcz.rest_impersonation_user:
+  "picard":
+    - worf
+  "john":
+    - steve
+    - martin
+
+# If this is set to true OpenSearch Security will automatically initialize the configuration index
+# with the files in the config directory if the index does not exist.
+# WARNING: This will use well-known default passwords.
+#          Use only in a private network/environment.
+#plugins.security.allow_default_init_securityindex: false
+
+# If this is set to true then allow to startup with demo certificates.
+# These are certificates issued by floragunn GmbH for demo purposes.
+# WARNING: This certificates are well known and therefore unsafe
+#          Use only in a private network/environment.
+#plugins.security.allow_unsafe_democertificates: false
+
+
+
+# Password strength rules for password complexity. 
+# If you want to set up password strength rules for internal users, you can use the below settings for it. 
+# Password validation rules can be configured through regex. In the below regex example, a user must need 
+# a password with minimum 8 characters length and must include minimum one uppercase, one lower case, one digit, and one special character. 
+# And a custom error message can be configured, in case if a password is not created according to the password strength rule.   
+# plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
+# plugins.security.restapi.password_validation_error_message: "A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 
 
 ```
+
+
+
+
+## Currently experimental feature settings
+
+| Setting | Description |
+| :--- | :--- |
+| `opensearch.experimental.feature.replication_type.enabled` | Enables the index setting that allows for changing the replication type. |
+| `opensearch.experimental.feature.remote_store.enabled` | Enables the index setting that allows for persisting data to remote store in addition to the local disk. |
+| `opensearch.experimental.feature.searchable_snapshot.enabled` | Enables a new parameter for the snapshot restore API that allows for creation of a new index type, which searches a snapshot directly in a remote repository without restoring all index data to disk ahead of time. |
+| `opensearch.experimental.feature.extensions.enabled` | Enables extensions to work with OpenSearch and extend application features of OpenSearch outside of the core. |
+| `opensearch.experimental.feature.search_pipeline.enabled: false` | Enables configurable processors for search requests and search responses, similar to ingest pipelines. |
+
 
 ### Example settings for currently experimental features
 
