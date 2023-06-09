@@ -36,7 +36,7 @@ POST /_ingest/pipeline/pipeline-id/_simulate
 
 ## Example requests
 
-Requests to simulate the lastest ingest pipeline created:
+Requests to simulate the latest ingest pipeline created:
 
 ```
 GET _ingest/pipeline/_simulate
