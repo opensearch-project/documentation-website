@@ -163,7 +163,7 @@ auth_failure_listeners:
 ```
 {% include copy.html %}
 
-The following table describes the settings for this type of configuration.
+The following table describes the individual settings for this type of configuration.
 
 | Setting | Description |
 | :--- | :--- |
@@ -178,7 +178,19 @@ The following table describes the settings for this type of configuration.
 
 ### IP address rate limiting
 
-This configuration limits login attempts by IP address. When a login fails, the IP address specific to the machine being used for login is blocked. The following example shows `config.yml` file settings configured for IP address rate limiting:
+This configuration limits login attempts by IP address. When a login fails, the IP address specific to the machine being used for login is blocked. 
+
+There are two steps for configuring IP address rate limiting. First, set the `challenge` setting to `false` in the `http_authenticator` section of the `config.yml` file.
+
+```yml
+http_authenticator:
+  type: basic
+  challenge: false
+```
+
+For more information about this setting, see [HTTP basic authentication](/security/configuration/configuration/#http-basic-authentication).
+
+Second, configure the IP address rate limiting setttings. The following example shows a completed configuration:
 
 ```yml
 auth_failure_listeners:
@@ -192,10 +204,7 @@ auth_failure_listeners:
 ```
 {% include copy.html %}
 
-In addition to the IP rate limiting configuration shown here, make sure to set the `challenge` setting to `false` in the `http_authenticator` section of the `config.yml` file. For more information about this setting, see [HTTP basic authentication](/security/configuration/configuration/#http-basic-authentication).
-{: .important }
-
-The following table describes the settings for this type of configuration.
+The following table describes the individual settings for this type of configuration.
 
 | Setting | Description |
 | :--- | :--- |
