@@ -190,7 +190,7 @@ http_authenticator:
 
 For more information about this setting, see [HTTP basic authentication](/security/configuration/configuration/#http-basic-authentication).
 
-Second, configure the IP address rate limiting setttings. The following example shows a completed configuration:
+Second, configure the IP address rate limiting settings. The following example shows a completed configuration:
 
 ```yml
 auth_failure_listeners:
