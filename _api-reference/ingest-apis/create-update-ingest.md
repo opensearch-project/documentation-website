@@ -9,7 +9,7 @@ redirect_from:
 
 # Create or update a pipeline
 
-Creating an ingest pipeline is a vital step in streamlining your data processing workflow. For example, you can enhance data quality, automate date processing tasks, and ensure your dta is prepared and optimized for downstream use. 
+Creating an ingest pipeline is a vital step in streamlining your data processing workflow. For example, you can enhance data quality, automate data processing tasks, and ensure your data is prepared and optimized for downstream use. 
 
 Use the following path and HTTP method to create or update pipelines in OpenSearch.
 
@@ -23,7 +23,7 @@ The following is an example of a create pipeline API request:
 ```json
 PUT _ingest/pipeline/{id}
 {
-  "description" : "Example optional description of the pipeline",
+  "description" : "Optional description of the pipeline",
   "processors" : [ 
     {
       "set" : {
@@ -49,7 +49,7 @@ Path parameters are required.
 
 Parameter | Type | Description
 :--- | :--- | :---
-`pipeline` | String | Pipeline ID or wildcard expression of pipeline IDs used to limit the request. 
+`pipeline` | String | The unique identifier, or pipeline id, assigned to the ingest pipeline. A pipeline id is used in API requests to specify which pipeline should be created or modified.  
 
 ## Query parameters
 
@@ -57,8 +57,8 @@ Query parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-`cluster_manager_timeout` | Time | Period to wait for a connection to the cluster manager node. Defaults to 30s.
-`timeout` | Time | Period to wait for a response. Defaults to 30s. 
+`cluster_manager_timeout` | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.
+`timeout` | Time | Period to wait for a response. Defaults to 30 seconds. 
 
 ## Next steps
 
