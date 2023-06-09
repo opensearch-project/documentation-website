@@ -62,7 +62,7 @@ An example of the create monitor steps is shown in the following screenshot.
 
 ## Associating monitors
 
-You can associate certain monitors (existing and with a with a visualization using the Dashboard app instead of the plugin page, giving you a single interface to add, view, and edit monitor data. 
+You can associate certain monitors with a visualization using the Dashboard app instead of the plugin page, giving you a single interface to add, view, and edit monitor data. You can associate existing monitors and monitors not specific to a per query monitor.
 
 #### To associate a monitor
 
