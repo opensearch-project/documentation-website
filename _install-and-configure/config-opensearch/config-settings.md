@@ -66,30 +66,30 @@ The settings in the following table apply specifically to the Security plugin.
 
 | Setting | Description |
 | :--- | :--- |
-| `plugins.security.ssl.transport.pemcert_filepath` | na |
-| `plugins.security.ssl.transport.pemkey_filepath` | na |
-| `plugins.security.ssl.transport.pemtrustedcas_filepath` | na |
-| `plugins.security.ssl.transport.enforce_hostname_verification` | na |
-| `plugins.security.ssl.http.enabled` | na |
-| `plugins.security.ssl.http.pemcert_filepath` | na |
-| `plugins.security.ssl.http.pemkey_filepath` | na |
-| `plugins.security.ssl.http.pemtrustedcas_filepath` | na |
-| `plugins.security.allow_default_init_securityindex` | na |
+| `plugins.security.ssl.transport.pemcert_filepath` | [More description needed] |
+| `plugins.security.ssl.transport.pemkey_filepath` | [More description needed] |
+| `plugins.security.ssl.transport.pemtrustedcas_filepath` | [More description needed] |
+| `plugins.security.ssl.transport.enforce_hostname_verification` | [More description needed] |
+| `plugins.security.ssl.http.enabled` | [More description needed] |
+| `plugins.security.ssl.http.pemcert_filepath` | [More description needed] |
+| `plugins.security.ssl.http.pemkey_filepath` | [More description needed] |
+| `plugins.security.ssl.http.pemtrustedcas_filepath` | [More description needed] |
+| `plugins.security.allow_default_init_securityindex` | [More description needed] |
 | `plugins.security.authcz.admin_dn` | Defines the DNs (distinguished names) of certificates to which admin privileges should be assigned. Required. |
 | `plugins.security.nodes_dn` | Specifies a list of distinguished names (DNs) which denote the other nodes in the cluster. This settings support wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the .yml configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. |
-| `plugins.security.nodes_dn_dynamic_config_enabled` | Relevant for cross_cluster usecases where there is a need to manage the whitelisted nodes_dn without having to restart the nodes everytime a new cross_cluster remote is configured. Setting nodes_dn_dynamic_config_enabled to true enables **super-admin callable** /_opendistro/_security/api/nodesdn APIs which provide means to update/retrieve nodesdn dynamically. This setting only has effect if 'plugins.security.cert.intercluster_request_evaluator_class' is not set. Default is `false`. |
-| `plugins.security.audit.type` | na |
-| `plugins.security.enable_snapshot_restore_privilege` | na |
-| `plugins.security.check_snapshot_restore_write_privileges` | na |
-| `plugins.security.restapi.roles_enabled` | na |
-| `cluster.routing.allocation.disk.threshold_enabled` | na |
-| `opendistro_security.audit.config.disabled_rest_categories` | na |
-| `opendistro_security.audit.config.disabled_transport_categories` | na |
-| `plugins.security.restapi.password_validation_regex` | na |
-| `plugins.security.restapi.password_validation_error_message` | na |
-| `plugins.security.allow_default_init_securityindex` | na |
-| `plugins.security.cache.ttl_minutes` | na |
-| `plugins.security.roles_mapping_resolution` | Defines how backend roles are mapped to Security roles.<br>MAPPING_ONLY - mappings must be configured explicitely in roles_mapping.yml (default)<br>BACKENDROLES_ONLY - backend roles are mapped to Security roles directly. Settings in roles_mapping.yml have no effect.<br>BOTH - backend roles are mapped to Security roles mapped directly and via roles_mapping.yml in addition.  |
+| `plugins.security.nodes_dn_dynamic_config_enabled` | Relevant for cross_cluster usecases where there is a need to manage the whitelisted nodes_dn without having to restart the nodes every time a new cross_cluster remote is configured. Setting nodes_dn_dynamic_config_enabled to true enables **super-admin callable** /_opendistro/_security/api/nodesdn APIs which provide means to update/retrieve nodesdn dynamically. This setting only has effect if 'plugins.security.cert.intercluster_request_evaluator_class' is not set. Default is `false`. |
+| `plugins.security.audit.type` | [More description needed] |
+| `plugins.security.enable_snapshot_restore_privilege` | [More description needed] |
+| `plugins.security.check_snapshot_restore_write_privileges` | [More description needed] |
+| `plugins.security.restapi.roles_enabled` | [More description needed] |
+| `cluster.routing.allocation.disk.threshold_enabled` | [More description needed] |
+| `opendistro_security.audit.config.disabled_rest_categories` | [More description needed] |
+| `opendistro_security.audit.config.disabled_transport_categories` | [More description needed] |
+| `plugins.security.restapi.password_validation_regex` | [More description needed] |
+| `plugins.security.restapi.password_validation_error_message` | [More description needed] |
+| `plugins.security.allow_default_init_securityindex` | [More description needed] |
+| `plugins.security.cache.ttl_minutes` | [More description needed] |
+| `plugins.security.roles_mapping_resolution` | Defines how backend roles are mapped to Security roles.<br>MAPPING_ONLY - mappings must be configured explicitly in roles_mapping.yml (default)<br>BACKENDROLES_ONLY - backend roles are mapped to Security roles directly. Settings in roles_mapping.yml have no effect.<br>BOTH - backend roles are mapped to Security roles mapped directly and via roles_mapping.yml in addition.  |
 | `plugins.security.restapi.roles_enabled` | Enables role based access to the REST management API for listed roles. Roles are separated by a comma. Default is that no role is allowed to access the REST management API (an empty list). |
 | `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. |
 | `plugins.security.audit.enable_rest` | Enables or disables rest request logging. Default is `true`, enabled. |
@@ -126,13 +126,13 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.audit.config.log4j.level` | [More description needed] |
 | `plugins.security.authcz.impersonation_dn` | Enables transport layer impersonation. This allows DNs (distinguished names) to impersonate as other users. |
 | `plugins.security.authcz.rest_impersonation_user` | Enables REST layer impersonation. This allows users to impersonate as other users. |
-| `plugins.` | na |
-| `plugins.` | na |
-| `plugins.` | na |
-| `plugins.` | na |
-| `plugins.` | na |
-| `plugins.` | na |
-| `plugins.` | na |
+| `plugins.security.allow_default_init_securityindex` | When set to `true`, OpenSearch Security will automatically initialize the configuration index with the files in the /config directory if the index does not exist. _This will use well-known default passwords. Use only in a private network/environment._ |
+| `plugins.security.allow_unsafe_democertificates` | When set to `true`, OpenSearch starts up with demo certificates. These certificates are issued by **floragunn GmbH** for demo purposes. _These certificates are well known and therefore unsafe for production. Use only in a private network/environment._ |
+| `plugins.security.cache.ttl_minutes` | Determines how long it takes for authentication caching to time out. The authentication cache helps speed up authentication by temporarily storing user objects returned from the backend so that the Security plugin is not required to make repeated requests for them. Set the value in minutes. The default is `60`. Disable caching by setting the value to `0`. |
+| `plugins.security.restapi.password_validation_regex` | Specify a regular expression (regex) to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings). |
+| `plugins.security.restapi.password_validation_error_message` | Enter an error message that loads when a password doesn’t pass validation. This setting is used in conjunction with `plugins.security.restapi.password_validation_regex`. |
+| `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings). |
+| `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. The options are `fair`, `good`, `strong`, `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`. |
 | `plugins.` | na |
 | `plugins.` | na |
 | `plugins.` | na |
@@ -208,7 +208,7 @@ plugins.security.audit.config.pemcert_content: <...pem base 64 content>
 plugins.security.audit.config.pemtrustedcas_filepath: ca.pem
 plugins.security.audit.config.pemtrustedcas_content: <...pem base 64 content>
 #
-# webhook settings
+# Webhook settings
 plugins.security.audit.config.webhook.url: "http://mywebhook/endpoint"
 plugins.security.audit.config.webhook.format: JSON
 plugins.security.audit.config.webhook.ssl.verify: false
@@ -232,34 +232,14 @@ plugins.security.authcz.rest_impersonation_user:
   "john":
     - steve
     - martin
-
-# If this is set to true OpenSearch Security will automatically initialize the configuration index
-# with the files in the config directory if the index does not exist.
-# WARNING: This will use well-known default passwords.
-#          Use only in a private network/environment.
-#plugins.security.allow_default_init_securityindex: false
-
-# If this is set to true then allow to startup with demo certificates.
-# These are certificates issued by floragunn GmbH for demo purposes.
-# WARNING: This certificates are well known and therefore unsafe
-#          Use only in a private network/environment.
-#plugins.security.allow_unsafe_democertificates: false
-
-
-
-# Password strength rules for password complexity. 
-# If you want to set up password strength rules for internal users, you can use the below settings for it. 
-# Password validation rules can be configured through regex. In the below regex example, a user must need 
-# a password with minimum 8 characters length and must include minimum one uppercase, one lower case, one digit, and one special character. 
-# And a custom error message can be configured, in case if a password is not created according to the password strength rule.   
-# plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
-# plugins.security.restapi.password_validation_error_message: "A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
-
-
+plugins.security.allow_default_init_securityindex: false
+plugins.security.allow_unsafe_democertificates: false
+plugins.security.cache.ttl_minutes: 60
+plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
+plugins.security.restapi.password_validation_error_message: "A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
+plugins.security.restapi.password_min_length: 8
+plugins.security.restapi.password_score_based_validation_strength: very_strong
 ```
-
-
-
 
 ## Currently experimental feature settings
 
