@@ -18,43 +18,43 @@ The SQL plugin supports the following common functions shared across the SQL and
 
 ## Mathematical
 
-| Function | Specification                                                    | Example                                                                             |
-|:---------|:-----------------------------------------------------------------|:------------------------------------------------------------------------------------|
-| abs      | `abs(number T) -> T`                                             | `SELECT abs(0.5)`                                                                   |
-| add      | `add(number T, number T) -> T`                                   | `SELECT add(1, 5)`                                                                  |
-| cbrt     | `cbrt(number T) -> double`                                       | `SELECT cbrt(0.5)`                                                                  |
-| ceil     | `ceil(number T) -> T`                                            | `SELECT ceil(0.5)`                                                                  |
-| conv     | `conv(string T, integer, integer) -> string`                     | `SELECT CONV('12', 10, 16), CONV('2C', 16, 10), CONV(12, 10, 2), CONV(1111, 2, 10)` |
-| crc32    | `crc32(string) -> string`                                        | `SELECT crc32('MySQL')`                                                             |
-| divide   | `divide(number T, number T) -> T`                                | `SELECT divide(1, 0.5)`                                                             |
-| e        | `e() -> double`                                                  | `SELECT e()`                                                                        |
-| exp      | `exp(number T) -> double`                                        | `SELECT exp(0.5)`                                                                   |
-| expm1    | `expm1(number T) -> double`                                      | `SELECT expm1(0.5)`                                                                 |
-| floor    | `floor(number T) -> long`                                        | `SELECT floor(0.5)`                                                                 |
-| ln       | `ln(number T) -> double`                                         | `SELECT ln(10)`                                                                     |
-| log      | `log(number T) -> double` or `log(number T, number T) -> double` | `SELECT log(10), log(2, 16)`                                                        |
-| log2     | `log2(number T) -> double`                                       | `SELECT log2(10)`                                                                   |
-| log10    | `log10(number T) -> double`                                      | `SELECT log10(10)`                                                                  |
-| mod      | `mod(number T, number T) -> T`                                   | `SELECT mod(2, 3)`                                                                  |
-| modulus  | `modulus(number T, number T) -> T`                               | `SELECT modulus(2, 3)`                                                              |
-| multiply | `multiply(number T, number T) -> T`                              | `SELECT multiply(2, 3)`                                                             |
-| pi       | `pi() -> double`                                                 | `SELECT pi()`                                                                       |
-| pow      | `pow(number T, number T) -> double`                              | `SELECT pow(2, 3)`                                                                  |
-| power    | `power(number T, number T) -> double`                            | `SELECT power(2, 3)`                                                                |
-| rand     | `rand() -> float` or `rand(number T) -> float`                   | `SELECT rand(), rand(0.5)`                                                          |
-| rint     | `rint(number T) -> double`                                       | `SELECT rint(1.5)`                                                                  |
-| round    | `round(number T) -> T` or `round(number T, integer) -> T`        | `SELECT round(1.5), round(1.175, 2)`                                                |
-| sign     | `sign(number T) -> integer`                                      | `SELECT sign(1.5)`                                                                  |
-| signum   | `signum(number T) -> integer`                                    | `SELECT signum(0.5)`                                                                |
-| sqrt     | `sqrt(number T) -> double`                                       | `SELECT sqrt(0.5)`                                                                  |
-| strcmp   | `strcmp(string T, string T) -> integer`                          | `SELECT strcmp('hello', 'hello')`                                                   |
-| subtract | `subtract(number T, number T) -> T`                              | `SELECT subtract(3, 2)`                                                             |
-| truncate | `truncate(number T, number T) -> T`                              | `SELECT truncate(56.78, 1)`                                                         |
-| +        | `number T + number T -> T`                                       | `SELECT 1 + 5`                                                                      |
-| -        | `number T - number T -> T`                                       | `SELECT 3 - 2`                                                                      |
-| *        | `number T * number T -> T`                                       | `SELECT 2 * 3`                                                                      |
-| /        | `number T / number T -> T`                                       | `SELECT 1 / 0.5`                                                                    |
-| %        | `number T % number T -> T`                                       | `SELECT 2 % 3`                                                                      |
+| Function | Specification                                                    | Example                                        |
+|:---------|:-----------------------------------------------------------------|:-----------------------------------------------|
+| abs      | `abs(number T) -> T`                                             | `SELECT abs(0.5)`                              |
+| add      | `add(number T, number T) -> T`                                   | `SELECT add(1, 5)`                             |
+| cbrt     | `cbrt(number T) -> double`                                       | `SELECT cbrt(8)`                               |
+| ceil     | `ceil(number T) -> T`                                            | `SELECT ceil(0.5)`                             |
+| conv     | `conv(string T, integer, integer) -> string`                     | `SELECT conv('2C', 16, 10), conv(1111, 2, 10)` |
+| crc32    | `crc32(string) -> string`                                        | `SELECT crc32('MySQL')`                        |
+| divide   | `divide(number T, number T) -> T`                                | `SELECT divide(1, 0.5)`                        |
+| e        | `e() -> double`                                                  | `SELECT e()`                                   |
+| exp      | `exp(number T) -> double`                                        | `SELECT exp(0.5)`                              |
+| expm1    | `expm1(number T) -> double`                                      | `SELECT expm1(0.5)`                            |
+| floor    | `floor(number T) -> long`                                        | `SELECT floor(0.5)`                            |
+| ln       | `ln(number T) -> double`                                         | `SELECT ln(10)`                                |
+| log      | `log(number T) -> double` or `log(number T, number T) -> double` | `SELECT log(10)`, `SELECT log(2, 16)`          |
+| log2     | `log2(number T) -> double`                                       | `SELECT log2(10)`                              |
+| log10    | `log10(number T) -> double`                                      | `SELECT log10(10)`                             |
+| mod      | `mod(number T, number T) -> T`                                   | `SELECT mod(2, 3)`                             |
+| modulus  | `modulus(number T, number T) -> T`                               | `SELECT modulus(2, 3)`                         |
+| multiply | `multiply(number T, number T) -> T`                              | `SELECT multiply(2, 3)`                        |
+| pi       | `pi() -> double`                                                 | `SELECT pi()`                                  |
+| pow      | `pow(number T, number T) -> double`                              | `SELECT pow(2, 3)`                             |
+| power    | `power(number T, number T) -> double`                            | `SELECT power(2, 3)`                           |
+| rand     | `rand() -> float` or `rand(number T) -> float`                   | `SELECT rand()`, `SELECT rand(0.5)`            |
+| rint     | `rint(number T) -> double`                                       | `SELECT rint(1.5)`                             |
+| round    | `round(number T) -> T` or `round(number T, integer) -> T`        | `SELECT round(1.5)`, `SELECT round(1.175, 2)`  |
+| sign     | `sign(number T) -> integer`                                      | `SELECT sign(1.5)`                             |
+| signum   | `signum(number T) -> integer`                                    | `SELECT signum(0.5)`                           |
+| sqrt     | `sqrt(number T) -> double`                                       | `SELECT sqrt(0.5)`                             |
+| strcmp   | `strcmp(string T, string T) -> integer`                          | `SELECT strcmp('hello', 'hello world')`        |
+| subtract | `subtract(number T, number T) -> T`                              | `SELECT subtract(3, 2)`                        |
+| truncate | `truncate(number T, number T) -> T`                              | `SELECT truncate(56.78, 1)`                    |
+| +        | `number T + number T -> T`                                       | `SELECT 1 + 5`                                 |
+| -        | `number T - number T -> T`                                       | `SELECT 3 - 2`                                 |
+| *        | `number T * number T -> T`                                       | `SELECT 2 * 3`                                 |
+| /        | `number T / number T -> T`                                       | `SELECT 1 / 0.5`                               |
+| %        | `number T % number T -> T`                                       | `SELECT 2 % 3`                                 |
 
 ## Trigonometric
 
@@ -86,10 +86,10 @@ Functions marked with * are only available in SQL.
 | current_date       | `current_date() -> date`                                                               | `SELECT current_date()`                                                             |
 | current_time       | `current_time() -> time`                                                               | `SELECT current_time()`                                                             |
 | current_timestamp  | `current_timestamp() -> date`                                                          | `SELECT current_timestamp()`                                                        |
-| date               | `date(date) -> date`                                                                   | `SELECT date()`                                                                     |
+| date               | `date(date) -> date`                                                                   | `SELECT date('2000-01-02')`                                                         |
 | datediff           | `datediff(date, date) -> integer`                                                      | `SELECT datediff(date('2000-01-02'), date('2000-01-01'))`                           |
 | datetime           | `datetime(string) -> datetime`                                                         | `SELECT datetime('2008-12-25 00:00:00')`                                            |
-| date_add           | `date_add(date, INTERVAL integer UNIT)`                                                | `SELECT date_add('2020-08-26'), INTERVAL 1 HOUR)`                                   |
+| date_add           | `date_add(date, INTERVAL integer UNIT)`                                                | `SELECT date_add('2020-08-26', INTERVAL 1 HOUR)`                                    |
 | date_format        | `date_format(date, string) -> string` or `date_format(date, string, string) -> string` | `SELECT date_format(date('2020-08-26'), 'Y')`                                       |
 | date_sub           | `date_sub(date, INTERVAL expr unit) -> date`                                           | `SELECT date_sub(date('2008-01-02'), INTERVAL 31 day)`                              |
 | dayofmonth         | `dayofmonth(date) -> integer`                                                          | `SELECT dayofmonth(date('2001-05-07'))`                                             |
@@ -129,12 +129,12 @@ Functions marked with * are only available in SQL.
 | sec_to_time\*      | `sec_to_time(integer) -> date`                                                         | `SELECT sec_to_time(10000)`                                                         |
 | subdate            | `subdate(date, INTERVAL expr unit) -> date, datetime`                                  | `SELECT subdate(date('2008-01-02'), INTERVAL 31 day)`                               |
 | subtime            | `subtime(date, date) -> date`                                                          | `SELECT subtime(date('2008-12-12'), date('2008-11-15'))`                            |
-| str_to_date\*      | `str_to_date(string, format) -> date`                                                  | `SELECT str_to_date("March 10 2000", %M %d %Y")`                                    |
+| str_to_date\*      | `str_to_date(string, format) -> date`                                                  | `SELECT str_to_date("01,5,2013", "%d,%m,%Y")`                                       |
 | time               | `time(expr) -> time`                                                                   | `SELECT time('13:49:00')`                                                           |
 | timediff           | `timediff(time, time) -> time`                                                         | `SELECT timediff(time('23:59:59'), time('13:00:00'))`                               |
-| timestamp          | `timestamp(date) -> date`                                                              | `SELECT timestamp('2001-05-07')`                                                    |
+| timestamp          | `timestamp(date) -> date`                                                              | `SELECT timestamp('2001-05-07 00:00:00')`                                           |
 | timestampadd       | `timestampadd(interval, integer, date) -> date)`                                       | `SELECT timestampadd(DAY, 17, datetime('2000-01-01 00:00:00'))`                     |
-| timestampdiff      | `timestampdiff(interval, date, date) -> integer`                                       | `SELECT timestampdiff(YEAR, '1997-01-01 00:00:00, '2001-03-06 00:00:00')`           |
+| timestampdiff      | `timestampdiff(interval, date, date) -> integer`                                       | `SELECT timestampdiff(YEAR, '1997-01-01 00:00:00', '2001-03-06 00:00:00')`          |
 | time_format        | `time_format(date, string) -> string`                                                  | `SELECT time_format('1998-01-31 13:14:15.012345', '%f %H %h %I %i %p %r %S %s %T')` |
 | time_to_sec        | `time_to_sec(time) -> long`                                                            | `SELECT time_to_sec(time '22:23:00')`                                               |
 | to_days            | `to_days(date) -> long`                                                                | `SELECT to_days(date '2008-10-07')`                                                 |
@@ -151,20 +151,20 @@ Functions marked with * are only available in SQL.
 
 ## String
 
-| Function  | Specification                                                                       | Example                                                         |
-|:----------|:------------------------------------------------------------------------------------|:----------------------------------------------------------------|
-| ascii     | `ascii(string) -> integer`                                                          | `SELECT ascii('h')`                                             |
-| concat    | `concat(string, string) -> string`                                                  | `SELECT concat('hello', 'world')`                               |
-| concat_ws | `concat_ws(separator, string, string…) -> string`                                   | `SELECT concat_ws("-", "Tutorial", "is", "fun!")`               |
-| left      | `left(string, integer) -> string`                                                   | `SELECT left('hello', 2)`                                       |
-| length    | `length(string) -> integer`                                                         | `SELECT length('hello')`                                        |
-| locate    | `locate(string, string, integer) -> integer` or `locate(string, string) -> integer` | `SELECT locate('o', 'hello')`, `SELECT locate('l', 'hello', 3)` |
-| replace   | `replace(string, string, string) -> string`                                         | `SELECT replace('hello', 'l', 'x')`                             |
-| right     | `right(string, integer) -> string`                                                  | `SELECT right('hello', 1)`                                      |
-| rtrim     | `rtrim(string) -> string`                                                           | `SELECT rtrim('hello   ')`                                      |
-| substring | `substring(string, integer, integer) -> string`                                     | `SELECT substring('hello, 2, 4)`                                |
-| trim      | `trim(string) -> string`                                                            | `SELECT trim('   hello')`                                       |
-| upper     | `upper(string) -> string`                                                           | `SELECT upper('hello world')`                                   |
+| Function  | Specification                                                                       | Example                                                        |
+|:----------|:------------------------------------------------------------------------------------|:---------------------------------------------------------------|
+| ascii     | `ascii(string) -> integer`                                                          | `SELECT ascii('h')`                                            |
+| concat    | `concat(string, string) -> string`                                                  | `SELECT concat('hello', 'world')`                              |
+| concat_ws | `concat_ws(separator, string, string…) -> string`                                   | `SELECT concat_ws(" ", "Hello", "World!")`                     |
+| left      | `left(string, integer) -> string`                                                   | `SELECT left('hello', 2)`                                      |
+| length    | `length(string) -> integer`                                                         | `SELECT length('hello')`                                       |
+| locate    | `locate(string, string, integer) -> integer` or `locate(string, string) -> integer` | `SELECT locate('o', 'hello')`, `locate('l', 'hello world', 5)` |
+| replace   | `replace(string, string, string) -> string`                                         | `SELECT replace('hello', 'l', 'x')`                            |
+| right     | `right(string, integer) -> string`                                                  | `SELECT right('hello', 2)`                                     |
+| rtrim     | `rtrim(string) -> string`                                                           | `SELECT rtrim('hello   ')`                                     |
+| substring | `substring(string, integer, integer) -> string`                                     | `SELECT substring('hello', 2, 4)`                              |
+| trim      | `trim(string) -> string`                                                            | `SELECT trim('   hello')`                                      |
+| upper     | `upper(string) -> string`                                                           | `SELECT upper('hello world')`                                  |
 
 ## Aggregate
 
@@ -177,11 +177,11 @@ Functions marked with * are only available in SQL.
 
 ## Advanced
 
-| Function | Specification                              | Example                                           |
-|:---------|:-------------------------------------------|:--------------------------------------------------|
-| if       | `if(boolean, es_type, es_type) -> es_type` | `SELECT if(false, 0, 1)`, `SELECT if(true, 0, 1)` |
-| ifnull   | `ifnull(es_type, es_type) -> es_type`      | `SELECT ifnull(0, 1)`, `SELECT ifnull(null, 1)`   |
-| isnull   | `isnull(es_type) -> integer`               | `SELECT isnull(null)`, `SELECT isnull(1)`         |
+| Function | Specification                              | Example                                     |
+|:---------|:-------------------------------------------|:--------------------------------------------|
+| if       | `if(boolean, os_type, os_type) -> os_type` | `SELECT if(false, 0, 1),if(true, 0, 1)`     |
+| ifnull   | `ifnull(os_type, os_type) -> os_type`      | `SELECT ifnull(0, 1), ifnull(null, 1)`      |
+| isnull   | `isnull(os_type) -> integer`               | `SELECT isnull(null), isnull(1)`            |
 
 ## Relevance-based search (full-text search)
 
