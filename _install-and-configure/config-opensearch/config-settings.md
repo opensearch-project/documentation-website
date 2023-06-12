@@ -76,8 +76,8 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | [More description needed] |
 | `plugins.security.allow_default_init_securityindex` | [More description needed] |
 | `plugins.security.authcz.admin_dn` | Defines the DNs (distinguished names) of certificates to which admin privileges should be assigned. Required. |
-| `plugins.security.nodes_dn` | Specifies a list of distinguished names (DNs) which denote the other nodes in the cluster. This settings support wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the .yml configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. |
-| `plugins.security.nodes_dn_dynamic_config_enabled` | Relevant for cross_cluster usecases where there is a need to manage the whitelisted nodes_dn without having to restart the nodes every time a new cross_cluster remote is configured. Setting nodes_dn_dynamic_config_enabled to true enables **super-admin callable** /_opendistro/_security/api/nodesdn APIs which provide means to update/retrieve nodesdn dynamically. This setting only has effect if 'plugins.security.cert.intercluster_request_evaluator_class' is not set. Default is `false`. |
+| `plugins.security.nodes_dn` | Specifies a list of distinguished names (DNs) which denote the other nodes in the cluster. This settings support wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. |
+| `plugins.security.nodes_dn_dynamic_config_enabled` | Relevant for cross_cluster usecases where there is a need to manage the whitelisted nodes_dn without having to restart the nodes every time a new cross_cluster remote is configured. Setting nodes_dn_dynamic_config_enabled to `true` enables **super-admin callable** Distinguished names APIs, which provide means to update/retrieve nodesdn dynamically. This setting only has effect if 'plugins.security.cert.intercluster_request_evaluator_class' is not set. Default is `false`. |
 | `plugins.security.audit.type` | [More description needed] |
 | `plugins.security.enable_snapshot_restore_privilege` | [More description needed] |
 | `plugins.security.check_snapshot_restore_write_privileges` | [More description needed] |
@@ -91,10 +91,10 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.cache.ttl_minutes` | [More description needed] |
 | `plugins.security.roles_mapping_resolution` | Defines how backend roles are mapped to Security roles.<br>MAPPING_ONLY - mappings must be configured explicitly in roles_mapping.yml (default)<br>BACKENDROLES_ONLY - backend roles are mapped to Security roles directly. Settings in roles_mapping.yml have no effect.<br>BOTH - backend roles are mapped to Security roles mapped directly and via roles_mapping.yml in addition.  |
 | `plugins.security.restapi.roles_enabled` | Enables role based access to the REST management API for listed roles. Roles are separated by a comma. Default is that no role is allowed to access the REST management API (an empty list). |
-| `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. |
+| `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. |
 | `plugins.security.audit.enable_rest` | Enables or disables rest request logging. Default is `true`, enabled. |
-| `plugins.security.audit.enable_transport` | Enables or disables transport request logging. Default is `false', disabled. |
-| `plugins.security.audit.resolve_bulk_requests` | Enable or disable bulk request logging. When enabled, all subrequests in bulk requests are also logged. The default is false, disabled. |
+| `plugins.security.audit.enable_transport` | Enables or disables transport request logging. Default is `false`, disabled. |
+| `plugins.security.audit.resolve_bulk_requests` | Enable or disable bulk request logging. When enabled, all subrequests in bulk requests are also logged. The default is `false`, disabled. |
 | `plugins.security.audit.config.disabled_categories` | Disables the specified event categories. |
 | `plugins.security.audit.ignore_requests` | Excludes the specified requests from being logged. Allows wildcards, regex of actions, and REST request paths. |
 | `plugins.security.audit.threadpool.size` | Determines the number of threads in the thread pool used to log events. Default is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously. |
@@ -108,7 +108,7 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.audit.config.password` | Password for the audit log configuration. [How does this differ from the admin's sign on?] |
 | `plugins.security.audit.config.enable_ssl` | Enables or disables SSL for audit logging. [More description needed] |
 | `plugins.security.audit.config.verify_hostnames` | [More description needed] |
-| `plugins.security.audit.config.enable_ssl_client_auth | [More description needed] |
+| `plugins.security.audit.config.enable_ssl_client_auth` | [More description needed] |
 | `plugins.security.audit.config.cert_alias` | [More description needed] |
 | `plugins.security.audit.config.pemkey_filepath` | Filepath for the location where the pemkey is stored. |
 | `plugins.security.audit.config.pemkey_content` | [More description needed] |
