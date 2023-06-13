@@ -19,7 +19,7 @@ You are considered a model _owner_ when you create a new model group. You remain
 
 - `public`: All users who have access to the cluster can access this model group.
 - `private`: Only the model owner or an admin user can access this model group.
-- `restricted`: The owner, an admin user, or any user who shares one of the model group's backend roles can access any model in this model group. When creating a `restricted` model group, the owner must attach one or more of the owner's backend roles to the model. For a user to be able to access a model group, one of the user's backend roles must match one of the model group's backend roles. 
+- `restricted`: The owner, an admin user, or any user who shares one of the model group's backend roles can access any model in this model group. When creating a `restricted` model group, the owner must attach one or more of the owner's backend roles to the model. 
 
 An admin can access all model groups in the cluster regardless of their access mode.
 {: .note}
@@ -547,11 +547,7 @@ GET /_plugins/_ml/model_groups/_search
           "latest_version": 2,
           "last_updated_time": 1684362571300,
           "name": "model_group_test",
-          "description": "This is an example description",
-          "tags": {
-            "key1": "value1",
-            "key2": "value2"
-          }
+          "description": "This is an example description"
         }
       }
     ]
