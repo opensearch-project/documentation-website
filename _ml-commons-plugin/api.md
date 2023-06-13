@@ -38,9 +38,9 @@ For clusters with model access control enabled, the following users can perform 
 
 For clusters with model access control disabled, any user can perform API operations on models in any model group. 
 
-Admin users can perform API operations  for models in any model group. 
+Admin users can perform API operations for models in any model group. 
 
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 
 ## Train model
@@ -383,7 +383,7 @@ The response will contain only those model versions to which you have access. Fo
 - Private model groups for which you are the model owner.
 - Model groups with at least one of the backend roles matching one of your backend roles.
 
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control).
+For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 ### Path and HTTP methods
 
