@@ -136,12 +136,12 @@ In most cases, you set the `challenge` flag to `true`. The flag defines the beha
 
 If `challenge` is set to `true`, the Security plugin sends a response with status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a user name and password.
 
-If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. You might want to use this setting if you have another challenge `http_authenticator` in your configured authentication domains. One such scenario is when you plan to use basic authentication and OpenID Connect together.
+If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. Consider using this setting if you have more than one challenge `http_authenticator` key in your configured authentication domains. This might be the case, for example, when you plan to use basic authentication and OpenID Connect together.
 
 
 ## API rate limiting
 
-API rate limiting is typically used to restrict the number of API calls that users can make in a set span of time, and it can thereby help manage the rate of API traffic. For security purposes, rate limiting features have the potential to defend against DoS attacks, or repeated login attempts to gain access through trial and error, by restricting failed login attempts.
+API rate limiting is typically used to restrict the number of API calls that users can make in a set span of time, thereby helping to manage the rate of API traffic. For security purposes, rate limiting features have the potential to defend against DoS attacks, or repeated login attempts to gain access through trial and error, by restricting failed login attempts.
 
 You have the option to configure the Security plugin for username rate limiting, IP address rate limiting, or both. These configurations are made in the `config.yml` file. See the following sections for information about each type of rate limiting configuration.
 
@@ -188,7 +188,7 @@ http_authenticator:
   challenge: false
 ```
 
-For more information about this setting, see [HTTP basic authentication](/security/configuration/configuration/#http-basic-authentication).
+For more information about this setting, see [HTTP basic authentication](#http-basic-authentication).
 
 Second, configure the IP address rate limiting settings. The following example shows a completed configuration:
 
