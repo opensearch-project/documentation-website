@@ -3,7 +3,7 @@ layout: default
 title: Searchable snapshots
 parent: Snapshots
 nav_order: 40
-grand_parent: Availability and Recovery
+grand_parent: Availability and recovery
 redirect_from: 
   - /opensearch/snapshots/searchable_snapshot/
 ---
