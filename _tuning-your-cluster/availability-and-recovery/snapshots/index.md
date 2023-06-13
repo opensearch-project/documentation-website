@@ -3,7 +3,7 @@ layout: default
 title: Snapshots
 nav_order: 5
 has_children: true
-parent: Availability and Recovery
+parent: Availability and recovery
 redirect_from: 
   - /opensearch/snapshots/
   - /opensearch/snapshots/index/
