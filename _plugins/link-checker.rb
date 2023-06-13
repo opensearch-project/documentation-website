@@ -55,6 +55,7 @@ module Jekyll::LinkChecker
     'playground.opensearch.org', # inifite redirect, https://github.com/opensearch-project/dashboards-anywhere/issues/172
     'crates.io', # 404s on bots
     'www.cloudflare.com', # 403s on bots
+    'example.issue.link', # a fake example link from the template
   ]
 
   ##
