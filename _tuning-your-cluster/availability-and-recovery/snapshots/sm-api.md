@@ -4,7 +4,7 @@ title: Snapshot management API
 parent: Snapshots
 nav_order: 30
 has_children: false
-grand_parent: Availability and Recovery
+grand_parent: Availability and recovery
 redirect_from: 
   - /opensearch/snapshots/sm-api/
 ---
