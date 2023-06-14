@@ -133,8 +133,13 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.restapi.password_validation_error_message` | Enter an error message that loads when a password doesn’t pass validation. This setting is used in conjunction with `plugins.security.restapi.password_validation_regex`. |
 | `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings). |
 | `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. The options are `fair`, `good`, `strong`, `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`. |
-| `plugins.` | na |
-| `plugins.` | na |
+| `plugins.security.config_index_name` | The name of the index where .opendistro_security stores its configuration. |
+| `plugins.security.cert.oid` | This defines the OID of server node certificates. |
+| `plugins.security.cert.intercluster_request_evaluator_class` | Specifies the implementation of org.opensearch.security.transport.InterClusterRequestEvaluator that is used to determine inter-cluster request. Instances of org.opensearch.security.transport.InterClusterRequestEvaluator must implement a single argument constructor that takes an org.opensearch.common.settings.Settings. [Not sure what this means. More description needed.] |
+| `plugins.security.enable_snapshot_restore_privilege` | When set to `false`, this disables snapshot restore for normal users. In this case, only snapshot restore requests signed by an admin TLS certificate are accepted. By default (`true`), normal users can restore snapshots if they have the priviliges 'cluster:admin/snapshot/restore', 'indices:admin/create', and 'indices:data/write/index' [They must have all of these?]. NOTE: A snapshot can only be restored when it does not contain global state and does not restore the '.opendistro_security' index. |
+| `plugins.security.check_snapshot_restore_write_privileges` | When set to `false`, additional index checks are omitted. [This needs further explanation] |
+| `plugins.security.cache.ttl_minutes` | Authentication cache timeout in minutes. A value of `0` disables caching. The default is `60`. |
+| `plugins.security.disabled` | Disables OpenSearch Security. WARNING: This can expose your configuration (including passwords) to the public. |
 | `plugins.` | na |
 | `plugins.` | na |
 | `plugins.` | na |
@@ -240,6 +245,20 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 plugins.security.restapi.password_min_length: 8
 plugins.security.restapi.password_score_based_validation_strength: very_strong
+#
+# Expert settings - use only if you understand their use completely: accidental values can potentially cause security risks or failures to OpenSearch Security.
+plugins.security.config_index_name: .opendistro_security
+plugins.security.cert.oid: '1.2.3.4.5.5'
+plugins.security.cert.intercluster_request_evaluator_class: org.opensearch.security.transport.DefaultInterClusterRequestEvaluator
+plugins.security.enable_snapshot_restore_privilege: true
+plugins.security.check_snapshot_restore_write_privileges: true
+plugins.security.cache.ttl_minutes: 60
+plugins.security.disabled: false
+
+
+
+
+
 ```
 
 ## Currently experimental feature settings
