@@ -34,7 +34,7 @@ For clusters with model access control enabled, the following users can perform 
 
 - `public` model group: Any user.
 - `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
--  `private` model group: Only the model owner. 
+- `private` model group: Only the model owner. 
 
 For clusters with model access control disabled, any user can perform API operations on models in any model group. 
 
