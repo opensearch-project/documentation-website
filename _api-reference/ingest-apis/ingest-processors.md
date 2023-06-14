@@ -18,4 +18,4 @@ GET /_nodes/ingest
 ```
 {% include copy-curl.html %}
 
-Learn more about processor types within their respective documentation.  
+Learn more about the processor types within their respective documentation.  
