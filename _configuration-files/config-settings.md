@@ -74,9 +74,10 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.ssl.http.pemkey_filepath` | [More description needed] |
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | [More description needed] |
 | `plugins.security.allow_default_init_securityindex` | [More description needed] |
-| `plugins.security.authcz.admin_dn` | Defines the DNs (distinguished names) of certificates to which admin privileges should be assigned. Required. |
-| `plugins.security.nodes_dn` | Specifies a list of distinguished names (DNs) which denote the other nodes in the cluster. This settings support wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. |
-| `plugins.security.nodes_dn_dynamic_config_enabled` | Relevant for cross_cluster usecases where there is a need to manage the whitelisted nodes_dn without having to restart the nodes every time a new cross_cluster remote is configured. Setting nodes_dn_dynamic_config_enabled to `true` enables **super-admin callable** Distinguished names APIs, which provide means to update/retrieve nodesdn dynamically. This setting only has effect if 'plugins.security.cert.intercluster_request_evaluator_class' is not set. Default is `false`. |
+| `plugins.security.authcz.admin_dn` | Defines the distinguished names (DNs) of certificates to which admin privileges should be assigned. Required. |
+| `plugins.security.nodes_dn` | Specifies a list of DNs which denote the other nodes in the cluster. This settings support wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. |
+| `plugins.security.nodes_dn_dynamic_config_enabled` | Relevant for cross_cluster usecases where there is a need to manage the whitelisted nodes_dn without having to restart the nodes every time a new cross_cluster remote is configured. Setting nodes_dn_dynamic_config_enabled to `true` enables **super-admin callable** Distinguished names APIs, which provide means to update/retrieve nodesdn dynamically. This setting only has effect if `plugins.security.cert.intercluster_request_evaluator_class` is not set. Default is `false`. |
+| `plugins.security.cert.intercluster_request_evaluator_class` | [More description needed] |
 | `plugins.security.audit.type` | [More description needed] |
 | `plugins.security.enable_snapshot_restore_privilege` | [More description needed] |
 | `plugins.security.check_snapshot_restore_write_privileges` | [More description needed] |
@@ -101,7 +102,7 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.audit.ignore_users` | An array of users. Audit requests from the users in the list will not be logged. |
 | `plugins.security.audit.type` | The destination of audit log events. Options are `internal_opensearch`, `external_opensearch`, `debug`, and `webhook`. |
 | `plugins.security.audit.config.http_endpoints` | Endpoints for `localhost`. |
-| `plugins.security.audit.config.index` | The audit log index. The default is `auditlog6`. The index can be static or an index that includes a date so that it rotates on a daily basis. For example: "'auditlog6-'YYYY.MM.dd". In both cases, make sure you secure the index properly. |
+| `plugins.security.audit.config.index` | The audit log index. The default is `auditlog6`. The index can be static or an index that includes a date so that it rotates on a daily basis. For example: `"'auditlog6-'YYYY.MM.dd"`. In both cases, make sure you secure the index properly. |
 | `plugins.security.audit.config.type` | Specify the audit log type as `auditlog`. |
 | `plugins.security.audit.config.username` | Username for the audit log configuration. [How does this differ from the admin's sign on?] |
 | `plugins.security.audit.config.password` | Password for the audit log configuration. [How does this differ from the admin's sign on?] |
@@ -162,6 +163,7 @@ plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
 plugins.security.allow_unsafe_democertificates: true
 plugins.security.allow_default_init_securityindex: true
 plugins.security.nodes_dn_dynamic_config_enabled: false
+plugins.security.cert.intercluster_request_evaluator_class: # need example value for this.
 plugins.security.audit.type: internal_opensearch
 plugins.security.enable_snapshot_restore_privilege: true
 plugins.security.check_snapshot_restore_write_privileges: true
@@ -191,7 +193,7 @@ plugins.security.audit.type: internal_opensearch
 #
 # external_opensearch settings
 plugins.security.audit.config.http_endpoints: ['localhost:9200','localhost:9201','localhost:9202']
-plugins.security.audit.config.index: auditlog6
+plugins.security.audit.config.index: "'auditlog6-'2023.06.15"
 plugins.security.audit.config.type: auditlog
 plugins.security.audit.config.username: auditloguser
 plugins.security.audit.config.password: auditlogpassword
