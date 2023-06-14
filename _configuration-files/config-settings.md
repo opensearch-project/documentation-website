@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Settings for opensearch.yml
-parent: Configuration files
 nav_order: 5
 ---
 
