@@ -7,9 +7,9 @@ nav_order: 180
 
 # Model access control
 
-You can use the Security plugin with ML Commons to limit non-admin users' ability to access specific models. For example, users of different departments in an organization might want to restrict access to their models only to users in their own department.
+You can use the Security plugin with ML Commons to manage access to specific models for non-admin users. For example, one department in an organization might want to restrict users in other departments from accessing their models.
 
-Users can be assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/) to configure fine-grained access to models based on [_roles_]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index#permissions). A backend role helps map a set of users to the same role. For example, users with the `IT` backend role may be assigned the `ml_full_access` role that grants full access to all ML Commons features.
+To accomplish this, users are assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/). Rather than assign individual roles to individual users during user configuration, backend roles provide a way to map a set of users to a role by assigning the backend role to users when they log in. For example, users may be assigned an `IT` backend role that includes the `ml_full_access` role and have full access to all ML Commons features. Alternatively, other users may be assigned an `HR` backend role that includes the `ml_readonly_access` role and be limited to read-only access to ML features. Given this flexibility, backend roles can provide finer-grained access to models and make it easier to assign multiple users to a role rather than mapping a user and role individually.
 
 ## Model groups
 
@@ -145,7 +145,7 @@ POST /_plugins/_ml/model_groups/_register
 
 ### Response fields
 
-The following table lists the available request fields. 
+The following table lists the available response fields. 
 
 Field |Data type | Description 
 :--- | :--- | :---
@@ -174,7 +174,7 @@ When registering a model group, you must attach one or more of your backend role
     - Provide a list of backend roles in the `backend_roles` parameter.
     - Set the `add_all_backend_roles` parameter to `true` to add all your backend roles to the model group. This option is not available to admin users.
 
-Any user who shares one of the model group's backend roles can access any model in this model group. This grants the user permissions associated with the user role to which that backend role is mapped. 
+Any user who shares a backend role with the model group can access any model in this model group. This grants the user the permissions included with the user role that is mapped to the backend role. 
 
 An admin user can access all model groups regardless of their access mode. 
 {: .note}
@@ -225,7 +225,7 @@ POST /_plugins/_ml/model_groups/_register
 
 ### Registering a model group in a cluster where model access control is disabled
 
-If model access control is disabled on your cluster (one of the [prerequisites](#model-access-control-prerequisites) is not met), you can register a model group with a `name` and `description` but cannot specify any of the access parameters (`model_access_name`, `backend_roles`, or `add_backend_roles`). By default, in such cluster, all model groups are public.
+If model access control is disabled on your cluster (one of the [prerequisites](#model-access-control-prerequisites) is not met), you can register a model group with a `name` and `description` but cannot specify any of the access parameters (`model_access_name`, `backend_roles`, or `add_backend_roles`). By default, in such a cluster, all model groups are public.
 
 ## Updating a model group
 
@@ -234,7 +234,7 @@ To update a model group, send a request to the `<model_group_id>_update` endpoin
 When updating a model group, the following restrictions apply:
 
 - The model owner or an admin user can update all fields. Any user who shares one or more backend roles with the model group can update the `name` and `description` fields only.
-- When updating the `model_access_mode` to `restricted`, you must specify one but not both of `backend_roles` and `add_all_backend_roles`.
+- When updating the `model_access_mode` to `restricted`, you must specify one but not both `backend_roles` or `add_all_backend_roles`.
 
 ### Path and HTTP method
 

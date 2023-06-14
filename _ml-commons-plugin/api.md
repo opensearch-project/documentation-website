@@ -33,7 +33,7 @@ In order to train tasks through the API, three inputs are required:
 For clusters with model access control enabled, the following users can perform API operations on models in model groups with the specified access levels:
 
 - `public` model group: Any user.
-- `restricted` model group: Only the model owner or users with at least one backend role matching one of the backend roles of this model group.
+- `restricted` model group: Only the model owner or users who share at least one backend role with the model group.
 - `private` model group: Only the model owner. 
 
 For clusters with model access control disabled, any user can perform API operations on models in any model group. 
@@ -181,8 +181,8 @@ Field | Data type | Description
 `model_format` | String | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
 `model_group_id` | String | The model group ID for the model. 
 `model_content_hash_value` | String | The model content hash generated using the SHA-256 hashing algorithm.
-`model_config`  | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string which contains all model configurations. |
-`url` | String | The URL which contains the model. |
+`model_config`  | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. |
+`url` | String | The URL that contains the model. |
 
 ### Example
 
@@ -381,7 +381,7 @@ The response will contain only those model versions to which you have access. Fo
 
 - All public model groups in the index.
 - Private model groups for which you are the model owner.
-- Model groups with at least one of the backend roles matching one of your backend roles.
+- Model groups that share at least one backend role with your backend roles.
 
 For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
