@@ -23,7 +23,7 @@ To configure the searchable snapshots feature, create a node in your opensearch.
     node.roles: [ search ]
     ```
 
-If you're running Docker, you can create a node with the `search` node role by adding the line `- node.roles: [ search ]` to your docker-compose.yml file:
+If you're running Docker, you can create a node with the `search` node role by adding the line `- node.roles=search` to your `docker-compose.yml` file:
 
 ```bash
 version: '3'
@@ -34,7 +34,7 @@ services:
     environment:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
-      - node.roles: [ search ]
+      - node.roles=search
 ```
 
 ## Create a searchable snapshot index
