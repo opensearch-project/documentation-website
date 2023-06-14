@@ -13,20 +13,39 @@ redirect_from:
 
 # Ingest pipelines
 
-Ingest pipelines in OpenSearch can only be managed using ingest API operations. When using ingest in production environments, your cluster should contain at least one node with the node roles permission set to `ingest`. For more information about setting up node roles within a cluster, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
-
-To get started, open **Dev Tools**. From the console, you can create, update, test, and delete your pipelines.
+Ingest pipelines in OpenSearch are managed by using ingest API operations. When using ingest in production environments, your cluster should contain at least one node with the node roles permission set to `ingest`. For more information about setting up node roles within a cluster, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
 ## Create or update an ingest pipeline
 
-Creating an ingest pipeline is a vital step in streamlining your data processing workflow. For example, you can enhance data quality, automate data processing tasks, and ensure your data is prepared and optimized for downstream use. Use create pipeline API to create or update pipelines in OpenSearch.
+Creating an ingest pipeline is a vital step in streamlining your data processing workflow. For example, you can enhance data quality, automate data processing tasks, and ensure your data is prepared and optimized for downstream use. 
+
+Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires an ingest definition that defines how the processors change the document.
 
 ### Path and HTTP method
 ```json
 PUT _ingest/pipeline/pipeline-id
 ```
 
-The following is an example request to create a pipeline. 
+### Request body fields
+
+The following table lists the request body fields used to create, or update, a pipeline.
+
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+`description` | Optional | String | Description of the ingest pipeline. 
+`processors` | Required | Array | The processor that performs a transformation on the documents. Processors run sequentially. 
+
+### Parameters
+
+The following table lists the parameters used with creating, or updating, a pipeline.
+
+Parameter | Required | Type | Description
+:--- | :--- | :--- | :---
+`pipeline` | Required | String | The unique identifier, or pipeline id, assigned to the ingest pipeline. A pipeline id is used in API requests to specify which pipeline should be created or modified.  
+`cluster_manager_timeout` | Optional | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.
+`timeout` | Optional | Time | Period to wait for a response. Defaults to 30 seconds. 
+
+#### Example request and reponse
 
 ```json
 PUT _ingest/pipeline/pipeline-id
@@ -57,7 +76,7 @@ PUT _ingest/pipeline/pipeline-id
 ```
 {% include copy-curl.html %}
 
-The request results in the following reponse.
+The request results in the following reponse, which confirms the pipeline was successfully created.
 
 ```json
 {
@@ -65,45 +84,54 @@ The request results in the following reponse.
 }
 ```
 
-### Request body fields
-
-Field | Required | Type | Description
-:--- | :--- | :--- | :---
-`description` | Optional | String | Description of the ingest pipeline. 
-`processors` | Required | Array | The processor that performs a transformation on the documents. Processors run sequentially. 
-
-### Parameters
-
-Path parameters are required, and query parameters are optional.
-
-Parameter | Required | Type | Description
-:--- | :--- | :--- | :---
-`pipeline` | Required | String | The unique identifier, or pipeline id, assigned to the ingest pipeline. A pipeline id is used in API requests to specify which pipeline should be created or modified.  
-`cluster_manager_timeout` | Optional | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.
-`timeout` | Optional | Time | Period to wait for a response. Defaults to 30 seconds. 
-
+If the pipeline fails to complete, check _<How do we troubleshoot a pipeline that fails to complete? What examples do we include?>_
 
 ## Simulate a pipeline
 
-Test or validate your pipeline using the simulate pipeline API.
+Run or test a pipeline using the simulate pipeline API operation.
 
-### Path and HTTP method
+### Path and HTTP methods
 
-The following request simulate the latest ingest pipeline created.
+The following requests simulate the latest ingest pipeline created.
 
 ```
 GET _ingest/pipeline/_simulate
 POST _ingest/pipeline/_simulate
 ```
 
-The following request simulate a single pipeline based on the pipeline identifier.
+The following requests simulate a single pipeline based on the pipeline identifier.
 
 ```
 GET _ingest/pipeline/pipeline-id/_simulate
 POST _ingest/pipeline/pipeline-id/_simulate
 ```
 
-The following is an example request.
+### Request body fields
+
+The following table lists the request body fields used to run a pipeline.
+
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+`docs` | Required | Array | The documents to be used to test the pipeline.
+`pipeline` | Optional | Object | The pipeline to be simulated. If the pipeline identifier is not included, then the response simulates the latest pipeline created.
+
+The `docs` field can include subfields listed in the following table.
+
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+`source` | Required | Object | The document's JSON body.
+`id` | Optional | String | A unique document identifier. The identifier cannot be used elsewhere in the index.
+`index` | Optional | String | The index where the document's transformed data appears.
+
+### Query parameters 
+
+The following table lists the query parameters for running a pipeline. 
+
+Parameter | Type | Description
+:--- | :--- | :---
+`verbose` | Boolean | Verbose mode. Display data output for each processor in the executed pipeline.
+
+#### Example request
 
 ```json
 POST _ingest/pipeline/my-pipeline/_simulate
@@ -161,34 +189,9 @@ The request returns the following response.
 }
 ```
 
-### Query parameters 
+#### Example verbose response 
 
-Query parameters are optional.
-
-Parameter | Type | Description
-:--- | :--- | :---
-`verbose` | Boolean | Verbose mode. Display data output for each processor in the executed pipeline.
-
-### Request body fields
-
-Field | Type | Description
-:--- | :--- | :---
-`pipeline` | Object | The pipeline to be simulated. If the pipeline identifier is not included, then the response simulates the latest pipeline created. Optional.
-`docs` | Array | The documents to be used to test the pipeline. Required.
-
-The `docs` field can include the following subfields:
-
-Field | Type | Description
-:--- | :--- | :---
-`id` | String | A unique identifier for a document. The identifier cannot be used elsewhere in the index. Optional.
-`index` | String | The index where the document's transformed data appears. Optional.
-`source` | Object | The document's JSON body. Required.
-
-## 
-
-### Receive a verbose response 
-
-When the `verbose` parameter is set to `true`, the response shows the processor results, that is, how the processor transformed the data. 
+When the `verbose` parameter is set to `true`, the response shows how the processor transformed the data, that is, the processor results. 
 
 ```json
 {
@@ -237,7 +240,6 @@ When the `verbose` parameter is set to `true`, the response shows the processor 
 }
 ```
 
-
 ## Get information about a pipeline
 
 Use the get ingest pipeline API operation to return information about a pipeline.
@@ -278,3 +280,30 @@ The following is an example response.
 
 ## Delete a pipeline
 
+Use the following requests to delete pipelines. 
+
+#### Example HTTP methods
+
+**Delete a specific pipeline**
+
+```json
+DELETE /_ingest/pipeline/pipeline-id
+```
+{% include copy-curl.html %}
+
+**Delete all pipelines**
+
+```json
+DELETE /_ingest/pipeline/*
+```
+{% include copy-curl.html %}
+
+To delete all pipelines in a cluster, the asterisk (*) is necessary.
+
+## Create a pipeline on an existing index
+
+_<Do we want to include a section on creating a pipeline on an existing index?>
+
+## Next steps
+
+- Learn more about [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/)
