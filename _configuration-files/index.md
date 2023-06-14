@@ -2,9 +2,9 @@
 layout: default
 title: Configuration files
 nav_order: 1
-has_children: false
+has_children: true
 has_toc: false
-nav_exclude: true
+nav_exclude: false
 ---
 
 # Configuration files
