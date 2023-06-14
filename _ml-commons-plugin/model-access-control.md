@@ -26,13 +26,13 @@ An admin can access all model groups in the cluster regardless of their access m
 
 ## Model access control prerequisites
 
-To start using model access control, first perform the following steps:
+Before using model access control, you must satisfy the following prerequisites:
 
 1. Enable the Security plugin on your cluster. For more information, see [Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/). 
 2. For `restricted` model groups, ensure that an admin has [assigned backend roles to users](#assigning-backend-roles-to-users).
 3. [Enable model access control](#enabling-model-access-control) on your cluster. You can enable model access control dynamically by setting `plugins.ml_commons.model_access_control_enabled` to `true`.
 
-If either of the prerequisites is not met, all models in the cluster are `public` and can be accessed by any user who has access to the cluster.
+If any of the prerequisites is not met, all models in the cluster are `public` and can be accessed by any user who has access to the cluster.
 {: .note}
 
 ## Assigning backend roles to users
@@ -42,9 +42,9 @@ Create the appropriate backend roles and assign those roles to users. Backend ro
 Only admin users can assign backend roles to users.
 {: .note}
 
-For example, consider two users: `alice` and `bob`.
+When assigning backend roles, consider the following example of two users: `alice` and `bob`.
 
-The user `alice` has an `analyst` backend role:
+The following request assigns the user `alice` the `analyst` backend role:
 
 ```json
 PUT _plugins/_security/api/internalusers/alice
@@ -57,7 +57,7 @@ PUT _plugins/_security/api/internalusers/alice
 }
 ```
 
-The user `bob` has a `human-resources` backend role:
+The next request assigns the user `bob` the `human-resources` backend role:
 
 ```json
 PUT _plugins/_security/api/internalusers/bob
@@ -70,7 +70,7 @@ PUT _plugins/_security/api/internalusers/bob
 }
 ```
 
-Both `alice` and `bob` have full access to ML Commons:
+Finally, the last request assigns both `alice` and `bob` the role that gives them full access to ML Commons:
 
 ```json
 PUT _plugins/_security/api/rolesmapping/ml_full_access
