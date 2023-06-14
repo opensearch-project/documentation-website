@@ -4,7 +4,7 @@ title: Configuration files
 nav_order: 1
 has_children: true
 has_toc: false
-nav_exclude: false
+nav_exclude: true
 ---
 
 # Configuration files
