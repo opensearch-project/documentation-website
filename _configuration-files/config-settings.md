@@ -140,11 +140,11 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.check_snapshot_restore_write_privileges` | When set to `false`, additional index checks are omitted. [This needs further explanation] |
 | `plugins.security.cache.ttl_minutes` | Authentication cache timeout in minutes. A value of `0` disables caching. The default is `60`. |
 | `plugins.security.disabled` | Disables OpenSearch Security. WARNING: This can expose your configuration (including passwords) to the public. |
-| `plugins.` | na |
-| `plugins.` | na |
-| `plugins.` | na |
-| `plugins.` | na |
-| `plugins.` | na |
+| `plugins.security.protected_indices.enabled` | na |
+| `plugins.security.protected_indices.roles` | na |
+| `plugins.security.protected_indices.indices` | na |
+| `plugins.security.system_indices.enabled` | na |
+| `plugins.security.system_indices.indices` | na |
 
 
 ### Security plugin settings examples
@@ -254,11 +254,11 @@ plugins.security.enable_snapshot_restore_privilege: true
 plugins.security.check_snapshot_restore_write_privileges: true
 plugins.security.cache.ttl_minutes: 60
 plugins.security.disabled: false
-
-
-
-
-
+plugins.security.protected_indices.enabled: true
+plugins.security.protected_indices.roles: ['all_access']
+plugins.security.protected_indices.indices: []
+plugins.security.system_indices.enabled: true
+plugins.security.system_indices.indices: ['.opendistro-alerting-config', '.opendistro-ism-*', '.opendistro-reports-*', '.opensearch-notifications-*', '.opensearch-notebooks', '.opensearch-observability', '.opendistro-asynchronous-search-response*', '.replication-metadata-store']
 ```
 
 ## Currently experimental feature settings
