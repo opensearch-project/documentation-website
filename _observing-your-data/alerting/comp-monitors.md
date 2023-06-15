@@ -24,4 +24,8 @@ Basic [monitor types]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/
 
 The following image shows the simplified workflow of a compound monitor.
 
+{% include gif-pause.html %}
+
+
+
 ![Simplified composite monitor workflow]({{site.url}}{{site.baseurl}}/images/alerting/chained-findings.gif)
