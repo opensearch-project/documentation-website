@@ -261,7 +261,7 @@ plugins.security.system_indices.enabled: true
 plugins.security.system_indices.indices: ['.opendistro-alerting-config', '.opendistro-ism-*', '.opendistro-reports-*', '.opensearch-notifications-*', '.opensearch-notebooks', '.opensearch-observability', '.opendistro-asynchronous-search-response*', '.replication-metadata-store']
 ```
 
-## Currently experimental feature settings
+## Current experimental feature settings
 
 | Setting | Description |
 | :--- | :--- |
