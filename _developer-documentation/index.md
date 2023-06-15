@@ -14,6 +14,7 @@ We welcome your contributions to the OpenSearch Project. Here are some helpful l
 - [OpenSearch Project GitHub repo](https://github.com/opensearch-project/)
 - [Javadoc documentation](https://opensearch.org/javadocs/)
 - [Getting started as an OpenSearch contributor](https://github.com/opensearch-project/.github/blob/main/ONBOARDING.md)
+- [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
 - [OpenSearch release schedule and maintenance policy](https://opensearch.org/releases.html)
 - [OpenSearch Project roadmap](https://github.com/orgs/opensearch-project/projects/1)
 - [OpenSearch Community Forum](https://forum.opensearch.org/)

@@ -41,4 +41,4 @@ For a complete extensions class hierarchy, see the [Javadoc](Link TBD).
 
 The [Anomaly Detection plugin](https://github.com/opensearch-project/anomaly-detection) is now implemented as an extension. For details, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/3635). 
 
-For tips on migrating an existing plugin to an extension, see the [plugin migration documentation](PLUGIN_MIGRATION.md).
+For tips on migrating an existing plugin to an extension, see the [plugin migration documentation](https://github.com/opensearch-project/opensearch-sdk-java/blob/main/PLUGIN_MIGRATION.md).
