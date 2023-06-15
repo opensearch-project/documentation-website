@@ -35,7 +35,6 @@ GeoHex
 gibibyte
 [Hh]ashmap
 [Hh]ostname
-[Hh]yperparameters
 [Ii]mpactful
 [Ii]ngress
 [Ii]nitializer
@@ -104,7 +103,6 @@ tebibyte
 [Uu]nary
 [Uu]ncheck
 [Uu]ncomment
-[Uu]ndeploy
 [Uu]nigram
 [Uu]nnesting
 [Uu]nrecovered
