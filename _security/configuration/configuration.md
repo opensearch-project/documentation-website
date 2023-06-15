@@ -16,7 +16,7 @@ The main configuration file for authentication and authorization backends is `co
 `config.yml` has three main parts:
 
 ```yml
-config:
+opensearch_security:
   dynamic:
     http:
       ...
