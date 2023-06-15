@@ -6,7 +6,7 @@ nav_order: 5
 
 # Settings for opensearch.yml
 
-Configuration file settings customize your distribution. You can use the settings in the following tables to configure your `opensearch.yml` file for core OpenSearch and whichever plugins you run. This section categorizes the settings and provides description for each. Examples for settings in the groupings follow each table. 
+Configuration file settings customize your distribution. You can use the settings in the following tables to configure your `opensearch.yml` file for core OpenSearch, Security, and whichever plugins you run. This section categorizes the settings and provides description for each. Examples for settings in the groupings follow each table. 
 
 
 ## OpenSearch core settings
@@ -136,15 +136,15 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.config_index_name` | The name of the index where .opendistro_security stores its configuration. |
 | `plugins.security.cert.oid` | This defines the OID of server node certificates. |
 | `plugins.security.cert.intercluster_request_evaluator_class` | Specifies the implementation of org.opensearch.security.transport.InterClusterRequestEvaluator that is used to determine inter-cluster request. Instances of org.opensearch.security.transport.InterClusterRequestEvaluator must implement a single argument constructor that takes an org.opensearch.common.settings.Settings. [Not sure what this means. More description needed.] |
-| `plugins.security.enable_snapshot_restore_privilege` | When set to `false`, this disables snapshot restore for normal users. In this case, only snapshot restore requests signed by an admin TLS certificate are accepted. By default (`true`), normal users can restore snapshots if they have the priviliges 'cluster:admin/snapshot/restore', 'indices:admin/create', and 'indices:data/write/index' [They must have all of these?]. NOTE: A snapshot can only be restored when it does not contain global state and does not restore the '.opendistro_security' index. |
+| `plugins.security.enable_snapshot_restore_privilege` | When set to `false`, this disables snapshot restore for normal users. In this case, only snapshot restore requests signed by an admin TLS certificate are accepted. By default (`true`), normal users can restore snapshots if they have the privileges 'cluster:admin/snapshot/restore', 'indices:admin/create', and 'indices:data/write/index' [They must have all of these?]. NOTE: A snapshot can only be restored when it does not contain global state and does not restore the '.opendistro_security' index. |
 | `plugins.security.check_snapshot_restore_write_privileges` | When set to `false`, additional index checks are omitted. [This needs further explanation] |
 | `plugins.security.cache.ttl_minutes` | Authentication cache timeout in minutes. A value of `0` disables caching. The default is `60`. |
 | `plugins.security.disabled` | Disables OpenSearch Security. WARNING: This can expose your configuration (including passwords) to the public. |
-| `plugins.security.protected_indices.enabled` | na |
-| `plugins.security.protected_indices.roles` | na |
-| `plugins.security.protected_indices.indices` | na |
-| `plugins.security.system_indices.enabled` | na |
-| `plugins.security.system_indices.indices` | na |
+| `plugins.security.protected_indices.enabled` | Set to `true` to enable protected indexes. Protected indexes are even more secure than normal indexes. These indexes require a role to access like any other traditional index, but they also require an additional role to be visible. This setting is used in conjunction with the `plugins.security.protected_indices.roles` and `plugins.security.protected_indices.indices` settings. |
+| `plugins.security.protected_indices.roles` | Specifies a list of roles to which a user must be mapped to access protected indexes. [a user must be mapped to all roles in the list, if there are multiple?] |
+| `plugins.security.protected_indices.indices` | Specifies a list of indexes to mark as protected. These indexes will only be visible to users mapped to the roles specified in `plugins.security.protected_indices.roles`. After this requirement is fulfilled, a user will still need to be mapped to the traditional role used to grant access permission to the index. |
+| `plugins.security.system_indices.enabled` | Set to `true` to enable system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by a super-admin only. No role provides access to these indexes. |
+| `plugins.security.system_indices.indices` | Enter a list of indexes to be used as system indexes. [The `opensearch.yml.example` file also includes this description: "These indices will only be visible / mutable by members of the above setting, in addition to needing permission to the index via a normal role." But it doesn't make sense for this setting.] |
 
 
 ### Security plugin settings examples
