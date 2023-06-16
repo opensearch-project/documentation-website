@@ -1,16 +1,17 @@
 <img src="https://opensearch.org/assets/img/opensearch-logo-themed.svg" height="64px">
 
-The maintainers of the OpenSearch Project documentation-website repo seek to promote an inclusive and engaged community of contributors. In order to facilitate this,  triage meetings are open to all, and attendance is encouraged for anyone who hopes to contribute, discuss an issue, or learn more about the project. To learn more about contributing to the OpenSearch Project documentation-website repo visit the [Contributing](./CONTRIBUTING.md) documentation.
+The maintainers of the OpenSearch Project documentation-website repo seek to promote an inclusive and engaged community of contributors. In order to facilitate this, triage meetings are open to all, and attendance is encouraged for anyone who hopes to contribute, discuss an issue, or learn more about the project. To learn more about contributing to the OpenSearch Project documentation-website repo visit the [Contributing](./CONTRIBUTING.md) documentation.
 
 ### Do I need to attend for my issue to be addressed/triaged?
 
 Attendance is not required for your issue to be triaged or addressed. All new issues are triaged weekly.
 
+
 ### What happens if my issue does not get covered this time?
 
 Each meeting we seek to address all new issues. If you have an issue you would like to discuss but do not have the ability to attend the entire meeting, please attend when is best for you and signal that you have an issue to discuss when you arrive. If we run out of time before your issue is discussed, you are always welcome to attend the next meeting or follow up on the issue post itself. 
 
-### How do I join the Backlog & Triage meeting?
+### How do I join the documentation triage meeting?
 
 Meetings are hosted regularly (time/date - TBD) and can be joined via the links posted on the [Upcoming Events](https://opensearch.org/events) webpage.
 
@@ -34,7 +35,7 @@ There is no specific ordering within each category.
 
 ### Do I need to have already contributed to the project to attend a triage meeting?
 
-No, all are welcome and encouraged to attend. Attending the Backlog & Triage meetings is a great way for a new contributor to learn about the project as well as explore different avenues of contribution.
+No, all are welcome and encouraged to attend. Attending the documentation triage meetings is a great way for a new contributor to learn about the project as well as explore different avenues of contribution.
 
 ### What if I have an issue that is almost a duplicate, should I open a new one to be triaged?
 
