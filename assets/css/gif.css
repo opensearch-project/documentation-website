@@ -5,7 +5,7 @@
   
   summary {
     color: #fff;
-    background: #006BB4;
+    background: #000;
     width: 2rem;
     height: 2rem;
     position: absolute;
@@ -41,7 +41,7 @@
     bottom: 0;
     padding: 1rem;
     padding-top: 3rem;
-    background: #000;
+    background: #fff;
     color: #fff;
     overflow-y: auto;
   }
@@ -52,6 +52,7 @@
   summary:focus {
       box-shadow: 0 0 0 0.25rem #F5F7FA;
     outline:transparent;
+    left: auto;
   }
   
   .object-and-details1 img {
