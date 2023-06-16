@@ -97,4 +97,4 @@ Such queries are successfully executed by the `V2` engine unless they have `V1`-
 Suggested change
 * The `V2` query engine does not support aggregation queries such as `histogram`, `date_histogram`, `percentiles`, `topHits`, `stats`, `extended_stats`, `terms`, or `range`.
 * JOINs and sub-queries are not supported. To stay up to date on the development for JOINs and sub-queries, track [GitHub issue #1441](https://github.com/opensearch-project/sql/issues/1441) and [GitHub issue #892](https://github.com/opensearch-project/sql/issues/892).
-* PartiQL syntax for `nested` queries are not supported.  Additionally, arrays of objects and primitive types return the first index of the array, while in `V1` they return the entire array as a json object. 
+* PartiQL syntax for `nested` queries are not supported.  Additionally, arrays of objects and primitive types return the first index of the array, while in `V1` they return the entire array as a JSON object. 
