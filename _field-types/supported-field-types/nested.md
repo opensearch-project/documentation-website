@@ -172,11 +172,115 @@ PUT testindex1/_doc/100
 ```
 {% include copy-curl.html %}
 
-Now if you run the same query to search for patients older than 75 AND smokers, nothing is returned, which is correct.
+We can update our query to use a nested query to sucessfully search for patient results. To search for patients older than 75 OR smokers:
 
 ```json
+GET testindex1/_search
 {
-  "took" : 3,
+  "query": {
+    "nested": {
+      "path": "patients",
+      "query": {
+        "bool": {
+          "should": [
+            {
+              "term": {
+                "patients.smoker": true
+              }
+            },
+            {
+              "range": {
+                "patients.age": {
+                  "gte": 75
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The above will return:
+```json
+{
+  "took" : 7,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 1,
+      "relation" : "eq"
+    },
+    "max_score" : 0.8465736,
+    "hits" : [
+      {
+        "_index" : "testindex1",
+        "_id" : "100",
+        "_score" : 0.8465736,
+        "_source" : {
+          "patients" : [
+            {
+              "name" : "John Doe",
+              "age" : 56,
+              "smoker" : true
+            },
+            {
+              "name" : "Mary Major",
+              "age" : 85,
+              "smoker" : false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+Searching for patients older than 75 AND smokers:
+```json
+GET testindex1/_search
+{
+  "query": {
+    "nested": {
+      "path": "patients",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "patients.smoker": true
+              }
+            },
+            {
+              "range": {
+                "patients.age": {
+                  "gte": 75
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Will return no results as expected.
+```json
+{
+  "took" : 7,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
