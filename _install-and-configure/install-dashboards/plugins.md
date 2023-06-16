@@ -39,7 +39,7 @@ The following table lists available OpenSearch Dashboards plugins.
 | Gantt Chart Dashboards | [gantt-chart](https://github.com/opensearch-project/dashboards-visualizations/tree/main/gantt-chart) | 1.0.0 |
 | Index Management Dashboards | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
 | Notebooks Dashboards | [dashboards-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 |
-| Notifications Dashboards | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0 |
+| Notifications Dashboards | [dashboards-notifications](https://github.com/opensearch-project/dashboards-notifications) | 2.0.0 |
 | Observability Dashboards | [dashboards-observability](https://github.com/opensearch-project/dashboards-observability) | 2.0.0 |
 | Query Workbench Dashboards | [query-workbench](https://github.com/opensearch-project/dashboards-query-workbench) | 1.0.0 |
 | Reports Dashboards | [dashboards-reporting](https://github.com/opensearch-project/dashboards-reporting) | 1.0.0 |
