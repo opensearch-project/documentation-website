@@ -5,7 +5,7 @@
   
   summary {
     color: #fff;
-    background: #000;
+    background: #006BB4;
     width: 2rem;
     height: 2rem;
     position: absolute;
@@ -50,7 +50,7 @@
     color: #fff;
   }
   summary:focus {
-      box-shadow: 0 0 0 0.25rem #aade87;
+      box-shadow: 0 0 0 0.25rem #F5F7FA;
     outline:transparent;
   }
   
