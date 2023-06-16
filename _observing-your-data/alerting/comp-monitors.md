@@ -26,6 +26,3 @@ The following image shows the simplified workflow of a compound monitor.
 
 {% include gif-pause.html %}
 
-
-
-![Simplified composite monitor workflow]({{site.url}}{{site.baseurl}}/images/alerting/chained-findings.gif)

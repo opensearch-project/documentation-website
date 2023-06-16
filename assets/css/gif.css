@@ -9,7 +9,8 @@
     width: 2rem;
     height: 2rem;
     position: absolute;
-    top: 0.5rem;
+    left: 77%%;
+    top: 90%;
     right: 0.5rem;
     z-index: 2;
     border-radius: 50%;
@@ -52,7 +53,6 @@
   summary:focus {
       box-shadow: 0 0 0 0.25rem #F5F7FA;
     outline:transparent;
-    left: auto;
   }
   
   .object-and-details1 img {
