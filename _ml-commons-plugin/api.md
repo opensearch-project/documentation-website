@@ -519,8 +519,8 @@ GET /_plugins/_ml/profile/tasks
 
 Parameter | Data type | Description
 :--- | :--- | :---
-model_id | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
-tasks | String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+`model_id` | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
+`tasks`| String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
 
 ### Request fields
 
@@ -528,11 +528,11 @@ All profile body request fields are optional.
 
 Field | Data type | Description
 :--- | :--- | :--- 
-node_ids | String | Returns all tasks and profiles from a specific node. 
-model_ids | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
-task_ids | String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
-return_all_tasks | boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
-return_all_models | boolean | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
+`node_ids` | String | Returns all tasks and profiles from a specific node. 
+`model_ids` | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
+`task_ids` | String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+`return_all_tasks` | Boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
+`return_all_models` | Boolean | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
 
 ### Example: Returning all tasks and models on a specific node
 
