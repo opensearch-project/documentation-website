@@ -13,17 +13,16 @@ ML Commons for OpenSearch eases the development of machine learning features by 
 
 Interaction with the ML Commons plugin occurs through either the [REST API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api) or [`ad`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions#ad) and [`kmeans`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands.
 
-Models [trained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#train-model) through the ML Commons plugin support model-based algorithms such as kmeans. After you've trained a model enough so that it meets your precision requirements, you can apply the model to [predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#predict) new data safely. 
+Models [trained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#training-the-model) through the ML Commons plugin support model-based algorithms such as k-means. After you've trained a model enough so that it meets your precision requirements, you can apply the model to [predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#predict) new data safely. 
 
 Should you not want to use a model, you can use the [Train and Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#train-and-predict) API to test your model without having to evaluate the model's performance.
 
+# Permissions
 
-## Permissions
+The ML Commons plugin has two reserved roles:
 
-There are two reserved user roles that can use of the ML Commons plugin.
-
-- `ml_full_access`: Full access to all ML features, including starting new ML tasks and reading or deleting models.
-- `ml_readonly_access`: Can only read ML tasks, trained models and statistics relevant to the model's cluster. Cannot start nor delete ML tasks or models.
+- `ml_full_access`: Grants full access to all ML features, including starting new ML tasks and reading or deleting models.
+- `ml_readonly_access`: Grants read-only access to ML tasks, trained models, and statistics relevant to the model's cluster. Does not grant permissions to start or delete ML tasks or models.
 
 ## ML node
 
