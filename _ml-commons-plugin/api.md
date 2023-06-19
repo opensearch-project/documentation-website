@@ -156,7 +156,7 @@ The response contains the following model information:
 
 ## Registering a model
 
-Before you register a model, you must [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) for this model.
+Before you register a model, you must [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) for the model.
 {: .important} 
 
 All versions of a particular model are held in a model group. After you register a model group, you can register a model to the model group. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
@@ -176,8 +176,8 @@ All request fields are required.
 
 Field | Data type | Description
 :---  | :--- | :--- 
-`name`| String | The name of the model. |
-`version` | Integer | The version number of the model. |
+`name`| String | The model's name. |
+`version` | Integer | The model's version number. |
 `model_format` | String | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
 `model_group_id` | String | The model group ID for the model. 
 `model_content_hash_value` | String | The model content hash generated using the SHA-256 hashing algorithm.
@@ -531,8 +531,8 @@ Field | Data type | Description
 node_ids | String | Returns all tasks and profiles from a specific node. 
 model_ids | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
 task_ids | String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
-return_all_tasks | boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
-return_all_models | boolean | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
+return_all_tasks | Boolean | Determines whether a request returns all tasks. When set to `false`, task profiles are left out of the response.
+return_all_models | Boolean | Determines whether or not a profile request returns all models. When set to `false`, model profiles are left out of the response.
 
 ### Example: Returning all tasks and models on a specific node
 

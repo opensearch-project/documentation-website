@@ -9,7 +9,7 @@ nav_order: 180
 
 You can use the Security plugin with ML Commons to manage access to specific models for non-admin users. For example, one department in an organization might want to restrict users in other departments from accessing their models.
 
-To accomplish this, users are assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/). Rather than assign individual roles to individual users during user configuration, backend roles provide a way to map a set of users to a role by assigning the backend role to users when they log in. For example, users may be assigned an `IT` backend role that includes the `ml_full_access` role and have full access to all ML Commons features. Alternatively, other users may be assigned an `HR` backend role that includes the `ml_readonly_access` role and be limited to read-only access to ML features. Given this flexibility, backend roles can provide finer-grained access to models and make it easier to assign multiple users to a role rather than mapping a user and role individually.
+To accomplish this, users are assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/). Rather than assign individual roles to individual users during user configuration, backend roles provide a way to map a set of users to a role by assigning the backend role to users when they log in. For example, users may be assigned an `IT` backend role that includes the `ml_full_access` role and have full access to all ML Commons features. Alternatively, other users may be assigned an `HR` backend role that includes the `ml_readonly_access` role and be limited to read-only access to machine learning (ML) features. Given this flexibility, backend roles can provide finer-grained access to models and make it easier to assign multiple users to a role rather than mapping a user and role individually.
 
 ## Model groups
 
@@ -32,7 +32,7 @@ Before using model access control, you must satisfy the following prerequisites:
 2. For `restricted` model groups, ensure that an admin has [assigned backend roles to users](#assigning-backend-roles-to-users).
 3. [Enable model access control](#enabling-model-access-control) on your cluster. You can enable model access control dynamically by setting `plugins.ml_commons.model_access_control_enabled` to `true`.
 
-If any of the prerequisites is not met, all models in the cluster are `public` and can be accessed by any user who has access to the cluster.
+If any of the prerequisites are not met, all models in the cluster are `public` and can be accessed by any user who has access to the cluster.
 {: .note}
 
 ## Assigning backend roles to users
