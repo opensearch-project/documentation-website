@@ -20,17 +20,17 @@ nav_order: 99
 
 ---
 
-The Machine Learning (ML) commons API lets you train ML algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same dataset.
+The ML Commons API lets you train machine learning (ML) algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same dataset.
 
-In order to train tasks through the API, three inputs are required: 
+To train tasks through the API, three inputs are required: 
 
 - Algorithm name: Must be one of a [FunctionName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
-- Model hyperparameters: Adjust these parameters to make the model train better.  
-- Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
+- Model hyperparameters: Adjust these parameters to improve model accuracy.  
+- Input data: The data that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
 ## Model access control considerations
 
-For clusters with model access control enabled, the following users can perform API operations on models in model groups with the specified access levels:
+For clusters with model access control enabled, users can perform API operations on models in model groups with specified access levels as follows:
 
 - `public` model group: Any user.
 - `restricted` model group: Only the model owner or users who share at least one backend role with the model group.
@@ -43,9 +43,9 @@ Admin users can perform API operations for models in any model group.
 For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 
-## Train model
+## Training the model
 
-The train operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
+The train API operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
 
 ### Request 
 
@@ -97,7 +97,7 @@ POST /_plugins/_ml/_train/kmeans?async=true
 
 **Synchronous**
 
-For synchronous responses, the API returns the model_id, which can be used to get or delete a model.
+For synchronous responses, the API returns the `model_id`, which can be used to get or delete a model.
 
 ```json
 {
@@ -108,7 +108,7 @@ For synchronous responses, the API returns the model_id, which can be used to ge
 
 **Asynchronous**
 
-For asynchronous responses, the API returns the task_id, which can be used to get or delete a task.
+For asynchronous responses, the API returns the `task_id`, which can be used to get or delete a task.
 
 ```json
 {
