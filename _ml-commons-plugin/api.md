@@ -9,31 +9,49 @@ nav_order: 99
 
 ---
 
-#### Table of contents
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
 - TOC
 {:toc}
-
+</details>
 
 ---
 
-The Machine Learning (ML) commons API lets you train ML algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same data set.
+The ML Commons API lets you train machine learning (ML) algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same dataset.
 
-In order to train tasks through the API, three inputs are required. 
+To train tasks through the API, three inputs are required: 
 
 - Algorithm name: Must be one of a [FunctionName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
-- Model hyper parameters: Adjust these parameters to make the model train better.  
-- Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
+- Model hyperparameters: Adjust these parameters to improve model accuracy.  
+- Input data: The data that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use a data frame.
+
+## Model access control considerations
+
+For clusters with model access control enabled, users can perform API operations on models in model groups with specified access levels as follows:
+
+- `public` model group: Any user.
+- `restricted` model group: Only the model owner or users who share at least one backend role with the model group.
+- `private` model group: Only the model owner. 
+
+For clusters with model access control disabled, any user can perform API operations on models in any model group. 
+
+Admin users can perform API operations for models in any model group. 
+
+For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 
-## Train model
+## Training the model
 
-The train operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
+The train API operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
 
 ### Request 
 
-The following examples use the kmeans algorithm to train index data.
+The following examples use the k-means algorithm to train index data.
 
-**Train with kmeans synchronously** 
+**Train with k-means synchronously** 
 
 ```json
 POST /_plugins/_ml/_train/kmeans
@@ -52,8 +70,9 @@ POST /_plugins/_ml/_train/kmeans
     ]
 }
 ```
+{% include copy-curl.html %}
 
-**Train with kmeans asynchronously**
+**Train with k-means asynchronously**
 
 ```json
 POST /_plugins/_ml/_train/kmeans?async=true
@@ -72,12 +91,13 @@ POST /_plugins/_ml/_train/kmeans?async=true
     ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
-**Synchronously**
+**Synchronous**
 
-For synchronous responses, the API returns the model_id, which can be used to get or delete a model.
+For synchronous responses, the API returns the `model_id`, which can be used to get or delete a model.
 
 ```json
 {
@@ -86,9 +106,9 @@ For synchronous responses, the API returns the model_id, which can be used to ge
 }
 ```
 
-**Asynchronously**
+**Asynchronous**
 
-For asynchronous responses, the API returns the task_id, which can be used to get or delete a task.
+For asynchronous responses, the API returns the `task_id`, which can be used to get or delete a task.
 
 ```json
 {
@@ -99,30 +119,56 @@ For asynchronous responses, the API returns the task_id, which can be used to ge
 
 ## Getting model information
 
-You can retrieve information on your model using the model_id.
+You can retrieve model information using the `model_id`.
+
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
+
+### Path and HTTP methods
 
 ```json
 GET /_plugins/_ml/models/<model-id>
 ```
+{% include copy-curl.html %}
 
-The API returns information on the model, the algorithm used, and the content found within the model.
+The response contains the following model information:
 
 ```json
 {
-  "name" : "KMEANS",
-  "algorithm" : "KMEANS",
-  "version" : 1,
-  "content" : ""
+"name" : "all-MiniLM-L6-v2_onnx",
+"algorithm" : "TEXT_EMBEDDING",
+"version" : "1",
+"model_format" : "TORCH_SCRIPT",
+"model_state" : "LOADED",
+"model_content_size_in_bytes" : 83408741,
+"model_content_hash_value" : "9376c2ebd7c83f99ec2526323786c348d2382e6d86576f750c89ea544d6bbb14",
+"model_config" : {
+    "model_type" : "bert",
+    "embedding_dimension" : 384,
+    "framework_type" : "SENTENCE_TRANSFORMERS",
+    "all_config" : """{"_name_or_path":"nreimers/MiniLM-L6-H384-uncased","architectures":["BertModel"],"attention_probs_dropout_prob":0.1,"gradient_checkpointing":false,"hidden_act":"gelu","hidden_dropout_prob":0.1,"hidden_size":384,"initializer_range":0.02,"intermediate_size":1536,"layer_norm_eps":1e-12,"max_position_embeddings":512,"model_type":"bert","num_attention_heads":12,"num_hidden_layers":6,"pad_token_id":0,"position_embedding_type":"absolute","transformers_version":"4.8.2","type_vocab_size":2,"use_cache":true,"vocab_size":30522}"""
+},
+"created_time" : 1665961344044,
+"last_uploaded_time" : 1665961373000,
+"last_loaded_time" : 1665961815959,
+"total_chunks" : 9
 }
 ```
 
 ## Registering a model
 
-Use the register operation to register a custom model to a model index. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+Before you register a model, you must [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) for the model.
+{: .important} 
+
+All versions of a particular model are held in a model group. After you register a model group, you can register a model to the model group. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
+
+### Path and HTTP methods
 
 ```json
 POST /_plugins/_ml/models/_register
 ```
+{% include copy-curl.html %}
 
 ### Request fields
 
@@ -130,11 +176,13 @@ All request fields are required.
 
 Field | Data type | Description
 :---  | :--- | :--- 
-`name`| string | The name of the model. |
-`version` | integer | The version number of the model. |
-`model_format` | string | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
-`model_config`  | json object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string which contains all model configurations. |
-`url` | string | The URL which contains the model. |
+`name`| String | The model's name. |
+`version` | Integer | The model's version number. |
+`model_format` | String | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
+`model_group_id` | String | The model group ID for the model. 
+`model_content_hash_value` | String | The model content hash generated using the SHA-256 hashing algorithm.
+`model_config`  | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. |
+`url` | String | The URL that contains the model. |
 
 ### Example
 
@@ -143,18 +191,22 @@ The following example request registers a version `1.0.0` of an NLP sentence tra
 ```json
 POST /_plugins/_ml/models/_register
 {
-  "name": "all-MiniLM-L6-v2",
-  "version": "1.0.0",
-  "description": "test model",
-  "model_format": "TORCH_SCRIPT",
-  "model_config": {
-    "model_type": "bert",
-    "embedding_dimension": 384,
-    "framework_type": "sentence_transformers",
-  },
-  "url": "https://github.com/opensearch-project/ml-commons/raw/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip?raw=true"
+    "name": "all-MiniLM-L6-v2",
+    "version": "1.0.0",
+    "description": "test model",
+    "model_format": "TORCH_SCRIPT",
+    "model_group_id": "FTNlQ4gBYW0Qyy5ZoxfR",
+    "model_content_hash_value": "c15f0d2e62d872be5b5bc6c84d2e0f4921541e29fefbef51d59cc10a8ae30e0f",
+    "model_config": {
+        "model_type": "bert",
+        "embedding_dimension": 384,
+        "framework_type": "sentence_transformers",
+       "all_config": "{\"_name_or_path\":\"nreimers/MiniLM-L6-H384-uncased\",\"architectures\":[\"BertModel\"],\"attention_probs_dropout_prob\":0.1,\"gradient_checkpointing\":false,\"hidden_act\":\"gelu\",\"hidden_dropout_prob\":0.1,\"hidden_size\":384,\"initializer_range\":0.02,\"intermediate_size\":1536,\"layer_norm_eps\":1e-12,\"max_position_embeddings\":512,\"model_type\":\"bert\",\"num_attention_heads\":12,\"num_hidden_layers\":6,\"pad_token_id\":0,\"position_embedding_type\":\"absolute\",\"transformers_version\":\"4.8.2\",\"type_vocab_size\":2,\"use_cache\":true,\"vocab_size\":30522}"
+    },
+    "url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/all-MiniLM-L6-v2/1.0.1/torch_script/sentence-transformers_all-MiniLM-L6-v2-1.0.1-torch_script.zip"
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -167,24 +219,37 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-To see the status of your model registration, enter the `task_id` in the [task API] ...
+To see the status of your model registration and retrieve the model ID created for the new model version, pass the `task_id` as a path parameter to the Tasks API:
+
+```json
+GET /_plugins/_ml/tasks/<task_id>
+```
+{% include copy-curl.html %}
+
+The response contains the model ID of the model version:
 
 ```json
 {
-  "model_id" : "WWQI44MBbzI2oUKAvNUt", 
-  "task_type" : "UPLOAD_MODEL",
-  "function_name" : "TEXT_EMBEDDING",
-  "state" : "REGISTERED",
-  "worker_node" : "KzONM8c8T4Od-NoUANQNGg",
-  "create_time" : 1665961344003,
-  "last_update_time" : 1665961373047,
-  "is_async" : true
+  "model_id": "Qr1YbogBYOqeeqR7sI9L",
+  "task_type": "DEPLOY_MODEL",
+  "function_name": "TEXT_EMBEDDING",
+  "state": "COMPLETED",
+  "worker_node": [
+    "N77RInqjTSq_UaLh1k0BUg"
+  ],
+  "create_time": 1685478486057,
+  "last_update_time": 1685478491090,
+  "is_async": true
 }
 ```
 
 ## Deploying a model
 
 The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`.
+
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
+
+### Path and HTTP methods
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_deploy
@@ -197,6 +262,7 @@ In this example request, OpenSearch deploys the model to any available OpenSearc
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
+{% include copy-curl.html %}
 
 ### Example: Deploying to a specific node
 
@@ -208,6 +274,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
     "node_ids": ["4PLK7KJWReyX0oWKnBA8nA"]
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -220,7 +287,11 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 
 ## Undeploying a model
 
-To undeploy a model from memory, use the undeploy operation:
+To undeploy a model from memory, use the undeploy operation.
+
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
+
+### Path and HTTP methods
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_undeploy
@@ -231,6 +302,7 @@ POST /_plugins/_ml/models/<model_id>/_undeploy
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
 ```
+{% include copy-curl.html %}
 
 ### Response: Undeploying a model from all ML nodes
 
@@ -253,7 +325,7 @@ POST /_plugins/_ml/models/_undeploy
   "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
 }
 ```
-
+{% include copy-curl.html %}
 
 ### Response: Undeploying specific models from specific nodes
 
@@ -287,6 +359,7 @@ POST /_plugins/_ml/models/_undeploy
   "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
 }
 ```
+{% include copy-curl.html %}
 
 ### Response: Undeploying specific models from all nodes
 
@@ -302,15 +375,24 @@ POST /_plugins/_ml/models/_undeploy
 
 ## Searching for a model
 
-Use this command to search models you've already created.
+Use this command to search for models you've already created.
 
+The response will contain only those model versions to which you have access. For example, if you send a match all query, model versions for the following model group types will be returned:
+
+- All public model groups in the index.
+- Private model groups for which you are the model owner.
+- Model groups that share at least one backend role with your backend roles.
+
+For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+
+### Path and HTTP methods
 
 ```json
 POST /_plugins/_ml/models/_search
 {query}
 ```
 
-### Example: Querying all models
+### Example: Searching for all models
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -321,8 +403,9 @@ POST /_plugins/_ml/models/_search
   "size": 1000
 }
 ```
+{% include copy-curl.html %}
 
-### Example: Querying models with algorithm "FIT_RCF"
+### Example: Searching for models with algorithm "FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -336,6 +419,7 @@ POST /_plugins/_ml/models/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -393,9 +477,14 @@ POST /_plugins/_ml/models/_search
 
 Deletes a model based on the `model_id`.
 
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
+
+### Path and HTTP methods
+
 ```json
 DELETE /_plugins/_ml/models/<model_id>
 ```
+{% include copy-curl.html %}
 
 The API returns the following:
 
@@ -430,8 +519,8 @@ GET /_plugins/_ml/profile/tasks
 
 Parameter | Data type | Description
 :--- | :--- | :---
-model_id | string | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
-tasks | string | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+`model_id` | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
+`tasks`| String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
 
 ### Request fields
 
@@ -439,11 +528,11 @@ All profile body request fields are optional.
 
 Field | Data type | Description
 :--- | :--- | :--- 
-node_ids | string | Returns all tasks and profiles from a specific node. 
-model_ids | string | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
-task_ids | string | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
-return_all_tasks | boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
-return_all_models | boolean | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
+`node_ids` | String | Returns all tasks and profiles from a specific node. 
+`model_ids` | String | Returns runtime data for a specific model. You can string together multiple model IDs to return multiple model profiles.
+`task_ids` | String | Returns runtime data for a specific task. You can string together multiple task IDs to return multiple task profiles.
+`return_all_tasks` | Boolean | Determines whether or not a request returns all tasks. When set to `false`, task profiles are left out of the response.
+`return_all_models` | Boolean | Determines whether or not a profile request returns all models. When set to `false`, model profiles are left out of the response.
 
 ### Example: Returning all tasks and models on a specific node
 
@@ -455,6 +544,7 @@ GET /_plugins/_ml/profile
   "return_all_models": true
 }
 ```
+{% include copy-curl.html %}
 
 ### Response: Returning all tasks and models on a specific node
 
@@ -500,6 +590,10 @@ GET /_plugins/_ml/profile
 
 ML Commons can predict new data with your trained model either from indexed data or a data frame. To use the Predict API, the `model_id` is required.
 
+For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
+
+### Path and HTTP methods
+
 ```json
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
 ```
@@ -518,6 +612,7 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
     ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -587,14 +682,13 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
 
 ## Train and predict
 
-Use to train and then immediately predict against the same training data set. Can only be used with unsupervised learning models and the following algorithms:
+Use to train and then immediately predict against the same training dataset. Can only be used with unsupervised learning models and the following algorithms:
 
 - BATCH_RCF
 - FIT_RCF
-- kmeans
+- k-means
 
 ### Example: Train and predict with indexed data
-
 
 ```json
 POST /_plugins/_ml/_train_predict/kmeans
@@ -625,6 +719,7 @@ POST /_plugins/_ml/_train_predict/kmeans
     ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Example: Train and predict with data directly
 
@@ -724,6 +819,7 @@ POST /_plugins/_ml/_train_predict/kmeans
     }
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -798,6 +894,7 @@ You can retrieve information about a task using the task_id.
 ```json
 GET /_plugins/_ml/tasks/<task_id>
 ```
+{% include copy-curl.html %}
 
 The response includes information about the task.
 
@@ -825,7 +922,7 @@ GET /_plugins/_ml/tasks/_search
 ```
 
 
-### Example: Search task which "function_name" is "KMEANS"
+### Example: Search task which `function_name` is `KMEANS`
 
 ```json
 GET /_plugins/_ml/tasks/_search
@@ -843,6 +940,7 @@ GET /_plugins/_ml/tasks/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -916,6 +1014,7 @@ ML Commons does not check the task status when running the `Delete` request. The
 ```json
 DELETE /_plugins/_ml/tasks/{task_id}
 ```
+{% include copy-curl.html %}
 
 The API returns the following:
 
@@ -944,24 +1043,28 @@ To receive all stats, use:
 ```json
 GET /_plugins/_ml/stats
 ```
+{% include copy-curl.html %}
 
 To receive stats for a specific node, use:
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/
 ```
+{% include copy-curl.html %}
 
-To receive stats for a specific node and  return a specified stat, use:
+To receive stats for a specific node and return a specified stat, use:
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/<stat>
 ```
+{% include copy-curl.html %}
 
 To receive information on a specific stat from all nodes, use:
 
 ```json
 GET /_plugins/_ml/stats/<stat>
 ```
+{% include copy-curl.html %}
 
 
 ### Example: Get all stats
@@ -969,6 +1072,7 @@ GET /_plugins/_ml/stats/<stat>
 ```json
 GET /_plugins/_ml/stats
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -1033,6 +1137,7 @@ POST /_plugins/_ml/_execute/anomaly_localization
   "num_outputs": 10
 }
 ```
+{% include copy-curl.html %}
 
 Upon execution, the API returns the following:
 
