@@ -27,7 +27,7 @@ distance_type | enum, such as `EUCLIDEAN`, `COSINE`, or `L1` | The type of measu
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-the-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 * [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
