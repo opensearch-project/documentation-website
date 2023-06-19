@@ -16,7 +16,7 @@ Queries on `date_nanos` fields are converted to range queries on the field value
 The `date_nanos` field supports all [formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date#formats) and [parameters]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date#parameters) that `date` supports. You can use multiple formats separated by `||`.
 {: .note}
 
-For `date_nanos` fields, you can use the `strict_date_optional_time_nanos` format to preserve nanosecond resolution. If you don't specify the format when mapping a field as `date_nanos`, the default format is `strict_date_optional_time||epoch_millis` that lets you pass values in either `strict_date_optional_time` or `epoch_millis` format. The `strict_date_optional_time` format supports dates in nanosecond resolution but the `epoch_millis` format supports dates in millisecond resolution only.
+For `date_nanos` fields, you can use the `strict_date_optional_time_nanos` format to preserve nanosecond resolution. If you don't specify the format when mapping a field as `date_nanos`, the default format is `strict_date_optional_time||epoch_millis` that lets you pass values in either `strict_date_optional_time` or `epoch_millis` format. The `strict_date_optional_time` format supports dates in nanosecond resolution, but the `epoch_millis` format supports dates in millisecond resolution only.
 
 ## Example
 
