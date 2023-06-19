@@ -23,7 +23,7 @@ Rank feature and rank features fields can be queried with [rank feature queries]
 
 ## Rank feature
 
-A rank feature field type uses a positive [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/)  value to boost or decrease the relevance score of a document in a `rank_feature` query. By default, this value boosts the relevance score. To decrease the relevance score, set the optional `positive_score_impact` parameter to false.
+A rank feature field type uses a positive [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) value to boost or decrease the relevance score of a document in a `rank_feature` query. By default, this value boosts the relevance score. To decrease the relevance score, set the optional `positive_score_impact` parameter to false.
 
 ### Example
 

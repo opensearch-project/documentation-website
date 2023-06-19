@@ -12,7 +12,7 @@ redirect_from:
 
 # Object field types
 
-The following table lists all object field types that OpenSearch supports.
+Object field types contain values that are objects or relations. The following table lists all object field types that OpenSearch supports.
 
 Field data type | Description
 :--- | :---  
