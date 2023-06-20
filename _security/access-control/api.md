@@ -1456,7 +1456,7 @@ GET _plugins/_security/api/ssl/certs
 }
 ```
 
-### Reload Transport Certificates
+### Reload transport certificates
 
 Reload transport layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload transport layer certificates.
 
@@ -1476,7 +1476,7 @@ GET _opendistro/_security/api/ssl/transport/reloadcerts
 }
 ```
 
-### Reload HTTP Certificates
+### Reload http certificates
 
 Reload HTTP layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload HTTP layer certificates.
 

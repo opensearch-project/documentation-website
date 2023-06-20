@@ -395,9 +395,9 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:monitor/upgrade
 
 
-## REST Permissions
+## Rest Permissions
 
-These permissions apply to rest APIs to control access to the endpoints. Granting access to any of these will allow access to change the crucial operational components of security plugin.
+These permissions apply to rest APIs to control access to the endpoints. Granting access to any of these will allow access to change the crucial operational components of Security plugin.
 NOTE: Allowing access to these endpoints can trigger operational changes in the cluster. Proceed with caution.
 
 - restapi:admin/actiongroups
