@@ -19,7 +19,7 @@ redirect_from:
 
 ## About composite monitors
 
-Basic [monitor types]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-types) for the Alerting plugin are designed to define a single trigger type. For example, a document level monitor can trigger an alert based on a query's match with documents, while a bucket level monitor can trigger an alert based on queries aimed at aggregated values in a data source. The composite monitor extends the usefulness of the individual monitor types by providing functionality that can chain the output of multiple monitor types into a single workflow that includes multiple triggers and permits analysis of a data source based on multiple criteria. This allows you to derive more granular information about a data source without requiring you to manually coordinate the scheduling of the separate monitors.
+Basic [monitor types]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-types) for the Alerting plugin are designed to define a single trigger type. For example, a document level monitor can trigger an alert based on a query's match with documents, while a bucket level monitor can trigger an alert based on queries aimed at aggregated values in a data source. The composite monitor extends the usefulness of the individual monitor types by providing functionality that can chain the output of multiple monitor types into a single workflow that includes multiple triggers and permits analysis of a data source based on multiple criteria. This allows you to derive more granular information about a data source, and it doesn't require you to manually coordinate the scheduling of the separate monitors.
 
 Composite monitors solve limitations with basic monitors in the following ways:
 
@@ -43,7 +43,7 @@ The key terms in the following table describe the basic concepts behind composit
 
 ## Example workflows
 
-In a composite monitor, the outputs from the individual delegate monitors can be chained together to produce more focused results and more valuable analysis of the data source. These outputs include both findings and alerts. The folowing sections describe the workflow for each and provide an example of how they work.
+In a composite monitor, the outputs from the individual delegate monitors can be chained together to produce more focused results and more valuable analysis of the data source. These outputs include both findings and alerts. The following sections describe the workflow for each and provide an example of how they work.
 
 ### Chained findings
 
