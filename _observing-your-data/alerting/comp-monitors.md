@@ -39,7 +39,6 @@ The key terms in the following table describe the basic concepts behind composit
 | Findings chain | A sequence of findings where the findings for each monitor are used as the inputs for subsequent monitors. 
 | Alert chain | A sequence of alerts where an alert for each monitor is used as the input for a subsequent monitor.  |
 | Execution | A single run of all delegate monitors in the sequence defined in the composite monitor's configuration. |
-| Execution schema | Conditions that, if met, generate *alerts*. |
 | Execution Id | Allows for the management of data recorded from a specific execution. The execution Id associates findings and alerts with the execution and is stored in each monitor's metadata. |
 
 ## Example workflows
@@ -57,8 +56,9 @@ As an example of chained findings, consider a composite monitor configured with 
    For every execution, the monitor queries the data source and generates findings for documents that match the conditions set out by the queries. These results by themselves are valuable. However, by adding a second monitor the sequence can apply further analysis to events in the data source.
 * The second monitor (monitor #2) is a per bucket monitor that aggregates data by client IP, checks how many IPs there are, and determines how many IPs are sending these types of requests. The composite monitor configuration provides a way to add the second monitor in sequence so that it executes following the first.
 * Monitor #2 first filters the findings from Monitor #1 and then queries the data derived from Monitor #1. Matches with this second set of queries then generate triggers and alerts for notifications.
+* Both monitors #1 and #2 return trigger results to the composite monitor according to their sequence in the configuration. The composite monitor returns a list of trigger results from monitors #1 and #2.
 
-The following image shows the simplified workflow of this compound monitor.
+The following image shows a simplified workflow for this compound monitor.
 
 {% include gif-pause.html %}
 
