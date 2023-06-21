@@ -28,6 +28,7 @@ Composite monitors solve limitations with basic monitors in the following ways:
 * They can chain together individual monitors so that the output of one can act as the input for the next, repeating this through the entire sequence of the execution.
 * They provide a more complete view of a given data source by running multiple monitors and multiple types of monitors in sequence, creating finer focused results and reducing noise in the results.
 
+
 ## Key terms
 
 The key terms in the following table describe the basic concepts behind composite monitors. For additional terms common to all types of monitors, see [Key terms]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#key-terms) related to basic monitors.
@@ -41,9 +42,11 @@ The key terms in the following table describe the basic concepts behind composit
 | Execution | A single run of all delegate monitors in the sequence defined in the composite monitor's configuration. |
 | Execution Id | Allows for the management of data recorded from a specific execution. The execution Id associates findings and alerts with the execution and is stored in each monitor's metadata. |
 
+
 ## Example workflows
 
 In a composite monitor, the chained outputs from the individual delegate monitors can be either findings or alerts. The following sections describe the workflow for each and provide an example of how they work.
+
 
 ### Chained findings
 
@@ -62,6 +65,7 @@ The following image shows a simplified workflow for a composite monitor with cha
 
 {% include gif-pause.html %}
 
+
 ### Chained alerts
 
 As an example of chained alerts, consider a composite monitor configured with three delegate monitors. The first and second monitors (monitors #1 and #2) are configured to generate alerts when two specific events happen across the cluster. A third monitor (monitor #3) is configured to send an alert when both monitors #1 and #2 generate their own alerts.
@@ -75,6 +79,266 @@ The following image shows a simplified workflow for a compound monitor with chai
 
 {% include gif-pause2.html %}
 
-## Configuring composite monitors
 
-You can configure composite monitors using the REST API. At this stage, the API offers the most versatility for setting up composite monitors. This covers monitors for chaining both findings and alerts. OpenSearch Dashboards is also available for creating composite monitors that chain alerts.
+## Configuring composite monitors with the API
+
+You can configure composite monitors using the REST API or OpenSearch Dashboards. Currently, the API offers the most versatility for defining composite monitors. The API configuration includes options to create composite monitors that chain findings and monitors that chain alerts. OpenSearch Dashboards is available for creating composite monitors that chain alerts.
+
+### Creating composite monitors
+
+```json
+POST _plugins/_alerting/workflows
+{
+    "last_update_time": 1679468231835,
+    "owner": "alerting",
+    "type": "workflow",
+    "schedule": {
+        "period": {
+            "interval": 1,
+            "unit": "MINUTES"
+        }
+    },
+    "inputs": [
+        {
+            "composite_input": {
+                "sequence": {
+                    "delegates": [
+                        {
+                            "order": 1,
+                            "monitor_id": "grsbCIcBvEHfkjWFeCqb"
+                        },
+                        {
+                            "order": 2,
+                            "monitor_id": "agasbCIcBvEHfkjWFeCqa"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "enabled_time": 1679468231835,
+    "enabled": true,
+    "workflow_type": "composite",
+    "schema_version": 0,
+    "name": "scale_up",
+    "triggers": [
+        {
+            "chained_alert_trigger": {
+                "id": "m1ANDm2",
+                "name": "jnkjn",
+                "severity": "1",
+                "condition": {
+                    "script": {
+                        "source": "(monitor[id={{m1}}] && monitor[id={{m2}}])", //ALERT WILL BE CREATED IF MONITOR 1 GENERATES ALERTS AND MONITOR 2 DOESN'T GENERATE ALERT",
+                        "lang": "painless"
+                    }
+                }
+            }
+        },
+        {
+            "chained_alert_trigger": {
+                "id": "m1ORm2",
+                "name": "jnkjn",
+                "severity": "1",
+                "condition": {
+                    "script": {
+                        "source": "(monitor[id={{m1}}] || monitor[id={{m2}}])", //ALERT WILL BE CREATED IF MONITOR 1 GENERATES ALERTS OR MONITOR 2 GENERATE ALERT",
+                        "lang": "painless"
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+{% include copy-curl.html %}
+
+
+### Get composite monitor
+
+```json
+GET _plugins/_alerting/workflows/<id>
+```
+{% include copy-curl.html %}
+
+
+### Update composite monitor
+
+```json
+PUT _plugins/_alerting/workflows/<id>
+{
+    "owner": "security_analytics",
+    "type": "workflow",
+    "schedule": {
+        "period": {
+        "interval": 1,
+        "unit": "MINUTES"
+        }
+    },
+    "inputs": [
+        {
+            "composite_input": {
+                "sequence": {
+                    "delegates": [
+                        {
+                            "order": 1,
+                            "monitor_id": "grsbCIcBvEHfkjWFeCqb"
+                        },
+                        {
+                            "order": 1,
+                            "monitor_id": "agasbCIcBvEHfkjWFeCqa"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "enabled_time": 1679468231835,
+    "enabled": true,
+    "workflow_type": "composite",
+ 
+    "name": "NTxdwApKbv"
+}
+```
+{% include copy-curl.html %}
+
+
+### Delete composite monitor
+
+```json
+DELETE _plugins/_alerting/workflows/<id>
+```
+{% include copy-curl.html %}
+
+
+### Execute composite monitor
+
+```json
+POST /_plugins/_alerting/workflows/{{w1}}/_execute
+```
+{% include copy-curl.html %}
+
+
+#### Example response
+
+```json
+{
+    "execution_id": "I0GXeIgBYKBG2nHoiHCL_2023-06-01T20:18:48.511884_a9c1d055-9b70-49c2-b32a-716cff1f562e",
+    "workflow_name": "scale_up",
+    "workflow_id": "I0GXeIgBYKBG2nHoiHCL",
+    "trigger_results": {
+        "m1ANDm2": {
+            "name": "jnkjn",
+            "triggered": true,
+            "action_results": {},
+            "error": null
+        },
+        "m1ORm2": {
+            "name": "jnkjn",
+            "triggered": true,
+            "action_results": {},
+            "error": null
+        }
+    },
+    "monitor_run_results": [{
+            "monitor_name": "test triggers",
+            "period_start": 1685650668501,
+            "period_end": 1685650728501,
+            "error": null,
+            "input_results": {
+                "results": [{
+                    "bhjh": [
+                        "OkGceIgBYKBG2nHoyHAn|test1",
+                        "O0GceIgBYKBG2nHozHCW|test1"
+                    ],
+                    "nkjkj": [
+                        "OkGceIgBYKBG2nHoyHAn|test1",
+                        "O0GceIgBYKBG2nHozHCW|test1"
+                    ],
+                    "jknkjn": [
+                        "OkGceIgBYKBG2nHoyHAn|test1",
+                        "O0GceIgBYKBG2nHozHCW|test1"
+                    ]
+                }],
+                "error": null
+            },
+            "trigger_results": {
+                "NC3Dd4cBCDCIfBYtViLI": {
+                    "name": "njkkj",
+                    "triggeredDocs": [
+                        "OkGceIgBYKBG2nHoyHAn|test1",
+                        "O0GceIgBYKBG2nHozHCW|test1"
+                    ],
+                    "action_results": {},
+                    "error": null
+                }
+            }
+        },
+        {
+            "monitor_name": "test triggers 2",
+            "period_start": 1685650668501,
+            "period_end": 1685650728501,
+            "error": null,
+            "input_results": {
+                "results": [{
+                    "bhjh": [
+                        "PEGceIgBYKBG2nHo1HCw|test",
+                        "PUGceIgBYKBG2nHo3HA8|test"
+                    ],
+                    "nkjkj": [
+                        "PEGceIgBYKBG2nHo1HCw|test",
+                        "PUGceIgBYKBG2nHo3HA8|test"
+                    ],
+                    "jknkjn": [
+                        "PEGceIgBYKBG2nHo1HCw|test",
+                        "PUGceIgBYKBG2nHo3HA8|test"
+                    ]
+                }],
+                "error": null
+            },
+            "trigger_results": {
+                "NC3Dd4cBCDCIfBYtViLI": {
+                    "name": "njkkj",
+                    "triggeredDocs": [
+                        "PEGceIgBYKBG2nHo1HCw|test",
+                        "PUGceIgBYKBG2nHo3HA8|test"
+                    ],
+                    "action_results": {},
+                    "error": null
+                }
+            }
+        }
+    ],
+    "execution_start_time": "2023-06-01T20:18:48.511874Z",
+    "execution_end_time": "2023-06-01T20:18:53.682405Z",
+    "error": null
+}
+```
+
+
+### Acknowledge chained alerts
+
+```json
+POST _plugins/_alerting/workflows/<workflow-id>/_acknowledge/alerts
+{
+    "alerts": ["eQURa3gBKo1jAh6qUo49"]
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+    "success": [
+    "eQURa3gBKo1jAh6qUo49"
+    ],
+    "failed": []
+}
+```
+
+
+
+
+
+
