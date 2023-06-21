@@ -361,7 +361,7 @@ Use the following requests to delete pipelines.
 ### Delete a specific pipeline
 
 ```json
-DELETE /_ingest/pipeline/pipeline-id
+DELETE /_ingest/pipeline/<pipeline-id>
 ```
 {% include copy-curl.html %}
 
