@@ -27,7 +27,7 @@ To see the list of available processors in your version of OpenSearch, run the f
 ```json
 GET /_nodes/ingest
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 Your response should be similar to the following:
 
