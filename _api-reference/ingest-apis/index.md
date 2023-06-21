@@ -25,7 +25,7 @@ The key fields typically used in a pipeline are `description` and `processors`. 
 To learn which processors are installed in your version of OpenSearch, run the following command:
 
 ```json
-curl -X GET "localhost:9200/_nodes/ingest?pretty"
+GET /_nodes/ingest
 ```
 {% include copy.html %}
 
