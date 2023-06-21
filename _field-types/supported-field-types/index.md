@@ -13,21 +13,21 @@ redirect_from:
 
 You can specify data types for your fields when creating a mapping. The following table lists all data field types that OpenSearch supports.
 
-Field data type | Description
-:--- | :--- 
-[`alias`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/alias/) | An additional name for an existing field.
-[`binary`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) |  A binary value in Base64 encoding. 
-[Numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) | `byte`, `double`, `float`, `half_float`, `integer`, `long`, `unsigned_long`, `scaled_float`, `short`.
-[`boolean`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/boolean/) | A Boolean value. 
-[Date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/) | `date`, `date_nanos`.
-[`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) | An IP address in IPv4 or IPv6 format. 
-[Range]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) | `integer_range`, `long_range`,`double_range`, `float_range`, `date_range`,`ip_range`. 
-[Object]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/) | `object`, `nested`, `join`.
-String | [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/), [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/), [`token_count`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/token-count/).
-[Autocomplete]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/autocomplete/) | `completion`, `search_as_you_type`.
-[Geographic]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic/) | `geo_point`, `geo_shape`.
-[Rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) | `rank_feature`, `rank_features`. 
-[`percolator`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/percolator/) | Specifies to treat this field as a query. 
+Category | Field types and descriptions
+:--- | :---
+Alias | [`alias`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/alias/): An additional name for an existing field.
+Binary | [`binary`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/):  A binary value in Base64 encoding. 
+[Numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) | A numeric value (`byte`, `double`, `float`, `half_float`, `integer`, `long`, [`unsigned_long`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/unsigned-long/), `scaled_float`, `short`). 
+Boolean | [`boolean`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/boolean/): A Boolean value. 
+[Date]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/dates/)|  [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/): A date stored in milliseconds. <br> [`date_nanos`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date-nanos/): A date stored in nanoseconds.
+IP | [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/): An IP address in IPv4 or IPv6 format. 
+[Range]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) | A range of values (`integer_range`, `long_range`, `double_range`, `float_range`, `date_range`, `ip_range`).
+[Object]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/)| [`object`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/): A JSON object. <br>[`nested`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/): Used when objects in an array need to be indexed independently as separate documents.<br>[`flat_object`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/flat-object/): A JSON object treated as a string.<br>[`join`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/join/): Establishes a parent-child relationship between documents in the same index. 
+[String]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string/)|[`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/): Contains a string that is not analyzed.<br> [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/): Contains a string that is analyzed.<br>[`token_count`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/token-count/): Stores the number of analyzed tokens in a string.
+[Autocomplete]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/autocomplete/) |[`completion`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/completion/): Provides autocomplete functionality through a completion suggester.<br> [`search_as_you_type`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/search-as-you-type/): Provides search-as-you-type functionality using both prefix and infix completion. 
+[Geographic]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic/)| [`geo_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/): A geographic point.<br>[`geo_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/): A geographic shape.
+[Rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) | Boosts or decreases the relevance score of documents (`rank_feature`, `rank_features`).  
+Percolator | [`percolator`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/percolator/): Specifies to treat this field as a query. 
 
 ## Arrays
 
