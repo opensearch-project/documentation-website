@@ -22,7 +22,7 @@ The key fields typically used in a pipeline are `description` and `processors`. 
 
 ## OpenSearch ingest processor types
 
-To learn which processors are installed in your version of OpenSearch, run the following command:
+To see the list of available processors in your version of OpenSearch, run the following command:
 
 ```json
 GET /_nodes/ingest
