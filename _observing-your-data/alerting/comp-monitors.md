@@ -43,27 +43,38 @@ The key terms in the following table describe the basic concepts behind composit
 
 ## Example workflows
 
-In a composite monitor, the outputs from the individual delegate monitors can be chained together to produce more focused results and more valuable analysis of the data source. These outputs include both findings and alerts. The following sections describe the workflow for each and provide an example of how they work.
+In a composite monitor, the chained outputs from the individual delegate monitors can be either findings or alerts. The following sections describe the workflow for each and provide an example of how they work.
 
 ### Chained findings
 
 As an example of chained findings, consider a composite monitor configured with two delegate monitors. The second monitor is defined to use findings from the first as its input.
 
-* The first, delegate monitor (monitor #1) is a per document monitor configured to analyze a data source with the following three queries:
+* The first delegate monitor (monitor #1) is a per document monitor configured to analyze a data source with the following three queries:
    1. Request payload size greater than 100 Kb.
    2. Response status = 200.
    3. Response contains a specific header.
    For every execution, the monitor queries the data source and generates findings for documents that match the conditions set out by the queries. These results by themselves are valuable. However, by adding a second monitor the sequence can apply further analysis to events in the data source.
 * The second monitor (monitor #2) is a per bucket monitor that aggregates data by client IP, checks how many IPs there are, and determines how many IPs are sending these types of requests. The composite monitor configuration provides a way to add the second monitor in sequence so that it executes following the first.
-* Monitor #2 first filters the findings from Monitor #1 and then queries the data derived from Monitor #1. Matches with this second set of queries then generate triggers and alerts for notifications.
+* Monitor #2 first filters the findings from Monitor #1 and then queries the data derived from monitor #1. Matches with this second set of queries then generate triggers and alerts for notifications.
 * Both monitors #1 and #2 return trigger results to the composite monitor according to their sequence in the configuration. The composite monitor returns a list of trigger results from monitors #1 and #2.
 
-The following image shows a simplified workflow for this compound monitor.
+The following image shows a simplified workflow for a compound monitor with chained findings.
 
 {% include gif-pause.html %}
 
 ### Chained alerts
 
+As an example of chained alerts, consider a composite monitor configured with three delegate monitors. The first and second monitors (monitors #1 and #2) are configured to generate alerts when two specific events happen across the cluster. A third monitor (monitor #3) is configured to send an alert when both monitors #1 and #2 generate their own alerts.
 
+*  The first delegate monitor (monitor #1) is configured to monitor CPU utilization of a service’s worker nodes. The monitor includes trigger conditions that create alerts when the CPU experiences loads above a set threshold.
+* The second monitor (monitor #2) is configured to monitor incoming request counts during the same time window. The monitor includes trigger conditions that create alerts when the number of requests rises above a set threshold.
+* A third monitor (monitor #3) is configured to check whether monitors #1 and #2 have created alerts. If both monitors #1 and #2 have created alerts, monitor #3 creates its own alert and sends a notification that the service is experiencing a high volume of traffic and its performance is degraded.
+* The first monitor's configuration may allow for alerts due to a number of reasons, such as cluster instability or several background processes running simultaneously. So an alert for this condition alone has limited value. Similarly, monitor #2 may identify a large number of requests and send an alert, even if the cluster is able to handle the traffic. Monitor #3 filters for these two conditions and triggers an alert when they both exist. This narrows the criteria for sending notifications, which also improves the meaningfulness of the alert while removing extraneous alerts that provide no deterministic value.
 
+The following image shows a simplified workflow for a compound monitor with chained alerts.
 
+{% include gif-pause2.html %}
+
+## Configuring composite monitors
+
+You can configure composite monitors using the REST API. At this stage, the API offers the most versatility for setting up composite monitors. This covers monitors for chaining both findings and alerts. OpenSearch Dashboards is also available for creating composite monitors that chain alerts.
