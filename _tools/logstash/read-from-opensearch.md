@@ -48,4 +48,4 @@ Like the output plugin, after adding your configuration to the `pipeline.conf` f
 
 Adding `stdout{}` to the `output{}` section of your `pipeline.conf` file prints the query results to the console. 
 
-To reindex the data into an OpenSearch domain, add the destination domain configuration in the `output{}` section like shown [here](https://opensearch.org/docs/latest/clients/logstash/ship-to-opensearch/#opensearch-output-plugin).
+To reindex the data into an OpenSearch domain, add the destination domain configuration in the `output{}` section like shown [here](https://opensearch.org/docs/latest/tools/logstash/index/).

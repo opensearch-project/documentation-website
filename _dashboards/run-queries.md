@@ -39,7 +39,7 @@ OpenSearch provides autocomplete suggestions for fields, indexes and their alias
 
 ## Sending the request 
 
-To send a query to OpenSearch, select the query by placing the cursor anywhere in the query text. Then choose the triangle on the top right of the request or press `Ctrl/Cmd+Enter`:
+To send a query to OpenSearch, select the query by placing the cursor anywhere in the query text. Then choose the play icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/play-icon.png" class="inline-icon" alt="play icon"/>{:/}) on the upper right of the request or press `Ctrl/Cmd+Enter`:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png" alt="Send request">
 
@@ -79,17 +79,17 @@ GET shakespeare/_search
 
 If you paste a `curl` command directly into the console, the command is automatically converted into the format the console uses. 
 
-To import a query in cURL format, select the query, then select the wrench icon and choose **Copy as cURL**:
+To import a query in cURL format, select the query, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-tools.png" alt="Console tools">
 
 ## Viewing documentation
 
-To view the OpenSearch documentation, select the wrench icon, and choose **Open documentation**.
+To view the OpenSearch documentation, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}) and choose **Open documentation**.
 
 ## Auto indenting
 
-To use auto indent, select the queries that you want to format, select the wrench icon, and choose **Auto indent**.
+To use auto indent, select the queries that you want to format, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Auto indent**.
 
 Auto indenting a collapsed query expands it.
 

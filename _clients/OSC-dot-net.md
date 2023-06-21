@@ -15,7 +15,7 @@ This getting started guide illustrates how to connect to OpenSearch, index docum
 
 ## Installing OpenSearch.Client
 
-To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](https://www.nuget.org/packages/OpenSearch.Client) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
+To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](https://www.nuget.org/packages/OpenSearch.Client/) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
 - In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
 - Search for the OpenSearch.Client NuGet package, and select **Install**.
 

@@ -18,7 +18,7 @@ The approach we recommend for using the YAML files is to first configure [reserv
 
 ## internal_users.yml
 
-This file contains any initial users that you want to add to the security plugin's internal user database.
+This file contains any initial users that you want to add to the Security plugin's internal user database.
 
 The file format requires a hashed password. To generate one, run `plugins/opensearch-security/tools/hash.sh -p <new-password>`. If you decide to keep any of the demo users, *change their passwords* and re-run [securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) to apply the new passwords.
 
@@ -129,13 +129,13 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
-The opensearch.yml file also contains the `plugins.security.allow_default_init_securityindex` property. When set to `true`, the security plugin uses default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
+The opensearch.yml file also contains the `plugins.security.allow_default_init_securityindex` property. When set to `true`, the Security plugin uses default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
 
 ```yml
 plugins.security.allow_default_init_securityindex: true
 ```
 
-Authentication cache for the security plugin exists to help speed up authentication by temporarily storing user objects returned from the backend so that the security plugin is not required to make repeated requests for them. To determine how long it takes for caching to time out, you can use the `plugins.security.cache.ttl_minutes` property to set a value in minutes. The default is `60`. You can disable caching by setting the value to `0`.
+Authentication cache for the Security plugin exists to help speed up authentication by temporarily storing user objects returned from the backend so that the Security plugin is not required to make repeated requests for them. To determine how long it takes for caching to time out, you can use the `plugins.security.cache.ttl_minutes` property to set a value in minutes. The default is `60`. You can disable caching by setting the value to `0`.
 
 ```yml
 plugins.security.cache.ttl_minutes: 60
@@ -145,7 +145,7 @@ plugins.security.cache.ttl_minutes: 60
 
 You can use `allowlist.yml` to add any endpoints and HTTP requests to a list of allowed endpoints and requests. If enabled, all users except the super admin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is added to the allow list, users cannot submit PUT requests to `_cluster/settings` to update cluster settings.
 
-Note that while you can configure access to endpoints this way, for most cases, it is still best to configure permissions using the security plugin's users and roles, which have more granular settings.
+Note that while you can configure access to endpoints this way, for most cases, it is still best to configure permissions using the Security plugin's users and roles, which have more granular settings.
 
 ```yml
 ---
@@ -195,7 +195,7 @@ requests: # Only allow GET requests to /sample-index1/_doc/1 and /sample-index2/
 
 ## roles.yml
 
-This file contains any initial roles that you want to add to the security plugin. Aside from some metadata, the default file is empty, because the security plugin has a number of static roles that it adds automatically.
+This file contains any initial roles that you want to add to the Security plugin. Aside from some metadata, the default file is empty, because the Security plugin has a number of static roles that it adds automatically.
 
 ```yml
 ---
@@ -308,9 +308,9 @@ kibana_server:
 
 ## action_groups.yml
 
-This file contains any initial action groups that you want to add to the security plugin.
+This file contains any initial action groups that you want to add to the Security plugin.
 
-Aside from some metadata, the default file is empty, because the security plugin has a number of static action groups that it adds automatically. These static action groups cover a wide variety of use cases and are a great way to get started with the plugin.
+Aside from some metadata, the default file is empty, because the Security plugin has a number of static action groups that it adds automatically. These static action groups cover a wide variety of use cases and are a great way to get started with the plugin.
 
 ```yml
 ---

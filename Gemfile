@@ -33,3 +33,7 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 # Installs webrick dependency for building locally
 gem "webrick", "~> 1.7"
+
+# Link checker
+gem "typhoeus"
+gem "ruby-link-checker"

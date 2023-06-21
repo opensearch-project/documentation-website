@@ -55,8 +55,7 @@ GET /_search
     "keep_alive": "100m"
   },
   "sort": [ 
-    {"@timestamp": {"order": "asc", "format": "strict_date_optional_time_nanos"}},
-    {"_shard_doc": "desc"}
+    {"@timestamp": {"order": "asc"}}
   ]
 }
 ```
@@ -77,8 +76,7 @@ GET /_search
     "keep_alive": "100m"
   },
   "sort": [ 
-    {"@timestamp": {"order": "asc", "format": "strict_date_optional_time_nanos"}},
-    {"_shard_doc": "desc"}
+    {"@timestamp": {"order": "asc"}}
   ],
   "search_after": [  
     "2021-05-20T05:30:04.832Z"
@@ -121,7 +119,7 @@ In every request you can only query for one slice, so the next query will be the
 
 ## Security model
 
-This section describes the permissions needed to use PIT API operations if you are running OpenSearch with the security plugin enabled.
+This section describes the permissions needed to use PIT API operations if you are running OpenSearch with the Security plugin enabled.
 
 Users can access all PIT API operations using the `point_in_time_full_access` role. If this role doesn't meet your needs, mix and match individual PIT permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `indices:data/read/point_in_time/create` permission lets you create a PIT. The following are the possible permissions:
 
