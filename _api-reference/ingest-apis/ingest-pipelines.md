@@ -372,7 +372,6 @@ DELETE /_ingest/pipeline/*
 ```
 {% include copy-curl.html %}
 
-To delete all pipelines in a cluster, the asterisk (*) is necessary.
 
 ## Create a pipeline on an existing index
 
