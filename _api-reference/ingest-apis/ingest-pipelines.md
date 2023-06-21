@@ -45,44 +45,36 @@ Parameter | Required | Type | Description
 `cluster_manager_timeout` | Optional | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.
 `timeout` | Optional | Time | Period to wait for a response. Defaults to 30 seconds. 
 
-#### Example request and reponse
+#### Example request 
 
 ```json
-PUT _ingest/pipeline/pipeline-id
+PUT _ingest/pipeline/my-pipeline
 {
-  "description": "Optional pipeline description",
+  "description": "This pipeline processes student data",
   "processors": [
     {
       "set": {
-        "description": "Optional processor description",
-        "field": "my-long-field",
-        "value": 10
+        "description": "Sets the graduation year to 2023",
+        "field": "grad_year",
+        "value": 2023
       }
     },
     {
       "set": {
-        "description": "Set 'my-boolean-field' to true",
-        "field": "my-boolean-field",
+        "description": "Sets graduated to true",
+        "field": "graduated",
         "value": true
       }
     },
     {
-      "lowercase": {
-        "field": "my-keyword-field"
+      "uppercase": {
+        "field": "name"
       }
     }
   ]
 }
 ```
 {% include copy-curl.html %}
-
-The request results in the following reponse, which confirms the pipeline was successfully created.
-
-```json
-{
-  "acknowledged": true
-}
-```
 
 If the pipeline fails to complete, check _<How do we troubleshoot a pipeline that fails to complete? What examples do we include?>_
 
@@ -131,57 +123,66 @@ Parameter | Type | Description
 :--- | :--- | :---
 `verbose` | Boolean | Verbose mode. Display data output for each processor in the executed pipeline.
 
-#### Example request
+### Example: Specify a pipeline in the path
 
 ```json
-POST _ingest/pipeline/my-pipeline/_simulate
+POST /_ingest/pipeline/my-pipeline/_simulate
 {
   "docs": [
     {
+      "_index": "my-index",
+      "_id": "1",
       "_source": {
-        "my-keyword-field": "LET"
+        "grad_year": 2024,
+        "graduated": false,
+        "name": "John Doe"
       }
     },
     {
+      "_index": "my-index",
+      "_id": "2",
       "_source": {
-        "my-keyword-field": "GO"
+        "grad_year": 2025,
+        "graduated": false,
+        "name": "Jane Doe"
       }
     }
   ]
+}]
 }
 ```
 {% include copy-curl.html %}
 
-The request returns the following response.
+The request returns the following response:
 
 ```json
 {
   "docs": [
     {
       "doc": {
-        "_index": "_index",
-        "_id": "_id",
+        "_index": "my-index",
+        "_id": "1",
         "_source": {
-          "my-keyword-field": "let",
-          "my-long-field": 10,
-          "my-boolean-field": true
+          "name": "JOHN DOE",
+          "grad_year": 2023,
+          "graduated": true
         },
         "_ingest": {
-          "timestamp": "2023-06-09T22:52:24.829853388Z"
+          "timestamp": "2023-06-20T23:19:54.635306588Z"
         }
       }
     },
     {
       "doc": {
-        "_index": "_index",
-        "_id": "_id",
+        "_index": "my-index",
+        "_id": "2",
         "_source": {
-          "my-keyword-field": "go",
-          "my-long-field": 10,
-          "my-boolean-field": true
+          "name": "JANE DOE",
+          "grad_year": 2023,
+          "graduated": true
         },
         "_ingest": {
-          "timestamp": "2023-06-09T22:52:24.82991768Z"
+          "timestamp": "2023-06-20T23:19:54.635746046Z"
         }
       }
     }
@@ -189,52 +190,114 @@ The request returns the following response.
 }
 ```
 
-#### Example verbose response 
+### Example: Verbose mode
 
-When the `verbose` parameter is set to `true`, the response shows how the processor transformed the data, that is, the processor results. 
+When the previous request is run with the `verbose` parameter set to `true`, the response shows the sequence of transformations made on each document. For example, for the document with the ID `1`, the response contains the results of applying each processor in the pipeline in turn:
 
 ```json
 {
-  "docs" : [
+  "docs": [
     {
-      "processor_results" : [
+      "processor_results": [
         {
-          "processor_type" : "set",
-          "status" : "success",
-          "doc" : {
-            "_index" : "index",
-            "_id" : "id",
-            "_source" : {
-              "field-name" : "value",
-              "location" : "document-name"
+          "processor_type": "set",
+          "status": "success",
+          "description": "Sets the graduation year to 2023",
+          "doc": {
+            "_index": "my-index",
+            "_id": "1",
+            "_source": {
+              "name": "John Doe",
+              "grad_year": 2023,
+              "graduated": false
             },
-            "_ingest" : {
-              "pipeline" : "35678",
-              "timestamp" : "2022-02-03T21:45:09.414049004Z"
+            "_ingest": {
+              "pipeline": "my-pipeline",
+              "timestamp": "2023-06-20T23:23:26.656564631Z"
+            }
+          }
+        },
+        {
+          "processor_type": "set",
+          "status": "success",
+          "description": "Sets 'graduated' to true",
+          "doc": {
+            "_index": "my-index",
+            "_id": "1",
+            "_source": {
+              "name": "John Doe",
+              "grad_year": 2023,
+              "graduated": true
+            },
+            "_ingest": {
+              "pipeline": "my-pipeline",
+              "timestamp": "2023-06-20T23:23:26.656564631Z"
+            }
+          }
+        },
+        {
+          "processor_type": "uppercase",
+          "status": "success",
+          "doc": {
+            "_index": "my-index",
+            "_id": "1",
+            "_source": {
+              "name": "JOHN DOE",
+              "grad_year": 2023,
+              "graduated": true
+            },
+            "_ingest": {
+              "pipeline": "my-pipeline",
+              "timestamp": "2023-06-20T23:23:26.656564631Z"
             }
           }
         }
       ]
+    }
+  ]
+}
+```
+
+### Example: Specify a pipeline in the request body
+
+Alternatively, you can specify a pipeline directly in the request body without creating a pipeline first:
+
+```json
+POST /_ingest/pipeline/_simulate
+{
+  "pipeline" :
+  {
+    "description": "Splits text on whitespace characters",
+    "processors": [
+      {
+        "csv" : {
+          "field" : "name",
+          "separator": ",",
+          "target_fields": ["last_name", "first_name"],
+          "trim": true
+        }
+      },
+      {
+      "uppercase": {
+        "field": "last_name"
+      }
+    }
+    ]
+  },
+  "docs": [
+    {
+      "_index": "second-index",
+      "_id": "1",
+      "_source": {
+        "name": "Doe,John"
+      }
     },
     {
-      "processor_results" : [
-        {
-          "processor_type" : "set",
-          "status" : "success",
-          "doc" : {
-            "_index" : "index",
-            "_id" : "id",
-            "_source" : {
-              "field-name" : "value",
-              "location" : "document-name"
-            },
-            "_ingest" : {
-              "pipeline" : "35678",
-              "timestamp" : "2022-02-03T21:45:09.414093212Z"
-            }
-          }
-        }
-      ]
+      "_index": "second-index",
+      "_id": "2",
+      "_source": {
+        "name": "Doe, Jane"
+      }
     }
   ]
 }
@@ -244,33 +307,48 @@ When the `verbose` parameter is set to `true`, the response shows how the proces
 
 Use the get ingest pipeline API operation to return information about a pipeline.
 
-## Path and HTTP methods
+### Retrieving information about all pipelines
 
-The following example request returns information about a specific pipeline. 
+The following example request returns information about all ingest pipelines:
 
 ```json
-GET _ingest/pipeline/pipeline-id
+GET _ingest/pipeline/
 ```
 {% include copy-curl.html %}
 
-The following example request returns information about all ingest pipelines.
+### Retrieving information about a specific pipeline
 
-```
-GET _ingest/pipeline
+The following example request returns information about a specific pipeline: 
+
+```json
+GET _ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-The following is an example response.
+The response contains the pipeline information:
 
 ```json
 {
-  "pipeline-id" : {
-    "description" : "Optional description of the pipeline",
-    "processors" : [
+  "my-pipeline": {
+    "description": "This pipeline processes student data",
+    "processors": [
       {
-        "set" : {
-          "field" : "field-name",
-          "value" : "value"
+        "set": {
+          "description": "Sets the graduation year to 2023",
+          "field": "grad_year",
+          "value": 2023
+        }
+      },
+      {
+        "set": {
+          "description": "Sets graduated to true",
+          "field": "graduated",
+          "value": true
+        }
+      },
+      {
+        "uppercase": {
+          "field": "name"
         }
       }
     ]
@@ -282,16 +360,14 @@ The following is an example response.
 
 Use the following requests to delete pipelines. 
 
-#### Example HTTP methods
-
-**Delete a specific pipeline**
+### Delete a specific pipeline
 
 ```json
 DELETE /_ingest/pipeline/pipeline-id
 ```
 {% include copy-curl.html %}
 
-**Delete all pipelines**
+### Delete all pipelines
 
 ```json
 DELETE /_ingest/pipeline/*
