@@ -89,7 +89,7 @@ GET _ingest/pipeline/_simulate
 POST _ingest/pipeline/_simulate
 ```
 
-The following requests simulate a single pipeline based on the pipeline identifier.
+The following requests simulate a single pipeline based on the pipeline ID.
 
 ```
 GET _ingest/pipeline/pipeline-id/_simulate
