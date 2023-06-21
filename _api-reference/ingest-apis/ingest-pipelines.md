@@ -17,8 +17,6 @@ Ingest pipelines in OpenSearch are managed by using ingest API operations. When 
 
 ## Create or update an ingest pipeline
 
-Creating an ingest pipeline is a vital step in streamlining your data processing workflow. For example, you can enhance data quality, automate data processing tasks, and ensure your data is prepared and optimized for downstream use. 
-
 Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires an ingest definition that defines how the processors change the document.
 
 ### Path and HTTP method
