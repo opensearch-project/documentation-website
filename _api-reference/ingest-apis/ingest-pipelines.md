@@ -31,7 +31,7 @@ The following table lists the request body fields used to create, or update, a p
 Field | Required | Type | Description
 :--- | :--- | :--- | :---
 `description` | Optional | String | Description of the ingest pipeline. 
-`processors` | Required | Array | The processor that performs a transformation on the documents. Processors run sequentially. 
+`processors` | Required | Array | An ordered list of processors that perform sequential transformations on the documents
 
 ### Parameters
 
