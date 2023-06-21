@@ -110,7 +110,7 @@ just_the_docs:
       name: OpenSearch Dashboards
       nav_fold: true
     tuning-your-cluster:
-      name: Tuning your cluster
+      name: Creating and tuning your cluster
       nav_fold: true
     security:
       name: Security in OpenSearch
@@ -118,26 +118,23 @@ just_the_docs:
     security-analytics:
       name: Security analytics 
       nav_fold: true
+    field-types:
+      name: Mappings and field types
+      nav_fold: true
+    query-dsl:
+      name: Query DSL, Aggregations, and Analyzers
+      nav_fold: true
     search-plugins:
       name: Search 
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
-    tuning-your-cluster:
-      name: Creating and tuning your cluster
-      nav_fold: true 
     monitoring-your-cluster:
       name: Monitoring your cluster
       nav_fold: true
     observing-your-data:
       name: Observability
-      nav_fold: true
-    query-dsl:
-      name: Query DSL, Aggregations, and Analyzers
-      nav_fold: true
-    field-types:
-      name: Mappings and field types
       nav_fold: true
     clients:
       name: Clients
@@ -230,3 +227,4 @@ exclude:
   - vendor/ruby/
   - README.md
   - .idea
+  - templates
