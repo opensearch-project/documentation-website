@@ -162,7 +162,4 @@ Your response should be similar to the following:
 }
 ```
 
-## Next steps
-
-- Start with [Ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/).
-- Learn more about OpenSearch [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/).
+Get started with [creating an ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) in OpenSearch, or learn more about OpenSearch [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/).
