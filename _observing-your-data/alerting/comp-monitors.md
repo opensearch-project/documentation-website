@@ -58,7 +58,7 @@ As an example of chained findings, consider a composite monitor configured with 
 * Monitor #2 first filters the findings from Monitor #1 and then queries the data derived from monitor #1. Matches with this second set of queries then generate triggers and alerts for notifications.
 * Both monitors #1 and #2 return trigger results to the composite monitor according to their sequence in the configuration. The composite monitor returns a list of trigger results from monitors #1 and #2.
 
-The following image shows a simplified workflow for a compound monitor with chained findings.
+The following image shows a simplified workflow for a composite monitor with chained findings.
 
 {% include gif-pause.html %}
 
