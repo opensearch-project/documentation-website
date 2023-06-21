@@ -35,11 +35,18 @@ Field | Required | Type | Description
 
 ### Parameters
 
-The following table lists the parameters used with creating, or updating, a pipeline.
+The following tables lists the parameters used with creating, or updating, a pipeline.
+
+#### Path parameters
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `pipeline-id` | Required | String | The unique identifier, or pipeline ID, assigned to the ingest pipeline. A pipeline id is used in API requests to specify which pipeline should be created or modified.  
+
+#### Query parameters
+
+Parameter | Required | Type | Description
+:--- | :--- | :--- | :---
 `cluster_manager_timeout` | Optional | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.
 `timeout` | Optional | Time | Period to wait for a response. Defaults to 30 seconds. 
 
