@@ -12,7 +12,7 @@ The append ingest processor enriches incoming data during the ingestion process 
 
 ## Configuration parameters
 
-The append processor requires the following configuration parameters to specify the target field or value to append to incoming documents.
+The append processor supports the following parameters to append to incoming documents.
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
@@ -26,7 +26,7 @@ The append processor requires the following configuration parameters to specify 
 
 Following are examples of an append processor configuration and how to add it to an ingest pipeline.
 
-#### Example: Append configuration 
+#### Example: Append processor configuration 
 
 ```json
 {
