@@ -14,7 +14,7 @@ Specifying `boolean` will set the field to `true` if its string value is equal t
 
 ## Configuration parameters
 
-The byte processor supports the following parameter options. The parameters `field` and `type` are required. All others are optional. 
+The byte processor supports the following parameters. 
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|

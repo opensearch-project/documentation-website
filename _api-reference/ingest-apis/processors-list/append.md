@@ -12,7 +12,7 @@ The append ingest processor enriches incoming data during the ingestion process 
 
 ## Configuration parameters
 
-The append processor supports the following parameters to append to incoming documents.
+The append processor supports the following parameters.
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|

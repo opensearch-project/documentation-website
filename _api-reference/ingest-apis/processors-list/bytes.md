@@ -12,7 +12,7 @@ The bytes ingest processor converts a human-readable byte value to its equivalen
 
 ## Configuration parameters
 
-The byte processor supports the following parameter options. The parameter `field` is required. All others are optional. 
+The byte processor supports the following parameters. 
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
