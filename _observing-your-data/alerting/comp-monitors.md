@@ -82,9 +82,9 @@ The following image shows a simplified workflow for a compound monitor with chai
 {% include gif-pause2.html %}
 
 
-## Configuring composite monitors with the API
+## Managing composite monitors with the API
 
-You can configure composite monitors using the REST API or OpenSearch Dashboards. Currently, the API offers the most versatility for defining composite monitors. The API configuration includes options to create composite monitors that chain findings and monitors that chain alerts. OpenSearch Dashboards is available for creating composite monitors that chain alerts.
+You can manage composite monitors using the REST API or OpenSearch Dashboards. Currently, the API offers the most versatility for defining composite monitors. The API configuration includes options to create composite monitors that chain findings and monitors that chain alerts. OpenSearch Dashboards is available for creating composite monitors that chain alerts.
 
 
 ### Create composite monitor
@@ -121,7 +121,7 @@ Composite monitor configuration employs the [Painless scripting language](https:
    
    `monitor[id=1] || monitor[id=2]`
 
-   The following conditions will trigger the composite monitor to produce an alert when monitor #1 or (`||`) monitor #2 generates an alert.
+   The following conditions will trigger the composite monitor to produce an alert when either monitor #1 or (`||`) monitor #2 generates an alert.
 
 * **Example 3**
    
@@ -418,9 +418,9 @@ POST _plugins/_alerting/workflows/<workflow-id>/_acknowledge/alerts
 }
 ```
 
-## Configuring composite monitors in OpenSearch Dashboards
+## Managing composite monitors in OpenSearch Dashboards
 
-You can configure composite monitors in OpenSearch Dashboards for monitors that chain findings.
+You can manage composite monitors in OpenSearch Dashboards and configure monitors that chain findings.
 [waiting for UX completion and environment]
 
 
