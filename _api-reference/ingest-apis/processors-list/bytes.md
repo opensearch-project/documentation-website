@@ -17,7 +17,7 @@ The byte processor supports the following parameter options. The parameter `fiel
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
 `field` | Required | Name of the field where the data should be converted. |
-`target_field` | Required| Name of the field to store the converted vlaue. If not specified, the value will be stored in-place in the `field` field. Default is `field`. |
+`target_field` | Required | Name of the field to store the converted vlaue. If not specified, the value will be stored in-place in the `field` field. Default is `field`. |
 `ignore_missing` | Optional | If set to true, the processor will not fail if the field does not exist. Default is `false`. |
 `if` | Optional | Conditional expression that determines whether the processor should be deployed. |
 `ignore_failure` | Optional | If set to true, the processor will not fail if an error occurs. | 
