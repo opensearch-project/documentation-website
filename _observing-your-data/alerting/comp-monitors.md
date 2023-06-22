@@ -112,15 +112,23 @@ POST _plugins/_alerting/workflows
 Composite monitor configuration employs the [Painless scripting language](https://www.elastic.co/guide/en/elasticsearch/painless/7.17/painless-guide.html) to define the conditions for chaining alerts. Conditions are applied for each execution of the composite monitor. You specify the definition for the chain in the `triggers.chained_alert_triggers.condition.script.source` field of the request. Using Painless syntax, you can apply logic to links between monitors with basic Boolean operators AND, OR, NOT. See the following examples to understand how each is used in the monitor definition.
 
 * **Example 1**
+   
    `monitor[id=1] && monitor[id=2]`
+   
    The following conditions for delegate monitors will trigger the composite monitor to produce an alert when both monitor #1 and (`$$`) monitor #2 generate an alert.
-* **Example 2**
-   `monitor[id=1] || monitor[id=2]`
-   The following conditions will trigger the composite monitor to produce an alert when monitor #1 or (`||`) monitor #2 generates an alert.
-* **Example 3**
-   `monitor[id=1] && (!monitor[id=2] || monitor[id=3])`
-   The following conditions will trigger the composite monitor to produce an alert when monitor #1 and (`$$`) not (`!`) monitor #2, or (`||`) when monitor #3 generates an alert.
 
+* **Example 2**
+   
+   `monitor[id=1] || monitor[id=2]`
+
+   The following conditions will trigger the composite monitor to produce an alert when monitor #1 or (`||`) monitor #2 generates an alert.
+
+* **Example 3**
+   
+   `monitor[id=1] && (!monitor[id=2] || monitor[id=3])`
+
+   The following conditions will trigger the composite monitor to produce an alert when monitor #1 and (`$$`) not (`!`) monitor #2, or (`||`) when monitor #3 generates an alert.
+   
 The order of monitor IDs in the Painless script does not define the sequence of execution for the monitors. The sequence of monitor execution is defined in the `inputs.composite_input.sequence.delegates.order` field in the request.
 {: .note }
 
@@ -412,8 +420,7 @@ POST _plugins/_alerting/workflows/<workflow-id>/_acknowledge/alerts
 
 ## Configuring composite monitors in OpenSearch Dashboards
 
-You can configure composite monitors in OpenSearch Dashbords for monitors that chain findings.
-
-
+You can configure composite monitors in OpenSearch Dashboards for monitors that chain findings.
+[waiting for UX completion and environment]
 
 
