@@ -28,6 +28,8 @@ The append processor requires the following configuration parameters to specify 
 `allow_duplicates` | Optional | If set to false, the processor will not append values that already exist in the target field. The default value is set to true.
 `ignore_missing` | Optional | If set to true, the processor will ignore events that lack the target field. The default value is false. 
 
+Following are examples of an append processor configuration and how to add it to an ingest pipeline.
+
 #### Example: Append configuration 
 
 ```json
