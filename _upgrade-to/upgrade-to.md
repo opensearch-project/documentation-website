@@ -18,6 +18,8 @@ If your existing cluster runs an older version of Elasticsearch OSS, the first s
 
   Cluster restart upgrades work between minor versions (for example, 6.5 to 6.8) and the next major version (for example, 6.x to 7.10.2). Cluster restart upgrades are faster to perform and require fewer intermediate upgrades, but require downtime.
 
+To migrate a post-fork version of Elasticsearch (7.11+) to OpenSearch, you can use Logstash.  You'll need to employ the Elasticsearch input plugin within Logstash to extract data from the Elasticsearch cluster, and the [Logstash Output OpenSearch plugin](https://github.com/opensearch-project/logstash-output-opensearch#configuration-for-logstash-output-opensearch-plugin) to write the data to the OpenSearch 2.x cluster. We suggest using Logstash version 7.13.4 or earlier, as newer versions may encounter compatibility issues when establishing a connection with OpenSearch due to changes introduced by Elasticsearch subsequent to the fork. We strongly recommend that users test this solution with their own data to ensure effectiveness. 
+{: .note} 
 
 ## Migration paths
 
@@ -62,7 +64,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    sudo yum install elasticsearch-oss-7.10.2 --enablerepo=elasticsearch
    ```
 
-   For tarball installations, extract to a new directory to ensure you **do not overwrite** your `config`, `data`, and `logs` directories. Ideally, these directories should have their own, independent paths and *not* be colocated with the Elasticsearch application directory. Then set the `ES_PATH_CONF` environment variable to the directory that contains `elasticsearch.yml` (for example, `/etc/elasticesarch/`). In `elasticsearch.yml`, set `path.data` and `path.logs` to your `data` and `logs` directories (for example, `/var/lib/elasticsearch` and `/var/log/opensearch`).
+   For tarball installations, extract to a new directory to ensure you **do not overwrite** your `config`, `data`, and `logs` directories. Ideally, these directories should have their own, independent paths and *not* be colocated with the Elasticsearch application directory. Then set the `ES_PATH_CONF` environment variable to the directory that contains `elasticsearch.yml` (for example, `/etc/elasticsearch/`). In `elasticsearch.yml`, set `path.data` and `path.logs` to your `data` and `logs` directories (for example, `/var/lib/elasticsearch` and `/var/log/opensearch`).
 
 1. Restart Elasticsearch OSS on the node (rolling) or all nodes (cluster restart).
 
