@@ -72,9 +72,9 @@ The following image shows a simplified workflow for a composite monitor with cha
 
 As an example of chained alerts, consider a composite monitor configured with three delegate monitors. The first and second monitors (monitors #1 and #2) are configured to generate alerts when two specific events happen across the cluster. A third monitor (monitor #3) is configured to send an alert when both monitors #1 and #2 generate their own alerts.
 
-*  The first delegate monitor (monitor #1) is configured to monitor CPU utilization of a service’s worker nodes. The monitor includes trigger conditions that create alerts when the CPU experiences loads above a set threshold.
-* The second monitor (monitor #2) is configured to monitor incoming request counts during the same time window. The monitor includes trigger conditions that create alerts when the number of requests rises above a set threshold.
-* A third monitor (monitor #3) is configured to check whether monitors #1 and #2 have created alerts. If both monitors #1 and #2 have created alerts, monitor #3 creates its own alert and sends a notification that the service is experiencing a high volume of traffic and its performance is degraded.
+* Delegate monitor #1 is configured to monitor CPU utilization of a service’s worker nodes. The monitor includes trigger conditions that create alerts when the CPU experiences loads above a set threshold.
+* Delegate monitor #2 is configured to monitor incoming request counts during the same time window. The monitor includes trigger conditions that create alerts when the number of requests rises above a set threshold.
+* Delegate monitor #3 is configured to check whether monitors #1 and #2 have created alerts. If both monitors #1 and #2 have created alerts, monitor #3 creates its own alert and sends a notification that the service is experiencing a high volume of traffic and its performance is degraded.
 * The first monitor's configuration may allow for alerts due to a number of reasons, such as cluster instability or several background processes running simultaneously. So an alert for this condition alone has limited value. Similarly, monitor #2 may identify a large number of requests and send an alert, even if the cluster is able to handle the traffic. Monitor #3 filters for these two conditions and triggers an alert when they both exist. This narrows the criteria for sending notifications, which also improves the meaningfulness of the alert while removing extraneous alerts that provide no deterministic value.
 
 The following image shows a simplified workflow for a compound monitor with chained alerts.
@@ -86,7 +86,28 @@ The following image shows a simplified workflow for a compound monitor with chai
 
 You can configure composite monitors using the REST API or OpenSearch Dashboards. Currently, the API offers the most versatility for defining composite monitors. The API configuration includes options to create composite monitors that chain findings and monitors that chain alerts. OpenSearch Dashboards is available for creating composite monitors that chain alerts.
 
-### Creating composite monitors
+
+### Create composite monitor
+
+This API allows you to create composite monitors.
+
+```json
+POST _plugins/_alerting/workflows
+```
+{% include copy-curl.html %}
+
+
+#### Request fields
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `schedule` | Object | The schedule that determines how often the exection runs. |
+| `schedule.period.interval` | Numeral | Accepts a numerical value to set how often the execution runs. |
+| `schedule.period.unit` | Object | The time unit of measure for the interval. `SECONDS`, `MINUTES`, `HOURS`, `DAYS`. |
+| `inputs` | Object | Accepts inputs to define the delegate monitors, which specifies both the delegate monitors and their order in the exection's sequence. |
+
+
+#### Example request
 
 ```json
 POST _plugins/_alerting/workflows
@@ -158,10 +179,18 @@ POST _plugins/_alerting/workflows
 
 ### Get composite monitor
 
+Retrieves information on the specified monitor.
+
 ```json
 GET _plugins/_alerting/workflows/<id>
 ```
 {% include copy-curl.html %}
+
+#### Path parameters
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| monitor ID | String | The monitor ID |
 
 
 ### Update composite monitor
@@ -212,6 +241,12 @@ DELETE _plugins/_alerting/workflows/<id>
 ```
 {% include copy-curl.html %}
 
+#### Path parameters
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| monitor ID | String | The monitor ID |
+
 
 ### Execute composite monitor
 
@@ -219,6 +254,12 @@ DELETE _plugins/_alerting/workflows/<id>
 POST /_plugins/_alerting/workflows/{{w1}}/_execute
 ```
 {% include copy-curl.html %}
+
+#### Path parameters
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| workflow ID | String | The workflow ID. Enter the workflow ID in the path to run the execution. |
 
 
 #### Example response
@@ -328,6 +369,18 @@ POST _plugins/_alerting/workflows/<workflow-id>/_acknowledge/alerts
 ```
 {% include copy-curl.html %}
 
+#### Path parameters
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| workflow ID | String | The workflow ID. Enter the workflow ID in the path to retrieve its associated alerts. |
+
+#### Request fields
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `alerts` | Array | A list of alerts by ID. The results include alerts that are acknowledged by the system as well as alerts not recognized by the system.  |
+
 #### Example response
 
 ```json
@@ -339,7 +392,9 @@ POST _plugins/_alerting/workflows/<workflow-id>/_acknowledge/alerts
 }
 ```
 
+## Configuring composite monitors in OpenSearch Dashboards
 
+You can configure composite monitors in OpenSearch Dashbords for monitors that chain findings.
 
 
 
