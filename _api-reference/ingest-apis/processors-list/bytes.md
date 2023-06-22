@@ -31,12 +31,14 @@ Following is an example of a byte ingest processor configuration.
 
 ```json
 {
-  "bytes": {
-    "field": "file.size",
-    "target_field": "file.size_bytes",
-    "ignore_missing": true,
-    "description": "Converts the file size field to bytes"
-  }
+  "description": "Converts the file size field to bytes",
+  "processors": [
+    {
+      "bytes": {
+        "field": "file.size",
+        "target_field": "file.size_bytes"
+      }
+    }
+  ]
 }
 ```
-
