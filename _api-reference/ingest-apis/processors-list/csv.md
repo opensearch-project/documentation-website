@@ -17,7 +17,7 @@ The CSV processor supports the following parameters.
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
 `field` | Required | Name of the field to extract data from. |
-`target_fields` | Required | Name of the field to store the parsed data in. |
+`target_field` | Required | Name of the field to store the parsed data in. |
 `delimiter` | Optional | The delimiter used to separate the fields in the CSV data. |
 `quote` | Optional | The character used to quote fields in the CSV data. |
 `ignore_missing` | Optional | If set to `true`, the processor will not fail if the field does not exist. Default is `false`. | 
@@ -39,7 +39,7 @@ Following is an example of a CSV ingest processor configuration.
     {
       "csv": {
         "field": "data",
-        "target_fields": ["field1", "field2", "field3"],
+        "target_field": ["field1", "field2", "field3"],
         "ignore_missing": true
       }
     }
