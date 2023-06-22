@@ -31,7 +31,7 @@ Composite monitors solve limitations with basic monitors in the following ways:
 
 ## Key terms
 
-The key terms in the following table describe the basic concepts behind composite monitors. For additional terms common to all types of monitors, see [Key terms]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#key-terms) related to basic monitors.
+The key terms in the following table describe the basic concepts behind composite monitors. For additional terms common to all types of monitors, see [Key terms]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#key-terms) for basic monitors.
 
 | Term | Definition |
 | :--- | :--- |
