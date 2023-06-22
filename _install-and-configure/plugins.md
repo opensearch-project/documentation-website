@@ -238,7 +238,6 @@ bin/opensearch-plugin install --batch <plugin-name>
 Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
 {: .warning}
 
-
 ### Bundled Plugins
 
 The following plugins are bundled with all OpenSearch distributions except for minimum distribution packages.
