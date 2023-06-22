@@ -11,6 +11,11 @@ redirect_from:
 
 You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
+## Considerations for Plugins
+
+In OpenSearch Plugins have the ability to access the data in the cluster, including metadata about cluster operations. Take care when selecting and installing plugins - only use those from trusted sources. Ensuring the plugin's source is reliable helps to mitigate risks to cluster's data and integrity. Always vet the source and understand the function of a plugin before installing on an OpenSearch cluster.
+{: .warning}
+
 ## Managing plugins
 
 OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
@@ -232,6 +237,7 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
 {: .warning}
+
 
 ### Bundled Plugins
 
