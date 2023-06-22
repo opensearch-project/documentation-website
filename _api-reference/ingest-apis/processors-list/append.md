@@ -10,10 +10,6 @@ nav_order: 10
 
 The append ingest processor enriches incoming data during the ingestion process by appending additional fields or values to each document. The append processor operates on a per-dcoument basis, meaning it processes each incoming document individually. Learn how to use the append processor in your data processing workflows in the following documentation. 
 
-## Getting started
-
-To use the append processor, make sure you have the necessary permissions and access rights to configure and deploy ingest processors. 
-
 ## Configuration parameters
 
 The append processor requires the following configuration parameters to specify the target field or value to append to incoming documents.
