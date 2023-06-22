@@ -53,9 +53,11 @@ In a composite monitor, the chained outputs from the individual delegate monitor
 As an example of chained findings, consider a composite monitor configured with two delegate monitors. The second monitor is defined to use findings from the first as its input.
 
 * The first delegate monitor (monitor #1) is a per document monitor configured to analyze a data source with the following three queries:
+   
    1. Request payload size greater than 100 Kb.
    2. Response status = 200.
    3. Response contains a specific header.
+   
    For every execution, the monitor queries the data source and generates findings for documents that match the conditions set out by the queries. These results by themselves are valuable. However, by adding a second monitor the sequence can apply further analysis to events in the data source.
 * The second monitor (monitor #2) is a per bucket monitor that aggregates data by client IP, checks how many IPs there are, and determines how many IPs are sending these types of requests. The composite monitor configuration provides a way to add the second monitor in sequence so that it executes following the first.
 * Monitor #2 first filters the findings from Monitor #1 and then queries the data derived from monitor #1. Matches with this second set of queries then generate triggers and alerts for notifications.
