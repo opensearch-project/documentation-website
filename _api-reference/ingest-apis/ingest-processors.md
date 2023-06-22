@@ -3,6 +3,7 @@ layout: default
 title: Ingest processors
 parent: Ingest APIs
 nav_order: 50
+has_children: true
 ---
 
 # Ingest processors
@@ -18,4 +19,4 @@ GET /_nodes/ingest
 ```
 {% include copy-curl.html %}
 
-Learn more about the processor types within their respective documentation.  
+To configure and deploy ingest processors, make sure you have the necessary permissions and access rights. You can learn more about the processor types within their respective documentation.
