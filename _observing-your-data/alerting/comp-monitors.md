@@ -114,7 +114,7 @@ Composite monitor configuration employs the [Painless scripting language](https:
 * AND = `&&`
 * OR = `||`
 * NOT = `!`
-* precedence = `()`
+* Precedence = `()`
 
 See the following examples to understand how each is used in the monitor definition.
 
@@ -122,13 +122,13 @@ See the following examples to understand how each is used in the monitor definit
    
    `monitor[id=1] && monitor[id=2]`
    
-   The following conditions for delegate monitors will trigger the composite monitor to produce an alert when both monitor #1 AND (`&&`) monitor #2 generate an alert.
+   The following conditions for delegate monitors will trigger the composite monitor to produce an alert when both monitor #1 AND monitor #2 generate an alert.
 
 * **Example 2**
    
    `monitor[id=1] || monitor[id=2]`
 
-   The following conditions will trigger the composite monitor to produce an alert when either monitor #1 OR (`||`) monitor #2 generates an alert.
+   The following conditions will trigger the composite monitor to produce an alert when either monitor #1 OR monitor #2 generates an alert.
 
 * **Example 3**
    
