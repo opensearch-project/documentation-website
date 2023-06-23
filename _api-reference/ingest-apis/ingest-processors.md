@@ -21,3 +21,5 @@ GET /_nodes/ingest
 
 To set up and deploy ingest processors, make sure you have the necessary permissions and access rights. You can learn more about the processor types within their respective documentation.
 {: .note}
+
+See the [Processors Reference](<insert link>) section for more information about each ingest processor.
