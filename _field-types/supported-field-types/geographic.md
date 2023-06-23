@@ -12,7 +12,7 @@ redirect_from:
 
 # Geographic field types
 
-Geographic fields contain values that represent points or shapes on a map. The following table lists all geographic field types that OpenSearch supports.
+The following table lists all geographic field types that OpenSearch supports.
 
 Field data type | Description
 :--- | :---  

@@ -3,8 +3,7 @@ layout: default
 title: Date
 nav_order: 25
 has_children: false
-parent: Date field types
-grand_parent: Supported field types
+parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/date/
   - /field-types/date/
