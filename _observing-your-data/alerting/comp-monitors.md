@@ -109,25 +109,32 @@ POST _plugins/_alerting/workflows
 
 #### Using Painless scripting language to define alert chains
 
-Composite monitor configuration employs the [Painless scripting language](https://www.elastic.co/guide/en/elasticsearch/painless/7.17/painless-guide.html) to define the conditions for chaining alerts. Conditions are applied for each execution of the composite monitor. You specify the definition for the chain in the `triggers.chained_alert_triggers.condition.script.source` field of the request. Using Painless syntax, you can apply logic to links between monitors with basic Boolean operators AND, OR, NOT. See the following examples to understand how each is used in the monitor definition.
+Composite monitor configuration employs the [Painless scripting language](https://www.elastic.co/guide/en/elasticsearch/painless/7.17/painless-guide.html) to define the conditions for chaining alerts. Conditions are applied for each execution of the composite monitor. You specify the definition for the chain in the `triggers.chained_alert_triggers.condition.script.source` field of the request. Using Painless syntax, you can apply logic to links between monitors with basic Boolean operators AND, OR, NOT, and precedence.
+
+* AND = `&&`
+* OR = `||`
+* NOT = `!`
+* precedence = `()`
+
+See the following examples to understand how each is used in the monitor definition.
 
 * **Example 1**
    
    `monitor[id=1] && monitor[id=2]`
    
-   The following conditions for delegate monitors will trigger the composite monitor to produce an alert when both monitor #1 and (`$$`) monitor #2 generate an alert.
+   The following conditions for delegate monitors will trigger the composite monitor to produce an alert when both monitor #1 AND (`&&`) monitor #2 generate an alert.
 
 * **Example 2**
    
    `monitor[id=1] || monitor[id=2]`
 
-   The following conditions will trigger the composite monitor to produce an alert when either monitor #1 or (`||`) monitor #2 generates an alert.
+   The following conditions will trigger the composite monitor to produce an alert when either monitor #1 OR (`||`) monitor #2 generates an alert.
 
 * **Example 3**
    
    `monitor[id=1] && (!monitor[id=2] || monitor[id=3])`
 
-   The following conditions will trigger the composite monitor to produce an alert when monitor #1 and (`$$`) not (`!`) monitor #2, or (`||`) when monitor #3 generates an alert.
+   The following conditions will trigger the composite monitor to produce an alert when monitor #1 generates an alert AND monitor #2 does NOT, OR, monitor #3 does generate an alert.
    
 The order of monitor IDs in the Painless script does not define the sequence of execution for the monitors. The sequence of monitor execution is defined in the `inputs.composite_input.sequence.delegates.order` field in the request.
 {: .note }
