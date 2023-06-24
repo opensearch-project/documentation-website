@@ -52,7 +52,7 @@ GET shakespeare/_search
 
 The `function_score` query type supports the following functions:
 
-- Built in:
+- Built-in:
     - `weight`: Multiplies a document score by a predefined boost factor.
     - `random_score`: Provides a random score that is consistent for a single user but different between users.
     - `field_value_factor`: Uses the value of the specified document field to recalculate the score. 
@@ -80,7 +80,7 @@ Unlike the `boost` value, the `weight` function is not normalized.
 
 ## The random score function
 
-The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. By default, the `random_score` function uses internal Lucene document IDs as seed values, making random values irreproducible because documents can be renumbered after merges. To achieve consistency in generating random values, you can provide `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated based on the `seed`, the `fielddata` values for the `field`, and a salt calculated based on the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the update of the `_seq_no`.
+The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. By default, the `random_score` function uses internal Lucene document IDs as seed values, making random values irreproducible because documents can be renumbered after merges. To achieve consistency in generating random values, you can provide `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated based on the `seed`, the `fielddata` values for the `field`, and a salt calculated based on the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the corresponding `_seq_no` update.
 
 The following query uses the `random_score` function with a `seed` and `field`:
 
@@ -208,7 +208,133 @@ Decay functions calculate scores based on the `origin`, `scale`, `offset`, and `
 
 <img src="{{site.url}}{{site.baseurl}}/images/decay-functions.png" alt="Decay function curves" width="600">
 
-Suppose you're looking for a hotel near the office. The `origin` defines the point from which the distance is calculated (the office location). The `offset` specifies the distance from the origin within which documents are given a full score of 1. You can give hotels within 200 feet of the office the same highest score. The `scale` defines the decay rate of the graph, and the `decay` defines the score to assign to a document at the `scale` + `offset` distance from the origin. Once you get outside the 200 feet radius, you may decide that if you have to walk another 300 feet to get to a hotel (`scale` = 300 ft) you'll assign it a quarter of the original score (`decay` = 0.25).
+### Example: Geopoint fields
+
+Suppose you're looking for a hotel near the office. You create a `hotels` index that maps the `location` field as a geopoint:
+
+```json
+PUT hotels
+{
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+You index two documents that correspond to nearby hotels:
+
+```json
+PUT hotels/_doc/1
+{
+  "name": "Hotel Within 200",
+  "location": { 
+    "lat": 40.7105,
+    "lon": 74.00
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT hotels/_doc/2
+{
+  "name": "Hotel Outside 500",
+  "location": { 
+    "lat": 40.7115,
+    "lon": 74.00
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `origin` defines the point from which the distance is calculated (the office location). The `offset` specifies the distance from the origin within which documents are given a full score of 1. You can give hotels within 200 feet of the office the same highest score. The `scale` defines the decay rate of the graph, and the `decay` defines the score to assign to a document at the `scale` + `offset` distance from the origin. Once you get outside the 200 feet radius, you may decide that if you have to walk another 300 feet to get to a hotel (`scale` = 300 ft) you'll assign it a quarter of the original score (`decay` = 0.25).
+
+You create the following query with the `origin` at (74.00, 40.71):
+
+```json
+GET hotels/_search
+{
+  "query": {
+    "function_score": {
+      "functions": [
+        {
+          "exp": {
+            "location": { 
+              "origin": "40.71,74.00",
+              "offset": "200ft",
+              "scale":  "300ft",
+              "decay": 0.25
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains both hotels. The hotel within 200 feet of the office has the score of 1, and the hotel outside 500 feet has a score 0.20, which is less than the `decay` parameter 0.25:
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 854,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "hotels",
+        "_id": "1",
+        "_score": 1,
+        "_source": {
+          "name": "Hotel Within 200",
+          "location": {
+            "lat": 40.7105,
+            "lon": 74
+          }
+        }
+      },
+      {
+        "_index": "hotels",
+        "_id": "2",
+        "_score": 0.20099315,
+        "_source": {
+          "name": "Hotel Outside 500",
+          "location": {
+            "lat": 40.7115,
+            "lon": 74
+          }
+        }
+      }
+    ]
+  }
+}
+```
+</details>
+
+### Parameters
 
 The following table lists all parameters supported by the `gauss`, `exp`, and `linear` functions.
 
@@ -219,7 +345,7 @@ Parameter | Description
 `scale` | Documents at the distance of `scale` + `offset` from the `origin` are assigned a score of `decay`. Required. <br>For numeric fields, `scale` can be any number. <br>For date fields, `scale` can be defined as a number and [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`5h`, `1d`). If units are not provided, defaults to milliseconds. <br>For geopoint fields, `scale` can be defined as a number and [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`1mi`, `5km`). If units are not provided, defaults to meters.
 `decay` | Defines the score of a document at the distance of `scale` + `offset` from the `origin`. Optional. Default is 0.5.
 
-If the field is missing from the document, decay functions return 1.
+For fields that are missing from the document, decay functions return a score of 1.
 {: .note}
 
 ### Example: Numeric fields
