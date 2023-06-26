@@ -172,7 +172,7 @@ PUT testindex1/_doc/100
 ```
 {% include copy-curl.html %}
 
-We can update our query to use a nested query to sucessfully search for patient results. To search for patients older than 75 OR smokers:
+You can use the following nested query to search for patients older than 75 OR smokers:
 
 ```json
 GET testindex1/_search
@@ -204,7 +204,8 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The above will return:
+The query correctly returns both patients:
+
 ```json
 {
   "took" : 7,
@@ -246,7 +247,8 @@ The above will return:
 }
 ```
 
-Searching for patients older than 75 AND smokers:
+You can use the following nested query to search for patients older than 75 AND smokers:
+
 ```json
 GET testindex1/_search
 {
@@ -277,7 +279,8 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-Will return no results as expected.
+The previous query returns no results, as expected:
+
 ```json
 {
   "took" : 7,
