@@ -94,7 +94,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```
    {% include copy.html %}
 
-1. Run the demo security script.
+1. Run the OpenSearch startup script with the security demo configuration.
    ```bash
    ./opensearch-tar-install.sh
    ```
