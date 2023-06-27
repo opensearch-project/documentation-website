@@ -34,19 +34,19 @@ PUT /_ingest/pipeline/my_pipeline
 }
 ```
 
-#### Remove parameters
+#### Configuration parameters
 
 The following table lists the required and optional parameters for the `remove` processor.
 
 | Name  | Required  | Description  |
 |---|---|---|
-| `field`  | Yes  | Specifies the name of the field that you want to remove. |
-| `ignore_missing`  | No  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
-| `ignore_failure`  | No  |  Specifies whether the processor should continue processing documents even if it fails to remove the specified field. Default is `false`.  |
-| `if`  | No  | Conditionally deploys the processor based on the value of the field. The `value` parameter specifies the value that you want to compare the field to. |
-| `tag`  | No  | Allows you to identify the processor for debugging and metrics.  |
+| `field`  | Required  | Specifies the name of the field that you want to remove. |
+| `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
+| `ignore_failure`  | Optional  |  Specifies whether the processor should continue processing documents even if it fails to remove the specified field. Default is `false`.  |
+| `if`  | Optional  | Conditionally deploys the processor based on the value of the field. The `value` parameter specifies the value that you want to compare the field to. |
+| `tag`  | Optional  | Allows you to identify the processor for debugging and metrics.  |
 
-This example uses all of the options:
+The following is an example using the options:
 
 ```json
 {

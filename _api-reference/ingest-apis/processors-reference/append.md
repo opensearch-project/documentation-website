@@ -8,41 +8,31 @@ nav_order: 10
 
 # Append
 
-The append ingest processor enriches incoming data during the ingestion process by appending additional fields or values to each document. The append processor operates on a per-dcoument basis, meaning it processes each incoming document individually. Learn how to use the append processor in your data processing workflows in the following documentation. 
+The `append` proccessor is used to add additional fields or values to a document. The syntax for the `append` processor is: 
+
+```json
+{
+    "append": {
+        "field": "field_name",
+        "value": ["value1"]
+    }
+}
+```
 
 ## Configuration parameters
 
-The append processor supports the following parameters.
+The following table lists the required and optional parameters for the `append` processor.
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
 `field` | Required | Name of the field where the data should be appended. |
 `value` | Required| Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. |
-`fields` | A list of fields from which to copy values. |
 `ignore_empty_fields` | Optional | If set to true, empty values will be ignored when appending then to the target field. | 
 `fail_on_error` | Optional | If set to true, the processor will fail it an error occurs. The default value is false.
 `allow_duplicates` | Optional | If set to false, the processor will not append values that already exist in the target field. The default value is set to true.
 `ignore_missing` | Optional | If set to true, the processor will ignore events that lack the target field. The default value is false. 
 
-Following are examples of an append processor configuration and how to add it to an ingest pipeline.
-
-#### Example: Append processor configuration 
-
-```json
-{
-  "description": "Appends the current timestamp to the document",
-  "processors": [
-    {
-      "append": {
-        "field": "timestamp",
-        "value": "{{_timestamp}}"
-      }
-    }
-  ]
-}
-```
-
-#### Example: Adding the append configuration to an ingest pipeline using the REST API
+Following is an examples of adding the `append` processor to an ingest pipeline using the REST API.
 
 ```json
 PUT _ingest/pipeline/<pipeline-id>
@@ -52,7 +42,7 @@ PUT _ingest/pipeline/<pipeline-id>
     {
       "append": {
         "field": "timestamp",
-        "value": "{{_timestamp}}"
+        "value": ["_timestamp"]
       }
     }
   ]
