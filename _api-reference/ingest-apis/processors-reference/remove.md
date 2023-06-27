@@ -36,7 +36,7 @@ PUT /_ingest/pipeline/my_pipeline
 
 #### Remove parameters
 
-The following table lists the required and optional remove parameters.
+The following table lists the required and optional parameters for the `remove` processor.
 
 | Name  | Required  | Description  |
 |---|---|---|
