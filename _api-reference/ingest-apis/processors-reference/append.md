@@ -32,7 +32,7 @@ The following table lists the required and optional parameters for the `append` 
 `allow_duplicates` | Optional | If set to false, the processor will not append values that already exist in the target field. The default value is set to true.
 `ignore_missing` | Optional | If set to true, the processor will ignore events that lack the target field. The default value is false. 
 
-Following is an examples of adding the `append` processor to an ingest pipeline using the REST API.
+Following is an examples of adding the `append` processor to an ingest pipeline.
 
 ```json
 PUT _ingest/pipeline/<pipeline-id>

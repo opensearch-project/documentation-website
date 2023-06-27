@@ -8,11 +8,22 @@ nav_order: 20
 
 # Bytes
 
-The bytes ingest processor converts a human-readable byte value to its equivalent value in bytes. The field can be a scalar or an array. If the field is a scalar, the value will be converted and stored in the field. If the field is an array, all members of the array will be converted.
+The `bytes` processor converts a human-readable byte value to its equivalent value in bytes. The field can be a scalar or an array. If the field is a scalar, the value will be converted and stored in the field. If the field is an array, all members of the array will be converted.
+
+The syntax for the `bytes` processor is: 
+
+```json
+{
+    "bytes": {
+        "field": "file.size",
+        "target_field": "file.size_bytes"
+    }
+}
+```
 
 ## Configuration parameters
 
-The byte processor supports the following parameters. 
+The following table lists the required and optional parameters for the `bytes` processor.  
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
@@ -25,11 +36,10 @@ The byte processor supports the following parameters.
 `tag` | Optional | Tag that can be used to identify the processor. | 
 `description` | Optional | Brief description of the processor. |  
 
-Following is an example of a byte ingest processor configuration.
-
-#### Example: Byte processor configuration
+Following is an examples of adding the `bytes` processor to an ingest pipeline.
 
 ```json
+PUT _ingest/pipeline/<pipeline-id>
 {
   "description": "Converts the file size field to bytes",
   "processors": [
