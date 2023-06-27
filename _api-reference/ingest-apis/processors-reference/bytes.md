@@ -27,16 +27,16 @@ The following table lists the required and optional parameters for the `bytes` p
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
-`field` | Required | Name of the field where the data should be converted. |
-`target_field` | Required | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`. |
-`ignore_missing` | Optional | If set to true, the processor will not fail if the field does not exist. Default is `false`. |
-`if` | Optional | Conditional expression that determines whether the processor should be deployed. |
-`ignore_failure` | Optional | If set to true, the processor will not fail if an error occurs. | 
-`on_failure` | Optional | Action to take if an error occurs. | 
-`tag` | Optional | Tag that can be used to identify the processor. | 
-`description` | Optional | Brief description of the processor. |  
+`field`  | Required  | Name of the field where the data should be converted.  |
+`target_field`  | Required  | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
+`ignore_missing`  | Optional  | If set to true, the processor will not fail if the field does not exist. Default is `false`. |
+`if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  |
+`ignore_failure`  | Optional  | If set to true, the processor will not fail if an error occurs.  | 
+`on_failure`  | Optional  | Action to take if an error occurs.  | 
+`tag`  | Optional  | Tag that can be used to identify the processor.  | 
+`description`  | Optional  | Brief description of the processor.  |  
 
-Following is an examples of adding the `bytes` processor to an ingest pipeline.
+Following is an example of adding the `bytes` processor to an ingest pipeline.
 
 ```json
 PUT _ingest/pipeline/<pipeline-id>

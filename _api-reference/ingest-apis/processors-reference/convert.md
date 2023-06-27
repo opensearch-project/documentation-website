@@ -8,31 +8,37 @@ nav_order: 30
 
 # Convert
 
-The convert ingest processor converts a field in a document to a different type. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`.
+The `convert` processor converts a field in a document to a different type. The syntax for the `convert` processor is: 
 
-Specifying `boolean` will set the field to `true` if its string value is equal to `true` (ignore case), to false if its string value is equal to `false` (ignore case), or it will throw an exception otherwise.
+```json
+{
+    "convert": {
+        "field": "field_name",
+        "type": "target_type"
+    }
+}
+```
 
 ## Configuration parameters
 
-The byte processor supports the following parameters. 
+The following table lists the required and optional parameters for the `convert` processor.   
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
-`field` | Required | Name of the field where the data should be converted. |
-`target_field` | Optional | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`. |
-`type` | Required | 
-`ignore_missing` | Optional | If set to true, the processor will not fail if the field does not exist. Default is `false`. |
-`if` | Optional | Conditional expression that determines whether the processor should be deployed. |
-`ignore_failure` | Optional | If set to true, the processor will not fail if an error occurs. | 
-`on_failure` | Optional | Action to take if an error occurs. | 
-`tag` | Optional | Tag that can be used to identify the processor. | 
-`description` | Optional | Brief description of the processor. |  
+`field`  | Required  | Name of the field where the data should be converted.  |
+`type`  | Required  | The field's target type. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. Specifying `boolean` will set the field to `true` if its string value is equal to `true` (ignore case), to false if its string value is equal to `false` (ignore case), or it will throw an exception otherwise.  |
+`target_field`  | Optional  | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
+`ignore_missing`  | Optional  | If set to true, the processor will not fail if the field does not exist. Default is `false`.  |
+`if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  |
+`ignore_failure`  | Optional  | If set to true, the processor will not fail if an error occurs.  | 
+`on_failure`  | Optional  | Action to take if an error occurs.  | 
+`tag`  | Optional  | Tag that can be used to identify the processor.  | 
+`description`  | Optional  | Brief description of the processor.  |  
 
-Following is an example of a convert ingest processor configuration.
-
-#### Example: Convert processor configuration
+Following is an example of adding the `convert` processor to an ingest pipeline.
 
 ```json
+PUT _ingest/pipeline/<pipeline-id>
 {
   "description": "Converts the file size field to an integer",
   "processors": [
