@@ -14,7 +14,6 @@ The `date` processor is used to parse dates from fields in a document annd store
 {
   "date": {
     "field": "date_field",
-    "target_field": ["parsed_date"],
     "formats": ["yyyy/MM/dd HH:mm:ss", "ISO8601"]
   }
 }
