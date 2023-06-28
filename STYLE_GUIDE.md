@@ -160,8 +160,6 @@ The following table lists acronyms that you don't need to spell out.
 
 - Use bold text for all UI elements, including pages, panes, and dialog boxes. In all cases, emphasize what the user must do as opposed to talking about the UI element itself.
 
-- Reference images in the text that precedes them. For example, "..., as shown in the following image."
-
 - Stacked headings should never appear in our content. Stacked headings are any two consecutive headings without intervening text. Even if it is just an introductory sentence, there should always be text under any heading.
 
 - Use italics for the titles of books, periodicals, and reference guides. However, do not use italics when the title of a work is also a hyperlink.
@@ -170,6 +168,16 @@ The following table lists acronyms that you don't need to spell out.
      1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
      2. When referring to API operations by the exact name of the endpoint, use lowercase with code format (example: "`_field_caps` API").
      3. When describing API operations but not using the exact name of the endpoint, use lowercase (example: "field capabilities API operations" or "field capabilities operations").
+
+### Images
+
+- Add introductory text that provides sufficient context for each image.
+
+- Add ALT text that describes the image for screen readers.
+
+- When you’re describing the location of an image, use words such as *preceding*, *previous*, or *following* instead of *above* and *below*.
+
+- Text that introduces an image should be a complete sentence and end with a period, not a colon.
 
 ### Links
 
