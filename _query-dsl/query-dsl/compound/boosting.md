@@ -8,7 +8,7 @@ nav_order: 30
 
 # Boosting queries
 
-If you're searching for the word "pitcher" in the context of baseball, you don't want the results to contain glass pitchers that you can buy to serve drinks. You might want to exclude results that contain the words "glass" or "water" completely by using the `must_not` clause. However, if you want to keep those results but downgrade them in relevance, you can do it with `boosting` queries. 
+If you're searching for the word "pitcher", your results may relate to either baseball players or containers for liquids. For a search in the context of baseball, you might want to exclude results that contain the words "glass" or "water" completely by using the `must_not` clause. However, if you want to keep those results but downgrade them in relevance, you can do so with `boosting` queries. 
 
 A `boosting` query returns documents that match a `positive` query. Among those documents, the ones that also match the `negative` query are scored lower in relevance (their relevance score is multiplied by the negative boosting factor).
 
