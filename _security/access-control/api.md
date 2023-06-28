@@ -38,17 +38,17 @@ plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 
 Roles also allow you to control access to specific REST APIs. You can add individual or multiple cluster permissions to a role and grant users access to associated APIs when they are mapped to the role. The following list of cluster permissions includes the endpoints that correspond to the Security REST APIs:
 
-| **Permission**                 | **APIs Granted**                 | **Description**                                                                                                                                   |
-|:-------------------------------|:---------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------|
-| restapi:admin/actiongroups     | `/actiongroup` & `/actiongroups` | Permission to get, delete, create, and patch actions groups (including bulk updates)                                                              |
-| restapi:admin/allowlist        | `/allowlist`                     | Permission to add any endpoints and HTTP requests to a list of allowed endpoints and requests.                                                    |
-| restapi:admin/internalusers    | `/internaluser` & `/user`        | Permission to add, retrieve, modify and delete any user in the cluster                                                                            |
-| restapi:admin/nodesdn          | `/nodesdn`                       | Permission to add, retrieve, update, or delete any distinguished names from an allow list and enable communication between clusters and/or nodes. |
-| restapi:admin/roles            | `/roles`                         | Permission to add, retrieve, modify and delete any roles in the cluster                                                                           |
-| restapi:admin/rolesmapping     | `/rolesmapping`                  | Permission to add, retrieve, modify and delete any roles-mapping                                                                                  |
-| restapi:admin/ssl/certs/info   | `/ssl/certs/info`                | Permission to view current Transport & HTTP certificates                                                                                          |
-| restapi:admin/ssl/certs/reload | `/ssl/certs/reload`              | Permission to view reload Transport & HTTP certificates                                                                                           |
-| restapi:admin/tenants          | `/tenants`                       | Permission to get, delete, create, and patch tenants                                                                                              |
+| **Permission**                 | **APIs granted**                   | **Description**                                                                                                                                    |
+|:-------------------------------|:-----------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+| restapi:admin/actiongroups     | `/actiongroup` and `/actiongroups` | Permission to get, delete, create, and patch actions groups (including bulk updates).                                                              |
+| restapi:admin/allowlist        | `/allowlist`                       | Permission to add any endpoints and HTTP requests to a list of allowed endpoints and requests.                                                     |
+| restapi:admin/internalusers    | `/internaluser` and `/user`        | Permission to add, retrieve, modify, and delete any user in the cluster.                                                                           |
+| restapi:admin/nodesdn          | `/nodesdn`                         | Permission to add, retrieve, update, or delete any distinguished names from an allow list and enable communication between clusters and/or nodes.  |
+| restapi:admin/roles            | `/roles`                           | Permission to add, retrieve, modify, and delete any roles in the cluster.                                                                          |
+| restapi:admin/rolesmapping     | `/rolesmapping`                    | Permission to add, retrieve, modify, and delete any roles-mapping.                                                                                 |
+| restapi:admin/ssl/certs/info   | `/ssl/certs/info`                  | Permission to view current Transport and HTTP certificates.                                                                                        |
+| restapi:admin/ssl/certs/reload | `/ssl/certs/reload`                | Permission to view reload Transport and HTTP certificates.                                                                                         |
+| restapi:admin/tenants          | `/tenants`                         | Permission to get, delete, create, and patch tenants.                                                                                              |
 
 
 
@@ -173,7 +173,7 @@ PUT _plugins/_security/api/account
 
 #### Request fields
 
-| Field              | Data Type  | Description                    | Required  |
+| Field              | Data type  | Description                    | Required  |
 |:-------------------|:-----------|:-------------------------------|:----------|
 | current_password   | String     | The current password.          | Yes       |
 | password           | String     | The new password to set.       | Yes       |
@@ -201,7 +201,7 @@ PUT _plugins/_security/api/account
 
 #### Response fields
 
-| Field    | Data Type  | Description                   |
+| Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
 | status   | String     | The status of the operation.  |
 | message  | String     | A descriptive message.        |
@@ -1376,7 +1376,7 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 
 ### Update all distinguished names
 
-Bulk updates the given list of distinguished names.
+Makes a bulk update for the list of distinguished names.
 
 #### Path and HTTP methods
 
@@ -1387,11 +1387,11 @@ PATCH _plugins/_security/api/nodesdn
 
 #### Request fields
 
-| Field           | Data Type  | Description                                                                                                        | Required |
-|:----------------|:-----------|:-------------------------------------------------------------------------------------------------------------------|:---------|
-| op              | string     | The operation to perform on the action group. Possible values: `remove`,`add`, `replace`, `move`, `copy`, `test`.  | Yes      |
-| path            | string     | The path to the resource.                                                                                          | Yes      |
-| value           | array      | The new value to replace the property's value with.                                                                | Yes      |
+| Field           | Data type  | Description                                                                                                       | Required |
+|:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
+| op              | string     | The operation to perform on the action group. Possible values: `remove`,`add`, `replace`, `move`, `copy`, `test`. | Yes      |
+| path            | string     | The path to the resource.                                                                                         | Yes      |
+| value           | Array      | The new values used for the update.                                                                               | Yes      |
 
 
 ##### Example request
@@ -1400,8 +1400,9 @@ PATCH _plugins/_security/api/nodesdn
 PATCH _plugins/_security/api/nodesdn
 [
    {
-      "op":"remove",
-      "path":"/cluster1/nodes_dn/0"
+      "op":"replace",
+      "path":"/cluster1/nodes_dn/0",
+      "value": ["CN=Karen Berge,CN=admin,DC=corp,DC=Fabrikam,DC=COM", "CN=George Wall,CN=admin,DC=corp,DC=Fabrikam,DC=COM"]
    }
 ]
 ```
@@ -1418,7 +1419,7 @@ PATCH _plugins/_security/api/nodesdn
 
 #### Response fields
 
-| Field   | Data Type | Description          |
+| Field   | Data type | Description          |
 |:--------|:----------|:---------------------|
 | status  | string    | The response status. |
 | message | string    | Response message.    |
@@ -1516,10 +1517,10 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/transpor
 
 #### Response fields
 
-| Field   | Data Type | Description                                                                       |
+| Field   | Data type | Description                                                                       |
 |:--------|:----------|:----------------------------------------------------------------------------------|
-| status  | string    | Indicates the status of the operation. Possible values: "OK" or an error message. |
-| message | string    | Additional information about the operation.                                       |
+| status  | String    | Indicates the status of the operation. Possible values: "OK" or an error message. |
+| message | String    | Additional information about the operation.                                       |
 
 
 #### Reload HTTP certificates
@@ -1552,10 +1553,10 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/http/rel
 
 #### Response fields
 
-| Field   | Data Type | Description                                                         |
+| Field   | Data type | Description                                                         |
 |:--------|:----------|:--------------------------------------------------------------------|
-| status  | string    | The status of the API operation. Possible value: "OK".              |
-| message | string    | A message indicating that the HTTP certificates have been updated.  |
+| status  | String    | The status of the API operation. Possible value: "OK".              |
+| message | String    | A message indicating that the HTTP certificates have been updated.  |
 
 ---
 
@@ -1633,7 +1634,7 @@ You can do an initial configuration of audit logging in the `audit.yml` file, fo
 
 #### Request fields
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 `enabled` | Boolean | Enables or disables audit logging. Default is `true`.
 `audit` | Object | Contains fields for audit logging configuration.
