@@ -39,7 +39,7 @@ The following code example shows how to create an IP2Geo data source.
 
 #### Example: PUT Request
 
-````json
+```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 {
     "endpoint" : "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
@@ -63,7 +63,7 @@ To get information about one or more IP2Geo data sources, send a GET request.
 
 #### Example: GET Request
 
-```bash
+```json
 GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 
@@ -132,7 +132,7 @@ To update succesfully an IP2Geo data source, the GeoIP database from the latest-
 
 #### Example: DELETE request
 
-```bash
+```json
 DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 
@@ -208,7 +208,6 @@ PUT /my-index/_doc/my-id?pipeline=ip2geo
 }
 
 GET /my-index/_doc/my-id
-
 {
    "_index":"my-index",
    "_id":"my-id",
