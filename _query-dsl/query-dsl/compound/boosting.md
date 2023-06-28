@@ -47,7 +47,7 @@ Both returned documents have the same relevance score:
 
 ```json
 {
-  "took": 3,
+  "took": 5,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -73,7 +73,7 @@ Both returned documents have the same relevance score:
       {
         "_index": "testindex",
         "_id": "2",
-        "_score": 0.018232157,
+        "_score": 0.18232156,
         "_source": {
           "article_name": "The making of a glass pitcher"
         }
