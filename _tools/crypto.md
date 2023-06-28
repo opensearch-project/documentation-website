@@ -19,10 +19,12 @@ To register an encryption enabled repository for <remote-store>.
 | Field | Type | Description |
 | :--- | :--- |:--- |
 | `type` | String | Operation to be performed. Options include `remove`, ... Required. |
+| `encrypted` | Boolean | Determines whether the repository is encrypted or not. Set to `true` to encrypt the repository. |
 | `settings.bucket` | String | Path to the target distinguished name to be updated. Required. |
 | `settings.region` | String | Path to the target distinguished name to be updated. Required. |
 | `encrypted` | Boolean | Path to the target distinguished name to be updated. Required. |
-| `crypto_settings.key_provider_name` | String | Path to the target distinguished name to be updated. Required. |
+| `crypto_settings.key_provider_name` | String |  |
+| `crypto_settings.key_provider_type` | String |  |
 
 
 #### Example request
