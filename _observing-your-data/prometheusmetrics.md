@@ -20,9 +20,9 @@ The following image shows the process of ingesting metrics from Prometheus and v
 
 You can view metrics collected from Prometheus in OpenSearch Dashboards by first creating a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the SQL plugin. 
 
-To configure a connection to Prometheus, one can use datasource configuration APIs. 
+To configure a connection to Prometheus, you can use the `_datasources` configuration API endpoint. 
 
-Example Request for Prometheus datasource with no authentication.
+The following example request configures a Prometheus data source with no authentication:
 
 ```json
 POST _plugins/_query/_datasources 
@@ -35,7 +35,7 @@ POST _plugins/_query/_datasources
 }
 ```
 
-Example Request for Prometheus datasource with AWS SigV4 authentication:
+The following example request configures a Prometheus data source with AWS SigV4 authentication:
 
 ```json
 POST _plugins/_query/_datasources
@@ -56,7 +56,7 @@ After configuring the connection from Prometheus to OpenSearch, Prometheus metri
 
 ![Metrics UI example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
 
-* For more information related to authn/authz of datasource APIs, see the [Datasource](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst) GitHub Page.
+* For more information about authentication and authorization of data source APIs, see [data source documentation on GitHub](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst).
 * For more information about Prometheus connector, see the [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/prometheus_connector.rst) GitHub page.
 
 ## Creating visualizations based on metrics
