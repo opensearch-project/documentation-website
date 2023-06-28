@@ -162,6 +162,7 @@ Once the IP2Geo data source is created, you can create the `ip2geo` processor.
     }
    ] 
 }
+```
 
 #### Example: Response
 
@@ -206,11 +207,8 @@ PUT /my-index/_doc/my-id?pipeline=ip2geo
   "ip": "172.0.0.1"
 }
 
-```bash
 GET /my-index/_doc/my-id
-```
 
-```
 {
    "_index":"my-index",
    "_id":"my-id",
