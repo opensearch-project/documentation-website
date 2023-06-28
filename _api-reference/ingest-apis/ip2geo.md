@@ -210,8 +210,7 @@ PUT /my-index/_doc/my-id?pipeline=ip2geo
 GET /my-index/_doc/my-id
 ```
 
-which returns,
-
+```
 {
    "_index":"my-index",
    "_id":"my-id",
