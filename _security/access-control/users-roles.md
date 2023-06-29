@@ -5,6 +5,7 @@ parent: Access control
 nav_order: 80
 redirect_from:
  - /security/access-control/users-roles/
+ - /security-plugin/access-control/users-roles/
 ---
 
 # Users and roles

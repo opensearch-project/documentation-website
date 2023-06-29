@@ -6,9 +6,12 @@ nav_order: 5
 has_children: true
 has_toc: false
 redirect_from:
-  - /search-plugins/sql/ppl
-  - /search-plugins/ppl
-  - /observability-plugin/ppl
+  - /search-plugins/sql/ppl/
+  - /search-plugins/ppl/
+  - /observability-plugin/ppl/
+  - /search-plugins/ppl/index/
+  - /search-plugins/ppl/endpoint/
+  - /search-plugins/ppl/protocol/
 ---
 
 # PPL &ndash; Piped Processing Language
@@ -51,7 +54,7 @@ search source=accounts
 | fields firstname, lastname
 ```
 
-#### Sample Response
+#### Example response
 
 firstname | lastname |
 :--- | :--- |

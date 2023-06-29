@@ -12,7 +12,7 @@ redirect_from:
 
 # String field types
 
-The following table lists all string field types that OpenSearch supports.
+String field types contain text values or values derived from text. The following table lists all string field types that OpenSearch supports.
 
 Field data type | Description
 :--- | :---  

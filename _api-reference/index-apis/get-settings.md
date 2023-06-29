@@ -2,7 +2,7 @@
 layout: default
 title: Get settings
 parent: Index APIs
-nav_order: 100
+nav_order: 45
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
 ---
@@ -30,7 +30,7 @@ GET /<target-index>/_settings/<setting>
 
 ## URL parameters
 
-All update settings parameters are optional.
+All get settings parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
