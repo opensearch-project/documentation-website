@@ -37,7 +37,7 @@ There are two ways to contribute content depending on the magnitude of the chang
 - [Minor changes](#making-minor-changes): For small changes like fixing a typo or adding a parameter, you can edit files in GitHub directly. This approach does not require cloning the repository and does not let you test the documentation.
 - [Major changes](#making-major-changes): For changes you want to test first, like reorganizing pages or adding a table or section, you can edit files locally and push the changes to GitHub. This approach requires setting up a local version of the repository and lets you test documentation.
 
-### Documentation workflow
+### Contribution workflow
 
 The workflow for contributing documentation is no different than the one for contributing code:
 
@@ -56,11 +56,11 @@ Before contributing content, make sure to read the following resources:
 - [API Style Guide](API_STYLE_GUIDE.md)
 - [Formatting Guide](FORMATTING_GUIDE.md) 
 
-NOTE: Please make sure that any documentation you submit is your work or work you have the rights to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a [Developer Certificate of Origin (DCO)](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md#developer-certificate-of-origin) that states you have the rights to submit this work and you understand we'll use your contribution. 
+NOTE: Please make sure that any documentation you submit is your work or work that you have the rights to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a [Developer Certificate of Origin (DCO)](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md#developer-certificate-of-origin) that states you have the rights to submit this work and you understand we'll use your contribution. 
 
 ### Making minor changes
 
-If you want to add a few paragraphs to a file, try this approach:
+If you want to make minor changes to an existing file, you can use this approach:
 
 1. [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
 
@@ -72,7 +72,7 @@ If you want to add a few paragraphs to a file, try this approach:
 
 ### Making major changes
 
-If you're making major changes to the documentation and need to see the rendered HTML before submitting a pull request, you need to work in a local copy of the repository. 
+If you're adding new pages or making major changes to the documentation, we recommend that you work in a local copy of the repository and test the rendered HTML before submitting a pull request. 
 
 #### Setting up your local copy of the repository
 
