@@ -60,14 +60,24 @@ Official OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/o
 [Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
 docker pull opensearchproject/opensearch:1
+```
+{% include copy.html %}
+
+```bash
 docker pull opensearchproject/opensearch-dashboards:1
 ```
+{% include copy.html %}
 
 [Amazon ECR](https://gallery.ecr.aws/opensearchproject/):
 ```bash
 docker pull public.ecr.aws/opensearchproject/opensearch:1
+```
+{% include copy.html %}
+
+```bash
 docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:1
 ```
+{% include copy.html %}
 
 To download a specific version of OpenSearch or OpenSearch Dashboards other than the latest available version, modify the image tag where it is referenced (either in the command line or in a Docker Compose file). For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. To pull the latest version, use `opensearchproject/opensearch:latest`. Refer to the official image repositories for available versions. 
 {: .tip}
