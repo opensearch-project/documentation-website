@@ -31,7 +31,7 @@ The `untriaged` label is assigned automatically. During the triage process, the 
 
 There are two ways to contribute content depending on the magnitude of the change:
 
-- [Minor changes](#making-minor-changes): For small changes like fixing a typo or adding a parameter, you can edit files in GitHub directly. This approach does not require cloning the repository and does not let you test the documentation.
+- [Minor changes](#making-minor-changes): For small changes to existing files, like fixing typos or adding parameters, you can edit files in GitHub directly. This approach does not require cloning the repository and does not allow you to test the documentation.
 - [Major changes](#making-major-changes): For changes you want to test first, like adding new or reorganizing pages or adding a table or section, you can edit files locally and push the changes to GitHub. This approach requires setting up a local version of the repository and lets you test documentation.
 
 ### Contribution workflow
