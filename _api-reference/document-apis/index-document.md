@@ -91,6 +91,6 @@ result | The result of the index operation.
 _shards | Detailed information about the cluster's shards.
 total | The total number of shards.
 successful | The number of shards OpenSearch successfully added the document to.
-failed | The number of shards OpenSearch failed to added the document to.
+failed | The number of shards OpenSearch failed to add the document to.
 _seq_no | The sequence number assigned when the document was indexed.
 _primary_term | The primary term assigned when the document was indexed.
