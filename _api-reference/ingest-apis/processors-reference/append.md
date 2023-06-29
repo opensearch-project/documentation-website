@@ -57,7 +57,7 @@ PUT testindex1/_doc/1?pipeline=user-behavior
 GET testindex1/_doc/1
 ```
 
-Following is the response:
+Following is the response.
 
 ```json
 {
