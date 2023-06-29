@@ -1,28 +1,40 @@
+- [Finding contributions to work on](#finding-contributions-to-work-on)
+- [Contributing to the documentation](#contributing-to-the-documentation)
+- [Creating an issue](#creating-an-issue)
+- [Contributing content](#contributing-content)
+   - [Before you start](#before-you-start)
+   - [Editing files in GitHub](#editing-files-in-github)
+   - [Making changes locally](#making-changes-locally)
+      - [Setting up your local copy of the repository](#setting-up-your-local-copy-of-the-repository)
+      - [Making, viewing, and submitting changes](#making-viewing-and-submitting-changes)
+- [Review process](#review-process)
+- [Getting help](#getting-help)
+
 # Contributing Guidelines
 
 Thank you for your interest in improving the OpenSource documentation! We value and appreciate all feedback and contributions from our community, including requests for additional documentation, corrections to existing content, and reports of technical issues with the documentation site. 
 
 ## Finding contributions to work on
 
-If you’d like to contribute but don't know where to start, try browsing existing issues. Our projects use custom GitHub issue labels for status, version, type of request, and so on, but we recommend looking at any issues labeled `good first issue` first. 
+If you’d like to contribute but don't know where to start, try browsing existing [issues](https://github.com/opensearch-project/documentation-website/issues). Our projects use custom GitHub issue labels for status, version, type of request, and so on, but we recommend looking at any issues labeled `good first issue` first. 
 
-## Contributing to the documentation site
+## Contributing to the documentation 
 
 There are two ways to contribute: 
-1. [Create an issue](#create-an-issue) asking us to change the documentation.
-2. [Contribute documentation content](#contribute-content) yourself.
+1. [Create an issue](#creating-an-issue) asking us to change the documentation.
+2. [Contribute documentation content](#contributing-content) yourself.
 
-## Create an issue
+## Creating an issue
 
 Use the GitHub issue tracker to describe the change you'd like to make: 
 
-1. Go to https://github.com/opensearch-project/documentation-website/issues and select *New issue*.
-2. Enter the requested information, including as much detail as possible, especially which version or versions the request affects.
-3. Select *Submit new issue*. 
+1. Go to https://github.com/opensearch-project/documentation-website/issues and select **New issue**.
+1. Enter the requested information, including as much detail as possible, especially which version or versions the request affects.
+1. Select **Submit new issue**. 
 
 The `untriaged` label is assigned automatically. During the triage process, the documentation team will add the appropriate labels, assign the issue to a technical writer, and prioritize the request. We may follow up with you for additional information. 
 
-## Contribute content
+## Contributing content
 
 There are two ways to contribute content:
 
@@ -41,10 +53,13 @@ If the change requires significant work, open an issue where we can first discus
 ### Before you start
 
 Before contributing content, make sure to read the following resources:
-- [README](README)
-- [OpenSearch Project Style Guidelines](STYLE_GUIDE)
-- [API Style Guide](API_STYLE_GUIDE)
-- [Formatting Guide](FORMATTING_GUIDE) 
+- [README](README.md)
+- [OpenSearch Project Style Guidelines](STYLE_GUIDE.md)
+- [API Style Guide](API_STYLE_GUIDE.md)
+- [Formatting Guide](FORMATTING_GUIDE.md) 
+
+NOTE: Please make sure that any documentation you submit is your work or work you have the rights to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a [Developer Certificate of Origin (DCO)](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md#developer-certificate-of-origin) that states you have the rights to submit this work and you understand we'll use your contribution. 
+
 
 ### Editing files in GitHub
 
@@ -61,7 +76,11 @@ If you want to add a few paragraphs to a file, try this approach:
 
 ### Making changes locally
 
-If you're making major changes to the documentation and need to see the rendered HTML before submitting a pull request, here's how to make the changes and view them locally:
+If you're making major changes to the documentation and need to see the rendered HTML before submitting a pull request, you need to work in a local copy of the repository. 
+
+#### Setting up your local copy of the repository
+
+Follow these steps to set up your local copy of the repository:
 
 1. [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your fork.
 
@@ -87,13 +106,17 @@ If you're making major changes to the documentation and need to see the rendered
    bundle install
    ```
 
-1. Build:
+#### Making, viewing, and submitting changes 
+
+Here's how to build the website, make the changes, and view them locally:
+
+1. Build the website:
 
    ```
    sh build.sh    
    ```
 
-1. If the build script doesn't automatically open your web browser (it should), open [http://localhost:4000/docs/](http://localhost:4000/docs/).
+   The build script should automatically open your web browser, but if it doesn't, open [http://localhost:4000/docs/](http://localhost:4000/docs/).
 
 1. Create a new branch against the latest source on the main branch. 
 
@@ -103,21 +126,21 @@ If you're making major changes to the documentation and need to see the rendered
 
 1. When you're happy with how everything looks, commit, [sign off](https://github.com/src-d/guide/blob/9171d013c648236c39faabcad8598be3c0cf8f56/developer-community/fix-DCO.md#how-to-prevent-missing-sign-offs-in-the-future), push your changes to your fork, and submit a pull request.
 
-    Note that a pull request requires DCO sign off before we can merge it. You can use the -s command line option to append this automatically to your commit message, for example $ git commit -s -m 'This is my commit message'. For more information, see https://github.com/apps/dco.
+    Note that a pull request requires DCO sign-off before we can merge it. You can use the -s command line option to append this automatically to your commit message, for example `git commit -s -m 'This is my commit message'`. For more information, see https://github.com/apps/dco.
 
 
-### Review process
+## Review process
 
 We greatly appreciate everyone who takes the time to make a contribution. We will review all contributions as quickly as possible. If it’s a quick fix, we should be able to release the update quickly. Bigger requests might take a bit of time for us to review. 
 
 During the PR process, expect that there will be some back-and-forth. Please try to respond to comments in a timely fashion, and if you don't want to continue with the PR, let us know. 
 
-We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](README#style-linting).
+We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](README.md#style-linting).
 
 If we accept the PR, we will merge your change and usually take care of backporting it to appropriate branches ourselves.
 
 
 ## Getting help
 
-For help with any step in the contributing process, please reach out to one of the [points of contact](README#points-of-contact).
+For help with any step in the contributing process, please reach out to one of the [points of contact](README.md#points-of-contact).
 

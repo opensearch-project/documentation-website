@@ -27,16 +27,16 @@ If you want to reorganize content or add new pages, keep an eye on `has_children
 
 Community contributions remain essential in keeping this documentation comprehensive, useful, well-organized, and up-to-date. 
 
-If you are interested in submitting an issue or contributing content, see [CONTRIBUTING](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md).
+If you are interested in submitting an issue or contributing content, see [CONTRIBUTING](CONTRIBUTING.md).
 
 
 ## Writing tips
 
-The OpenSearch team released [style guidelines](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md) for our documentation and marketing content. These guidelines cover the style standards and terms to be observed when creating OpenSearch content. We ask that you please adhere to these guidelines whenever contributing content. 
+The OpenSearch team released [style guidelines](STYLE_GUIDE.md) for our documentation and marketing content. These guidelines cover the style standards and terms to be observed when creating OpenSearch content. We ask that you please adhere to these guidelines whenever contributing content. 
 
-We also provide guidelines on terminology. For a list of OpenSearch terms, see [Terms](https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md).
+We also provide guidelines on terminology. For a list of OpenSearch terms, see [Terms](TERMS.md).
 
-If you are contributing API content, see the [API Style Guide](API_STYLE_GUIDE) for API documentation guidelines.
+If you are contributing API content, see the [API Style Guide](API_STYLE_GUIDE.md) for API documentation guidelines.
 
 
 ## Formatting documentation
