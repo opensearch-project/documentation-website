@@ -1,5 +1,4 @@
 - [Creating an issue](#creating-an-issue)
-- [Finding contributions to work on](#finding-contributions-to-work-on)
 - [Contributing content](#contributing-content)
    - [Documentation workflow](#documentation-workflow)
    - [Before you start](#before-you-start)
@@ -16,6 +15,8 @@ Thank you for your interest in improving the OpenSource documentation! We value 
 
 You can [create an issue](#creating-an-issue) asking us to change the documentation or [contribute content](#contributing-content) yourself.
 
+NOTE: If you’d like to contribute but don't know where to start, try browsing existing [issues](https://github.com/opensearch-project/documentation-website/issues). Our projects use custom GitHub issue labels for status, version, type of request, and so on, but we recommend looking at any issues labeled `good first issue` first. 
+
 ## Creating an issue
 
 Use the documentation issue template to describe the change you'd like to make.
@@ -25,10 +26,6 @@ Use the documentation issue template to describe the change you'd like to make.
 1. Select **Submit new issue**. 
 
 The `untriaged` label is assigned automatically. During the triage process, the documentation team will add the appropriate labels, assign the issue to a technical writer, and prioritize the request. We may follow up with you for additional information. 
-
-## Finding contributions to work on
-
-If you’d like to contribute but don't know where to start, try browsing existing [issues](https://github.com/opensearch-project/documentation-website/issues). Our projects use custom GitHub issue labels for status, version, type of request, and so on, but we recommend looking at any issues labeled `good first issue` first. 
 
 ## Contributing content
 
@@ -42,11 +39,9 @@ There are two ways to contribute content depending on the magnitude of the chang
 The workflow for contributing documentation is no different than the one for contributing code:
 
 - Make your changes
-- Build locally to check your work (only possible if you are making changes locally)
+- Build the documentation website to check your work (only possible if you are making changes locally)
 - Submit a [pull request](https://github.com/opensearch-project/documentation-website/pulls) (PR)
 - Maintainers review and merge your PR
-
-If the change requires significant work, open an issue where we can first discuss your request.
 
 ### Before you start
 
