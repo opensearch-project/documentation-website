@@ -3,6 +3,7 @@ layout: default
 title: Managing indexes
 nav_order: 1
 has_children: false
+nav_exclude: true
 redirect_from:
   - /im-plugin/
   - /opensearch/index-data/
@@ -10,8 +11,6 @@ redirect_from:
 ---
 
 # Managing indexes
-OpenSearch Dashboards
-{: .label .label-yellow :}
 
 You index data using the OpenSearch REST API. Two APIs exist: the index API and the `_bulk` API.
 

@@ -4,6 +4,7 @@ title: Data Prepper
 nav_order: 1
 has_children: false
 has_toc: false
+nav_exclude: true
 redirect_from: 
   - /clients/data-prepper/index/
   - /data-prepper/
@@ -89,4 +90,6 @@ sample-pipeline:
 ## Next steps
 
 To get started building your own custom pipelines with Data Prepper, see [Getting started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).
+
+<!---Delete this comment.--->
 

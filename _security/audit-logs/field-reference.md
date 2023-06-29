@@ -3,6 +3,9 @@ layout: default
 title: Audit log field reference
 parent: Audit logs
 nav_order: 130
+redirect_from:
+  - /security/audit-logs/field-reference/
+  - /security-plugin/audit-logs/field-reference/
 ---
 
 # Audit log field reference
@@ -108,7 +111,7 @@ Name | Description
 `audit_request_effective_user` | The username that failed to authenticate.
 `audit_request_initiating_user` | The user that initiated the request. Only logged if it differs from the effective user.
 `audit_transport_request_type` | The type of request (e.g. `IndexRequest`).
-`audit_request_privilege` | The required privilege of the request (e.g. `indices:data/read/search`).
+`audit_request_privilege` | The required privilege of the request (for example, `indices:data/read/search`).
 `audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
 `audit_trace_indices` | The index name(s) included in the request. Can contain wildcards, date patterns, and aliases. Only logged if `resolve_indices` is true.
 `audit_trace_resolved_indices` | The resolved index name(s) affected by the request. Only logged if `resolve_indices` is true.
@@ -124,7 +127,7 @@ Name | Description
 `audit_transport_headers` | The headers of the request, if any.
 `audit_request_effective_user` | The username that failed to authenticate.
 `audit_request_initiating_user` | The user that initiated the request. Only logged if it differs from the effective user.
-`audit_transport_request_type` | The type of request (e.g. `IndexRequest`).
+`audit_transport_request_type` | The type of request (for example, `IndexRequest`).
 `audit_request_privilege` | The required privilege of the request (e.g. `indices:data/read/search`).
 `audit_request_body` | The HTTP request body, if any (and if request body logging is enabled).
 `audit_trace_indices` | The index name(s) included in the request. Can contain wildcards, date patterns, and aliases. Only logged if `resolve_indices` is true.

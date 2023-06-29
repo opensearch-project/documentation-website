@@ -2,6 +2,9 @@
 layout: default
 title: Configuring OpenSearch
 nav_order: 10
+redirect_from:
+ - /install-and-configure/configuration/
+  - /opensearch/configuration/
 ---
 
 # Configuring OpenSearch

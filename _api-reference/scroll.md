@@ -2,6 +2,8 @@
 layout: default
 title: Scroll
 nav_order: 71
+redirect_from:
+ - /opensearch/rest-api/scroll/
 ---
 
 # Scroll
