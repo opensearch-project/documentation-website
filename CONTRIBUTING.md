@@ -7,6 +7,7 @@
       - [Setting up your local copy of the repository](#setting-up-your-local-copy-of-the-repository)
       - [Making, viewing, and submitting changes](#making-viewing-and-submitting-changes)
 - [Review process](#review-process)
+   - [Style linting](#style-linting)
 - [Getting help](#getting-help)
 
 # Contributing Guidelines
@@ -128,6 +129,15 @@ During the PR process, expect that there will be some back-and-forth. Please try
 We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](README.md#style-linting).
 
 If we accept the PR, we will merge your change and usually take care of backporting it to appropriate branches ourselves.
+
+### Style linting
+
+To ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md) we use the [Vale](https://github.com/errata-ai/vale) linter. Addressing Vale comments on the PR expedites the review process. You can also install Vale locally as follows so you can address the comments before creating a PR:
+
+1. Run `brew install vale`.
+2. Run `vale *` from the documentation site root directory to lint all Markdown files. To lint a specific file, run `vale /path/to/file`.
+
+Optionally, you can install the [Vale VSCode](https://github.com/chrischinchilla/vale-vscode) extension that integrates Vale with Visual Studio Code. By default, only _errors_ and _warnings_ are underlined. To change the minimum alert level to include _suggestions_, go to **Vale VSCode** > **Extension Settings** and select **suggestion** in the **Vale > Vale CLI: Min Alert Level** dropdown list. 
 
 ## Getting help
 
