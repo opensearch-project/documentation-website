@@ -1,10 +1,10 @@
-- [Finding contributions to work on](#finding-contributions-to-work-on)
-- [Contributing to the documentation](#contributing-to-the-documentation)
 - [Creating an issue](#creating-an-issue)
+- [Finding contributions to work on](#finding-contributions-to-work-on)
 - [Contributing content](#contributing-content)
+   - [Documentation workflow](#documentation-workflow)
    - [Before you start](#before-you-start)
-   - [Editing files in GitHub](#editing-files-in-github)
-   - [Making changes locally](#making-changes-locally)
+   - [Making minor changes](#making-minor-changes)
+   - [Making major changes](#making-major-changes)
       - [Setting up your local copy of the repository](#setting-up-your-local-copy-of-the-repository)
       - [Making, viewing, and submitting changes](#making-viewing-and-submitting-changes)
 - [Review process](#review-process)
@@ -14,15 +14,7 @@
 
 Thank you for your interest in improving the OpenSource documentation! We value and appreciate all feedback and contributions from our community, including requests for additional documentation, corrections to existing content, and reports of technical issues with the documentation site. 
 
-## Finding contributions to work on
-
-If you’d like to contribute but don't know where to start, try browsing existing [issues](https://github.com/opensearch-project/documentation-website/issues). Our projects use custom GitHub issue labels for status, version, type of request, and so on, but we recommend looking at any issues labeled `good first issue` first. 
-
-## Contributing to the documentation 
-
-There are two ways to contribute: 
-1. [Create an issue](#creating-an-issue) asking us to change the documentation.
-2. [Contribute documentation content](#contributing-content) yourself.
+You can [create an issue](#creating-an-issue) asking us to change the documentation or [contribute content](#contributing-content) yourself.
 
 ## Creating an issue
 
@@ -34,12 +26,18 @@ Use the GitHub issue tracker to describe the change you'd like to make:
 
 The `untriaged` label is assigned automatically. During the triage process, the documentation team will add the appropriate labels, assign the issue to a technical writer, and prioritize the request. We may follow up with you for additional information. 
 
+## Finding contributions to work on
+
+If you’d like to contribute but don't know where to start, try browsing existing [issues](https://github.com/opensearch-project/documentation-website/issues). Our projects use custom GitHub issue labels for status, version, type of request, and so on, but we recommend looking at any issues labeled `good first issue` first. 
+
 ## Contributing content
 
-There are two ways to contribute content:
+There are two ways to contribute content depending on the magnitude of the change:
 
-- [Editing files directly in GitHub](#editing-files-in-github): Best for small changes like fixing a typo or adding a parameter. This approach does not require cloning the repository and does not let you test the documentation.
-- [Making changes locally and pushing to GitHub](#making-changes-locally): Best for changes you want to test locally first, like adding a table or section, or reorganizing pages. This approach requires setting up a local version of the repository and lets you test documentation.
+- [Minor changes](#making-minor-changes): For small changes like fixing a typo or adding a parameter, you can edit files in GitHub directly. This approach does not require cloning the repository and does not let you test the documentation.
+- [Major changes](#making-major-changes): For changes you want to test first, like reorganizing pages or adding a table or section, you can edit files locally and push the changes to GitHub. This approach requires setting up a local version of the repository and lets you test documentation.
+
+### Documentation workflow
 
 The workflow for contributing documentation is no different than the one for contributing code:
 
@@ -60,8 +58,7 @@ Before contributing content, make sure to read the following resources:
 
 NOTE: Please make sure that any documentation you submit is your work or work you have the rights to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a [Developer Certificate of Origin (DCO)](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md#developer-certificate-of-origin) that states you have the rights to submit this work and you understand we'll use your contribution. 
 
-
-### Editing files in GitHub
+### Making minor changes
 
 If you want to add a few paragraphs to a file, try this approach:
 
@@ -73,8 +70,7 @@ If you want to add a few paragraphs to a file, try this approach:
 
 1. In the upper-right corner, select **Commit changes...***. Enter the commit message and optional description and select **Create a new branch for this commit and start a pull request**.
 
-
-### Making changes locally
+### Making major changes
 
 If you're making major changes to the documentation and need to see the rendered HTML before submitting a pull request, you need to work in a local copy of the repository. 
 
@@ -128,7 +124,6 @@ Here's how to build the website, make the changes, and view them locally:
 
     Note that a pull request requires DCO sign-off before we can merge it. You can use the -s command line option to append this automatically to your commit message, for example `git commit -s -m 'This is my commit message'`. For more information, see https://github.com/apps/dco.
 
-
 ## Review process
 
 We greatly appreciate everyone who takes the time to make a contribution. We will review all contributions as quickly as possible. If it’s a quick fix, we should be able to release the update quickly. Bigger requests might take a bit of time for us to review. 
@@ -139,8 +134,6 @@ We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our d
 
 If we accept the PR, we will merge your change and usually take care of backporting it to appropriate branches ourselves.
 
-
 ## Getting help
 
 For help with any step in the contributing process, please reach out to one of the [points of contact](README.md#points-of-contact).
-
