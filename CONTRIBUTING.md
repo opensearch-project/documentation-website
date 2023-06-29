@@ -1,6 +1,6 @@
 - [Creating an issue](#creating-an-issue)
 - [Contributing content](#contributing-content)
-   - [Documentation workflow](#documentation-workflow)
+   - [Contribution workflow](#contribution-workflow)
    - [Before you start](#before-you-start)
    - [Making minor changes](#making-minor-changes)
    - [Making major changes](#making-major-changes)
@@ -10,9 +10,9 @@
    - [Style linting](#style-linting)
 - [Getting help](#getting-help)
 
-# Contributing Guidelines
+# Contributing guidelines
 
-Thank you for your interest in improving the OpenSource documentation! We value and appreciate all feedback and contributions from our community, including requests for additional documentation, corrections to existing content, and reports of technical issues with the documentation site. 
+Thank you for your interest in improving the OpenSearch documentation! We value and appreciate all feedback and contributions from our community, including requests for additional documentation, corrections to existing content, and reports of technical issues with the documentation site. 
 
 You can [create an issue](#creating-an-issue) asking us to change the documentation or [contribute content](#contributing-content) yourself.
 
