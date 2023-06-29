@@ -17,7 +17,7 @@ Category | Field types and descriptions
 :--- | :---
 Alias | [`alias`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/): An additional name for an existing field.
 Binary | [`binary`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/binary/):  A binary value in Base64 encoding. 
-[Numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) | A numeric value (`byte`, `double`, `float`, `half_float`, `integer`, `long`, [`unsigned_long`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/unsigned-long/), `scaled_float`, `short`). 
+[Numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) | A numeric value (`byte`, `double`, `float`, `half_float`, `integer`, `long`, `scaled_float`, `short`). 
 Boolean | [`boolean`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/boolean/): A Boolean value. 
 [Date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)|  [`date`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/): A date stored in milliseconds. <br> [`date_nanos`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date-nanos/): A date stored in nanoseconds.
 IP | [`ip`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/): An IP address in IPv4 or IPv6 format. 
