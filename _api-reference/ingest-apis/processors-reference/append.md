@@ -33,20 +33,46 @@ The following table lists the required and optional parameters for the `append` 
 `ignore_missing`  | Optional  | If set to true, the processor will ignore events that lack the target field. The default value is false.  |
 `description`  | Optional  | Brief description of the processor.  |  
 
-Following is an example of adding the `append` processor to an ingest pipeline.
+Following is an example of an ingest pipeline using the `append` processor.
 
 ```json
-PUT _ingest/pipeline/<pipeline-id>
+PUT _ingest/pipeline/user-behavior
 {
-  "description": "A pipeline that appends the current timestamp to the document",
+  "description": "Pipeline that appends event type",
   "processors": [
     {
       "append": {
-        "field": "timestamp",
-        "value": ["_timestamp"]
+        "field": "event_types",
+        "value": "{{event_type}}"
       }
     }
   ]
+}
+
+PUT testindex1/_doc/1?pipeline=user-behavior
+{
+  "event_type": "page_view"
+}
+
+GET testindex1/_doc/1
+```
+
+Following is the response:
+
+```json
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 2,
+  "_seq_no": 1,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "event_type": "page_view",
+    "event_types": [
+      "page_view"
+    ]
+  }
 }
 ```
 
