@@ -18,7 +18,7 @@ You can [create an issue](#creating-an-issue) asking us to change the documentat
 
 ## Creating an issue
 
-Use the GitHub issue tracker to describe the change you'd like to make: 
+Use the documentation issue template to describe the change you'd like to make.
 
 1. Go to https://github.com/opensearch-project/documentation-website/issues and select **New issue**.
 1. Enter the requested information, including as much detail as possible, especially which version or versions the request affects.
