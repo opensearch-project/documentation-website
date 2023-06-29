@@ -53,13 +53,12 @@ PUT testindex1/_doc/1?pipeline=user-behavior
 {
   "event_type": "page_view"
 }
-
-GET testindex1/_doc/1
 ```
 
-Following is the response.
+This pipeline, named `user-behavior`, has one append processor. It appends the `event_type` of each new documenet ingested into OpenSearch to an array field `event_types`.Following is the GET request and response.
 
 ```json
+GET testindex1/_doc/1
 {
   "_index": "testindex1",
   "_id": "1",
