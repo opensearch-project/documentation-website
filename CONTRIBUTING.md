@@ -16,7 +16,7 @@ Thank you for your interest in improving the OpenSource documentation! We value 
 
 You can [create an issue](#creating-an-issue) asking us to change the documentation or [contribute content](#contributing-content) yourself.
 
-NOTE: If you’d like to contribute but don't know where to start, try browsing existing [issues](https://github.com/opensearch-project/documentation-website/issues). Our projects use custom GitHub issue labels for status, version, type of request, and so on, but we recommend looking at any issues labeled `good first issue` first. 
+NOTE: If you’d like to contribute but don't know where to start, try browsing existing [issues](https://github.com/opensearch-project/documentation-website/issues). Our projects use custom GitHub issue labels for status, version, type of request, and so on. We recommend starting with at any issue labeled `good first issue` if you're a beginner and `help wanted` if you're a more experienced user. 
 
 ## Creating an issue
 
@@ -62,7 +62,7 @@ If you want to make minor changes to an existing file, you can use this approach
 
 1. In your fork on GitHub, navigate to the file that you want to change.
 
-1. In the upper-right corner, select the dropdown with the pencil icon and select **Edit in place**. Edit the file.
+1. In the upper-right corner, select the dropdown with the pencil icon and edit the file.
 
 1. In the upper-right corner, select **Commit changes...***. Enter the commit message and optional description and select **Create a new branch for this commit and start a pull request**.
 
@@ -114,7 +114,7 @@ Here's how to build the website, make the changes, and view them locally:
 
 1. Edit the Markdown files that you want to change.
 
-1. When you save a file, marvel as Jekyll automatically rebuilds the site and refreshes your web browser. This process can take anywhere from 10 to 30 seconds.
+1. When you save a file, marvel as Jekyll automatically rebuilds the site and refreshes your web browser. This process can take  60--90 seconds.
 
 1. When you're happy with how everything looks, commit, [sign off](https://github.com/src-d/guide/blob/9171d013c648236c39faabcad8598be3c0cf8f56/developer-community/fix-DCO.md#how-to-prevent-missing-sign-offs-in-the-future), push your changes to your fork, and submit a pull request.
 
