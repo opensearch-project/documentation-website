@@ -12,7 +12,7 @@ redirect_from:
 You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
 
-OpenSearch plugins give you the ability to access the data in the cluster, including metadata about cluster operations. To help mitigate risks to your cluster's data and integrity,  make sure that a custom plugin's source is reliable when selecting and installing custom OpenSearch plugins. Furthermore, make sure that you understand the function of a plugin before installing on an OpenSearch cluster.
+For plugins to work properly with OpenSearch, all plugins must have the ability to access the data in the cluster, including metadata about cluster operations. Therefore, to protect your cluster's data and preserve its integrity, first be sure you understand the function of a plugin before installing it on your OpenSearch cluster. Second, when selecting a custom plugin, make sure the plugin's source is a reliable one.
 {: .warning}
 
 ## Managing plugins
