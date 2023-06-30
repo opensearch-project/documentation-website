@@ -83,6 +83,7 @@ pebibyte
 [Rr]ewriter
 [Rr]ollup
 [Rr]unbooks?
+[Ss]harding
 [Ss]erverless
 [Ss]ignificand
 stdout

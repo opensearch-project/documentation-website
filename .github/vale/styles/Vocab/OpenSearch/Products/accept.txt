@@ -73,7 +73,6 @@ Querqy
 Query Workbench
 RPM Package Manager
 Ruby
-SigV4 
 Simple Schema for Observability
 Tableau
 TorchScript
