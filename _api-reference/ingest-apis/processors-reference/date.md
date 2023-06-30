@@ -14,7 +14,7 @@ The `date` processor is used to parse dates from fields in a document annd store
 {
   "date": {
     "field": "date_field",
-    "formats": ["yyyy/MM/dd HH:mm:ss", "ISO8601"]
+    "formats": ["yyyy-MM-dd'T'HH:mm:ss.SSSZZ"]
   }
 }
 ```
@@ -26,8 +26,8 @@ The following table lists the required and optional parameters for the `date` pr
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field to extract data from.  |
+`formats`  | Required | An array of the expected date formats. Can be a java time pattern or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N. The default format is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`.  |
 `target_field`  | Optional  | Name of the field to store the parsed data in.  |
-`formats`  | Required | The format of the date in the `field` field. The default format is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`.  |
 `locale`  | Optional  | The locale to use when parsing the date. Default is English.  |
 `timezone `  | Optional  | The timezone to use when parsing the date. Default is UTC.  |
 `ignore_missing` | Optional  | If set to `true`, the processor will not fail if the field does not exist. Default is `false`.  | 
@@ -37,21 +37,44 @@ The following table lists the required and optional parameters for the `date` pr
 `tag`  | Optional  | Tag that can be used to identify the processor.  | 
 `description`  | Optional  | Brief description of the processor.  |  
 
-Following is an example of adding the `date` processor to an ingest pipeline.
+Following is an example of a pipeline using a `date` processor.
 
 ```json
-PUT /_ingest/pipeline/date_processor
+PUT /_ingest/pipeline/date-output-format
 {
-  "description": "A pipeline that parses timestamps to dates",
+  "description": "Pipeline that converts European date format to US date format",
   "processors": [
     {
       "date": {
-        "field" : "date_field",
-        "target_field" : "timestamp",
-        "formats" : ["dd/MM/yyyy HH:mm:ss"],
+        "field" : "date_european",
+        "formats" : ["dd/MM/yyyy", "UNIX"],
+        "target_field": "date_us",
+        "output_format": "MM/dd/yyy",
         "timezone" : "UTC"
       }
     }
   ]
 }
+
+PUT testindex1/_doc/1?pipeline=date-output-format
+{
+  "date_european": "30/06/2023"
+}
 ```
+
+This pipeline adds the new field `date_us` with the desired output format. Following is the GET request and response.
+
+```json
+GET testindex1/_doc/1
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 9,
+  "_seq_no": 8,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "date_us": "06/30/2023",
+    "date_european": "30/06/2023"
+  }
+}
