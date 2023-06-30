@@ -58,7 +58,7 @@ PUT testindex1/_doc/1?pipeline=file_upload
 }
 ```
 
-This pipeline, named `file_upload`, has one bytes processor. It converts the `file_size` to its byte equivalent and stores it in a new field `fiel_size_bytes`. Following is the GET request and response.
+This pipeline, named `file_upload`, has one bytes processor. It converts the `file_size` to its byte equivalent and stores it in a new field `file_size_bytes`. Following is the GET request and response.
 
 ```json
 GET testindex1/_doc/1

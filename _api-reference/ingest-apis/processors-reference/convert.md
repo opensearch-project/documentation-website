@@ -8,7 +8,7 @@ nav_order: 30
 
 # Convert
 
-The `convert` processor converts a field in a document to a different type. The syntax for the `convert` processor is: 
+The `convert` processor converts a field in a document to a different type, for example, a string field to an integer field or vice versa. The syntax for the `convert` processor is: 
 
 ```json
 {
@@ -38,16 +38,38 @@ The following table lists the required and optional parameters for the `convert`
 Following is an example of adding the `convert` processor to an ingest pipeline.
 
 ```json
-PUT _ingest/pipeline/<pipeline-id>
+PUT _ingest/pipeline/convert-file-size
 {
-  "description": "Converts the file size field to an integer",
+  "description": "Pipeline that converts the file size to an integer",
   "processors": [
     {
       "convert": {
-        "field": "file.size",
+        "field": "file_size",
         "type": "integer"
       }
     }
   ]
+}
+
+PUT testindex1/_doc/1?pipeline=convert-file-size
+{
+  "file.size": "1024"
+}
+```
+
+This pipeline converts the `file_size` field from a string to an integer, making it possible to perform numerical operations and aggregations on the `file_size` field. Following is the GET request and response.
+
+```json
+GET testindex1/_doc/1
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 4,
+  "_seq_no": 3,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "file_size": 1024
+  }
 }
 ```
