@@ -126,7 +126,7 @@ We greatly appreciate everyone who takes the time to make a contribution. We wil
 
 During the PR process, expect that there will be some back-and-forth. If you want to get your contribution merged quickly, try to respond to comments in a timely fashion, and if you don't want to continue with the PR, let us know. 
 
-We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](README.md#style-linting).
+We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](#style-linting).
 
 If we accept the PR, we will merge your change and usually take care of backporting it to appropriate branches ourselves.
 
