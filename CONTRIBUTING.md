@@ -114,7 +114,7 @@ Here's how to build the website, make the changes, and view them locally:
 
 1. Edit the Markdown files that you want to change.
 
-1. When you save a file, marvel as Jekyll automatically rebuilds the site and refreshes your web browser. This process can take  60--90 seconds.
+1. When you save a file, Jekyll automatically rebuilds the site and refreshes your web browser. This process can take  60--90 seconds.
 
 1. When you're happy with how everything looks, commit, [sign off](https://github.com/src-d/guide/blob/9171d013c648236c39faabcad8598be3c0cf8f56/developer-community/fix-DCO.md#how-to-prevent-missing-sign-offs-in-the-future), push your changes to your fork, and submit a pull request.
 
