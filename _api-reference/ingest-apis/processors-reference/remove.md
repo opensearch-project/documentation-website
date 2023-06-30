@@ -29,9 +29,10 @@ The following table lists the required and optional parameters for the `remove` 
 | `ignore_failure`  | Optional  |  Specifies whether the processor should continue processing documents even if it fails to remove the specified field. Default is `false`.  |
 | `if`  | Optional  | Conditionally deploys the processor based on the value of the field. The `value` parameter specifies the value that you want to compare the field to. |
 | `tag`  | Optional  | Allows you to identify the processor for debugging and metrics.  |
+`description`  | Optional  | Brief description of the processor.  |  
 
 
-Following is an example of an ingest pipeline using the remove processor. 
+Following is an example of an ingest pipeline using the `remove` processor. 
 
 ```json
 PUT /_ingest/pipeline/remove_ip
