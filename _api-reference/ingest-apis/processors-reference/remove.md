@@ -18,22 +18,6 @@ The remove processor is used to remove a field from a document. The syntax for t
 }
 ```
 
-The `field` parameter specifies the name of the field you want to remove. For example, the following example removes the `message` field from a document: 
-
-```json
-PUT /_ingest/pipeline/my_pipeline
-{
-  "description": "A simple ingest pipeline that removes the `message` field.",
-  "processors": [
-    {
-      "remove": {
-        "field": "message"
-      }
-    }
-  ]
-}
-```
-
 #### Configuration parameters
 
 The following table lists the required and optional parameters for the `remove` processor.
@@ -46,31 +30,39 @@ The following table lists the required and optional parameters for the `remove` 
 | `if`  | Optional  | Conditionally deploys the processor based on the value of the field. The `value` parameter specifies the value that you want to compare the field to. |
 | `tag`  | Optional  | Allows you to identify the processor for debugging and metrics.  |
 
-The following is an example using the options:
+
+Following is an example of an ingest pipeline using the remove processor. 
 
 ```json
+PUT /_ingest/pipeline/remove_ip
 {
-    "remove": {
-        "field": "message",
-        "ignore_missing": true,
-        "ignore_failure": true,
-        "tag": "my_tag"
+  "description": "Pipeline that excludes the ip_address field.",
+  "processors": [
+    {
+      "remove": {
+        "field": "ip_address"
+      }
     }
+  ]
+}
+
+PUT testindex1/_doc/1?pipeline=remove_ip
+{
+  "ip_address": "203.0.113.1"
 }
 ```
 
-In this case, the `message` field is removed from any document that is indexed, if the document does not have the `message` field. If the processor fails to remove the `message` field, it continues processing documents. The processor is also tagged with the `my_tag` tag.
-
-The following example only deploys the `remove` processor if the value of the `message` field is equal to "This is a message:"
+This pipeline removes the ip_address field from any document that passes through the pipeline. Following is the GET request and response.
 
 ```json
+GET testindex1/_doc/1
 {
-    "remove": {
-        "field": "message"
-    },
-    "if": {
-      "field": "message",
-      "value": "This is a message"
-    }
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 10,
+  "_seq_no": 9,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {}
 }
 ```

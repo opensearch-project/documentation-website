@@ -37,7 +37,7 @@ The following table lists the required and optional parameters for the `date` pr
 `tag`  | Optional  | Tag that can be used to identify the processor.  | 
 `description`  | Optional  | Brief description of the processor.  |  
 
-Following is an example of a pipeline using a `date` processor.
+Following is an example of a pipeline using the `date` processor.
 
 ```json
 PUT /_ingest/pipeline/date-output-format
