@@ -52,7 +52,7 @@ Before contributing content, make sure to read the following resources:
 - [API Style Guide](API_STYLE_GUIDE.md)
 - [Formatting Guide](FORMATTING_GUIDE.md) 
 
-NOTE: Please make sure that any documentation you submit is your work or work that you have the rights to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a [Developer Certificate of Origin (DCO)](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md#developer-certificate-of-origin) that states you have the rights to submit this work and you understand we'll use your contribution. 
+NOTE: Make sure that any documentation you submit is your work or work that you have the rights to submit. We respect the intellectual property rights of others, and as part of contributing, we'll ask you to sign your contribution with a [Developer Certificate of Origin (DCO)](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md#developer-certificate-of-origin) that states you have the rights to submit this work and you understand we'll use your contribution. 
 
 ### Making minor changes
 
@@ -68,7 +68,7 @@ If you want to make minor changes to an existing file, you can use this approach
 
 ### Making major changes
 
-If you're adding new pages or making major changes to the documentation, we recommend that you work in a local copy of the repository and test the rendered HTML before submitting a pull request. 
+If you're adding new pages or making major changes to the documentation, such as adding new images, pages, sections, or styling, we recommend that you work in a local copy of the repository and test the rendered HTML before submitting a pull request. 
 
 #### Setting up your local copy of the repository
 
@@ -76,7 +76,7 @@ Follow these steps to set up your local copy of the repository:
 
 1. [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your fork.
 
-1. Navigate to the repository root.
+1. Navigate to your cloned repository.
 
 1. Install [Ruby](https://www.ruby-lang.org/en/) if you don't already have it. We recommend [RVM](https://rvm.io/), but use whatever method you prefer:
 
@@ -92,7 +92,7 @@ Follow these steps to set up your local copy of the repository:
    gem install bundler jekyll
    ```
 
-1. Install dependencies:
+1. Install the Jekyll dependencies:
 
    ```
    bundle install
@@ -124,7 +124,7 @@ Here's how to build the website, make the changes, and view them locally:
 
 We greatly appreciate everyone who takes the time to make a contribution. We will review all contributions as quickly as possible. If it’s a quick fix, we should be able to release the update quickly. Bigger requests might take a bit of time for us to review. 
 
-During the PR process, expect that there will be some back-and-forth. Please try to respond to comments in a timely fashion, and if you don't want to continue with the PR, let us know. 
+During the PR process, expect that there will be some back-and-forth. If you want to get your contribution merged quickly, try to respond to comments in a timely fashion, and if you don't want to continue with the PR, let us know. 
 
 We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](README.md#style-linting).
 
