@@ -10,7 +10,7 @@ has_children: false
 
 The Crypto plugin provides client side encryption and decryption for OpenSearch. This allows for the encryption of data transferred between OpenSearch and a remote storage service to support features such as [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/) or backup of [Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/). However, the plugin is not limited to this type of application alone and can be used for local encryption as well.
 
-Using the plugin to encrypt data requires cypher keys and a key provider service to generate them. The plugin is extensible and therefore supports any number of key providers and their key management systems (KMS).
+Using the plugin to encrypt data requires cypher keys and a key provider service to generate them. The plugin is extensible and therefore supports any number of key providers and their key management services (KMS).
 
 
 ## Terms
