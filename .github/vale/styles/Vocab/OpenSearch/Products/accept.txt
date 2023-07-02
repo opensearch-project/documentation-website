@@ -53,6 +53,7 @@ Okta
 Open Distro
 OpenID Connect
 OpenSearch
+OpenSearch Benchmark
 OpenSearch Dashboards
 OpenSearch Project
 OpenSearch Service

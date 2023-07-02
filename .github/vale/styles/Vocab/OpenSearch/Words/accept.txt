@@ -53,6 +53,7 @@ Levenshtein
 [Ll]ookups?
 [Ll]ossy
 [Ll]owercases?d?
+[Mm]acrobenchmarks?
 [Mm]isorder
 [Mm]ultifield
 [Mm]ultiline
