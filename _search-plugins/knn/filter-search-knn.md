@@ -13,9 +13,12 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
 
 - [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It does not scale for large filtered subsets.
 
-- [Boolean filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn) search and then applies a filter to the results. Because of post-filtering, it may return significantly fewer than `k` results for a restrictive filter.
+- [Boolean filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. Because of post-filtering, it may return significantly fewer than `k` results for a restrictive filter.
 
-- [Lucene k-NN filter](#using-a-lucene-k-nn-filter): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned. You can only use this method with the Hierarchical Navigable Small World (HNSW) algorithm implemented by the Lucene search engine in k-NN plugin versions 2.4 and later.
+- [Filtering during k-NN search](#filtering-during-k-nn-search): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned. 
+
+    Filtering during k-NN search is supported only with the Hierarchical Navigable Small World (HNSW) algorithm implemented by the Lucene search engine (k-NN plugin versions 2.4 and later) or by the Faiss search engine (k-NN plugin versions 2.9 or later).
+    {: .note}
 
 ## Filtered search optimization
 
@@ -30,11 +33,11 @@ Once you've estimated the number of documents in your index, the restrictiveness
 | Number of documents in an index | Percentage of documents the filter returns | k | Filtering method to use for higher recall | Filtering method to use for lower latency |
 | :-- | :-- | :-- | :-- | :-- |
 | 10M | 2.5 | 100 | Scoring script | Scoring script |
-| 10M | 38 | 100 | Lucene filter | Boolean filter |
-| 10M | 80 | 100 | Scoring script | Lucene filter |
-| 1M | 2.5 | 100 | Lucene filter | Scoring script |
-| 1M | 38 | 100 | Lucene filter | Lucene filter/scoring script |
-| 1M | 80 | 100 | Boolean filter | Lucene filter |
+| 10M | 38 | 100 |Filtering during k-NN search | Boolean filter |
+| 10M | 80 | 100 | Scoring script |Filtering during k-NN search |
+| 1M | 2.5 | 100 |Filtering during k-NN search | Scoring script |
+| 1M | 38 | 100 |Filtering during k-NN search |Filtering during k-NN search/scoring script |
+| 1M | 80 | 100 | Boolean filter |Filtering during k-NN search |
 
 ## Scoring script filter
 
@@ -213,7 +216,7 @@ The following flow chart outlines the Lucene algorithm.
 
 For more information about the Lucene filtering implementation and the underlying `KnnVectorQuery`, see the [Apache Lucene documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
-## Using a Lucene k-NN filter 
+## Filtering during k-NN search
 
 Consider a dataset that includes 12 documents containing hotel information. The following image shows all hotels on an xy coordinate plane by location. Additionally, the points for hotels that have a rating between 8 and 10, inclusive, are depicted with orange dots, and hotels that provide parking are depicted with green circles. The search point is colored in red:
 
@@ -223,7 +226,7 @@ In this example, you will create an index and search for the three hotels with h
 
 ### Step 1: Create a new index 
 
-Before you can run a k-NN search with a filter, you need to create an index with a `knn_vector` field. For this field, you need to specify `lucene` as the engine and `hnsw` as the `method` in the mapping.
+Before you can run a k-NN search with a filter, you need to create an index with a `knn_vector` field. For this field, you need to specify `lucene` or `faiss` as the engine and `hnsw` as the `method` in the mapping.
 
 The following request creates a new index called `hotels-index` with a `knn-filter` field called `location`:
 
