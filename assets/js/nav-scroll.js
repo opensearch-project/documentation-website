@@ -27,4 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
         firstNavItem.focus();
       }
     }
+    
+    navParent.addEventListener('keydown', (event) => {
+      // Check that the target element has a the class name of nav-list-expander.
+      if (event.target.classList.contains('nav-list-expander')) {
+        // Check that the key pressed was the space key.
+        if (event.key === ' ') {
+          event.preventDefault();
+          event.target.click();
+          event.stopImmediatePropagation();
+          event.stopPropagation();
+        }
+      }
+    });
 });
