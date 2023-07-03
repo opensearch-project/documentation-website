@@ -20,35 +20,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     navParent.addEventListener('keydown', (event) => {
+      //
+      // Space key functionality
+      // For reference: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation-hybrid/
+      //
       if (event.key !== ' ') {
         return;
       }
+
       const expandCollapse = (element) => {
         event.preventDefault();
         event.stopImmediatePropagation();
         event.stopPropagation();
         element.click();
       };
-      const findCorrespondingExpandButton = (element) => {
-        return Array.from(element.children).find(
-          (child) => child.classList.contains('nav-list-expander')
-        );
-      };
+
       if (event.target.classList.contains('nav-list-expander')) {
+        // If the event target is the expand/collapse arrow then toggle the state of the sub tree.
         expandCollapse(event.target);
       } else if (event.target.tagName === 'A') {
-        const { parentElement } = event.target;
-        let correspondingExpandButton;
-        if (parentElement.classList.contains('nav-category')) {
-          correspondingExpandButton = findCorrespondingExpandButton(parentElement.parentElement)
-        } else if (parentElement.classList.contains('nav-list-item')) {
-          correspondingExpandButton = findCorrespondingExpandButton(parentElement);
-        } else {
-          return;
-        }
-        if (correspondingExpandButton) {
-          expandCollapse(correspondingExpandButton);
-        }
+        // If the event target is a link then follow the link.
+        event.target.click();
       }
     });
 });
