@@ -38,22 +38,23 @@ The following table lists the required and optional parameters for the `convert`
 Following is an example of adding the `convert` processor to an ingest pipeline.
 
 ```json
-PUT _ingest/pipeline/convert-file-size
+PUT _ingest/pipeline/convert-age
 {
-  "description": "Pipeline that converts the file size to an integer",
+  "description": "Pipeline that converts age to an integer",
   "processors": [
     {
       "convert": {
-        "field": "file_size",
+        "field": "age",
+        "target_field": "age_int",
         "type": "integer"
       }
     }
   ]
 }
 
-PUT testindex1/_doc/1?pipeline=convert-file-size
+PUT testindex1/_doc/1?pipeline=convert-age
 {
-  "file.size": "1024"
+  "age": "20"
 }
 ```
 
@@ -64,12 +65,13 @@ GET testindex1/_doc/1
 {
   "_index": "testindex1",
   "_id": "1",
-  "_version": 4,
-  "_seq_no": 3,
-  "_primary_term": 1,
+  "_version": 17,
+  "_seq_no": 16,
+  "_primary_term": 2,
   "found": true,
   "_source": {
-    "file_size": 1024
+    "age_int": 20,
+    "age": "20"
   }
 }
 ```
