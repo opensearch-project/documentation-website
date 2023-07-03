@@ -104,7 +104,22 @@ POST _plugins/_alerting/workflows
 | `schedule` | Object | The schedule that determines how often the execution runs. |
 | `schedule.period.interval` | Numeral | Accepts a numerical value to set how often the execution runs. |
 | `schedule.period.unit` | Object | The time unit of measure for the interval. `SECONDS`, `MINUTES`, `HOURS`, `DAYS`. |
-| `inputs` | Object | Accepts inputs to define the delegate monitors, which specifies both the delegate monitors and their order in the execution's sequence. |
+| `inputs` | Object | Accepts inputs to define the delegate monitors, which specify both the delegate monitors and their order in the execution's sequence. |
+| `inputs.composite_input.sequence.delegates` | Object | Settings for the individual monitors that underlie the composite monitor. |
+| `inputs.composite_input.sequence.delegates.order` | Number | Designates the order in which the monitor runs in the execution. |
+| `inputs.composite_input.sequence.delegates.monitor_id` | String | The unique identifier for the monitor. |
+| `enabled_time` | Number | TBD |
+| `enabled` | Boolean | Setting to determine whether the composite monitor is enabled or not. Setting it to `true` enables the composite monitor. Default is TBD. |
+| `workflow_type` | String | Set to `composite` for composite monitor. |
+| `schema_version` | Number | TBD |
+| `triggers` | Object | Details for the individual alert triggers. |
+| `triggers.chained_alert_trigger` | Object | Details for each individual alert trigger. Each monitor's alert trigger will require settings for its configuration. |
+| `triggers.chained_alert_trigger.id` | String | The unique identifier for the alert trigger. |
+| `triggers.chained_alert_trigger.name` | String | TBD |
+| `triggers.chained_alert_trigger.severity` | Number | The alert severity. 1 = highest; 2 = high; 3 = medium; 4 = low; 5 = lowest.|
+| `triggers.chained_alert_trigger.condition.script` | O | The script details that determine the conditions for triggering an alert. |
+| `triggers.chained_alert_trigger.condition.script.source` | String | The Painless script that defines the conditions for triggering an alert. |
+| `triggers.chained_alert_trigger.condition.script.lang` | String | Enter `painless` for the Painless scripting language. |
 
 
 #### Using Painless scripting language to define alert chains
@@ -227,6 +242,8 @@ GET _plugins/_alerting/workflows/<id>
 
 
 ### Update composite monitor
+
+Updates the composite monitor's details. See [Create composite monitor](#create-composite-monitor) for description of request fields.
 
 ```json
 PUT _plugins/_alerting/workflows/<id>
