@@ -8,7 +8,33 @@ nav_order: 310
 
 # Uppercase
 
+This processor converts all the text in a specific field to uppercase letters. The syntax for the `uppercase` processor is: 
 
+```json
+{
+  "uppercase": {
+    "field": "field_name"
+  }
+}
+```
+
+#### Configuration parameters
+
+The following table lists the required and optional parameters for the `uppercase` processor.
+
+| Name  | Required  | Description  |
+|---|---|---|
+| `field`  | Required  | Specifies the name of the field that you want to remove. |
+| `target_field`  | Optional  | Specifies the name of the field to store the converted value in. Default is `field`. By default, `field` is updated in-place. |
+| `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
+| `ignore_failure`  | Optional  |  Specifies whether the processor should continue processing documents even if it fails to remove the specified field. Default is `false`.  |
+| `on_failure`  | Optional  | Defines the processors to be deployed immediately following the failed processor.  |
+| `if`  | Optional  | Conditionally deploys the processor based on the value of the field. The `value` parameter specifies the value that you want to compare the field to. |
+| `tag`  | Optional  | Provides an identifier for the processor. Useful for debugging and metrics.  |
+`description`  | Optional  | Brief description of the processor.  |  
+
+
+Following is an example of an ingest pipeline using the `uppercase` processor.
 
 ```json
 PUT _ingest/pipeline/uppercase
