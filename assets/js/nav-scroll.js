@@ -1,18 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const findParentNavElement = (element) => {
-        if (element === null) {
-            return null;
-        } else if (element.tagName === 'NAV') {
-            return element;
-        } else {
-            return findParentNavElement(element.parentElement);
-        }
-    };
-    const navParent = document.querySelector('body main .side-bar nav#site-nav');
+    const navParent = document.getElementById('site-nav');
     if (!navParent) {
       return;
     }
-    const activeNavItem = document.querySelector('.nav-list-item.active a.nav-list-link.active');
+    const activeNavItem = navParent.querySelector('a.active');
     if (activeNavItem) {
       const activeItemTop = activeNavItem.getBoundingClientRect().y;
       if (activeItemTop < 0) {
@@ -29,14 +20,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     navParent.addEventListener('keydown', (event) => {
-      // Check that the target element has a the class name of nav-list-expander.
+      if (event.key !== ' ') {
+        return;
+      }
+      const expandCollapse = (element) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        element.click();
+      };
+      const findCorrespondingExpandButton = (element) => {
+        return Array.from(element.children).find(
+          (child) => child.classList.contains('nav-list-expander')
+        );
+      };
       if (event.target.classList.contains('nav-list-expander')) {
-        // Check that the key pressed was the space key.
-        if (event.key === ' ') {
-          event.preventDefault();
-          event.target.click();
-          event.stopImmediatePropagation();
-          event.stopPropagation();
+        expandCollapse(event.target);
+      } else if (event.target.tagName === 'A') {
+        const { parentElement } = event.target;
+        let correspondingExpandButton;
+        if (parentElement.classList.contains('nav-category')) {
+          correspondingExpandButton = findCorrespondingExpandButton(parentElement.parentElement)
+        } else if (parentElement.classList.contains('nav-list-item')) {
+          correspondingExpandButton = findCorrespondingExpandButton(parentElement);
+        } else {
+          return;
+        }
+        if (correspondingExpandButton) {
+          expandCollapse(correspondingExpandButton);
         }
       }
     });

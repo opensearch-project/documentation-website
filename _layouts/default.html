@@ -84,13 +84,14 @@ layout: table_wrappers
                       <a tabindex="{{ next_tab_index }}" href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                       {%- endif -%}
                       {% assign collection_url_path = collection_key | append: "/index/" %}
-                      <div class="nav-category"><a tabindex="{{ next_tab_index }}" href="{{ collection_url_path | relative_url  }}">{{ collection_value.name }}</a></div>
+                      {% assign category_comparison_url = "/" | append: collection_url_path %}
+                      <div class="nav-category"><a class="{% if category_comparison_url == page.url %}active{% endif %}" tabindex="{{ next_tab_index }}" href="{{ collection_url_path | relative_url  }}">{{ collection_value.name }}</a></div>
                       {% include nav.html pages=collection key=collection_key tab_index=next_tab_index %}
                     </li>
                   </ul>
                 {% else %}
                   {% assign collection_url_path = collection_key | append: "/index/" %}
-                  <div class="nav-category"><a tabindex="{{ next_tab_index }}" href="{{ collection_url_path | relative_url }}">{{ collection_value.name }}</a></div>
+                  <div class="nav-category"><a class="{% if category_comparison_url == page.url %}active{% endif %}" tabindex="{{ next_tab_index }}" href="{{ collection_url_path | relative_url }}">{{ collection_value.name }}</a></div>
                   {% include nav.html pages=collection key=collection_key tab_index=next_tab_index %}
                 {% endif %}
               {% else %}
