@@ -20,27 +20,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     navParent.addEventListener('keydown', (event) => {
-      //
-      // Space key functionality
-      // For reference: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation-hybrid/
-      //
-      if (event.key !== ' ') {
-        return;
-      }
 
-      const expandCollapse = (element) => {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        event.stopPropagation();
-        element.click();
+      const handleSpaceKey = () => {
+
+        //
+        // Space key functionality
+        // For reference: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation-hybrid/
+        //
+
+        const expandCollapse = (element) => {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          event.stopPropagation();
+          element.click();
+        };
+
+        if (event.target.classList.contains('nav-list-expander')) {
+          // If the event target is the expand/collapse arrow then toggle the state of the sub tree.
+          expandCollapse(event.target);
+        } else if (event.target.tagName === 'A') {
+          // If the event target is a link then follow the link.
+          event.target.click();
+        }
       };
 
-      if (event.target.classList.contains('nav-list-expander')) {
-        // If the event target is the expand/collapse arrow then toggle the state of the sub tree.
-        expandCollapse(event.target);
-      } else if (event.target.tagName === 'A') {
-        // If the event target is a link then follow the link.
-        event.target.click();
+      const handleArrowKey = () => {
+        let currentlyFocusedNavItem = navParent.querySelector('a:focus');
+        if (!currentlyFocusedNavItem) {
+          const activeNavItem = navParent.querySelector('a.active');
+          if (activeNavItem) {
+            currentlyFocusedNavItem = activeNavItem;
+          } else {
+            // Nothing is focused, nor active. Default to the first item.
+            navParent.querySelector('a.nav-list-link').focus();
+            return;
+          }
+        }
+        const allNavItems = Array.from(navParent.querySelectorAll('a'));
+        const currentlyFocusedNavItemIndex = allNavItems.indexOf(currentlyFocusedNavItem);
+        if (event.key === 'ArrowUp') {
+          if (currentlyFocusedNavItemIndex > 0) {
+            allNavItems[currentlyFocusedNavItemIndex - 1].focus();
+          }
+        } else {
+          if (currentlyFocusedNavItemIndex < allNavItems.length - 1) {
+            allNavItems[currentlyFocusedNavItemIndex + 1].focus();
+          }
+        }
+      };
+
+      
+      if (event.key === ' ') {
+        handleSpaceKey();
+      } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        handleArrowKey();
       }
     });
 });
