@@ -8,7 +8,7 @@ nav_order: 40
 
 # Constant score queries
 
-If you need to return documents that contain a certain word regardless of how many times the word appears, you can use a `constant_ score` query. A `constant_score` query wraps a filter query and assigns all documents in the results a relevance score equal to the value of the `boost` parameter. Thus, all returned documents have an equal relevance score and TF/IDF (term frequency/inverse document frequency) is not considered. Filter queries do not calculate relevance scores. Further, OpenSearch caches frequently used filter queries to improve performance. 
+If you need to return documents that contain a certain word regardless of how many times the word appears, you can use a `constant_ score` query. A `constant_score` query wraps a filter query and assigns all documents in the results a relevance score equal to the value of the `boost` parameter. Thus, all returned documents have an equal relevance score, and TF/IDF (term frequency/inverse document frequency) is not considered. Filter queries do not calculate relevance scores. Further, OpenSearch caches frequently used filter queries to improve performance. 
 
 ## Example
 
