@@ -86,6 +86,7 @@ pebibyte
 [Rr]unbooks?
 [Ss]harding
 [Ss]erverless
+[Ss]harding
 [Ss]ignificand
 stdout
 [Ss]ubaggregation
