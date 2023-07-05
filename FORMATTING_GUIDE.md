@@ -46,7 +46,7 @@ grand_parent: Supported field types
 ---
 ```
 
-If you want to reorganize content or add a new page, keep an eye on `has_children`, `parent`, `grand_parent`, and `nav_order`, which define the hierarchy and order of pages in the left navigation. 
+If you want to reorganize content or add a new page, make sure to set the appropriate `has_children`, `parent`, `grand_parent`, and `nav_order` variables, which define the hierarchy of pages in the left navigation. 
 
 When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting additional child pages easier because it does not require you to renumber existing pages.
 

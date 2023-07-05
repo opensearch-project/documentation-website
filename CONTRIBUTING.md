@@ -128,7 +128,7 @@ During the PR process, expect that there will be some back-and-forth. If you wan
 
 We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](#style-linting).
 
-If we accept the PR, we will merge it and will usually backport it to the appropriate branches.
+If we accept the PR, we will merge it and will backport it to the appropriate branches.
 
 ### Style linting
 
@@ -137,7 +137,7 @@ To ensure that our documentation adheres to the [OpenSearch Project Style Guidel
 1. Run `brew install vale`.
 2. Run `vale *` from the documentation site root directory to lint all Markdown files. To lint a specific file, run `vale /path/to/file`.
 
-Optionally, you can install the [Vale VSCode](https://github.com/chrischinchilla/vale-vscode) extension that integrates Vale with Visual Studio Code. By default, only _errors_ and _warnings_ are underlined. To change the minimum alert level to include _suggestions_, go to **Vale VSCode** > **Extension Settings** and select **suggestion** in the **Vale > Vale CLI: Min Alert Level** dropdown list. 
+Optionally, you can install the [Vale VSCode](https://github.com/chrischinchilla/vale-vscode) extension, which integrates Vale with Visual Studio Code. By default, only _errors_ and _warnings_ are underlined. To change the minimum alert level to include _suggestions_, go to **Vale VSCode** > **Extension Settings** and select **suggestion** in the **Vale > Vale CLI: Min Alert Level** dropdown list. 
 
 ## Getting help
 

@@ -2,7 +2,7 @@
 
 # About the OpenSearch documentation repo
 
-The documentation repository contains the documentation for OpenSearch, the highly scalable and extensible open-source software suite for search, analytics, observability, and other data-intensive applications. You can find the rendered documentation at [opensearch.org/docs](https://opensearch.org/docs).
+The `documentation-website` repository contains the user documentation for OpenSearch. You can find the rendered documentation at [opensearch.org/docs](https://opensearch.org/docs).
 
 
 ## Contributing
