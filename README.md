@@ -7,14 +7,14 @@ The documentation repository contains the documentation for OpenSearch, the high
 
 ## Contributing
 
-Community contributions remain essential in keeping the documentation comprehensive, useful, well-organized, and up-to-date. If you are interested in submitting an issue or contributing content, see [CONTRIBUTING](CONTRIBUTING.md). 
+Community contributions remain essential to keeping the documentation comprehensive, useful, well organized, and up to date. If you are interested in submitting an issue or contributing content, see [CONTRIBUTING](CONTRIBUTING.md). 
 
-See these important resources when you are considering contributing to the documentation:  
+The following resources provide important guidance regarding contributions to the documentation:  
 
-- [OpenSearch Project Style Guidelines](STYLE_GUIDE.md) - The style guide covers the style standards to be observed when creating OpenSearch content.
-- [Terms](TERMS.md) - The terms list contains the key OpenSearch terms and tips on how and when to use them.  
-- [API Style Guide](API_STYLE_GUIDE.md) - The API style guide provides the basic structure for creating OpenSearch API documentation.
-- [Formatting Guide](FORMATTING_GUIDE.md) - The OpenSearch documentation uses a modified version of the [just-the-docs](https://github.com/pmarsceill/just-the-docs) Jekyll theme. Use the formatting guide for an overview of the commonly used formatted elements and to learn how to add pages to the website.
+- [OpenSearch Project Style Guidelines](STYLE_GUIDE.md) -- The style guide covers the style standards to be observed when creating OpenSearch Project content.
+- [OpenSearch terms](TERMS.md) -- The terms list contains key OpenSearch terms and tips on how and when to use them.  
+- [API Style Guide](API_STYLE_GUIDE.md) -- The API Style Guide provides the basic structure for creating OpenSearch API documentation.
+- [Formatting Guide](FORMATTING_GUIDE.md) -- The OpenSearch documentation uses a modified version of the [just-the-docs](https://github.com/pmarsceill/just-the-docs) Jekyll theme. The Formatting Guide provides an overview of the commonly used formatting elements and how to add a page to the website.
 
 
 ## Points of contact
@@ -35,7 +35,7 @@ This project has adopted an [Open Source Code of Conduct](https://opensearch.org
 
 ## Security
 
-If you discover a potential security issue in this project we ask that you notify AWS/Amazon Security using our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Do **not** create a public GitHub issue.
+If you discover a potential security issue in this project, we ask that you notify AWS/Amazon Security using our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Do **not** create a public GitHub issue.
 
 
 ## License
