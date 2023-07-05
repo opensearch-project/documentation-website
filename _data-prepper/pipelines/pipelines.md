@@ -60,9 +60,9 @@ As of Data Prepper 2.2, only the `s3` source and `opensearch` sink support E2E a
 
 ## Conditional routing
 
-Pipelines also support **conditional routing**  which allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept Events that match at least one of the routing conditions. 
+Pipelines also support **conditional routing**  which allows you to route events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept events that match at least one of the routing conditions. 
 
-In the following example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper only routes events that satisfy the condition to the first OpenSearch sink. By default, Data Prepper routes all Events to a sink which does not define a route. In the example, all Events route into the third OpenSearch sink.
+In the following example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper only routes events that satisfy the condition to the first OpenSearch sink. By default, Data Prepper routes all events to a sink which does not define a route. In the example, all events route into the third OpenSearch sink.
 
 ```yml
 conditional-routing-sample-pipeline:
@@ -309,7 +309,7 @@ docker run --name data-prepper \
 
 ## Configure peer forwarder
 
-Data Prepper provides an HTTP service to forward Events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
+Data Prepper provides an HTTP service to forward events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
 
 Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. Peer discovery can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encryption, and mTLS for mutual authentication in a peer forwarding service.
 
