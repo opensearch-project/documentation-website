@@ -17,7 +17,6 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
 
 - [Lucene k-NN filter](#using-a-lucene-k-nn-filter): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned. You can only use this method with the Hierarchical Navigable Small World (HNSW) algorithm implemented by the Lucene search engine in k-NN plugin versions 2.4 and later.
 
-Note that location of `filter` expression matters when it's used with knn query clause. If it's provided outside knn query clause, then it has to be a leaf query clause and is applied after knn search and works exactly the same as `post_filter` keyword. If it's provided within knn query clause, it works as a hybrid of pre-filtering and post-filtering and is only supported for Lucene search engine.
 
 ## Filtered search optimization
 
@@ -198,6 +197,8 @@ The response includes documents containing the matching hotels:
   }
 }
 ```
+
+The location of the `filter` clause matters when it's used with a k-NN query clause. If the `filter` clause is  outside the k-NN query clause, it must be a leaf clause. In this case, the filter is applied after the k-NN search and works exactly like the `post_filter` keyword. If the `filter` clause is within the k-NN query clause, it works as a hybrid of pre- and post-filtering (this option is only supported for the Lucene search engine).
 
 ## Lucene k-NN filter implementation
 
