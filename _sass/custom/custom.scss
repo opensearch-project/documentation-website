@@ -54,6 +54,11 @@ code {
   max-height: 100vh;
   overflow-x: hidden;
   min-width: 14rem;
+  padding-right: 1px;
+}
+
+.nav-list:nth-of-type(1) {
+  padding: 1px;
 }
 
 .nav-category {
