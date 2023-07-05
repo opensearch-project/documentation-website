@@ -480,7 +480,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-In the results, the first blog was published within one day of 04/24/2022, so it has the highest score of 1. The second blog was published on 04/17/2022, which is within `offset` + `scale` (`1d` + `6d`) and therefore has the score equal to `decay` (0.25). The third blog was published after 7 days of 04/22/2022, so it has a lower score. The last blog has a score of 0 because it was published years ago:
+In the results, the first blog was published within one day of 04/24/2022, so it has the highest score of 1. The second blog was published on 04/17/2022, which is within `offset` + `scale` (`1d` + `6d`) and therefore has the score equal to `decay` (0.25). The third blog was published more than 7 days after 04/24/2022, so it has a lower score. The last blog has a score of 0 because it was published years ago:
 
 <details open markdown="block">
   <summary>
