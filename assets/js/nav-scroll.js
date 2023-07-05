@@ -3,6 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!navParent) {
       return;
     }
+
+    // The business logic on navigation items in _includes/nav.html is much too complex
+    // to reliably make this determination correctly without overly complicating something
+    // that is already overly complicated. So, this will make the corrections at runtime.
+    navParent.querySelectorAll('ul').forEach((element) => {
+      const hasNestedList = element.querySelector('ul');
+      if (hasNestedList) {
+        element.setAttribute('role', 'tree');
+      } else {
+        element.setAttribute('role', 'group');
+      }
+    });
+
     const activeNavItem = navParent.querySelector('a.active');
     if (activeNavItem) {
       const activeItemTop = activeNavItem.getBoundingClientRect().y;
@@ -19,6 +32,49 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
+    function toggleAriaAttributes(event) {
+      const findParentLI = (element) => {
+        if (!element) {
+          return null;
+        }
+        if (element.tagName === 'LI') {
+          return element;
+        } else {
+          return findParentLI(element.parentElement);
+        }
+      };
+      const findChildUL = (element) => {
+        if (!element) {
+          return null;
+        }
+        if (element.tagName === 'UL') {
+          return element;
+        } else {
+          return findChildUL(element.nextElementSibling);
+        }
+      };
+      const { currentTarget } = event;
+      const currentlyExpanded = currentTarget.getAttribute('aria-expanded');
+      let expanded = 'false';
+      if (currentlyExpanded === 'true') {
+        expanded = 'false';
+      } else {
+        expanded = 'true';
+      }
+      currentTarget.setAttribute('aria-expanded', expanded);
+      const parentLi = findParentLI(currentTarget.parentElement);
+      if (parentLi) {
+        const toggledUL = findChildUL(parentLi.firstElementChild);
+        if (toggledUL) {
+          toggledUL.setAttribute('aria-expanded', expanded);
+        }
+      }
+    }
+
+    navParent.querySelectorAll('a[role="button"]').forEach((element) => {
+      element.addEventListener('click', toggleAriaAttributes);
+    });
+
     navParent.addEventListener('keydown', (event) => {
 
       const handleSpaceKey = () => {
