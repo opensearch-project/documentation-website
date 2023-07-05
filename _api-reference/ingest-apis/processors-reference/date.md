@@ -8,7 +8,7 @@ nav_order: 50
 
 # Date
 
-The `date` processor is used to parse dates from fields in a document annd store them as a timestamp. The syntax for the `date` processor is:
+The `date` processor is used to parse dates from fields in a document and store them as a timestamp. The syntax for the `date` processor is:
 
 ```json
 {
@@ -29,7 +29,7 @@ The following table lists the required and optional parameters for the `date` pr
 `formats`  | Required | An array of the expected date formats. Can be a java time pattern or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N. The default format is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`.  |
 `target_field`  | Optional  | Name of the field to store the parsed data in.  |
 `locale`  | Optional  | The locale to use when parsing the date. Default is English.  |
-`timezone `  | Optional  | The timezone to use when parsing the date. Default is UTC.  |
+`timezone `  | Optional  | The time zone to use when parsing the date. Default is UTC.  |
 `ignore_missing` | Optional  | If set to `true`, the processor will not fail if the field does not exist. Default is `false`.  | 
 `if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  | 
 `on_failure`  | Optional  | Action to take if an error occurs. | 
