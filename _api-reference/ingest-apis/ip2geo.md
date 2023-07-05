@@ -37,7 +37,7 @@ The following table lists the IP2Geo data source options.
 
 The following code example shows how to create an IP2Geo data source.
 
-#### Example: PUT Request
+#### Example: PUT request
 
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
