@@ -107,13 +107,13 @@ The `field_value_factor` function supports the following options:
 
 - `field`: The field to use in score calculations.
 
-- `factor`: And optional factor by which the field value is multiplied. Default is 1.
+- `factor`: An optional factor by which the field value is multiplied. Default is 1.
 
 - `modifier`: One of the modifiers to apply to the field value $$v$$. The following table lists all supported modifiers.
     
     Modifier | Formula | Description
     :--- | :--- | :---
-    `log`| $$\log v$$ | Take the base-10 logarithm of the value. Taking a logarithm of non-positive numbers is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error.  We recommend using `log1p` or `log2p` instead of `log`.
+    `log`| $$\log v$$ | Take the base-10 logarithm of the value. Taking a logarithm of non-positive numbers is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `log1p` or `log2p` instead of `log`.
     `log1p`| $$\log (1 + v)$$ | Take the base-10 logarithm of the sum of 1 and the value.
     `log2p`| $$\log (2 + v)$$ | Take the base-10 logarithm of the sum of 2 and the value.
     `ln`| $$\ln v$$ | Take the natural logarithm of the value. Taking a logarithm of non-positive numbers is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `ln1p` or `ln2p` instead of `ln`.
@@ -126,7 +126,7 @@ The `field_value_factor` function supports the following options:
 
 - `missing`: The value to use if the field is missing from the document. The `factor` and `modifier` are applied to this value instead of the missing field value.
 
-For example, the following query uses the `field_value_factor` function gives more weight to the `views` field:
+For example, the following query uses the `field_value_factor` function to give more weight to the `views` field:
 
 ```json
 GET blogs/_search
@@ -156,7 +156,7 @@ Using the `script_score` function, you can write a custom script for scoring doc
 The calculated score cannot be negative. Negative scores will result in an error. Document scores have positive 32-bit floating-point values. A score with greater precision is converted to the nearest 32-bit floating-point number.
 {: .important}
 
-For example, the following query uses the `script_score` function to calculate the score based on the original score and the number of views and likes for the blog. To give the number of views and likes have a lesser weight, this formula takes the logarithm of the sum of views and likes. To make the logarithm valid even if the number of views and likes is `0`, `1` is added to their sum:
+For example, the following query uses the `script_score` function to calculate the score based on the original score and the number of views and likes for the blog. To give the number of views and likes a lesser weight, this formula takes the logarithm of the sum of views and likes. To make the logarithm valid even if the number of views and likes is `0`, `1` is added to their sum:
 
 ```json
 GET blogs/_search
@@ -201,7 +201,7 @@ GET blogs/_search
 
 For many applications, you need to sort the results based on proximity or recency. You can do this with decay functions. Decay functions calculate a document score using one of three decay curves: Gaussian, exponential, or linear. 
 
-Decay functions operate only on [numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric), [date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates), and [geopoint]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point) fields.
+Decay functions operate only on [numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/), [date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/), and [geopoint]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) fields.
 {: .important}
 
 Decay functions calculate scores based on the `origin`, `scale`, `offset`, and `decay`, as shown in the following figure.
@@ -252,7 +252,7 @@ PUT hotels/_doc/2
 ```
 {% include copy-curl.html %}
 
-The `origin` defines the point from which the distance is calculated (the office location). The `offset` specifies the distance from the origin within which documents are given a full score of 1. You can give hotels within 200 feet of the office the same highest score. The `scale` defines the decay rate of the graph, and the `decay` defines the score to assign to a document at the `scale` + `offset` distance from the origin. Once you get outside the 200 feet radius, you may decide that if you have to walk another 300 feet to get to a hotel (`scale` = 300 ft) you'll assign it a quarter of the original score (`decay` = 0.25).
+The `origin` defines the point from which the distance is calculated (the office location). The `offset` specifies the distance from the origin within which documents are given a full score of 1. You can give hotels within 200 feet (ft) of the office the same highest score. The `scale` defines the decay rate of the graph, and the `decay` defines the score to assign to a document at the `scale` + `offset` distance from the origin. Once you get outside the 200 feet radius, you may decide that if you have to walk another 300 feet to get to a hotel (`scale` = 300 ft) you'll assign it a quarter of the original score (`decay` = 0.25).
 
 You create the following query with the `origin` at (74.00, 40.71):
 
@@ -374,7 +374,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-The first two blogs in the results have a score of 1 because one is at the origin (20) and the other is at a distance 16 which is within the offset (the range at which documents receive a full score is calculated as 20 $$\pm$$ 5 and is [15, 25]). The third blog is at a distance of `scale` + `offset` from the `origin` (20 &minus; (5 + 10) = 15), so it is given the default `decay` score (0.5):
+The first two blogs in the results have a score of 1 because one is at the origin (20) and the other is at a distance 16, which is within the offset (the range at which documents receive a full score is calculated as 20 $$\pm$$ 5 and is [15, 25]). The third blog is at a distance of `scale` + `offset` from the `origin` (20 &minus; (5 + 10) = 15), so it's given the default `decay` score (0.5):
 
 <details open markdown="block">
   <summary>
@@ -577,7 +577,7 @@ PUT testindex/_doc/1
 }
 ```
 
-The following query uses the `max` distance of a  multi-valued field `distances` to calculate decay:
+The following query uses the `max` distance of a multi-valued field `distances` to calculate decay:
 
 ```json
 GET testindex/_search
