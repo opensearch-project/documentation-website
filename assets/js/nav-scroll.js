@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // The business logic on navigation items in _includes/nav.html is much too complex
-    // to reliably make this determination correctly without overly complicating something
-    // that is already overly complicated. So, this will make the corrections at runtime.
+    // The business logic on navigation items in layouts/default.html and _includes/nav.html 
+    // is much too complex to reliably make this determination correctly without overly complicating 
+    // something that is already overly complicated. So, this will make the corrections at runtime.
     navParent.querySelectorAll('ul').forEach((element) => {
       const hasNestedList = element.querySelector('ul');
       if (hasNestedList) {
@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Give keyboard focus to the active navigation item, and ensure
+    // it is scrolled into view.
     const activeNavItem = navParent.querySelector('a.active');
     if (activeNavItem) {
       const activeItemTop = activeNavItem.getBoundingClientRect().y;
@@ -32,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
+
     function toggleAriaAttributes(event) {
       const findParentLI = (element) => {
         if (!element) {
@@ -101,6 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       const handleArrowKey = () => {
+        // Preventing the default action prevents jankiness in the default scrolling
+        // of the navigation panel, and is left to the browser to handle it when
+        // .focus() is invoked instead.
+        event.preventDefault();
+
         let currentlyFocusedNavItem = navParent.querySelector('a:focus');
         if (!currentlyFocusedNavItem) {
           const activeNavItem = navParent.querySelector('a.active');
@@ -112,9 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
           }
         }
-        const allNavItems = Array.from(navParent.querySelectorAll('a'));
+        const allNavItems = Array.from(
+          navParent.querySelectorAll('a')
+        ).filter(element => element.getBoundingClientRect().height > 0);
+
         const currentlyFocusedNavItemIndex = allNavItems.indexOf(currentlyFocusedNavItem);
-        if (event.key === 'ArrowUp') {
+        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
           if (currentlyFocusedNavItemIndex > 0) {
             allNavItems[currentlyFocusedNavItemIndex - 1].focus();
           }
@@ -125,11 +136,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       };
 
-      
-      if (event.key === ' ') {
-        handleSpaceKey();
-      } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-        handleArrowKey();
+      switch (event.key) {
+        case 'ArrowUp':
+        case 'ArrowDown':
+        case 'ArrowLeft':
+        case 'ArrowRight':
+          handleArrowKey();
+          break;
+        case ' ':
+          handleSpaceKey();
+          break;
       }
     });
 });
