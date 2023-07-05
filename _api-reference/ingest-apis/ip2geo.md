@@ -61,7 +61,7 @@ The following code example shows the reponse to the preceding request. A true re
 
 To get information about one or more IP2Geo data sources, send a GET request.  
 
-#### Example: GET Request
+#### Example: GET request
 
 ```json
 GET /_plugins/geospatial/ip2geo/datasource/my-datasource
@@ -233,7 +233,7 @@ GET /my-index/_doc/my-id
 
 ## Node settings
 
-The IP2Geo data source and `ip2geo` processor have the node settings described in the following table.
+The IP2Geo data source and `ip2geo` processor node settings are listed in the following table.
 
 | IP2Geo data source | Description | Setting |
 |--------------------|-------------|---------|
