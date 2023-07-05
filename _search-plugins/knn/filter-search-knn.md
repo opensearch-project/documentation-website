@@ -197,6 +197,8 @@ The response includes documents containing the matching hotels:
 }
 ```
 
+Note that in this example, `filter` keyword is provided outside knn query clause indicating that it works exactly like `post_filter` keyword. To apply filters prior to query (pre-filter approach), `filter` keyword needs to be provided within knn query clause and it only works for certain engines.
+
 ## Lucene k-NN filter implementation
 
 k-NN plugin version 2.2 introduced support for running k-NN searches with the Lucene engine using HNSW graphs. Starting with version 2.4, which is based on Lucene version 9.4, you can use Lucene filters for k-NN searches.
