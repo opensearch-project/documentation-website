@@ -83,30 +83,33 @@ layout: table_wrappers
                     class="nav-list nav-category-list"
                   >
                     <li role="treeitem" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
-                      {%- if collection.size > 0 -%}
-                      <a 
-                        role="button"
-                        aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
-                        href="#" 
-                        class="nav-list-expander"
-                      ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
-                      {%- endif -%}
+                      
                       {% assign collection_url_path = collection_key | append: "/index/" %}
                       {% assign category_comparison_url = "/" | append: collection_url_path %}
-                      <div class="nav-category"><a class="{% if category_comparison_url == page.url %}active{% endif %}" href="{{ collection_url_path | relative_url  }}">{{ collection_value.name }}</a></div>
+                      {%- if collection.size > 0 -%}
+                        <a 
+                          role="button"
+                          aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
+                          href="#" 
+                          class="nav-list-expander"
+                        ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+                      {%- endif -%}
+                      <a 
+                        class="nav-category{% if category_comparison_url == page.url %} active{% endif %}" 
+                        href="{{ collection_url_path | relative_url  }}"
+                      >{{ collection_value.name }}</a>
                       {% include nav.html pages=collection key=collection_key %}
                     </li>
                   </ul>
                 {% else %}
                   {% assign collection_url_path = collection_key | append: "/index/" %}
-                  <div class="nav-category">
-                    <a 
-                      role="button"
-                      aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
-                      aria-current="{% if page.collection == collection_key %}page{% endif %}"
-                      class="{% if category_comparison_url == page.url %}active{% endif %}"
-                      href="{{ collection_url_path | relative_url }}"
-                    >{{ collection_value.name }}</a></div>
+                  <a 
+                    role="button"
+                    aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
+                    aria-current="{% if page.collection == collection_key %}page{% endif %}"
+                    class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
+                    href="{{ collection_url_path | relative_url }}"
+                  >{{ collection_value.name }}</a>
                   {% include nav.html pages=collection key=collection_key %}
                 {% endif %}
               {% else %}

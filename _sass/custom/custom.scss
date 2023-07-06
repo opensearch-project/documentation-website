@@ -60,9 +60,14 @@ code {
 .nav-list:nth-of-type(1) {
   padding: 1px;
 }
+.nav-list .nav-list-item .nav-list-expander {
+  right: 1px;
+}
 
 .nav-category {
   text-align: start;
+  display: block;
+  margin-left: -1px;
 }
 
 .main-content {
