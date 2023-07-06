@@ -50,12 +50,14 @@ However, if you intend to just use painless scripting or a k-NN score script, yo
 
  ### Lucene byte vector
 
-By default, k-NN vectors are `float` vectors because the optional `data_type` parameter defaults to `float`. In a `float` vector, each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
+By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
  
 Byte vectors are supported only for the `lucene` engine. They are not supported for the `nmslib` and `faiss` engines.
 {: .note}
  
-To use a `byte` vector, set the optional `data_type` parameter to `byte` when creating mappings for an index:
+Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
+
+To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index:
 
  ```json
 PUT test-index
