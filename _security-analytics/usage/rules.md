@@ -37,20 +37,26 @@ In Visual view, rule details are arranged in fields, and the links are active. S
 There are multiple ways to create rules on the **Detection rules** page. These methods include manually creating a custom rule, importing a rule, and duplicating then customizing an existing rule. The following sections discuss these methods in detail.  
 
 
-### The Visual Editor
+### Custom rules
 
 The first method of rule creation is to create a custom rule by manually filling in the necessary fields that complete the rule, using either the Visual Editor or the YAML Editor. To do this, select **Create detection rule** in the uppper-right corner of the screen. The **Create detection rule** window opens.
 
 If you choose to create the rule manually, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) to help understand details for each field.
 {: .tip }
 
-### The Visual Editor
+#### The Visual Editor
 
-When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** basically correspond to a Sigma rule's fields in YAML format. To create a rule, follow these steps.
+When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The description in the steps here point out the correspondence when and where they might not be obvious.
+
+1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The rule name in the **Visual Editor** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule.
+  
+  <img src="{{site.url}}{{site.baseurl}}/images/Security/create-a-rule.png" alt="The Rule overview fields in the Create detection rule window, which include the rule name, description, and author fields." width="50%">
+  
+1. In the **Details** section, enter the log type for the data source, the rule level, and the rule status. The **Log type** corresponds to the [`logsource`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#log-source) field, while the rule level and rule status correspond to [`level`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) and [`status`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#status), respectively. Levels in Sigma rules include informational, low, medium, high, and critical.
+  
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/details-rule.png" alt="The Details fields in the Create detection rule window, which include the log type, rule level, and rule status fields." width="50%">
+  
 1. 
-
-<img src="{{site.url}}{{site.baseurl}}/images/Security/create-a-rule.png" alt="The Create a rule window, which includes the Visual Editor and YAML editor." width="50%">
-
 
 * By default, the Visual Editor is displayed. Enter the appropriate content in each field and select **Create** in the lower-right corner of the window to save the rule.
 * The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
