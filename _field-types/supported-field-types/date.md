@@ -221,7 +221,7 @@ GET testindex/_search
 
 ## Date math
 
-The date field type supports using date math to specify durations in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
+The date field type supports using date math to specify durations in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/bucket/date-range/) accept date math expressions.
 
 A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_optional_time||epoch_millis` format.
 
