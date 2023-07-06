@@ -35,8 +35,8 @@ This table lists the relevant fields of a `geo_distance` aggregation:
 
 Field | Description | Required
 :--- | :--- |:---
-`field` |  Specify the geo point field that you want to work on. | Yes
-`origin` |  Specify the geo point that's used to compute the distances from. | Yes
+`field` |  Specify the geopoint field that you want to work on. | Yes
+`origin` |  Specify the geopoint that's used to compute the distances from. | Yes
 `ranges`  |  Specify a list of ranges to collect documents based on their distance from the target point. | Yes
 `unit` |  Define the units used in the `ranges` array. The `unit` defaults to `m` (meters), but you can switch to other units like `km` (kilometers), `mi` (miles), `in` (inches), `yd` (yards), `cm` (centimeters), and `mm` (millimeters).  | No
 `distance_type` | Specify how OpenSearch calculates the distance. The default is `sloppy_arc` (faster but less accurate), but can also be set to `arc` (slower but most accurate) or `plane` (fastest but least accurate). Because of high error margins, use `plane` only for small geographic areas. | No

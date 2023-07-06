@@ -29,7 +29,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-Sample Response
+#### Example response
 
 ```json
 ...
