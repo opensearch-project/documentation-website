@@ -49,14 +49,16 @@ If you choose to create the rule manually, you can refer to Sigma's [Rule Creati
 When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The description in the steps here point out the correspondence when and where they might not be obvious.
 
 1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The rule name in the **Visual Editor** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule.
+   
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/overview-rule.png" alt="The Rule overview fields in the Create detection rule window, which include the rule name, description, and author fields." width="50%">
   
-  <img src="{{site.url}}{{site.baseurl}}/images/Security/create-a-rule.png" alt="The Rule overview fields in the Create detection rule window, which include the rule name, description, and author fields." width="50%">
+1. In the **Details** section, enter the log type for the data source, the rule level, and the rule status. The **Log type** corresponds to the [`logsource`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#log-source) field (specifically, the `logsource: product` field), while the rule level and rule status correspond to [`level`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) and [`status`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#status), respectively. Levels in Sigma rules include informational, low, medium, high, and critical.
   
-1. In the **Details** section, enter the log type for the data source, the rule level, and the rule status. The **Log type** corresponds to the [`logsource`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#log-source) field, while the rule level and rule status correspond to [`level`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) and [`status`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#status), respectively. Levels in Sigma rules include informational, low, medium, high, and critical.
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/details-rule.png" alt="The Details fields in the Create detection rule window, which include the log type, rule level, and rule status fields." width="40%">
   
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/details-rule.png" alt="The Details fields in the Create detection rule window, which include the log type, rule level, and rule status fields." width="50%">
-  
-1. 
+1. In the **Detection** section, specify key-value pairs to represent the fields and their values in the log source that will be the target for detection. These key-value pairs define the detection.
+
+   *
 
 * By default, the Visual Editor is displayed. Enter the appropriate content in each field and select **Create** in the lower-right corner of the window to save the rule.
 * The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
