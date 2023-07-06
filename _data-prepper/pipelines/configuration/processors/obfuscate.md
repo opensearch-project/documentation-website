@@ -15,7 +15,6 @@ The `obfuscate` process enables obfuscation to fields inside your documents in o
 In this example, we have a document which contains a `log` field and a `phone` field that contains data we want to obfuscate, as shown in the following object:
 
 ```json
-```json
 {
   "id": 1,
   "phone": "(555) 555 5555",
