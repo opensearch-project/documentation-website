@@ -34,11 +34,24 @@ In Visual view, rule details are arranged in fields, and the links are active. S
 
 ## Creating rules
 
-There are several ways to create rules on the **Detection rules** page. The first is to manually fill in the necessary fields that complete the rule, using either the Visual Editor or YAML Editor. To do this, select the **Create new rule** button in the uppper-right corner of the screen. The Create a rule window opens.
+There are multiple ways to create rules on the **Detection rules** page. These methods include manually creating a custom rule, importing a rule, and duplicating then customizing an existing rule. The following sections discuss these methods in detail.  
+
+
+### The Visual Editor
+
+The first method of rule creation is to create a custom rule by manually filling in the necessary fields that complete the rule, using either the Visual Editor or the YAML Editor. To do this, select **Create detection rule** in the uppper-right corner of the screen. The **Create detection rule** window opens.
+
+If you choose to create the rule manually, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) to help understand details for each field.
+{: .tip }
+
+### The Visual Editor
+
+When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** basically correspond to a Sigma rule's fields in YAML format. To create a rule, follow these steps.
+1. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/create-a-rule.png" alt="The Create a rule window, which includes the Visual Editor and YAML editor." width="50%">
 
-If you choose to create the rule manually, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) to help understand details for each field.
+
 * By default, the Visual Editor is displayed. Enter the appropriate content in each field and select **Create** in the lower-right corner of the window to save the rule.
 * The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
 
