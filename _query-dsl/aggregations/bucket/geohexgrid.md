@@ -1,9 +1,11 @@
 ---
 layout: default
-title: GeoHex grid aggregations
-parent: Aggregations
-permalink: /aggregations/geohexgrid/
-nav_order: 4
+title: GeoHex grid
+parent: Bucket aggregations
+nav_order: 85
+redirect_from:
+  - /aggregations/geohexgrid/
+  - /query-dsl/aggregations/geohexgrid/
 ---
 
 # GeoHex grid aggregations
