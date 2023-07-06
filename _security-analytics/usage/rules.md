@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Working with rules
+title: Working with detection rules
 parent: Using Security Analytics
 nav_order: 40
 ---
 
-# Working with rules
+# Working with detection rules
 
-The Rules window lists all security rules and provides options for filtering the list and viewing details for each rule. Further options let you import rules and create new rules by first duplicating a Sigma rule then modifying it. This section covers navigation of the Rules page and description of the actions you can perform.
+The **Detection rules** window lists all security rules used for detection creation and provides options for filtering the list and viewing details for each rule. Further options let you import rules and create new rules by first duplicating a Sigma rule then modifying it. This section covers navigation of the Rules page and description of the actions you can perform.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/Rules.png" alt="The Rules page" width="90%">
 
 ## Viewing and filtering rules
 
-When you open the Rules page, all rules are listed in the table. Use the search bar to search for specific rules by entering a full or partial name and pressing **Return/Enter** on your keyboard. The list is filtered and displays matching results.
+When you open the Detection rules page, all rules are listed in the table. Use the search bar to search for specific rules by entering a full or partial name and pressing **Return/Enter** on your keyboard. The list is filtered and displays matching results.
 
 Alternatively, you can use the **Rule type**, **Rule severity**, and **Source** dropdown lists to drill down in the alerts and filter for preferred results. You can select multiple options from each list and use all three in combination to narrow results.
 
@@ -30,11 +30,11 @@ In Visual view, rule details are arranged in fields, and the links are active. S
 <img src="{{site.url}}{{site.baseurl}}/images/Security/rule_detail_yaml.png" alt="The rule details pane in YAML file view" width="50%">
 
 * Rule details are formatted as a YAML file according to the Sigma rule specification.
-* To copy the rule, select the copy icon in the top right corner of the rule. To quickly create a new and customized rule, you can paste the rule into the YAML editor and make any modifications before saving it. See [Customizing rules](#customizing-rules) for details.
+* To copy the rule, select the copy icon in the top-right corner of the rule. To quickly create a new and customized rule, you can paste the rule into the YAML editor and make any modifications before saving it. See [Customizing rules](#customizing-rules) for details.
 
 ## Creating rules
 
-There are several ways to create rules on the Rules page. The first is to manually fill in the necessary fields that complete the rule, using either the Visual Editor or YAML Editor. To do this, select the **Create new rule** button in the uppper-right corner of the Rules window. The Create a rule window opens.
+There are several ways to create rules on the **Detection rules** page. The first is to manually fill in the necessary fields that complete the rule, using either the Visual Editor or YAML Editor. To do this, select the **Create new rule** button in the uppper-right corner of the screen. The Create a rule window opens.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/create-a-rule.png" alt="The Create a rule window, which includes the Visual Editor and YAML editor." width="50%">
 
