@@ -69,14 +69,12 @@
           <a 
             role="button"
             aria-expanded="{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %}true{% else %}false{% endif %}"
-            tabindex="{{ include.tab_index }}" 
             href="#" 
             class="nav-list-expander"
           ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
         {%- endif -%}
         <a 
           aria-current="{% if page.url == node.url %}page{% endif %}"
-          tabindex="{{ include.tab_index }}" 
           href="{{ node.url | absolute_url }}" 
           class="nav-list-link{% if page.url == node.url %} active{% endif %}"
         >{{ node.title }}</a>
@@ -90,14 +88,12 @@
                 <a
                   role="button"
                   aria-expanded="{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %}true{% else %}false{% endif %}" 
-                  tabindex="{{ include.tab_index }}" 
                   href="#" 
                   class="nav-list-expander"
                 ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
               {%- endif -%}
               <a 
                 aria-current="{% if page.url == child.url %}page{% endif %}"
-                tabindex="{{ include.tab_index }}" 
                 href="{{ child.url | absolute_url }}" 
                 class="nav-list-link{% if page.url == child.url %} active{% endif %}"
               >{{ child.title }}</a>
@@ -109,7 +105,6 @@
                   <li role="treeitem" class="nav-list-item {% if page.url == grand_child.url %} active{% endif %}">
                     <a 
                       aria-current="{% if page.url == grand_child.url %}page{% endif %}"
-                      tabindex="{{ include.tab_index }}" 
                       href="{{ grand_child.url | absolute_url }}" 
                       class="nav-list-link{% if page.url == grand_child.url %} active{% endif %}"
                     >{{ grand_child.title }}</a>
