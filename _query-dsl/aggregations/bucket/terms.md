@@ -78,7 +78,7 @@ While the `doc_count` field provides a representation of the number of individua
 OpenSearch features that rely on an accurate document count illustrate the importance of using the `_doc_count` field. To see how this field can be used to support other search tools, refer to [Index rollups](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/), an OpenSearch feature for the Index Management (IM) plugin that stores documents with pre-aggregated data in rollup indexes.
 {: .tip}
 
-### Example usage
+#### Example request
 
 ```json
 PUT /my_index/_doc/1
