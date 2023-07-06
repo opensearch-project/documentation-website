@@ -15,26 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
         element.setAttribute('role', 'group');
       }
     });
-
+    
     // Give keyboard focus to the active navigation item, and ensure
     // it is scrolled into view.
     const activeNavItem = navParent.querySelector('a.active');
     if (activeNavItem) {
-      const activeItemTop = activeNavItem.getBoundingClientRect().y;
-      if (activeItemTop < 0) {
-        navParent.scrollTo(0, activeItemTop);
-        activeNavItem.focus();
-      } else {
-        activeNavItem.focus();
-      }
-    } else {
-      const firstNavItem = navParent.querySelector('ul.nav-list > li.nav-list-item:nth-of-type(1) > a.nav-list-link');
-      if (firstNavItem) {
-        firstNavItem.focus();
+      const VERSION_WRAPPER_HEIGHT = 80;
+      const parentRect = navParent.getBoundingClientRect();
+      const activeRect = activeNavItem.getBoundingClientRect();
+
+      if (activeRect.top < (parentRect.top + VERSION_WRAPPER_HEIGHT) || activeRect.bottom > parentRect.bottom) {
+        // The active item is not in view, so scroll it into view.
+        const distanceToScroll = activeRect.top - parentRect.top + VERSION_WRAPPER_HEIGHT;
+        navParent.scrollTo(0, distanceToScroll);
       }
     }
     
-
     function toggleAriaAttributes(event) {
       const findParentLI = (element) => {
         if (!element) {
