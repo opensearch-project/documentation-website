@@ -54,6 +54,8 @@ This sentence tests roll-over as a noun. To rollover, we test this as a verb.
 
 This sentence tests set-up as a noun. To setup, we test this as a verb.
 
+This sentence tests AWS SigV4 and sigv4. 
+
 This sentence simply tests the "simple" rule by just doing it.
 
 These two sentences.  Test the spacing punctuation.

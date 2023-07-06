@@ -2,6 +2,7 @@
 [Aa]utomapping
 [Aa]utopopulate
 [Bb]ackoff
+[Bb]ackporting
 [Bb]ackpressure
 [Bb]asemap
 [Bb]igram
@@ -53,6 +54,7 @@ Levenshtein
 [Ll]ookups?
 [Ll]ossy
 [Ll]owercases?d?
+[Mm]acrobenchmarks?
 [Mm]isorder
 [Mm]ultifield
 [Mm]ultiline
@@ -83,7 +85,9 @@ pebibyte
 [Rr]ewriter
 [Rr]ollup
 [Rr]unbooks?
+[Ss]harding
 [Ss]erverless
+[Ss]harding
 [Ss]ignificand
 stdout
 [Ss]ubaggregation

@@ -20,6 +20,7 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
     Filtering during k-NN search is supported only with the Hierarchical Navigable Small World (HNSW) algorithm implemented by the Lucene search engine (k-NN plugin versions 2.4 and later) or by the Faiss search engine (k-NN plugin versions 2.9 or later).
     {: .note}
 
+
 ## Filtered search optimization
 
 Depending on your dataset and use case, you might be more interested in maximizing recall or minimizing latency. The following table provides guidance on various k-NN search configurations and the filtering methods used to optimize for higher recall or lower latency. The first three columns of the table provide several example k-NN search configurations. A search configuration consists of:
@@ -199,6 +200,8 @@ The response includes documents containing the matching hotels:
   }
 }
 ```
+
+The location of the `filter` clause matters when it's used with a k-NN query clause. If the `filter` clause is outside the k-NN query clause, it must be a leaf clause. In this case, the filter is applied after the k-NN search and works exactly like the `post_filter` keyword. If the `filter` clause is within the k-NN query clause, it works as a hybrid of pre- and post-filtering (this option is only supported for the Lucene search engine).
 
 ## Lucene k-NN filter implementation
 
