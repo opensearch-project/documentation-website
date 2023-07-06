@@ -1,14 +1,14 @@
 ---
 layout: default
-title: GeoTile grid
+title: Geotile grid
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 87
 ---
 
-# GeoTile grid aggregations
+# Geotile grid aggregations
 
-The Geotile grid aggregation groups [geopoints]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) into grid cells for geographical analysis. Each grid cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map) and is identified using the `{zoom}/{x}/{y}` format.
+The geotile grid aggregation groups [geopoints]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) into grid cells for geographical analysis. Each grid cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map) and is identified using the `{zoom}/{x}/{y}` format.
 
 ## Precision
 
@@ -74,7 +74,7 @@ GET national_parks/_search
 }
 ```
 
-You can use either the `GET` or `POST` HTTP method for GeoTile grid aggregation queries.
+You can use either the `GET` or `POST` HTTP method for geotile grid aggregation queries.
 {: .note}
 
 The response groups all documents together because they are close enough to be bucketed in one grid cell:
