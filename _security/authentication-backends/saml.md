@@ -34,15 +34,15 @@ We provide a fully functional example that can help you understand how to use SA
    
    ```yml
    opensearch-saml-node1:
-    image: opensearchproject/opensearch:2.6.0
+    image: opensearchproject/opensearch:2.8.0
     ```
     ```yml
     opensearch-saml-node2:
-    image: opensearchproject/opensearch:2.6.0
+    image: opensearchproject/opensearch:2.8.0
     ```
     ```yml
     opensearch-saml-dashboards:
-    image: opensearchproject/opensearch-dashboards:2.6.0
+    image: opensearchproject/opensearch-dashboards:2.8.0
     ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
