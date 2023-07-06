@@ -8,7 +8,7 @@ nav_order: 87
 
 # Geotile grid aggregations
 
-The geotile grid aggregation groups [geopoints]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) into grid cells for geographical analysis. Each grid cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map) and is identified using the `{zoom}/{x}/{y}` format.
+The geotile grid aggregation groups documents into grid cells for geographical analysis. Each grid cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map) and is identified using the `{zoom}/{x}/{y}` format. You can aggregate documents on[geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields using a geotile grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geotile grid cells with which it intersects.
 
 ## Precision
 
@@ -312,6 +312,66 @@ The response contains only the two results that are within the specified bounds:
 ```
 
 The `bounds` parameter can be used with or without the `geo_bounding_box` filter; these two parameters are independent and can have any spatial relationship to each other.
+
+## Aggregating geoshapes
+
+To aggregate on geoshape fields, first create an index and map the `location` field as a `geo_shape`:
+
+```json
+PUT national_parks
+{
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_shape"
+      }
+    }
+  }
+}
+```
+
+Next, index some documents into the `national_parks` index:
+
+```json
+PUT national_parks/_doc/1
+{
+  "name": "Yellowstone National Park",
+  "location":
+  {"type": "envelope","coordinates": [ [-111.15, 45.12], [-109.83, 44.12] ]}
+}
+
+PUT national_parks/_doc/2
+{
+  "name": "Yosemite National Park",
+  "location": 
+  {"type": "envelope","coordinates": [ [-120.23, 38.16], [-119.05, 37.45] ]}
+}
+
+PUT national_parks/_doc/3
+{
+  "name": "Death Valley National Park",
+  "location": 
+  {"type": "envelope","coordinates": [ [-117.34, 37.01], [-116.38, 36.25] ]}
+}
+```
+
+You can run an aggregation on the `location` field as follows:
+
+```json
+GET national_parks/_search
+{
+  "aggregations": {
+    "grouped": {
+      "geotile_grid": {
+        "field": "location",
+        "precision": 3
+      }
+    }
+  }
+}
+```
+
+When aggregating geoshapes, one geoshape be counted for multiple buckets because it overlaps with multiple grid cells.
 
 ## Supported parameters
 
