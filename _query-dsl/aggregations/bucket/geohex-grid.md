@@ -1,18 +1,20 @@
 ---
 layout: default
-title: GeoHex grid aggregations
-parent: Aggregations
-permalink: /aggregations/geohexgrid/
-nav_order: 4
+title: Geohex grid
+parent: Bucket aggregations
+nav_order: 85
+redirect_from:
+  - /aggregations/geohexgrid/
+  - /query-dsl/aggregations/geohexgrid/
 ---
 
-# GeoHex grid aggregations
+# Geohex grid aggregations
 
 The Hexagonal Hierarchical Geospatial Indexing System (H3) partitions the Earth's areas into identifiable hexagon-shaped cells. 
 
 The H3 grid system works well for proximity applications because it overcomes the limitations of Geohash's non-uniform partitions. Geohash encodes latitude and longitude pairs, leading to significantly smaller partitions near the poles and a degree of longitude near the equator. However, the H3 grid system's distortions are low and limited to 5 partitions of 122. These five partitions are placed in low-use areas (for example, in the middle of the ocean), leaving the essential areas error free. Thus, grouping documents based on the H3 grid system provides a better aggregation than the Geohash grid.
 
-The GeoHex grid aggregation groups [geopoints]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) into grid cells for geographical analysis. Each grid cell corresponds to an [H3 cell](https://h3geo.org/docs/core-library/h3Indexing/#h3-cell-indexp) and is identified using the [H3Index representation](https://h3geo.org/docs/core-library/h3Indexing/#h3index-representation).
+The geohex grid aggregation groups [geopoints]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) into grid cells for geographical analysis. Each grid cell corresponds to an [H3 cell](https://h3geo.org/docs/core-library/h3Indexing/#h3-cell-indexp) and is identified using the [H3Index representation](https://h3geo.org/docs/core-library/h3Indexing/#h3index-representation).
 
 ## Precision
 
@@ -78,7 +80,7 @@ GET national_parks/_search
 }
 ```
 
-You can use either the `GET` or `POST` HTTP method for GeoHex grid aggregation queries.
+You can use either the `GET` or `POST` HTTP method for geohex grid aggregation queries.
 {: .note}
 
 The response groups documents 2 and 3 together because they are close enough to be bucketed in one grid cell:
@@ -366,12 +368,12 @@ The `bounds` parameter can be used with or without the `geo_bounding_box` filter
 
 ## Supported parameters
 
-GeoHex grid aggregation requests support the following parameters.
+Geohex grid aggregation requests support the following parameters.
 
 Parameter | Data type | Description
 :--- | :--- | :---
 field | String | The field that contains the geopoints. This field must be mapped as a `geo_point` field. If the field contains an array, all array values are aggregated. Required.
 precision | Integer | The zoom level used to determine grid cells for bucketing results. Valid values are in the [0, 15] range. Optional. Default is 5. 
-bounds | Object | The bounding box for filtering geopoints. The bounding box is defined by the top left and bottom right vertices. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A Geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for formatting examples. Optional.
+bounds | Object | The bounding box for filtering geopoints. The bounding box is defined by the upper left and lower right vertices. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for formatting examples. Optional.
 size | Integer | The maximum number of buckets to return. When there are more buckets than `size`, OpenSearch returns buckets with more documents. Optional. Default is 10,000.
 shard_size | Integer | The maximum number of buckets to return from each shard. Optional. Default is max (10, `size` &middot; number of shards), which provides a more accurate count of more highly prioritized buckets.
