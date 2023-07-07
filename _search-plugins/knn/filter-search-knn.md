@@ -11,17 +11,21 @@ has_math: true
 
 To refine k-NN results, you can filter a k-NN search using one of the following methods:
 
-- [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It does not scale for large filtered subsets.
+- [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned. This approach is supported by the following search engines:
+  - Hierarchical Navigable Small World (HNSW) algorithm implemented by the Lucene search engine (k-NN plugin versions 2.4 and later) 
+  - Faiss search engine (k-NN plugin versions 2.9 or later) <!-- TODO Are there any specific algorithms that this works for? -->
 
 - [Boolean filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. Because of post-filtering, it may return significantly fewer than `k` results for a restrictive filter.
 
-- [Filtering during k-NN search](#filtering-during-k-nn-search): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned. 
+- [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It does not scale for large filtered subsets. 
 
-    Filtering during k-NN search is supported only with the Hierarchical Navigable Small World (HNSW) algorithm implemented by the Lucene search engine (k-NN plugin versions 2.4 and later) or by the Faiss search engine (k-NN plugin versions 2.9 or later).
-    {: .note}
+The following table summarizes the preceding filtering use cases.
 
-The location of the `filter` clause matters when it's used with a k-NN query clause. If the `filter` clause is outside the k-NN query clause, it must be a leaf clause. In this case, the filter is applied after the k-NN search and works exactly like the `post_filter` keyword. If the `filter` clause is within the k-NN query clause, it works as a hybrid of pre- and post-filtering (this option is only supported for the `lucene` and `faiss` search engines).
-{: .note}
+Filter | When the filter is applied | Type of search | Supported engines and methods | Where to place the `filter` clause
+:--- | :--- | :--- | :---
+Efficient k-NN filtering | During search (a hybrid of pre- and post-filtering) | Approximate | - `lucene` (`hnsw`) <br> - `faiss` (`hnsw`, `ivf`) | Inside the k-NN query clause.
+Boolean filter | After search (post-filtering, works exactly like the `post_filter` keyword) | Approximate | -`lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. Must be a leaf clause.
+Scoring script filter | Before search (pre-filtering) | Exact | N/A | Inside the script score query clause.
 
 ## Filtered search optimization
 
@@ -33,177 +37,22 @@ Depending on your dataset and use case, you might be more interested in maximizi
 
 Once you've estimated the number of documents in your index, the restrictiveness of your filter, and the desired number of nearest neighbors, use the following table to choose a filtering method that optimizes for recall or latency.
 
+<!-- TODO review this table given the new faiss engine -->
+
 | Number of documents in an index | Percentage of documents the filter returns | k | Filtering method to use for higher recall | Filtering method to use for lower latency |
 | :-- | :-- | :-- | :-- | :-- |
 | 10M | 2.5 | 100 | Scoring script | Scoring script |
-| 10M | 38 | 100 |Filtering during k-NN search | Boolean filter |
-| 10M | 80 | 100 | Scoring script |Filtering during k-NN search |
-| 1M | 2.5 | 100 |Filtering during k-NN search | Scoring script |
-| 1M | 38 | 100 |Filtering during k-NN search |Filtering during k-NN search/scoring script |
-| 1M | 80 | 100 | Boolean filter |Filtering during k-NN search |
+| 10M | 38 | 100 |Efficient k-NN filtering | Boolean filter |
+| 10M | 80 | 100 | Scoring script |Efficient k-NN filtering |
+| 1M | 2.5 | 100 |Efficient k-NN filtering | Scoring script |
+| 1M | 38 | 100 |Efficient k-NN filtering |Efficient k-NN filtering/scoring script |
+| 1M | 80 | 100 | Boolean filter |Efficient k-NN filtering |
 
-## Scoring script filter
+## Efficient k-NN filtering
 
-A scoring script filter first filters the documents and then uses a brute-force exact k-NN search on the results. For example, the following query searches for hotels with a rating between 8 and 10, inclusive, that provide parking and then performs a k-NN search to return the 3 hotels that are closest to the specified `location`:
+You can perform efficient k-NN filtering with the `lucene` or `faiss` search engines. 
 
-```json
-POST /hotels-index/_search
-{
-  "size": 3,
-  "query": {
-    "script_score": {
-      "query": {
-        "bool": {
-          "filter": {
-            "bool": {
-              "must": [
-                {
-                  "range": {
-                    "rating": {
-                      "gte": 8,
-                      "lte": 10
-                    }
-                  }
-                },
-                {
-                  "term": {
-                    "parking": "true"
-                  }
-                }
-              ]
-            }
-          }
-        }
-      },
-      "script": {
-        "source": "knn_score",
-        "lang": "knn",
-        "params": {
-          "field": "location",
-          "query_value": [
-            5.0,
-            4.0
-          ],
-          "space_type": "l2"
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Boolean filter with ANN search
-
-A Boolean filter consists of a Boolean query that contains a k-NN query and a filter. For example, the following query searches for hotels that are closest to the specified `location` and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
-
-```json
-POST /hotels-index/_search
-{
-  "size": 3,
-  "query": {
-    "bool": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "range": {
-                "rating": {
-                  "gte": 8,
-                  "lte": 10
-                }
-              }
-            },
-            {
-              "term": {
-                "parking": "true"
-              }
-            }
-          ]
-        }
-      },
-      "must": [
-        {
-          "knn": {
-            "location": {
-              "vector": [
-                5,
-                4
-              ],
-              "k": 20
-            }
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-The response includes documents containing the matching hotels:
-
-```json
-{
-  "took" : 95,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : {
-      "value" : 5,
-      "relation" : "eq"
-    },
-    "max_score" : 0.72992706,
-    "hits" : [
-      {
-        "_index" : "hotels-index",
-        "_id" : "3",
-        "_score" : 0.72992706,
-        "_source" : {
-          "location" : [
-            4.9,
-            3.4
-          ],
-          "parking" : "true",
-          "rating" : 9
-        }
-      },
-      {
-        "_index" : "hotels-index",
-        "_id" : "6",
-        "_score" : 0.3012048,
-        "_source" : {
-          "location" : [
-            6.4,
-            3.4
-          ],
-          "parking" : "true",
-          "rating" : 9
-        }
-      },
-      {
-        "_index" : "hotels-index",
-        "_id" : "5",
-        "_score" : 0.24154587,
-        "_source" : {
-          "location" : [
-            3.3,
-            4.5
-          ],
-          "parking" : "true",
-          "rating" : 8
-        }
-      }
-    ]
-  }
-}
-```
-
-## Lucene k-NN filter implementation
+### Lucene k-NN filter implementation
 
 k-NN plugin version 2.2 introduced support for running k-NN searches with the Lucene engine using HNSW graphs. Starting with version 2.4, which is based on Lucene version 9.4, you can use Lucene filters for k-NN searches.
 
@@ -219,7 +68,7 @@ The following flow chart outlines the Lucene algorithm.
 
 For more information about the Lucene filtering implementation and the underlying `KnnVectorQuery`, see the [Apache Lucene documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
-## Filtering during k-NN search
+### Using a Lucene k-NN filter
 
 Consider a dataset that includes 12 documents containing hotel information. The following image shows all hotels on an xy coordinate plane by location. Additionally, the points for hotels that have a rating between 8 and 10, inclusive, are depicted with orange dots, and hotels that provide parking are depicted with green circles. The search point is colored in red:
 
@@ -227,9 +76,9 @@ Consider a dataset that includes 12 documents containing hotel information. The 
 
 In this example, you will create an index and search for the three hotels with high ratings and parking that are the closest to the search location.
 
-### Step 1: Create a new index 
+**Step 1: Create a new index**
 
-Before you can run a k-NN search with a filter, you need to create an index with a `knn_vector` field. For this field, you need to specify `lucene` or `faiss` as the engine and `hnsw` as the `method` in the mapping.
+Before you can run a k-NN search with a filter, you need to create an index with a `knn_vector` field. For this field, you need to specify `lucene` as the engine and `hnsw` as the `method` in the mapping.
 
 The following request creates a new index called `hotels-index` with a `knn-filter` field called `location`:
 
@@ -265,7 +114,7 @@ PUT /hotels-index
 ```
 {% include copy-curl.html %}
 
-### Step 2: Add data to your index
+**Step 2: Add data to your index**
 
 Next, add data to your index.
 
@@ -300,7 +149,7 @@ POST /_bulk
 ```
 {% include copy-curl.html %}
 
-### Step 3: Search your data with a filter
+**Step 3: Search your data with a filter**
 
 Now you can create a k-NN search with filters. In the k-NN query clause, include the point of interest that is used to search for nearest neighbors, the number of nearest neighbors to return (`k`), and a filter with the restriction criteria. Depending on how restrictive you want your filter to be, you can add multiple query clauses to a single request.
 
@@ -468,5 +317,215 @@ POST /hotels-index/_search
     }
   }
 } 
+```
+{% include copy-curl.html %}
+
+### Faiss k-NN filter implementation 
+
+Starting with k-NN plugin version 2.9, you can use `faiss` filters for k-NN searches.
+
+<!-- TODO: add a description and diagram of the new algorithm -->
+
+### Using a Faiss efficient filter
+
+<!-- TODO: describe a Faiss example -->
+
+**Step 1: Create a new index** 
+
+Before you can run a k-NN search with a filter, you need to create an index with a `knn_vector` field. For this field, you need to specify `faiss` as the engine in the mapping.
+
+The following request <!-- TODO: what does the request do -->:
+
+```json
+<!-- TODO: add a request -->
+```
+{% include copy-curl.html %}
+
+**Step 2: Add data to your index**
+
+Next, add data to your index.
+
+The following request <!-- TODO: what does the request do -->:  
+
+```json
+<!-- TODO: add a request -->
+```
+{% include copy-curl.html %}
+
+**Step 3: Search your data with a filter**
+
+Now you can create a k-NN search with filters. <!-- TODO: add details -->
+
+The following request <!-- TODO: what does the request do -->:
+
+```json
+<!-- TODO: add a request -->
+```
+{% include copy-curl.html %}
+
+The response returns <!-- TODO: what does the response return -->:
+
+```json
+<!-- TODO: add a response -->
+```
+
+## Boolean filter with ANN search
+
+A Boolean filter consists of a Boolean query that contains a k-NN query and a filter. For example, the following query searches for hotels that are closest to the specified `location` and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
+
+```json
+POST /hotels-index/_search
+{
+  "size": 3,
+  "query": {
+    "bool": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "rating": {
+                  "gte": 8,
+                  "lte": 10
+                }
+              }
+            },
+            {
+              "term": {
+                "parking": "true"
+              }
+            }
+          ]
+        }
+      },
+      "must": [
+        {
+          "knn": {
+            "location": {
+              "vector": [
+                5,
+                4
+              ],
+              "k": 20
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+The response includes documents containing the matching hotels:
+
+```json
+{
+  "took" : 95,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 5,
+      "relation" : "eq"
+    },
+    "max_score" : 0.72992706,
+    "hits" : [
+      {
+        "_index" : "hotels-index",
+        "_id" : "3",
+        "_score" : 0.72992706,
+        "_source" : {
+          "location" : [
+            4.9,
+            3.4
+          ],
+          "parking" : "true",
+          "rating" : 9
+        }
+      },
+      {
+        "_index" : "hotels-index",
+        "_id" : "6",
+        "_score" : 0.3012048,
+        "_source" : {
+          "location" : [
+            6.4,
+            3.4
+          ],
+          "parking" : "true",
+          "rating" : 9
+        }
+      },
+      {
+        "_index" : "hotels-index",
+        "_id" : "5",
+        "_score" : 0.24154587,
+        "_source" : {
+          "location" : [
+            3.3,
+            4.5
+          ],
+          "parking" : "true",
+          "rating" : 8
+        }
+      }
+    ]
+  }
+}
+```
+
+## Scoring script filter
+
+A scoring script filter first filters the documents and then uses a brute-force exact k-NN search on the results. For example, the following query searches for hotels with a rating between 8 and 10, inclusive, that provide parking and then performs a k-NN search to return the 3 hotels that are closest to the specified `location`:
+
+```json
+POST /hotels-index/_search
+{
+  "size": 3,
+  "query": {
+    "script_score": {
+      "query": {
+        "bool": {
+          "filter": {
+            "bool": {
+              "must": [
+                {
+                  "range": {
+                    "rating": {
+                      "gte": 8,
+                      "lte": 10
+                    }
+                  }
+                },
+                {
+                  "term": {
+                    "parking": "true"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "script": {
+        "source": "knn_score",
+        "lang": "knn",
+        "params": {
+          "field": "location",
+          "query_value": [
+            5.0,
+            4.0
+          ],
+          "space_type": "l2"
+        }
+      }
+    }
+  }
+}
 ```
 {% include copy-curl.html %}
