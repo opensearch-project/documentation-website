@@ -73,16 +73,48 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
    To see how this definition compares to how it would be configured in the YAML file, refer to the following example:
 
    ```yaml
-   selection_schtasks:
-     Image|endswith: \schtasks.exe
-     CommandLine|contains: '/Create '
+   detection:
+      selection:
+       selection_schtasks:
+         Image|endswith: \schtasks.exe
+         CommandLine|contains: '/Create '
    ```
+   
+   To add a second selection, use the **Add selection** bar following the first selection to open another key-value pair mapping. For this selection, we'll provide values as a list. As in the first selection, replace the **Selection_2** label with a selection name, enter a field name from the log as the key, and select a modifier from the **Modifier** dropdown list.
+   Then, to define a key-value pair using a list rather than a single value, select the **List** radio button. The **Upload file** button appears and the text box is expanded to accommodate the list.
 
-   To define a key-value pair using a list rather than a single value, perform the previous steps for a simple key-value pair but select the **List** radio button instead of **Value**.  
+   You can upload an existing list of values in either .csv or .txt format. Select **Upload file** and follow the prompts to upload a file's content into the text field. As an alternative, you can manually compose the list directly in the text field. The following image shows how a key-value pair mapping including a list of values appears.
+
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/detection2.png" alt="An example of the Detection fields." width="40%">
 
 
-* By default, the Visual Editor is displayed. Enter the appropriate content in each field and select **Create** in the lower-right corner of the window to save the rule.
-* The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
+ select **Create detection rule** in the lower-right corner of the window to save the rule.
+
+#### The YAML Editor
+
+The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
+
+
+
+```yml
+detection:
+  selection:
+    selection_schtasks:
+      Image|endswith: \schtasks.exe
+      CommandLine|contains: '/Create '
+    selection_rare:
+      CommandLine|contains:
+       - ' bypass '
+       - .DownloadString
+       - .DownloadFile
+       - FromBase64String
+       - ' -w hidden '
+       - ' IEX'
+       - ' -enc '
+       - ' -decode '
+       - '/c start /min '
+       - ' curl '
+```
 
 The alternatives to manually creating a rule, however, simplify and speed up the process. They involve either importing a rule in a YAML file or duplicating an existing rule and customizing it. See the next two sections for detailed steps.
 
