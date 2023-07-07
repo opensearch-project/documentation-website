@@ -100,34 +100,80 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       const handleArrowKey = () => {
+        const currentlyFocusedNavItem = navParent.querySelector('a:focus');
+        if (!currentlyFocusedNavItem) {
+          // If no item is focused then do nothing.
+          return;
+        }
+
         // Preventing the default action prevents jankiness in the default scrolling
         // of the navigation panel, and is left to the browser to handle it when
         // .focus() is invoked instead.
         event.preventDefault();
 
-        let currentlyFocusedNavItem = navParent.querySelector('a:focus');
-        if (!currentlyFocusedNavItem) {
-          const activeNavItem = navParent.querySelector('a.active');
-          if (activeNavItem) {
-            currentlyFocusedNavItem = activeNavItem;
-          } else {
-            // Nothing is focused, nor active. Default to the first item.
-            navParent.querySelector('a.nav-list-link').focus();
-            return;
-          }
-        }
+        // Get all of the navigation items that are visible, and that are NOT the expand/collapse arrow.
         const allNavItems = Array.from(
-          navParent.querySelectorAll('a')
+          navParent.querySelectorAll('a:not(.nav-list-expander)')
         ).filter(element => element.getBoundingClientRect().height > 0);
 
         const currentlyFocusedNavItemIndex = allNavItems.indexOf(currentlyFocusedNavItem);
-        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+        if (event.key === 'ArrowUp') {
           if (currentlyFocusedNavItemIndex > 0) {
             allNavItems[currentlyFocusedNavItemIndex - 1].focus();
           }
-        } else {
+        } else if (event.key === 'ArrowDown') {
           if (currentlyFocusedNavItemIndex < allNavItems.length - 1) {
             allNavItems[currentlyFocusedNavItemIndex + 1].focus();
+          }
+        } else if (event.key === 'ArrowLeft') {
+          if (currentlyFocusedNavItem.getAttribute('role') === 'button')  {
+            if (currentlyFocusedNavItem.getAttribute('aria-expanded') === 'true') {
+              currentlyFocusedNavItem.click();
+            }
+          } else {
+            const parentLi = currentlyFocusedNavItem.parentElement;
+            if (parentLi) {
+              const expander = Array.from(parentLi.children).find(element => element.classList.contains('nav-list-expander'));
+              if (expander?.getAttribute?.('aria-expanded') === 'true') {
+                expander.click();
+              } else {
+                if (currentlyFocusedNavItemIndex > 0) {
+                  // The parent of the target <a> is a <li> which is a child of a <ul> which is a child of a <li>.
+                  // This <li> should have a <a> that is the parent to focus unless the current is the top.
+                  const listWrapperLi = currentlyFocusedNavItem?.parentElement?.parentElement?.parentElement;
+                  if (listWrapperLi) {
+                    const parentListAnchor = listWrapperLi.querySelectorAll('a:not(.nav-list-expander)')[0];
+                    if (parentListAnchor) {
+                      parentListAnchor.focus();
+                    }
+                  }
+                }
+              }
+            }
+          }
+        } else if (event.key === 'ArrowRight') {
+          if (currentlyFocusedNavItem.getAttribute('role') === 'button')  {
+            const ariaExpanded = currentlyFocusedNavItem.getAttribute('aria-expanded');
+            if (ariaExpanded === 'false' || ariaExpanded === null) {
+              currentlyFocusedNavItem.click();
+            }
+          } else {
+            const parentLi = currentlyFocusedNavItem.parentElement;
+            if (parentLi) {
+              const expander = Array.from(parentLi.children).find(element => element.classList.contains('nav-list-expander'));
+              const ariaExpanded = expander.getAttribute('aria-expanded');
+              if (ariaExpanded === 'false' || ariaExpanded === null) {
+                expander.click();
+              } else {
+                const childList = Array.from(parentLi.children).find(element => element.tagName === 'UL');
+                if (childList) {
+                  const childListAnchor = childList.querySelectorAll('a:not(.nav-list-expander)')[0];
+                  if (childListAnchor) {
+                    childListAnchor.focus();
+                  }
+                }
+              }
+            }
           }
         }
       };
