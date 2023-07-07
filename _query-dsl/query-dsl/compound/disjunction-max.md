@@ -93,7 +93,7 @@ The response contains both documents:
 
 ## Parameters
 
-The following table lists all top-level parameters `dis_max` queries support.
+The following table lists all top-level parameters supported by `dis_max` queries.
 
 Parameter | Description
 :--- | :---

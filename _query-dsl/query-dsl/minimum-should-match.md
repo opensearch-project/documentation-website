@@ -9,7 +9,7 @@ nav_order: 70
 
 The `minimum_should_match` parameter can be used for full-text search and specifies the minimum number of terms a document must match to be returned in search results. 
 
-The following example requires a document to match at least two out of three search terms so it can be returned as a search result:
+The following example requires a document to match at least two out of three search terms in order to be returned as a search result:
 
 ```json
 GET /shakespeare/_search
@@ -36,9 +36,9 @@ Value type | Example | Description
 Non-negative integer | `2` | A document must match this number of optional clauses.
 Negative integer | `-1` | A document must match the total number of optional clauses minus this number.
 Non-negative percentage | `70%` | A document must match this percentage of the total number of optional clauses. The number of clauses to match is rounded down to the nearest integer.
-Negative percentage | `-30%` | A document can have this percentage of the total number of optional clauses that do not match. The number of clauses a document is allowed not to match is rounded down to the nearest integer.
+Negative percentage | `-30%` | A document can have this percentage of the total number of optional clauses that do not match. The number of clauses a document is allowed to not match is rounded down to the nearest integer.
 Combination | `2<75%` | Expression in the `n<p%` format. If the number of optional clauses is less than or equal to `n`, the document must match all optional clauses. If the number of optional clauses is greater than `n`, then the document must match the `p` percentage of optional clauses.
-Multiple combinations | `3<-1 5<50%` | More than one combination separated by a space. Each condition applies to the number of optional clauses that is greater than the number on the left of the `<` sign. In this example, if there are 3 or less optional clauses, the document must match all of them. If there are 4 or 5 optional clauses, the document must match all but 1 of them. If there are 6 or more optional clauses, the document must match 50% of them.
+Multiple combinations | `3<-1 5<50%` | More than one combination separated by a space. Each condition applies to the number of optional clauses that is greater than the number on the left of the `<` sign. In this example, if there are three or fewer optional clauses, the document must match all of them. If there are four or five optional clauses, the document must match all but one of them. If there are 6 or more optional clauses, the document must match 50% of them.
 
 Let `n` be the number of optional clauses a document must match. When `n` is calculated as a percentage, if `n` is less than 1, then 1 is used. If `n` is greater than the number of optional clauses, the number of optional clauses is used.
 {: .note}
@@ -48,7 +48,7 @@ Let `n` be the number of optional clauses a document must match. When `n` is cal
 
 A [Boolean query]({{site.url}}{{site.baseurl}}/) lists optional clauses in the `should` clause and required clauses in the `must` clause. Optionally, it can contain a `filter` clause to filter results.
 
-Consider an example index with the following five documents:
+Consider an example index containing the following five documents:
 
 ```json
 PUT testindex/_doc/1
@@ -133,7 +133,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-Because `minimum_should_match` is `80%`, the number of optional clauses to match is calculated as 4 &middot; 0.8 = 3.2 and then rounded down to 3. Therefore, the results contain documents that match at least 3 clauses:
+Because `minimum_should_match` is `80%`, the number of optional clauses to match is calculated as 4 &middot; 0.8 = 3.2 and then rounded down to 3. Therefore, the results contain documents that match at least three clauses:
 
 ```json
 {
@@ -173,7 +173,7 @@ Because `minimum_should_match` is `80%`, the number of optional clauses to match
 }
 ```
 
-Now let's specify `minimum_should_match` as `-20%`:
+Now specify `minimum_should_match` as `-20%`:
 
 ```json
 GET testindex/_search
@@ -248,7 +248,7 @@ The number of non-matching optional clauses that a document can have is calculat
 }
 ```
 
-Note that specifying a positive percentage (`80%`) and negative percentage (`-20%`) did not result in the same number of optional clauses a document must match because in both cases the result was rounded down. If the number of optional clauses were, for example, 5, then both `80%` and `-20%` would have produced the same number of optional clauses a document must match (4).
+Note that specifying a positive percentage (`80%`) and negative percentage (`-20%`) did not result in the same number of optional clauses a document must match because, in both cases, the result was rounded down. If the number of optional clauses were, for example, 5, then both `80%` and `-20%` would have produced the same number of optional clauses a document must match (4).
 
 ### Default `minimum_should_match` value 
 
@@ -358,7 +358,7 @@ This query returns all five documents in the index:
 }
 ```
 
-However, if you omit the `must` clause, then the query searches for documents that match 1 optional `should` clause:
+However, if you omit the `must` clause, then the query searches for documents that match one optional `should` clause:
 
 ```json
 GET testindex/_search

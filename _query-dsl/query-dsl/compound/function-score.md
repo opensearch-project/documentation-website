@@ -56,7 +56,7 @@ The `function_score` query type supports the following functions:
     - `weight`: Multiplies a document score by a predefined boost factor.
     - `random_score`: Provides a random score that is consistent for a single user but different between users.
     - `field_value_factor`: Uses the value of the specified document field to recalculate the score. 
-    - Decay functions (`gauss`, `exp`, and `linear`): Recalculate the score using a specified decay function.
+    - Decay functions (`gauss`, `exp`, and `linear`): Recalculates the score using a specified decay function.
 - Custom:
     - `script_score`: Uses a script to score documents.
 
@@ -101,7 +101,7 @@ GET blogs/_search
 
 ## The field value factor function
 
-The `field_value_factor` function recalculates the score using the value of the specified document field. If the field is a multi-valued field, only its first value is used for calculations and the others are not considered. 
+The `field_value_factor` function recalculates the score using the value of the specified document field. If the field is a multi-valued field, only its first value is used for calculations, and the others are not considered. 
 
 The `field_value_factor` function supports the following options:
 
@@ -210,7 +210,7 @@ Decay functions calculate scores based on the `origin`, `scale`, `offset`, and `
 
 ### Example: Geopoint fields
 
-Suppose you're looking for a hotel near the office. You create a `hotels` index that maps the `location` field as a geopoint:
+Suppose you're looking for a hotel near your office. You create a `hotels` index that maps the `location` field as a geopoint:
 
 ```json
 PUT hotels
@@ -252,7 +252,7 @@ PUT hotels/_doc/2
 ```
 {% include copy-curl.html %}
 
-The `origin` defines the point from which the distance is calculated (the office location). The `offset` specifies the distance from the origin within which documents are given a full score of 1. You can give hotels within 200 feet (ft) of the office the same highest score. The `scale` defines the decay rate of the graph, and the `decay` defines the score to assign to a document at the `scale` + `offset` distance from the origin. Once you get outside the 200 feet radius, you may decide that if you have to walk another 300 feet to get to a hotel (`scale` = 300 ft) you'll assign it a quarter of the original score (`decay` = 0.25).
+The `origin` defines the point from which the distance is calculated (the office location). The `offset` specifies the distance from the origin within which documents are given a full score of 1. You can give hotels within 200 ft of the office the same highest score. The `scale` defines the decay rate of the graph, and the `decay` defines the score to assign to a document at the `scale` + `offset` distance from the origin. Once you are outside the 200 ft radius, you may decide that if you have to walk another 300 ft to get to a hotel (`scale` = 300 ft), you'll assign it one quarter of the original score (`decay` = 0.25).
 
 You create the following query with the `origin` at (74.00, 40.71):
 
@@ -279,7 +279,7 @@ GET hotels/_search
 ```
 {% include copy-curl.html %}
 
-The response contains both hotels. The hotel within 200 feet of the office has the score of 1, and the hotel outside 500 feet has a score 0.20, which is less than the `decay` parameter 0.25:
+The response contains both hotels. The hotel within 200 ft of the office has a score of 1, and the hotel outside 500 ft has a score 0.20, which is less than the `decay` parameter 0.25:
 
 <details open markdown="block">
   <summary>
@@ -340,9 +340,9 @@ The following table lists all parameters supported by the `gauss`, `exp`, and `l
 
 Parameter | Description
 :--- | :---
-`origin` | The point from which to calculate the distance. Must be provided as a number for numeric fields, date for date fields, and geopoint for geopoint fields. Required for geopoint and numeric fields. Optional for date fields (defaults to `now`). For date fields, date math is supported (for example, `now-2d`).
+`origin` | The point from which to calculate the distance. Must be provided as a number for numeric fields, a date for date fields, or a geopoint for geopoint fields. Required for geopoint and numeric fields. Optional for date fields (defaults to `now`). For date fields, date math is supported (for example, `now-2d`).
 `offset` | Defines the distance from the origin within which documents are given a score of 1. Optional. Default is 0.
-`scale` | Documents at the distance of `scale` + `offset` from the `origin` are assigned a score of `decay`. Required. <br>For numeric fields, `scale` can be any number. <br>For date fields, `scale` can be defined as a number and [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`5h`, `1d`). If units are not provided, defaults to milliseconds. <br>For geopoint fields, `scale` can be defined as a number and [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`1mi`, `5km`). If units are not provided, defaults to meters.
+`scale` | Documents at the distance of `scale` + `offset` from the `origin` are assigned a score of `decay`. Required. <br>For numeric fields, `scale` can be any number. <br>For date fields, `scale` can be defined as a number and [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`5h`, `1d`). If units are not provided, `scale` defaults to milliseconds. <br>For geopoint fields, `scale` can be defined as a number and [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`1mi`, `5km`). If units are not provided, `scale` defaults to meters.
 `decay` | Defines the score of a document at the distance of `scale` + `offset` from the `origin`. Optional. Default is 0.5.
 
 For fields that are missing from the document, decay functions return a score of 1.
@@ -350,7 +350,7 @@ For fields that are missing from the document, decay functions return a score of
 
 ### Example: Numeric fields
 
-The following query uses the exponential decay function to prioritize blogs by the number of comments:
+The following query uses the exponential decay function to prioritize blog posts by the number of comments:
 
 ```json
 GET blogs/_search
@@ -374,7 +374,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-The first two blogs in the results have a score of 1 because one is at the origin (20) and the other is at a distance 16, which is within the offset (the range at which documents receive a full score is calculated as 20 $$\pm$$ 5 and is [15, 25]). The third blog is at a distance of `scale` + `offset` from the `origin` (20 &minus; (5 + 10) = 15), so it's given the default `decay` score (0.5):
+The first two blog posts in the results have a score of 1 because one is at the origin (20) and the other is at a distance of 16, which is within the offset (the range at which documents receive a full score is calculated as 20 $$\pm$$ 5 and is [15, 25]). The third blog post is at a distance of `scale` + `offset` from the `origin` (20 &minus; (5 + 10) = 15), so it's given the default `decay` score (0.5):
 
 <details open markdown="block">
   <summary>
@@ -455,7 +455,7 @@ The first two blogs in the results have a score of 1 because one is at the origi
 
 ### Example: Date fields
 
-The following query uses the Gaussian decay function to prioritize blogs published around 04/24/2002:
+The following query uses the Gaussian decay function to prioritize blog posts published around 04/24/2002:
 
 ```json
 GET blogs/_search
@@ -480,7 +480,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-In the results, the first blog was published within one day of 04/24/2022, so it has the highest score of 1. The second blog was published on 04/17/2022, which is within `offset` + `scale` (`1d` + `6d`) and therefore has the score equal to `decay` (0.25). The third blog was published more than 7 days after 04/24/2022, so it has a lower score. The last blog has a score of 0 because it was published years ago:
+In the results, the first blog post was published within one day of 04/24/2022, so it has the highest score of 1. The second blog post was published on 04/17/2022, which is within `offset` + `scale` (`1d` + `6d`) and therefore has a score equal to `decay` (0.25). The third blog post was published more than 7 days after 04/24/2022, so it has a lower score. The last blog post has a score of 0 because it was published years ago:
 
 <details open markdown="block">
   <summary>
@@ -602,7 +602,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-The document is given the score 1 because the maximum distance from the origin (1) is within the `offset` from the `origin`:
+The document is given a score of 1 because the maximum distance from the origin (1) is within the `offset` from the `origin`:
 
 ```json
 {
@@ -680,7 +680,7 @@ The scores given by each function are combined using the `score_mode` parameter,
 
 - `multiply`: (Default) Scores are multiplied.
 - `sum`: Scores are added.
-- `avg`: Scores are averaged. If `weight` is specified, this is a [weighted average](https://en.wikipedia.org/wiki/Weighted_arithmetic_mean). For example, if the first function with the weight $$1$$ returns the score $$10$$ , and the second function with the weight $$4$$ returns the score $$20$$, the average is calculated as $$\frac {10 \cdot 1 + 20 \cdot 4}{1 + 4} = 18$$.
+- `avg`: Scores are averaged. If `weight` is specified, this is a [weighted average](https://en.wikipedia.org/wiki/Weighted_arithmetic_mean). For example, if the first function with the weight $$1$$ returns the score $$10$$, and the second function with the weight $$4$$ returns the score $$20$$, the average is calculated as $$\frac {10 \cdot 1 + 20 \cdot 4}{1 + 4} = 18$$.
 - `first`: The score from the first function that has a matching filter is taken.
 - `max`: The maximum score is taken.
 - `min`: The minimum score is taken.
@@ -697,8 +697,8 @@ You can specify how the score computed using all functions is combined with the 
 - `replace`: Ignore the query score and use the function score.
 - `sum`: Add the query score and the function score.
 - `avg`: Average the query score and the function score.
-- `max`: Take the greater of the query score and function score.
-- `min`: Take the lesser of the query score and function score.
+- `max`: Take the greater of the query score and the function score.
+- `min`: Take the lesser of the query score and the function score.
 
 ### Filtering documents that don't meet a threshold
 
@@ -706,7 +706,7 @@ Changing the relevance score does not change the list of matching documents. To 
 
 ### Example
 
-The following request searches for blogs that include the words "OpenSearch Data Prepper", preferring the blogs published around 04/24/2022. Additionally, the number of views and likes are taken into consideration. Finally, the cutoff threshold is set at the score of 10:
+The following request searches for blog posts that include the words "OpenSearch Data Prepper", preferring the posts published around 04/24/2022. Additionally, the number of views and likes are taken into consideration. Finally, the cutoff threshold is set at the score of 10:
 
 ```json
 GET blogs/_search
@@ -759,7 +759,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-The results contain the three matching blogs:
+The results contain the three matching blog posts:
 
 <details open markdown="block">
   <summary>

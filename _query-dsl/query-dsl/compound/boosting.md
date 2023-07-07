@@ -8,7 +8,7 @@ nav_order: 30
 
 # Boosting queries
 
-If you're searching for the word "pitcher", your results may relate to either baseball players or containers for liquids. For a search in the context of baseball, you might want to exclude results that contain the words "glass" or "water" completely by using the `must_not` clause. However, if you want to keep those results but downgrade them in relevance, you can do so with `boosting` queries. 
+If you're searching for the word "pitcher", your results may relate to either baseball players or containers for liquids. For a search in the context of baseball, you might want to completely exclude results that contain the words "glass" or "water" by using the `must_not` clause. However, if you want to keep those results but downgrade them in relevance, you can do so with `boosting` queries. 
 
 A `boosting` query returns documents that match a `positive` query. Among those documents, the ones that also match the `negative` query are scored lower in relevance (their relevance score is multiplied by the negative boosting factor).
 
@@ -30,7 +30,7 @@ PUT testindex/_doc/2
 }
 ```
 
-Use the following match query to search for documents with the word "pitcher":
+Use the following match query to search for documents containing the word "pitcher":
 
 ```json
 GET testindex/_search
@@ -83,7 +83,7 @@ Both returned documents have the same relevance score:
 }
 ```
 
-Now use the following `boosting` query to search for documents with the word "pitcher" but downgrade the documents that contain the words "glass", "crystal", or "water":
+Now use the following `boosting` query to search for documents containing the word "pitcher" but downgrade the documents that contain the words "glass", "crystal", or "water":
 
 ```json
 GET testindex/_search
@@ -107,7 +107,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-Both documents are still returned, but the document with the word "glass" has a relevance score of ten times less than in the previous case:
+Both documents are still returned, but the document with the word "glass" has a relevance score that is 10 times lower than in the previous case:
 
 ```json
 {
@@ -149,7 +149,7 @@ Both documents are still returned, but the document with the word "glass" has a 
 
 ## Parameters
 
-The following table lists all top-level parameters `boosting` queries support.
+The following table lists all top-level parameters supported by `boosting` queries.
 
 Parameter | Description
 :--- | :---
