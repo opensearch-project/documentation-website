@@ -33,9 +33,11 @@ Develop a custom create, read, update, delete (CRUD) extension by following the 
 
 For instructions on building, testing, and running an extension, see the [Developing your own extension section of the Developer Guide](https://github.com/opensearch-project/opensearch-sdk-java/blob/main/DEVELOPER_GUIDE.md#developing-your-own-extension).
 
+<!-- TODO: add the link after the release
 ## Extensions Javadoc
 
 For a complete extensions class hierarchy, see the [Javadoc](Link TBD).
+-->
 
 ## Plugin migration
 
