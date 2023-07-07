@@ -54,6 +54,9 @@ By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. I
  
 Byte vectors are supported only for the `lucene` engine. They are not supported for the `nmslib` and `faiss` engines.
 {: .note}
+
+When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
+{: .important}
  
 Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
 
