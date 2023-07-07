@@ -100,6 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       const handleArrowKey = () => {
+
+        //
+        // Arrow key navigation implementation.
+        // For reference: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/examples/treeview-navigation/
+        //
+        
         const currentlyFocusedNavItem = navParent.querySelector('a:focus');
         if (!currentlyFocusedNavItem) {
           // If no item is focused then do nothing.
