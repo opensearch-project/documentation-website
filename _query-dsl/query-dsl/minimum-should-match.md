@@ -133,7 +133,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-Because `minimum_should_match` is `80%`, the number of optional clauses to match is calculated as 4 &middot; 0.8 = 3.2 and then rounded down to 3. Therefore, the results contain documents that match at least three clauses:
+Because `minimum_should_match` is specified as `80%`, the number of optional clauses to match is calculated as 4 &middot; 0.8 = 3.2 and then rounded down to 3. Therefore, the results contain documents that match at least three clauses:
 
 ```json
 {

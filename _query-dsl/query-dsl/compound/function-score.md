@@ -9,11 +9,11 @@ has_math: true
 
 # Function score queries
 
-Use a `function_score` query if you need to alter the relevance score of documents returned in the results. A `function_score` query defines a query and one or more functions that can be applied to all results or subsets of the results to recalculate their relevance scores.
+Use a `function_score` query if you need to alter the relevance scores of documents returned in the results. A `function_score` query defines a query and one or more functions that can be applied to all results or subsets of the results to recalculate their relevance scores.
 
 ## Using one scoring function
 
-The most basic example is using one function to recalculate the score. The following query uses a `weight` function to double all relevance scores. This function applies to all documents in the results because there is no `query` parameter specified within `function_score`:
+The most basic example of a `function_score` query uses one function to recalculate the score. The following query uses a `weight` function to double all relevance scores. This function applies to all documents in the results because there is no `query` parameter specified within `function_score`:
 
 ```json
 GET shakespeare/_search
@@ -80,7 +80,7 @@ Unlike the `boost` value, the `weight` function is not normalized.
 
 ## The random score function
 
-The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. By default, the `random_score` function uses internal Lucene document IDs as seed values, making random values irreproducible because documents can be renumbered after merges. To achieve consistency in generating random values, you can provide `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated based on the `seed`, the `fielddata` values for the `field`, and a salt calculated based on the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the corresponding `_seq_no` update.
+The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. By default, the `random_score` function uses internal Lucene document IDs as seed values, making random values irreproducible because documents can be renumbered after merges. To achieve consistency in generating random values, you can provide `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated using the `seed`, the `fielddata` values for the `field`, and a salt calculated using the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the corresponding `_seq_no` update.
 
 The following query uses the `random_score` function with a `seed` and `field`:
 
@@ -113,10 +113,10 @@ The `field_value_factor` function supports the following options:
     
     Modifier | Formula | Description
     :--- | :--- | :---
-    `log`| $$\log v$$ | Take the base-10 logarithm of the value. Taking a logarithm of non-positive numbers is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `log1p` or `log2p` instead of `log`.
+    `log`| $$\log v$$ | Take the base-10 logarithm of the value. Taking a logarithm of a non-positive number is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `log1p` or `log2p` instead of `log`.
     `log1p`| $$\log (1 + v)$$ | Take the base-10 logarithm of the sum of 1 and the value.
     `log2p`| $$\log (2 + v)$$ | Take the base-10 logarithm of the sum of 2 and the value.
-    `ln`| $$\ln v$$ | Take the natural logarithm of the value. Taking a logarithm of non-positive numbers is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `ln1p` or `ln2p` instead of `ln`.
+    `ln`| $$\ln v$$ | Take the natural logarithm of the value. Taking a logarithm of a non-positive number is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `ln1p` or `ln2p` instead of `ln`.
     `ln1p`| $$\ln (1 + v)$$ | Take the natural logarithm of the sum of 1 and the value.
     `ln2p`| $$\ln (2 + v)$$ | Take the natural logarithm of the sum of 2 and the value.
     `reciprocal`| $$\frac {1}{v}$$ | Take the reciprocal of the value.
@@ -153,10 +153,10 @@ $$ \text{score} = \text{original score} \cdot \log(1 + 1.5 \cdot \text{views}) $
 
 Using the `script_score` function, you can write a custom script for scoring documents, optionally incorporating values of fields in the document. The original relevance score is accessible in the `_score` variable. 
 
-The calculated score cannot be negative. Negative scores will result in an error. Document scores have positive 32-bit floating-point values. A score with greater precision is converted to the nearest 32-bit floating-point number.
+The calculated score cannot be negative. A negative score will result in an error. Document scores have positive 32-bit floating-point values. A score with greater precision is converted to the nearest 32-bit floating-point number.
 {: .important}
 
-For example, the following query uses the `script_score` function to calculate the score based on the original score and the number of views and likes for the blog. To give the number of views and likes a lesser weight, this formula takes the logarithm of the sum of views and likes. To make the logarithm valid even if the number of views and likes is `0`, `1` is added to their sum:
+For example, the following query uses the `script_score` function to calculate the score based on the original score and the number of views and likes for the blog post. To give the number of views and likes a lesser weight, this formula takes the logarithm of the sum of views and likes. To make the logarithm valid even if the number of views and likes is `0`, `1` is added to their sum:
 
 ```json
 GET blogs/_search
@@ -279,7 +279,7 @@ GET hotels/_search
 ```
 {% include copy-curl.html %}
 
-The response contains both hotels. The hotel within 200 ft of the office has a score of 1, and the hotel outside 500 ft has a score 0.20, which is less than the `decay` parameter 0.25:
+The response contains both hotels. The hotel within 200 ft of the office has a score of 1, and the hotel outside of the 500 ft radius has a score 0.20, which is less than the `decay` parameter 0.25:
 
 <details open markdown="block">
   <summary>
@@ -342,7 +342,7 @@ Parameter | Description
 :--- | :---
 `origin` | The point from which to calculate the distance. Must be provided as a number for numeric fields, a date for date fields, or a geopoint for geopoint fields. Required for geopoint and numeric fields. Optional for date fields (defaults to `now`). For date fields, date math is supported (for example, `now-2d`).
 `offset` | Defines the distance from the origin within which documents are given a score of 1. Optional. Default is 0.
-`scale` | Documents at the distance of `scale` + `offset` from the `origin` are assigned a score of `decay`. Required. <br>For numeric fields, `scale` can be any number. <br>For date fields, `scale` can be defined as a number and [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`5h`, `1d`). If units are not provided, `scale` defaults to milliseconds. <br>For geopoint fields, `scale` can be defined as a number and [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`1mi`, `5km`). If units are not provided, `scale` defaults to meters.
+`scale` | Documents at the distance of `scale` + `offset` from the `origin` are assigned a score of `decay`. Required. <br>For numeric fields, `scale` can be any number. <br>For date fields, `scale` can be defined as a number with [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`5h`, `1d`). If units are not provided, `scale` defaults to milliseconds. <br>For geopoint fields, `scale` can be defined as a number with [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`1mi`, `5km`). If units are not provided, `scale` defaults to meters.
 `decay` | Defines the score of a document at the distance of `scale` + `offset` from the `origin`. Optional. Default is 0.5.
 
 For fields that are missing from the document, decay functions return a score of 1.
@@ -374,7 +374,7 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
-The first two blog posts in the results have a score of 1 because one is at the origin (20) and the other is at a distance of 16, which is within the offset (the range at which documents receive a full score is calculated as 20 $$\pm$$ 5 and is [15, 25]). The third blog post is at a distance of `scale` + `offset` from the `origin` (20 &minus; (5 + 10) = 15), so it's given the default `decay` score (0.5):
+The first two blog posts in the results have a score of 1 because one is at the origin (20) and the other is at a distance of 16, which is within the offset (the range within which documents receive a full score is calculated as 20 $$\pm$$ 5 and is [15, 25]). The third blog post is at a distance of `scale` + `offset` from the `origin` (20 &minus; (5 + 10) = 15), so it's given the default `decay` score (0.5):
 
 <details open markdown="block">
   <summary>
@@ -566,7 +566,7 @@ If the field that you specify for decay calculation contains multiple values, yo
 - `min`: (Default) The minimum distance from the `origin`. 
 - `max`: The maximum distance from the `origin`.
 - `avg`: The average distance from the `origin`.
-- `sum`: The sum of all distance from the `origin`.
+- `sum`: The sum of all distances from the `origin`.
 
 For example, you index a document with an array of distances:
 
@@ -674,7 +674,7 @@ You can specify multiple scoring functions in a function score query by listing 
 
 ### Combining scores from multiple functions
 
-Different functions can use different scales for scoring. For example, the `random_score` function provides a score between 0 and 1, but the `field_value_factor` does not have a specific scale for the score. Additionally, you may want to weigh scores given by different functions differently. To adjust scores for different functions, you can specify the `weight` parameter for each function. The score given by each function is then multiplied by the `weight` to produce the final score for that function. To differentiate from the [weight function](#the-weight-function), the `weight` parameter must be provided in the `functions` array.
+Different functions can use different scales for scoring. For example, the `random_score` function provides a score between 0 and 1, but the `field_value_factor` does not have a specific scale for the score. Additionally, you may want to weigh scores given by different functions differently. To adjust scores for different functions, you can specify the `weight` parameter for each function. The score given by each function is then multiplied by the `weight` to produce the final score for that function. The `weight` parameter must be provided in the `functions` array in order to differentiate it from the [weight function](#the-weight-function), 
 
 The scores given by each function are combined using the `score_mode` parameter, which takes one of the following values:
 
@@ -691,9 +691,9 @@ You can specify an upper limit for a function score in the `max_boost` parameter
 
 ### Combining the score for all functions with the query score
 
-You can specify how the score computed using all functions is combined with the query score in the `boost_mode` parameter that takes one of the following values:
+You can specify how the score computed using all functions is combined with the query score in the `boost_mode` parameter, which takes one of the following values:
 
-- `multiply`: (Default) Multiply the query score and function score.
+- `multiply`: (Default) Multiply the query score by the function score.
 - `replace`: Ignore the query score and use the function score.
 - `sum`: Add the query score and the function score.
 - `avg`: Average the query score and the function score.
