@@ -35,7 +35,7 @@ Alert | An event associated with a trigger. When an alert is created, the trigge
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
 Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index: `.opensearch-alerting-finding*`.
-Channel | A notification channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for more information.
+Channel | A notification channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
 
 ## Per document monitors
 
@@ -56,12 +56,12 @@ You query each trigger using up to 10 tags, adding the tag as a single trigger c
 The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
 
-The Alerting API provides a document-level monitor that programmatically accomplishes the same function as the per document monitor in the OpenSearch Dashboards. To learn more, see [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors).
+The Alerting API provides a document-level monitor that programmatically accomplishes the same function as the per document monitor in the OpenSearch Dashboards. To learn more, see [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors/).
 {: .note}
 
 ### Document findings
 
-When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a Findings index: `.opensearch-alerting-finding*` that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. To learn more, see [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings).
+When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a Findings index: `.opensearch-alerting-finding*` that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. To learn more, see [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings/).
 
 The following metadata is provided for each document finding entry:
 
@@ -69,7 +69,7 @@ The following metadata is provided for each document finding entry:
 * **Query** – The query name that matched the document.
 * **Time found** – The timestamp that indicates when the document was found during the runtime.
 
-It is possible to configure an alert notification for each finding, however we don't recommend this unless rules are well defined to prevent a huge volume of findings in a high ingestion cluster.
+It is possible to configure an alert notification for each finding; however, we do not recommend this unless rules are well-defined to prevent a huge volume of findings in a high ingestion cluster.
 
 ---
 
@@ -79,12 +79,11 @@ It is possible to configure an alert notification for each finding, however we d
 1. Specify a name for the destination so that you can identify it later.
 1. For **Type**, choose Slack, Amazon Chime, custom webhook, or [email](#email-as-a-destination).
 
-For Email, refer to the [Email as a destination](#email-as-a-destination) section below. For all other types, specify the webhook URL. See the documentation for [Slack](https://api.slack.com/incoming-webhooks) and [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html) to learn more about webhooks.
+For Email, refer to the [Email as a destination](#email-as-a-destination) section. For all other types, specify the webhook URL. See the documentation for [Slack](https://api.slack.com/incoming-webhooks/) and [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html/) to learn more about webhooks.
 
 If you're using custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you might need to add a header with a key of `Authorization` and a value of `Basic <Base64-encoded-credential-string>`. You might also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
 
 This information is stored in plain text in the OpenSearch cluster. We will improve this design in the future, but for now, the encoded credentials (which are neither encrypted nor hashed) might be visible to other OpenSearch users.
-
 
 ### Email as a destination
 
@@ -98,12 +97,11 @@ To configure a sender email, do the following:
 
 1. After you choose **Email** as the destination type, choose **Manage senders**.
 1. Choose **Add sender**, **New sender** and enter a unique name.
-1. Enter the email address, SMTP host (e.g. `smtp.gmail.com` for a Gmail account), and the port.
+1. Enter the email address, SMTP host (for example, `smtp.gmail.com` for a Gmail account), and the port.
 1. Choose an encryption method, or use the default value of **None**. However, most email providers require SSL or TLS, which require a username and password in OpenSearch keystore. Refer to [Authenticate sender account](#authenticate-sender-account) to learn more.
 1. Choose **Save** to save the configuration and create the sender. You can create a sender even before you add your credentials to the OpenSearch keystore. However, you must [authenticate each sender account](#authenticate-sender-account) before you use the destination to send your alert.
 
 You can reuse senders across many different destinations, but each destination only supports one sender.
-
 
 #### Manage email groups or recipients
 
@@ -115,7 +113,6 @@ You can enter individual email addresses or an email group in the **Recipients**
 1. Enter a unique name.
 1. For recipient emails, enter any number of email addresses.
 1. Choose **Save**.
-
 
 #### Authenticate sender account
 
@@ -138,7 +135,6 @@ POST _nodes/reload_secure_settings
 }
 ```
 
-
 ---
 
 ## Create a monitor
@@ -158,7 +154,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
    - Visual definition works well for monitors that you can define as "some value is above or below some threshold for some amount of time."
 
-   - Query definition gives you flexibility in terms of what you query for (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)) and how you evaluate the results of that query (Painless scripting).
+   - Query definition gives you flexibility in terms of what you query for (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/)) and how you evaluate the results of that query (Painless scripting).
 
      This example averages the `cpu_usage` field:
 
@@ -211,7 +207,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
     If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security/).
 
-    To use a query, choose **Extraction query editor**, add your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)), and test it using the **Run** button.
+    To use a query, choose **Extraction query editor**, add your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/)), and test it using the **Run** button.
 
     The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
 
@@ -230,7 +226,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
     **Note**: Anomaly detection is available only if you are defining a per query monitor.
     {: .note}
 
-1. Choose how frequently to run your monitor. You can run it either by time intervals (minutes, hours, or days) or on a schedule. If you run it on a daily, weekly or monthly schedule or according to a custom [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you need to also provide the time zone.
+1. Choose how frequently to run your monitor. You can run it either by time intervals (minutes, hours, or days) or on a schedule. If you run it on a daily, weekly or monthly schedule or according to a [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you need to also provide the time zone.
 
 1. Add a trigger to your monitor.
 
@@ -241,15 +237,15 @@ Steps to create a trigger differ depending on whether you chose **Visual editor*
 
 You begin by specifying a name and severity level for the trigger. Severity levels help you manage alerts. A trigger with a high severity level (e.g. 1) might page a specific individual, whereas a trigger with a low severity level might message a chat room.
 
-Remember that query-level monitors run your trigger's script just once against the query's results, but bucket-level monitors execute your trigger's script on each bucket, so you should create a trigger that best fits the monitor you chose. If you want to execute multiple scripts, you must create multiple triggers.
+Remember that query-level monitors run your trigger's script once against the query's results, but bucket-level monitors run your trigger's script on each bucket, so you should create a trigger that best fits the monitor you chose. If you want to run multiple scripts, you must create multiple triggers.
 
 ### Visual editor
 
-For a query-level monitor's **Trigger condition**, specify a threshold for the aggregation and timeframe you chose earlier, such as "is below 1,000" or "is exactly 10."
+For a query-level monitor's **Trigger condition**, specify a threshold for the aggregation and time frame you chose earlier, such as "is below 1,000" or "is exactly 10."
 
 The line moves up and down as you increase and decrease the threshold. Once this line is crossed, the trigger evaluates to true.
 
-Bucket-level monitors also require you to specify a threshold and value for your aggregation and timeframe, but you can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
+Bucket-level monitors also require you to specify a threshold and value for your aggregation and time frame, but you can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
 
 Document-level monitors provide the added option to use tags that represent multiple queries connected by the logical OR operator.
 
@@ -267,7 +263,7 @@ If you're using a query-level monitor, specify a Painless script that returns tr
 
 Trigger condition scripts revolve around the `ctx.results[0]` variable, which corresponds to the extraction query response. For example, your script might reference `ctx.results[0].hits.total.value` or `ctx.results[0].hits.hits[i]._source.error_code`.
 
-A return value of true means the trigger condition has been met, and the trigger should execute its actions. Test your script using the **Run** button.
+A return value of true means the trigger condition has been met, and the trigger should run its actions. Test your script using the **Run** button.
 
 The **Info** link next to **Trigger condition** contains a useful summary of the variables and results available to your query.
 {: .tip }
@@ -298,9 +294,9 @@ After mapping the `count_var` variable to the `_count` metric, you can use `coun
 
 For **Trigger type**, choose **Anomaly detector grade and confidence**.
 
-Specify the **Anomaly grade condition** for the aggregation and timeframe you chose earlier, "IS ABOVE 0.7" or "IS EXACTLY 0.5." The *anomaly grade* is a number between 0 and 1 that indicates the level of severity of how anomalous a data point is.
+Specify the **Anomaly grade condition** for the aggregation and time frame you chose earlier, "IS ABOVE 0.7" or "IS EXACTLY 0.5." The *anomaly grade* is a number between 0 and 1 that indicates the level of severity of how anomalous a data point is.
 
-Specify the **Anomaly confidence condition** for the aggregation and timeframe you chose earlier, "IS ABOVE 0.7" or "IS EXACTLY 0.5." The *anomaly confidence* is an estimate of the probability that the reported anomaly grade matches the expected anomaly grade.
+Specify the **Anomaly confidence condition** for the aggregation and time frame you chose earlier, "IS ABOVE 0.7" or "IS EXACTLY 0.5." The *anomaly confidence* is an estimate of the probability that the reported anomaly grade matches the expected anomaly grade.
 
 The line moves up and down as you increase and decrease the threshold. Once this line is crossed, the trigger evaluates to true.
 
@@ -341,9 +337,9 @@ if (score > 99) {
 }
 ```
 
-Below are some variables you can include in your message using Mustache templates to see more information about your monitors.
-
 ### Available variables
+
+Following are variables you can include in your message using Mustache templates to see more information about your monitors.
 
 #### Monitor variables
 
@@ -406,16 +402,16 @@ Variable | Data type | Description
 
 ## Add actions
 
-The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met. See the [Notifications plugin]({{site.url}}{{site.baseurl}}/notifications-plugin/index) to see what communication channels are supported.
+The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met. See the [Notifications plugin]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to see what communication channels are supported.
 
 If you don't want to receive notifications for alerts, you don't have to add actions to your triggers. Instead, you can periodically check OpenSearch Dashboards.
 {: .tip }
 
 1. Specify a name for the action.
-1. Choose a [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index).
+1. Choose a [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
 1. Add a subject and body for the message.
 
-   You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). You have access to `ctx.action.name`, the name of the current action, as well as all [trigger variables](#available-variables).
+   You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html/). You have access to `ctx.action.name`, the name of the current action, as well as all [trigger variables](#available-variables).
 
    If your destination is a custom webhook that expects a particular data format, you might need to include JSON (or even XML) directly in the message body:
 
@@ -423,7 +419,7 @@ If you don't want to receive notifications for alerts, you don't have to add act
    {% raw %}{ "text": "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue. - Trigger: {{ctx.trigger.name}} - Severity: {{ctx.trigger.severity}} - Period start: {{ctx.periodStart}} - Period end: {{ctx.periodEnd}}" }{% endraw %}
    ```
 
-   In this case, the message content must conform to the `Content-Type` header in the [custom webhook]({{site.url}}{{site.baseurl}}/notifications-plugin/index).
+   In this case, the message content must conform to the `Content-Type` header in the [custom webhook]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
 1. If you're using a bucket-level monitor, you can choose whether the monitor should perform an action for each execution or for each alert.
 
 1. (Optional) Use action throttling to limit the number of notifications you receive within a given span of time.
@@ -452,7 +448,7 @@ If you want to use the `ctx.results` variable in a message, use `{% raw %}{{ctx.
 
 Q: What plugins do I need installed besides Alerting?
 
-A: To continue using the notification action in the Alerting plugin, you need to install the backend plugins `notifications-core` and `notifications`. You can also install the Notifications Dashboards plugin to manage Notification channels via OpenSearch Dashboards.
+A: To continue using the notification action in the Alerting plugin, you need to install the backend plugins `notifications-core` and `notifications`. You can also install the Notifications Dashboards plugin to manage Notification channels using OpenSearch Dashboards.
 
 Q: Can I still create destinations?
 A: No, destinations have been deprecated and can no longer be created/edited.
@@ -478,7 +474,7 @@ State | Description
 Active | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely.
 Acknowledged | Someone has acknowledged the alert, but not fixed the root cause.
 Completed | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to false.
-Error | An error occurred while executing the trigger---usually the result of a a bad trigger or destination.
+Error | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
 Deleted | Someone deleted the monitor or trigger associated with this alert while the alert was ongoing.
 
 ---
@@ -509,15 +505,17 @@ Trigger conditions use responses from the following cat API endpoints. Most APIs
 1. [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
 2. [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
 3. [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
-4. [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
-5. [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
-6. [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
-7. [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
-8. [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
+4. [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics/)
+5. [_cat/indices](https://opensearch.org/docs/latest/api-reference/cat/cat-indices/)
+6. [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
+7. [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
+8. [_cat/shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
+9. [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
+10. [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/) 
 
 ### Restrict API fields
 
-If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
+If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json/) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
 
 However, you can modify the file so that cluster metric monitors can only be created for APIs referenced. Furthermore, only fields referenced in the supported files can create trigger conditions. This `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
 
@@ -532,7 +530,7 @@ However, you can modify the file so that cluster metric monitors can only be cre
 
 ### Painless triggers
 
-Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts are comprised of at least one statement and any additional functions you wish to execute.
+Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts are comprised of at least one statement and any additional functions you wish to run.
 
 The cluster metrics monitor supports up to **ten** triggers.
 
@@ -588,4 +586,4 @@ Currently, the cluster metrics monitor has the following limitations:
 - You cannot create monitors for remote clusters.
 - The OpenSearch cluster must be in a state where an index's conditions can be monitored and actions can be executed against the index.
 - Removing resource permissions from a user will not prevent that user’s preexisting monitors for that resource from executing.
-- Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions; however, those monitors will not execute.
+- Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions; however, those monitors will not run.
