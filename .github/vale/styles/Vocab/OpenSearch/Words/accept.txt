@@ -28,11 +28,12 @@ Distro
 Gantt
 [Gg]eodistance
 [Gg]eohash
-GeoHex
+[Gg]eohex
 [Gg]eopoint
 [Gg]eopolygon
 [Gg]eoshape
 [Gg]eospatial
+[Gg]eotile
 gibibyte
 [Hh]ashmap
 [Hh]ostname
