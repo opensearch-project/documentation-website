@@ -46,13 +46,13 @@ If you choose to create the rule manually, you can refer to Sigma's [Rule Creati
 
 #### The Visual Editor
 
-When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The description in the steps here point out the correspondence when and where they might not be obvious.
+When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The description in the steps here points out this correspondence when it might not be immediately obvious.
 
-1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The rule name in the **Visual Editor** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule.
+1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The rule name in the **Visual Editor** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule formatted in a YAML file. The following image providers an example of the fields populated.
    
    <img src="{{site.url}}{{site.baseurl}}/images/Security/overview-rule.png" alt="The Rule overview fields in the Create detection rule window, which include the rule name, description, and author fields." width="50%">
   
-1. In the **Details** section, enter the log type for the data source, the rule level, and the rule status. The **Log type** corresponds to the [`logsource`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#log-source) field (specifically, the `logsource: product` field), while the rule level and rule status correspond to [`level`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) and [`status`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#status), respectively. Levels in Sigma rules include informational, low, medium, high, and critical.
+1. In the **Details** section, enter the log type for the data source, the rule level, and the rule status. The **Log type** corresponds to the [`logsource`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#log-source) field (specifically, the `logsource: product` field), while the rule level and rule status correspond to [`level`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) and [`status`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#status), respectively. Levels in Sigma rules include informational, low, medium, high, and critical. The following image provides an example.
   
    <img src="{{site.url}}{{site.baseurl}}/images/Security/details-rule.png" alt="The Details fields in the Create detection rule window, which include the log type, rule level, and rule status fields." width="40%">
   
@@ -63,11 +63,13 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
      * `all` – In the case of a list, rather than separate values with OR, the operator becomes AND and looks for a match with all values.
      * `endswith` – Indicates that the value is matched when it appears at the end of the field.
      * `startswith` – Indicates that the value is matched when it appears at the beginning of the field.
-   After selecting a modifier, select the **Value** radio button and then enter the value in the text field that follows it. The following image shows how this definition appears in the **Create detection rule** window.
-  
+   After selecting a modifier, select the **Value** radio button and then enter a value for the key in the text field that follows it.
+   
+   You can add fields for mapping a second key-value pair by selecting **Add map**. Follow the previous guidance in this step to map the key-value pair. The following image shows how this definition for two key-value pairs appears in the **Create detection rule** window.
+   
    <img src="{{site.url}}{{site.baseurl}}/images/Security/detection1.png" alt="An example of the Detection fields." width="40%">
-
-   To see how this definition compares to how it would be configured in the YAML, refer to the following example:
+   
+   To see how this definition compares to how it would be configured in the YAML file, refer to the following example:
 
    ```yaml
    selection_schtasks:
