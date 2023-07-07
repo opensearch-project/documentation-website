@@ -10,9 +10,12 @@ swap:
   'data set': dataset
   'for information on': for information about
   'for more information on': for more information about
+  'geo distance': geodistance
   'geo hash': geohash
+  'geo hex': geohex
   'geo point': geopoint
   'geo shape': geoshape
+  'geo tile': geotile
   'geospacial': geospatial
   'hard code': hardcode
   'high-performance computing': high performance computing
