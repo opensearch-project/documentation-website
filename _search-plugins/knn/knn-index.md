@@ -108,7 +108,7 @@ PUT test-index/_doc/2
 ```
 {% include copy-curl.html %}
 
-When querying, ensure to use a `byte` vector:
+When querying, be sure to use a `byte` vector:
 
 ```json
 GET test-index/_search
