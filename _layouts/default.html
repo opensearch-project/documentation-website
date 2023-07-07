@@ -92,6 +92,7 @@ layout: table_wrappers
                           aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
                           href="#" 
                           class="nav-list-expander"
+                          tabindex="-1"
                         ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                       {%- endif -%}
                       <a 
@@ -109,6 +110,7 @@ layout: table_wrappers
                     aria-current="{% if page.collection == collection_key %}page{% endif %}"
                     class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
                     href="{{ collection_url_path | relative_url }}"
+                    tabindex="-1"
                   >{{ collection_value.name }}</a>
                   {% include nav.html pages=collection key=collection_key %}
                 {% endif %}

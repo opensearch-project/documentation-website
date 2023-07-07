@@ -71,6 +71,7 @@
             aria-expanded="{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %}true{% else %}false{% endif %}"
             href="#" 
             class="nav-list-expander"
+            tabindex="-1"
           ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
         {%- endif -%}
         <a 
@@ -90,6 +91,7 @@
                   aria-expanded="{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %}true{% else %}false{% endif %}" 
                   href="#" 
                   class="nav-list-expander"
+                  tabindex="-1"
                 ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
               {%- endif -%}
               <a 
