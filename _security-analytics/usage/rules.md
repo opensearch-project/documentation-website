@@ -48,7 +48,7 @@ If you choose to create the rule manually, you can refer to Sigma's [Rule Creati
 
 When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The description in the steps here points out this correspondence when it might not be immediately obvious.
 
-1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The rule name in the **Visual Editor** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule formatted in a YAML file. The following image providers an example of the fields populated.
+1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The **Rule name** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule formatted in a YAML file. The following image providers an example of the fields populated.
    
    <img src="{{site.url}}{{site.baseurl}}/images/Security/overview-rule.png" alt="The Rule overview fields in the Create detection rule window, which include the rule name, description, and author fields." width="50%">
   
@@ -63,6 +63,7 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
      * `all` – In the case of a list, rather than separate values with OR, the operator becomes AND and looks for a match with all values.
      * `endswith` – Indicates that the value is matched when it appears at the end of the field.
      * `startswith` – Indicates that the value is matched when it appears at the beginning of the field.
+   
    After selecting a modifier, select the **Value** radio button and then enter a value for the key in the text field that follows it.
    
    You can add fields for mapping a second key-value pair by selecting **Add map**. Follow the previous guidance in this step to map the key-value pair. The following image shows how this definition for two key-value pairs appears in the **Create detection rule** window.
