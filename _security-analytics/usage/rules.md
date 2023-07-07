@@ -56,9 +56,27 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
   
    <img src="{{site.url}}{{site.baseurl}}/images/Security/details-rule.png" alt="The Details fields in the Create detection rule window, which include the log type, rule level, and rule status fields." width="40%">
   
-1. In the **Detection** section, specify key-value pairs to represent the fields and their values in the log source that will be the target for detection. These key-value pairs define the detection.
+1. In the **Detection** section, specify key-value pairs to represent the fields and their values in the log source that will be the target for detection. These key-value pairs define the detection. You can represent the values for keys as either a single value or as a list containing multiple values. 
+   
+   To define a simple key-value pair, first place the cursor on the **Selection_1** label and replace it with a selection name that describes the key-value pair. Next, enter a preferred field from the log source as the **Key**, and then use the **Modifier** dropdown list to define how the value is handled. The following modifiers are available:
+     * `contains` – Adds wildcards either side of the value so that it is matched anywhere in the field.
+     * `all` – In the case of a list, rather than separate values with OR, the operator becomes AND and looks for a match with all values.
+     * `endswith` – Indicates that the value is matched when it appears at the end of the field.
+     * `startswith` – Indicates that the value is matched when it appears at the beginning of the field.
+   After selecting a modifier, select the **Value** radio button and then enter the value in the text field that follows it. The following image shows how this definition appears in the **Create detection rule** window.
+  
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/detector1.png" alt="An example of the Detection fields." width="40%">
 
-   *
+   To see how this definition compares to how it would be configured in the YAML, refer to the following example:
+
+   ```yaml
+   selection_schtasks:
+     Image|endswith: \schtasks.exe
+     CommandLine|contains: '/Create '
+   ```
+
+   To define a key-value pair using a list rather than a single value, perform the previous steps for a simple key-value pair but select the **List** radio button instead of **Value**.  
+
 
 * By default, the Visual Editor is displayed. Enter the appropriate content in each field and select **Create** in the lower-right corner of the window to save the rule.
 * The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
@@ -76,15 +94,15 @@ logsource:
   service: system
 description: 'Detects changes to RDP terminal service sensitive settings'
 detection:
-  selection_reg:
-  EventType: SetValue
-  TargetObject|contains:
-    - \services\TermService\Parameters\ServiceDll
-    - \Control\Terminal Server\fSingleSessionPerUser
-    - \Control\Terminal Server\fDenyTSConnections
-    - \Policies\Microsoft\Windows NT\Terminal Services\Shadow
-    - \Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram
-  condition: selection_reg
+  selection:
+    EventType: SetValue
+    TargetObject|contains:
+      - \services\TermService\Parameters\ServiceDll
+      - \Control\Terminal Server\fSingleSessionPerUser
+      - \Control\Terminal Server\fDenyTSConnections
+      - \Policies\Microsoft\Windows NT\Terminal Services\Shadow
+      - \Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram
+  condition: selection
 level: high
 tags:
   - attack.defense_evasion
