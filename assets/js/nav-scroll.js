@@ -20,13 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // it is scrolled into view.
     const activeNavItem = navParent.querySelector('a.active');
     if (activeNavItem) {
+      // If the active item is not in view, then scroll it into view.
       const VERSION_WRAPPER_HEIGHT = 80;
       const parentRect = navParent.getBoundingClientRect();
       const activeRect = activeNavItem.getBoundingClientRect();
 
-      if (activeRect.top < (parentRect.top + VERSION_WRAPPER_HEIGHT) || activeRect.bottom > parentRect.bottom) {
-        // The active item is not in view, so scroll it into view.
-        const distanceToScroll = activeRect.top - parentRect.top + VERSION_WRAPPER_HEIGHT;
+      if (activeRect.top < (parentRect.top + VERSION_WRAPPER_HEIGHT)) {
+        const distanceToScroll = activeRect.top - parentRect.top - VERSION_WRAPPER_HEIGHT;
+        navParent.scrollTo(0, distanceToScroll);
+      } else if (activeRect.bottom > window.visualViewport.height) {
+        const distanceToScroll = activeRect.bottom - window.visualViewport.height + VERSION_WRAPPER_HEIGHT;
         navParent.scrollTo(0, distanceToScroll);
       }
     }
