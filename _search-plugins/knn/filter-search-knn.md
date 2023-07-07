@@ -12,10 +12,12 @@ has_math: true
 To refine k-NN results, you can filter a k-NN search using one of the following methods:
 
 - [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned. This approach is supported by the following search engines:
-  - Hierarchical Navigable Small World (HNSW) algorithm implemented by the Lucene search engine (k-NN plugin versions 2.4 and later) 
+  - Lucene search engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 
   - Faiss search engine (k-NN plugin versions 2.9 or later) <!-- TODO Are there any specific algorithms that this works for? -->
 
-- [Boolean filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. Because of post-filtering, it may return significantly fewer than `k` results for a restrictive filter.
+-  [Post filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter.
+    - [Boolean post filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently and then the intersection of their result sets is taken. 
+    - [The `post_filter` parameter](#post-filter-parameter): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) on the full dataset and then applies the filter to k-NN results.
 
 - [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It does not scale for large filtered subsets. 
 
@@ -24,7 +26,8 @@ The following table summarizes the preceding filtering use cases.
 Filter | When the filter is applied | Type of search | Supported engines and methods | Where to place the `filter` clause
 :--- | :--- | :--- | :---
 Efficient k-NN filtering | During search (a hybrid of pre- and post-filtering) | Approximate | - `lucene` (`hnsw`) <br> - `faiss` (`hnsw`, `ivf`) | Inside the k-NN query clause.
-Boolean filter | After search (post-filtering, works exactly like the `post_filter` keyword) | Approximate | -`lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. Must be a leaf clause.
+Boolean filter | After search (post-filtering) | Approximate | -`lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. Must be a leaf clause.
+The `post_filter` parameter | After search (post-filtering) | Approximate | -`lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. 
 Scoring script filter | Before search (pre-filtering) | Exact | N/A | Inside the script score query clause.
 
 ## Filtered search optimization
@@ -369,7 +372,11 @@ The response returns <!-- TODO: what does the response return -->:
 <!-- TODO: add a response -->
 ```
 
-## Boolean filter with ANN search
+## Post filtering
+
+You can achieve post filtering with a Boolean filter or by providing the `post_filter` parameter.
+
+### Boolean filter with ANN search
 
 A Boolean filter consists of a Boolean query that contains a k-NN query and a filter. For example, the following query searches for hotels that are closest to the specified `location` and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
 
@@ -475,6 +482,33 @@ The response includes documents containing the matching hotels:
         }
       }
     ]
+  }
+}
+```
+
+### Post filter parameter
+
+If you use the `knn` query alongside filters or other clauses (e.g. `bool`, `must`, `match`), you might receive fewer than `k` results. In this example, `post_filter` reduces the number of results from 2 to 1:
+
+```json
+GET my-knn-index-1/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector2": {
+        "vector": [2, 3, 5, 6],
+        "k": 2
+      }
+    }
+  },
+  "post_filter": {
+    "range": {
+      "price": {
+        "gte": 5,
+        "lte": 10
+      }
+    }
   }
 }
 ```
