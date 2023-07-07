@@ -65,7 +65,7 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
      * `startswith` – Indicates that the value is matched when it appears at the beginning of the field.
    After selecting a modifier, select the **Value** radio button and then enter the value in the text field that follows it. The following image shows how this definition appears in the **Create detection rule** window.
   
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/detector1.png" alt="An example of the Detection fields." width="40%">
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/detection1.png" alt="An example of the Detection fields." width="40%">
 
    To see how this definition compares to how it would be configured in the YAML, refer to the following example:
 
