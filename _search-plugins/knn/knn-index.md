@@ -111,7 +111,7 @@ PUT test-index/_doc/2
 ```
 {% include copy-curl.html %}
 
-When querying, ensure to use a `byte` vector:
+When querying, be sure to use a `byte` vector:
 
 ```json
 GET test-index/_search
@@ -197,7 +197,7 @@ Training data can be composed of either the same data that is going to be ingest
 
 ### Supported Lucene methods
 
-Method name | Requires Training | Supported spaces | Description
+Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, cosinesimil | Hierarchical proximity graph approach to Approximate k-NN search.
 
