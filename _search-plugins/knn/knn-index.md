@@ -194,7 +194,7 @@ Training data can be composed of either the same data that is going to be ingest
 
 ### Supported Lucene methods
 
-Method name | Requires Training | Supported spaces | Description
+Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, cosinesimil | Hierarchical proximity graph approach to Approximate k-NN search.
 
