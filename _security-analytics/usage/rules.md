@@ -68,7 +68,7 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
    
    You can add fields for mapping a second key-value pair by selecting **Add map**. Follow the previous guidance in this step to map the key-value pair. The following image shows how this definition for two key-value pairs appears in the **Create detection rule** window.
    
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/detection1.png" alt="An example of the Detection fields." width="40%">
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/detection1.png" alt="An example of the Detection fields." width="50%">
    
    To see how this definition compares to how it would be configured in the YAML file, refer to the following example:
 
@@ -80,41 +80,53 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
          CommandLine|contains: '/Create '
    ```
    
-   To add a second selection, use the **Add selection** bar following the first selection to open another key-value pair mapping. For this selection, we'll provide values as a list. As in the first selection, replace the **Selection_2** label with a selection name, enter a field name from the log as the key, and select a modifier from the **Modifier** dropdown list.
+   To add a second selection, use the **Add selection** bar following the first selection to open another key-value pair mapping. For this selection, we'll provide values as a list. As described in the first selection, replace the **Selection_2** label with a selection name, enter a field name from the log as the key, and select a modifier from the **Modifier** dropdown list.
+
    Then, to define a key-value pair using a list rather than a single value, select the **List** radio button. The **Upload file** button appears and the text box is expanded to accommodate the list.
 
    You can upload an existing list of values in either .csv or .txt format. Select **Upload file** and follow the prompts to upload a file's content into the text field. As an alternative, you can manually compose the list directly in the text field. The following image shows how a key-value pair mapping including a list of values appears.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/detection2.png" alt="An example of the Detection fields." width="40%">
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/detection2.png" alt="An example of the Detection fields." width="50%">
+   
+   To see how the definition with both of the preceding selections compares to how it would be configured in the YAML file, refer to the following example:
 
+```yml
+   detection:
+     selection:
+       selection_schtasks:
+         Image|endswith: \schtasks.exe
+         CommandLine|contains: '/Create '
+       selection_rare:
+         CommandLine|contains:
+         - ' bypass '
+         - .DownloadString
+         - .DownloadFile
+         - FromBase64String
+         - ' -w hidden '
+         - ' IEX'
+         - ' -enc '
+         - ' -decode '
+         - '/c start /min '
+         - ' curl '
+```
 
- select **Create detection rule** in the lower-right corner of the window to save the rule.
+1. In the **Condition** section, specify the conditions for the selections included in the detection definition. These conditions determine how the defined selections are handled by the detection rule. At least one selection is required. In the case of the preceding example, this means that at least one of the two selections `selection_schtasks` and `selection_rare` must be added in the **Conditions** section. 
+
+Select the `+` sign beside **Select** to add the first selection. Select the `+` sign again to add further selections from the detection definition. Once two selections are present as conditions, the Boolean operator AND appears between them, indicating that both will be used in the detection rule query. You can select the operator's label to open the operator dropdown list and choose from the options AND, OR, and NOT. The following image shows how this option appears.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/condition1.png" alt="specifying the conditions for the selections in the detection definition." width="50%">
+
+1. Specify optional fields for the detection rule.
+
+   * In the **Tags** section, add tags to associate the detection rule with any attack techniques recorded by a cybersecurity knowledge base such as [MITRE ATT&CK](https://attack.mitre.org/). Select **Add tag** to add multiple tags.
+   * In the **References** section, you can add URLs for rule references. Select **Add URL** to add multiple URLs.
+   * The **False positive cases** section provides a space for listing descriptions of false positive conditions that could unwantingly trigger the rule. Select **Add false positive** to add multiple descriptions.
+
+ 1. Once the rule is complete and meets your requirements, select **Create detection rule** in the lower-right corner of the window to save the rule.
 
 #### The YAML Editor
 
 The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
-
-
-
-```yml
-detection:
-  selection:
-    selection_schtasks:
-      Image|endswith: \schtasks.exe
-      CommandLine|contains: '/Create '
-    selection_rare:
-      CommandLine|contains:
-       - ' bypass '
-       - .DownloadString
-       - .DownloadFile
-       - FromBase64String
-       - ' -w hidden '
-       - ' IEX'
-       - ' -enc '
-       - ' -decode '
-       - '/c start /min '
-       - ' curl '
-```
 
 The alternatives to manually creating a rule, however, simplify and speed up the process. They involve either importing a rule in a YAML file or duplicating an existing rule and customizing it. See the next two sections for detailed steps.
 
