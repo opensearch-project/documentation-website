@@ -56,10 +56,10 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
   
    <img src="{{site.url}}{{site.baseurl}}/images/Security/details-rule.png" alt="The Details fields in the Create detection rule window, which include the log type, rule level, and rule status fields." width="40%">
   
-1. In the **Detection** section, specify key-value pairs to represent the fields and their values in the log source that will be the target for detection. These key-value pairs define the detection. You can represent the values for keys as either a single value or as a list containing multiple values. 
+1. In the **Detection** section, specify key-value pairs to represent the fields and their values in the log source, which will be the target for detection. These key-value pairs define the detection. You can represent the values for keys as either a single value or as a list containing multiple values. 
    
    To define a simple key-value pair, first place the cursor on the **Selection_1** label and replace it with a selection name that describes the key-value pair. Next, enter a preferred field from the log source as the **Key**, and then use the **Modifier** dropdown list to define how the value is handled. The following modifiers are available:
-     * `contains` – Adds wildcards either side of the value so that it is matched anywhere in the field.
+     * `contains` – Adds wildcards on either side of the value so that it is matched anywhere in the field.
      * `all` – In the case of a list, rather than separate values with OR, the operator becomes AND and looks for a match with all values.
      * `endswith` – Indicates that the value is matched when it appears at the end of the field.
      * `startswith` – Indicates that the value is matched when it appears at the beginning of the field.
@@ -120,7 +120,7 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
   
    * In the **Tags** section, add tags to associate the detection rule with any attack techniques recorded by a cybersecurity knowledge base such as [MITRE ATT&CK](https://attack.mitre.org/). Select **Add tag** to add multiple tags.
    * In the **References** section, you can add URLs for rule references. Select **Add URL** to add multiple URLs.
-   * The **False positive cases** section provides a space for listing descriptions of false positive conditions that could unwantingly trigger the rule. Select **Add false positive** to add multiple descriptions.
+   * The **False positive cases** section provides a space for listing descriptions of false positive conditions that could unwantedly trigger the rule. Select **Add false positive** to add multiple descriptions.
   
  1. Once the rule is complete and meets your requirements, select **Create detection rule** in the lower-right corner of the window to save the rule.
   
