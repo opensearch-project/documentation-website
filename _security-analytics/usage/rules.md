@@ -47,9 +47,9 @@ If you choose to create the rule manually, you can refer to Sigma's [Rule Creati
 #### The Visual Editor
 
 When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The description in the steps here points out this correspondence when it might not be immediately obvious.
-
+  
 1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The **Rule name** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule formatted in a YAML file. The following image providers an example of the fields populated.
-   
+  
    <img src="{{site.url}}{{site.baseurl}}/images/Security/overview-rule.png" alt="The Rule overview fields in the Create detection rule window, which include the rule name, description, and author fields." width="50%">
   
 1. In the **Details** section, enter the log type for the data source, the rule level, and the rule status. The **Log type** corresponds to the [`logsource`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#log-source) field (specifically, the `logsource: product` field), while the rule level and rule status correspond to [`level`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) and [`status`](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#status), respectively. Levels in Sigma rules include informational, low, medium, high, and critical. The following image provides an example.
@@ -90,7 +90,7 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
    
    To see how the definition with both of the preceding selections compares to how it would be configured in the YAML file, refer to the following example:
 
-```yml
+   ```yml
    detection:
      selection:
        selection_schtasks:
@@ -108,22 +108,22 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
          - ' -decode '
          - '/c start /min '
          - ' curl '
-```
+   ```
 
 1. In the **Condition** section, specify the conditions for the selections included in the detection definition. These conditions determine how the defined selections are handled by the detection rule. At least one selection is required. In the case of the preceding example, this means that at least one of the two selections `selection_schtasks` and `selection_rare` must be added in the **Conditions** section. 
 
-Select the `+` sign beside **Select** to add the first selection. Select the `+` sign again to add further selections from the detection definition. Once two selections are present as conditions, the Boolean operator AND appears between them, indicating that both will be used in the detection rule query. You can select the operator's label to open the operator dropdown list and choose from the options AND, OR, and NOT. The following image shows how this option appears.
+   Select the `+` sign beside **Select** to add the first selection. Select the `+` sign again to add further selections from the detection definition. Once two selections are present as conditions, the Boolean operator AND appears between them, indicating that both will be used in the detection rule query. You can select the operator's label to open the operator dropdown list and choose from the options AND, OR, and NOT. The following image shows how this option appears.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/condition1.png" alt="specifying the conditions for the selections in the detection definition." width="50%">
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/condition1.png" alt="specifying the conditions for the selections in the detection definition." width="50%">
 
 1. Specify optional fields for the detection rule.
-
+  
    * In the **Tags** section, add tags to associate the detection rule with any attack techniques recorded by a cybersecurity knowledge base such as [MITRE ATT&CK](https://attack.mitre.org/). Select **Add tag** to add multiple tags.
    * In the **References** section, you can add URLs for rule references. Select **Add URL** to add multiple URLs.
    * The **False positive cases** section provides a space for listing descriptions of false positive conditions that could unwantingly trigger the rule. Select **Add false positive** to add multiple descriptions.
-
+  
  1. Once the rule is complete and meets your requirements, select **Create detection rule** in the lower-right corner of the window to save the rule.
-
+  
 #### The YAML Editor
 
 The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
