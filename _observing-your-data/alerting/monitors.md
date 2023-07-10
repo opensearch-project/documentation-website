@@ -73,7 +73,7 @@ It is possible to configure an alert notification for each finding; however, thi
 
 ## Create notifications
 
-1. On the main menu under **OpenSearch Plugins**, choose **Notifications**, **Channel**, **Create channel**.
+1. In the **OpenSearch Plugins** menu, choose **Notifications** then choose **Channel**, **Create channel**.
 1. Enter a channel name.
 1. Configure the channel. For **Channel type**, choose Slack, Amazon Chime, Amazon SNS, custom webhook, or [email](#email-as-a-destination).
 
@@ -85,36 +85,35 @@ This information is stored in plain text in the OpenSearch cluster. The encoded 
 
 ### Email as a notification channel
 
-To send or receive an alert notification as an email, choose **Email** as the channel type. Next, add at least one sender and recipient. Creating email groups is recommended if you want to notify several people of an alert. You can configure senders and recipients using **Email sender** and **Email recipient groups**.
+To send or receive an alert notification as an email, choose **Email** as the channel type. Next, add at least one sender and recipient. Creating email groups is recommended if you want to notify several people of an alert. To configure senders and recipients, choose **Create SMTP sender** or **Create SES sender** and **Create recipient group** in the Configurations panel.
 
-#### Create sender type
+#### Create email senders
 
-You need to specify an email account from which the Alerting plugin can send notifications.
+Specify an email account from which the Alerting plugin can send notifications.
 
 To configure a sender email:
 
-1. Choose **Email** as the channel type.
-2. Choose **Sender type**, and enter sender name, and default recipients if creating a recipient group.
-1. Enter the email address, SMTP host (for example, `smtp.gmail.com` for a Gmail account), and the port.
-1. Choose an encryption method, or use the default value of **None**. However, most email providers require SSL or TLS, which require a username and password in OpenSearch keystore. Refer to [Authenticate sender account](#authenticate-sender-account) to learn more.
-1. Choose **Save** to save the configuration and create the sender. You can create a sender even before you add your credentials to the OpenSearch keystore. However, you must [authenticate each sender account](#authenticate-sender-account) before you use the channel to send your alert.
+1. Select **Email senders** in the Notifications menu and then choose **Create SMTP sender** or **Create SES sender**.
+1. Enter the email address, host (for example, `smtp.gmail.com` for a Gmail account), and port.
+1. Choose an encryption method, or use the default value of **None**. Most email providers require SSL or TLS, which require a username and password in OpenSearch keystore. Refer to [Authenticate sender account](#authenticate-sender-account) to learn more.
+1. Choose **Create** to save the configuration and create the sender. You can create a sender before you add your credentials to the OpenSearch keystore. However, you must [authenticate each sender account](#authenticate-sender-account) before you use the channel to send your alert.
 
-You can reuse senders across many different destinations, but each destination only supports one sender.
+You can reuse senders across the different channels, but each channel only supports one sender.
 
-#### Manage email groups or recipients
+#### Create email groups
 
 Use email groups to create and manage reusable lists of email addresses. For example, one alert might email the DevOps team, whereas another might email the executive team and the engineering team.
 
-You can enter individual email addresses or an email group in the **Recipients** field.
+To create a recipient group:
 
-1. After you choose **Email** as the destination type, choose **Manage email groups**. Then choose **Add email group**, **New email group**.
-1. Enter a unique name.
+1. Select **Email recipient group** in the Notifications menu and then choose **Create email recipients**. Then configure the recipient group.
+1. Enter a name for the email group.
 1. For recipient emails, enter any number of email addresses.
-1. Choose **Save**.
+1. Choose **Create**.
 
 #### Authenticate sender account
 
-If your email provider requires SSL or TLS, you must authenticate each sender account before you can send an email. Enter these credentials in the OpenSearch keystore using the CLI. Run the following commands (in your OpenSearch directory) to enter your username and password. The `<sender_name>` is the name you entered for **Sender** earlier.
+If your email provider requires SSL or TLS, you must authenticate each sender account before you can send an email. Enter these credentials in the OpenSearch keystore using the command line interface (CLI). Run the following commands (in your OpenSearch directory) to enter your username and password. The `<sender_name>` is the name you entered for **Sender name** earlier.
 
 ```bash
 ./bin/opensearch-keystore add plugins.alerting.destination.email.<sender_name>.username
@@ -124,7 +123,7 @@ If your email provider requires SSL or TLS, you must authenticate each sender ac
 Note: Keystore settings are node-specific. You must run these commands on each node.
 {: .note}
 
-To change or update your credentials (after you've added them to the keystore on every node), call the reload API to automatically update those credentials without restarting OpenSearch:
+To change or update your credentials (after you've added them to the keystore on every node), call the [reload secure settings API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/) to automatically update those credentials without restarting OpenSearch:
 
 ```json
 POST _nodes/reload_secure_settings
@@ -137,18 +136,18 @@ POST _nodes/reload_secure_settings
 
 ## Create a monitor
 
-1. Choose **Alerting**, **Monitors**, **Create monitor**.
+1. Choose **Alerting** and then **Create monitor**.
 1. Specify a name for the monitor.
 1. Choose either **Per query monitor**, **Per bucket monitor**, **Per cluster metrics monitor**, or **Per document monitor**.
 
-OpenSearch supports the following types of monitors:
+OpenSearch supports the following monitor types:
 
-- **Per query monitors** run your specified query and then check whether the query's results trigger any alerts. Per query monitors can only trigger one alert at a time. 
-- **Per bucket monitors** let you create buckets based on selected fields and then categorize your results into those buckets. The Alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Furthermore, each bucket can trigger an alert.
+- **Per query monitor** runs a specified query and then checks whether the query's results trigger any alerts. Per query monitors can only trigger one alert at a time. 
+- **Per bucket monitor** creates buckets based on selected fields and then categorizes the results into those buckets. The Alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each bucket can trigger an alert.
 
-The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by calling the cluster settings API `plugins.alerting.monitor.max_monitors`.
+The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by calling the [cluster settings API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/) `plugins.alerting.monitor.max_monitors`.
 
-1. Decide how you want to define your query and triggers. You can use any of the following methods: visual editor, query editor, or anomaly detector.
+1. Define the query and triggers. You can use any of the following methods: visual editor, extraction query editor, or anomaly detector.
 
    - Visual definition works well for monitors that you can define as "some value is above or below some threshold for some amount of time."
 
@@ -201,7 +200,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
     "Start" and "end" refer to the interval at which the monitor runs. See [Available variables](#available-variables).
 
-    To define a monitor visually, choose **Visual editor**. Then choose a source index, a timeframe, an aggregation (for example, `count()` or `average()`), a data filter if you want to monitor a subset of your source index, and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a bucket-level monitor. Visual definition works well for most monitors.
+    To define a monitor visually, choose **Visual editor**. Then choose a source index, a time frame, an aggregation (for example, `count()` or `average()`), a data filter if you want to monitor a subset of your source index, and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a bucket-level monitor. Visual definition works well for most monitors.
 
     If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security/).
 
@@ -211,20 +210,19 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
     To use an anomaly detector, choose **Anomaly detector** and select your **Detector**.
 
-    The anomaly detection option is for pairing with the anomaly detection plugin. See [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/).
-    For anomaly detector, choose an appropriate schedule for the monitor based on the detector interval. Otherwise, the alerting monitor might miss reading the results.
+    The anomaly detection option is for pairing with the anomaly detection plugin. See [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/). For anomaly detector, choose an appropriate schedule for the monitor based on the detector interval. Otherwise, the alerting monitor might miss reading the results.
 
-    For example, assume you set the monitor interval and the detector interval as 5 minutes, and you start the detector at 12:00. If an anomaly is detected at 12:05, it might be available at 12:06 because of the delay between writing the anomaly and it being available for queries. The monitor reads the anomaly results between 12:00 and 12:05, so it does not get the anomaly results available at 12:06.
+    For example, assume you set the monitor interval and the detector interval as 5 minutes and you start the detector at 12:00. If an anomaly is detected at 12:05, it might be available at 12:06 because of the delay between writing the anomaly and it being available for queries. The monitor reads the anomaly results between 12:00 and 12:05, so it does not get the anomaly results available at 12:06.
 
     To avoid this issue, make sure the alerting monitor is at least twice the detector interval.
     When you create a monitor using OpenSearch Dashboards, the anomaly detector plugin generates a default monitor schedule that's twice the detector interval.
 
-    Whenever you update a detector’s interval, make sure to update the associated monitor interval as well, as the anomaly detection plugin does not do this automatically.
+    Whenever you update a detector’s interval, make sure to also update the associated monitor interval, as the anomaly detection plugin does not do this automatically.
 
-    **Note**: Anomaly detection is available only if you are defining a per query monitor.
+   Anomaly detection is available only if you are defining a per query monitor.
     {: .note}
 
-1. Choose how frequently to run your monitor. You can run it either by time intervals (minutes, hours, or days) or on a schedule. If you run it on a daily, weekly or monthly schedule or according to a [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you need to also provide the time zone.
+1. Choose how frequently to run your monitor. You can run it either by time intervals (minutes, hours, or days) or on a schedule. If you run it on a daily, weekly, or monthly schedule or according to a [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you need to also provide the time zone.
 
 1. Add a trigger to your monitor.
 
@@ -233,7 +231,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
 Steps to create a trigger differ depending on whether you chose **Visual editor**, **Extraction query editor**, or **Anomaly detector** when you created the monitor.
 
-You begin by specifying a name and severity level for the trigger. Severity levels help you manage alerts. A trigger with a high severity level (e.g. 1) might page a specific individual, whereas a trigger with a low severity level might message a chat room.
+You begin by specifying a name and severity level for the trigger. Severity levels help you manage alerts. A trigger with a high severity level (for example, 1) might page a specific individual, whereas a trigger with a low severity level might message a chat room.
 
 Remember that query-level monitors run your trigger's script once against the query's results, but bucket-level monitors run your trigger's script on each bucket, so you should create a trigger that best fits the monitor you chose. If you want to run multiple scripts, you must create multiple triggers.
 
@@ -243,17 +241,18 @@ For a query-level monitor's **Trigger condition**, specify a threshold for the a
 
 The line moves up and down as you increase and decrease the threshold. Once this line is crossed, the trigger evaluates to true.
 
-Bucket-level monitors also require you to specify a threshold and value for your aggregation and time frame, but you can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
+Bucket-level monitors also require you to specify a threshold and value for your aggregation and time frame. You can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
 
-Document-level monitors provide the added option to use tags that represent multiple queries connected by the logical OR operator.
+Document-level monitors provide the added option to use tags that represent multiple queries connected by the logical `OR` operator.
 
-To create a multiple query combination trigger, do the following steps:
+To create a multiple query combination trigger:
 
-1. Create a per document monitor with more than one query.
-2. Create the first query with a field, an operator, and a value. For example, set the query to search for the `region` field with either operator: "is" or "is not", and set the value "us-west-2".
-3. Select **Add Tag** and give the tag a name.
-3. Create the second query and add the same tag to it.
-4. Now you can create the trigger condition and specify the tag name. This creates a combination trigger that checks two queries that both contain the same tag. The monitor checks both queries with a logical OR operation and if either query's conditions are met, then it will generate the alert notification.
+1. Select **Per document monitor**.
+1. Select a data source. 
+2. Enter the query name and field information. For example, set the query to search for the `region` field with either operator "is" or "is not" and value "us-west-2".
+3. Select **Add tag** and enter a tag name.
+3. Create the second query by selecting **Add another query** and add the same tag to it.
+4. Now you can create the trigger condition and specify the tag name. This creates a combination trigger that checks two queries that both contain the same tag. The monitor checks both queries with a logical `OR` operation, and if either query's conditions are met, it will generate the alert notification.
 
 ### Extraction query
 
@@ -362,7 +361,7 @@ Variable | Data type | Description
 `ctx.trigger.name` | String | The trigger's name.
 `ctx.trigger.severity` | String | The trigger's severity.
 `ctx.trigger.condition`| Object | Contains the Painless script used when creating the monitor.
-`ctx.trigger.condition.script.source` | String | The language used to define the script. Must be painless.
+`ctx.trigger.condition.script.source` | String | The language used to define the script. Must be Painless.
 `ctx.trigger.condition.script.lang` | String | The script used to define the trigger.
 `ctx.trigger.actions`| Array | An array with one element that contains information about the action the monitor needs to trigger.
 
@@ -376,31 +375,29 @@ Variable | Data type | Description
 `ctx.trigger.actions.message_template.lang` | String | The scripting language used to define the message. Must be Mustache.
 `ctx.trigger.actions.throttle_enabled` | Boolean | Whether throttling is enabled for this trigger. See [adding actions](#add-actions) for more information about throttling.
 `ctx.trigger.actions.subject_template.source` | String | The message's subject in the alert.
-`ctx.trigger.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be mustache.
+`ctx.trigger.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be Mustache.
 
 #### Other variables
 
 Variable | Data type | Description
 :--- | :--- : :---
-`ctx.results` | Array | An array with one element (i.e. `ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
+`ctx.results` | Array | An array with one element (`ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
-`ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every ten minutes, a period might begin at 10:40 and end at 10:50.
+`ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message if the trigger was unable to retrieve results or unable to evaluate the trigger, typically due to a compile error or null pointer exception. Null otherwise.
 `ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
-`ctx.dedupedAlerts` | Object | Alerts that have already been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless amounts of the same alerts. Only available with bucket-level monitors.
+`ctx.dedupedAlerts` | Object | Alerts that have been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless amounts of the same alerts. Only available with bucket-level monitors.
 `ctx.newAlerts` | Object | Newly created alerts. Only available with bucket-level monitors.
 `ctx.completedAlerts` | Object | Alerts that are no longer ongoing. Only available with bucket-level monitors.
 `bucket_keys` | String | Comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through `ctx.dedupedAlerts[0].bucket_keys`.
 `parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts[0].parent_bucket_path`.
 
-
-
 ---
 
 ## Add actions
 
-The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met. See the [Notifications plugin]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to see what communication channels are supported.
+The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to learn more about the supported communication channels.
 
 If you don't want to receive notifications for alerts, you don't have to add actions to your triggers. Instead, you can periodically check OpenSearch Dashboards.
 {: .tip }
@@ -409,15 +406,16 @@ If you don't want to receive notifications for alerts, you don't have to add act
 1. Choose a [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
 1. Add a subject and body for the message.
 
-   You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html/). You have access to `ctx.action.name`, the name of the current action, as well as all [trigger variables](#available-variables).
+   You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html/). You have access to `ctx.action.name`, the name of the current action, and all [trigger variables](#available-variables).
 
-   If your destination is a custom webhook that expects a particular data format, you might need to include JSON (or even XML) directly in the message body:
+   If your notification channel is a custom webhook that expects a particular data format, you may need to include JSON (or XML) directly in the message body:
 
    ```json
    {% raw %}{ "text": "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue. - Trigger: {{ctx.trigger.name}} - Severity: {{ctx.trigger.severity}} - Period start: {{ctx.periodStart}} - Period end: {{ctx.periodEnd}}" }{% endraw %}
    ```
 
    In this case, the message content must conform to the `Content-Type` header in the [custom webhook]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
+   
 1. If you're using a bucket-level monitor, you can choose whether the monitor should perform an action for each execution or for each alert.
 
 1. (Optional) Use action throttling to limit the number of notifications you receive within a given span of time.
