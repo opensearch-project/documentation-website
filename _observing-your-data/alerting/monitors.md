@@ -19,10 +19,10 @@ redirect_from:
 ## Monitor types
 
 The OpenSearch Dashboard Alerting plugin provides four monitor types:
-* **per query** – This monitor runs a query and generates alert notifications based on criteria that matches.
-* **per bucket** – This monitor runs a query that evaluates trigger criteria based on aggregated values in the dataset.
-* **per cluster metrics** – This monitor runs API requests on the cluster to monitor its health.
-* **per document** – This monitor runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
+* **per query**: This monitor runs a query and generates alert notifications based on criteria that matches.
+* **per bucket**: This monitor runs a query that evaluates trigger criteria based on aggregated values in the dataset.
+* **per cluster metrics**: This monitor runs API requests on the cluster to monitor its health.
+* **per document**: This monitor runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
 
 ## Key terms
 
@@ -502,16 +502,16 @@ To create a cluster metrics monitor:
 
 Trigger conditions use responses from the following cat API endpoints. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names). However, they do not support query parameters.
 
-1. [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
-2. [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
-3. [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
-4. [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics/)
-5. [_cat/indices](https://opensearch.org/docs/latest/api-reference/cat/cat-indices/)
-6. [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
-7. [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
-8. [_cat/shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
-9. [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
-10. [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/) 
+- [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
+- [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
+- [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
+- [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics/)
+- [_cat/indices](https://opensearch.org/docs/latest/api-reference/cat/cat-indices/)
+- [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
+- [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
+- [_cat/shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
+- [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
+- [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/) 
 
 ### Restrict API fields
 
