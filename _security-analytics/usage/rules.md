@@ -126,20 +126,12 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
   
 #### The YAML Editor
 
-The **Create detection rule** window also contains the YAML Editor so that you can create a new rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types. The rule's `id` is provided and assigned when the rule is saved.
-
-To assist in rule creation using the **YAML Editor**, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) and use the descriptions of each field to learn more about defining the rule.
-
-
-### Importing rules
-
-Security Analytics also supports the import of Sigma rules in YAML format. The following example file shows the basic formatting of a rule in YAML.
+The **Create detection rule** window also contains the YAML Editor so that you can create a new rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types. The rule's `id` is provided and assigned when the rule is saved. The following example shows the basic elements of a typical rule:
 
 ```yml
 title: RDP Sensitive Settings Changed
 logsource:
   product: windows
-  service: system
 description: 'Detects changes to RDP terminal service sensitive settings'
 detection:
   selection:
@@ -169,18 +161,25 @@ status: experimental
 ```
 {% include copy.html %}
 
-1. To begin, select the **Import rule** button in the upper-right corner of the page. The Import rule page opens.
-1. Either drag a YAML-formatted Sigma rule into the window or browse for the file by selecting the link and opening it. The Import a rule window opens and the rule definition fields are automatically populated in both the Visual Editor and YAML Editor.
+To assist in rule creation using the **YAML Editor**, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) and use the descriptions of each field to learn more about defining the rule.
+
+
+### Importing rules
+
+Security Analytics also supports the import of Sigma rules in YAML format. In the **Detection rules** window, follow these steps to import a rule.
+
+1. To begin, select **Import detection rule** in the upper-right corner of the page. The **Import rule** page opens.
+1. Either drag a YAML-formatted Sigma rule into the window or browse for the file by selecting the link and opening it. The **Import a rule** window opens and the rule definition fields are automatically populated in both the Visual Editor and YAML Editor.
 1. Verify or modify the information in the fields.
-1. After you confirm the information for the rule is accurate, select the **Create** button in the lower-right corner of the window. A new rule is created, and it appears in the list of rules on the main page of the Rules window.
+1. After you confirm that the information for the rule is accurate, select the **Create** button in the lower-right corner of the window. A new rule is created and it appears in the list of detection rules.
 
 ### Customizing rules
 
-Another option for creating a new detection rule is duplicating a Sigma rule and then modifying it to create a custom rule. First search for or filter rules in the Rules list to locate the rule you want to duplicate.
+Another option for creating a new detection rule is duplicating a Sigma rule and then modifying it to create a custom rule. First search for or filter rules in the **Rule name** list to locate the rule you want to duplicate.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/rules-dup1.png" alt="Selecting a rule in the Rules name list" width="75%">
 
-1. To begin, select the rule in the Rule name column. The rule details pane opens.
+1. To begin, select the rule in the **Rule name** column. The rule details pane opens.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/rule-dup2.png" alt="Opening the rule details pane" width="50%">
 
