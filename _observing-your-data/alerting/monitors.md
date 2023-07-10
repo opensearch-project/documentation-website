@@ -415,7 +415,7 @@ If you don't want to receive notifications for alerts, you don't have to add act
    ```
 
    In this case, the message content must conform to the `Content-Type` header in the [custom webhook]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
-   
+
 1. If you're using a bucket-level monitor, you can choose whether the monitor should perform an action for each execution or for each alert.
 
 1. (Optional) Use action throttling to limit the number of notifications you receive within a given span of time.
@@ -479,24 +479,25 @@ Deleted | Someone deleted the monitor or trigger associated with this alert whil
 
 In addition to monitoring conditions for indexes, the Alerting plugin allows monitoring conditions for clusters. Alerts can be set by cluster metrics to watch for the following conditions:
 
-- The health of your cluster reaches a status of yellow or red
+- Cluster health status reaches yellow or red
 - Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds
 - Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach a specified threshold
-- The total number of documents stores reaches a specified amount
+- Total number of documents stored reaches a specified amount
 
 To create a cluster metrics monitor:
 
-1. Select **Alerting** > **Monitors** > **Create monitor**.
+1. In the **OpenSearch Plugins** menu, select **Alerting**.
+1. Select the **Monitors** tab, then **Create monitor**.
 2. Select the **Per cluster metrics monitor** option.
-3. In the Query section, pick the **Request type** from the dropdown.
-4. (Optional) If you want to filter the API response to use only certain path parameters, enter those parameters under **Query parameters**. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names).
-5. In the Triggers section, indicate what conditions trigger an alert. The trigger condition autopopulates a painless ctx variable. For example, a cluster monitor watching for Cluster Stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional painless conditions supported by the API. To see an example of the condition response, select **Preview condition response**.
-6. In the Actions section, indicate how you want your users to be notified when a trigger condition is met.
-7. Select **Create**. Your new monitor appears in the **Monitors** list.
+3. In the Query pane, choose the **Request type** from the dropdown.
+4. (Optional) To filter the API response to use only certain path parameters, enter those parameters under **Path parameters**. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (for example, comma-separated lists of index names).
+5. In the Triggers pane, add conditions to trigger an alert. The trigger condition autopopulates a Painless ctx variable. For example, a cluster monitor watching for cluster stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional Painless conditions supported by the API. To see an example of the condition response, select **Preview condition response**.
+6. In the Actions pane, define how users are to be notified when a trigger condition is met.
+7. Select **Create**. The new monitor appears in the **Monitors** list.
 
 ### Supported APIs
 
-Trigger conditions use responses from the following cat API endpoints. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names). However, they do not support query parameters.
+Trigger conditions use responses from the following cat API endpoints. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (for example, comma-separated lists of index names). They do not support query parameters.
 
 - [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
 - [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
@@ -511,9 +512,9 @@ Trigger conditions use responses from the following cat API endpoints. Most APIs
 
 ### Restrict API fields
 
-If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json/) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
+To hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json/) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
 
-However, you can modify the file so that cluster metric monitors can only be created for APIs referenced. Furthermore, only fields referenced in the supported files can create trigger conditions. This `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
+You can modify the file so that cluster metric monitors can only be created for APIs referenced. Only fields referenced in the supported files can create trigger conditions. The file `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
 
 ```json
 "/_cluster/stats": {
@@ -526,7 +527,7 @@ However, you can modify the file so that cluster metric monitors can only be cre
 
 ### Painless triggers
 
-Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts are comprised of at least one statement and any additional functions you wish to run.
+Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts comprise at least one statement and any additional functions you want to run.
 
 The cluster metrics monitor supports up to **ten** triggers.
 
