@@ -19,10 +19,10 @@ redirect_from:
 ## Monitor types
 
 The OpenSearch Dashboard Alerting plugin provides four monitor types:
-* **per query**: This monitor runs a query and generates alert notifications based on criteria that matches.
-* **per bucket**: This monitor runs a query that evaluates trigger criteria based on aggregated values in the dataset.
-* **per cluster metrics**: This monitor runs API requests on the cluster to monitor its health.
-* **per document**: This monitor runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
+1. **per query**: Runs a query and generates alert notifications based on the matching criteria.
+1. **per bucket**: Runs a query that evaluates trigger criteria based on aggregated values in the dataset.
+1. **per cluster metrics**: Runs API requests on the cluster to monitor its health.
+1. **per document**: Runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
 
 ## Key terms
 
@@ -30,12 +30,11 @@ Term | Definition
 :--- | :---
 Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more *triggers*.
 Trigger | Conditions that, if met, generate *alerts*.
-Tag | A label that can be applied to multiple queries to combine them with the logical OR operation in a per document monitor. You cannot use tags with other monitor types.
+Tag | A label that can be applied to multiple queries to combine them with the logical `OR` operation in a per document monitor. You cannot use tags with other monitor types.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
-Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
-Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
-Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index: `.opensearch-alerting-finding*`.
-Channel | A notification channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
+Action | The information that you want the monitor to send out after being triggered. Actions have a *channel*, a message subject, and a message body.
+Channel | A notification channel to use in an action. Supported channels are Amazon Chime, Slack, Amazon  Simple Notification Service (Amazon SNS), email, or custom webhook. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
+Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index `.opensearch-alerting-finding*`.
 
 ## Per document monitors
 
@@ -55,51 +54,50 @@ You query each trigger using up to 10 tags, adding the tag as a single trigger c
 
 The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
-
-The Alerting API provides a document-level monitor that programmatically accomplishes the same function as the per document monitor in the OpenSearch Dashboards. To learn more, see [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors/).
+The Alerting API provides a document-level monitor that programmatically accomplishes the same function as the per document monitor in OpenSearch Dashboards. To learn more, see [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors/).
 {: .note}
 
 ### Document findings
 
-When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a Findings index: `.opensearch-alerting-finding*` that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. To learn more, see [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings/).
+When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a findings index, `.opensearch-alerting-finding*`, that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. To learn more, see [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings/).
 
 The following metadata is provided for each document finding entry:
 
-* **Document** – The document ID and index name. For example: `Re5akdirhj3fl | test-logs-index`.
-* **Query** – The query name that matched the document.
-* **Time found** – The timestamp that indicates when the document was found during the runtime.
+* **Document**: The document ID and index name, for example, `Re5akdirhj3fl | test-logs-index`.
+* **Query**: The query name that matched the document.
+* **Time found**: The timestamp that indicates when the document was found during the runtime.
 
-It is possible to configure an alert notification for each finding; however, we do not recommend this unless rules are well-defined to prevent a huge volume of findings in a high ingestion cluster.
+It is possible to configure an alert notification for each finding; however, this is not recommended unless rules are well-defined to prevent a sizeable volume of findings in a high ingestion cluster.
 
 ---
 
-## Create destinations
+## Create notifications
 
-1. Choose **Alerting**, **Destinations**, **Add destination**.
-1. Specify a name for the destination so that you can identify it later.
-1. For **Type**, choose Slack, Amazon Chime, custom webhook, or [email](#email-as-a-destination).
+1. On the main menu under **OpenSearch Plugins**, choose **Notifications**, **Channel**, **Create channel**.
+1. Enter a channel name.
+1. Configure the channel. For **Channel type**, choose Slack, Amazon Chime, Amazon SNS, custom webhook, or [email](#email-as-a-destination).
 
-For Email, refer to the [Email as a destination](#email-as-a-destination) section. For all other types, specify the webhook URL. See the documentation for [Slack](https://api.slack.com/incoming-webhooks/) and [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html/) to learn more about webhooks.
+For email, refer to the [Email as a destination](#email-as-a-destination) section. For all other types, specify the webhook URL. See the documentation for [Slack](https://api.slack.com/incoming-webhooks/), [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html/), and [Amazon SNS as a channel type]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/#amazon-sns-as-a-channel-type) to learn more about webhooks.
 
-If you're using custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you might need to add a header with a key of `Authorization` and a value of `Basic <Base64-encoded-credential-string>`. You might also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
+If you're using custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you may need to add a header with a key of `Authorization` and a value of `Basic <Base64-encoded-credential-string>`. You may also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
 
-This information is stored in plain text in the OpenSearch cluster. We will improve this design in the future, but for now, the encoded credentials (which are neither encrypted nor hashed) might be visible to other OpenSearch users.
+This information is stored in plain text in the OpenSearch cluster. The encoded credentials (which are neither encrypted nor hashed) may be visible to other OpenSearch users.
 
-### Email as a destination
+### Email as a notification channel
 
-To send or receive an alert notification as an email, choose **Email** as the destination type. Next, add at least one sender and recipient. We recommend adding email groups if you want to notify more than a few people of an alert. You can configure senders and recipients using **Manage senders** and **Manage email groups**.
+To send or receive an alert notification as an email, choose **Email** as the channel type. Next, add at least one sender and recipient. Creating email groups is recommended if you want to notify several people of an alert. You can configure senders and recipients using **Email sender** and **Email recipient groups**.
 
-#### Manage senders
+#### Create sender type
 
 You need to specify an email account from which the Alerting plugin can send notifications.
 
-To configure a sender email, do the following:
+To configure a sender email:
 
-1. After you choose **Email** as the destination type, choose **Manage senders**.
-1. Choose **Add sender**, **New sender** and enter a unique name.
+1. Choose **Email** as the channel type.
+2. Choose **Sender type**, and enter sender name, and default recipients if creating a recipient group.
 1. Enter the email address, SMTP host (for example, `smtp.gmail.com` for a Gmail account), and the port.
 1. Choose an encryption method, or use the default value of **None**. However, most email providers require SSL or TLS, which require a username and password in OpenSearch keystore. Refer to [Authenticate sender account](#authenticate-sender-account) to learn more.
-1. Choose **Save** to save the configuration and create the sender. You can create a sender even before you add your credentials to the OpenSearch keystore. However, you must [authenticate each sender account](#authenticate-sender-account) before you use the destination to send your alert.
+1. Choose **Save** to save the configuration and create the sender. You can create a sender even before you add your credentials to the OpenSearch keystore. However, you must [authenticate each sender account](#authenticate-sender-account) before you use the channel to send your alert.
 
 You can reuse senders across many different destinations, but each destination only supports one sender.
 
