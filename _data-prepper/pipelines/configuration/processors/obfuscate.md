@@ -25,7 +25,7 @@ In this example, we have a document which contains a `log` field and a `phone` f
 
 To obfuscate the `log` and `phone` fields multiple fields, add the `obfuscate` processor and call each field in the `source` option, as showing the following example. To account for both the `log` and `phone`, the following examples uses multiple `obfuscate` processors, since each processor can only obfuscate one source.
 
-In the first `obfuscate` processor in the pipeline, the source `log` i
+In the first `obfuscate` processor in the pipeline, the source `log` uses several configuration options to mask the data in the log field. For more details on these options, see [configuration](#configuration).
 
 ```yaml
 pipeline:
@@ -47,7 +47,7 @@ pipeline:
     - stdout:
 ```
 
-When run, the obfuscate parses the fields into the following output.
+When run, the `obfuscate` processor parses the fields into the following output.
 
 ```json
 {
