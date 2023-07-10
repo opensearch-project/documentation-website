@@ -46,9 +46,9 @@ If you choose to create the rule manually, you can refer to Sigma's [Rule Creati
 
 #### The Visual Editor
 
-When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The description in the steps here points out this correspondence when it might not be immediately obvious.
+When the **Create detection rule** window opens, the **Visual Editor** is displayed by default. The required fields in the **Visual Editor** correspond to the basic fields found in a YAML file formatted as a Sigma rule. The description in these steps points out this correspondence when it might not be immediately obvious.
   
-1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The **Rule name** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule formatted in a YAML file. The following image providers an example of the fields populated.
+1. In the **Rule overview** section, enter a name for the rule, a description (optional), and the author of the rule. The **Rule name** corresponds to [title](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#title) in a Sigma rule formatted in a YAML file. The following image provides an example of the fields populated.
   
    <img src="{{site.url}}{{site.baseurl}}/images/Security/overview-rule.png" alt="The Rule overview fields in the Create detection rule window, which include the rule name, description, and author fields." width="50%">
   
@@ -120,19 +120,20 @@ When the **Create detection rule** window opens, the **Visual Editor** is displa
   
    * In the **Tags** section, add tags to associate the detection rule with any attack techniques recorded by a cybersecurity knowledge base such as [MITRE ATT&CK](https://attack.mitre.org/). Select **Add tag** to add multiple tags.
    * In the **References** section, you can add URLs for rule references. Select **Add URL** to add multiple URLs.
-   * The **False positive cases** section provides a space for listing descriptions of false positive conditions that could unwantedly trigger the rule. Select **Add false positive** to add multiple descriptions.
+   * The **False positive cases** section provides a space for listing descriptions of false positive conditions that could trigger unwanted alerts for the rule. Select **Add false positive** to add multiple descriptions.
   
- 1. Once the rule is complete and meets your requirements, select **Create detection rule** in the lower-right corner of the window to save the rule.
+ 1. Once the rule is complete and meets your requirements, select **Create detection rule** in the lower-right corner of the window to save the rule. A rule ID is automatically assigned to the new rule and it appears in the list of detection rules.
   
 #### The YAML Editor
 
-The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
+The **Create detection rule** window also contains the YAML Editor so that you can create a new rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types. The rule's `id` is provided and assigned when the rule is saved.
 
-The alternatives to manually creating a rule, however, simplify and speed up the process. They involve either importing a rule in a YAML file or duplicating an existing rule and customizing it. See the next two sections for detailed steps.
+To assist in rule creation using the **YAML Editor**, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) and use the descriptions of each field to learn more about defining the rule.
 
-## Importing rules
 
-At this time, Security Analytics supports the import of Sigma rules in YAML format. The following sample file shows the basic formatting of a rule in YAML.
+### Importing rules
+
+Security Analytics also supports the import of Sigma rules in YAML format. The following example file shows the basic formatting of a rule in YAML.
 
 ```yml
 title: RDP Sensitive Settings Changed
@@ -173,9 +174,9 @@ status: experimental
 1. Verify or modify the information in the fields.
 1. After you confirm the information for the rule is accurate, select the **Create** button in the lower-right corner of the window. A new rule is created, and it appears in the list of rules on the main page of the Rules window.
 
-## Customizing rules
+### Customizing rules
 
-An alternative to importing a rule is duplicating a Sigma rule and then modifying it to create a custom rule. First search for or filter rules in the Rules list to locate the rule you want to duplicate.
+Another option for creating a new detection rule is duplicating a Sigma rule and then modifying it to create a custom rule. First search for or filter rules in the Rules list to locate the rule you want to duplicate.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/rules-dup1.png" alt="Selecting a rule in the Rules name list" width="75%">
 
