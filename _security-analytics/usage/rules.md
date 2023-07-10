@@ -171,7 +171,7 @@ Security Analytics also supports the import of Sigma rules in YAML format. In th
 1. To begin, select **Import detection rule** in the upper-right corner of the page. The **Import rule** page opens.
 1. Either drag a YAML-formatted Sigma rule into the window or browse for the file by selecting the link and opening it. The **Import a rule** window opens and the rule definition fields are automatically populated in both the Visual Editor and YAML Editor.
 1. Verify or modify the information in the fields.
-1. After you confirm that the information for the rule is accurate, select the **Create** button in the lower-right corner of the window. A new rule is created and it appears in the list of detection rules.
+1. After you confirm that the information for the rule is accurate, select **Create detection rule** in the lower-right corner of the window. A new rule is created and it appears in the list of detection rules.
 
 ### Customizing rules
 
@@ -188,7 +188,7 @@ Another option for creating a new detection rule is duplicating a Sigma rule and
     <img src="{{site.url}}{{site.baseurl}}/images/Security/dupe-rule.png" alt="Selecting the duplicate button opens the Duplicate rule window" width="50%">
 
 1. In either Visual Editor view or YAML Editor view, modify any of the fields to customize the rule.
-1. After performing any modifications to the rule, select the **Create** button in the lower-right corner of the window. A new and customized rule is created, and it appears in the list of rules on the main page of the Rules window.
+1. After performing any modifications to the rule, select **Create detection rule** in the lower-right corner of the window. A new and customized rule is created. It appears in the list of rules on the main page of the **Detection rules** window.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/custom-rule.png" alt="The custom rule now appears in the list of rules." width="70%">
 
