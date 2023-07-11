@@ -109,7 +109,7 @@ Trigger conditions use responses from the following `cat` API endpoints. Most AP
 - [_cat/indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
 - [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
 - [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
-- [_cat/shards]({{site.url}}{{site.baseurl}}api-reference/cat/cat-shards/)
+- [_cat/shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
 - [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
 - [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
 
