@@ -24,7 +24,7 @@ To create a monitor:
 1. Enter the **Monitor details**, including monitor type, method, and schedule.  
 1. Select a data source from the dropdown list.
 1. Define the metrics in the Query section.
-1. Add [triggers](insert-link).
+1. Add a [trigger](insert-link).
 1. Select **Create**.
 
 The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by calling the [cluster settings API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/) `plugins.alerting.monitor.max_monitors`.
@@ -49,11 +49,146 @@ Variable | Data type | Description
 Introduced 2.0
 {: .label .label-purple }
 
+Per document monitors allow you to define up to 10 queries that compare a selected field with a desired value. You can define supported field data types using the following operators:
 
+- `is` 
+- `is not`
+- `is greater than`
+- `is greater than equal`
+- `is less than`
+- `is less than equal`
+
+You can query each trigger using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. The Alerting plugin then tells the Notifications plugin to send the alert notification to a channel.
+
+
+The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
+
+The Alerting API provides a _document-level monitor_ that programmatically accomplishes the same function as the _per document monitor_ in the OpenSearch Dashboards. See [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors) to learn more.
+{: .note}
+
+### Search document findings
+
+When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a findings index, `.opensearch-alerting-finding*`, that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. See [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings) for more information.
+
+The following metadata is provided for each document findings entry:
+
+* **Document** – The document ID and index name. For example: `Re5akdirhj3fl | test-logs-index`.
+* **Query** – The query name that matched the document.
+* **Time found** – The timestamp that indicates when the document was found during the runtime.
+
+While you can configure an alert notification for each finding, it is not recommended unless rules are well defined to prevent a large volume of findings in a high ingestion cluster.
 
 ## Create cluster metrics monitors
 
+In addition to monitoring conditions for indexes, the Alerting plugin allows monitoring conditions for clusters. Alerts can be set by cluster metrics to watch for the following conditions:
 
+- Cluster health status reaches yellow or red.
+- Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds.
+- Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach a specified threshold.
+- Total number of documents stores reaches a specified amount.
+
+To create a cluster metrics monitor:
+
+1. In the **OpenSearch Plugins** main menu, select **Alerting**. 
+2. Select **Monitors**, then **Create monitor**.
+2. Select **Per cluster metrics monitor**.
+3. In the Query section, select **Request type** from the dropdown.
+4. To filter the API response to use only certain path parameters, enter those parameters in the **Query parameters** field. Most APIs that can be used to monitor cluster status support path parameters, as described in their respective documentation (for example, comma-separated lists of index names).
+5. In the Triggers section, define the conditions to trigger an alert. The trigger condition autopopulates a Painless `ctx` variable. For example, a cluster monitor watching for cluster stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional Painless conditions supported by the API. Tp preview the condition response, select **Preview condition response**.
+6. In the Actions section, indicate how users are to be notified when a trigger condition is met.
+7. Select **Create**. The new monitor is listed under **Monitors**.
+
+### Supported APIs
+
+Trigger conditions use responses from the following `cat` API endpoints. Most APIs that can be used to monitor cluster status support path parameters (for example, comma-separated lists of index names). They do not support query parameters.
+
+- [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
+- [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
+- [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
+- [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
+- [_cat/indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
+- [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
+- [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
+- [_cat/shards]({{site.url}}{{site.baseurl}}api-reference/cat/cat-shards/)
+- [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
+- [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
+
+### Restrict API fields
+
+To hide fields from being exposed in the API response, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
+
+You can modify the file so that cluster metric monitors can only be created for APIs referenced. Only fields referenced in the supported files can create trigger conditions. The `supported_json_payloads.json` file allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
+
+#### Example
+
+```json
+"/_cluster/stats": {
+  "indices": [
+    "shards.total",
+    "shards.index.shards.min"
+  ]
+}
+```
+
+### Painless triggers
+
+Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts are comprised of at least one statement and any additional functions you want to deploy.
+
+The cluster metrics monitor supports up to **ten** triggers.
+
+In the following example, a JSON object creates a trigger that sends an alert when the cluster health is yellow. `script` points the `source` to the Painless script `ctx.results[0].status == \"yellow\`.
+
+#### Example
+
+```json
+{
+  "name": "Cluster Health Monitor",
+  "type": "monitor",
+  "monitor_type": "query_level_monitor",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "unit": "MINUTES",
+      "interval": 1
+    }
+  },
+  "inputs": [
+    {
+      "uri": {
+        "api_type": "CLUSTER_HEALTH",
+        "path": "_cluster/health/",
+        "path_params": "",
+        "url": "http://localhost:9200/_cluster/health/"
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "query_level_trigger": {
+        "id": "Tf_L_nwBti6R6Bm-18qC",
+        "name": "Yellow status trigger",
+        "severity": "1",
+        "condition": {
+          "script": {
+            "source": "ctx.results[0].status == \"yellow\"",
+            "lang": "painless"
+          }
+        },
+        "actions": []
+      }
+    }
+  ]
+}
+```
+
+### Limitations
+
+The cluster metrics monitor has the following limitations:
+
+- Monitors cannot be created for remote clusters.
+- The OpenSearch cluster must be in a state where an index's conditions can be monitored and actions can be run against the index.
+- Removing resource permissions from a user does not prevent that user’s preexisting monitors for that resource from running.
+- Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions; however, those monitors do not run.
 
 ## Next steps
 
