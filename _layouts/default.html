@@ -102,7 +102,7 @@ layout: table_wrappers
                         class="nav-category{% if category_comparison_url == page.url %} active{% endif %}" 
                         href="{{ collection_url_path | relative_url  }}"
                       >{{ collection_value.name }}</a>
-                      {% include nav.html pages=collection key=collection_key owned_tree_id="{{ owned_tree_id }}" %}
+                      {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
                     </li>
                   </ul>
                 {% else %}
@@ -115,10 +115,10 @@ layout: table_wrappers
                     class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
                     href="{{ collection_url_path | relative_url }}"
                   >{{ collection_value.name }}</a>
-                  {% include nav.html pages=collection key=collection_key %}
+                  {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
                 {% endif %}
               {% else %}
-                {% include nav.html pages=collection key=collection_key %}
+                {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
               {% endif %}
             {% endif %}
           {% endfor %}
