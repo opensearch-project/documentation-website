@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Crypto plugin
-nav_order: 90
+nav_order: 65
+parent: Availability and recovery
 has_children: false
 ---
 
