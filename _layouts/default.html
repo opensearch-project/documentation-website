@@ -75,42 +75,45 @@ layout: table_wrappers
             {% assign collection_value = collection_entry[1] %}
             {% assign collection = site[collection_key] %}
             {% if collection_value.nav_exclude != true %}
+              {% assign owned_tree_id = collection_key | append: "-navitems" %}
               {% if collections_size > 1 or pages_top_size > 0 %}
                 {% if collection_value.nav_fold == true %}
-                  <ul 
+                  <ul
                     role="tree" 
                     aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
                     class="nav-list nav-category-list"
                   >
-                    <li role="treeitem" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
+                    <li role="none" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
                       
                       {% assign collection_url_path = collection_key | append: "/index/" %}
                       {% assign category_comparison_url = "/" | append: collection_url_path %}
                       {%- if collection.size > 0 -%}
                         <a 
-                          role="button"
+                          role="treeitem"
+                          aria-owns="{{ owned_tree_id }}"
                           aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
                           href="#" 
                           class="nav-list-expander"
-                          tabindex="-1"
                         ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                       {%- endif -%}
                       <a 
+                        role="treeitem"
+                        aria-owns="{{ owned_tree_id }}"
                         class="nav-category{% if category_comparison_url == page.url %} active{% endif %}" 
                         href="{{ collection_url_path | relative_url  }}"
                       >{{ collection_value.name }}</a>
-                      {% include nav.html pages=collection key=collection_key %}
+                      {% include nav.html pages=collection key=collection_key owned_tree_id="{{ owned_tree_id }}" %}
                     </li>
                   </ul>
                 {% else %}
                   {% assign collection_url_path = collection_key | append: "/index/" %}
                   <a 
-                    role="button"
+                    role="treeitem"
+                    aria-owns="{{ owned_tree_id }}"
                     aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
                     aria-current="{% if page.collection == collection_key %}page{% endif %}"
                     class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
                     href="{{ collection_url_path | relative_url }}"
-                    tabindex="-1"
                   >{{ collection_value.name }}</a>
                   {% include nav.html pages=collection key=collection_key %}
                 {% endif %}
