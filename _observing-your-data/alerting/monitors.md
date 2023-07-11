@@ -3,18 +3,14 @@ layout: default
 title: Monitors
 nav_order: 1
 parent: Alerting
-has_children: false
+has_children: true
 redirect_from:
   - /monitoring-plugins/alerting/monitors/
 ---
 
 # Monitors
 
-#### Table of contents
-- TOC
-{:toc}
-
----
+Proactively monitor your data in OpenSearch with alerting and anomaly detection. Set up alerts to receive notifications when your data exceeds certain thresholds. Anomaly detection uses machine learning to automatically detect any outliers in your streaming data. You can pair anomaly detection with alerting to ensure you're notified as soon as an anomaly is detected.
 
 ## Monitor types
 
@@ -36,44 +32,22 @@ Action | The information that you want the monitor to send out after being trigg
 Channel | A notification channel to use in an action. Supported channels are Amazon Chime, Slack, Amazon  Simple Notification Service (Amazon SNS), email, or custom webhook. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
 Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index `.opensearch-alerting-finding*`.
 
-## Per document monitors
+#### Topics
 
-Introduced 2.0
-{: .label .label-purple }
-
-Per document monitors allow you to define up to 10 queries that compare the selected field with your desired value. You can define supported field data types using the following operators:
-
-- `is` 
-- `is not`
-- `is greater than`
-- `is greater than equal`
-- `is less than`
-- `is less than equal`
-
-You query each trigger using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. Next, the Alerting plugin tells the Notifications plugin to send the notification to a channel.
-
-The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
-
-The Alerting API provides a document-level monitor that programmatically accomplishes the same function as the per document monitor in OpenSearch Dashboards. To learn more, see [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors/).
-{: .note}
-
-### Document findings
-
-When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a findings index, `.opensearch-alerting-finding*`, that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. To learn more, see [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings/).
-
-The following metadata is provided for each document finding entry:
-
-* **Document**: The document ID and index name, for example, `Re5akdirhj3fl | test-logs-index`.
-* **Query**: The query name that matched the document.
-* **Time found**: The timestamp that indicates when the document was found during the runtime.
-
-It is possible to configure an alert notification for each finding; however, this is not recommended unless rules are well-defined to prevent a sizeable volume of findings in a high ingestion cluster.
-
----
+- Creating monitors
+- Creating triggers
+- Adding actions
+- Working with alerts
+- Creating per document monitors
+- Creating per cluster metrics monitors 
 
 ## Create notifications
 
-1. In the **OpenSearch Plugins** menu, choose **Notifications** then choose **Channel**, **Create channel**.
+Alerting integrates with Notifications, which is a unified system for OpenSearch notifications. Notifications let you configure which communication service you want to use and see relevant statistics and troubleshooting information. For comprehensive documentation, see [Notifications](https://opensearch.org/docs/latest/observing-your-data/notifications/index/) in the OpenSearch documentation.
+
+Your domain must be running OpenSearch version 2.3 or later to use notifications.
+
+1. In the **OpenSearch Plugins** menu, choose **Notifications**, then **Channel**, **Create channel**.
 1. Enter a channel name.
 1. Configure the channel. For **Channel type**, choose Slack, Amazon Chime, Amazon SNS, custom webhook, or [email](#email-as-a-destination).
 
@@ -487,17 +461,17 @@ In addition to monitoring conditions for indexes, the Alerting plugin allows mon
 To create a cluster metrics monitor:
 
 1. In the **OpenSearch Plugins** menu, select **Alerting**.
-1. Select the **Monitors** tab, then **Create monitor**.
-2. Select the **Per cluster metrics monitor** option.
-3. In the Query pane, choose the **Request type** from the dropdown.
-4. (Optional) To filter the API response to use only certain path parameters, enter those parameters under **Path parameters**. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (for example, comma-separated lists of index names).
-5. In the Triggers pane, add conditions to trigger an alert. The trigger condition autopopulates a Painless ctx variable. For example, a cluster monitor watching for cluster stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional Painless conditions supported by the API. To see an example of the condition response, select **Preview condition response**.
-6. In the Actions pane, define how users are to be notified when a trigger condition is met.
-7. Select **Create**. The new monitor appears in the **Monitors** list.
+2. Select the **Monitors** tab and then **Create monitor**.
+3. Select **Per cluster metrics monitor**.
+4. In the Query pane, choose a **Request type** from the dropdown.
+5. (Optional) To filter the API response to use only certain path parameters, enter those parameters under **Path parameters**. Most APIs that can be used to monitor cluster status support path parameters, as described in their respective documentation (for example, comma-separated lists of index names). To see an example of the response, select **Preview query**.
+6. In the Triggers pane, add conditions to trigger an alert. The trigger condition autopopulates a Painless ctx variable. For example, a cluster monitor watching for cluster stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional Painless conditions supported by the API. To see an example of the condition response, select **Preview condition response**.
+7. In the Actions pane, define how users are to be notified when a trigger condition is met.
+8. Select **Create**. The new monitor appears in the **Monitors** list.
 
 ### Supported APIs
 
-Trigger conditions use responses from the following cat API endpoints. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (for example, comma-separated lists of index names). They do not support query parameters.
+Trigger conditions use responses from the following cat API endpoints. Most APIs that can be used to monitor cluster status support path parameters, as described in their respective documentation (for example, comma-separated lists of index names). They do not support query parameters.
 
 - [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
 - [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
