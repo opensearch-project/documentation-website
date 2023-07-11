@@ -190,9 +190,25 @@ curl -XGET "localhost:9200/_tasks?actions=*search&detailed
           "cancelled" : false,
           "headers" : { },
           "resource_stats" : {
+            "average" : {
+              "cpu_time_in_nanos" : 0,
+              "memory_in_bytes" : 0
+            },
             "total" : {
               "cpu_time_in_nanos" : 0,
               "memory_in_bytes" : 0
+            },
+            "min" : {
+              "cpu_time_in_nanos" : 0,
+              "memory_in_bytes" : 0
+            },
+            "max" : {
+              "cpu_time_in_nanos" : 0,
+              "memory_in_bytes" : 0
+            },
+            "thread_info" : {
+              "thread_executions" : 0,
+              "active_threads" : 0
             }
           }
         }
@@ -202,6 +218,18 @@ curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 }
 
 ```
+
+**`resource_stats` Response**
+
+Note that `resource_stats` values will only be updated for tasks that support resource tracking. Moreover, these stats are computed based on scheduled thread executions, which includes both threads that have finished working on the task and threads currently working on the task. Since the same thread may be scheduled to work on the same task multiple times, each time a given thread is scheduled to work on a given task that is considered a single thread execution.
+
+Response Field | Description |
+:--- | :--- |
+`average` | The average resource usage across all scheduled thread executions. |
+`total` | The sum of resource usage across all scheduled thread executions. |
+`min` | The minimum resource usage across all scheduled thread executions. |
+`max` | The maximum resource usage across all scheduled thread executions. |
+`thread_info` | Thread count related stats. `active_threads` refers to the number of threads currently working on the task while `thread_executions` refers to the number of threads that have been scheduled to work on the task. |
 
 ## Task canceling
 
