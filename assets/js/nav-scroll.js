@@ -16,10 +16,53 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
+    function configureAriaAttributes() {
+
+      const setSubTreeAriaExpanded = (listItem, isExpanded) => {
+        const listItemAnchors = listItem.querySelectorAll('a');
+        listItemAnchors.forEach((element) => {
+          const parentLi = element.parentElement;
+          if (parentLi) {
+            const childUl = Array.from(parentLi.children).filter(element => element.tagName === 'UL')[0];
+            if (childUl) {
+              // If there is a child UL of the anchor element's parent LI then set the aria-expanded
+              // Otherwise delete the attribute, because there is no child UL to expand / collapse.
+              element.setAttribute('aria-expanded', isExpanded);
+            } else {
+              element.removeAttribute('aria-expanded');
+            }
+          }
+        });
+      };
+
+      const topLevelUls = Array.from(navParent.children).filter(element => element.tagName === 'UL');
+      topLevelUls.forEach((element) => {
+        const listItems = Array.from(element.children).filter(element => element.tagName === 'LI');
+        listItems.forEach((element) => {
+          const active = element.querySelector('a.active');
+          if (active) {
+            setSubTreeAriaExpanded(element, true);
+          } else {
+            setSubTreeAriaExpanded(element, false);
+          }
+        });
+      });
+    }
+
     // Give keyboard focus to the active navigation item, and ensure
     // it is scrolled into view.
     const activeNavItem = navParent.querySelector('a.active');
     if (activeNavItem) {
+
+      configureAriaAttributes();
+
+      // The active navigation item needs to have the tabindex="0" wheras all of the other items
+      // are excluded from the TAB order according.
+      activeNavItem.setAttribute('tabindex', '0');
+      navParent.querySelectorAll('a:not(.active)').forEach((element) => {
+        element.setAttribute('tabindex', '-1');
+      });
+
       // If the active item is not in view, then scroll it into view.
       const VERSION_WRAPPER_HEIGHT = 80;
       const parentRect = navParent.getBoundingClientRect();
@@ -115,6 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
+        
+
         // Preventing the default action prevents jankiness in the default scrolling
         // of the navigation panel, and is left to the browser to handle it when
         // .focus() is invoked instead.
@@ -126,6 +171,25 @@ document.addEventListener('DOMContentLoaded', () => {
         ).filter(element => element.getBoundingClientRect().height > 0);
 
         const currentlyFocusedNavItemIndex = allNavItems.indexOf(currentlyFocusedNavItem);
+
+        const toggleExpandCollapseState = () => {
+          const parentLi = currentlyFocusedNavItem.parentElement;
+          if (parentLi) {
+            const expander = Array.from(parentLi.children).find(element => element.classList.contains('nav-list-expander'));
+            if (expander) {
+              expander.click();
+              Array.from(parentLi.children).forEach((element) => {
+                const ariaExpanded = element.getAttribute('aria-expanded');
+                if (ariaExpanded === 'true') {
+                  element.setAttribute('aria-expanded', 'false');
+                } else {
+                  element.setAttribute('aria-expanded', 'true');
+                }
+              });
+            }
+          }
+        };
+
         if (event.key === 'ArrowUp') {
           if (currentlyFocusedNavItemIndex > 0) {
             allNavItems[currentlyFocusedNavItemIndex - 1].focus();
@@ -135,51 +199,36 @@ document.addEventListener('DOMContentLoaded', () => {
             allNavItems[currentlyFocusedNavItemIndex + 1].focus();
           }
         } else if (event.key === 'ArrowLeft') {
-          if (currentlyFocusedNavItem.getAttribute('role') === 'button')  {
-            if (currentlyFocusedNavItem.getAttribute('aria-expanded') === 'true') {
-              currentlyFocusedNavItem.click();
-            }
+          if (currentlyFocusedNavItem.getAttribute('aria-expanded') === 'true') {
+            toggleExpandCollapseState();
           } else {
             const parentLi = currentlyFocusedNavItem.parentElement;
             if (parentLi) {
-              const expander = Array.from(parentLi.children).find(element => element.classList.contains('nav-list-expander'));
-              if (expander?.getAttribute?.('aria-expanded') === 'true') {
-                expander.click();
-              } else {
-                if (currentlyFocusedNavItemIndex > 0) {
-                  // The parent of the target <a> is a <li> which is a child of a <ul> which is a child of a <li>.
-                  // This <li> should have a <a> that is the parent to focus unless the current is the top.
-                  const listWrapperLi = currentlyFocusedNavItem?.parentElement?.parentElement?.parentElement;
-                  if (listWrapperLi) {
-                    const parentListAnchor = listWrapperLi.querySelectorAll('a:not(.nav-list-expander)')[0];
-                    if (parentListAnchor) {
-                      parentListAnchor.focus();
-                    }
+              if (currentlyFocusedNavItemIndex > 0) {
+                // The parent of the target <a> is a <li> which is a child of a <ul> which is a child of a <li>.
+                // This <li> should have a <a> that is the parent to focus unless the current is the top.
+                const listWrapperLi = currentlyFocusedNavItem?.parentElement?.parentElement?.parentElement;
+                if (listWrapperLi) {
+                  const parentListAnchor = listWrapperLi.querySelectorAll('a:not(.nav-list-expander)')[0];
+                  if (parentListAnchor) {
+                    parentListAnchor.focus();
                   }
                 }
               }
             }
           }
         } else if (event.key === 'ArrowRight') {
-          if (currentlyFocusedNavItem.getAttribute('role') === 'button')  {
-            const ariaExpanded = currentlyFocusedNavItem.getAttribute('aria-expanded');
-            if (ariaExpanded === 'false' || ariaExpanded === null) {
-              currentlyFocusedNavItem.click();
-            }
+          const ariaExpanded = currentlyFocusedNavItem.getAttribute('aria-expanded');
+          if (ariaExpanded === 'false' || ariaExpanded === null) {
+            toggleExpandCollapseState();
           } else {
             const parentLi = currentlyFocusedNavItem.parentElement;
             if (parentLi) {
-              const expander = Array.from(parentLi.children).find(element => element.classList.contains('nav-list-expander'));
-              const ariaExpanded = expander.getAttribute('aria-expanded');
-              if (ariaExpanded === 'false' || ariaExpanded === null) {
-                expander.click();
-              } else {
-                const childList = Array.from(parentLi.children).find(element => element.tagName === 'UL');
-                if (childList) {
-                  const childListAnchor = childList.querySelectorAll('a:not(.nav-list-expander)')[0];
-                  if (childListAnchor) {
-                    childListAnchor.focus();
-                  }
+              const childList = Array.from(parentLi.children).find(element => element.tagName === 'UL');
+              if (childList) {
+                const childListAnchor = childList.querySelectorAll('a:not(.nav-list-expander)')[0];
+                if (childListAnchor) {
+                  childListAnchor.focus();
                 }
               }
             }
