@@ -19,19 +19,19 @@ Use the following documentation to get started with extensions:
 
 ### Step 1: Learn the basics
 
-Read the [design documentation](https://github.com/opensearch-project/opensearch-sdk-java/blob/main/DESIGN.md) to learn about extension architecture and how extensions work.
+Read the [design documentation](https://opensearch-project.github.io/opensearch-sdk-java/DESIGN.html) to learn about extension architecture and how extensions work.
 
 ### Step 2: Try it out
 
-Try running the sample Hello World extension by following detailed steps in the [Getting started section of the Developer Guide](https://github.com/opensearch-project/opensearch-sdk-java/blob/main/DEVELOPER_GUIDE.md#getting-started).
+Try running the sample Hello World extension by following detailed steps in the [Getting started section of the Developer Guide](https://opensearch-project.github.io/opensearch-sdk-java/DEVELOPER_GUIDE.html#getting-started).
 
 ### Step 3: Create your own extension
 
-Develop a custom create, read, update, delete (CRUD) extension by following the instructions in [this tutorial](https://github.com/opensearch-project/opensearch-sdk-java/blob/main/CREATE_YOUR_FIRST_EXTENSION.md).
+Develop a custom create, read, update, delete (CRUD) extension by following the instructions in [this tutorial](https://opensearch-project.github.io/opensearch-sdk-java/CREATE_YOUR_FIRST_EXTENSION.html).
 
 ### Step 4: Learn how to deploy your extension
 
-For instructions on building, testing, and running an extension, see the [Developing your own extension section of the Developer Guide](https://github.com/opensearch-project/opensearch-sdk-java/blob/main/DEVELOPER_GUIDE.md#developing-your-own-extension).
+For instructions on building, testing, and running an extension, see the [Developing your own extension section of the Developer Guide](https://opensearch-project.github.io/opensearch-sdk-java/DEVELOPER_GUIDE.html#developing-your-own-extension).
 
 <!-- TODO: add the link after the release
 ## Extensions Javadoc
@@ -41,6 +41,6 @@ For a complete extensions class hierarchy, see the [Javadoc](Link TBD).
 
 ## Plugin migration
 
-The [Anomaly Detection plugin](https://github.com/opensearch-project/anomaly-detection) is now implemented as an extension. For details, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/3635). 
+The [Anomaly Detection plugin](https://github.com/opensearch-project/anomaly-detection) is now [implemented as an extension](https://github.com/opensearch-project/anomaly-detection/tree/feature/extensions). For details, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/3635). 
 
-For tips on migrating an existing plugin to an extension, see the [plugin migration documentation](https://github.com/opensearch-project/opensearch-sdk-java/blob/main/PLUGIN_MIGRATION.md).
+For tips on migrating an existing plugin to an extension, see the [plugin migration documentation](https://opensearch-project.github.io/opensearch-sdk-java/PLUGIN_MIGRATION.html).
