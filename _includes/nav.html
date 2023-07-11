@@ -61,7 +61,7 @@
   {%- endfor -%}
 
   {%- assign pages_list = sorted_number_ordered_pages | concat: sorted_string_ordered_pages -%}
-
+  
   {%- for node in pages_list -%}
     {%- if node.parent == nil -%}
       {%- unless node.nav_exclude -%}
@@ -71,7 +71,7 @@
           <a
             role="treeitem"
             aria-owns="{{ nested_owned_tree_id }}"
-            aria-expanded="{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %}true{% else %}false{% endif %}"
+            aria-current="{% if page.url == node.url %}page{% endif %}"
             href="#" 
             class="nav-list-expander"
           ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
@@ -95,7 +95,7 @@
                 <a
                   role="treeitem"
                   aria-owns="{{ nested_nested_owned_tree_id }}"
-                  aria-expanded="{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %}true{% else %}false{% endif %}" 
+                  aria-current="{% if page.url == child.url %}page{% endif %}"
                   href="#" 
                   class="nav-list-expander"
                 ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>

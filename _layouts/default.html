@@ -80,7 +80,6 @@ layout: table_wrappers
                 {% if collection_value.nav_fold == true %}
                   <ul
                     role="tree" 
-                    aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
                     class="nav-list nav-category-list"
                   >
                     <li role="none" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
@@ -91,7 +90,7 @@ layout: table_wrappers
                         <a 
                           role="treeitem"
                           aria-owns="{{ owned_tree_id }}"
-                          aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
+                          aria-current="{% if page.collection == collection_key %}page{% endif %}"
                           href="#" 
                           class="nav-list-expander"
                         ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
@@ -99,6 +98,7 @@ layout: table_wrappers
                       <a 
                         role="treeitem"
                         aria-owns="{{ owned_tree_id }}"
+                        aria-current="{% if page.collection == collection_key %}page{% endif %}"
                         class="nav-category{% if category_comparison_url == page.url %} active{% endif %}" 
                         href="{{ collection_url_path | relative_url  }}"
                       >{{ collection_value.name }}</a>
@@ -110,7 +110,6 @@ layout: table_wrappers
                   <a 
                     role="treeitem"
                     aria-owns="{{ owned_tree_id }}"
-                    aria-expanded="{% if page.collection == collection_key %}true{% else %}false{% endif %}"
                     aria-current="{% if page.collection == collection_key %}page{% endif %}"
                     class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
                     href="{{ collection_url_path | relative_url }}"
