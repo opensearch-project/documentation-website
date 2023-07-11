@@ -28,6 +28,7 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -83,6 +84,7 @@ PUT national_parks
   }
 }
 ```
+{% include copy-curl.html %}
 
 Next, index some documents into the `national_parks` index:
 
@@ -93,14 +95,20 @@ PUT national_parks/_doc/1
   "location":
   {"type": "envelope","coordinates": [ [-111.15, 45.12], [-109.83, 44.12] ]}
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT national_parks/_doc/2
 {
   "name": "Yosemite National Park",
   "location": 
   {"type": "envelope","coordinates": [ [-120.23, 38.16], [-119.05, 37.45] ]}
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT national_parks/_doc/3
 {
   "name": "Death Valley National Park",
@@ -108,6 +116,7 @@ PUT national_parks/_doc/3
   {"type": "envelope","coordinates": [ [-117.34, 37.01], [-116.38, 36.25] ]}
 }
 ```
+{% include copy-curl.html %}
 
 You can run an aggregation on the `location` field as follows:
 
@@ -118,14 +127,121 @@ GET national_parks/_search
     "grouped": {
       "geohash_grid": {
         "field": "location",
-        "precision": 3
+        "precision": 1
       }
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
-When aggregating geoshapes, one geoshape be counted for multiple buckets because it overlaps with multiple grid cells.
+When aggregating geoshapes, one geoshape can be counted for multiple buckets because it overlaps with multiple grid cells:
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+  
+```json
+{
+  "took" : 24,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 3,
+      "relation" : "eq"
+    },
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "national_parks",
+        "_id" : "1",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Yellowstone National Park",
+          "location" : {
+            "type" : "envelope",
+            "coordinates" : [
+              [
+                -111.15,
+                45.12
+              ],
+              [
+                -109.83,
+                44.12
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "_index" : "national_parks",
+        "_id" : "2",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Yosemite National Park",
+          "location" : {
+            "type" : "envelope",
+            "coordinates" : [
+              [
+                -120.23,
+                38.16
+              ],
+              [
+                -119.05,
+                37.45
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "_index" : "national_parks",
+        "_id" : "3",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Death Valley National Park",
+          "location" : {
+            "type" : "envelope",
+            "coordinates" : [
+              [
+                -117.34,
+                37.01
+              ],
+              [
+                -116.38,
+                36.25
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "aggregations" : {
+    "grouped" : {
+      "buckets" : [
+        {
+          "key" : "9",
+          "doc_count" : 3
+        },
+        {
+          "key" : "c",
+          "doc_count" : 1
+        }
+      ]
+    }
+  }
+}
+```
+</details>
 
 ## Supported parameters
 
