@@ -69,7 +69,7 @@ The following table presents the fields for the request that are essential to re
 
 #### Example request
 
-The example request that follows shows the remote storage provider for snapshot backup as S3. It includes associated settings for S3 along with the key provider settings. The repository is configured to be encrypted.
+The example request that follows shows the remote storage provider for snapshot registration as S3. It includes associated settings for S3 along with the key provider settings. The repository is configured to be encrypted.
 
 ```json
 PUT _snapshot/repository1-rss1
