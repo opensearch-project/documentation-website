@@ -28,7 +28,7 @@ GET _tasks/<task_id>
 
 Note that if a task finishes running, it won't be returned as part of your request. For an example of a task that takes a little longer to finish, you can run the [`_reindex`]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) API operation on a larger document, and then run `tasks`.
 
-**Sample Response**
+#### Example response
 ```json
 {
   "nodes": {
@@ -97,14 +97,14 @@ Parameter | Data type | Description |
 
 For example, this request returns tasks currently running on a node named `opensearch-node1`:
 
-**Sample Request**
+#### Example request
 
-```
+```json
 GET /_tasks?nodes=opensearch-node1
 ```
 {% include copy-curl.html %}
 
-**Sample Response**
+#### Example response
 
 ```json
 {
@@ -150,14 +150,14 @@ GET /_tasks?nodes=opensearch-node1
 
 The following request returns detailed information about active search tasks:
 
-**Sample Request**
+#### Example request
 
 ```bash
 curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 ```
 {% include copy.html %}
 
-**Sample Response**
+#### Example response
 
 ```json
 {
@@ -219,17 +219,21 @@ curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 
 ```
 
-**`resource_stats` Response**
+### The `resource_stats` object
 
-Note that `resource_stats` values will only be updated for tasks that support resource tracking. Moreover, these stats are computed based on scheduled thread executions, which includes both threads that have finished working on the task and threads currently working on the task. Since the same thread may be scheduled to work on the same task multiple times, each time a given thread is scheduled to work on a given task that is considered a single thread execution.
+The `resource_stats` object is only updated for tasks that support resource tracking. These stats are computed based on scheduled thread executions, which includes both threads that have finished working on the task and threads currently working on the task. Because the same thread may be scheduled to work on the same task multiple times, each time a given thread is scheduled to work on a given task is considered a single thread execution.
 
-Response Field | Description |
+The following table lists all response fields in the `resource_stats` object. 
+
+Response field | Description |
 :--- | :--- |
 `average` | The average resource usage across all scheduled thread executions. |
-`total` | The sum of resource usage across all scheduled thread executions. |
+`total` | The sum of resource usages across all scheduled thread executions. |
 `min` | The minimum resource usage across all scheduled thread executions. |
 `max` | The maximum resource usage across all scheduled thread executions. |
-`thread_info` | Thread count related stats. `active_threads` refers to the number of threads currently working on the task while `thread_executions` refers to the number of threads that have been scheduled to work on the task. |
+`thread_info` | Thread count-related stats.|
+`thread_info.active_threads` | The number of threads currently working on the task. |
+`thread_info.thread_executions` | The number of threads that have been scheduled to work on the task. |
 
 ## Task canceling
 
