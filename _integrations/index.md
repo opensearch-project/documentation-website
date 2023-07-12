@@ -44,7 +44,7 @@ The following shows the structure of a typical observability integration.
 - Transformation schema 
 - Optional test harnesses repository
 - Verified version and documentation 
-- Category and classification (logs, traces, alerts,metrics)
+- Category and classification (logs, traces, alerts, metrics)
 
 **Display components**
 
