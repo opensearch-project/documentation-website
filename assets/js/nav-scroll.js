@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
+    /**
+     * This function configures the aria-expanded attributes on the navigation items.
+     * Liquid's limited features make this challenging to do cleanly at build time
+     * requiring searching forward through the tree to determine if something in the
+     * depth of the currently rendering tree node has a descendant that is active.
+     */
     function configureAriaAttributes() {
 
       const setSubTreeAriaExpanded = (listItem, isExpanded) => {
@@ -77,56 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
-    function toggleAriaAttributes(event) {
-      const findParentLI = (element) => {
-        if (!element) {
-          return null;
-        }
-        if (element.tagName === 'LI') {
-          return element;
-        } else {
-          return findParentLI(element.parentElement);
-        }
-      };
-      const findChildUL = (element) => {
-        if (!element) {
-          return null;
-        }
-        if (element.tagName === 'UL') {
-          return element;
-        } else {
-          return findChildUL(element.nextElementSibling);
-        }
-      };
-      const { currentTarget } = event;
-      const currentlyExpanded = currentTarget.getAttribute('aria-expanded');
-      let expanded = 'false';
-      if (currentlyExpanded === 'true') {
-        expanded = 'false';
-      } else {
-        expanded = 'true';
-      }
-      currentTarget.setAttribute('aria-expanded', expanded);
-      const parentLi = findParentLI(currentTarget.parentElement);
-      if (parentLi) {
-        const toggledUL = findChildUL(parentLi.firstElementChild);
-        if (toggledUL) {
-          toggledUL.setAttribute('aria-expanded', expanded);
-        }
-      }
-    }
-
-    navParent.querySelectorAll('a[role="button"]').forEach((element) => {
-      element.addEventListener('click', toggleAriaAttributes);
-    });
-
     navParent.addEventListener('keydown', (event) => {
 
       const handleSpaceKey = () => {
 
         //
         // Space key functionality
-        // For reference: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation-hybrid/
+        // For reference: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/examples/treeview-navigation/
         //
 
         const expandCollapse = (element) => {
@@ -157,8 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
           // If no item is focused then do nothing.
           return;
         }
-
-        
 
         // Preventing the default action prevents jankiness in the default scrolling
         // of the navigation panel, and is left to the browser to handle it when
