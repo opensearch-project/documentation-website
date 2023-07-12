@@ -10,19 +10,18 @@ redirect_from:
 
 # Alerting
 
-To create an alert, you configure a _monitor_, which is a job that runs on a defined schedule and queries OpenSearch indexes. You also configure one or more _triggers_, which define the conditions that generate events. Finally, you configure _actions_, which is what happens after an alert is triggered.
+To create an alert, you configure a _monitor_, which is a job that runs on a defined schedule and queries OpenSearch indexes; configure one or more _triggers_, which define the conditions that generate events; and configure _actions_, which is what happens after an alert is triggered.
 
-To get started with alerting:
+To get started with creating alerts:
 
-1. Choose **Alerting** from the OpenSearch Plugins main menu and choose **Create monitor**.
+1. Choose **Alerting** from the OpenSearch Plugins main menu, then **Create monitor**.
+2. Create a per query, per bucket, per cluster metrics, or per document monitor. For instructions, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/).
+3. For Triggers, create one or more triggers. For instructions, see [Triggers[({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)].
+4. For Actions, set up a notification channel for the alert. For instructions, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting-actions).
 
-2. Create a per query, per bucket, per cluster metrics, or per document monitor. For instructions, see [Create monitors]({{site.url}}{{site.baseurl}}observing-your-data/notifications/index/).
+## Alerting terminology
 
-3. For Triggers, create one or more triggers. For instructions, see [Create triggers[()].
-
-4. For Actions, set up a notification channel for the alert. Choose between Slack, Amazon Chime, a custom webhook, email, or Amazon SNS. Notifications require connectivity to the channel. For example, your OpenSearch Service domain must be able to connect to the internet to notify a Slack channel or send a custom webhook to a third-party server. The custom webhook must have a public IP address for an OpenSearch domain to send alerts to it.
-
-# Key terms
+The following table lists alerting terminology commonly used in OpenSearch.
 
 Term | Definition
 :--- | :---
@@ -35,6 +34,8 @@ Channel | A notification channel to use in an action. Supported channels are Ama
 Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index `.opensearch-alerting-finding*`.
 
 ## Alert states
+
+The following table lists the 
 
 State | Description
 :--- | :---
