@@ -287,21 +287,9 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 ## G
 
-**geodistance**
-
-**geohash**
-
-**geohex**
-
 **geopoint**
 
-**geopolygon**
-
 **geoshape**
-
-**geospatial**
-
-**geotile**
  
 ## H
 
