@@ -93,7 +93,7 @@ Parameter | Data type | Description |
 `wait_for_completion` | Boolean | Waits for the matching tasks to complete. (Default: false)
 `group_by` | Enum | Groups tasks by parent/child relationships or nodes. (Default: nodes)
 `timeout` | Time | An explicit operation timeout. (Default: 30 seconds)
-`master_timeout` | Time | The time to wait for a connection to the primary node. (Default: 30 seconds)
+`cluster_manager_timeout` | Time | The time to wait for a connection to the primary node. (Default: 30 seconds)
 
 For example, this request returns tasks currently running on a node named `opensearch-node1`:
 
@@ -231,7 +231,7 @@ Response field | Description |
 `total` | The sum of resource usages across all scheduled thread executions. |
 `min` | The minimum resource usage across all scheduled thread executions. |
 `max` | The maximum resource usage across all scheduled thread executions. |
-`thread_info` | Thread count-related stats.|
+`thread_info` | Thread-count-related stats.|
 `thread_info.active_threads` | The number of threads currently working on the task. |
 `thread_info.thread_executions` | The number of threads that have been scheduled to work on the task. |
 
