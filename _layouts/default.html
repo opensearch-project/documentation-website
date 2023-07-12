@@ -75,7 +75,7 @@ layout: table_wrappers
             {% assign collection_value = collection_entry[1] %}
             {% assign collection = site[collection_key] %}
             {% if collection_value.nav_exclude != true %}
-              {% assign owned_tree_id = collection_key | append: "-navitems" %}
+              {% assign owned_tree_id = collection_key | append: "_" | append: forloop.index | append: "_navitems" | replace: " ", "_" %}
               {% if collections_size > 1 or pages_top_size > 0 %}
                 {% if collection_value.nav_fold == true %}
                   <ul

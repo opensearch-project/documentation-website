@@ -2,7 +2,7 @@
   role="tree" 
   aria-expanded="{{ include.expanded | default: 'false' }}"
   class="nav-list"
-  id="{{ include.owned_tree_id }}"
+{%- if include.owned_tree_id -%}id="{{ include.owned_tree_id }}"{%- endif  -%}
 >
   {%- assign titled_pages = include.pages
         | where_exp:"item", "item.title != nil" -%}
@@ -65,13 +65,13 @@
   {%- for node in pages_list -%}
     {%- if node.parent == nil -%}
       {%- unless node.nav_exclude -%}
-      {% assign nested_owned_tree_id = include.owned_tree_id | append: "-" | append: node.title | append: "-navitems" %}
+      {% assign nested_owned_tree_id = include.owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: node.title | append: "_navitems" | replace: " ", "_" %}
       <li role="none" class="nav-list-item{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %} active{% endif %}">
         {%- if node.has_children -%}
           <a
             role="treeitem"
             aria-owns="{{ nested_owned_tree_id }}"
-            aria-current="{% if page.url == node.url %}page{% endif %}"
+            {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
             href="#" 
             class="nav-list-expander"
           ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
@@ -79,8 +79,8 @@
         
         <a
           role="treeitem"
-          aria-owns="{{ nested_owned_tree_id }}"
-          aria-current="{% if page.url == node.url %}page{% endif %}"
+          {%- if node.has_children -%}aria-owns="{{ nested_owned_tree_id }}"{%- endif -%}
+          {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
           href="{{ node.url | absolute_url }}" 
           class="nav-list-link{% if page.url == node.url %} active{% endif %}"
         >{{ node.title }}</a>
@@ -91,19 +91,19 @@
             {%- unless child.nav_exclude -%}
             <li role="none" class="nav-list-item {% if page.url == child.url or page.parent == child.title %} active{% endif %}">
               {%- if child.has_children -%}
-                {% assign nested_nested_owned_tree_id = nested_owned_tree_id | append: "-" | append: child.title | append: "-navitems" %}
+                {% assign nested_nested_owned_tree_id = nested_owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: child.title | append: "_navitems" | replace: " ", "_" %}
                 <a
                   role="treeitem"
                   aria-owns="{{ nested_nested_owned_tree_id }}"
-                  aria-current="{% if page.url == child.url %}page{% endif %}"
+                  {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
                   href="#" 
                   class="nav-list-expander"
                 ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
               {%- endif -%}
               <a
                 role="treeitem"
-                aria-owns="{{ nested_nested_owned_tree_id }}"
-                aria-current="{% if page.url == child.url %}page{% endif %}"
+                {%- if child.has_children -%}aria-owns="{{ nested_nested_owned_tree_id }}"{%- endif -%}
+                {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
                 href="{{ child.url | absolute_url }}" 
                 class="nav-list-link{% if page.url == child.url %} active{% endif %}"
               >{{ child.title }}</a>
@@ -115,7 +115,7 @@
                   <li role="none" class="nav-list-item {% if page.url == grand_child.url %} active{% endif %}">
                     <a
                       role="treeitem"
-                      aria-current="{% if page.url == grand_child.url %}page{% endif %}"
+                      {%- if page.url == grand_child.url -%}aria-current="page"{%- endif -%}
                       href="{{ grand_child.url | absolute_url }}" 
                       class="nav-list-link{% if page.url == grand_child.url %} active{% endif %}"
                     >{{ grand_child.title }}</a>
