@@ -34,6 +34,7 @@ PUT national_parks
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index the following documents into the sample index:
 
@@ -43,19 +44,26 @@ PUT national_parks/_doc/1
   "name": "Yellowstone National Park",
   "location": "44.42, -110.59" 
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT national_parks/_doc/2
 {
   "name": "Yosemite National Park",
   "location": "37.87, -119.53" 
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT national_parks/_doc/3
 {
   "name": "Death Valley National Park",
   "location": "36.53, -116.93" 
 }
 ```
+{% include copy-curl.html %}
 
 You can index geopoints in several formats. For a list of all supported formats, see the [geopoint documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats). 
 {: .note}
@@ -77,6 +85,7 @@ GET national_parks/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 You can use either the `GET` or `POST` HTTP method for GeoHex grid aggregation queries.
 {: .note}
@@ -163,6 +172,7 @@ GET national_parks/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 All three documents are bucketed separately because of higher granularity:
 
@@ -263,6 +273,7 @@ GET national_parks/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the two documents that are within the `geo_bounding_box` bounds:
 
@@ -324,6 +335,7 @@ GET national_parks/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains only the two results that are within the specified bounds:
 
