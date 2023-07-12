@@ -28,6 +28,7 @@ PUT logs/_doc/0
   ]
 }
 ```
+{% include copy-curl.html %}
 
 OpenSearch merges all sub-properties of the entity relations that looks something like this:
 
@@ -60,6 +61,7 @@ PUT logs
   }
 }
 ```
+{% include copy-curl.html %}
 
 Nested documents allow you to index the same JSON document but will keep your pages in separate Lucene documents, making only searches like `pages=landing` and `load_time=200` return the expected result. Internally, nested objects index each object in the array as a separate hidden document, meaning that each nested object can be queried independently of the others.
 
@@ -84,6 +86,7 @@ GET logs/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
