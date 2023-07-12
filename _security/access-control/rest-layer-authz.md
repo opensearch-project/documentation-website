@@ -13,6 +13,9 @@ To facilitate REST layer authorization, OpenSearch introduces the idea of [`Name
 
 For users, assigning roles, mapping users and roles, and general usage of plugins and extensions will remain the same: the only additional requirement being that users become familiar with a new permission structure. Developers, on the other hand, will need to understand the ideas behind `NamedRoute` and how the new route scheme is constructed. Fore more detailed information, see [Authorization at REST Layer for plugins](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md#authorization-at-rest-layer-for-plugins).
 
+The Security plugin must be enabled to use authorization on the REST layer.
+{: .note }
+
 The remainder of this section discusses the basics between legacy permission patterns and the new scheme.   
 
 redundancy and as a safety net. Legacy authentication is done on the transport layer.
