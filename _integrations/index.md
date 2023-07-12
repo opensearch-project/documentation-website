@@ -9,7 +9,7 @@ has_children: false
 Introduced 2.9
 {: .label .label-purple }
 
-OpenSearch Integrations connects your data sources, giving you an out-of-the-box data ingestion solution that unifies data across your system. Integrations gives you real-time visibility through OpenSearch Dashboards to see what's happening across your system and make decisions about those happenings.
+OpenSearch Integrations connects your data sources to other systems and applications, giving you a unified solution for ingesting data, querying data, and enabling real-time analytics.
 
 Let us know how Integrations works for you or how it can be improved. Leave feedback in the [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations). We look forward to hearing from you.
 {: .note} 
