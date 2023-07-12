@@ -16,21 +16,21 @@ Let us know how Integrations works for you or how it can be improved. Leave feed
 
 ## Understanding OpenSearch Integrations
 
-An _integration_ is a type of bundle that defines data streams for ingestion. OpenSearch Integrations bundles the following components:
-
-- Dashboards
-- Visualizations
-- Configurations 
-
-These bundle assets provide for the monitoring of logs, metrics, and traces for a resource (for example, device, network element, or service) or group of related resources (for example, Nginx or system). 
-
-A _bundle_ consists of the following information: 
+An _integration_ is a type of bundle that defines data streams for ingestion. A _bundle_ consists of the following information: 
 
 - Version
 - Metadata configuration file
 - Dashboards and visualizations, along with Notebooks
 - Data stream index templates for the signal ingestion
 - Documentation
+
+OpenSearch Integrations bundles the following components:
+
+- Dashboards
+- Visualizations
+- Configurations 
+
+These bundle assets provide for the monitoring of logs, metrics, and traces for a resource (for example, device, network element, or service) or group of related resources (for example, Nginx or system). 
 
 #### Example: Structure of an observability integration
 
