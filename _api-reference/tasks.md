@@ -221,7 +221,7 @@ curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 
 ### The `resource_stats` object
 
-The `resource_stats` object is only updated for tasks that support resource tracking. These stats are computed based on scheduled thread executions, which includes both threads that have finished working on the task and threads currently working on the task. Because the same thread may be scheduled to work on the same task multiple times, each time a given thread is scheduled to work on a given task is considered a single thread execution.
+The `resource_stats` object is only updated for tasks that support resource tracking. These stats are computed based on scheduled thread executions, including both threads that have finished working on the task and threads currently working on the task. Because the same thread may be scheduled to work on the same task multiple times, each instance of a given thread being scheduled to work on a given task is considered to be a single thread execution.
 
 The following table lists all response fields in the `resource_stats` object. 
 
