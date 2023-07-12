@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Create triggers
+title: Triggers
 nav_order: 10
 grand_parent: Alerting
 parent: Monitors
@@ -8,9 +8,11 @@ redirect_from:
   - /monitoring-plugins/alerting/monitors/
 ---
 
-# Create triggers
+# Triggers
 
 How you create a trigger differs depending on the monitor method selected when the monitor was created. The monitor methods are **Visual editor**, **Extraction query editor**, and **Anomaly detector**. Learn more about each type in the following sections.
+
+## Creating triggers
 
 To create a trigger:
 
@@ -126,7 +128,7 @@ Variable | Data type | Description
 
 ## Create actions
 
-Actions send notifications when trigger conditions are met. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to learn more about the Notifications plugin.
+Actions send notifications when trigger conditions are met. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to learn about creating notifications.
 
 Don't have to add actions to your triggers if you don't want to receive notifications. Instead of notifications, you can periodically check OpenSearch Dashboards.
 {: .tip }
