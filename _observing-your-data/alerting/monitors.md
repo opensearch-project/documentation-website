@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Monitors
-nav_order: 10
+nav_order: 1
 parent: Alerting
 has_children: true
 redirect_from:
@@ -12,7 +12,7 @@ redirect_from:
 
 Proactively monitor your data in OpenSearch with alerting and anomaly detection. Set up alerts to receive notifications when your data exceeds certain thresholds. Anomaly detection uses machine learning to automatically detect any outliers in your streaming data. You can pair anomaly detection with alerting to ensure you're notified as soon as an anomaly is detected.
 
-See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}observing-your-data/create-triggers), and [Notifications]({{site.url}}{{site.baseurl}}observing-your-data/notifications/index/) to learn more about their use in OpenSearch. 
+See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/create-triggers), and [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to learn more about their use in OpenSearch. 
 
 ## Creating monitors
 
@@ -22,6 +22,8 @@ The Alerting plugin provides four monitor types:
 1. **per bucket**: Runs a query that evaluates trigger criteria based on aggregated values in the dataset.
 1. **per cluster metrics**: Runs API requests on the cluster to monitor its health.
 1. **per document**: Runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
+
+![Monitor types in OpenSearch]({{site.url}}{{site.baseurl}}/images/monitors.png)
 
 To create a monitor:
 
@@ -196,4 +198,5 @@ The cluster metrics monitor has the following limitations:
 ## Next steps
 
 - Learn about [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)
+- Learn about [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/)
 - Learn about [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/)
