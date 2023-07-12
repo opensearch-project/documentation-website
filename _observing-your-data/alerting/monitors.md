@@ -14,8 +14,6 @@ Proactively monitor your data in OpenSearch with alerting and anomaly detection.
 
 See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/triggers), [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/create-triggers), and [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to learn more about their use in OpenSearch. 
 
-## Creating monitors
-
 The Alerting plugin provides four monitor types:
 
 1. **per query**: Runs a query and generates alert notifications based on the matching criteria.
@@ -24,6 +22,8 @@ The Alerting plugin provides four monitor types:
 1. **per document**: Runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
 
 ![Monitor types in OpenSearch]({{site.url}}{{site.baseurl}}/images/monitors.png)
+
+## Creating monitors
 
 To create a monitor:
 
