@@ -83,20 +83,13 @@ The following table defines key terms used with OpenSearch Integrations.
 
 ```json
 resource-name
-    config.json
-    display`
-        Application.json
-        Maps.json
-        Dashboard.json
-    queries
-      Query.json
-    schemas
-      transformation.json
-    samples
-      resource.access logs
-      resource.error logs
-      resource.stats metrics
-      expected_results
-    info  
-      documentation
+- config.json
+- display
+  - assets.ndjson
+- static
+  - Screenshots/logos
+- schemas
+  - component.mapping.json
+- data
+  - sample_data.json
 ```
