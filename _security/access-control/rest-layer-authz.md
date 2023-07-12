@@ -7,8 +7,15 @@ nav_order: 80
 
 # REST layer authorization
 
-Authorization on the REST layer provides an additional level of security on top of the transport layer for redundancy and as a safety net. This layer is additional to the original method of authorization on the transport layer.
-Legacy authentication is done on the transport layer.  authorization checks in the REST layer.
+Authorization on the REST layer provides an added level of security for plugin and extension REST requests by offering a mechanism for authorization checks on the REST layer. This level of security sits adjacent to the transport layer and provides a complementary method of authorization without replacing, modifying, or in any way changing the same process on the transport layer. REST layer authorization was initially created to address the need for an authorization check for extensions, which do not communicate on the transport layer. However, the feature is also supported for existing plugins and will be available for future plugins created to operate with OpenSearch.
+
+To facilitate REST layer authorization, OpenSearch introduces the idea of [`NamedRoute`](https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/rest/NamedRoute.java) for route registration. This standard also requires a new scheme for permissions.
+
+For users, assigning roles, mapping users and roles, and general usage of plugins and extensions will remain the same: the only additional requirement being that users become familiar with a new permission structure. Developers, on the other hand, will need to understand the ideas behind `NamedRoute` and how the new route scheme is constructed. Fore more detailed information, see [Authorization at REST Layer for plugins](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md#authorization-at-rest-layer-for-plugins).
+
+The remainder of this section discusses the basics between legacy permission patterns and the new scheme.   
+
+redundancy and as a safety net. Legacy authentication is done on the transport layer.
 
 Extensions  do not communicate on the transport layer and operate outside of core processes. Therefore, this gives rise to an implementation of authorization on the REST layer.  
 This implementation will allow all incoming request to be authorized before they are handed over to ActionHandler. (This step was previously done at Transport Layer before action execution)
@@ -60,7 +67,7 @@ legacy_hw_greet:
    - 'cluster:admin/opensearch/hw/greet'
 ```
 
-and a role mapping to a ficticious user:
+and a role mapping to a fictitious user:
 
 ```yml
 legacy_hw_greet:
