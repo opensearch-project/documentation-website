@@ -10,10 +10,7 @@ redirect_from:
 
 # Actions
 
-Actions send notifications when trigger conditions are met. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to learn about creating notifications.
-
-Don't have to add actions to your triggers if you don't want to receive notifications. Instead of notifications, you can periodically check OpenSearch Dashboards.
-{: .tip }
+Actions send notifications when trigger conditions are met. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to learn about creating notifications. If you don't want to receive notifications, don't add actions to your triggers.
 
 ## Creating actions
 
