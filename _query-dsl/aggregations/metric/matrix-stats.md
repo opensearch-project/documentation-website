@@ -81,5 +81,5 @@ Statistic | Description
 `variance` | How far the values of the field measured are spread out from its mean value. The larger the variance, the more it's spread from its mean value.
 `skewness` | An asymmetric measure of the distribution of the field's values around the mean.
 `kurtosis` | A measure of the tail heaviness of a distribution. As the tail becomes lighter, kurtosis decreases. As the tail becomes heavier, kurtosis increases. To learn about kurtosis, see [Wikipedia](https://en.wikipedia.org/wiki/Kurtosis).
-`covariance` | A measure of the joint variability between two fields. A positive value means their values move in the same direction and vice versa.
+`covariance` | A measure of the joint variability between two fields. A positive value means their values move in the same direction and the other way around.
 `correlation` | A measure of the strength of the relationship between two fields. The valid values are between [-1, 1]. A value of -1 means that the value is negatively correlated and a value of 1 means that it's positively correlated. A value of 0 means that there's no identifiable relationship between them.
