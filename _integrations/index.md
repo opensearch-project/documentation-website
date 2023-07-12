@@ -58,8 +58,6 @@ The following shows the structure of a typical observability integration.
 
 Since the structured data contributes significantly to the understanding of the system's behavior, each resource defines a well-structured mapping to conform with it. Once input content has form and shape, it is used to calculate and correlate different pieces of data.
 
-
-
 #### Integrations terminology
 
 The following table defines key terms used with OpenSearch Integrations.
