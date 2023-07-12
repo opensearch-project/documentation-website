@@ -2,7 +2,6 @@
 layout: default
 title: Geohex grid
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 85
 redirect_from:
   - /aggregations/geohexgrid/
