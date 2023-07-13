@@ -32,8 +32,8 @@ A data source connection specifies the parameters needed to connect to a data so
 To create a new data source connection:
 
 1. Go to [`http://localhost:5601`](http://localhost:5601/) and log in with the username `admin` and password `admin`. If you’re running the Security plugin, go to [`https://localhost:5601`](https://localhost:5601/).
-2. From the OpenSearch Dashboards main menu, select **Dashboards Management**, **Data Sources**, and then **Create data source connection**.
-3. Add information to each field to configure **Connection Details**, **Endpoint URL**, and **Authentication Method**. 
+2. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data Sources** > **Create data source connection**.
+3. Add information to each field to configure **Connection Details** > **Endpoint URL** > **Authentication Method**. 
    
    In the **Connection Details** window, enter a title. Entering a description is optional.
 
@@ -128,18 +128,18 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
 
 To create data visualizations for a dashboard, follow these steps:
 
-1. In the Dashboards console, choose **Visualize** and then **Create visualization**.
+1. In the Dashboards console, choose **Visualize** > **Create visualization**.
 2. Select the visualization type. For this tutorial, choose **Line**.
 3. Select a source. For this tutorial, choose the index pattern `opensearch_dashboards_sample_data_ecommerce`.
-4. Under **Buckets**, choose **Add** and then **X-axis**.
-5. In the **Aggregation** field, choose **Date Histogram** and then choose **Update**.
+4. Under **Buckets**, choose **Add** > **X-axis**.
+5. In the **Aggregation** field, choose **Date Histogram** > **Update**.
 6. Choose **Save** and add the file name.
 
 ## Connecting visualizations in a single dashboard
 
 To connect your visualizations in a single dashboard, follow these steps: 
 
-1. In the Dashboards console, choose **Dashboard** and then **Create dashboard**. 
+1. In the Dashboards console, choose **Dashboard** > **Create dashboard**. 
 2. Choose **Add an existing** and then select the data you want to add.
 3. Choose **Save** and add the dashboard name in the **Title field**. This tutorial uses preconfigured dashboards, so you won’t be able to save your dashboard.
 4. Click on the white space left of **Add panels** to view the visualizations in a single dashboard.
