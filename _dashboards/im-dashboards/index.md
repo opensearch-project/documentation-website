@@ -23,7 +23,7 @@ The Index Management interface in OpenSearch Dashboards provides a unified solut
 
 **Step 4: Delete an index** To delete an index, locate the index and select the checkbox next to it. Then, select the **Actions** button and choose **Delete** from the dropdown list. Use caution when deleting indexes, as this action is irreversible. 
 
-**Step 5: Modify an index** To modify the settings of an existing index, locate the index in the list and select its name. This takes you to the index details page. Here, you can update settings such as the numbers of shards, replicas, and other advanced configurations. After making the desired changes, select **Save**.
+**Step 5: Modify an index** To modify the settings of an existing index, locate the index in the list and select its name. This takes you to the index details page. Here you can update settings such as the numbers of shards, replicas, and other advanced configurations. After making the desired changes, select **Save**.
 
 **Step 7: Refresh indexes** To refresh an index, locate the index and select the checkbox next to it. Then, select the **Actions** button and choose **Refresh** from the dropdown list.
 
