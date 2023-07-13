@@ -54,7 +54,7 @@ You can view default notification settings when you perform an indexing operatio
 
 1. Select a channel from the **Notification channels** dropdown list. If you want to configure a new notification channel, select **Manage channels**.
     
-    To configure a new notification channel, confirm the `dashboards-notification` plugin is enabled in OpenSearch Dashboards. 
+    To configure a new notification channel, confirm that the `dashboards-notification` plugin is enabled in OpenSearch Dashboards. 
     {: .note}
     
 1. Select the **Reindex** button.
