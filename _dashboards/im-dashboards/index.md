@@ -11,7 +11,7 @@ redirect_from:
 Introduced 2.5
 {: .label .label-purple }
 
-The Index Management interface in OpenSearch Dashboards provides a unified solution for managing common indexing and data stream operations. The interface allows you to perform create, read, update, and delete (CRUD) and mapping operations for indexes, index templates, and aliases, instead of using REST APIs or YAML configurations for basic administrative operations and interventions. You can also perform other operations such as open, close, reindex, shrink, and split indexes. The interface provides you with capabilities to run index status and data validation before submitting requests and compare changes with previously saved settings before making updates.
+The Index Management interface in OpenSearch Dashboards provides a unified solution for managing common indexing and data stream operations. The interface allows you to perform create, read, update, and delete (CRUD) and mapping operations for indexes, index templates, and aliases, instead of using REST APIs or YAML configurations for basic administrative operations and interventions, along with other operations such as open, close, reindex, shrink, and split indexes. The interface also provides you with capabilities to run index status and data validation before submitting requests and compare changes with previously saved settings before making updates.
 
 ## Get started with index management using Dashboards
 
