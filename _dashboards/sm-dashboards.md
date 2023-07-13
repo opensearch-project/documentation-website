@@ -40,7 +40,7 @@ Before you create a snapshot management policy, set up a repository for snapshot
     ```
 1. Choose the **Add** button.
 
-If you need to automate snapshots creation, you can use a snapshot policy.
+If you need to automate snapshot creation, you can use a snapshot policy.
 {: .note}
 
 ## Deleting a repository
