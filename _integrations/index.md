@@ -11,43 +11,37 @@ Introduced 2.9
 
 OpenSearch Integrations connects your data, applications, and processes so that you can centrally manage the services you use.
 
+All integrations are available in a single view, and OpenSearch Dashboards guides you there from the home page and main menu.
+
+![Integrations interface in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/integrations-interface.png)
+
 ## Get started
 
+Learn how to do the following:
 
+- Access integrations
+- View integrations
+- Add integrations 
 
-## Key terms
+### Access integrations
 
-The following table defines key terms used with OpenSearch Integrations.
+To access integrations, open OpenSearch Dashboards and select **Integrations** from the **Management** menu. The interface displays installed and available integrations.
 
-| Term | Definition |
-|------|------------|
-| integration | Type of bundle that defines data streams for ingestion. |
-| bundle |  Collection of assets consisting of data ingest, storage, and transformation rules, dashboards and visualizations, configuration options, and documentation. |  
-| `config.json` | Defines the general configuration for the entire integration component. |
-| `display` | The folder storing the visualization components. |
-| `queries` | The folder storing the PPL queries. |
-| `schemas` | The folder storing the schemas, for example, schemas for mapping translations or index mapping. |
-| `samples` | The folder containing sample logs and translated logs. | 
-| `metadata` | The folder containing additional metadata definitions, such as security and policies. |
-| `info` | The folder containing documentation, licences, and external references. |
-| `config.json` | File containing the [Integrations configuration](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations/nginx). |
-| `display` | Visualization containing the relevant visual components associated with the integration. |
-| `queries` | Contains specific PPL queries that demonstrate common use cases. 
+## View integrations
 
-#### Example: Integrations configuration 
+To view an integration, select the desired integration listed under the **Installed** window. View the integration details, including assets, such as index patterns, searches, visualizations, and dashboards, and fields, such as severity, number, and text. 
 
-```json
-resource-name
-- config.json
-- display
-  - assets.ndjson
-- static
-  - Screenshots/logos
-- schemas
-  - component.mapping.json
-- data
-  - sample_data.json
-```
+## Add integrations
+
+If you have not installed any integrations, you'll be prompted to install them from the Integrations interface. Supported integrations are listed under the **Available** window. 
+
+To add an integration, select the desired pre-packaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it.  
+
+### Try it
+
+1. Select
+
+### Add
 
 ## Providing feedback
 
