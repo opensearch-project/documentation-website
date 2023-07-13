@@ -25,7 +25,7 @@ The Index Management interface in OpenSearch Dashboards provides a unified solut
 
 **Step 5: Modify an index** To modify the settings of an existing index, locate the index in the list and select its name. This takes you to the index details page. Here you can update settings such as the numbers of shards, replicas, and other advanced configurations. After making the desired changes, select **Save**.
 
-**Step 7: Refresh indexes** To refresh an index, locate the index and select the checkbox next to it. Then, select the **Actions** button and choose **Refresh** from the dropdown list.
+**Step 7: Refresh indexes** To refresh an index, locate the index and select the checkbox next to it. Then select the **Actions** button and choose **Refresh** from the dropdown list.
 
 **Step 8: Filter and search indexes** If you have a large number of indexes and want to filter or search for specific indexes, you can use the search bar located above the list of indexes. Enter the relevant keywords or filters to narrow down the displayed indexes.
 
