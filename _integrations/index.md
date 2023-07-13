@@ -49,7 +49,10 @@ resource-name
   - sample_data.json
 ```
 
-
 ## Providing feedback
 
-Let us know how OpenSearch Integrations works for you or how it can be improved. For developer guides, go to the [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations). The OpenSearch Project team wants your feedback on this feature. Leave feedback at <insert-link>. We look forward to hearing from you.
+Let us know how OpenSearch Integrations works for you or how it can be improved. Leave feedback at <insert-link>. We look forward to hearing from you. 
+
+## Developer guide
+
+For the developer guide, go to the [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations). 
