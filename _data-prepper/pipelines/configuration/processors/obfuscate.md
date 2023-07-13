@@ -12,7 +12,7 @@ The `obfuscate` process enables obfuscation to fields inside your documents in o
 
 ## Usage
 
-In this example, we have a document which contains a `log` field and a `phone` field that contains data we want to obfuscate, as shown in the following object:
+In this example, we have a document that contains a `log` field and a `phone` field. We want to obfuscate the data in both fields, as shown in the following object:
 
 ```json
 {
@@ -23,7 +23,7 @@ In this example, we have a document which contains a `log` field and a `phone` f
 ```
 
 
-To obfuscate the `log` and `phone` fields multiple fields, add the `obfuscate` processor and call each field in the `source` option, as showing the following example. To account for both the `log` and `phone`, the following examples uses multiple `obfuscate` processors, since each processor can only obfuscate one source.
+To obfuscate the `log` and `phone` fields, add the `obfuscate` processor and call each field in the `source` option. To account for both the `log` and `phone` fields, the following example uses multiple `obfuscate` processors, since each processor can only obfuscate one source.
 
 In the first `obfuscate` processor in the pipeline, the source `log` uses several configuration options to mask the data in the log field. For more details on these options, see [configuration](#configuration).
 
@@ -65,7 +65,7 @@ Use the following configuration options with the `obfuscate` processor.
 | Parameter | Required | Description |
 | :--- | :---  | :---  |
 | `source` | Yes | The source field to obfuscate. |
-| `target` | No | The new field in which to store the obfuscated value and leave the original source field unchanged. When no `target` is provided, the source field updates with the obfuscated value. |
+| `target` | No | The new field in which to store the obfuscated value. This leaves the original source field unchanged. When no `target` is provided, the source field updates with the obfuscated value. |
 | `patterns` | No | A list of regex patterns that allow you to obfuscate specific parts of a field. Only parts that match the regex pattern will obfuscate. When not provided, the processor obfuscates the whole field. |
 | `action` | No | The obfuscation action. As of Data Prepper 2.3, only the `mask` action is supported. |
 
@@ -81,7 +81,7 @@ You can customize the `mask` action with the following optional configuration op
 
 When using the `patterns` configuration option, you can use a set of predefined obfuscation patterns for common fields. The `obfuscate` processor supports the following predefined patterns:
 
-You cannot use multiple patterns for one obfuscate processor. Use one obfuscate processor for each pattern.
+You cannot use multiple patterns for one obfuscate processor. Use one pattern for each obfuscate processor.
 {: .note}
 
 
