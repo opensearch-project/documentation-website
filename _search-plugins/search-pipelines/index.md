@@ -257,7 +257,7 @@ GET /_search/pipeline/my*
 
 ## Using a search pipeline
 
-To search with a pipeline, specify the pipeline name in the `search_pipeline` query parameter:
+To use a pipeline with a query, specify the pipeline name in the `search_pipeline` query parameter:
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
