@@ -156,10 +156,10 @@ The response contains the following model information:
 
 ## Registering a model
 
-Before you register a model, you must [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) for the model.
-{: .important} 
+All versions of a particular model are held in a model group. You can [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) first, before registering a model to the model group. If you don't register a model group and send a request to register a model, a new model group will be created automatically using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
 
-All versions of a particular model are held in a model group. After you register a model group, you can register a model to the model group. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+If you're using [pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models#supported-pretrained-models) provided by OpenSearch, we recommend that you first register a model group with a unique name for these models. Then register the pretrained models as versions to that model group. This ensures that every model group has a globally unique model group name, as required by model access control.
+{: .tip}
 
 For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
