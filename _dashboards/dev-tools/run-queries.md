@@ -17,7 +17,7 @@ Write your queries in the editor pane on the left side of the console:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-request.png" alt="Request pane">{: .img-fluid }
 
-You can collapse and expand parts of your query by selecting the small triangles next to the line numbers.
+Collapse or expand your query by selecting the triangle next to the line numbers.
 {: .tip}
 
 To learn more about writing queries in OpenSearch domain-specific language (DSL), see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl).
