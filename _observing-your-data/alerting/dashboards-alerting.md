@@ -9,7 +9,7 @@ nav_order: 50
 Introduced 2.9
 {: .label .label-purple }
 
-Create, manage, and take action on your alerts in a single, consolidated view and identify and resolve issues quickly. Use the **Dashboard** app to:
+Create, manage, and take action on your alerts in a single, consolidated view and identify and resolve issues quickly. Use the **Dashboard** interface to:
 
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
 - Create graphs that show trends and patterns and build intuitive dashboards to stay on top of important metrics and data points in real time.
@@ -44,7 +44,7 @@ Keep in mind the following requirements when setting up or creating alerting vis
 
 ## Creating alerting monitors with Dashboard
 
-By default, when you begin to create the alert monitor workflow using the Dashboard app, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop-up, pull-down, or dropdown, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-types) only.
+By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop-up, pull-down, or dropdown, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-types) only.
 
 #### To create an alerting monitor 
 
@@ -62,7 +62,7 @@ An example of the create monitor steps is shown in the following screenshot.
 
 ## Associating monitors
 
-You can associate certain monitors with a visualization using the Dashboard app instead of the plugin page, giving you a single interface to add, view, and edit monitor data. You can associate existing monitors and monitors not specific to a per query monitor.
+You can associate certain monitors with a visualization using the Dashboard interface instead of the plugin page, giving you a single interface to add, view, and edit monitor data. You can associate existing monitors and monitors not specific to a per query monitor.
 
 #### To associate a monitor
 
