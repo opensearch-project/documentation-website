@@ -30,7 +30,7 @@ Before using model access control, you must satisfy the following prerequisites:
 
 1. Enable the Security plugin on your cluster. For more information, see [Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/). 
 2. For `restricted` model groups, ensure that an admin has [assigned backend roles to users](#assigning-backend-roles-to-users).
-3. [Enable model access control](#enabling-model-access-control) on your cluster. You can enable model access control dynamically by setting `plugins.ml_commons.model_access_control_enabled` to `true`.
+3. [Enable model access control](#enabling-model-access-control) on your cluster.
 
 If any of the prerequisites are not met, all models in the cluster are `public` and can be accessed by any user who has access to the cluster.
 {: .note}
