@@ -113,7 +113,7 @@ index.default_pipeline | The default ingest node pipeline for the index. If the 
 index.final_pipeline | The final ingest node pipeline for the index. If the final pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name `_none` specifies that the index does not have an ingest pipeline.
 
 ### Index codec settings 
-The `index.codec` setting of an OpenSearch index determines how the index’s stored fields are compressed and stored on the disk. It impacts the size of the index shards and the performance of the operations on the index. OpenSearch provides support for four different codecs that can be used for compressing the stored fields. Each codec offers different trade-offs between compression ratio (storage size) and indexing performance (speed). The available codecs are:
+The `index.codec` setting of an OpenSearch index determines how the index’s stored fields are compressed and stored on the disk. The setting impacts the size of the index shards and the performance of the operations on the index. OpenSearch provides support for four different codecs that can be used for compressing the stored fields. Each codec offers different trade-offs between compression ratio (storage size) and indexing performance (speed). The available codecs are:
 * `default` - This codec employs the `LZ4` algorithm with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression`, but may result in larger index/shard sizes. If no codec is provided in the index settings, then `LZ4`  is used as default algorithm for compression.
 * `best_compression` -  This codec utilizes `zlib` as an underlying algorithm for compression. It achieves high compression ratios resulting in smaller index sizes. However, this may incur additional CPU usage during operations on the index and subsequently may result in high indexing and search latencies. 
 * `zstd` - This codec uses the [`Zstandard` compression algorithm](https://github.com/facebook/zstd), which provides a good balance between compression ratio and speed. It provides significant compression comparable to `best_compression` codec with reasonable CPU usage and improved indexing/search performance comparable to `default` codec.
@@ -121,13 +121,17 @@ The `index.codec` setting of an OpenSearch index determines how the index’s st
 
 `Compression_level` provides a trade-off between compression ratio and speed. Higher compression level results in higher compression ratio (lesser storage size) with a trade off on speed, that is, slower compression and decompression speeds (slower indexing and search latencies). Currently, the `zstd` and `zstd_no_dict`  supports the compression level in the range from 1 to 6. Similar to `index.codec`, `index.codec.compression_level` is an optional index setting. Default compression level 3 is used if an option is not provided.
 
-The setting of an index can be updated using a PUT request. Here's an example using the curl commands to i) close, ii) update the settings and iii) open an index.
+The setting of an index can be updated using a PUT request. Here's an example using the curl commands to close an index, update the settings, and open an index.
 
+```json
 # Close the index
-```curl -XPOST "http://localhost:9200/your_index/_close"```
+curl -XPOST "http://localhost:9200/your_index/_close"
+```
+{% include copy.html %}
 
+```json
 # Update the index.codec setting
-```curl -XPUT "http://localhost:9200/your_index/_settings" -H 'Content-Type: application/json' -d'
+curl -XPUT "http://localhost:9200/your_index/_settings" -H 'Content-Type: application/json' -d'
 {
   "index": {
     "codec": "zstd_no_dict"
@@ -136,7 +140,12 @@ The setting of an index can be updated using a PUT request. Here's an example us
 }
 '
 ```
+{% include copy.html %}
+
+```json
 # Reopen the index
-```curl -XPOST "http://localhost:9200/your_index/_open"```
+curl -XPOST "http://localhost:9200/your_index/_open"
+```
+{% include copy.html %}
 
 
