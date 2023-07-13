@@ -13,8 +13,6 @@ Anomaly detection provides an automated means of detecting harmful outliers and 
 
 You can connect data visualizations to OpenSearch datasets and then create, run, and view anomaly alarms and results from visualizations in the **Dashboard** app. With only a couple clicks you can bring together traces, metrics, and logs to make your applications and infrastructure fully observable.
 
-<insert example anomaly detection visualization>
-
 ## Getting started 
 
 Before getting started, you must have:
