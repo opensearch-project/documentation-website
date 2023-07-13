@@ -11,4 +11,4 @@ has_children: true
 
 To access the Dev Tools console, select **Dev Tools** in the menu on the OpenSearch Dashboards home page. You'll see an interface like the one shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dev-tools-console.png" alt="Dev Tools interface from home page">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dev-tools-console.png)" alt="Dev Tools interface">
