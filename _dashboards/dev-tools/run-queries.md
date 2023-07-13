@@ -9,13 +9,7 @@ redirect_from:
 
 # Running queries in the Dev Tools Console
 
-You can use the OpenSearch Dev Tools Console to send queries to OpenSearch. 
-
-## Navigating to the console
-
-To open the console, open OpenSearch Dashboard and select **Dev Tools** under the **Management** menu.
-
-You also can open the console from any other OpenSearch Dashboards page by navigating to the main menu and selecting Dev Tools under the Management menu.
+Use the Dev Tools Console to send queries to OpenSearch. To access the Dev Tools console, select **Dev Tools** under the **Management** menu on the OpenSearch Dashboards home page. 
 
 ## Writing queries 
 
