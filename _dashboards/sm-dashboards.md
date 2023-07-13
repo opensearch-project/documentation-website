@@ -22,7 +22,7 @@ Snapshots have two main uses:
 
 ## Creating a repository
 
-Before you create a snapshot management policy, set up a repository for snapshots. 
+Before you create an SM policy, set up a repository for snapshots. 
 
 1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Repositories**.
