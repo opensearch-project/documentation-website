@@ -31,7 +31,7 @@ If you don't have permission to view notification settings, you cannot view the 
 
 ## Configuring notification settings for an individual operation
 
-You can view default notification settings when you perform an indexing operation, along with set up additional notifications. For example, if you want to configure an additional notification for a reindex operation, perform the following steps:
+You can view default notification settings when you perform an indexing operation as well as set up additional notifications. For example, if you want to configure an additional notification for a reindex operation, perform the following steps:
 
 1. Select **Management** > **Index Management**.
 
