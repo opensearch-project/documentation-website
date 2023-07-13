@@ -21,7 +21,7 @@ The Index Management interface in OpenSearch Dashboards provides a unified solut
 
 **Step 3: Create an index** To create a new index, select the **Create index** button in the upper-right corner. You will be prompted to enter the index name and configure the index settings, such as number of shards and replicas. Fill in the required information and select **Create** to create the index.
 
-**Step 4: Delete an index** To delete an index, locate the index and select the checkbox next to it. Then, select the **Actions** button and choose **Delete** from the dropdown list. Use caution when deleting indexes, as this action is irreversible. 
+**Step 4: Delete an index** To delete an index, locate the index and select the checkbox next to it. Then select the **Actions** button and choose **Delete** from the dropdown list. Use caution when deleting indexes because this action is irreversible. 
 
 **Step 5: Modify an index** To modify the settings of an existing index, locate the index in the list and select its name. This takes you to the index details page. Here you can update settings such as the numbers of shards, replicas, and other advanced configurations. After making the desired changes, select **Save**.
 
