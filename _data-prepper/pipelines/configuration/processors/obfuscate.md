@@ -8,11 +8,11 @@ nav_order: 71
 
 # obfuscate
 
-The `obfuscate` process enables obfuscation to fields inside your documents in order to protect sensitive data. 
+The `obfuscate` process enables obfuscation of fields inside your documents in order to protect sensitive data. 
 
 ## Usage
 
-In this example, we have a document that contains a `log` field and a `phone` field. We want to obfuscate the data in both fields, as shown in the following object:
+In this example, a document contains a `log` field and a `phone` field, as shown in the following object:
 
 ```json
 {
@@ -23,9 +23,9 @@ In this example, we have a document that contains a `log` field and a `phone` fi
 ```
 
 
-To obfuscate the `log` and `phone` fields, add the `obfuscate` processor and call each field in the `source` option. To account for both the `log` and `phone` fields, the following example uses multiple `obfuscate` processors, since each processor can only obfuscate one source.
+To obfuscate the `log` and `phone` fields, add the `obfuscate` processor and call each field in the `source` option. To account for both the `log` and `phone` fields, the following example uses multiple `obfuscate` processors because each processor can only obfuscate one source.
 
-In the first `obfuscate` processor in the pipeline, the source `log` uses several configuration options to mask the data in the log field. For more details on these options, see [configuration](#configuration).
+In the first `obfuscate` processor in the pipeline, the source `log` uses several configuration options to mask the data in the log field, as shown in the following example. For more details on these options, see [configuration](#configuration).
 
 ```yaml
 pipeline:
@@ -47,7 +47,7 @@ pipeline:
     - stdout:
 ```
 
-When run, the `obfuscate` processor parses the fields into the following output.
+When run, the `obfuscate` processor parses the fields into the following output:
 
 ```json
 {
@@ -69,23 +69,23 @@ Use the following configuration options with the `obfuscate` processor.
 | `patterns` | No | A list of regex patterns that allow you to obfuscate specific parts of a field. Only parts that match the regex pattern will obfuscate. When not provided, the processor obfuscates the whole field. |
 | `action` | No | The obfuscation action. As of Data Prepper 2.3, only the `mask` action is supported. |
 
-You can customize the `mask` action with the following optional configuration options:
+You can customize the `mask` action with the following optional configuration options.
 
 | Parameter | Default | Description |
 | :--- | :---  | :---  |
-`mask_character` | `*` | That character to use when masking. Valid characters are !, #, $, %, &, *, and @. |
+`mask_character` | `*` | The character to use when masking. Valid characters are !, #, $, %, &, *, and @. |
 `mask_character_length` | `3` | The number of characters to mask in the field. The value must be between 1 and 10. |
 
 
 ## Predefined patterns
 
-When using the `patterns` configuration option, you can use a set of predefined obfuscation patterns for common fields. The `obfuscate` processor supports the following predefined patterns:
+When using the `patterns` configuration option, you can use a set of predefined obfuscation patterns for common fields. The `obfuscate` processor supports the following predefined patterns.
 
 You cannot use multiple patterns for one obfuscate processor. Use one pattern for each obfuscate processor.
 {: .note}
 
 
-| Pattern Name          | Examples                                                                                                                                                                      |
+| Pattern name          | Examples                                                                                                                                                                      |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | %{EMAIL_ADDRESS}      | abc@test.com<br/> 123@test.com<br/>abc123@test.com<br/>abc_123@test.com<br/>a-b@test.com<br/>a.b@test.com<br/>abc@test-test.com<br/>abc@test.com.cn<br/>abc@test.mail.com.org |
 | %{IP_ADDRESS_V4}      | 1.1.1.1<br/>192.168.1.1<br/>255.255.255.0                                                                                                                                     |
