@@ -11,16 +11,16 @@ The following APIs can be used for a number of tasks related to mappings, from c
 
 ## Get Mappings View
 
-
+Returns a view of the fields contained in an index used as a log source.
 
 ### Request fields
 
-The following fields are used to get log field mappings.
+The following fields are used to get field mappings.
 
 Field | Type | Description
 :--- | :--- |:--- |
 | `index_name` | String | The name of the index used for log ingestion. |
-| `rule_topic` | String | TBD. |
+| `rule_topic` | String | The log type of the index. |
 
 ### Example request
 
