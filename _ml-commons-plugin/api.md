@@ -156,12 +156,17 @@ The response contains the following model information:
 
 ## Registering a model
 
-All versions of a particular model are held in a model group. You can [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) first, before registering a model to the model group. If you don't register a model group and send a request to register a model, a new model group will be created automatically using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+All versions of a particular model are held in a model group. You can [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) first, before registering a model to the model group. If you don't register a model group and send a request to register a model, a new model group will be created automatically using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. 
 
-If you're using [pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models#supported-pretrained-models) provided by OpenSearch, we recommend that you first register a model group with a unique name for these models. Then register the pretrained models as versions to that model group. This ensures that every model group has a globally unique model group name, as required by model access control.
+Each model group name must be globally unique in the cluster.
+{: .important}
+
+If you're using [pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models#supported-pretrained-models) provided by OpenSearch, we recommend that you first register a model group with a unique name for these models. Then register the pretrained models as versions to that model group. This ensures that every model group has a globally unique model group name.
 {: .tip}
 
 For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
+
+ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
 
 ### Path and HTTP methods
 
@@ -476,6 +481,9 @@ POST /_plugins/_ml/models/_search
 ## Deleting a model
 
 Deletes a model based on the `model_id`.
+
+When you delete the last model version in a model group, that model group is automatically deleted from the index.
+{: .important}
 
 For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
