@@ -6,7 +6,7 @@ nav_order: 50
 ---
 
 # Integrating alerts with Dashboard
-Introduced 2.8
+Introduced 2.9
 {: .label .label-purple }
 
 Create, manage, and take action on your alerts in a single, consolidated view and identify and resolve issues quickly. Use the **Dashboard** app to:
