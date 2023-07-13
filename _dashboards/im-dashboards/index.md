@@ -27,6 +27,6 @@ The Index Management interface in OpenSearch Dashboards provides a unified solut
 
 **Step 7: Refresh indexes** To refresh an index, locate the index and select the checkbox next to it. Then select the **Actions** button and choose **Refresh** from the dropdown list.
 
-**Step 8: Filter and search indexes** If you have a large number of indexes and want to filter or search for specific indexes, you can use the search bar located above the list of indexes. Enter the relevant keywords or filters to narrow down the displayed indexes.
+**Step 8: Filter and search indexes** If you have a large number of indexes and want to filter or search for specific indexes, you can use the search bar located above the list of indexes. Enter the relevant keywords or filters to narrow the list of indexes.
 
 **Step 9: Additional operations** Index Management provides additional functionalities such as creating index patterns, managing lifecycle policies, and configuring index templates. These options are available in their respective sections of the Index Management interface. You can explore them based on your requirements. 
