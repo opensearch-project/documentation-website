@@ -75,7 +75,7 @@ POST /_plugins/_ml/connectors/_create
         "model": "text-davinci-003"
     },
     "credential": {
-        "openAI_key": "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"
+        "openAI_key": "<encrypted-key>"
     },
     "actions": [
         {
