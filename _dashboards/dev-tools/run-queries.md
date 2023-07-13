@@ -7,7 +7,7 @@ redirect_from:
   - /dashboards/run-queries/
 ---
 
-# Running queries in the Dev Tools Console
+# Running queries in the Dev Tools console
 
 Use the Dev Tools Console to send queries to OpenSearch. To access the Dev Tools Console, select **Dev Tools** under the **Management** menu on the OpenSearch Dashboards home page. 
 
