@@ -70,9 +70,10 @@ timeout | Time | How long to wait for the request to return. Default is `30s`.
 
 As part of your request, you can supply parameters in your request's body that specify index settings, mappings, and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) for your newly created index. The following sections provide more information about index settings and mappings.
 
-Index settings are separated into two varieties: static index settings and dynamic index settings. Static index settings are settings that you specify at index creation and can't change later. You can change dynamic settings at any time, including at index creation.
+### Index settings
+Index settings are separated into two types: static index settings and dynamic index settings. Static index settings are settings that you specify at index creation and can't change later. You can change dynamic settings at any time, including at index creation.
 
-### Static index settings
+#### Static index settings
 
 Setting | Description
 :--- | :---
@@ -84,7 +85,7 @@ index.soft_deletes.retention_lease.period | The maximum amount of time to retain
 index.load_fixed_bitset_filters_eagerly | Whether OpenSearch should pre-load cached filters. Available options are `true` and `false`. Default is `true`.
 index.hidden | Whether the index should be hidden. Hidden indexes are not returned as part of queries that have wildcards. Available options are `true` and `false`. Default is `false`.
 
-### Dynamic index Settings
+#### Dynamic index Settings
 
 Setting | Description
 :--- | :---
@@ -112,7 +113,7 @@ index.gc_deletes | Amount of time to retain a deleted document's version number.
 index.default_pipeline | The default ingest node pipeline for the index. If the default pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name `_none` specifies that the index does not have an ingest pipeline.
 index.final_pipeline | The final ingest node pipeline for the index. If the final pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name `_none` specifies that the index does not have an ingest pipeline.
 
-### Index codec settings 
+#### Index codec settings 
 The `index.codec` setting of an OpenSearch index determines how the index’s stored fields are compressed and stored on the disk. The setting impacts the size of the index shards and the performance of the operations on the index. OpenSearch provides support for four different codecs that can be used for compressing the stored fields. Each codec offers different trade-offs between compression ratio (storage size) and indexing performance (speed). The available codecs are:
 * `default` - This codec employs the `LZ4` algorithm with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression`, but may result in larger index/shard sizes. If no codec is provided in the index settings, then `LZ4`  is used as default algorithm for compression.
 * `best_compression` -  This codec utilizes `zlib` as an underlying algorithm for compression. It achieves high compression ratios resulting in smaller index sizes. However, this may incur additional CPU usage during operations on the index and subsequently may result in high indexing and search latencies. 
