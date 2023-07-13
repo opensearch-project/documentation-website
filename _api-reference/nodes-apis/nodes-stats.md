@@ -1020,13 +1020,13 @@ total_response.count | Integer | The total number of search response processor e
 total_response.time_in_millis | Integer | The total amount of time for all search response processor executions, in milliseconds.
 total_response.current | Integer | The total number of search response processor executions currently in progress.
 total_response.failed | Integer | The total number of failed search response processor executions.
-pipelines | Object | Search pipeline statistics. Each pipeline is a nested object specified by its ID with the properties listed in the following rows. If a processor has a `tag`, statistics for the processor are provided in the object with the name `<processor_type>:<tag>` (for example, `filter_query:abc`). Statistics for all processors of the same type that do not have a `tag` are aggregated and provided in the object with the name `<processor-type>` (for example, `filter_query`).
-pipelines._id_.request.count | Integer | The number of search request processor executions by the search pipeline.
+pipelines | Object | Search pipeline statistics. Each pipeline is a nested object specified by its ID, with the properties listed in the following rows. If a processor has a `tag`, statistics for the processor are provided in the object with the name `<processor_type>:<tag>` (for example, `filter_query:abc`). Statistics for all processors of the same type that do not have a `tag` are aggregated and provided in the object with the name `<processor-type>` (for example, `filter_query`).
+pipelines._id_.request.count | Integer | The number of search request processor executions performed by the search pipeline.
 pipelines._id_.request.time_in_millis | Integer | The total amount of time for search request processor executions in the search pipeline, in milliseconds.
 pipelines._id_.request.current | Integer | The number of search request processor executions currently in progress for the search pipeline.
 pipelines._id_.request.failed | Integer | The number of failed search request processor executions for the search pipeline.
 pipelines._id_.request_processors | Array of objects | Statistics for the search request processors. Includes the total number of executions, the total amount of time of executions, the total number of executions currently in progress, and the number of failed executions.
-pipelines._id_.response.count | Integer | The number of search response processor executions by the search pipeline.
+pipelines._id_.response.count | Integer | The number of search response processor executions performed by the search pipeline.
 pipelines._id_.response.time_in_millis | Integer | The total amount of time for search response processor executions in the search pipeline, in milliseconds.
 pipelines._id_.response.current | Integer | The number of search response processor executions currently in progress for the search pipeline.
 pipelines._id_.response.failed | Integer | The number of failed search response processor executions for the search pipeline.
