@@ -292,6 +292,23 @@ plugins.ml_commons.enable_inhouse_python_model: false
 - Default value: false
 - Value range: [false, true]
 
+## Enable access control for connectors
+
+When set to `true`, requires an access key when making a connection to Sagemaker or Hugging Face.
+
+### Setting
+
+```
+plugins.ml_commons.connector_access_control_enabled: true
+```
+
+###
+
+### Values
+
+- Default value: false
+- Value range: [false, true]
+
 
 
 

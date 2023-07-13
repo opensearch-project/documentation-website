@@ -1,16 +1,13 @@
 ---
 layout: default
 title: Pretrained models
-parent: Model-serving framework
+parent: ML framework
 nav_order: 120
 ---
 
-The model-serving framework is an experimental feature. For updates on the progress of the model-serving framework, or if you want to leave feedback that could help improve the feature, join the discussion in the [Model-serving framework forum](https://forum.opensearch.org/t/feedback-machine-learning-model-serving-framework-experimental-release/11439).    
-{: .warning}
-
 # Pretrained models
 
-The model-serving framework supports a variety of open-source pretrained models that can assist with a range of machine learning (ML) search and analytics use cases. 
+The ML framework supports a variety of open-source pretrained models that can assist with a range of machine learning (ML) search and analytics use cases. 
 
 ## Uploading pretrained models
 
@@ -28,11 +25,11 @@ POST /_plugins/_ml/models/_upload
 }
 ```
 
-For more information on how to upload and use ML models, see [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework).
+For more information on how to upload and use ML models, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework).
 
 ## Supported pretrained models
 
-The model-serving framework supports the following models, categorized by type. All models are traced from [Hugging Face](https://huggingface.co/). Although models with the same type will have similar use cases, each model has a different model size and performs differently depending on your cluster. For a comparison of the performances of some pretrained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
+The ML framework supports the following models, categorized by type. All models are traced from [Hugging Face](https://huggingface.co/). Although models with the same type will have similar use cases, each model has a different model size and performs differently depending on your cluster. For a comparison of the performances of some pretrained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
 
 
 ### Sentence transformers
