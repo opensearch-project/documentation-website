@@ -91,6 +91,9 @@ collections:
   external_links:
     permalink: /:collection/:path/
     output: true
+  developer-documentation:
+    permalink: /:collection/:path/
+    output: true
 
 just_the_docs:
   # Define the collections used in the theme
@@ -153,6 +156,9 @@ just_the_docs:
       nav_fold: true
     troubleshoot:
       name: Troubleshooting
+      nav_fold: true
+    developer-documentation:
+      name: Developer documentation
       nav_fold: true
 
 
