@@ -11,7 +11,7 @@ Introduced 2.9
 
 Anomaly detection provides an automated means of detecting harmful outliers and protects your data. When you enable anomaly detection for a metric, OpenSearch applies algorithms to continuously analyze systems and applications, determine normal baselines, and surface anomalies. 
 
-You can connect data visualizations to OpenSearch datasets and then create, run, and view anomaly alarms and results from visualizations in the **Dashboard** app. With only a couple clicks you can bring together traces, metrics, and logs to make your applications and infrastructure fully observable.
+You can connect data visualizations to OpenSearch datasets and then create, run, and view anomaly alarms and results from visualizations in the **Dashboard** interface. With only a couple clicks you can bring together traces, metrics, and logs to make your applications and infrastructure fully observable.
 
 ## Getting started 
 
