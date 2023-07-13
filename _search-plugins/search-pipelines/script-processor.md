@@ -55,4 +55,3 @@ PUT /_search/pipeline/explain_one_result
 } 
 ```
 {% include copy-curl.html %}
-
