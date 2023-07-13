@@ -6,7 +6,7 @@ nav_order: 50
 ---
 
 # Integrating anomaly detection with Dashboard
-Introduced 2.8
+Introduced 2.9
 {: .label .label-purple }
 
 Anomaly detection provides an automated means of detecting harmful outliers and protects your data. When you enable anomaly detection for a metric, OpenSearch applies algorithms to continuously analyze systems and applications, determine normal baselines, and surface anomalies. 
