@@ -158,7 +158,7 @@ By default, a search pipeline stops if one of its processors fails. If you want 
 }
 ```
 
-If the processor fails, OpenSearch logs the failure and continues to run all remaining processors in the search pipeline. To check if there were any failures, you can use [search pipeline metrics](#search-pipeline-metrics). 
+If the processor fails, OpenSearch logs the failure and continues to run all remaining processors in the search pipeline. To check whether there were any failures, you can use [search pipeline metrics](#search-pipeline-metrics). 
 
 ## Using a temporary search pipeline for a request
 
