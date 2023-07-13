@@ -19,7 +19,7 @@ The Index Management interface in OpenSearch Dashboards provides a unified solut
 
 **Step 2: View indexes** In the Indices interface you will see a list of existing indexes in your OpenSearch cluster. The list provides information such as index name, health state, document count, index size, and other relevant details.  
 
-**Step 3: Create an index** To create a new index, select the **Create index** button in the upper right corner. You will be prompted to enter the index name and configure the index settings, such as number of shards and replicas. Fill in the required information and select **Create** to create the index.
+**Step 3: Create an index** To create a new index, select the **Create index** button in the upper-right corner. You will be prompted to enter the index name and configure the index settings, such as number of shards and replicas. Fill in the required information and select **Create** to create the index.
 
 **Step 4: Delete an index** To delete an index, locate the index and select the checkbox next to it. Then, select the **Actions** button and choose **Delete** from the dropdown list. Use caution when deleting indexes, as this action is irreversible. 
 
