@@ -86,7 +86,7 @@ index.codec |  Determines how the index’s stored fields are compressed and sto
 * `default` - This codec employs the `LZ4` algorithm with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression`, but may result in larger index/shard sizes. If no codec is provided in the index settings, then `LZ4`  is used as default algorithm for compression.
 * `best_compression` -  This codec utilizes `zlib` as an underlying algorithm for compression. It achieves high compression ratios resulting in smaller index sizes. However, this may incur additional CPU usage during operations on the index and subsequently may result in high indexing and search latencies. 
 * `zstd` - This codec uses the [`Zstandard` compression algorithm](https://github.com/facebook/zstd), which provides a good balance between compression ratio and speed. It provides significant compression comparable to `best_compression` codec with reasonable CPU usage and improved indexing/search performance comparable to `default` codec.
-* `zstd_no_dict` This codec is similar to 'zstd' but excludes the dictionary compression feature. It provides faster indexing and search operations compared to 'zstd' at the expense of a slightly larger index size.
+* `zstd_no_dict` This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
 
 'zstd' and 'zstd_no_dict' are the new codecs introduced in OpenSearch v2.9.0. They provide an option to configure the compression level as an index setting 'index.codec.compression_level' which is not available for other codecs. 
 {: .note}
