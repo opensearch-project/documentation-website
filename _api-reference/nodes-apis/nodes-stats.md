@@ -106,6 +106,8 @@ GET _nodes/stats/
 
 #### Example response
 
+Select the arrow to view the example response.
+
 <details closed markdown="block">
   <summary>
     Response
