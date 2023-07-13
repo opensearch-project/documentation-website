@@ -9,61 +9,23 @@ has_children: false
 Introduced 2.9
 {: .label .label-purple }
 
-OpenSearch Integrations connects your data sources to other systems and applications, giving you a unified solution for ingesting data, querying data, and enabling real-time analytics.
+OpenSearch Integrations connects your data, applications, and processes so that you can centrally manage the services you use.
 
-Let us know how Integrations works for you or how it can be improved. Leave feedback in the [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations). We look forward to hearing from you.
+Let us know how OpenSearch Integrations works for you or how it can be improved. For developer guides, go to the [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations). The OpenSearch Project team wants your feedback on this feature. Leave feedback at <insert-link>. We look forward to hearing from you.
 {: .note} 
 
-## Understanding OpenSearch Integrations
+## Get started
 
-An _integration_ is a type of bundle that defines data streams for ingestion. A _bundle_ consists of the following information: 
 
-- Version
-- Metadata configuration file
-- Dashboards and visualizations, along with Notebooks
-- Data stream index templates for the signal ingestion
-- Documentation
 
-OpenSearch Integrations bundles the following components:
-
-- Dashboards
-- Visualizations
-- Configurations 
-
-These bundle assets provide for the monitoring of logs, metrics, and traces for a resource (for example, device, network element, or service) or group of related resources (for example, Nginx or system). 
-
-#### Example: Structure of an observability integration
-
-The following shows the structure of a typical observability integration. 
-
-**Metadata**
-
-- Observability data producer resource
-- Supplement indexes (mapping and naming)
-- Collection agent version
-- Transformation schema 
-- Optional test harnesses repository
-- Verified version and documentation 
-- Category and classification (logs, traces, alerts, metrics)
-
-**Display components**
-
-- Dashboards 
-- Maps
-- Applications
-- Notebooks
-- Operations panels
-- Saved queries (PPL, SQL, DQL)
-- Alerts
-
-Since the structured data contributes significantly to the understanding of the system's behavior, each resource defines a well-structured mapping to conform with it. Once input content has form and shape, it is used to calculate and correlate different pieces of data.
-
-#### Integrations terminology
+## Key terms
 
 The following table defines key terms used with OpenSearch Integrations.
 
-| Term | Definition|
-|------| ----------|
+| Term | Definition |
+|------|------------|
+| integration | Type of bundle that defines data streams for ingestion. |
+| bundle |  Collection of assets consisting of data ingest, storage, and transformation rules, dashboards and visualizations, configuration options, and documentation. |  
 | `config.json` | Defines the general configuration for the entire integration component. |
 | `display` | The folder storing the visualization components. |
 | `queries` | The folder storing the PPL queries. |
@@ -74,10 +36,6 @@ The following table defines key terms used with OpenSearch Integrations.
 | `config.json` | File containing the [Integrations configuration](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations/nginx). |
 | `display` | Visualization containing the relevant visual components associated with the integration. |
 | `queries` | Contains specific PPL queries that demonstrate common use cases. 
-
-## Creating an integration
-
-<insert para about creating integrations; what do we want the user to do with this example?>
 
 #### Example: Integrations configuration 
 
