@@ -1,25 +1,21 @@
 ---
 layout: default
-title: Running queries in the Dev Tools console
+title: Running queries in the Dev Tools Console
 parent: Dev Tools
 nav_order: 10
 redirect_from:
   - /dashboards/run-queries/
 ---
 
-# Running queries in the Dev Tools console
+# Running queries in the Dev Tools Console
 
 You can use the OpenSearch Dev Tools Console to send queries to OpenSearch. 
 
 ## Navigating to the console
 
-To open the console, select **Dev Tools** on the main OpenSearch Dashboards page:
+To open the console, open OpenSearch Dashboard and select **Dev Tools** under the **Management** menu.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-main.png" alt="Dev Tools Console from main page">{: .img-fluid }
-
-You can open the console from any other page by navigating to the main menu and selecting **Management** > **Dev Tools**.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-left.png" width=200 alt="Dev Tools Console from all pages">
+You also can open the console from any other OpenSearch Dashboards page by navigating to the main menu and selecting Dev Tools under the Management menu.
 
 ## Writing queries 
 
@@ -56,6 +52,7 @@ The console uses an easier syntax to format REST requests than the `curl` comman
 
 For example, the following `curl` command runs a search query:
 
+````
 ```bash
 curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: application/json' -d'
 {
@@ -66,9 +63,12 @@ curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: ap
   }
 }'
 ```
+{% include copy.html %}
+````
 
 The same query has a simpler syntax in the console format:
 
+````
 ```json
 GET shakespeare/_search
 {
@@ -79,6 +79,8 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
+````
 
 If you paste a `curl` command directly into the console, the command is automatically converted into the format the console uses. 
 
