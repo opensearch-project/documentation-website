@@ -162,7 +162,7 @@ If the processor fails, OpenSearch logs the failure and continues to run all rem
 
 ## Using a temporary search pipeline for a request
 
-As an alternative to creating a search pipeline, you can define a temporary search pipeline to be used for the current query only:
+As an alternative to creating a search pipeline, you can define a temporary search pipeline to be used for only the current query:
 
 ```json
 POST /my-index/_search
