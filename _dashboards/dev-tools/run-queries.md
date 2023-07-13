@@ -9,17 +9,7 @@ redirect_from:
 
 # Running queries in the Dev Tools console
 
-You can use the OpenSearch Dev Tools Console to send queries to OpenSearch. 
-
-## Navigating to the console
-
-To open the console, select **Dev Tools** on the main OpenSearch Dashboards page:
-
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-main.png" alt="Dev Tools Console from main page">{: .img-fluid }
-
-You can open the console from any other page by navigating to the main menu and selecting **Management** > **Dev Tools**.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-left.png" width=200 alt="Dev Tools Console from all pages">
+Use the Dev Tools console to send queries to OpenSearch. To access the Dev Tools console, select **Dev Tools** under the **Management** menu on the OpenSearch Dashboards home page. 
 
 ## Writing queries 
 
@@ -27,7 +17,7 @@ Write your queries in the editor pane on the left side of the console:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-request.png" alt="Request pane">{: .img-fluid }
 
-You can collapse and expand parts of your query by selecting the small triangles next to the line numbers.
+Collapse or expand your query by selecting the triangle next to the line numbers.
 {: .tip}
 
 To learn more about writing queries in OpenSearch domain-specific language (DSL), see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl).
@@ -56,6 +46,7 @@ The console uses an easier syntax to format REST requests than the `curl` comman
 
 For example, the following `curl` command runs a search query:
 
+````
 ```bash
 curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: application/json' -d'
 {
@@ -66,9 +57,12 @@ curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: ap
   }
 }'
 ```
+{% include copy.html %}
+````
 
 The same query has a simpler syntax in the console format:
 
+````
 ```json
 GET shakespeare/_search
 {
@@ -79,6 +73,8 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
+````
 
 If you paste a `curl` command directly into the console, the command is automatically converted into the format the console uses. 
 
