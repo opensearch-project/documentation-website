@@ -88,7 +88,7 @@ index.codec |  Determines how the index’s stored fields are compressed and sto
 * `zstd` - This codec uses the [`Zstandard` compression algorithm](https://github.com/facebook/zstd), which provides a good balance between compression ratio and speed. It provides significant compression comparable to `best_compression` codec with reasonable CPU usage and improved indexing/search performance comparable to `default` codec.
 * `zstd_no_dict` This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
 
-'zstd' and 'zstd_no_dict' are the new codecs introduced in OpenSearch v2.9.0. They provide an option to configure the compression level as an index setting 'index.codec.compression_level' which is not available for other codecs. 
+`zstd` and `zstd_no_dict` are the new codecs introduced in OpenSearch v2.9.0. They provide an option to configure the compression level as an index setting `index.codec.compression_level` which is not available for other codecs. 
 {: .note}
 index.routing_partition_size | The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than just a single shard. To enable, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 index.soft_deletes.retention_lease.period | The maximum amount of time to retain a shard's history of operations. Default is `12h`.
