@@ -68,7 +68,7 @@ You can associate certain monitor types with a visualization using the Dashboard
 
 #### To associate a monitor
 
-Continuing with the alerting visualization and dashboard created in the preceding section, associate an existing monitor with a visualization by following these steps. 
+Continuing with the alerting visualization and dashboard created in the preceding section, associate an existing monitor with a visualization by following these steps: 
 
 1. From the visualization panel, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}).
 2. Select **Associated monitors**.
