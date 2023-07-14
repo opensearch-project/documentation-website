@@ -34,13 +34,13 @@ Users can only access, create, or manage alerts for resources for which they hav
 
 Alerting visualizations are displayed as time-series charts that give you a snapshot of the alert, alert status, last updated time, and reason for the alert. You can display up to 10 metrics on your chart, and each series can be shown as a line on the chart.
 
-Keep in mind the following requirements when setting up or creating alerting visualizations:
+Keep in mind the following requirements when setting up or creating alerting visualizations. The visualization:
 
 - Must be a [Vizlib line chart](https://community.vizlib.com/support/solutions/articles/35000107262-vizlib-line-chart-introduction)
 - Must contain at least a Y-axis metric aggregation
 - Must not have non-Y-axis metric aggregation types
 - Must use the date histogram aggregation type for the X-axis bucket
-- Must have X-axis on the bottom
+- Must have an X-axis on the bottom
 - Must define one X-axis aggregation bucket
 - Must have a valid time-based X-axis
 
