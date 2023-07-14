@@ -62,11 +62,11 @@ An example of the create monitor steps is shown in the following screenshot.
 
 ## Associating monitors
 
-You can associate certain monitors with a visualization using the Dashboard interface instead of the plugin page, giving you a single interface to add, view, and edit monitor data. You can associate existing monitors and monitors not specific to a per query monitor.
+You can associate certain monitor types with a visualization using the Dashboard interface instead of the plugin page, giving you a single interface to add, view, and edit monitor data.
 
 #### To associate a monitor
 
-Continuing with the alerting visualization and dashboard created in the preceding tutorial, associate an existing monitor with a visualization by following these steps. 
+Continuing with the alerting visualization and dashboard created in the preceding section, associate an existing monitor with a visualization by following these steps. 
 
 1. From the visualization panel, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}).
 2. Select **Associated monitors**.
