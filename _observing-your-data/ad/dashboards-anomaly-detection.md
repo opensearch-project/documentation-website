@@ -58,7 +58,7 @@ Use a single interface to add, view, and edit anomaly detectors that you want to
 
 ## Refreshing the visualization
 
-Depending on the threshold settings, the visualization refreshes automatically at the specified interval. To manually refresh the visualization, select the **Refresh** button from the Dashboard page.
+Depending on the threshold settings, the visualization refreshes automatically at the specified interval. To manually refresh the visualization, select the **Refresh** button on the Dashboard page.
 
 ## Next steps
 
