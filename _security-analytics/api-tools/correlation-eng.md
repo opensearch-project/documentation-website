@@ -24,8 +24,8 @@ POST /_plugins/_security_analytics/correlation/rules
 | Field | Type | Description |
 | :--- | :--- |:--- |
 | `index` | String | The name of the index used as the log source. |
-| `query` | String | The query used to filter security logs for correlation. |
-| `category` | String | The log type associated with the log source. |
+| `query` | String | TBD. |
+| `category` | String | TBD. |
 
 #### Example request
 
@@ -164,7 +164,7 @@ GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-
 | :--- | :--- |:--- |
 | `finding` | String | The finding ID. |
 | `detector_type` | String | The log type for the detector. |
-| `nearby_findings` | Number | The number of nearby findings with respect to the given finding ID. |
+| `nearby_findings` | Number | TBD. |
 | `time_window` | String | Sets a window of time in which all of the correlations must have occurred together. |
 
 
