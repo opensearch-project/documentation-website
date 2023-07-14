@@ -8,19 +8,7 @@ has_toc: false
 
 # Search pipelines
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/t/rfc-search-pipelines/12099).    
-{: .warning}
-
 You can use _search pipelines_ to build new or reuse existing result rerankers, query rewriters, and other components that operate on queries or results. Search pipelines make it easier for you to process search queries and search results within OpenSearch. Moving some of your application functionality into an OpenSearch search pipeline reduces the overall complexity of your application. As part of a search pipeline, you specify a list of processors that perform modular tasks. You can then easily add or reorder these processors to customize search results for your application. 
-
-## Enabling search pipelines
-
-Search pipeline functionality is disabled by default. To enable it, edit the configuration in `opensearch.yml` and then restart your cluster:
-
-1. Navigate to the OpenSearch config directory.
-1. Open the `opensearch.yml` configuration file. 
-1. Add `opensearch.experimental.feature.search_pipeline.enabled: true` and save the configuration file.
-1. Restart your cluster.
 
 ## Terminology
 
@@ -123,7 +111,7 @@ Search pipelines are stored in the cluster state. To create a search pipeline, y
 
 #### Example request
 
-The following request creates a search pipeline with a `filter_query` request processor that uses a term query to return only public messages:
+The following request creates a search pipeline with a `filter_query` request processor that uses a term query to return only public messages and a response processor that renames the field `message` to `notification`:
 
 ```json
 PUT /_search/pipeline/my_pipeline 
@@ -140,10 +128,78 @@ PUT /_search/pipeline/my_pipeline
         }
       }
     }
+  ],
+  "response_processors": [
+    {
+      "rename_field": {
+        "field": "message",
+        "target_field": "notification"
+      }
+    }
   ]
 }
 ```
 {% include copy-curl.html %}
+
+### Ignoring processor failures
+
+By default, a search pipeline stops if one of its processors fails. If you want the pipeline to continue running when a processor fails, you can set the `ignore_failure` parameter for that processor to `true` when creating the pipeline:
+
+```json
+"filter_query" : {
+  "tag" : "tag1",
+  "description" : "This processor is going to restrict to publicly visible documents",
+  "ignore_failure": true,
+  "query" : {
+    "term": {
+      "visibility": "public"
+    }
+  }
+}
+```
+
+If the processor fails, OpenSearch logs the failure and continues to run all remaining processors in the search pipeline. To check whether there were any failures, you can use [search pipeline metrics](#search-pipeline-metrics). 
+
+## Using a temporary search pipeline for a request
+
+As an alternative to creating a search pipeline, you can define a temporary search pipeline to be used for only the current query:
+
+```json
+POST /my-index/_search
+{
+  "query" : {
+    "match" : {
+      "text_field" : "some search text"
+    }
+  },
+  "pipeline" : {
+    "request_processors": [
+      {
+        "filter_query" : {
+          "tag" : "tag1",
+          "description" : "This processor is going to restrict to publicly visible documents",
+          "query" : {
+            "term": {
+              "visibility": "public"
+            }
+          }
+        }
+      }
+    ],
+    "response_processors": [
+      {
+        "rename_field": {
+          "field": "message",
+          "target_field": "notification"
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+With this syntax, the pipeline does not persist and is used only for the query for which it is specified.
 
 ## Retrieving search pipelines
 
@@ -201,7 +257,7 @@ GET /_search/pipeline/my*
 
 ## Using a search pipeline
 
-To search with a pipeline, specify the pipeline name in the `search_pipeline` query parameter:
+To use a pipeline with a query, specify the pipeline name in the `search_pipeline` query parameter:
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
@@ -394,3 +450,163 @@ The response contains the pipeline version:
 }
 ```
 </details>
+
+## Search pipeline metrics
+
+To view search pipeline metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
+
+```json
+GET /_nodes/stats/search_pipeline
+```
+{% include copy-curl.html %}
+
+The response contains statistics for all search pipelines:
+
+```json
+{
+  "_nodes" : {
+    "total" : 1,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "cluster_name" : "runTask",
+  "nodes" : {
+    "CpvTK7KuRD6Oww8TTp8g2Q" : {
+      "timestamp" : 1689007282929,
+      "name" : "runTask-0",
+      "transport_address" : "127.0.0.1:9300",
+      "host" : "127.0.0.1",
+      "ip" : "127.0.0.1:9300",
+      "roles" : [
+        "cluster_manager",
+        "data",
+        "ingest",
+        "remote_cluster_client"
+      ],
+      "attributes" : {
+        "testattr" : "test",
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "search_pipeline" : {
+        "total_request" : {
+          "count" : 5,
+          "time_in_millis" : 158,
+          "current" : 0,
+          "failed" : 0
+        },
+        "total_response" : {
+          "count" : 2,
+          "time_in_millis" : 1,
+          "current" : 0,
+          "failed" : 0
+        },
+        "pipelines" : {
+          "public_info" : {
+            "request" : {
+              "count" : 3,
+              "time_in_millis" : 71,
+              "current" : 0,
+              "failed" : 0
+            },
+            "response" : {
+              "count" : 0,
+              "time_in_millis" : 0,
+              "current" : 0,
+              "failed" : 0
+            },
+            "request_processors" : [
+              {
+                "filter_query:abc" : {
+                  "type" : "filter_query",
+                  "stats" : {
+                    "count" : 1,
+                    "time_in_millis" : 0,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              },
+              {
+                "filter_query" : {
+                  "type" : "filter_query",
+                  "stats" : {
+                    "count" : 4,
+                    "time_in_millis" : 2,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              }
+            ],
+            "response_processors" : [ ]
+          },
+          "guest_pipeline" : {
+            "request" : {
+              "count" : 2,
+              "time_in_millis" : 87,
+              "current" : 0,
+              "failed" : 0
+            },
+            "response" : {
+              "count" : 2,
+              "time_in_millis" : 1,
+              "current" : 0,
+              "failed" : 0
+            },
+            "request_processors" : [
+              {
+                "script" : {
+                  "type" : "script",
+                  "stats" : {
+                    "count" : 2,
+                    "time_in_millis" : 86,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              },
+              {
+                "filter_query:abc" : {
+                  "type" : "filter_query",
+                  "stats" : {
+                    "count" : 1,
+                    "time_in_millis" : 0,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              },
+              {
+                "filter_query" : {
+                  "type" : "filter_query",
+                  "stats" : {
+                    "count" : 3,
+                    "time_in_millis" : 0,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              }
+            ],
+            "response_processors" : [
+              {
+                "rename_field" : {
+                  "type" : "rename_field",
+                  "stats" : {
+                    "count" : 2,
+                    "time_in_millis" : 1,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+For descriptions of each field in the response, see the [Nodes Stats search pipeline section]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#search_pipeline). 
