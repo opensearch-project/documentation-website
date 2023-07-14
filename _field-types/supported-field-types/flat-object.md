@@ -69,9 +69,6 @@ This functionality is planned for a future release.
 
 The following example illustrates mapping a field as a flat object, indexing documents with flat object fields, and searching for leaf values of the flat object in those documents.
 
-Only the root field of a document can be defined as a flat object. You cannot define an object that is part of another JSON object as a flat object because when a flat object is flattened to a string, the nested architecture of the leaves is lost.
-{: .note}
-
 First, create a mapping for your index, where `issue` is of type `flat_object`:
 
 ```json
@@ -218,3 +215,30 @@ GET /test-index/_search
   }
 }
 ```
+
+## Defining a subfield as a flat object
+
+You can define a subfield of a JSON object as a flat object. For example, use the following query to define the `issue.labels` as `flat_object`:
+
+```json
+PUT /test-index/
+{
+  "mappings": {
+    "properties": {
+      "issue": {
+        "properties": {
+          "number": {
+            "type": "double"
+          },
+          "labels": {
+            "type": "flat_object"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Because `issue.number` is not part of the flat object, you can use it to aggregate and sort documents.
