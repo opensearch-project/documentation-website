@@ -32,7 +32,7 @@ Users can only access, create, or manage alerts for resources for which they hav
 
 ## General requirements for alerting visualizations
 
-Alerting visualizations are displayed as time-series charts that give you a snapshot of the alert, alert status, last updated time, and reason for the alert. You can show up to 10 metrics on your chart, and each series can be shown as a line in the chart.
+Alerting visualizations are displayed as time-series charts that give you a snapshot of the alert, alert status, last updated time, and reason for the alert. You can display up to 10 metrics on your chart, and each series can be shown as a line on the chart.
 
 Keep in mind the following requirements when setting up or creating alerting visualizations:
 
