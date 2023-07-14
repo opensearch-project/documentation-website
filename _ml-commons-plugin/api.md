@@ -161,7 +161,7 @@ All versions of a particular model are held in a model group. You can [register 
 If you are registering the first version of the model and you don't register a model group before registering the model, a new model group will be created automatically with the following name and access level:
 
 - Name: The new model group will have the same name as the model. Because the model group name must be unique, ensure that your model name does not have the same name as any model groups in the cluster. 
-- Acccess level: The access level for this model group will be determined using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. 
+- Access level: The access level for this model group will be determined using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. 
 
 Once a model group is created, provide its `model_group_id` to register a new model version to this model group. In this case, the model name does not have to be unique.
 
@@ -170,7 +170,7 @@ If you're using [pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plug
 
 For information about user access for this API, see [Model access control considerations](#model-access-control-considerations).
 
-ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+If the model is more than 10 MB in size, ML Commons splits it into smaller chunks and saves those chunks in the model's index.
 
 ### Path and HTTP methods
 
