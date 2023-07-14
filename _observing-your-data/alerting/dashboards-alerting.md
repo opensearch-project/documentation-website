@@ -15,6 +15,8 @@ Create, manage, and take action on your alerts in a single, consolidated view an
 - Create graphs that show trends and patterns and build intuitive dashboards to stay informed of important metrics and data points in real time.
 - Monitor your alerts in one place with at-a-glance views.
 
+The following image gives you a snaphot of the Dashboard interface. 
+
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-viz.png" alt="Example alerting visualization" width="800" height="800">
 
 ## Getting started 
