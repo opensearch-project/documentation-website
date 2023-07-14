@@ -40,7 +40,7 @@ To start, first create an anomaly detector:
 6. Select **Create new detector**.
 7. Input information for **Detector details** and **Model features**. Up to five model features are allowed. 
 8. To preview the visualization within the flyout, toggle the **Show visualization** button.
-9. Select **Create detector**. Once you have created a new detector, the detector is added to the visualization.  
+9. Select **Create detector**. Once you have created a new detector, the detector is added to the visualization, as shown in the following image.  
 
 ![Interface of adding a detector]({{site.url}}{{site.baseurl}}/images/dashboards/add-detector.png)
 
