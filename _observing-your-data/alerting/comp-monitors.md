@@ -87,7 +87,7 @@ The following image shows a simplified workflow for a compound monitor with chai
 You can manage composite monitors using the REST API or OpenSearch Dashboards. Currently, the API offers the most versatility for defining composite monitors. The API configuration includes options to create composite monitors that chain findings and monitors that chain alerts. OpenSearch Dashboards is available for creating composite monitors that chain alerts.
 
 
-### Create composite monitor
+### Create Composite Monitor
 
 This API allows you to create composite monitors.
 
@@ -117,7 +117,7 @@ POST _plugins/_alerting/workflows
 | `triggers.chained_alert_trigger.id` | String | The unique identifier for the alert trigger. |
 | `triggers.chained_alert_trigger.name` | String | TBD |
 | `triggers.chained_alert_trigger.severity` | Number | The alert severity. 1 = highest; 2 = high; 3 = medium; 4 = low; 5 = lowest.|
-| `triggers.chained_alert_trigger.condition.script` | O | The script details that determine the conditions for triggering an alert. |
+| `triggers.chained_alert_trigger.condition.script` | Object | The script details that determine the conditions for triggering an alert. |
 | `triggers.chained_alert_trigger.condition.script.source` | String | The Painless script that defines the conditions for triggering an alert. |
 | `triggers.chained_alert_trigger.condition.script.lang` | String | Enter `painless` for the Painless scripting language. |
 
@@ -225,7 +225,7 @@ POST _plugins/_alerting/workflows
 {% include copy-curl.html %}
 
 
-### Get composite monitor
+### Get Composite Monitor
 
 Retrieves information on the specified monitor.
 
@@ -238,12 +238,12 @@ GET _plugins/_alerting/workflows/<id>
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| monitor Id | String | The monitor Id |
+| `workflow_id` | String | The workflow Id |
 
 
-### Update composite monitor
+### Update Composite Monitor
 
-Updates the composite monitor's details. See [Create composite monitor](#create-composite-monitor) for description of request fields.
+Updates the composite monitor's details. See [Create Composite Monitor](#create-composite-monitor) for description of request fields.
 
 ```json
 PUT _plugins/_alerting/workflows/<id>
@@ -284,7 +284,7 @@ PUT _plugins/_alerting/workflows/<id>
 {% include copy-curl.html %}
 
 
-### Delete composite monitor
+### Delete Composite Monitor
 
 ```json
 DELETE _plugins/_alerting/workflows/<id>
@@ -298,7 +298,7 @@ DELETE _plugins/_alerting/workflows/<id>
 | monitor Id | String | The monitor Id |
 
 
-### Execute composite monitor
+### Execute Composite Monitor
 
 ```json
 POST /_plugins/_alerting/workflows/<workflow_id>/_execute
@@ -309,7 +309,7 @@ POST /_plugins/_alerting/workflows/<workflow_id>/_execute
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| workflow Id | String | The workflow Id. Enter the workflow Id in the path to run the execution. |
+| workflow_id | String | The workflow Id. Enter the workflow Id in the path to run the execution. |
 
 
 #### Example response
@@ -409,27 +409,21 @@ POST /_plugins/_alerting/workflows/<workflow_id>/_execute
 ```
 
 
-### Acknowledge chained alerts
+### Acknowledge Chained Alerts
 
 ```json
-POST _plugins/_alerting/workflows/<workflow-id>/_acknowledge/alerts
+POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 {
     "alerts": ["eQURa3gBKo1jAh6qUo49"]
 }
 ```
 {% include copy-curl.html %}
 
-#### Path parameters
-
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| workflow Id | String | The workflow Id. Enter the workflow Id in the path to retrieve its associated alerts. |
-
 #### Request fields
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| `alerts` | Array | A list of alerts by Id. The results include alerts that are acknowledged by the system as well as alerts not recognized by the system.  |
+| `alerts` | Array | A list of alerts by Id. The results include alerts that are acknowledged by the system as well as alerts not recognized by the system. |
 
 #### Example response
 
