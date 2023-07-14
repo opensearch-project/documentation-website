@@ -53,7 +53,7 @@ By default, when you begin to create the alert monitor workflow using the Dashbo
 3. Select **Add an existing**, then select the appropriate alerting visualization from the **Add panels** list. The visualization is added to the dashboard.
 4. From the visualization panel, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}). 
 5. From the **Options** menu, select **Add alerting monitor**.
-6. Input information for **Monitor details** and **Triggers**  
+6. Input information for **Monitor details** and **Triggers**.
 7. Choose **Create monitor**. The monitor is added to the visualization.  
 
 An example of the create monitor steps is shown in the following screenshot.
