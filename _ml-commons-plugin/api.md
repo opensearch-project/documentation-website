@@ -156,9 +156,14 @@ The response contains the following model information:
 
 ## Registering a model
 
-All versions of a particular model are held in a model group. You can [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) first, before registering a model to the model group. If you don't register a model group and send a request to register a model, a new model group with the same name as the version will be created automatically. The access level for this model group will be determined using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. 
+All versions of a particular model are held in a model group. You can [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) first, before registering a model to the model group. Each model group name must be globally unique in the cluster. 
 
-Each model group name must be globally unique in the cluster. When creating a new model without registering a model group first, make sure to assign the new model a unique name. To register a new model version to an existing model group, provide a `model_group_id` and `name` for the model version.
+If you are registering the first version of the model and you don't register a model group before registering the model, a new model group will be created automatically with the following name and access level:
+
+- Name: The new model group will have the same name as the model. Because the model group name must be unique, ensure that your model name does not have the same name as any model groups in the cluster. 
+- Acccess level: The access level for this model group will be determined using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. 
+
+Once a model group is created, provide its `model_group_id` to register a new model version to this model group. In this case, the model name does not have to be unique.
 
 If you're using [pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models#supported-pretrained-models) provided by OpenSearch, we recommend that you first register a model group with a unique name for these models. Then register the pretrained models as versions to that model group. This ensures that every model group has a globally unique model group name.
 {: .tip}
@@ -183,7 +188,7 @@ Field | Data type | Description
 `name`| String | The model's name. |
 `version` | Integer | The model's version number. |
 `model_format` | String | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
-`model_group_id` | String | The model group ID for the model. 
+`model_group_id` | String | The model group ID for the model group to register this model to. 
 `model_content_hash_value` | String | The model content hash generated using the SHA-256 hashing algorithm.
 `model_config`  | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. |
 `url` | String | The URL that contains the model. |
