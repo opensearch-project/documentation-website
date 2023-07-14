@@ -10,18 +10,30 @@ nav_exclude: true
 Introduced 2.9
 {: .label .label-purple }
 
-OpenSearch Integrations connects your data, applications, and processes so that you can centrally manage the services you use. All integrations are available in a single view, and OpenSearch Dashboards guides you there from the home page and main menu.
+OpenSearch Integrations is a straightforward starting point for OpenSearch and OpenSearch Dashboards users to visualize and understand data using pre-canned dashboards and assets. 
 
-The OpenSearch Project seeks your feedback on this feature. Let us know how OpenSearch Integrations works for you or how it can be improved at <insert-link>. For the developer guide, code, and other backend user information, go to the [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations)..
+The OpenSearch Project seeks your feedback on this feature. Let us know how OpenSearch Integrations works for you or how it can be improved at <insert-link>. 
 {: .label-yellow}
 
-## Overview of OpenSearch Integrations
+## Setting up OpenSearch Integrations
 
+For the latest developer information, including sample code, articles, tutorials, and API reference, see the following resources:
 
+- [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations) on GitHub
+- [Integration Creation Guide](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Guide)
+- [Integration Creation Reference](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Reference)
+
+## Integrations schema
+
+The OpenSearch Integrations schema outlines how to capture, analyze, and visualize data. It includes the selection and configuration of monitoring tools, data collection methods, data storage and retention strategies, and visualization and alerting mechanisms. It follows the [OpenTelemetry Protocol convention](https://github.com/open-telemetry). 
+
+OpenSearch [Simple Schema for Observability](https://opensearch.org/docs/latest/observing-your-data/ssfo/) handles the translation from the OTEL schema to the physical index mapping templates. See the [OpenSearch Observability READ.me file](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/schema/observability/README.md) and [OpenSearch Observability wiki](https://github.com/opensearch-project/dashboards-observability/wiki/OpenSearch-Observability--Home#observability-schema) for schema examples and other details.
 
 ## Get started
 
-Learn how to do the following:
+Using the OpenSearch Dashboards interface, you can connect your data, applications, and processes so that you can centrally manage the services you use. All integrations are available in a single view, and OpenSearch Dashboards guides you there from the home page and main menu. 
+
+Learn how to do the following using the OpenSearch Dashboards interface:
 
 - Access integrations
 - View integrations
@@ -41,13 +53,13 @@ To view an integration, select the desired integration listed under the **Instal
 
 If you have not installed any integrations, you'll be prompted to install them from the Integrations interface. Supported integrations are listed under the **Available** window. 
 
-To add an integration, select the desired pre-packaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it.  
+To add an integration, select the desired pre-packaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it. The following example uses the Try it flow.
 
-### Try it
+1. 
+2. 
 
-1. Select
 
-### Add
+
 
 
 
