@@ -22,7 +22,7 @@ Before getting started, you must have:
 
 ## General requirements for anomaly detection visualizations
 
-Anomaly detection visualizations are intended for use with time-series data (real-time or historical). The following visualization types are used frequently for time-series data: line, area, vertical bar, and Time Series Visual Builder (TSVB).
+Anomaly detection visualizations are intended for use with time-series data (real-time or historical). The following visualization types are used frequently for time-series data: line, area, vertical bar, and time-series visual builder (TSVB).
 
 ## Configuring admin settings
 
