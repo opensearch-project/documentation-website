@@ -52,7 +52,7 @@ Use a single interface to add, view, and edit anomaly detectors that you want to
 2. Select **Associate a detector**.
 3. From the **Select detector to associate** dropdown menu, select the detector. Only eligible detectors are listed in the dropdown menu.
 4. View the detectors's basic information. To view comprehensive details, select **View detector page** to open the Anomaly Detection plugin page.
-5. Select **Associate detector**. An existing detector is now associated to the visualization.
+5. Select **Associate detector**. An existing detector is now associated to the visualization, as shown in the following image.
 
 ![Interface and confirmation message of associating a detector]({{site.url}}{{site.baseurl}}/images/dashboards/associated-detector.png)
 
