@@ -91,7 +91,8 @@ Setting | Description
 :--- | :---
 index.number_of_replicas | The number of replica shards each primary shard should have. For example, if you have 4 primary shards and set `index.number_of_replicas` to 3, the index has 12 replica shards. Default is 1.
 index.auto_expand_replicas | Whether the cluster should automatically add replica shards based on the number of data nodes. Specify a lower bound and upper limit (for example, 0-9), or `all` for the upper limit. For example, if you have 5 data nodes and set `index.auto_expand_replicas` to 0-3, then the cluster does not automatically add another replica shard. However, if you set this value to `0-all` and add 2 more nodes for a total of 7, the cluster will expand to now have 6 replica shards. Default is disabled.
-index.codec |  Determines how the index’s stored fields are compressed and stored on the disk. This setting impacts the size of the index shards and the performance of the operations on the index. Available values are: `default', 'best_compression`, `zstd` and `zstd_no_dict`. Two new codecs are introduced in OpenSearch 2.9: `zstd` and `zstd_no_dict`. They provide an option to configure the compression level as an index setting `index.codec.compression_level` which is not available for other codecs. For information about each setting, see [Index codec settings](#Index-codec-settings).
+index.codec |  Determines how the index’s stored fields are compressed and stored on the disk. This setting impacts the size of the index shards and the performance of the operations on the index. Available values are: `default', 'best_compression`, `zstd` and `zstd_no_dict`. Two new codecs are introduced in OpenSearch 2.9: `zstd` and `zstd_no_dict`. They provide an option to configure the compression level as an index setting `index.codec.compression_level` which is not available for other codecs. For information about each setting, see [Index codec settings](#Index-codec-settings). 
+index.codec.compression_level | The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (lesser storage size) with a trade-off on speed, that is, slower compression and decompression speeds (slower indexing and search latencies). Currently, `zstd` and `zstd_no_dict` supports compression levels from 1 to 6. Similar to `index.codec`, `index.codec.compression_level` is an optional index setting. The default compression level is 3 if not provided.
 index.search.idle.after | Amount of time a shard should wait for a search or get request until it goes idle. Default is `30s`.
 index.refresh_interval | How often the index should refresh, which publishes its most recent changes and makes them available for searching. Can be set to `-1` to disable refreshing. Default is `1s`.
 index.max_result_window | The maximum value of `from` + `size` for searches to the index. `from` is the starting index to search from, and `size` is the amount of results to return. Default: 10000.
@@ -120,33 +121,27 @@ The `index.codec` setting of an OpenSearch index determines how the index’s st
 * `zstd` - This codec uses the [`Zstandard` compression algorithm](https://github.com/facebook/zstd), which provides a good balance between compression ratio and speed. It provides significant compression comparable to `best_compression` codec with reasonable CPU usage and improved indexing/search performance comparable to `default` codec.
 * `zstd_no_dict` This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
 
-`Compression_level` provides a trade-off between compression ratio and speed. Higher compression level results in higher compression ratio (lesser storage size) with a trade off on speed, that is, slower compression and decompression speeds (slower indexing and search latencies). Currently, the `zstd` and `zstd_no_dict`  supports the compression level in the range from 1 to 6. Similar to `index.codec`, `index.codec.compression_level` is an optional index setting. Default compression level 3 is used if an option is not provided.
-
 The setting of an index can be updated using a PUT request. Here's an example using the curl commands to close an index, update the settings, and open an index.
 
 ```json
-# Close the index
-curl -XPOST "http://localhost:9200/your_index/_close"
+POST /your_index/_close
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ```json
-# Update the index.codec setting
-curl -XPUT "http://localhost:9200/your_index/_settings" -H 'Content-Type: application/json' -d'
+PUT /your_index/_settings
 {
   "index": {
-    "codec": "zstd_no_dict"
+    "codec": "zstd_no_dict",
     "codec.compression_level": 3
   }
 }
-'
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ```json
-# Reopen the index
-curl -XPOST "http://localhost:9200/your_index/_open"
+POST /your_index/_open
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 
