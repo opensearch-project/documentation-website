@@ -156,10 +156,9 @@ The response contains the following model information:
 
 ## Registering a model
 
-All versions of a particular model are held in a model group. You can [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) first, before registering a model to the model group. If you don't register a model group and send a request to register a model, a new model group will be created automatically using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. 
+All versions of a particular model are held in a model group. You can [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) first, before registering a model to the model group. If you don't register a model group and send a request to register a model, a new model group with the same name as the version will be created automatically. The access level for this model group will be determined using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you can pass in the request. If you don't provide any of the three parameters, the new model group will be private. The newly registered model will be the first model version assigned to that model group. 
 
-Each model group name must be globally unique in the cluster.
-{: .important}
+Each model group name must be globally unique in the cluster. When creating a new model without registering a model group first, make sure to assign the new model a unique name. To register a new model version to an existing model group, provide a `model_group_id` and `name` for the model version.
 
 If you're using [pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models#supported-pretrained-models) provided by OpenSearch, we recommend that you first register a model group with a unique name for these models. Then register the pretrained models as versions to that model group. This ensures that every model group has a globally unique model group name.
 {: .tip}
