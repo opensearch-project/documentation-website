@@ -188,7 +188,7 @@ Field | Data type | Description
 `name`| String | The model's name. |
 `version` | Integer | The model's version number. |
 `model_format` | String | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
-`model_group_id` | String | The model group ID for the model group to register this model to. 
+`model_group_id` | String | The model group ID of the model group to register this model to. 
 `model_content_hash_value` | String | The model content hash generated using the SHA-256 hashing algorithm.
 `model_config`  | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. |
 `url` | String | The URL that contains the model. |
