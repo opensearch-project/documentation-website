@@ -31,7 +31,7 @@ Field | Data type | Description
 
 ## Example 
 
-The following example demonstrates using a search pipeline with a `personalize_search_ranking` processor.
+The following example demonstrates using a search pipeline with a `personalize_search_ranking` processor. For additional details, see [Personalizing search results from OpenSearch (self-managed)](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html).
 
 ### Creating a search pipeline 
 
