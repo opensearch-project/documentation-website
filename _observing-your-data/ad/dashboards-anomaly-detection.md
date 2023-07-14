@@ -44,7 +44,7 @@ To start, first create an anomaly detector:
 
 ![Interface of adding a detector]({{site.url}}{{site.baseurl}}/images/dashboards/add-detector.png)
 
-## Adding associated anomaly detectors
+## Adding anomaly detectors to visualizations
 
 Use a single interface to add, view, and edit anomaly detectors that you want to associate to a visualization. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an anomaly detector to a visualization:
  
