@@ -88,5 +88,5 @@ Once you've created or associated alerting monitors, verify that the monitor is 
 
 ## Next steps
 
-- [Learn more about Dashboard](https://opensearch.org/docs/latest/dashboards/dashboard/index/)
+- [Learn more about the Dashboard application](https://opensearch.org/docs/latest/dashboards/dashboard/index/).
 - [Learn more about alerting](https://opensearch.org/docs/latest/observing-your-data/alerting/index/)
