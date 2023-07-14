@@ -26,7 +26,7 @@ Anomaly detection visualizations are intended for use with time-series data (rea
 
 ## Configuring admin settings
 
-Users can only access, create, or manage alerts for resources for which they have permissions. Access to anomaly detection dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards permissions. It is enabled by default and appears as a feature under **Dashboards Management** > **Advanced Settings** > **Visualization**. If the setting is disabled, it does not appear under Dashboard Management. You can disable the setting at the cluster level through the `opensearch-dashboards.yml` file.
+Users can only access, create, or manage alerts for resources for which they have permissions. Access to anomaly detection dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards permissions. It is enabled by default and appears as a feature under **Dashboards Management** > **Advanced Settings** > **Visualization**. If the setting is disabled, it does not appear under **Dashboards Management**. You can disable the setting at the cluster level in the `opensearch-dashboards.yml` file.
 
 ## Creating anomaly detectors
 
