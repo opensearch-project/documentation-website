@@ -39,7 +39,7 @@ Keep in mind the following requirements when setting up or creating alerting vis
 - Must be a [Vizlib line chart](https://community.vizlib.com/support/solutions/articles/35000107262-vizlib-line-chart-introduction)
 - Must contain at least Y-axis metric aggregation
 - Must not have non-Y-axis metric aggregation types
-- Must use date histogram aggregation type for the X-axis bucket
+- Must use the date histogram aggregation type for the X-axis bucket
 - Must have X-axis on the bottom
 - Must define one X-axis aggregation bucket
 - Must have a valid time-based X-axis
