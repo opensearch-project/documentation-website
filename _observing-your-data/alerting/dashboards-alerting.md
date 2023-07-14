@@ -64,7 +64,7 @@ An example of these steps is shown in the following screenshot.
 
 ## Associating monitors
 
-You can associate certain monitor types with a visualization using the Dashboard interface instead of the plugin page, giving you a single interface to add, view, and edit monitor data.
+You can associate certain monitor types with a visualization using the Dashboard interface instead of the plugin page, giving you a single interface through which to add, view, and edit monitor data.
 
 #### To associate a monitor
 
