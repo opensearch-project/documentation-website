@@ -119,7 +119,7 @@ To try Kendra Intelligent Ranking, you must first set up the Amazon Kendra servi
 
 ### Reranking results with Amazon Personalize Search Ranking
 
-Another example of a reranker is **Amazon Personalize Search Ranking**, contributed by the Amazon Personalize team. Amazon Personalize uses machine learning (ML) techniques to generate custom recommendations for your users. The plugin takes search results from OpenSearch and applies a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/) to rerank them according to their Personalize rankings, based on the user's past behavior and metadata about the search items and the user. This workflow improves search experience for your users by personalizing their search results.
+Another example of a reranker is **Amazon Personalize Search Ranking**, contributed by the Amazon Personalize team. Amazon Personalize uses machine learning (ML) techniques to generate custom recommendations for your users. The plugin takes search results from OpenSearch and applies a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) to rerank them according to their Personalize rankings, based on the user's past behavior and metadata about the search items and the user. This workflow improves search experience for your users by personalizing their search results.
 
 To try Amazon Personalize Search Ranking, you must first set up the Amazon Personalize service. To get started, see [Amazon Personalize](https://aws.amazon.com/personalize/). For detailed information, including plugin setup instructions, see [Personalizing search results from OpenSearch (self-managed)](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html).
 
