@@ -119,7 +119,7 @@ The `index.codec` setting of an OpenSearch index determines how the index’s st
 * `default` -- This codec employs the `LZ4` algorithm with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression` but may result in larger index/shard sizes. If no codec is provided in the index settings, then `LZ4`  is used as the default algorithm for compression.
 * `best_compression` -- This codec utilizes `zlib` as an underlying algorithm for compression. It achieves high compression ratios resulting in smaller index sizes. However, this may incur additional CPU usage during index operations and may subsequently result in high indexing and search latencies. 
 * `zstd` -- This codec uses the [`Zstandard` compression algorithm](https://github.com/facebook/zstd), which provides a good balance between compression ratio and speed. It provides significant compression comparable to the `best_compression` codec with reasonable CPU usage and improved indexing/search performance comparable to the `default` codec.
-* `zstd_no_dict` This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
+* `zstd_no_dict` -- This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
 
 The setting of an index can be updated using a PUT request. Here's an example using the curl commands to close an index, update the settings, and open an index.
 
