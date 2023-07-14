@@ -63,7 +63,7 @@ PUT /_search/pipeline/my-pipeline
 To search with a pipeline, specify the pipeline name in the `search_pipeline` query parameter. For example, the following request searches for comedies using the pipeline set up in the previous section:
 
 ```json
-GET /index/_search?search_pipeline=my-pipeline
+GET /movies/_search?search_pipeline=my-pipeline
 {
   "query": {
     "multi_match": {
