@@ -12,7 +12,7 @@ Introduced 2.9
 Create, manage, and take action on your alerts in a single, consolidated view and identify and resolve issues quickly. Use the **Dashboard** interface to:
 
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
-- Create graphs that show trends and patterns and build intuitive dashboards to stay on top of important metrics and data points in real time.
+- Create graphs that show trends and patterns and build intuitive dashboards to stay informed of important metrics and data points in real time.
 - Monitor your alerts in one place with at-a-glance views.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-viz.png" alt="Example alerting visualization" width="800" height="800">
