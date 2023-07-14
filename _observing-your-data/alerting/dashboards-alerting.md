@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Integrating alerts with Dashboard 
+title: Alerting dashboards and visualizations 
 parent: Alerting
 nav_order: 50
 ---
 
-# Integrating alerts with Dashboard
+# Alerting dashboards and visualizations
 Introduced 2.9
 {: .label .label-purple }
 
@@ -26,7 +26,7 @@ Before getting started, you must have:
 
 ## Configuring admin settings
 
-You can only access, create, or manage alerts for resources for which you have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges, and you can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management** > **Advanced Settings** > **Visualizations** window. If the setting is disabled, it does not appear in this window. The setting can be disabled at the cluster level through the `opensearch-dashboards.yml` file.
+You can only access, create, or manage alerts for resources for which you have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges, and you can manage the settings under **Management** in the OpenSearch Dashboards main menu. Access is enabled by default and appears as a feature under **Dashboards Management** > **Advanced Settings** > **Visualization**. If the setting is disabled, it does not appear. You can disable the setting at the cluster level through the `opensearch-dashboards.yml` file.
 
 ## General requirements for alerting visualizations
 
@@ -42,7 +42,7 @@ Keep in mind the following requirements when setting up or creating alerting vis
 - Must define one X-axis aggregation bucket
 - Must have a valid time-based X-axis
 
-## Creating alerting monitors with Dashboard
+## Creating alerting monitors
 
 By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop-up, pull-down, or dropdown, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-types) only.
 
