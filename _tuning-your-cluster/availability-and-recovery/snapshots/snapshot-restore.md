@@ -24,13 +24,16 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 ---
 
-#### Table of contents
-1. TOC
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
 {:toc}
-
+</details>
 
 ---
-
 
 ## Register repository
 
@@ -359,7 +362,7 @@ When creating a snapshot, the index codec setting influences both the size of th
 
 If you want to restore the indexes from a snapshot of a cluster to another cluster, then it is important to verify that the target cluster supports the codecs of the segments present in the source snapshot. For example, if the source snapshot has the segments of `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), then the user cannot restore to the target cluster where the support of these codecs is not available. 
 
-For more information about index codec settings, see [Index codec settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/Index-codec-settings/))
+For more information about index codec settings, see [Index codec settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#Index-codec-settings/).
 
 ## Security considerations
 
