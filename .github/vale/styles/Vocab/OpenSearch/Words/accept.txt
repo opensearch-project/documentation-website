@@ -81,7 +81,7 @@ pebibyte
 [Rr]eenable
 [Rr]eindex
 [Rr]eingest
-[Rr]eranker
+[Rr]erank[er|ed|ing]?
 [Rr]epo
 [Rr]ewriter
 [Rr]ollup
