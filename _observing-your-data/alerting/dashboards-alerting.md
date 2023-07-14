@@ -48,7 +48,7 @@ Keep in mind the following requirements when setting up or creating alerting vis
 
 By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-types).
 
-#### To create an alerting monitor 
+To create an alerting monitor: 
 
 1. Choose **Dashboard** from the OpenSearch Dashboards main menu.
 2. From the **Dashboards** window, select **Create** and then choose **Dashboard**.
@@ -65,8 +65,6 @@ An example of these steps is shown in the following screenshot.
 ## Associating monitors
 
 You can associate certain monitor types with a visualization using the Dashboard interface instead of the plugin page, giving you a single interface through which to add, view, and edit monitor data.
-
-#### To associate a monitor
 
 Continuing with the alerting visualization and dashboard created in the preceding section, associate an existing monitor with a visualization by following these steps: 
 
