@@ -18,8 +18,8 @@ To use the `personalize_search_ranking` processor, you must first install the Am
 
 The following table lists all available request fields.
 
-Field | Data type | Required/Optional | Description
-:--- | :--- | :--- | :---
+Field | Data type | Description
+:--- | :--- | :--- 
 `campaign_arn` | String |  The Amazon Resource Name (ARN) of the Amazon Personalize campaign to use personalize results. Required.
 `recipe` | String | The name of the Amazon Personalize recipe to use. Currently, the only supported value for this field is `aws-personalized-ranking`. Required.
 `weight` | Float | The weight to use with rankings provided by OpenSearch and Personalize. Valid values are in the [0.0, 1.0] range. The closer to 1.0, the more weight is given to Amazon Personalize as opposed to OpenSearch when calculating the ranking. If you specify 0.0, OpenSearch rankings are used. If you specify 1.0, Personalize rankings are used. Required.
