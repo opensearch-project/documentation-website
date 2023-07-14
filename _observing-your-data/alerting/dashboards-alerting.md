@@ -72,7 +72,7 @@ Continuing with the alerting visualization and dashboard created in the precedin
 2. Select **Associated monitors**.
 3. From the **Select monitor to associate** dropdown menu, select the monitor. Only eligible monitors are listed in the dropdown menu. 
 4. View the monitor's basic information. To view comprehensive details, select **View monitor page** to open the Alerting plugin page.
-5. Select **Associate monitor**. An existing monitor is associated to the visualization.
+5. Select **Associate monitor**. An existing monitor is associated with the visualization.
 
 ## Exploring alerting monitor details
 
