@@ -63,4 +63,4 @@ Depending on the threshold settings, the visualization refreshes automatically a
 ## Next steps
 
 - [Learn more about the Dashboard application]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/).
-- [Learn more about anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/)
+- [Learn more about anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
