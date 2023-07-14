@@ -57,7 +57,8 @@ To add an integration, select the desired pre-packaged assets. Currently, OpenSe
 
 1. From the **Integrations** page, select **NginX Dashboard**.
 2. Select the **Try it** button. _The Try it flow automatically creates a sample index template and add sample data into the template, and then creates the integration based on that data._
-3. View the asset list, and select a dashboard asset.   
+3. View the asset list, and select a dashboard asset.
+4. Preview the data visualizations and explore the sample data details.   
 
 
 
