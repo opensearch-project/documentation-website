@@ -12,7 +12,7 @@ Introduced 2.9
 
 OpenSearch Integrations is a straightforward starting point for OpenSearch and OpenSearch Dashboards users to visualize and understand data using pre-canned dashboards and assets. 
 
-The OpenSearch Project seeks your feedback on this feature. Let us know how OpenSearch Integrations works for you or how it can be improved at <insert-link>. 
+The OpenSearch Project seeks your feedback on this feature. Let us know in the [OpenSearch forum](https://forum.opensearch.org/) how OpenSearch Integrations works for you or how it can be improved. 
 {: .label-yellow}
 
 ## Setting up OpenSearch Integrations
