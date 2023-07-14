@@ -46,7 +46,7 @@ To start, first create an anomaly detector:
 
 ## Adding anomaly detectors to visualizations
 
-Use a single interface to add, view, and edit anomaly detectors that you want to associate to a visualization. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an anomaly detector to a visualization:
+Use a single interface to add, view, and edit anomaly detectors that you want to associate with a visualization. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an anomaly detector with a visualization:
  
 1. Select the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}) from the visualization panel, then select **Anomaly Detection**.
 2. Select **Associate a detector**.
