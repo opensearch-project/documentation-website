@@ -104,15 +104,28 @@ Setting `size` to a high value (for example, larger than 250 documents) may degr
 You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
 {: .note}
 
-## Comparing OpenSearch search results with re-ranked results
+## Comparing OpenSearch search results with reranked results
 
-One use case for Compare Search Results is to compare raw OpenSearch results with the same results processed by a re-ranking application. An example of such a re-ranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Amazon Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this provides better result rankings.
+One use case for Compare Search Results is to compare raw OpenSearch results with the same results processed by a reranking application. The following two rerankers are currently available:
+
+- [Kendra Intelligent Ranking for OpenSearch](#reranking-results-with-kendra-intelligent-ranking-for-opensearch)
+- [Amazon Personalize Search Ranking](#reranking-results-with-amazon-personalize-search-ranking)
+
+### Reranking results with Kendra Intelligent Ranking for OpenSearch
+
+An example of a reranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Amazon Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this provides better result rankings.
 
 To try Kendra Intelligent Ranking, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For detailed information, including plugin setup instructions, see [Intelligently ranking OpenSearch (self managed) results using Amazon Kendra](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
 
-Once you've set up Kendra Intelligent Ranking, enter a query in **Query 1** and enter the same query using Kendra Intelligent Ranking in **Query 2**. Then compare the search results from OpenSearch and Amazon Kendra.
+### Reranking results with Amazon Personalize Search Ranking
+
+Another example of a reranker is **Amazon Personalize Search Ranking**, contributed by the Amazon Personalize team. Amazon Personalize uses machine learning (ML) techniques to generate custom recommendations for your users. The plugin takes search results from OpenSearch and applies a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/) to rerank them according to their personalize rankings, based on the user's past behavior and metadata about the search items and the user. This workflow improves search experience for your users by personalizing their search results.
+
+To try Amazon Personalize Search Ranking, you must first set up the Amazon Personalize service. To get started, see [Amazon Personalize](https://aws.amazon.com/personalize/). For detailed information, including plugin setup instructions, see [Personalizing search results from OpenSearch (self-managed)](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html).
 
 ### Example
+
+In this example, you will compare search results from OpenSearch with the same results reranked with the Kendra Intelligent Ranking. Once you've [set up Kendra Intelligent Ranking](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html), enter a query in **Query 1** and enter the same query using Kendra Intelligent Ranking in **Query 2**. Then compare the search results from OpenSearch and Amazon Kendra.
 
 The following example searches for the text "snacking nuts" in the `abo` index. The documents in the index contain snack descriptions in the `bullet_point` array. 
 
