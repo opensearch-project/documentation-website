@@ -20,13 +20,13 @@ Method definitions are used when the underlying Approximate k-NN algorithm does 
   "type": "knn_vector",
   "dimension": 4,
   "method": {
-  "name": "hnsw",
-  "space_type": "l2",
-  "engine": "nmslib",
-  "parameters": {
-    "ef_construction": 128,
-    "m": 24
-  }
+    "name": "hnsw",
+    "space_type": "l2",
+    "engine": "nmslib",
+    "parameters": {
+      "ef_construction": 128,
+      "m": 24
+    }
   }
 }
 ```
@@ -48,14 +48,95 @@ However, if you intend to just use painless scripting or a k-NN score script, yo
  }
  ```
 
-## Method Definitions
+ ### Lucene byte vector
+
+By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
+ 
+Byte vectors are supported only for the `lucene` engine. They are not supported for the `nmslib` and `faiss` engines.
+{: .note}
+
+When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
+{: .important}
+ 
+Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
+
+To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index:
+
+ ```json
+PUT test-index
+{
+  "settings": {
+    "index": {
+      "knn": true,
+      "knn.algo_param.ef_search": 100
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "data_type": "byte",
+        "method": {
+          "name": "hnsw",
+          "space_type": "l2",
+          "engine": "lucene",
+          "parameters": {
+            "ef_construction": 128,
+            "m": 24
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then ingest documents as usual. Make sure each dimension in the vector is in the supported [-128, 127] range:
+
+```json
+PUT test-index/_doc/1
+{
+  "my_vector1": [-126, 28, 127]
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT test-index/_doc/2
+{
+  "my_vector1": [100, -128, 0]
+}
+```
+{% include copy-curl.html %}
+
+When querying, be sure to use a `byte` vector:
+
+```json
+GET test-index/_search
+{
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector1": {
+        "vector": [26, -120, 99],
+        "k": 2
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Method definitions
 
 A method definition refers to the underlying configuration of the Approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 
 A method definition will always contain the name of the method, the space_type the method is built for, the engine
 (the library) to use, and a map of parameters.
 
-Mapping Parameter | Required | Default | Updatable | Description
+Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
 `space_type` | false | l2 | false | The vector space used to calculate the distance between vectors.
@@ -64,13 +145,13 @@ Mapping Parameter | Required | Default | Updatable | Description
 
 ### Supported nmslib methods
 
-Method Name | Requires Training? | Supported Spaces | Description
+Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, innerproduct, cosinesimil, l1, linf | Hierarchical proximity graph approach to Approximate k-NN search. For more details on the algorithm, see this [abstract](https://arxiv.org/abs/1603.09320).
 
 #### HNSW parameters
 
-Parameter Name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
@@ -80,7 +161,7 @@ For nmslib, *ef_search* is set in the [index settings](#index-settings).
 
 ### Supported faiss methods
 
-Method Name | Requires Training? | Supported Spaces | Description
+Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, innerproduct | Hierarchical proximity graph approach to Approximate k-NN search.
 `ivf` | true | l2, innerproduct | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets is searched.
@@ -90,7 +171,7 @@ For hnsw, "innerproduct" is not available when PQ is used.
 
 #### HNSW parameters
 
-Parameter Name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `ef_search` | false | 512 | false | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches.
 `ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.
@@ -99,7 +180,7 @@ Parameter Name | Required | Default | Updatable | Description
 
 #### IVF parameters
 
-Parameter Name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `nlist` | false | 4 | false | Number of buckets to partition vectors into. Higher values may lead to more accurate searches at the expense of memory and training latency. For more information about choosing the right value, refer to [Guidelines to choose an index](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index).
 `nprobes` | false | 1 | false | Number of buckets to search during query. Higher values lead to more accurate but slower searches.
@@ -116,13 +197,13 @@ Training data can be composed of either the same data that is going to be ingest
 
 ### Supported Lucene methods
 
-Method Name | Requires Training? | Supported Spaces | Description
+Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, cosinesimil | Hierarchical proximity graph approach to Approximate k-NN search.
 
 #### HNSW parameters
 
-Parameter Name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.<br>The Lucene engine uses the proprietary term "beam_width" to describe this function, which corresponds directly to "ef_construction". To be consistent throughout OpenSearch documentation, we retain the term "ef_construction" to label this parameter.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.<br>The Lucene engine uses the proprietary term "max_connections" to describe this function, which corresponds directly to "m". To be consistent throughout OpenSearch documentation, we retain the term "m" to label this parameter.
@@ -169,7 +250,7 @@ An example method definition that specifies an encoder may look something like t
 }
 ```
 
-Encoder Name | Requires Training? | Description
+Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
 `pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
@@ -191,7 +272,7 @@ If you want to use less memory and index faster than HNSW, while maintaining sim
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-### Memory Estimation
+### Memory estimation
 
 In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates
 native library indexes to a portion of the remaining RAM. This portion's size is determined by
@@ -227,7 +308,7 @@ Additionally, the k-NN plugin introduces several index settings that can be used
 
 At the moment, several parameters defined in the settings are in the deprecation process. Those parameters should be set in the mapping instead of the index settings. Parameters set in the mapping will override the parameters set in the index settings. Setting the parameters in the mapping allows an index to have multiple `knn_vector` fields with different parameters.
 
-Setting | Default | Updateable | Description
+Setting | Default | Updatable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but Approximate k-NN search functionality will be disabled.
 `index.knn.algo_param.ef_search` | 512 | true | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches. Only available for nmslib.
