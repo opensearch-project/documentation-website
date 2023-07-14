@@ -40,7 +40,7 @@ The key terms in the following table describe the basic concepts behind composit
 | Findings chain | A sequence of findings where the findings for each monitor are used as the inputs for subsequent monitors. 
 | Alert chain | A sequence of alerts where an alert for each monitor is used as the input for a subsequent monitor.  |
 | Execution | A single run of all delegate monitors in the sequence defined in the composite monitor's configuration. |
-| Execution Id | Allows for the management of data recorded from a specific execution. The execution Id associates findings and alerts with the execution and is stored in each monitor's metadata. |
+| Execution Id | Allows for the management of data recorded from a specific execution of a composite monitor. The execution Id associates findings and alerts with the execution and is stored in each monitor's metadata, along with the workflow Id and the monitor Id. |
 
 
 ## Example workflows
@@ -238,7 +238,7 @@ GET _plugins/_alerting/workflows/<id>
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| monitor ID | String | The monitor ID |
+| monitor Id | String | The monitor Id |
 
 
 ### Update composite monitor
@@ -295,13 +295,13 @@ DELETE _plugins/_alerting/workflows/<id>
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| monitor ID | String | The monitor ID |
+| monitor Id | String | The monitor Id |
 
 
 ### Execute composite monitor
 
 ```json
-POST /_plugins/_alerting/workflows/{{w1}}/_execute
+POST /_plugins/_alerting/workflows/<workflow_id>/_execute
 ```
 {% include copy-curl.html %}
 
@@ -309,7 +309,7 @@ POST /_plugins/_alerting/workflows/{{w1}}/_execute
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| workflow ID | String | The workflow ID. Enter the workflow ID in the path to run the execution. |
+| workflow Id | String | The workflow Id. Enter the workflow Id in the path to run the execution. |
 
 
 #### Example response
@@ -423,13 +423,13 @@ POST _plugins/_alerting/workflows/<workflow-id>/_acknowledge/alerts
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| workflow ID | String | The workflow ID. Enter the workflow ID in the path to retrieve its associated alerts. |
+| workflow Id | String | The workflow Id. Enter the workflow Id in the path to retrieve its associated alerts. |
 
 #### Request fields
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| `alerts` | Array | A list of alerts by ID. The results include alerts that are acknowledged by the system as well as alerts not recognized by the system.  |
+| `alerts` | Array | A list of alerts by Id. The results include alerts that are acknowledged by the system as well as alerts not recognized by the system.  |
 
 #### Example response
 
