@@ -58,7 +58,7 @@ By default, when you begin to create the alert monitor workflow using the Dashbo
 6. Input information for **Monitor details** and **Triggers**.
 7. Choose **Create monitor**. The monitor is added to the visualization.  
 
-An example of the create monitor steps is shown in the following screenshot.
+An example of these steps is shown in the following screenshot.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/create-monitor-menu.png" alt="Create monitor interface" width="400" height="400">
 
