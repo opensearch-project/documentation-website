@@ -122,7 +122,7 @@ Field |Data type | Description
 `name` | String | The model group name. Required.
 `description` | String | The model group description. Optional.
 `access_mode` | String | The access mode for this model. Valid values are `public`, `private`, and `restricted`. When this parameter is set to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles`, but not both. Optional. If you don't specify any of the `access_mode`, `backend_roles`, or `add_all_backend_roles`, the default `access_mode` is `private`.
-`backend_roles` | Array | A list of the model owner's backend roles to add to the model. Can be specified only if the `access_mode` is `restricted`. Cannot be specified at the same time as `add_all_backend_roles`. Optional.
+`backend_roles` | Array | A list of the model owner's backend roles to add to the model. Can be specified only if `access_mode` is `restricted`. Cannot be specified at the same time as `add_all_backend_roles`. Optional.
 `add_all_backend_roles` | Boolean | If `true`, all backend roles of the model owner are added to the model group. Default is `false`. Cannot be specified at the same time as `backend_roles`. Admin users cannot set this parameter to `true`. Optional.
 
 #### Example request
