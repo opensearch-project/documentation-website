@@ -68,7 +68,7 @@ PUT _plugins/_query/settings
 Requests to the `_plugins/_ppl` and `_plugins/_sql` endpoints include index names in the request body, so they have the same access policy considerations as the `bulk`, `mget`, and `msearch` operations. Setting the `rest.action.multi.allow_explicit_index` parameter to `false` disables both the `SQL` and `PPL` endpoints.
 {: .note}
 
-# Available settings
+## Available settings
 
 Setting | Default | Description
 :--- | :--- | :---
@@ -78,3 +78,30 @@ Setting | Default | Description
 `plugins.sql.cursor.keep_alive` | 1 minute | Configures how long the cursor context is kept open. Cursor contexts are resource-intensive, so we recommend a low value.
 `plugins.query.memory_limit` | 85% | Configures the heap memory usage limit for the circuit breaker of the query engine.
 `plugins.query.size_limit` | 200 | Sets the default size of index that the query engine fetches from OpenSearch.
+
+## Spark connector settings
+
+The SQL plugin supports [Apache Spark](https://spark.apache.org/) as a data source. This allows you to run SQL queries in Spark and seamlessly write the resulting data back to OpenSearch. To use Spark, enable the following settings to add Spark as a data source and enable the correct permissions.
+
+Setting | Description
+:--- | :---
+`spark.uri` | The identifier for your Spark data source.
+`spark.auth.type` | The authorization type used to authenticate into Spark.
+`spark.auth.username` | The username for your Spark data source.
+`spark.auth.password` | The password for your Spark data source.
+`spark.datasource.flint.host` | The host of the Spark data source.
+`spark.datasource.flint.port` | The post number for Spark.
+`spark.datasource.flint.scheme` | The data scheme used in your Spark queries. 
+`spark.datasource.flint.auth` | The authorization required to access the Spark data source.
+`spark.datasource.flint.region` | The region in which your OpenSearch cluster is located.
+
+Once configured, you can test your Spark connection using the following API call:
+
+```json
+POST /_plugins/_ppl
+content-type: application/json
+
+{
+   "query": "source = my_spark.sql('select * from alb_logs')"
+}
+```
