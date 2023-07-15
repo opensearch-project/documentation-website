@@ -360,7 +360,7 @@ Snapshots are only forward-compatible by one major version. If you have an old s
 
 When creating a snapshot, the index codec setting influences both the size of the snapshot and the time required for its creation. If the codec of an index is updated, new snapshots created will utilize the latest codec setting. The resulting snapshot size will reflect the compression characteristics of the latest codec settings. Existing segments included in the snapshot retain their original compression characteristics. 
 
-If you want to restore the indexes from a snapshot of a cluster to another cluster, then it is important to verify that the target cluster supports the codecs of the segments present in the source snapshot. For example, if the source snapshot has the segments of `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), then the user cannot restore to the target cluster where the support of these codecs is not available. 
+If you want to restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs used for the segments present in the source snapshot. For example, if the source snapshot uses the `zstd_no_dict` codec with its segments (introduced in OpenSearch 2.9), the user cannot restore to the target cluster unless the target cluster supports this codec. 
 
 For more information about index codec settings, see [Index codec settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#Index-codec-settings/).
 
