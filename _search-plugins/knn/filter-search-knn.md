@@ -13,7 +13,7 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
 
 - [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned. This approach is supported by the following search engines:
   - Lucene search engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 
-  - Faiss search engine (k-NN plugin versions 2.9 or later) <!-- TODO Are there any specific algorithms that this works for? -->
+  - Faiss search engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.9 or later) 
 
 -  [Post filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter.
     - [Boolean post filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently and then the intersection of their result sets is taken. 
