@@ -405,6 +405,7 @@ Feature | Behavior
 :--- | :---
 `*` | Specifies all valid values.
 `?` | Specifies a single valid value.
+`case_insensitive` | Parameter to indicate if the wildcard query should consider case. false to be case sensitive. true to be case insensitive. this is not required and will be case sensitive by default.
 
 To search for terms that start with `H` and end with `Y`:
 
@@ -420,6 +421,22 @@ GET shakespeare/_search
   }
 }
 ```
+
+To search for terms with case sensitivity on:
+```json
+GET shakespeare/_search
+{
+  "query": {
+    "wildcard": {
+      "speaker": {
+        "value": "H*Y",
+		"case_insensitive": false
+      }
+    }
+  }
+}
+```
+
 {% include copy-curl.html %}
 
 If we change `*` to `?`, we get no matches, because `?` refers to a single character.
