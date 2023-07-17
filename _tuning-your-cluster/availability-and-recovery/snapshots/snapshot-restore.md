@@ -236,7 +236,7 @@ Request fields | Description
 :--- | :---
 `indices` | The indexes you want to include in the snapshot. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
 `ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
-`include_global_state` | Whether to include cluster state in the snapshot. Default is true.
+`include_global_state` | Whether to include cluster state in the snapshot. Default is `true`.
 `partial` | Whether to allow partial snapshots. Default is false, which fails the entire snapshot if one or more shards fails to store.
 
 If you request the snapshot immediately after taking it, you might see something like this:
