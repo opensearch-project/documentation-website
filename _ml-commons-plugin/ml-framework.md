@@ -7,7 +7,7 @@ redirect_from:
    - /ml-commons-plugin/model-serving-framework/
 ---
 
-ML Framework was taken out of experimental and released to General Availability in OpenSearch 2.9.  
+ML Framework was taken out of experimental status and released to General Availability in OpenSearch 2.9.  
 {: .warning}
 
 
