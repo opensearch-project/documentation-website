@@ -143,9 +143,9 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
-| `finding1` | String | The ID for a first finding in the correlation. |
+| `finding1` | String | The Id for a first finding in the correlation. |
 | `logType1` | String | The log type associated with the first finding. |
-| `finding2` | String | The ID for a second finding in the correlation. |
+| `finding2` | String | The Id for a second finding in the correlation. |
 | `logType2` | String | The log type associated with the second finding. |
 | `rules` | Array | A list of correlation rule IDs associated with the correlated findings. |
 
