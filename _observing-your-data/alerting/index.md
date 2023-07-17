@@ -14,7 +14,7 @@ To create an alert, you configure a _monitor_, which is a job that runs on a def
 
 To get started with creating alerts:
 
-1. Choose **Alerting** from the OpenSearch Plugins main menu, then **Create monitor**.
+1. Choose **Alerting** from the OpenSearch Plugins main menu, then **Create monitor**. If alerts exist, you'll see a list of those alerts and the Create monitor won't appear. In this case, select the **Monitors** tab, then **Create monitor**.   
 2. Create a per query, per bucket, per cluster metrics, or per document monitor. For instructions, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/).
 3. For Triggers, create one or more triggers. For instructions, see [Triggers[({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)].
 4. For Actions, set up a notification channel for the alert. For instructions, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting-actions).
@@ -30,16 +30,16 @@ Trigger | Conditions that, if met, generate *alerts*.
 Tag | A label that can be applied to multiple queries to combine them with the logical `OR` operation in a per document monitor. You cannot use tags with other monitor types.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *channel*, a message subject, and a message body.
-Channel | A notification channel to use in an action. Supported channels are Amazon Chime, Slack, Amazon  Simple Notification Service (Amazon SNS), email, or custom webhook. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
+Channel | A notification channel to use in an action. Supported channels are Amazon Chime, Slack, Amazon Simple Notification Service (Amazon SNS), email, or custom webhook. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
 Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index `.opensearch-alerting-finding*`.
 
 ## Alert states
 
-The following table lists the 
+The following table lists the alert states. 
 
 State | Description
 :--- | :---
-Active | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely.
+Active | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely. Alerts also can be moved out of the active state if the trigger condition is no longer met. For example, if an index has 3,000 documents and a trigger condition is `numOfDocs > 5000`, an active alert is generated when 3,000 documents are added to the index. If the deletes 3,000 documents are deleted from the index, the alert changes to the completed state, as the condition is no longer triggered.
 Acknowledged | Alert is acknowledged the alert, but the root cause is not fixed.
 Completed | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to false.
 Error | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
