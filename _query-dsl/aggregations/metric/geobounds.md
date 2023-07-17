@@ -8,7 +8,7 @@ nav_order: 40
 
 ## Geobounds aggregations
 
-The `geo_bounds` metric is a multi-value metric aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) that contains all values of a given `geo_point` or `geo_shape` field. The bounding box is returned as the upper-left and lower-right vertices of the rectangle in terms of latitude and longitude.
+The `geo_bounds` metric is a multi-value metric aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) containing all values of a given `geo_point` or `geo_shape` field. The bounding box is returned as the upper-left and lower-right vertices of the rectangle in terms of latitude and longitude.
 
 The following example returns the `geo_bounds` metrics for the `geoip.location` field:
 
@@ -223,5 +223,5 @@ The response contains the geo-bounding box that encloses all shapes in the `loca
 ```
 </details>
 
-Currently, OpenSearch supports geoshape aggregations through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregations implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
+Currently, OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
 {: .note}
