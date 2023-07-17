@@ -17,13 +17,13 @@ Create, manage, and take action on your alerts in a single, consolidated view an
 
 The following image gives you a snapshot of the Dashboard interface. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-viz.png" alt="Example alerting visualization" width="800" height="800">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization" width="800" height="800">
 
 ## Getting started 
 
 Before getting started, you must have:
 
-- Installed OpenSearch and OpenSearch Dashboards version 2.8 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
+- Installed OpenSearch and OpenSearch Dashboards version 2.9 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
 - Installed the Alerting and Notifications Dashboards plugins. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
 
 ## Configuring admin settings
