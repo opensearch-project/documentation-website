@@ -9,7 +9,7 @@ grand_parent: Search
 
 # Personalize search ranking processor
 
-The `personalize_search_ranking` search response processor intercepts a search response and uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results according to their Personalize rankings, based on the user's past behavior and metadata about the search items and the user.
+The `personalize_search_ranking` search response processor intercepts a search response and uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results according to their ranking by Amazon Personalize. This ranking is based on the user's past behavior and metadata about the search items and the user.
 
 To use the `personalize_search_ranking` processor, you must first install the Amazon Personalize Search Ranking (`opensearch-search-processor`) plugin. For detailed steps, see [Installing and configuring the Amazon Personalize Search Ranking plugin](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-plugin-install.html).
 {: .important}
@@ -47,7 +47,7 @@ PUT /_search/pipeline/my-pipeline
         "campaign_arn" : "Amazon Personalize Campaign ARN",
         "item_id_field" : "productId",
         "recipe" : "aws-personalized-ranking",
-        "weight" : "0.6",
+        "weight" : "0.3",
         "tag" : "personalize-processor",
         "iam_role_arn": "Role ARN",
         "aws_region": "AWS region"
