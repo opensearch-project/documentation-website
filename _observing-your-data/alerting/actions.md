@@ -36,7 +36,7 @@ To create an action:
 
 1. Choose **Create**.
 
-After an action sends a message, the content of that message has left the purview of the [Security]({{site.url}}{{site.baseurl}}/security-analytics/index/) plugin. Securing access to the message (for example, access to the Slack channel) is your responsibility.
+After an action sends a message, the content of that message has left the purview of the [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) plugin. Securing access to the message (for example, access to the Slack channel) is your responsibility.
 
 #### Example message
 
