@@ -21,7 +21,6 @@ For the latest developer information, including sample code, articles, tutorials
 
 - [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations) on GitHub
 - [Integration Creation Guide](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Guide)
-- [Integration Creation Reference](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Reference)
 - [Integration Documentation Reference](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Documentation-Reference)
 - [Observability Plugin for OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-observability/wiki)
  
