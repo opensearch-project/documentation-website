@@ -70,7 +70,7 @@ The more accurate you want the aggregation to be, the more resources OpenSearch 
 
 ## Aggregating geoshapes
 
-To aggregate on geoshape fields, first create an index and map the `location` field as a `geo_shape`:
+To run an aggregation on a geoshape field, first create an index and map the `location` field as a `geo_shape`:
 
 ```json
 PUT national_parks
