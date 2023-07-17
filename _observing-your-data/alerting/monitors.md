@@ -35,7 +35,7 @@ To create a monitor:
 1. Add a [trigger](insert-link).
 1. Select **Create**.
 
-The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by calling the [cluster settings API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/) `plugins.alerting.monitor.max_monitors`.
+The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by updating the `plugins.alerting.monitor.max_monitors` setting using the [cluster settings API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
 {: .note} 
 
 ## Monitor variables
