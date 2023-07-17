@@ -15,7 +15,7 @@ You can connect data visualizations to OpenSearch datasets and then create, run,
 
 The following image gives you a snapshot of the Dashboard interface.
 
-<img src="{{site.url}}{{site.baseurl}}/images/images/dashboards/anomaly-detect-dashboard.png" alt="Example anomaly detection visualizations and dashboard" width="800" height="800">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/anomaly-detect-dashboard.png" alt="Example anomaly detection visualizations and dashboard" width="800" height="800">
 
 ## Getting started 
 
