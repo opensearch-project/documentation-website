@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Anomaly detection dashboards and visualizations
+title: Anomaly detection visualizations and dashboards
 parent: Anomaly detection
 nav_order: 50
 ---
@@ -12,6 +12,10 @@ Introduced 2.9
 OpenSearch provides an automated means of detecting harmful outliers and protecting your data when you enable anomaly detection. When applied to metrics, OpenSearch uses algorithms to continuously analyze systems and applications, determine normal baselines, and surface anomalies. 
 
 You can connect data visualizations to OpenSearch datasets and then create, run, and view anomaly alarms and results from visualizations in the **Dashboard** interface. With only a couple of steps, you can bring together traces, metrics, and logs to make your applications and infrastructure fully observable.
+
+The following image gives you a snapshot of the Dashboard interface.
+
+<img src="{{site.url}}{{site.baseurl}}/images/images/dashboards/anomaly-detect-dashboard.png" alt="Example anomaly detection visualizations and dashboard" width="800" height="800">
 
 ## Getting started 
 
@@ -51,7 +55,7 @@ Use a single interface to add, view, and edit anomaly detectors that you want to
 1. Select the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}) from the visualization panel, then select **Anomaly Detection**.
 2. Select **Associate a detector**.
 3. From the **Select detector to associate** dropdown menu, select the detector. Only eligible detectors are listed in the dropdown menu.
-4. View the detectors's basic information. To view comprehensive details, select **View detector page** to open the Anomaly Detection plugin page.
+4. View basic information about the detectors. To view comprehensive details, select **View detector page** to open the Anomaly Detection plugin page.
 5. Select **Associate detector**. An existing detector is now associated to the visualization, as shown in the following image.
 
 ![Interface and confirmation message of associating a detector]({{site.url}}{{site.baseurl}}/images/dashboards/associated-detector.png)
