@@ -371,7 +371,7 @@ If you're using the Security plugin, snapshots have some additional restrictions
 - To perform snapshot and restore operations, users must have the built-in `manage_snapshots` role.
 - You can't restore snapshots that contain global state or the `.opendistro_security` index.
 
-If a snapshot contains global state, you must exclude it when performing the restore. If your snapshot also contains the `.opendistro_security` index, either exclude it or list all the other indexes you want to include:
+If a snapshot contains a global state, you must exclude it when performing the restore. If your snapshot also contains the `.opendistro_security` index, either exclude it or list all the other indexes you want to include:
 
 ```json
 POST /_snapshot/my-repository/3/_restore
