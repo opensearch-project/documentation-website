@@ -8,7 +8,7 @@ nav_order: 55
 
 # Correlation engine APIs
 
-Correlation engine APIs allow you to create new correlation rules, view findings and correlations within a certain span of time, and perform other tasks.
+Correlation engine APIs allow you to create new correlation rules, view findings and correlations within a certain time window, and perform other tasks.
 
 
 ## Create correlation rules between log types
