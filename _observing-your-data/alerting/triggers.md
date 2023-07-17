@@ -81,7 +81,6 @@ To use the anomaly detector method:
 
 ### Sample scripts
 
-These scripts are Painless, not Groovy, but calling them Groovy in Jekyll gets us syntax highlighting in the generated HTML.
 
 ```groovy
 // Evaluates to true if the query returned any documents
