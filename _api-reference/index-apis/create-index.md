@@ -121,7 +121,7 @@ The `index.codec` setting of an OpenSearch index determines how the index’s st
 * `zstd` -- This codec uses the [`Zstandard` compression algorithm](https://github.com/facebook/zstd), which provides a good balance between compression ratio and speed. It provides significant compression comparable to the `best_compression` codec with reasonable CPU usage and improved indexing/search performance comparable to the `default` codec.
 * `zstd_no_dict` -- This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
 
-The setting of an index can be updated using a PUT request. Here's an example using the curl commands to close an index, update the settings, and open an index.
+Index settings can be updated using a PUT request. Here's an example using the curl commands to close an index, update the settings, and open an index:
 
 ```json
 POST /your_index/_close
