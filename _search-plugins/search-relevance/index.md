@@ -106,7 +106,7 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 
 ## Comparing OpenSearch search results with reranked results
 
-One use case for Compare Search Results is to compare raw OpenSearch results with the same results processed by a reranking application. The following two rerankers currently integrate with OpenSearch:
+One use case for Compare Search Results is the comparison of raw OpenSearch results with the same results processed by a reranking application. OpenSearch currently integrates with the following two rerankers:
 
 - [Kendra Intelligent Ranking for OpenSearch](#reranking-results-with-kendra-intelligent-ranking-for-opensearch)
 - [Amazon Personalize Search Ranking](#reranking-results-with-amazon-personalize-search-ranking)
@@ -119,13 +119,13 @@ To try Kendra Intelligent Ranking, you must first set up the Amazon Kendra servi
 
 ### Reranking results with Amazon Personalize Search Ranking
 
-Another example of a reranker is **Amazon Personalize Search Ranking**, contributed by the Amazon Personalize team. Amazon Personalize uses machine learning (ML) techniques to generate custom recommendations for your users. The plugin takes search results from OpenSearch and applies a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) to rerank them according to their Amazon Personalize rankings. The Amazon Personalize rankings are based on the user's past behavior and metadata about the search items and the user. This workflow improves search experience for your users by personalizing their search results.
+Another example of a reranker is **Amazon Personalize Search Ranking**, contributed by the Amazon Personalize team. Amazon Personalize uses machine learning (ML) techniques to generate custom recommendations for your users. The plugin takes search results from OpenSearch and applies a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) to rerank them according to their Amazon Personalize ranking. The Amazon Personalize rankings are based on the user's past behavior and metadata about the search items and the user. This workflow improves the search experience for your users by personalizing their search results.
 
 To try Amazon Personalize Search Ranking, you must first set up the Amazon Personalize service. To get started, see [Amazon Personalize](https://aws.amazon.com/personalize/). For detailed information, including plugin setup instructions, see [Personalizing search results from OpenSearch (self-managed)](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html).
 
 ### Example
 
-In this example, you will compare search results from OpenSearch with the same results reranked with the Kendra Intelligent Ranking. Once you've [set up Kendra Intelligent Ranking](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html), enter a query in **Query 1** and enter the same query using Kendra Intelligent Ranking in **Query 2**. Then compare the search results from OpenSearch and Amazon Kendra.
+In this example, you will compare search results from OpenSearch with the same results reranked with Amazon Kendra Intelligent Ranking. Once you've [set up Amazon Kendra Intelligent Ranking](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html), enter a query in **Query 1** and enter the same query using Amazon Kendra Intelligent Ranking in **Query 2**. Then compare the search results from OpenSearch and Amazon Kendra.
 
 The following example searches for the text "snacking nuts" in the `abo` index. The documents in the index contain snack descriptions in the `bullet_point` array. 
 

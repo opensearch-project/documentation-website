@@ -9,9 +9,9 @@ grand_parent: Search
 
 # Personalize search ranking processor
 
-The `personalize_search_ranking` search response processor intercepts a search response and uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results according to their ranking by Amazon Personalize. This ranking is based on the user's past behavior and metadata about the search items and the user.
+The `personalize_search_ranking` search response processor intercepts a search response and uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results according to their Amazon Personalize ranking. This ranking is based on the user's past behavior and metadata about the search items and the user.
 
-To use the `personalize_search_ranking` processor, you must first install the Amazon Personalize Search Ranking (`opensearch-search-processor`) plugin. For detailed steps, see [Installing and configuring the Amazon Personalize Search Ranking plugin](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-plugin-install.html).
+To use the `personalize_search_ranking` processor, you must first install the Amazon Personalize Search Ranking (`opensearch-search-processor`) plugin. For detailed instructions, see [Installing and configuring the Amazon Personalize Search Ranking plugin](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-plugin-install.html).
 {: .important}
 
 ## Request fields
@@ -20,11 +20,11 @@ The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :--- 
-`campaign_arn` | String |  The Amazon Resource Name (ARN) of the Amazon Personalize campaign to use personalize results. Required.
+`campaign_arn` | String |  The Amazon Resource Name (ARN) of the Amazon Personalize campaign used to personalize results. Required.
 `recipe` | String | The name of the Amazon Personalize recipe to use. Currently, the only supported value for this field is `aws-personalized-ranking`. Required.
-`weight` | Float | The weight to use with rankings provided by OpenSearch and Personalize. Valid values are in the [0.0, 1.0] range. The closer to 1.0, the more weight is given to Amazon Personalize as opposed to OpenSearch when calculating the ranking. If you specify 0.0, OpenSearch rankings are used. If you specify 1.0, Personalize rankings are used. Required.
+`weight` | Float | The weight to use with rankings provided by OpenSearch and Amazon Personalize. Valid values are in the [0.0, 1.0] range. The closer the weight is to 1.0, the more weight is given to Amazon Personalize as opposed to OpenSearch when calculating the ranking. If you specify 0.0, OpenSearch rankings are used. If you specify 1.0, Amazon Personalize rankings are used. Required.
 `item_id_field` | String | If your `itemId` fields for OpenSearch and Amazon Personalize differ, specify the field that corresponds to `itemId` in your Amazon Personalize data. Optional.
-`iam_role_arn` | String | If you use multiple roles to restrict permissions for different groups of users in your organization, specify the Amazon Resource Name (ARN) of the role that has permission to access Amazon Personalize. If you use only the AWS credentials in your OpenSearch keystore, you can omit this field. Optional.
+`iam_role_arn` | String | If you use multiple roles to restrict permissions for different groups of users in your organization, specify the ARN of the role that has permission to access Amazon Personalize. If you use only the AWS credentials in your OpenSearch keystore, you can omit this field. Optional.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
 `ignore_failure` | Boolean | If `true`, OpenSearch [ignores a failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
