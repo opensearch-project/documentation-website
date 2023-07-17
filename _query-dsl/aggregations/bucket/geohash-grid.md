@@ -8,7 +8,7 @@ nav_order: 80
 
 # Geohash grid aggregations
 
-The `geohash_grid` aggregation buckets documents for geographical analysis. It organizes a geographical region into a grid of smaller regions of different sizes or precisions. Lower values of precision represent larger geographical areas and higher values represent smaller, more precise geographical areas. You can aggregate documents on [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields using a geohash grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geohash grid cells with which it intersects.
+The `geohash_grid` aggregation buckets documents for geographical analysis. It organizes a geographical region into a grid of smaller regions of different sizes or precisions. Lower values of precision represent larger geographical areas, and higher values represent smaller, more precise geographical areas. You can aggregate documents on [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields using a geohash grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geohash grid cells with which it intersects.
 
 The number of results returned by a query might be far too many to display each geopoint individually on a map. The `geohash_grid` aggregation buckets nearby geopoints together by calculating the geohash for each point, at the level of precision that you define (between 1 to 12; the default is 5). To learn more about geohash, see [Wikipedia](https://en.wikipedia.org/wiki/Geohash).
 
@@ -66,7 +66,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 You can visualize the aggregated response on a map using OpenSearch Dashboards.
 
-The more accurate you want the aggregation to be, the more resources OpenSearch consumes, because of the number of buckets that the aggregation has to calculate. By default, OpenSearch does not generate more than 10,000 buckets. You can change this behavior by using the `size` attribute, but keep in mind that the performance might suffer for very wide queries consisting of thousands of buckets.
+The more accurate you want the aggregation to be, the more resources OpenSearch consumes because of the number of buckets that the aggregation has to calculate. By default, OpenSearch does not generate more than 10,000 buckets. You can change this behavior by using the `size` attribute, but keep in mind that the performance might suffer for very wide queries consisting of thousands of buckets.
 
 ## Aggregating geoshapes
 
@@ -135,7 +135,7 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-When aggregating geoshapes, one geoshape can be counted for multiple buckets because it overlaps with multiple grid cells:
+When aggregating geoshapes, one geoshape can be counted for multiple buckets because it overlaps multiple grid cells:
 
 <details open markdown="block">
   <summary>
@@ -243,7 +243,7 @@ When aggregating geoshapes, one geoshape can be counted for multiple buckets bec
 ```
 </details>
 
-Currently, OpenSearch supports geoshape aggregations through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregations implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
+Currently, OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
 {: .note}
 
 ## Supported parameters
