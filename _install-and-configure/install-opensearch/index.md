@@ -104,7 +104,7 @@ Do not declare the same JVM options in multiple locations because it can result 
 
 OpenSearch has a number of system properties that you can specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS` using `-D` command line argument notation, for example:
 
-- `opensearch.xcontent.string.length.max=<value>`
-
-By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.
-
+Property | Description
+:---------- | :-------- 
+`opensearch.xcontent.string.length.max=<value>` |	By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.  | 
+`opensearch.xcontent.fast_double_writer=[true|false]` | By default, OpenSearch uses the floating point parsing capability built in to the Java Runtime Environment. Set this value to true to configure OpenSearch to use the [FastDoubleParser](https://github.com/wrandelshofer/FastDoubleParser) library to parse floating point numbers, which has shown to be faster in many cases. The property can be set to determine whether to use standard Java code to write floats/doubles (default) or use the Schubfach algorithm, which is faster. The latter approach may lead to small differences in the precision of the float/double that is written to the JSON output. Default is `false`.  |
