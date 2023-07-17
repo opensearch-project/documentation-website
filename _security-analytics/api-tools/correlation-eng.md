@@ -13,7 +13,7 @@ Correlation engine APIs allow you to create new correlation rules, view findings
 
 ## Create correlation rules between log types
 
-Used to create correlation rules.
+This API is used to create correlation rules:
 
 ```json
 POST /_plugins/_security_analytics/correlation/rules
@@ -24,8 +24,8 @@ POST /_plugins/_security_analytics/correlation/rules
 | Field | Type | Description |
 | :--- | :--- |:--- |
 | `index` | String | The name of the index used as the log source. |
-| `query` | String | TBD. |
-| `category` | String | TBD. |
+| `query` | String | The query used to filter security logs for correlation. |
+| `category` | String | The log type associated with the log source. |
 
 #### Example request
 
