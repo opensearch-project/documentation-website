@@ -10,7 +10,11 @@ redirect_from:
 
 # Alerting
 
-To create an alert, you configure a _monitor_, which is a job that runs on a defined schedule and queries OpenSearch indexes; configure one or more _triggers_, which define the conditions that generate events; and configure _actions_, which is what happens after an alert is triggered.
+To create an alert, do the following: 
+
+- Configure a _monitor_, which is a job that runs on a defined schedule and queries OpenSearch indexes. Required.
+- Configure one or more _triggers_, which define the conditions that generate events. Required.
+- Configure _actions_, which is what happens after an alert is triggered.  Optional.
 
 To get started with creating alerts:
 
