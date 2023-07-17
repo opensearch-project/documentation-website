@@ -22,7 +22,9 @@ For the latest developer information, including sample code, articles, tutorials
 - [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations) on GitHub
 - [Integration Creation Guide](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Guide)
 - [Integration Creation Reference](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Reference)
-
+- [Integration Documentation Reference](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Documentation-Reference)
+- [Observability Plugin for OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-observability/wiki)
+ 
 ## Integrations schema
 
 The OpenSearch Integrations schema outlines how to capture, analyze, and visualize data. It includes the selection and configuration of monitoring tools, data collection methods, data storage and retention strategies, and visualization and alerting mechanisms. It follows the [OpenTelemetry Protocol convention](https://github.com/open-telemetry), with OpenSearch [Simple Schema for Observability](https://opensearch.org/docs/latest/observing-your-data/ssfo/) handling the translation from the OpenTelemetry (OTel) schema to the physical index mapping templates. 
