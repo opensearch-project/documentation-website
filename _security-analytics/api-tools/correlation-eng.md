@@ -96,12 +96,12 @@ POST /_plugins/_security_analytics/correlation/rules
 
 | Field | Type | Description |
 | :--- | :--- |:--- |
-| `_id` | String | The new rule's ID. |
+| `_id` | String | The Id for the new rule. |
 
 
 ## List all findings and their correlations within a time window
 
-Provides a list of all findings and their correlations within a specified window of time.
+This API provides a list of all findings and their correlations within a specified time window:
 
 ```json
 GET /_plugins/_security_analytics/correlations?start_timestamp=<start time in milliseconds>&end_timestamp=<end time in milliseconds>
@@ -111,8 +111,8 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=<start time in mi
 
 | Parameter | Type | Description |
 | :--- | :--- |:--- |
-| `start_timestamp` | Number | Start time for the time window in milliseconds. |
-| `end_timestamp` | Number | End time for the time window in milliseconds. |
+| `start_timestamp` | Number | Start time for the time window, in milliseconds. |
+| `end_timestamp` | Number | End time for the time window, in milliseconds. |
 
 #### Example request
 
@@ -152,7 +152,7 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end
 
 ## List correlations for a finding belonging to a log type
 
-Used to list correlations for specific findings and the log types associated with them.
+This API is used to list correlations for specific findings and the log types associated with them:
 
 ```json
 GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-b0c0-7d15669f0871&detector_type=ad_ldap&nearby_findings=20&time_window=10m
@@ -164,8 +164,8 @@ GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-
 | :--- | :--- |:--- |
 | `finding` | String | The finding ID. |
 | `detector_type` | String | The log type for the detector. |
-| `nearby_findings` | Number | TBD. |
-| `time_window` | String | Sets a window of time in which all of the correlations must have occurred together. |
+| `nearby_findings` | Number | The number of nearby findings with respect to the given finding Id. |
+| `time_window` | String | Sets a time window in which all of the correlations must have occurred together. |
 
 
 #### Example request

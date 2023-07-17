@@ -11,7 +11,8 @@ The following APIs can be used for a number of tasks related to mappings, from c
 
 ## Get Mappings View
 
-Returns a view of the fields contained in an index used as a log source.
+
+this API returns a view of the fields contained in an index used as a log source.
 
 ### Request fields
 
