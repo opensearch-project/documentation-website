@@ -46,7 +46,7 @@ To start, first create an anomaly detector:
 8. To preview the visualization within the flyout, toggle the **Show visualization** button.
 9. Select **Create detector**. Once you have created a new detector, the detector is added to the visualization, as shown in the following image.  
 
-![Interface of adding a detector]({{site.url}}{{site.baseurl}}/images/dashboards/add-detector.png)
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-detector.png" alt="Interface of adding a detector" width="800" height="800">
 
 ## Adding anomaly detectors to visualizations
 
@@ -58,7 +58,7 @@ Use a single interface to add, view, and edit anomaly detectors that you want to
 4. View basic information about the detectors. To view comprehensive details, select **View detector page** to open the Anomaly Detection plugin page.
 5. Select **Associate detector**. An existing detector is now associated to the visualization, as shown in the following image.
 
-![Interface and confirmation message of associating a detector]({{site.url}}{{site.baseurl}}/images/dashboards/associated-detector.png)
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/associated-detector.png" alt="Interface and confirmation message of associating a detector" width="800" height="800">
 
 ## Refreshing the visualization
 
