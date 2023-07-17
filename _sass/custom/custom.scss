@@ -54,10 +54,22 @@ code {
   max-height: 100vh;
   overflow-x: hidden;
   min-width: 14rem;
+  padding-right: 1px;
+  padding-left: 1px;
+  padding-bottom: 1px;
+}
+
+nav#site-nav > .nav-list:nth-of-type(1) {
+  padding-top: 2px;
+}
+
+.nav-list {
+  margin-top: 1px;
 }
 
 .nav-category {
   text-align: start;
+  display: block;
 }
 
 .main-content {
