@@ -356,7 +356,7 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 1. A write request to the now-deleted alias creates a new index with the same name as the alias.
 1. The alias from the snapshot fails to restore due to a naming conflict with the new index.
 
-Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data on the new cluster.
+Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data in the new cluster.
 
 When creating a snapshot, the index codec setting influences both the size of the snapshot and the time required for its creation. If the codec of an index is updated, new snapshots created will utilize the latest codec setting. The resulting snapshot size will reflect the compression characteristics of the latest codec settings. Existing segments included in the snapshot retain their original compression characteristics. 
 
