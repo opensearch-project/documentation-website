@@ -5,6 +5,9 @@ parent: ML framework
 nav_order: 120
 ---
 
+Pretrained models were taken out of experimental status and released to General Availability in OpenSearch 2.9.  
+{: .warning}
+
 # Pretrained models
 
 The ML framework supports a variety of open-source pretrained models that can assist with a range of machine learning (ML) search and analytics use cases. 

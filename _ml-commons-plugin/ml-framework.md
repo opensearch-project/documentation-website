@@ -7,6 +7,10 @@ redirect_from:
    - /ml-commons-plugin/model-serving-framework/
 ---
 
+ML Framework was taken out of experimental and released to General Availability in OpenSearch 2.9.  
+{: .warning}
+
+
 # ML framework
 
 ML Commons allows you to serve custom models and use those models to make inferences through OpenSearch's machine learning framework (ML framework) For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
