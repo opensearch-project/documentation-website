@@ -14,10 +14,10 @@ To create an alert, you configure a _monitor_, which is a job that runs on a def
 
 To get started with creating alerts:
 
-1. Choose **Alerting** from the OpenSearch Plugins main menu, then **Create monitor**. If alerts exist, you'll see a list of those alerts and the Create monitor won't appear. In this case, select the **Monitors** tab, then **Create monitor**.   
+1. Choose **Alerting** from the OpenSearch Plugins main menu, then **Create monitor**. If alerts exist, you'll see a list of those alerts and the Create monitor button won't appear. In this case, select the **Monitors** tab, then **Create monitor**.   
 2. Create a per query, per bucket, per cluster metrics, or per document monitor. For instructions, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/).
 3. For Triggers, create one or more triggers. For instructions, see [Triggers[({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)].
-4. For Actions, set up a notification channel for the alert. For instructions, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting-actions).
+4. For Actions, set up a notification channel for the alert. For instructions, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting-actions/).
 
 ## Alerting terminology
 
