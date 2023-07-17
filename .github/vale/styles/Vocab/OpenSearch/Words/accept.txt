@@ -28,11 +28,12 @@ Distro
 Gantt
 [Gg]eodistance
 [Gg]eohash
-GeoHex
+[Gg]eohex
 [Gg]eopoint
 [Gg]eopolygon
 [Gg]eoshape
 [Gg]eospatial
+[Gg]eotile
 gibibyte
 [Hh]ashmap
 [Hh]ostname
@@ -80,7 +81,7 @@ pebibyte
 [Rr]eenable
 [Rr]eindex
 [Rr]eingest
-[Rr]eranker
+[Rr]erank[er|ed|ing]?
 [Rr]epo
 [Rr]ewriter
 [Rr]ollup

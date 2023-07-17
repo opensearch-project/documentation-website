@@ -60,6 +60,15 @@ Security Analytics takes advantage of prepackaged Sigma rules for security event
 
 Although the ECS rule field names are largely self-explanatory, you can find predefined mappings of the Sigma rule field names to ECS rule field names, for all supported log types, in the GitHub Security Analytics repository. Navigate to the [OSMappings](https://github.com/opensearch-project/security-analytics/tree/main/src/main/resources/OSMapping) folder, choose the folder named for the log type, and open the `fieldmappings.yml` file. For example, to see the Sigma rule fields that correspond to ECS rule fields for the Windows log type, open the [fieldmappings.yml file](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows/fieldmappings.yml) in the **windows** folder.
 
+#### Amazon Security Lake logs
+
+[Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) converts security log and event data to the [Open Cybersecurity Schema Framework](https://docs.aws.amazon.com/security-lake/latest/userguide/open-cybersecurity-schema-framework.html) (OCSF) to normalize combined data and facilitate its management. OpenSearch supports ingestion of log data from Security Lake in the OCSF format, and Security Analytics can automatically map fields from OCSF to ECS (the default field-mapping schema).
+
+The Security Lake log types that can be used as log sources for detector creation include CloudTrail, Route 53, and VPC Flow. Given that Route 53 is a log that captures DNS activity, its log type should be specified as **DNS logs** when [defining a detector](#step-1-define-a-detector). Furthermore, because logs such as CloudTrail can conceivably be captured in both raw format and OCSF, it's good practice to name indexes in a way that keeps these logs separate and easily identifiable. This becomes helpful when specifying an index name in any of the APIs associated with Security Analytics.
+
+To reveal fields for a log index in either raw format or OCSF, use the [Get Mappings View]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/#get-mappings-view) API and specify the index in the `index_name` field of the request.
+{: .tip }
+
 ### Automatically mapped fields
 
 Once you select a data source and log type, the system attempts to automatically map fields between the log and rule fields. Expand **Automatically mapped fields** to show the list of these mappings. When the field names are similar to one another, the system can successfully match the two, as shown in the following image.
