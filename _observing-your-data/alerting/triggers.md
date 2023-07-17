@@ -26,7 +26,7 @@ Query-level monitors run your trigger's script once against the query's results,
 
 For a query-level monitor's trigger condition, specify a threshold for the aggregation and time frame you chose when you created the monitor (for example, "is below 1,000" or "is exactly 10"). The line moves up and down as you increase or decrease the threshold. Once this line is crossed, the trigger evaluates to `true`.
 
-For a bucket-level monitor, you must specify a threshold and value for the aggregation and time frame. You can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
+For a bucket-level monitor, you must specify a threshold and value for the aggregation and time frame. You can use a maximum of five conditions to refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
 
 For document-level monitors, use tags that represent multiple queries connected by the logical `OR` operator. To create a multiple query trigger:
 
