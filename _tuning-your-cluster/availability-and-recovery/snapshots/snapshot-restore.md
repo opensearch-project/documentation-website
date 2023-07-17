@@ -369,7 +369,7 @@ For more information about index codec settings, see [Index codec settings]({{si
 If you're using the Security plugin, snapshots have some additional restrictions:
 
 - To perform snapshot and restore operations, users must have the built-in `manage_snapshots` role.
-- You can't restore snapshots that contain global state or the `.opendistro_security` index.
+- You can't restore snapshots that contain a global state or the `.opendistro_security` index.
 
 If a snapshot contains a global state, you must exclude it when performing the restore. If your snapshot also contains the `.opendistro_security` index, either exclude it or list all the other indexes you want to include:
 
