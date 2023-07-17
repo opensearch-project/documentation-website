@@ -40,7 +40,7 @@ Learn how to do the following using the OpenSearch Dashboards interface:
 - View integrations
 - Add integrations 
 
-![Integrations interface in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/integrations-interface.png)
+![Get started with Integrations demo]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration.gif)
 
 ### Access integrations
 
