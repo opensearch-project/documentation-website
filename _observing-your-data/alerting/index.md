@@ -26,7 +26,7 @@ The following table lists alerting terminology commonly used in OpenSearch.
 Term | Definition
 :--- | :---
 Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more *triggers*.
-Trigger | Conditions that, if met, generate *alerts*.
+Trigger | A condition that, if met, generates an *alert*.
 Tag | A label that can be applied to multiple queries to combine them with the logical `OR` operation in a per document monitor. You cannot use tags with other monitor types.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *channel*, a message subject, and a message body.
