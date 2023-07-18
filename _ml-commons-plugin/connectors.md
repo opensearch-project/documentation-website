@@ -185,7 +185,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-ML Commons returns the `task_id` and registration status of the model. You can use the `task_id` to find the `model_id`, as showing the following example:
+ML Commons returns the `task_id` and registration status of the model. You can use the `task_id` to find the `model_id`, as shown the following example:
 
 **GET model request**
 
