@@ -200,6 +200,6 @@ The cluster metrics monitor has the following limitations:
 
 ## Next steps
 
-- Learn about [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)
+- Learn about [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/).
 - Learn about [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/)
 - Learn about [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/)
