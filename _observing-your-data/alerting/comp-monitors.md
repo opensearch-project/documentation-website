@@ -39,7 +39,7 @@ The key terms in the following table describe the basic concepts behind composit
 | Delegate monitor | Any monitor used in the chained workflow of a compound monitor. Composite monitors support per query, per bucket, and per document monitor types as delegate monitors. Delegate monitors are executed sequentially according to their order in the monitor definition. |
 | Chained finding | A sequence of findings where the findings for each monitor are used as the inputs for subsequent monitors. 
 | Chained alert | Chained alerts are generated from composite monitor triggers when delegate monitors generate alerts. The chained alert trigger condition supports the use of the logical operators AND, OR, and NOT so you can combine multiple functions into a single expression. |
-| Audit alert | Delegate monitors generate alerts in **audit** state. Users are not notified about each individual audit alert and don't need to acknowledge them. Audit alerts are used to evaluate chained alert trigger conditions in composite monitors. |
+| Audit alert | Delegate monitors generate alerts in an **audit** state. Users are not notified about each individual audit alert and don't need to acknowledge them. Audit alerts are used to evaluate chained alert trigger conditions in composite monitors. |
 | Execution | A single run of all delegate monitors in the sequence defined in the composite monitor's configuration. |
 | Execution Id | Allows for the management of data recorded from a specific execution of a composite monitor. The execution Id associates findings and alerts with the execution and is stored in each monitor's metadata, along with the workflow Id and the monitor Id. |
 
@@ -451,7 +451,10 @@ For the remaining steps, refer to either **Visual editor** or the **Extraction q
 
 To finish creating a composite monitor in the Visual editor, follow these steps:
 
-1. In the **Delegate monitors** section, enter the monitors you want to include in the workflow by selecting them in the dropdown lists. Select **Add another monitor** to add more dropdown lists. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Remember that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
+1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. Select **Add another monitor** to add another dropdown list. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Keep in mind that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
+
+Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
+
 1. 
 
 
