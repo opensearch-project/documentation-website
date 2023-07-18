@@ -142,7 +142,7 @@ You can modify the file so that cluster metric monitors can only be created for 
 
 ### Painless triggers
 
-Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts comprise at least one statement and any additional functions you want to run. The cluster metrics monitor supports up to **ten** triggers.
+Painless scripts define triggers for cluster metrics monitors, similar to query- or bucket-level monitors that are defined using the extraction query definition option. Painless scripts comprise at least one statement and any additional functions you want to run. The cluster metrics monitor supports up to **10** triggers.
 
 In the following example, a JSON object defines a trigger that sends an alert when the cluster health is yellow. `script` points the `source` to the Painless script `ctx.results[0].status == \"yellow\`.
 
