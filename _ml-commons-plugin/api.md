@@ -156,7 +156,7 @@ The response contains the following model information:
 
 ## Registering a model
 
-All versions of a particular model are held in a model group. You can [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) first, before registering a model to the model group. Each model group name must be globally unique in the cluster. 
+All versions of a particular model are held in a model group. You can either [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#registering-a-model-group) before registering a model to the group or register a first version of a model, thereby creating the group. Each model group name in the cluster must be globally unique. 
 
 If you are registering the first version of the model without first registering the model group, a new model group is created automatically with the following name and access level:
 
