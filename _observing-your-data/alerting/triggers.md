@@ -52,8 +52,8 @@ The **Info** link next to **Trigger condition** contains a useful summary of the
 Bucket-level monitors require you to specify more information in your trigger condition. At a minimum, you must have the following fields:
 
 - `buckets_path`: Maps variable names to metrics to use in your script.
-- `parent_bucket_path`: Path to a multi-bucket aggregation. The path can include single-bucket aggregations, but the last aggregation must be multi-bucket. For example, if you have a pipeline such as `agg1>agg2>agg3`, `agg1` and `agg2` are single-bucket aggregations, but `agg3` must be a multi-bucket aggregation.
-- `script`: Script that OpenSearch runs to evaluate whether to trigger any alerts.
+- `parent_bucket_path`: The path to a multi-bucket aggregation. The path can include single-bucket aggregations, but the last aggregation must be multi-bucket. For example, if you have a pipeline such as `agg1>agg2>agg3`, `agg1` and `agg2` are single-bucket aggregations, but `agg3` must be a multi-bucket aggregation.
+- `script`: The script that OpenSearch runs to evaluate whether to trigger any alerts.
 
 The following is an example script:
 
@@ -119,7 +119,7 @@ Variable | Data type | Description
 `ctx.trigger.id` | String | The trigger ID.
 `ctx.trigger.name` | String | The trigger name.
 `ctx.trigger.severity` | String | The trigger severity.
-`ctx.trigger.condition`| Object | Contains the Painless script used when creating the monitor.
+`ctx.trigger.condition`| Object | Contains the Painless script used when the monitor was created.
 `ctx.trigger.condition.script.source` | String | The language used to define the script. Must be Painless.
 `ctx.trigger.condition.script.lang` | String | The script used to define the trigger.
 `ctx.trigger.actions`| Array | An array with one element that contains information about the action the monitor needs to trigger.
