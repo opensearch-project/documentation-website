@@ -40,6 +40,9 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
+  integrations:
+    permalink: /:collection/:path/
+    output: true
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -89,9 +92,6 @@ collections:
     permalink: /:collection/:path/
     output: true
   external_links:
-    permalink: /:collection/:path/
-    output: true
-  integrations:
     permalink: /:collection/:path/
     output: true
 
