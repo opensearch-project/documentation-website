@@ -71,10 +71,10 @@ The following image shows a simplified workflow for a composite monitor with cha
 
 ### Chained alerts
 
-As an example of chained alerts, consider a composite monitor configured with three delegate monitors. The first and second monitors (monitors #1 and #2) are configured to generate alerts when two specific events happen across the cluster. A third monitor (monitor #3) is configured to send an alert when both monitors #1 and #2 generate their own alerts.
+As an example of chained alerts, consider a composite monitor configured with three delegate monitors. The first and second monitors (monitors #1 and #2) are configured to generate audit alerts when two specific events happen across the cluster. A third monitor (monitor #3) is configured to send an alert when both monitors #1 and #2 generate their own alerts.
 
-* Delegate monitor #1 is configured to monitor CPU utilization of a service’s worker nodes. The monitor includes trigger conditions that create alerts when the CPU experiences loads above a set threshold.
-* Delegate monitor #2 is configured to monitor incoming request counts during the same time window. The monitor includes trigger conditions that create alerts when the number of requests rises above a set threshold.
+* Delegate monitor #1 is configured to monitor CPU utilization of a service’s worker nodes. The monitor includes trigger conditions that create audit alerts when the CPU experiences loads above a set threshold.
+* Delegate monitor #2 is configured to monitor incoming request counts during the same time window. The monitor includes trigger conditions that create audit alerts when the number of requests rises above a set threshold.
 * Delegate monitor #3 is configured to check whether monitors #1 and #2 have created alerts. If both monitors #1 and #2 have created alerts, monitor #3 creates its own alert and sends a notification that the service is experiencing a high volume of traffic and its performance is degraded.
 * The first monitor's configuration may allow for alerts due to a number of reasons, such as cluster instability or several background processes running simultaneously. So an alert for this condition alone has limited value. Similarly, monitor #2 may identify a large number of requests and send an alert, even if the cluster is able to handle the traffic. Monitor #3 filters for these two conditions and triggers an alert when they both exist. This narrows the criteria for sending notifications, which also improves the meaningfulness of the alert while removing extraneous alerts that provide no deterministic value.
 
@@ -436,7 +436,7 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 
 ## Creating composite monitors in OpenSearch Dashboards
 
-Begin by navigating to the **Create monitor** page in OpenSearch Dashboards: **Alerting > Monitors > Create monitor**. Steps for creating a composite monitor workflow and triggers vary depending on whether you use the **Visual editor** or the **Extraction query editor**. In either case, the first step is to define the schedule.
+Begin by navigating to the **Create monitor** page in OpenSearch Dashboards: **Alerting > Monitors > Create monitor**. Then select **Composite monitor** in the **Monitor details** section. Steps for creating a composite monitor workflow and triggers vary depending on whether you use the **Visual editor** or the **Extraction query editor**. In either case, the first step is to define the schedule.
 
 In the **Frequency** dropdown list, select either **By interval**, **Daily**, **Weekly**, **Monthly**, or **Custom cron expression**.
   * **By interval** — Allows you to run the schedule repeatedly based on the number of minutes, hours, or days you specify.
@@ -452,16 +452,16 @@ For the remaining steps, refer to either **Visual editor** or the **Extraction q
 To finish creating a composite monitor in the Visual editor, follow these steps:
 
 1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. Select **Add another monitor** to add another dropdown list. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Keep in mind that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
-  
-  Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
-  
+   
+   Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
+   
 1. Define a trigger or triggers for the composite monitor. First add a trigger name. Next, define the trigger conditions.
   * Use the **Select delegate monitor** label to open the condition and monitor selector popup window.
-
-  <img src="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt="This popup window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
-
-  * First use the **Select delegate monitor** dropdown list to select a delegate monitor from those defined in the previous step. You can use the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to the right of the list to remove the monitor.
+  
+    <img src="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt="This popup window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
+  
+  * First use the **Select delegate monitor** dropdown list to select a delegate monitor from those defined in the previous step. After the monitor is populated in the field, you can use the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to the right of the list to remove the monitor.
   * Before a second delegate monitor has been selected, the list of operators provides the option NOT. You can select NOT to dismiss this detector as a condition for the trigger. Otherwise, leave the operator's field blank.
-  * Select the plus sign to the right of the first monitor to select a second.
+  * Select the plus sign to the right of the first monitor to select a second. Use the **Select delegate monitor** dropdown list to select a second delegate monitor. 
 
 
