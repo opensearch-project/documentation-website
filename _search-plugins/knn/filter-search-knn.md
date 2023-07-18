@@ -16,7 +16,7 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
   - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 or later) 
 
 -  [Post filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter.
-    - [Boolean post filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
+    - [Boolean post filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently, and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
     - [The `post_filter` parameter](#post-filter-parameter): This approach runs an [ANN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search on the full dataset and then applies the filter to k-NN results.
 
 - [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It may have high latency and does not scale for large filtered subsets. 
