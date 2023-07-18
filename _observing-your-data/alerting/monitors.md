@@ -70,14 +70,14 @@ Per document monitors allow you to define up to 10 queries that compare a select
 
 You can query each trigger using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. The Alerting plugin then tells the Notifications plugin to send the alert notification to a channel.
 
-The Alerting plugin also creates a list of document findings that contain metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
+The Alerting plugin also creates a list of document findings that contain metadata about which document matches each query. Security Analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
-The Alerting API provides a _document-level monitor_ that programmatically accomplishes the same function as the _per document monitor_ in the OpenSearch Dashboards. See [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors) to learn more.
+The Alerting API provides a _document-level monitor_ that programmatically accomplishes the same function as the _per document monitor_ in OpenSearch Dashboards. See [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors) to learn more.
 {: .note}
 
 ### Searching document findings
 
-When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a findings index, `.opensearch-alerting-finding*`, that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. See [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings) for more information.
+When a per document monitor runs a query that matches a document in an index, a finding is created. OpenSearch provides a findings index, `.opensearch-alerting-finding*`, that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. See [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings) for more information.
 
 The following metadata is provided for each document findings entry:
 
@@ -127,7 +127,7 @@ Trigger conditions use responses from the following API endpoints. Most APIs tha
 
 To hide fields from being exposed in the API response, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
 
-You can modify the file so that cluster metric monitors can only be created for APIs referenced. Only fields referenced in the supported files can create trigger conditions. The `supported_json_payloads.json` file allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
+You can modify the file so that cluster metric monitors can only be created for referenced APIs. Only fields referenced in the supported files can create trigger conditions. The `supported_json_payloads.json` file allows for a cluster metrics monitor to be created for the `_cluster/stats` API and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
 
 #### Example
 
