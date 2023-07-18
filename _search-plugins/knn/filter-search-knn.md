@@ -13,11 +13,11 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
 
 - [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned (if there are at least `k` results in total). This approach is supported by the following engines:
   - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 
-  - Faiss engine with a HNSW algorithm (k-NN plugin versions 2.9 or later) 
+  - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 or later) 
 
 -  [Post filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter.
     - [Boolean post filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
-    - [The `post_filter` parameter](#post-filter-parameter): This approach runs an [ANN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) on the full dataset and then applies the filter to k-NN results.
+    - [The `post_filter` parameter](#post-filter-parameter): This approach runs an [ANN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search on the full dataset and then applies the filter to k-NN results.
 
 - [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It may have high latency and does not scale for large filtered subsets. 
 
@@ -652,7 +652,7 @@ GET my-knn-index-1/_search
 
 ## Scoring script filter
 
-A scoring script filter first filters the documents and then uses a brute-force exact k-NN search on the results. For example, the following query searches for hotels with a rating between 8 and 10, inclusive, that provide parking and then performs a k-NN search to return the three hotels that are closest to the specified `location`:
+A scoring script filter first filters the documents and then uses a brute-force exact k-NN search on the results. For example, the following query searches for hotels with a rating between 8 and 10, inclusive, that provide parking and then performs a k-NN search to return the 3 hotels that are closest to the specified `location`:
 
 ```json
 POST /hotels-index/_search
