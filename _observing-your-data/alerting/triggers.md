@@ -28,7 +28,7 @@ For a query-level monitor's trigger condition, specify a threshold for the aggre
 
 For a bucket-level monitor, you must specify a threshold and value for the aggregation and time frame. You can use a maximum of five conditions to refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
 
-For document-level monitors, use tags that represent multiple queries connected by the logical `OR` operator. To create a multiple query trigger:
+For document-level monitors, use tags that represent multiple queries connected by the logical `OR` operator. To create a multiple-query trigger:
 
 1. Select **Per document monitor**.
 2. Select a data source. 
