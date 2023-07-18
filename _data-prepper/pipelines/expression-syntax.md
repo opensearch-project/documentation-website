@@ -22,6 +22,7 @@ Operators are listed in order of precedence (top to bottom, left to right).
 | `and`, `or`          | Conditional Expression                                | left-to-right |
 
 ## Reserved for possible future functionality
+
 Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
 ## Set initializer
@@ -33,15 +34,19 @@ The set initializer defines a set or term and/or expressions.
 The following are examples of set initializer syntax.
 
 #### HTTP status codes
+
 ```
 {200, 201, 202}
 ```
+
 #### HTTP response payloads
+
 ```
 {"Created", "Accepted"}
 ```
 
 #### Handle multiple event types with different keys
+
 ```
 {/request_payload, /request_message}
 ```
@@ -57,9 +62,11 @@ A priority expression identifies an expression that will be evaluated at the hig
 ```
 
 ## Relational operators
+
 Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON Pointers that resolve to numbers.
 
 ### Syntax
+
 ```
 <Number | JSON Pointer> < <Number | JSON Pointer>
 <Number | JSON Pointer> <= <Number | JSON Pointer>
@@ -68,11 +75,13 @@ Relational operators are used to test the relationship of two numeric values. Th
 ```
 
 ### Example
+
 ```
 /status_code >= 200 and /status_code < 300
 ```
 
 ## Equality operators
+
 Equality operators are used to test whether two values are equivalent.
 
 ### Syntax
@@ -106,6 +115,7 @@ null != /response
 ```
 
 #### Conditional expression
+
 A conditional expression is used to chain together multiple expressions and/or values.
 
 #### Syntax
@@ -208,3 +218,17 @@ White space is **required** surrounding set initializers, priority expressions, 
 | `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
 | `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
 | `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
+
+
+## Functions
+
+Data Prepper supports the following built-in functions that can be used in an expression.
+
+### `length()`
+
+The `length()` function takes one argument of the JSON pointer type and returns the length of the value passed as if its a `type`
+string. For example, `length(/message)` returns a length of `10`, when a key message exists in the event and has a value of `1234567890`.
+
+### `hasTags()`
+
+The `hastags()` function takes one or more string type arguments and returns `true` if all the passed arguments are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the express `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the same expression but the event contains `tag4` as well, Data Prepper returns `false`.
