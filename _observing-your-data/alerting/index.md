@@ -47,4 +47,4 @@ Active | The alert is ongoing and unacknowledged. Alerts remain in this state un
 Acknowledged | The alert is acknowledged but the root cause is not fixed.
 Completed | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.
 Error | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
-Deleted | Someone deleted the monitor or trigger associated with this alert while the alert was ongoing.
+Deleted | The monitor or trigger associated with this alert was deleted while the alert was ongoing.
