@@ -422,7 +422,7 @@ GET shakespeare/_search
 }
 ```
 
-To search for terms with case sensitivity on:
+Use the following request for a case-sensitive term search:
 ```json
 GET shakespeare/_search
 {
