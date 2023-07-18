@@ -44,7 +44,7 @@ For a query-level monitor, specify a Painless script that returns `true` or `fal
 
 Trigger condition scripts revolve around the `ctx.results[0]` variable, which corresponds to the extraction query response. For example, the script might reference `ctx.results[0].hits.total.value` or `ctx.results[0].hits.hits[i]._source.error_code`.
 
-A return value of `true` means the trigger condition has been met and the trigger should run its actions. Test the script using the **Run** button.
+A return value of `true` means that the trigger condition has been met and the trigger should run its actions. Test the script using the **Run** button.
 
 The **Info** link next to **Trigger condition** contains a useful summary of the variables and results available to your query.
 {: .tip }
