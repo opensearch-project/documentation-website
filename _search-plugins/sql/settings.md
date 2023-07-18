@@ -81,7 +81,9 @@ Setting | Default | Description
 
 ## Spark connector settings
 
-The SQL plugin supports [Apache Spark](https://spark.apache.org/) as a data source. This allows you to run SQL queries in Spark and seamlessly write the resulting data back to OpenSearch. To use Spark, enable the following settings to add Spark as a data source and enable the correct permissions.
+The SQL plugin supports [Apache Spark](https://spark.apache.org/) as an augmented compute source. When data sources are defined as tables in Apache Spark, OpenSearch can consume those tables. This allows you to run SQL queries against external sources inside OpenSearch Dashboard's [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and observability logs. 
+
+To get started, enable the following settings to add Spark as a data source and enable the correct permissions.
 
 Setting | Description
 :--- | :---
