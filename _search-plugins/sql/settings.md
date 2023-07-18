@@ -100,7 +100,7 @@ Setting | Description
 `spark.datasource.flint.ignore.id_column` | Excludes the `id` column when exporting data in a query. Default is `true`.
 `spark.datasource.flint.write.batch_size` | Sets the batch size when writing to a Spark-connected index. Default is `1000`.
 `spark.datasource.flint.write.refresh_policy` | Sets the refresh policy for the Spark connection upon failure for the connector to write data to OpenSearch. Either no refresh (`false`), an immediate refresh (`true`), or a set time to wait `wait_for: X`. Default value is `false`.
-`spark.datasource.flint.read.scroll_size` | Sets the amount of results returned by queries ran with Spark. Default is `100`.
+`spark.datasource.flint.read.scroll_size` | Sets the amount of results returned by queries run with Spark. Default is `100`.
 `spark.flint.optimizer.enabled` | Enables OpenSearch to be optimized for Spark connection. Default is `true`.
 `spark.flint.index.hybridscan.enabled` | Enables OpenSearch to scan for write data on non-partitioned devices from the data source. Default is `false`.
 
