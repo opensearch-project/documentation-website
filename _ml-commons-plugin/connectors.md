@@ -63,7 +63,7 @@ PUT /_cluster/settings
 
 ### Setting up connector access control
 
-To enable access control on the connector API, use the following cluster setting. When enabled, the `authorization` or `credential` options will be required in order to use the connector API.
+To enable access control on the connector API, use the following cluster setting:
 
 ```
 PUT /_cluster/settings
@@ -75,7 +75,7 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-If successful, OpenSearch returns the following response:
+When enabled, the `authorization` or `credential` options will be required in order to use the connector API. If successful, OpenSearch returns the following response:
 
 ```
 {
