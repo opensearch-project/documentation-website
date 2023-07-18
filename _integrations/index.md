@@ -10,7 +10,7 @@ nav_exclude: true
 Introduced 2.9
 {: .label .label-purple }
 
-OpenSearch Integrations is a straightforward starting point for OpenSearch and OpenSearch Dashboards users to visualize and understand log and metric data for a particular resource, such as NGINX. An Integration contains a bundle of metadata, data mappings, and visualizations that make it simple to monitor data from that integrations resource.
+OpenSearch Integrations is a straightforward starting point for OpenSearch and OpenSearch Dashboards users to visualize and understand log and metric data for a particular resource, such as NGINX. An _integration_ contains a bundle of metadata, data mappings, and visualizations that make it simple to monitor data from the integrations resource.
 
 The OpenSearch Project seeks your feedback on this feature. Let us know on the [OpenSearch forum](https://forum.opensearch.org/) how OpenSearch Integrations works for you or how it can be improved. 
 {: .label-yellow}
