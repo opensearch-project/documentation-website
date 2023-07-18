@@ -102,9 +102,9 @@ PUT _cluster/settings
 
 ## Registering a model group
 
-To register a model group, send a `POST` request to the `_register` endpoint. You can register a model group with a `public`, `private`, or `restricted` access mode. 
+To register a model group, send a `POST` request to the `_register` endpoint. You can register a model group in `public`, `private`, or `restricted` access mode. 
 
-Each model group name must be globally unique in the cluster.
+Each model group name in the cluster must be globally unique.
 {: .important}
 
 ### Path and HTTP method
@@ -243,12 +243,12 @@ If model access control is disabled on your cluster (one of the [prerequisites](
 
 ## Updating a model group
 
-To update a model group, send a `PUT` request to the `model_groups` endpoint, providing the ID of the model group you want to update.
+To update a model group, send a `PUT` request to the `model_groups` endpoint and provide the ID of the model group you want to update.
 
 When updating a model group, the following restrictions apply:
 
 - The model owner or an admin user can update all fields. Any user who shares one or more backend roles with the model group can update the `name` and `description` fields only.
-- When updating the `access_mode` to `restricted`, you must specify one but not both `backend_roles` or `add_all_backend_roles`.
+- When updating the `access_mode` to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles` but not both.
 - When updating the `name`, ensure the name is globally unique in the cluster.
 
 ### Path and HTTP method
