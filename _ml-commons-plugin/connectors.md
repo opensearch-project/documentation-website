@@ -149,7 +149,7 @@ The following configuration options are **required** in order to build a connect
 | `protocol` | String | The protocol for the connection. For AWS services such as SageMaker and Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
 | `credential` | String | Defines any credential variables required connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists inside of OpenSearch. Therefore, you do not need to manually encrypt the key.
-| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been made. For more information about how to configure actions, see [Actions](#actions).
+| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been made. For more information about how to configure actions, see [Actions](#action-settings).
 
 ### Action settings
 
@@ -383,7 +383,10 @@ The `paramaters` section requires the following options when using `aws-sigv4` a
 - `service_name`: The name of the AWS service for the connector.
 
 
+## Next steps
 
+- To learn more about using models in OpneSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about model access control and groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/.)
 
 
 
