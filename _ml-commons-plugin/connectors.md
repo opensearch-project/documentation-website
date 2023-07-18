@@ -170,7 +170,7 @@ After a connection has been created, use the `connector_id` from the response to
 To register a model, you have the following options:
 
 - You can use `model_group_id` to register a model version to an existing model group.
-- If you do not use `model_group_id`, a new model is created.
+- If you do not use `model_group_id`, ML Commons creates a model with a new model group.
 
 The following example registers a model named `openAI-GPT-3.5 completions`:
 
@@ -312,7 +312,7 @@ The following example connector calls show how to create a connector with suppor
 
 The following example request creates a standalone Cohere connector:
 
-```
+```json
 POST /_plugins/_ml/connectors/_create
 {
     "name": "Cohere Connector: embedding",
@@ -341,7 +341,7 @@ POST /_plugins/_ml/connectors/_create
 
 The following example creates a SageMaker connector:
 
-```
+```json
 POST /_plugins/_ml/connectors/_create
 {
     "name": "sagemaker: embedding",

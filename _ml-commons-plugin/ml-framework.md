@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 ML Framework was taken out of experimental status and released to General Availability in OpenSearch 2.9.  
-{: .warning}
+{: .note}
 
 
 # ML framework
