@@ -306,7 +306,7 @@ This is indeed a test""",
 
 ## Examples 
 
-The following example connector calls show how to create a connector with supported third-party tools.
+The following example connector requests show how to create a connector with supported third-party tools.
 
 ### Cohere
 
