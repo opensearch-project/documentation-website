@@ -275,7 +275,7 @@ The following flow chart outlines the Faiss algorithm.
 
 ### Using a Faiss efficient filter
 
-Consider an index that holds information about different shirts for an e-commerce application. You want to find the top-rated shirts that are similar to the one you already have but would like to restrict the results by shirt size.
+Consider an index that contains information about different shirts for an e-commerce application. You want to find the top-rated shirts that are similar to the one you already have but would like to restrict the results by shirt size.
 
 In this example, you will create an index and search for shirts that are similar to the shirt you provide.
 
