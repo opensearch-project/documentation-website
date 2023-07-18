@@ -15,11 +15,11 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
   - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 
   - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 or later) 
 
--  [Post filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter.
-    - [Boolean post filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently, and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
-    - [The `post_filter` parameter](#post-filter-parameter): This approach runs an [ANN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search on the full dataset and then applies the filter to k-NN results.
+-  [Post-filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter. You can use the following two filtering strategies for this approach:
+    - [Boolean post-filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently, and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
+    - [The `post_filter` parameter](#post-filter-parameter): This approach runs an [ANN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search on the full dataset and then applies the filter to the k-NN results.
 
-- [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It may have high latency and does not scale for large filtered subsets. 
+- [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It may have high latency and does not scale when filtered subsets are large. 
 
 The following table summarizes the preceding filtering use cases.
 
@@ -275,7 +275,7 @@ The following flow chart outlines the Faiss algorithm.
 
 ### Using a Faiss efficient filter
 
-Consider an index that holds information about shirts for a clothing store. You want to find the top-rated shirts that are similar to the one you have but would like to restrict the results by shirt size.
+Consider an index that holds information about different shirts for an e-commerce application. You want to find the top-rated shirts that are similar to the one you already have but would like to restrict the results by shirt size.
 
 In this example, you will create an index and search for shirts that are similar to the shirt you provide.
 
@@ -509,9 +509,9 @@ POST /hotels-index/_search
 ```
 {% include copy-curl.html %}
 
-## Post filtering
+## Post-filtering
 
-You can achieve post filtering with a Boolean filter or by providing the `post_filter` parameter.
+You can achieve post-filtering with a Boolean filter or by providing the `post_filter` parameter.
 
 ### Boolean filter with ANN search
 
@@ -623,7 +623,7 @@ The response includes documents containing the matching hotels:
 }
 ```
 
-### Post filter parameter
+### post-filter parameter
 
 If you use the `knn` query alongside filters or other clauses (for example, `bool`, `must`, `match`), you might receive fewer than `k` results. In this example, `post_filter` reduces the number of results from 2 to 1:
 
