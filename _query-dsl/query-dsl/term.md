@@ -430,7 +430,7 @@ GET shakespeare/_search
     "wildcard": {
       "speaker": {
         "value": "H*Y",
-		"case_insensitive": false
+	"case_insensitive": false
       }
     }
   }
