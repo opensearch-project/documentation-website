@@ -386,7 +386,7 @@ The `paramaters` section requires the following options when using `aws-sigv4` a
 ## Next steps
 
 - To learn more about using models in OpneSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
-- To learn more about model access control and groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/.)
+- To learn more about model access control and groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 
 
