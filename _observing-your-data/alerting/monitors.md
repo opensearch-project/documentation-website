@@ -12,7 +12,7 @@ redirect_from:
 
 Proactively monitor your data in OpenSearch with alerting and anomaly detection. Set up alerts to receive notifications when your data exceeds certain thresholds. Anomaly detection uses machine learning (ML) to automatically detect any outliers in your streaming data. You can pair anomaly detection with alerting to ensure that you're notified as soon as an anomaly is detected.
 
-See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/triggers/), [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/create-triggers/), and [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to learn more about their use in OpenSearch. 
+See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/triggers/), [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/create-triggers/), and [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to learn more about the use of these alerting features in OpenSearch. 
 
 The Alerting plugin provides four monitor types:
 
@@ -32,7 +32,7 @@ To create a monitor:
 1. Enter the **Monitor details**, including monitor type, method, and schedule.  
 1. Select a data source from the dropdown list.
 1. Define the metrics in the Query section.
-1. Add a [trigger](insert-link).
+1. Add a [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/triggers/).
 1. Select **Create**.
 
 The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by updating the `plugins.alerting.monitor.max_monitors` setting using the [cluster settings API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
@@ -85,16 +85,17 @@ The following metadata is provided for each document findings entry:
 * **Query** – The query name that matched the document.
 * **Time found** – The timestamp that indicates when the document was found during the runtime.
 
-While you can configure an alert notification for each finding, it is not recommended unless rules are well defined to prevent a large volume of findings in a high ingestion cluster.
+To prevent a large volume of findings in a high-ingestion cluster, configuring alert notifications for each finding is not recommended unless rules are well defined.
+{: .important}
 
 ## Creating cluster metrics monitors
 
 In addition to monitoring conditions for indexes, the Alerting plugin allows monitoring conditions for clusters. Alerts can be set by cluster metrics to watch for the following conditions:
 
-- Cluster health status reaches yellow or red.
-- Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds.
+- The cluster health status is yellow or red.
+- Cluster-level metrics, such as CPU usage and JVM memory usage, reach a specified threshold.
 - Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach a specified threshold.
-- Total number of documents stores reaches a specified amount.
+- The total number of documents stores reaches a specified threshold.
 
 To create a cluster metrics monitor:
 
@@ -103,7 +104,7 @@ To create a cluster metrics monitor:
 1. Select **Per cluster metrics monitor**.
 1. In the Query section, select **Request type** from the dropdown.
 1. To filter the API response to use only certain path parameters, enter those parameters in the **Query parameters** field. Most APIs that can be used to monitor cluster status support path parameters, as described in their respective documentation (for example, comma-separated lists of index names).
-1. In the Triggers section, define the conditions to trigger an alert. The trigger condition autopopulates a Painless `ctx` variable. For example, a cluster monitor watching for cluster stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional Painless conditions supported by the API. To preview the condition response, select **Preview condition response**.
+1. In the Triggers section, define the conditions that will trigger an alert. The trigger condition auto-populates a Painless `ctx` variable. For example, a cluster monitor watching for cluster stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional Painless conditions supported by the API. To preview the condition response, select **Preview condition response**.
 1. In the Actions section, indicate how users are to be notified when a trigger condition is met.
 1. Select **Create**. The new monitor is listed under **Monitors**.
 
