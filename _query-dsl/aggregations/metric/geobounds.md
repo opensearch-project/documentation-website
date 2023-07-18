@@ -113,7 +113,7 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-The optional `wrap_longitude` parameter specifies whether the bounding box returned by the aggregation can overlap the international date line (180&deg; meridian). If `wrap_longitude` is set to `true`, the bounding box can overlap the international date line and return a bounds where the lower-left longitude is larger than the upper-right longitude. The default value for `wrap_longitude` is `true`.
+The optional `wrap_longitude` parameter specifies whether the bounding box returned by the aggregation can overlap the international date line (180&deg; meridian). If `wrap_longitude` is set to `true`, the bounding box can overlap the international date line and return a `bounds` object in which the lower-left longitude is greater than the upper-right longitude. The default value for `wrap_longitude` is `true`.
 
 The response contains the geo-bounding box that encloses all shapes in the `location` field:
 
