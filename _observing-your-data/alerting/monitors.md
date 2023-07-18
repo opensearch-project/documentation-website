@@ -196,7 +196,7 @@ The cluster metrics monitor has the following limitations:
 - Monitors cannot be created for remote clusters.
 - The OpenSearch cluster must be in a state where an index's conditions can be monitored and actions can be run against the index.
 - Removing resource permissions from a user does not prevent that user’s preexisting monitors for that resource from running.
-- Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions. While the monitors will run, they will not be able to run the API calls and a permissions alert will be generated, for example, `no permissions for [cluster:monitor/health]`.   
+- Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions. While the monitors will run, they will not be able to run the API calls, and a permissions alert will be generated, for example, `no permissions for [cluster:monitor/health]`.   
 
 ## Next steps
 
