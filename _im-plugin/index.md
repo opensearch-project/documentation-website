@@ -16,7 +16,7 @@ You index data using the OpenSearch REST API. Two APIs exist: the index API and 
 
 For situations in which new data arrives incrementally (for example, customer orders from a small business), you might use the index API to add documents individually as they arrive. For situations in which the flow of data is less frequent (for example, weekly updates to a marketing website), you might prefer to generate a file and send it to the `_bulk` API. For large numbers of documents, lumping requests together and using the `_bulk` API offers superior performance. If your documents are enormous, however, you might need to index them individually.
 
-To make sure that many documents can be indexed through both index API and bulk API are manageable, each document inside an index must be less than 512mb. 
+To make sure that many documents can be indexed through both the index API and the bulk API are manageable, each document inside an index must be less than 512 mb. 
 
 
 ## Introduction to indexing
