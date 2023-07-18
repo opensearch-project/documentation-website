@@ -302,8 +302,6 @@ When set to `true`, requires an access key when making a connection to SageMaker
 plugins.ml_commons.connector_access_control_enabled: true
 ```
 
-###
-
 ### Values
 
 - Default value: false
