@@ -5,7 +5,7 @@ has_children: false
 nav_order: 60
 ---
 
-# Connecting to other ML platforms
+# Connecting to third-party ML platforms
 
 Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
 
