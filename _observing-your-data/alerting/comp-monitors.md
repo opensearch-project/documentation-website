@@ -37,8 +37,9 @@ The key terms in the following table describe the basic concepts behind composit
 | :--- | :--- |
 | Composite monitor | A combination of multiple individual monitors that includes functionality to execute each monitor in a sequence. The compound monitor can query different aspects of a dataset based on the type of monitors included in the composite monitor's definition.  |
 | Delegate monitor | Any monitor of any monitor type used in the chained workflow of a compound monitor. Delegate monitors are executed sequentially according to their order in the monitor definition. |
-| Findings chain | A sequence of findings where the findings for each monitor are used as the inputs for subsequent monitors. 
-| Alert chain | A sequence of alerts where an alert for each monitor is used as the input for a subsequent monitor.  |
+| Chained finding | A sequence of findings where the findings for each monitor are used as the inputs for subsequent monitors. 
+| Chained alert | Chained alerts are generated from composite monitor triggers when delegate monitors generate alerts. The chained alert trigger condition supports the use of the logical operators AND, OR, and NOT so you can combine multiple functions into a single expression. |
+| Audit alert | : Delegate monitors generate alerts in **audit** state. Users are not notified about each individual audit alert and don't need to acknowledge them. Audit alerts are used to evaluate chained alert trigger conditions in composite monitors. |
 | Execution | A single run of all delegate monitors in the sequence defined in the composite monitor's configuration. |
 | Execution Id | Allows for the management of data recorded from a specific execution of a composite monitor. The execution Id associates findings and alerts with the execution and is stored in each monitor's metadata, along with the workflow Id and the monitor Id. |
 
@@ -96,7 +97,6 @@ POST _plugins/_alerting/workflows
 ```
 {% include copy-curl.html %}
 
-
 #### Request fields
 
 | Field | Type | Description |
@@ -120,40 +120,6 @@ POST _plugins/_alerting/workflows
 | `triggers.chained_alert_trigger.condition.script` | Object | The script details that determine the conditions for triggering an alert. |
 | `triggers.chained_alert_trigger.condition.script.source` | String | The Painless script that defines the conditions for triggering an alert. |
 | `triggers.chained_alert_trigger.condition.script.lang` | String | Enter `painless` for the Painless scripting language. |
-
-
-#### Using Painless scripting language to define alert chains
-
-Composite monitor configuration employs the [Painless scripting language](https://www.elastic.co/guide/en/elasticsearch/painless/7.17/painless-guide.html) to define the conditions for chaining alerts. Conditions are applied for each execution of the composite monitor. You specify the definition for the chain in the `triggers.chained_alert_triggers.condition.script.source` field of the request. Using Painless syntax, you can apply logic to links between monitors with basic Boolean operators AND, OR, NOT, and precedence.
-
-* AND = `&&`
-* OR = `||`
-* NOT = `!`
-* Precedence = `()`
-
-See the following examples to understand how each is used in the monitor definition.
-
-* **Example 1**
-   
-   `monitor[id=1] && monitor[id=2]`
-   
-   The following conditions for delegate monitors will trigger the composite monitor to produce an alert when both monitor #1 AND monitor #2 generate an alert.
-
-* **Example 2**
-   
-   `monitor[id=1] || monitor[id=2]`
-
-   The following conditions will trigger the composite monitor to produce an alert when either monitor #1 OR monitor #2 generates an alert.
-
-* **Example 3**
-   
-   `monitor[id=1] && (!monitor[id=2] || monitor[id=3])`
-
-   The following conditions will trigger the composite monitor to produce an alert when monitor #1 generates an alert AND monitor #2 does NOT, OR, monitor #3 does generate an alert.
-   
-The order of monitor IDs in the Painless script does not define the sequence of execution for the monitors. The sequence of monitor execution is defined in the `inputs.composite_input.sequence.delegates.order` field in the request.
-{: .note }
-
 
 #### Example request
 
@@ -223,6 +189,38 @@ POST _plugins/_alerting/workflows
 }
 ```
 {% include copy-curl.html %}
+
+#### Using Painless scripting language to define alert chains
+
+Composite monitor configuration employs the [Painless scripting language](https://www.elastic.co/guide/en/elasticsearch/painless/7.17/painless-guide.html) to define the conditions for chaining alerts. Conditions are applied for each execution of the composite monitor. You specify the definition for the chain in the `triggers.chained_alert_triggers.condition.script.source` field of the request. Using Painless syntax, you can apply logic to links between monitors with basic Boolean operators AND, OR, NOT, and precedence.
+
+* AND = `&&`
+* OR = `||`
+* NOT = `!`
+* Precedence = `()`
+
+See the following examples to understand how each is used in the monitor definition.
+
+* **Example 1**
+   
+   `monitor[id=1] && monitor[id=2]`
+   
+   The following conditions for delegate monitors will trigger the composite monitor to produce an alert when both monitor #1 AND monitor #2 generate an alert.
+
+* **Example 2**
+   
+   `monitor[id=1] || monitor[id=2]`
+
+   The following conditions will trigger the composite monitor to produce an alert when either monitor #1 OR monitor #2 generates an alert.
+
+* **Example 3**
+   
+   `monitor[id=1] && (!monitor[id=2] || monitor[id=3])`
+
+   The following conditions will trigger the composite monitor to produce an alert when monitor #1 generates an alert AND monitor #2 does NOT, OR, monitor #3 does generate an alert.
+   
+The order of monitor IDs in the Painless script does not define the sequence of execution for the monitors. The sequence of monitor execution is defined in the `inputs.composite_input.sequence.delegates.order` field in the request.
+{: .note }
 
 
 ### Get Composite Monitor
@@ -438,7 +436,19 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 
 ## Managing composite monitors in OpenSearch Dashboards
 
-You can manage composite monitors in OpenSearch Dashboards and configure monitors that chain findings.
-[waiting for UX completion and environment]
+Begin by navigating to the **Create monitor** page in OpenSearch Dashboards: **Alerting > Monitors > Create monitor**. Steps for creating a composite monitor workflow and triggers vary depending on whether you use the **Visual editor** or the **Extraction query editor**. In either case, the first step is to define the schedule.
+
+In the **Frequency** dropdown list, select either **By interval**, **Daily**, **Weekly**, **Monthly**, or **Custom cron expression**.
+  * **By interval** — Allows you to run the schedule based on the number of minutes, hours, or days you specify.
+  * **Daily** — Specify a time of day and a timezone.
+  * **Weekly** — Specify a day of the week, a time of day, and a timezone.
+  * **Monthly** — Specify a day of the month, a time of day, and a timezone.
+  * **Custom cron expression** — Create a custom cron expression for the schedule. Use the **cron expressions** link for help with creating these expressions, or see [Cron expression reference]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/).
+
+For the remaining steps, select either **Visual editor** or the **Extraction query editor** and refer to the following sections for each.
+
+### Visual editor
+
+
 
 
