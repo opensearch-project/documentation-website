@@ -452,9 +452,16 @@ For the remaining steps, refer to either **Visual editor** or the **Extraction q
 To finish creating a composite monitor in the Visual editor, follow these steps:
 
 1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. Select **Add another monitor** to add another dropdown list. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Keep in mind that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
+  
+  Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
+  
+1. Define a trigger or triggers for the composite monitor. First add a trigger name. Next, define the trigger conditions.
+  * Use the **Select delegate monitor** label to open the condition and monitor selector popup window.
 
-Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
+  <img src="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt="This popup window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
 
-1. 
+  * First use the **Select delegate monitor** dropdown list to select a delegate monitor from those defined in the previous step. You can use the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to the right of the list to remove the monitor.
+  * Before a second delegate monitor has been selected, the list of operators provides the option NOT. You can select NOT to dismiss this detector as a condition for the trigger. Otherwise, leave the operator's field blank.
+  * Select the plus sign to the right of the first monitor to select a second.
 
 
