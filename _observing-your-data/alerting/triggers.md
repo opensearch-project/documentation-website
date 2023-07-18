@@ -55,7 +55,7 @@ Bucket-level monitors require you to specify more information in your trigger co
 - `parent_bucket_path`: Path to a multi-bucket aggregation. The path can include single-bucket aggregations, but the last aggregation must be multi-bucket. For example, if you have a pipeline such as `agg1>agg2>agg3`, `agg1` and `agg2` are single-bucket aggregations, but `agg3` must be a multi-bucket aggregation.
 - `script`: Script that OpenSearch runs to evaluate whether to trigger any alerts.
 
-Following is an example script:
+The following is an example script:
 
 ```json
 {
