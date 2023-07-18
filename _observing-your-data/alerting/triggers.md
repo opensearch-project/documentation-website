@@ -130,7 +130,7 @@ Variable | Data type | Description
 :--- | :--- : :---
 `ctx.results` | Array | An array with one element (`ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
-`ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
+`ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert was triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message if the trigger was unable to retrieve results or could not be evaluated, typically due to a compile error or null pointer exception. Null otherwise.
 `ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
