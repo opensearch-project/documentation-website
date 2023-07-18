@@ -1,12 +1,12 @@
 ---
 layout: default
-title: OpenSearch sink
+title: opensearch 
 parent: Sinks
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 50
 ---
 
-# OpenSearch sink
+# opensearch
 
 You can use the `opensearch` sink plugin to send data to an OpenSearch cluster, a legacy Elasticsearch cluster, or an Amazon OpenSearch Service domain.
 

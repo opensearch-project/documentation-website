@@ -1,25 +1,30 @@
 ---
 layout: default
-title: Pipeline sink
+title: pipeline 
 parent: Sinks
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 55
 ---
 
-# Pipeline sink
+# pipeline
 
-## Overview
+Use the `pipeline` sink to write to another pipeline.
 
-You can use the `pipeline` sink to write to another pipeline.
+## Configuration options
+
+The `pipeline` sink supports the following configuration options.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 name | Yes | String | Name of the pipeline to write to.
 
-<!--- ## Configuration
+## Usage
 
-Content will be added to this section.
+The following example configures a `pipeline` sink that writes to a pipeline named `movies`:
 
-## Metrics
-
-Content will be added to this section. --->
+```
+sample-pipeline:
+  sink:
+    - pipeline:
+        name: movies
+```
