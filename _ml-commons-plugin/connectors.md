@@ -13,11 +13,11 @@ Machine Learning (ML) Connectors enables the ability to integrate OpenSearch's M
 
 As of OpenSearch 2.9, connectors have been tested for the following ML tools, though its possible to make connectors for tools not listed:
 
-- [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage manage the life cycle of text embedding models on Amazon SageMaker, powering semantic search queries on OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferances. This benefits Amazon SageMaker users who value it's functionality such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
+- [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the life cycle of text embedding models on Amazon SageMaker, powering semantic search queries on OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value it's functionality such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
 - [Amazon Comprehend](https://aws.amazon.com/comprehend/) allows you to extract metadata automatically from OpenSearch ingest pipeline, enriching data indexed in OpneSearch and improving your search capabilities. 
 - [ChatGPT](https://openai.com/blog/chatgpt) enables you to run OpenSearch queries while invoking the ChatGPT API, helping you build on OpenSearch faster and improves the speed in which OpenSearch search functionality can retrieve data.
 - [Amazon Bedrock](https://aws.amazon.com/bedrock/) is an alternative to ChatGPT inside a fully managed-service.
-- [NVIDIA Triton](https://developer.nvidia.com/triton-inference-server) allows you to host text embedding models on NVIDIA's high performance model serving technology. Power semantic search queries and vector generation ingest pipelines using [GPU-acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration).
+- [NVIDIA Triton](https://developer.nvidia.com/triton-inference-server) allows you to host text embedding models on NVIDIA's high performance model serving technology. Power semantic search queries and vector generation ingest pipelines using [GPU-acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power Cohere's large language models.
 
 ## Prerequisites
@@ -93,7 +93,7 @@ If successful, OpenSearch returns the following response:
 
 ## Creating a connector
 
-The connector create API, `/_plugins/_ml/connectors/_create`, creates connections to third-party ML tools. Using the `endpoint` parameter, you can connect to any supported ML tool using their specific API endpoint. For example, to connect to a ChatGPT completetion model, you can connect using the `api.openai.com` as shown in the following example:
+The connector create API, `/_plugins/_ml/connectors/_create`, creates connections to third-party ML tools. Using the `endpoint` parameter, you can connect to any supported ML tool using their specific API endpoint. For example, to connect to a ChatGPT completion model, you can connect using the `api.openai.com` as shown in the following example:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -148,21 +148,16 @@ The following configuration options are **required** in order to build a connect
 | `version` | Integer | The version for the connector. |
 | `protocol` | String | The protocol for the connection. For AWS services such as SageMaker and Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
-
-The following configuration are **optional**:
-
-| Field | Data type | Description |
-| :---  | :--- | :--- |
-| `credential` | String | Defines any credential variables required connect to your chosen endpoint. ML commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists inside of OpenSearch. Therefore, you do not need to manually encrypt the key.
-| `action` | JSON array | Tells the connector what actions to run after a connection to ML commons has been made. For more information on how to configure actions, see [Actions](#actions).
+| `credential` | String | Defines any credential variables required connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists inside of OpenSearch. Therefore, you do not need to manually encrypt the key.
+| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been made. For more information about how to configure actions, see [Actions](#actions).
 
 ### Action settings
 
-The `action` setting when creating a connection tells the connector what ML commons API operation to run against the connection endpoint. You can configure actions using the following settings:
+The `action` setting when creating a connection tells the connector what ML Commons API operation to run against the connection endpoint. You can configure actions using the following settings:
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
-`action_type` | String | Required. Sets the ML commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. 
+`action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. 
 `method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`.
 `url` | String | Required. Sets the connection endpoint the action takes place. This must match the regex expression for the connection using when [adding trusted endpoints](#adding-trusted-endpoints).
 `headers` | Sets the headers used inside the request or response body. Default is `application/json`.
@@ -190,7 +185,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-ML commons returns the `task_id` and registration status of the model. You can use the `task_id` to find the `model_id`, as showing the following example:
+ML Commons returns the `task_id` and registration status of the model. You can use the `task_id` to find the `model_id`, as showing the following example:
 
 **GET model request**
 
@@ -382,7 +377,7 @@ The `credential` parameter contains the following options reserved for `aws-sigv
 - `secret_key`: Required. Provides the secret key for the AWS instance.
 - `session_token`: Optional. Provides a temporary set of credentials for the AWS instance.
 
-The `paramaters` section requires the following options when using ``aws-sigv4` authentication.
+The `paramaters` section requires the following options when using `aws-sigv4` authentication.
 
 - `region`: The region of the AWS instance.
 - `service_name`: The name of the AWS service for the connector.

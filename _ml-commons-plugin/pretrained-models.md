@@ -28,7 +28,7 @@ POST /_plugins/_ml/models/_upload
 }
 ```
 
-For more information on how to upload and use ML models, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework).
+For more information about how to upload and use ML models, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 
 ## Supported pretrained models
 
