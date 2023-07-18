@@ -32,7 +32,7 @@ For document-level monitors, use tags that represent multiple queries connected 
 
 1. Select **Per document monitor**.
 2. Select a data source. 
-3. Enter the query name and field information. For example, set the query to search for the `region` field with either operator "is" or "is not" and value "us-west-2".
+3. Enter the query name and field information. For example, set the query to search for the `region` field with either the operator "is" or "is not" and the value "us-west-2".
 4. Select **Add tag** and enter a tag name.
 5. Create the second query by selecting **Add another query** and add the same tag to it.
 
