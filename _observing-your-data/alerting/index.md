@@ -33,7 +33,7 @@ Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. 
 Trigger | A condition that, if met, generates an *alert*.
 Tag | A label that can be applied to multiple queries to combine them with the logical `OR` operation in a per document monitor. You cannot use tags with other monitor types.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
-Action | The information that you want the monitor to send out after being triggered. Actions have a *channel*, a message subject, and a message body.
+Action | The information that you want the monitor to send after being triggered. Actions have a *channel*, a message subject, and a message body.
 Channel | A notification channel to use in an action. Supported channels are Amazon Chime, Slack, Amazon Simple Notification Service (Amazon SNS), email, or custom webhook. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
 Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index `.opensearch-alerting-finding*`.
 
