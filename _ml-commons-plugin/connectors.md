@@ -7,30 +7,30 @@ nav_order: 60
 
 # Connecting to other ML platforms
 
-Machine Learning (ML) Connectors enables the ability to integrate OpenSearch's ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
+Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
 
 ## Supported connectors
 
 As of OpenSearch 2.9, connectors have been tested for the following ML tools, though its possible to make connectors for tools not listed:
 
-- [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the life cycle of text embedding models on Amazon SageMaker, powering semantic search queries on OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value it's functionality such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
-- [Amazon Comprehend](https://aws.amazon.com/comprehend/) allows you to extract metadata automatically from OpenSearch ingest pipeline, enriching data indexed in OpneSearch and improving your search capabilities. 
-- [ChatGPT](https://openai.com/blog/chatgpt) enables you to run OpenSearch queries while invoking the ChatGPT API, helping you build on OpenSearch faster and improves the speed in which OpenSearch search functionality can retrieve data.
-- [Amazon Bedrock](https://aws.amazon.com/bedrock/) is an alternative to ChatGPT inside a fully managed-service.
-- [NVIDIA Triton](https://developer.nvidia.com/triton-inference-server) allows you to host text embedding models on NVIDIA's high performance model serving technology. Power semantic search queries and vector generation ingest pipelines using [GPU-acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
+- [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the life cycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
+- [Amazon Comprehend](https://aws.amazon.com/comprehend/) allows you to extract metadata automatically from an OpenSearch ingest pipeline, enriching data indexed in OpenSearch and improving your search capabilities. 
+- [ChatGPT](https://openai.com/blog/chatgpt) enables you to run OpenSearch queries while invoking the ChatGPT API, helping you build on OpenSearch faster and improves the data retrieval speed for OpenSearch search functionality.
+- [Amazon Bedrock](https://aws.amazon.com/bedrock/) is an alternative to ChatGPT inside a fully managed service.
+- [NVIDIA Triton](https://developer.nvidia.com/triton-inference-server) allows you to host text embedding models on NVIDIA's high performance model-serving technology. Power semantic search queries and vector generation ingest pipelines using [GPU-acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power Cohere's large language models.
 
 ## Prerequisites
 
-If you are an admin deploying wanting to use an ML connector, make sure that target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have access to send and receive data to the third-party API for your connector. 
+If you are an admin deploying an ML connector, make sure that target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have permissions to send and receive data to the third-party API for your connector. 
 
 When access control is enabled on your third-party platform, you can enter your security settings using the `authorization` or `credential` settings inside the connector API.
 
 ### Adding trusted endpoints
 
-To make sure that you configure connectors in OpenSearch, add the trusted endpoints into your cluster settings using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, as shown in the following example:
+To configure connectors in OpenSearch, add the trusted endpoints into your cluster settings using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, as shown in the following example:
 
-```
+```json
 PUT /_cluster/settings
 {
     "persistent": {
@@ -47,9 +47,9 @@ PUT /_cluster/settings
 
 ### Enabling ML nodes
 
-Connectors also require the use of dedicated ML nodes. To make sure you have ML nodes enabled, update the following cluster settings:
+Connectors require the use of dedicated ML nodes. To make sure you have ML nodes enabled, update the following cluster settings:
 
-```
+```json
 PUT /_cluster/settings
 {
     "persistent": {
@@ -93,7 +93,7 @@ If successful, OpenSearch returns the following response:
 
 ## Creating a connector
 
-The connector create API, `/_plugins/_ml/connectors/_create`, creates connections to third-party ML tools. Using the `endpoint` parameter, you can connect to any supported ML tool using their specific API endpoint. For example, to connect to a ChatGPT completion model, you can connect using the `api.openai.com` as shown in the following example:
+The connector create API operation, `/_plugins/_ml/connectors/_create`, creates connections to third-party ML tools. Using the `endpoint` parameter, you can connect to any supported ML tool using their specific API endpoint. For example, to connect to a ChatGPT completion model, you can connect using the `api.openai.com` as shown in the following example:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -148,7 +148,7 @@ The following configuration options are **required** in order to build a connect
 | `version` | Integer | The version for the connector. |
 | `protocol` | String | The protocol for the connection. For AWS services such as SageMaker and Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
-| `credential` | String | Defines any credential variables required connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists inside of OpenSearch. Therefore, you do not need to manually encrypt the key.
+| `credential` | String | Defines any credential variables required connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists in OpenSearch. Therefore, you do not need to manually encrypt the key.
 | `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been made. For more information about how to configure actions, see [Actions](#action-settings).
 
 ### Action settings
@@ -159,17 +159,17 @@ The `action` setting when creating a connection tells the connector what ML Comm
 | :---  | :--- | :--- |
 `action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. 
 `method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`.
-`url` | String | Required. Sets the connection endpoint the action takes place. This must match the regex expression for the connection using when [adding trusted endpoints](#adding-trusted-endpoints).
+`url` | String | Required. Sets the connection endpoint where the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints](#adding-trusted-endpoints).
 `headers` | Sets the headers used inside the request or response body. Default is `application/json`.
 `request_body` | Required. Sets the parameters contained inside the request body of the action.
 
 ## Registering and deploying a connected model
 
-After a connection has been created, use the `connector_id` from the response to register and deploy a connected models.
+After a connection has been created, use the `connector_id` from the response to register and deploy a connected model.
 
-For registering model, you have the following options:
+To register a model, you have the following options:
 
-- You can use `model_group_id` to create the model with an associated model group.
+- You can use `model_group_id` to register a model version to an existing model group.
 - If you do not use `model_group_id`, a new model is created.
 
 The following example registers a model named `openAI-GPT-3.5 completions`:
@@ -210,7 +210,7 @@ GET /_plugins/_ml/tasks/l0FIL4kB4ubqQRzeKvpV
 }
 ```
 
-Lastly, use the `model_id` to deploy the model, as showing in the following:
+Lastly, use the `model_id` to deploy the model:
 
 **Deploy model request**
 
@@ -306,11 +306,11 @@ This is indeed a test""",
 
 ## Examples 
 
-The following examples connector calls show how to create a connector with supported third-party tools.
+The following example connector calls show how to create a connector with supported third-party tools.
 
 ### Cohere
 
-The following example request creates a standalone Cohere connection:
+The following example request creates a standalone Cohere connector:
 
 ```
 POST /_plugins/_ml/connectors/_create
@@ -385,8 +385,8 @@ The `paramaters` section requires the following options when using `aws-sigv4` a
 
 ## Next steps
 
-- To learn more about using models in OpneSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
-- To learn more about model access control and groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+- To learn more about using models in OpenSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 
 
