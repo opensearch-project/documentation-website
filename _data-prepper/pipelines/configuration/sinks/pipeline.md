@@ -20,7 +20,7 @@ name | Yes | String | Name of the pipeline to write to.
 
 ## Usage
 
-The following example configures a `pipeline` sink that writes to a pipeline named `movies`
+The following example configures a `pipeline` sink that writes to a pipeline named `movies`:
 
 ```
 sample-pipeline:

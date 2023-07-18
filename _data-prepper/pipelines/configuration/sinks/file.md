@@ -8,7 +8,7 @@ nav_order: 45
 
 # file
 
-Use the `file` sink to create a flat file output, usually a `.log` file . 
+Use the `file` sink to create a flat file output, usually a `.log` file.
 
 ## Configuration options
 
@@ -20,7 +20,7 @@ path | Yes | String | Path for the output file (e.g. `logs/my-transformed-log.lo
 
 ## Usage
 
-The following example shows the basic usage of the `file` sink:
+The following example shows basic usage of the `file` sink:
 
 ```
 sample-pipeline:
