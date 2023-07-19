@@ -372,7 +372,7 @@ The following example connector requests show how to create a connector with sup
 
 ### OpenAI chat connector
 
-The following example creates a standalone OpenAI chat connector:
+The following example creates a standalone OpenAI chat connector. The same options can be used for an internal connector under the `connector` parameter:
 
 
 ```json
@@ -403,10 +403,12 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 
+After creating the connector, you can retrieve the `task_id`, deploy the model, and use the Predict API, similar to a standalone connector.
+
 
 ### AWS SageMaker
 
-The following example creates an Amazon SageMaker connector:
+The following example creates a standalone Amazon SageMaker connector. The same options can be used for an internal connector under the `connector` parameter:
 
 ```json
 POST /_plugins/_ml/connectors/_create
