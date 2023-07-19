@@ -56,7 +56,7 @@ To view an integration, view the dashboard associated with the integration. If t
 
 If you have not installed any integrations, you'll be prompted to install them from the Integrations interface. Supported integrations are listed in the **Available** window. 
 
-To add an integration, select the desired pre-packaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it. The following example uses the Try it flow.
+To add an integration, select the desired prepackaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it. The following example uses the Try it flow:
 
 1. From the **Integrations** page, select **NginX Dashboard**.
 2. Select the **Try it** button. _The Try it flow automatically creates a sample index template and add sample data into the template, and then creates the integration based on that data._
