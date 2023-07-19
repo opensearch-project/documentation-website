@@ -231,4 +231,18 @@ string. For example, `length(/message)` returns a length of `10`, when a key mes
 
 ### `hasTags()`
 
-The `hastags()` function takes one or more string type arguments and returns `true` if all the passed arguments are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the express `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the same expression but the event contains `tag4` as well, Data Prepper returns `false`.
+The `hastags()` function takes one or more string type arguments and returns `true` if all the passed arguments are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the express `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the same expression but the event also contains  `tag4`tag, Data Prepper returns `false`.
+
+### `getMetadata()`
+
+The `getMetadata()` function takes one literal string argument to look up specific keys in a an event's metadata. If the key contains a `/`, then the function looks up the metadata recursively. When passed, the expression returns the value corresponding to the key. The value returned can be any type. For example, if the metadata contains `{"key1": "value2", "key2": 10}`, then the function, `getMetadata("key1")`, returns `value2`. The function, `getMetadata("key2")`, returns 10.
+
+### `contains()`
+
+The `contains()` function takes two string arguments and looks to see if either a literal string or a JSON pointer is contained within an event. When the second argument contains a substring of the first argument, such as `contains("abcde", "abcd")`, the function returns `true`. If the second argument does not contain any substrings, such as `contains("abcde", "xyz")`, returns `false`.
+
+### `cidrContains()`
+
+The `cidrContains()` function takes two or more arguments. The first argument is a JSON pointer which represents the key to the an IP address to check. It supports both IPv4 and IPv6 addresses. Every subsequent argument after the key is string type that represents CIDR blocks to check against.
+
+If the IP address in the first argument is in the range of any of the given CIDR blocks, the function returns `true`. If the IP address is not in range of the CIDR blocks, the function returns false. For example, `cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` will returns as `true` if the `sourceIp` field indicated in the JSON pointed has a value of `192.0.2.5`.
