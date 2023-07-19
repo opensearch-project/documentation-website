@@ -98,42 +98,37 @@ The connector creation API, `/_plugins/_ml/connectors/_create`, creates connecti
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-    "name": "OpenAI Connector",
+    "name": "OpenAI Chat Connector",
     "description": "The connector to public OpenAI model service for GPT 3.5",
     "version": 1,
     "protocol": "http",
     "parameters": {
         "endpoint": "api.openai.com",
-        "auth": "API_Key",
-        "content_type": "application/json",
-        "max_tokens": 7,
-        "temperature": 0,
-        "model": "text-davinci-003"
+        "model": "gpt-3.5-turbo"
     },
     "credential": {
-        "openAI_key": "<encrypted-key>"
+        "openAI_key": "..."
     },
     "actions": [
         {
             "action_type": "predict",
             "method": "POST",
-            "url": "https://${parameters.endpoint}/v1/completions",
+            "url": "https://${parameters.endpoint}/v1/chat/completions",
             "headers": {
                 "Authorization": "Bearer ${credential.openAI_key}"
             },
-            "request_body": "{ \"model\": \"${parameters.model}\", \"prompt\": \"${parameters.prompt}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
+            "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages} }"
         }
-    ],
-    "access_mode": "public"
+    ]
 }
 ```
+{% include copy-curl.html %}
 
 If successful, the connector API responds with a `connector_id` and `status` for the connection:
 
-```
+```json
 {
- "connector_id": "M2pBmYgB5cK1H70wk3hd",
- "status": "CREATED"
+  "connector_id": "a1eMb4kBJ1eYAeTMAljY"
 }
 ```
 
@@ -150,7 +145,7 @@ The following configuration options are **required** in order to create a connec
 | `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
 | `credential` | String | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists in OpenSearch. Therefore, you do not need to manually encrypt the key.
 | `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been established. For more information about how to configure actions, see [Actions](#action-settings).
-| `backend_roles` | String | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigned backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).
+| `backend_roles` | String | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).
 | `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).
 | `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`.
 
@@ -177,38 +172,49 @@ To register a model, you have the following options:
 
 The following example registers a model named `openAI-GPT-3.5 completions`:
 
-```
+```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-GPT-3.5 completions",
+    "name": "openAI-gpt-3.5-turbo",
     "function_name": "remote",
-    "model_group_id": "lEFGL4kB4ubqQRzegPo2",
+    "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
     "description": "test model",
-    "connector_id": "kUFFL4kB4ubqQRzeQ_r-"
+    "connector_id": "a1eMb4kBJ1eYAeTMAljY"
 }
 ```
 
-ML Commons returns the `task_id` and registration status of the model. You can use the `task_id` to find the `model_id`, as shown the following example:
+ML Commons returns the `task_id` and registration status of the model:
 
-**GET model request**
-
-```
-GET /_plugins/_ml/tasks/l0FIL4kB4ubqQRzeKvpV
-```
-
-**GET model response**
-
-```
+```json
 {
-  "model_id": "mUFIL4kB4ubqQRzeKvr1",
+  "task_id": "cVeMb4kBJ1eYAeTMFFgj",
+  "status": "CREATED"
+}
+```
+
+
+You can use the `task_id` to find the `model_id`, as shown the following example:
+
+
+**GET task request**
+
+```json
+GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
+```
+
+**GET task response**
+
+```json
+{
+  "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "REGISTER_MODEL",
   "function_name": "REMOTE",
   "state": "COMPLETED",
   "worker_node": [
-    "Zx5D5SeOS_-EAteyzBpTYg"
+    "XPcXLV7RQoi5m8NI_jEOVQ"
   ],
-  "create_time": 1688715405818,
-  "last_update_time": 1688715406198,
+  "create_time": 1689793598499,
+  "last_update_time": 1689793598530,
   "is_async": false
 }
 ```
@@ -217,15 +223,15 @@ Lastly, use the `model_id` to deploy the model:
 
 **Deploy model request**
 
-```
-POST /_plugins/_ml/models/mUFIL4kB4ubqQRzeKvr1/_deploy
+```json
+POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 
 **Deploy model response**
 
-```
+```json
 {
-  "task_id": "OP5JL4kB28KP1SGMupr3",
+  "task_id": "vVePb4kBJ1eYAeTM7ljG",
   "status": "CREATED"
 }
 ```
@@ -234,41 +240,51 @@ Use the `task_id` from the deploy model response to make sure the model deployme
 
 **Verify deploy completion request**
 
-```
-GET /_plugins/_ml/tasks/OP5JL4kB28KP1SGMupr3
+```json
+GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 
 **Verify deploy completion response**
 
 ```
 {
-  "model_id": "mUFIL4kB4ubqQRzeKvr1",
+  "model_id": "cleMb4kBJ1eYAeTMFFg4",
   "task_type": "DEPLOY_MODEL",
   "function_name": "REMOTE",
   "state": "COMPLETED",
   "worker_node": [
-    "V2GLKobDTY2yBDy1Uawwvw"
+    "n-72khvBTBi3bnIIR8FTTw"
   ],
-  "create_time": 1688715508466,
-  "last_update_time": 1688715508692,
+  "create_time": 1689793851077,
+  "last_update_time": 1689793851101,
   "is_async": true
 }
 ```
 
 After a successful deployment, you can test the model using the Predict API set in the connector's `action` settings, as shown in the following example:
 
-```
-POST /_plugins/_ml/models/mUFIL4kB4ubqQRzeKvr1/_predict
+```json
+POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
 {
-    "parameters": {
-        "prompt": "Say this is a test"
-    }
+  "parameters": {
+    "model": "gpt-3.5-turbo",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ]
+  }
 }
 ```
 
 The Predict API returns inference results for the connected model, as shown in the following example response:
 
-```
+```json
 {
   "inference_results": [
     {
@@ -276,23 +292,24 @@ The Predict API returns inference results for the connected model, as shown in t
         {
           "name": "response",
           "dataAsMap": {
-            "id": "cmpl-7ZaMR9V34zIIaYDyNNMpaS5KolU0X",
-            "object": "text_completion",
-            "created": 1688715607,
-            "model": "text-davinci-003",
+            "id": "chatcmpl-7e6s5DYEutmM677UZokF9eH40dIY7",
+            "object": "chat.completion",
+            "created": 1689793889,
+            "model": "gpt-3.5-turbo-0613",
             "choices": [
               {
-                "text": """
-
-This is indeed a test""",
                 "index": 0,
-                "finish_reason": "length"
+                "message": {
+                  "role": "assistant",
+                  "content": "Hello! How can I assist you today?"
+                },
+                "finish_reason": "stop"
               }
             ],
             "usage": {
-              "prompt_tokens": 5,
-              "completion_tokens": 7,
-              "total_tokens": 12
+              "prompt_tokens": 19,
+              "completion_tokens": 9,
+              "total_tokens": 28
             }
           }
         }
@@ -304,12 +321,43 @@ This is indeed a test""",
 
 
 
-
-
-
 ## Examples 
 
 The following example connector requests show how to create a connector with supported third-party tools.
+
+
+### OpenAI chat connector
+
+The following example creates an OpenAI chat connector:
+
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+    "name": "OpenAI Chat Connector",
+    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "version": 1,
+    "protocol": "http",
+    "parameters": {
+        "endpoint": "api.openai.com",
+        "model": "gpt-3.5-turbo"
+    },
+    "credential": {
+        "openAI_key": "..."
+    },
+    "actions": [
+        {
+            "action_type": "predict",
+            "method": "POST",
+            "url": "https://${parameters.endpoint}/v1/chat/completions",
+            "headers": {
+                "Authorization": "Bearer ${credential.openAI_key}"
+            },
+            "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages} }"
+        }
+    ]
+}
+```
 
 
 ### AWS SageMaker
