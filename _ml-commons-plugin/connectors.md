@@ -93,6 +93,42 @@ When enabled, the `backend_roles`, `add_all_backend_roles`, or `access_model` op
 
 ## Creating a connector
 
+You can build connectors in two ways:
+
+- A **standalone connector**, saved in a connector index, which can be reused and shared with multiple remote models but requires access to both the model and the third-part being accessed by the connector, such as OpenAI.
+
+- An **internal connector**, saved in the model index and which can only be used with one remote model. Unlike a standalone connect, users only need access to the model itself to access the connector, since the connection is made inside the model.
+
+## Configuration options
+
+The following configuration options are **required** in order to create a connector. These settings can be used in both standalone and internal connectors.
+
+| Field | Data type | Description |
+| :---  | :--- | :--- |
+| `name` | String | The name of the connector. |
+| `description` | String | A description of the connector. |
+| `version` | Integer | The version of the connector. |
+| `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
+| `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
+| `credential` | String | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists in OpenSearch. Therefore, you do not need to manually encrypt the key.
+| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been established. For more information about how to configure actions, see [Actions](#action-settings).
+| `backend_roles` | String | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).
+| `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).
+| `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`.
+
+When creating a connection, the `action` setting tells the connector what ML Commons API operation to run against the connection endpoint. You can configure actions using the following settings.
+
+| Field | Data type | Description |
+| :---  | :--- | :--- |
+`action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. 
+`method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`.
+`url` | String | Required. Sets the connection endpoint at which the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints](#adding-trusted-endpoints).
+`headers` | String | Sets the headers used inside the request or response body. Default is `application/json`.
+`request_body` | String | Required. Sets the parameters contained inside the request body of the action.
+
+
+### Standalone connector
+
 The connector creation API, `/_plugins/_ml/connectors/_create`, creates connections to third-party ML tools. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, to connect to a ChatGPT completion model, you can connect using the `api.openai.com`, as shown in the following example:
 
 ```json
@@ -131,37 +167,6 @@ If successful, the connector API responds with a `connector_id` and `status` for
   "connector_id": "a1eMb4kBJ1eYAeTMAljY"
 }
 ```
-
-## Configuration options
-
-The following configuration options are **required** in order to create a connector:
-
-| Field | Data type | Description |
-| :---  | :--- | :--- |
-| `name` | String | The name of the connector. |
-| `description` | String | A description of the connector. |
-| `version` | Integer | The version of the connector. |
-| `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
-| `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
-| `credential` | String | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists in OpenSearch. Therefore, you do not need to manually encrypt the key.
-| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been established. For more information about how to configure actions, see [Actions](#action-settings).
-| `backend_roles` | String | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).
-| `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).
-| `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`.
-
-### Action settings
-
-When creating a connection, the `action` setting tells the connector what ML Commons API operation to run against the connection endpoint. You can configure actions using the following settings.
-
-| Field | Data type | Description |
-| :---  | :--- | :--- |
-`action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. 
-`method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`.
-`url` | String | Required. Sets the connection endpoint at which the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints](#adding-trusted-endpoints).
-`headers` | Sets the headers used inside the request or response body. Default is `application/json`.
-`request_body` | Required. Sets the parameters contained inside the request body of the action.
-
-## Registering and deploying a connected model
 
 After a connection has been created, use the `connector_id` from the response to register and deploy a connected model.
 
@@ -319,6 +324,45 @@ The Predict API returns inference results for the connected model, as shown in t
 }
 ```
 
+### Internal connector
+
+To create an internal connector, add the `connector` parameter to the Register model API, as shown in the following example:
+
+```json
+POST /_plugins/_ml/models/_register
+{
+    "name": "openAI-GPT-3.5 completions: internal connector",
+    "function_name": "remote",
+    "model_group_id": "lEFGL4kB4ubqQRzegPo2",
+    "description": "test model",
+    "connector": {
+        "name": "OpenAI Connector",
+        "description": "The connector to public OpenAI model service for GPT 3.5",
+        "version": 1,
+        "protocol": "http",
+        "parameters": {
+            "endpoint": "api.openai.com",
+            "max_tokens": 7,
+            "temperature": 0,
+            "model": "text-davinci-003"
+        },
+        "credential": {
+            "openAI_key": "..."
+        },
+        "actions": [
+            {
+                "action_type": "predict",
+                "method": "POST",
+                "url": "https://${parameters.endpoint}/v1/completions",
+                "headers": {
+                    "Authorization": "Bearer ${credential.openAI_key}"
+                },
+                "request_body": "{ \"model\": \"${parameters.model}\", \"prompt\": \"${parameters.prompt}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
+            }
+        ]
+    }
+}
+```
 
 
 ## Examples 
@@ -328,7 +372,7 @@ The following example connector requests show how to create a connector with sup
 
 ### OpenAI chat connector
 
-The following example creates an OpenAI chat connector:
+The following example creates a standalone OpenAI chat connector:
 
 
 ```json
