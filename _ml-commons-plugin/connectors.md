@@ -54,7 +54,6 @@ PUT /_cluster/settings
 {
     "persistent": {
         "plugins.ml_commons.only_run_on_ml_node": true,
-        "plugins.ml_commons.native_memory_threshold": 100
     }
 }
 ```
