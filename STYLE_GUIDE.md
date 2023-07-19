@@ -45,7 +45,7 @@ Use lowercase when referring to features, unless you are referring to a formally
 * “*Remote-backed storage* is an experimental feature. Therefore, we do not recommend the use of *remote-backed storage* in a production environment.”
 * “You can take and restore *snapshots* using the snapshot API.”
 * “You can use the *VisBuilder* visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture.” (You can refer to VisBuilder alone or qualify the term with “visualization type”.)
-* “As of OpenSearch 2.4, the *model-serving framework* only supports text embedding models without GPU acceleration.”
+* “As of OpenSearch 2.4, the *ML framework* only supports text-embedding models without GPU acceleration.”
 
 #### Plugin names
 

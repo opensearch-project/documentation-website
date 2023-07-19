@@ -1,18 +1,21 @@
 ---
 layout: default
-title: Model-serving framework 
+title: ML framework 
 has_children: true
 nav_order: 50
+redirect_from:
+   - /ml-commons-plugin/model-serving-framework/
 ---
 
-# Model-serving framework
+ML Framework was taken out of experimental status and released as Generally Available in OpenSearch 2.9.  
+{: .note}
 
-The model-serving framework is an experimental feature. For updates on the progress of the model-serving framework, or if you want to leave feedback that could help improve the feature, join the discussion in the [Model-serving framework forum](https://forum.opensearch.org/t/feedback-machine-learning-model-serving-framework-experimental-release/11439).    
-{: .warning}
 
-ML Commons allows you to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
+# ML Framework
 
-This page outlines the steps required to upload a custom model and run it with the ML Commons plugin.
+ML Commons allows you to serve custom models and use those models to make inferences through the OpenSearch Machine Learning (ML) Framework. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
+
+This page outlines the steps required to upload a custom model and run it with the ML Framework.
 
 
 ## Prerequisites 
@@ -21,7 +24,7 @@ To upload a custom model to OpenSearch, you need to prepare it outside of your O
 
 ### Model support
 
-As of OpenSearch 2.6, the model-serving framework supports text embedding models.
+As of OpenSearch 2.6, the ML Framework supports text-embedding models.
 
 ### Model format
 
@@ -37,7 +40,7 @@ Most deep learning models are more than 100 MB, making it difficult to fit them 
 
 ## GPU acceleration
 
-To achieve better performance within the model-serving framework, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
+To achieve better performance within the ML Framework, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 
 
 ## Upload model to OpenSearch

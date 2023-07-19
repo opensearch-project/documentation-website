@@ -148,7 +148,7 @@ plugins.ml_commons.allow_registering_model_via_url: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Register models using local files
 
@@ -163,7 +163,7 @@ plugins.ml_commons.allow_registering_model_via_local_file: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Add trusted URL
 
@@ -230,7 +230,7 @@ plugins.ml_commons.allow_custom_deployment_plan: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Enable auto redeploy
 
@@ -245,7 +245,7 @@ plugins.ml_commons.model_auto_redeploy.enable: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Set retires for auto redeploy
 
@@ -290,7 +290,22 @@ plugins.ml_commons.enable_inhouse_python_model: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
+
+## Enable access control for connectors
+
+When set to `true`, the setting allows admins to control access and permissions to the connector API using `backend_roles`.
+
+### Setting
+
+```
+plugins.ml_commons.connector_access_control_enabled: true
+```
+
+### Values
+
+- Default value: false
+- Valid values: `false`, `true`
 
 
 
