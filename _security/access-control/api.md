@@ -503,7 +503,7 @@ Note that any role you supply in the `opendistro_security_roles` array must alre
 PUT _plugins/_security/api/internalusers/<username>
 {
   "password": "kirkpass",
-  "opendistro_security_roles": ["maintenance_staff", "weapons"],
+  "opendistro_security_roles": ["maintenance_staff", "database_manager"],
   "backend_roles": ["role 1", "role 2"],
   "attributes": {
     "attribute1": "value1",
