@@ -11,24 +11,24 @@ Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML
 
 ## Supported connectors
 
-As of OpenSearch 2.9, connectors have been tested for the following ML tools, though its possible to make connectors for tools not listed:
+As of OpenSearch 2.9, connectors have been tested for the following ML tools, though it is possible to create connectors for other tools not listed here:
 
-- [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the life cycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
+- [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text-embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
 - [Amazon Comprehend](https://aws.amazon.com/comprehend/) allows you to extract metadata automatically from an OpenSearch ingest pipeline, enriching data indexed in OpenSearch and improving your search capabilities. 
-- [ChatGPT](https://openai.com/blog/chatgpt) enables you to run OpenSearch queries while invoking the ChatGPT API, helping you build on OpenSearch faster and improves the data retrieval speed for OpenSearch search functionality.
+- [ChatGPT](https://openai.com/blog/chatgpt) enables you to run OpenSearch queries while invoking the ChatGPT API, helping you build on OpenSearch faster and improving the data retrieval speed for OpenSearch search functionality.
 - [Amazon Bedrock](https://aws.amazon.com/bedrock/) is an alternative to ChatGPT inside a fully managed service.
-- [NVIDIA Triton](https://developer.nvidia.com/triton-inference-server) allows you to host text embedding models on NVIDIA's high performance model-serving technology. Power semantic search queries and vector generation ingest pipelines using [GPU-acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
+- [NVIDIA Triton](https://developer.nvidia.com/triton-inference-server) allows you to host text-embedding models on NVIDIA's high-performance model-serving technology. You can power semantic search queries and vector generation ingest pipelines using [GPU-acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power Cohere's large language models.
 
 ## Prerequisites
 
-If you are an admin deploying an ML connector, make sure that target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have permissions to send and receive data to the third-party API for your connector. 
+If you are an admin deploying an ML connector, make sure that the target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have permissions to send and receive data to the third-party API for your connector. 
 
 When access control is enabled on your third-party platform, you can enter your security settings using the `authorization` or `credential` settings inside the connector API.
 
 ### Adding trusted endpoints
 
-To configure connectors in OpenSearch, add the trusted endpoints into your cluster settings using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, as shown in the following example:
+To configure connectors in OpenSearch, add the trusted endpoints to your cluster settings using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, as shown in the following example:
 
 ```json
 PUT /_cluster/settings
@@ -69,7 +69,7 @@ To enable access control on the connector API, use the following cluster setting
 PUT /_cluster/settings
 {
     "persistent": {
-        "plugins.ml_commons.connector_access_control_enabled": false
+        "plugins.ml_commons.connector_access_control_enabled": true
     }
 }
 ```
@@ -93,7 +93,7 @@ When enabled, the `authorization` or `credential` options will be required in or
 
 ## Creating a connector
 
-The connector create API operation, `/_plugins/_ml/connectors/_create`, creates connections to third-party ML tools. Using the `endpoint` parameter, you can connect to any supported ML tool using their specific API endpoint. For example, to connect to a ChatGPT completion model, you can connect using the `api.openai.com` as shown in the following example:
+The connector creation API, `/_plugins/_ml/connectors/_create`, creates connections to third-party ML tools. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, to connect to a ChatGPT completion model, you can connect using the `api.openai.com`, as shown in the following example:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -128,7 +128,7 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 
-If successful, the connector API responds with a `connector_id` and `status` for the connection.
+If successful, the connector API responds with a `connector_id` and `status` for the connection:
 
 ```
 {
@@ -139,27 +139,27 @@ If successful, the connector API responds with a `connector_id` and `status` for
 
 ## Configuration options
 
-The following configuration options are **required** in order to build a connector:
+The following configuration options are **required** in order to create a connector:
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
 | `name` | String | The name of the connector. |
 | `description` | String | The description for the connector. |
 | `version` | Integer | The version for the connector. |
-| `protocol` | String | The protocol for the connection. For AWS services such as SageMaker and Bedrock, use `aws_sigv4`. For all other services, use `http`. |
+| `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
-| `credential` | String | Defines any credential variables required connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists in OpenSearch. Therefore, you do not need to manually encrypt the key.
-| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been made. For more information about how to configure actions, see [Actions](#action-settings).
+| `credential` | String | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists in OpenSearch. Therefore, you do not need to manually encrypt the key.
+| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been established. For more information about how to configure actions, see [Actions](#action-settings).
 
 ### Action settings
 
-The `action` setting when creating a connection tells the connector what ML Commons API operation to run against the connection endpoint. You can configure actions using the following settings:
+When creating a connection, the `action` setting tells the connector what ML Commons API operation to run against the connection endpoint. You can configure actions using the following settings.
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
 `action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. 
 `method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`.
-`url` | String | Required. Sets the connection endpoint where the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints](#adding-trusted-endpoints).
+`url` | String | Required. Sets the connection endpoint at which the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints](#adding-trusted-endpoints).
 `headers` | Sets the headers used inside the request or response body. Default is `application/json`.
 `request_body` | Required. Sets the parameters contained inside the request body of the action.
 
@@ -227,7 +227,7 @@ POST /_plugins/_ml/models/mUFIL4kB4ubqQRzeKvr1/_deploy
 }
 ```
 
-Use the `task_id` from the deploy model response to make sure the model deployment completes.
+Use the `task_id` from the deploy model response to make sure the model deployment completes:
 
 **Verify deploy completion request**
 
@@ -339,7 +339,7 @@ POST /_plugins/_ml/connectors/_create
 
 ### AWS
 
-The following example creates a SageMaker connector:
+The following example creates an Amazon SageMaker connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -371,15 +371,15 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 
-The `credential` parameter contains the following options reserved for `aws-sigv4` authentication.
+The `credential` parameter contains the following options reserved for `aws-sigv4` authentication:
 
 - `access_key`: Required. Provides the access key for the AWS instance.
 - `secret_key`: Required. Provides the secret key for the AWS instance.
 - `session_token`: Optional. Provides a temporary set of credentials for the AWS instance.
 
-The `paramaters` section requires the following options when using `aws-sigv4` authentication.
+The `paramaters` section requires the following options when using `aws-sigv4` authentication:
 
-- `region`: The region of the AWS instance.
+- `region`: The AWS Region in which the AWS instance is located.
 - `service_name`: The name of the AWS service for the connector.
 
 

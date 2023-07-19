@@ -28,11 +28,11 @@ POST /_plugins/_ml/models/_upload
 }
 ```
 
-For more information about how to upload and use ML models, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+For more information about how to upload and use ML models, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 
 ## Supported pretrained models
 
-The ML framework supports the following models, categorized by type. All models are traced from [Hugging Face](https://huggingface.co/). Although models with the same type will have similar use cases, each model has a different model size and performs differently depending on your cluster. For a comparison of the performances of some pretrained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
+The ML Framework supports the following models, categorized by type. All models are traced from [Hugging Face](https://huggingface.co/). Although models with the same type will have similar use cases, each model has a different model size and performs differently depending on your cluster. For a performance comparison of some pretrained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
 
 
 ### Sentence transformers

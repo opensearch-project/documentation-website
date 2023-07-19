@@ -7,15 +7,15 @@ redirect_from:
    - /ml-commons-plugin/model-serving-framework/
 ---
 
-ML Framework was taken out of experimental status and released to General Availability in OpenSearch 2.9.  
+ML Framework was taken out of experimental status and released as Generally Available in OpenSearch 2.9.  
 {: .note}
 
 
-# ML framework
+# ML Framework
 
-ML Commons allows you to serve custom models and use those models to make inferences through OpenSearch's machine learning framework (ML framework) For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
+ML Commons allows you to serve custom models and use those models to make inferences through the OpenSearch Machine Learning (ML) Framework. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
 
-This page outlines the steps required to upload a custom model and run it with the ML framework.
+This page outlines the steps required to upload a custom model and run it with the ML Framework.
 
 
 ## Prerequisites 
@@ -24,7 +24,7 @@ To upload a custom model to OpenSearch, you need to prepare it outside of your O
 
 ### Model support
 
-As of OpenSearch 2.6, the ML framework supports text embedding models.
+As of OpenSearch 2.6, the ML Framework supports text-embedding models.
 
 ### Model format
 
@@ -40,7 +40,7 @@ Most deep learning models are more than 100 MB, making it difficult to fit them 
 
 ## GPU acceleration
 
-To achieve better performance within the ML framework, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
+To achieve better performance within the ML Framework, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 
 
 ## Upload model to OpenSearch

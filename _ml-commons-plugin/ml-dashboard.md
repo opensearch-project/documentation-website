@@ -6,7 +6,7 @@ redirect_from:
   - /ml-commons-plugin/ml-dashbaord/
 ---
 
-The ML dashboard was taken out of experimental status and released to General Availability in OpenSearch 2.9.  
+The ML dashboard was taken out of experimental status and released as Generally Available in OpenSearch 2.9.  
 {: .note}
 
 Administrators of machine learning (ML) clusters can use OpenSearch Dashboards to manage and check the status of ML models running inside a cluster. This can help ML developers provision nodes to ensure their models run efficiently.
@@ -66,4 +66,4 @@ A list of nodes gives you a view of each node the model is running on, including
 
 ## Next steps
 
-For more information about how to manage ML models in OpenSearch, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+For more information about how to manage ML models in OpenSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
