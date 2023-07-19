@@ -37,6 +37,7 @@ The key terms in the following table describe the basic concepts behind composit
 | :--- | :--- |
 | Composite monitor | A combination of multiple individual monitors that includes functionality to execute each monitor in a sequence. The compound monitor can query different aspects of a dataset based on the type of monitors included in the composite monitor's definition.  |
 | Delegate monitor | Any monitor used in the chained workflow of a compound monitor. Composite monitors support per query, per bucket, and per document monitor types as delegate monitors. Delegate monitors are executed sequentially according to their order in the monitor definition. |
+| workflow Id | The workflow Id provides an identifier for the entire workflow of all delegate monitors. It is synonymous with a composite monitor's monitor Id.
 | Chained finding | A sequence of findings where the findings for each monitor are used as the inputs for subsequent monitors. 
 | Chained alert | Chained alerts are generated from composite monitor triggers when delegate monitors generate alerts. The chained alert trigger condition supports the use of the logical operators AND, OR, and NOT so you can combine multiple functions into a single expression. |
 | Audit alert | Delegate monitors generate alerts in an **audit** state. Users are not notified about each individual audit alert and don't need to acknowledge them. Audit alerts are used to evaluate chained alert trigger conditions in composite monitors. |
@@ -90,7 +91,7 @@ You can manage composite monitors using the REST API or OpenSearch Dashboards. C
 
 ### Create Composite Monitor
 
-This API allows you to create composite monitors.
+This API allows you to create a composite monitor.
 
 ```json
 POST _plugins/_alerting/workflows
@@ -111,7 +112,6 @@ POST _plugins/_alerting/workflows
 | `enabled_time` | Number | Time at which the monitor was enabled. Expressed in epoch time. |
 | `enabled` | Boolean | Setting to determine whether the composite monitor is enabled or not. Setting it to `true` enables the composite monitor. Default is TBD. |
 | `workflow_type` | String | Set to `composite` for composite monitor. |
-| `schema_version` | Number | TBD |
 | `triggers` | Object | Details for the individual alert triggers. |
 | `triggers.chained_alert_trigger` | Object | Details for each individual alert trigger. Each monitor's alert trigger will require settings for its configuration. |
 | `triggers.chained_alert_trigger.id` | String | The unique identifier for the alert trigger. |
@@ -225,10 +225,10 @@ The order of monitor IDs in the Painless script does not define the sequence of 
 
 ### Get Composite Monitor
 
-Retrieves information on the specified monitor.
+This API retrieves information on the specified monitor.
 
 ```json
-GET _plugins/_alerting/workflows/<id>
+GET _plugins/_alerting/workflows/<workflow_id>
 ```
 {% include copy-curl.html %}
 
@@ -236,15 +236,15 @@ GET _plugins/_alerting/workflows/<id>
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
-| `workflow_id` | String | The workflow Id |
+| `workflow_id` | String | The composite monitor's [workflow Id](#key-terms). |
 
 
 ### Update Composite Monitor
 
-Updates the composite monitor's details. See [Create Composite Monitor](#create-composite-monitor) for description of request fields.
+This API updates the composite monitor's details. See [Create Composite Monitor](#create-composite-monitor) for description of request fields.
 
 ```json
-PUT _plugins/_alerting/workflows/<id>
+PUT _plugins/_alerting/workflows/<workflow_id>
 {
     "owner": "security_analytics",
     "type": "workflow",
@@ -285,30 +285,19 @@ PUT _plugins/_alerting/workflows/<id>
 ### Delete Composite Monitor
 
 ```json
-DELETE _plugins/_alerting/workflows/<id>
+DELETE _plugins/_alerting/workflows/<workflow_id>
 ```
 {% include copy-curl.html %}
 
-#### Path parameters
-
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| monitor Id | String | The monitor Id |
-
 
 ### Execute Composite Monitor
+
+This API begins the workflow execution for a composite monitor.
 
 ```json
 POST /_plugins/_alerting/workflows/<workflow_id>/_execute
 ```
 {% include copy-curl.html %}
-
-#### Path parameters
-
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| workflow_id | String | The workflow Id. Enter the workflow Id in the path to run the execution. |
-
 
 #### Example response
 
@@ -409,6 +398,8 @@ POST /_plugins/_alerting/workflows/<workflow_id>/_execute
 
 ### Acknowledge Chained Alerts
 
+This API provides a list of chained alerts belonging to a specific workflow. 
+
 ```json
 POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 {
@@ -436,7 +427,7 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 
 ## Creating composite monitors in OpenSearch Dashboards
 
-Begin by navigating to the **Create monitor** page in OpenSearch Dashboards: **Alerting > Monitors > Create monitor**. Then select **Composite monitor** in the **Monitor details** section. Steps for creating a composite monitor workflow and triggers vary depending on whether you use the **Visual editor** or the **Extraction query editor**. In either case, the first step is to define the schedule.
+Begin by navigating to the **Create monitor** page in OpenSearch Dashboards: **Alerting > Monitors > Create monitor**. Then select **Composite monitor** as the monitor type in the **Monitor details** section. Steps for creating a composite monitor workflow and triggers vary depending on whether you use the **Visual editor** or the **Extraction query editor**. In either case, the first step is to define the schedule.
 
 In the **Frequency** dropdown list, select either **By interval**, **Daily**, **Weekly**, **Monthly**, or **Custom cron expression**.
   * **By interval** — Allows you to run the schedule repeatedly based on the number of minutes, hours, or days you specify.
@@ -451,7 +442,9 @@ For the remaining steps, refer to either **Visual editor** or the **Extraction q
 
 To finish creating a composite monitor in the Visual editor, follow these steps:
 
-1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. Select **Add another monitor** to add another dropdown list. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Keep in mind that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
+1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. In the **Visual editor**, the order in which you select the monitors determines their order in the workflow.
+
+Select **Add another monitor** to add another dropdown list. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Keep in mind that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
    
    Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
    
@@ -465,13 +458,47 @@ To finish creating a composite monitor in the Visual editor, follow these steps:
     * Select the plus sign to the right of the first monitor to select a second. Use the **Select delegate monitor** dropdown list to select a second delegate monitor. After a second monitor has been populated, you can select a Boolean operator to define the conditions between the two delegate monitors. The options include AND, OR, AND NOT, and OR NOT. After the operator is applied, you can always select the operator between the two monitors to open the dropdown list and change the selection.
     * Select the severity level for the alert. The options include 1 (Highest), 2 (High), 3 (Medium), 4 (Low), and 5 (Lowest).
     * In the **Notifications** section, select a notification channel from the dropdown list. If no channels exist, select the **Manage channels** label to the right of the dropdown list to set up a notification channel. For more information about notifications, see the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) documentation. You can also select **Add notification** to specify additional notifications for the alert trigger.
+      
+      Notifications are optional for all monitor types.
+      {: .note }
+
     * To define an additional trigger, select **Add another trigger**. You can have a maximum of of 10 triggers in total. Select **Remove trigger** to the right of the screen to remove a trigger.
     
 1. After completing the monitor workflow and defining triggers, select **Create** in the bottom right corner of the screen. The composite monitor is created, and the monitor's details window opens.
 
 ### Extraction query editor
 
-The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query.
+The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query. This provides you with an ability create more advanced configurations not supported by the visual editor. The following sections provide examples of content for each of these two fields.
+
+#### Define workflow
+
+In the **Define workflow** field, enter a sequence that defines the delegate monitors and their order in the workflow. The following example shows the delegate monitors that are included in the workflow along with their order in the sequence:
+
+```json
+{
+    "sequence": {
+        "delegates": [
+            {
+                "order": 1,
+                "monitor_id": "0TgBZokB2ZtsLaRvXz70"
+            },
+            {
+                "order": 2,
+                "monitor_id": "8jgBZokB2ZtsLaRv6z4N"
+            }
+        ]
+    }
+}
+```
+
+All delegate monitors included in the workflow require a `monitor_id` and a value for `order`.
+
+#### Trigger condition
+
+In the **Trigger condition** field, enter 
+
+
+
 
 
 
