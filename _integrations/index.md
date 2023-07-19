@@ -17,7 +17,7 @@ The OpenSearch Project seeks your feedback on this feature. Let us know on the [
 
 ## Setting up OpenSearch Integrations
 
-For the latest developer information, including sample code, articles, tutorials, and API reference, see the following resources:
+For the latest developer information, including sample code, articles, tutorials, and an API reference, see the following resources:
 
 - [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations) on GitHub
 - [Integration Creation Guide](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Guide)
