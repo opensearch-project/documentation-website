@@ -583,8 +583,7 @@ To learn more about per document monitors that function similarly to the documen
 
 ### Search the findings index
 
-You can use the Alerting search API operation to search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request. By default, a GET request without path parameters returns all available findings. To learn more about monitor findings, see [Document findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#document-findings).
-
+You can use the Alerting search API operation to search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request. By default, a GET request without path parameters returns all available findings. 
 
 To retrieve any available findings, send a GET request without any path parameters as follows:
 
