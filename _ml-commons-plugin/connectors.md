@@ -95,9 +95,9 @@ When enabled, the `backend_roles`, `add_all_backend_roles`, or `access_model` op
 
 You can build connectors in two ways:
 
-- A **standalone connector**, saved in a connector index, can be reused and shared with multiple remote models but requires access to both the model and the third party being accessed by the connector, such as OpenAI.
+1. A **standalone connector**, saved in a connector index, can be reused and shared with multiple remote models but requires access to both the model and the third party being accessed by the connector, such as OpenAI.
 
-- An **internal connector**, saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
+2. An **internal connector**, saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
 
 ## Configuration options
 
