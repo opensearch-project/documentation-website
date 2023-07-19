@@ -40,6 +40,9 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
+  integrations:
+    permalink: /:collection/:path/
+    output: true
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -111,6 +114,9 @@ just_the_docs:
       nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
+      nav_fold: true
+    integrations:
+      name: OpenSearch Integrations
       nav_fold: true
     tuning-your-cluster:
       name: Creating and tuning your cluster
