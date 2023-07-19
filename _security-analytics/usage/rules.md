@@ -7,7 +7,7 @@ nav_order: 40
 
 # Working with detection rules
 
-The **Detection rules** window lists all security rules used for detection creation and provides options for filtering the list and viewing details for each rule. Further options let you import rules and create new rules by first duplicating a Sigma rule then modifying it. This section covers navigation of the Rules page and description of the actions you can perform.
+The **Detection rules** window lists all security rules used for detection creation and provides options for filtering the list and viewing details for each rule. Further options allow you to import rules and create new rules by first duplicating a Sigma rule and then modifying it. This section covers navigation of the Rules page and description of the actions you can perform.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/Rules.png" alt="The Rules page" width="90%">
 
