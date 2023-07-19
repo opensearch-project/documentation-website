@@ -14,11 +14,10 @@ Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML
 As of OpenSearch 2.9, connectors have been tested for the following ML tools, though it is possible to create connectors for other tools not listed here:
 
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text-embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
-- [Amazon Comprehend](https://aws.amazon.com/comprehend/) allows you to extract metadata automatically from an OpenSearch ingest pipeline, enriching data indexed in OpenSearch and improving your search capabilities. 
 - [ChatGPT](https://openai.com/blog/chatgpt) enables you to run OpenSearch queries while invoking the ChatGPT API, helping you build on OpenSearch faster and improving the data retrieval speed for OpenSearch search functionality.
-- [Amazon Bedrock](https://aws.amazon.com/bedrock/) is an alternative to ChatGPT inside a fully managed service.
-- [NVIDIA Triton](https://developer.nvidia.com/triton-inference-server) allows you to host text-embedding models on NVIDIA's high-performance model-serving technology. You can power semantic search queries and vector generation ingest pipelines using [GPU-acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
-- [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power Cohere's large language models.
+
+Additional connectors will be added to this page as they are tested and verified. 
+
 
 ## Prerequisites
 
@@ -28,7 +27,7 @@ When access control is enabled on your third-party platform, you can enter your 
 
 ### Adding trusted endpoints
 
-To configure connectors in OpenSearch, add the trusted endpoints to your cluster settings using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, as shown in the following example:
+To configure connectors in OpenSearch, add the trusted endpoints to your cluster settings using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, which supports Java regex expressions, as shown in the following example:
 
 ```json
 PUT /_cluster/settings
@@ -47,7 +46,7 @@ PUT /_cluster/settings
 
 ### Enabling ML nodes
 
-Connectors require the use of dedicated ML nodes. To make sure you have ML nodes enabled, update the following cluster settings:
+Most connectors require the use of dedicated ML nodes. To make sure you have ML nodes enabled, update the following cluster settings:
 
 ```json
 PUT /_cluster/settings
@@ -59,12 +58,14 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
+If you are running a remote inference or local model, you can set `"plugins.ml_commons.only_run_on_ml_node"` to `false` and use data nodes instead.
+
 
 ### Setting up connector access control
 
 To enable access control on the connector API, use the following cluster setting:
 
-```
+```json
 PUT /_cluster/settings
 {
     "persistent": {
@@ -74,9 +75,9 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-When enabled, the `authorization` or `credential` options will be required in order to use the connector API. If successful, OpenSearch returns the following response:
+When enabled, the `backend_roles`, `add_all_backend_roles`, or `access_model` options are required in order to use the connector API. If successful, OpenSearch returns the following response:
 
-```
+```json
 {
   "acknowledged": true,
   "persistent": {
@@ -143,12 +144,15 @@ The following configuration options are **required** in order to create a connec
 | Field | Data type | Description |
 | :---  | :--- | :--- |
 | `name` | String | The name of the connector. |
-| `description` | String | The description for the connector. |
-| `version` | Integer | The version for the connector. |
+| `description` | String | A description of the connector. |
+| `version` | Integer | The version of the connector. |
 | `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
 | `credential` | String | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists in OpenSearch. Therefore, you do not need to manually encrypt the key.
 | `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been established. For more information about how to configure actions, see [Actions](#action-settings).
+| `backend_roles` | String | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigned backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).
+| `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).
+| `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`.
 
 ### Action settings
 
@@ -307,36 +311,8 @@ This is indeed a test""",
 
 The following example connector requests show how to create a connector with supported third-party tools.
 
-### Cohere
 
-The following example request creates a standalone Cohere connector:
-
-```json
-POST /_plugins/_ml/connectors/_create
-{
-    "name": "Cohere Connector: embedding",
-    "description": "The connector to cohere embedding model",
-    "version": 1,
-    "protocol": "http",
-    "credential": {
-        "cohere_key": "..."
-    },
-    "actions": [
-        {
-            "action_type": "predict",
-            "method": "POST",
-            "url": "https://api.cohere.ai/v1/embed",
-            "headers": {
-                "Authorization": "Bearer ${credential.cohere_key}"
-            },
-            "request_body": "{ \"texts\": ${parameters.prompt}, \"truncate\": \"END\" }"
-        }
-    ]
-}
-```
-{% include copy-curl.html %}
-
-### AWS
+### AWS SageMaker
 
 The following example creates an Amazon SageMaker connector:
 
