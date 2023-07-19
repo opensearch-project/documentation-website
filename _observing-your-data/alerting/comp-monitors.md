@@ -37,56 +37,16 @@ The key terms in the following table describe the basic concepts behind composit
 | :--- | :--- |
 | Composite monitor | A combination of multiple individual monitors that includes functionality to execute each monitor in a sequence. The compound monitor can query different aspects of a dataset based on the type of monitors included in the composite monitor's definition.  |
 | Delegate monitor | Any monitor used in the chained workflow of a compound monitor. Composite monitors support per query, per bucket, and per document monitor types as delegate monitors. Delegate monitors are executed sequentially according to their order in the monitor definition. |
-| workflow Id | The workflow Id provides an identifier for the entire workflow of all delegate monitors. It is synonymous with a composite monitor's monitor Id.
-| Chained finding | A sequence of findings where the findings for each monitor are used as the inputs for subsequent monitors. 
+| workflow Id | The workflow Id provides an identifier for the entire workflow of all delegate monitors. It is synonymous with a composite monitor's monitor Id. |
 | Chained alert | Chained alerts are generated from composite monitor triggers when delegate monitors generate alerts. The chained alert trigger condition supports the use of the logical operators AND, OR, and NOT so you can combine multiple functions into a single expression. |
 | Audit alert | Delegate monitors generate alerts in an **audit** state. Users are not notified about each individual audit alert and don't need to acknowledge them. Audit alerts are used to evaluate chained alert trigger conditions in composite monitors. |
 | Execution | A single run of all delegate monitors in the sequence defined in the composite monitor's configuration. |
 | Execution Id | Allows for the management of data recorded from a specific execution of a composite monitor. The execution Id associates findings and alerts with the execution and is stored in each monitor's metadata, along with the workflow Id and the monitor Id. |
 
 
-## Example workflows
-
-In a composite monitor, the chained outputs from the individual delegate monitors can be either findings or alerts. The following sections describe the workflow for each and provide an example of how they work.
-
-
-### Chained findings
-
-As an example of chained findings, consider a composite monitor configured with two delegate monitors. The second monitor is defined to use findings from the first as its input.
-
-* The first delegate monitor (monitor #1) is a per document monitor configured to analyze a data source with the following three queries:
-   
-   1. Request payload size greater than 100 Kb.
-   2. Response status = 200.
-   3. Response contains a specific header.
-   
-   For every execution, the monitor queries the data source and generates findings for documents that match the conditions set out by the queries. These results by themselves are valuable. However, by adding a second monitor the sequence can apply further analysis to events in the data source.
-* The second monitor (monitor #2) is a per bucket monitor that aggregates data by client IP, checks how many IPs there are, and determines how many IPs are sending these types of requests. The composite monitor configuration provides a way to add the second monitor in sequence so that it executes following the first.
-* Monitor #2 first filters the findings from Monitor #1 and then queries the data derived from monitor #1. Matches with this second set of queries then generate triggers and alerts for notifications.
-* Both monitors #1 and #2 return trigger results to the composite monitor according to their sequence in the configuration. The composite monitor returns a list of trigger results from monitors #1 and #2.
-
-The following image shows a simplified workflow for a composite monitor with chained findings.
-
-{% include gif-pause.html %}
-
-
-### Chained alerts
-
-As an example of chained alerts, consider a composite monitor configured with three delegate monitors. The first and second monitors (monitors #1 and #2) are configured to generate audit alerts when two specific events happen across the cluster. A third monitor (monitor #3) is configured to send an alert when both monitors #1 and #2 generate their own alerts.
-
-* Delegate monitor #1 is configured to monitor CPU utilization of a service’s worker nodes. The monitor includes trigger conditions that create audit alerts when the CPU experiences loads above a set threshold.
-* Delegate monitor #2 is configured to monitor incoming request counts during the same time window. The monitor includes trigger conditions that create audit alerts when the number of requests rises above a set threshold.
-* Delegate monitor #3 is configured to check whether monitors #1 and #2 have created alerts. If both monitors #1 and #2 have created alerts, monitor #3 creates its own alert and sends a notification that the service is experiencing a high volume of traffic and its performance is degraded.
-* The first monitor's configuration may allow for alerts due to a number of reasons, such as cluster instability or several background processes running simultaneously. So an alert for this condition alone has limited value. Similarly, monitor #2 may identify a large number of requests and send an alert, even if the cluster is able to handle the traffic. Monitor #3 filters for these two conditions and triggers an alert when they both exist. This narrows the criteria for sending notifications, which also improves the meaningfulness of the alert while removing extraneous alerts that provide no deterministic value.
-
-The following image shows a simplified workflow for a compound monitor with chained alerts.
-
-{% include gif-pause2.html %}
-
-
 ## Managing composite monitors with the API
 
-You can manage composite monitors using the REST API or OpenSearch Dashboards. Currently, the API offers the most versatility for defining composite monitors. The API configuration includes options to create composite monitors that chain findings and monitors that chain alerts. OpenSearch Dashboards is available for creating composite monitors that chain alerts.
+You can manage composite monitors using the REST API or OpenSearch Dashboards. This section covers API functionality for composite monitors.
 
 
 ### Create Composite Monitor
