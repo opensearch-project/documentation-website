@@ -50,7 +50,7 @@ To access integrations, open OpenSearch Dashboards and select **Integrations** f
 
 ## View integrations
 
-To view an integration, view the dashboard associated with the integration. If the integration doesn't have an associated dashboard, select the desired integration listed under the **Installed** window. View the integration details, including assets, such as index patterns, searches, visualizations, and dashboards, and fields, such as severity, number, and text. 
+To view an integration, view the dashboard associated with the integration. If the integration doesn't have an associated dashboard, select the desired integration listed under the **Installed** window. View the integration details, such as assets and fields. 
 
 ## Add integrations
 
