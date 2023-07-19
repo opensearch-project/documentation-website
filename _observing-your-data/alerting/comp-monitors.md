@@ -440,6 +440,10 @@ For the remaining steps, refer to either **Visual editor** or the **Extraction q
 
 ### Visual editor
 
+To use the visual editor for defining a workflow and triggers, select the **Visual editor** radio button in the **Monitor defining method** section. This is shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/alerting/vis-editor.png" alt="Selecting the Visual editor" width="50%">
+
 To finish creating a composite monitor in the Visual editor, follow these steps:
 
 1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. In the **Visual editor**, the order in which you select the monitors determines their order in the workflow.
@@ -467,6 +471,10 @@ To finish creating a composite monitor in the Visual editor, follow these steps:
 1. After completing the monitor workflow and defining triggers, select **Create** in the bottom right corner of the screen. The composite monitor is created, and the monitor's details window opens.
 
 ### Extraction query editor
+
+To use the extraction query editor for defining a workflow and triggers, select the **Extraction query editor** radio button in the **Monitor defining method** section. This is shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/alerting/extract-q-editor.png" alt="Selecting the Extraction query editor" width="50%">
 
 The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query. This provides you with an ability create more advanced configurations not supported by the visual editor. The following sections provide examples of content for each of these two fields. All other steps for composite monitor creation are the same as in those for the Visual editor.
 
