@@ -294,7 +294,7 @@ plugins.ml_commons.enable_inhouse_python_model: false
 
 ## Enable access control for connectors
 
-When set to `true`, allows admins to control access and permissions to the connector API using `backend_roles`.
+When set to `true`, the setting allows admins to control access and permissions to the connector API using `backend_roles`.
 
 ### Setting
 
