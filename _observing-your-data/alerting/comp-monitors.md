@@ -190,7 +190,7 @@ POST _plugins/_alerting/workflows
 ```
 {% include copy-curl.html %}
 
-#### Using Painless scripting language to define alert chains
+#### Using Painless scripting language to define alert trigger chains
 
 Composite monitor configuration employs the [Painless scripting language](https://www.elastic.co/guide/en/elasticsearch/painless/7.17/painless-guide.html) to define the conditions for chaining alerts. Conditions are applied for each execution of the composite monitor. You specify the definition for the chain in the `triggers.chained_alert_triggers.condition.script.source` field of the request. Using Painless syntax, you can apply logic to links between monitors with basic Boolean operators AND, OR, NOT, and precedence.
 
@@ -443,8 +443,8 @@ For the remaining steps, refer to either **Visual editor** or the **Extraction q
 To finish creating a composite monitor in the Visual editor, follow these steps:
 
 1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. In the **Visual editor**, the order in which you select the monitors determines their order in the workflow.
-
-Select **Add another monitor** to add another dropdown list. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Keep in mind that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
+  
+   Select **Add another monitor** to add another dropdown list. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Keep in mind that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
    
    Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
    
