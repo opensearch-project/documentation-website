@@ -23,6 +23,7 @@ Use cases for the Simple Schema for Observability include:
 
 * Ingesting observability data from different data types.
 * Moving from proprietary configurations that are non-transferable to a consolidated, sharable observability solution that allows users to ingest and display an analysis of any type of telemetry data from any type of provider.
+* Conforming dashboards to the schema to align with the data structure so that you can design and organize the dashboard components and visualizations in a way that effectively represents and displays your data.
 
 Data Prepper conforms to the schema for metrics and will gradually support traces and logs. Data Prepper's [trace mapping]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) currently provides `service-map` data in a different way than `ss4o` traces. To make the trace mapping compatible with Observability, it will be integrated with the `ss4o` traces schema and will introduce `service-map` as an enriched field.
 {: .note }
