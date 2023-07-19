@@ -19,7 +19,7 @@ To create an action:
 1. In the **Triggers** panel, select **Add action**.
 1. Enter the action details, including action name, notification channel, and notification message body, in the **Notification** section.
 
-    You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html/). You have access to `ctx.action.name`, the name of the current action, and all [trigger variables](#available-variables).
+    You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html/). You have access to `ctx.action.name`, the name of the current action, and all [actions variables](#actions-variables).
 
     If your notification channel is a custom webhook that expects a particular data format, include JSON (or XML) directly in the message body:
 
@@ -51,7 +51,7 @@ After an action sends a message, the content of that message has left the purvie
 To use the `ctx.results` variable in a message, use `{% raw %}{{ctx.results.0}}{% endraw %}` rather than `{% raw %}{{ctx.results[0]}}{% endraw %}`. This difference is due to how Mustache handles bracket notation.
 {: .note }
 
-#### Action variables
+#### Actions variables
 
 Variable | Data type | Description
 :--- | :--- | : ---
