@@ -54,7 +54,7 @@ To view an integration, view the dashboard associated with the integration. If t
 
 ## Add integrations
 
-If you have not installed any integrations, you'll be prompted to install them from the Integrations interface. Supported integrations are listed under the **Available** window. 
+If you have not installed any integrations, you'll be prompted to install them from the Integrations interface. Supported integrations are listed in the **Available** window. 
 
 To add an integration, select the desired pre-packaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it. The following example uses the Try it flow.
 
