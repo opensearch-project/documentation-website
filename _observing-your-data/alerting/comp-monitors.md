@@ -108,14 +108,14 @@ POST _plugins/_alerting/workflows
 | `inputs.composite_input.sequence.delegates` | Object | Settings for the individual monitors that underlie the composite monitor. |
 | `inputs.composite_input.sequence.delegates.order` | Number | Designates the order in which the monitor runs in the execution. |
 | `inputs.composite_input.sequence.delegates.monitor_id` | String | The unique identifier for the monitor. |
-| `enabled_time` | Number | TBD |
+| `enabled_time` | Number | Time at which the monitor was enabled. Expressed in epoch time. |
 | `enabled` | Boolean | Setting to determine whether the composite monitor is enabled or not. Setting it to `true` enables the composite monitor. Default is TBD. |
 | `workflow_type` | String | Set to `composite` for composite monitor. |
 | `schema_version` | Number | TBD |
 | `triggers` | Object | Details for the individual alert triggers. |
 | `triggers.chained_alert_trigger` | Object | Details for each individual alert trigger. Each monitor's alert trigger will require settings for its configuration. |
 | `triggers.chained_alert_trigger.id` | String | The unique identifier for the alert trigger. |
-| `triggers.chained_alert_trigger.name` | String | TBD |
+| `triggers.chained_alert_trigger.name` | String | The name of the alert trigger. |
 | `triggers.chained_alert_trigger.severity` | Number | The alert severity. 1 = highest; 2 = high; 3 = medium; 4 = low; 5 = lowest.|
 | `triggers.chained_alert_trigger.condition.script` | Object | The script details that determine the conditions for triggering an alert. |
 | `triggers.chained_alert_trigger.condition.script.source` | String | The Painless script that defines the conditions for triggering an alert. |
