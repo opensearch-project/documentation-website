@@ -456,8 +456,8 @@ To finish creating a composite monitor in the Visual editor, follow these steps:
    Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
    
 1. Define a trigger or triggers for the composite monitor. In the **Triggers** section, select **Add trigger**. Add a trigger name, then define the trigger conditions.
-  * Use the **Select delegate monitor** label to open the condition and monitor selector popup window.
-  
+    * Use the **Select delegate monitor** label to open the condition and monitor selector popup window.
+    
     <img src="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt="This popup window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
     
     * First use the **Select delegate monitor** dropdown list to select a delegate monitor from those defined in the previous step. After the monitor is populated in the field, you can use the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to the right of the list to remove the monitor if needed.
@@ -471,7 +471,7 @@ To finish creating a composite monitor in the Visual editor, follow these steps:
 
 ### Extraction query editor
 
-
+The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query.
 
 
 
