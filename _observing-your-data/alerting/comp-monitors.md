@@ -468,39 +468,38 @@ Select **Add another monitor** to add another dropdown list. A minimum of two de
 
 ### Extraction query editor
 
-The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query. This provides you with an ability create more advanced configurations not supported by the visual editor. The following sections provide examples of content for each of these two fields.
+The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query. This provides you with an ability create more advanced configurations not supported by the visual editor. The following sections provide examples of content for each of these two fields. All other steps for composite monitor creation are the same as in those for the Visual editor.
 
-#### Define workflow
+* **Define workflow**
+  
+  In the **Define workflow** field, enter a sequence that defines the delegate monitors and their order in the workflow. The following example shows the delegate monitors that are included in the workflow along with their order in the sequence:
 
-In the **Define workflow** field, enter a sequence that defines the delegate monitors and their order in the workflow. The following example shows the delegate monitors that are included in the workflow along with their order in the sequence:
+  ```json
+  {
+      "sequence": {
+          "delegates": [
+              {
+                  "order": 1,
+                  "monitor_id": "0TgBZokB2ZtsLaRvXz70"
+              },
+              {
+                  "order": 2,
+                  "monitor_id": "8jgBZokB2ZtsLaRv6z4N"
+              }
+          ]
+      }
+  }
+  ```
+  
+  All delegate monitors included in the workflow require a `monitor_id` and a value for `order`.
+  
+* **Trigger condition**
+  
+  In the **Trigger condition** field, enter the monitors and the operators that will be used to define the conditions between them. This field requires that trigger conditions be formatted in Painless scripting language. To see how these scripts are formed for trigger conditions, see [Using Painless scripting to define alert trigger chains](#using-painless-scripting-language-to-define-alert-trigger-chains).
 
-```json
-{
-    "sequence": {
-        "delegates": [
-            {
-                "order": 1,
-                "monitor_id": "0TgBZokB2ZtsLaRvXz70"
-            },
-            {
-                "order": 2,
-                "monitor_id": "8jgBZokB2ZtsLaRv6z4N"
-            }
-        ]
-    }
-}
-```
+  The following example shows a trigger condition requiring the first monitor OR the second monitor to generate an audit alert before the composite monitor can generate its own alert:
 
-All delegate monitors included in the workflow require a `monitor_id` and a value for `order`.
-
-#### Trigger condition
-
-In the **Trigger condition** field, enter 
-
-
-
-
-
-
-
+  ```painless
+  (monitor[id=8d36S4kB0DWOHH7wpkET] || monitor[id=4t36S4kB0DWOHH7wL0Hk])
+  ```
 
