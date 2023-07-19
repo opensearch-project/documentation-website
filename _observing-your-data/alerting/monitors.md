@@ -12,7 +12,7 @@ redirect_from:
 
 Proactively monitor your data in OpenSearch with alerting and anomaly detection. Set up alerts to receive notifications when your data exceeds certain thresholds. Anomaly detection uses machine learning (ML) to automatically detect any outliers in your streaming data. You can pair anomaly detection with alerting to ensure that you're notified as soon as an anomaly is detected.
 
-See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/triggers/), [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/actions/), and [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to learn more about the use of these alerting features in OpenSearch. 
+See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/monitors/triggers/), [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/monitors/actions/), and [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to learn more about the use of these alerting features in OpenSearch. 
 
 The Alerting plugin provides four monitor types:
 
@@ -77,7 +77,7 @@ The Alerting API provides a _document-level monitor_ that programmatically accom
 
 ### Searching document findings
 
-When a per document monitor runs a query that matches a document in an index, a finding is created. OpenSearch provides a findings index, `.opensearch-alerting-finding*`, that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. See [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings) for more information.
+When a per document monitor runs a query that matches a document in an index, a finding is created. OpenSearch provides a findings index, `.opensearch-alerting-finding*`, that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. See [Search the findings index]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-the-findings-index) for more information.
 
 The following metadata is provided for each document findings entry:
 
