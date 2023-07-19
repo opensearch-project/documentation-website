@@ -12,9 +12,9 @@ redirect_from:
 
 Actions send notifications when trigger conditions are met. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) to learn about creating notifications. If you don't want to receive notifications, don't add actions to your triggers.
 
-## Creating actions
+## Adding actions
 
-To create an action:
+To add an action:
 
 1. In the **Triggers** panel, select **Add action**.
 1. Enter the action details, including action name, notification channel, and notification message body, in the **Notification** section.
@@ -59,6 +59,6 @@ Variable | Data type | Description
 `ctx.trigger.actions.name` | String | The action name.
 `ctx.trigger.actions.message_template.source` | String | The message to send in the alert.
 `ctx.trigger.actions.message_template.lang` | String | The scripting language used to define the message. Must be Mustache.
-`ctx.trigger.actions.throttle_enabled` | Boolean | Whether throttling is enabled for this trigger. See [adding actions](#add-actions) for more information about throttling.
+`ctx.trigger.actions.throttle_enabled` | Boolean | Whether throttling is enabled for this trigger. See [adding actions](#adding-actions) for more information about throttling.
 `ctx.trigger.actions.subject_template.source` | String | The message's subject in the alert.
 `ctx.trigger.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be Mustache.
