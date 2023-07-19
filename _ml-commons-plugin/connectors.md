@@ -111,7 +111,7 @@ The following configuration options are **required** in order to create a connec
 | `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameter` | JSON array | The default connector parameters, including `endpoint` and `model`. 
 | `credential` | String | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption with a key length of 32 bytes. When a connection cluster first starts, the key persists in OpenSearch. Therefore, you do not need to manually encrypt the key.
-| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been established. For more information about how to configure actions, see [Actions](#action-settings).
+| `action` | JSON array | Tells the connector what actions to run after a connection to ML Commons has been established.
 | `backend_roles` | String | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).
 | `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).
 | `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`.
