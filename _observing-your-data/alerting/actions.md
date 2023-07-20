@@ -4,8 +4,6 @@ title: Actions
 nav_order: 15
 grand_parent: Alerting
 parent: Monitors
-redirect_from:
-  - /monitoring-plugins/alerting/monitors/
 ---
 
 # Actions
