@@ -10,7 +10,7 @@ redirect_from:
 
 # Neural Search plugin
 
-The Neural Search plugin was taken out of experimental status and released as Generally Available in OpenSearch 2.9.  
+The Neural Search plugin is Generally Available as of OpenSearch 2.9  
 {: .note}
 
 The OpenSearch Neural Search plugin enables the integration of machine learning (ML) language models into your search workloads. During ingestion and search, the Neural Search plugin transforms text into vectors. Then, Neural Search uses the transformed vectors in vector-based search.
