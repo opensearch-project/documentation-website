@@ -41,8 +41,8 @@ expand_wildcards | String | Expands wildcard expressions to different indexes. C
 flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of “index”: { “creation_date”: “123456789” } is “index.creation_date”: “123456789”.
 include_defaults | String | Whether to include default settings, including settings used within OpenSearch plugins, in the response. Default is false.
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
-local | Boolean | Whether to return information from the local node only instead of the master node. Default is false.
-master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
+local | Boolean | Whether to return information from the local node only instead of the cluster manager node. Default is false.
+cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 
 ## Response
 
