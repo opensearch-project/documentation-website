@@ -385,6 +385,166 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 }
 ```
 
+
+### Get Chained Alerts API
+
+This API 
+
+```json
+GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociatedAlerts=true
+```
+
+#### Query parameters
+
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `workflowIds` | Object | No | When this parameter is used, it returns alerts created by a specific workflow. |
+| `getAssociatedAlerts` | Boolean | No | When `true`, the response returns audit alerts that the chained alert trigger condition to create a chained alert. Default is `false`. |
+
+
+#### Example response
+
+```json
+{
+    "alerts": [
+        {
+            "id": "PbQoZokBfd2ci_FqMGi6",
+            "version": 1,
+            "monitor_id": "",
+            "workflow_id": "G7QoZokBfd2ci_FqD2iZ",
+            "workflow_name": "scale_up",
+            "associated_alert_ids": [
+                "4e8256c5-529a-484c-bf7b-d3980c03e9a4",
+                "513a8cb3-44bc-4eee-8aac-131be10b399e"
+            ],
+            "schema_version": -1,
+            "monitor_version": -1,
+            "monitor_name": "",
+            "execution_id": "G7QoZokBfd2ci_FqD2iZ_2023-07-17T23:20:55.244970_edd977d2-c02b-4cbe-8a79-2aa7991c4191",
+            "trigger_id": "m1ANDm2",
+            "trigger_name": "jnkjn",
+            "finding_ids": [],
+            "related_doc_ids": [],
+            "state": "ACTIVE",
+            "error_message": null,
+            "alert_history": [],
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": 1689636057269,
+            "last_notification_time": 1689636057270,
+            "end_time": null,
+            "acknowledged_time": null
+        },
+        {
+            "id": "PrQoZokBfd2ci_FqMGj8",
+            "version": 1,
+            "monitor_id": "",
+            "workflow_id": "G7QoZokBfd2ci_FqD2iZ",
+            "workflow_name": "scale_up",
+            "associated_alert_ids": [
+                "4e8256c5-529a-484c-bf7b-d3980c03e9a4",
+                "513a8cb3-44bc-4eee-8aac-131be10b399e"
+            ],
+            "schema_version": -1,
+            "monitor_version": -1,
+            "monitor_name": "",
+            "execution_id": "G7QoZokBfd2ci_FqD2iZ_2023-07-17T23:20:55.244970_edd977d2-c02b-4cbe-8a79-2aa7991c4191",
+            "trigger_id": "m1ORm2",
+            "trigger_name": "jnkjn",
+            "finding_ids": [],
+            "related_doc_ids": [],
+            "state": "ACTIVE",
+            "error_message": null,
+            "alert_history": [],
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": 1689636057340,
+            "last_notification_time": 1689636057340,
+            "end_time": null,
+            "acknowledged_time": null
+        }
+    ],
+    "associatedAlerts": [
+        {
+            "id": "4e8256c5-529a-484c-bf7b-d3980c03e9a4",
+            "version": -1,
+            "monitor_id": "DrQoZokBfd2ci_FqCWh8",
+            "workflow_id": "G7QoZokBfd2ci_FqD2iZ",
+            "workflow_name": "",
+            "associated_alert_ids": [],
+            "schema_version": 5,
+            "monitor_version": 1,
+            "monitor_name": "test triggers",
+            "execution_id": "G7QoZokBfd2ci_FqD2iZ_2023-07-17T23:20:55.244970_edd977d2-c02b-4cbe-8a79-2aa7991c4191",
+            "trigger_id": "NC3Dd4cBCDCIfBYtViLI",
+            "trigger_name": "njkkj",
+            "finding_ids": [
+                "277afca7-d5aa-46ed-8023-5449ece65d36"
+            ],
+            "related_doc_ids": [
+                "H7QoZokBfd2ci_FqFmii|test1"
+            ],
+            "state": "AUDIT",
+            "error_message": null,
+            "alert_history": [],
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": 1689636056410,
+            "last_notification_time": 1689636056410,
+            "end_time": null,
+            "acknowledged_time": null
+        },
+        {
+            "id": "513a8cb3-44bc-4eee-8aac-131be10b399e",
+            "version": -1,
+            "monitor_id": "EbQoZokBfd2ci_FqCmiR",
+            "workflow_id": "G7QoZokBfd2ci_FqD2iZ",
+            "workflow_name": "",
+            "associated_alert_ids": [],
+            "schema_version": 5,
+            "monitor_version": 1,
+            "monitor_name": "test triggers 2",
+            "execution_id": "G7QoZokBfd2ci_FqD2iZ_2023-07-17T23:20:55.244970_edd977d2-c02b-4cbe-8a79-2aa7991c4191",
+            "trigger_id": "NC3Dd4cBCDCIfBYtViLI",
+            "trigger_name": "njkkj",
+            "finding_ids": [
+                "6d185585-a077-4dde-8e43-b4c01b9f3102"
+            ],
+            "related_doc_ids": [
+                "ILQoZokBfd2ci_FqGmhb|test"
+            ],
+            "state": "AUDIT",
+            "error_message": null,
+            "alert_history": [],
+            "severity": "1",
+            "action_execution_results": [],
+            "start_time": 1689636056943,
+            "last_notification_time": 1689636056943,
+            "end_time": null,
+            "acknowledged_time": null
+        }
+    ],
+    "totalAlerts": 2
+}
+```
+
+#### Request fields
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `alerts` | Array | A list of alerts generated by the composite monitor.  |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+
+
 ## Creating composite monitors in OpenSearch Dashboards
 
 Begin by navigating to the **Create monitor** page in OpenSearch Dashboards: **Alerting > Monitors > Create monitor**. Then select **Composite monitor** as the monitor type in the **Monitor details** section. Steps for creating a composite monitor workflow and triggers vary depending on whether you use the **Visual editor** or the **Extraction query editor**. In either case, the first step is to define the schedule.
