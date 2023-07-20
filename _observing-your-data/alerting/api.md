@@ -317,7 +317,7 @@ For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org
 
 ## Bucket-level monitors
 
-Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
+Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#creating-monitors).
 
 ```json
 POST _plugins/_alerting/monitors
