@@ -12,7 +12,7 @@ redirect_from:
 
 Proactively monitor your data in OpenSearch with alerting and anomaly detection. Set up alerts to receive notifications when your data exceeds certain thresholds. Anomaly detection uses machine learning (ML) to automatically detect any outliers in your streaming data. You can pair anomaly detection with alerting to ensure that you're notified as soon as an anomaly is detected.
 
-See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/monitors/triggers/), [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/monitors/actions/), and [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to learn more about the use of these alerting features in OpenSearch. 
+See [Creating monitors](#creating-monitors), [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/), [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/), and [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to learn more about the use of these alerting features in OpenSearch. 
 
 The Alerting plugin provides four monitor types:
 
@@ -32,7 +32,7 @@ To create a monitor:
 1. Enter the **Monitor details**, including monitor type, method, and schedule.  
 1. Select a data source from the dropdown list.
 1. Define the metrics in the Query section.
-1. Add a [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/triggers/).
+1. Add a [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/).
 1. Select **Create**.
 
 The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by updating the `plugins.alerting.monitor.max_monitors` setting using the [cluster settings API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
@@ -200,6 +200,6 @@ The cluster metrics monitor has the following limitations:
 
 ## Next steps
 
-- Learn about [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/triggers/).
-- Learn about [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/actions/).
+- Learn about [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/).
+- Learn about [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
 - Learn about [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/).
