@@ -35,8 +35,8 @@ The key terms in the following table describe the basic concepts behind composit
 
 | Term | Definition |
 | :--- | :--- |
-| Composite monitor | A combination of multiple individual monitors that includes functionality to execute each monitor in a sequence. The compound monitor can query different aspects of a dataset based on the type of monitors included in the composite monitor's definition.  |
-| Delegate monitor | Any monitor used in the chained workflow of a compound monitor. Composite monitors support per query, per bucket, and per document monitor types as delegate monitors. Delegate monitors are executed sequentially according to their order in the monitor definition. |
+| Composite monitor | A combination of multiple individual monitors that includes functionality to execute each monitor in a sequence. The composite monitor can query different aspects of a dataset based on the type of monitors included in the composite monitor's definition.  |
+| Delegate monitor | Any monitor used in the chained workflow of a composite monitor. Composite monitors support per query, per bucket, and per document monitor types as delegate monitors. Delegate monitors are executed sequentially according to their order in the monitor definition. |
 | workflow Id | The workflow Id provides an identifier for the entire workflow of all delegate monitors. It is synonymous with a composite monitor's monitor Id. |
 | Chained alert | Chained alerts are generated from composite monitor triggers when delegate monitors generate alerts. The chained alert trigger condition supports the use of the logical operators AND, OR, and NOT so you can combine multiple functions into a single expression. |
 | Audit alert | Delegate monitors generate alerts in an **audit** state. Users are not notified about each individual audit alert and don't need to acknowledge them. Audit alerts are used to evaluate chained alert trigger conditions in composite monitors. |
