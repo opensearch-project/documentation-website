@@ -358,12 +358,6 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 
 Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data in the new cluster.
 
-When creating a snapshot, the index codec setting influences both the size of the snapshot and the time required for its creation. If an index codec is updated, newly created snapshots will use the latest codec setting. The resulting snapshot size will reflect the compression characteristics of the latest codec settings. Existing segments included in the snapshot retain their original compression characteristics. 
-
-If you want to restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs used for the segments present in the source snapshot. For example, if the source snapshot uses the `zstd_no_dict` codec for its segments (introduced in OpenSearch 2.9), the user cannot restore to the target cluster unless the target cluster supports this codec. 
-
-For more information about index codec settings, see [Index codec settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#Index-codec-settings/).
-
 ## Security considerations
 
 If you're using the Security plugin, snapshots have some additional restrictions:
