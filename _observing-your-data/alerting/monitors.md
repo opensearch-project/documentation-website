@@ -32,7 +32,7 @@ To create a monitor:
 1. Enter the **Monitor details**, including monitor type, method, and schedule.  
 1. Select a data source from the dropdown list.
 1. Define the metrics in the Query section.
-1. Add a [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/triggers/).
+1. Add a [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/).
 1. Select **Create**.
 
 The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by updating the `plugins.alerting.monitor.max_monitors` setting using the [cluster settings API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
