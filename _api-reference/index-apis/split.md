@@ -62,7 +62,7 @@ task_execution_timeout | Time | The explicit task execution timeout. Only useful
 
 ## Request body
 
-The split index API operation creates a new target index, so you can specify any [index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings) and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) to apply to the target index.
+The split index API operation creates a new target index, so you can specify any [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) to apply to the target index.
 
 ## Response
 
