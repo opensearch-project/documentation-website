@@ -10,7 +10,7 @@ redirect_from:
 
 # Using Security Analytics
 
-After creating detectors and generating findings, functionality within the several Security Analytics windows offers visualizations and tools to help you investigate and manage findings, create focused alerts and notifications, import or customize rules, and edit detectors, among other tasks. This section discusses available features, their uses, and general navigation while working in the various windows. You can use the following links to go directly to information on a specific window.
+After creating detectors and generating findings, functionality within the several Security Analytics windows offers visualizations and tools to help you investigate and manage findings, create focused alerts and notifications, import or customize rules, and edit detectors, among other tasks. This section discusses available features, their uses, and general navigation while working in the various windows. You can use the following links to go directly to information on a specific window:
 
 * [The Overview page]({{site.url}}{{site.baseurl}}/security-analytics/usage/overview/)
 * [Working with detectors]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors/)
