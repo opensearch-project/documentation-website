@@ -7,10 +7,10 @@ has_children: true
 
 # Index settings
 
-There are two types of index settings:
+You can specify index settings at index creation. There are two types of index settings:
 
-- [Static index settings](#static-index-settings) are settings that you specify at index creation. To update a static setting, you must close the index, update the setting, and then reopen the index. 
-- [Dynamic index settings](#dynamic-index-settings) can be changed at any time, including at index creation.
+- [Static index settings](#static-index-settings) are settings that you cannot update while the index is open. To update a static setting, you must close the index, update the setting, and then reopen the index. 
+- [Dynamic index settings](#dynamic-index-settings) are settings that you can update at any time.
 
 ## Specifying a setting when creating an index
 
