@@ -9,14 +9,18 @@ redirect_from:
 
 # Alerting API
 
-Use the Alerting API to programmatically create, update, and manage monitors and alerts.
+Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Managing composite monitors with the API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/#managing-composite-monitors-with-the-api). 
 
 ---
 
-#### Table of contents
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
 - TOC
 {:toc}
-
+</details>
 
 ---
 
@@ -26,7 +30,7 @@ Introduced 1.0
 
 Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
-#### Sample Request
+#### Example request
 
 ```json
 POST _plugins/_alerting/monitors
@@ -256,7 +260,7 @@ If you want to specify a timezone, you can do so by including a [cron expression
 
 The following example creates a monitor that runs at 12:10 PM Pacific Time on the 1st day of every month.
 
-#### Request
+#### Example request
 
 ```json
 {
@@ -635,9 +639,9 @@ Tag | Creates alerts for documents that match a multiple query with this tag app
 Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
 Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
 
-#### Sample Request
+#### Example request
 
-The following sample shows how to create a document-level monitor:
+The following example shows how to create a document-level monitor:
 
 ```json
 POST _plugins/_alerting/monitors
