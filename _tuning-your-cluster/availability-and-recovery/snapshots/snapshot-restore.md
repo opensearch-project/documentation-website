@@ -37,7 +37,7 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 ## Register repository
 
-Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon S3, Hadoop Distributed File System (HDFS), or Azure Storage.
+Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon Simple Storage Service (Amazon S3), Hadoop Distributed File System (HDFS), or Azure Storage.
 
 
 ### Shared file system

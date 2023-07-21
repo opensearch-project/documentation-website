@@ -14,11 +14,11 @@ Index codecs determine how the index’s stored fields are compressed and stored
 OpenSearch provides support for four codecs that can be used for compressing the stored fields. Each codec offers different tradeoffs between compression ratio (storage size) and indexing performance (speed): 
 
 * `default` -- This codec employs the [LZ4 algorithm](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression` but may result in larger index/shard sizes. If no codec is provided in the index settings, then LZ4 is used as the default algorithm for compression.
-* `best_compression` -- This codec uses [zlib](https://en.wikipedia.org/wiki/Zlib) as an underlying algorithm for compression. It achieves high compression ratios that results in smaller index sizes. However, this may incur additional CPU usage during index operations and may subsequently result in high indexing and search latencies. 
+* `best_compression` -- This codec uses [zlib](https://en.wikipedia.org/wiki/Zlib) as an underlying algorithm for compression. It achieves high compression ratios that result in smaller index sizes. However, this may incur additional CPU usage during index operations and may subsequently result in high indexing and search latencies. 
 * `zstd` (OpenSearch 2.9 and later) -- This codec uses the [Zstandard compression algorithm](https://github.com/facebook/zstd), which provides a good balance between compression ratio and speed. It provides significant compression comparable to the `best_compression` codec with reasonable CPU usage and improved indexing and search performance compared to the `default` codec.
 * `zstd_no_dict` (OpenSearch 2.9 and later) -- This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
 
-For `zstd` and `zstd_no_dict` codecs, you can optionally specify a compression level in the `index.codec.compression_level` setting. This setting takes integers in the [1, 6] range. A higher compression level results in a higher compression ratio (smaller storage size) with a tradeoff in speed (slower compression and decompression speeds lead to greater indexing and search latencies). 
+For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compression level in the `index.codec.compression_level` setting. This setting takes integers in the [1, 6] range. A higher compression level results in a higher compression ratio (smaller storage size) with a tradeoff in speed (slower compression and decompression speeds lead to greater indexing and search latencies). 
 
 When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
 {: .note}
@@ -47,7 +47,7 @@ The [Split API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) sp
 
 When creating a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/), the index codec setting influences the size of the snapshot and the time required for its creation. If the codec of an index is updated, newly created snapshots will use the latest codec setting. The resulting snapshot size will reflect the compression characteristics of the latest codec setting. Existing segments included in the snapshot will retain their original compression characteristics. 
 
-When you restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs of the segments in the source snapshot. For example, if the source snapshot contains segments of `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), you won't be able to restore the snapshot to a cluster that runs on an older OpenSearch version because it doesn't support these codecs. 
+When you restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs of the segments in the source snapshot. For example, if the source snapshot contains segments of the `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), you won't be able to restore the snapshot to a cluster that runs on an older OpenSearch version because it doesn't support these codecs. 
 
 ### Reindexing
 
@@ -57,12 +57,12 @@ When you are performing a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reind
 
 When an index [rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/) or [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/) job is completed, the segments created in the target index will have the properties of the index codec specified during target index creation, irrespective of the source index codec. If the target index is created dynamically through a rollup job, the default codec is used for segments of the target index.
 
-Changing the index codec setting does not affect the size of existing segments. Only new segments created after the update will reflect the new codec setting. To ensure consistent segment sizes and compression ratios, it may be necessary to perform a reindexing or other indexing operation, such as merge.
+Changing the index codec setting does not affect the size of existing segments. Only new segments created after the update will reflect the new codec setting. To ensure consistent segment sizes and compression ratios, it may be necessary to perform a reindexing or other indexing operation, such as a merge.
 {: .important}
 
 ## Performance tuning and benchmarking
 
-Depending on your specific use case, you might need to experiment with different index codec settings to fine-tune the performance of your OpenSearch cluster. Conducting benchmark tests with different codecs and measuring the impact on indexing speed, search performance, and resource utilization can help you identify the optimal index codec setting for your workload. With `zstd` and `zstd_no_dict` codecs, you can also fine-tune the compression level in order to identify the optimal configuration for your cluster.
+Depending on your specific use case, you might need to experiment with different index codec settings to fine-tune the performance of your OpenSearch cluster. Conducting benchmark tests with different codecs and measuring the impact on indexing speed, search performance, and resource utilization can help you identify the optimal index codec setting for your workload. With the `zstd` and `zstd_no_dict` codecs, you can also fine-tune the compression level in order to identify the optimal configuration for your cluster.
 
 ### Benchmarking
 
