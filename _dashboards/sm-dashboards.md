@@ -151,7 +151,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png" alt="Custom settings" width="450">
 
-    For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings).
+    For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
 
     For a list of settings that you cannot change or ignore, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots).
     
