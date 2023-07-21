@@ -599,14 +599,13 @@ To finish creating a composite monitor in the visual editor, follow these steps:
    Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
    
 1. Define a trigger or triggers for the composite monitor. In the **Triggers** section, select **Add trigger**. Add a trigger name, then define the trigger conditions.
-    * Use the **Select delegate monitor** label to open the condition and monitor selector popup window.
+    * Use the **Select delegate monitor** label to open the popup window.
     
     <img src="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt="This popup window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
     
-    * First use the **Select delegate monitor** dropdown list to select a delegate monitor from those defined in the previous step. After the monitor is populated in the field, you can use the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to the right of the list to remove the monitor if needed.
-    * Before a second delegate monitor has been selected, the list of operators provides the option NOT. You can select NOT to dismiss this detector as a condition for the trigger. Otherwise, leave the operator's field blank.
-    * Select the plus sign to the right of the first monitor to select a second. Use the **Select delegate monitor** dropdown list to select a second delegate monitor. After a second monitor has been populated, you can select a Boolean operator to define the conditions between the two delegate monitors. The options include AND, OR, AND NOT, and OR NOT. After the operator is applied, you can always select the operator between the two monitors to open the dropdown list and change the selection.
-    * Select the severity level for the alert. The options include 1 (Highest), 2 (High), 3 (Medium), 4 (Low), and 5 (Lowest).
+    * Use the **Select delegate monitor** dropdown list to select a delegate monitor from those defined in the previous step. For the first delegate monitor, you can select NOT as the operator if you prefer. After the monitor is populated in the field, you can use the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to the right of the list to remove the monitor if needed.
+    * Select the plus sign to the right of the first monitor to select a second delegate monitor. After selecting a second monitor, select one of the operators AND, OR, AND NOT, or OR NOT to apply the condition between the two monitors. After the operator is applied, you can select the operator to open the popup window again and change the selection.
+    * Select the severity level for the alert. The options include **1 (Highest)**, **2 (High)**, **3 (Medium)**, **4 (Low)**, and **5 (Lowest)**.
     * In the **Notifications** section, select a notification channel from the dropdown list. If no channels exist, select the **Manage channels** label to the right of the dropdown list to set up a notification channel. For more information about notifications, see the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) documentation. You can also select **Add notification** to specify additional notifications for the alert trigger.
       
       Notifications are optional for all monitor types.
@@ -649,9 +648,9 @@ The extraction query editor follows the same general steps as the visual editor,
   
 * **Trigger condition**
   
-  In the **Trigger condition** field, enter the monitors and the operators that will be used to define the conditions between them. This field requires that trigger conditions be formatted in Painless scripting language. To see how these scripts are formed for trigger conditions, see [Using Painless scripting to define alert trigger chains](#using-painless-scripting-language-to-define-chained-alert-trigger-conditions).
+  In the **Trigger condition** field, enter the monitors and the operators that will be used to define the conditions between them. This field requires that trigger conditions be formatted in Painless scripting language. To see how these scripts are formed for trigger conditions, see [Using Painless scripting to define chained alert trigger conditions](#using-painless-scripting-language-to-define-chained-alert-trigger-conditions).
 
-  The following example shows a trigger condition requiring the first monitor OR the second monitor to generate an audit alert before the composite monitor can generate its own alert:
+  The following example shows a trigger condition requiring the first monitor OR the second monitor to generate an audit alert before the composite monitor can generate a chained alert:
 
   ```painless
   (monitor[id=8d36S4kB0DWOHH7wpkET] || monitor[id=4t36S4kB0DWOHH7wL0Hk])
