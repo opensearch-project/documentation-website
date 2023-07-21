@@ -9,15 +9,28 @@ redirect_from:
 
 # Alerting API
 
-Use the Alerting API to programmatically create, update, and manage monitors and alerts.
+Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Managing composite monitors with the API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/#managing-composite-monitors-with-the-api). 
 
-## Query-level monitors
+---
+
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
+
+## Create a query-level monitor
 Introduced 1.0
 {: .label .label-purple }
 
 Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
-#### Sample Request
+#### Example request
 
 ```json
 POST _plugins/_alerting/monitors
@@ -247,7 +260,7 @@ If you want to specify a timezone, you can do so by including a [cron expression
 
 The following example creates a monitor that runs at 12:10 PM Pacific Time on the 1st day of every month.
 
-#### Request
+#### Example request
 
 ```json
 {
@@ -311,7 +324,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
 }
 ```
 
-For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid timezone.
+For a full list of time zone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
 
 ---
 
@@ -624,9 +637,9 @@ Tag | Creates alerts for documents that match a multiple query with this tag app
 Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
 Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
 
-#### Sample Request
+#### Example request
 
-The following sample shows how to create a document-level monitor:
+The following example shows how to create a document-level monitor:
 
 ```json
 POST _plugins/_alerting/monitors
