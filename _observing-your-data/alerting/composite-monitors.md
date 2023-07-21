@@ -40,8 +40,8 @@ The key terms in the following table describe the basic concepts of composite mo
 
 | Term | Definition |
 | :--- | :--- |
-| Composite monitor | A composite monitor is a type of monitor that supports the execution of multiple per query, per document, and/or per bucket monitors in a sequential workflow. It supports configuring triggers to create chained alerts. |
-| Delegate monitor | Delegate monitors are executed sequentially according to their order in a composite monitor's definition. When their trigger conditions are met, they generate an audit alert. |
+| Composite monitor | A composite monitor is a type of monitor that supports the execution of multiple monitors in a sequential workflow. It supports configuring triggers to create chained alerts. |
+| Delegate monitor | Delegate monitors are executed sequentially according to their order in a composite monitor's definition. When a delegate monitor's trigger conditions are met, it generates an audit alert. This audit alert then becomes a condition for the composite monitor's trigger. The composite monitor supports per query, per bucket, and per document monitors as delegate monitors. |
 | workflow ID | The workflow ID provides an identifier for the entire workflow of all delegate monitors. It is synonymous with a composite monitor's monitor ID. |
 | Chained alert | Chained alerts are generated from composite monitor triggers when delegate monitors generate audit alerts. The chained alert trigger condition supports the use of the logical operators AND, OR, and NOT so you can combine multiple functions into a single expression. |
 | Audit alert | Delegate monitors generate alerts in an **audit** state. Users are not notified about each individual audit alert and don't need to acknowledge them. Audit alerts are used to evaluate chained alert trigger conditions in composite monitors. |
@@ -258,28 +258,12 @@ PUT _plugins/_alerting/workflows/<workflow_id>
                         }
                     ]
                 }
-            },
-			"actions": [{
-				"name": "test-action",
-				"destination_id": "ld7912sBlQ5JUWWFThoW",
-				"message_template": {
-					"source": "This is my message body."
-				},
-				"throttle_enabled": true,
-				"throttle": {
-					"value": 27,
-					"unit": "MINUTES"
-				},
-				"subject_template": {
-					"source": "TheSubject"
-            	}
-            }]    
+            }
         }
     ],
     "enabled_time": 1679468231835,
     "enabled": true,
     "workflow_type": "composite",
- 
     "name": "NTxdwApKbv"
 }
 ```
@@ -402,7 +386,7 @@ POST /_plugins/_alerting/workflows/<workflow_id>/_execute
 
 ### Get Chained Alerts
 
-This API returns an array of all alerts for the composite monitor:
+This API returns an array of chained alerts generated in composite monitor workflows:
 
 ```json
 GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociatedAlerts=true
@@ -412,7 +396,7 @@ GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociate
 
 | Field | Type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `workflowIds` | Object | No | When this parameter is used, it returns alerts created by a specific workflow. |
+| `workflowIds` | Array | No | When this parameter is used, it returns alerts created by the specified workflows. |
 | `getAssociatedAlerts` | Boolean | No | When `true`, the response returns audit alerts that the composite monitor used to create a chained alert. Default is `false`. |
 
 
@@ -666,7 +650,7 @@ The extraction query editor follows the same general steps as the visual editor,
 
 ### Viewing monitor details
 
-After a composite monitor is created, it appears in the list of monitors on the **Monitors** tab. The **Type** column indicates the type of monitor, including composite monitor. The **Associations with composite monitors** column provides a count of how many composite monitors a basic monitor is used in as a delegate monitor. Select a monitor in the **Monitor name** column to open its details window.
+After a composite monitor is created, it appears in the list of monitors on the **Monitors** tab. The **Type** column indicates the type of monitor, including the composite monitor type. The **Associations with composite monitors** column provides a count of how many composite monitors a basic monitor is used in as a delegate monitor. Select a monitor in the **Monitor name** column to open its details window.
 
 For composite monitors, The **Alerts** section of the details window includes the **Actions** column, which includes the view details icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}). The following image shows the **Actions** column as the last column to the right. 
 
