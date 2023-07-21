@@ -47,3 +47,7 @@ merge operations when they are needed. Merges run in separate threads, and when 
 threads is reached, further merges will wait until a merge thread becomes available3.
 In cases where index throttling is an issue, consider increasing the number of merge threads beyond the
 default value.
+
+1 https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexingspeed.html#_unset_or_increase_the_refresh_interval
+2 https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexingspeed.html#_indexing_buffer_size
+3 https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html#merge-scheduling
