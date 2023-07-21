@@ -324,7 +324,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
 }
 ```
 
-For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid timezone.
+For a full list of time zone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
 
 ---
 
