@@ -36,7 +36,7 @@ Alert | An event associated with a trigger. When an alert is created, the trigge
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
 Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index: `.opensearch-alerting-finding*`.
-Channel | A notification channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/comp-monitors) for more information.
+Channel | A notification channel to use in an action. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for more information.
 
 ## Per document monitors
 
