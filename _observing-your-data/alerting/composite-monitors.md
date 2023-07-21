@@ -425,7 +425,7 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 
 ### Get Chained Alerts API
 
-This API 
+This API returns an array of all alerts for the composite monitor.
 
 ```json
 GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociatedAlerts=true
@@ -436,7 +436,7 @@ GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociate
 | Field | Type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `workflowIds` | Object | No | When this parameter is used, it returns alerts created by a specific workflow. |
-| `getAssociatedAlerts` | Boolean | No | When `true`, the response returns audit alerts that the chained alert trigger condition to create a chained alert. Default is `false`. |
+| `getAssociatedAlerts` | Boolean | No | When `true`, the response returns audit alerts that the compound monitor used to create a chained alert. Default is `false`. |
 
 
 #### Example response
