@@ -393,3 +393,20 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:monitor/shard_stores
 - indices:monitor/stats
 - indices:monitor/upgrade
+
+
+## Security REST permissions
+
+These permissions apply to REST APIs to control access to the endpoints. Granting access to any of these will allow a user the permission to change fundamental operational components of the Security plugin.
+Allowing access to these endpoints has the potential to trigger operational changes in the cluster. Proceed with caution.
+{: .warning }
+
+- restapi:admin/actiongroups
+- restapi:admin/allowlist
+- restapi:admin/internalusers
+- restapi:admin/nodesdn
+- restapi:admin/roles
+- restapi:admin/rolesmapping
+- restapi:admin/ssl/certs/info
+- restapi:admin/ssl/certs/reload
+- restapi:admin/tenants

@@ -242,30 +242,8 @@ POST _bulk
 After data is ingested, it can be search just like any other `knn_vector` field!
 
 ### Using approximate k-NN with filters
-If you use the `knn` query alongside filters or other clauses (e.g. `bool`, `must`, `match`), you might receive fewer than `k` results. In this example, `post_filter` reduces the number of results from 2 to 1:
 
-```json
-GET my-knn-index-1/_search
-{
-  "size": 2,
-  "query": {
-    "knn": {
-      "my_vector2": {
-        "vector": [2, 3, 5, 6],
-        "k": 2
-      }
-    }
-  },
-  "post_filter": {
-    "range": {
-      "price": {
-        "gte": 5,
-        "lte": 10
-      }
-    }
-  }
-}
-```
+To learn about using filters with k-NN search, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
 ## Spaces
 
@@ -299,7 +277,7 @@ A space corresponds to the function used to measure the distance between two poi
     <td>\[ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 1 - 
     {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} &middot; \sqrt{\sum_{i=1}^n y_i^2}}\]
     where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent the norms of vectors x and y respectively.</td>
-    <td><b>nmslib</b> and <b>faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {1 + d \over 2}\]</td>
+    <td><b>nmslib</b> and <b>faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {2 - d \over 2}\]</td>
   </tr>
   <tr>
     <td>innerproduct (not supported for Lucene)</td>

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Segment replication back-pressure
+title: Segment replication backpressure
 nav_order: 75
 parent: Segment replication
 has_children: false
-grand_parent: Availability and Recovery
+grand_parent: Availability and recovery
 ---
 
-## Segment replication backpressure
+# Segment replication backpressure
 
 Segment replication backpressure is a shard-level rejection mechanism that dynamically rejects indexing requests as replica shards in your cluster fall behind primary shards. With segment replication backpressure, indexing requests are rejected when the percentage of stale shards in the replication group exceeds `MAX_ALLOWED_STALE_SHARDS` (50% by default). A replica is considered stale if it is behind the primary shard by the number of checkpoints that exceeds the `MAX_INDEXING_CHECKPOINTS` setting and its current replication lag is greater than the defined `MAX_REPLICATION_TIME_SETTING` field.
 

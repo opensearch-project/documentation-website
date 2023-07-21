@@ -11,7 +11,7 @@ redirect_from:
 
 You can change the time range to display dashboard data over minutes, hours, days, weeks, months, or years.
 
-The default time range is **Last 15 minutes**. You can change the time range at the dashboard level or under **Stack Management > Advanced Settings > Time filter defaults**. 
+The default time range is **Last 15 minutes**. You can change the time range at the dashboard level or under **Dashboards Management** > **Advanced Settings** > **Time filter defaults**. 
 {: .note}
 
 To change the time range at the dashboard level, perform the following steps:

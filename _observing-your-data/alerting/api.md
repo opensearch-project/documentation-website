@@ -28,7 +28,7 @@ Use the Alerting API to programmatically create, update, and manage monitors and
 Introduced 1.0
 {: .label .label-purple }
 
-Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
+Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
 #### Example request
 
@@ -328,9 +328,9 @@ For a full list of time zone names, refer to [Wikipedia](https://en.wikipedia.or
 
 ---
 
-## Create a bucket-level monitor
+## Bucket-level monitors
 
-Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
+Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
 ```json
 POST _plugins/_alerting/monitors
@@ -592,12 +592,11 @@ Introduced 2.0
 
 Document-level monitors check whether individual documents in an index match trigger conditions. If so, the monitor generates an alert notification. When you run a query with a document-level monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries.
 
-To learn more about per document monitors that function similarly to the document-level monitor API, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
+To learn more about per document monitors that function similarly to the document-level monitor API, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
 
-### Search for monitor findings
+### Search the findings index
 
-You can use the Alerting search API operation to search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request. By default, a GET request without path parameters returns all available findings. To learn more about monitor findings, see [Document findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#document-findings).
-
+You can use the Alerting search API operation to search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request. By default, a GET request without path parameters returns all available findings. 
 
 To retrieve any available findings, send a GET request without any path parameters as follows:
 
@@ -624,7 +623,6 @@ Path parameter | Description | Usage
 `size` | An optional limit for the maximum number of results returned in the response. | There is no minimum or maximum values.
 `startIndex` | The pagination indicator. | Default is `0`.
 `searchString` | The finding attribute you want returned in the search. | To search in a specific index, specify the index name in the request path. For example, to search findings in the `indexABC` index, use `searchString=indexABC'.
-
 
 ### Create a document-level monitor
 

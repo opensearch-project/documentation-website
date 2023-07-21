@@ -3,7 +3,7 @@ layout: default
 title: Segment replication 
 nav_order: 70
 has_children: true
-parent: Availability and Recovery
+parent: Availability and recovery
 datatable: true
 redirect_from:
   - /opensearch/segment-replication/
@@ -30,9 +30,13 @@ Segment replication is the first feature in a series of features designed to dec
 
 ## Segment replication configuration
 
-To set segment replication as the replication strategy, create an index with replication.type set to `SEGMENT`:
+Setting the default replication type for a cluster affects all newly created indexes. However, you can specify a different replication type when creating an index. Index-level settings always override cluster-level settings.
 
-````json
+### Creating an index with the segment replication type
+
+To set segment replication as the replication strategy for an index, create the index with `replication.type` set to `SEGMENT`:
+
+```json
 PUT /my-index1
 {
   "settings": {
@@ -41,7 +45,7 @@ PUT /my-index1
     }
   }
 }
-````
+```
 {% include copy-curl.html %}
 
 In segment replication, the primary shard is usually generating more network traffic than the replicas because it copies segment files to the replicas. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
@@ -51,7 +55,7 @@ Segment replication currently does not support the `wait_for` value in the `refr
 
 For the best performance, we recommend enabling both of the following settings:
 
-1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
+1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
 2. Balanced primary shard allocation:
 
 ```json
@@ -65,12 +69,42 @@ curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json'
 ```
 {% include copy-curl.html %}
 
+### Setting the replication type on a cluster
+
+You can set the default replication type for newly created cluster indexes in the `opensearch.yml` file as follows:
+
+```yaml
+cluster.indices.replication.strategy: 'SEGMENT'
+```
+{% include copy.html %}
+
+This cluster-level setting cannot be enabled through the REST API.
+{: .note}
+
+This setting is not applied to system indexes and hidden indexes. By default, all system and hidden indexes in OpenSearch will still use document replication even if this setting is enabled.
+{: .note}
+
+### Creating an index with the document replication type
+
+Even when the default replication type is set to segment replication, you can create an index that uses document replication by setting `replication.type` to `DOCUMENT`:
+
+```json
+PUT /my-index1
+{
+  "settings": {
+    "index": {
+      "replication.type": "DOCUMENT" 
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 ## Considerations
 
 When using segment replication, consider the following:
 
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
-1. Rolling upgrades are not currently supported. Full cluster restarts are required when upgrading indexes using segment replication. See [Issue 3881](https://github.com/opensearch-project/OpenSearch/issues/3881).
 1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Segment replication leads to increased network congestion on primary shards. See [Issue - Optimize network bandwidth on primary shards](https://github.com/opensearch-project/OpenSearch/issues/4245).
 1. Integration with remote-backed storage as the source of replication is [currently not supported](https://github.com/opensearch-project/OpenSearch/issues/4448). 
@@ -81,7 +115,7 @@ When using segment replication, consider the following:
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
-The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
+The following benchmarks were collected with [OpenSearch-benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
 
 The benchmarks demonstrate the effect of the following configurations on segment replication:
 
@@ -364,4 +398,4 @@ The benchmarking results show a non-zero error rate as the number of replicas in
 ## Next steps
 
 1. Track [future enhancements to segment replication](https://github.com/orgs/opensearch-project/projects/99).
-1. Read [this blog post about segment replication](https://opensearch.org/blog).
+1. Read [this blog post about segment replication](https://opensearch.org/blog/segment-replication/).

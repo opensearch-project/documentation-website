@@ -55,6 +55,7 @@ module Jekyll::LinkChecker
     'playground.opensearch.org', # inifite redirect, https://github.com/opensearch-project/dashboards-anywhere/issues/172
     'crates.io', # 404s on bots
     'www.cloudflare.com', # 403s on bots
+    'example.issue.link', # a fake example link from the template
   ]
 
   ##
@@ -103,7 +104,8 @@ module Jekyll::LinkChecker
       @external_link_checker = LinkChecker::Typhoeus::Hydra::Checker.new(
         logger: Jekyll.logger,
         hydra: { max_concurrency: 2 },
-        retries: 3
+        retries: 3,
+        user_agent: 'OpenSearch Documentation Website Link Checker/1.0'
       )
 
       @external_link_checker.on :failure, :error do |result|

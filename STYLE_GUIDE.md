@@ -15,7 +15,9 @@ The following naming conventions should be observed in OpenSearch Project conten
 * Capitalize both words when referring to the *OpenSearch Project*.
 * *OpenSearch* is the name for the distributed search and analytics engine used by Amazon OpenSearch Service.
 * Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch. Use the full name *Amazon OpenSearch Service* on first appearance. The abbreviated service name, *OpenSearch Service*, can be used for subsequent appearances. 
-* OpenSearch Dashboards is the UI for OpenSearch. On first appearance, use the full name *OpenSearch Dashboards*. *Dashboards* can be used for subsequent appearances. 
+* OpenSearch Dashboards is the UI for OpenSearch. On first appearance, use the full name *OpenSearch Dashboards*. *Dashboards* can be used for subsequent appearances.
+* *Security Analytics* is a security information and event management (SIEM) solution for OpenSearch. Capitalize both words when referring to the name of the solution.
+* Observability is collection of plugins and applications that let you visualize data-driven events by using Piped Processing Language (PPL). Capitalize *Observability* when referring to the name of the solution.
 * Refer to OpenSearch Project customers as *users*, and refer to the larger group of users as *the community*.
 
 #### Product names
@@ -43,7 +45,7 @@ Use lowercase when referring to features, unless you are referring to a formally
 * “*Remote-backed storage* is an experimental feature. Therefore, we do not recommend the use of *remote-backed storage* in a production environment.”
 * “You can take and restore *snapshots* using the snapshot API.”
 * “You can use the *VisBuilder* visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture.” (You can refer to VisBuilder alone or qualify the term with “visualization type”.)
-* “As of OpenSearch 2.4, the *model-serving framework* only supports text embedding models without GPU acceleration.”
+* “As of OpenSearch 2.4, the *ML framework* only supports text-embedding models without GPU acceleration.”
 
 #### Plugin names
 
@@ -160,8 +162,6 @@ The following table lists acronyms that you don't need to spell out.
 
 - Use bold text for all UI elements, including pages, panes, and dialog boxes. In all cases, emphasize what the user must do as opposed to talking about the UI element itself.
 
-- Reference images in the text that precedes them. For example, "..., as shown in the following image."
-
 - Stacked headings should never appear in our content. Stacked headings are any two consecutive headings without intervening text. Even if it is just an introductory sentence, there should always be text under any heading.
 
 - Use italics for the titles of books, periodicals, and reference guides. However, do not use italics when the title of a work is also a hyperlink.
@@ -170,6 +170,16 @@ The following table lists acronyms that you don't need to spell out.
      1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
      2. When referring to API operations by the exact name of the endpoint, use lowercase with code format (example: "`_field_caps` API").
      3. When describing API operations but not using the exact name of the endpoint, use lowercase (example: "field capabilities API operations" or "field capabilities operations").
+
+### Images
+
+- Add introductory text that provides sufficient context for each image.
+
+- Add ALT text that describes the image for screen readers.
+
+- When you’re describing the location of an image, use words such as *preceding*, *previous*, or *following* instead of *above* and *below*.
+
+- Text that introduces an image should be a complete sentence and end with a period, not a colon.
 
 ### Links
 

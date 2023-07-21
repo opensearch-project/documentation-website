@@ -3,14 +3,14 @@ layout: default
 title: Monitors
 nav_order: 1
 parent: Alerting
-has_children: false
+has_children: true
 redirect_from:
   - /monitoring-plugins/alerting/monitors/
 ---
 
 # Monitors
 
----
+--- 
 
 <details closed markdown="block">
   <summary>
@@ -79,7 +79,6 @@ The following metadata is provided for each document finding entry:
 
 It is possible to configure an alert notification for each finding, however we don't recommend this unless rules are well defined to prevent a huge volume of findings in a high ingestion cluster.
 
----
 
 ## Create destinations
 
@@ -146,8 +145,6 @@ POST _nodes/reload_secure_settings
 }
 ```
 
-
----
 
 ## Create a monitor
 
@@ -242,7 +239,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
 1. Add a trigger to your monitor.
 
----
+
 ## Create triggers
 
 Steps to create a trigger differ depending on whether you chose **Visual editor**, **Extraction query editor**, or **Anomaly detector** when you created the monitor.
@@ -410,9 +407,6 @@ Variable | Data type | Description
 `parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts[0].parent_bucket_path`.
 
 
-
----
-
 ## Add actions
 
 The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met. See the [Notifications plugin]({{site.url}}{{site.baseurl}}/notifications-plugin/index) to see what communication channels are supported.
@@ -476,8 +470,6 @@ Q: Do I need to install the Notifications plugins if monitors can still use dest
 A: Yes. The fallback on destination is to prevent failures in sending messages if migration fails; however, the Notification plugin is what actually sends the message. Not having the Notification plugin installed will lead to the action failing.
 
 
----
-
 ## Work with alerts
 
 Alerts persist until you resolve the root cause and have the following states:
@@ -490,7 +482,6 @@ Completed | The alert is no longer ongoing. Alerts enter this state after the co
 Error | An error occurred while executing the trigger---usually the result of a a bad trigger or destination.
 Deleted | Someone deleted the monitor or trigger associated with this alert while the alert was ongoing.
 
----
 
 ## Create cluster metrics monitor
 

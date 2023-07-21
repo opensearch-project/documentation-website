@@ -89,6 +89,10 @@ Lower case scaling, auto scaling, and automatic scaling (but not autoscaling) ar
 
 Do not use hyphenated auto-scaling as a compound modifier. Instead, use scaling (for example, scaling policy), or scalable (for example, scalable target or scalable, load-balanced environment).
 
+**AWS Signature Version 4**
+
+Use on first appearance. On subsequent appearances, *Signature Version 4* may be used. Only use *SigV4* when space is limited.
+
 ## B
 
 **below**
@@ -283,9 +287,21 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 ## G
 
+**geodistance**
+
+**geohash**
+
+**geohex**
+
 **geopoint**
 
+**geopolygon**
+
 **geoshape**
+
+**geospatial**
+
+**geotile**
  
 ## H
 
@@ -302,6 +318,8 @@ Do not use. This term is unnecessarily violent for technical documentation. Use 
 **high performance computing (HPC)**
 
 **hostname**
+
+**Hugging Face**
 
 ## I
 
@@ -332,6 +350,8 @@ A collection of JSON documents. Non-hardcoded references to *indices* should be 
 **Index Management (IM)**
 
 **Index State Management (ISM)**
+
+**inline**
 
 **install in, on**
 
@@ -541,6 +561,8 @@ With reference to property and buildings, always form as plural.
 Correct: an on-premises solution
 
 Incorrect: an on-premise solution, an on-prem solution
+
+**pretrain**
 
 **primary shard**
 
