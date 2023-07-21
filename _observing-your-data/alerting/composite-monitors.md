@@ -11,9 +11,14 @@ redirect_from:
 
 ---
 
-#### Table of contents
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
 - TOC
 {:toc}
+</details>
 
 ---
 
