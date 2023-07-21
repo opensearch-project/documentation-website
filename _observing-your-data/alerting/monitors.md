@@ -23,7 +23,7 @@ The OpenSearch Dashboard Alerting plugin provides four basic monitor types, as w
 * **per bucket** – This monitor runs a query that evaluates trigger criteria based on aggregated values in the dataset.
 * **per cluster metrics** – This monitor runs API requests on the cluster to monitor its health.
 * **per document** – This monitor runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
-* **composite monitor** — The composite monitor allows you to chain the execution of multiple monitors into a single flow, where the output of one monitor becomes the input or source data of the next monitor in the chain. See [Composite monitors]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for information about creating and using these types of monitors.
+* **composite monitor** — The composite monitor allows you to run multiple monitors in a single workflow and generate a single alert based on multiple trigger conditions. See [Composite monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/) for information about creating and using these types of monitors.
 
 ## Key terms
 
