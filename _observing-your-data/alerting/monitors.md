@@ -25,7 +25,7 @@ redirect_from:
 
 ## Monitor types
 
-The OpenSearch Dashboard Alerting plugin provides four basic monitor types, as well as a composite monitor that can integrate the functionality of multiple monitors into a single workflow:
+The OpenSearch Dashboard Alerting plugin provides four basic monitor types as well as a composite monitor that can integrate the functionality of multiple monitors into a single workflow:
 * **per query** – This monitor runs a query and generates alert notifications based on criteria that matches.
 * **per bucket** – This monitor runs a query that evaluates trigger criteria based on aggregated values in the dataset.
 * **per cluster metrics** – This monitor runs API requests on the cluster to monitor its health.

@@ -400,7 +400,7 @@ POST /_plugins/_alerting/workflows/<workflow_id>/_execute
 ```
 
 
-### Get Chained Alerts API
+### Get Chained Alerts
 
 This API returns an array of all alerts for the composite monitor:
 
@@ -597,21 +597,21 @@ To finish creating a composite monitor in the visual editor, follow these steps:
   * **Daily** — Specify a time of day and a time zone.
   * **Weekly** — Specify a day of the week, a time of day, and a time zone.
   * **Monthly** — Specify a day of the month, a time of day, and a time zone.
-  * **Custom cron expression** — Create a custom cron expression for the schedule. Use the **cron expressions** link for help with creating these expressions, or see [Cron expression reference]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/).
+  * **Custom cron expression** — Create a custom cron expression for the schedule. Use the **cron expressions** link for help with creating these expressions, or see the [Cron expression reference]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/).
 
 1. In the **Delegate monitors** section, enter the individual monitors you want to include in the workflow by selecting them in the dropdown lists. In the **Visual editor**, the order in which you select the monitors determines their order in the workflow.
   
    Select **Add another monitor** to add another dropdown list. A minimum of two delegate monitors are required, and a maximum of 10 are allowed in total. Keep in mind that composite monitors support per query, per bucket, and per document monitors as delegate monitors.
    
-   Beside each dropdown list, you can select the View monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
+   Beside each dropdown list, you can select the view monitor icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}) to open the monitor's details window and review information about it.
    
 1. Define a trigger or triggers for the composite monitor. In the **Triggers** section, select **Add trigger**. Add a trigger name, then define the trigger conditions.
-    * Use the **Select delegate monitor** label to open the popup window.
+    * Use the **Select delegate monitor** label to open the pop-up window shown in the following image.
     
-    <img src="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt="This popup window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
+    <img src="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt="This pop-up window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
     
     * Use the **Select delegate monitor** dropdown list to select a delegate monitor from those defined in the previous step. For the first delegate monitor, you can select NOT as the operator if you prefer. After the monitor is populated in the field, you can use the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to the right of the list to remove the monitor if needed.
-    * Select the plus sign ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/plus-sign-icon.png" class="inline-icon" alt="plus sign"/>{:/}) to the right of the first monitor to select a second delegate monitor. After selecting a second monitor, select one of the operators `AND`, `OR`, `AND NOT`, or `OR NOT` to apply the condition between the two monitors. After the operator is applied, you can select the operator to open the popup window again and change the selection.
+    * Select the plus sign ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/plus-sign-icon.png" class="inline-icon" alt="plus sign"/>{:/}) to the right of the first monitor to select a second delegate monitor. After selecting a second monitor, select one of the operators `AND`, `OR`, `AND NOT`, or `OR NOT` to apply the condition between the two monitors. After the operator is applied, you can select the operator to open the pop-up window again and change the selection.
     * Select the severity level for the alert. The options include **1 (Highest)**, **2 (High)**, **3 (Medium)**, **4 (Low)**, and **5 (Lowest)**.
     * In the **Notifications** section, select a notification channel from the dropdown list. If no channels exist, select the **Manage channels** label to the right of the dropdown list to set up a notification channel. For more information about notifications, see the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) documentation. You can also select **Add notification** to specify additional notifications for the alert trigger.
       
@@ -628,11 +628,11 @@ To use the extraction query editor for defining a workflow and triggers, select 
 
 <img src="{{site.url}}{{site.baseurl}}/images/alerting/extract-q-editor.png" alt="Selecting the Extraction query editor" width="50%">
 
-The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query. This provides you with an ability create more advanced configurations not supported by the visual editor. The following sections provide examples of content for each of these two fields. All other steps for composite monitor creation are the same as in those for the visual editor.
+The extraction query editor follows the same general steps as the visual editor, but it allows you to build the composite monitor workflow and alert triggers using extractions from the API query. This provides you with the ability to create more advanced configurations not supported by the visual editor. The following sections provide examples of content for each of these two fields. All other steps for composite monitor creation are the same as in those for the visual editor.
 
 * **Define workflow**
   
-  In the **Define workflow** field, enter a sequence that defines the delegate monitors and their order in the workflow. The following example shows the delegate monitors that are included in the workflow along with their order in the sequence:
+  In the **Define workflow** field, enter a sequence that defines the delegate monitors and their order in the workflow. The following example shows the delegate monitors that are included in the workflow, along with their order in the sequence:
 
   ```json
   {
@@ -668,11 +668,11 @@ The extraction query editor follows the same general steps as the visual editor,
 
 After a composite monitor is created, it appears in the list of monitors on the **Monitors** tab. The **Type** column indicates the type of monitor, including composite monitor. The **Associations with composite monitors** column provides a count of how many composite monitors a basic monitor is used in as a delegate monitor. Select a monitor in the **Monitor name** column to open its details window.
 
-For composite monitors, The **Alerts** section of the details window includes the **Actions** column, which includes the View details icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}). The following image shows the **Actions** column as the last column to the right. 
+For composite monitors, The **Alerts** section of the details window includes the **Actions** column, which includes the view details icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class="inline-icon" alt="view monitor icon"/>{:/}). The following image shows the **Actions** column as the last column to the right. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/alerting/comp-details-alerts.png" alt="Alerts section of the monitor details window" width="75%">
 
 Select this icon to open the **Alert details** window. This window shows you all of the audit alerts that were part of the execution that generated the chained alert and includes the delegate monitor that generated the audit alert. Select the **X** in the upper-right corner of the window to close **Alert details**.
 
-Back in the **Alerts** section of the monitor details window, you can select the check box to the left of the **Alert start time** to highlight the alert. After the alert is highlighted, you can select **Acknowledge** in the upper-right portion of this section. The alert is acknowledged and the status in the **State** column changes from Active to Acknowledged. 
+After returning to the **Alerts** section of the monitor's details window, you can select the check box to the left of the **Alert start time** to highlight the alert. After the alert is highlighted, you can select **Acknowledge** in the upper-right portion of this section. The alert is acknowledged and the status in the **State** column changes from Active to Acknowledged. 
 
