@@ -226,12 +226,11 @@ Data Prepper supports the following built-in functions that can be used in an ex
 
 ### `length()`
 
-The `length()` function takes one argument of the JSON pointer type and returns the length of the value passed as if its a `type`
-string. For example, `length(/message)` returns a length of `10`, when a key message exists in the event and has a value of `1234567890`.
+The `length()` function takes one argument of the JSON pointer type and returns the length of the value passed. For example, `length(/message)` returns a length of `10`, when a key message exists in the event and has a value of `1234567890`.
 
 ### `hasTags()`
 
-The `hastags()` function takes one or more string type arguments and returns `true` if all the passed arguments are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the express `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the same expression but the event also contains  `tag4`tag, Data Prepper returns `false`.
+The `hastags()` function takes one or more string type arguments and returns `true` if all the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the express `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the same expression but the event also contains  `tag4` tag, Data Prepper returns `false`.
 
 ### `getMetadata()`
 
