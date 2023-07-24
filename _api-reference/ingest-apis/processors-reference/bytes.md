@@ -29,7 +29,7 @@ The following table lists the required and optional parameters for the `bytes` p
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field where the data should be converted.  |
 `target_field`  | Optional  | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
-`ignore_missing`  | Optional  | If set to true, the processor will not fail if the field does not exist. Default is `false`. |
+`ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  |
 `ignore_failure`  | Optional  | If set to true, the processor will not fail if an error occurs.  | 
 `on_failure`  | Optional  | Action to take if an error occurs.  | 
