@@ -12,7 +12,7 @@ The OpenSearch 2.9.0 documentation includes the following additions and updates.
 - Add documentation for OCSF field mapping and correlation engine API [#4549](https://github.com/opensearch-project/documentation-website/pull/4549)
 - Add search pipeline metrics to Nodes Stats API [#4548](https://github.com/opensearch-project/documentation-website/pull/4548)
 - [DOC] Add Integrations new documentation [#4546](https://github.com/opensearch-project/documentation-website/pull/4546)
-- Add thread level details to _tasks API [#4542](https://github.com/opensearch-project/documentation-website/pull/4542)
+- Add thread level details to the `_tasks` API [#4542](https://github.com/opensearch-project/documentation-website/pull/4542)
 - Add document limits to index and bulk pages [#4537](https://github.com/opensearch-project/documentation-website/pull/4537)
 - [DOC] Add new cluster metrics monitor supported APIs [#4525](https://github.com/opensearch-project/documentation-website/pull/4525)
 - Add geohash, geotile, and geobounds aggregation on geoshapes documentation [#4517](https://github.com/opensearch-project/documentation-website/pull/4517)
