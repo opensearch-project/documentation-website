@@ -9,11 +9,11 @@ redirect_from:
 
 # Ingest APIs
 
-Ingest APIs can be used to manage the tasks and resources associated with [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) and [processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/).
+Ingest APIs are a valuable tool for ingesting data into a system. Ingest APIs work together with [pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) and [processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) to ingest data from a variety of sources and in a variety of formats. 
 
 ## Ingest pipeline APIs
 
-Simplify, secure, and scale your OpenSearch data ingestion with the following APIs:
+Simplify, secure, and scale your data ingestion in OpenSearch with the following APIs:
 
 - [Create or update ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/create-update-ingest/): Use this API to create or update a pipeline configuration.
 - [Get pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/get-ingest/): Use this API to retrieve a pipeline configuration.
