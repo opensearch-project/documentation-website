@@ -24,7 +24,7 @@ The syntax for the `append` processor is:
 }
 ```
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `append` processor.
 
