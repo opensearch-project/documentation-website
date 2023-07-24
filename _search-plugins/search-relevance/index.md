@@ -117,20 +117,15 @@ An example of a reranker is **Amazon Personalize Search Ranking**, contributed b
 
 To try Amazon Personalize Search Ranking, you must first set up Amazon Personalize. To get started, see [Amazon Personalize](https://aws.amazon.com/personalize/latest/dg/setup.html). For detailed information, including plugin setup instructions, see [Personalizing search results from OpenSearch (self-managed)](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html).
 
-#### Example
-
-For a complete walkthrough, see [Comparing OpenSearch results with results from the plugin](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-comparing-results.html).
-
-
 ### Reranking results with Kendra Intelligent Ranking for OpenSearch
 
 Another example of a reranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Amazon Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this provides better result rankings.
 
 To try Kendra Intelligent Ranking, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For detailed information, including plugin setup instructions, see [Intelligently ranking OpenSearch (self managed) results using Amazon Kendra](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
 
-#### Example
+### Comparing search results with reranked results in OpenSearch Dashboards
 
-In this example, you will compare search results from OpenSearch with the same results reranked with Amazon Kendra Intelligent Ranking. Once you've [set up Amazon Kendra Intelligent Ranking](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html), enter a query in **Query 1** and enter the same query using Amazon Kendra Intelligent Ranking in **Query 2**. Then compare the search results from OpenSearch and Amazon Kendra.
+To compare search results with reranked results in OpenSearch Dashboards, enter a query in **Query 1** and enter the same query using a reranker in **Query 2**. Then compare the search results from OpenSearch with reranked results.
 
 The following example searches for the text "snacking nuts" in the `abo` index. The documents in the index contain snack descriptions in the `bullet_point` array. 
 
@@ -149,7 +144,7 @@ The following example searches for the text "snacking nuts" in the `abo` index. 
       "size": 25
     }
     ```
-1. Enter the same query with intelligent ranking in **Query 2**:
+1. Enter the same query with a reranker in **Query 2**. This example uses Kendra Intelligent Ranking:
 
     ```json
     {
@@ -177,3 +172,5 @@ The following example searches for the text "snacking nuts" in the `abo` index. 
 
     In the preceding query, `body_field` refers to the body field of the documents in the index, which Kendra Intelligent Ranking uses to rank the results. The `body_field` is required, while the `title_field` is optional.
 1. Select **Search** and compare the results in **Result 1** and **Result 2**.
+
+For an example walkthrough with Amazon Personalize, see [Comparing OpenSearch results with results from the plugin](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-comparing-results.html).
