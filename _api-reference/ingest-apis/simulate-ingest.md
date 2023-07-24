@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Simulate an ingest pipeline
-parent: Ingest APIs
+parent: Ingest pipelines
+grand_parent: Ingest APIs
 nav_order: 13
 redirect_from:
   - /opensearch/rest-api/ingest-apis/simulate-ingest/

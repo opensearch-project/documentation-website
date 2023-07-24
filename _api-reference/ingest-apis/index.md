@@ -9,6 +9,13 @@ redirect_from:
 
 # Ingest APIs
 
-Before you index your data, OpenSearch's ingest APIs help transform your data by creating and managing ingest pipelines. Pipelines consist of **processors**, customizable tasks that run in the order they appear in the request body. The transformed data appears in your index after each of the processor completes.
+Ingest APIs can be used to manage the tasks and resources associated with [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) and [processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/).
 
-Ingest pipelines in OpenSearch can only be managed using ingest API operations. When using ingest in production environments, your cluster should contain at least one node with the node roles permission set to `ingest`. For more information on setting up node roles within a cluster, see [Cluster Formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+## Ingest pipeline APIs
+
+Simplify, secure, and scale your OpenSearch data ingestion with the following APIs:
+
+- [Create or update ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/create-update-ingest/): Use this API to create or update a pipeline configuration.
+- [Get pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/get-ingest/): Use this API to retrieve a pipeline configuration.
+- [Delete pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/delete-ingest/): Use this API to delete a pipeline configuration.
+- [Simulate pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/simulate-ingest/): Use this pipeline to test a pipeline configuration.

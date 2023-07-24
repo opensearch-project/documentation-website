@@ -2,7 +2,7 @@
 layout: default
 title: Ingest processors
 parent: Ingest APIs
-nav_order: 50
+nav_order: 10
 has_children: true
 ---
 
