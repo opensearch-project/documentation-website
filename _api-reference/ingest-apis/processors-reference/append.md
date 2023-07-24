@@ -67,6 +67,7 @@ PUT testindex1/_doc/1?pipeline=user-behavior
   "event_type": "page_view"
 }
 ```
+{% include copy-curl.html %}
 
 This pipeline, named `user-behavior`, has one append processor. It appends the `event_type` of each new document ingested into OpenSearch to an array field `event_types`. Following is the GET request and response.
 
