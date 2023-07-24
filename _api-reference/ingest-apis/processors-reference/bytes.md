@@ -32,7 +32,7 @@ The following table lists the required and optional parameters for the `bytes` p
 `ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  |
 `ignore_failure`  | Optional  | If set to true, the processor will not fail if an error occurs.  | 
-`on_failure`  | Optional  | Action to take if an error occurs.  | 
+`on_failure`  | Optional  | A list of processors to execute if the processor fails.  | 
 `tag`  | Optional  | Tag that can be used to identify the processor.  | 
 `description`  | Optional  | Brief description of the processor.  |  
 
