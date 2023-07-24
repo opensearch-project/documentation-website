@@ -8,7 +8,7 @@ nav_order: 40
 
 # CSV
 
-The `csv` processor is used to parse CSV data and store it as individual fields in a document. The syntax for the `csv` processor is: 
+The `csv` processor is used to parse comma-separated values (CSV) and store them as individual fields in a document. The processor ignores empty fields. The syntax for the `csv` processor is: 
 
 ```json
 {
