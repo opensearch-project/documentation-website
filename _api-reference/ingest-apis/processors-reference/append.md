@@ -73,6 +73,10 @@ To view the ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
+
+Because there was no `event_types` field in the document, an array field is created and the event is appended to the array:
 {
   "_index": "testindex1",
   "_id": "1",
