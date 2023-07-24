@@ -30,7 +30,7 @@ The following table lists the required and optional parameters for the `append` 
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
-`field`  | Required  | Name of the field where the data should be appended. |
+`field`  | Required  | Name of the field where the data should be appended. Supports template snippets.|
 `value`  | Required  | Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups.  |
 `ignore_empty_fields`  | Optional  | If set to true, empty values will be ignored when appending then to the target field.  | 
 `fail_on_error`  | Optional  | If set to true, the processor will fail it an error occurs. The default value is false.  |
