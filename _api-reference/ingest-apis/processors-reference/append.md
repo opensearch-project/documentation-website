@@ -19,7 +19,7 @@ The syntax for the `append` processor is:
 {
     "append": {
         "field": "field_name",
-        "value": ["value1"]
+        "value": ["value1", "value2", "{{value3}}"]
     }
 }
 ```
