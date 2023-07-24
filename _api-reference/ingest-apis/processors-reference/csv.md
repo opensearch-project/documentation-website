@@ -30,7 +30,7 @@ The following table lists the required and optional parameters for the `csv` pro
 `separator`  | Optional  | The delimiter used to separate the fields in the CSV data.  |
 `quote`  | Optional  | The character used to quote fields in the CSV data.  |
 `ignore_missing`  | Optional | If set to `true`, the processor will not fail if the field does not exist. Default is `true`.  | 
-`trim`  | Optional  | If set to `true`, the processor trims whitespace from the beginning and end of each field. Default is `false`.  |
+`trim`  | Optional  | If set to `true`, the processor trims whitespace from the beginning and end of the text. Default is `false`.  |
 `empty_value`  | Optional  | Represents optional parameters that are not required to be present or are not applicable.  |
 `if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  | 
 `on_failure`  | Optional | Action to take if an error occurs. | 
