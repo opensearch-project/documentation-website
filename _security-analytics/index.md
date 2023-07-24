@@ -50,9 +50,9 @@ Log types provide the data used to evaluate events occurring in a system. OpenSe
 
 Log types are specified during the creation of detectors, including steps for mapping log fields to the detector. Security Analytics also automatically selects an appropriate set of rules based on a specific log type and populates them for the detector.
 
-### Rules
+### Detection rules
 
-Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security Analytics uses prepackaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide users of Security Analytics with options for importing and customizing the rules. You can take advantage of these options using either Dashboards or the API.
+The security rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security Analytics uses prepackaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide Security Analytics users with options for importing and customizing the rules. You can take advantage of these options using either OpenSearch Dashboards or the API.
 
 For information about configuring rules, see [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/).
 

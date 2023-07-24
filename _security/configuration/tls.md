@@ -34,6 +34,7 @@ Name | Description
 
 Name | Description
 :--- | :---
+`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 `plugins.security.ssl.http.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional.
 `plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.

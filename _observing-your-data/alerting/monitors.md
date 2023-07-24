@@ -3,26 +3,34 @@ layout: default
 title: Monitors
 nav_order: 1
 parent: Alerting
-has_children: false
+has_children: true
 redirect_from:
   - /monitoring-plugins/alerting/monitors/
 ---
 
 # Monitors
 
-#### Table of contents
+--- 
+
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
 - TOC
 {:toc}
+</details>
 
 ---
 
 ## Monitor types
 
-The OpenSearch Dashboard Alerting plugin provides four monitor types:
+The OpenSearch Dashboard Alerting plugin provides four basic monitor types as well as a composite monitor that can integrate the functionality of multiple monitors into a single workflow:
 * **per query** – This monitor runs a query and generates alert notifications based on criteria that matches.
 * **per bucket** – This monitor runs a query that evaluates trigger criteria based on aggregated values in the dataset.
 * **per cluster metrics** – This monitor runs API requests on the cluster to monitor its health.
 * **per document** – This monitor runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
+* **composite monitor** — The composite monitor allows you to run multiple monitors in a single workflow and generate a single alert based on multiple trigger conditions. See [Composite monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/) for information about creating and using these types of monitors.
 
 ## Key terms
 
@@ -35,7 +43,7 @@ Alert | An event associated with a trigger. When an alert is created, the trigge
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
 Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index: `.opensearch-alerting-finding*`.
-Channel | A notification channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for more information.
+Channel | A notification channel to use in an action. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for more information.
 
 ## Per document monitors
 
@@ -56,12 +64,12 @@ You query each trigger using up to 10 tags, adding the tag as a single trigger c
 The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
 
-The Alerting API provides a document-level monitor that programmatically accomplishes the same function as the per document monitor in the OpenSearch Dashboards. To learn more, see [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors).
+The Alerting API provides a document-level monitor that programmatically accomplishes the same function as the per document monitor in the OpenSearch Dashboards. To learn more, see [Document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors).
 {: .note}
 
 ### Document findings
 
-When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a Findings index: `.opensearch-alerting-finding*` that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. To learn more, see [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings).
+When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a Findings index: `.opensearch-alerting-finding*` that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API search operation. To learn more, see [Search the findings index]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#search-the-findings-index).
 
 The following metadata is provided for each document finding entry:
 
@@ -71,7 +79,6 @@ The following metadata is provided for each document finding entry:
 
 It is possible to configure an alert notification for each finding, however we don't recommend this unless rules are well defined to prevent a huge volume of findings in a high ingestion cluster.
 
----
 
 ## Create destinations
 
@@ -138,8 +145,6 @@ POST _nodes/reload_secure_settings
 }
 ```
 
-
----
 
 ## Create a monitor
 
@@ -234,7 +239,7 @@ The maximum number of monitors you can create is 1,000. You can change the defau
 
 1. Add a trigger to your monitor.
 
----
+
 ## Create triggers
 
 Steps to create a trigger differ depending on whether you chose **Visual editor**, **Extraction query editor**, or **Anomaly detector** when you created the monitor.
@@ -341,9 +346,10 @@ if (score > 99) {
 }
 ```
 
-Below are some variables you can include in your message using Mustache templates to see more information about your monitors.
 
 ### Available variables
+
+You can include the following variables in your message using Mustache templates to see more information about your monitors.
 
 #### Monitor variables
 
@@ -400,9 +406,6 @@ Variable | Data type | Description
 `bucket_keys` | String | Comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through `ctx.dedupedAlerts[0].bucket_keys`.
 `parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts[0].parent_bucket_path`.
 
-
-
----
 
 ## Add actions
 
@@ -467,8 +470,6 @@ Q: Do I need to install the Notifications plugins if monitors can still use dest
 A: Yes. The fallback on destination is to prevent failures in sending messages if migration fails; however, the Notification plugin is what actually sends the message. Not having the Notification plugin installed will lead to the action failing.
 
 
----
-
 ## Work with alerts
 
 Alerts persist until you resolve the root cause and have the following states:
@@ -481,7 +482,6 @@ Completed | The alert is no longer ongoing. Alerts enter this state after the co
 Error | An error occurred while executing the trigger---usually the result of a a bad trigger or destination.
 Deleted | Someone deleted the monitor or trigger associated with this alert while the alert was ongoing.
 
----
 
 ## Create cluster metrics monitor
 

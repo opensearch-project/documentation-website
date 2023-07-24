@@ -46,7 +46,7 @@ Keep in mind the following requirements when setting up or creating alerting vis
 
 ## Creating alerting monitors
 
-By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-types).
+By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
 
 To create an alerting monitor: 
 
