@@ -59,6 +59,9 @@ PUT _ingest/pipeline/user-behavior
 ```
 {% include copy-curl.html %}
 
+Ingest a document into the index:
+
+```json
 PUT testindex1/_doc/1?pipeline=user-behavior
 {
   "event_type": "page_view"
