@@ -23,7 +23,7 @@ Field | Data type | Description
 `campaign_arn` | String |  The Amazon Resource Name (ARN) of the Amazon Personalize campaign used to personalize results. Required.
 `recipe` | String | The name of the Amazon Personalize recipe to use. Currently, the only supported value for this field is `aws-personalized-ranking`. Required.
 `weight` | Float | The weight to use with rankings provided by OpenSearch and Amazon Personalize. Valid values are in the [0.0, 1.0] range. The closer the weight is to 1.0, the more weight is given to Amazon Personalize as opposed to OpenSearch when calculating the ranking. If you specify 0.0, OpenSearch rankings are used. If you specify 1.0, Amazon Personalize rankings are used. Required.
-`item_id_field` | String | If your `itemId` fields for OpenSearch and Amazon Personalize differ, specify the field that corresponds to `itemId` in your Amazon Personalize data. Optional.
+`item_id_field` | String | If the `_id` field for an indexed document in OpenSearch doesn't correspond with your Amazon Personalize `itemId`, specify the name of the field that does. By default, the plugin assumes the `_id` data matches the `itemId` in your Amazon Personalize data.
 `iam_role_arn` | String | If you use multiple roles to restrict permissions for different groups of users in your organization, specify the ARN of the role that has permission to access Amazon Personalize. If you use only the AWS credentials in your OpenSearch keystore, you can omit this field. Optional.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
@@ -31,7 +31,7 @@ Field | Data type | Description
 
 ## Example 
 
-The following example demonstrates using a search pipeline with a `personalize_search_ranking` processor. For additional details, see [Personalizing search results from OpenSearch (self-managed)](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html).
+The following example demonstrates using a search pipeline with a `personalize_search_ranking` processor. 
 
 ### Creating a search pipeline 
 
@@ -80,3 +80,5 @@ GET /movies/_search?search_pipeline=my-pipeline
 }
 ```
 {% include copy-curl.html %}
+
+For additional details, see [Personalizing search results from OpenSearch (self-managed)](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html).
