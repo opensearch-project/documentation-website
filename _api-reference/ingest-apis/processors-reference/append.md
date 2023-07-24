@@ -56,6 +56,8 @@ PUT _ingest/pipeline/user-behavior
     }
   ]
 }
+```
+{% include copy-curl.html %}
 
 PUT testindex1/_doc/1?pipeline=user-behavior
 {
