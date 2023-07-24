@@ -26,7 +26,8 @@ The following table lists the required and optional parameters for the `date` pr
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field to extract data from.  |
-`formats`  | Required | An array of the expected date formats. Can be a java time pattern or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N. The default format is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`.  |
+`formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
+`output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`.
 `target_field`  | Optional  | Name of the field to store the parsed data in.  |
 `locale`  | Optional  | The locale to use when parsing the date. Default is English.  |
 `timezone `  | Optional  | The time zone to use when parsing the date. Default is UTC.  |
