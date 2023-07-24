@@ -34,6 +34,10 @@ The following table lists the required and optional parameters for the `append` 
 `value`  | Required  | Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. |
 `allow_duplicates`  | Optional  | If set to `false`, the processor will not append values that already exist in the field. Default is `true`.  |
 `description`  | Optional  | Brief description of the processor.  |  
+`if` | Optional | Condition to execute this processor. |
+`on_failure` | Optional | A list of processors to execute if the processor fails. |
+`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 
 Following is an example of an ingest pipeline using the `append` processor.
 
