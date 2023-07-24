@@ -8,7 +8,12 @@ nav_order: 10
 
 # Append
 
-The `append` proccessor is used to add additional fields or values to a document. The syntax for the `append` processor is: 
+The `append` processor is used to add values to a field:
+- If the field is an array, the `append` processor appends the specified values to that array.
+- If the field is a scalar field, the `append` processor converts it to an array and appends the specified values to that array.
+- If the field does not exist, the `append` processor creates an array with the specified values.
+
+The syntax for the `append` processor is: 
 
 ```json
 {
