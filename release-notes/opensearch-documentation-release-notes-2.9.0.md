@@ -21,7 +21,7 @@ The OpenSearch 2.9.0 documentation includes the following additions and updates.
 - Add k-NN Faiss filtering documentation [#4476](https://github.com/opensearch-project/documentation-website/pull/4476)
 - Add Lucene byte vector documentation [#4475](https://github.com/opensearch-project/documentation-website/pull/4475)
 - Adds ZSTD and ZSTD_NO_DICT codecs to core (out of sandbox) [#4421](https://github.com/opensearch-project/documentation-website/pull/4421)
-- Adds documentation for rest admin api permissions feature [#4257](https://github.com/opensearch-project/documentation-website/pull/4257)
+- Adds documentation for REST admin API permissions feature [#4257](https://github.com/opensearch-project/documentation-website/pull/4257)
 - Add model access control documentation for ML Commons [#4223](https://github.com/opensearch-project/documentation-website/pull/4223)
 - Add documentation to support composite monitors in Alerting [#4127](https://github.com/opensearch-project/documentation-website/pull/4127)
 
