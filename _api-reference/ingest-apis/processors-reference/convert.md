@@ -26,7 +26,7 @@ The following table lists the required and optional parameters for the `convert`
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field whose value to convert.  |
-`type`  | Required  | The field's target type. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. Specifying `boolean` will set the field to `true` if its string value is equal to `true` (ignore case), to false if its string value is equal to `false` (ignore case), or it will throw an exception otherwise.  |
+`type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, the value is set to `true` if the field value is a string `"true"` (ignoring case), and to `false` if  the field value is a string `"false"` (ignoring case). For all other  values, an exception is thrown.  |
 `target_field`  | Optional  | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
 `ignore_missing`  | Optional  | If set to true, the processor will not fail if the field does not exist. Default is `false`.  |
 `if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  |
