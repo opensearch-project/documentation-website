@@ -25,7 +25,7 @@ The following table lists the required and optional parameters for the `convert`
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
-`field`  | Required  | Name of the field where the data should be converted.  |
+`field`  | Required  | Name of the field whose value to convert.  |
 `type`  | Required  | The field's target type. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. Specifying `boolean` will set the field to `true` if its string value is equal to `true` (ignore case), to false if its string value is equal to `false` (ignore case), or it will throw an exception otherwise.  |
 `target_field`  | Optional  | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
 `ignore_missing`  | Optional  | If set to true, the processor will not fail if the field does not exist. Default is `false`.  |
