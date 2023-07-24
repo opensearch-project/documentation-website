@@ -41,6 +41,8 @@ The following table lists the required and optional parameters for the `append` 
 
 Following is an example of an ingest pipeline using the `append` processor.
 
+The following query creates a pipeline, named `user-behavior`, that has one append processor. It appends the `event_type` of each new document ingested into OpenSearch to an array field `event_types`:
+
 ```json
 PUT _ingest/pipeline/user-behavior
 {
