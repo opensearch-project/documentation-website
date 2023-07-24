@@ -8,7 +8,7 @@ nav_order: 30
 
 # Convert
 
-The `convert` processor converts a field in a document to a different type, for example, a string field to an integer field or vice versa. The syntax for the `convert` processor is: 
+The `convert` processor converts a field in a document to a different type, for example, a string to an integer  or an integer to a string. For an array field, all values in the array are converted. The syntax for the `convert` processor is: 
 
 ```json
 {
