@@ -75,6 +75,10 @@ Messages and pop-up boxes appear. Windows, pages, and applications open. The ver
 
 Do not abbreviate as app server.
 
+**AI**
+
+On first mention, use *artificial intelligence (AI)*. Use *AI* thereafter. There is no need to redefine *AI* when either *AI/ML* or *GenAI* has already been defined.
+
 **as well as**
 
 Avoid. Replace with in addition to or and as appropriate.
@@ -287,6 +291,10 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 ## G
 
+**GenAI**
+
+On first mention, use *generative artificial intelligence (GenAI)*. Use *GenAI* thereafter. To avoid the overuse of *GenAI*, *AI/ML-powered applications* may also be used.
+
 **geodistance**
 
 **geohash**
@@ -443,7 +451,7 @@ Apache Lucene™ is a high-performance, full-featured search engine library writ
 
 **machine learning**
 
-Write as two words (no hyphen) in all cases, including when used as an adjective before a noun. Abbreviate to ML after first use if appropriate.
+When *machine learning* is used multiple times in a document, use *machine learning (ML)* on first mention and *ML* thereafter. There is no need to redefine *ML* when *AI/ML* has already been defined. If spelled out, write *machine learning* as two words (no hyphen) in all cases, including when used as an adjective before a noun.
 
 **Machine Learning (ML) Commons**
 
