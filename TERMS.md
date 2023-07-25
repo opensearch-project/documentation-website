@@ -75,7 +75,7 @@ Messages and pop-up boxes appear. Windows, pages, and applications open. The ver
 
 Do not abbreviate as app server.
 
-**AI**
+**artificial intelligence**
 
 On first mention, use *artificial intelligence (AI)*. Use *AI* thereafter. There is no need to redefine *AI* when either *AI/ML* or *GenAI* has already been defined.
 
