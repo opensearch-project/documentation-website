@@ -7,12 +7,9 @@ nav_order: 16
 
 # Creating correlation rules
 
-The correlation engine is an experimental feature released in OpenSearch 2.7. Therefore, we do not recommend using the feature in a production environment at this time. For updates on the progress of the correlation engine, see [Security Analytics Correlation Engine](https://github.com/opensearch-project/security-analytics/issues/369) on GitHub. To share ideas and provide feedback, join the [Security Analytics forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
-{: .warning }
-
 Correlation rules allow you to define threat scenarios involving multiple systems in an infrastructure by matching the signatures of threat events occurring in different log types. Once a rule contains at least two different log sources and the preferred fields and field values that define an intended threat scenario, the correlation engine can query the indexes specified in the correlation rule and identify any correlations between the findings.
 
-
+---
 ## Configuring rules
 
 Having at least two data sources in the rule configuration is the basis for making connections between different systems in an infrastructure and identifying correlations. Therefore, a minimum of two queries is required for each correlation rule. However, you can include more than two queries to better define a threat scenario and look for correlations between multiple systems. Follow these steps to create a correlation rule:
@@ -39,9 +36,9 @@ Having at least two data sources in the rule configuration is the basis for maki
   
    <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config4.png" alt="A second query for the correlation rule" width="50%">
 
-1. Once the rule is complete, select **Create correlation rule** in the lower-right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules.
+1. Once the rule is complete, select **Create correlation rule** in the lower-right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules. To edit the rule, select the rule name in the **Name** column. The **Edit correlation rule** window opens.
 
-
+---
 ## Setting a time window
 
 The Cluster Settings API allows you to correlate findings within a set time window. For example, if your time window is three minutes, the system attempts to correlate findings defined in the threat scenario only when they occur within three minutes of one another. By default, the time window is five minutes. For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
@@ -60,7 +57,7 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-
+---
 ## Next steps
 
 After creating detectors and correlation rules, you can use the correlation graph to observe the correlations between findings from different log sources. For information about working with the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/). 

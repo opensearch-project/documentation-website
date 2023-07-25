@@ -10,7 +10,7 @@ nav_order: 55
 
 Correlation engine APIs allow you to create new correlation rules, view findings and correlations within a certain time window, and perform other tasks.
 
-
+---
 ## Create correlation rules between log types
 
 This API is used to create correlation rules:
@@ -98,7 +98,7 @@ POST /_plugins/_security_analytics/correlation/rules
 | :--- | :--- |:--- |
 | `_id` | String | The Id for the new rule. |
 
-
+---
 ## List all findings and their correlations within a time window
 
 This API provides a list of all findings and their correlations within a specified time window:
@@ -149,7 +149,7 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end
 | `logType2` | String | The log type associated with the second finding. |
 | `rules` | Array | A list of correlation rule IDs associated with the correlated findings. |
 
-
+---
 ## List correlations for a finding belonging to a log type
 
 This API is used to list correlations for specific findings and the log types associated with them:

@@ -11,6 +11,7 @@ After creating a detector, it appears on the Threat detectors page along with ot
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/threat-detector.png" alt="Threat detector page" width="60%">
 
+---
 ## Threat detector list
 
 The list of threat detectors includes the search bar, the **Status** dropdown list, and the **Log type** dropdown list.
@@ -34,6 +35,7 @@ To edit a detector, begin by selecting the link to the detector in the Detector 
 After you select the **Alert triggers** tab, you also have the option to add additional alerts for the detector by selecting **Add another alert condition** at the bottom of the page.
 {: .tip }
 
+---
 ## Detector actions
 
 Threat detector actions allow you to stop and start detectors or delete a detector. To enable actions, first select the checkbox beside one or more detectors in the list.
