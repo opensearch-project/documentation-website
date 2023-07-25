@@ -13,6 +13,7 @@ The **Findings** window includes features for viewing and working with findings.
 
 You can choose **Refresh** at any time to refresh information on the **Findings** page.
 
+---
 ## The Findings graph
 
 The findings graph can display findings by log type or rule severity. Use the **Group by** dropdown list to specify either log type or rule severity.
@@ -39,6 +40,7 @@ When one of the commonly used windows of time is selected, you can choose **Show
 
 As one more alternative, you can select an option from the **Recently used date ranges** section to go back to a previous setting.
 
+---
 ## The Findings list
 
 The **Findings** list displays all findings according to the time of the finding, the finding ID, the rule name that generated the finding, the detector that captured the finding, and other details, as shown in the following image.
