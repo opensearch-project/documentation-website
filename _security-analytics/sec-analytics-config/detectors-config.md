@@ -40,7 +40,7 @@ You can define a new detector by naming the detector, selecting a data source an
 
     To quickly select one or more known rules and dismiss others, first deselect all rules by turning off the **Rule name** toggle, then search for your target rule names and select each individually by turning its toggle on.
     {: .tip }
-
+    
 ---
 ## Step 2. Create field mappings
 
