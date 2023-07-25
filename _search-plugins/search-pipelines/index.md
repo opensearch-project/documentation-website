@@ -36,6 +36,7 @@ OpenSearch supports the following search request processors:
 OpenSearch supports the following search response processors:
 
 - [`rename_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rename-field-processor/): Renames an existing field.
+- [`personalize_search_ranking`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/personalize-search-ranking/): Uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results (requires setting up the Amazon Personalize service).
 
 ## Viewing available processor types
 
