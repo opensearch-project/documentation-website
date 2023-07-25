@@ -9,6 +9,7 @@ nav_order: 35
 
 The following APIs can be used for a number of tasks related to detectors, from creating detectors to updating and searching for detectors. Many API calls use the detector ID in the request, which can be retrieved using the [Search Detector API](#search-detector-api).
 
+---
 ## Create Detector API
 
 Creates a new detector.
