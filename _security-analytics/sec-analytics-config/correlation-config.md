@@ -36,7 +36,7 @@ Having at least two data sources in the rule configuration is the basis for maki
   
    <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config4.png" alt="A second query for the correlation rule" width="50%">
 
-1. Once the rule is complete, select **Create correlation rule** in the lower-right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules.
+1. Once the rule is complete, select **Create correlation rule** in the lower-right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules. To edit the rule, select the rule name in the **Name** column. The **Edit correlation rule** window opens.
 
 ---
 ## Setting a time window
