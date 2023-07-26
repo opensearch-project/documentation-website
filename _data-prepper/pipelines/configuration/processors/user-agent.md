@@ -12,7 +12,7 @@ The `user_agent` processor parses any user agent (UA) string in an event then ad
 
 ## Usage
 
-In this example, the `user_agent` processor calls the source that contains the UA string, the `ua` field, and indicates the key where the parsed string will write, `user_agent`.
+In this example, the `user_agent` processor calls the source that contains the UA string, the `ua` field, and indicates the key where the parsed string will write, `user_agent`, as shown in the following example:
 
 ```yaml
   processor:
@@ -21,7 +21,7 @@ In this example, the `user_agent` processor calls the source that contains the U
         target: "user_agent"
 ```
 
-If, for example, the `ua` field contains the following UA string:
+If, for example, the following event contain the `ua` field contains the following UA string:
 
 ```json
 {
@@ -29,7 +29,7 @@ If, for example, the `ua` field contains the following UA string:
 }
 ```
 
-The `user_agent` processors parses the string into a format compatible with Elastic Common Schema (ECS), then adds the result to the specified target, as showing in the following example:
+The `user_agent` processors parses the string into a format compatible with Elastic Common Schema (ECS), then adds the result to the specified target, as shown in the following example:
 
 ```json
 {
