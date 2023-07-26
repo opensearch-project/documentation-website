@@ -9,11 +9,11 @@ nav_order: 60
 
 Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
 
-You can build connectors in two ways:
+You can provision connectors in two ways:
 
-1. A [standalone connector](#standalone-connector), saved in a connector index, can be reused and shared with multiple remote models but requires access to both the model and the third party being accessed by the connector, such as OpenAI.
+1. A [remote connector](#standalone-connector), saved in a connector index, can be reused and shared with multiple remote models but requires access to both the model and the third party being accessed by the connector, such as OpenAI.
 
-2. An [internal connector](#internal-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
+2. An [local connector](#internal-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
 
 
 ## Supported connectors
@@ -26,13 +26,13 @@ As of OpenSearch 2.9, connectors have been tested for the following ML tools, th
 
 Additional connectors will be added to this page as they are tested and verified. 
 
-## Blueprints
+## Building blueprints
 
-All connectors consist a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and third-party tools. You can find approved blueprints in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints).
+All connectors consist a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and an AI service or model serving technology. You can find approved blueprints in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints).
 
 ### Blueprint settings
 
-If you want to develop your own integrator, use the following parameters and change any settings that apply to your third-party ML tool.
+If you want to develop your own blueprint, use the following parameters and change any settings that apply to your third-party ML tool.
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
@@ -145,7 +145,7 @@ The following configuration options are **required** in order to create a connec
 | `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameters` | JSON array | The default connector parameters, including `endpoint` and `model`.  Any parameters indicated in this field can be overrided by parameters made in a predict request. |
 | `credential` | `Map<string, string>` | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32 byte encryption key which persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
-| `action` | `Map<string, string>` | Define what actions can run within the connector. If you're an administrator making a connection, add the [integrator blueprint](#integrators) for your desired connection. |
+| `action` | `Map<string, string>` | Define what actions can run within the connector. If you're an administrator making a connection, add the [blueprint](#building-blueprints) for your desired connection. |
 | `backend_roles` | String | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users). |
 | `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups). |
 | `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`. |
