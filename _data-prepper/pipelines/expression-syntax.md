@@ -238,10 +238,10 @@ The `getMetadata()` function takes one literal string argument to look up specif
 
 ### `contains()`
 
-The `contains()` function takes two string arguments and looks to see if either a literal string or a JSON pointer is contained within an event. When the second argument contains a substring of the first argument, such as `contains("abcde", "abcd")`, the function returns `true`. If the second argument does not contain any substrings, such as `contains("abcde", "xyz")`, returns `false`.
+The `contains()` function takes two string arguments and looks to see if either a literal string or a JSON pointer is contained within an event. When the second argument contains a substring of the first argument, such as `contains("abcde", "abcd")`, the function returns `true`. If the second argument does not contain any substrings, such as `contains("abcde", "xyz")`, it returns `false`.
 
 ### `cidrContains()`
 
-The `cidrContains()` function takes two or more arguments. The first argument is a JSON pointer which represents the key to the an IP address to check. It supports both IPv4 and IPv6 addresses. Every subsequent argument after the key is string type that represents CIDR blocks to check against.
+The `cidrContains()` function takes two or more arguments. The first argument is a JSON pointer, which represents the key to the IP address that is checked. It supports both IPv4 and IPv6 addresses. Every argument that comes after the key is a string type that represents CIDR blocks that are checked against.
 
-If the IP address in the first argument is in the range of any of the given CIDR blocks, the function returns `true`. If the IP address is not in range of the CIDR blocks, the function returns false. For example, `cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` will returns as `true` if the `sourceIp` field indicated in the JSON pointed has a value of `192.0.2.5`.
+If the IP address in the first argument is in the range of any of the given CIDR blocks, the function returns `true`. If the IP address is not in the range of the CIDR blocks, the function returns false. For example, `cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` will return `true` if the `sourceIp` field indicated in the JSON pointer has a value of `192.0.2.5`.
