@@ -11,9 +11,9 @@ Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML
 
 You can provision connectors in two ways:
 
-1. A [remote connector](#standalone-connector), saved in a connector index, can be reused and shared with multiple remote models but requires access to both the model and the third party being accessed by the connector, such as OpenAI.
+1. An [external connector](#external-connector), saved in a connector index, can be reused and shared with multiple remote models but requires access to both the model and the third party being accessed by the connector, such as OpenAI.
 
-2. An [local connector](#internal-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
+2. An [local connector](#local-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
 
 
 ## Supported connectors
@@ -151,9 +151,9 @@ The following configuration options are **required** in order to create a connec
 | `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`. |
 
 
-## Standalone connector
+## External connector
 
-The connector creation API, `/_plugins/_ml/connectors/_create`, creates connections to third-party ML tools. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, to connect to a ChatGPT model, you can connect using the `api.openai.com`, as shown in the following example:
+The connector creation API, `/_plugins/_ml/connectors/_create`, creates connections that allow users to deploy and register external models through OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, to connect to a ChatGPT model, you can connect using the `api.openai.com`, as shown in the following example:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -228,7 +228,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-## Internal connector
+## Local connector
 
 To create an internal connector, add the `connector` parameter to the Register model API, as shown in the following example:
 
@@ -293,7 +293,7 @@ POST /_plugins/_ml/model_groups/_register
 }
 ```
 
-ML commons returns the following response:
+ML Commons returns the following response:
 
 ```json
 {
