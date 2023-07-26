@@ -8,27 +8,9 @@ redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
 ---
 
-# Create and update a pipeline
+# Create or update a pipeline
 
-The create ingest pipeline API operation creates or updates an ingest pipeline. Each pipeline requires an ingest definition defining how each processor transforms your documents. 
-
-## Example
-
-```
-PUT _ingest/pipeline/12345
-{
-  "description" : "A description for your pipeline",
-  "processors" : [
-    {
-      "set" : {
-        "field": "field-name",
-        "value": "value"
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
+To create or update an ingest pipeline, you need to use the `PUT` method to the `/_ingest/pipelines` endpoint.
 
 ## Path and HTTP methods
 ```
@@ -37,35 +19,32 @@ PUT _ingest/pipeline/{id}
 
 ## Request body fields
 
+The body of the request must contain the field `processors`. The field `description` is optional. 
+
 Field | Required | Type | Description
 :--- | :--- | :--- | :---
-description | Optional | string | Description of your ingest pipeline. 
-processors | Required | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
+`description` | Optional | String | Description of your ingest pipeline. 
+`processors` | Required | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
+
+The following is a simple example to create an ingest pipeline with one processor, a `set` processor that sets the `name` field to the value of the `user_id` field:
 
 ```json
+PUT _ingest/pipeline/set-pipeline
 {
-  "description" : "A description for your pipeline",
+  "description" : "A simple ingest pipeline",
   "processors" : [
     {
       "set" : {
-        "field": "field-name",
-        "value": "value"
+        "field": "name",
+        "value": "user_id"
       }
     }
   ]
 }
 ```
+{% include copy-curl.html %}
 
-## URL parameters
-
-All URL parameters are optional.
-
-Parameter | Type | Description
-:--- | :--- | :---
-master_timeout | time | How long to wait for a connection to the master node.
-timeout | time | How long to wait for the request to return. 
-
-## Response
+The following response confirms the pipeline was successfully created.
 
 ```json
 {
@@ -73,8 +52,5 @@ timeout | time | How long to wait for the request to return.
 }
 ```
 
-
-
-
-
+See [Handling ingest pipeline failures](<insert-link>) to learn how to handle pipeline failures. 
 

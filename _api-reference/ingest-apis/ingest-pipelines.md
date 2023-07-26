@@ -17,7 +17,7 @@ Ingest pipelines in OpenSearch can only be managed using [ingest API operations]
 
 ## Define a pipeline
 
-A pipeline definition describes the steps involved in an ingest pipeline and can be written in JSON format. An ingest pipeline consists of the following:
+A _pipeline definition_ describes the steps involved in an ingest pipeline and can be written in JSON format. An ingest pipeline consists of the following:
 
 ```json
 {
@@ -33,3 +33,53 @@ Field | Required | Type | Description
 `description` | Optional | String | Description of the ingest pipeline. 
 `processors` | Required | Array of processor objects | A component that performs a specific task to process data as it's being ingested into OpenSearch. 
 
+Here is a simple example in JSON format. This creates an ingest pipeline with one processor, a `set` processor, that sets the value of the `name` field to the value of the `user_id` field.
+
+```json
+{
+  "description": "This is a simple ingest pipeline.",
+  "processors": [
+    {
+      "set": {
+        "field": "name",
+        "value": "{{user_id}}"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+## Template snippets
+
+Use template snippets to create an ingest pipeline that loads data from a file, indexes it into OpenSearch, performs some processing on the data, and outputs the data to a file. You can use template snippets as a starting point for sections of your custom templates or [Mustache](https://mustache.github.io/) template snippets to create dynamic content. Mustache templates use a simple syntax (double curly brackets `{{` and `}}`) to replace placeholders in a template with values from a data source.
+
+The following template snippet sets the value of a field to a specific value. The value can be a string, a number, or a Boolean.
+
+#### Example: `set` ingest processor Mustache template snippet
+
+```json
+{
+    "set" : {
+        "field": "{{field_name}}",
+        "value": "{{value}}"
+    }
+}
+```
+{% include copy-curl.html %}
+
+The `field_name` and `value` variables are Mustache templates. You can use them to specify the field name and value that you want. For example, the following `set` ingest processor sets the `name` field to the value of the `user_id` field:
+
+```json
+{
+    "set": {
+        "field": "name",
+        "value": "{{user_id}}
+    }
+}
+```
+{% include copy-curl.html %}
+
+## Next steps
+
+Learn more about creating, getting, deleting, and testing ingest pipelines in the documentation linked under the section titled Related articles.
