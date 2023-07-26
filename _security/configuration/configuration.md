@@ -121,32 +121,18 @@ These are the possible values for `type`:
 - `noop`: Skip this step altogether.
 - `ldap`: Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
 
-## HTTP basic authentication
 
-To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration:
-<!--- provide more description about what basic gives you and describe the function of the internal database --->
-
-```yml
-http_authenticator:
-  type: basic
-  challenge: true
-```
-
-In most cases, you set the `challenge` flag to `true`. The flag defines the behavior of the Security plugin if the `Authorization` field in the HTTP header is not set.
-
-If `challenge` is set to `true`, the Security plugin sends a response with status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a user name and password.
-
-If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. Consider using this setting if you have more than one challenge `http_authenticator` keys in your configured authentication domains. This might be the case, for example, when you plan to use basic authentication and OpenID Connect together.
+## Supporting configurations
 
 
-## API rate limiting
+### API rate limiting
 
 API rate limiting is typically used to restrict the number of API calls that users can make in a set span of time, thereby helping to manage the rate of API traffic. For security purposes, rate limiting features have the potential to defend against DoS attacks, or repeated login attempts to gain access through trial and error, by restricting failed login attempts.
 
 You have the option to configure the Security plugin for username rate limiting, IP address rate limiting, or both. These configurations are made in the `config.yml` file. See the following sections for information about each type of rate limiting configuration.
 
 
-### Username rate limiting
+#### Username rate limiting
 
 This configuration limits login attempts by username. When a login fails, the username is blocked for any machine in the network. The following example shows `config.yml` file settings configured for username rate limiting:
 
@@ -176,7 +162,7 @@ The following table describes the individual settings for this type of configura
 | `max_tracked_clients` | The maximum number of tracked usernames that have failed login. This limits heap usage to avoid a potential DoS. |
 
 
-### IP address rate limiting
+#### IP address rate limiting
 
 This configuration limits login attempts by IP address. When a login fails, the IP address specific to the machine being used for login is blocked. 
 
