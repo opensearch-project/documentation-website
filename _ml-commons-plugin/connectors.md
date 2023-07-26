@@ -15,24 +15,22 @@ You can build connectors in two ways:
 
 2. An [internal connector](#internal-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
 
-## Integrators
-
-All connectors consist of Integrators, a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and third-party tools. I
 
 ## Supported connectors
 
 As of OpenSearch 2.9, connectors have been tested for the following ML tools, though it is possible to create connectors for other tools not listed here:
 
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text-embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
-- [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to run OpenSearch queries while invoking the ChatGPT API, helping you build on OpenSearch faster and improving the data retrieval speed for OpenSearch search functionality.
+- [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
+- [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power Cohere's large language models.
 
 Additional connectors will be added to this page as they are tested and verified. 
 
-## Integrators
+## Blueprints
 
-All connectors consist of Integrators, a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and third-party tools. You can find approved blueprints in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints).
+All connectors consist a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and third-party tools. You can find approved blueprints in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints).
 
-### Integrator settings
+### Blueprint settings
 
 If you want to develop your own integrator, use the following parameters and change any settings that apply to your third-party ML tool.
 
@@ -73,8 +71,9 @@ PUT /_cluster/settings
 {
     "persistent": {
         "plugins.ml_commons.trusted_connector_endpoints_regex": [
-            "^https://runtime\\.sagemaker\\..*\\.amazonaws\\.com/.*$",
-            "^https://api\\.openai\\.com/.*$"
+          "^https://runtime\\.sagemaker\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
+          "^https://api\\.openai\\.com/.*$",
+          "^https://api\\.cohere\\.ai/.*$"
         ]
     }
 }
@@ -526,6 +525,35 @@ POST /_plugins/_ml/connectors/_create
     ]
 }
 ```
+
+### Cohere
+
+The following example request creates a standalone Cohere connection:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+    "name": "Cohere Connector: embedding",
+    "description": "The connector to cohere embedding model",
+    "version": 1,
+    "protocol": "http",
+    "credential": {
+        "cohere_key": "..."
+    },
+    "actions": [
+        {
+            "action_type": "predict",
+            "method": "POST",
+            "url": "https://api.cohere.ai/v1/embed",
+            "headers": {
+                "Authorization": "Bearer ${credential.cohere_key}"
+            },
+            "request_body": "{ \"texts\": ${parameters.prompt}, \"truncate\": \"END\" }"
+        }
+    ]
+}
+```
+{% include copy-curl.html %}
 
 
 ## Next steps
