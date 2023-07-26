@@ -11,7 +11,7 @@ grand_parent: Search
 
 The `personalize_search_ranking` search response processor intercepts a search response and uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results according to their Amazon Personalize ranking. This ranking is based on the user's past behavior and metadata about the search items and the user.
 
-To use the `personalize_search_ranking` processor, you must first install the Amazon Personalize Search Ranking (`opensearch-search-processor`) plugin. For detailed instructions, see [Installing and configuring the Amazon Personalize Search Ranking plugin](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-plugin-install.html).
+To use the `personalize_search_ranking` processor, you must first install the Amazon Personalize Search Ranking (`opensearch-search-processor`) plugin. For detailed instructions, see [Installing and configuring the Amazon Personalize Search Ranking plugin](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-install.html).
 {: .important}
 
 ## Request fields
