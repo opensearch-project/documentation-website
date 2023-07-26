@@ -24,11 +24,11 @@ As of OpenSearch 2.9, connectors have been tested for the following ML tools, th
 - [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power Cohere's large language models.
 
-Additional connectors will be added to this page as they are tested and verified. 
+Additional connectors will be added to this page as they are tested and verified. You can find approved blueprints for each connector in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints).
 
 ## Building blueprints
 
-All connectors consist a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and an AI service or model serving technology. You can find approved blueprints in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints).
+All connectors consist a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and an AI service or model serving technology. 
 
 ### Blueprint settings
 
@@ -135,7 +135,10 @@ If you want to use an internal connector, use a dedicated ML node and set `plugi
 
 ## Configuration options
 
-The following configuration options are **required** in order to create a connector. These settings can be used for both standalone and internal connectors.
+The following configuration options are **required** in order to create a connector. These settings can be used for both external and local connectors.
+
+Admins need to only enter the `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint](#building-blueprints).
+{: note}
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
