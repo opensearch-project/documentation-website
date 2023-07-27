@@ -15,7 +15,7 @@ You have the option to configure the Security plugin for username rate limiting,
 
 ## Username rate limiting
 
-This configuration limits login attempts by username. When a login fails, the username is blocked for any machine in the network. The following example shows `config.yml` file settings configured for username rate limiting:
+This configuration limits log in attempts by username. When a login fails, the username is blocked for any machine in the network. The following example shows `config.yml` file settings configured for username rate limiting:
 
 ```yml
 auth_failure_listeners:
@@ -55,7 +55,7 @@ http_authenticator:
   challenge: false
 ```
 
-For more information about this setting, see [HTTP basic authentication](#http-basic-authentication).
+For more information about this setting, see [HTTP basic authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/).
 
 Second, configure the IP address rate limiting settings. The following example shows a completed configuration:
 
