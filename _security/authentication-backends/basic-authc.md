@@ -9,7 +9,7 @@ redirect_from:
 
 # HTTP basic authentication
 
-When Security is configured for HTTP basic authentication, it provides a simple challenge and response process for gaining acccess to OpenSearch and its resources, which prompts you to sign in with a username and password. To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration by specifying `type` as `basic`, as shown in the following example:
+When Security is configured for HTTP basic authentication, it provides a simple challenge and response process for gaining access to OpenSearch and its resources, which prompts you to sign in with a username and password. To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration by specifying `type` as `basic`, as shown in the following example:
 <!--- provide more description about what basic gives you and describe the function of the internal database --->
 
 ```yml
@@ -18,7 +18,9 @@ http_authenticator:
   challenge: true
 ```
 
-In most cases, it's appropriate to set `challenge` to `true`. This setting defines the behavior of the Security plugin when the `Authorization` field in the HTTP header is not specified.
+##### Challenge authenticators
+
+In most cases, it's appropriate to set `challenge` to `true` for basic authentication. This setting defines the behavior of the Security plugin when the `Authorization` field in the HTTP header is not specified.
 
 If `challenge` is set to `true`, the Security plugin sends a response with status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a username and password.
 
