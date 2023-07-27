@@ -8,11 +8,11 @@ nav_order: 130
 
 # user_agent
 
-The `user_agent` processor parses any user agent (UA) string in an event then adds the parsing results to the event's write data.
+The `user_agent` processor parses any user agent (UA) string in an event and then adds the parsing results to the event's write data.
 
 ## Usage
 
-In this example, the `user_agent` processor calls the source that contains the UA string, the `ua` field, and indicates the key where the parsed string will write, `user_agent`, as shown in the following example:
+In this example, the `user_agent` processor calls the source that contains the UA string, the `ua` field, and indicates the key to which the parsed string will write, `user_agent`, as shown in the following example:
 
 ```yaml
   processor:
@@ -21,7 +21,7 @@ In this example, the `user_agent` processor calls the source that contains the U
         target: "user_agent"
 ```
 
-If, for example, the following event contain the `ua` field contains the following UA string:
+If, for example, the following event contains the `ua` field contains the following UA string:
 
 ```json
 {
@@ -29,7 +29,7 @@ If, for example, the following event contain the `ua` field contains the followi
 }
 ```
 
-The `user_agent` processors parses the string into a format compatible with Elastic Common Schema (ECS), then adds the result to the specified target, as shown in the following example:
+The `user_agent` processor parses the string into a format compatible with Elastic Common Schema (ECS) and then adds the result to the specified target, as shown in the following example:
 
 ```json
 {
@@ -57,7 +57,7 @@ You can use the following configuration options with the `user_agent` processor.
 | Option | Required | Description |
 | :--- | :--- | :--- |
 | `source` | Yes | The field in the event that will be parsed. 
-| `target` | No | The field where the parsed event will write. Default is `user_agent`. 
+| `target` | No | The field to which the parsed event will write. Default is `user_agent`. 
 | `exclude_original` | No | Determines whether to exclude the original UA string from the parsing result. Defaults to `false`. 
 | `cache_size` | No | The cache size of the parser in megabytes. Defaults to `1000`. |
 | `tags_on_parse_failure` | No | The tag to add to an event if the `user_agent` processor fails to parse the UA string. |
