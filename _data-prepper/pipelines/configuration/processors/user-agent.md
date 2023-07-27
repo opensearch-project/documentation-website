@@ -21,7 +21,7 @@ In this example, the `user_agent` processor calls the source that contains the U
         target: "user_agent"
 ```
 
-If, for example, the following event contains the `ua` field contains the following UA string:
+The following example event contains the `ua` field with a string that provides information about a user: 
 
 ```json
 {
