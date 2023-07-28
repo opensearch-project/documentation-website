@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuring sign-in options
+title: API rate limiting
 parent: Configuration
 nav_order: 30
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Basic authentication
+title: HTTP basic authentication
 parent: Authentication backends
 nav_order: 46
 redirect_from:
@@ -17,8 +17,6 @@ http_authenticator:
   type: basic
   challenge: true
 ```
-
-##### Challenge authenticators
 
 In most cases, it's appropriate to set `challenge` to `true` for basic authentication. This setting defines the behavior of the Security plugin when the `Authorization` field in the HTTP header is not specified.
 
