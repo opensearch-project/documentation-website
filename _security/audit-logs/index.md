@@ -27,7 +27,7 @@ To enable audit logging:
 
 After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
 
-An alternative is to make initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
+An alternative is to make initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
 
 
 ---
@@ -41,7 +41,7 @@ An alternative is to make initial settings for audit logging in the `audit.yml` 
 
 ## Tracked events
 
-Audit logging records events in two ways: HTTP requests (REST) and the transport layer.
+Audit logging records events in two ways: HTTP requests (REST) and the transport layer. The following table provides descriptions of the tracked events and whether or not on the REST or transport layer.
 
 Event | Logged on REST | Logged on transport | Description
 :--- | :--- | :--- | :---
@@ -61,7 +61,7 @@ The following default log settings work well for most use cases. However, you ca
 
 ### Exclude categories
 
-To exclude categories, set:
+To exclude categories, list them in the following setting:
 
 ```yml
 plugins.security.audit.config.disabled_rest_categories: <disabled categories>
@@ -123,7 +123,7 @@ You can disable this feature by setting:
 plugins.security.audit.config.resolve_indices: false
 ```
 
-Disabling this feature only takes effect if `plugins.security.audit.log_request_body` is also set to `false`.
+Disabling this feature only takes effect if `plugins.security.audit.config.log_request_body` is also set to `false`.
 {: .note }
 
 
@@ -137,12 +137,12 @@ The Security plugin can be configured to log each indexing operation as a separa
 plugins.security.audit.config.resolve_bulk_requests: true
 ```
 
-This change can create a massive number of events in the audit logs, so we don't recommend enabling this setting if you make heavy use of the `_bulk` API.
+This change can create an extremely large number of events in the audit logs, so we don't recommend enabling this setting if you make heavy use of the `_bulk` API.
 
 
 ### Exclude requests
 
-You can exclude certain requests from being logged completely, by either configuring actions (for transport requests) and/or HTTP request paths (REST):
+You can exclude certain requests from being logged completely by configuring actions for transport requests and/or HTTP request paths (REST):
 
 ```yml
 plugins.security.audit.config.ignore_requests: ["indices:data/read/*", "SearchRequest"]
@@ -151,7 +151,7 @@ plugins.security.audit.config.ignore_requests: ["indices:data/read/*", "SearchRe
 
 ### Exclude users
 
-By default, the Security plugin logs events from all users, but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
+By default, the Security plugin logs events from all users but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
 
 ```yml
 plugins.security.audit.config.ignore_users:
