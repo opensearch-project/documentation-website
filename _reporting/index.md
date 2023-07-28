@@ -11,4 +11,4 @@ nav_exclude: true
 Learn more about the following reporting features in OpenSearch:
 
 - [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/) 
-- [Reporting using the CLI]({{site.url}}{{site.baseurl}}/reporting/rep-cli-index/) to
+- [Reporting using the CLI]({{site.url}}{{site.baseurl}}/reporting/rep-cli-index/)
