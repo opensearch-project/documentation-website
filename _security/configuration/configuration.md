@@ -43,6 +43,8 @@ xff: # optional section
   trustedProxies: <string> # Regex pattern
 ```
 
+The settings used in this configuration are described in the following table.
+
 | Setting | Description |
 | :--- | :--- |
 | `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user gets regularly authenticated <!--- what does "regularly authenticated" mean? --->. If none are found, the user is authenticated as an "anonymous" user. This user then has the username "anonymous" and one role named "anonymous_backendrole". When you enable anonymous authentication, all HTTP authenticators do not challenge. |
