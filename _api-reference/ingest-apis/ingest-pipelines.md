@@ -89,7 +89,7 @@ PUT _ingest/pipeline/my-pipeline
 
 If the pipeline fails to complete, check _<How do we troubleshoot a pipeline that fails to complete? What examples do we include?>_
 
-## Run a pipeline
+## Simulate a pipeline
 
 Run or test a pipeline using the simulate pipeline API operation.
 
