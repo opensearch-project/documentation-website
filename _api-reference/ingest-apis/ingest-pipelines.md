@@ -105,8 +105,8 @@ POST _ingest/pipeline/_simulate
 The following requests simulate a single pipeline based on the pipeline ID.
 
 ```
-GET _ingest/pipeline/pipeline-id/_simulate
-POST _ingest/pipeline/pipeline-id/_simulate
+GET _ingest/pipeline/<pipeline-id>/_simulate
+POST _ingest/pipeline/<pipeline-id>/_simulate
 ```
 
 ### Request body fields
@@ -371,14 +371,14 @@ The response contains the pipeline information:
 
 Use the following requests to delete pipelines. 
 
-### Delete a specific pipeline
+To delete a specific pipeline, pass the pipeline ID as a parameter:
 
 ```json
 DELETE /_ingest/pipeline/<pipeline-id>
 ```
 {% include copy-curl.html %}
 
-### Delete all pipelines
+To delete all pipelines in a cluster, use the wildcard character (`*`):
 
 ```json
 DELETE /_ingest/pipeline/*
