@@ -15,6 +15,12 @@ redirect_from:
 
 Ingest pipelines in OpenSearch are managed by using ingest API operations. When using ingest in production environments, your cluster should contain at least one node with the node roles permission set to `ingest`. For more information about setting up node roles within a cluster, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
+## Prerequisites
+
+The following are prerequisites for using OpenSearch ingest pipelines:
+
+- <SME insert information>
+
 ## Create or update an ingest pipeline
 
 Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires an ingest definition that defines how the processors change the document.
@@ -83,7 +89,7 @@ PUT _ingest/pipeline/my-pipeline
 
 If the pipeline fails to complete, check _<How do we troubleshoot a pipeline that fails to complete? What examples do we include?>_
 
-## Simulate a pipeline
+## Run a pipeline
 
 Run or test a pipeline using the simulate pipeline API operation.
 
@@ -378,7 +384,6 @@ DELETE /_ingest/pipeline/<pipeline-id>
 DELETE /_ingest/pipeline/*
 ```
 {% include copy-curl.html %}
-
 
 ## Create a pipeline on an existing index
 
