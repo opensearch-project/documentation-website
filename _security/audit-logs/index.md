@@ -9,6 +9,7 @@ redirect_from:
   - /security-plugin/audit-logs/index/
 ---
 
+
 # Audit logs
 
 Audit logs let you track access to your OpenSearch cluster and are useful for compliance purposes or in the aftermath of a security breach. You can configure the categories to be logged, the detail level of the logged messages, and where to store the logs.
@@ -41,7 +42,7 @@ An alternative is to make initial settings for audit logging in the `audit.yml` 
 
 ## Tracked events
 
-Audit logging records events in two ways: HTTP requests (REST) and the transport layer. The following table provides descriptions of the tracked events and whether or not on the REST or transport layer.
+Audit logging records events in two ways: HTTP requests (REST) and the transport layer. The following table provides descriptions of tracked events and whether or not they are logged on the REST or transport layer.
 
 Event | Logged on REST | Logged on transport | Description
 :--- | :--- | :--- | :---
@@ -56,10 +57,15 @@ Event | Logged on REST | Logged on transport | Description
 
 ## Audit log settings
 
-The following default log settings work well for most use cases. However, you can change settings to save storage space or adapt the information to your exact needs. Most of the following settings are stored in the `audit.yml` file, with any exceptions noted.
+The following default log settings work well for most use cases. However, you can change settings to save storage space or adapt the information to your exact needs. 
 
 
-### Exclude categories
+### Settings in audit.yml
+
+The following settings are stored in the `audit.yml` file.
+
+
+#### Exclude categories
 
 To exclude categories, list them in the following setting:
 
@@ -83,7 +89,7 @@ plugins.security.audit.config.disabled_transport_categories: NONE
 ```
 
 
-### Disable REST or the transport layer
+#### Disable REST or the transport layer
 
 By default, the Security plugin logs events on both REST and the transport layer. You can disable either type:
 
@@ -93,7 +99,7 @@ plugins.security.audit.config.enable_transport: false
 ```
 
 
-### Disable request body logging
+#### Disable request body logging
 
 By default, the Security plugin includes the body of the request (if available) for both REST and the transport layer. If you do not want or need the request body, you can disable it:
 
@@ -102,7 +108,7 @@ plugins.security.audit.config.log_request_body: false
 ```
 
 
-### Log index names
+#### Log index names
 
 By default, the Security plugin logs all indexes affected by a request. Because index names can be aliases and contain wildcards/date patterns, the Security plugin logs the index name that the user submitted *and* the actual index name to which it resolves.
 
@@ -127,7 +133,7 @@ Disabling this feature only takes effect if `plugins.security.audit.config.log_r
 {: .note }
 
 
-### Configure bulk request handling
+#### Configure bulk request handling
 
 Bulk requests can contain many indexing operations. By default, the Security plugin only logs the single bulk request, not each individual operation.
 
@@ -140,7 +146,7 @@ plugins.security.audit.config.resolve_bulk_requests: true
 This change can create an extremely large number of events in the audit logs, so we don't recommend enabling this setting if you make heavy use of the `_bulk` API.
 
 
-### Exclude requests
+#### Exclude requests
 
 You can exclude certain requests from being logged completely by configuring actions for transport requests and/or HTTP request paths (REST):
 
@@ -149,7 +155,7 @@ plugins.security.audit.config.ignore_requests: ["indices:data/read/*", "SearchRe
 ```
 
 
-### Exclude users
+#### Exclude users
 
 By default, the Security plugin logs events from all users but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
 
@@ -166,7 +172,7 @@ plugins.security.audit.config.ignore_users: NONE
 ```
 
 
-### Exclude headers
+#### Exclude headers
 
 You can exclude sensitive headers from being included in the logs---for example, the `Authorization:` header.
 
@@ -175,9 +181,14 @@ plugins.security.audit.config.exclude_sensitive_headers: true
 ```
 
 
-### Configure the audit log index name
+### Settings in opensearch.yml
 
-By default, the Security plugin stores audit events in a daily rolling index named `auditlog-YYYY.MM.dd`. You can configure the name of the index in `opensearch.yml`:
+The following settings are stored in the `opensearch.yml` file.
+
+
+#### Configure the audit log index name
+
+By default, the Security plugin stores audit events in a daily rolling index named `auditlog-YYYY.MM.dd`:
 
 ```yml
 plugins.security.audit.config.index: myauditlogindex
@@ -192,9 +203,9 @@ plugins.security.audit.config.index: "'auditlog-'YYYY.MM.dd"
 For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
 
 
-### (Advanced) Tune the thread pool
+#### (Advanced) Tune the thread pool
 
-The Search plugin logs events asynchronously, which keeps performance impact on your cluster minimal. The plugin uses a fixed thread pool to log events. You can define the number of threads in the pool in `opensearch.yml`:
+The Search plugin logs events asynchronously, which keeps performance impact on your cluster minimal. The plugin uses a fixed thread pool to log events:
 
 ```yml
 plugins.security.audit.config.threadpool.size: <integer>
