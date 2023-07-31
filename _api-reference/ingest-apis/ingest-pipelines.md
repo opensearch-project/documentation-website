@@ -385,10 +385,6 @@ DELETE /_ingest/pipeline/*
 ```
 {% include copy-curl.html %}
 
-## Create a pipeline on an existing index
-
-_<Do we want to include a section on creating a pipeline on an existing index?>
-
 ## Next steps
 
 - Learn more about [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/)
