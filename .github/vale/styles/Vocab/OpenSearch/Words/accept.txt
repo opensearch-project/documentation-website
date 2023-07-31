@@ -13,6 +13,7 @@ Boolean
 [Cc]onfig
 [Cc]ron
 [Cc]ybersecurity
+[Dd]ashboarding
 [Dd]atagram
 [Dd]eallocate
 [Dd]eduplication
@@ -49,6 +50,7 @@ k-NN
 [Kk]eystore
 kibibyte
 mebibyte
+[Ll]earnings
 [Ll]emmatization
 Levenshtein
 [Ll]inestring
@@ -81,7 +83,7 @@ pebibyte
 [Rr]eenable
 [Rr]eindex
 [Rr]eingest
-[Rr]erank[er|ed|ing]?
+[Rr]erank(er|ed|ing)?
 [Rr]epo
 [Rr]ewriter
 [Rr]ollup
@@ -96,6 +98,7 @@ stdout
 [Ss]ubcommands?
 [Ss]ubfield
 [Ss]ubquery
+[Ss]ubstrings?
 [Ss]ubtag
 [Ss]ubtree
 [Ss]ubvector
