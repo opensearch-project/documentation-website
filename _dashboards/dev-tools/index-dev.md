@@ -12,7 +12,7 @@ Interact directly with OpenSearch by using **Dev Tools** to set up your OpenSear
 - Set up your OpenSearch Dashboards environment. For example, you can use the console to configure authentication setting for your OpenSearch Dashboards instance. 
 - [Run queries to explore your data]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/). For example, you can use the console to run a query to find all the documents in your index that have a specific word in them.
 - Debug problems with your queries. For example, if your query is not returning the results you expect, you can use the console to see the error message and figure out the problem.
-- Learn about the OpenSearch API. The API documentation is available in the console, so you can look up the syntax for different API calls.
+- Learn about the APIs in OpenSearch. The API reference documentation is available in the console under the help button, so you can look up the syntax for different API calls.
 - Develop custom visualizations. For example, you can use the console to create Vega visualizations. 
 - Customize the appearance and behavior of dashboards. For example, you can use the console to customize the colors of visualizations on a dashboard or to add new filters. 
 - Identify and fix bugs. For example, you can use the console to see the logs and try to identify the cause of the problem.
