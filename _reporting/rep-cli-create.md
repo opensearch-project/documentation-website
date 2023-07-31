@@ -1,12 +1,14 @@
 ---
 layout: default
-title: Creating and requesting a visualization report
+title: Create and request visualization reports
 nav_order: 15
-parent: Creating reports with the Reporting CLI
-
+parent: Reporting using the CLI
+grand_parent: Reporting
+redirect_from:
+  - /dashboards/reporting-cli/rep-cli-create/
 ---
 
-# Creating and requesting a visualization report
+# Create and request visualization reports
 
 First, you need to get the URL for the visualization that you want to download as an image file or PDF.
 
