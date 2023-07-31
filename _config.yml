@@ -79,6 +79,9 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
+  reporting:
+    permalink: /:collection/:path/
+    output: true
   clients:
     permalink: /:collection/:path/
     output: true
@@ -156,6 +159,9 @@ just_the_docs:
       nav_fold: true
     observing-your-data:
       name: Observability
+      nav_fold: true
+    reporting:
+      name: Reporting
       nav_fold: true
     clients:
       name: Clients
