@@ -12,8 +12,15 @@ An _ingest pipeline_ is a sequence of steps that are applied to data as it is be
 
 Ingest pipelines consist of _processors_. Processors are customizable tasks that run in a sequential order as they appear in the request body. This order is important, as each processor depends on the output of the previous processor. The transformed data appears in your index after each of the processor completes.
 
-Ingest pipelines in OpenSearch can only be managed using [ingest API operations]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/). When using ingest in production environments, your cluster should contain at least one node with the node roles permission set to `ingest`. For information about setting up node roles within a cluster, see [Cluster Formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+Ingest pipelines in OpenSearch can only be managed using [ingest API operations]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
 {: .note}
+
+## Prerequisites 
+
+The following are prerequisites for using OpenSearch ingest pipelines:
+
+- When using ingest in production environments, your cluster should contain at least one node with the `ingest` role. For information about setting up node roles within a cluster, see [Cluster Formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+- If the OpenSearch security features are enabled, you must have the `cluster_manage_pipelines` permission to manage ingest pipelines.
 
 ## Define a pipeline
 
