@@ -1,18 +1,20 @@
 ---
 layout: default
-title: Creating reports with the Dashboards interface
-nav_order: 70
+title: Reporting using OpenSearch Dashboards
+nav_order: 5
+redirect_from:
+  - /dashboards/reporting/
 ---
 
 
-# Creating reports with the Dashboards interface
+# Reporting using OpenSearch Dashboards
 
 You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [Security plugin]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 CSV reports have a non-configurable 10,000 row limit. They have no explicit size limit (for example, MB), but extremely large documents could cause report generation to fail with an out of memory error from the V8 JavaScript engine.
 {: .tip }
 
-## Generating reports with the interface
+## Generating reports
 
 To generate a report from the interface:
 
@@ -43,6 +45,8 @@ Definitions let you generate reports on a periodic schedule.
 2. Choose **Create**.
 
 ## Troubleshooting
+
+You can use the following topics to troubleshoot and resolve issues with reporting.
 
 ### Chromium fails to launch with OpenSearch Dashboards
 

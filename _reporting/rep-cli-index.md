@@ -1,11 +1,13 @@
 ---
 layout: default
-title: Creating reports with the Reporting CLI
-nav_order: 75
+title: Reporting using the CLI
+nav_order: 10
 has_children: true
+redirect_from:
+  - /dashboards/reporting-cli/rep-cli-index/
 ---
 
-# Creating reports with the Reporting CLI
+# Reporting using the CLI
 
 You can programmatically create dashboard reports in PDF or PNG format with the Reporting CLI without using OpenSearch Dashboards or the Reporting plugin. This allows you to create reports automatically within your email workflows.
 

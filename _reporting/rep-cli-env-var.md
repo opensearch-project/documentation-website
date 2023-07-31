@@ -1,12 +1,14 @@
 ---
 layout: default
-title: Using environment variables with the Reporting CLI
+title: Use environment variables with the Reporting CLI
 nav_order: 35
-parent: Creating reports with the Reporting CLI
-
+parent: Reporting using the CLI
+grand_parent: Reporting
+redirect_from:
+  - /dashboards/reporting-cli/rep-cli-env-var/
 ---
 
-# Using environment variables with the Reporting CLI
+# Use environment variables with the Reporting CLI
 
 Instead of explicitly providing values in the command line, you can save them as environment variables. The Reporting CLI reads environment variables from the current directory inside the project.
 

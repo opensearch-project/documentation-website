@@ -1,12 +1,14 @@
 ---
 layout: default
-title: Downloading and installing the Reporting CLI tool
+title: Download and install the Reporting CLI tool
 nav_order: 10
-parent: Creating reports with the Reporting CLI
-
+parent: Reporting using the CLI
+grand_parent: Reporting
+redirect_from:
+  - /dashboards/reporting-cli/rep-cli-install/
 ---
 
-# Downloading and installing the Reporting CLI tool
+# Download and install the Reporting CLI tool
 
 You can download and install the Reporting CLI tool from either the npm software registry or the OpenSearch.org [Artifacts](https://opensearch.org/artifacts) hub. Refer to the following sections for instructions.
 
