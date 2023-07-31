@@ -14,4 +14,4 @@ Interact directly with OpenSearch by using **Dev Tools** to set up your OpenSear
 - Learn about APIs.
 - Develop custom visualizations, such as Vega visualizations.
 
-
+The Dev Tools console is a valuable resource for developers, analysts, and anyone else who works with OpenSearch data.
