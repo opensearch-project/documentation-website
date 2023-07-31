@@ -79,6 +79,18 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
+<<<<<<< HEAD
+=======
+  reporting:
+    permalink: /:collection/:path/
+    output: true
+  query-dsl:
+    permalink: /:collection/:path/
+    output: true 
+  field-types:
+    permalink: /:collection/:path/
+    output: true
+>>>>>>> a79a8cb5 ([DOC] Move Reporting to high-level section in nav menu (#4654))
   clients:
     permalink: /:collection/:path/
     output: true
@@ -156,6 +168,9 @@ just_the_docs:
       nav_fold: true
     observing-your-data:
       name: Observability
+      nav_fold: true
+    reporting:
+      name: Reporting
       nav_fold: true
     clients:
       name: Clients
