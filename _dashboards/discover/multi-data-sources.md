@@ -90,9 +90,7 @@ To set the time filter:
 2. Select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/}) to change the time field. The default time period is **Last 15 minutes**.
 3. Change the time field to a particular time period, for example, **Last 7 days**, and then select **Refresh**.
 4. Change start or end times by selecting the start or end time in the search bar.
-5. In the pop-up window, choose **Absolute**, **Relative**, or **Now** and then specify the date, for example, as shown in the following image.
-
-![Time filter with search bar]({{site.url}}{{site.baseurl}}/images/dashboards/time-filter-data-sources.png)
+5. In the pop-up window, choose **Absolute**, **Relative**, or **Now** and then specify the date.
 
 ### Selecting a time range from the histogram
 
