@@ -14,7 +14,7 @@ Use the create pipeline API operation to create or update pipelines in OpenSearc
 
 ## Path and HTTP method
 
-To create, or update, an ingest pipeline, you need to use the `PUT` method to the `/_ingest/pipelines` endpoint. Replace `<id>` with your pipeline identifier.
+To create, or update, an ingest pipeline, you need to use the `PUT` method to the `/_ingest/pipelines` endpoint. Replace `<pipeline-id>` with your pipeline ID.
 
 ```json
 PUT _ingest/pipeline/<pipeline-id>

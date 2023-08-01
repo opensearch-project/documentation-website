@@ -10,7 +10,7 @@ redirect_from:
 
 # Get pipeline
 
-After creating a pipeline, use the get ingest pipeline API operation to retrieve all the information about the pipeline.
+Use the get ingest pipeline API operation to retrieve all the information about the pipeline.
 
 ## Retrieving information about all pipelines
 
