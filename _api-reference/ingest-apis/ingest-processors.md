@@ -13,7 +13,7 @@ Ingest processors are a core component of [ingest pipelines]({{site.url}}{{site.
 OpenSearch provides a standard set of ingest processors within your OpenSearch installation. For a list of processors available in OpenSearch, use the [nodes info]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/) API operation:
 
 ```json
-GET /_nodes/ingest?filter_path=nodes.*.ingest.processors
+GET /_nodes/ingest
 ```
 {% include copy-curl.html %}
 

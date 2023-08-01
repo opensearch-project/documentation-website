@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Create or update ingest pipeline
+title: Create pipeline
 parent: Ingest pipelines
 grand_parent: Ingest APIs
 nav_order: 10
@@ -8,35 +8,44 @@ redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
 ---
 
-# Create or update a pipeline
+# Create pipeline
 
-To create or update an ingest pipeline, you need to use the `PUT` method to the `/_ingest/pipelines` endpoint.
+Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires an ingest definition that defines how the processors change the document. 
 
-## Path and HTTP methods
-```
-PUT _ingest/pipeline/{id}
-```
+## Path and HTTP method
 
-## Request body fields
-
-The body of the request must contain the field `processors`. The field `description` is optional. 
-
-Field | Required | Type | Description
-:--- | :--- | :--- | :---
-`description` | Optional | String | Description of your ingest pipeline. 
-`processors` | Required | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
-
-The following is a simple example to create an ingest pipeline with one processor, a `set` processor that sets the `name` field to the value of the `user_id` field:
+To create, or update, an ingest pipeline, you need to use the `PUT` method to the `/_ingest/pipelines` endpoint. Replace `<id>` with your pipeline identifier.
 
 ```json
-PUT _ingest/pipeline/set-pipeline
+PUT _ingest/pipeline/<pipeline-id>
+```
+
+Here is a example in JSON format that creates an ingest pipeline with using a `set` processor and an `uppercase` processor. The `set` processor sets the value of the `grad_year` field to the value of `2023` and the `graduated` field to the value of `true`. The `uppercase` processor converts the `name` field to capital letters.
+
+#### Example request
+
+```json
+PUT _ingest/pipeline/my-pipeline
 {
-  "description" : "A simple ingest pipeline",
-  "processors" : [
+  "description": "This pipeline processes student data",
+  "processors": [
     {
-      "set" : {
-        "field": "name",
-        "value": "user_id"
+      "set": {
+        "description": "Sets the graduation year to 2023",
+        "field": "grad_year",
+        "value": 2023
+      }
+    },
+    {
+      "set": {
+        "description": "Sets graduated to true",
+        "field": "graduated",
+        "value": true
+      }
+    },
+    {
+      "uppercase": {
+        "field": "name"
       }
     }
   ]
@@ -44,13 +53,49 @@ PUT _ingest/pipeline/set-pipeline
 ```
 {% include copy-curl.html %}
 
-The following response confirms the pipeline was successfully created.
+If a pipeline fails or results in an error, see [Handling pipelines failures]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/) to learn more.
+{: .note}
+
+## Request body fields
+
+The following table lists the request body fields used to create, or update, a pipeline. The body of the request must contain the field `processors`. The field `description` is optional. 
+
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+`processors` | Required | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
+`description` | Optional | String | Description of your ingest pipeline. 
+
+## Path parameters
+
+Parameter | Required | Type | Description
+:--- | :--- | :--- | :---
+`pipeline-id` | Required | String | The unique identifier, or pipeline ID, assigned to the ingest pipeline. A pipeline id is used in API requests to specify which pipeline should be created or modified.
+
+## Query parameters
+
+Parameter | Required | Type | Description
+:--- | :--- | :--- | :---
+`cluster_manager_timeout` | Optional | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.
+`timeout` | Optional | Time | Period to wait for a response. Defaults to 30 seconds. 
+
+## Template snippets
+
+Some processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get a field value, enclose the field name in triple curly brackets, for example, {{{field-name}}}.
+
+The following template snippet sets the value of a field "{{field_name}}" to a value of a field "{{value}}".
+
+#### Example: `set` ingest processor Mustache template snippet
 
 ```json
 {
-  "acknowledged" : true
+    "set" : {
+        "field_name": "grad_year",
+        "value": "{{value}}"
+    }
 }
 ```
+{% include copy-curl.html %}
 
-See [Handling ingest pipeline failures](<insert-link>) to learn how to handle pipeline failures. 
+## Next steps
 
+- [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/)

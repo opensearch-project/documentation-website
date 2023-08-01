@@ -3,7 +3,7 @@ layout: default
 title: Delete a pipeline
 parent: Ingest pipelines
 grand_parent: Ingest APIs
-nav_order: 12
+nav_order: 13
 redirect_from:
   - /opensearch/rest-api/ingest-apis/delete-ingest/
 ---
