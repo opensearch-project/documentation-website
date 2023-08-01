@@ -34,13 +34,14 @@ The sections that follow describe the main elements in each part of the `config.
 The `http` section has the following format:
 
 ```yml
-anonymous_auth_enabled: <true|false>
-xff: # optional section
-  enabled: <true|false>
-  internalProxies: <string> # Regex pattern
-  remoteIpHeader: <string> # Name of the header in which to look. Typically: x-forwarded-for
-  proxiesHeader: <string>
-  trustedProxies: <string> # Regex pattern
+http:
+  anonymous_auth_enabled: <true|false>
+  xff: # optional section
+    enabled: <true|false>
+    internalProxies: <string> # Regex pattern
+    remoteIpHeader: <string> # Name of the header in which to look. Typically: x-forwarded-for
+    proxiesHeader: <string>
+    trustedProxies: <string> # Regex pattern
 ```
 
 The settings used in this configuration are described in the following table.
