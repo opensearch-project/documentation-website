@@ -30,7 +30,7 @@ The following table lists the required and optional parameters for the `date` pr
 `output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`.
 `target_field`  | Optional  | Name of the field to store the parsed data in. Default target field is `@timestamp`. |
 `locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports template snippets.  |
-`timezone `  | Optional  | The time zone to use when parsing the date. Default is UTC.  |
+`timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. Supports template snippets.|
 `ignore_missing` | Optional  | If set to `true`, the processor will not fail if the field does not exist. Default is `false`.  | 
 `if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  | 
 `on_failure`  | Optional  | Action to take if an error occurs. | 
