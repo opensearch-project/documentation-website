@@ -61,7 +61,7 @@ Here is a simple example in JSON format. This creates an ingest pipeline with on
 
 Few processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get a field value, enclose the field name in triple curly brackets:{{{field-name}}}.
 
-The following template snippet sets the value of a field to a specific value. The value can be a string, a number, or a Boolean.
+The following template snippet sets the value of a field "{{field_name}}" to a value of a field "{{value}}".
 
 #### Example: `set` ingest processor Mustache template snippet
 
