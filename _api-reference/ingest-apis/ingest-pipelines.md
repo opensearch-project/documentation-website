@@ -8,7 +8,7 @@ nav_order: 5
 
 # Ingest pipelines
 
-An _ingest pipeline_ is a sequence of steps that are applied to data as it is being ingested into a system. Each step in the pipeline performs a specific task, such as filtering, transforming, or enriching the data. The order in which the steps are applied are important, as each step depends on the output of the previous step. 
+An _ingest pipeline_ is a sequence of steps that are applied to data as it is being ingested into a system. Each step in the pipeline performs a specific task, such as filtering, transforming, or enriching the data. 
 
 Ingest pipelines consist of _processors_. Processors are customizable tasks that run in a sequential order as they appear in the request body. This order is important, as each processor depends on the output of the previous processor. The transformed data appears in your index after each of the processor completes.
 
