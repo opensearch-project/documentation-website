@@ -17,7 +17,7 @@ http_authenticator:
   challenge: true
 ```
 
-Once `basic` is specified for the type of HTTP authenticator, no further configuration is needed, unless you plan to use additional authentication backends with HTTP basic authentication. For considerations related to this type of set up, continue reading for more information about the `challenge` setting.
+Once `basic` is specified for the type of HTTP authenticator, no further configuration is needed, unless you plan to use additional authentication backends with HTTP basic authentication. For considerations related to this type of setup, continue reading for more information about the `challenge` setting.
 
 ### The challenge setting
 
