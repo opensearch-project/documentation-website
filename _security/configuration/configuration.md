@@ -9,11 +9,11 @@ redirect_from:
 
 # Configuring the Security backend
 
-One of the first steps to setting up the Security plugin is deciding which authentication backend to use. The part that backends play in authentication is covered in [steps 2–3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
+One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The part that the backend plays in authentication is covered in [steps 2–3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
-The main configuration file for authentication and authorization backends is `config/opensearch-security/config.yml`. It defines how the Security plugin retrieves the user credentials, how it verifies these credentials, and how it fetches additional roles when the backend selected for authentication supports this. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
+The primary file used to configure an authentication and authorization backend is `config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how it verifies these credentials, and how it fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
 
-`config.yml` has three main parts:
+The `config.yml` file includes three main parts:
 
 ```yml
 config:
@@ -26,7 +26,7 @@ config:
       ...
 ```
 
-For a more complete example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
+The sections that follow describe the main elements in each part of the `config.yml` file and provide basic examples for their configuration. For a more detailed example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
 
 
 ## HTTP
@@ -48,7 +48,7 @@ The settings used in this configuration are described in the following table.
 | Setting | Description |
 | :--- | :--- |
 | `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user gets regularly authenticated <!--- what does "regularly authenticated" mean? --->. If none are found, the user is authenticated as an "anonymous" user. This user then has the username "anonymous" and one role named "anonymous_backendrole". When you enable anonymous authentication, all HTTP authenticators do not challenge. |
-| `xff` | TBD |
+| `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/). |
 
 If you disable anonymous authentication, the Security plugin won't initialize if you have not provided at least one `authc`.
 
@@ -74,7 +74,7 @@ You can use more than one authentication domain. Each authentication domain has 
 
 `http_authenticator` specifies which authentication method that you want to use on the HTTP layer.
 
-This is the syntax for defining an authenticator on the HTTP layer:
+The following example shows the syntax used for defining an authenticator on the HTTP layer:
 
 ```yml
 http_authenticator:
@@ -84,11 +84,13 @@ http_authenticator:
     ...
 ```
 
-These are the allowed values for `type`:
+The `type` setting for `http_authenticator` allows the following values.
 
-- `basic`: HTTP basic authentication. No additional configuration is needed.
-- `jwt`: JSON Web Token (JWT) authentication. Additional configuration is needed. See [Configuring JWTs]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/#configuring-jwts) for more information.
-- `clientcert`: Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes.
+| Value | Description |
+| :--- | :--- |
+| `basic` | HTTP basic authentication. No additional configuration is needed. |
+| `jwt` | JSON Web Token (JWT) authentication. Additional configuration is needed. See [Configuring JWTs]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/#configuring-jwts) for more information. |
+| `clientcert` | Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes. |
 
 After setting an HTTP authenticator, you must specify against which backend system you want to authenticate the user:
 
@@ -99,11 +101,13 @@ authentication_backend:
     ...
 ```
 
-These are the possible values for `type`:
+The following table shows the possible values for the `type` setting under `authentication_backend`.
 
-- `noop`: No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT or client certificate authentication.
-- `internal`: Use the users and roles defined in `internal_users.yml` for authentication.
-- `ldap`: Authenticate users against an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
+| Value | Description |
+| :--- | :--- |
+| `noop` | No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT or client certificate authentication. |
+| `internal` | Use the users and roles defined in `internal_users.yml` for authentication. |
+| `ldap` | Authenticate users against an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
 
 
 ## Authorization
@@ -123,10 +127,12 @@ authz:
 
 You can define multiple entries in this section the same way as you can for authentication entries. In this case, execution order is not relevant, so there is no `order` field.
 
-These are the possible values for `type`:
+The following table shows the possible values for the `type` setting under `authorization_backend`.
 
-- `noop`: Skip this step altogether.
-- `ldap`: Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
+| Value | Description |
+| :--- | :--- |
+| `noop` | Skip this step altogether. |
+| `ldap` | Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
 
 
 ## Backend configuration examples
