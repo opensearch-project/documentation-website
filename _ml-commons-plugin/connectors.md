@@ -25,14 +25,11 @@ As of OpenSearch 2.9, connectors have been tested for the following ML tools, th
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power Cohere's large language models.
 
 
-All connectors consist a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and an AI service or model serving technology. Additional connectors will be added to this page as they are tested and verified. 
+All connectors consist of a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and an AI service or model serving technology. Additional connectors will be added to this page as they are tested and verified. 
 
 You can find approved blueprints for each connector in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
 
 If you want build your own blueprint, see [Building blueprints](#building-blueprints).
-
-
-
 
 ## Prerequisites
 
