@@ -1,12 +1,14 @@
 ---
 layout: default
-title: Scheduling reports with the cron utility
+title: Schedule reports with the cron utility
 nav_order: 20
-parent: Creating reports with the Reporting CLI
-
+parent: Reporting using the CLI
+grand_parent: Reporting
+redirect_from:
+  - /dashboards/reporting-cli/rep-cli-cron/
 ---
 
-# Scheduling reports with the cron utility
+# Schedule reports with the cron utility
 
 You can use the cron command-line utility to initiate a report request with the Reporting CLI that runs periodically at any date or time interval. Follow the cron expression syntax to specify the date and time that precedes the command that you want to initiate.
 
