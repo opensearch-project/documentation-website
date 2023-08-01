@@ -75,7 +75,7 @@ The following template snippet sets the value of a field "{{field_name}}" to a v
 ```
 {% include copy-curl.html %}
 
-The `field_name` and `value` variables are Mustache templates. You can use them to specify the field name and value that you want. For example, the following `set` ingest processor sets the `name` field to the value of the `user_id` field:
+The following `set` ingest processor sets the `name` field to the value of the `user_id` field:
 
 ```json
 {
