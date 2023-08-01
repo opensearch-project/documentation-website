@@ -31,7 +31,7 @@ The sections that follow describe the main elements in each part of the `config.
 
 ## HTTP
 
-The `http` section has the following format:
+The `http` section includes the following format:
 
 ```yml
 http:
@@ -52,6 +52,7 @@ The settings used in this configuration are described in the following table.
 | `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/). |
 
 If you disable anonymous authentication, the Security plugin won't initialize if you have not provided at least one `authc`.
+{: .important }
 
 
 ## Authentication
@@ -59,14 +60,15 @@ If you disable anonymous authentication, the Security plugin won't initialize if
 The `authc` section has the following format:
 
 ```yml
-<name>:
-  http_enabled: <true|false>
-  transport_enabled: <true|false>
-  order: <integer>
-  http_authenticator:
-    ...
-  authentication_backend:
-    ...
+authc:
+  <domain_name>:
+    http_enabled: <true|false>
+    transport_enabled: <true|false>
+    order: <integer>
+    http_authenticator:
+      ...
+    authentication_backend:
+      ...
 ```
 
 An entry in the `authc` section is called an *authentication domain*. It specifies where to get the user credentials and against which backend they should be authenticated.

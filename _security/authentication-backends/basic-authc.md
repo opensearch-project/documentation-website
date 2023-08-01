@@ -10,7 +10,6 @@ redirect_from:
 # HTTP basic authentication
 
 When Security is configured for HTTP basic authentication, it provides a simple challenge and response process for gaining access to OpenSearch and its resources, which prompts you to sign in with a username and password. To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration by specifying `type` as `basic`, as shown in the following example:
-<!--- provide more description about what basic gives you and describe the function of the internal database --->
 
 ```yml
 http_authenticator:
@@ -18,13 +17,16 @@ http_authenticator:
   challenge: true
 ```
 
-In most cases, it's appropriate to set `challenge` to `true` for basic authentication. This setting defines the behavior of the Security plugin when the `Authorization` field in the HTTP header is not specified.
+Once `basic` is specified for the type of HTTP authenticator, no further configuration is needed, unless you plan to use additional authentication backends with HTTP basic authentication. For considerations related to this type of set up, continue reading for more information about the `challenge` setting.
 
-If `challenge` is set to `true`, the Security plugin sends a response with status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a username and password.
+### The challenge setting
 
-When `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. Consider using this setting if you have more than one challenge `http_authenticator` keys in your configured authentication domains. This might be the case, for example, when you plan to use basic authentication and OpenID Connect together.
+In most cases, it's appropriate to set `challenge` to `true` for basic authentication. This setting defines the behavior of the Security plugin when the `Authorization` field in the HTTP header is not specified. By default, the setting is `true`.
 
-When the Authorization header is specified, ...
+When `challenge` is set to `true`, the Security plugin sends a response with the status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a username and password.
+
+When `challenge` is set to `false` and an `Authorization` header has not been specified in the request, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. Consider using this setting when you have more than one challenge `http_authenticator` setting included in your configured authentication domains. This might be the case, for example, when you plan to use basic authentication and OpenID Connect together.
+
 
 ## The internal user database
 
