@@ -19,4 +19,3 @@ Simplify, secure, and scale your data ingestion in OpenSearch with the following
 - [Get pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/get-ingest/): Use this API to retrieve a pipeline configuration.
 - [Simulate pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/simulate-ingest/): Use this pipeline to test a pipeline configuration.
 - [Delete pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/delete-ingest/): Use this API to delete a pipeline configuration.
-

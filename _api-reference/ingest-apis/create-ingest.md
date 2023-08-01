@@ -87,11 +87,29 @@ The following template snippet sets the value of a field "{{field_name}}" to a v
 #### Example: `set` ingest processor Mustache template snippet
 
 ```json
+PUT _ingest/pipeline/my-pipeline
 {
-    "set" : {
-        "field_name": "grad_year",
-        "value": "{{value}}"
+  "processors": [
+    {
+      "set": {
+        "description": "Sets the grad_year field to 2023 value",
+        "field": "{{{grad_year}}}",
+        "value": "{{{2023}}}"
+         }
+    },
+    {
+      "set": {
+        "description": "Sets graduated to true",
+        "field": "{{{graduated}}}",
+        "value": "{{{true}}}"
+      }
+    },
+    {
+      "uppercase": {
+        "field": "name"
+      }
     }
+  ]
 }
 ```
 {% include copy-curl.html %}
