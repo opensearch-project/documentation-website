@@ -59,7 +59,7 @@ Here is a simple example in JSON format. This creates an ingest pipeline with on
 
 ## Template snippets
 
-Use template snippets to create an ingest pipeline that loads data from a file, indexes it into OpenSearch, performs some processing on the data, and outputs the data to a file. You can use template snippets as a starting point for sections of your custom templates or [Mustache](https://mustache.github.io/) template snippets to create dynamic content. Mustache templates use a simple syntax (double curly brackets `{{` and `}}`) to replace placeholders in a template with values from a data source.
+Few processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get a field value, enclose the field name in triple curly brackets:{{{field-name}}}.
 
 The following template snippet sets the value of a field to a specific value. The value can be a string, a number, or a Boolean.
 
