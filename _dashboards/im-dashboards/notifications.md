@@ -20,7 +20,7 @@ In the **Notification settings** interface, you can configure the default notifi
 - Clone
 - Force merge
 
-To get started, under the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Index Management**. Under **Index Management**, select **Notification settings**. 
+To get started, from the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Index Management**. Under **Index Management**, select **Notification settings**. 
 
 You can choose to be notified when the operation has completed or failed. Additionally, you can select the notification channels for this notification, as shown in the following image.
 
