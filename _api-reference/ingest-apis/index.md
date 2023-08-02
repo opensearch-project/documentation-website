@@ -9,7 +9,7 @@ redirect_from:
 
 # Ingest APIs
 
-Ingest APIs are a valuable tool for ingesting data into a system. Ingest APIs work together with [pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) and [processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) to ingest data from a variety of sources and in a variety of formats. 
+Ingest APIs are a valuable tool for loading data into a system. Ingest APIs work together with [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) and [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) to process or transform data from a variety of sources and in a variety of formats. 
 
 ## Ingest pipeline APIs
 
