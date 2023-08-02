@@ -214,7 +214,7 @@ When using lead-in sentences, summarize, clarify, or refer to the example that f
 
 #### Referring to a variable or placeholder
 
-When introducing a code or command line example that refers to a variable or placeholder in the example, be direct by including the variable or placeholder name in the text. Surround the variable or placeholder name with `<replaceable>` tags so that its formatting matches the formatting in the example. Don't refer to the variable or placeholder by its color or format because these can change. If variable or placeholder texts have a lot in common and there are several for the user to complete, be direct by including a “template” for the input in the replaceable text.
+When introducing a code or command line example that refers to a variable or placeholder in the example, be direct by including the variable or placeholder name in the text. Surround the variable or placeholder name with angle brackets (`<` and `>`), for example, `<port>`. Don't refer to the variable or placeholder by its color or format because these can change. If variable or placeholder texts have a lot in common and there are several for the user to complete, be direct by including a “template” for the input in the replaceable text.
 
    In the following example, replace `<component-x>` with your own information:
 
