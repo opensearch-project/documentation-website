@@ -49,7 +49,7 @@ The following JSON object configures `set-pipeline` to fail the current processo
 
 If the processor fails, OpenSearch logs the failure and continues to run all remaining processors in the search pipeline. To check whether there were any failures, you can use [ingest pipeline metrics].
 
-## Search pipeline metrics
+## Ingest pipeline metrics
 
 To view ingest pipeline metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
 
