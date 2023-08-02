@@ -156,6 +156,70 @@ The following table lists acronyms that you don't need to spell out.
 | XML | Extensible Markup Language |
 | YAML | YAML Ain't Markup Language |
 
+### Code examples
+
+Calling out code within a sentence or code block makes it clear to readers which items are code specific. The following is general guidance about using code examples and when to use `code font`:
+
+* In Markdown, use single backticks (`` ` ``) for inline code formatting and triple backticks (```` ``` ````) for code blocks. For example, writing `` `discovery.type` `` in Markdown will render as `discovery.type`. A line containing three backticks should be included both before and after an example code block.
+* In sentences, use code font for things relating to code, for example, “The `from` and `size` parameters are stateless, so the results are based on the latest available data.” 
+* Use lead-in sentences to clarify the example. Exception: API examples, for which a caption-style lead-in (heading 4) is sufficient. 
+* Use the phrase *such as* for brief examples within a sentence.
+* Use language-specific indentation in code examples.
+* Make code blocks as copy-and-paste friendly as possible. Use either the [`copy` or `copy-curl` buttons](https://github.com/opensearch-project/documentation-website/blob/main/FORMATTING_GUIDE.md#buttons).
+
+#### Code formatting checklist
+
+The following items should be in `code font`:
+
+* Field names, variables (including environment variables), and settings (`discovery.type`, `@timestamp`, `PATH`). Use code font for variable and setting values if it improves readability (`false`, `1h`, `5`, or 5).
+* Placeholder variables. Use angle brackets for placeholder variables (`docker exec -it <container-id> /bin/bash`).
+* Commands, command-line utilities, and options (`docker container ls -a`, `curl`, `-v`).
+* File names, file paths, and directory names (`docker-compose.yml`, `/var/www/simplesamlphp/config/`).
+* URLs and URL components (`localhost`, `http://localhost:5601`).
+* Index names (`logs-000001`, `.opendistro-ism-config`), endpoints (`_cluster/settings`), and query parameters (`timeout`).
+* Language keywords (`if`, `for`, `SELECT`, `AND`, `FROM`).
+* Operators and symbols (`/`, `<`, `*`).
+* Regular expression, date, or other patterns (`^.*-\d+$`, `yyyy-MM-dd`).
+* Class names (`SettingsModule`) and interface names (*`RestHandler`*). Use italics for interface names.
+* Text field inputs (Enter the password `admin`).
+* Email addresses (`example@example.org`).
+
+#### Caption-style examples
+
+If you use a caption-style example, use the heading **Example**, with a colon, as appropriate. The following are caption-style examples:
+
+   **Example: Retrieve a specified document from an index**
+
+   The following example shows a request that retrieves a specific document and its information from an index:
+
+   `GET sample-index1/_doc/1`
+
+   **Example request**
+
+   `GET sample-index1/_doc/1` 
+
+Sometimes, you might not want to break up the flow of the text with a new heading. In these cases, you can use an example with no heading.
+
+   The following command maps ports 9200 and 9600, sets the discovery type to single-node, and requests the newest image of OpenSearch:
+
+   `docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest`
+
+#### Lead-in sentences
+
+When using lead-in sentences, summarize, clarify, or refer to the example that follows. A lead-in sentence is a complete sentence that ends in a colon.  
+
+   For example, the following query requests statistics for `docs` and `search`:
+
+   `GET _nodes/stats/indices/docs,search`
+
+#### Referring to a variable or placeholder
+
+When introducing a code or command line example that refers to a variable or placeholder in the example, be direct by including the variable or placeholder name in the text. Surround the variable or placeholder name with angle brackets (`<` and `>`), for example, `<port>`. Don't refer to the variable or placeholder by its color or format because these can change. If variable or placeholder texts have a lot in common and there are several for the user to complete, be direct by including a “template” for the input in the replaceable text.
+
+   In the following example, replace `<component-x>` with your own information:
+
+   `~/workspace/project-name$ eb init --modules <component-a> <component-b>`
+
 ### Formatting and organization
 
 - Use a colon to introduce example blocks (for example, code and scripts) and most lists. Do not use a colon to introduce tables or images.
