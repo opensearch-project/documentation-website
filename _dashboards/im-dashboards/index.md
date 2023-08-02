@@ -16,7 +16,7 @@ The Index Management interface in OpenSearch Dashboards provides a unified solut
 ## Get started with index management using Dashboards
 
 **Step 1: Open Index Management** 
-Once you're in OpenSearch Dashboards, select **Index Management** under the Management main menu. Then select **Indices**.
+Once you're in OpenSearch Dashboards, select **Index Management** from the **OpenSearch Plugins** main menu. Then select **Indices**.
 
 **Step 2: View indexes** 
 In the Indices interface you will see a list of existing indexes in your OpenSearch cluster. The list provides information such as index name, health state, document count, index size, and other relevant details.  
