@@ -7,7 +7,7 @@ has_children: true
 
 # Dev Tools
 
-Interact directly with OpenSearch by using **Dev Tools** to set up your OpenSearch Dashboards environment, run queries, explore data, and debug problems. To access the Dev Tools console, select **Dev Tools** under the **Management** menu on the OpenSearch Dashboards home page. The following are examples of how you can use the Dev Tools console in OpenSearch Dashboards: 
+Interact directly with OpenSearch by using **Dev Tools** to set up your OpenSearch Dashboards environment, run queries, explore data, and debug problems. To access the Dev Tools console, select **Dev Tools** from the **Management** menu on the OpenSearch Dashboards home page. The following are examples of how you can use the Dev Tools console in OpenSearch Dashboards: 
 
 - Set up your OpenSearch Dashboards environment. For example, you can use the console to configure authentication settings for your OpenSearch Dashboards instance. 
 - [Run queries to explore your data]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/). For example, you can use the console to run a query to find all the documents in your index that have a specific word in them.
