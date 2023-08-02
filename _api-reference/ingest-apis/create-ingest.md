@@ -20,7 +20,7 @@ To create, or update, an ingest pipeline, you need to use the `PUT` method to th
 PUT _ingest/pipeline/<pipeline-id>
 ```
 
-Here is a example in JSON format that creates an ingest pipeline with using a `set` processor and an `uppercase` processor. The `set` processor sets the value of the `grad_year` field to the value of `2023` and the `graduated` field to the value of `true`. The `uppercase` processor converts the `name` field to capital letters.
+Here is an example in JSON format that creates an ingest pipeline with using a `set` processor and an `uppercase` processor. The `set` processor sets the value of the `grad_year` field to the value of `2023` and the `graduated` field to the value of `true`. The `uppercase` processor converts the `name` field to capital letters.
 
 #### Example request
 

@@ -8,12 +8,12 @@ nav_order: 15
 
 ## Handling pipeline failures
 
-Each ingest pipeline consists of a series of processors that are applied to the data in sequence. If a processor fails, the entire pipeline will fail. The are two ways to handle failures:
+Each ingest pipeline consists of a series of processors that are applied to the data in sequence. If a processor fails, the entire pipeline will fail. You have two options for handling failures:
 
-- **Fail the entire pipeline:** This is the default behavior. If a processor fails, the entire pipeline will fail and the document will not be indexed.
+- **Fail the entire pipeline:** If a processor fails, the entire pipeline will fail and the document will not be indexed.
 - **Fail the current processor and continue with the next processor:** This can be useful if you want to continue processing the document even if one of the processors fails.
 
-To configure the failure handling behavior, you need to use the `<insert-parameter-name>` parameter. For example, the following JSON object configures the `set-pipeline` to fail the entire pipeline if a processor fails:
+By default, an ingest pipeline stops if one of its processors fails. If you want the pipeline to continue running when a processor fails, you can set the `ignore_failure` parameter for that processor to `true` when creating the pipeline:
 
 ```json
 {
@@ -26,7 +26,7 @@ To configure the failure handling behavior, you need to use the `<insert-paramet
       }
     }
   ],
-  "<parameter-name>" : "fail"
+  "ignore_failure" : true
 }
 ```
 
@@ -43,8 +43,18 @@ The following JSON object configures `set-pipeline` to fail the current processo
       }
     }
   ],
-  "<parameter-name>" : "continue"
+  "ignore_failure" : "continue"
 }
+```
+
+If the processor fails, OpenSearch logs the failure and continues to run all remaining processors in the search pipeline. To check whether there were any failures, you can use [ingest pipeline metrics].
+
+## Search pipeline metrics
+
+To view ingest pipeline metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
+
+```
+GET /_nodes/stats/ingest
 ```
 
 ## Troubleshooting failures
