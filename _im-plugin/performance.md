@@ -111,7 +111,21 @@ Note: Some instance types limit bulk requests to 10 MiB. For more information, s
 
 I3 instances provide fast and local memory express (NVMe) storage. I3 instances deliver better ingestion performance than instances that use General Purpose SSD (gp2) Amazon Elastic Block Store (Amazon EBS) volumes. For more information, see [Petabyte scale for Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/petabyte-scale.html).
 
+## Reduce response size
 
+To reduce the size of OpenSearch Service's response, use the filter_path parameter to exclude unnecessary fields. Be sure that you don't filter out any fields that are required to identify or retry failed requests. Those fields can vary by client.
+
+In the following example, the index-name, type-name, and took fields are excluded from the response:
+
+```json
+curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-items.index._index,-items.index._type" -H 'Content-Type: application/json' -d'
+{ "index" : { "_index" : "test2", "_id" : "1" } }
+{ "user" : "testuser" }
+{ "update" : {"_id" : "1", "_index" : "test2"} }
+{ "doc" : {"user" : "example"} }
+```
+
+For more information, see [Reducing response size](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/indexing.html#indexing-size).
 
 1 https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexingspeed.html#_unset_or_increase_the_refresh_interval
 
