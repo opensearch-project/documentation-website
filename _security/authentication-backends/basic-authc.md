@@ -19,7 +19,7 @@ http_authenticator:
 
 Once `basic` is specified for the type of HTTP authenticator, no further configuration is needed, unless you plan to use additional authentication backends with HTTP basic authentication. For considerations related to this type of setup, continue reading for more information about the `challenge` setting.
 
-### The challenge setting
+## The challenge setting
 
 In most cases, it's appropriate to set `challenge` to `true` for basic authentication. This setting defines the behavior of the Security plugin when the `Authorization` field in the HTTP header is not specified. By default, the setting is `true`.
 
