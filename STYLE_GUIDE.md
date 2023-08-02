@@ -14,7 +14,8 @@ The following naming conventions should be observed in OpenSearch Project conten
 
 * Capitalize both words when referring to the *OpenSearch Project*.
 * *OpenSearch* is the name for the distributed search and analytics engine used by Amazon OpenSearch Service.
-* Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch. Use the full name *Amazon OpenSearch Service* on first appearance. The abbreviated service name, *OpenSearch Service*, can be used for subsequent appearances. 
+* Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch. Use the full name *Amazon OpenSearch Service* on first appearance. The abbreviated service name, *OpenSearch Service*, can be used for subsequent appearances.
+* Amazon OpenSearch Serverless is an on-demand serverless configuration for Amazon OpenSearch Service. Use the full name *Amazon OpenSearch Serverless* on first appearance. The abbreviated service name, *OpenSearch Serverless*, can be used for subsequent appearances. 
 * OpenSearch Dashboards is the UI for OpenSearch. On first appearance, use the full name *OpenSearch Dashboards*. *Dashboards* can be used for subsequent appearances.
 * *Security Analytics* is a security information and event management (SIEM) solution for OpenSearch. Capitalize both words when referring to the name of the solution.
 * Observability is collection of plugins and applications that let you visualize data-driven events by using Piped Processing Language (PPL). Capitalize *Observability* when referring to the name of the solution.
