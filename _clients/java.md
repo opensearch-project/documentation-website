@@ -57,7 +57,7 @@ If you're using Gradle, add the following dependencies to your project"
 
 ```
 dependencies {
-  implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
+  implementation 'org.opensearch.client:opensearch-rest-client:{{site.opensearch_version}}'
   implementation 'org.opensearch.client:opensearch-java:2.4.0'
 }
 ```
