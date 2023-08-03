@@ -65,7 +65,7 @@ Choose the appropriate threshold size for your cluster.
 Run the stats API operation again to see whether the flush activity changed:
 
 ```json
-curl _XGET "os-endpoint/index-name/_stats/flush?pretty"
+curl -XGET "os-endpoint/index-name/_stats/flush?pretty"
 ```
 {% include copy.html %}
 
