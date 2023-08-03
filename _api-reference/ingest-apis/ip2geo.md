@@ -183,7 +183,6 @@ The following table lists the `ip2geo` fields options for creating an IP2Geo pip
 | datasource | yes | - | The data source name to look up geographical information. |
 | properties | no |  All fields in `datasource`. | The field that controls what properties are added to `target_field` from `datasource`. |
 | target_field | no | ip2geo | The field that holds the geographical information looked up from the data source. |
-| database | no | geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The database filename referring to a database the module ships with or a custom database in the ingest-geoip config directory. |
 | ignore_missing | no | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
 | first_only | no | true | If `true` only first-found GeoIP data is added. This only applies when field contains multiple IPs in an array. |
 
