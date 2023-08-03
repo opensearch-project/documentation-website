@@ -78,7 +78,6 @@ In order to use the text embedding processor defined in your pipelines, create a
 
 ### Example request
 
-
 The following example request creates an index that attaches to a Neural Search pipeline. Because the index maps to k-NN vector fields, the index setting field `index-knn` is set to `true`. To match the maps defined in the Neural Search pipeline, `mapping` settings use [k-NN method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions).
 
 ```json
