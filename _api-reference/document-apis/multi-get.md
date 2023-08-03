@@ -39,7 +39,6 @@ GET _mget
 
 ```json
 GET sample-index1/_mget
-
 {
   "docs": [
     {
@@ -58,6 +57,8 @@ GET sample-index1/_mget
 ## Path and HTTP methods
 
 ```
+GET _mget
+GET <index>/_mget
 POST _mget
 POST <index>/_mget
 ```
