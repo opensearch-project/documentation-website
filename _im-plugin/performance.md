@@ -5,7 +5,7 @@ nav_order: 41
 has_children: false
 ---
 
-# Performance considerations while tuning Opensearch for indexing speed
+# Tuning your cluster for indexing speed
 
 The following configurations have demonstrated around 60% improvements in throughput when
 running an indexing only workload compared to the out-of-the-box experience. The workload did not
@@ -77,7 +77,7 @@ It's a best practice to increase the `index.translog.flush_threshold_size` only 
 By default, Opensearch periodically refreshes indexes every second. OpenSearch only refreshes indexes that have
 received one search request in the last 30 seconds.
 
-When you increase the refresh interval, the data node makes fewer API calls. The refresh interval can be shorter or faster, depending on the length of the refresh interval. To prevent [429 errors](https://repost.aws/knowledge-center/opensearch-resolve-429-error), it's a best practice to increase the refresh interval.
+When you increase the refresh interval, the data node makes fewer API calls. To prevent [429 errors](https://repost.aws/knowledge-center/opensearch-resolve-429-error), it's a best practice to increase the refresh interval.
 
 If your application can tolerate increasing the amount of time between when a document gets indexed and when it
 becomes visible, you can increase the `index.refresh_interval` to a larger value, for example 30s, or even disable it in a
@@ -116,8 +116,6 @@ If a node fails while replicas are disabled, you might lose data. Disable the re
 
 Start with the bulk request size of 5 MiB to 15 MiB. Then slowly increase the request size until the indexing performance stops improving. 
 
-Note: Some instance types limit bulk requests to 10 MiB. For more information, see [Network limits](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/limits.html#network-limits).
-
 ## Use an instance type that has SSD instance store volumes (such as I3)
 
 I3 instances provide fast and local memory express (NVMe) storage. I3 instances deliver better ingestion performance than instances that use General Purpose SSD (gp2) Amazon Elastic Block Store (Amazon EBS) volumes. For more information, see [Petabyte scale for Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/petabyte-scale.html).
@@ -138,9 +136,3 @@ curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-it
 {% include copy.html %}
 
 For more information, see [Reducing response size](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/indexing.html#indexing-size).
-
-1 https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexingspeed.html#_unset_or_increase_the_refresh_interval
-
-2 https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexingspeed.html#_indexing_buffer_size
-
-3 https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html#merge-scheduling
