@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Performance considerations
-nav_order: 41
+nav_order: 11
 has_children: false
 ---
 
-# Performance considerations while tuning Opensearch for indexing speed
+# Tuning your cluster for indexing speed
 
 The following configurations have demonstrated around 60% improvements in throughput when
 running an indexing only workload compared to the out of box experience. The workload did not
