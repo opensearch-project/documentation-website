@@ -9,8 +9,20 @@ redirect_from:
   - /security-plugin/audit-logs/index/
 ---
 
-
 # Audit logs
+
+---
+
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
 
 Audit logs let you track access to your OpenSearch cluster and are useful for compliance purposes or in the aftermath of a security breach. You can configure the categories to be logged, the detail level of the logged messages, and where to store the logs.
 
@@ -30,15 +42,6 @@ After this initial setup, you can use OpenSearch Dashboards to manage your audit
 
 An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
 
-
----
-
-#### Table of contents
-1. TOC
-{:toc}
-
-
----
 
 ## Tracked events
 
