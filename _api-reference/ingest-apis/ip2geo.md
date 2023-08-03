@@ -107,7 +107,7 @@ GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 
 ## Updating an IP2Geo data source
 
-To update succesfully an IP2Geo data source, the GeoIP database from the latest-released database's endpoint must contain the same fields as those in the currently used database. Otherwise, the update fails. 
+To update an IP2Geo data source successfully, the GeoIP database from the new database's endpoint must contain all fields that the current database has. Otherwise, the update fails. 
 
 #### Example: Update request
 
