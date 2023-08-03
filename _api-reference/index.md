@@ -18,7 +18,7 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 
 ## Related articles 
 
-- [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/index/)
+- [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)
 - [Access control API]({{site.url}}{{site.baseurl}}/security/access-control/api/)
 - [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/)
 - [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/) 
