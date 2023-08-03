@@ -240,7 +240,6 @@ The IP2Geo data source and `ip2geo` processor node settings are listed in the fo
 | plugins.geospatial.ip2geo.datasource.update_interval_in_days | Default update interval for creating the data source API. | Defaults to 3. |
 | plugins.geospatial.ip2geo.datasource.batch_size | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Defaults to 10,000. |
 
- `ip2geo` processor | Description | Setting |
 |-------------------|-------------|---------|
 | plugins.geospatial.ip2geo.processor.max_bundle_size | Maximum number of searches to include in a multi-search request when enriching documents. | Defaults to 100.
 | plugins.geospatial.ip2geo.processor.max_concurrent_searches | Maximum number of concurrent multi-search requests to run when enriching documents. | The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster.
