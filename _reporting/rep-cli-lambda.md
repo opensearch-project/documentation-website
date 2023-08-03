@@ -1,9 +1,11 @@
 ---
 layout: default
-title: Scheduling reports with AWS Lambda
+title: Schedule reports with AWS Lambda
 nav_order: 30
-parent: Creating reports with the Reporting CLI
-
+parent: Reporting using the CLI
+grand_parent: Reporting
+redirect_from:
+  - /dashboards/reporting-cli/rep-cli-lambda/
 ---
 
 # Scheduling reports with AWS Lambda
