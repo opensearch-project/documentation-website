@@ -13,7 +13,7 @@ Each ingest pipeline consists of a series of processors that are applied to the 
 - **Fail the entire pipeline:** If a processor fails, the entire pipeline will fail and the document will not be indexed.
 - **Fail the current processor and continue with the next processor:** This can be useful if you want to continue processing the document even if one of the processors fails.
 
-By default, an ingest pipeline stops if one of its processors fails. If you want the pipeline to continue running when a processor fails, you can set the `on_failure` parameter for that processor to `true` when creating the pipeline:
+By default, an ingest pipeline stops if one of its processors fails. If you want the pipeline to continue running when a processor fails, you can set the `ignore_failure` parameter for that processor to `true` when creating the pipeline:
 
 ```json
 PUT _ingest/pipeline/my-pipeline/
