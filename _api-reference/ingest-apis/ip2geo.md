@@ -12,6 +12,9 @@ Introduced 2.9
 
 The `ip2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `ip2geo` processor uses IP geolocation (GeoIP) data from an external endpoint and therefore requires an additional component, `datasource`, that defines from where to download GeoIP data and how frequently to update the data.
 
+The `ip2geo` processor maintains the GeoIP data mapping in system indexes. The GeoIP mapping is retrieved from these indexes during data ingestion to perform the IP to geolocation conversion on the incoming data. For optimal performance, it is preferable to have a node with both ingest and data roles. This configuration avoids internode calls reducing latency. Also, as the `ip2geo` processor searches GeoIP mapping data from the indexes, search performance is impacted.
+{: .note}
+
 ## Getting started
 
 To get started with using the `ip2geo` processor, the `opensearch-geospatial` plugin must be installed. Learn more at [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
