@@ -40,3 +40,4 @@ The following is a generic example of an ingest processor definition within a pi
 `your_value` | Required | Replace this with the appropriate value for the chosen processor type and parameter. For example, if the processor is `rename`, then this value is the new field name you want to rename to. |
 `your_optional_parameter` | Optional | Some processors have optional parameters that modify their behavior. Replace this with the optional parameter. |
 `your_optional_value` | Optional | Replace this with the appropriate value for the optional parameter used. |
+
