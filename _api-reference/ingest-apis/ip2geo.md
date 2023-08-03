@@ -184,7 +184,6 @@ The following table lists the `ip2geo` fields options for creating an IP2Geo pip
 | properties | no |  All fields in `datasource`. | The field that controls what properties are added to `target_field` from `datasource`. |
 | target_field | no | ip2geo | The field that holds the geographical information looked up from the data source. |
 | ignore_missing | no | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
-| first_only | no | true | If `true` only first-found GeoIP data is added. This only applies when field contains multiple IPs in an array. |
 
 The following code is an example of using the `ip2geo` processor to add the geographical information to the `ip2geo` field based on the `ip` field.
 
