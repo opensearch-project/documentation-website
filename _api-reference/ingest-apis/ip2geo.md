@@ -128,7 +128,7 @@ To update an IP2Geo data source successfully, the GeoIP database from the new da
 
 ## Deleting the IP2Geo data source
 
- To delete the IP2Geo data source, you first must delete all processors associated with the data source. Otherwise, if you have other processors that use the data source, the DELETE request fails. 
+ To delete the IP2Geo data source, you must delete all processors associated with the data source first. Otherwise, the DELETE request fails. 
 
 #### Example: DELETE request
 
