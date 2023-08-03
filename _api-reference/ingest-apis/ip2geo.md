@@ -241,4 +241,3 @@ The IP2Geo data source and `ip2geo` processor node settings are listed in the fo
 | plugins.geospatial.ip2geo.datasource.batch_size | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Defaults to 10,000. |
 
 |-------------------|-------------|---------|
-| plugins.geospatial.ip2geo.processor.max_concurrent_searches | Maximum number of concurrent multi-search requests to run when enriching documents. | The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster.
