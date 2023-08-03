@@ -230,7 +230,7 @@ GET /my-index/_doc/my-id
 }
 ```
 
-## Node settings
+## Cluster settings
 
 The IP2Geo data source and `ip2geo` processor node settings are listed in the following table.
 
