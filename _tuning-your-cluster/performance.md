@@ -12,7 +12,7 @@ running an indexing only workload compared to the out-of-the-box experience. The
 incorporate search or other scenarios. Only the OpenSearch server process was run on the machines,
 with the benchmark clients hosted on a different node.
 
-The execution environment was comprises of Intel EC2 instances (r7iz.2xlarge) on the AWS cloud, and the
+The execution environment was comprises of Intel EC2 instances (r7iz.2xlarge) on the AWS Cloud, and the
 workload was the StackOverflow dataset available as part of OpenSearch Benchmark.
 
 ## Java heap size
@@ -74,13 +74,13 @@ It's a best practice to increase the `index.translog.flush_threshold_size` only 
 
 ## Index refresh interval
 
-By default, Opensearch periodically refreshes indexes every second. OpenSearch only refreshes indexes that have
-received one search request in the last 30 seconds.
+By default, OpenSearch periodically refreshes indexes every second. OpenSearch only refreshes indexes that have
+received at least one search request in the last 30 seconds.
 
 When you increase the refresh interval, the data node makes fewer API calls. To prevent [429 errors](https://repost.aws/knowledge-center/opensearch-resolve-429-error), it's a best practice to increase the refresh interval.
 
 If your application can tolerate increasing the amount of time between when a document gets indexed and when it
-becomes visible, you can increase the `index.refresh_interval` to a larger value, for example 30s, or even disable it in a
+becomes visible, you can increase the `index.refresh_interval` to a larger value, for example `30s`, or even disable it in a
 pure indexing scenario, in order to improve indexing speed.
 
 ## Index buffer size
@@ -107,7 +107,7 @@ For example, if there are 24 shards in the index, and there are eight data nodes
 
 ## Setting replica count to zero
 
-If you anticipate heavy indexing, consider setting the `index.number_of_replicas` value to `0`. Each replica duplicates the indexing process. As a result, disabling the replicas improves your cluster performance. After the heavy indexing is complete, reactivate the replicated indices.
+If you anticipate heavy indexing, consider setting the `index.number_of_replicas` value to `0`. Each replica duplicates the indexing process. As a result, disabling the replicas improves your cluster performance. After the heavy indexing is complete, reactivate the replicated indexes.
 
 If a node fails while replicas are disabled, you might lose data. Disable the replicas only if you can tolerate data loss for a short duration.
 {: .important }
@@ -122,7 +122,7 @@ I3 instances provide fast and local memory express (NVMe) storage. I3 instances 
 
 ## Reduce response size
 
-To reduce the size of OpenSearch's response, use the filter_path parameter to exclude unnecessary fields. Be sure that you don't filter out any fields that are required to identify or retry failed requests. Those fields can vary by client.
+To reduce the size of OpenSearch's response, use the `filter_path` parameter to exclude unnecessary fields. Be sure that you don't filter out any fields that are required to identify or retry failed requests. Those fields can vary by client.
 
 In the following example, the `index-name`, `type-name`, and `took` fields are excluded from the response:
 
@@ -134,5 +134,3 @@ curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-it
 { "doc" : {"user" : "example"} }
 ```
 {% include copy.html %}
-
-For more information, see [Reducing response size](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/indexing.html#indexing-size).
