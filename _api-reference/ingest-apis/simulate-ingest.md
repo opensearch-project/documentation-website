@@ -78,7 +78,6 @@ POST /_ingest/pipeline/my-pipeline/_simulate
       }
     }
   ]
-}]
 }
 ```
 {% include copy-curl.html %}

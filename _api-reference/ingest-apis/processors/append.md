@@ -18,11 +18,13 @@ The syntax for the `append` processor is:
 ```json
 {
     "append": {
-        "field": "field_name",
-        "value": ["value1", "value2", "{{value3}}"]
+        "field": "your_target_field",
+        "value": ["your_appended_value"]
     }
 }
 ```
+{% include copy-curl.html %}
+````
 
 ## Parameters
 
@@ -32,10 +34,9 @@ The following table lists the required and optional parameters for the `append` 
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field where the data should be appended. Supports template snippets.|
 `value`  | Required  | Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. |
-`allow_duplicates`  | Optional  | If set to `false`, the processor will not append values that already exist in the field. Default is `true`.  |
 `description`  | Optional  | Brief description of the processor.  |  
-`if` | Optional | Condition to execute this processor. |
-`on_failure` | Optional | A list of processors to execute if the processor fails. |
+`if` | Optional | Condition to run this processor. |
+`on_failure` | Optional | A list of processors to run if the processor fails. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 
@@ -51,7 +52,7 @@ PUT _ingest/pipeline/user-behavior
     {
       "append": {
         "field": "event_types",
-        "value": "{{event_type}}"
+        "value": ["event_type"]
       }
     }
   ]
@@ -93,8 +94,28 @@ Because there was no `event_types` field in the document, an array field is crea
 }
 ```
 
+To test the processor, you can use the following example:
+
+```json
+POST _ingest/pipeline/user-behavior/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "event_type": "page_view",
+        "event_types":
+          "event_type"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
 ## Best practices
 
 - **Data validation:** Make sure the values being appended are valid and compatible with the target field's data type and format.
 - **Efficiency:** Consider the performance implications of appending large amounts of data to each document and optimize the processor configuration accordingly.
-- **Error handling:** Implement proper error handling mechanisms to handle scenarios where appending fails, such as when external lookups or API requests encounter errors.
+- **Error handling:** Implement proper error handling mechanisms to handle scenarios where appending fails, such as when API requests encounter errors.
