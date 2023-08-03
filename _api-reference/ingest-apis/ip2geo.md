@@ -151,6 +151,7 @@ Once the IP2Geo data source is created, you can create the `ip2geo` processor.
 #### Example: Create processor request
 
 ```json
+PUT /_ingest/pipeline/my-pipeline
 {
    "description":"convert ip to geo",
    "processors":[
