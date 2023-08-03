@@ -113,9 +113,3 @@ POST _ingest/pipeline/user-behavior/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-## Best practices
-
-- **Data validation:** Make sure the values being appended are valid and compatible with the target field's data type and format.
-- **Efficiency:** Consider the performance implications of appending large amounts of data to each document and optimize the processor configuration accordingly.
-- **Error handling:** Implement proper error handling mechanisms to handle scenarios where appending fails, such as when API requests encounter errors.

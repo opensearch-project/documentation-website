@@ -32,11 +32,11 @@ The following table lists the required and optional parameters for the `bytes` p
 `ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  |
 `ignore_failure`  | Optional  | If set to `true`, the processor will not fail if an error occurs.  | 
-`on_failure`  | Optional  | A list of processors to execute if the processor fails.  | 
+`on_failure`  | Optional  | A list of processors to run if the processor fails.  | 
 `tag`  | Optional  | Tag that can be used to identify the processor.  | 
 `description`  | Optional  | Brief description of the processor.  |  
 
-Following is an example of a pipeline using a `bytes` processor.
+The following query creates a pipeline, named `file_upload`, that has one bytes processor. It converts the `file_size` to its byte equivalent and stores it in a new field `file_size_bytes`:
 
 ```json
 PUT _ingest/pipeline/file_upload
@@ -51,27 +51,44 @@ PUT _ingest/pipeline/file_upload
     }
   ]
 }
+```
+{% include copy-curl.html %}
+```
 
+Ingest a document into the index:
+
+```json
 PUT testindex1/_doc/1?pipeline=file_upload
 {
   "file_size": "10MB"
 }
 ```
+{% include copy-curl.html %}
+```
 
-This pipeline, named `file_upload`, has one bytes processor. It converts the `file_size` to its byte equivalent and stores it in a new field `file_size_bytes`. Following is the GET request and response.
+To view the ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
+```
+
+To test the processor, you can use the following example:
+
+```json
+POST _ingest/pipeline/user-behavior/_simulate
 {
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 3,
-  "_seq_no": 2,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "file_size_bytes": 10485760,
-    "file_size": "10MB"
-  }
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "file_size_bytes": "10485760",
+        "file_size":
+          "10MB"
+      }
+    }
+  ]
 }
 ```
