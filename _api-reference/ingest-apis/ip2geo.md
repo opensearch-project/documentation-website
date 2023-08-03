@@ -112,6 +112,7 @@ To update an IP2Geo data source successfully, the GeoIP database from the new da
 #### Example: Update request
 
 ```json
+PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 {
     "endpoint": https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json,
     "update_interval_in_days": 10
