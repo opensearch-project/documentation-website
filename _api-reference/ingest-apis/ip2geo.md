@@ -234,7 +234,7 @@ GET /my-index/_doc/my-id
 
 The IP2Geo data source and `ip2geo` processor node settings are listed in the following table.
 
-| IP2Geo data source | Description | Setting |
+| Key | Description | Default |
 |--------------------|-------------|---------|
 | plugins.geospatial.ip2geo.datasource.endpoint | Default endpoint for creating the data source API. | Defaults to https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json. |
 | plugins.geospatial.ip2geo.datasource.update_interval_in_days | Default update interval for creating the data source API. | Defaults to 3. |
