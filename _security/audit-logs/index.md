@@ -28,7 +28,7 @@ To enable audit logging:
 
 After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
 
-An alternative is to make initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
+An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
 
 
 ---
@@ -129,7 +129,7 @@ You can disable this feature by setting:
 plugins.security.audit.config.resolve_indices: false
 ```
 
-Disabling this feature only takes effect if `plugins.security.audit.config.log_request_body` is also set to `false`.
+This feature is only disabled if `plugins.security.audit.config.log_request_body` is also set to `false`.
 {: .note }
 
 
@@ -143,12 +143,12 @@ The Security plugin can be configured to log each indexing operation as a separa
 plugins.security.audit.config.resolve_bulk_requests: true
 ```
 
-This change can create an extremely large number of events in the audit logs, so we don't recommend enabling this setting if you make heavy use of the `_bulk` API.
+This change can create an extremely large number of events in the audit logs, so we don't recommend enabling this setting if you frequently use the `_bulk` API.
 
 
 #### Exclude requests
 
-You can exclude certain requests from being logged completely by configuring actions for transport requests and/or HTTP request paths (REST):
+You can exclude certain requests from being logged by configuring actions for transport requests and/or HTTP request paths (REST):
 
 ```yml
 plugins.security.audit.config.ignore_requests: ["indices:data/read/*", "SearchRequest"]
@@ -174,7 +174,7 @@ plugins.security.audit.config.ignore_users: NONE
 
 #### Exclude headers
 
-You can exclude sensitive headers from being included in the logs---for example, the `Authorization:` header.
+You can exclude sensitive headers from being included in the logs---for example, the `Authorization:` header:
 
 ```yml
 plugins.security.audit.config.exclude_sensitive_headers: true
@@ -205,7 +205,7 @@ For a reference on the date pattern format, see the [Joda DateTimeFormat documen
 
 #### (Advanced) Tune the thread pool
 
-The Search plugin logs events asynchronously, which keeps performance impact on your cluster minimal. The plugin uses a fixed thread pool to log events:
+The Search plugin logs events asynchronously, which minimizes the performance impact on your cluster. The plugin uses a fixed thread pool to log events:
 
 ```yml
 plugins.security.audit.config.threadpool.size: <integer>
