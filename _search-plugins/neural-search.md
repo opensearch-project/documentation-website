@@ -19,7 +19,7 @@ The Neural Search plugin comes bundled with OpenSearch. For more information, se
 
 ## Ingest data with Neural Search
 
-In order to ingest vectorized documents, you need to create a Neural Search _pipeline_. A pipeline consists of a series of processors that manipulate documents during ingestion, allowing the documents to be vectorized. The following API operation creates a Neural Search pipeline:
+In order to ingest vectorized documents, you need to create a Neural Search ingest _pipeline_. An ingest pipeline consists of a series of processors that manipulate documents during ingestion, allowing the documents to be vectorized. The following API operation creates a Neural Search ingest pipeline:
 
 ```
 PUT _ingest/pipeline/<pipeline_name>
@@ -29,7 +29,7 @@ In the pipeline request body, The `text_embedding` processor, the only processor
 
 ### Path parameter
 
-Use `pipeline_name` to create a name for your Neural Search pipeline. 
+Use `pipeline_name` to create a name for your Neural Search ingest pipeline. 
 
 ### Request fields
 
@@ -78,7 +78,7 @@ In order to use the text embedding processor defined in your pipelines, create a
 
 ### Example request
 
-The following example request creates an index that attaches to a Neural Search pipeline. Because the index maps to k-NN vector fields, the index setting field `index-knn` is set to `true`. Furthermore, `mapping` settings use [k-NN method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to match the maps defined in the Neural Search pipeline.
+The following example request creates an index that attaches to a Neural Search ingest pipeline. Because the index maps to k-NN vector fields, the index setting field `index-knn` is set to `true`. Furthermore, `mapping` settings use [k-NN method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to match the maps defined in the Neural Search ingest pipeline.
 
 ```json
 PUT /my-nlp-index-1
@@ -130,7 +130,7 @@ POST /my-nlp-index-1/_doc
 }
 ```
 
-With the text_embedding processor in place through a Neural Search pipeline, the example indexes "Hello world" as a `text_field` and converts "Hello world" into an associated k-NN vector field. 
+With the text_embedding processor in place through a Neural Search ingest pipeline, the example indexes "Hello world" as a `text_field` and converts "Hello world" into an associated k-NN vector field. 
 
 ## Search a neural index 
 
