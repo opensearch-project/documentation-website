@@ -94,7 +94,7 @@ The following image shows the query string for reference.
 
 ![Query string with indices]({{site.url}}{{site.baseurl}}/images/string-indices.png)
 
-The response contains each token with its start and end offset that correspond to the starting index in the original string (inclusive) and the ending index (exclusive):
+The response contains each token with its start and end offsets that correspond to the starting index in the original string (inclusive) and the ending index (exclusive):
 
 ```json
 {
@@ -160,4 +160,4 @@ The response provides information about the analyzers for each field:
 
 ## Next steps
 
-- Learn more about specifying [index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) and [search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/)
+- Learn more about specifying [index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) and [search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).

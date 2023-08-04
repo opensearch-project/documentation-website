@@ -42,7 +42,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-Valid values for [built-in analyzers]({{site.url}}/{{site.baseurl}}/analyzers/index/#built-in-analyzers/) are `standard`, `simple`, `whitespace`, `stop`, `keyword`, `pattern`, `fingerprint`, or any supported [language analyers]({{site.url}}/{{site.baseurl}}/analyzers/index/language-analyzers/).
+Valid values for [built-in analyzers]({{site.url}}/{{site.baseurl}}/analyzers/index/#built-in-analyzers/) are `standard`, `simple`, `whitespace`, `stop`, `keyword`, `pattern`, `fingerprint`, or any supported [language analyzers]({{site.url}}/{{site.baseurl}}/analyzers/index/language-analyzers/).
 
 ## Specifying a search analyzer for a field
 
@@ -68,7 +68,7 @@ PUT testindex
 
 ## Specifying the default search analyzer for an index
 
-If you want to analyze all query strings at search time with the same analyzer, you can specify the serach analyzer in the `analysis.analyzer.default_search` setting. When providing the `analysis.analyzer.default_search`, you must also provide the `analysis.analyzer.default` parameter, which specifies the [index analyzer]({{site.url}}/{{site.baseurl}}/analyzers/index-analyzers/) to be used at indexing time.
+If you want to analyze all query strings at search time with the same analyzer, you can specify the search analyzer in the `analysis.analyzer.default_search` setting. When providing the `analysis.analyzer.default_search`, you must also provide the `analysis.analyzer.default` parameter, which specifies the [index analyzer]({{site.url}}/{{site.baseurl}}/analyzers/index-analyzers/) to be used at indexing time.
 
 For example, the following request specifies the `simple` analyzer as the index analyzer and the `whitespace` analyzer as the search analyzer for the `testindex` index:
 
