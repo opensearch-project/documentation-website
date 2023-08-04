@@ -60,7 +60,7 @@ OpenSearch performs text analysis on text fields when you index a document and w
 
 - A _search analyzer_ performs analysis at query time: OpenSearch analyzes the query string when you run a full-text query on a text field. For more information about ways to specify search analyzers, see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
 
-In the majority of cases, you should use the same analyzer at indexing time and at search time because then the text field and the query string are analyzed in the same way and the resulting tokens match as expected.
+In most cases, you should use the same analyzer at indexing time and at search time because then the text field and the query string are analyzed in the same way and the resulting tokens match as expected.
 {: .tip}
 
 ### Example
