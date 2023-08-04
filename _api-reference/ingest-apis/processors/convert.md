@@ -52,6 +52,8 @@ PUT _ingest/pipeline/convert-price
   ]
 }
 ```
+{% include copy-curl.html %}
+```
 
 Ingest a document into the index:
 
