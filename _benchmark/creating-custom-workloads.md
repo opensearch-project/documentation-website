@@ -75,7 +75,7 @@ As part of workload creation, OpenSearch Benchmark generates the following files
 
 By default, OpenSearch Benchmark does not contain a reference to generate queries. Because you have the best understanding of your data, we recommend adding a query to `workload.json` that matches your index's specifications. Use the following `match_all` query as an example of a query added to your workload: 
 
-```
+```json
 {
       "operation": {
         "name": "query-match-all",
