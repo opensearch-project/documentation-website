@@ -13,6 +13,7 @@ The Alerts window includes features for viewing and working with alerts. The two
 
 You can select the **Refresh** button at any time to refresh information on the Alerts page.
 
+---
 ## The Alerts graph
 
 The Alerts graph can display alerts by their status or severity. Use the **Group by** dropdown list to specify either Alert status or Alert severity.
@@ -38,6 +39,7 @@ When one of the commonly used windows of time is selected, you can select the **
 
 As one more alternative, you can select an option from the **Recently used date ranges** section to go back to a previous setting.
 
+---
 ## The Alerts list
 
 The Alerts list displays all findings according to the time when the alert was triggered, the alert's trigger name, the detector that triggered the alert, the alert status, and alert severity.
