@@ -94,7 +94,7 @@ Because there was no `event_types` field in the document, an array field is crea
 }
 ```
 
-To test the processor, you can use the following example:
+To test the pipeline, run the following query:
 
 ```json
 POST _ingest/pipeline/user-behavior/_simulate

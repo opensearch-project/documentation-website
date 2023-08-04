@@ -74,7 +74,7 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 ```
 
-To test the processor, run the following query:
+To test the pipeline, run the following query:
 
 ```json
 POST _ingest/pipeline/user-behavior/_simulate
