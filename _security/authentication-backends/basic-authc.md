@@ -15,9 +15,13 @@ When Security is configured for HTTP basic authentication, it provides a simple 
 http_authenticator:
   type: basic
   challenge: true
+authentication_backend:
+  type: internal
 ```
 
-Once `basic` is specified for the type of HTTP authenticator, no further configuration is needed, unless you plan to use additional authentication backends with HTTP basic authentication. For considerations related to this type of setup, continue reading for more information about the `challenge` setting.
+Additionally, you can specify the internal user database as the authentication backend by specifying `internal` as the type for `authentication_backend`. See [The internal user database](#the-internal-user-database) for information about this backend.
+
+Once `basic` is specified for the type of HTTP authenticator and `internal` is specified for the type of authentication backend, no further configuration in `config.yml` is needed, unless you plan to use additional authentication backends with HTTP basic authentication. For considerations related to this type of setup, continue reading for more information about the `challenge` setting.
 
 ## The challenge setting
 
@@ -30,3 +34,25 @@ When `challenge` is set to `false` and an `Authorization` header has not been sp
 
 ## The internal user database
 
+When using HTTP basic authentication, the internal user database stores the internal users, their hashed passwords, and other user attributes such as roles and backend roles. The `internal_users.yml` configuration file keeps these settings 
+
+```yml
+http:
+  anonymous_auth_enabled: false
+authc:
+  basic_internal_auth_domain:
+    description: "Authenticate via HTTP Basic against internal users database"
+    http_enabled: true #this is clearly needed, yes?#
+    transport_enabled: true #this is clearly needed, yes?#
+    http_authenticator:
+      type: basic
+      challenge: true
+    authentication_backend:
+      type: internal
+authz:
+  basic_internal_roles:
+    http_enabled: true
+    transport_enabled: true
+    authorization_backend:
+      type: internal
+```

@@ -23,7 +23,7 @@ To enable multiple data sources:
 4. Restart the Dashboards container.
 5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Dashboards Management** console. **Data Sources** appears in the sidebar, as shown in the following image.
 
-![Data Sources navigation menu]({{site.url}}{{site.baseurl}}/images/dashboards/data-sources.png)
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="40%">
 
 ## Creating a data source connection
 
@@ -32,23 +32,21 @@ A data source connection specifies the parameters needed to connect to a data so
 To create a new data source connection:
 
 1. Go to [`http://localhost:5601`](http://localhost:5601/) and log in with the username `admin` and password `admin`. If you’re running the Security plugin, go to [`https://localhost:5601`](https://localhost:5601/).
-2. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data Sources** > **Create data source connection**.
-3. Add information to each field to configure **Connection Details** > **Endpoint URL** > **Authentication Method**. 
+2. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**.
+3. Add information to each field to configure **Connection Details** and **Authentication Method**. 
    
-   In the **Connection Details** window, enter a title. Entering a description is optional.
+   Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
 
-   In the **Endpoint** window, enter the **Endpoint URL**. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
-
-   In the **Authentication** window, select an **Authentication Method**. The applicable fields for the selected method appear. You can then enter the required details. The authentication method options include:
+   Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
     - **No authentication**: No authentication is used to connect to the data source.
     - **Username & Password**: A basic username and password are used to connect to the data source.
-    - **AWS SigV4**: An AWS Signature Version 4 (SigV4) authenticating request is used to connect to the data source. AWS SigV4 requires an access key and a secret key.
+    - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key.
 
-      For SigV4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. For an example setup, see the following image.
+      For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. For an example setup, see the following image.
 
-      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/SigV4-setup.png" alt="SigV4 auth type setup" width="40%">
+      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/SigV4-setup.png" alt="AWS Signature Version 4 auth type setup" width="40%">
       
-      For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more information about SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+      For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more information about AWS Signature Version 4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
       {: .note }
 
     After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
@@ -94,9 +92,7 @@ To set the time filter:
 2. Select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/}) to change the time field. The default time period is **Last 15 minutes**.
 3. Change the time field to a particular time period, for example, **Last 7 days**, and then select **Refresh**.
 4. Change start or end times by selecting the start or end time in the search bar.
-5. In the pop-up window, choose **Absolute**, **Relative**, or **Now** and then specify the date, for example, as shown in the following image.
-
-![Time filter with search bar]({{site.url}}{{site.baseurl}}/images/dashboards/time-filter-data-sources.png)
+5. In the pop-up window, choose **Absolute**, **Relative**, or **Now** and then specify the date.
 
 ### Selecting a time range from the histogram
 
@@ -148,7 +144,7 @@ Your dashboard might look like the one in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=700 alt="Example dashboard using data visualizations from many data sources">
 
-## Understanding feature limitations
+## Limitations
 
 This feature has the following limitations:
 
