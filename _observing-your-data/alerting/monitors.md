@@ -60,9 +60,9 @@ Variable | Data type | Description
 `bucket_keys` | String | Comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through `ctx.dedupedAlerts[0].bucket_keys`.
 `parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts[0].parent_bucket_path`.
 
-## Basic steps for creating an alert monitor
+## Creating an alert monitor
 
-To create a monitor, follow these basic steps:
+To create a basic monitor, follow these steps:
 
 1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
 1. Choose **Create monitor**.
