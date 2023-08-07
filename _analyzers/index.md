@@ -17,18 +17,18 @@ When you are searching documents using a full-text search, you want to receive a
 
 Text analysis consists of the following steps:
 
-- _Tokenize_ text into terms: For example, after tokenization, the phrase `Actions speak louder than words` is split into tokens `Actions`, `speak`, `louder`, `than`, and `words`.
-- _Normalize_ the terms by converting them into a standard format, for example, converting them to lowercase or performing stemming (reducing the word to its root): For example, after normalization, `Actions` becomes `action`, `louder` becomes `loud`, and `words` becomes `word`.
+1. _Tokenize_ text into terms: For example, after tokenization, the phrase `Actions speak louder than words` is split into tokens `Actions`, `speak`, `louder`, `than`, and `words`.
+1. _Normalize_ the terms by converting them into a standard format, for example, converting them to lowercase or performing stemming (reducing the word to its root): For example, after normalization, `Actions` becomes `action`, `louder` becomes `loud`, and `words` becomes `word`.
 
 ## Analyzers
 
 In OpenSearch, text analysis is performed by an _analyzer_. Each analyzer contains the following sequentially applied components:
 
-- **Character filters**: First, a character filter receives the original text as a stream of characters and adds, removes, or modifies characters in the text. For example, a character filter can strip HTML characters from a string so that the text `<p><b>Actions</b> speak louder than <em>words</em></p>` becomes `\nActions speak louder than words\n`. The output of a character filter is a stream of characters.
+1. **Character filters**: First, a character filter receives the original text as a stream of characters and adds, removes, or modifies characters in the text. For example, a character filter can strip HTML characters from a string so that the text `<p><b>Actions</b> speak louder than <em>words</em></p>` becomes `\nActions speak louder than words\n`. The output of a character filter is a stream of characters.
 
-- **Tokenizer**: Next, a tokenizer receives the stream of characters that has been processed by the character filter and splits the text into individual _tokens_ (usually, words). For example, a tokenizer can split text on white space so that the preceding text becomes [`Actions`, `speak`, `louder`, `than`, `words`]. Tokenizers also maintain metadata about tokens, such as their starting and ending positions in the text. The output of a tokenizer is a stream of tokens.
+1. **Tokenizer**: Next, a tokenizer receives the stream of characters that has been processed by the character filter and splits the text into individual _tokens_ (usually, words). For example, a tokenizer can split text on white space so that the preceding text becomes [`Actions`, `speak`, `louder`, `than`, `words`]. Tokenizers also maintain metadata about tokens, such as their starting and ending positions in the text. The output of a tokenizer is a stream of tokens.
 
-- **Token filters**: Last, a token filter receives the stream of tokens from the tokenizer and adds, removes, or modifies tokens. For example, a token filter may lowercase the tokens so that `Actions` becomes `action`, remove stopwords like `than`, or add synonyms like `talk` for the word `speak`.
+1. **Token filters**: Last, a token filter receives the stream of tokens from the tokenizer and adds, removes, or modifies tokens. For example, a token filter may lowercase the tokens so that `Actions` becomes `action`, remove stopwords like `than`, or add synonyms like `talk` for the word `speak`.
 
 An analyzer must contain exactly one tokenizer and may contain zero or more character filters and zero or more token filters.
 {: .note}

@@ -13,9 +13,9 @@ redirect_from:
 
 # Bucket aggregations
 
-Bucket aggregations categorize sets of documents as buckets. The type of bucket aggregation determines whether a given document falls into a bucket or not.
+Bucket aggregations categorize sets of documents as buckets. The type of bucket aggregation determines the bucket for a given document.
 
-You can use bucket aggregations to implement faceted navigation (usually placed as a sidebar on a search result landing page) to help your users narrow down the results.
+You can use bucket aggregations to implement faceted navigation (usually placed as a sidebar on a search result landing page) to help your users filter the results.
 
 ## Supported bucket aggregations
 
