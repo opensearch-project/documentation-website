@@ -42,15 +42,13 @@ Variable | Data type | Description
 `ctx.monitor.inputs.search.indices` | Array | An array that contains the indexes the monitor observes.
 `ctx.monitor.inputs.search.query` | N/A | The definition used to define the monitor.
 
-## Other variables
-
 The following table lists other variables you can use with your monitors.
 
 Variable | Data type | Description
 :--- | :--- : :---
-`ctx.results` | Array | An array with one element (i.e. `ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
+`ctx.results` | Array | An array with one element, for example,  `ctx.results[0]`. Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
-`ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every ten minutes, a period might begin at 10:40 and end at 10:50.
+`ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message if the trigger was unable to retrieve results or unable to evaluate the trigger, typically due to a compile error or null pointer exception. Null otherwise.
 `ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
@@ -69,5 +67,6 @@ To create a basic monitor, follow these steps:
 1. Enter the **Monitor details**, including monitor type, method, and schedule.  
 1. Select a data source from the dropdown list.
 1. Define the metrics in the Query section.
-1. Add a [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/triggers/).
+1. Add a trigger.
 1. Select **Create**.
+
