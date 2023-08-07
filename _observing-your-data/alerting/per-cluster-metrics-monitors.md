@@ -16,6 +16,8 @@ A per cluster metrics monitor collects and analyze metrics from a single cluster
 - Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach specified thresholds.
 - Total number of documents stored reaches specified thresholds.
 
+## Create a cluster mettics monitor
+
 To create a cluster metrics monitor, follow these steps:
 
 1. Select **Alerting** > **Monitors** > **Create monitor**.
@@ -26,20 +28,26 @@ To create a cluster metrics monitor, follow these steps:
 6. In the Actions section, indicate how you want your users to be notified when a trigger condition is met.
 7. Select **Create**. Your new monitor appears in the **Monitors** list.
 
-### Supported APIs
+The following example shows a configuration of a cluster metrics monitor.
 
-Trigger conditions use responses from the following cat API endpoints. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names). However, they do not support query parameters.
+<img src="{{site.url}}{{site.baseurl}}/images/cluster-metrics.png" alt="Cluster metrics monitor" width="700"/>
 
-1. [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
-2. [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
-3. [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
-4. [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
-5. [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
-6. [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
-7. [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
-8. [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
+## Supported APIs
 
-### Restrict API fields
+Trigger conditions use responses from the following API endpoints. Most APIs that can be used to monitor cluster status support path parameters (for example, comma-separated lists of index names). They do not support query parameters.
+
+- [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
+- [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
+- [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
+- [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
+- [_cat/indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
+- [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
+- [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
+- [_cat/shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
+- [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
+- [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
+
+## Restrict API fields
 
 If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
 
@@ -54,7 +62,7 @@ However, you can modify the file so that cluster metric monitors can only be cre
 }
 ```
 
-### Painless triggers
+## Painless triggers
 
 Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts are comprised of at least one statement and any additional functions you wish to run.
 
@@ -103,13 +111,13 @@ In the following example, a JSON object creates a trigger that sends an alert wh
 }
 ```
 
-See [trigger variables](#trigger-variables) for more painless ctx options.
+See [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) for more Painless `ctx` options.
 
 ### Limitations
 
-The cluster metrics monitor has the following limitations:
+Cluster metrics monitors have the following limitations:
 
 - You cannot create monitors for remote clusters.
 - The OpenSearch cluster must be in a state where an index's conditions can be monitored and actions can be executed against the index.
 - Removing resource permissions from a user will not prevent that user’s preexisting monitors for that resource from executing.
-- Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions; however, those monitors will not execute.
+- Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions; however, those monitors will not run.

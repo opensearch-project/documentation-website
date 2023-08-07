@@ -20,22 +20,33 @@ To create an alert, do the following:
 
 To get started with creating alerts:
 
-1. Choose **Alerting** from the OpenSearch Plugins main menu, then **Create monitor**. If alerts exist, you'll see a list of those alerts and the Create monitor button won't appear. In this case, select the **Monitors** tab, then **Create monitor**.   
-2. Create a per query, per bucket, per cluster metrics, or per document monitor. For instructions, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/).
-3. Create one or more triggers. For instructions, see [Triggers[({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)].
-4. For Actions, set up a notification channel for the alert. For instructions, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
+3. Create one or more triggers. For instructions, .
+4. For Actions, set up a notification channel for the alert. For instructions, .
 
-## Alerting terminology
+## Creating an alert monitor
+
+To create a basic monitor, follow these steps:
+
+1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
+1. Choose **Create monitor**. See [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) for more information about the monitor types.
+1. Enter the **Monitor details**, including monitor type, method, and schedule.  
+1. Select a data source from the dropdown list.
+1. Define the metrics in the Query section.
+1. Add a trigger. See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) for more information about triggers.
+1. Add an action. See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for more information about actions. 
+1. Select **Create**.
+
+## Key terms
 
 The following table lists alerting terminology commonly used in OpenSearch and throughout the Alerting documentation.
 
 Term | Definition
 :--- | :---
-**Monitor** | Job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more triggers.
-**Trigger** | Conditions that, if met, generate alerts. See [Triggers](({{site.url}}{{site.baseurl}}/observing-your-data/monitors/triggers/).
-**Alert** | Event associated with a trigger. When an alert is created, the trigger performs actions, including sending notifications.
-**Action** | Specific task that is performed when an alert is triggered. See [Actions](({{site.url}}{{site.baseurl}}/observing-your-data/monitors/actions/).
-Notifications | Messages that are sent to users when an alert is triggered. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index).
+Monitor | Job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more triggers.
+Trigger | Conditions that, if met, generate alerts. See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/monitors/triggers/).
+Alert | Event associated with a trigger. When an alert is created, the trigger performs actions, including sending notifications.
+Action | Specific task that is performed when an alert is triggered. See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/monitors/actions/).
+Notification | Message that is sent to users when an alert is triggered. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
 
 ## Alert states
 
