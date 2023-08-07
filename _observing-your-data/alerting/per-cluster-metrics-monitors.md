@@ -115,7 +115,7 @@ See [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alertin
 
 ### Limitations
 
-Cluster metrics monitors have the following limitations:
+Per cluster metrics monitors have the following limitations:
 
 - You cannot create monitors for remote clusters.
 - The OpenSearch cluster must be in a state where an index's conditions can be monitored and actions can be executed against the index.
