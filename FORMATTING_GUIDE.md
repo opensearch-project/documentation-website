@@ -424,7 +424,7 @@ You can style text in the following ways:
 * ```**bold**```
 * ```_italic_``` or ```*italic*```
 
-For guidance on using code examples and when to use code font, see https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#code-examples.
+For guidance on using code examples and when to use code font, see [Code examples](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#code-examples).
 
 ## Variables in curly braces
 
