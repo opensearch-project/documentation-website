@@ -425,7 +425,7 @@ GET _search
 -->
 ## Advanced filter options
 
-You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, and synonyms. You can also use analyzers as optional query fields. 
+You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, or synonyms. You can also use analyzers as optional query fields. 
 
 ### Wildcard options
 

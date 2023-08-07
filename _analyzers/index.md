@@ -13,22 +13,22 @@ redirect_from:
 
 # Text analysis
 
-When you are searching documents using a full-text search, you want to receive all relevant results and not only exact matches. If you're looking for "walk," you're interested in results that contain any form of the word, like "Walk", "walked" or "walking." To facilitate full-text search, OpenSearch uses text analysis.
+When you are searching documents using a full-text search, you want to receive all relevant results and not only exact matches. If you're looking for "walk", you're interested in results that contain any form of the word, like "Walk", "walked", or "walking." To facilitate full-text search, OpenSearch uses text analysis.
 
 Text analysis consists of the following steps:
 
-- _Tokenize_ text into terms: After tokenization, the phrase `Actions speak louder than words` is split into tokens `Actions`, `speak`, `louder`, `than`, `words`.
-- _Normalize_ the terms by converting them into a standard format, for example, convert them to lowercase or perform stemming (reducing the word to its root): After normalization, `Actions` becomes `action`, `louder` becomes `loud`, and `words` becomes `word`.
+- _Tokenize_ text into terms: For example, after tokenization, the phrase `Actions speak louder than words` is split into tokens `Actions`, `speak`, `louder`, `than`, and `words`.
+- _Normalize_ the terms by converting them into a standard format, for example, converting them to lowercase or performing stemming (reducing the word to its root): For example, after normalization, `Actions` becomes `action`, `louder` becomes `loud`, and `words` becomes `word`.
 
 ## Analyzers
 
-In OpenSearch, text analysis is performed by an _analyzer_. Each analyzer contains the following components that are applied sequentially:
+In OpenSearch, text analysis is performed by an _analyzer_. Each analyzer contains the following sequentially applied components:
 
-- **Character filters**: First, a character filter receives the original text as a stream of characters and adds, removes, or modifies characters in the text. For example, a character filter can strip HTML characters from a string so the text `<p><b>Actions</b> speak louder than <em>words</em></p>` becomes `\nActions speak louder than words\n`. The output of a character filter is a stream of characters.
+- **Character filters**: First, a character filter receives the original text as a stream of characters and adds, removes, or modifies characters in the text. For example, a character filter can strip HTML characters from a string so that the text `<p><b>Actions</b> speak louder than <em>words</em></p>` becomes `\nActions speak louder than words\n`. The output of a character filter is a stream of characters.
 
-- **Tokenizer**: Next, a tokenizer receives the stream of characters that has been processed by a character filter and splits the text into individual _tokens_ (usually, words). For example, a tokenizer can split text on white space so the preceding text becomes [`Actions`, `speak`, `louder`, `than`, `words`]. Tokenizers also maintain metadata about tokens, such as their starting and ending positions in the text. The output of a tokenizer is a stream of tokens.
+- **Tokenizer**: Next, a tokenizer receives the stream of characters that has been processed by the character filter and splits the text into individual _tokens_ (usually, words). For example, a tokenizer can split text on white space so that the preceding text becomes [`Actions`, `speak`, `louder`, `than`, `words`]. Tokenizers also maintain metadata about tokens, such as their starting and ending positions in the text. The output of a tokenizer is a stream of tokens.
 
-- **Token filters**: Last, a token filter receives the stream of tokens from the tokenizer and adds, removes, or modifies tokens. For example, a token filter may lowercase the tokens so `Actions` becomes `action`, remove stopwords like `than`, or add synonyms like `talk` for the word `speak`.
+- **Token filters**: Last, a token filter receives the stream of tokens from the tokenizer and adds, removes, or modifies tokens. For example, a token filter may lowercase the tokens so that `Actions` becomes `action`, remove stopwords like `than`, or add synonyms like `talk` for the word `speak`.
 
 An analyzer must contain exactly one tokenizer and may contain zero or more character filters and zero or more token filters.
 {: .note}
@@ -41,7 +41,7 @@ Analyzer | Analysis performed | Analyzer output
 :--- | :--- | :---
 **Standard** (default) | - Parses strings into tokens at word boundaries <br> - Removes most punctuation <br> - Converts tokens to lowercase | [`it’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]
 **Simple** | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Converts tokens to lowercase  | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `to`, `opensearch`]
-**Whitespace** | - Parses strings into tokens on whitespace | [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`]
+**Whitespace** | - Parses strings into tokens on white space | [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`]
 **Stop** | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Removes stop words <br> - Converts tokens to lowercase | [`s`, `fun`, `contribute`, `brand`, `new`, `pr`, `opensearch`]
 **Keyword** (noop) | - Outputs the entire string unchanged | [`It’s fun to contribute a brand-new PR or 2 to OpenSearch!`]
 **Pattern** | - Parses strings into tokens using regular expressions <br> - Supports converting strings to lowercase <br> - Supports removing stop words | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]
@@ -60,7 +60,7 @@ OpenSearch performs text analysis on text fields when you index a document and w
 
 - A _search analyzer_ performs analysis at query time: OpenSearch analyzes the query string when you run a full-text query on a text field. For more information about ways to specify search analyzers, see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
 
-In most cases, you should use the same analyzer at indexing time and at search time because then the text field and the query string are analyzed in the same way and the resulting tokens match as expected.
+In most cases, you should use the same analyzer at both indexing and search time because the text field and the query string will be analyzed in the same way and the resulting tokens will match as expected.
 {: .tip}
 
 ### Example
@@ -73,13 +73,13 @@ When you search for documents that match the query `speaking loudly`, OpenSearch
 
 Query string tokens = [`speak`, `loud`]
 
-Then OpenSearch compares each token in the query string against the list of text field tokens and finds that both lists contain the tokens `speak` and `loud`, so OpenSearch returns this document as part of search results that match the query.
+Then OpenSearch compares each token in the query string against the list of text field tokens and finds that both lists contain the tokens `speak` and `loud`, so OpenSearch returns this document as part of the search results that match the query.
 
 ## Testing an analyzer
 
 To test a built-in analyzer and view the list of tokens it generates when a document is indexed, you can use the [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/#apply-a-built-in-analyzer).
 
-Specify the analyzer and text to analyze in the request:
+Specify the analyzer and the text to be analyzed in the request:
 
 ```json
 GET /_analyze
@@ -90,11 +90,11 @@ GET /_analyze
 ```
 {% include copy-curl.html %}
 
-The following image shows the query string for reference.
+The following image shows the query string.
 
 ![Query string with indices]({{site.url}}{{site.baseurl}}/images/string-indices.png)
 
-The response contains each token with its start and end offsets that correspond to the starting index in the original string (inclusive) and the ending index (exclusive):
+The response contains each token and its start and end offsets that correspond to the starting index in the original string (inclusive) and the ending index (exclusive):
 
 ```json
 {
@@ -133,7 +133,7 @@ The response contains each token with its start and end offsets that correspond 
 
 ## Verifying analyzer settings
 
-To verify which analyzer is associated with what field, you can use the get mapping API operation:
+To verify which analyzer is associated with which field, you can use the get mapping API operation:
 
 ```json
 GET /testindex/_mapping

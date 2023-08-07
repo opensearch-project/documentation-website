@@ -36,9 +36,9 @@ Broadly, you can classify queries into two categories---*leaf queries* and *comp
 
 - **Leaf queries**: Leaf queries search for a specified value in a certain field or fields. You can use leaf queries on their own. They include the following query types:
 
-    - **Full-text queries**: Use full-text queries to search text documents. For an analyzed text field search, full-text queries split the query string into terms with the same analyzer that was used when the field was indexed. For an exact value search, full-text queries look for the specified value without applying text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
+    - **Full-text queries**: Use full-text queries to search text documents. For an analyzed text field search, full-text queries split the query string into terms using the same analyzer that was used when the field was indexed. For an exact value search, full-text queries look for the specified value without applying text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
 
-    - **Term-level queries**: Use term-level queries to search documents for an exact specified term, such as an ID or value range. Term-level queries do not analyze search terms or sort results by relevance score. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
+    - **Term-level queries**: Use term-level queries to search documents for an exact term, such as an ID or value range. Term-level queries do not analyze search terms or sort results by relevance score. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
 
     - **Geographic and xy queries**: Use geographic queries to search documents that include geographic data. Use xy queries to search documents that include points and shapes in a two-dimensional coordinate system. To learn more, see [Geographic and xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/index).
 
@@ -48,13 +48,13 @@ Broadly, you can classify queries into two categories---*leaf queries* and *comp
 
     - **Specialized queries**: Specialized queries include all other query types (`distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, and `pinned_query`).
 
-- **Compound queries**: Compound queries serve as wrappers for multiple leaf or compound clauses either to combine their results or to modify their behavior. They include the Boolean, disjunction max, constant score, function score, and boosting query types. To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/index/).
+- **Compound queries**: Compound queries serve as wrappers for multiple leaf or compound clauses, either to combine their results or to modify their behavior. They include the Boolean, disjunction max, constant score, function score, and boosting query types. To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/index/).
 
 ## A note on Unicode special characters in text fields
 
 Because of word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index a [text field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) value as a whole value when it includes one of these special characters. As a result, a text field value that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements on either side of it. This can lead to unintentional filtering of documents and potentially compromise control over their access. 
 
-The following examples illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
+The following examples illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as being one and the same:
 
 ```json
 {
@@ -82,4 +82,4 @@ The following examples illustrate values containing special characters that will
 
 To avoid this circumstance when using either query DSL or the REST API, you can use a custom analyzer or map the field as `keyword`, which performs an exact-match search. See [Keyword field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) for the latter option.
 
-For a list of characters that should be avoided for `text` field types, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+For a list of characters that should be avoided when using `text` field types, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).

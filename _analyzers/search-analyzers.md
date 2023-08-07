@@ -8,7 +8,7 @@ nav_order: 30
 
 Search analyzers are specified at query time and are used to analyze the query string when you run a full-text query on a [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field.
 
-## Determining the search analyzer to use
+## Determining which search analyzer to use
 
 To determine which analyzer to use for a query string at query time, OpenSearch examines the following parameters in order:
 
@@ -18,10 +18,10 @@ To determine which analyzer to use for a query string at query time, OpenSearch 
 1. The `analyzer` mapping parameter of the field
 1. The `standard` analyzer (default)
 
-In most cases, specifying a search analyzer that is different from the index analyzer is not necessary and could negatively impact search result relevancy or lead to unexpected search results.
+In most cases, specifying a search analyzer that is different from the index analyzer is not necessary and could negatively impact search result relevance or lead to unexpected search results.
 {: .warning}
 
-For information about verifying which analyzer is associated with what field, see [Verifying analyzer settings]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings)
+For information about verifying which analyzer is associated with which field, see [Verifying analyzer settings]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings).
 
 ## Specifying a search analyzer for a query string
 
@@ -42,7 +42,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-Valid values for [built-in analyzers]({{site.url}}/{{site.baseurl}}/analyzers/index/#built-in-analyzers/) are `standard`, `simple`, `whitespace`, `stop`, `keyword`, `pattern`, `fingerprint`, or any supported [language analyzers]({{site.url}}/{{site.baseurl}}/analyzers/index/language-analyzers/).
+Valid values for [built-in analyzers]({{site.url}}/{{site.baseurl}}/analyzers/index/#built-in-analyzers/) are `standard`, `simple`, `whitespace`, `stop`, `keyword`, `pattern`, `fingerprint`, or any supported [language analyzer]({{site.url}}/{{site.baseurl}}/analyzers/index/language-analyzers/).
 
 ## Specifying a search analyzer for a field
 

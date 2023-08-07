@@ -6,9 +6,9 @@ nav_order: 20
 
 # Index analyzers
 
-Index analyzers are specified at indexing time and are used to analyze [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) fields when you're indexing a document.
+Index analyzers are specified at indexing time and are used to analyze [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) fields when indexing a document.
 
-## Determining the index analyzer to use
+## Determining which index analyzer to use
 
 To determine which analyzer to use for a field when a document is indexed, OpenSearch examines the following parameters in order:
 
@@ -19,7 +19,7 @@ To determine which analyzer to use for a field when a document is indexed, OpenS
 When specifying an index analyzer, keep in mind that in most cases, specifying an analyzer for each `text` field in an index works best. Analyzing both the text field and the query string that is used to search with the same analyzer ensures that the search uses the same terms as those that are stored in the index. 
 {: .important }
 
-For information about verifying which analyzer is associated with what field, see [Verifying analyzer settings]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings)
+For information about verifying which analyzer is associated with which field, see [Verifying analyzer settings]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings).
 
 ## Specifying an index analyzer for a field
 
@@ -42,7 +42,7 @@ PUT testindex
 
 ## Specifying a default index analyzer for an index
 
-If you want to use the same analyzer for all text fields in an index you can specify it in the `analysis.analyzer.default` setting as follows:
+If you want to use the same analyzer for all text fields in an index, you can specify it in the `analysis.analyzer.default` setting as follows:
 
 ```json
 PUT testindex

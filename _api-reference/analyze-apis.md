@@ -12,7 +12,7 @@ redirect_from:
 
 The Analyze API allows you to perform [text analysis]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/), which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.
 
-The analyze API analyzes a text string and returns the resulting tokens.
+The Analyze API analyzes a text string and returns the resulting tokens.
 
 If you use the Security plugin, you must have the `manage index` privilege. If you only want to analyze text, you must have the `manage cluster` privilege.
 {: .note}
@@ -26,7 +26,7 @@ POST /_analyze
 POST /{index}/_analyze
 ```
 
-Although you can issue an analyze request using both `GET` and `POST` requests, the two have important distinctions. A `GET` request causes data to be cached in the index so that the next time the data is requested, it is retrieved faster. A `POST` request sends a string that does not already exist to the analyzer to be compared to data that is already in the index. `POST` requests are not cached.
+Although you can issue an analyze request using both `GET` and `POST` requests, the two have important distinctions. A `GET` request causes data to be cached in the index so that the next time the data is requested, it is retrieved faster. A `POST` request sends a string that does not already exist to the analyzer to be compared with data that is already in the index. `POST` requests are not cached.
 {: .note}
 
 ## Path parameter
