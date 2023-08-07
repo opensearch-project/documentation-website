@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Composite monitors
-nav_order: 3
-parent: Alerting
+nav_order: 25
+parent: Monitors
+grand_parent: Alerting
 has_children: false
 redirect_from:
+ - /observing-your-data/alerting/composite-monitors/
 ---
 
 # Composite monitors
