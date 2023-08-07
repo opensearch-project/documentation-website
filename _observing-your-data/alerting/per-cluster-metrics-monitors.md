@@ -7,16 +7,16 @@ grand_parent: Alerting
 has_children: false
 ---
 
-# Per cluster metrics monitor
+# Per cluster metrics monitors
 
-A per cluster metrics monitor collects and analyze metrics from a single cluster, providing insights into the cluster's performance and health. You can set alerts for conditions such as:
+Per cluster metrics monitors are a type of alert monitor that collects and analyze metrics from a single cluster, providing insights into the cluster's performance and health. You can set alerts for conditions such as:
 
 - Cluster health reaches yellow or red status.
 - Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds.
 - Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach specified thresholds.
 - Total number of documents stored reaches specified thresholds.
 
-## Create a cluster mettics monitor
+## Create a cluster metrics monitor
 
 To create a cluster metrics monitor, follow these steps:
 
@@ -111,7 +111,7 @@ In the following example, a JSON object creates a trigger that sends an alert wh
 }
 ```
 
-See [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) for more Painless `ctx` options.
+See [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) for more `painless ctx` variable options.
 
 ### Limitations
 
