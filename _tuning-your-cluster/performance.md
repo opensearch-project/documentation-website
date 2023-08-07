@@ -74,7 +74,7 @@ It's a best practice to increase the `index.translog.flush_threshold_size` only 
 
 ## Index refresh interval
 
-By default, OpenSearch periodically refreshes indexes every second. OpenSearch only refreshes indexes that have
+By default, OpenSearch refreshes indexes every second. OpenSearch only refreshes indexes that have
 received at least one search request in the last 30 seconds.
 
 When you increase the refresh interval, the data node makes fewer API calls. To prevent [429 errors](https://repost.aws/knowledge-center/opensearch-resolve-429-error), it's a best practice to increase the refresh interval.
