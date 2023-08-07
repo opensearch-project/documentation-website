@@ -27,17 +27,15 @@ To get started with creating alerts:
 
 ## Alerting terminology
 
-The following table lists alerting terminology commonly used in OpenSearch.
+The following table lists alerting terminology commonly used in OpenSearch and throughout the Alerting documentation.
 
 Term | Definition
 :--- | :---
-Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more *triggers*.
-Trigger | A condition that, if met, generates an *alert*.
-Tag | A label that can be applied to multiple queries to combine them with the logical `OR` operation in a per document monitor. You cannot use tags with other monitor types.
-Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
-Action | The information that you want the monitor to send after being triggered. Actions have a *channel*, a message subject, and a message body.
-Channel | A notification channel to use in an action. Supported channels are Amazon Chime, Slack, Amazon Simple Notification Service (Amazon SNS), email, or custom webhook. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
-Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index `.opensearch-alerting-finding*`.
+**Monitor** | Job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more triggers.
+**Trigger** | Conditions that, if met, generate alerts. See [Triggers](({{site.url}}{{site.baseurl}}/observing-your-data/monitors/triggers/).
+**Alert** | Event associated with a trigger. When an alert is created, the trigger performs actions, including sending notifications.
+**Action** | Specific task that is performed when an alert is triggered. See [Actions](({{site.url}}{{site.baseurl}}/observing-your-data/monitors/actions/).
+Notifications | Messages that are sent to users when an alert is triggered. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index).
 
 ## Alert states
 

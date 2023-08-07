@@ -59,3 +59,15 @@ Variable | Data type | Description
 `ctx.completedAlerts` | Object | Alerts that are no longer ongoing. Only available with bucket-level monitors.
 `bucket_keys` | String | Comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through `ctx.dedupedAlerts[0].bucket_keys`.
 `parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts[0].parent_bucket_path`.
+
+## Basic steps for creating an alert monitor
+
+To create a monitor, follow these basic steps:
+
+1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
+1. Choose **Create monitor**.
+1. Enter the **Monitor details**, including monitor type, method, and schedule.  
+1. Select a data source from the dropdown list.
+1. Define the metrics in the Query section.
+1. Add a [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/triggers/).
+1. Select **Create**.

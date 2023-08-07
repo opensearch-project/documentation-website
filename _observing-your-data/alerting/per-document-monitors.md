@@ -30,9 +30,15 @@ Per document monitors allow you to define up to 10 queries that compare a select
 
 You can query each [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The [Alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. The Alerting plugin then tells the [Notifications plugin]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to send the alert notification to a channel.
 
+You can only use _tags_, that is, labels that can be applied to multiple queries to combine them with the logical `OR`` operation, in a per document monitor.
+{. :note}
+
 ## Document findings
 
-The Alerting plugin creates a list of document findings that contain metadata about which document matches each query. Security Analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes. See [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) to learn more.
+The Alerting plugin creates a list of _Findings_ that contain metadata about which document matches each query. A _Finding_ is a record of a document identified by the per document monitor query as meeting the alert condition. Key components of a finding include the document ID, timestamp, alert condition details. Findings are stored in the Findings index, `.opensearch-alerting-finding*`. 
+
+Security Analytics can use the findings data to keep track of and analyze the query data separately from the alert processes. See [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) to learn more.
+{: .note}
 
 The Alerting API also provides a _document-level monitor_ that programmatically accomplishes the same function as the _per document monitor_ in OpenSearch Dashboards. See [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors) to learn more.
 
