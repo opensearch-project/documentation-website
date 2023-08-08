@@ -10,7 +10,7 @@ redirect_from:
 
 # Performance Analyzer
 
-Performance Analyzer is a plugin that contain an agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics. 
+Performance Analyzer is a plugin that contains an agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics. 
 
 The Performance Analyzer plugin is installed by default in OpenSearch version 2.0 and later. If you want to use OpenSearch 2.0 or later with Performance Analyzer disabled, see [Disable Performance Analyzer](#disable-performance-analyzer).
 {: .note }
