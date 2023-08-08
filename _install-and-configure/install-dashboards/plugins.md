@@ -184,7 +184,7 @@ OpenSearch Dashboards doesn’t update plugins. Instead, you have to remove the 
 For example, to remove and reinstall the Anomaly Detection plugin:
 
 ```bash
-sudo bin/opensearch-plugin remove opensearch-anomaly-detection
+sudo bin/opensearch-dashboards-plugin remove anomalyDetectionDashboards
 sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
 sudo bin/opensearch-dashboards-plugin install <AD OpenSearch Dashboards plugin artifact URL>
 ```
