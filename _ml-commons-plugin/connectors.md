@@ -11,7 +11,7 @@ Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML
 
 You can provision connectors in two ways:
 
-1. An [external connector](#external-connector), saved in a connector index, can be reused and shared with multiple remote models but requires access to both the model and the third party being accessed by the connector, such as OpenAI.
+1. An [external connector](#external-connector), saved in a connector index, which can be reused and shared with multiple remote models but requires access to both the model, the connector inside of OpenSearch, and the third party being accessed by the connector, such as OpenAI or SageMaker.
 
 2. An [local connector](#local-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
 
@@ -27,7 +27,7 @@ As of OpenSearch 2.9, connectors have been tested for the following ML tools, th
 
 All connectors consist of a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and an AI service or model serving technology. Additional connectors will be added to this page as they are tested and verified. 
 
-You can find approved blueprints for each connector in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
+You can find blueprints for each connector in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
 
 If you want build your own blueprint, see [Building blueprints](#building-blueprints).
 
@@ -59,7 +59,7 @@ PUT /_cluster/settings
 
 ### Setting up connector access control
 
-If you plan on using a remote connector, making sure to use an OpenSearch cluster with the Security plugin enabled. 
+If you plan on using a remote connector, make sure to use an OpenSearch cluster with the Security plugin enabled. Using the Security plugin gives you access to connector access control, which is required when using a remote connector.
 {: .warning}
 
 If you require granular access control on your connectors, use the following cluster setting:
@@ -92,7 +92,7 @@ When enabled, you can install the [Security plugin]({{site.url}}{{site.baseurl}}
 
 ### Node settings
 
-Standalone connectors consume less resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`, as shown in the following example:
+Remote models based on external connectors consume less resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`, as shown in the following example:
 
 ```json
 PUT /_cluster/settings
@@ -104,8 +104,6 @@ PUT /_cluster/settings
 
 ```
 {% include copy-curl.html %}
-
-If you want to use an internal connector, use a dedicated ML node and set `plugins.ml_commons.only_run_on_ml_node` to `true`. Remember, using dedicated ML nodes consumes more resources, which could lead to increased costs when deploying models from an internal connector.
 
 
 
@@ -542,10 +540,10 @@ The following configuration options are **required** in order to build a connect
 | `description` | String | A description of the connector. |
 | `version` | Integer | The version of the connector. |
 | `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
-| `parameters` | JSON array | The default connector parameters, including `endpoint` and `model`.  Any parameters indicated in this field can be overrided by parameters made in a predict request. |
+| `parameters` | JSON object | The default connector parameters, including `endpoint` and `model`.  Any parameters indicated in this field can be overrided by parameters made in a predict request. |
 | `credential` | `Map<string, string>` | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32 byte encryption key which persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
-| `action` | `Map<string, string>` | Define what actions can run within the connector. If you're an administrator making a connection, add the [blueprint](#building-blueprints) for your desired connection. |
-| `backend_roles` | String | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users). |
+| `action` | JSON array | Define what actions can run within the connector. If you're an administrator making a connection, add the [blueprint](#building-blueprints) for your desired connection. |
+| `backend_roles` | JSON array | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users). |
 | `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups). |
 | `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`. |
 
