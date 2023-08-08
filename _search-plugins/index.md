@@ -11,7 +11,7 @@ nav_exclude: true
 
 OpenSearch provides several features for customizing your search use cases and improving search relevance. In OpenSearch, you can:
 
-- Use [SQL and Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) as alternatives to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/) to search data.
+- Use [SQL and Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) as alternatives to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) for searching data.
 
 - Run resource-intensive queries asynchronously with [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/).
 

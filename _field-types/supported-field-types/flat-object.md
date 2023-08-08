@@ -52,7 +52,7 @@ The flat object field type supports the following queries:
 - [Range]({{site.url}}{{site.baseurl}}/query-dsl/term#range) 
 - [Match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/#match) 
 - [Multi-match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/#multi-match) 
-- [Query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/#query-string) 
+- [Query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) 
 - [Simple query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/#simple-query-string) 
 - [Exists]({{site.url}}{{site.baseurl}}/query-dsl/term#exists) 
 
