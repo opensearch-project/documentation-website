@@ -176,7 +176,6 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
 
 1. Launch the agent CLI:
 
-<<<<<<< HEAD
    ```bash
    OPENSEARCH_HOME="$PWD" OPENSEARCH_PATH_CONF="$PWD/config" ./bin/performance-analyzer-agent-cli
    ```
@@ -204,9 +203,3 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
    ```bash
    curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
    ```
-=======
-- [Performance analyzer API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/).
-- [RCA]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
-- [RCA API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/api/).
-- [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf).
->>>>>>> 7bb41fe4 (Make API reference top level (#1637))
