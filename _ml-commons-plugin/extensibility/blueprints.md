@@ -57,7 +57,7 @@ The following configuration options are **required** in order to build a connect
 | `description` | String | A description of the connector. |
 | `version` | Integer | The version of the connector. |
 | `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
-| `parameters` | JSON object | The default connector parameters, including `endpoint` and `model`.  Any parameters indicated in this field can be overrided by parameters made in a predict request. |
+| `parameters` | JSON object | The default connector parameters, including `endpoint` and `model`.  Any parameters indicated in this field can be overridden by parameters made in a predict request. |
 | `credential` | `Map<string, string>` | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32 byte encryption key which persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
 | `action` | JSON array | Define what actions can run within the connector. If you're an administrator making a connection, add the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) for your desired connection. |
 | `backend_roles` | JSON array | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users). |
