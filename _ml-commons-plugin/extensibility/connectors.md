@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Connecting to other ML platforms
+title: Creating connectors for third-party ML platforms
 has_children: false
-nav_order: 60
+nav_order: 61
+parent: ML extensibility
 ---
 
-# Connecting to third-party ML platforms
+# Creating connectors for third-party ML platforms
 
 Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
 
@@ -29,87 +30,12 @@ All connectors consist of a JSON blueprint created by ML developers to allow adm
 
 You can find blueprints for each connector in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
 
-If you want build your own blueprint, see [Building blueprints](#building-blueprints).
-
-## Prerequisites
-
-If you are an admin deploying an ML connector, make sure that the target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have permissions to send and receive data to the third-party API for your connector. 
-
-When access control is enabled on your third-party platform, you can enter your security settings using the `authorization` or `credential` settings inside the connector API.
-
-### Adding trusted endpoints
-
-To configure connectors in OpenSearch, add the trusted endpoints to your cluster settings using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, which supports Java regex expressions, as shown in the following example:
-
-```json
-PUT /_cluster/settings
-{
-    "persistent": {
-        "plugins.ml_commons.trusted_connector_endpoints_regex": [
-          "^https://runtime\\.sagemaker\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
-          "^https://api\\.openai\\.com/.*$",
-          "^https://api\\.cohere\\.ai/.*$"
-        ]
-    }
-}
-```
-{% include copy-curl.html %}
-
-
-
-### Setting up connector access control
-
-If you plan on using a remote connector, make sure to use an OpenSearch cluster with the Security plugin enabled. Using the Security plugin gives you access to connector access control, which is required when using a remote connector.
-{: .warning}
-
-If you require granular access control on your connectors, use the following cluster setting:
-
-```json
-PUT /_cluster/settings
-{
-    "persistent": {
-        "plugins.ml_commons.connector_access_control_enabled": true
-    }
-}
-```
-{% include copy-curl.html %}
-
-When enabled, you can install the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) the `backend_roles`, `add_all_backend_roles`, or `access_model` options are required in order to use the connector API. If successful, OpenSearch returns the following response:
-
-```json
-{
-  "acknowledged": true,
-  "persistent": {
-    "plugins": {
-      "ml_commons": {
-        "connector_access_control_enabled": "true"
-      }
-    }
-  },
-  "transient": {}
-}
-```
-
-### Node settings
-
-Remote models based on external connectors consume less resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`, as shown in the following example:
-
-```json
-PUT /_cluster/settings
-{
-    "persistent": {
-        "plugins.ml_commons.only_run_on_ml_node": false
-    }
-}
-
-```
-{% include copy-curl.html %}
-
+If you want build your own blueprint, see [Building blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
 
 
 ## External connector
 
-Admins need to only enter in their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint](#building-blueprints).
+Admins need to only enter in their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
 {: .note}
 
 The connector creation API, `/_plugins/_ml/connectors/_create`, creates connections that allow users to deploy and register external models through OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, to connect to a ChatGPT model, you can connect using the `api.openai.com`, as shown in the following example:
@@ -189,7 +115,7 @@ POST /_plugins/_ml/models/_register
 
 ## Local connector
 
-Admins need to only enter in their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint](#building-blueprints).
+Admins need to only enter in their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
 {: .note}
 
 To create an internal connector, add the `connector` parameter to the Register model API, as shown in the following example:
@@ -527,36 +453,6 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 {% include copy-curl.html %}
-
-## Building blueprints
-
-All connectors consist a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and an AI service or model serving technology. 
-
-The following configuration options are **required** in order to build a connector blueprint. These settings can be used for both external and local connectors.
-
-| Field | Data type | Description |
-| :---  | :--- | :--- |
-| `name` | String | The name of the connector. |
-| `description` | String | A description of the connector. |
-| `version` | Integer | The version of the connector. |
-| `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
-| `parameters` | JSON object | The default connector parameters, including `endpoint` and `model`.  Any parameters indicated in this field can be overrided by parameters made in a predict request. |
-| `credential` | `Map<string, string>` | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32 byte encryption key which persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
-| `action` | JSON array | Define what actions can run within the connector. If you're an administrator making a connection, add the [blueprint](#building-blueprints) for your desired connection. |
-| `backend_roles` | JSON array | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users). |
-| `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups). |
-| `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`. |
-
-The `action` parameter supports the following options.
-
-| Field | Data type | Description |
-| :---  | :--- | :--- |
-| `action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
-| `method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
-| `url` | String | Required. Sets the connection endpoint at which the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints](#adding-trusted-endpoints). |
-| `headers` | String | Sets the headers used inside the request or response body. Default is `ContentType: application/json`. If your third-part ML tool requires access control, define any `credential` parameters need in the `headers` parameter. |
-| `request_body` | String | Required. Sets the parameters contained inside the request body of the action. The parameters must include `\"inputText\`, which sets how users of the connector should construct the request payload for the `action_type`. |
-
 
 
 ## Next steps
