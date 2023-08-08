@@ -10,14 +10,14 @@ redirect_from:
 
 # Performance Analyzer
 
-The Performance Analyzer plugin is an agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics. 
+Performance Analyzer is an agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics. 
 
 The Performance Analyzer plugin is installed by default in OpenSearch version 2.0 and higher. If you want to use OpenSearch 2.0 or later with Performance Analyzer disabled, see [Disable Performance Analyzer](#disable-performance-analyzer).
 {: .note }
 
 ## Prerequisites
 
-Review the following prerequisites before installing the Performance Analyzer plugin.
+Review the following prerequisites before installing Performance Analyzer.
 
 ### Storage
 
@@ -39,7 +39,7 @@ mount -o remount /dev/shm
 
 ### Security 
 
-Performance analyzer supports encryption in transit for requests. It currently does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$OPENSEARCH_HOME` directory.
+Performance Analyzer supports encryption in transit for requests. It currently does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$OPENSEARCH_HOME` directory.
 
 ```bash
 vi $OPENSEARCH_HOME/config/opensearch-performance-analyzer/performance-analyzer.properties
@@ -60,9 +60,9 @@ private-key-file-path = specify_path
 
 The Performance Analyzer plugin is included in the installation for [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/). 
 
-If you need to install the Performance Analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin) and install the plugin using the standard [plugins install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance analyzer will run on each node in a cluster.
+If you need to install the Performance Analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin) and install the plugin using the standard [plugins install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance Analyzer will run on each node in a cluster.
 
-To start the Performance Analyzer  root cause analysis (RCA) agent on a tarball installation, run the following command:
+To start the Performance Analyzer root cause analysis (RCA) agent on a tarball installation, run the following command:
       
 ````bash
 OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
@@ -78,7 +78,13 @@ curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Cont
 
 If you prefer to save memory and run your local instance of OpenSearch with the Performance Analyzer plugin enabled, use the following steps.
 
-1. Shut down the Performance Analyzer  RCA agent by running the following command:
+1. Before disabling Performance Analyzer, stop any currently running RCA agent action using the following command:
+
+  ```bash
+  curl -XPOST localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": false}'
+  ```
+
+2. Shut down the Performance Analyzer RCA agent by running the following command:
 
   ```bash
   kill $(ps aux | grep -i 'PerformanceAnalyzerApp' | grep -v grep | awk '{print $2}')
@@ -226,7 +232,7 @@ The following is an example response:
 
 ## Root cause analysis
 
-The [root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/) (RCA) framework uses the information from Performance Analyzer  to inform administrators of the root cause of performance and availability issues that their clusters might be experiencing.
+The [root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/) (RCA) framework uses the information from Performance Analyzer to inform administrators of the root cause of performance and availability issues that their clusters might be experiencing.
 
 ### Enable the RCA framework
 
@@ -299,11 +305,10 @@ The following is an example response:
 }
 ```
 
-## Performance analyzer and RCA API references
 
 ### Related links
 
-Further documentation on the use of Performance Analyzer  and RCA can be found at the following links:
+Further documentation on the use of Performance Analyzer and RCA can be found at the following links:
 
 - [Performance Analyzer API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/).
 - [RCA]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
