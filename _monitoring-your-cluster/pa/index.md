@@ -90,13 +90,13 @@ If you prefer to save memory and run your local instance of OpenSearch with the 
   kill $(ps aux | grep -i 'PerformanceAnalyzerApp' | grep -v grep | awk '{print $2}')
   ```
 
-2. Disable the Performance Analyzer plugin by running the following command:
+3. Disable the Performance Analyzer plugin by running the following command:
 
   ```bash
   curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": false}'
   ```
 
-3. Uninstall the Performance Analyzer plugin by running the following command:
+4. Uninstall the Performance Analyzer plugin by running the following command:
 
   ```bash
   bin/opensearch-plugin remove opensearch-performance-analyzer
