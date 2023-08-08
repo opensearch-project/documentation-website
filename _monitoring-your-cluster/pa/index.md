@@ -12,7 +12,7 @@ redirect_from:
 
 Performance Analyzer is an agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics. 
 
-The Performance Analyzer plugin is installed by default in OpenSearch version 2.0 and higher. If you want to use OpenSearch 2.0 or later with Performance Analyzer disabled, see [Disable Performance Analyzer](#disable-performance-analyzer).
+The Performance Analyzer plugin is installed by default in OpenSearch version 2.0 and later. If you want to use OpenSearch 2.0 or later with Performance Analyzer disabled, see [Disable Performance Analyzer](#disable-performance-analyzer).
 {: .note }
 
 ## Prerequisites
@@ -25,13 +25,13 @@ Performance Analyzer uses `/dev/shm` for temporary storage. During heavy workloa
 
 Docker, however, has a default `/dev/shm` size of 64 MB. To change this value, you can use the `docker run --shm-size 1gb` flag or [a similar setting in Docker Compose](https://docs.docker.com/compose/compose-file#shm_size).
 
-If you're not using Docker, check the size of `/dev/shm` using `df -h`. The default value is probably plenty, but if you need to change its size, add the following line to `/etc/fstab`:
+If you're not using Docker, you can check the size of `/dev/shm` using `df -h`. The default value should be adequate, but if you need to change its size, add the following line to `/etc/fstab`:
 
 ```bash
 tmpfs /dev/shm tmpfs defaults,noexec,nosuid,size=1G 0 0
 ```
 
-Then remount the file system:
+Then, remount the file system:
 
 ```bash
 mount -o remount /dev/shm
@@ -41,13 +41,13 @@ mount -o remount /dev/shm
 
 Performance Analyzer supports encryption in transit for requests. It currently does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$OPENSEARCH_HOME` directory.
 
-```bash
+```properties
 vi $OPENSEARCH_HOME/config/opensearch-performance-analyzer/performance-analyzer.properties
 ```
 
 Change the following lines to configure encryption in transit. Note that `certificate-file-path` must be a certificate for the server, not a root certificate authority (CA).
 
-````bash
+````properties
 https-enabled = true
 
 #Setup the correct path for certificates
@@ -58,9 +58,9 @@ private-key-file-path = specify_path
 
 ## Install Performance Analyzer 
 
-The Performance Analyzer plugin is included in the installation for [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/). 
+The Performance Analyzer plugin is included in the installation for [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/), but you can also install the plugin manually. 
 
-If you need to install the Performance Analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin) and install the plugin using the standard [plugins install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance Analyzer will run on each node in a cluster.
+To install the Performance Analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin) and install it using the standard [plugins install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance Analyzer runs on each node in a cluster.
 
 To start the Performance Analyzer root cause analysis (RCA) agent on a tarball installation, run the following command:
       
@@ -68,7 +68,7 @@ To start the Performance Analyzer root cause analysis (RCA) agent on a tarball i
 OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
 ````
 
-The following command enables the Performance Analyzer plugin and Performance Analyzer  RCA agent:
+The following command enables the Performance Analyzer plugin and Performance Analyzer RCA agent:
 
 ````bash
 curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
@@ -76,7 +76,7 @@ curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Cont
 
 ## Disable Performance Analyzer
 
-If you prefer to save memory and run your local instance of OpenSearch with the Performance Analyzer plugin enabled, use the following steps.
+If you prefer to save memory and run your local instance of OpenSearch with the Performance Analyzer plugin disabled, use the following steps.
 
 1. Before disabling Performance Analyzer, stop any currently running RCA agent action using the following command:
 
@@ -104,7 +104,7 @@ If you prefer to save memory and run your local instance of OpenSearch with the 
 
 ## Configure Performance Analyzer 
 
-To configure the Performance Analyzer plugin, you will need to edit the `performance-analyzer.properties` configuration file in the `config/opensearch-performance-analyzer/` directory. Make sure to uncomment the line `#webservice-bind-host` and set it to `0.0.0.0`. You can reference the following example configuration.
+To configure the Performance Analyzer plugin, edit the `performance-analyzer.properties` configuration file in the `config/opensearch-performance-analyzer/` directory. Make sure to uncomment the line `#webservice-bind-host` and set it to `0.0.0.0`. You can reference the following example configuration.
 
 ````bash
 # ======================== OpenSearch Performance Analyzer plugin config =========================
@@ -145,16 +145,16 @@ plugin-stats-metadata = plugin-stats-metadata
 # Agent Stats Metadata file name, expected to be in the same location
 agent-stats-metadata = agent-stats-metadata
 ````
-To start the Performance Analyzer  RCA agent, run the following command.
+To start the Performance Analyzer RCA agent, run the following command.
 
 ````bash
 OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
 ````
 
 
-## Enable Performance Analyzer  for RPM/YUM installations
+## Enable Performance Analyzer for RPM/YUM installations
 
-If you installed OpenSearch from an RPM distribution, you can start and stop Performance Analyzer  with `systemctl`.
+If you installed OpenSearch from an RPM distribution, you can start and stop Performance Analyzer with `systemctl`.
 
 ```bash
 # Start OpenSearch Performance Analyzer
@@ -310,7 +310,7 @@ The following is an example response:
 
 Further documentation on the use of Performance Analyzer and RCA can be found at the following links:
 
-- [Performance Analyzer API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/).
-- [RCA]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
-- [RCA API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/api/).
+- [Performance Analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/).
+- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/index/).
+- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/).
 - [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf).
