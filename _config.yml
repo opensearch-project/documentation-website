@@ -70,9 +70,15 @@ collections:
   reporting:
     permalink: /:collection/:path/
     output: true
+  analyzers:
+    permalink: /:collection/:path/
+    output: true
   query-dsl:
     permalink: /:collection/:path/
     output: true 
+  aggregations:
+    permalink: /:collection/:path/
+    output: true
   field-types:
     permalink: /:collection/:path/
     output: true
@@ -133,8 +139,14 @@ just_the_docs:
     field-types:
       name: Mappings and field types
       nav_fold: true
+    analyzers:
+      name: Text analysis
+      nav_fold: true
     query-dsl:
-      name: Query DSL, Aggregations, and Analyzers
+      name: Query DSL
+      nav_fold: true
+    aggregations:
+      name: Aggregations
       nav_fold: true
     search-plugins:
       name: Search 
