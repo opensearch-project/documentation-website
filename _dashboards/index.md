@@ -4,6 +4,8 @@ title: OpenSearch Dashboards
 nav_order: 1
 has_children: false
 nav_exclude: true
+redirect_from:
+    -/dashboards/
 ---
 
 # OpenSearch Dashboards
@@ -30,4 +32,4 @@ OpenSearch Dashboards is the user interface that lets you visualize your OpenSea
 
 | Concept | Description |
 |---------|-------------|
-| [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) | Learn how to run OpenSearch queries in an integrated console. |
+| [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/run-queries/) | Learn how to run OpenSearch queries in an integrated console. |

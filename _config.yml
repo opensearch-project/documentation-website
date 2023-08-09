@@ -137,7 +137,7 @@ just_the_docs:
       name: Observability
       nav_fold: true
     query-dsl:
-      name: Query DSL, Aggregations, and Analyzers
+      name: Query DSL
       nav_fold: true
     field-types:
       name: Mappings and field types

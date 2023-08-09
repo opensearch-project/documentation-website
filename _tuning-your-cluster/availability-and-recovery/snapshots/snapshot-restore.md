@@ -8,6 +8,7 @@ grand_parent: Availability and Recovery
 redirect_from: 
   - /opensearch/snapshots/snapshot-restore/
   - /availability-and-recovery/snapshots/snapshot-restore/
+  - /opensearch/snapshot-restore/
 ---
 
 # Take and restore snapshots
@@ -379,5 +380,5 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_s
 ```
 {% include copy-curl.html %}
 
-We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your security plugin configuration.
+We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your security plugin configuration.
 {: .warning}

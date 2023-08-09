@@ -41,7 +41,7 @@ Data tables, or tables, show your raw data in tabular form.
 
 ### Gantt charts
 
-Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
+Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/gantt-chart.png" width="600" height="600" alt="Example Gantt chart in OpenSearch Dashboards">
 
@@ -63,21 +63,11 @@ Line charts compare changes in measured values over a period of time, such as gr
 
 <img src="{{site.url}}{{site.baseurl}}/images/line-1.png" width="600" height="600" alt="Example line graph in OpenSearch Dashboards">
 
-### Maps
-
-You can create two types of maps in Dashboards: Coordinate maps and Region maps. Coordinate maps show the difference between data values for each location by size. Region maps show the difference between data values for each location by varying shades of color. See [Using the Maps plugin]({{site.url}}{{site.baseurl}}/dashboards/maps-plugin/) to learn more about maps capabilities in Dashboards.
-
 #### Coordinate maps
 
 Coordinate maps show location-based data on a map. Use coordinate maps to visualize GPS data (latitude and longitude coordinates) on a map. For information about OpenSearch-supported coordinate field types, see [Geographic field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/).
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/coordinate-1.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
-
-#### Region maps
-
-Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For information about creating custom vector maps in Dashboards, see [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/) to learn how to create and use maps in Dashboards.
-
-<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" width="600" height="600" alt="Example region map in OpenSearch Dashboards">
 
 ### Markdown
 
@@ -114,12 +104,6 @@ Tag (or word) clouds are a way to display how often a word is used in relation t
 Timeline is a data visualization tool in Dashboards that you can use to create time-series visualizations. Currently, Timeline can be used to create the following Dashboards visualization types: Area and Line. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/timeline-1.png" width="600" height="600" alt="Example Timeline in OpenSearch Dashboards">
-
-### VisBuilder
-
-VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. See [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png" width="600" height="600" alt="Example VisBuilder in OpenSearch Dashboards">
 
 ### Vega
 
