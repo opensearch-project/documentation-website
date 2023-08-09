@@ -10,69 +10,22 @@ redirect_from:
 
 # Performance Analyzer
 
-Performance Analyzer is an agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics, independent of the Java Virtual Machine (JVM). PerfTop is the default command line interface (CLI) for displaying those metrics.
+Performance Analyzer is a plugin that contains an agent and REST API that allow you to query numerous cluster performance metrics, including aggregations of those metrics. 
 
-To download PerfTop, see [Download](https://github.com/opensearch-project/perftop/releases) on the PerfTop release page.
-
-You can also install it using [npm](https://www.npmjs.com/):
-
-```bash
-npm install -g @aws/opensearch-perftop
-```
-
-![PerfTop screenshot]({{site.url}}{{site.baseurl}}/images/perftop.png)
-
-For enabling Performance Analyzer with tarball installations of OpenSearch, see [Configure Performance Analyzer for Tarball Installation](#configure-performance-analyzer-for-tarball-installations).
-
-## Get started with PerfTop
-
-The basic syntax is:
-
-```bash
-./opensearch-perf-top-<operating_system> --dashboard <dashboard>.json --endpoint <endpoint>
-```
-
-If you're using npm, the syntax is similar:
-
-```bash
-opensearch-perf-top --dashboard <dashboard> --endpoint <endpoint>
-```
-
-If you're running PerfTop from a node (i.e. locally), specify port 9600:
-
-```bash
-./opensearch-perf-top-linux --dashboard dashboards/<dashboard>.json --endpoint localhost:9600
-```
-
-Otherwise, just specify the OpenSearch endpoint:
-
-```bash
-./opensearch-perf-top-macos --dashboard dashboards/<dashboard>.json --endpoint my-cluster.my-domain.com
-```
-
-PerfTop has four pre-built dashboards in the `dashboards` directory, but you can also [create your own]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/dashboards/).
-
-You can also load the pre-built dashboards (ClusterOverview, ClusterNetworkMemoryAnalysis, ClusterThreadAnalysis, or NodeAnalysis) without the JSON files, such as `--dashboard ClusterThreadAnalysis`.
-
-PerfTop has no interactivity. Start the application, monitor the dashboard, and press Esc, Q, or Ctrl + C to quit.
+The Performance Analyzer plugin is installed by default in OpenSearch versions 2.0 and later. If you want to use OpenSearch 2.0 or later with Performance Analyzer disabled, see [Disable Performance Analyzer](#disable-performance-analyzer).
 {: .note }
 
+## Prerequisites
 
-### Other options
-
-- For NodeAnalysis and similar custom dashboards, you can add the `--nodename <node_name>` argument if you want your dashboard to display metrics for only a single node.
-- For troubleshooting, add the `--logfile <log-file>.txt` argument.
-
-
-## Performance Analyzer configuration
+Before using Performance Analyzer with OpenSearch, review the following prerequisites.
 
 ### Storage
 
-Performance Analyzer uses `/dev/shm` for temporary storage. During heavy workloads on a cluster, Performance Analyzer can use up to 1 GB of space.
+Performance Analyzer uses `/dev/shm` for temporary storage. During heavy cluster workloads, Performance Analyzer can use up to 1 GB of space.
 
 Docker, however, has a default `/dev/shm` size of 64 MB. To change this value, you can use the `docker run --shm-size 1gb` flag or [a similar setting in Docker Compose](https://docs.docker.com/compose/compose-file#shm_size).
 
-If you're not using Docker, check the size of `/dev/shm` using `df -h`. The default value is probably plenty, but if you need to change its size, add the following line to `/etc/fstab`:
+If you're not using Docker, you can check the size of `/dev/shm` using `df -h`. The default value should be adequate, but if you need to change its size, add the following line to `/etc/fstab`:
 
 ```bash
 tmpfs /dev/shm tmpfs defaults,noexec,nosuid,size=1G 0 0
@@ -84,27 +37,124 @@ Then remount the file system:
 mount -o remount /dev/shm
 ```
 
-
-### Security
+### Security 
 
 Performance Analyzer supports encryption in transit for requests. It currently does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$OPENSEARCH_HOME` directory:
 
-```bash
+```properties
 vi $OPENSEARCH_HOME/config/opensearch-performance-analyzer/performance-analyzer.properties
 ```
 
-Change the following lines to configure encryption in transit. Note that `certificate-file-path` must be a certificate for the server, not a root CA:
+Change the following lines to configure encryption in transit. Note that `certificate-file-path` must be a certificate for the server and not a root certificate authority (CA).
 
-```
+````properties
 https-enabled = true
 
 #Setup the correct path for certificates
 certificate-file-path = specify_path
 
 private-key-file-path = specify_path
-```
+````
+
+## Install Performance Analyzer 
+
+The Performance Analyzer plugin is included in the installations for [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/), but you can also install the plugin manually. 
+
+To install the Performance Analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin) and install it using the standard [plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance Analyzer runs on each node in a cluster.
+
+To start the Performance Analyzer root cause analysis (RCA) agent on a tarball installation, run the following command:
+      
+````bash
+OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
+````
+
+The following command enables the Performance Analyzer plugin. 
+
+````bash
+curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
+````
+
+## Disable Performance Analyzer
+
+If you prefer to save memory and run your local instance of OpenSearch with the Performance Analyzer plugin disabled, perform the following steps:
+
+1. Before disabling Performance Analyzer, stop any currently running RCA agent action by using the following command:
+
+  ```bash
+  curl -XPOST localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": false}'
+  ```
+
+2. Shut down the Performance Analyzer RCA agent by running the following command:
+
+  ```bash
+  kill $(ps aux | grep -i 'PerformanceAnalyzerApp' | grep -v grep | awk '{print $2}')
+  ```
+
+3. Disable the Performance Analyzer plugin by running the following command:
+
+  ```bash
+  curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": false}'
+  ```
+
+4. Uninstall the Performance Analyzer plugin by running the following command:
+
+  ```bash
+  bin/opensearch-plugin remove opensearch-performance-analyzer
+  ```
+
+## Configure Performance Analyzer 
+
+To configure the Performance Analyzer plugin, edit the `performance-analyzer.properties` configuration file in the `config/opensearch-performance-analyzer/` directory. Make sure to uncomment the line `#webservice-bind-host` and set it to `0.0.0.0`. You can reference the following example configuration.
+
+````bash
+# ======================== OpenSearch Performance Analyzer plugin config =========================
+
+# NOTE: this is an example for Linux. Please modify the config accordingly if you are using it under other OS.
+
+# WebService bind host; default to all interfaces
+webservice-bind-host = 0.0.0.0
+
+# Metrics data location
+metrics-location = /dev/shm/performanceanalyzer/
+
+# Metrics deletion interval (minutes) for metrics data.
+# Interval should be between 1 to 60.
+metrics-deletion-interval = 1
+
+# If set to true, the system cleans up the files behind it. So at any point, we should expect only 2
+# metrics-db-file-prefix-path files. If set to false, no files are cleaned up. This can be useful, if you are archiving
+# the files and wouldn't like for them to be cleaned up.
+cleanup-metrics-db-files = true
+
+# WebService exposed by App's port
+webservice-listener-port = 9600
+
+# Metric DB File Prefix Path location
+metrics-db-file-prefix-path = /tmp/metricsdb_
+
+https-enabled = false
+
+#Setup the correct path for certificates
+#certificate-file-path = specify_path
+
+#private-key-file-path = specify_path
+
+# Plugin Stats Metadata file name, expected to be in the same location
+plugin-stats-metadata = plugin-stats-metadata
+
+# Agent Stats Metadata file name, expected to be in the same location
+agent-stats-metadata = agent-stats-metadata
+````
+To start the Performance Analyzer RCA agent, run the following command:
+
+````bash
+OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
+````
+
 
 ## Enable Performance Analyzer for RPM/YUM installations
+
+If you installed OpenSearch from an RPM distribution, you can start and stop Performance Analyzer with `systemctl`:
 
 If you installed OpenSearch from an RPM distribution, you can start and stop Performance Analyzer with `systemctl`:
 ```bash
@@ -116,7 +166,11 @@ sudo systemctl stop opensearch-performance-analyzer.service
 
 ## Configure Performance Analyzer for tarball installations
 
-In a tarball installation, Performance Analyzer collects data when it is enabled. But in order to read that data using the REST API on port 9600, you must first manually launch the associated reader agent process:
+The following is an example Performance Analyzer API query. The query pulls performance metrics related to your OpenSearch cluster:
+  
+````bash
+GET localhost:9600/_plugins/_performanceanalyzer/metrics/units
+````
 
 1. Make Performance Analyzer accessible outside of the host machine
 
@@ -128,8 +182,7 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
 
    Uncomment the line `#webservice-bind-host` and set it to `0.0.0.0`:
 
-   ```
-   # ======================== OpenSearch performance analyzer plugin config =========================
+The [root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/) (RCA) framework uses the information from Performance Analyzer to inform administrators of the root cause of performance and availability issues experienced by their clusters.
 
    # NOTE: this is an example for Linux. Please modify the config accordingly if you are using it under other OS.
 
@@ -168,12 +221,12 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
    agent-stats-metadata = agent-stats-metadata
    ```
 
-1. Make the CLI executable:
 
    ```bash
    sudo chmod +x ./bin/performance-analyzer-agent-cli
    ```
 
+<<<<<<< HEAD
 1. Launch the agent CLI:
 
 <<<<<<< HEAD
@@ -204,9 +257,13 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
    ```bash
    curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
    ```
-=======
-- [Performance analyzer API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/).
-- [RCA]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
-- [RCA API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/api/).
-- [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf).
->>>>>>> 7bb41fe4 (Make API reference top level (#1637))
+
+## Related articles
+
+Further documentation on the use of Performance Analyzer and RCA can be found at the following links:
+
+- [Performance Analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)
+- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/index/)
+- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/).
+- [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf)
+
