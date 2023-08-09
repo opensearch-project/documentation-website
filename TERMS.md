@@ -154,6 +154,8 @@ certificate authority
 
 Use _certificates_ on first mention. It’s OK to use _certs_ thereafter.
 
+**checkbox, checkboxes**
+
 **CI/CD**
 
 Use _continuous integration_ and _continuous delivery (CI/CD)_ or _continuous integration and delivery (CI/CD)_ on first mention.
