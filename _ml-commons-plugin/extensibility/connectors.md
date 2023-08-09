@@ -19,7 +19,7 @@ You can provision connectors in two ways:
 
 ## Supported connectors
 
-As of OpenSearch 2.9, connectors have been tested for the following ML tools, though it is possible to create connectors for other tools not listed here:
+As of OpenSearch 2.9, connectors have been tested for the following ML services, though it is possible to create connectors for other platforms not listed here:
 
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text-embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
 - [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.

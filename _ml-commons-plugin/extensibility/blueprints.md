@@ -15,9 +15,9 @@ For an example of a blueprint that connects to Amazon SageMaker, see the followi
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "<YOUR MODEL NAME>",
-  "description": "<YOUR MODEL DESCRIPTION>",
-  "version": "<YOUR MODEL VERSION>",
+  "name": "<YOUR CONNECTOR NAME>",
+  "description": "<YOUR CONNECTOR DESCRIPTION>",
+  "version": "<YOUR CONNECTOR VERSION>",
   "protocol": "aws_sigv4",
   "credential": {
     "access_key": "<PLEASE ADD YOUR AWS ACCESS KEY HERE>",
@@ -25,7 +25,7 @@ POST /_plugins/_ml/connectors/_create
     "session_token": "<PLEASE ADD YOUR AWS SECURITY TOKEN HERE>"
   },
   "parameters": {
-    "region": "<PLEASE ADD YOUR AWS REGION TOKEN HERE>",
+    "region": "<PLEASE ADD YOUR AWS REGION HERE>",
     "service_name": "sagemaker"
   },
   "actions": [

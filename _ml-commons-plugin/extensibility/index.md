@@ -91,7 +91,7 @@ PUT /_cluster/settings
 ## Next steps
 
 - For more information about how to manage ML models in OpenSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
-- For more information on how to interact with ML in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
+- For more information about how to interact with ML in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
 
 
 
