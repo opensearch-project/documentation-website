@@ -8,13 +8,13 @@ parent: ML extensibility
 
 # Creating connectors for third-party ML platforms
 
-Machine Learning (ML) connectors provides the ability to integrate OpenSearch ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
+Machine Learning (ML) connectors provide the ability to integrate OpenSearch ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
 
 You can provision connectors in two ways:
 
 1. An [external connector](#external-connector), saved in a connector index, which can be reused and shared with multiple remote models but requires access to both the model, the connector inside of OpenSearch, and the third party being accessed by the connector, such as OpenAI or SageMaker.
 
-2. A [local connector](#local-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
+2. A [local connector](#local-connector), saved in the model index, which can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
 
 
 ## Supported connectors
@@ -27,9 +27,9 @@ As of OpenSearch 2.9, connectors have been tested for the following ML services,
 
 All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
 
-You can find blueprints for each connector in the [ML Commons repo](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
+You can find blueprints for each connector in the [ML Commons repository](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
 
-If you want build your own blueprint, see [Building blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+If you want to build your own blueprint, see [Building blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
 
 
 ## External connector
@@ -37,7 +37,7 @@ If you want build your own blueprint, see [Building blueprints]({{site.url}}{{si
 Admins are only required to enter their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
 {: .note}
 
-The connector creation API, `/_plugins/_ml/connectors/_create`, creates connections that allow users to deploy and register external models through OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, to connect to a ChatGPT model, you can connect using the `api.openai.com`, as shown in the following example:
+The connector creation API, `/_plugins/_ml/connectors/_create`, creates connections that allow users to deploy and register external models through OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, to connect to a ChatGPT model, you can connect using `api.openai.com`, as shown in the following example:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -376,7 +376,7 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 
-After creating the connector, you can retrieve the `task_id` and `connector_id` to register and deploy the model, then use the Predict API, similar to a standalone connector.
+After creating the connector, you can retrieve the `task_id` and `connector_id` to register and deploy the model and then use the Predict API, similarly to a standalone connector.
 
 
 ### Amazon SageMaker

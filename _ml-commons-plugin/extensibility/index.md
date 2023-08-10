@@ -7,16 +7,16 @@ nav_order: 60
 
 # ML extensibility
 
-Machine learning (ML) extensibility enables ML developers to create integrations to other ML services, such as Amazon SageMaker or OpenAI. These integrations give sysadmins and data scientists the ability to run ML workloads outside of their OpenSearch cluster. 
+Machine learning (ML) extensibility enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. These integrations provide system administrators and data scientists the ability to run ML workloads outside of their OpenSearch cluster. 
 
 To get started with ML extensibility, choose from the following options.
 
-- If you're an ML developer wanting to integrate into your specific ML services, see [Building blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-- If you're a sysadmin or data scientist wanting to create connection to a ML service, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+- If you're an ML developer wanting to integrate with your specific ML services, see [Building blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
 
 ## Prerequisites
 
-If you are an admin deploying an ML connector, make sure that the target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have permissions to send and receive data to the third-party API for your connector. 
+If you're an admin deploying an ML connector, make sure that the target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have permissions to send and receive data to the third-party API for your connector. 
 
 When access control is enabled on your third-party platform, you can enter your security settings using the `authorization` or `credential` settings inside the connector API.
 
@@ -75,7 +75,7 @@ When enabled, you can install the [Security plugin]({{site.url}}{{site.baseurl}}
 
 ### Node settings
 
-Remote models based on external connectors consume less resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`, as shown in the following example:
+Remote models based on external connectors consume fewer resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`, as shown in the following example:
 
 ```json
 PUT /_cluster/settings
@@ -90,8 +90,8 @@ PUT /_cluster/settings
 
 ## Next steps
 
-- For more information about how to manage ML models in OpenSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
-- For more information about how to interact with ML in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
+- For more information about managing ML models in OpenSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+- For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
 
 
 
