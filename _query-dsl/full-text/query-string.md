@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Query string queries
+title: Query string
 parent: Full-text queries
 grand_parent: Query DSL
-nav_order: 25
+nav_order: 60
 
 redirect_from:
   - /opensearch/query-dsl/full-text/query-string/
@@ -13,6 +13,22 @@ redirect_from:
 # Query string queries
 
 A `query_string` query parses the query string based on the `query_string` syntax. It lets you create powerful yet concise queries that can incorporate wildcards and search multiple fields.
+
+The query string query splits text based on operators and analyzes each individually.
+
+If you search using the HTTP request parameters (i.e. `_search?q=wind`), OpenSearch creates a query string query.
+{: .note }
+
+```json
+GET _search
+{
+  "query": {
+    "query_string": {
+      "query": "the wind AND (rises OR rising)"
+    }
+  }
+}
+```
 
 ## Example
 

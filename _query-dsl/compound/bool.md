@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Boolean queries
+title: Boolean
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 10

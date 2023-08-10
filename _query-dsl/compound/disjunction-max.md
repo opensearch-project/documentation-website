@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Disjunction max queries
+title: Disjunction max
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 50
