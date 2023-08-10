@@ -19,7 +19,7 @@ The following naming conventions should be observed in OpenSearch Project conten
 * OpenSearch Dashboards is the UI for OpenSearch. On first appearance, use the full name *OpenSearch Dashboards*. *Dashboards* can be used for subsequent appearances.
 * *Security Analytics* is a security information and event management (SIEM) solution for OpenSearch. Capitalize both words when referring to the name of the solution.
 * Observability is collection of plugins and applications that let you visualize data-driven events by using Piped Processing Language (PPL). Capitalize *Observability* when referring to the name of the solution.
-* Refer to OpenSearch Project customers as *users*, and refer to the larger group of users as *the community*.
+* Refer to OpenSearch Project customers as *users*, and refer to the larger group of users as *the community*. Do not refer to the OpenSearch Project or to the AWS personnel working on the project as a *team*, as this implies differentiation within the community.
 
 #### Product names
 
@@ -65,7 +65,7 @@ The voice of the OpenSearch Project is people oriented and focused on empowering
 
 Whenever possible, use the active voice instead of the passive voice. The passive form is typically wordier and can often cause writers to obscure the details of the action. For example, change the agentless passive _it is recommended_ to the more direct _we recommend_.
 
-Refer to the reader as _you_ (second person), and refer to the OpenSearch Project as _we_ (first person). If there are multiple authors for a blog post, you can use _we_ to refer to the authors as individuals.
+Refer to the reader as _you_ (second person), and refer to the OpenSearch Project as _we_ (first person). If there are multiple authors for a blog post, you can use _we_ to refer to the authors as individuals. Do not refer to the OpenSearch Project or to the AWS personnel working on the project as a *team*, as this implies differentiation within the community.
 
 Describe the actions that the user takes, rather than contextualizing from the feature perspective. For example, use phrases such as “With this feature, you can...” or “Use this feature to...” instead of saying a feature *allows*, *enables*, or *lets* the user do something.
 
@@ -324,6 +324,8 @@ We follow a slightly modified version of the _Microsoft Writing Style Guide_ gui
 | **Zoom, zoom in, zoom out** | Use _zoom_, _zoom in_, and _zoom out_ to refer to changing the magnification of the screen or window. | - Zoom in to see more details on the map. <br> - Zoom out to see a larger geographic area on the map. <br> - Zoom in or out to see more or less detail. |
 
 ### Punctuation and capitalization
+
+- Use only one space after a period.
 
 - Use contractions carefully for a more casual tone. Use common contractions. Avoid future tense (I’ll), archaic (‘twas), colloquial (ain’t), or compound (couldn’t’ve) contractions.
 
