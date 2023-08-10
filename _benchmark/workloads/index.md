@@ -148,7 +148,7 @@ The `schedule` element contains a list of actions and operations run by the work
 According to this schedule, each action will run in the following order.
 
 1. The `create-index` operation creates an index. The index remains empty until the `bulk` operation adds documents with benchmarked data.
-2. The `cluster-health` operation assess the health of the cluster before running the workload. In this example, the workload will wait until the status of cluster's health is `green`.
+2. The `cluster-health` operation assesses the health of the cluster before running the workload. In this example, the workload will wait until the status of cluster's health is `green`.
    - The `bulk` operation runs the `bulk` API to index `5000` documents at once.
    - Before benchmarking, the workload waits until the specified `warmup-time-period` passes. In this example, the warmup period is `120` seconds.
 5. The `clients` options defines the number of clients that will run the remaining actions in the schedule concurrently.
