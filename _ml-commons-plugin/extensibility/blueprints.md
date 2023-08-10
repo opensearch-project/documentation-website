@@ -8,9 +8,9 @@ parent: ML extensibility
 
 # Building blueprints
 
-All connectors consist a JSON blueprint created by ML developers to allow administrators and data scientists to make connections between OpenSearch and an AI service or model serving technology. 
+All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
 
-For an example of a blueprint that connects to Amazon SageMaker, see the following example:
+The following example shows a blueprint that connects to Amazon SageMaker:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -71,7 +71,7 @@ The `action` parameter supports the following options.
 | `action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
 | `method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
 | `url` | String | Required. Sets the connection endpoint at which the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index#adding-trusted-endpoints). |
-| `headers` | JSON object | Sets the headers used inside the request or response body. Default is `ContentType: application/json`. If your third-part ML tool requires access control, define any `credential` parameters need in the `headers` parameter. |
+| `headers` | JSON object | Sets the headers used inside the request or response body. Default is `ContentType: application/json`. If your third-party ML tool requires access control, define the required `credential` parameters in the `headers` parameter. |
 | `request_body` | String | Required. Sets the parameters contained inside the request body of the action. The parameters must include `\"inputText\`, which sets how users of the connector should construct the request payload for the `action_type`. |
 
 ## Next step

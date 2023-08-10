@@ -8,13 +8,13 @@ parent: ML extensibility
 
 # Creating connectors for third-party ML platforms
 
-Machine Learning (ML) Connectors provides the ability to integrate OpenSearch ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
+Machine Learning (ML) connectors provides the ability to integrate OpenSearch ML capabilities with third-party ML tools and platforms. Through connectors, OpenSearch can invoke these third-party endpoints to enrich query results and data pipelines.
 
 You can provision connectors in two ways:
 
 1. An [external connector](#external-connector), saved in a connector index, which can be reused and shared with multiple remote models but requires access to both the model, the connector inside of OpenSearch, and the third party being accessed by the connector, such as OpenAI or SageMaker.
 
-2. An [local connector](#local-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
+2. A [local connector](#local-connector), saved in the model index, can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
 
 
 ## Supported connectors
@@ -35,7 +35,7 @@ If you want build your own blueprint, see [Building blueprints]({{site.url}}{{si
 
 ## External connector
 
-Admins need to only enter in their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+Admins are only required to enter their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
 {: .note}
 
 The connector creation API, `/_plugins/_ml/connectors/_create`, creates connections that allow users to deploy and register external models through OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, to connect to a ChatGPT model, you can connect using the `api.openai.com`, as shown in the following example:
@@ -115,7 +115,7 @@ POST /_plugins/_ml/models/_register
 
 ## Local connector
 
-Admins need to only enter in their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+Admins are only required to enter their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
 {: .note}
 
 To create an internal connector, add the `connector` parameter to the Register model API, as shown in the following example:
