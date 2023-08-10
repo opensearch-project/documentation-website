@@ -57,7 +57,7 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-When enabled, you can install the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) the `backend_roles`, `add_all_backend_roles`, or `access_model` options are required in order to use the connector API. If successful, OpenSearch returns the following response:
+When access control is enabled, you can install the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/). This makes the `backend_roles`, `add_all_backend_roles`, or `access_model` options required in order to use the connector API. If successful, OpenSearch returns the following response:
 
 ```json
 {
