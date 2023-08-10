@@ -521,7 +521,7 @@ Use _open source_ as a noun (for example, “The code used throughout this tutor
 
 **OpenSearch Playground**
 
-OpenSearch Playground provides a central location for existing and evaluating users to explore features in OpenSearch and OpenSearch Dashboards without installing or downloading anything.
+OpenSearch Playground provides a central location for existing and evaluating users to explore features in OpenSearch and OpenSearch Dashboards without downloading or installing any OpenSearch components locally.
 
 **operating system**
 
