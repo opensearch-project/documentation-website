@@ -39,7 +39,7 @@ Parameter | Data type | Description
 `active_only` | Boolean | If `true`, the response only includes active segment replications. Defaults to `false`. 
 [`detailed`](#additional-detailed-response-metrics) | String | If `true`, the response includes additional metrics for each stage of a segment replication event. Defaults to `false`.
 `shards` | String | A comma-separated list of shards to display.
-`byte` | Byte size | [Units]({{site.url}}{{site.baseurl}}/opensearch/units/) used to display byte size values.
+`bytes` | Byte size | [Units]({{site.url}}{{site.baseurl}}/opensearch/units/) used to display byte size values.
 `format` | String | A short version of the HTTP accept header. Valid values include `JSON` and `YAML`.  
 `h` | String | A comma-separated list of column names to display. 
 `help` | Boolean | If `true`, the response includes help information. Defaults to `false`.
