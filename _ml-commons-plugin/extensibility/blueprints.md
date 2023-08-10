@@ -20,12 +20,12 @@ POST /_plugins/_ml/connectors/_create
   "version": "<YOUR CONNECTOR VERSION>",
   "protocol": "aws_sigv4",
   "credential": {
-    "access_key": "<PLEASE ADD YOUR AWS ACCESS KEY HERE>",
-    "secret_key": "<PLEASE ADD YOUR AWS SECRET KEY HERE>",
-    "session_token": "<PLEASE ADD YOUR AWS SECURITY TOKEN HERE>"
+    "access_key": "<ADD YOUR AWS ACCESS KEY HERE>",
+    "secret_key": "<ADD YOUR AWS SECRET KEY HERE>",
+    "session_token": "<ADD YOUR AWS SECURITY TOKEN HERE>"
   },
   "parameters": {
-    "region": "<PLEASE ADD YOUR AWS REGION HERE>",
+    "region": "<ADD YOUR AWS REGION HERE>",
     "service_name": "sagemaker"
   },
   "actions": [
@@ -35,8 +35,8 @@ POST /_plugins/_ml/connectors/_create
       "headers": {
         "content-type": "application/json"
       },
-      "url": "<PLEASE ADD YOUR Sagemaker MODEL ENDPOINT URL>",
-      "request_body": "<PLEASE ADD YOUR REQUEST BODY. Example: ${parameters.inputs}>"
+      "url": "<ADD YOUR Sagemaker MODEL ENDPOINT URL>",
+      "request_body": "<ADD YOUR REQUEST BODY. Example: ${parameters.inputs}>"
     }
   ]
 }
