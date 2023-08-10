@@ -48,7 +48,7 @@ However, if you intend to just use painless scripting or a k-NN score script, yo
  }
  ```
 
- ### Lucene byte vector
+### Lucene byte vector
 
 By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
  
