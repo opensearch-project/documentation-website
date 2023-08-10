@@ -62,7 +62,7 @@ You've created a new visualization that can be added to a new or existing dashbo
 
 ### Limitations of event analytics visualizations
 
-Event analytics visualizations currently do not support [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/), and they do not use index patterns. Note the following limitations: 
+Event analytics visualizations currently do not support [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/), and they do not use index patterns. Note the following limitations: 
 
 - Event analytics visualizations only use filters created using the dropdown interface. If you have DQL query or DSL filters in a dashboard, the visualizations do not use them.
 - The **Dashboard** filter dropdown interface only shows fields from the default index pattern or index patterns used by other visualizations in the same dashboard.
