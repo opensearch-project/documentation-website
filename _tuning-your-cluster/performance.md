@@ -134,3 +134,7 @@ curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-it
 { "doc" : {"user" : "example"} }
 ```
 {% include copy.html %}
+
+## Compression codecs
+
+Starting with OpenSearch 2.9, new codecs for compression are made available: `zstd` and `zstd_no_dict`. You can optionally specify a compression level for these in the `index.codec.compression_level` setting with values in the range [1,6]. These provide improved indexing performance at the expense of a slightly larger index size. [Benchmark]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#benchmarking) data shows zstd providing 7% better writes throughput, and zstd_no_dict providing 14% better throughput. You can find more details about compression on [Indexing codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs).
