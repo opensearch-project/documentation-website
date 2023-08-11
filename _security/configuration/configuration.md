@@ -145,7 +145,7 @@ The default `config/opensearch-security/config.yml` file included in your OpenSe
 
 ## Next steps
 
-To learn about configuring the authentication backends, see the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation. Or, jump directly to documentation for a specific backend by using the links in the following list of topics:
+To learn about configuring the authentication backends, see the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation. Alternatively, you can jump directly to documentation for a specific backend by using the links in the following list of topics:
 
 * [HTTP basic authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/)
 * [JSON Web Token]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/)
