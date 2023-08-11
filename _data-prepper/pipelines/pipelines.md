@@ -58,7 +58,7 @@ When any component of a pipeline fails and is unable to send an event, the sourc
 
 As of Data Prepper 2.2, only the `s3` source and `opensearch` sink support E2E acknowledgments. 
 
-## Conditional routing
+## Conditional routing<a name="conditional_routing"></a>
 
 Pipelines also support **conditional routing**  which allows you to route events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept events that match at least one of the routing conditions. 
 
