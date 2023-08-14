@@ -2,6 +2,8 @@
 layout: default
 title: Language analyzers
 nav_order: 10
+redirect_from:
+  - /query-dsl/analyzers/language-analyzers/
 ---
 
 # Language analyzer
