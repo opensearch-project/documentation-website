@@ -31,7 +31,7 @@ Most REST APIs supported by OpenSearch are included in this reference. If you kn
 - [Nodes APIs]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/)
 - [Popular APIs]({{site.url}}{{site.baseurl}}/api-reference/popular-api/)
 - [Ranking evaluation]({{site.url}}{{site.baseurl}}/api-reference/rank-eval/)
-- [Reload search analyzer]({{site.url}}{{site.baseurl}}/api-reference/reload-search-analyzer/)
+- [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/)
 - [Remove cluster information]({{site.url}}{{site.baseurl}}/api-reference/remote-info/)
 - [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 - [Scroll]({{site.url}}{{site.baseurl}}/api-reference/scroll/)
