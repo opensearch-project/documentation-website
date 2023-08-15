@@ -80,8 +80,8 @@ The following configuration options are only required when using a `confluent` r
 
 Option | Type | Description
 :--- | :--- | :---
-`registry_url` | String | Deserializes a record value from a bytearray into a string. Default is `org.apache.kafka.common.serialization.StringDeserializer`.
-`version` | String | Deserializes a record key from a bytearray into a string. Default is `org.apache.kafka.common.serialization.StringDeserializer`.
+`registry_url` | String | Deserializes a record value from a `bytearray` into a string. Default is `org.apache.kafka.common.serialization.StringDeserializer`.
+`version` | String | Deserializes a record key from a `bytearray` into a string. Default is `org.apache.kafka.common.serialization.StringDeserializer`.
 `schema_registry_api_key` | String | The schema registry API key.
 `schema_registry_api_secret` | String | The schema registry API secret.
 
@@ -121,7 +121,7 @@ Use the following options when setting SSL encryption.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `type` | No | String | The encryption type. Use `none` to disable encryption. Default is `ssl`.
-`Insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, CA certificate verification is turned off and insecure HTTP requests are sent.  Default is `false`.
+`Insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, CA certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
 
 
 #### AWS
