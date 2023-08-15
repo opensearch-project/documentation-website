@@ -10,7 +10,7 @@ nav_order: 90
 
 With a terms set query, you can search for documents that match a minimum number of exact terms in a specified field. The `terms_set` query is similar to the `terms` query, but you can specify the minimum number of matching terms that are required to return a document. You can specify this number either in a field in the index or with a script.
 
-As an example, consider an index that contains students with classes they have taken. When setting up the mapping for this index, you need to provide a [numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) field that specifies the minimum number of matching terms that are required to return a document:
+As an example, consider an index that contains students with classes they have taken. When setting up the mapping for this index, you need to provide a [numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) field that specifies the minimum number of matching terms that are required to return a document:
 
 ```json
 PUT students
@@ -141,3 +141,30 @@ GET students/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Parameters
+
+The query accepts the name of the field (`<field>`) as a top-level parameter:
+
+```json
+GET _search
+{
+  "query": {
+    "terms_set": {
+      "<field>": {
+        "terms": [ "term1", "term2" ],
+        ... 
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `<field>` accepts the following parameters. All parameters except `terms` are optional.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`terms` | Array of strings | The array of terms to search for in the field specified in `<field>`. A document is returned in the results only if the required number of terms matches the document's field values exactly, with the correct spacing and capitalization.
+`minimum_should_match` | The name of the [numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) field that specifies the number of matching terms required to return a document in the results.
+`minimum_should_match_script` | A script that returns the number of matching terms required to return a document in the results.

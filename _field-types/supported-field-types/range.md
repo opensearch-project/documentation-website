@@ -61,64 +61,7 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-You can use a [Term query](#term-query) or a [Range query](#range-query) to search for values within range fields. 
-
-### Term query
-
-A term query takes a value and matches all range fields for which the value is within the range.
-
-The following query will return document 1 because 3.5 is within the range [1.0, 4.0]:
-
-```json
-GET testindex/_search
-{
-  "query" : {
-    "term" : {
-      "gpa" : {
-        "value" : 3.5
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-### Range query
-
-A range query on a range field returns documents within that range. Along with the field to be matched, you can further specify a date format or relational operators with the following optional parameters:
-
-Parameter | Description
-:--- | :---
-format | A [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats) for dates in this query. Default is the field's mapped format.
-relation | Provides a relation between the query's date range and the document's date range. There are three types of relations that you can specify:<br> 1. `intersects` matches documents for which there are dates that belong to both the query's date range and document's date range. This is the default. <br> 2. `contains` matches documents for which the query's date range is a subset of the document's date range. <br> 3. `within` matches documents for which the document's date range is a subset of the query's date range.
-
-To use a date format other than the field's mapped format in a query, specify it in the `format` field.
-
-For a full description of range query usage, including all range query parameters, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range).
-{: .tip }
-
-Query for all graduation dates in 2019, providing the date range in a "MM/dd/yyyy" format:
-
-```json
-GET testindex1/_search
-{
-  "query": {
-    "range": {
-      "graduation_date": {
-        "gte": "01/01/2019",
-        "lte": "12/31/2019",
-        "format": "MM/dd/yyyy",
-        "relation" : "within"       
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The above query will return document 1 for the `within` and `intersects` relations but will not return it for the `contains` relation.
-
-### IP address ranges
+## IP address ranges
 
 You can specify IP address ranges in two formats: as a range and in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
 
@@ -154,6 +97,55 @@ PUT testindex/_doc/2
 }
 ```
 {% include copy-curl.html %}
+
+## Querying range fields
+
+You can use a [Term query](#term-query) or a [Range query](#range-query) to search for values within range fields. 
+
+### Term query
+
+A term query takes a value and matches all range fields for which the value is within the range.
+
+The following query will return document 1 because 3.5 is within the range [1.0, 4.0]:
+
+```json
+GET testindex/_search
+{
+  "query" : {
+    "term" : {
+      "gpa" : {
+        "value" : 3.5
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Range query
+
+A range query on a range field returns documents within that range. 
+
+Query for all graduation dates in 2019, providing the date range in a "MM/dd/yyyy" format:
+
+```json
+GET testindex1/_search
+{
+  "query": {
+    "range": {
+      "graduation_date": {
+        "gte": "01/01/2019",
+        "lte": "12/31/2019",
+        "format": "MM/dd/yyyy",
+        "relation" : "within"       
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The preceding query will return document 1 for the `within` and `intersects` relations but will not return it for the `contains` relation. For more information about relation types, see [range query parameters]({{site.url}}{{site.baseurl}}/query-dsl/term/range#parameters).
 
 ## Parameters
 
