@@ -36,11 +36,11 @@ Option | Required | Type | Description
 `bootstrap_servers` | Yes when not using Amazon MSK as a cluster | IP address | The host or port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or port number for each broker. When using [Amazon MSK](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from MSK using the MSK ARN provided in the configuration.
 `topics` | Yes | JSON array | The topics inside of Kafka where the Data Prepper `kafka` source reads messages. You can configure up to 10 topics. For more information about options you need to configure inside `topics`, see [Topics](#topics).
 `schema` | No | JSON array | The schema registry configuration. For more information, see [Schema](#schema)
-`authentication` | Yes | JSON array | Set the authentication options for both the pipeline and Kafka. For more information, see [Authenticaion](#authentication).
+`authentication` | No | JSON array | Set the authentication options for both the pipeline and Kafka. For more information, see [Authenticaion](#authentication).
 `encryption` | No | JSON array | The encryption configuration. For more information, see [Encryption](#encryption).
 `aws` | No | JSON array | The AWS configuration. See [aws](#aws) for details.
-`acknowledgments` | No | Boolean | If `true`, enables the `kafka` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
-`acknowledgements_timeout` | No | Time | The maximum time to wait for acknowledgements to be received.
+`acknowledgments` | No | Boolean | If `true`, enables the `kafka` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
+`acknowledgements_timeout` | No | Time | The maximum time to wait for acknowledgements to be received. Default is `30s`.
 `client_dns_lookup` | Yes, when a DNS alias is used. | String | Sets Kafka's `client.dns.lookup` option. Default is `default`.
 
 ### Topics
@@ -59,7 +59,7 @@ Option | Required | Type | Description
 `auto_offset_reset` | No | String | Automatically resets the offset to the earlier or latest offset through Kafka's `auto.offset.reset` option. Default is `latest`.
 `thread_waiting_time` | No | Integer | The time that threads wait until the preceding thread completes it's task and signals the next thread. The Kafka consumer API poll timeout value is set to half of this setting. Default is `5s`.
 `max_partition_fetch_bytes` | No | Integer | Sets the maximum limit in bytes for much data returns from each partition through Kafka's `max.partition.fetch.bytes`. Default is `1048676`.
-`heart_beat_interval` | No | Integer | The expected time between heartneats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `1s`
+`heart_beat_interval` | No | Integer | The expected time between heart beats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `1s`
 `fetch_max_wait` | No | Integer | The maximum amount of time the server blocks a fetch request when there isn't sufficient data to satisfy the `fetch_min_bytes` requirement through Kafka's `fetch.max.wait.ms` setting. Default is `500`.
 `fetch_max_bytes` | No | Integer | The maximum record size accepted by the broker through Kafka's `fetch.max.bytes` setting. Default is `52428800`.
 `fetch_min_bytes` | No | Integer | The minimum amount of data the server returns during a fetch request through Kafka's `retry.backoff.ms` setting. Default is `1`.
@@ -70,11 +70,11 @@ Option | Required | Type | Description
 
 ### Schema
 
-Use the following option is required inside the `schema` array.
+The following option is required inside the `schema` configuration.
 
 Option | Type | Description
 :--- | :--- | :---
-`type` | String | Sets the type of schema based on your registry, either AWS Glue registry, `glue`, or the Confluent schema registry, `confluent`. When using the `glue` registry, set any [AWS](#aws) configuration options.
+`type` | String | Sets the type of schema based on your registry, either AWS Glue registry, `glue`, or the Confluent schema registry, `confluent`. When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
 
 The following configuration options are only required when using a `confluent` registry.
 
