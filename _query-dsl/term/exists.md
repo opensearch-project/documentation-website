@@ -13,7 +13,7 @@ Use the `exists` query to search for documents that contain a specific field.
 An indexed value does not exist for a document field in one of the following cases:
 
 - The field has `"index" : false` specified in the mapping
-- The field in the source JSON is `null`` or `[]`
+- The field in the source JSON is `null` or `[]`.
 - The length of the field value exceeded the `ignore_above` setting in the mapping
 - The field value was malformed and `ignore_malformed` was defined in the mapping
 

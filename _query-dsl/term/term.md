@@ -26,6 +26,51 @@ GET shakespeare/_search
 
 When a document is indexed, the `text` fields are [analyzed]({{site.url}}{{site.baseurl}}/analyzers/index/). Analysis includes tokenizing and lowercasing the text and removing punctuation. Unlike `match` queries, which analyze the query text, `term` queries only match the exact term and thus may not return relevant results. Avoid using `term` queries on `text` fields. For details, see the [comparison of `term` and `match` queries]({{site.url}}{{site.baseurl}}/query-dsl/term-vs-full-text/).
 
+You can specify for the query to be case insensitive in the `case_insensitive` parameter:
+
+```json
+GET shakespeare/_search
+{
+  "query": {
+    "term": {
+      "speaker": {
+        "value": "HAMLET",
+        "case_insensitive": true
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching documents despite the difference in casing:
+
+```json
+"hits": {
+  "total": {
+    "value": 1582,
+    "relation": "eq"
+  },
+  "max_score": 2,
+  "hits": [
+    {
+      "_index": "shakespeare",
+      "_id": "32700",
+      "_score": 2,
+      "_source": {
+        "type": "line",
+        "line_id": 32701,
+        "play_name": "Hamlet",
+        "speech_number": 9,
+        "line_number": "1.2.66",
+        "speaker": "HAMLET",
+        "text_entry": "[Aside]  A little more than kin, and less than kind."
+      }
+    },
+  ...
+}
+```
+
 ## Parameters
 
 The query accepts the name of the field (`<field>`) as a top-level parameter:
