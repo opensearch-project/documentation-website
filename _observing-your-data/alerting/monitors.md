@@ -16,7 +16,7 @@ Proactively monitor your data in OpenSearch with alerting and anomaly detection.
 
 The Alerting plugin provides the following monitor types:
 
-1. **per query**: Runs a query and generates alert notifications based on the matching criteria. See [Per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/) for information about creating and using this monitor type.
+1. **per query**: Runs a query and generates alert notifications based on the matching criteria. See [Per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) for information about creating and using this monitor type.
 1. **per bucket**: Runs a query that evaluates trigger criteria based on aggregated values in the dataset. See [Per bucket monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/) for information about creating and using this monitor type.
 1. **per cluster metrics**: Runs API requests on the cluster to monitor its health. See [Per cluster metrics monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/) for information about creating and using this monitor type.
 1. **per document**: Runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition. See [Per document monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/) for information about creating and using this monitor type.
