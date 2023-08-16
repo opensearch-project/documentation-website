@@ -123,6 +123,8 @@ The following table lists acronyms that you don't need to spell out.
 | BASIC | Beginner's All-Purpose Symbolic Instruction Code |
 | BM25 | Best Match 25 |
 | CPU | central processing unit |
+| CSV | comma-separated values |
+| DNS | Domain Name System |
 | DOS | disk operating system |
 | FAQ | frequently asked questions |
 | FTP | File Transfer Protocol |
