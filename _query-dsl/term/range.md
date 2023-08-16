@@ -129,11 +129,11 @@ GET products/_search
 ```
 {% include copy-curl.html %}
 
-The first date that we specify is the anchor date or the starting point for the date math. Add two trailing pipe symbols. You could then add one day (`+1d`) or subtract two weeks (`-2w`). This math expression is relative to the anchor date that you specify.
+In the preceding example, `2019/01/01` is the anchor date or the starting point for the date math. After the two pipe characters (`||`), you are specifying a mathematical expression relative to the anchor date. In this example, you are subtracting one year (`-1y`) and one day (`-1d`). 
 
 You can also round off dates by adding a forward slash to the date or time unit.
 
-To find products added in the last year and rounded off by month:
+To find products added in the last year and rounded off by month, use the following query:
 
 ```json
 GET products/_search
@@ -212,9 +212,9 @@ In addition to [operators](#operators), you can specify the following optional p
 Parameter | Data type | Description
 :--- | :--- | :---
 `format` | String | A [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats) for dates in this query. Default is the field's mapped format.
-`relation` | String |Indicates how the range query matches values for [`range`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) fields. Valid values are:<br> 1. `INTERSECTS` (default): Matches documents whose `range` field value intersects the range provided in the query.  <br> 2. `CONTAINS`: Matches documents whose `range` field value completely contains the range provided in the query. <br> 3. `WITHIN`: Matches documents whose `range` field value is completely within the range provided in the query.
+`relation` | String |Indicates how the range query matches values for [`range`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) fields. Valid values are:<br> - `INTERSECTS` (default): Matches documents whose `range` field value intersects the range provided in the query.  <br> - `CONTAINS`: Matches documents whose `range` field value completely contains the range provided in the query. <br> - `WITHIN`: Matches documents whose `range` field value is completely within the range provided in the query.
 `boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values less than 1 decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
 `time_zone` | String | The time zone used to convert [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values to UTC in the query. Valid values are ISO 8601 [UTC offsets](https://en.wikipedia.org/wiki/List_of_UTC_offsets) and [IANA time zone IDs](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For more information, see [Time zone](#time-zone).
 
-If `search.allow_expensive_queries` is set to `false`, range queries on [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) and [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) fields are not run.
+If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, range queries on [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) and [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) fields are not run.
 {: .important}
