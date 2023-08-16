@@ -66,7 +66,7 @@ Option | Required | Type | Description
 `retry_backoff` | No | Integer | The amount of time to wait before attempting to retry a failed request to a given topic partition. Default is `10s`.
 `max_poll_interval` | No | Integer | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option.  Default is `300s`.
 `consumer_max_poll_records` | No | Integer | The maximum number of records returned in a single `poll()` call through Kafka's `max.poll.records` setting. Default is `500`.
-`key_mode` | No | String | Indicates how the key field of Kafka message should be handled. The default setting is `include_as_field`, which includes the key in the `kafka_key` event. `include_as_matedata` places the key in the event's metadata. `discard` discards the key. 
+`key_mode` | No | String | Indicates how the key field of the Kafka message should be handled. The default setting is `include_as_field`, which includes the key in the `kafka_key` event. The `include_as_matadata` setting places the key in the event's metadata. The `discard` setting discards the key. 
 
 ### Schema
 
@@ -74,7 +74,7 @@ The following option is required inside the `schema` configuration.
 
 Option | Type | Description
 :--- | :--- | :---
-`type` | String | Sets the type of schema based on your registry, either AWS Glue registry, `glue`, or the Confluent schema registry, `confluent`. When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
+`type` | String | Sets the type of schema based on your registry, either AWS Glue registry, `aws_glue`, or the Confluent schema registry, `confluent`. When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
 
 The following configuration options are only required when using a `confluent` registry.
 
@@ -91,7 +91,7 @@ The following option is required inside the `authentication` array.
 
 Option | Type | Description
 :--- | :--- | :---
-`sasl` | JSON array | The SASL authentication configuration. 
+`sasl` | JSON object | The SASL authentication configuration. 
 
 ### SASL 
 
