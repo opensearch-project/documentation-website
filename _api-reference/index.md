@@ -44,7 +44,6 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [Popular APIs]({{site.url}}{{site.baseurl}}/api-reference/popular-api/)
 - [Ranking evaluation]({{site.url}}{{site.baseurl}}/api-reference/rank-eval/)
 - [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/)
-- [Reload search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/reload-search-analyzer/)
 - [Remove cluster information]({{site.url}}{{site.baseurl}}/api-reference/remote-info/)
 - [Root cause analysis API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/)
 - [Snapshot management API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/sm-api/)
