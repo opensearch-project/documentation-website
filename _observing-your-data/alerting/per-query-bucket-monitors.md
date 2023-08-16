@@ -17,7 +17,7 @@ Per bucket monitors are a type of alert monitor that can be used to identify and
 
 To create a per query monitor, follow these steps:
 
-**Step 1.** Define your query and triggers. You can use any of these methods: visual editor, query editor, or anomaly detector.
+**Step 1.** Define your query and [triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/). You can use any of these methods: visual editor, query editor, or anomaly detector.
 
    - Visual definition works well for monitors that can be defined as "some value is above or below some threshold for some amount of time." It also works well for most monitors.
 
@@ -73,7 +73,7 @@ You can also filter query results using `{% raw %}{{period_start}}{% endraw %}` 
 To define a monitor visually, choose **Visual editor**. Then choose a source index, a time frame, an aggregation (for example, `count()` or `average()`), a data filter (if you want to monitor a subset of your source index), and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a bucket-level monitor. 
 
 Visual definition works well for most monitors.
-{. :note}
+{: .note}
 
 If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security/).
 
