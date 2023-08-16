@@ -17,7 +17,6 @@ Inspired by the [Kinesis Client Library](https://docs.aws.amazon.com/streams/lat
 
 Source coordination separates sources into "partitions of work". For example, an S3 object would be a partition of work for Amazon S3, or an OpenSearch index would be a partition of work for OpenSearch.
 
-
 Data Prepper takes each partition of work that is chosen by the source and creates corresponding items in the distributed store that Data Prepper uses for source coordination. Each of these items have the following standard format, which can be extended by the distributed store implementation.
 
 | Value | Type | Description |
@@ -64,7 +63,7 @@ default when no `source_coordination` settings are configured in the `data-prepp
 
 #### DynamoDB store
 
-Data Prepper will attempt to create the `dynamodb` table on startup unless the `skip_table_creation` flag is configured to `true`. Optionally, you can configure `ttl` on the table, which results in the store cleaning up items over time. Some sources rely on source coordination for the deduplication of data, so be sure to configure a large enough `ttl` depending on how long the pipeline will be running. 
+Data Prepper will attempt to create the `dynamodb` table on startup unless the `skip_table_creation` flag is configured to `true`. Optionally, you can configure the [time-to-live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html) (`ttl`) on the table, which results in the store cleaning up items over time. Some sources rely on source coordination for the deduplication of data, so be sure to configure a large enough `ttl` depending on how long the pipeline will be running. 
 
 If `ttl` is not configured on the table, any items no longer needed in the table must be cleaned manually.
 
@@ -143,16 +142,7 @@ The following list details metrics related to partition progress:
 
 The following list details metrics related to partition errors:
 
-
 * `partitionNotFoundErrors`: Indicates that a partition item that is actively owned by a node does not have a corresponding store item. This should only occur if an item in the table has been manually deleted.
 * `partitionNotOwnedErrors`: Indicates an issue where the node that owns a partition loses ownership due to the partition ownership timeout expiring. Unless the source is able to checkpoint the partition with `saveState`, this error results in duplicate item processing.
 * `partitionUpdateErrors`: The number of errors that were received when an update to the store for this partition item failed. Is prefixed with either `saveState`, `close`, or `complete` to indicate which update action is failing.
 
-
-## Using source coordination for new sources
-
-To use source coordination with new sources, the source plugin should implement with the `UsesSourceCoordination` interface. This causes the plugin to be provided with a `SourceCoordinator` object with APIs for acquiring and completing partitions.
-For more details on developing source coordinator for a source, see the [Source Coordinator code](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/source/coordinator/SourceCoordinator.java).
-
-The source plugin must decide how it would like to partition the data that it needs to process, and implement a function that returns a `List<PartitionIdentifer>`, which contains the unique identifier for each partition. These items are acquired in the order that they are returned in the `List<PartitionIdentifier>`. Note that this does not guarantee the items reach the destination sink in the same order as they are acquired, but the priority of which partitions should be acquired will be honored.
-For an example, see the [S3 scan partition creating code](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/s3-source/src/main/java/org/opensearch/dataprepper/plugins/source/S3ScanPartitionCreationSupplier.java).
