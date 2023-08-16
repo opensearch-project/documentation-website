@@ -23,7 +23,7 @@ The Alerting plugin provides the following monitor types:
 1. **composite monitor**: Runs multiple monitors in a single workflow and generates a single alert based on multiple trigger conditions. See [Composite monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/) for information about creating and using this monitor type.
 
 The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by updating the `plugins.alerting.monitor.max_monitors` setting using the [cluster settings API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
-{: .note}
+{: .tip}
 
 ## Monitor variables
 
