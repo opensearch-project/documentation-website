@@ -36,7 +36,7 @@ Data Prepper takes each partition of work that is chosen by the source and creat
 
 Items are acquired in the order that they are returned in the `List<PartitionIdentifer>` provided by the source. When a node attempts to acquire a partition, Data Prepper performs the following steps.
 
-1. First query the `ASSIGNED` partitions to check if any of these `ASSIGNED` partitions have expired partition ownerships. This is intended to give priority to partitions that had nodes crash in the middle of processing,which can allow for using a partition state that may be time sensitive. 
+1. First query the `ASSIGNED` partitions to check if any of these `ASSIGNED` partitions have expired partition ownerships. This is intended to give priority to partitions that had nodes crash in the middle of processing, which can allow for using a partition state that may be time sensitive. 
 2. After querying `ASSIGNED` partitions, Data Prepper queries the `CLOSED` partitions to see if any of the partition's `reOpenAt` timestamps have been reached. 
 3. If there are no `ASSIGNED` or `CLOSED` partitions available, then Data Prepper queries the `UNASSIGNED` partitions one of these is partitions is `ASSIGNED`.
 
@@ -44,7 +44,7 @@ If this flow occurs, and no partition is acquired by the node, then the partitio
 
 ## Global state
 
-Any function that is passed to the `getNextPartition` method that creates new partitions with a global state of `Map<String, Object>`. This state is shared between all of the nodes in the cluster, and is guaranteed to only be run by a single node at a time as the source sees fit.
+Any function that is passed to the `getNextPartition` method creates new partitions with a global state of `Map<String, Object>`. This state is shared between all of the nodes in the cluster, and is guaranteed to only be run by a single node at a time as the source sees fit.
 
 ## Configuration
 
@@ -55,7 +55,7 @@ The following table provide optional configuration values for `source_coordinati
 | `partition_prefix` | String | A prefix to the `sourceIdentifier` used differentiate between Data Prepper clusters that are sharing the same distributed store. |
 | `store` | Object  | The object that makes up the configuration for the store to be used, where the key is the name of the store, such as `in_memory` or `dynamodb`, and the value is any configurations available on that store type. |
 
-### Distributed Stores
+### Supported stores
 As of Data Prepper 2.4, only `in_memory` and `dynamodb` stores are supported.
 
 - The `in_memory` store is the
@@ -117,7 +117,7 @@ source_coordination:
 
 #### In-memory store (default)
 
-The following example shows an `in_memory` store, best used with single node cluster:
+The following example shows an `in_memory` store, best used with a single node cluster:
 
 
 ```yaml
@@ -129,7 +129,7 @@ source_coordination:
 
 ## Metrics
 
-Metrics in source coordination are interpreted differently depending on which source is configured. The format of source coordination all metrics is `<sub-pipeline-name>_source_coordinator_<metric-name>`. You can use the sub-pipeline name is used to identify which source these metrics are for because each sub-pipeline is unique to each source.
+Metrics in source coordination are interpreted differently depending on which source is configured. The format of source coordination metrics is `<sub-pipeline-name>_source_coordinator_<metric-name>`. You can use the sub-pipeline name is used to identify which source these metrics are for because each sub-pipeline is unique to each source.
 
 ### Progress metrics
 
