@@ -35,10 +35,10 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `bootstrap_servers` | Yes, when not using Amazon Managed Streaming for Apache Kafka (Amazon MSK) as a cluster. | IP address | The host or port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or port number for each broker. When using [Amazon MSK](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from MSK using the MSK Amazon Resource Name (ARN) provided in the configuration.
 `topics` | Yes | JSON array | The Kafka topics that the Data Prepper `kafka` source uses to read messages. You can configure up to 10 topics. For more information about `topics` configuration options, see [Topics](#topics).
-`schema` | No | JSON array | The schema registry configuration. For more information, see [Schema](#schema).
-`authentication` | No | JSON array | Set the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
-`encryption` | No | JSON array | The encryption configuration. For more information, see [Encryption](#encryption).
-`aws` | No | JSON array | The AWS configuration. For more information, see [aws](#aws).
+`schema` | No | JSON object | The schema registry configuration. For more information, see [Schema](#schema).
+`authentication` | No | JSON object | Set the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
+`encryption` | No | JSON object | The encryption configuration. For more information, see [Encryption](#encryption).
+`aws` | No | JSON object | The AWS configuration. For more information, see [aws](#aws).
 `acknowledgments` | No | Boolean | If `true`, enables the `kafka` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
 `acknowledgements_timeout` | No | Time | The maximum amount of time to wait for acknowledgements to be received. Default is `30s`.
 `client_dns_lookup` | Yes, when a DNS alias is used. | String | Sets Kafka's `client.dns.lookup` option. Default is `default`.
@@ -87,7 +87,7 @@ Option | Type | Description
 
 ### Authentication 
 
-The following option is required inside the `authentication` array.
+The following option is required inside the `authentication` object.
 
 Option | Type | Description
 :--- | :--- | :---
@@ -132,11 +132,11 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `region` | No | String | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon Simple Storage Service (Amazon S3). Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-`msk` | No | JSON array | The [MSK](#msk) configuration settings.
+`msk` | No | JSON object | The [MSK](#msk) configuration settings.
 
 #### MSK
 
-Use the following options inside the `msk` array.
+Use the following options inside the `msk` object.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
