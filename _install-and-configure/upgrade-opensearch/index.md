@@ -85,7 +85,7 @@ Choose an appropriate method for upgrading your cluster to a new version of Open
 - A [rolling upgrade](#rolling-upgrade) upgrades nodes one at a time without stopping the cluster.
 - A [cluster restart upgrade](#cluster-restart-upgrade) upgrades services while the cluster is stopped.
 
-Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API. See the [Lucene version reference](#lucene-version-reference) table included later in this guide for help planning your data migration.
+Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API. See the [Index compatibility reference](#index-compatibility-reference) table included later in this guide for help planning your data migration.
 
 ### Rolling upgrade
 
