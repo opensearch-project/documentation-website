@@ -8,7 +8,7 @@ nav_order: 6
 
 # kafka
 
-The `kafka` source allows Data Prepper to use Apache Kafka as a source. reads records from one of more Kafka [topics](https://kafka.apache.org/intro#intro_concepts_and_terms), which hold events that your Data Prepper pipeline can ingest. It uses Kafka's [Consumer API](https://kafka.apache.org/documentation/#consumerapi) to consume messages from the Kafka broker, which then creates Data Prepper events for further processing by the Data Prepper pipeline.
+You can use the Apache Kafka source (`kafka`) in Data Prepper to read records from one or more Kafka [topics](https://kafka.apache.org/intro#intro_concepts_and_terms). These records hold events that your Data Prepper pipeline can ingest. The `kafka` source uses Kafka's [Consumer API](https://kafka.apache.org/documentation/#consumerapi) to consume messages from the Kafka broker, which then creates Data Prepper events for further processing by the Data Prepper pipeline.
 
 ## Usage
 
@@ -33,14 +33,14 @@ Use the following configuration options with the `kafka` source.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`bootstrap_servers` | Yes when not using Amazon MSK as a cluster | IP address | The host or port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or port number for each broker. When using [Amazon MSK](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from MSK using the MSK ARN provided in the configuration.
-`topics` | Yes | JSON array | The topics inside of Kafka where the Data Prepper `kafka` source reads messages. You can configure up to 10 topics. For more information about options you need to configure inside `topics`, see [Topics](#topics).
-`schema` | No | JSON array | The schema registry configuration. For more information, see [Schema](#schema)
+`bootstrap_servers` | Yes, when not using Amazon Managed Streaming for Apache Kafka (Amazon MSK) as a cluster. | IP address | The host or port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or port number for each broker. When using [Amazon MSK](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from MSK using the MSK Amazon Resource Name (ARN) provided in the configuration.
+`topics` | Yes | JSON array | The Kafka topics that the Data Prepper `kafka` source uses to read messages. You can configure up to 10 topics. For more information about `topics` configuration options, see [Topics](#topics).
+`schema` | No | JSON array | The schema registry configuration. For more information, see [Schema](#schema).
 `authentication` | No | JSON array | Set the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
 `encryption` | No | JSON array | The encryption configuration. For more information, see [Encryption](#encryption).
-`aws` | No | JSON array | The AWS configuration. See [aws](#aws) for details.
+`aws` | No | JSON array | The AWS configuration. For more information, see [aws](#aws).
 `acknowledgments` | No | Boolean | If `true`, enables the `kafka` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
-`acknowledgements_timeout` | No | Time | The maximum time to wait for acknowledgements to be received. Default is `30s`.
+`acknowledgements_timeout` | No | Time | The maximum amount of time to wait for acknowledgements to be received. Default is `30s`.
 `client_dns_lookup` | Yes, when a DNS alias is used. | String | Sets Kafka's `client.dns.lookup` option. Default is `default`.
 
 ### Topics
@@ -52,21 +52,21 @@ Option | Required | Type | Description
 `name` | Yes | String | The name of each Kafka topic.
 `group_id` | Yes | String | Sets Kafka's `group.id` option.
 `workers` | No | Integer | The number of multithreaded consumers associated with each topic. Default is `2`. The maximum value is `200`.
-`serde_format` | No | String | Indicates the serialization and the deserialization format of the messages in the topic. Default is `plaintext`.
-`auto_commit` | No | Boolean | When `false`, the consumer's offset will no be periodically committed to Kafka in the background. Default is `false`.
-`commit_interval` | No | Integer | When `auto_commit` is set to `true`, sets the frequency in seconds that the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
-`session_timeout` | No | Integer | The amount of time for the source to detect client failures when using Kafka's group management features, which can be used to balance the data stream. Default is `45s`.
+`serde_format` | No | String | Indicates the serialization and deserialization format of the messages in the topic. Default is `plaintext`.
+`auto_commit` | No | Boolean | When `false`, the consumer's offset will not be periodically committed to Kafka in the background. Default is `false`.
+`commit_interval` | No | Integer | When `auto_commit` is set to `true`, sets how frequently, in seconds, the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
+`session_timeout` | No | Integer | The amount of time during which the source detects client failures when using Kafka's group management features, which can be used to balance the data stream. Default is `45s`.
 `auto_offset_reset` | No | String | Automatically resets the offset to the earlier or latest offset through Kafka's `auto.offset.reset` option. Default is `latest`.
-`thread_waiting_time` | No | Integer | The time that threads wait until the preceding thread completes its task and signals the next thread. The Kafka consumer API poll timeout value is set to half of this setting. Default is `5s`.
-`max_partition_fetch_bytes` | No | Integer | Sets the maximum limit in bytes for max data returns from each partition through Kafka's `max.partition.fetch.bytes`. Default is `1048676`.
-`heart_beat_interval` | No | Integer | The expected time between heart beats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `5s`.
-`fetch_max_wait` | No | Integer | The maximum amount of time the server blocks a fetch request when there isn't sufficient data to satisfy the `fetch_min_bytes` requirement through Kafka's `fetch.max.wait.ms` setting. Default is `500ms`.
+`thread_waiting_time` | No | Integer | The amount of time that threads wait for the preceding thread to complete its task and to signal the next thread. The Kafka consumer API poll timeout value is set to half of this setting. Default is `5s`.
+`max_partition_fetch_bytes` | No | Integer | Sets the maximum limit in bytes for max data returns from each partition through Kafka's `max.partition.fetch.bytes` setting. Default is `1048676`.
+`heart_beat_interval` | No | Integer | The expected amount of time between heartbeats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `5s`.
+`fetch_max_wait` | No | Integer | The maximum amount of time during which the server blocks a fetch request when there isn't sufficient data to satisfy the `fetch_min_bytes` requirement through Kafka's `fetch.max.wait.ms` setting. Default is `500ms`.
 `fetch_max_bytes` | No | Integer | The maximum record size accepted by the broker through Kafka's `fetch.max.bytes` setting. Default is `52428800`.
 `fetch_min_bytes` | No | Integer | The minimum amount of data the server returns during a fetch request through Kafka's `retry.backoff.ms` setting. Default is `1`.
 `retry_backoff` | No | Integer | The amount of time to wait before attempting to retry a failed request to a given topic partition. Default is `10s`.
-`max_poll_interval` | No | Integer | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option.  Default is `300s`.
+`max_poll_interval` | No | Integer | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option. Default is `300s`.
 `consumer_max_poll_records` | No | Integer | The maximum number of records returned in a single `poll()` call through Kafka's `max.poll.records` setting. Default is `500`.
-`key_mode` | No | String | Indicates how the key field of the Kafka message should be handled. The default setting is `include_as_field`, which includes the key in the `kafka_key` event. The `include_as_matadata` setting places the key in the event's metadata. The `discard` setting discards the key. 
+`key_mode` | No | String | Indicates how the key field of the Kafka message should be handled. The default setting is `include_as_field`, which includes the key in the `kafka_key` event. The `include_as_metadata` setting includes the key in the event's metadata. The `discard` setting discards the key. 
 
 ### Schema
 
@@ -74,7 +74,7 @@ The following option is required inside the `schema` configuration.
 
 Option | Type | Description
 :--- | :--- | :---
-`type` | String | Sets the type of schema based on your registry, either AWS Glue registry, `aws_glue`, or the Confluent schema registry, `confluent`. When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
+`type` | String | Sets the type of schema based on your registry, either the AWS Glue Schema Registry, `aws_glue`, or the Confluent Schema Registry, `confluent`. When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
 
 The following configuration options are only required when using a `confluent` registry.
 
@@ -91,17 +91,17 @@ The following option is required inside the `authentication` array.
 
 Option | Type | Description
 :--- | :--- | :---
-`sasl` | JSON object | The SASL authentication configuration. 
+`sasl` | JSON object | The Simple Authentication and Security Layer (SASL) authentication configuration. 
 
 ### SASL 
 
-Use one of the following options when configuring the SASL authentication configuration.
+Use one of the following options when configuring SASL authentication.
 
 
 Option | Type | Description
 :--- | :--- | :---
 `plaintext` | JSON object | The [PLAINTEXT](#sasl-plaintext) authentication configuration.
-`aws_msk_iam` | String | The AWS MASK IAM configuration. If set to `role`, the `sts_role_arm` set in the `aws` configuration is used. Default is `default`.
+`aws_msk_iam` | String | The Amazon MSK AWS Identity and Access Management (IAM) configuration. If set to `role`, the `sts_role_arm` set in the `aws` configuration is used. Default is `default`.
 
 
 
@@ -121,17 +121,17 @@ Use the following options when setting SSL encryption.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `type` | No | String | The encryption type. Use `none` to disable encryption. Default is `ssl`.
-`Insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, CA certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
+`Insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, certificate authority (CA) certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
 
 
 #### AWS
 
-Use the following when setting up authentication for `aws` services.
+Use the following options when setting up authentication for `aws` services.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `region` | No | String | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
-`sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon SQS and Amazon S3. Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+`sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon Simple Queue Service (Amazon SQS) and Amazon Simple Storage Service (Amazon S3). Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `msk` | No | JSON array | The [MSK](#msk) configuration settings.
 
 #### MSK
