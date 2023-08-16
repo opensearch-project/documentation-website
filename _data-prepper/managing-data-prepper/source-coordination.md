@@ -11,9 +11,9 @@ _Source coordination_ is the concept of coordinating and distributing work betwe
 
 Source coordination in Data Prepper decides which partition of work is done by each node in the Data Prepper cluster and prevents duplicate partitions of work once the node completes work.
 
-Inspired by the K[inesis Client Library](https://docs.aws.amazon.com/streams/latest/dev/shared-throughput-kcl-consumers.html), Data Prepper utilizes a distributed store in the form of a lease to handle the distribution and deduplication of work.
+Inspired by the [Kinesis Client Library](https://docs.aws.amazon.com/streams/latest/dev/shared-throughput-kcl-consumers.html), Data Prepper utilizes a distributed store in the form of a lease to handle the distribution and deduplication of work.
 
-## Formatting partition items
+## Formatting partitions
 
 Source coordination separates sources into "partitions of work". For example, an S3 object would be a partition of work for Amazon S3, or an OpenSearch index would be a partition of work for OpenSearch.
 
@@ -32,11 +32,11 @@ Data Prepper takes each partition of work that is chosen by the source and creat
 | `closedCount` | Long | Tracks how many times the partition has been marked as `CLOSED`.|
 
 
-## Acquiring items
+## Acquiring partitions
 
-Items are acquired in the order that they are returned in the `List<PartitionIdentifer>` provided by the source. When a node attempts to acquire a partition, Data Prepper performs the following steps.
+Partitions are acquired in the order that they are returned in the `List<PartitionIdentifer>` provided by the source. When a node attempts to acquire a partition, Data Prepper performs the following steps.
 
-1. First query the `ASSIGNED` partitions to check if any of these `ASSIGNED` partitions have expired partition ownerships. This is intended to give priority to partitions that had nodes crash in the middle of processing, which can allow for using a partition state that may be time sensitive. 
+1.  Query the `ASSIGNED` partitions to check if any of these `ASSIGNED` partitions have expired partition owners. This is intended to give priority to partitions that had nodes crash in the middle of processing, which can allow for using a partition state that may be time sensitive. 
 2. After querying `ASSIGNED` partitions, Data Prepper queries the `CLOSED` partitions to see if any of the partition's `reOpenAt` timestamps have been reached. 
 3. If there are no `ASSIGNED` or `CLOSED` partitions available, then Data Prepper queries the `UNASSIGNED` partitions one of these is partitions is `ASSIGNED`.
 
