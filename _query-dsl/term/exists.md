@@ -10,14 +10,14 @@ nav_order: 10
 
 Use the `exists` query to search for documents that contain a specific field.
 
-An indexed value does not exist for a document field in one of the following cases:
+An indexed value will not exist for a document field in any one of the following cases:
 
 - The field has `"index" : false` specified in the mapping
 - The field in the source JSON is `null` or `[]`.
-- The length of the field value exceeded the `ignore_above` setting in the mapping
-- The field value was malformed and `ignore_malformed` was defined in the mapping
+- The length of the field value exceeds the `ignore_above` setting in the mapping
+- The field value is malformed and `ignore_malformed` is defined in the mapping
 
-An indexed value exists for a document field in all of the following cases:
+An indexed value will exist for a document field in any of the following cases:
 
 - The value is an array that contains one or more null elements and one or more non-null elements (for example, `["one", null]`)
 - The value is an empty string (`""` or `"-"`)
@@ -94,7 +94,7 @@ The response contains the matching document:
 
 ## Finding documents with missing indexed values
 
-To find documents with missing indexed values, you can use the `must_not` [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) with the inner `exists` query. For example, the following request searches for documents, in which the `description` field is missing:
+To find documents with missing indexed values, you can use the `must_not` [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) with the inner `exists` query. For example, the following request searches for documents in which the `description` field is missing:
 
 ```json
 GET testindex/_search

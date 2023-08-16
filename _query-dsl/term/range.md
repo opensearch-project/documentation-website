@@ -131,7 +131,7 @@ GET products/_search
 
 The first date that we specify is the anchor date or the starting point for the date math. Add two trailing pipe symbols. You could then add one day (`+1d`) or subtract two weeks (`-2w`). This math expression is relative to the anchor date that you specify.
 
-You could also round off dates by adding a forward slash to the date or time unit.
+You can also round off dates by adding a forward slash to the date or time unit.
 
 To find products added in the last year and rounded off by month:
 

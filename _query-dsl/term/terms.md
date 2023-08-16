@@ -105,7 +105,7 @@ PUT classes/_doc/101
 ```
 {% include copy-curl.html %}
 
-To search for students who are enrolled in the `CS101` class, specify the document ID of the document that corresponds to the class, the index of that document, and the path of the field where the terms a located:
+To search for students who are enrolled in the `CS101` class, specify the document ID of the document that corresponds to the class, the index of that document, and the path of the field where the terms are located:
 
 ```json
 GET students/_search

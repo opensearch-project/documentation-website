@@ -43,7 +43,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents despite the difference in casing:
+The response contains the matching documents despite any differences between case:
 
 ```json
 "hits": {
