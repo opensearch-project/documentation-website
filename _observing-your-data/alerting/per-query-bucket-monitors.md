@@ -73,7 +73,7 @@ You can also filter query results using `{% raw %}{{period_start}}{% endraw %}` 
 To define a monitor visually, choose **Visual editor**. Then choose a source index, a time frame, an aggregation (for example, `count()` or `average()`), a data filter (if you want to monitor a subset of your source index), and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a bucket-level monitor. 
 
 Visual definition works well for most monitors.
-{: .note}
+{: .tip }
 
 If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security/).
 
@@ -82,7 +82,7 @@ To use a query, choose **Extraction query editor**, add your query (using [OpenS
 The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
 
 Anomaly detection is available only if you are defining a per query monitor.
-{: .note}
+{: .warning}
 
 To use an anomaly detector, choose **Anomaly detector** and select your **Detector**.
 
