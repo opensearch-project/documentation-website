@@ -141,7 +141,7 @@ The following list details metrics related to partition progress:
 * `partitionsAcquired`: The number of partitions that have been acquired by nodes to do work on. In non-error scenarios, this should be equal to the number of partitions created.
 * `partitionsClosed`: The number of partitions that have been marked as `CLOSED`. This is only applicable to sources that use the CLOSED functionality.
 
-The following list details metric related to partition errors:
+The following list details metrics related to partition errors:
 
 
 * `partitionNotFoundErrors`: Indicates that a partition item that is actively owned by a node does not have a corresponding store item. This should only occur if an item in the table has been manually deleted.
