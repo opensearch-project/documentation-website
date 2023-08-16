@@ -9,7 +9,7 @@ redirect_from:
 
 # Configuring the Security backend
 
-One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The part that the backend plays in authentication is covered in [steps 2–3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
+One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The part that the backend plays in authentication is covered in [steps 2 and 3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
 The primary file used to configure an authentication and authorization backend is `config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how it verifies these credentials, and how it fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
 
@@ -48,7 +48,7 @@ The settings used in this configuration are described in the following table.
 
 | Setting | Description |
 | :--- | :--- |
-| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user gets regularly authenticated <!--- what does "regularly authenticated" mean? --->. If none are found, the user is authenticated as an "anonymous" user. This user then has the username "anonymous" and one role named "anonymous_backendrole". When you enable anonymous authentication, all HTTP authenticators do not challenge. See [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
+| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user is regularly authenticated <!--- what does "regularly authenticated" mean? --->. If none are found, the user is authenticated as an "anonymous" user. This user then has the username "anonymous" and one role named "anonymous_backendrole". When you enable anonymous authentication, all defined [HTTP authenticators](#authentication) do not challenge. See also [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
 | `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/). |
 
 If you disable anonymous authentication, the Security plugin won't initialize if you have not provided at least one `authc`.
@@ -73,11 +73,17 @@ authc:
 
 An entry in the `authc` section is called an *authentication domain*. It specifies where to get the user credentials and against which backend they should be authenticated.
 
-You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), `enabled` flags, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
+You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), settings for enabling the domain on the REST and transport layers, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
 
-`http_authenticator` specifies which authentication method that you want to use on the HTTP layer.
+Settings that are typically found in this part of configuration are included in the following table.
 
-The following example shows the syntax used for defining an authenticator on the HTTP layer:
+| Setting | Description |
+| :--- | :--- |
+| `http_enabled` | Enables or disables authentication on the REST layer. Default is `true`, or, enabled. |
+| `transport_enabled` | Enables or disables authentication on the transport layer. Default is `true`, or, enabled. |
+| `order` | Takes an integer for its value to determine the order in which one of multiple authentication domains is queried with an authentication request. Once authentication succeeds, there is no longer the need to query any of the remaining domains. |
+
+The `http_authenticator` definition specifies the authentication method that you want to use on the HTTP layer. The following example shows the syntax used for defining an HTTP authenticator:
 
 ```yml
 http_authenticator:
@@ -87,7 +93,7 @@ http_authenticator:
     ...
 ```
 
-The `type` setting for `http_authenticator` allows the following values.
+The `type` setting for `http_authenticator` accepts the following values.
 
 | Value | Description |
 | :--- | :--- |
@@ -115,7 +121,7 @@ The following table shows the possible values for the `type` setting under `auth
 
 ## Authorization
 
-After the user has been authenticated, the Security plugin can optionally collect additional roles from backend systems. The authorization configuration has the following format:
+The `authz` configuration is used to extract backend roles from an LDAP implementation. After the user has been authenticated, the Security plugin can optionally collect additional roles from the backend system. The authorization configuration has the following format:
 
 ```yml
 authz:
@@ -128,14 +134,14 @@ authz:
         ...
 ```
 
-You can define multiple entries in this section the same way as you can for authentication entries. In this case, execution order is not relevant, so there is no `order` field.
+You can define multiple entries in this section the same way as you can for authentication entries. In this case, however, the execution order is not relevant and the `order` setting is not used.
 
 The following table shows the possible values for the `type` setting under `authorization_backend`.
 
 | Value | Description |
 | :--- | :--- |
-| `noop` | Skip this step altogether. |
-| `ldap` | Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
+| `noop` | Skips over the authorization configuration step altogether. |
+| `ldap` | Fetches additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
 
 
 ## Backend configuration examples
