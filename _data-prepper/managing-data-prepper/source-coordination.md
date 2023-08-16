@@ -52,7 +52,7 @@ The following table provide optional configuration values for `source_coordinati
 | Value | Type | Description |
 | :--- | :--- | :--- |
 | `partition_prefix` | String | A prefix to the `sourceIdentifier` used to differentiate between Data Prepper clusters that share the same distributed store. |
-| `store` | Object  | The object that makes up the configuration for the store to be used, where the key is the name of the store, such as `in_memory` or `dynamodb`, and the value is any configurations available on that store type. |
+| `store` | Object  | The object that comprises the configuration for the store to be used, where the key is the name of the store, such as `in_memory` or `dynamodb`, and the value is any configuration available on that store type. |
 
 ### Supported stores
 As of Data Prepper 2.4, only `in_memory` and `dynamodb` stores are supported:
@@ -96,7 +96,7 @@ The following shows the full set of permissions needed for Data Prepper to creat
 | `region` | Yes | String | The region of the DynamoDB table. |
 | `sts_role_arn` | No  | String  |  The `sts` role that contains the table permissions. Uses default credentials when not provided. |
 | `sts_external_id` | No | String  | The external ID used in the API call to assume the `sts_role_arn`. |
-| `skip_table_creation` | No | Boolean  | If set to `true` when using an existing store, and the attempt to create the store will skip. Default is `false`. |
+| `skip_table_creation` | No | Boolean  | If set to `true` when using an existing store, the attempt to create the store is skipped. Default is `false`. |
 | `provisioned_write_capacity_units` | No | Integer |  The number of write capacity units to configure on the table. Default is `10`. |
 | `provisioned_read_capacity_units`  | No | Integer | The number of read capacity units to configure on the table. Default is `10`. |
 | `ttl` | Duration | Optional. The duration of the TTL for the items in the table. The TTL is extended by this duration when an update is made to the item. Defaults to no TTL being used on the table. |
