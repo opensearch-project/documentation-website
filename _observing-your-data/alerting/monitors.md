@@ -10,7 +10,7 @@ redirect_from:
 
 # Monitors
 
-Proactively monitor your data in OpenSearch with alerting and anomaly detection. Set up alerts to receive notifications when your data exceeds certain thresholds. Anomaly detection uses machine learning (ML) to automatically detect any outliers in your streaming data. You can pair anomaly detection with alerting to ensure that you're notified as soon as an anomaly is detected.
+Proactively monitor your data in OpenSearch with features available in Alerting and Anomaly Detection. For example, you can pair Anomaly Detection with Alerting to ensure that you're notified as soon as an anomaly is detected by setting up a detector to automatically detect outliers in your streaming data and monitors alert you through notifications when data exceeds certain thresholds. 
 
 ## Monitor types
 
