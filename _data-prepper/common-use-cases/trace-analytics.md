@@ -318,7 +318,7 @@ You must make the following changes:
 * `aws_sigv4` – If you are using Amazon OpenSearch Service with AWS signing, set this value to `true`. It will sign requests with the default AWS credentials provider.
 * `aws_region` – If you are using Amazon OpenSearch Service with AWS signing, set this value to your AWS Region.
 
-For other configurations available for OpenSearch sinks, see [Data Prepper OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/opensearch/).
+For other configurations available for OpenSearch sinks, see [Data Prepper OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/).
 
 ## OpenTelemetry Collector
 
