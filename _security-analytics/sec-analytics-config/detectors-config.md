@@ -23,7 +23,8 @@ You can define a new detector by naming the detector, selecting a data source an
     
 1. In the **Log types and rules** section, select the log type for the data source. The system automatically populates the Sigma security rules associated with the log type.
 
-For information about creating custom detection rules, see 
+For information about creating your own detection rules, see [Creating detection rules](/security-analytics/usage/rules/#creating-detection-rules).
+{: .note }
 
 The following image shows the number of associated rules populated in the **Detection rules** section.
 
