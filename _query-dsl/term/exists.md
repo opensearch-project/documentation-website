@@ -10,18 +10,18 @@ nav_order: 10
 
 Use the `exists` query to search for documents that contain a specific field.
 
-An indexed value will not exist for a document field in any one of the following cases:
+An indexed value will not exist for a document field in any of the following cases:
 
-- The field has `"index" : false` specified in the mapping
+- The field has `"index" : false` specified in the mapping.
 - The field in the source JSON is `null` or `[]`.
-- The length of the field value exceeds the `ignore_above` setting in the mapping
-- The field value is malformed and `ignore_malformed` is defined in the mapping
+- The length of the field value exceeds the `ignore_above` setting in the mapping.
+- The field value is malformed and `ignore_malformed` is defined in the mapping.
 
 An indexed value will exist for a document field in any of the following cases:
 
-- The value is an array that contains one or more null elements and one or more non-null elements (for example, `["one", null]`)
-- The value is an empty string (`""` or `"-"`)
-- The value is a custom `null_value`, as defined in the field mapping
+- The value is an array that contains one or more null elements and one or more non-null elements (for example, `["one", null]`).
+- The value is an empty string (`""` or `"-"`).
+- The value is a custom `null_value`, as defined in the field mapping.
 
 
 ## Example

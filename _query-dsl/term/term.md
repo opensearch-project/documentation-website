@@ -24,9 +24,9 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-When a document is indexed, the `text` fields are [analyzed]({{site.url}}{{site.baseurl}}/analyzers/index/). Analysis includes tokenizing and lowercasing the text and removing punctuation. Unlike `match` queries, which analyze the query text, `term` queries only match the exact term and thus may not return relevant results. Avoid using `term` queries on `text` fields. For details, see the [comparison of `term` and `match` queries]({{site.url}}{{site.baseurl}}/query-dsl/term-vs-full-text/).
+When a document is indexed, the `text` fields are [analyzed]({{site.url}}{{site.baseurl}}/analyzers/index/). Analysis includes tokenizing and lowercasing the text and removing punctuation. Unlike `match` queries, which analyze the query text, `term` queries only match the exact term and thus may not return relevant results. Avoid using `term` queries on `text` fields. For more information, see the [comparison of `term` and `match` queries]({{site.url}}{{site.baseurl}}/query-dsl/term-vs-full-text/).
 
-You can specify for the query to be case insensitive in the `case_insensitive` parameter:
+You can specify that the query should be case insensitive in the `case_insensitive` parameter:
 
 ```json
 GET shakespeare/_search
@@ -43,7 +43,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents despite any differences between case:
+The response contains the matching documents despite any differences in case:
 
 ```json
 "hits": {

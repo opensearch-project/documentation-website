@@ -8,14 +8,14 @@ nav_order: 20
 
 # Fuzzy query
 
-A fuzzy query searches for documents with terms that are similar to the search term within the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The Levenshtein distance measures the number of one-character changes needed to change one term to another term. These changes include:
+A fuzzy query searches for documents containing terms that are similar to the search term within the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The Levenshtein distance measures the number of one-character changes needed to change one term to another term. These changes include:
 
 - Replacements: **c**at to **b**at
 - Insertions: cat to cat**s**
 - Deletions: **c**at to at
 - Transpositions: **ca**t to **ac**t
 
-A fuzzy query creates a list of all possible expansions of the search term that fall within the Levenshtein distance. You can specify the maximum number of such expansions in the `max_expansions` field. Then is searches for documents that match any of the expansions.
+A fuzzy query creates a list of all possible expansions of the search term that fall within the Levenshtein distance. You can specify the maximum number of such expansions in the `max_expansions` field. Then it searches for documents that match any of the expansions.
 
 The following example query searches for the speaker `HALET` (misspelled `HAMLET`). The maximum edit distance is not specified, so the default `AUTO` edit distance is used:
 
@@ -33,7 +33,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-The response contains all documents where `HAMLET` is the speaker.
+The response contains all documents in which `HAMLET` is the speaker.
 
 The following example query searches for the word `HALET` with advanced parameters:
 
@@ -80,7 +80,7 @@ The `<field>` accepts the following parameters. All parameters except `value` ar
 Parameter | Data type | Description
 :--- | :--- | :---
 `value` | String | The term to search for in the field specified in `<field>`.
-`fuzziness` | `AUTO`, `0`, or a positive integer | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
+`fuzziness` | `AUTO`, `0`, or a positive integer | The number of character edits (insert, delete, substitute) needed to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
 `max_expansions` | Positive integer |  The maximum number of terms to which the query can expand. Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms. Default is `50`.
 `prefix_length` | Non-negative integer | The number of leading characters that are not considered in fuzziness. Default is `0`.
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.

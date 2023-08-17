@@ -87,7 +87,7 @@ For a list of characters that should be avoided when using `text` field types, s
 
 ## Expensive queries
 
-Expensive queries can consume a lot of memory and lead to a performance decline in a cluster. The following queries may be resource-consuming:
+Expensive queries can consume a lot of memory and lead to a decline in cluster performance. The following queries may be resource consuming:
 
 - [`fuzzy`]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/) queries 
 - [`prefix`]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) queries

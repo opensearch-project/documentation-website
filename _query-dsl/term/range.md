@@ -10,7 +10,7 @@ nav_order: 50
 
 You can search for a range of values in a field with the `range` query.
 
-To search for documents where the `line_id` value is >= 10 and <= 20, use the following request:
+To search for documents in which the `line_id` value is >= 10 and <= 20, use the following request:
 
 ```json
 GET shakespeare/_search
@@ -31,10 +31,10 @@ GET shakespeare/_search
 
 The field parameter in the range query accepts the following optional operator parameters:
 
-- `gte`: Greater than or equal to.
-- `gt`: Greater than.
-- `lte`: Less than or equal to.
-- `lt`: Less than.
+- `gte`: Greater than or equal to
+- `gt`: Greater than
+- `lte`: Less than or equal to
+- `lt`: Less than
 
 ## Date fields
 
@@ -107,7 +107,7 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-The beginning date is populated with the default values so the `gte` parameter used is `2022-01-01T23:59:59.999999999Z`.
+The beginning date is populated with the default values, so the `gte` parameter used is `2022-01-01T23:59:59.999999999Z`.
 
 ### Relative dates
 
@@ -129,11 +129,11 @@ GET products/_search
 ```
 {% include copy-curl.html %}
 
-In the preceding example, `2019/01/01` is the anchor date or the starting point for the date math. After the two pipe characters (`||`), you are specifying a mathematical expression relative to the anchor date. In this example, you are subtracting one year (`-1y`) and one day (`-1d`). 
+In the preceding example, `2019/01/01` is the anchor date (the starting point) for the date math. After the two pipe characters (`||`), you are specifying a mathematical expression relative to the anchor date. In this example, you are subtracting 1 year (`-1y`) and 1 day (`-1d`). 
 
 You can also round off dates by adding a forward slash to the date or time unit.
 
-To find products added in the last year and rounded off by month, use the following query:
+To find products added within the last year, rounded off by month, use the following query:
 
 ```json
 GET products/_search
@@ -182,7 +182,7 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-The preceding query specifies the `-04:00` offset so the `gte` parameter is converted to `2022-04-17T10:00:00 UTC`.   
+The preceding query specifies the `-04:00` offset, so the `gte` parameter is converted to `2022-04-17T10:00:00 UTC`.   
 
 The time_zone parameter does not affect the `now` value.
 {: .note}
@@ -212,7 +212,7 @@ In addition to [operators](#operators), you can specify the following optional p
 Parameter | Data type | Description
 :--- | :--- | :---
 `format` | String | A [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats) for dates in this query. Default is the field's mapped format.
-`relation` | String |Indicates how the range query matches values for [`range`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) fields. Valid values are:<br> - `INTERSECTS` (default): Matches documents whose `range` field value intersects the range provided in the query.  <br> - `CONTAINS`: Matches documents whose `range` field value completely contains the range provided in the query. <br> - `WITHIN`: Matches documents whose `range` field value is completely within the range provided in the query.
+`relation` | String | Indicates how the range query matches values for [`range`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) fields. Valid values are:<br> - `INTERSECTS` (default): Matches documents whose `range` field value intersects the range provided in the query.  <br> - `CONTAINS`: Matches documents whose `range` field value contains the entire range provided in the query. <br> - `WITHIN`: Matches documents whose `range` field value is entirely within the range provided in the query.
 `boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values less than 1 decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
 `time_zone` | String | The time zone used to convert [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values to UTC in the query. Valid values are ISO 8601 [UTC offsets](https://en.wikipedia.org/wiki/List_of_UTC_offsets) and [IANA time zone IDs](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For more information, see [Time zone](#time-zone).
 

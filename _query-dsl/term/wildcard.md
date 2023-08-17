@@ -31,7 +31,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-If we change `*` to `?`, we get no matches, because `?` refers to a single character.
+If you change `*` to `?`, you get no matches because `?` refers to a single character.
 
 Wildcard queries tend to be slow because they need to iterate over a lot of terms. Avoid placing wildcard characters at the beginning of a query because it could be a very expensive operation in terms of both resources and time.
 

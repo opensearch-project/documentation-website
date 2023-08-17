@@ -29,7 +29,7 @@ A document is returned if it matches any of the terms in the array.
 
 By default, the maximum number of terms in the `terms` query is 65,536. To change the maximum number of terms, update the `index.max_terms_count` setting.
 
-Highlight results for `terms` queries may not be returned depending on highlighter type and the number of terms in the query.
+Highlight results for `terms` queries may not be returned, depending on the highlighter type and the number of terms in the query.
 {: .note}
 
 ## Parameters
@@ -51,7 +51,7 @@ Terms lookup tries to fetch the document field values from a shard on a local da
 
 ### Example
 
-As an example, create an index that holds student data, mapping `student_id` as a `keyword`:
+As an example, create an index that contains student data, mapping `student_id` as a `keyword`:
 
 ```json
 PUT students
@@ -94,7 +94,7 @@ PUT students/_doc/3
 ```
 {% include copy-curl.html %}
 
-Create a separate index that holds class information, including the class name and an array of student IDs of the students enrolled in the class:
+Create a separate index that contains class information, including the class name and an array of student IDs corresponding to the students enrolled in the class:
 
 ```json
 PUT classes/_doc/101
@@ -105,7 +105,7 @@ PUT classes/_doc/101
 ```
 {% include copy-curl.html %}
 
-To search for students who are enrolled in the `CS101` class, specify the document ID of the document that corresponds to the class, the index of that document, and the path of the field where the terms are located:
+To search for students enrolled in the `CS101` class, specify the document ID of the document that corresponds to the class, the index of that document, and the path of the field in which the terms are located:
 
 ```json
 GET students/_search
@@ -198,7 +198,7 @@ ET students/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the matching students:
+The response contains the matching documents:
 
 ```json
 {
