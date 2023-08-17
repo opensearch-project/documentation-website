@@ -93,13 +93,16 @@ http_authenticator:
     ...
 ```
 
-The `type` setting for `http_authenticator` accepts the following values.
+The `type` setting for `http_authenticator` accepts the following values. For more information about each of the authentication options, see the links for authentication backends in [Next steps](#next-steps).
 
 | Value | Description |
 | :--- | :--- |
-| `basic` | HTTP basic authentication. No additional configuration is needed. |
-| `jwt` | JSON Web Token (JWT) authentication. Additional configuration is needed. See [Configuring JWTs]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/#configuring-jwts) for more information. |
-| `clientcert` | Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes. |
+| `basic` | HTTP basic authentication. For additional considerations when using basic authentication, see the HTTP basic authentication documentation. |
+| `jwt` | JSON Web Token (JWT) authentication. See the JSON Web Token documentation for additional configuration. |
+| `openid` | OpenID Connect authentication. See the OpenID Connect documentation for additional configuration. |
+| `saml` | SAML authentication. See the SAML documentation for additional configuration. |
+| `proxy`, `extended-proxy` | Proxy-based authentication. The `extended-proxy` type authenticator allows you to pass additional user attributes for use with document-level security. See the Proxy-based authentication documentation for additional configuration. |
+| `clientcert` | Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes. See the Client certificate authentication documentation for additional configuration. |
 
 After setting an HTTP authenticator, you must specify against which backend system you want to authenticate the user:
 
