@@ -56,7 +56,7 @@ The sink provides specific configurations for the trace analytics feature. These
 
 Starting with version 0.8.x, Data Prepper supports both vertical and horizontal scaling for trace analytics. You can adjust the size of a single Data Prepper instance to meet your workload's demands and scale vertically. 
 
-You can scale horizontally by using the core [peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/peer_forwarder/) to deploy multiple Data Prepper instances to form a cluster. This enables Data Prepper instances to communicate with instances in the cluster and is required for horizontally scaling deployments.
+You can scale horizontally by using the core [peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer_forwarder/) to deploy multiple Data Prepper instances to form a cluster. This enables Data Prepper instances to communicate with instances in the cluster and is required for horizontally scaling deployments.
 
 ### Scaling recommendations
 
@@ -80,7 +80,7 @@ The `workers` setting determines the number of threads that are used by Data Pre
 
 Configure the Data Prepper heap by setting the `JVM_OPTS` environment variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
 
-As mentioned in the [setup guide]({{site.url}}{{site.baseurl}}/data-prepper/trace_analytics/#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry Collector configuration.
+As mentioned in the [setup guide]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace_analytics/#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry Collector configuration.
 
 #### Local disk
 
@@ -283,7 +283,7 @@ service-map-pipeline:
         window_duration: 180 
   buffer:
       bounded_blocking:
-         # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory. 
+         # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memory. 
          # We recommend to keep the same buffer_size for all pipelines. 
          # Make sure you configure sufficient heap
          # default value is 512
