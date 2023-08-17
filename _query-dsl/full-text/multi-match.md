@@ -25,6 +25,8 @@ GET _search
 ```
 {% include copy-curl.html %}
 
+If you don't provide the `fields` parameter, `multi_match` query searches the fields specified in the `index.query.default_field` setting, which defaults to `*`. The default behavior is to extract all fields in the mapping that are eligible for [term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/), filter the metadata fields, and combine all extracted fields to build a query.
+
 The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json

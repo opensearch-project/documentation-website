@@ -4,6 +4,7 @@ title: Query DSL
 nav_order: 2
 has_children: true
 nav_exclude: true
+has_toc: false
 redirect_from:
   - /opensearch/query-dsl/
   - /opensearch/query-dsl/index/
@@ -38,7 +39,7 @@ Broadly, you can classify queries into two categories---*leaf queries* and *comp
 
     - **Full-text queries**: Use full-text queries to search text documents. For an analyzed text field search, full-text queries split the query string into terms using the same analyzer that was used when the field was indexed. For an exact value search, full-text queries look for the specified value without applying text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
 
-    - **Term-level queries**: Use term-level queries to search documents for an exact term, such as an ID or value range. Term-level queries do not analyze search terms or sort results by relevance score. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
+    - **Term-level queries**: Use term-level queries to search documents for an exact term, such as an ID or value range. Term-level queries do not analyze search terms or sort results by relevance score. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/).
 
     - **Geographic and xy queries**: Use geographic queries to search documents that include geographic data. Use xy queries to search documents that include points and shapes in a two-dimensional coordinate system. To learn more, see [Geographic and xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/index).
 
@@ -83,3 +84,29 @@ The following examples illustrate values containing special characters that will
 To avoid this circumstance when using either query DSL or the REST API, you can use a custom analyzer or map the field as `keyword`, which performs an exact-match search. See [Keyword field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) for the latter option.
 
 For a list of characters that should be avoided when using `text` field types, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+
+## Expensive queries
+
+Expensive queries can consume a lot of memory and lead to a decline in cluster performance. The following queries may be resource consuming:
+
+- [`fuzzy`]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/) queries 
+- [`prefix`]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) queries
+- [`range`]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) queries on [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/)) and [`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/) fields
+- [`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) queries 
+- [`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/) queries 
+- [`query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) queries that are internally transformed into prefix queries
+
+To disallow expensive queries, you can disable the `search.allow_expensive_queries` cluster setting as follows:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "search.allow_expensive_queries": false
+  }
+}
+```
+{% include copy-curl.html %}
+
+To track expensive queries, enable [slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#slow-logs).
+{: .tip}

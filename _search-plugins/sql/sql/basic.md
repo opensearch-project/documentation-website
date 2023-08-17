@@ -193,8 +193,8 @@ Specify a condition to filter the results.
 `>=` | Greater than or equal to.
 `<=` | Less than or equal to.
 `IN` | Specify multiple `OR` operators.
-`BETWEEN` | Similar to a range query. For more information about range queries, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term#range).
-`LIKE` | Use for full-text search. For more information about full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
+`BETWEEN` | Similar to a range query. For more information about range queries, see [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/).
+`LIKE` | Use for full-text search. For more information about full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
 `IS NULL` | Check if the field value is `NULL`.
 `IS NOT NULL` | Check if the field value is `NOT NULL`.
 
