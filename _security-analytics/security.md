@@ -12,7 +12,7 @@ You can use OpenSearch Security with Security Analytics to assign user permissio
 
 ## Security Analytics system indexes
 
-Security Analytics indexes are protected as system indexes and treated differently than other indexes in a cluster. System indexes store configurations and other system settings and, for that reason, cannot be modified using the REST API or the OpenSearch Dashboards interface. Only a user with a TLS [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can access system indexes. For more information about working with this type of index, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
+Security Analytics indexes are protected as system indexes and treated differently than other indexes in a cluster. System indexes store configurations and other system settings and, for that reason, cannot be modified using the REST API or the OpenSearch Dashboards interface. Only a user with a TLS [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configure-admin-certificates) can access system indexes. For more information about working with this type of index, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
 
 ## Basic permissions
