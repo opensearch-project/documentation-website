@@ -55,6 +55,5 @@ You've now created the following aggregation-based area chart.
 ## Related links
 
 - [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
-- [Visualization types in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-types/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/)
