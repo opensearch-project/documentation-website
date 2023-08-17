@@ -446,7 +446,7 @@ Option | Valid values | Description
 
 You can also use synonyms with the `terms` query type to search for multiple terms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to `true`. It automatically generates phrase queries for multiple term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` when the option is `true` or `ba OR (batting AND average)` when the option is `false`.
 
-To learn more about the multiple terms query type, see [Terms]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#terms). For more reference information about phrase queries, see the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html).
+To learn more about the multiple terms query type, see [Terms]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/). For more reference information about phrase queries, see the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html).
 
 ### Other advanced options
 
