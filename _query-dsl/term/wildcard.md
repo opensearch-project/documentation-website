@@ -8,14 +8,14 @@ nav_order: 100
 
 # Wildcard query
 
-Use wildcard queries to search for terms that match a wildcard pattern.
+Use wildcard queries to search for terms that match a wildcard pattern. Wildcard queries support the following operators.
 
-Feature | Behavior
+Operator | Description
 :--- | :---
-`*` | Specifies all valid values.
-`?` | Specifies a single valid value.
+`*` | Matches zero or more characters.
+`?` | Matches any single character.
 
-To search for terms that start with `H` and end with `Y`:
+To search for terms that start with `H` and end with `Y`, use the following request:
 
 ```json
 GET shakespeare/_search
@@ -59,7 +59,7 @@ The `<field>` accepts the following parameters. All parameters except `value` ar
 Parameter | Data type | Description
 :--- | :--- | :---
 `value` | String | The wildcard pattern used for matching terms in the field specified in `<field>`.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values less than 1 decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
+`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
 

@@ -17,8 +17,8 @@ Term-level queries are not suited for searching analyzed text fields. To return 
 
 The following table lists all term-level query types.
 
-| Query type | Description
-:--- | :--- | :---
+Query type | Description
+:--- | :--- 
 [`term`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) | Searches for documents containing an exact term in a specific field.
 [`terms`]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/) | Searches for documents containing one or more terms in a specific field.
 [`terms_set`]({{site.url}}{{site.baseurl}}/query-dsl/term/terms-set/) | Searches for documents that match a minimum number of terms in a specific field.

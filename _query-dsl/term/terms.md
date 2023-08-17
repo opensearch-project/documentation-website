@@ -27,9 +27,9 @@ GET shakespeare/_search
 
 A document is returned if it matches any of the terms in the array.
 
-By default, the maximum number of terms in the `terms` query is 65,536. To change the maximum number of terms, update the `index.max_terms_count` setting.
+By default, the maximum number of terms allowed in a `terms` query is 65,536. To change the maximum number of terms, update the `index.max_terms_count` setting.
 
-Highlight results for `terms` queries may not be returned, depending on the highlighter type and the number of terms in the query.
+The ability to [highlight results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) for terms queries may not be guaranteed, depending on the highlighter type and the number of terms in the query.
 {: .note}
 
 ## Parameters
@@ -39,7 +39,7 @@ The query accepts the following parameters. All parameters are optional.
 Parameter | Data type | Description
 :--- | :--- | :---
 `<field>` | String | The field in which to search. A document is returned in the results only if its field value exactly matches at least one term, with the correct spacing and capitalization.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values less than 1 decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
+`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
 
 ## Terms lookup
 
@@ -123,7 +123,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the student data from the `students` index for every student whose ID matches one of the values in the `enrolled` array:
+The response contains the documents in the `students` index for every student whose ID matches one of the values in the `enrolled` array:
 
 ```json
 {

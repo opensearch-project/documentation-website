@@ -90,7 +90,7 @@ OpenSearch populates missing date components with the following values:
 
 If the year is missing, it is not populated. 
 
-For example, consider the following request that specifies only the year in the beginning date:
+For example, consider the following request that specifies only the year in the start date:
 
 ```json
 GET /products/_search
@@ -107,7 +107,7 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-The beginning date is populated with the default values, so the `gte` parameter used is `2022-01-01T23:59:59.999999999Z`.
+The start date is populated with the default values, so the `gte` parameter used is `2022-01-01T23:59:59.999999999Z`.
 
 ### Relative dates
 
@@ -184,7 +184,7 @@ GET /products/_search
 
 The preceding query specifies the `-04:00` offset, so the `gte` parameter is converted to `2022-04-17T10:00:00 UTC`.   
 
-The time_zone parameter does not affect the `now` value.
+The `time_zone` parameter does not affect the `now` value.
 {: .note}
 
 ## Parameters
@@ -213,7 +213,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `format` | String | A [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats) for dates in this query. Default is the field's mapped format.
 `relation` | String | Indicates how the range query matches values for [`range`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) fields. Valid values are:<br> - `INTERSECTS` (default): Matches documents whose `range` field value intersects the range provided in the query.  <br> - `CONTAINS`: Matches documents whose `range` field value contains the entire range provided in the query. <br> - `WITHIN`: Matches documents whose `range` field value is entirely within the range provided in the query.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values less than 1 decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
+`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
 `time_zone` | String | The time zone used to convert [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values to UTC in the query. Valid values are ISO 8601 [UTC offsets](https://en.wikipedia.org/wiki/List_of_UTC_offsets) and [IANA time zone IDs](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For more information, see [Time zone](#time-zone).
 
 If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, range queries on [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) and [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) fields are not run.
