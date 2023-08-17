@@ -21,7 +21,11 @@ You can define a new detector by naming the detector, selecting a data source an
     When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
     {: .note }
     
-1. In the **Log types and rules** section, select the log type for the data source. The system automatically populates the Sigma security rules associated with the log type. The following image shows the number of associated rules populated in the **Detection rules** section.
+1. In the **Log types and rules** section, select the log type for the data source. The system automatically populates the Sigma security rules associated with the log type.
+
+For information about creating custom detection rules, see 
+
+The following image shows the number of associated rules populated in the **Detection rules** section.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="85%">
 
