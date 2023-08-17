@@ -32,7 +32,7 @@ To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-p
 
 ### OpenTelemetry trace source
  
-The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
+The [OpenTelemetry source]({{site.url}}{{site.baseurl}}data-prepper/pipelines/configuration/processors/otel-trace-raw/) accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
 
 ### Processor
 
@@ -50,7 +50,7 @@ OpenSearch provides a generic sink that writes data to OpenSearch as the destina
 The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
 
 * *otel-v1-apm-span* – The *otel-v1-apm-span* index stores the output from the [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) processor.
-* *otel-v1-apm-service-map* – The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/service-map-stateful/) processor.
+* *otel-v1-apm-service-map* – The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/) processor.
 
 ## Trace tuning
 
@@ -209,7 +209,7 @@ otel-trace-pipeline:
         unauthenticated:
   buffer:
     bounded_blocking:
-       # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory. 
+       # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memory. 
        # We recommend to keep the same buffer_size for all pipelines. 
        # Make sure you configure sufficient heap
        # default value is 512
