@@ -32,7 +32,7 @@ To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-p
 
 ### OpenTelemetry trace source
  
-The [OpenTelemetry source]({{site.url}}{{site.baseurl}}data-prepper/pipelines/configuration/processors/otel-trace-raw/) accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
+The OpenTelemetry source accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
 
 ### Processor
 
@@ -49,7 +49,7 @@ OpenSearch provides a generic sink that writes data to OpenSearch as the destina
 
 The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
 
-* *otel-v1-apm-span* – The *otel-v1-apm-span* index stores the output from the [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) processor.
+* *otel-v1-apm-span* – The *otel-v1-apm-span* index stores the output from the [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) processor.
 * *otel-v1-apm-service-map* – The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/) processor.
 
 ## Trace tuning
@@ -78,9 +78,9 @@ The `workers` setting determines the number of threads that are used by Data Pre
 
 #### Heap
 
-Configure the Data Prepper heap by setting the `JVM_OPTS` environment variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
+Configure the Data Prepper heap by setting the `JVM_OPTS` environment variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of individual span`.
 
-As mentioned in the [setup guide]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace_analytics/#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry Collector configuration.
+As mentioned in the setup guide, set `otel_send_batch_size` to a value of `50` in your OpenTelemetry Collector configuration.
 
 #### Local disk
 
