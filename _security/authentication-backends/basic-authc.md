@@ -35,9 +35,11 @@ In most cases, it's appropriate to set `challenge` to `true` for basic authentic
 
 When `challenge` is set to `true`, the Security plugin sends a response with the status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a username and password.
 
-When `challenge` is set to `false` and an `Authorization` header has not been specified in the request, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. Consider using this setting when you have more than one challenge `http_authenticator` setting included in your configured authentication domains. This might be the case, for example, when you plan to use basic authentication and OpenID Connect together.
+When `challenge` is set to `false` and an `Authorization` header has not been specified in the request, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. 
 
-When you define multiple HTTP authenticators, make sure to put non-challenging authenticators first---such as `proxy`, `clientcert`, and `jwt`---and challenging HTTP authenticators last. Because it's not possible to challenge a client with two different authentication methods (for example Kerberos and Basic) only one can have the challenge setting set to `true`. You can cope with this situation by using pre-authentication: in other words, by sending an HTTP basic authentication header in the request.
+When multiple HTTP authenticators are defined in the `config.yml` file, the `challenge` setting is routinely set to `false` for those backends that store credentials in a server or where they are self contained, such as JWT.  This might be the case, for example, when you plan to use basic authentication and SAML together. For an example and more complete explanation of this configuration, see 
+
+When you define multiple HTTP authenticators, make sure to order non-challenging authenticators first---such as `proxy`, `clientcert`, and `jwt`---and order challenging HTTP authenticators last.
 {: .note }
 
 
