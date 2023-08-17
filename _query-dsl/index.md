@@ -91,7 +91,7 @@ Expensive queries can consume a lot of memory and lead to a decline in cluster p
 
 - [`fuzzy`]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/) queries 
 - [`prefix`]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) queries
-- [`range`]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) queries on [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/)) and [`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/) fields
+- [`range`]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) queries on [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) and [`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/) fields
 - [`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) queries 
 - [`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/) queries 
 - [`query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) queries that are internally transformed into prefix queries
