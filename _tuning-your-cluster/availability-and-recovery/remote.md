@@ -134,5 +134,5 @@ curl -X POST "https://localhost:9200/_remotestore/_restore" -ku admin:admin -H '
 '
 ```
 
-If the security plugin is enabled, a user must have the `cluster:admin/remotestore/restore` permission. See [Access control](/security-plugin/access-control/index/) for information about configuring user permissions.
+If the security plugin is enabled, a user must have the `cluster:admin/remotestore/restore` permission. See [Access control](/security/access-control/index/) for information about configuring user permissions.
 {: .note}
