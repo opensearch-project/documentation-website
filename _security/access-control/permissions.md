@@ -215,12 +215,6 @@ See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
 - cluster:admin/repository/put
 - cluster:admin/repository/verify
 
-### Reroute
-
-See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/).
-
-- cluster:admin/reroute
-
 ### Script permissions
 
 See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/).
@@ -302,7 +296,7 @@ See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 
 The index template permissions are for indexes but apply globally to the cluster.
 
-See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
+See [Index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/).
 
 - indices:admin/index_template/delete
 - indices:admin/index_template/get
