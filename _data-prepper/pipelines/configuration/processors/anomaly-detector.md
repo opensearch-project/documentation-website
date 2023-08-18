@@ -18,6 +18,10 @@ You can configure the anomaly detector processor by specifying a key and the opt
 | :--- | :--- | :--- |
 | `keys` | Yes | A non-ordered `List<String>` that is used as input to the ML algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
 | `mode` | Yes | The ML algorithm (or model) used to detect anomalies. You must provide a mode. See [random_cut_forest mode](#random_cut_forest-mode).
+| `identification_keys` | No | If provided, anomalies will be detected within each unique instance of this key. For example, providing `ip` here will have anomalies detected seperately for each unique IP address.
+| `cardinality_limit` | No | If using `identification_keys`, a new ML model will be created for every degree of cardinality. This can cause a large amount of memory usage, so setting a limit to the number of models is useful. Defaults to 5000.
+| `verbose` | No | By default, the RCF algorithm will alert once on a level shift. For example, if latency is consistently 50-100 and jumps to consistently ~1000, only one anomaly will be detected. Setting `verbose` to `true` will alert many times for such a shift.
+
 
 ### Keys
 
