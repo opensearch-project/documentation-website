@@ -128,7 +128,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```
     {% include copy.html %}
 
-Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker prune`.
+Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker container prune`.
 {: .tip}
 
 ## Deploy an OpenSearch cluster using Docker Compose
