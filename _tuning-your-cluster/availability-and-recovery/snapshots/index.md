@@ -26,5 +26,3 @@ Snapshots have two main uses:
 
 
 You can take and restore snapshots using the [snapshot API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore). 
-
-If you need to automate taking snapshots, you can use the [snapshot management]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-management) feature.

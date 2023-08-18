@@ -12,13 +12,13 @@ redirect_from:
 
 ## Alerting indices
 
-The alerting feature creates several indices and one alias. The security plugin demo script configures them as [system indices]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) for an extra layer of protection. Don't delete these indices or modify their contents without using the alerting APIs.
+The alerting feature creates several indices and one alias. The security plugin demo script configures them as [system indices]({{site.url}}{{site.baseurl}}/security/configuration/system-indexes/) for an extra layer of protection. Don't delete these indices or modify their contents without using the alerting APIs.
 
 Index | Purpose
 :--- | :---
 `.opendistro-alerting-alerts` | Stores ongoing alerts.
 `.opendistro-alerting-alert-history-<date>` | Stores a history of completed alerts.
-`.opendistro-alerting-config` | Stores monitors, triggers, and destinations. [Take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore) of this index to back up your alerting configuration.
+`.opendistro-alerting-config` | Stores monitors, triggers, and destinations. [Take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of this index to back up your alerting configuration.
 `.opendistro-alerting-alert-history-write` (alias) | Provides a consistent URI for the `.opendistro-alerting-alert-history-<date>` index.
 
 All alerting indices are hidden by default. For a summary, make the following request:

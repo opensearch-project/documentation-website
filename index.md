@@ -29,7 +29,7 @@ OpenSearch is well-suited to the following use cases:
 Component | Purpose
 :--- | :---
 [OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/) | Data store and search engine
-[OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/) | Search frontend and visualizations
+[OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) | Search frontend and visualizations
 [Security]({{site.url}}{{site.baseurl}}/security-plugin/) | Authentication and access control for your cluster
 [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) | Receive notifications when your data meets certain conditions
 [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/) | Use SQL or a piped processing language to query your data

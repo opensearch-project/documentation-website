@@ -63,7 +63,7 @@ Mitigate the risk of data loss by backing up any important files before you star
 
 Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin configuration files, and TLS certificates. Once you identify which files you want to back up, copy them to remote storage for safety.
 
-If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
+If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
 
 ### Creating a snapshot
 

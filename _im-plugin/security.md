@@ -9,7 +9,7 @@ has_children: false
 
 Using the security plugin with index management lets you limit non-admin users to certain actions. For example, you might want to set up your security such that a group of users can only read ISM policies, while others can create, delete, or change policies.
 
-All index management data are protected as system indices, and only a super admin or an admin with a Transport Layer Security (TLS) certificate can access system indices. For more information, see [System indices]({{site.url}}{{site.baseurl}}/security/configuration/system-indices).
+All index management data are protected as system indices, and only a super admin or an admin with a Transport Layer Security (TLS) certificate can access system indices. For more information, see [System indices]({{site.url}}{{site.baseurl}}/security/configuration/system-indexes).
 
 ## Basic permissions
 
