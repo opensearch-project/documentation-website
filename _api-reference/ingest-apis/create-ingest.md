@@ -83,7 +83,7 @@ Parameter | Required | Type | Description
 Some processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get a field value, enclose the field name in triple curly brackets, for example, {{{field-name}}}.
 
 
-#### Example: `set` ingest processor Mustache template snippet
+#### Example: `set` ingest processor using Mustache template snippet
 
 ```json
 PUT _ingest/pipeline/my-pipeline
