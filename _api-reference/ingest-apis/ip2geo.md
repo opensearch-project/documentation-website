@@ -17,7 +17,7 @@ The `ip2geo` processor maintains the GeoIP data mapping in system indexes. The G
 
 ## Getting started
 
-To get started with using the `ip2geo` processor, the `opensearch-geospatial` plugin must be installed. Learn more at [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+To get started with using the `ip2geo` processor, the `opensearch-geospatial` plugin must be installed. See [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to learn more.
 
 ## Creating the IP2Geo data source
 
