@@ -81,7 +81,7 @@ Settings that are typically found in this part of configuration are included in 
 | :--- | :--- |
 | `http_enabled` | Enables or disables authentication on the REST layer. Default is `true`, or, enabled. |
 | `transport_enabled` | Enables or disables authentication on the transport layer. Default is `true`, or, enabled. |
-| `order` | Takes an integer for its value to determine the order in which one of multiple authentication domains is queried with an authentication request. Once authentication succeeds, there is no longer the need to query any of the remaining domains. |
+| `order` | Determines the order in which an authentication domain is queried with an authentication request when multiple backends are configured in combination. Once authentication succeeds, there is no longer the need to query any of the remaining domains. Its value is an integer. |
 
 The `http_authenticator` definition specifies the authentication method that you want to use on the HTTP layer. The following example shows the syntax used for defining an HTTP authenticator:
 
