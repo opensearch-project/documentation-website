@@ -21,9 +21,9 @@ To get started with using the `ip2geo` processor, the `opensearch-geospatial` pl
 
 ## Creating the IP2Geo data source
 
-Create the IP2Geo data source by defining the endpoint value to download GeoIP data and specify the update interval.
+Before creating the pipeline that uses the `ip2geo` processor, create the IP2Geo data source. The data source defines the endpoint value to download GeoIP data and specifies the update interval.
 
-OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country, and GeoLite2 ASN databases from [MaxMind](http://dev.maxmind.com/geoip/geoip2/geolite2/), shared under the CC BY-SA 4.0 license:
+OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country, and GeoLite2 ASN databases from [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data), which is shared under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license:
 
 * GeoLite2 City: https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json
 * GeoLite2 Country: https://geoip.maps.opensearch.org/v1/geolite2-country/manifest.json
@@ -31,16 +31,16 @@ OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country,
 
 If an OpenSearch cluster cannot update a data source from the endpoints in 30 days, the cluster does not add GeoIP data to the documents, instead it adds `"error":"ip2geo_data_expired"`.
 
-The following table lists the IP2Geo data source options.
+### Data source options
+
+The following table lists the data source options for the `ip2geo` processor.   
 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
-| endpoint | no | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint for downloading the GeoIP data. |
-| update_interval_in_days | no | 3 | The frequency in days for updating the GeoIP data; minimum value is 1. |
+| `endpoint` | Optional | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint for downloading the GeoIP data. |
+| `update_interval_in_days` | Optional | 3 | The frequency in days for updating the GeoIP data. The minimum value is 1. |
 
-The following code example shows how to create an IP2Geo data source.
-
-#### Example: PUT request
+The following example creates an IP2Geo data source:
 
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
@@ -50,27 +50,18 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 }
 ```
 
-The following code example shows the reponse to the preceding request. A true response means the request was successful and the server was able to process the request. A false reponse means check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
-
-#### Example: Successful response
-
-```json
-{
-    "acknowledged":true
-}
-```
+A `true` response means the request was successful and the server was able to process the request. A `false` reponse means check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
+{. :tip}
 
 ## Sending a GET request
 
-To get information about one or more IP2Geo data sources, send a GET request.  
-
-#### Example: GET request
+To get information about one or more IP2Geo data sources, send a GET request:  
 
 ```json
 GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 
-#### Example: Response
+The following example shows the reponse:
 
 ```json
 {
@@ -108,11 +99,11 @@ GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 }
 ```
 
-## Updating an IP2Geo data source
+### Updating an IP2Geo data source
 
-To update an IP2Geo data source successfully, the GeoIP database from the new database's endpoint must contain all fields that the current database has. Otherwise, the update fails. 
+See [Creating the IP2Geo data source]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/ip2geo/#creating-the-ip2geo-data-source) for endpoints and request field descriptions. 
 
-#### Example: Update request
+The following example updates the data source:
 
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
@@ -122,37 +113,42 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 }
 ```
 
-#### Example: Response
+### Deleting the IP2Geo data source
 
-```json
-{
-    "acknowledged":true
-}
-```
+ To delete the IP2Geo data source, you must first delete all processors associated with the data source. Otherwise, the request fails. 
 
-## Deleting the IP2Geo data source
-
- To delete the IP2Geo data source, you must delete all processors associated with the data source first. Otherwise, the DELETE request fails. 
-
-#### Example: DELETE request
+The following example deletes the data source:
 
 ```json
 DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 
-#### Example: Response
+## Creating the pipeline
 
-```json
+Once the data source is created, you can create the pipeline. The syntax for the `ip2geo` processor is:
+
+```json 
 {
-  "acknowledged": true
+  "ip2geo": {
+    "field":"ip",
+    "datasource":"my-datasource"
+  }
 }
 ```
 
-## Creating the processor
+### Configuration parameters
 
-Once the IP2Geo data source is created, you can create the `ip2geo` processor. 
+The following table lists the required and optional parameters for the `ip2geo` processor.
 
-#### Example: Create processor request
+| Name | Required | Default | Description |
+|------|----------|---------|-------------|
+| `field` | Required | - | The field that contains the IP address for geographical lookup. |
+| `datasource` | Required | - | The data source name to use to look up geographical information. |
+| `properties` | Optional |  All fields in `datasource`. | The field that controls what properties are added to `target_field` from `datasource`. |
+| `target_field` | Optional | ip2geo | The field that holds the geographical information looked up from the data source. |
+| `ignore_missing` | Optional | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
+
+The following query creates a pipeline, named `my-pipeline`, that converts the IP address to geographical information:
 
 ```json
 PUT /_ingest/pipeline/my-pipeline
@@ -168,48 +164,23 @@ PUT /_ingest/pipeline/my-pipeline
    ] 
 }
 ```
-
-#### Example: Response
-
-```json
-{
-	"acknowledged": true
-}
+{% include copy-curl.html %}
 ```
 
-## Creating the IP2Geo pipeline
-
-The following table lists the `ip2geo` fields options for creating an IP2Geo pipeline.
-
-| Name | Required | Default | Description |
-|------|----------|---------|-------------|
-| field | yes | - | The field to get the ip address for the geographical lookup. |
-| datasource | yes | - | The data source name to look up geographical information. |
-| properties | no |  All fields in `datasource`. | The field that controls what properties are added to `target_field` from `datasource`. |
-| target_field | no | ip2geo | The field that holds the geographical information looked up from the data source. |
-| ignore_missing | no | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
-
-The following code is an example of using the `ip2geo` processor to add the geographical information to the `ip2geo` field based on the `ip` field.
+Ingest a document into the index: 
 
 ```json
-PUT /_ingest/pipeline/ip2geo
-{
-   "description":"convert ip to geo",
-   "processors":[
-    {
-        "ip2geo":{
-            "field":"ip",
-            "datasource":"my-datasource"
-        }
-    }
-   ] 
-}
-
 PUT /my-index/_doc/my-id?pipeline=ip2geo
 {
   "ip": "172.0.0.1"
 }
+```
+{% include copy-curl.html %}
+```
 
+To view the ingested document, run the following query:
+
+```json
 GET /my-index/_doc/my-id
 {
    "_index":"my-index",
@@ -232,6 +203,8 @@ GET /my-index/_doc/my-id
       }
    }
 }
+```
+{% include copy-curl.html %}
 ```
 
 ## Cluster settings
