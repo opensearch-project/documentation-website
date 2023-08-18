@@ -53,7 +53,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 A `true` response means the request was successful and the server was able to process the request. A `false` reponse means check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 {. :tip}
 
-## Sending a GET request
+### Sending a GET request
 
 To get information about one or more IP2Geo data sources, send a GET request:  
 
