@@ -20,7 +20,7 @@ You can configure the anomaly detector processor by specifying a key and the opt
 | `mode` | Yes | The ML algorithm (or model) used to detect anomalies. You must provide a mode. See [random_cut_forest mode](#random_cut_forest-mode).
 | `identification_keys` | No | If provided, anomalies will be detected within each unique instance of this key. For example, providing `ip` here will have anomalies detected seperately for each unique IP address.
 | `cardinality_limit` | No | If using `identification_keys`, a new ML model will be created for every degree of cardinality. This can cause a large amount of memory usage, so setting a limit to the number of models is useful. Defaults to 5000.
-| `verbose` | No | By default, the RCF algorithm will alert once on a level shift. For example, if latency is consistently 50-100 and jumps to consistently ~1000, only one anomaly will be detected. Setting `verbose` to `true` will alert many times for such a shift.
+| `verbose` | No | RCF will try to auto learn and reduce the number of anomalies. For example if latency is consistently 50-100 and jumps to consistently ~1000, only the first few points after the transition will be detected (unless there are other spikes/anomalies). Likewise, for repeated spikes to the same level, RCF will likely eliminate many of the spikes after a few initial ones. The goal of this default setting is to minimize alerts. Setting verbose to true will alert consistently on these repeated cases and may be useful in detecting anomalous behavior that lasts an extended period of time.
 
 
 ### Keys
