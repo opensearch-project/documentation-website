@@ -70,7 +70,7 @@ You can also filter query results using `{% raw %}{{period_start}}{% endraw %}` 
 
 "Start" and "end" refer to the interval at which the monitor runs. See [Monitor variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-variables).
 
-To define a monitor visually, choose **Visual editor**. Then choose a source index, a time frame, an aggregation (for example, `count()` or `average()`), a data filter (if you want to monitor a subset of your source index), and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a bucket-level monitor. 
+To define a monitor visually, choose **Visual editor**. Then choose a source index, a time frame, an aggregation (for example, `count()` or `average()`), a data filter (if you want to monitor a subset of your source index), and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a per bucket monitor. 
 
 Visual definition works well for most monitors.
 {: .tip }
