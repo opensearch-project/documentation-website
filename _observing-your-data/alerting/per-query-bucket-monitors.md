@@ -9,7 +9,7 @@ has_children: false
 
 # Per query and per bucket monitors
 
-Per query monitors are a type of alert monitor that can be used to identify and alert on specific queries that are run against an OpenSearch index, for example, queries detect and respond to anomalies in specific queries. Per query monitors only trigger one alert at a time. 
+Per query monitors are a type of alert monitor that can be used to identify and alert on specific queries that are run against an OpenSearch index; for example, queries that detect and respond to anomalies in specific queries. Per query monitors only trigger one alert at a time. 
 
 Per bucket monitors are a type of alert monitor that can be used to identify and alert on specific buckets of data that are created by a query against an OpenSearch index.
 
