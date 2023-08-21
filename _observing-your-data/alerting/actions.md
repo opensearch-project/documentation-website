@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Actions
-nav_order: 15
+nav_order: 50
 grand_parent: Alerting
 parent: Monitors
 ---
