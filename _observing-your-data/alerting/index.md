@@ -16,28 +16,17 @@ To create an alert, do the following:
 - Configure one or more _triggers_, which define the conditions that generate events. Optional.
 - Configure _actions_, which is what happens after an alert is triggered. Optional.
 
-## Getting started
+## Key terms
 
-To get started with creating alerts:
-
-1. Choose **Alerting** from the OpenSearch Plugins main menu, then **Create monitor**. If alerts exist, you'll see a list of those alerts and the Create monitor button won't appear. In this case, select the **Monitors** tab, then **Create monitor**.   
-2. Create a per query, per bucket, per cluster metrics, or per document monitor. For instructions, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/).
-3. Create one or more triggers. For instructions, see [Triggers[({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)].
-4. For Actions, set up a notification channel for the alert. For instructions, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
-
-## Alerting terminology
-
-The following table lists alerting terminology commonly used in OpenSearch.
+The following table lists alerting terminology commonly used in OpenSearch and throughout the Alerting documentation.
 
 Term | Definition
 :--- | :---
-Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more *triggers*.
-Trigger | A condition that, if met, generates an *alert*.
-Tag | A label that can be applied to multiple queries to combine them with the logical `OR` operation in a per document monitor. You cannot use tags with other monitor types.
-Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
-Action | The information that you want the monitor to send after being triggered. Actions have a *channel*, a message subject, and a message body.
-Channel | A notification channel to use in an action. Supported channels are Amazon Chime, Slack, Amazon Simple Notification Service (Amazon SNS), email, or custom webhook. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/) for more information.
-Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index `.opensearch-alerting-finding*`.
+Monitor | Job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more triggers.
+Trigger | Conditions that, if met, generate alerts. See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/).
+Alert | Event associated with a trigger. When an alert is created, the trigger performs actions, including sending notifications.
+Action | Specific task that is performed when an alert is triggered. See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
+Notification | Message that is sent to users when an alert is triggered. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
 
 ## Alert states
 
@@ -50,3 +39,18 @@ Acknowledged | The alert is acknowledged but the root cause is not fixed.
 Completed | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.
 Error | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
 Deleted | The monitor or trigger associated with this alert was deleted while the alert was ongoing.
+
+## Creating an alert monitor
+
+You can follow these basic steps to create an alert monitor:
+
+1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
+1. Choose **Create monitor**. See [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) for more information about the monitor types.
+1. Enter the **Monitor details**, including monitor type, method, and schedule.  
+1. Select a data source from the dropdown list.
+1. Define the metrics in the Query section.
+1. Add a trigger. See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) for more information about triggers.
+1. Add an action. See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for more information about actions. 
+1. Select **Create**.
+
+Learn more about creating specific monitor types in their respective documentation.
