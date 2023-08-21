@@ -13,7 +13,7 @@ Per cluster metrics monitors are a type of alert monitor that collects and analy
 
 - Cluster health reaches yellow or red status.
 - Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds.
-- Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach specified thresholds.
+- Node-level metrics---for example, available disk space, JVM memory usage, and CPU usage---reach specified thresholds.
 - Total number of documents stored reaches specified thresholds.
 
 ## Create a cluster metrics monitor
