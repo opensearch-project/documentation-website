@@ -30,7 +30,7 @@ Per document monitors allow you to define up to 10 queries that compare a select
 
 You can query each [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The [Alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. The Alerting plugin then tells the [Notifications plugin]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to send the alert notification to a channel.
 
-You can only use _tags_, that is, labels that can be applied to multiple queries to combine them with the logical `OR`` operation, in a per document monitor.
+You can only use _tags_--- that is, labels that can be applied to multiple queries to combine them with the logical `OR`` operation---in a per document monitor.
 {: .important}
 
 ## Document findings
