@@ -6,13 +6,13 @@ grand_parent: Query DSL
 nav_order: 40
 ---
 
-# Match phrase prefix queries
+# Match phrase prefix query
 
 Use the `match_phrase_prefix` query to specify a phrase to match in order. The documents that contain the phrase you specify will be returned. The last partial term in the phrase is interpreted as a prefix, so any documents that contain phrases that begin with the phrase and prefix of the last term will be returned.
 
-Similar to [match phrase](#match-phrase), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
+Similar to [match phrase]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
 
-For differences between the `match_phrase_prefix` and the `match_bool_prefix` queries, see [The `match_bool_prefix` and `match_phrase_prefix` queries](#the-match_bool_prefix-and-match_phrase_prefix-queries).
+For differences between the `match_phrase_prefix` and the `match_bool_prefix` queries, see [The `match_bool_prefix` and `match_phrase_prefix` queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/#the-match_bool_prefix-and-match_phrase_prefix-queries).
 
 The following example shows a basic `match_phrase_prefix` query:
 
@@ -143,6 +143,6 @@ The `<field>` accepts the following parameters. All parameters except `query` ar
 Parameter | Data type | Description
 :--- | :--- | :---
 `query` | String | The query string to use for search. Required.
-`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/analyzers/index/) used to tokenize the query 
+`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query 
 `max_expansions` | Positive integer |  The maximum number of terms to which the query can expand. Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms. Default is `50`.
 `slop` | `0` (default) or a positive integer | Controls the degree to which words in a query can be misordered and still be considered a match. From the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--): "The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit re-orderings of phrases, the slop must be at least two. A value of zero requires an exact match."

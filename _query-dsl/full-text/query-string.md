@@ -10,8 +10,7 @@ redirect_from:
   - /query-dsl/query-dsl/full-text/query-string/
 ---
 
-# Query string queries
-
+# Query string query
 A `query_string` query parses the query string based on the `query_string` syntax. It lets you create powerful yet concise queries that can incorporate wildcards and search multiple fields.
 
 The query string query splits text based on operators and analyzes each individually.
@@ -70,5 +69,5 @@ Parameter | Data type | Description
 `quote_analyzer` | String | The analyzer used to tokenize quoted text in the query string. Overrides the `analyzer` parameter for quoted text. Default is the `search_quote_analyzer` specified for the `default_field`. 
 `quote_field_suffix` | String | This option lets you search for exact matches (surrounded with quotation marks) using a different analysis method than non-exact matches use. For example, if `quote_field_suffix` is `.exact` and you search for `\"lightly\"` in the `title` field, OpenSearch searches for the word `lightly` in the `title.exact` field. This second field might use a different type (for example, `keyword` rather than `text`) or a different analyzer. 
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
-`auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create [match queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/match/) automatically for multi-term synonyms. Default is `true`.
+`auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create [match queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) automatically for multi-term synonyms. Default is `true`.
 `time_zone` | String | Specifies the number of hours to offset the desired time zone from `UTC`. You need to indicate the time zone offset number if the query string contains a date range. For example, set `time_zone": "-08:00"` for a query with a date range such as `"query": "wind rises release_date[2012-01-01 TO 2014-01-01]"`). The default time zone format used to specify number of offset hours is `UTC`.

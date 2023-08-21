@@ -6,7 +6,7 @@ grand_parent: Query DSL
 nav_order: 10
 ---
 
-# Match queries
+# Match query
 
 Use the `match` query for full-text search on a specific document field. If you run a `match` query on a [`text`]({{site.url}}/{{site.baseurl}}/field-types/supported-field-types/text/) field, the `match` query [analyzes]({{site.url}}/{{site.baseurl}}/analyzers/index/) the provided search string and returns documents that match any of the string's terms. If you run a `match` query on an exact-value field, it returns documents that match the exact value. The preferred way to search exact-value fields is to use a filter because, unlike a query, a filter is cached.
 
@@ -453,7 +453,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `query` | String | The query string to use for search. Required.
 `auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create a [match phrase query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) automatically for multi-term synonyms. For example, if you specify `ba,batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"` (if this option is `true`) or `ba OR (batting AND average)` (if this option is `false`).Default is `true`.
-`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/analyzers/index/) used to tokenize the query string text. Default is the index-time analyzer specified for the `default_field`. If no analyzer is specified for the `default_field`, the `analyzer` is the default analyzer for the index.
+`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query string text. Default is the index-time analyzer specified for the `default_field`. If no analyzer is specified for the `default_field`, the `analyzer` is the default analyzer for the index.
 `boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`.
 `enable_position_increments` | Boolean | When `true`, resulting queries are aware of position increments. This setting is useful when the removal of stop words leaves an unwanted "gap" between terms. Default is `true`.
 `fuzziness` | String | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. Valid values are non-negative integers or `AUTO`. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.

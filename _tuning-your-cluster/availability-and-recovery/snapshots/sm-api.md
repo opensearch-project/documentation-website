@@ -220,7 +220,7 @@ Get all SM policies:
 ```json
 GET _plugins/_sm/policies
 ```
-You can use a [query string]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#query-string) and specify pagination, the field to be sorted by, and sort order:
+You can use a [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) and specify pagination, the field to be sorted by, and sort order:
 
 ```json
 GET _plugins/_sm/policies?from=0&size=20&sortField=sm_policy.name&sortOrder=desc&queryString=*

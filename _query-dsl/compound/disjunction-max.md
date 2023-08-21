@@ -8,7 +8,7 @@ redirect_from:
   - /query-dsl/query-dsl/compound/disjunction-max/
 ---
 
-# Disjunction max queries
+# Disjunction max query
 
 A disjunction max (`dis_max`) query returns any document that matches one or more query clauses. For documents that match multiple query clauses, the relevance score is set to the highest relevance score from all matching query clauses.
 

@@ -6,7 +6,7 @@ grand_parent: Query DSL
 nav_order: 70
 ---
 
-# Simple query string queries
+# Simple query string query
 
 Use the `simple_query_string` type to specify directly in the query string multiple arguments delineated by regular expressions. Searches with this type will discard any invalid portions of the string.
 
@@ -29,10 +29,10 @@ Special character | Behavior
 `*` | Acts as a wildcard.
 `""` | Wraps several terms into a phrase.
 `()` | Wraps a clause for precedence.
-`~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](#advanced-filter-options).
+`~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. 
 `-` | Negates the term.
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
+
 
 ```json
 GET _search
