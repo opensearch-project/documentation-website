@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Approximate search
+title: Approximate k-NN search
 nav_order: 15
 parent: k-NN
 has_children: false
