@@ -143,7 +143,9 @@ When set to `true`, the feature is enabled and administrators can add the `syste
 ```yml
 plugins.security.system_indices.additional_control.enabled: true
 ```
-When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. To learn more about this permission, see [System permissions]({{site.url}}{{site.baseurl}}).
+When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the setting is `true` for a new cluster.
+
+To learn more about the `system:admin/system_index` permission, see [System permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-permission).
 
 
 ### Password settings
