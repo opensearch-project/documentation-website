@@ -134,6 +134,18 @@ An authentication cache for the Security plugin exists to help speed up authenti
 plugins.security.cache.ttl_minutes: 60
 ```
 
+### Enabling user access to system indexes
+
+Mapping the `system:admin/system_index` permission to a user allows that user to modify system indexes, with the exception of the Security plugin's [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). The `plugins.security.system_indices.additional_control.enabled` setting provides a way for administrators to make this permission available for or hidden from role mapping.
+
+When set to `true`, the feature is enabled and administrators can add the `system:admin/system_index` permission for a user.
+
+```yml
+plugins.security.system_indices.additional_control.enabled: true
+```
+When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. To learn more about this permission, see [System permissions]({{site.url}}{{site.baseurl}}).
+
+
 ### Password settings
 
 If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.

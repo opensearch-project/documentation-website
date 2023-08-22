@@ -65,6 +65,16 @@ Rather than individual permissions, you can often achieve your desired security 
 {: .tip }
 
 
+### System permission
+
+The system permission `system:admin/system_index` is unique compared to other permissions. To extend some traditional admin-only accessibility to non-admin users, this permission gives normal users the ability to modify system indexes for the cluster; this excludes, however, access to the security system index `.opendistro_security`, which is used to store the configuration YAML files and remains accessible only to admins with an admin certificate.
+
+Admin users that have the permission `restapi:admin/roles` are able to map the `system:admin/system_index` permission to users just as they would for a cluster or index permission. However, to preserve some control over this permission, the configuration setting `plugins.security.system_indices.additional_control.enabled` allows administrators to disable this permission by setting it to `false`. For more information about this setting, see [opensearch.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
+
+Keep in mind that an admin user who enables this feature necessarily accepts the risks involved with giving normal users access to system indexes, which may contain sensitive information.
+{: .warning }
+
+
 ## Cluster permissions
 
 These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. The cluster permission, therefore, cannot grant a user privileges to take snapshots of a select set of indexes while preventing the user from taking snapshots of others.
