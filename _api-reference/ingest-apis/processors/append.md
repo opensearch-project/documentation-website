@@ -25,7 +25,7 @@ The syntax for the `append` processor is:
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## Configuration parameters
 
 The following table lists the required and optional parameters for the `append` processor.
 
