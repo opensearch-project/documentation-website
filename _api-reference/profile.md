@@ -6,7 +6,7 @@ nav_order: 55
 
 # Profile
 
-The Profile API provides timing information about the execution of individual components of a search request. Using the Profile API, you can debug slow requests and understand how to improve their performance.The Profile API does not measure the following:
+The Profile API provides timing information about the execution of individual components of a search request. Using the Profile API, you can debug slow requests and understand how to improve their performance. The Profile API does not measure the following:
 
 - Network latency
 - Time spent in the search fetch phase
