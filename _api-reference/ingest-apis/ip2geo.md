@@ -7,7 +7,7 @@ nav_order: 130
 ---
 
 # IP2Geo
-Introduced 2.9
+Introduced 2.10
 {: .label .label-purple }
 
 The `ip2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `ip2geo` processor uses IP geolocation (GeoIP) data from an external endpoint and therefore requires an additional component, `datasource`, that defines from where to download GeoIP data and how frequently to update the data.
@@ -49,6 +49,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
     "update_interval_in_days" : 3
 }
 ```
+{% include copy-curl.html %}
 
 A `true` response means the request was successful and the server was able to process the request. A `false` reponse means check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 {. :tip}
@@ -60,8 +61,9 @@ To get information about one or more IP2Geo data sources, send a GET request:
 ```json
 GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
+{% include copy-curl.html %}
 
-The following example shows the reponse:
+You'll get the following response:
 
 ```json
 {
@@ -112,6 +114,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
     "update_interval_in_days": 10
 }
 ```
+{% include copy-curl.html %}
 
 ### Deleting the IP2Geo data source
 
@@ -122,6 +125,7 @@ The following example deletes the data source:
 ```json
 DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
+{% include copy-curl.html %}
 
 ## Creating the pipeline
 
@@ -135,6 +139,7 @@ Once the data source is created, you can create the pipeline. The syntax for the
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Configuration parameters
 
@@ -147,6 +152,12 @@ The following table lists the required and optional parameters for the `ip2geo` 
 | `properties` | Optional |  All fields in `datasource`. | The field that controls what properties are added to `target_field` from `datasource`. |
 | `target_field` | Optional | ip2geo | The field that holds the geographical information looked up from the data source. |
 | `ignore_missing` | Optional | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
+
+## Using the processor
+
+Follow these steps to use the processor in a pipeline.
+
+**Step 1: Create pipeline.**
 
 The following query creates a pipeline, named `my-pipeline`, that converts the IP address to geographical information:
 
@@ -165,9 +176,10 @@ PUT /_ingest/pipeline/my-pipeline
 }
 ```
 {% include copy-curl.html %}
-```
 
-Ingest a document into the index: 
+**Step 2: Ingest a document into the index.**
+
+The following query ingests a document into the index named `my-index`:
 
 ```json
 PUT /my-index/_doc/my-id?pipeline=ip2geo
@@ -176,22 +188,30 @@ PUT /my-index/_doc/my-id?pipeline=ip2geo
 }
 ```
 {% include copy-curl.html %}
-```
+
+**Step 3: View the ingested document.** 
 
 To view the ingested document, run the following query:
 
 ```json
 GET /my-index/_doc/my-id
+```
+{% include copy-curl.html %}
+
+**Step 4: Test the pipeline.** 
+
+To test the pipeline, run the following query:
+
+```json
+POST _ingest/pipeline/my-id/_simulate
 {
-   "_index":"my-index",
-   "_id":"my-id",
-   "_version":1,
-   "_seq_no":0,
-   "_primary_term":1,
-   "found":true,
-   "_source":{
-      "my_ip_field":"172.0.0.1",
-      "ip2geo":{
+  "docs": [
+    {
+      "_index":"my-index",
+      "_id":"my-id",
+      "_source":{
+        "my_ip_field":"172.0.0.1",
+        "ip2geo":{
          "continent_name":"North America",
          "region_iso_code":"AL",
          "city_name":"Calera",
@@ -200,12 +220,17 @@ GET /my-index/_doc/my-id
          "region_name":"Alabama",
          "location":"33.1063,-86.7583",
          "time_zone":"America/Chicago"
+         }
       }
-   }
+    }
+  ]
 }
 ```
 {% include copy-curl.html %}
-```
+
+You'll get the following response, which confirms the pipeline is working correctly and producing the expected output: 
+
+<insert response following code freeze>
 
 ## Cluster settings
 
