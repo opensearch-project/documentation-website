@@ -6,7 +6,7 @@ grand_parent: Ingest APIs
 nav_order: 15
 ---
 
-## Handling pipeline failures
+# Handling pipeline failures
 
 Each ingest pipeline consists of a series of processors that are applied to the data in sequence. If a processor fails, the entire pipeline will fail. You have two options for handling failures:
 
@@ -30,10 +30,12 @@ PUT _ingest/pipeline/my-pipeline/
   ]
 }
 ```
+{% include copy-curl.html %}
 
 You can specify the `on_failure` parameter to run immediately after a processor fails. If you have specified `on_failure`, OpenSearch will run the other processors in the pipeline, even if the `on_failure` configuration is empty: 
 
 ```json
+PUT _ingest/pipeline/my-pipeline/
 {
   "description": "Add timestamp to the document",
   "processors": [
@@ -41,11 +43,8 @@ You can specify the `on_failure` parameter to run immediately after a processor 
       "date": {
         "field": "timestamp_field",
         "target_field": "timestamp",
-        "formats": ["yyyy-MM-dd HH:mm:ss"]
-      }
-    }
-  ],
-  "on_failure": [
+        "formats": ["yyyy-MM-dd HH:mm:ss"],
+   "on_failure": [
     {
       "set": {
         "field": "ingest_error",
@@ -53,157 +52,72 @@ You can specify the `on_failure` parameter to run immediately after a processor 
       }
     }
   ]
+      }
+    }
+  ]
 }
 ```
+{% include copy-curl.html %}
 
 If the processor fails, OpenSearch logs the failure and continues to run all remaining processors in the search pipeline. To check whether there were any failures, you can use [ingest pipeline metrics]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/#ingest-pipeline-metrics).
+{: tip}
 
 ## Ingest pipeline metrics
 
 To view ingest pipeline metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
 
-```
+```json
 GET /_nodes/stats/ingest?filter_path=nodes.*.ingest
 ```
 {% include copy-curl.html %}
 
-The response contains statistics for all ingest pipelines:
+The response contains statistics for all ingest pipelines, for example:
 
 ```json
-{
-  "_nodes": {
-    "total": 2,
-    "successful": 2,
-    "failed": 0
-  },
-  "cluster_name": "opensearch-cluster",
+ {
   "nodes": {
     "iFPgpdjPQ-uzTdyPLwQVnQ": {
-      "timestamp": 1691011228995,
-      "name": "opensearch-node1",
-      "transport_address": "172.19.0.4:9300",
-      "host": "172.19.0.4",
-      "ip": "172.19.0.4:9300",
-      "roles": [
-        "cluster_manager",
-        "data",
-        "ingest",
-        "remote_cluster_client"
-      ],
-      "attributes": {
-        "shard_indexing_pressure_enabled": "true"
-      },
       "ingest": {
         "total": {
-          "count": 1,
-          "time_in_millis": 2,
+          "count": 28,
+          "time_in_millis": 82,
           "current": 0,
-          "failed": 0
+          "failed": 9
         },
         "pipelines": {
-          "my-pipeline": {
-            "count": 16,
-            "time_in_millis": 23,
-            "current": 0,
-            "failed": 4,
-            "processors": [
-              {
-                "set": {
-                  "type": "set",
-                  "stats": {
-                    "count": 6,
-                    "time_in_millis": 0,
-                    "current": 0,
-                    "failed": 0
-                  }
-                }
-              },
-              {
-                "set": {
-                  "type": "set",
-                  "stats": {
-                    "count": 6,
-                    "time_in_millis": 3,
-                    "current": 0,
-                    "failed": 0
-                  }
-                }
-              },
-              {
-                "uppercase": {
-                  "type": "uppercase",
-                  "stats": {
-                    "count": 6,
-                    "time_in_millis": 0,
-                    "current": 0,
-                    "failed": 4
-                  }
-                }
-              }
-            ]
-          }
-        }
-      }
-    },
-    "dDOB3vS3TVmB5t6PHdCj4Q": {
-      "timestamp": 1691011228997,
-      "name": "opensearch-node2",
-      "transport_address": "172.19.0.2:9300",
-      "host": "172.19.0.2",
-      "ip": "172.19.0.2:9300",
-      "roles": [
-        "cluster_manager",
-        "data",
-        "ingest",
-        "remote_cluster_client"
-      ],
-      "attributes": {
-        "shard_indexing_pressure_enabled": "true"
-      },
-      "ingest": {
-        "total": {
-          "count": 0,
-          "time_in_millis": 0,
-          "current": 0,
-          "failed": 0
-        },
-        "pipelines": {
-          "my-pipeline": {
-            "count": 0,
+          "user-behavior": {
+            "count": 5,
             "time_in_millis": 0,
             "current": 0,
             "failed": 0,
             "processors": [
               {
-                "set": {
-                  "type": "set",
+                "append": {
+                  "type": "append",
                   "stats": {
-                    "count": 0,
+                    "count": 5,
                     "time_in_millis": 0,
                     "current": 0,
                     "failed": 0
                   }
                 }
-              },
+              }
+            ]
+          },
+           "remove_ip": {
+            "count": 5,
+            "time_in_millis": 9,
+            "current": 0,
+            "failed": 2,
+            "processors": [
               {
-                "set": {
-                  "type": "set",
+                "remove": {
+                  "type": "remove",
                   "stats": {
-                    "count": 0,
-                    "time_in_millis": 0,
+                    "count": 5,
+                    "time_in_millis": 8,
                     "current": 0,
-                    "failed": 0
-                  }
-                }
-              },
-              {
-                "uppercase": {
-                  "type": "uppercase",
-                  "stats": {
-                    "count": 0,
-                    "time_in_millis": 0,
-                    "current": 0,
-                    "failed": 0
+                    "failed": 2
                   }
                 }
               }

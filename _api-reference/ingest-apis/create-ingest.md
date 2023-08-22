@@ -20,7 +20,7 @@ To create, or update, an ingest pipeline, you need to use the `PUT` method to th
 PUT _ingest/pipeline/<pipeline-id>
 ```
 
-Here is an example in JSON format that creates an ingest pipeline with using a `set` processor and an `uppercase` processor. The `set` processor sets the value of the `grad_year` field to the value of `2023` and the `graduated` field to the value of `true`. The `uppercase` processor converts the `name` field to capital letters.
+Here is an example in JSON format that creates an ingest pipeline with using `set` and `uppercase` processors. The `set` processor sets the value of the `grad_year` field to the value of `2023` and the `graduated` field to the value of `true`. The `uppercase` processor converts the `name` field to capital letters.
 
 #### Example request
 
@@ -81,7 +81,6 @@ Parameter | Required | Type | Description
 ## Template snippets
 
 Some processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get a field value, enclose the field name in triple curly brackets, for example, {{{field-name}}}.
-
 
 #### Example: `set` ingest processor using Mustache template snippet
 
