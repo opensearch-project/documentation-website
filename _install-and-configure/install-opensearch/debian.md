@@ -92,7 +92,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```
 1. Create an APT repository for OpenSearch:
    ```bash
-   echo "deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-2.x.list
+   echo "deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/1.x/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-1.x.list
    ```
 1. Verify that the repository was created successfully.
     ```bash
