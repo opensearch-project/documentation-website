@@ -19,6 +19,18 @@ The `ip2geo` processor maintains the GeoIP data mapping in system indexes. The G
 
 To get started with using the `ip2geo` processor, the `opensearch-geospatial` plugin must be installed. See [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to learn more.
 
+## Cluster settings
+
+The IP2Geo data source and `ip2geo` processor node settings are listed in the following table.
+
+| Key | Description | Default |
+|--------------------|-------------|---------|
+| plugins.geospatial.ip2geo.datasource.endpoint | Default endpoint for creating the data source API. | Defaults to https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json. |
+| plugins.geospatial.ip2geo.datasource.update_interval_in_days | Default update interval for creating the data source API. | Defaults to 3. |
+| plugins.geospatial.ip2geo.datasource.batch_size | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Defaults to 10,000. |
+| plugins.geospatial.ip2geo.processor.cache_size | Maximum number of results that can be cached. There is only single cache used for all IP2Geo processors in each node | Defaults to 1,000. |
+|-------------------|-------------|---------|
+
 ## Creating the IP2Geo data source
 
 Before creating the pipeline that uses the `ip2geo` processor, create the IP2Geo data source. The data source defines the endpoint value to download GeoIP data and specifies the update interval.
@@ -231,15 +243,3 @@ POST _ingest/pipeline/my-id/_simulate
 You'll get the following response, which confirms the pipeline is working correctly and producing the expected output: 
 
 <insert response following code freeze>
-
-## Cluster settings
-
-The IP2Geo data source and `ip2geo` processor node settings are listed in the following table.
-
-| Key | Description | Default |
-|--------------------|-------------|---------|
-| plugins.geospatial.ip2geo.datasource.endpoint | Default endpoint for creating the data source API. | Defaults to https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json. |
-| plugins.geospatial.ip2geo.datasource.update_interval_in_days | Default update interval for creating the data source API. | Defaults to 3. |
-| plugins.geospatial.ip2geo.datasource.batch_size | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Defaults to 10,000. |
-| plugins.geospatial.ip2geo.processor.cache_size | Maximum number of results that can be cached. There is only single cache used for all IP2Geo processors in each node | Defaults to 1,000. |
-|-------------------|-------------|---------|
