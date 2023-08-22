@@ -6,7 +6,7 @@ nav_order: 55
 
 # Profile
 
-The Profile API provides timing information about the the execution of individual components of a search request. Using the Profile API, you can debug slow requests and understand how to improve their performance.The Profile API does not mearue the following:
+The Profile API provides timing information about the execution of individual components of a search request. Using the Profile API, you can debug slow requests and understand how to improve their performance.The Profile API does not measure the following:
 
 - Network latency
 - Time spent in the search fetch phase
@@ -31,9 +31,40 @@ GET /testindex/_search
 ```
 {% include copy-curl.html %}
 
+To turn on human-readable format, include the `?human=true` query parameter in the request:
+
+```json
+GET /testindex/_search?human=true
+{
+  "profile": true,
+  "query" : {
+    "match" : { "title" : "wind" }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains an additional `time` field with human-readable units, for example:
+
+```json
+"collector": [
+    {
+        "name": "SimpleTopScoreDocCollector",
+        "reason": "search_top_hits",
+        "time": "113.7micros",
+        "time_in_nanos": 113711
+    }
+]
+```
+
+The Profile API response is verbose so if you're running the request through the `curl` command, include the `?pretty` query parameter for easier understanding of the response.
+{: .tip}
+
+#### Example response
+
 The response contains profiling information:
 
-<details open markdown="block">
+<details closed markdown="block">
   <summary>
     Response
   </summary>
@@ -41,7 +72,7 @@ The response contains profiling information:
 
 ```json
 {
-  "took": 18,
+  "took": 21,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -85,37 +116,89 @@ The response contains profiling information:
           {
             "query": [
               {
-                "type": "TermQuery",
-                "description": "title:wind",
-                "time_in_nanos": 3157165,
+                "type": "BooleanQuery",
+                "description": "title:wind title:rise",
+                "time_in_nanos": 2473919,
                 "breakdown": {
                   "set_min_competitive_score_count": 0,
                   "match_count": 0,
                   "shallow_advance_count": 0,
                   "set_min_competitive_score": 0,
-                  "next_doc": 3083,
+                  "next_doc": 5209,
                   "match": 0,
                   "next_doc_count": 2,
                   "score_count": 2,
                   "compute_max_score_count": 0,
                   "compute_max_score": 0,
-                  "advance": 6542,
+                  "advance": 9209,
                   "advance_count": 2,
-                  "score": 103832,
+                  "score": 20751,
                   "build_scorer_count": 4,
-                  "create_weight": 316416,
+                  "create_weight": 1404458,
                   "shallow_advance": 0,
                   "create_weight_count": 1,
-                  "build_scorer": 2727292
-                }
+                  "build_scorer": 1034292
+                },
+                "children": [
+                  {
+                    "type": "TermQuery",
+                    "description": "title:wind",
+                    "time_in_nanos": 813581,
+                    "breakdown": {
+                      "set_min_competitive_score_count": 0,
+                      "match_count": 0,
+                      "shallow_advance_count": 0,
+                      "set_min_competitive_score": 0,
+                      "next_doc": 3291,
+                      "match": 0,
+                      "next_doc_count": 2,
+                      "score_count": 2,
+                      "compute_max_score_count": 0,
+                      "compute_max_score": 0,
+                      "advance": 7208,
+                      "advance_count": 2,
+                      "score": 18666,
+                      "build_scorer_count": 6,
+                      "create_weight": 616375,
+                      "shallow_advance": 0,
+                      "create_weight_count": 1,
+                      "build_scorer": 168041
+                    }
+                  },
+                  {
+                    "type": "TermQuery",
+                    "description": "title:rise",
+                    "time_in_nanos": 191083,
+                    "breakdown": {
+                      "set_min_competitive_score_count": 0,
+                      "match_count": 0,
+                      "shallow_advance_count": 0,
+                      "set_min_competitive_score": 0,
+                      "next_doc": 0,
+                      "match": 0,
+                      "next_doc_count": 0,
+                      "score_count": 0,
+                      "compute_max_score_count": 0,
+                      "compute_max_score": 0,
+                      "advance": 0,
+                      "advance_count": 0,
+                      "score": 0,
+                      "build_scorer_count": 2,
+                      "create_weight": 188625,
+                      "shallow_advance": 0,
+                      "create_weight_count": 1,
+                      "build_scorer": 2458
+                    }
+                  }
+                ]
               }
             ],
-            "rewrite_time": 24750,
+            "rewrite_time": 192417,
             "collector": [
               {
                 "name": "SimpleTopScoreDocCollector",
                 "reason": "search_top_hits",
-                "time_in_nanos": 131250
+                "time_in_nanos": 77291
               }
             ]
           }
@@ -128,12 +211,9 @@ The response contains profiling information:
 ```
 </details>
 
-The Profile API response is verbose so if you're running the request through the `curl` command, include the `?pretty` query parameter for easier understanding of the response.
-{: .tip}
-
 ## Response fields
 
-The response inculdes the following fields.
+The response includes the following fields.
 
 Field | Data type | Description
 :--- | :--- | :---
@@ -142,9 +222,9 @@ Field | Data type | Description
 `profile.shards.id` | String | The shard ID of the shard in the `[node-ID][index-name][shard-ID]` format.
 `profile.shards.searches` | Array of objects | A search represents a query executed against the underlying Lucene index. Most search requests execute a single search against a Lucene index, but some search requests can execute more than one search. For example, including a global aggregation results in a secondary `match_all` query for the global context. The `profile.shards` array contains profiling information about each search execution.
 [`profile.shards.searches.query`](#the-query-object) | Array of objects | Profiling information about the query execution.
-`profile.shards.searches.rewrite_time` | Integer | The cumulative rewrite time spent on rewriting the query, in nanoseconds.
-`profile.shards.searches.collector` | Array of objects | Profiling information about the Lucene collectors that ran the search.
-`profile.shards.aggregations` | Array of objects | Profiling information about the aggregation execution.
+`profile.shards.searches.rewrite_time` | Integer | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds.
+[`profile.shards.searches.collector`](#the-collector-object) | Array of objects | Profiling information about the Lucene collectors that ran the search.
+[`profile.shards.aggregations`](#aggregations) | Array of objects | Profiling information about the aggregation execution.
 
 ### The `query` object
 
@@ -164,33 +244,205 @@ The `breakdown` object represents the timing statistics about low-level Lucene e
 
 Field | Description
 :--- | :--- 
-`create_weight` | The
+`advance` | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.
+`build_scorer` | A Scorer iterates over matching documents and generates a score for each document. The `build_scorer` field contains the time spent on generating the Scorer object. This does not include the time spent scoring the documents. The Scorer initialization gime depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the time associated with caching, if caching is applicable and enabled for the query.
+`create_weight` | A Query object in Lucene is immutable. Yet, Lucene should be able to reuse Query objects in multiple IndexSearchers. Thus, Query objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every Query object generates a Weight object, which keeps the temporary context (state) associated with the <IndexSearcher, Query> tuple. The `create_weight` field contains the time spent in the process of creating the Weight object.
+`match` | For some queries, matching documents is performed in two steps. First, the document is matched approximately. Second, those documents that are approximately matched are examined with a more comprehensive process. For example, a phrase query first checks if a document contains all terms in the phrase. Next, it verifies that the terms are in order (which is a more expensive process). The `match` field is non-zero only for those queries that use the two-step verification process. 
+`next_doc` | The `next_doc` Lucene method returns a document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the time it takes to determine the next matching document, which varies depending on the query type.  
+`score` | Contains the time taken for a Scorer to score a particular document.
+`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method happen because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
 
+### The `collector` object
 
-### Human-readable format
+The `collectors` object contain information about Lucene Collectors. A Collector is responsible for coordinating document traversal and scoring and collecting matching documents. Using Collectors, individual queries can record aggregation results and execute global queries or post-query filters. 
 
-To turn on human-readable format, include the `?human=true` query parameter in the request:
+Field | Description
+:--- | :--- 
+`name` | The collector name. In the [example response](#example-response), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector.
+`reason` | Contains the description of the collector. For possible values of this field, see [Collector reasons](#collector-reasons).
+`time_in_nanos` | A wall-clock time, including timing for all children.
+`children` | A list of subcollectors.
+
+Collector times are calculated, combined, and normalized independently, so they are independent of query times.
+{: .note}
+
+#### Collector reasons
+
+The following table describes all available collector reasons.
+
+Reason | Description
+:--- | :--- 
+`search_sorted` | A collector that scores and sorts documents. Present in most simple searches.
+`search_count` | A collector that counts the number of matching documents but does not fetch the source. Present when `size: 0` is specified.
+`search_terminate_after_count` | A collector that searches for matching documents and terminates the search after it finds a specified number of documents. Present when the `terminate_after_count` query parameter is specified.
+`search_min_score` | A collector that returns matching documents that have a score greater than a minimum score. Present when the `min_score` parameter is specified.
+`search_multi` | A wrapper collector for other collectors. Present when search, aggregations, global aggregations, and post filters are combined in a single search.
+`search_timeout` | A collector that stops executing after a specified period of time. Present when a `timeout` parameter is specified.
+`aggregation` | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect docuemnts for all aggregations.
+`global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope so in order to collect the entire dataset a `match_all` query must be run.
+
+## Aggregations
+
+To profile aggregations, send an aggregation request and provide the `profile` parameter set to `true`.
+
+#### Example request
 
 ```json
-GET /testindex/_search?human=true
+GET opensearch_dashboards_sample_data_ecommerce/_search
 {
-  "profile": true,
-  "query" : {
-    "match" : { "title" : "wind" }
+  "size": 0,
+  "aggs": {
+    "avg_taxful_total_price": {
+      "avg": {
+        "field": "taxful_total_price"
+      }
+    }
   }
 }
 ```
 {% include copy-curl.html %}
 
-The response contains an additional `time` field with human-readable units, for example:
+#### Example response
+
+The response contains profiling information:
+
+<details closed markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
-"collector": [
-    {
-        "name": "SimpleTopScoreDocCollector",
-        "reason": "search_top_hits",
-        "time": "113.7micros",
-        "time_in_nanos": 113711
+{
+  "took": 13,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 4675,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "avg_taxful_total_price": {
+      "value": 75.05542864304813
     }
-]
+  },
+  "profile": {
+    "shards": [
+      {
+        "id": "[LidyZ1HVS-u93-73Z49dQg][opensearch_dashboards_sample_data_ecommerce][0]",
+        "inbound_network_time_in_millis": 0,
+        "outbound_network_time_in_millis": 0,
+        "searches": [
+          {
+            "query": [
+              {
+                "type": "ConstantScoreQuery",
+                "description": "ConstantScore(*:*)",
+                "time_in_nanos": 1690820,
+                "breakdown": {
+                  "set_min_competitive_score_count": 0,
+                  "match_count": 0,
+                  "shallow_advance_count": 0,
+                  "set_min_competitive_score": 0,
+                  "next_doc": 1614112,
+                  "match": 0,
+                  "next_doc_count": 4675,
+                  "score_count": 0,
+                  "compute_max_score_count": 0,
+                  "compute_max_score": 0,
+                  "advance": 2708,
+                  "advance_count": 2,
+                  "score": 0,
+                  "build_scorer_count": 4,
+                  "create_weight": 20250,
+                  "shallow_advance": 0,
+                  "create_weight_count": 1,
+                  "build_scorer": 53750
+                },
+                "children": [
+                  {
+                    "type": "MatchAllDocsQuery",
+                    "description": "*:*",
+                    "time_in_nanos": 770902,
+                    "breakdown": {
+                      "set_min_competitive_score_count": 0,
+                      "match_count": 0,
+                      "shallow_advance_count": 0,
+                      "set_min_competitive_score": 0,
+                      "next_doc": 721943,
+                      "match": 0,
+                      "next_doc_count": 4675,
+                      "score_count": 0,
+                      "compute_max_score_count": 0,
+                      "compute_max_score": 0,
+                      "advance": 1042,
+                      "advance_count": 2,
+                      "score": 0,
+                      "build_scorer_count": 4,
+                      "create_weight": 5041,
+                      "shallow_advance": 0,
+                      "create_weight_count": 1,
+                      "build_scorer": 42876
+                    }
+                  }
+                ]
+              }
+            ],
+            "rewrite_time": 22000,
+            "collector": [
+              {
+                "name": "MultiCollector",
+                "reason": "search_multi",
+                "time_in_nanos": 3672676,
+                "children": [
+                  {
+                    "name": "EarlyTerminatingCollector",
+                    "reason": "search_count",
+                    "time_in_nanos": 78626
+                  },
+                  {
+                    "name": "ProfilingAggregator: [avg_taxful_total_price]",
+                    "reason": "aggregation",
+                    "time_in_nanos": 2834566
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aggregations": [
+          {
+            "type": "AvgAggregator",
+            "description": "avg_taxful_total_price",
+            "time_in_nanos": 1973702,
+            "breakdown": {
+              "reduce": 0,
+              "post_collection_count": 1,
+              "build_leaf_collector": 199292,
+              "build_aggregation": 13584,
+              "build_aggregation_count": 1,
+              "build_leaf_collector_count": 2,
+              "post_collection": 6125,
+              "initialize": 6916,
+              "initialize_count": 1,
+              "reduce_count": 0,
+              "collect": 1747785,
+              "collect_count": 4675
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
+</details>
