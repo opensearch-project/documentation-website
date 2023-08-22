@@ -63,7 +63,7 @@ If the processor fails, OpenSearch logs the failure and continues to run all rem
 To view ingest pipeline metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
 
 ```
-GET /_nodes/stats/ingest
+GET /_nodes/stats/ingest?filter_path=nodes.*.ingest
 ```
 {% include copy-curl.html %}
 
