@@ -18,6 +18,7 @@ The `convert` processor converts a field in a document to a different type, for 
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Configuration parameters
 
@@ -25,46 +26,61 @@ The following table lists the required and optional parameters for the `convert`
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
-`field`  | Required  | Name of the field whose value to convert.  |
+`field`  | Required  | Name of the field where the data should be converted. Supports template snippets.|
 `type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, the value is set to `true` if the field value is a string `"true"` (ignoring case), and to `false` if  the field value is a string `"false"` (ignoring case). If the value is not one of the allowed values, an error will occur.  |
-`description`  | Optional  | Brief description of the processor.  |  
-`target_field`  | Optional  | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
-`if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  |
-`ignore_missing` | If set to `true`, the processor will ignore documents that do not have a value for the specified field. Default is `false`.
-`ignore_failure`  | Optional  | If set to true, the processor will not fail if an error occurs. Default is `false`.  | 
-`on_failure`  | Optional  | Action to take if an error occurs.  | 
-`tag`  | Optional  | Tag that can be used to identify the processor.  | 
+`description`  | Optional  | Brief description of the processor.  |
+`if` | Optional | Condition to run this processor. |
+`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
+`on_failure` | Optional | A list of processors to run if the processor fails. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`target_field`  | Optional  | Name of the field to store the parsed data in. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
 
-The following query creates a pipeline, named `convert-price`, that converts `price` to a floating-point number and stores the converted value in the `price_float` field:
+## Using the processor
+
+Follow these steps to use the processor in a pipeline.
+
+**Step 1: Create pipeline.** 
+
+The following query creates a pipeline, named `convert-price`, that converts `price` to a floating-point number and stores the converted value in the `price_float` field and sets the value to `0` if it is less than `0`:
 
 ```json
 PUT _ingest/pipeline/convert-price
 {
-  "description": "Pipeline that converts price to floating-point number",
+  "description": "Pipeline that converts price to floating-point number and sets value to zero if price less than zero",
   "processors": [
     {
       "convert": {
         "field": "price",
-        "type": "string",
+        "type": "float",
         "target_field": "price_float"
+      }
+    },
+    {
+      "set": {
+        "field": "price",
+        "value": "0",
+        "if": "ctx.price_float < 0"
       }
     }
   ]
 }
 ```
 {% include copy-curl.html %}
-```
 
-Ingest a document into the index:
+**Step 2: Ingest a document into the index.**
+
+The following query ingests a document into the index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=convert-price
 {
-  "price": "100"
+  "price": "10.5"
 }
 ```
 {% include copy-curl.html %}
-```
+
+**Step 3: View the ingested document.**
 
 To view the ingested document, run the following query:
 
@@ -72,25 +88,45 @@ To view the ingested document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
-```
 
-To test the pipeline, run the following query::
+**Step 4: Test the pipeline.**
+
+To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/user-behavior/_simulate
+POST _ingest/pipeline/convert-price/_simulate
 {
   "docs": [
     {
       "_index": "testindex1",
       "_id": "1",
-      "_source": {
-        "price_float": "100.00",
-        "price":
-          "price_float"
+       "_source": {
+        "price": "-10.5"
       }
     }
   ]
 }
 ```
 {% include copy-curl.html %}
+
+You'll get the following response, which confirms the pipeline is working correctly and producing the expected output:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "price_float": -10.5,
+          "price": "0"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-22T15:38:21.180688799Z"
+        }
+      }
+    }
+  ]
+}
 ```

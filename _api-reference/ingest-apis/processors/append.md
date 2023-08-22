@@ -24,7 +24,6 @@ The syntax for the `append` processor is:
 }
 ```
 {% include copy-curl.html %}
-````
 
 ## Parameters
 
@@ -33,14 +32,18 @@ The following table lists the required and optional parameters for the `append` 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field where the data should be appended. Supports template snippets.|
-`value`  | Required  | Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. |
-`description`  | Optional  | Brief description of the processor.  |  
+`value`  | Required  | Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. | 
+`description`  | Optional  | Brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
-`on_failure` | Optional | A list of processors to run if the processor fails. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 
-Following is an example of an ingest pipeline using the `append` processor.
+## Using the processor
+
+Follow these steps to use the processor in a pipeline.
+
+**Step 1: Create pipeline.** 
 
 The following query creates a pipeline, named `user-behavior`, that has one append processor. It appends the `event_type` of each new document ingested into OpenSearch to an array field `event_types`:
 
@@ -60,7 +63,9 @@ PUT _ingest/pipeline/user-behavior
 ```
 {% include copy-curl.html %}
 
-Ingest a document into the index:
+**Step 2: Ingest a document into the index.**
+
+The following query ingests a document into the index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=user-behavior
@@ -70,6 +75,8 @@ PUT testindex1/_doc/1?pipeline=user-behavior
 ```
 {% include copy-curl.html %}
 
+**Step 3: View the ingested document.**
+
 To view the ingested document, run the following query:
 
 ```json
@@ -78,6 +85,8 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 
 Because there was no `event_types` field in the document, an array field is created and the event is appended to the array:
+
+```json
 {
   "_index": "testindex1",
   "_id": "1",
@@ -93,6 +102,8 @@ Because there was no `event_types` field in the document, an array field is crea
   }
 }
 ```
+
+**Step 4: Test the pipeline.**
 
 To test the pipeline, run the following query:
 
@@ -113,3 +124,28 @@ POST _ingest/pipeline/user-behavior/_simulate
 }
 ```
 {% include copy-curl.html %}
+
+You'll get the following response, which confirms the pipeline is working correctly and producing the expected output:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "event_type": "page_view",
+          "event_types": [
+            "event_type",
+            "event_type"
+          ]
+        },
+        "_ingest": {
+          "timestamp": "2023-08-22T16:02:37.893458209Z"
+        }
+      }
+    }
+  ]
+}
+```

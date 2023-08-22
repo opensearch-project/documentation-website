@@ -17,6 +17,7 @@ This processor converts all the text in a specific field to lowercase letters. T
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Configuration parameters
 
@@ -24,17 +25,23 @@ The following table lists the required and optional parameters for the `lowercas
 
 | Name  | Required  | Description  |
 |---|---|---|
-| `field`  | Required  | Specifies the name of the field that you want to remove. |
-| `target_field`  | Optional  | Specifies the name of the field to store the converted value in. Default is `field`. By default, `field` is updated in-place. |
-| `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
-| `ignore_failure`  | Optional  |  Specifies whether the processor should continue processing documents even if it fails to remove the specified field. Default is `false`.  |
-| `on_failure`  | Optional  | Defines the processors to be deployed immediately following the failed processor.  |
-| `if`  | Optional  | Conditionally deploys the processor based on the value of the field. The `value` parameter specifies the value that you want to compare the field to. |
-| `tag`  | Optional  | Provides an identifier for the processor. Useful for debugging and metrics.  |
-`description`  | Optional  | Brief description of the processor.  |  
+`field`  | Required  | Name of the field where the data should be converted. Supports template snippets.|
+`description`  | Optional  | Brief description of the processor.  |
+`if` | Optional | Condition to run this processor. |
+`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`on_failure` | Optional | A list of processors to run if the processor fails. |
+`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`target_field`  | Optional  | Name of the field to store the parsed data in. Default is `field`. By default, `field` is updated in-place. |
 
 
-Following is an example of an ingest pipeline using the `lowercase` processor.
+## Using the processor
+
+Follow these steps to use the processor in a pipeline.
+
+**Step 1: Create pipeline.** 
+
+The following query creates a pipeline, named `lowercase-title`, that uses the `lowercase` processor to lowercase the `title` field of a document:
 
 ```json
 PUT _ingest/pipeline/lowercase-title
@@ -48,27 +55,67 @@ PUT _ingest/pipeline/lowercase-title
     }
   ]
 }
+```
+{% include copy-curl.html %}
 
+**Step 2: Ingest a document into the index.**
 
+The following query ingests a document into the index named `testindex1`:
+
+```json
 PUT testindex1/_doc/1?pipeline=lowercase-title
 {
   "title": "WAR AND PEACE"
 }
 ```
+{% include copy-curl.html %}
 
-Following is the GET request and response. 
+**Step 3: View the ingested document.**
+
+To view the ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
+
+**Step 4: Test the pipeline.**
+
+To test the pipeline, run the following query:
+
+```json
+POST _ingest/pipeline/lowercase-title/_simulate
 {
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 12,
-  "_seq_no": 11,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "title": "war and peace"
-  }
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "title": "war and peace"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+You'll get the following response, which confirms the pipeline is working correctly and producing the expected output:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "title": "war and peace"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-22T17:39:39.872671834Z"
+        }
+      }
+    }
+  ]
 }
 ```

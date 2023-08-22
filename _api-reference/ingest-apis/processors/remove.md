@@ -17,6 +17,7 @@ The remove processor is used to remove a field from a document. The syntax for t
     }
 }
 ```
+{% include copy-curl.html %}
 
 #### Configuration parameters
 
@@ -24,15 +25,20 @@ The following table lists the required and optional parameters for the `remove` 
 
 | Name  | Required  | Description  |
 |---|---|---|
-| `field`  | Required  | Specifies the name of the field that you want to remove. |
-| `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
-| `ignore_failure`  | Optional  |  Specifies whether the processor should continue processing documents even if it fails to remove the specified field. Default is `false`.  |
-| `if`  | Optional  | Conditionally deploys the processor based on the value of the field. The `value` parameter specifies the value that you want to compare the field to. |
-| `tag`  | Optional  | Allows you to identify the processor for debugging and metrics.  |
-`description`  | Optional  | Brief description of the processor.  |  
+`field`  | Required  | Name of the field where the data should be appended. Supports template snippets.|
+`description`  | Optional  | Brief description of the processor.  |
+`if` | Optional | Condition to run this processor. |
+`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`on_failure` | Optional | A list of processors to run if the processor fails. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 
+## Using the processor
 
-Following is an example of an ingest pipeline using the `remove` processor. 
+Follow these steps to use the processor in a pipeline.
+
+**Step 1: Create pipeline.** 
+
+The following query creates a pipeline, named `remove_ip`, that removes the `ip_address` field from a document: 
 
 ```json
 PUT /_ingest/pipeline/remove_ip
@@ -46,24 +52,65 @@ PUT /_ingest/pipeline/remove_ip
     }
   ]
 }
+```
+{% include copy-curl.html %}
 
+**Step 2: Ingest a document into the index.**
+
+The following query ingests a document into the index named `testindex1`:
+
+```json
 PUT testindex1/_doc/1?pipeline=remove_ip
 {
   "ip_address": "203.0.113.1"
 }
 ```
+{% include copy-curl.html %}
 
-This pipeline removes the ip_address field from any document that passes through the pipeline. Following is the GET request and response.
+**Step 3: View the ingested document.**
+
+To view the ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
+
+**Step 4: Test the pipeline.**
+
+To test the pipeline, run the following query:
+
+```json
+POST _ingest/pipeline/remove_ip/_simulate
 {
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 10,
-  "_seq_no": 9,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {}
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source":{
+         "ip_address": "203.0.113.1"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+You'll get the following response, which confirms the pipeline is working correctly and producing the expected output:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {},
+        "_ingest": {
+          "timestamp": "2023-08-22T17:58:33.970510012Z"
+        }
+      }
+    }
+  ]
 }
 ```

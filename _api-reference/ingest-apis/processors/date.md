@@ -18,6 +18,7 @@ The `date` processor is used to parse dates from fields in a document and store 
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Configuration parameters
 
@@ -25,20 +26,25 @@ The following table lists the required and optional parameters for the `date` pr
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
-`field`  | Required  | Name of the field to extract data from.  |
+`field`  | Required  | Name of the field where the data should be converted. Supports template snippets.|
 `formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
-`output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`.
-`target_field`  | Optional  | Name of the field to store the parsed data in. Default target field is `@timestamp`. |
+`description`  | Optional  | Brief description of the processor.  |
+`if` | Optional | Condition to run this processor. |
+`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports template snippets.  |
+`on_failure` | Optional | A list of processors to run if the processor fails. |
+`output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`target_field`  | Optional  | Name of the field to store the parsed data in. Default target field is `@timestamp`. | 
 `timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. Supports template snippets.|
-`ignore_missing` | Optional  | If set to `true`, the processor will not fail if the field does not exist. Default is `false`.  | 
-`if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  | 
-`on_failure`  | Optional  | Action to take if an error occurs. | 
-`ignore_failure`  | Optional  | If set to `true`, the processor does not fail if an error occurs.  |
-`tag`  | Optional  | Tag that can be used to identify the processor.  | 
-`description`  | Optional  | Brief description of the processor.  |  
 
-Following is an example of a pipeline using the `date` processor.
+## Using the processor
+
+Follow these steps to use the processor in a pipeline.
+
+**Step 1: Create pipeline.**
+
+The following query creates a pipeline, named `date-output-format`, that uses the `date` processor to convert from European date format to US date format, adding the new field `date_us` with the desired `output_format`:
 
 ```json
 PUT /_ingest/pipeline/date-output-format
@@ -56,26 +62,69 @@ PUT /_ingest/pipeline/date-output-format
     }
   ]
 }
+```
+{% include copy-curl.html %}
 
+**Step 2: Ingest a document into the index.**
+
+The following query ingests a document into the index named `testindex1`:
+
+```json
 PUT testindex1/_doc/1?pipeline=date-output-format
 {
   "date_european": "30/06/2023"
 }
 ```
+{% include copy-curl.html %}
 
-This pipeline adds the new field `date_us` with the desired output format. Following is the GET request and response.
+**Step 3: View the ingested document.**
+
+To view the ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
+
+**Step 4: Test the pipeline.**
+
+To test the pipeline, run the following query:
+
+```json
+POST _ingest/pipeline/date-output-format/_simulate
 {
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 9,
-  "_seq_no": 8,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "date_us": "06/30/2023",
-    "date_european": "30/06/2023"
-  }
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "date_us": "06/30/2023",
+        "date_european": "30/06/2023"
+      }
+    }
+  ]
 }
+```
+{% include copy-curl.html %}
+
+You'll get the following response, which confirms the pipeline is working correctly and producing the expected output:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "date_us": "06/30/2023",
+          "date_european": "30/06/2023"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-22T17:08:46.275195504Z"
+        }
+      }
+    }
+  ]
+}
+```

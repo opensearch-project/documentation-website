@@ -15,10 +15,11 @@ The syntax for the `bytes` processor is:
 ```json
 {
     "bytes": {
-        "field": "your_field_name",
+        "field": "your_field_name"
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Configuration parameters
 
@@ -26,15 +27,20 @@ The following table lists the required and optional parameters for the `bytes` p
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
-`field`  | Required  | Name of the field where the data should be converted.  |
-`target_field`  | Optional  | Name of the field to store the converted value. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
+`field`  | Required  | Name of the field where the data should be converted. Supports template snippets.|
 `description`  | Optional  | Brief description of the processor.  |
+`if` | Optional | Condition to run this processor. |
+`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
-`if`  | Optional  | Conditional expression that determines whether the processor should be deployed.  |
-`ignore_failure`  | Optional  | If set to `true`, the processor will not fail if an error occurs.  | 
-`on_failure`  | Optional  | A list of processors to run if the processor fails.  | 
-`tag`  | Optional  | Tag that can be used to identify the processor.  | 
-  
+`on_failure` | Optional | A list of processors to run if the processor fails. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`target_field`  | Optional  | Name of the field to store the parsed data in. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
+
+## Using the processor
+
+Follow these steps to use the processor in a pipeline.
+
+**Step 1: Create pipeline.** 
 
 The following query creates a pipeline, named `file_upload`, that has one bytes processor. It converts the `file_size` to its byte equivalent and stores it in a new field `file_size_bytes`:
 
@@ -53,9 +59,10 @@ PUT _ingest/pipeline/file_upload
 }
 ```
 {% include copy-curl.html %}
-```
 
-Ingest a document into the index:
+**Step 2: Ingest a document into the index.**
+
+The following query ingests a document into the index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=file_upload
@@ -64,7 +71,8 @@ PUT testindex1/_doc/1?pipeline=file_upload
 }
 ```
 {% include copy-curl.html %}
-```
+
+**Step 3: View the ingested document.** 
 
 To view the ingested document, run the following query:
 
@@ -72,7 +80,8 @@ To view the ingested document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
-```
+
+**Step 4: Test the pipeline.** 
 
 To test the pipeline, run the following query:
 
@@ -92,10 +101,38 @@ POST _ingest/pipeline/user-behavior/_simulate
   ]
 }
 ```
+{% include copy-curl.html %}
+
+You'll get the following response, which confirms the pipeline is working correctly and producing the expected output: 
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "event_types": [
+            "event_type"
+          ],
+          "file_size_bytes": "10485760",
+          "file_size": "10MB"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-22T16:09:42.771569211Z"
+        }
+      }
+    }
+  ]
+}
+```
+
+## Using optional parameters
 
 The following query creates a pipeline with the bytes processor and one optional parameter, `on_failure`, which uses the `set` processor to set the `error` field with a specific error message:
 
-``json
+```json
 PUT _ingest/pipeline/file_upload
 {
   "description": "Pipeline that converts file size to bytes",
@@ -118,4 +155,5 @@ PUT _ingest/pipeline/file_upload
 }
 ```
 {% include copy-curl.html %}
-```
+
+Repeat steps 2--4 to confirm the pipeline is working as expected.
