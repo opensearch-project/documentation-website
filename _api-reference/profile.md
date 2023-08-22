@@ -236,7 +236,7 @@ Field | Data type | Description
 `description` | String | Contains Lucene explanation of the query. Helps differentiate queries with the same type.
 `time_in_nanos` | String | The time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of execution times of all the child queries.
 [`breakdown`](#the-breakdown-object) | Object | Contains timing statistics about low-level Lucene execution.
-`children` | Array of objects | Contains information about all subqueries for this query.
+`children` | Array of objects | If a query has subqueries (children), this field contains information about the subqueries.
 
 ### The `breakdown` object
 
@@ -244,12 +244,15 @@ The `breakdown` object represents the timing statistics about low-level Lucene e
 
 Field | Description
 :--- | :--- 
-`advance` | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.
-`build_scorer` | A Scorer iterates over matching documents and generates a score for each document. The `build_scorer` field contains the time spent on generating the Scorer object. This does not include the time spent scoring the documents. The Scorer initialization gime depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the time associated with caching, if caching is applicable and enabled for the query.
-`create_weight` | A Query object in Lucene is immutable. Yet, Lucene should be able to reuse Query objects in multiple IndexSearchers. Thus, Query objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every Query object generates a Weight object, which keeps the temporary context (state) associated with the <IndexSearcher, Query> tuple. The `create_weight` field contains the time spent in the process of creating the Weight object.
-`match` | For some queries, matching documents is performed in two steps. First, the document is matched approximately. Second, those documents that are approximately matched are examined with a more comprehensive process. For example, a phrase query first checks if a document contains all terms in the phrase. Next, it verifies that the terms are in order (which is a more expensive process). The `match` field is non-zero only for those queries that use the two-step verification process. 
+`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple IndexSearchers. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a Weight object, which keeps the temporary context (state) associated with the <IndexSearcher, Query> tuple. The `create_weight` field contains the time spent in the process of creating the Weight object.
+`build_scorer` | A `Scorer` iterates over matching documents and generates a score for each document. The `build_scorer` field contains the time spent on generating the `Scorer` object. This does not include the time spent scoring the documents. The `Scorer` initialization time depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the time associated with caching, if caching is applicable and enabled for the query.
 `next_doc` | The `next_doc` Lucene method returns a document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the time it takes to determine the next matching document, which varies depending on the query type.  
-`score` | Contains the time taken for a Scorer to score a particular document.
+`advance` | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.
+`match` | For some queries, matching documents is performed in two steps. First, the document is matched approximately. Second, those documents that are approximately matched are examined with a more comprehensive process. For example, a phrase query first checks if a document contains all terms in the phrase. Next, it verifies that the terms are in order (which is a more expensive process). The `match` field is non-zero only for those queries that use the two-step verification process. 
+`score` | Contains the time taken for a `Scorer` to score a particular document.
+`shallow_advance` | Contains the time for executing the `advanceShallow` Lucene method.
+`compute_max_score` | Contains the time for executing the `getMaxScore` Lucene method.
+`set_min_competitive_score` | Contains the time for executing the `setMinCompetitiveScore` Lucene method.
 `<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method happen because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
 
 ### The `collector` object
@@ -261,7 +264,7 @@ Field | Description
 `name` | The collector name. In the [example response](#example-response), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector.
 `reason` | Contains the description of the collector. For possible values of this field, see [Collector reasons](#collector-reasons).
 `time_in_nanos` | A wall-clock time, including timing for all children.
-`children` | A list of subcollectors.
+`children` | If a collector has subcollectors (children), this field contains information about the subcollectors.
 
 Collector times are calculated, combined, and normalized independently, so they are independent of query times.
 {: .note}
@@ -278,14 +281,290 @@ Reason | Description
 `search_min_score` | A collector that returns matching documents that have a score greater than a minimum score. Present when the `min_score` parameter is specified.
 `search_multi` | A wrapper collector for other collectors. Present when search, aggregations, global aggregations, and post filters are combined in a single search.
 `search_timeout` | A collector that stops executing after a specified period of time. Present when a `timeout` parameter is specified.
-`aggregation` | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect docuemnts for all aggregations.
+`aggregation` | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect documents for all aggregations.
 `global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope so in order to collect the entire dataset a `match_all` query must be run.
 
 ## Aggregations
 
 To profile aggregations, send an aggregation request and provide the `profile` parameter set to `true`.
 
-#### Example request
+#### Example request: Global aggregation
+
+```json
+GET /opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "profile": "true",
+  "size": 0,
+  "query": {
+    "match": { "manufacturer": "Elitelligence" }
+  },
+  "aggs": {
+    "all_products": {
+      "global": {}, 
+      "aggs": {     
+      "avg_price": { "avg": { "field": "taxful_total_price" } }
+      }
+    },
+    "elitelligence_products": { "avg": { "field": "taxful_total_price" } }
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response: Global aggregation
+
+<details closed markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 10,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1370,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "all_products": {
+      "doc_count": 4675,
+      "avg_price": {
+        "value": 75.05542864304813
+      }
+    },
+    "elitelligence_products": {
+      "value": 68.4430200729927
+    }
+  },
+  "profile": {
+    "shards": [
+      {
+        "id": "[LidyZ1HVS-u93-73Z49dQg][opensearch_dashboards_sample_data_ecommerce][0]",
+        "inbound_network_time_in_millis": 0,
+        "outbound_network_time_in_millis": 0,
+        "searches": [
+          {
+            "query": [
+              {
+                "type": "ConstantScoreQuery",
+                "description": "ConstantScore(manufacturer:elitelligence)",
+                "time_in_nanos": 1367487,
+                "breakdown": {
+                  "set_min_competitive_score_count": 0,
+                  "match_count": 0,
+                  "shallow_advance_count": 0,
+                  "set_min_competitive_score": 0,
+                  "next_doc": 634321,
+                  "match": 0,
+                  "next_doc_count": 1370,
+                  "score_count": 0,
+                  "compute_max_score_count": 0,
+                  "compute_max_score": 0,
+                  "advance": 173250,
+                  "advance_count": 2,
+                  "score": 0,
+                  "build_scorer_count": 4,
+                  "create_weight": 132458,
+                  "shallow_advance": 0,
+                  "create_weight_count": 1,
+                  "build_scorer": 427458
+                },
+                "children": [
+                  {
+                    "type": "TermQuery",
+                    "description": "manufacturer:elitelligence",
+                    "time_in_nanos": 1174794,
+                    "breakdown": {
+                      "set_min_competitive_score_count": 0,
+                      "match_count": 0,
+                      "shallow_advance_count": 0,
+                      "set_min_competitive_score": 0,
+                      "next_doc": 470918,
+                      "match": 0,
+                      "next_doc_count": 1370,
+                      "score_count": 0,
+                      "compute_max_score_count": 0,
+                      "compute_max_score": 0,
+                      "advance": 172084,
+                      "advance_count": 2,
+                      "score": 0,
+                      "build_scorer_count": 4,
+                      "create_weight": 114041,
+                      "shallow_advance": 0,
+                      "create_weight_count": 1,
+                      "build_scorer": 417751
+                    }
+                  }
+                ]
+              }
+            ],
+            "rewrite_time": 42542,
+            "collector": [
+              {
+                "name": "MultiCollector",
+                "reason": "search_multi",
+                "time_in_nanos": 778406,
+                "children": [
+                  {
+                    "name": "EarlyTerminatingCollector",
+                    "reason": "search_count",
+                    "time_in_nanos": 70290
+                  },
+                  {
+                    "name": "ProfilingAggregator: [elitelligence_products]",
+                    "reason": "aggregation",
+                    "time_in_nanos": 502780
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "query": [
+              {
+                "type": "ConstantScoreQuery",
+                "description": "ConstantScore(*:*)",
+                "time_in_nanos": 995345,
+                "breakdown": {
+                  "set_min_competitive_score_count": 0,
+                  "match_count": 0,
+                  "shallow_advance_count": 0,
+                  "set_min_competitive_score": 0,
+                  "next_doc": 930803,
+                  "match": 0,
+                  "next_doc_count": 4675,
+                  "score_count": 0,
+                  "compute_max_score_count": 0,
+                  "compute_max_score": 0,
+                  "advance": 2209,
+                  "advance_count": 2,
+                  "score": 0,
+                  "build_scorer_count": 4,
+                  "create_weight": 23875,
+                  "shallow_advance": 0,
+                  "create_weight_count": 1,
+                  "build_scorer": 38458
+                },
+                "children": [
+                  {
+                    "type": "MatchAllDocsQuery",
+                    "description": "*:*",
+                    "time_in_nanos": 431375,
+                    "breakdown": {
+                      "set_min_competitive_score_count": 0,
+                      "match_count": 0,
+                      "shallow_advance_count": 0,
+                      "set_min_competitive_score": 0,
+                      "next_doc": 389875,
+                      "match": 0,
+                      "next_doc_count": 4675,
+                      "score_count": 0,
+                      "compute_max_score_count": 0,
+                      "compute_max_score": 0,
+                      "advance": 1167,
+                      "advance_count": 2,
+                      "score": 0,
+                      "build_scorer_count": 4,
+                      "create_weight": 9458,
+                      "shallow_advance": 0,
+                      "create_weight_count": 1,
+                      "build_scorer": 30875
+                    }
+                  }
+                ]
+              }
+            ],
+            "rewrite_time": 8792,
+            "collector": [
+              {
+                "name": "ProfilingAggregator: [all_products]",
+                "reason": "aggregation_global",
+                "time_in_nanos": 1310536
+              }
+            ]
+          }
+        ],
+        "aggregations": [
+          {
+            "type": "AvgAggregator",
+            "description": "elitelligence_products",
+            "time_in_nanos": 319918,
+            "breakdown": {
+              "reduce": 0,
+              "post_collection_count": 1,
+              "build_leaf_collector": 130709,
+              "build_aggregation": 2709,
+              "build_aggregation_count": 1,
+              "build_leaf_collector_count": 2,
+              "post_collection": 584,
+              "initialize": 4750,
+              "initialize_count": 1,
+              "reduce_count": 0,
+              "collect": 181166,
+              "collect_count": 1370
+            }
+          },
+          {
+            "type": "GlobalAggregator",
+            "description": "all_products",
+            "time_in_nanos": 1519340,
+            "breakdown": {
+              "reduce": 0,
+              "post_collection_count": 1,
+              "build_leaf_collector": 134625,
+              "build_aggregation": 59291,
+              "build_aggregation_count": 1,
+              "build_leaf_collector_count": 2,
+              "post_collection": 5041,
+              "initialize": 24500,
+              "initialize_count": 1,
+              "reduce_count": 0,
+              "collect": 1295883,
+              "collect_count": 4675
+            },
+            "children": [
+              {
+                "type": "AvgAggregator",
+                "description": "avg_price",
+                "time_in_nanos": 775967,
+                "breakdown": {
+                  "reduce": 0,
+                  "post_collection_count": 1,
+                  "build_leaf_collector": 98999,
+                  "build_aggregation": 33083,
+                  "build_aggregation_count": 1,
+                  "build_leaf_collector_count": 2,
+                  "post_collection": 2209,
+                  "initialize": 1708,
+                  "initialize_count": 1,
+                  "reduce_count": 0,
+                  "collect": 639968,
+                  "collect_count": 4675
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+</details>
+
+#### Example request: Non-global aggregation
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -302,7 +581,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### Example response: Non-global aggregation
 
 The response contains profiling information:
 
@@ -446,3 +725,30 @@ The response contains profiling information:
 }
 ```
 </details>
+
+### Response fields
+
+The `aggregations` array contains aggregation objects with the following fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with a `AvgAggregator` child.
+`description` | String | Contains Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
+`time_in_nanos` | String | The time the aggregation took to execute, in nanoseconds. In a parent aggregation, the time is inclusive of execution times of all the child aggregations.
+[`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
+`children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
+`debug` | Object | Some aggregations return a `debug` object that describes details of the underlying execution.
+
+### The `breakdown` object
+
+The `breakdown` object represents the timing statistics about low-level Lucene execution. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
+
+Field | Description
+:--- | :--- 
+`initialize` | Contains the time for the execution of `preCollection()` callback method during `AggregationCollectorManager` creation.
+`build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context.
+`collect`| Contains the time spent collecting the documents into buckets.
+`post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method.
+`build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation.
+`reduce`| Contains the time spent in the `reduce` phase.
+`<method>_count` | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. 
