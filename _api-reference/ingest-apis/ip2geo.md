@@ -33,7 +33,7 @@ The IP2Geo data source and `ip2geo` processor node settings are listed in the fo
 
 ## Creating the IP2Geo data source
 
-Before creating the pipeline that uses the `ip2geo` processor, create the IP2Geo data source. The data source defines the endpoint value to download GeoIP data and specifies the update interval.
+Before creating the pipeline that uses the `ip2geo` processor, create the IP2Geo data source. The data source defines the endpoint value that will download GeoIP data and specifies the update interval.
 
 OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country, and GeoLite2 ASN databases from [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data), which is shared under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license:
 
