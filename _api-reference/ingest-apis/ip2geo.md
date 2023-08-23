@@ -169,7 +169,7 @@ The following table lists the required and optional parameters for the `ip2geo` 
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create pipeline.**
+**Step 1: Create a pipeline.**
 
 The following query creates a pipeline, named `my-pipeline`, that converts the IP address to geographical information:
 
