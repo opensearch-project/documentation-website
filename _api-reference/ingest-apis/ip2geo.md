@@ -49,7 +49,7 @@ The following table lists the data source options for the `ip2geo` processor.
 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
-| `endpoint` | Optional | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint for downloading the GeoIP data. |
+| `endpoint` | Optional | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint that downloads the GeoIP data. |
 | `update_interval_in_days` | Optional | 3 | The frequency in days for updating the GeoIP data. The minimum value is 1. |
 
 The following example creates an IP2Geo data source:
