@@ -47,4 +47,4 @@ Learn how to:
 - [Create a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/create-ingest/)
 - [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/)
 - [Test a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/simulate-ingest/)
-- [Delete a pipeline]({{site.url}}{{site.baseurl}}/ingest-apis/delete-ingest/) in their respective documentation.
+- [Delete a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/delete-ingest/) in their respective documentation.
