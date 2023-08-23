@@ -13,7 +13,7 @@ The Profile API provides timing information about the execution of individual co
 - Amount of time a request spends in queues
 - Idle time while merging shard responses on the coordinating node
 
-The Profile API is a resource-consuming operation that adds overhead to search.
+The Profile API is a resource-consuming operation that adds overhead to search operations.
 {: .warning}
 
 #### Example request
@@ -223,7 +223,7 @@ Field | Data type | Description
 `profile.shards.searches` | Array of objects | A search represents a query executed against the underlying Lucene index. Most search requests execute a single search against a Lucene index, but some search requests can execute more than one search. For example, including a global aggregation results in a secondary `match_all` query for the global context. The `profile.shards` array contains profiling information about each search execution.
 [`profile.shards.searches.query`](#the-query-object) | Array of objects | Profiling information about the query execution.
 `profile.shards.searches.rewrite_time` | Integer | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing a query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds.
-[`profile.shards.searches.collector`](#the-collector-object) | Array of objects | Profiling information about the Lucene collectors that ran the search.
+[`profile.shards.searches.collector`](#the-collector-array) | Array of objects | Profiling information about the Lucene collectors that ran the search.
 [`profile.shards.aggregations`](#aggregations) | Array of objects | Profiling information about the aggregation execution.
 
 ### The `query` object
@@ -240,11 +240,11 @@ Field | Data type | Description
 
 ### The `breakdown` object
 
-The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object comprises the following fields. All fields contain integer values.
+The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object comprises the following fields. All fields contain integer values.
 
 Field | Description
 :--- | :--- 
-`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple IndexSearchers. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a `Weight` object, which keeps the temporary context (state) associated with the <IndexSearcher, Query> tuple. The `create_weight` field contains the amount of time spent creating the `Weight` object.
+`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple `IndexSearcher` objects. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a `Weight` object, which keeps the temporary context (state) associated with the `<IndexSearcher, Query>` tuple. The `create_weight` field contains the amount of time spent creating the `Weight` object.
 `build_scorer` | A `Scorer` iterates over matching documents and generates a score for each document. The `build_scorer` field contains the amount of time spent generating the `Scorer` object. This does not include the time spent scoring the documents. The `Scorer` initialization time depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the amount of time associated with caching, if caching is applicable and enabled for the query.
 `next_doc` | The `next_doc` Lucene method returns the document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the amount of time required to determine the next matching document, which varies depending on the query type.  
 `advance` | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.
@@ -255,9 +255,9 @@ Field | Description
 `set_min_competitive_score` | Contains the amount of time required to execute the `setMinCompetitiveScore` Lucene method.
 `<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
 
-### The `collector` object
+### The `collector` array
 
-The `collectors` object contain information about Lucene Collectors. A Collector is responsible for coordinating document traversal and scoring and collecting matching documents. Using Collectors, individual queries can record aggregation results and execute global queries or post-query filters. 
+The `collector` array contains information about Lucene Collectors. A Collector is responsible for coordinating document traversal and scoring and collecting matching documents. Using Collectors, individual queries can record aggregation results and execute global queries or post-query filters. 
 
 Field | Description
 :--- | :--- 
@@ -280,7 +280,7 @@ Reason | Description
 `search_terminate_after_count` | A collector that searches for matching documents and terminates the search when it finds a specified number of documents. Present when the `terminate_after_count` query parameter is specified.
 `search_min_score` | A collector that returns matching documents that have a score greater than a minimum score. Present when the `min_score` parameter is specified.
 `search_multi` | A wrapper collector for other collectors. Present when search, aggregations, global aggregations, and post filters are combined in a single search.
-`search_timeout` | A collector that stops executing after a specified period of time. Present when a `timeout` parameter is specified.
+`search_timeout` | A collector that stops running after a specified period of time. Present when a `timeout` parameter is specified.
 `aggregation` | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect documents for all aggregations.
 `global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope, so in order to collect the entire dataset, a `match_all` query must be run.
 
@@ -312,6 +312,8 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 {% include copy-curl.html %}
 
 #### Example response: Global aggregation
+
+The response contains profiling information:
 
 <details closed markdown="block">
   <summary>
@@ -567,7 +569,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 #### Example request: Non-global aggregation
 
 ```json
-GET opensearch_dashboards_sample_data_ecommerce/_search
+GET /opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
   "aggs": {
@@ -741,11 +743,11 @@ Field | Data type | Description
 
 ### The `breakdown` object
 
-The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
+The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
 
 Field | Description
 :--- | :--- 
-`initialize` | Contains the time for the execution of `preCollection()` callback method during `AggregationCollectorManager` creation.
+`initialize` | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation.
 `build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context.
 `collect`| Contains the time spent collecting the documents into buckets.
 `post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method.
