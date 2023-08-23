@@ -240,7 +240,7 @@ Field | Data type | Description
 
 ### The `breakdown` object
 
-The `breakdown` object represents the timing statistics about low-level Lucene execution. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
+The `breakdown` object represents the timing statistics about low-level Lucene execution. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object comprises the following fields. All fields contain integer values.
 
 Field | Description
 :--- | :--- 
