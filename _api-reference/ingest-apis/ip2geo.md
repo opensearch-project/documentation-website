@@ -41,7 +41,7 @@ OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country,
 * GeoLite2 Country: https://geoip.maps.opensearch.org/v1/geolite2-country/manifest.json
 * GeoLite2 ASN: https://geoip.maps.opensearch.org/v1/geolite2-asn/manifest.json
 
-If an OpenSearch cluster cannot update a data source from the endpoints in 30 days, the cluster does not add GeoIP data to the documents, instead it adds `"error":"ip2geo_data_expired"`.
+If an OpenSearch cluster cannot update a data source from the endpoints within 30 days, the cluster does not add GeoIP data to the documents and instead adds `"error":"ip2geo_data_expired"`.
 
 ### Data source options
 
