@@ -32,7 +32,7 @@ Use the following options with `corpora`.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-| `name` | Yes | String | The name the document corpus. Because OpenSearch Benchmark will use this name in its directories, use only lower case name without white spaces. |
+| `name` | Yes | String | The name the document corpus. Because OpenSearch Benchmark uses this name in its directories, use only lower case names without white spaces. |
 | `documents` | Yes | JSON array | A array of document files. |
 | `meta` | No | String | A mapping of key-value pairs with additional metadata for a corpus. |
 
@@ -41,7 +41,7 @@ Each entry in the `documents` array consists of the following options.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-| `source-file` | Yes | String | The file name to corresponding documents. When using Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format; `.zip`, `.bz2`, `.gz,` `.tar`, `.tar.gz`, `.tgz` or `.tar.bz2`. The compressed file must contain one JSON file with the name. |
+| `source-file` | Yes | String | The file name for corresponding documents. When using the benchmark tool locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format; `.zip`, `.bz2`, `.gz,` `.tar`, `.tar.gz`, `.tgz` or `.tar.bz2`. The compressed file must contain one JSON file with the name. |
 | `document-count` | Yes | Integer | The number of documents in the `source-file` that determines which client indexes correlate to which part of the document corpus. Each N client gets an N-th of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. |
 | `base-url` | No | String | An http(s), S3, or Google Storage URL that points to the root path where OpenSearch Benchmark can obtain the corresponding source file. |
 | `source-format` | No | String | Defines the format which OpenSearch Benchmark interprets the data file specified in `source-file`. Only `bulk` is supported. |

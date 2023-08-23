@@ -81,28 +81,28 @@ A workload usually consists of the following elements:
 
 - [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indices and index templates used for the workload.
 - [corpora]({{site.url}}{{site.baseurl}}/benchmark/workloads/corpora/): Defines all documents corpora used for the workload.
-- `schedule`: Defines operations and what order the operations run in-line. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations. .
-- `operations`: **Optional**. Describes which operations are available for this track and how they are parametrized. 
+- `schedule`: Defines operations and what order the operations run in-line. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations. 
+- `operations`: **Optional**. Describes which operations are available for this track and how they are parameterized. 
 
 ### Indices
 
-To create an index, you need to specify the `name` of the indices. If you want to add definitions for your index use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
+To create an index, specify the `name` of the indexes. If you want to add definitions for your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
 
 ### Corpora
 
 The `corpora` element requires the name of the index containing the document corpus, for example, `movies`, and a list of parameters that define the document corpora, which includes:
 
--  `source-file`: The file name to corresponding documents. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format; `.zip`, `.bz2`, `.gz,` `.tar`, `.tar.gz`, `.tgz` or `.tar.bz2`. The compressed file must contain one JSON file with the name. 
+-  `source-file`: The file name for the corresponding documents. When using the benchmark tool locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format; `.zip`, `.bz2`, `.gz,` `.tar`, `.tar.gz`, `.tgz` or `.tar.bz2`. The compressed file must contain one JSON file with the name. 
 -  `document-count`  The number of documents in the `source-file` that determines which client indexes correlate to which part of the document corpus. Each N client gets an N-th of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. 
 - `uncompressed-bytes` The size in bytes of the source file after decompression, used to show you much disk space the decompressed source file needs. You can also indicate the number of `compressed-bytes`, the size of the source file before decompression, which can help you assess the time it'll take for the cluster to ingest documents.
 
 ### Operations
 
-The `operations` element lists the API OpenSearch operations performed by the workload. For example, you can set an operation to `create-index`, which creates an index in the test cluster that OpenSearch Benchmark can write documents into. Operations are usually listed inside of `schedule`.
+The `operations` element lists the OpenSearch API operations performed by the workload. For example, you can set an operation to `create-index`, which creates an index in the test cluster that the benchmark tool can write documents into. Operations are usually listed inside of `schedule`.
 
 ### Schedule
 
-The `schedule` element contains a list of actions and operations run by the workload. Operations run according to the order in which they appear in the `schedule`. The following example illustrates a `schedule` with multiple operations, each defined by their `operation-type`. 
+The `schedule` element contains a list of actions and operations that are run by the workload. Operations run according to the order in which they appear in the `schedule`. The following example illustrates a `schedule` with multiple operations, each defined by their `operation-type`. 
 
 ```json
   "schedule": [
@@ -148,7 +148,7 @@ The `schedule` element contains a list of actions and operations run by the work
 According to this schedule, each action will run in the following order.
 
 1. The `create-index` operation creates an index. The index remains empty until the `bulk` operation adds documents with benchmarked data.
-2. The `cluster-health` operation assesses the health of the cluster before running the workload. In this example, the workload will wait until the status of cluster's health is `green`.
+2. The `cluster-health` operation assesses the health of the cluster before running the workload. In this example, the workload waits until the status of cluster's health is `green`.
    - The `bulk` operation runs the `bulk` API to index `5000` documents at once.
    - Before benchmarking, the workload waits until the specified `warmup-time-period` passes. In this example, the warmup period is `120` seconds.
 5. The `clients` options defines the number of clients that will run the remaining actions in the schedule concurrently.
