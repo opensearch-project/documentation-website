@@ -52,7 +52,7 @@ The following table lists the data source options for the `ip2geo` processor.
 | `endpoint` | Optional | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint that downloads the GeoIP data. |
 | `update_interval_in_days` | Optional | 3 | How frequently, in days, the GeoIP data is updated. The minimum value is 1. |
 
-The following example creates an IP2Geo data source:
+To create an IP2Geo data source, run the following query:
 
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
@@ -114,9 +114,9 @@ You'll receive the following response:
 
 ### Updating an IP2Geo data source
 
-See [Creating the IP2Geo data source]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/ip2geo/#creating-the-ip2geo-data-source) for endpoints and request field descriptions. 
+See [Creating the IP2Geo data source]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/ip2geo/#creating-the-ip2geo-data-source) for a list of endpoints and request field descriptions. 
 
-The following example updates the data source:
+To update the date source, run the following query:
 
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
@@ -131,7 +131,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 
  To delete the IP2Geo data source, you must first delete all processors associated with the data source. Otherwise, the request fails. 
 
-The following example deletes the data source:
+To delete the data source, run the following query:
 
 ```json
 DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
@@ -188,9 +188,9 @@ PUT /_ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into the index.**
+**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into the index named `my-index`:
+The following query ingests a document into an index named `my-index`:
 
 ```json
 PUT /my-index/_doc/my-id?pipeline=ip2geo
