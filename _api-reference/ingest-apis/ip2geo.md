@@ -12,7 +12,7 @@ Introduced 2.10
 
 The `ip2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `ip2geo` processor uses IP geolocation (GeoIP) data from an external endpoint and therefore requires an additional component, `datasource`, that defines from where to download GeoIP data and how frequently to update the data.
 
-The `ip2geo` processor maintains the GeoIP data mapping in system indexes. The GeoIP mapping is retrieved from these indexes during data ingestion to perform the IP to geolocation conversion on the incoming data. For optimal performance, it is preferable to have a node with both ingest and data roles, as this configuration avoids internode calls reducing latency. Also, as the `ip2geo` processor searches GeoIP mapping data from the indexes, search performance is impacted.
+The `ip2geo` processor maintains the GeoIP data mapping in system indexes. The GeoIP mapping is retrieved from these indexes during data ingestion to perform the IP-to-geolocation conversion on the incoming data. For optimal performance, it is preferable to have a node with both ingest and data roles, as this configuration avoids internode calls reducing latency. Also, as the `ip2geo` processor searches GeoIP mapping data from the indexes, search performance is impacted.
 {: .note}
 
 ## Getting started
@@ -63,7 +63,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 {% include copy-curl.html %}
 
-A `true` response means the request was successful and the server was able to process the request. A `false` reponse means check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
+A `true` response means that the request was successful and that the server was able to process the request. A `false` response indicates that you should check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 
 ### Sending a GET request
 
@@ -129,7 +129,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 
 ### Deleting the IP2Geo data source
 
- To delete the IP2Geo data source, you must first delete all processors associated with the data source. Otherwise, the request fails. 
+To delete the IP2Geo data source, you must first delete all processors associated with the data source. Otherwise, the request fails. 
 
 To delete the data source, run the following query:
 
@@ -158,10 +158,10 @@ The following table lists the required and optional parameters for the `ip2geo` 
 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
-| `datasource` | Required | - | The data source name to use to look up geographical information. |
+| `datasource` | Required | - | The data source name to use to retrieve geographical information. |
 | `field` | Required | - | The field that contains the IP address for geographical lookup. |
-| `ignore_missing` | Optional | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
-| `properties` | Optional |  All fields in `datasource`. | The field that controls what properties are added to `target_field` from `datasource`. |
+| `ignore_missing` | Optional | false | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
+| `properties` | Optional |  All fields in `datasource`. | The field that controls which properties are added to `target_field` from `datasource`. |
 | `target_field` | Optional | ip2geo | The field that contains the geographical information retrieved from the data source. |
 
 ## Using the processor
