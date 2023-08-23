@@ -240,6 +240,6 @@ POST _ingest/pipeline/my-id/_simulate
 ```
 {% include copy-curl.html %}
 
-You'll get the following response, which confirms the pipeline is working correctly and producing the expected output: 
+You'll receive the following response, which confirms that the pipeline is working correctly and producing the expected output: 
 
 <insert response following code freeze>
