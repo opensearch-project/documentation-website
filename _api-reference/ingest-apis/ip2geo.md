@@ -75,7 +75,7 @@ GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 {% include copy-curl.html %}
 
-You'll get the following response:
+You'll receive the following response:
 
 ```json
 {
