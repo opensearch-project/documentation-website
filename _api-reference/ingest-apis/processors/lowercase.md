@@ -99,7 +99,7 @@ POST _ingest/pipeline/lowercase-title/_simulate
 ```
 {% include copy-curl.html %}
 
-You'll get the following response, which confirms the pipeline is working correctly and producing the expected output:
+You'll receive the following response, which confirms the pipeline is working correctly and producing the expected output:
 
 ```json
 {
