@@ -163,7 +163,7 @@ The following table lists the required and optional parameters for the `ip2geo` 
 | `datasource` | Required | - | The data source name to use to look up geographical information. |
 | `properties` | Optional | All fields in `datasource`. | The field that controls which properties are added to `target_field` from `datasource`. |
 | `target_field` | Optional | ip2geo | The field that holds the geographical information looked up from the data source. |
-| `ignore_missing` | Optional | false | If `true` and `field` does not exist, the processor quietly exits without modifying the document. |
+| `ignore_missing` | Optional | false | If `true` and if `field` does not exist, the processor quietly exits without modifying the document. |
 
 ## Using the processor
 
