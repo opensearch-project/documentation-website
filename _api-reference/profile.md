@@ -234,7 +234,7 @@ Field | Data type | Description
 :--- | :--- | :---
 `type` | String | The Lucene query type into which the search query was rewritten. Corresponds to the Lucene class name (which often has the same name in OpenSearch).
 `description` | String | Contains Lucene explanation of the query. Helps differentiate queries with the same type.
-`time_in_nanos` | String | The time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of execution times of all the child queries.
+`time_in_nanos` | Long | The time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of execution times of all the child queries.
 [`breakdown`](#the-breakdown-object) | Object | Contains timing statistics about low-level Lucene execution.
 `children` | Array of objects | If a query has subqueries (children), this field contains information about the subqueries.
 
@@ -734,7 +734,7 @@ Field | Data type | Description
 :--- | :--- | :---
 `type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with a `AvgAggregator` child.
 `description` | String | Contains Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
-`time_in_nanos` | String | The time the aggregation took to execute, in nanoseconds. In a parent aggregation, the time is inclusive of execution times of all the child aggregations.
+`time_in_nanos` | Long | The time the aggregation took to execute, in nanoseconds. In a parent aggregation, the time is inclusive of execution times of all the child aggregations.
 [`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
 `children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
 `debug` | Object | Some aggregations return a `debug` object that describes details of the underlying execution.
