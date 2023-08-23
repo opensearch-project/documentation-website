@@ -63,7 +63,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 {% include copy-curl.html %}
 
-A `true` response means the request was successful and the server was able to process the request. A `false` reponse means check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
+A `true` response means that the request was successful and that the server was able to process the request. A `false` response indicates that you should check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 {. :tip}
 
 ### Sending a GET request
