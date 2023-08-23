@@ -11,7 +11,8 @@ redirect_from:
 ---
 
 # Query string query
-A `query_string` query parses the query string based on the `query_string` syntax. It lets you create powerful yet concise queries that can incorporate wildcards and search multiple fields.
+
+A `query_string` query parses the query string based on the [`query_string` syntax](#syntax). It lets you create powerful yet concise queries that can incorporate wildcards and search multiple fields.
 
 The query string query splits text based on operators and analyzes each individually.
 
@@ -28,6 +29,79 @@ GET _search
   }
 }
 ```
+{% include copy-curl.html %}
+
+## Syntax
+
+A query string consists of _terms_ and _operators_. A term is a single word (for example, in the query `wind rises`, the terms are `wind` and `rises`). If several terms are surrounded by quotation marks, they are treated as one phrase where words are marched in the order they appear (for example, `"wind rises"`).
+
+The examples in this section use an index containing the following mapping and documents:
+
+```json
+PUT /testindex
+{
+  "mappings": {
+    "properties": {
+      "title": { 
+        "type": "text",
+        "fields": {
+          "english": { 
+            "type": "text",
+            "analyzer": "english"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /testindex/_doc/1
+{
+  "title": "The wind rises"
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /testindex/_doc/2
+{
+  "title": "Gone with the wind",
+  "description": "A 1939 American epic historical film"
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /testindex/_doc/3
+{
+  "title": "Windy city"
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /testindex/_doc/4
+{
+  "long title": "Wind turbines"
+}
+```
+{% include copy-curl.html %}
+
+### Field names
+
+Specify the field name before the colon. The following table contains example queries with field names.
+
+Query | Criterion for a document to match 
+:--- | :--- 
+`title: wind` | The `title` field contains the word `wind`.
+`title: (wind OR windy)` | The `title` field contains the word `wind` or the word `windy`.
+`title: \"wind rises\"` | The `title` field contains the phrase `wind rises`. Escape quotation marks with a backslash.
+`long\\ title: wind` | The `long title` field contains the word `wind`. Escape the space character with a backslash.
+`title.\\*: wind` | Every field that begins with `title.` (for example, `title.english`) contains the word `wind`. Escape the wildcard character with a backslash.
+`_exists_: description` | The field `description` exists.
 
 ## Example
 
@@ -38,11 +112,12 @@ GET shakespeare/_search
 {
  "query": {
     "query_string": {
-      "query": "speaker:KING  AND play_name: *well"
+      "query": "speaker:KING AND play_name: *well"
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 
