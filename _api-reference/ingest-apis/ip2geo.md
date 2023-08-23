@@ -114,7 +114,7 @@ You'll receive the following response:
 
 ### Updating an IP2Geo data source
 
-See [Creating the IP2Geo data source]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/ip2geo/#creating-the-ip2geo-data-source) for a list of endpoints and request field descriptions. 
+See the Creating the IP2Geo data source section for a list of endpoints and request field descriptions. 
 
 To update the date source, run the following query:
 
