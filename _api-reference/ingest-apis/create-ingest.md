@@ -80,7 +80,7 @@ Parameter | Required | Type | Description
 
 ## Template snippets
 
-Some processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get a field value, enclose the field name in triple curly brackets, for example, {{{field-name}}}.
+Some processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get the value of a field, surround the field name in three curly braces, for example, {{{field-name}}}.
 
 #### Example: `set` ingest processor using Mustache template snippet
 
