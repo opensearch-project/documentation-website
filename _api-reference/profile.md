@@ -10,7 +10,7 @@ The Profile API provides timing information about the execution of individual co
 
 - Network latency
 - Time spent in the search fetch phase
-- Time a request spends in queues
+- Amount of time a request spends in queues
 - Idle time while merging shard responses on the coordinating node
 
 The Profile API is a resource-consuming operation that adds overhead to search.
@@ -57,7 +57,7 @@ The response contains an additional `time` field with human-readable units, for 
 ]
 ```
 
-The Profile API response is verbose so if you're running the request through the `curl` command, include the `?pretty` query parameter for easier understanding of the response.
+The Profile API response is verbose, so if you're running the request through the `curl` command, include the `?pretty` query parameter to make the response easier to understand.
 {: .tip}
 
 #### Example response
@@ -218,11 +218,11 @@ The response includes the following fields.
 Field | Data type | Description
 :--- | :--- | :---
 `profile` | Object | Contains profiling information.
-`profile.shards` | Array of objects | A search request can be executed against one or more shards in the index and a search may involve one or more indexes. Thus, the `profile.shards` array contains profiling information for each shard that was involved in the search.
+`profile.shards` | Array of objects | A search request can be executed against one or more shards in the index, and a search may involve one or more indexes. Thus, the `profile.shards` array contains profiling information for each shard that was involved in the search.
 `profile.shards.id` | String | The shard ID of the shard in the `[node-ID][index-name][shard-ID]` format.
 `profile.shards.searches` | Array of objects | A search represents a query executed against the underlying Lucene index. Most search requests execute a single search against a Lucene index, but some search requests can execute more than one search. For example, including a global aggregation results in a secondary `match_all` query for the global context. The `profile.shards` array contains profiling information about each search execution.
 [`profile.shards.searches.query`](#the-query-object) | Array of objects | Profiling information about the query execution.
-`profile.shards.searches.rewrite_time` | Integer | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds.
+`profile.shards.searches.rewrite_time` | Integer | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing a query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds.
 [`profile.shards.searches.collector`](#the-collector-object) | Array of objects | Profiling information about the Lucene collectors that ran the search.
 [`profile.shards.aggregations`](#aggregations) | Array of objects | Profiling information about the aggregation execution.
 
@@ -233,8 +233,8 @@ The `query` object contains the following fields.
 Field | Data type | Description
 :--- | :--- | :---
 `type` | String | The Lucene query type into which the search query was rewritten. Corresponds to the Lucene class name (which often has the same name in OpenSearch).
-`description` | String | Contains Lucene explanation of the query. Helps differentiate queries with the same type.
-`time_in_nanos` | Long | The time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of execution times of all the child queries.
+`description` | String | Contains a Lucene explanation of the query. Helps differentiate queries with the same type.
+`time_in_nanos` | Long | The amount of time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of the execution times of all the child queries.
 [`breakdown`](#the-breakdown-object) | Object | Contains timing statistics about low-level Lucene execution.
 `children` | Array of objects | If a query has subqueries (children), this field contains information about the subqueries.
 
@@ -244,16 +244,16 @@ The `breakdown` object represents the timing statistics about low-level Lucene e
 
 Field | Description
 :--- | :--- 
-`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple IndexSearchers. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a `Weight` object, which keeps the temporary context (state) associated with the <IndexSearcher, Query> tuple. The `create_weight` field contains the time spent in the process of creating the `Weight` object.
-`build_scorer` | A `Scorer` iterates over matching documents and generates a score for each document. The `build_scorer` field contains the time spent on generating the `Scorer` object. This does not include the time spent scoring the documents. The `Scorer` initialization time depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the time associated with caching, if caching is applicable and enabled for the query.
-`next_doc` | The `next_doc` Lucene method returns a document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the time it takes to determine the next matching document, which varies depending on the query type.  
+`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple IndexSearchers. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a `Weight` object, which keeps the temporary context (state) associated with the <IndexSearcher, Query> tuple. The `create_weight` field contains the amount of time spent creating the `Weight` object.
+`build_scorer` | A `Scorer` iterates over matching documents and generates a score for each document. The `build_scorer` field contains the amount of time spent generating the `Scorer` object. This does not include the time spent scoring the documents. The `Scorer` initialization time depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the amount of time associated with caching, if caching is applicable and enabled for the query.
+`next_doc` | The `next_doc` Lucene method returns the document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the amount of time required to determine the next matching document, which varies depending on the query type.  
 `advance` | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.
-`match` | For some queries, matching documents is performed in two steps. First, the document is matched approximately. Second, those documents that are approximately matched are examined with a more comprehensive process. For example, a phrase query first checks if a document contains all terms in the phrase. Next, it verifies that the terms are in order (which is a more expensive process). The `match` field is non-zero only for those queries that use the two-step verification process. 
+`match` | For some queries, document matching is performed in two steps. First, the document is matched approximately. Second, those documents that are approximately matched are examined through a more comprehensive process. For example, a phrase query first checks whether a document contains all terms in the phrase. Next, it verifies that the terms are in order (which is a more expensive process). The `match` field is non-zero only for those queries that use the two-step verification process. 
 `score` | Contains the time taken for a `Scorer` to score a particular document.
-`shallow_advance` | Contains the time for executing the `advanceShallow` Lucene method.
-`compute_max_score` | Contains the time for executing the `getMaxScore` Lucene method.
-`set_min_competitive_score` | Contains the time for executing the `setMinCompetitiveScore` Lucene method.
-`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method happen because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
+`shallow_advance` | Contains the amount of time required to execute the `advanceShallow` Lucene method.
+`compute_max_score` | Contains the amount of time required to execute the `getMaxScore` Lucene method.
+`set_min_competitive_score` | Contains the amount of time required to execute the `setMinCompetitiveScore` Lucene method.
+`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
 
 ### The `collector` object
 
@@ -262,7 +262,7 @@ The `collectors` object contain information about Lucene Collectors. A Collector
 Field | Description
 :--- | :--- 
 `name` | The collector name. In the [example response](#example-response), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector.
-`reason` | Contains the description of the collector. For possible values of this field, see [Collector reasons](#collector-reasons).
+`reason` | Contains a description of the collector. For possible field values, see [Collector reasons](#collector-reasons).
 `time_in_nanos` | A wall-clock time, including timing for all children.
 `children` | If a collector has subcollectors (children), this field contains information about the subcollectors.
 
@@ -277,12 +277,12 @@ Reason | Description
 :--- | :--- 
 `search_sorted` | A collector that scores and sorts documents. Present in most simple searches.
 `search_count` | A collector that counts the number of matching documents but does not fetch the source. Present when `size: 0` is specified.
-`search_terminate_after_count` | A collector that searches for matching documents and terminates the search after it finds a specified number of documents. Present when the `terminate_after_count` query parameter is specified.
+`search_terminate_after_count` | A collector that searches for matching documents and terminates the search when it finds a specified number of documents. Present when the `terminate_after_count` query parameter is specified.
 `search_min_score` | A collector that returns matching documents that have a score greater than a minimum score. Present when the `min_score` parameter is specified.
 `search_multi` | A wrapper collector for other collectors. Present when search, aggregations, global aggregations, and post filters are combined in a single search.
 `search_timeout` | A collector that stops executing after a specified period of time. Present when a `timeout` parameter is specified.
 `aggregation` | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect documents for all aggregations.
-`global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope so in order to collect the entire dataset a `match_all` query must be run.
+`global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope, so in order to collect the entire dataset, a `match_all` query must be run.
 
 ## Aggregations
 
@@ -732,12 +732,12 @@ The `aggregations` array contains aggregation objects with the following fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with a `AvgAggregator` child.
-`description` | String | Contains Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
-`time_in_nanos` | Long | The time the aggregation took to execute, in nanoseconds. In a parent aggregation, the time is inclusive of execution times of all the child aggregations.
+`type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with an `AvgAggregator` child.
+`description` | String | Contains a Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
+`time_in_nanos` | Long | The amount of time taken to execute the aggregation, in nanoseconds. In a parent aggregation, the time is inclusive of the execution times of all the child aggregations.
 [`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
 `children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
-`debug` | Object | Some aggregations return a `debug` object that describes details of the underlying execution.
+`debug` | Object | Some aggregations return a `debug` object that describes the details of the underlying execution.
 
 ### The `breakdown` object
 
