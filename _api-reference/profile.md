@@ -240,11 +240,11 @@ Field | Data type | Description
 
 ### The `breakdown` object
 
-The `breakdown` object represents the timing statistics about low-level Lucene execution. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object comprises the following fields. All fields contain integer values.
+The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object comprises the following fields. All fields contain integer values.
 
 Field | Description
 :--- | :--- 
-`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple IndexSearchers. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a Weight object, which keeps the temporary context (state) associated with the <IndexSearcher, Query> tuple. The `create_weight` field contains the time spent in the process of creating the Weight object.
+`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple IndexSearchers. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a `Weight` object, which keeps the temporary context (state) associated with the <IndexSearcher, Query> tuple. The `create_weight` field contains the time spent in the process of creating the `Weight` object.
 `build_scorer` | A `Scorer` iterates over matching documents and generates a score for each document. The `build_scorer` field contains the time spent on generating the `Scorer` object. This does not include the time spent scoring the documents. The `Scorer` initialization time depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the time associated with caching, if caching is applicable and enabled for the query.
 `next_doc` | The `next_doc` Lucene method returns a document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the time it takes to determine the next matching document, which varies depending on the query type.  
 `advance` | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.
@@ -741,7 +741,7 @@ Field | Data type | Description
 
 ### The `breakdown` object
 
-The `breakdown` object represents the timing statistics about low-level Lucene execution. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
+The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all children times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
 
 Field | Description
 :--- | :--- 
