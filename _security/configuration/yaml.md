@@ -136,16 +136,16 @@ plugins.security.cache.ttl_minutes: 60
 
 ### Enabling user access to system indexes
 
-Mapping the `system:admin/system_index` permission to a user allows that user to modify system indexes, with the exception of the Security plugin's [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). The `plugins.security.system_indices.additional_control.enabled` setting provides a way for administrators to make this permission available for or hidden from role mapping.
+Mapping the `system:admin/<system_index_name>` permission to a user allows that user to modify the system index specified in the permission name. The one exception is the Security plugin's [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). The `plugins.security.system_indices.additional_control.enabled` setting provides a way for administrators to make this permission available for or hidden from role mapping.
 
-When set to `true`, the feature is enabled and administrators can add the `system:admin/system_index` permission for a user.
+When set to `true`, the feature is enabled and administrators can add the `system:admin/<system_index_name>` permission for a user.
 
 ```yml
 plugins.security.system_indices.additional_control.enabled: true
 ```
 When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the setting is `true` for a new cluster.
 
-To learn more about the `system:admin/system_index` permission, see [System permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-permission).
+To learn more about the `system:admin/<system_index_name>` permission, see [System permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-permission).
 
 
 ### Password settings
