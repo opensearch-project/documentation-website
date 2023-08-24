@@ -24,7 +24,7 @@ The following table lists the operating system versions that we currently suppor
 OS | Version
 :---------- | :-------- 
 RHEL/CentOS |	7/8
-Rocky Linux/AlmaLinux |	8
+Rocky Linux |	8
 Ubuntu | 16.04/18.04/20.04
 Windows Server | 2019
 
@@ -102,9 +102,9 @@ Do not declare the same JVM options in multiple locations because it can result 
 
 ## Important system properties
 
-OpenSearch has a number of system properties that you can specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS` using `-D` command line argument notation, for example:
+OpenSearch has a number of system properties, listed in the following table, that you can specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS` using `-D` command line argument notation.
 
-- `opensearch.xcontent.string.length.max=<value>`
-
-By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.
-
+Property | Description
+:---------- | :-------- 
+`opensearch.xcontent.string.length.max=<value>` | By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.  | 
+`opensearch.xcontent.fast_double_writer=[true|false]` | By default, OpenSearch serializes floating-point numbers using the default implementation provided by the Java Runtime Environment. Set this value to `true` to use the Schubfach algorithm, which is faster but may lead to small differences in precision. Default is `false`. |

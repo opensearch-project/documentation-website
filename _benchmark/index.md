@@ -13,7 +13,7 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 - Tracking the overall performance of an OpenSearch cluster.
 - Informing decisions about when to upgrade your cluster to a new version.
-- Determining how changes to your workflow&#8212;such as modifying mappings or queries&#8212;might impact your cluster.
+- Determining how changes to your workflow---such as modifying mappings or queries---might impact your cluster.
 
 OpenSearch Benchmark can be installed directly on a compatible host running Linux and macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) for more information.
 

@@ -3,3 +3,5 @@ message: "'%s' is a table heading and should be in sentence case."
 level: error
 scope: table.header
 match: $sentence
+exceptions:
+  - k    # ignores lowercase k-NN

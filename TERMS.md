@@ -75,6 +75,10 @@ Messages and pop-up boxes appear. Windows, pages, and applications open. The ver
 
 Do not abbreviate as app server.
 
+**artificial intelligence**
+
+On first mention, use *artificial intelligence (AI)*. Use *AI* thereafter. There is no need to redefine *AI* when either *AI/ML* or *GenAI* has already been defined.
+
 **as well as**
 
 Avoid. Replace with in addition to or and as appropriate.
@@ -88,6 +92,10 @@ A plugin that lets the user send search requests in the background so that the r
 Lower case scaling, auto scaling, and automatic scaling (but not autoscaling) are the preferred descriptive terms when generically describing auto scaling functionality.
 
 Do not use hyphenated auto-scaling as a compound modifier. Instead, use scaling (for example, scaling policy), or scalable (for example, scalable target or scalable, load-balanced environment).
+
+**AWS Signature Version 4**
+
+Use on first appearance. On subsequent appearances, *Signature Version 4* may be used. Only use *SigV4* when space is limited.
 
 ## B
 
@@ -146,6 +154,8 @@ certificate authority
 
 Use _certificates_ on first mention. It’s OK to use _certs_ thereafter.
 
+**checkbox, checkboxes**
+
 **CI/CD**
 
 Use _continuous integration_ and _continuous delivery (CI/CD)_ or _continuous integration and delivery (CI/CD)_ on first mention.
@@ -157,6 +167,10 @@ A collection of one or more nodes.
 **cluster manager**
 
 A single node that routes requests for the cluster and makes changes to other nodes. Each cluster contains a single cluster manager.
+
+**command line, command-line**
+
+Two words as a noun. Hyphenate as an adjective.
 
 **console**
 
@@ -283,9 +297,25 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 ## G
 
+**GenAI**
+
+On first mention, use *generative artificial intelligence (GenAI)*. Use *GenAI* thereafter. To avoid the overuse of *GenAI*, *AI/ML-powered applications* may also be used.
+
+**geodistance**
+
+**geohash**
+
+**geohex**
+
 **geopoint**
 
+**geopolygon**
+
 **geoshape**
+
+**geospatial**
+
+**geotile**
  
 ## H
 
@@ -302,6 +332,8 @@ Do not use. This term is unnecessarily violent for technical documentation. Use 
 **high performance computing (HPC)**
 
 **hostname**
+
+**Hugging Face**
 
 ## I
 
@@ -332,6 +364,8 @@ A collection of JSON documents. Non-hardcoded references to *indices* should be 
 **Index Management (IM)**
 
 **Index State Management (ISM)**
+
+**inline**
 
 **install in, on**
 
@@ -423,7 +457,7 @@ Apache Lucene™ is a high-performance, full-featured search engine library writ
 
 **machine learning**
 
-Write as two words (no hyphen) in all cases, including when used as an adjective before a noun. Abbreviate to ML after first use if appropriate.
+When *machine learning* is used multiple times in a document, use *machine learning (ML)* on first mention and *ML* thereafter. There is no need to redefine *ML* when *AI/ML* has already been defined. If spelled out, write *machine learning* as two words (no hyphen) in all cases, including when used as an adjective before a noun.
 
 **Machine Learning (ML) Commons**
 
@@ -479,11 +513,15 @@ OpenSearch is a community-driven, open-source search and analytics suite derived
 
 **OpenSearch Dashboards**
 
-The default visualization tool for data in OpenSearch. On first appearance, use the full name. “Dashboards” may be used on subsequent appearances.
+The default visualization tool for data in OpenSearch. On first appearance, use the full name. *Dashboards* may be used on subsequent appearances.
 
 open source (n.), open-source (adj.)
 
 Use _open source_ as a noun (for example, “The code used throughout this tutorial is open source and can be freely modified”). Use _open-source_ as an adjective _(open-source software)_.
+
+**OpenSearch Playground**
+
+OpenSearch Playground provides a central location for existing and evaluating users to explore features in OpenSearch and OpenSearch Dashboards without downloading or installing any OpenSearch components locally.
 
 **operating system**
 
@@ -541,6 +579,8 @@ With reference to property and buildings, always form as plural.
 Correct: an on-premises solution
 
 Incorrect: an on-premise solution, an on-prem solution
+
+**pretrain**
 
 **primary shard**
 

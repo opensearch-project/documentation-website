@@ -51,8 +51,8 @@ You can make the document structure match the structure of the index mapping by 
 
 ```json
 {
+  "dynamic": "strict",
   "properties":{
-    "dynamic": "strict",
     "color":{
       "type": "text"
     }

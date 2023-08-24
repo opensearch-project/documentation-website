@@ -11,6 +11,10 @@ redirect_from:
 
 You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
+
+For plugins to work properly with OpenSearch, all plugins must have the ability to access the data in the cluster, including metadata about cluster operations. Therefore, to protect your cluster's data and preserve its integrity, first be sure you understand the function of a plugin before installing it on your OpenSearch cluster. Second, when selecting a custom plugin, make sure the plugin's source is a reliable one.
+{: .warning}
+
 ## Managing plugins
 
 OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
@@ -288,21 +292,6 @@ Members of the OpenSearch community have built countless plugins for the service
 | repository-s3 | 1.0.0 |
 | store-smb | 1.0.0 |
 | transport-nio | 1.0.0 |
-
-### Experimental plugins
-
-OpenSearch offers experimental plugins that may be used in a snapshot distribution that has the [sandbox feature enabled](https://github.com/opensearch-project/OpenSearch/blob/main/sandbox/build.gradle).
-
-| Plugin Name | Description | Earliest Available Version |
-| :--- | :--- |
-| custom-codecs | Provides additional compression codecs. | 1.0.0 |
-
-Use the following example command to enable the sandbox feature:
-
-```bash
-./gradlew assemble -Dsandbox.enabled=true
-bin/opensearch-plugin install file:///path/to/plugin-<version>-SNAPSHOT.zip
-```
 
 ## Related links
 

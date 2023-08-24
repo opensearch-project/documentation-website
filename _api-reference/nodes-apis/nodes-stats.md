@@ -106,6 +106,14 @@ GET _nodes/stats/
 
 #### Example response
 
+Select the arrow to view the example response.
+
+<details closed markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
 ```json
 {
   "_nodes" : {
@@ -509,6 +517,64 @@ GET _nodes/stats/
         },
         "pipelines" : { }
       },
+      "search_pipeline" : {
+        "total_request" : {
+          "count" : 5,
+          "time_in_millis" : 158,
+          "current" : 0,
+          "failed" : 0
+        },
+        "total_response" : {
+          "count" : 2,
+          "time_in_millis" : 1,
+          "current" : 0,
+          "failed" : 0
+        },
+        "pipelines" : {
+          "public_info" : {
+            "request" : {
+              "count" : 3,
+              "time_in_millis" : 71,
+              "current" : 0,
+              "failed" : 0
+            },
+            "response" : {
+              "count" : 0,
+              "time_in_millis" : 0,
+              "current" : 0,
+              "failed" : 0
+            },
+            "request_processors" : [
+              {
+                "filter_query:abc" : {
+                  "type" : "filter_query",
+                  "stats" : {
+                    "count" : 1,
+                    "time_in_millis" : 0,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              },
+            ]
+              ...
+            "response_processors" : [
+              {
+                "rename_field" : {
+                  "type" : "rename_field",
+                  "stats" : {
+                    "count" : 2,
+                    "time_in_millis" : 1,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              }
+            ]
+          },
+          ...
+        }
+      },
       "adaptive_selection" : {
         "F-ByTQzVQ3GQeYzQJArJGQ" : {
           "outgoing_searches" : 0,
@@ -576,6 +642,7 @@ GET _nodes/stats/
   }
 }
 ```
+</details>
 
 ## Response fields
 
@@ -618,6 +685,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [script_cache](#script-and-script_cache)| Object | Script cache statistics for the node.
 [discovery](#discovery) | Object | Node discovery statistics for the node.
 [ingest](#ingest) | Object | Ingest statistics for the node.
+[search_pipeline](#search_pipeline) | Object | Statistics related to [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/).
 [adaptive_selection](#adaptive_selection) | Object | Statistics about adaptive selections for the node. 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
@@ -935,6 +1003,34 @@ pipelines._id_.count | Integer | The number of documents preprocessed by the ing
 pipelines._id_.time_in_millis | Integer | The total amount of time for preprocessing documents in the ingest pipeline, in milliseconds.
 pipelines._id_.failed | Integer | The total number of failed ingestions for the ingest pipeline.
 pipelines._id_.processors | Array of objects | Statistics for the ingest processors. Includes the number of documents that are currently transformed, the total number of transformed documents, the number of failed transformations, and the time spent transforming documents.
+
+### `search_pipeline`
+
+The `search_pipeline` object contains the statistics related to [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) and has the following properties.
+
+Field | Field type | Description
+:--- | :--- | :---
+total_request | Object | Cumulative statistics related to all search request processors. 
+total_request.count | Integer | The total number of search request processor executions.
+total_request.time_in_millis | Integer | The total amount of time for all search request processor executions, in milliseconds.
+total_request.current | Integer | The total number of search request processor executions currently in progress.
+total_request.failed | Integer | The total number of failed search request processor executions.
+total_response | Object | Cumulative statistics related to all search response processors.
+total_response.count | Integer | The total number of search response processor executions.
+total_response.time_in_millis | Integer | The total amount of time for all search response processor executions, in milliseconds.
+total_response.current | Integer | The total number of search response processor executions currently in progress.
+total_response.failed | Integer | The total number of failed search response processor executions.
+pipelines | Object | Search pipeline statistics. Each pipeline is a nested object specified by its ID, with the properties listed in the following rows. If a processor has a `tag`, statistics for the processor are provided in the object with the name `<processor_type>:<tag>` (for example, `filter_query:abc`). Statistics for all processors of the same type that do not have a `tag` are aggregated and provided in the object with the name `<processor-type>` (for example, `filter_query`).
+pipelines._id_.request.count | Integer | The number of search request processor executions performed by the search pipeline.
+pipelines._id_.request.time_in_millis | Integer | The total amount of time for search request processor executions in the search pipeline, in milliseconds.
+pipelines._id_.request.current | Integer | The number of search request processor executions currently in progress for the search pipeline.
+pipelines._id_.request.failed | Integer | The number of failed search request processor executions for the search pipeline.
+pipelines._id_.request_processors | Array of objects | Statistics for the search request processors. Includes the total number of executions, the total amount of time of executions, the total number of executions currently in progress, and the number of failed executions.
+pipelines._id_.response.count | Integer | The number of search response processor executions performed by the search pipeline.
+pipelines._id_.response.time_in_millis | Integer | The total amount of time for search response processor executions in the search pipeline, in milliseconds.
+pipelines._id_.response.current | Integer | The number of search response processor executions currently in progress for the search pipeline.
+pipelines._id_.response.failed | Integer | The number of failed search response processor executions for the search pipeline.
+pipelines._id_.response_processors | Array of objects | Statistics for the search response processors. Includes the total number of executions, the total amount of time of executions, the total number of executions currently in progress, and the number of failed executions.
 
 ### `adaptive_selection`
 
