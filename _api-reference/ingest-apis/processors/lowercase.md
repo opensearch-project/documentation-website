@@ -8,7 +8,7 @@ nav_order: 210
 
 # Lowercase
 
-This processor converts all the text in a specific field to lowercase letters. The syntax for the `lowercase` processor is: 
+This processor converts all the text in a specific field to lowercase letters. The following is the syntax for the `lowercase` processor: 
 
 ```json
 {
@@ -39,7 +39,7 @@ The following table lists the required and optional parameters for the `lowercas
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create pipeline.** 
+**Step 1: Create a pipeline.** 
 
 The following query creates a pipeline, named `lowercase-title`, that uses the `lowercase` processor to lowercase the `title` field of a document:
 
@@ -58,9 +58,9 @@ PUT _ingest/pipeline/lowercase-title
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into the index.**
+**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into the index named `testindex1`:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=lowercase-title
@@ -70,9 +70,9 @@ PUT testindex1/_doc/1?pipeline=lowercase-title
 ```
 {% include copy-curl.html %}
 
-**Step 3: View the ingested document.**
+**Step 3: View an ingested document.**
 
-To view the ingested document, run the following query:
+To view an ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
@@ -80,6 +80,9 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 
 **Step 4: Test the pipeline.**
+
+It is recommended that you test a pipeline before you ingest documents.
+{: .tip}
 
 To test the pipeline, run the following query:
 

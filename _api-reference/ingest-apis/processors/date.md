@@ -8,7 +8,7 @@ nav_order: 50
 
 # Date
 
-The `date` processor is used to parse dates from fields in a document and store them as a timestamp. The syntax for the `date` processor is:
+The `date` processor is used to parse dates from fields in a document. By default, the date processor adds the parsed date as a new field called `@timestamp`. You can specify a different field by setting the `target_field` configuration parameter. Multiple date formats are supported as part of the same date processor definition. They will be used sequentially to attempt parsing the date field, in the same order they were defined as part of the processor definition. The following is the syntax for the `date` processor:
 
 ```json
 {
@@ -42,7 +42,7 @@ The following table lists the required and optional parameters for the `date` pr
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create pipeline.**
+**Step 1: Create a pipeline.**
 
 The following query creates a pipeline, named `date-output-format`, that uses the `date` processor to convert from European date format to US date format, adding the new field `date_us` with the desired `output_format`:
 
@@ -65,9 +65,9 @@ PUT /_ingest/pipeline/date-output-format
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into the index.**
+**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into the index named `testindex1`:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=date-output-format
@@ -77,9 +77,9 @@ PUT testindex1/_doc/1?pipeline=date-output-format
 ```
 {% include copy-curl.html %}
 
-**Step 3: View the ingested document.**
+**Step 3: View an ingested document.**
 
-To view the ingested document, run the following query:
+To view an ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
@@ -87,6 +87,9 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 
 **Step 4: Test the pipeline.**
+
+It is recommended that you test a pipeline before you ingest documents.
+{: .tip}
 
 To test the pipeline, run the following query:
 

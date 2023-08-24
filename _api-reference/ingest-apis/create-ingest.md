@@ -10,19 +10,18 @@ redirect_from:
 
 # Create pipeline
 
-Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires an ingest definition that defines how the processors change the document. 
+Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires you to define at least one processor that specifies how to change the documents. 
 
 ## Path and HTTP method
 
-To create, or update, an ingest pipeline, you need to use the `PUT` method to the `/_ingest/pipelines` endpoint. Replace `<pipeline-id>` with your pipeline ID.
+Replace `<pipeline-id>` with your pipeline ID.
 
 ```json
 PUT _ingest/pipeline/<pipeline-id>
 ```
-
-Here is an example in JSON format that creates an ingest pipeline with using `set` and `uppercase` processors. The `set` processor sets the value of the `grad_year` field to the value of `2023` and the `graduated` field to the value of `true`. The `uppercase` processor converts the `name` field to capital letters.
-
 #### Example request
+
+Here is an example in JSON format that creates an ingest pipeline with two `set` processors and an `uppercase` processor. The first `set` processor sets the the `grad_year` to `2023`, the second `set` processor sets `graduated` to `true`. The `uppercase` processor converts the `name` field to uppercase.
 
 ```json
 PUT _ingest/pipeline/my-pipeline
@@ -53,25 +52,22 @@ PUT _ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-If a pipeline fails or results in an error, see [Handling pipelines failures]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/) to learn more.
-{: .note}
+To learn more about error handling, see [Handling pipelines failures]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/).
 
 ## Request body fields
 
-The following table lists the request body fields used to create, or update, a pipeline. The body of the request must contain the field `processors`. The field `description` is optional. 
+The following table lists the request body fields used to create, or update, a pipeline. 
 
-Field | Required | Type | Description
+Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`processors` | Required | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
+`processors` | Required | Array of processor objects | An array of processors, each of which transforms documents. Processors are run sequentially in the order specified.
 `description` | Optional | String | Description of your ingest pipeline. 
 
 ## Path parameters
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`pipeline-id` | Required | String | The unique identifier, or pipeline ID, assigned to the ingest pipeline. A pipeline id is used in API requests to specify which pipeline should be created or modified.
-
-## Query parameters
+`pipeline-id` | Required | String | The unique identifier, or pipeline ID, assigned to the ingest pipeline. 
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -80,7 +76,7 @@ Parameter | Required | Type | Description
 
 ## Template snippets
 
-Some processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get the value of a field, surround the field name in three curly braces, for example, {{{field-name}}}.
+Some processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get the value of a field, surround the field name in three curly braces, for example, `{% raw %}{{{field-name}}}{% endraw %}`.
 
 #### Example: `set` ingest processor using Mustache template snippet
 
@@ -91,15 +87,15 @@ PUT _ingest/pipeline/my-pipeline
     {
       "set": {
         "description": "Sets the grad_year field to 2023 value",
-        "field": "{{{grad_year}}}",
-        "value": "{{{2023}}}"
+        "field": "{% raw %}{{{grad_year}}}{% endraw %}",
+        "value": "{% raw %}{{{2023}}}{% endraw %}"
          }
     },
     {
       "set": {
         "description": "Sets graduated to true",
-        "field": "{{{graduated}}}",
-        "value": "{{{true}}}"
+        "field": "{% raw %}{{{graduated}}}{% endraw %}",
+        "value": "{% raw %}{{{true}}}{% endraw %}"
       }
     },
     {

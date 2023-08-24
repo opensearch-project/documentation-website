@@ -8,7 +8,7 @@ nav_order: 15
 
 # Handling pipeline failures
 
-Each ingest pipeline consists of a series of processors that are applied to the data in sequence. If a processor fails, the entire pipeline will fail. You have two options for handling failures:
+Each ingest pipeline consists of a series of processors that are applied to the documents in sequence. If a processor fails, the entire pipeline will fail. You have two options for handling failures:
 
 - **Fail the entire pipeline:** If a processor fails, the entire pipeline will fail and the document will not be indexed.
 - **Fail the current processor and continue with the next processor:** This can be useful if you want to continue processing the document even if one of the processors fails.
@@ -37,21 +37,21 @@ You can specify the `on_failure` parameter to run immediately after a processor 
 ```json
 PUT _ingest/pipeline/my-pipeline/
 {
-  "description": "Add timestamp to the document",
+  "description": "Add timestampto the document",
   "processors": [
     {
       "date": {
         "field": "timestamp_field",
-        "target_field": "timestamp",
         "formats": ["yyyy-MM-dd HH:mm:ss"],
-   "on_failure": [
-    {
-      "set": {
-        "field": "ingest_error",
-        "value": "failed"
-      }
-    }
-  ]
+        "target_field": "@timestamp",
+        "on_failure": [
+          {
+            "set": {
+              "field": "ingest_error",
+              "value": "failed"
+            }
+          }
+        ]
       }
     }
   ]
@@ -130,11 +130,5 @@ The response contains statistics for all ingest pipelines, for example:
 }
 ```
 
-## Troubleshooting failures
-
-The following are tips on troubleshooting ingest pipeline failures:
-
-1. Check the logs: OpenSeach logs contain information about the ingest pipeline that failed, including the processor that failed and the reason for the failure.
-2. Inspect the document: If the ingest pipeline failed, then the document that was being processed will be in its respective index. 
-3. Check the processor configuration: It is possible the processor configuration is incorrect. To check this you can look at the processor configuration in the JSON object.
-4. Try a different processor: You can try using a different processor. Some processors are better at handling certain types of data than others.
+**Troubleshooting ingest pipeline failures:** The first thing you should do is check the logs to see if there are any errors or warning that can help you identify the cause of the failure. OpenSeach logs contain information about the ingest pipeline that failed, including the processor that failed and the reason for the failure.
+{: .tip}

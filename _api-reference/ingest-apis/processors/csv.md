@@ -8,7 +8,7 @@ nav_order: 40
 
 # CSV
 
-The `csv` processor is used to parse comma-separated values (CSV) and store them as individual fields in a document. The processor ignores empty fields. The syntax for the `csv` processor is: 
+The `csv` processor is used to parse comma-separated values (CSV) and store them as individual fields in a document. The processor ignores empty fields. The following is the syntax for the `csv` processor: 
 
 ```json
 {
@@ -44,7 +44,7 @@ The following table lists the required and optional parameters for the `csv` pro
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create pipeline.**
+**Step 1: Create a pipeline.**
 
 The following query creates a pipeline, named `csv-processor`, that splits `resource_usage` into three new fields named `cpu_usage`, `memory_usage`, and `disk_usage`:
 
@@ -65,9 +65,9 @@ PUT _ingest/pipeline/csv-processor
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into the index.**
+**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into the index named `testindex1`:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=csv-processor
@@ -77,9 +77,9 @@ PUT testindex1/_doc/1?pipeline=csv-processor
 ```
 {% include copy-curl.html %}
 
-**Step 3: View the ingested document.**
+**Step 3: View an ingested document.**
 
-To view the ingested document, run the following query:
+To view an ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
@@ -87,6 +87,9 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 
 **Step 4: Test the pipeline.**
+
+It is recommended that you test a pipeline before you ingest documents.
+{: .tip}
 
 To test the pipeline, run the following query:
 

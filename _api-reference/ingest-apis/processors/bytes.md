@@ -10,7 +10,7 @@ nav_order: 20
 
 The `bytes` processor converts a human-readable byte value to its equivalent value in bytes. The field can be a scalar or an array. If the field is a scalar, the value is converted and stored in the field. If the field is an array, all values of the array are converted.
 
-The syntax for the `bytes` processor is: 
+The following is the syntax for the `bytes` processor: 
 
 ```json
 {
@@ -40,7 +40,7 @@ The following table lists the required and optional parameters for the `bytes` p
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create pipeline.** 
+**Step 1: Create a pipeline.** 
 
 The following query creates a pipeline, named `file_upload`, that has one bytes processor. It converts the `file_size` to its byte equivalent and stores it in a new field `file_size_bytes`:
 
@@ -60,9 +60,9 @@ PUT _ingest/pipeline/file_upload
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into the index.**
+**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into the index named `testindex1`:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=file_upload
@@ -72,9 +72,9 @@ PUT testindex1/_doc/1?pipeline=file_upload
 ```
 {% include copy-curl.html %}
 
-**Step 3: View the ingested document.** 
+**Step 3: View an ingested document.** 
 
-To view the ingested document, run the following query:
+To view an ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
@@ -82,6 +82,9 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 
 **Step 4: Test the pipeline.** 
+
+It is recommended that you test a pipeline before you ingest documents.
+{: .tip}
 
 To test the pipeline, run the following query:
 

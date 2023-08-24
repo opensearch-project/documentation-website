@@ -8,7 +8,7 @@ nav_order: 30
 
 # Convert
 
-The `convert` processor converts a field in a document to a different type, for example, a string to an integer or an integer to a string. For an array field, all values in the array are converted. The syntax for the `convert` processor is: 
+The `convert` processor converts a field in a document to a different type, for example, a string to an integer or an integer to a string. For an array field, all values in the array are converted. The following is the syntax for the `convert` processor: 
 
 ```json
 {
@@ -40,7 +40,7 @@ The following table lists the required and optional parameters for the `convert`
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create pipeline.** 
+**Step 1: Create a pipeline.** 
 
 The following query creates a pipeline, named `convert-price`, that converts `price` to a floating-point number and stores the converted value in the `price_float` field and sets the value to `0` if it is less than `0`:
 
@@ -68,9 +68,9 @@ PUT _ingest/pipeline/convert-price
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into the index.**
+**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into the index named `testindex1`:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=convert-price
@@ -80,9 +80,9 @@ PUT testindex1/_doc/1?pipeline=convert-price
 ```
 {% include copy-curl.html %}
 
-**Step 3: View the ingested document.**
+**Step 3: View an ingested document.**
 
-To view the ingested document, run the following query:
+To view an ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
@@ -90,6 +90,9 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 
 **Step 4: Test the pipeline.**
+
+It is recommended that you test a pipeline before you ingest documents.
+{: .tip}
 
 To test the pipeline, run the following query:
 

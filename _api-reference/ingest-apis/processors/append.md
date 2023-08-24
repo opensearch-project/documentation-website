@@ -13,7 +13,7 @@ The `append` processor is used to add values to a field:
 - If the field is a scalar field, the `append` processor converts it to an array and appends the specified values to that array.
 - If the field does not exist, the `append` processor creates an array with the specified values.
 
-The syntax for the `append` processor is: 
+The following is the syntax for the `append` processor: 
 
 ```json
 {
@@ -43,7 +43,7 @@ The following table lists the required and optional parameters for the `append` 
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create pipeline.** 
+**Step 1: Create a pipeline.** 
 
 The following query creates a pipeline, named `user-behavior`, that has one append processor. It appends the `event_type` of each new document ingested into OpenSearch to an array field `event_types`:
 
@@ -63,9 +63,9 @@ PUT _ingest/pipeline/user-behavior
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into the index.**
+**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into the index named `testindex1`:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=user-behavior
@@ -75,9 +75,9 @@ PUT testindex1/_doc/1?pipeline=user-behavior
 ```
 {% include copy-curl.html %}
 
-**Step 3: View the ingested document.**
+**Step 3: View an ingested document.**
 
-To view the ingested document, run the following query:
+To view an ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
@@ -104,6 +104,9 @@ Because there was no `event_types` field in the document, an array field is crea
 ```
 
 **Step 4: Test the pipeline.**
+
+It is recommended that you test a pipeline before you ingest documents.
+{: .tip}
 
 To test the pipeline, run the following query:
 

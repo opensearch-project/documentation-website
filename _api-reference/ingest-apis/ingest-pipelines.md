@@ -8,9 +8,9 @@ nav_order: 5
 
 # Ingest pipelines
 
-An _ingest pipeline_ is a sequence of steps that are applied to data as it is being ingested into a system. Each step in the pipeline performs a specific task, such as filtering, transforming, or enriching data. Ingest pipelines are a valuable tool to help you tailor data to your needs.  
+An _ingest pipeline_ is a sequence of _processors_ that are applied to documents as they are ingested into an index. Each [processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) in the pipeline performs a specific task, such as filtering, transforming, or enriching data. Ingest pipelines are a valuable tool to help you tailor data to your needs.  
 
-Ingest pipelines consist of _processors_. Processors are customizable tasks that run in a sequential order as they appear in the request body. This order is important, as each processor depends on the output of the previous processor. OpenSearch [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) perform common transformations to your data, and the modified data appears in your index after each processor completes.
+Ingest pipelines consist of _processors_. Processors are customizable tasks that run in a sequential order as they appear in the request body. This order is important, as each processor depends on the output of the previous processor. The modified documents appear in your index after the processors are applied.
 
 Ingest pipelines in OpenSearch can only be managed using [ingest API operations]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
 {: .note}
@@ -20,7 +20,7 @@ Ingest pipelines in OpenSearch can only be managed using [ingest API operations]
 The following are prerequisites for using OpenSearch ingest pipelines:
 
 - When using ingest in production environments, your cluster should contain at least one node with the node roles permission set to `ingest`. For information about setting up node roles within a cluster, see [Cluster Formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
-- If the OpenSearch security features are enabled, you must have the `cluster_manage_pipelines` permission to manage ingest pipelines.
+- If the OpenSearch Security plugin is enabled, you must have the `cluster_manage_pipelines` permission to manage ingest pipelines.
 
 ## Define a pipeline
 
@@ -33,18 +33,22 @@ A _pipeline definition_ describes the steps involved in an ingest pipeline and c
 }
 ```
 
-### Request body fields
+Alternatively, you can specify a pipeline directly in the request body without creating a pipeline first.
+
+### ### Request body fields
 
 Field | Required | Type | Description
 :--- | :--- | :--- | :---
 `processors` | Required | Array of processor objects | A component that performs a specific task to process data as it's being ingested into OpenSearch.
 `description` | Optional | String | Description of the ingest pipeline. 
 
+### Example: Specify a pipeline in the request body
+
 ## Next steps
 
 Learn how to:
 
-- [Create a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/create-ingest/)
-- [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/)
-- [Test a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/simulate-ingest/)
-- [Delete a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/delete-ingest/) in their respective documentation.
+- [Create a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/create-ingest/).
+- [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/).
+- [Test a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/simulate-ingest/).
+- [Delete a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/delete-ingest/). 

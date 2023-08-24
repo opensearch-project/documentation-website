@@ -8,7 +8,7 @@ nav_order: 230
 
 # Remove
 
-The remove processor is used to remove a field from a document. The syntax for the `remove` processor is: 
+The remove processor is used to remove a field from a document. The following is the syntax for the `remove` processor: 
 
 ```json
 {
@@ -36,7 +36,7 @@ The following table lists the required and optional parameters for the `remove` 
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create pipeline.** 
+**Step 1: Create a pipeline.** 
 
 The following query creates a pipeline, named `remove_ip`, that removes the `ip_address` field from a document: 
 
@@ -55,21 +55,22 @@ PUT /_ingest/pipeline/remove_ip
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into the index.**
+**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into the index named `testindex1`:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
-PUT testindex1/_doc/1?pipeline=remove_ip
+PPUT testindex1/_doc/1?pipeline=remove_ip
 {
-  "ip_address": "203.0.113.1"
+  "ip_address": "203.0.113.1",
+  "name": "John Doe"
 }
 ```
 {% include copy-curl.html %}
 
-**Step 3: View the ingested document.**
+**Step 3: View an ingested document.**
 
-To view the ingested document, run the following query:
+To view an ingested document, run the following query:
 
 ```json
 GET testindex1/_doc/1
@@ -77,6 +78,9 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 
 **Step 4: Test the pipeline.**
+
+It is recommended that you test a pipeline before you ingest documents.
+{: .tip}
 
 To test the pipeline, run the following query:
 
@@ -88,7 +92,8 @@ POST _ingest/pipeline/remove_ip/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source":{
-         "ip_address": "203.0.113.1"
+         "ip_address": "203.0.113.1",
+         "name": "John Doe"
       }
     }
   ]
@@ -105,9 +110,11 @@ You'll receive the following response, which confirms that the pipeline is worki
       "doc": {
         "_index": "testindex1",
         "_id": "1",
-        "_source": {},
+        "_source": {
+          "name": "John Doe"
+        },
         "_ingest": {
-          "timestamp": "2023-08-22T17:58:33.970510012Z"
+          "timestamp": "2023-08-24T18:02:13.218986756Z"
         }
       }
     }
