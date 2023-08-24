@@ -56,7 +56,6 @@ Alternatively, the source sends a negative acknowledgment when an event cannot b
 
 When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgment. In the case of a failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
 
-As of Data Prepper 2.2, only the `s3` source and `opensearch` sink support E2E acknowledgments. 
 
 ## Conditional routing
 
