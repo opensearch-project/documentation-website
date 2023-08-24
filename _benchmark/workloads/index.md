@@ -86,16 +86,16 @@ A workload usually consists of the following elements:
 
 ### Indices
 
-To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
+To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/). For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
 
 ### Corpora
 
 The `corpora` element requires the name of the index containing the document corpus, for example, `movies`, and a list of parameters that define the document corpora. This list includes the following parameters:
 
 -  `source-file`: The file name that contains the workload's corresponding documents. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must have one JSON file containing the name. 
--  `document-count`: The number of documents in the `source-file`, which determines which client indices correlate to which parts of the document corpus. Each N client receives an N-th of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. 
+-  `document-count`: The number of documents in the `source-file`, which determines which client indices correlate to which parts of the document corpus. Each N client receives an Nth of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. 
 - `uncompressed-bytes`: The size, in bytes, of the source file after decompression, indicating how much disk space the decompressed source file needs. 
-- `compressed-bytes`: The size, in bytes of the source file before decompression. This can help you assess the time it'll take for the cluster to ingest documents.
+- `compressed-bytes`: The size, in bytes, of the source file before decompression. This can help you assess the amount of time needed for the cluster to ingest documents.
 
 ### Operations
 
@@ -164,7 +164,7 @@ If you want to try certain workloads before creating your own, use the following
 
 ### Running unthrottled
 
-In the following example, OpenSearch Benchmark runs an untrottled bulk index operation for 1 hour against the `movies` index:
+In the following example, OpenSearch Benchmark runs an unthrottled bulk index operation for 1 hour against the `movies` index:
 
 ```json
 {

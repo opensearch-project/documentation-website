@@ -41,14 +41,14 @@ Each entry in the `documents` array consists of the following options.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-| `source-file` | Yes | String | The file name which contains for the corresponding documents for the workload. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must have one JSON file containing the name. |
-| `document-count` | Yes | Integer | The number of documents in the `source-file`, which determines which client indices correlate to which parts of the document corpus. Each N client receives an N-th of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. |
+| `source-file` | Yes | String | The file name containing the corresponding documents for the workload. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must have one JSON file containing the name. |
+| `document-count` | Yes | Integer | The number of documents in the `source-file`, which determines which client indices correlate to which parts of the document corpus. Each N client receives an Nth of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. |
 | `base-url` | No | String | An http(s), Amazon Simple Storage Service (Amazon S3), or Google Cloud Storage URL that points to the root path where OpenSearch Benchmark can obtain the corresponding source file. |
-| `source-format` | No | String | Defines the format which OpenSearch Benchmark uses to interpret the data file specified in `source-file`. Only `bulk` is supported. |
+| `source-format` | No | String | Defines the format OpenSearch Benchmark uses to interpret the data file specified in `source-file`. Only `bulk` is supported. |
 | `compressed-bytes` | No | Integer | The size, in bytes, of the compressed source file, indicating how much data OpenSearch Benchmark downloads. |
 | `uncompressed-bytes` | No | Integer | The size, in bytes, of the source file after decompression, indicating how much disk space the decompressed source file needs. | 
 | `target-index` | No | String | Defines the name of the index that the `bulk` operation should target. OpenSearch Benchmark automatically derives this value when only one index is defined in the `indices` element. The value of `target-index` is ignored when the `includes-action-and-meta-data` setting is `true`. |
 | `target-type` | No | String | Defines the document type of the target index targeted in bulk operations. OpenSearch Benchmark automatically derives this value when only one index is defined in the `indices` element and the index has only one type. The value of `target-type` is ignored when the `includes-action-and-meta-data` setting is `true`. |
-| `includes-action-and-meta-data` | No | Boolean | When set to `true`, indicates that the document's file already contains an `action` line and `meta-data` line. When `false`, indicates that the document's file contains only documents. Default is `false`. |
+| `includes-action-and-meta-data` | No | Boolean | When set to `true`, indicates that the document's file already contains an `action` line and a `meta-data` line. When `false`, indicates that the document's file contains only documents. Default is `false`. |
 | `meta` | No | String | A mapping of key-value pairs with additional metadata for a corpus. |
 
