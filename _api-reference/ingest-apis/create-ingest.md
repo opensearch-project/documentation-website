@@ -80,31 +80,37 @@ Some processor parameters support [Mustache](https://mustache.github.io/) templa
 
 #### Example: `set` ingest processor using Mustache template snippet
 
+The following example sets the field `{% raw %}{{{role}}}{% endraw %}` with a value `{% raw %}{{{tenure}}}{% endraw %}`.
+
 ```json
 PUT _ingest/pipeline/my-pipeline
 {
-  "processors": [
+ "processors": [
     {
       "set": {
-        "description": "Sets the grad_year field to 2023 value",
-        "field": "{% raw %}{{{grad_year}}}{% endraw %}",
-        "value": "{% raw %}{{{2023}}}{% endraw %}"
+        "field": "{% raw %}{{{role}}}{% endraw %}",
+        "value": "{% raw %}{{{tenure}}}{% endraw %}"
          }
-    },
-    {
-      "set": {
-        "description": "Sets graduated to true",
-        "field": "{% raw %}{{{graduated}}}{% endraw %}",
-        "value": "{% raw %}{{{true}}}{% endraw %}"
-      }
-    },
-    {
-      "uppercase": {
-        "field": "name"
-      }
     }
   ]
 }
+```
+{% include copy-curl.html %}
+
+Ingest a document by running the following query:
+
+```json
+PUT testindex1/_doc/1?pipeline=my-pipeline
+{
+  "role" : "teacher",
+  "tenure": 10
+}
+```
+
+View the ingested document by running the following query:
+
+```json
+GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 

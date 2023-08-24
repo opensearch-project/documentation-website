@@ -56,28 +56,8 @@ PUT _ingest/pipeline/uppercase
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into an index.**
 
-The following query ingests a document into an index named `testindex1`:
-
-```json
-PUT testindex1/_doc/1?pipeline=uppercase
-{
-  "name": "John"
-}
-```
-{% include copy-curl.html %}
-
-**Step 3: View an ingested document.**
-
-To view an ingested document, run the following query:
-
-```json
-GET testindex1/_doc/1
-```
-{% include copy-curl.html %}
-
-**Step 4: Test the pipeline.**
+**Step 2: Test the pipeline.**
 
 It is recommended that you test a pipeline before you ingest documents.
 {: .tip}
@@ -92,7 +72,7 @@ POST _ingest/pipeline/uppercase/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "name": "JOHN"
+        "name": "{}"
       }
     }
   ]
@@ -110,13 +90,34 @@ You'll receive the following response, which confirms that the pipeline is worki
         "_index": "testindex1",
         "_id": "1",
         "_source": {
-          "name": "JOHN"
+          "name": "{}"
         },
         "_ingest": {
-          "timestamp": "2023-08-22T18:40:40.870808043Z"
+          "timestamp": "2023-08-24T21:24:48.598293591Z"
         }
       }
     }
   ]
 }
 ```
+
+**Step 3: Ingest a document into an index.**
+
+The following query ingests a document into an index named `testindex1`:
+
+```json
+PUT testindex1/_doc/1?pipeline=uppercase
+{
+  "name": "John"
+}
+```
+{% include copy-curl.html %}
+
+**Step 4: View an ingested document.**
+
+To view an ingested document, run the following query:
+
+```json
+GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
