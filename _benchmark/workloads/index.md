@@ -86,7 +86,7 @@ A workload usually consists of the following elements:
 
 ### Indices
 
-To create an index, specify the `name` of the indices. If you want to add definitions for your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
+To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
 
 ### Corpora
 
