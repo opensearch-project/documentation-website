@@ -42,8 +42,6 @@ Field | Required | Type | Description
 `processors` | Required | Array of processor objects | A component that performs a specific task to process data as it's being ingested into OpenSearch.
 `description` | Optional | String | Description of the ingest pipeline. 
 
-### Example: Specify a pipeline in the request body
-
 ## Next steps
 
 Learn how to:
