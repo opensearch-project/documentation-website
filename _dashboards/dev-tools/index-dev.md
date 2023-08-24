@@ -18,3 +18,5 @@ Interact directly with OpenSearch by using **Dev Tools** to set up your OpenSear
 - Identify and fix bugs. For example, you can use the console to view logs and identify the cause of the problem.
 
 The Dev Tools console is a valuable resource for developers, analysts, and anyone else who works with OpenSearch data.
+
+<insert screenshot of new UI>

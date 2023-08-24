@@ -16,6 +16,7 @@ Use the Dev Tools console to send queries to OpenSearch. To access the Dev Tools
 Write your queries in the editor pane on the left side of the console:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-request.png" alt="Request pane">{: .img-fluid }
+<update screenshot with new UI>
 
 Collapse or expand your query by selecting the triangle next to the line numbers.
 {: .tip}
@@ -35,10 +36,12 @@ OpenSearch provides autocomplete suggestions for fields, indexes and their alias
 To send a query to OpenSearch, select the query by placing the cursor anywhere in the query text. Then choose the play icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/play-icon.png" class="inline-icon" alt="play icon"/>{:/}) on the upper right of the request or press `Ctrl/Cmd+Enter`:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png" alt="Send request">
+<update screenshot with new UI>
 
 OpenSearch displays the response in the response pane on the right side of the console:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png" alt="Response pane">{: .img-fluid }
+<update screenshot with new UI>
 
 ## Working in the cURL and console formats
 
