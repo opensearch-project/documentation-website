@@ -14,7 +14,7 @@ Use the simulate ingest pipeline API operation to run or test the pipeline.
 
 ## Path and HTTP methods
 
-The following requests simulate the latest ingest pipeline created.
+The following requests **simulate the latest ingest pipeline created**:
 
 ```
 GET _ingest/pipeline/_simulate
@@ -22,7 +22,7 @@ POST _ingest/pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The following requests simulate a single pipeline based on the pipeline ID.
+The following requests **simulate a single pipeline based on the pipeline ID**:
 
 ```
 GET _ingest/pipeline/<pipeline-id>/_simulate
@@ -234,3 +234,40 @@ POST /_ingest/pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
+
+The request returns the following response:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "second-index",
+        "_id": "1",
+        "_source": {
+          "name": "Doe,John",
+          "last_name": "DOE",
+          "first_name": "John"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-24T19:20:44.816219673Z"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_index": "second-index",
+        "_id": "2",
+        "_source": {
+          "name": "Doe, Jane",
+          "last_name": "DOE",
+          "first_name": "Jane"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-24T19:20:44.816492381Z"
+        }
+      }
+    }
+  ]
+}
+```
