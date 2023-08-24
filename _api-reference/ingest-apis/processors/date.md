@@ -107,7 +107,7 @@ POST _ingest/pipeline/date-output-format/_simulate
 ```
 {% include copy-curl.html %}
 
-You'll receive the following response, which confirms the pipeline is working correctly and producing the expected output:
+You'll receive the following response, which confirms that the pipeline is working correctly and producing the expected output:
 
 ```json
 {
