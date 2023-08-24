@@ -94,7 +94,8 @@ The `corpora` element requires the name of the index containing the document cor
 
 -  `source-file`: The file name that contains the workload's corresponding documents. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must have one JSON file containing the name. 
 -  `document-count`: The number of documents in the `source-file`, which determines which client indices correlate to which parts of the document corpus. Each N client receives an N-th of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. 
-- `uncompressed-bytes`: The size, in bytes, of the source file after decompression, indicating how much disk space the decompressed source file needs. You can also indicate the number of `compressed-bytes`, the size of the source file before decompression, which can help you assess the amount of time needed for the cluster to ingest documents.
+- `uncompressed-bytes`: The size, in bytes, of the source file after decompression, indicating how much disk space the decompressed source file needs. 
+- `compressed-bytes`: The size, in bytes of the source file before decompression. This can help you assess the time it'll take for the cluster to ingest documents.
 
 ### Operations
 
