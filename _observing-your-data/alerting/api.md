@@ -1349,7 +1349,7 @@ Parameter | Data type | Description
 sortString | string | Determines how to sort the results. Defaults to `monitor_name.keyword`.
 sortOrder     | String | Determines the order of the results. Options are `asc` or `desc`. Defaults to `asc`.
 missing       | string | Optional
-size          | string | Determines the size of the request to be returned. defaults to 20
+size          | String | Determines the size of the request to be returned. Defaults to `20`.
 startIndex    | string | The start index to start from. used for paginating results. defaults to 0
 searchString  | String | A search string used to look for a specific alert. Defaults to an empty string.
 severityLevel | string | Severity level to filter for. defaults to "ALL"
