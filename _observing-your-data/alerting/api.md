@@ -1350,7 +1350,7 @@ sortOrder     | string | Determines the order of the results. can be "asc" or "d
 missing       | string | Optional
 size          | string | Determines the size of the request to be returned. defaults to 20
 startIndex    | string | The start index to start from. used for paginating results. defaults to 0
-searchString  | string | Search string for looking for a specific alert. defaults to empty string
+searchString  | String | A search string used to look for a specific alert. Defaults to an empty string.
 severityLevel | string | Severity level to filter for. defaults to "ALL"
 alertState    | string | Alert state to filter for. defaults to "ALL"
 monitorId     | string | Filter by monitorId
