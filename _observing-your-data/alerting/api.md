@@ -1342,7 +1342,7 @@ Introduced 1.0
 
 Returns an array of all alerts.
 
-**Query Parameters**
+**Path parameters**
 
 Parameter | Data type | Description
 :--- | :--- | :---
