@@ -127,11 +127,6 @@ POST /_plugins/_ml/models/_register
     "model_group_id": "lEFGL4kB4ubqQRzegPo2",
     "description": "test model",
     "connector": {
-    "name": "openAI-gpt-3.5-turbo",
-    "function_name": "remote",
-    "model_group_id": "lEFGL4kB4ubqQRzegPo2",
-    "description": "test model",
-    "connector": {
         "name": "OpenAI Connector",
         "description": "The connector to public OpenAI model service for GPT 3.5",
         "version": 1,
