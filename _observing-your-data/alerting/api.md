@@ -1353,7 +1353,7 @@ size          | String | Determines the size of the request to be returned. Defa
 startIndex    | String | The start index to start from. Used for paginating results. Defaults to `0`.
 searchString  | String | A search string used to look for a specific alert. Defaults to an empty string.
 severityLevel | String | Severity level to filter for. Defaults to `ALL`.
-alertState    | string | Alert state to filter for. defaults to "ALL"
+alertState    | String | Alert state to filter for. Defaults to `ALL`.
 monitorId     | String | Filter by monitor ID.
 
 #### Request
