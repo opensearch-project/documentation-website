@@ -60,28 +60,7 @@ PUT _ingest/pipeline/file_upload
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into an index.**
-
-The following query ingests a document into an index named `testindex1`:
-
-```json
-PUT testindex1/_doc/1?pipeline=file_upload
-{
-  "file_size": "10MB"
-}
-```
-{% include copy-curl.html %}
-
-**Step 3: View an ingested document.** 
-
-To view an ingested document, run the following query:
-
-```json
-GET testindex1/_doc/1
-```
-{% include copy-curl.html %}
-
-**Step 4: Test the pipeline.** 
+**Step 2 (Optional): Test the pipeline.** 
 
 It is recommended that you test a pipeline before you ingest documents.
 {: .tip}
@@ -106,7 +85,30 @@ POST _ingest/pipeline/user-behavior/_simulate
 ```
 {% include copy-curl.html %}
 
-You'll receive the following response, which confirms that the pipeline is working correctly and producing the expected output: 
+**Step 3: Ingest a document.**
+
+The following query ingests a document into an index named `testindex1`:
+
+```json
+PUT testindex1/_doc/1?pipeline=file_upload
+{
+  "file_size": "10MB"
+}
+```
+{% include copy-curl.html %}
+
+**Step 4 (Optional): Retrieve the document.** 
+
+To retrieve the document, run the following query:
+
+```json
+GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
+
+#### Response
+
+The following example response confirms the pipeline is working correctly and producing the expected output: 
 
 ```json
 {

@@ -34,7 +34,6 @@ The following table lists the required and optional parameters for the `lowercas
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `target_field`  | Optional  | Name of the field to store the parsed data in. Default is `field`. By default, `field` is updated in-place. |
 
-
 ## Using the processor
 
 Follow these steps to use the processor in a pipeline.
@@ -58,28 +57,7 @@ PUT _ingest/pipeline/lowercase-title
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into an index.**
-
-The following query ingests a document into an index named `testindex1`:
-
-```json
-PUT testindex1/_doc/1?pipeline=lowercase-title
-{
-  "title": "WAR AND PEACE"
-}
-```
-{% include copy-curl.html %}
-
-**Step 3: View an ingested document.**
-
-To view an ingested document, run the following query:
-
-```json
-GET testindex1/_doc/1
-```
-{% include copy-curl.html %}
-
-**Step 4: Test the pipeline.**
+**Step 2 (Optional): Test the pipeline.**
 
 It is recommended that you test a pipeline before you ingest documents.
 {: .tip}
@@ -102,7 +80,30 @@ POST _ingest/pipeline/lowercase-title/_simulate
 ```
 {% include copy-curl.html %}
 
-You'll receive the following response, which confirms that the pipeline is working correctly and producing the expected output:
+**Step 3: Ingest a document.**
+
+The following query ingests a document into an index named `testindex1`:
+
+```json
+PUT testindex1/_doc/1?pipeline=lowercase-title
+{
+  "title": "WAR AND PEACE"
+}
+```
+{% include copy-curl.html %}
+
+**Step 4 (Optional): Retrieve the document.**
+
+To view an ingested document, run the following query:
+
+```json
+GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
+
+#### Response
+
+The following example response confirms the pipeline is working correctly and producing the expected output:
 
 ```json
 {

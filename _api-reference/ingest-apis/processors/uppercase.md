@@ -57,7 +57,7 @@ PUT _ingest/pipeline/uppercase
 {% include copy-curl.html %}
 
 
-**Step 2: Test the pipeline.**
+**Step 2 (Optional): Test the pipeline.**
 
 It is recommended that you test a pipeline before you ingest documents.
 {: .tip}
@@ -72,7 +72,7 @@ POST _ingest/pipeline/uppercase/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "name": "{}"
+        "name": "{John}"
       }
     }
   ]
@@ -80,28 +80,7 @@ POST _ingest/pipeline/uppercase/_simulate
 ```
 {% include copy-curl.html %}
 
-You'll receive the following response, which confirms that the pipeline is working correctly and producing the expected output:
-
-```json
-{
-  "docs": [
-    {
-      "doc": {
-        "_index": "testindex1",
-        "_id": "1",
-        "_source": {
-          "name": "{}"
-        },
-        "_ingest": {
-          "timestamp": "2023-08-24T21:24:48.598293591Z"
-        }
-      }
-    }
-  ]
-}
-```
-
-**Step 3: Ingest a document into an index.**
+**Step 3: Ingest a document.**
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -113,11 +92,29 @@ PUT testindex1/_doc/1?pipeline=uppercase
 ```
 {% include copy-curl.html %}
 
-**Step 4: View an ingested document.**
+**Step 4 (Optional): Retrieve the document.**
 
-To view an ingested document, run the following query:
+To retrieve the document, run the following query:
 
 ```json
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+#### Response
+
+The following example response confirms the pipeline is working correctly and producing the expected output:
+
+```json
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 44,
+  "_seq_no": 43,
+  "_primary_term": 3,
+  "found": true,
+  "_source": {
+    "name": "JOHN"
+  }
+}
+```

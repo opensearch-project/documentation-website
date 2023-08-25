@@ -63,7 +63,7 @@ PUT _ingest/pipeline/user-behavior
 ```
 {% include copy-curl.html %}
 
-**Step 2: Test pipeline.**
+**Step 2 (Optional): Test the pipeline.**
 
 It is recommended that you test a pipeline before you ingest documents.
 {: .tip}
@@ -88,7 +88,7 @@ POST _ingest/pipeline/user-behavior/_simulate
 ```
 {% include copy-curl.html %}
 
-**Step 3: Ingest a document into an index.**
+**Step 3: Ingest a document.**
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -100,16 +100,16 @@ PUT testindex1/_doc/1?pipeline=user-behavior
 ```
 {% include copy-curl.html %}
 
-**Step 4: View an ingested document.**
+**Step 4 (Optional): Retrieve the document.**
 
-To view an ingested document, run the following query:
+To retrieve the document, run the following query:
 
 ```json
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-Because there was no `event_types` field in the document, an array field is created and the event is appended to the array:
+Because no `event_types` field is in the document, an array field is created and the event is appended to the array:
 
 ```json
 {
@@ -128,9 +128,9 @@ Because there was no `event_types` field in the document, an array field is crea
 }
 ```
 
-### Response
+#### Response
 
-The following response confirms that the pipeline is working correctly and producing the expected output:
+The following example response confirms the pipeline is working correctly and producing the expected output:
 
 ```json
 {
