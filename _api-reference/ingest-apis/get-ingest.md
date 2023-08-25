@@ -60,7 +60,3 @@ The response contains the pipeline information:
   }
 }
 ```
-
-## Next steps
-
-- [Test your pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/simulate-ingest/)

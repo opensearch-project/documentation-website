@@ -96,24 +96,3 @@ PUT _ingest/pipeline/my-pipeline
 }
 ```
 {% include copy-curl.html %}
-
-Ingest a document by running the following query:
-
-```json
-PUT testindex1/_doc/1?pipeline=my-pipeline
-{
-  "role" : "teacher",
-  "tenure": 10
-}
-```
-
-View the ingested document by running the following query:
-
-```json
-GET testindex1/_doc/1
-```
-{% include copy-curl.html %}
-
-## Next steps
-
-- [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/)
