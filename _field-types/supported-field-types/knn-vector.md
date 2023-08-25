@@ -4,6 +4,7 @@ title: k-NN vector
 nav_order: 58
 has_children: false
 parent: Supported field types
+has_math: true
 ---
 
 # k-NN vector 
@@ -91,6 +92,8 @@ By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. I
 Byte vectors are supported only for the `lucene` engine. They are not supported for the `nmslib` and `faiss` engines.
 {: .note}
 
+In [k-NN benchmarking tests](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool), the use of `byte` rather than `float` vectors resulted in a significant reduction in storage and memory usage while also improving indexing throughput and reducing query latency. Additionally, precision on recall was not greatly affected (note that recall can depend on various factors, such as the [quantization technique](#quantization-techniques) used and data distribution). 
+
 When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
 {: .important}
  
@@ -167,9 +170,13 @@ GET test-index/_search
 
 ### Quantization techniques
 
-If your vectors are of type `float`, you need to first convert them to `byte` before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. 
+If your vectors are of type `float`, you need to first convert them to `byte` before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following example pseudocode shows the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types.
 
-The following example pseudocode shows the scalar quantization algorithm that was used to quantize the data for [k-NN benchmarking tests](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool):
+#### Scalar quantization for the L2 space type
+
+For Euclidean datasets, we recommend using a scalar quantization technique with L2 space type because Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$ then the distance remains the same, which means $$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$.
+
+The following example pseudocode illustrates scalar quantization for the L2 space type:
 
 ```python
 # Random dataset (Example to create a random dataset)
@@ -200,3 +207,61 @@ queryset *= 1. / (dataset_max - dataset_min)
 # Bucket into 256 values
 queryset = np.floor(queryset * (B - 1)) - int(B / 2)
 ```
+{% include copy.html %}
+
+#### Scalar quantization for the cosine similarity space type
+
+For angular datasets, we recommend using a scalar quantization technique with cosine similarity because cosine distance is not shift invariant ($$cos(x, y) \neq cos(x-z, y-z)$$). 
+
+The following example pseudocode illustrates scalar quantization for the cosine similarity space type:
+
+```python
+# For Positive Numbers
+
+# INDEXING and QUERYING:
+
+# Get Max of train dataset
+max = np.max(dataset)
+min = 0
+B = 127
+
+# Normalize into [0,1]
+val = (val - min) / (max - min)
+val = (val * B)
+
+# Get int and fraction values
+int_part = floor(val)
+frac_part = val - int_part
+
+if 0.5 < frac_part:
+ bval = int_part + 1
+else:
+ bval = int_part
+
+return Byte(bval)
+
+// For Negative Numbers
+
+# INDEXING and QUERYING:
+
+# Get Min of train dataset
+min = 0
+max = -np.min(dataset)
+B = 128
+
+# Normalize into [0,1]
+val = (val - min) / (max - min)
+val = (val * B)
+
+# Get int and fraction values
+int_part = floor(var)
+frac_part = val - int_part
+
+if 0.5 < frac_part:
+ bval = int_part + 1
+else:
+ bval = int_part
+
+return Byte(bval)
+```
+{% include copy.html %}
