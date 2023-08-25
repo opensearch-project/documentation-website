@@ -15,7 +15,7 @@ You have the option to configure the Security plugin for username rate limiting,
 
 ## Username rate limiting
 
-The username rate limiting configuration limits login attempts by username. When a login fails, the username is blocked for any machine in the network. The following example shows `config.yml` file settings configured for username rate limiting:
+The username rate limiting configuration limits login attempts by username. When a login fails, the username is blocked from use by any machine in the network. The following example shows `config.yml` file settings configured for username rate limiting:
 
 ```yml
 auth_failure_listeners:
