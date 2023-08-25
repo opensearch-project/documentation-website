@@ -2,7 +2,7 @@
 layout: default
 title: Advanced Settings
 parent: Dashboards Management
-nav_order: 20
+nav_order: 40
 ---
 
 # Advanced Settings

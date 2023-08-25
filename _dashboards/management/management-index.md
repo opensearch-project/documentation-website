@@ -14,9 +14,9 @@ Dashboards Management is where you can manage all things OpenSearch stack such a
 | Application     | Description |
 | --------------- | ----------- |
 | [Index Patterns]()  | Title  |
-| [Data Sources]({{site.url}}{{site.baseurl}}/dashboards/discover/multi-data-sources/)  | Specify the source configuration in the [OpenSearch Dashboards configuration file]({{site.url}}{{site.baseurl}}/dashboards/discover/multi-data-sources/).  |
-| [Saved Objects]()  | Text  |
-| [Advanced Settings]()  | Text  |
+| [Data Sources]({{site.url}}{{site.baseurl}}/dashboards/discover/multi-data-sources/)  | Specify the source configuration in your copy of the [OpenSearch Dashboards configuration file]({{site.url}}{{site.baseurl}}https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).  |
+| [Saved Objects]()  | Edit, import/export, and copy saved objects, such as dashboards, visualizations, maps, and data views, in OpenSearch Dashboards.  |
+| [Advanced Settings]()  | Manage the configurations that control OpenSearch Dashboards functionality.  |
 
 ## 
 
