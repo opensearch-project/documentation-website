@@ -9,12 +9,12 @@ redirect_from:
 
 # HTTP basic authentication
 
-When Security is configured for HTTP basic authentication, it provides a simple challenge and response process for gaining access to OpenSearch and its resources, which prompts you to sign in with a username and password. To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration by specifying `type` as `basic`, as shown in the following example:
+HTTP basic authentication provides a simple challenge and response process for gaining access to OpenSearch and its resources, which prompts you to sign in with a username and password. You enable HTTP basic authentication in the `http_authenticator` section of the configuration by specifying `type` as `basic`, as shown in the following example:
 
 ```yml
 authc:
   basic_internal_auth_domain:
-    description: "Authenticate via HTTP basic against internal users database"
+    description: "Authenticate using HTTP basic against the internal users database"
     http_enabled: true
     transport_enabled: true
     order: 1
