@@ -31,7 +31,7 @@ The payload for an OBO token includes the following claims. To read more about J
 | `exp` | Expiration time.  |
 | `sub` | Subject. User ID |
 | `aud` | Audience. The extension's, or the service's, unique identifier. |
-| `roles` | Roles. Security privilege evaluation. |
+| `roles` | Roles. Security privilege evaluation. <!--- not sure what this means ---> |
 
 
 
@@ -47,9 +47,9 @@ on_behalf_of:
 <!--- Will have to refer to JWT configruation to make sense of this abbreviated configuration. --->
 
 
-## Plugin backward compatibility
+## Enabling backend roles
 
-To make backend roles backward compatible for plugins, the following configuration is necessary:
+To make backend roles backward compatible for plugins, the following configuration is necessary in the `extensions/extensions.yml` file:
 
 ```yml
 BWC Mode OFF (default):
@@ -58,6 +58,6 @@ BWC Mode ON:
 Decrypted roles in plain-text (dr)
 Decrypted backend roles in plain-text (dbr)
 ```
-<!--- not sure what this configuration is all about. --->
+<!--- not sure what this configuration is all about. Is this the new setting: jwtTokenIncludesBackendRoles? basing this on comments in https://github.com/opensearch-project/security/pull/3180 --->
 
 
