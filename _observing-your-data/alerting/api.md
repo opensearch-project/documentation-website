@@ -1354,7 +1354,7 @@ startIndex    | string | The start index to start from. used for paginating resu
 searchString  | String | A search string used to look for a specific alert. Defaults to an empty string.
 severityLevel | string | Severity level to filter for. defaults to "ALL"
 alertState    | string | Alert state to filter for. defaults to "ALL"
-monitorId     | string | Filter by monitorId
+monitorId     | String | Filter by monitor ID.
 
 #### Request
 
