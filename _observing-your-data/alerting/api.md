@@ -1346,7 +1346,8 @@ Returns an array of all alerts.
 The following table lists the available path parameters. All path parameters are optional.
 Parameter | Data type | Description
 :--- | :--- | :---
-sortOrder     | string | Determines the order of the results. can be "asc" or "desc". defaults to "asc"
+sortString | string | Determines how to sort the results. Defaults to `monitor_name.keyword`.
+sortOrder     | String | Determines the order of the results. Options are `asc` or `desc`. Defaults to `asc`.
 missing       | string | Optional
 size          | string | Determines the size of the request to be returned. defaults to 20
 startIndex    | string | The start index to start from. used for paginating results. defaults to 0
