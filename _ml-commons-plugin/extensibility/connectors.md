@@ -431,24 +431,28 @@ The following example request creates a standalone Cohere connection:
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-    "name": "Cohere Connector: embedding",
-    "description": "The connector to cohere embedding model",
-    "version": 1,
-    "protocol": "http",
-    "credential": {
-        "cohere_key": "..."
-    },
-    "actions": [
-        {
-            "action_type": "predict",
-            "method": "POST",
-            "url": "https://api.cohere.ai/v1/embed",
-            "headers": {
-                "Authorization": "Bearer ${credential.cohere_key}"
-            },
-            "request_body": "{ \"texts\": ${parameters.prompt}, \"truncate\": \"END\" }"
-        }
-    ]
+  "name": "YOUR CONNECTOR NAME",
+  "description": "YOUR CONNECTOR DESCRIPTION",
+  "version": "YOUR CONNECTOR VERSION",
+  "protocol": "http",
+  "credential": {
+    "cohere_key": "ADD YOUR Cohere API KEY HERE"
+  },
+  "parameters": {
+    "model": "embed-english-v2.0",
+    "truncate": "END"
+  },
+  "actions": [
+    {
+      "action_type": "predict",
+      "method": "POST",
+      "url": "https://api.cohere.ai/v1/embed",
+      "headers": {
+        "Authorization": "Bearer ${credential.cohere_key}"
+      },
+      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\" }"
+    }
+  ]
 }
 ```
 {% include copy-curl.html %}
