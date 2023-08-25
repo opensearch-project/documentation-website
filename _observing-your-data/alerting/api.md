@@ -1350,7 +1350,7 @@ sortString | string | Determines how to sort the results. Defaults to `monitor_n
 sortOrder     | String | Determines the order of the results. Options are `asc` or `desc`. Defaults to `asc`.
 missing       | string | Optional
 size          | String | Determines the size of the request to be returned. Defaults to `20`.
-startIndex    | string | The start index to start from. used for paginating results. defaults to 0
+startIndex    | String | The start index to start from. Used for paginating results. Defaults to `0`.
 searchString  | String | A search string used to look for a specific alert. Defaults to an empty string.
 severityLevel | String | Severity level to filter for. Defaults to `ALL`.
 alertState    | string | Alert state to filter for. defaults to "ALL"
