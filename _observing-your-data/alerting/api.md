@@ -1352,7 +1352,7 @@ missing       | string | Optional
 size          | String | Determines the size of the request to be returned. Defaults to `20`.
 startIndex    | string | The start index to start from. used for paginating results. defaults to 0
 searchString  | String | A search string used to look for a specific alert. Defaults to an empty string.
-severityLevel | string | Severity level to filter for. defaults to "ALL"
+severityLevel | String | Severity level to filter for. Defaults to `ALL`.
 alertState    | string | Alert state to filter for. defaults to "ALL"
 monitorId     | String | Filter by monitor ID.
 
