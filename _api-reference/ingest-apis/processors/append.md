@@ -63,7 +63,32 @@ PUT _ingest/pipeline/user-behavior
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into an index.**
+**Step 2: Test pipeline.**
+
+It is recommended that you test a pipeline before you ingest documents.
+{: .tip}
+
+To test the pipeline, run the following query:
+
+```json
+POST _ingest/pipeline/user-behavior/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "event_type": "page_view",
+        "event_types":
+          "event_type"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+**Step 3: Ingest a document into an index.**
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -75,7 +100,7 @@ PUT testindex1/_doc/1?pipeline=user-behavior
 ```
 {% include copy-curl.html %}
 
-**Step 3: View an ingested document.**
+**Step 4: View an ingested document.**
 
 To view an ingested document, run the following query:
 
@@ -103,32 +128,9 @@ Because there was no `event_types` field in the document, an array field is crea
 }
 ```
 
-**Step 4: Test the pipeline.**
+### Response
 
-It is recommended that you test a pipeline before you ingest documents.
-{: .tip}
-
-To test the pipeline, run the following query:
-
-```json
-POST _ingest/pipeline/user-behavior/_simulate
-{
-  "docs": [
-    {
-      "_index": "testindex1",
-      "_id": "1",
-      "_source": {
-        "event_type": "page_view",
-        "event_types":
-          "event_type"
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-You'll receive the following response, which confirms that the pipeline is working correctly and producing the expected output:
+The following response confirms that the pipeline is working correctly and producing the expected output:
 
 ```json
 {
