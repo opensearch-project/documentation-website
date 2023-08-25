@@ -1343,7 +1343,7 @@ Introduced 1.0
 Returns an array of all alerts.
 
 **Path parameters**
-
+The following table lists the available path parameters. All path parameters are optional.
 Parameter | Data type | Description
 :--- | :--- | :---
 sortOrder     | string | Determines the order of the results. can be "asc" or "desc". defaults to "asc"
