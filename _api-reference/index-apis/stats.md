@@ -60,8 +60,8 @@ Parameter | Data type | Description
 :--- | :--- | :--- 
 `expand_wildcards` | String | Specifies the type of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes <br> `open`: Expand to open indexes <br> - `closed`: Expand to closed indexes <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both <br> - `none`: Do not accept wildcard expressions <br> Default is `open`.
 `fields` | String | A comma-separated list or a wildcard expression specifying fields to include in the statistics. Specifies the default field list if neither `completion_fields` nor `fielddata_fields` are provided.
-`completion_fields` | String | A comma-separated list or wildcard expression specifying fields to include in `fielddata` statistics.
-`fielddata_fields` | String | A comma-separated list or wildcard expression specifying fields to include in `fielddata` statistics.
+`completion_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `completion` statistics.
+`fielddata_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `fielddata` statistics.
 `forbid_closed_indices` | Boolean | Specifies not to collect statistics for closed indexes. Default is `true`.
 `groups` | String | A comma-separated list of search groups to include in the `search` statistics.
 `level` | String | Specifies the level to aggregate statistics. Valid values are: <br> - `cluster`: Cluster-level statistics, `indices`: Index-level statistics <br> - `shards`: Shard-level statistics. <br> Default is `indices`.
