@@ -8,7 +8,7 @@ parent: Supported field types
 
 # k-NN vector 
 
-The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors
+The [k-NN plugin]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors
 into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. In general, a `knn_vector` field can be built either by providing a method definition or specifying a model id.
 
 ## Example
@@ -47,7 +47,7 @@ PUT test-index
 
 ## Method definitions
 
-Method definitions are used when the underlying Approximate k-NN algorithm does not require training. For example, the following `knn_vector` field specifies that *nmslib*'s implementation of *hnsw* should be used for Approximate k-NN search. During indexing, *nmslib* will build the corresponding *hnsw* segment files.
+[Method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) are used when the underlying [Approximate k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) algorithm does not require training. For example, the following `knn_vector` field specifies that *nmslib*'s implementation of *hnsw* should be used for Approximate k-NN search. During indexing, *nmslib* will build the corresponding *hnsw* segment files.
 
 ```json
 "my_vector": {
@@ -77,7 +77,7 @@ model contains the information needed to initialize the native library segment f
 }
 ```
 
-However, if you intend to just use painless scripting or a k-NN score script, you only need to pass the dimension.
+However, if you intend to just use Painless scripting or a k-NN score script, you only need to pass the dimension.
  ```json
    "type": "knn_vector",
    "dimension": 128
@@ -164,3 +164,39 @@ GET test-index/_search
 }
 ```
 {% include copy-curl.html %}
+
+### Quantization techniques
+
+If your vectors are of type `float`, you need to first convert them to `byte` before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. 
+
+The following example pseudocode shows the scalar quantization algorithm that was used to quantize the data for [k-NN benchmarking tests](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool):
+
+```python
+# Random dataset (Example to create a random dataset)
+dataset = np.random.uniform(-300, 300, (100, 10))
+# Random query set (Example to create a random queryset)
+queryset = np.random.uniform(-350, 350, (100, 10))
+# Number of values
+B = 256
+
+# INDEXING:
+# Get min and max
+dataset_min = np.min(dataset)
+dataset_max = np.max(dataset)
+# Shift coordinates to be non-negative
+dataset -= dataset_min
+# Normalize into [0, 1]
+dataset *= 1. / (dataset_max - dataset_min)
+# Bucket into 256 values
+dataset = np.floor(dataset * (B - 1)) - int(B / 2)
+
+# QUERYING:
+# Clip (if queryset range is out of datset range)
+queryset = queryset.clip(dataset_min, dataset_max)
+# Shift coordinates to be non-negative
+queryset -= dataset_min
+# Normalize
+queryset *= 1. / (dataset_max - dataset_min)
+# Bucket into 256 values
+queryset = np.floor(queryset * (B - 1)) - int(B / 2)
+```
