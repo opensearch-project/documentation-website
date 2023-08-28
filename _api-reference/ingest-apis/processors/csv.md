@@ -30,7 +30,7 @@ Parameter | Required | Description |
 `target_fields`  | Required  | The name of the field in which to store the parsed data. |
 `value`  | Required  | The value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. | 
 `description`  | Optional  | A brief description of the processor.  |
-`empty_value`  | Optional  | Represents optional parameters that are not required to be present or are not applicable.  |
+`empty_value`  | Optional  | Represents optional parameters that are not required or are not applicable.  |
 `if` | Optional | Condition to run this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional | If set to `true`, the processor will not fail if the field does not exist. Default is `true`.  | 
