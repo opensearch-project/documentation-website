@@ -123,7 +123,7 @@ The request returns the following response:
 
 ### Example: Verbose mode
 
-When the previous request is run with the `verbose` parameter set to `true`, the response shows the sequence of transformations made on each document. For example, for the document with the ID `1`, the response contains the results of applying each processor in the pipeline in turn:
+When the previous request is run with the `verbose` parameter set to `true`, the response shows the sequence of transformations for each document. For example, for the document with the ID `1`, the response contains the results of applying each processor in the pipeline in sequence:
 
 ```json
 {
@@ -234,6 +234,8 @@ POST /_ingest/pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
+
+#### Response
 
 The request returns the following response:
 
