@@ -24,7 +24,7 @@ The `convert` processor converts a field in a document to a different type, for 
 
 The following table lists the required and optional parameters for the `convert` processor.   
 
-**Parameter** | **Required** | **Description** |
+Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field where the data should be converted. Supports template snippets.|
 `type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, the value is set to `true` if the field value is a string `true` (ignoring case), and to `false` if  the field value is a string `false` (ignoring case). If the value is not one of the allowed values, an error will occur.  |
