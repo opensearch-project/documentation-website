@@ -12,7 +12,7 @@ An _ingest pipeline_ is a sequence of _processors_ that are applied to documents
 
 Processors are customizable tasks that run in a sequential order as they appear in the request body. This order is important, as each processor depends on the output of the previous processor. The modified documents appear in your index after the processors are applied.
 
-Ingest pipelines in OpenSearch can only be managed using [ingest API operations]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
+Ingest pipelines can only be managed using [ingest API operations]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
 {: .note}
 
 ## Prerequisites 
