@@ -35,7 +35,7 @@ A _pipeline definition_ describes the steps involved in an ingest pipeline and c
 
 Alternatively, you can specify a pipeline directly in the request body without creating a pipeline first.
 
-### ### Request body fields
+### Request body fields
 
 Field | Required | Type | Description
 :--- | :--- | :--- | :---
