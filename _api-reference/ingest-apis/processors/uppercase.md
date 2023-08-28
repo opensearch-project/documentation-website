@@ -25,9 +25,9 @@ The following table lists the required and optional parameters for the `uppercas
 
 | Name  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field where the data should be appended. Supports template snippets. |
+`field`  | Required  | The name of the field to which the data should be appended. Supports template snippets. |
 `description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | Condition to run this processor. |
+`if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
@@ -80,6 +80,24 @@ POST _ingest/pipeline/uppercase/_simulate
 ```
 {% include copy-curl.html %}
 
+#### Response
+
+The following example response confirms that the pipeline is working correctly and producing the expected output:
+
+```json
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 44,
+  "_seq_no": 43,
+  "_primary_term": 3,
+  "found": true,
+  "_source": {
+    "name": "JOHN"
+  }
+}
+```
+
 **Step 3: Ingest a document.**
 
 The following query ingests a document into an index named `testindex1`:
@@ -100,21 +118,3 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
-
-#### Response
-
-The following example response confirms that the pipeline is working correctly and producing the expected output:
-
-```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 44,
-  "_seq_no": 43,
-  "_primary_term": 3,
-  "found": true,
-  "_source": {
-    "name": "JOHN"
-  }
-}
-```
