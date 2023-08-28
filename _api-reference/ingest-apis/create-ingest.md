@@ -56,7 +56,7 @@ To learn more about error handling, see [Handling pipeline failures]({{site.url}
 
 ## Request body fields
 
-The following table lists the request body fields used to create, or update, a pipeline. 
+The following table lists the request body fields used to create or update a pipeline. 
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
