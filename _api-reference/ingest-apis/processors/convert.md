@@ -27,7 +27,7 @@ The following table lists the required and optional parameters for the `convert`
 Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
-`type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, the value is set to `true` if the field value is a string `true` (ignoring case), and to `false` if  the field value is a string `false` (ignoring case). If the value is not one of the allowed values, an error will occur.  |
+`type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, the value is set to `true` if the field value is a string `true` (ignoring case) and to `false` if  the field value is a string `false` (ignoring case). If the value is not one of the allowed values, an error will occur.  |
 `description`  | Optional  | Brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
