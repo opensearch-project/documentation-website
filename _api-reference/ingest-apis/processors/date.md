@@ -35,7 +35,7 @@ Parameter | Required | Description |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`target_field`  | Optional  | Name of the field to store the parsed data in. Default target field is `@timestamp`. | 
+`target_field`  | Optional  | The name of the field in which to store the parsed data. Default target field is `@timestamp`. | 
 `timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. Supports template snippets.|
 
 ## Using the processor
