@@ -26,10 +26,10 @@ The following table lists the required and optional parameters for the `convert`
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
+`field`  | Required  | The name of the field that contains the data to be converted. Supports template snippets. |
 `type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, the value is set to `true` if the field value is a string `true` (ignoring case) and to `false` if  the field value is a string `false` (ignoring case). If the value is not one of the allowed values, an error will occur.  |
 `description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | Condition to run this processor. |
+`if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
