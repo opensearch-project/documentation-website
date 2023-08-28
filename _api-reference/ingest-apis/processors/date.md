@@ -26,7 +26,7 @@ The following table lists the required and optional parameters for the `date` pr
 
 **Parameter** | **Required** | **Description** |
 |-----------|-----------|-----------|
-`field`  | Required  | Name of the field where the data should be converted. Supports template snippets.|
+`field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
 `formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
 `description`  | Optional  | Brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
