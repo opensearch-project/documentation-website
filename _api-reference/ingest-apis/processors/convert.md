@@ -34,7 +34,7 @@ Parameter | Required | Description |
 `ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`target_field`  | Optional  | Name of the field to store the parsed data in. If not specified, the value will be stored in-place in the `field` field. Default is `field`.  |
+`target_field`  | Optional  | The name of the field in which to store the parsed data. If not specified, the value will be stored in place in the `field` field. Default is `field`.  |
 
 ## Using the processor
 
