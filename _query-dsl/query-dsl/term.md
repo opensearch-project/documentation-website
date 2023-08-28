@@ -405,8 +405,9 @@ Feature | Behavior
 :--- | :---
 `*` | Specifies all valid values.
 `?` | Specifies a single valid value.
+`case_insensitive` | If `true`, the wildcard query is case insensitive. If `false`, the wildcard query is case sensitive. Optional. Default is `true` (case insensitive).
 
-To search for terms that start with `H` and end with `Y`:
+For a case-sensitive search for terms that start with `H` and end with `Y`, use the following request:
 
 ```json
 GET shakespeare/_search
