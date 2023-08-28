@@ -39,7 +39,7 @@ Alternatively, you can specify a pipeline directly in the request body without c
 
 Field | Required | Type | Description
 :--- | :--- | :--- | :---
-`processors` | Required | Array of processor objects | A component that performs a specific task to process data as it's being ingested into OpenSearch.
+`processors` | Required | Array of processor objects | A component that performs a specific data processing task as the data is being ingested into OpenSearch.
 `description` | Optional | String | Description of the ingest pipeline. 
 
 ## Next steps
