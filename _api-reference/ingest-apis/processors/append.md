@@ -31,7 +31,7 @@ The following table lists the required and optional parameters for the `append` 
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | Name of the field where the data should be appended. Supports template snippets.|
+`field`  | Required  | The name of the field where the data should be appended. Supports template snippets.|
 `value`  | Required  | The value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. | 
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
