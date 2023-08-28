@@ -85,7 +85,7 @@ PUT /testindex/_doc/3
 ```json
 PUT /testindex/_doc/4
 {
-  "long title": "Wind turbines"
+  "article title": "Wind turbines"
 }
 ```
 {% include copy-curl.html %}
@@ -94,14 +94,18 @@ PUT /testindex/_doc/4
 
 Specify the field name before the colon. The following table contains example queries with field names.
 
-Query | Criterion for a document to match 
-:--- | :--- 
-`title: wind` | The `title` field contains the word `wind`.
-`title: (wind OR windy)` | The `title` field contains the word `wind` or the word `windy`.
-`title: \"wind rises\"` | The `title` field contains the phrase `wind rises`. Escape quotation marks with a backslash.
-`long\\ title: wind` | The `long title` field contains the word `wind`. Escape the space character with a backslash.
-`title.\\*: wind` | Every field that begins with `title.` (for example, `title.english`) contains the word `wind`. Escape the wildcard character with a backslash.
-`_exists_: description` | The field `description` exists.
+Query | Criterion for a document to match | Matching documents from the `testindex` index
+:--- | :--- | :---
+`title: wind` | The `title` field contains the word `wind`. | 1, 2
+`title: (wind OR windy)` | The `title` field contains the word `wind` or the word `windy`. | 1, 2, 3
+`title: \"wind rises\"` | The `title` field contains the phrase `wind rises`. Escape quotation marks with a backslash. | 1
+`article\\ title: wind` | The `article title` field contains the word `wind`. Escape the space character with a backslash. | 4
+`title.\\*: rise` | Every field that begins with `title.` (in this example, `title.english`) contains the word `rise`. Escape the wildcard character with a backslash. | 1
+`_exists_: description` | The field `description` exists. | 2
+
+### Wildcard expressions
+
+You can specify wildcard expressions using special characters: `?` replaces a single character and `*` replaces zero or more characters.
 
 ## Example
 
