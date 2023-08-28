@@ -7,7 +7,7 @@ nav_order: 72
 
 # Index stats 
 
-The Index Stats API provides index statistics. For data streams, the API provides statistics for the stream's backing indexes. By default, the returned statistics are index-level. To receive shard-level statistics, set the `level` parameter to `shards`.
+The Index Stats API provides index statistics. For data streams, the API provides statistics for the stream's backing indexes. By default, the returned statistics are index level. To receive shard-level statistics, set the `level` parameter to `shards`.
 
 When a shard moves to a different node, the shard-level statistics for the shard are cleared. Although the shard is no longer part of the node, the node preserves any node-level statistics to which the shard contributed.
 {: .note}
@@ -37,7 +37,7 @@ Metric | Description
 :--- |:----
 `_all` | Return all statistics. 
 `completion` | Completion suggester statistics. 
-`docs` | Returns the number of documents and the number of deleted docs that have not yet been merged. Index refresh operations can affect this statistic. 
+`docs` | Returns the number of documents and the number of deleted documents that have not yet been merged. Index refresh operations can affect this statistic. 
 `fielddata` | Field data statistics. 
 `flush` | Flush statistics. 
 `get` | Get statistics, including missing stats. 
@@ -59,7 +59,7 @@ The following table lists the available query parameters. All query parameters a
 Parameter | Data type | Description 
 :--- | :--- | :--- 
 `expand_wildcards` | String | Specifies the type of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes <br> `open`: Expand to open indexes <br> - `closed`: Expand to closed indexes <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both <br> - `none`: Do not accept wildcard expressions <br> Default is `open`.
-`fields` | String | A comma-separated list or a wildcard expression specifying fields to include in the statistics. Specifies the default field list if neither `completion_fields` nor `fielddata_fields` are provided.
+`fields` | String | A comma-separated list or a wildcard expression specifying fields to include in the statistics. Specifies the default field list if neither `completion_fields` nor `fielddata_fields` is provided.
 `completion_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `completion` statistics.
 `fielddata_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `fielddata` statistics.
 `forbid_closed_indices` | Boolean | Specifies not to collect statistics for closed indexes. Default is `true`.
