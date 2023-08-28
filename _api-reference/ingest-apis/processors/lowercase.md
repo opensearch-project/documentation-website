@@ -8,7 +8,7 @@ nav_order: 210
 
 # Lowercase
 
-This processor converts all the text in a specific field to lowercase letters. The following is the syntax for the `lowercase` processor: 
+The `lowercase` processor converts all the text in a specific field to lowercase letters. The following is the syntax for the `lowercase` processor: 
 
 ```json
 {
