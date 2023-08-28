@@ -14,7 +14,7 @@ Use the create pipeline API operation to create or update pipelines in OpenSearc
 
 ## Path and HTTP method
 
-Replace `<pipeline-id>` with your pipeline ID.
+Replace `<pipeline-id>` with your pipeline ID:
 
 ```json
 PUT _ingest/pipeline/<pipeline-id>
