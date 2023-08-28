@@ -130,5 +130,5 @@ The response contains statistics for all ingest pipelines, for example:
 }
 ```
 
-**Troubleshooting ingest pipeline failures:** The first thing you should do is check the logs to see if there are any errors or warning that can help you identify the cause of the failure. OpenSeach logs contain information about the ingest pipeline that failed, including the processor that failed and the reason for the failure.
+**Troubleshooting ingest pipeline failures:** The first thing you should do is check the logs to see whether there are any errors or warnings that can help you identify the cause of the failure. OpenSearch logs contain information about the ingest pipeline that failed, including the processor that failed and the reason for the failure.
 {: .tip}
