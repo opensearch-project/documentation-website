@@ -108,7 +108,7 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-Because no `event_types` field is in the document, an array field is created and the event is appended to the array:
+Because the document does not contain an `event_types` field, an array field is created and the event is appended to the array:
 
 ```json
 {
