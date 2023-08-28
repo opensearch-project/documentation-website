@@ -32,7 +32,7 @@ The following table lists the required and optional parameters for the `lowercas
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`target_field`  | Optional  | Name of the field to store the parsed data in. Default is `field`. By default, `field` is updated in-place. |
+`target_field`  | Optional  | The name of the field in which to store the parsed data. Default is `field`. By default, `field` is updated in place. |
 
 ## Using the processor
 
