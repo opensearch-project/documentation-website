@@ -19,7 +19,7 @@ Ingest pipelines can only be managed using [ingest API operations]({{site.url}}{
 
 The following are prerequisites for using OpenSearch ingest pipelines:
 
-- When using ingest in production environments, your cluster should contain at least one node with the node roles permission set to `ingest`. For information about setting up node roles within a cluster, see [Cluster Formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+- When using ingestion in a production environment, your cluster should contain at least one node with the node roles permission set to `ingest`. For information about setting up node roles within a cluster, see [Cluster Formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 - If the OpenSearch Security plugin is enabled, you must have the `cluster_manage_pipelines` permission to manage ingest pipelines.
 
 ## Define a pipeline
