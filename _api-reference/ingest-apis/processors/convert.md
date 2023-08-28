@@ -42,7 +42,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline.** 
 
-The following query creates a pipeline, named `convert-price`, that converts `price` to a floating-point number and stores the converted value in the `price_float` field and sets the value to `0` if it is less than `0`:
+The following query creates a pipeline, named `convert-price`, that converts `price` to a floating-point number, stores the converted value in the `price_float` field, and sets the value to `0` if it is less than `0`:
 
 ```json
 PUT _ingest/pipeline/convert-price
