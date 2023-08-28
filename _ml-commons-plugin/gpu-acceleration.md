@@ -1,15 +1,12 @@
 ---
 layout: default
 title: GPU acceleration
-parent: Model-serving framework
+parent: ML framework
 nav_order: 150
 ---
 
 
 # GPU acceleration 
-
-GPU acceleration is an experimental feature. For updates on the progress of GPU acceleration, or if you want to leave feedback that could help improve the feature, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
 
 When running a natural language processing (NLP) model in your OpenSearch cluster with a machine learning (ML) node, you can achieve better performance on the ML node using graphics processing unit (GPU) acceleration. GPUs can work in tandem with the CPU of your cluster to speed up the model upload and training. 
 
