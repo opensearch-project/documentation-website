@@ -45,7 +45,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline.** 
 
-The following query creates a pipeline, named `user-behavior`, that has one append processor. It appends the `event_type` of each new document ingested into OpenSearch to an array field `event_types`:
+The following query creates a pipeline, named `user-behavior`, that has one append processor. It appends the `event_type` of each new document ingested into OpenSearch to an array field named `event_types`:
 
 ```json
 PUT _ingest/pipeline/user-behavior
