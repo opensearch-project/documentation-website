@@ -94,7 +94,7 @@ PUT testindex1/_doc/1?pipeline=lowercase-title
 
 **Step 4 (Optional): Retrieve the document.**
 
-To view an ingested document, run the following query:
+To retrieve the document, run the following query:
 
 ```json
 GET testindex1/_doc/1
