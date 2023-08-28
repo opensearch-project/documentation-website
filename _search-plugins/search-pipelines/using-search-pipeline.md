@@ -11,9 +11,9 @@ grand_parent: Search
 
 You can use a search pipeline in the following ways:
 
-- [Specify an existing pipeline](#specifying-an-existing-search-pipeline-for-a-request) for a request
-- [Use a temporary pipeline](#using-a-temporary-search-pipeline-for-a-request) for a request
-- Set a [default pipeline](#default-search-pipeline) for all requests in an index
+- [Specify an existing pipeline](#specifying-an-existing-search-pipeline-for-a-request) for a request.
+- [Use a temporary pipeline](#using-a-temporary-search-pipeline-for-a-request) for a request.
+- Set a [default pipeline](#default-search-pipeline) for all requests in an index.
 
 ## Specifying an existing search pipeline for a request
 
