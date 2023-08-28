@@ -24,7 +24,7 @@ The `date` processor is used to parse dates from document fields and to add the 
 
 The following table lists the required and optional parameters for the `date` processor.
 
-**Parameter** | **Required** | **Description** |
+Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
 `formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
