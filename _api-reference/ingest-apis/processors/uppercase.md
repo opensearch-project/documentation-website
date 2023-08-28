@@ -72,7 +72,7 @@ POST _ingest/pipeline/uppercase/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "name": "{John}"
+        "name": "John"
       }
     }
   ]
