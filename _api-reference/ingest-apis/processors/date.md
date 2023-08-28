@@ -112,7 +112,7 @@ GET testindex1/_doc/1
 
 #### Response
 
-The following example response confirms the pipeline is working correctly and producing the expected output:
+The following example response confirms that the pipeline is working correctly and producing the expected output:
 
 ```json
 {
