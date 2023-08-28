@@ -26,7 +26,7 @@ The following table lists the required and optional parameters for the `uppercas
 | Name  | Required  | Description  |
 |---|---|---|
 `field`  | Required  | The name of the field where the data should be appended. Supports template snippets. |
-`description`  | Optional  | Brief description of the processor.  |
+`description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
