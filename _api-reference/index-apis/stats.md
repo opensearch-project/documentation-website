@@ -47,7 +47,7 @@ Metric | Description
 `refresh` | Refresh statistics. 
 `request_cache` | Shard request cache statistics. 
 `search` | Search statistics, including suggest operation statistics. Search operations can be associated with one or more groups. You can include statistics for custom groups by providing a `groups` parameter, which accepts a comma-separated list of group names. To return statistics for all groups, use `_all`. 
-`segments` | Statistics about memory use of all open segments. If the `include_segment_file_sizes parameter` is `true`, this metric includes the aggregated disk usage of each Lucene index file.
+`segments` | Statistics about memory use of all open segments. If the `include_segment_file_sizes` parameter is `true`, this metric includes the aggregated disk usage of each Lucene index file.
 `store` | Size of the index in byte units. 
 `translog` | Translog statistics. 
 `warmer` | Warmer statistics. 
