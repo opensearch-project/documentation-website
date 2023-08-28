@@ -64,7 +64,7 @@ Parameter | Data type | Description
 `fielddata_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `fielddata` statistics.
 `forbid_closed_indices` | Boolean | Specifies not to collect statistics for closed indexes. Default is `true`.
 `groups` | String | A comma-separated list of search groups to include in the `search` statistics.
-`level` | String | Specifies the level to aggregate statistics. Valid values are: <br> - `cluster`: Cluster-level statistics, `indices`: Index-level statistics <br> - `shards`: Shard-level statistics. <br> Default is `indices`.
+`level` | String | Specifies the level used to aggregate statistics. Valid values are: <br> - `cluster`: Cluster-level statistics. <br> - `indices`: Index-level statistics. <br> - `shards`: Shard-level statistics. <br> Default is `indices`.
 `include_segment_file_sizes` | Boolean | Specifies whether to report the aggregated disk usage of each Lucene index file. Only applies to `segments` statistics. Default is `false`.
 `include_unloaded_segments` | Boolean | Specifies whether to include information from segments that are not loaded into memory. Default is `false`.
 
@@ -77,7 +77,7 @@ GET /testindex/_stats
 
 #### Example response
 
-By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards.
+By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards. The following is an example Index Stats API response: 
 
 <details closed markdown="block">
   <summary>
