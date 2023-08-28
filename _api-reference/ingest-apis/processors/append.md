@@ -119,7 +119,6 @@ Because the document does not contain an `event_types` field, an array field is 
   "_primary_term": 1,
   "found": true,
   "_source": {
-    "event_type": "page_view",
     "event_types": [
       "page_view"
     ]
