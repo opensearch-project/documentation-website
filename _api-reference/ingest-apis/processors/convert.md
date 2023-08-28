@@ -34,7 +34,7 @@ Parameter | Required | Description |
 `ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`target_field`  | Optional  | The name of the field in which to store the parsed data. If not specified, the value will be stored in place in the `field` field. Default is `field`.  |
+`target_field`  | Optional  | The name of the field in which to store the parsed data. If not specified, the value will be stored in the `field` field. Default is `field`.  |
 
 ## Using the processor
 
@@ -91,30 +91,9 @@ POST _ingest/pipeline/convert-price/_simulate
 ```
 {% include copy-curl.html %}
 
-**Step 3: Ingest a document.**
-
-The following query ingests a document into an index named `testindex1`:
-
-```json
-PUT testindex1/_doc/1?pipeline=convert-price
-{
-  "price": "10.5"
-}
-```
-{% include copy-curl.html %}
-
-**Step 4 (Optional): Retrieve the document.**
-
-To retrieve the document, run the following query:
-
-```json
-GET testindex1/_doc/1
-```
-{% include copy-curl.html %}
-
 #### Response
 
-The following example response confirms that the pipeline is working correctly and producing the expected output: 
+The following example response confirms that the pipeline is working as expected: 
 
 ```json
 {
@@ -135,3 +114,24 @@ The following example response confirms that the pipeline is working correctly a
   ]
 }
 ```
+
+**Step 3: Ingest a document.**
+
+The following query ingests a document into an index named `testindex1`:
+
+```json
+PUT testindex1/_doc/1?pipeline=convert-price
+{
+  "price": "10.5"
+}
+```
+{% include copy-curl.html %}
+
+**Step 4 (Optional): Retrieve the document.**
+
+To retrieve the document, run the following query:
+
+```json
+GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
