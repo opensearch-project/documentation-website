@@ -55,7 +55,7 @@ PUT _ingest/pipeline/user-behavior
     {
       "append": {
         "field": "event_types",
-        "value": ["event_type"]
+        "value": ["page_view"]
       }
     }
   ]
