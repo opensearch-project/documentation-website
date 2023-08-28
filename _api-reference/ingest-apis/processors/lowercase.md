@@ -26,7 +26,7 @@ The following table lists the required and optional parameters for the `lowercas
 | Name  | Required  | Description  |
 |---|---|---|
 `field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
-`description`  | Optional  | Brief description of the processor.  |
+`description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
