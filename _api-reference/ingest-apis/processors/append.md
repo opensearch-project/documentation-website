@@ -95,7 +95,6 @@ The following query ingests a document into an index named `testindex1`:
 ```json
 PUT testindex1/_doc/1?pipeline=user-behavior
 {
-  "event_type": "page_view"
 }
 ```
 {% include copy-curl.html %}
