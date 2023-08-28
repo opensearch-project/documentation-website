@@ -13,7 +13,7 @@ Ingest APIs are a valuable tool for loading data into a system. Ingest APIs work
 
 ## Ingest pipeline APIs
 
-Simplify, secure, and scale your data ingestion in OpenSearch with the following APIs:
+Simplify, secure, and scale your OpenSearch data ingestion with the following APIs:
 
 - [Create pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/create-ingest/): Use this API to create or update a pipeline configuration.
 - [Get pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/): Use this API to retrieve a pipeline configuration.
