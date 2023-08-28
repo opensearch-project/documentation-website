@@ -24,7 +24,7 @@ The `csv` processor is used to parse CSVs and store them as individual fields in
 
 The following table lists the required and optional parameters for the `csv` processor.
 
-**Parameter** | **Required** | **Description** |
+Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field where the data should be converted. Supports template snippets.|
 `target_fields`  | Required  | Name of the field to store the parsed data in. |
