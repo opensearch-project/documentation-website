@@ -26,7 +26,7 @@ The following table lists the required and optional parameters for the `csv` pro
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | Name of the field where the data should be converted. Supports template snippets.|
+`field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
 `target_fields`  | Required  | Name of the field to store the parsed data in. |
 `value`  | Required  | Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. | 
 `description`  | Optional  | Brief description of the processor.  |
