@@ -28,7 +28,7 @@ Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
 `formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
-`description`  | Optional  | Brief description of the processor.  |
+`description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports template snippets.  |
