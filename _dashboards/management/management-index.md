@@ -7,16 +7,14 @@ children: true
 
 ## Dashboards Management
 
-Dashboards Management is where you can manage all things OpenSearch stack such as indexes, clusters, licenses, user interface (UI) settings, data views, and more. OpenSearch and OpenSearch Dashboards privileges govern access to individual features. If you do not have the appropriate access, consult your administrator. 
+Dashboards Management is where you can customize your OpenSeach Dashboards behavior. 
 
-## OpenSearch Dashboards
+OpenSearch and OpenSearch Dashboards privileges govern access to individual features. If you do not have the appropriate access, consult your administrator. 
+{: .tip}
 
-| Application     | Description |
-| --------------- | ----------- |
-| [Index Patterns]()  | Title  |
-| [Data Sources]({{site.url}}{{site.baseurl}}/dashboards/discover/multi-data-sources/)  | Specify the source configuration in your copy of the [OpenSearch Dashboards configuration file]({{site.url}}{{site.baseurl}}https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).  |
-| [Saved Objects]()  | Edit, import/export, and copy saved objects, such as dashboards, visualizations, maps, and data views, in OpenSearch Dashboards.  |
-| [Advanced Settings]()  | Manage the configurations that control OpenSearch Dashboards functionality.  |
+The following applications are available in Dashboards Management:
 
-## 
-
+- **[Index Patterns]():** To access OpenSearch data, you need to create an index pattern so that you can select the data you want to use and define the properties of the fields. An index pattern can point to one or more indexes, data streams, or index aliases. 
+- **[Data Sources]({{site.url}}{{site.baseurl}}/dashboards/discover/multi-data-sources/):** You can use Data Sources to specify the source configuration in your copy of the [OpenSearch Dashboards configuration file]({{site.url}}{{site.baseurl}}https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).
+- **[Saved Objects]():** The Saved Objects interface helps you organize and manage your saved objects. Saved objects are files that store data for later use, such as dashboards, visualizations, and maps.
+- **[Advanced Settings]():** You can use the Advanced Settings interface to customize the behavior of OpenSearch Dashboards.
