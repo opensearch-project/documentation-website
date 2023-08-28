@@ -29,7 +29,7 @@ Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
 `description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | Condition to run this processor. |
+`if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
@@ -42,7 +42,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline.** 
 
-The following query creates a pipeline, named `file_upload`, that has one bytes processor. It converts the `file_size` to its byte equivalent and stores it in a new field `file_size_bytes`:
+The following query creates a pipeline, named `file_upload`, that has one `bytes` processor. It converts the `file_size` to its byte equivalent and stores it in a new field named `file_size_bytes`:
 
 ```json
 PUT _ingest/pipeline/file_upload
@@ -62,13 +62,13 @@ PUT _ingest/pipeline/file_upload
 
 **Step 2 (Optional): Test the pipeline.** 
 
-It is recommended that you test a pipeline before you ingest documents.
+It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
 
 To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/user-behavior/_simulate
+POST _ingest/pipeline/file_upload/_simulate
 {
   "docs": [
     {
@@ -85,30 +85,9 @@ POST _ingest/pipeline/user-behavior/_simulate
 ```
 {% include copy-curl.html %}
 
-**Step 3: Ingest a document.**
+#### Reponse
 
-The following query ingests a document into an index named `testindex1`:
-
-```json
-PUT testindex1/_doc/1?pipeline=file_upload
-{
-  "file_size": "10MB"
-}
-```
-{% include copy-curl.html %}
-
-**Step 4 (Optional): Retrieve the document.** 
-
-To retrieve the document, run the following query:
-
-```json
-GET testindex1/_doc/1
-```
-{% include copy-curl.html %}
-
-#### Response
-
-The following example response confirms the pipeline is working correctly and producing the expected output: 
+The following response confirms that the pipeline is working as expected:
 
 ```json
 {
@@ -133,32 +112,23 @@ The following example response confirms the pipeline is working correctly and pr
 }
 ```
 
-## Using optional parameters
+**Step 3: Ingest a document.**
 
-The following query creates a pipeline with the bytes processor and one optional parameter, `on_failure`, which uses the `set` processor to set the `error` field with a specific error message:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
-PUT _ingest/pipeline/file_upload
+PUT testindex1/_doc/1?pipeline=file_upload
 {
-  "description": "Pipeline that converts file size to bytes",
-  "processors": [
-    {
-      "bytes": {
-        "field": "file_size",
-        "target_field": "file_size_bytes",
-        "on_failure": [
-          {
-            "set": {
-              "field": "error",
-              "value": "Failed to convert"
-            }
-          }
-        ]
-      }
-    }
-  ]
+  "file_size": "10MB"
 }
 ```
 {% include copy-curl.html %}
 
-Repeat steps 2--4 to confirm the pipeline is working as expected.
+**Step 4 (Optional): Retrieve the document.** 
+
+To retrieve the document, run the following query:
+
+```json
+GET testindex1/_doc/1
+```
+{% include copy-curl.html %}

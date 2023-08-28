@@ -37,7 +37,7 @@ You can specify the `on_failure` parameter to run immediately after a processor 
 ```json
 PUT _ingest/pipeline/my-pipeline/
 {
-  "description": "Add timestampto the document",
+  "description": "Add timestamp to the document",
   "processors": [
     {
       "date": {

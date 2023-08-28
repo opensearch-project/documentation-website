@@ -33,7 +33,7 @@ A _pipeline definition_ describes the sequence of an ingest pipeline and can be 
 }
 ```
 
-### ### Request body fields
+### Request body fields
 
 Field | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -45,6 +45,6 @@ Field | Required | Type | Description
 Learn how to:
 
 - [Create a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/create-ingest/).
-- [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/).
 - [Test a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/simulate-ingest/).
+- [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/).
 - [Delete a pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/delete-ingest/). 

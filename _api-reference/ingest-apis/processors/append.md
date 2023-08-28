@@ -32,8 +32,8 @@ The following table lists the required and optional parameters for the `append` 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field to which the data should be appended. Supports template snippets.|
-`value`  | Required  | Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. | 
-`description`  | Optional  | Brief description of the processor.  |
+`value`  | Required  | The value to be appended. This can be a static value or a dynamic value derived from existing fields. Supports template snippets. | 
+`description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
@@ -87,6 +87,7 @@ POST _ingest/pipeline/user-behavior/_simulate
 
 The following response confirms that the pipeline is working as expected:
 
+```json
 {
   "docs": [
     {
@@ -105,6 +106,7 @@ The following response confirms that the pipeline is working as expected:
     }
   ]
 }
+```
 
 **Step 3: Ingest a document.**
 
