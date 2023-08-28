@@ -10,7 +10,7 @@ redirect_from:
 
 # Delete pipeline
 
-Use the following request to delete pipelines. 
+Use the following request to delete a pipeline. 
 
 To delete a specific pipeline, pass the pipeline ID as a parameter:
 
