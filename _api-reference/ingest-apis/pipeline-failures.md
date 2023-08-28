@@ -32,7 +32,7 @@ PUT _ingest/pipeline/my-pipeline/
 ```
 {% include copy-curl.html %}
 
-You can specify the `on_failure` parameter to run immediately after a processor fails. If you have specified `on_failure`, OpenSearch will run the other processors in the pipeline, even if the `on_failure` configuration is empty: 
+You can specify the `on_failure` parameter to run immediately after a processor fails. If you have specified `on_failure`, OpenSearch will run the other processors in the pipeline even if the `on_failure` configuration is empty: 
 
 ```json
 PUT _ingest/pipeline/my-pipeline/
