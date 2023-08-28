@@ -8,7 +8,7 @@ nav_order: 5
 
 # Ingest pipelines
 
-An _ingest pipeline_ is a sequence of _processors_ that are applied to documents as they are ingested into an index. Each [processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) in the pipeline performs a specific task, such as filtering, transforming, or enriching data. Ingest pipelines are a valuable tool to help you tailor data to your needs.  
+An _ingest pipeline_ is a sequence of _processors_ that are applied to documents as they are ingested into an index. Each [processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) in a pipeline performs a specific task, such as filtering, transforming, or enriching data. 
 
 Ingest pipelines consist of _processors_. Processors are customizable tasks that run in a sequential order as they appear in the request body. This order is important, as each processor depends on the output of the previous processor. The modified documents appear in your index after the processors are applied.
 
