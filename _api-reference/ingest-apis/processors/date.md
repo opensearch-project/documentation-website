@@ -26,10 +26,10 @@ The following table lists the required and optional parameters for the `date` pr
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
+`field`  | Required  | The name of the field to which the data should be converted. Supports template snippets. |
 `formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
 `description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | Condition to run this processor. |
+`if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports template snippets.  |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
@@ -89,27 +89,6 @@ POST _ingest/pipeline/date-output-format/_simulate
 ```
 {% include copy-curl.html %}
 
-**Step 3: Ingest a document.**
-
-The following query ingests a document into an index named `testindex1`:
-
-```json
-PUT testindex1/_doc/1?pipeline=date-output-format
-{
-  "date_european": "30/06/2023"
-}
-```
-{% include copy-curl.html %}
-
-**Step 4 (Optional): Retrieve the document.**
-
-To retrieve the document, run the following query:
-
-```json
-GET testindex1/_doc/1
-```
-{% include copy-curl.html %}
-
 #### Response
 
 The following example response confirms that the pipeline is working correctly and producing the expected output:
@@ -133,3 +112,24 @@ The following example response confirms that the pipeline is working correctly a
   ]
 }
 ```
+
+**Step 3: Ingest a document.**
+
+The following query ingests a document into an index named `testindex1`:
+
+```json
+PUT testindex1/_doc/1?pipeline=date-output-format
+{
+  "date_european": "30/06/2023"
+}
+```
+{% include copy-curl.html %}
+
+**Step 4 (Optional): Retrieve the document.**
+
+To retrieve the document, run the following query:
+
+```json
+GET testindex1/_doc/1
+```
+{% include copy-curl.html %}
