@@ -57,7 +57,7 @@ PUT /_ingest/pipeline/remove_ip
 
 **Step 2 (Optional): Test the pipeline.**
 
-It is recommended that you test a pipeline before you ingest documents.
+It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
 
 To test the pipeline, run the following query:
