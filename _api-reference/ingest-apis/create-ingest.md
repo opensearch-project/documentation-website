@@ -61,7 +61,7 @@ The following table lists the request body fields used to create or update a pip
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `processors` | Required | Array of processor objects | An array of processors, each of which transforms documents. Processors are run sequentially in the order specified.
-`description` | Optional | String | Description of your ingest pipeline. 
+`description` | Optional | String | A description of your ingest pipeline. 
 
 ## Path parameters
 
