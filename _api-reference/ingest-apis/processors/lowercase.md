@@ -72,7 +72,7 @@ POST _ingest/pipeline/lowercase-title/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "title": "war and peace"
+        "title": "WAR AND PEACE"
       }
     }
   ]
