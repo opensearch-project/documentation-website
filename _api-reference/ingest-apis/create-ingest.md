@@ -69,6 +69,8 @@ Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `pipeline-id` | Required | String | The unique identifier, or pipeline ID, assigned to the ingest pipeline. 
 
+## Query parameters
+
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `cluster_manager_timeout` | Optional | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.

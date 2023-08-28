@@ -20,4 +20,4 @@ GET /_nodes/ingest
 To set up and deploy ingest processors, make sure you have the necessary permissions and access rights. See [Security plugin REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/) to learn more.
 {:.note}
 
-The following is a generic example of an ingest processor definition within a pipeline. Processor types and their required or optional parameters vary depending on your specific use case. See the [Ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) section to learn more about the processor types and defining and configuring them within a pipeline.
+Processor types and their required or optional parameters vary depending on your specific use case. See the [Ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) section to learn more about the processor types and defining and configuring them within a pipeline.

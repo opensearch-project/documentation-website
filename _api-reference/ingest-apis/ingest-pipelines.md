@@ -24,7 +24,7 @@ The following are prerequisites for using OpenSearch ingest pipelines:
 
 ## Define a pipeline
 
-A _pipeline definition_ describes the steps involved in an ingest pipeline and can be written in JSON format. An ingest pipeline consists of the following:
+A _pipeline definition_ describes the sequence of an ingest pipeline and can be written in JSON format. An ingest pipeline consists of the following:
 
 ```json
 {
@@ -33,9 +33,7 @@ A _pipeline definition_ describes the steps involved in an ingest pipeline and c
 }
 ```
 
-Alternatively, you can specify a pipeline directly in the request body without creating a pipeline first.
-
-### Request body fields
+### ### Request body fields
 
 Field | Required | Type | Description
 :--- | :--- | :--- | :---

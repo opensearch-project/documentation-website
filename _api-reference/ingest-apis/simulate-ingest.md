@@ -191,7 +191,7 @@ When the previous request is run with the `verbose` parameter set to `true`, the
 
 ### Example: Specify a pipeline in the request body
 
-Alternatively, you can specify a pipeline directly in the request body without creating a pipeline first:
+Alternatively, you can specify a pipeline directly in the request body without first creating a pipeline:
 
 ```json
 POST /_ingest/pipeline/_simulate
