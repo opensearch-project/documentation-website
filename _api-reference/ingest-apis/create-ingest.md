@@ -80,7 +80,7 @@ Some processor parameters support [Mustache](https://mustache.github.io/) templa
 
 #### Example: `set` ingest processor using Mustache template snippet
 
-The following example sets the field `{% raw %}{{{role}}}{% endraw %}` with a value `{% raw %}{{{tenure}}}{% endraw %}`.
+The following example sets the field `{% raw %}{{{role}}}{% endraw %}` with a value `{% raw %}{{{tenure}}}{% endraw %}`:
 
 ```json
 PUT _ingest/pipeline/my-pipeline
