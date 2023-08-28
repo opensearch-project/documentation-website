@@ -25,9 +25,9 @@ The following table lists the required and optional parameters for the `remove` 
 
 | Name  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field where the data should be appended. Supports template snippets. |
+`field`  | Required  | The name of the field to which the data should be appended. Supports template snippets. |
 `description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | Condition to run this processor. |
+`if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
@@ -79,6 +79,29 @@ POST _ingest/pipeline/remove_ip/_simulate
 ```
 {% include copy-curl.html %}
 
+#### Response
+
+The following example response confirms that the pipeline is working as expected:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "name": "John Doe"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-24T18:02:13.218986756Z"
+        }
+      }
+    }
+  ]
+}
+```
+
 **Step 3: Ingest a document.**
 
 The following query ingests a document into an index named `testindex1`:
@@ -100,26 +123,3 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
-
-#### Response
-
-The following example response confirms that the pipeline is working correctly and producing the expected output:
-
-```json
-{
-  "docs": [
-    {
-      "doc": {
-        "_index": "testindex1",
-        "_id": "1",
-        "_source": {
-          "name": "John Doe"
-        },
-        "_ingest": {
-          "timestamp": "2023-08-24T18:02:13.218986756Z"
-        }
-      }
-    }
-  ]
-}
-```
