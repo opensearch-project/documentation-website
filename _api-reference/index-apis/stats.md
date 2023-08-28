@@ -58,7 +58,7 @@ The following table lists the available query parameters. All query parameters a
 
 Parameter | Data type | Description 
 :--- | :--- | :--- 
-`expand_wildcards` | String | Specifies the type of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes <br> `open`: Expand to open indexes <br> - `closed`: Expand to closed indexes <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both <br> - `none`: Do not accept wildcard expressions <br> Default is `open`.
+`expand_wildcards` | String | Specifies the type of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes. <br> - `open`: Expand to open indexes. <br> - `closed`: Expand to closed indexes. <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both. <br> - `none`: Do not accept wildcard expressions. <br> Default is `open`.
 `fields` | String | A comma-separated list or a wildcard expression specifying fields to include in the statistics. Specifies the default field list if neither `completion_fields` nor `fielddata_fields` is provided.
 `completion_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `completion` statistics.
 `fielddata_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `fielddata` statistics.
@@ -68,7 +68,7 @@ Parameter | Data type | Description
 `include_segment_file_sizes` | Boolean | Specifies whether to report the aggregated disk usage of each Lucene index file. Only applies to `segments` statistics. Default is `false`.
 `include_unloaded_segments` | Boolean | Specifies whether to include information from segments that are not loaded into memory. Default is `false`.
 
-### Example request: One index
+#### Example request: One index
 
 ```json
 GET /testindex/_stats
