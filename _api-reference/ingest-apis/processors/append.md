@@ -29,7 +29,7 @@ The following is the syntax for the `append` processor:
 
 The following table lists the required and optional parameters for the `append` processor.
 
-**Parameter** | **Required** | **Description** |
+Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field where the data should be appended. Supports template snippets.|
 `value`  | Required  | Value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. | 
