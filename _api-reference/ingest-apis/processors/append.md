@@ -33,7 +33,7 @@ Parameter | Required | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | Name of the field where the data should be appended. Supports template snippets.|
 `value`  | Required  | The value to be appended. This can be a static value, a dynamic value derived from existing fields, or a value obtained from external lookups. Supports template snippets. | 
-`description`  | Optional  | Brief description of the processor.  |
+`description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
