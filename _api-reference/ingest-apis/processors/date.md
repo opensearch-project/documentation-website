@@ -91,7 +91,7 @@ POST _ingest/pipeline/date-output-format/_simulate
 
 #### Response
 
-The following example response confirms that the pipeline is working correctly and producing the expected output:
+The following example response confirms that the pipeline is working as expected:
 
 ```json
 {
