@@ -86,15 +86,20 @@ The following example response confirms that the pipeline is working correctly a
 
 ```json
 {
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 44,
-  "_seq_no": 43,
-  "_primary_term": 3,
-  "found": true,
-  "_source": {
-    "name": "JOHN"
-  }
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "name": "JOHN"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-28T19:54:42.289624792Z"
+        }
+      }
+    }
+  ]
 }
 ```
 
