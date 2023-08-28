@@ -25,9 +25,9 @@ The following table lists the required and optional parameters for the `lowercas
 
 | Name  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
+`field`  | Required  | The name of the field that contains the data to be converted. Supports template snippets. |
 `description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | Condition to run this processor. |
+`if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
@@ -80,6 +80,29 @@ POST _ingest/pipeline/lowercase-title/_simulate
 ```
 {% include copy-curl.html %}
 
+#### Response
+
+The following example response confirms that the pipeline is working as expected:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "title": "war and peace"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-22T17:39:39.872671834Z"
+        }
+      }
+    }
+  ]
+}
+```
+
 **Step 3: Ingest a document.**
 
 The following query ingests a document into an index named `testindex1`:
@@ -100,26 +123,3 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
-
-#### Response
-
-The following example response confirms that the pipeline is working correctly and producing the expected output:
-
-```json
-{
-  "docs": [
-    {
-      "doc": {
-        "_index": "testindex1",
-        "_id": "1",
-        "_source": {
-          "title": "war and peace"
-        },
-        "_ingest": {
-          "timestamp": "2023-08-22T17:39:39.872671834Z"
-        }
-      }
-    }
-  ]
-}
-```
