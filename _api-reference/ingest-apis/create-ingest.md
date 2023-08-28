@@ -52,7 +52,7 @@ PUT _ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-To learn more about error handling, see [Handling pipelines failures]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/).
+To learn more about error handling, see [Handling pipeline failures]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/).
 
 ## Request body fields
 
