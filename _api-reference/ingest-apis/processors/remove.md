@@ -25,7 +25,7 @@ The following table lists the required and optional parameters for the `remove` 
 
 | Name  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | Name of the field where the data should be appended. Supports template snippets.|
+`field`  | Required  | The name of the field where the data should be appended. Supports template snippets. |
 `description`  | Optional  | Brief description of the processor.  |
 `if` | Optional | Condition to run this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
