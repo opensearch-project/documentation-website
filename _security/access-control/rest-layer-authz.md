@@ -46,22 +46,22 @@ ad_role:
 
 There is no change to the way you map users and roles with `NamedRoute`. Also, the new format for the permission is compatible with existing configurations. This section provides an example of how user and role mappings look for legacy and `NamedRoute` configurations and how they authorize registered routes for actions.
 
-When a user initiates a REST request, the user's roles are examined, and each permission associated with the user is evaluated to determine whether there is a match with the unique name assigned to the route or a match with any of the legacy actions defined during the route's registration. A user can be mapped to roles that contain permissions formatted for a unique name or a legacy action. Consider the following role for a fictional plugin "abc":
+When a user initiates a REST request, the user's roles are examined, and each permission associated with the user is evaluated to determine whether there is a match with the unique name assigned to the route or a match with any of the legacy actions defined during the route's registration. A user can be mapped to roles that contain permissions formatted for a unique name or a legacy action. Consider the following role for a fictional plugin `abc`:
 
 ```yml
 abcplugin_read_access:
-  reserved: true
-  cluster_permissions:
-    - 'cluster:admin/opensearch/abcplugin/route/get'
+   reserved: true
+   cluster_permissions:
+     - 'cluster:admin/opensearch/abcplugin/route/get'
 ```
 
 Also consider the following role mapping:
 
 ```yml
 abcplugin_read_access:
-	reserved: true
-	users:
-		- "user-A"
+	 reserved: true
+	 users:
+		 - "user-A"
 ```
 
 If `user-A` makes a REST API call to the route `/_plugins/_abcplugin/route/get`, the user is granted authorization for the action. For a different route `/_plugins/_abcplugin/route/delete`, however, the request is denied.
@@ -70,20 +70,20 @@ The same logic holds true for roles and role mappings that use a unique name for
 
 ```yml
 abcplugin_read_access_nr:
-  reserved: true
-  cluster_permissions:
-    - 'abcplugin:routeGet'
-    - 'abcplugin:routePut'
-    - 'abcplugin:routeDelete'
+   reserved: true
+   cluster_permissions:
+     - 'abcplugin:routeGet'
+     - 'abcplugin:routePut'
+     - 'abcplugin:routeDelete'
 ```
 
 Also consider the following role mapping:
 
 ```yml
 abcplugin_read_access_nr:
-	reserved: true
-	users:
-		- "user-B"
+	 reserved: true
+	 users:
+		 - "user-B"
 ```
 
 In this second case, if `user-B` makes a REST API call to any of the routes `/_plugins/_abcplugin/route/get`, `/_plugins/_abcplugin/route/put`, or `/_plugins/_abcplugin/route/delete`, the user is granted authorization for the action.
