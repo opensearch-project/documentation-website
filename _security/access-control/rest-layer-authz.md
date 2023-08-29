@@ -5,13 +5,56 @@ parent: Access control
 nav_order: 80
 ---
 
+
 # REST layer authorization
 
-Authorization on the REST layer provides an added level of security for plugin and extension REST requests by offering a mechanism for authorization checks on the REST layer. This level of security sits adjacent to the transport layer and provides a complementary method of authorization without replacing, modifying, or in any way changing the same process on the transport layer. REST layer authorization was initially created to address the need for an authorization check for extensions, which do not communicate on the transport layer. However, the feature is also supported for existing plugins and will be available for future plugins created to operate with OpenSearch.
+Authorization on the REST layer provides an added level of security for plugin and extension API requests by offering a mechanism for authorization checks on the REST layer. This level of security sits atop the transport layer and provides a complementary method of authorization without replacing, modifying, or in any way changing the same process on the transport layer. REST layer authorization was initially created to address the need for an authorization check for extensions, which do not communicate on the transport layer. However, the feature is also supported for existing plugins and will be available for future plugins created to operate with OpenSearch.
 
-To facilitate REST layer authorization, OpenSearch introduces the idea of [`NamedRoute`](https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/rest/NamedRoute.java) for route registration. This standard also requires a new scheme for permissions.
+For users that work with REST layer authorization, the methods of assigning roles and mapping users and roles, and the general usage of plugins and extensions, remain the same: the only additional requirement being that users become familiar with a new permission structure. Developers, on the other hand, will need to understand the ideas behind `NamedRoute` and how the new route scheme is constructed. Fore more detailed information, see [Authorization at REST Layer for plugins](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md).
 
-For users, assigning roles, mapping users and roles, and general usage of plugins and extensions will remain the same: the only additional requirement being that users become familiar with a new permission structure. Developers, on the other hand, will need to understand the ideas behind `NamedRoute` and how the new route scheme is constructed. Fore more detailed information, see [Authorization at REST Layer for plugins](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md#authorization-at-rest-layer-for-plugins).
+
+## NamedRoute
+
+REST layer authorization provides cluster administrators with the ability to grant or revoke access to specific endpoints in a cluster. To achieve this, the route to the resource uses a unique name.
+
+To facilitate REST layer authorization, OpenSearch introduces the idea of [`NamedRoute`](https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/rest/NamedRoute.java) for route registration. For developers, this standard requires a new method for registering routes that includes a unique name. While transport actions typically consist of a method name, a part, and a corresponding transport action, this new implementation requires a method name, a part, and a unique name for the route. As the name suggests, it is essential that the name be unique among all plugins and extensions or, in other words, not registered for any other route.
+
+For example, consider the following URL for an Anomaly Detection resource:
+
+`POST _/detectors/<detectorId>/profile`
+
+To create a NamedRoute from this, the `routeNamePrefix` value in the `settings.yml` file for the resource `ad` is added to the route to complete a unique name. The result is shown in the following example:
+
+`ad:detectors/profile`
+
+The route name can then be mapped to a role in the same way a traditional permission is mapped. This is demonstrated in the following example:
+
+```yml
+ad_role:
+  reserved: true
+  cluster_permissions:
+    - 'ad:detectors/profile'
+```
+
+
+## The authorization process on transport and REST layers
+
+OpenSearch supports both legacy authorization on the transport layer and authorization on the REST layer. This section describes how authorization is processed to support both conventions. 
+
+When a user initiates a REST request, the user's roles are examined, and each permission associated with the user is evaluated to determine whether there is a match with the unique name assigned to the route or a match with any of the legacy actions defined during the route's registration. A user can be mapped to roles that contain permissions formatted for a unique name or a legacy action. Consider the following role for a fictional plugin "abc":
+
+```yml
+abcplugin_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/abcplugin/route/get'
+    - 'cluster:admin/opensearch/abcplugin/route/put'
+```
+
+
+
+
+
 
 The Security plugin must be enabled to use authorization on the REST layer.
 {: .note }
