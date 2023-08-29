@@ -65,13 +65,27 @@ Rather than individual permissions, you can often achieve your desired security 
 {: .tip }
 
 
-## System permission
+## System permissions
 
-The system permission `system:admin/<system_index_name>` is unique among other permissions in that it extends some traditional admin-only accessibility to non-admin users. This permission gives normal users the ability to modify the system index specified in the permission name. For example, the permission `system:admin/.opendistro-alerting-config` gives a user permission to modify the system index that stores configurations for the Alerting plugin. 
+System permissions are unique among other permissions in that they extend some traditional admin-only accessibility to non-admin users. These permissions give normal users the ability to modify any system index specified in the role or roles to which they are mapped. The exception to this is the security system index, `.opendistro_security`, which is used to store Security's configuration YAML files and remains accessible only to admins with an admin certificate.
 
-The system permission excludes, however, access to the security system index `.opendistro_security`, which is used to store Security's configuration YAML files and remains accessible only to admins with an admin certificate.
+System permissions are specified under `index_permissions` in the `roles.yml` configuration file. However, they begin with the prefix `.opendistro` to make them distinguishable from index permissions. For example, the system permission `.opendistro-alerting-config` gives a user permission to modify the system index that stores configurations for the Alerting plugin. The following example shows this system permission specified in 
 
-Admin users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) are able to map the `system:admin/<system_index_name>` permission to users in the same way they would for a cluster or index permission. However, to preserve some control over this permission, the configuration setting `plugins.security.system_indices.additional_control.enabled` allows administrators to disable this feature by setting it to `false`. For more information about this setting, see [Enabling user access to system indexes]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
+```yml
+alerting-maint-role:
+  reserved: true
+  hidden: false
+  cluster_permissions:
+  - "cluster:admin/opendistro/alerting/alerts/ack"
+  - "cluster:admin/opendistro/alerting/alerts/get"
+  index_permissions:
+  - index_patterns:
+    - ".opendistro-alerting-config"
+```
+
+
+
+Admin users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) are able to map system permissions to users in the same way they would for a cluster or index permission in the `roles.yml` file. However, to preserve some control over this permission, the configuration setting `plugins.security.system_indices.additional_control.enabled` allows administrators to disable this feature by setting it to `false`. For more information about this setting, see [Enabling user access to system indexes]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
 
 Keep in mind that an admin user who enables this feature necessarily accepts the risks involved with giving normal users access to system indexes, which may contain sensitive information and configurations essential to a cluster's health. An admin user should also take precautions when assigning `restapi:admin/roles` to users because this permission gives a user not only the ability to assign the system permission to another user but, equally, the ability to self-assign access to any system index.
 {: .warning }
