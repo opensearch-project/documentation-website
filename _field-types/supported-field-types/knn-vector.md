@@ -170,11 +170,11 @@ GET test-index/_search
 
 ### Quantization techniques
 
-If your vectors are of type `float`, you need to first convert them to `byte` before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following sections describe the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types.
+If your vectors are of type `float`, you need to first convert them to `byte` before ingesting the documents. This conversion is accomplished by _quantizing the dataset_---reducing the precision of its vectors. There are many quantization techniques, such as scalar quantization or product quantization (PQ), which is used in the Faiss engine. The choice of quantization technique depends on the type of data you're using and can affect the accuracy of recall values. The following sections describe the scalar quantization algorithms that were used to quantize the [k-NN benchmarking test](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool) data for the [L2](#scalar-quantization-for-the-l2-space-type) and [cosine similarity](#scalar-quantization-for-the-cosine-similarity-space-type) space types. The provided pseudocode is for illustration only.
 
 #### Scalar quantization for the L2 space type
 
-For Euclidean datasets, we recommend using a scalar quantization technique with L2 space type because Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$ then the distance remains the same, which means $$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$.
+The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on Euclidean datasets with the L2 space type.  Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$ then the distance remains the same ($$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$).
 
 The following example pseudocode illustrates scalar quantization for the L2 space type:
 
@@ -211,9 +211,9 @@ queryset = np.floor(queryset * (B - 1)) - int(B / 2)
 
 #### Scalar quantization for the cosine similarity space type
 
-For angular datasets, we recommend using a scalar quantization technique with cosine similarity because cosine distance is not shift invariant ($$cos(x, y) \neq cos(x-z, y-z)$$). 
+The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on angular datasets with the cosine similarity space type.  Cosine similarity is not shift invariant ($$cos(x, y) \neq cos(x-z, y-z)$$). 
 
-The following example pseudocode illustrates scalar quantization for the cosine similarity space type:
+The following pseudocode is for positive numbers:
 
 ```python
 # For Positive Numbers
@@ -239,8 +239,13 @@ else:
  bval = int_part
 
 return Byte(bval)
+```
+{% include copy.html %}
 
-// For Negative Numbers
+The following pseudocode is for negative numbers:
+
+```python
+# For Negative Numbers
 
 # INDEXING and QUERYING:
 
