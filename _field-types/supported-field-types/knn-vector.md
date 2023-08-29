@@ -174,7 +174,7 @@ If your vectors are of type `float`, you need to first convert them to `byte` be
 
 #### Scalar quantization for the L2 space type
 
-The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on Euclidean datasets with the L2 space type.  Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$ then the distance remains the same ($$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$).
+The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on Euclidean datasets with the L2 space type. Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$ then the distance remains the same ($$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$).
 
 The following example pseudocode illustrates scalar quantization for the L2 space type:
 
@@ -211,7 +211,7 @@ queryset = np.floor(queryset * (B - 1)) - int(B / 2)
 
 #### Scalar quantization for the cosine similarity space type
 
-The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on angular datasets with the cosine similarity space type.  Cosine similarity is not shift invariant ($$cos(x, y) \neq cos(x-z, y-z)$$). 
+The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on angular datasets with the cosine similarity space type. Cosine similarity is not shift invariant ($$cos(x, y) \neq cos(x-z, y-z)$$). 
 
 The following pseudocode is for positive numbers:
 
