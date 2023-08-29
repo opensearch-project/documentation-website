@@ -12,8 +12,8 @@ grand_parent: Search
 Search processors can be of the following types:
 
 - [Search request processors](#search-request-processors)
-- [Search phase results processors](#search-phase-results-processors)
 - [Search response processors](#search-response-processors)
+- [Search phase results processors](#search-phase-results-processors)
 
 ## Search request processors
 
@@ -26,14 +26,6 @@ Processor | Description | Earliest available version
 [`script`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | Adds a script that is run on newly indexed documents. | 2.8
 [`filter_query`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor/) | Adds a filtering query that is used to filter requests. | 2.8
 
-## Search phase results processors
-
-The following table lists all supported search request processors.
-
-Processor | Description | Earliest available version
-:--- | :--- | :---
-[`phase_results_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | Adds a script that is run on newly indexed documents. | 2.10
-
 ## Search response processors
 
 A search response processor performs an operation on the search response and returns a search response.
@@ -44,6 +36,16 @@ Processor | Description | Earliest available version
 :--- | :--- | :---
 [`rename_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rename-field-processor/)| Renames an existing field. | 2.8
 [`personalize_search_ranking`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/personalize-search-ranking/) | Uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results (requires setting up the Amazon Personalize service). | 2.9
+
+## Search phase results processors
+
+A search phase results processor runs between search phases at the coordinating node level. It takes the results retrieved from one search phase and transforms them before passing them to the next search phase.
+
+The following table lists all supported search request processors.
+
+Processor | Description | Earliest available version
+:--- | :--- | :---
+[`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | Intercepts the query phase results and normalizes and combines the document scores before passing the documents to the fetch phase. | 2.10
 
 ## Viewing available processor types
 

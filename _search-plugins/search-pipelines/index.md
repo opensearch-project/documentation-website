@@ -16,7 +16,7 @@ The following is a list of search pipeline terminology:
 
 * _Search request processor_: A component that takes a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and returns a search request.
 * _Search response processor_: A component that takes a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns a search response.
-* _Search phase results processor_: A component that runs between search phases at the coordinating node level. A search phase results processor takes the results retrieved from one search phase and transforms them before passing them to next search phase.
+* _Search phase results processor_: A component that runs between search phases at the coordinating node level. A search phase results processor takes the results retrieved from one search phase and transforms them before passing them to the next search phase.
 * _Processor_: Either a search request processor or a search response processor.
 * _Search pipeline_: An ordered list of processors that is integrated into OpenSearch. The pipeline intercepts a query, performs processing on the query, sends it to OpenSearch, intercepts the results, performs processing on the results, and returns them to the calling application, as shown in the following diagram. 
 
