@@ -78,7 +78,7 @@ model contains the information needed to initialize the native library segment f
 }
 ```
 
-However, if you intend to just use Painless scripting or a k-NN score script, you only need to pass the dimension.
+However, if you intend to use Painless scripting or a k-NN score script, you only need to pass the dimension.
  ```json
    "type": "knn_vector",
    "dimension": 128
