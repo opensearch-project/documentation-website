@@ -176,8 +176,6 @@ If your vectors are of type `float`, you need to first convert them to `byte` be
 
 The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on Euclidean datasets with the L2 space type. Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$ then the distance remains the same ($$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$).
 
-The following example pseudocode illustrates scalar quantization for the L2 space type:
-
 ```python
 # Random dataset (Example to create a random dataset)
 dataset = np.random.uniform(-300, 300, (100, 10))
