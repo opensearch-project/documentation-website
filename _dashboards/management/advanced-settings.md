@@ -45,6 +45,12 @@ Setting  | Description  |
 `format:number:defaultLocale`  | Select the language locale for numerals. Default is `en`.  |
 `format:number:defaultPattern`  | Choose the default numeral format for the number format. Default is `0,0.[000]`.  |
 `format:percent:defaultPattern`  | Choose the default numeral format for the percent format. Default is `0,0.[000]%`.  |
+`histogram:barTarget`  |  Generate a specified number of bars when date histograms use the `auto` interval. Default is `50`.  |
+`histogram:maxBars`  | Show a maximum number of bars in date histograms. Default is `100`.  |
+`history:limit` | Limit history to specified number of the most recent values. Default is `10`.  |
+`indexPattern:placeholder`  | Define placeholder value used in **Dashboards Management** > **Index patterns** > **Create index pattern**.  |
+
+
 
  
 
