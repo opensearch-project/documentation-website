@@ -3,8 +3,8 @@ layout: default
 title: Rename field processor
 nav_order: 20
 has_children: false
-parent: Search pipelines
-grand_parent: Search
+parent: Search processors
+grand_parent: Search pipelines
 ---
 
 # Rename field processor
