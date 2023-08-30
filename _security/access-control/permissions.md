@@ -69,7 +69,7 @@ Rather than individual permissions, you can often achieve your desired security 
 
 System permissions are unique among other permissions in that they extend some traditional admin-only accessibility to non-admin users. These permissions give normal users the ability to modify any system index specified in the role or roles to which they are mapped. The exception to this is the security system index, `.opendistro_security`, which is used to store Security's configuration YAML files and remains accessible only to admins with an admin certificate.
 
-System permissions are specified under `index_permissions` in the `roles.yml` configuration file. However, they begin with the prefix `.opendistro` to make them distinguishable from index permissions. For example, the system permission `.opendistro-alerting-config` gives a user permission to modify the system index that stores configurations for the Alerting plugin. The following example shows this system permission specified in a role called `alerting-maint-role`:
+System permissions are specified under `index_permissions` in the `roles.yml` configuration file (See [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml).) However, they begin with the prefix `.opendistro` to make them distinguishable from index permissions. For example, the system permission `.opendistro-alerting-config` gives a user permission to modify the system index that stores configurations for the Alerting plugin. The following example shows this system permission specified in a role called `alerting-maint-role`:
 
 ```yml
 alerting-maint-role:
@@ -88,10 +88,10 @@ The system permission prefix `.opendistro` also works with the wildcard to exten
 * Specifying the full name of a system index limits access to that index alone: `.opendistro-alerting-config`.
 * Specifying the prefix and a partial name for a system index provides access to all system indexes that begin with the name: `.opendistro-anomaly-detector*`.
 * Specifying the prefix alone gives access to all system indexes: `.opendistro*`.
-* Using `.*` is effectively the same as specifying the prefix with wildcard, as described in the previous point.
+* Using `.*` is effectively the same as specifying the prefix with wildcard, as described in the previous point. This gives access to all system indexes.
 * Entering the wildcard `*` by itself does not give access to any indexes.
 
-Use extreme caution when using the wildcard to configure access to system indexes. We highly recommend thinking ahead and anticipating the user access that you will be extending to users before updating your configuration files.
+Use extreme caution when using the wildcard to configure access to system indexes. We highly recommend thinking ahead and anticipating the range of access that you will be extending to users before updating your configuration files.
 {: .warning }
 
 
