@@ -77,7 +77,7 @@ Setting | Description
 
 ## Discover settings
 
-The following table describes settings for the **Discover** settings:
+The following table describes the **Discover** settings:
 
 Setting | Description
 :--- | :---
@@ -95,7 +95,7 @@ Setting | Description
 
 ## Notifications settings
 
-The following table describes settings for the **Notifications** settings:
+The following table describes the **Notifications** settings:
 
 Setting | Description
 :--- | :---
@@ -107,7 +107,7 @@ Setting | Description
 
 ## Search settings
 
-The following table describes settings for the **Search** settings:
+The following table describes the **Search** settings:
 
 Setting | Description
 :--- | :--- 
@@ -120,8 +120,32 @@ Setting | Description
 
 ## Timeline settings
 
-The following table describes settings for the **Timeline** settings:
+The following table describes the **Timeline** settings:
 
 Setting | Description
 :--- | :--- 
+`timeline:es.default_index`  | Defines the default OpenSearch index to search with the `.opensearch()` function. If this setting is not set, the `.opensearch()` function will search all indexes. Default is `_all`.  | 
+`timeline:es.timefield`  | Defines the default field that contains a timestamp when using the `.opensearch()` function. If this setting is not set, the `.opensearch()` function will be used in the `@timestmap` field. Default is `@timestmap`.  |
+`timeline:graphite.url`  | (Experimental) Defines the graphite host URL.  |
+`timeline:max_buckets`   | Defines the maximum number of buckets that a single data source can return. Default is `2000`.  |
+`timeline:min_interval`  | Defines the minimum interval to calculate when using the `auto` interval. Default is `1ms`.  |
+`timeline:quandl.key`  | (Experimental) Defines your unique identifier (API key) that allows you to access Quandl's data.  |
+`timeline:target_buckets`  | Defines the number of buckets that OpenSearch Dashboards attempts to use when calculating automatic intervals in visualizations. Default is `200`.  |
 
+## Visualize settings
+
+The following table describes the **Visualize** settings:
+
+Setting | Description
+:--- | :--- 
+`visualization:colorMapping`  | Assigns colors to values within visualizations. Default is `#00A69B`.  |
+`visualization:dimmingOpacity`  | Defines the opacity of chart items that are dimmed when another chart element is highlighted. The lower the value, the more the highlighted element will stand out. The value must be between `0` and `1`. Default is `0.5`.  |
+`visualization:enablePluginAugmentation`  | Enables or disables access to plugin functionality through line chart visualizations. Default is `On`.  |
+` line chart visualizations`  | Defines the maximum number of associated augmentations per visualization. Default is `10`. Associating more than 10 plugin resources per visualization can cause performance issues.  |
+`visualization:heatmap:maxBuckets`  | Defines the maximum number of buckets that a single data source can return in a heatmap visualization. A higher number of buckets can negatively impact browser rendering performance. Default is `50`. |
+`visualization:regionmap:customVectorMapMaxSize`  | Defines the maximum number of features that can be loaded from a custom vector map. Default is `1000`.  |
+`visualization:regionmap:showWarnings`  | Enables or disables whether a warning is shown when terms cannot be joined to a shape on a region map. Default is `On`.  |
+`visualization:tileMap:WMSdefaults`  | Defines the default [properties](https://leafletjs.com/reference.html#tilelayer-wms) for the WMS map server in coordinate maps. Default is `enabled: false`.  |
+`visualization:tileMap:maxPrecision`  | Defines the maximum geohash precision that can be displayed on maps, with 7 being high, 10 being very high, and 12 being the maximum. Default is `7`.  |
+`visualize:disableBucketAgg`  | Deactivates specific becket aggregations from visualizations. The setting takes a comma-separated list of bucket aggregation names, such as `significant_terms` amd `terms`.  |
+`visualize:enableLabs`  | Enables or disables experimental visualizations. If enabled, you can create, view, and edit experimental visualizations. If disabled, you can only use production-ready visualizations. Default is `On`.  |
