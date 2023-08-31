@@ -85,7 +85,7 @@ POST _ingest/pipeline/file_upload/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Reponse
+#### Response
 
 The following response confirms that the pipeline is working as expected:
 

@@ -17,10 +17,10 @@ The following is the syntax for the `append` processor:
 
 ```json
 {
-    "append": {
-        "field": "your_target_field",
-        "value": ["your_appended_value"]
-    }
+  "append": {
+    "field": "your_target_field",
+    "value": ["your_appended_value"]
+  }
 }
 ```
 {% include copy-curl.html %}
@@ -73,17 +73,17 @@ To test the pipeline, run the following query:
 ```json
 POST _ingest/pipeline/user-behavior/_simulate
 {
-	"docs":[
-		{
-			"_source":{
-			}
-		}
-	]
+  "docs":[
+    {
+      "_source":{
+      }
+    }
+  ]
 }
 ```
 {% include copy-curl.html %}
 
-#### Reponse
+#### Response
 
 The following response confirms that the pipeline is working as expected:
 
