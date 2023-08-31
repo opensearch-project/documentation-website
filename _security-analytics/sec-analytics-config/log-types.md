@@ -8,7 +8,7 @@ nav_order: 16
 
 # Supported log types
 
-Logs keep the raw data on events that happen throughout a system and in its separate parts. The following table shows the log types that are currently supported by Security Analytics for ingestion, mapping, and monitoring.
+Logs contain raw data about events that happen throughout a system and in its separate parts. The following table shows the log types that are currently supported by Security Analytics for ingestion, mapping, and monitoring.
 
 | Log type | Description |
 | :--- |:--- |
