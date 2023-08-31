@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Multiple data sources
-parent: Discover
+parent: Dashboards Management
 nav_order: 20
+redirect_from: 
+  - /dashboards/discover/multi-data-sources/
 ---
 
 # Multiple data sources
