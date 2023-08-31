@@ -65,16 +65,16 @@ Rather than individual permissions, you can often achieve your desired security 
 {: .tip }
 
 
-## System Index permissions
+## System index permissions
 
 System index permissions are unique among other permissions in that they extend some traditional admin-only accessibility to non-admin users. These permissions give normal users the ability to modify any system index specified in the role or roles to which they are mapped. The exception to this is the security system index, `.opendistro_security`, which is used to store Security's configuration YAML files and remains accessible only to admins with an admin certificate.
 
-System index permissions are specified under `index_permissions` in the `roles.yml` configuration file (See [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml).) and can be granted permission to as any regular index by specifying the action `system:admin/system_index` under `allowed_actions`. Here is an example, the `.opendistro-alerting-config` system index stores configurations for the Alerting plugin. 
+Along with standard index permissions, system index permissions are specified in the 'roles.yml' configuration file under 'index_permissions' (See [roles.yml](site.urlsite.baseurl/security/configuration/yaml/#rolesyml). The user gains access to the system index by specifying `system:admin/system_index` in the role's `allowed_actions` section. With the addition of this action, all system indices covered by patterns defined in `index_patterns` are now accessible to this role. The `*` pattern, on the other hand by itself, is an exception that cannot be used to grant access to all system indices at once.
 
-The following example shows a way to grant permission system index permission specified in a role called `alerting-main-role`:
+For example, the system index permission that gives a user permission to modify the system index that stores configurations for the Alerting plugin is defined by the index pattern `.opendistro-alerting-config` and its allowed action is defined as `system:admin/system_index`. The following role shows how this system index permission is configured along with other attributes:
 
 ```yml
-alerting-main-role:
+alerting-role:
   reserved: true
   hidden: false
   cluster_permissions:
