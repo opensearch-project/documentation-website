@@ -50,30 +50,33 @@ Setting | Description
 `indexPattern:placeholder`  | Defines the placeholder value to use when creating index patterns.  |
 `metaFields` | Enables fields that are not part of the `_source` field to be merged into the document. Default is `_source`, `_id`, `_type`, `_index`, and `_score`.  |
 `metrics:max_buckets` | Defines the maximum number of buckets that a single data source can return. Default is `2000`.  |
-`pageNavigation`  | Defines the navigation pane style. Default is `Modern`.  |
 `query:allowLeadingWildcards`  | Defines whether `*` is allowed as the first character in a query clause. Default is `On`.  | 
 `query:queryString:options`  |  Defines the options for the Lucene query string parser. Default is `true`.  |
 `reporting:useFOR`  | Enables or disables `ForeignObject` rendering for embedding of external content into reports. Default is `On`.  |
 `reporting:useOcr`  | Enables or disables optical character recognition (OCR) to be run on PRF reports. Default is `Off`.  |
 `savedObjects:listingLimit`  | Defines the number of objects to fetch when viewing a listing page. Default is `1000`.  |
 `savedObjects:perPage`  | Defines the number of objects to display on each page of the load dialog. Default is `20`.  |
- `search:queryLanguage`  | Defines the query language for OpenSearch Dashboards. Default is `DQL`.  |
- `shortDots:enable`  | Enables or disables the shortening of long fields. Default is `Off`.  |
- `sort:options`  | Defines the options for the sort parameter. Default is `boolean`.  |
- `state:storeInSessionStorage`  | Enables or disables the storing of URLs. Default is `Off`.  |
- `theme:darkMode` | Enables or disables dark mode. Default is `Off`. Dark mode is available only in OpenSearch Dashboards version 2.10 or later. |
- `timepicker:quickRanges`  | Defines the quick-select time ranges to display in the time filter.  |
+`search:queryLanguage`  | Defines the query language for OpenSearch Dashboards. Default is `DQL`.  |
+`shortDots:enable`  | Enables or disables the shortening of long fields. Default is `Off`.  |
+`sort:options`  | Defines the options for the sort parameter. Default is `boolean`.  |
+`state:storeInSessionStorage`  | Enables or disables the storing of URLs. Default is `Off`.  |
+`timepicker:quickRanges`  | Defines the quick-select time ranges to display in the time filter.  |
 `timepicker:refreshIntervalDefaults` | Defines the time filter's default refresh interval in milliseconds. Default is `0`.  |
 `timepicker:timeDefaults`  | Defines the default time period to analyze data. Default is `Last 15 minutes`.  |
 `truncate:maxHeight`  | Defines the maximum height of a table cell. Default is `115` pixels.
 
-## Accessibility settings
+## Appearance settings
+Introduced 2.10
+{: .label .label-purple }
 
-The following table describes the **Accessibility** settings:
+The following table describes the **Appearance** settings:
 
 Setting | Description
 :--- | :---
 `accessibility:disableAnimations`  | Enables or disables animations. Default is `Off`.  |
+`pageNavigation`  | Defines the navigation pane style. Default is `Modern`.  |
+`theme:darkMode` | Enables or disables dark mode. Default is `Off`. Dark mode is available only in OpenSearch Dashboards version 2.10 or later. |
+`theme:version`  | Defines the theme to use for the current and subsequent versions of OpenSearch Dashboards. Default is `v7`.  |
 
 ## Discover settings
 
