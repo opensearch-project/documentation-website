@@ -13,8 +13,8 @@ Logs keep the raw data on events that happen throughout a system and in its sepa
 | Log type | Description |
 | :--- |:--- |
 | **Network events** | A log that records events that happen in a system's network, such as login attempts and application events. |
-| **DNS logs** | 
-| **Apache access logs** | 
+| **DNS logs** | A log that stores Domain Name System (DNS) activity. <br> <br> Security Analytics supports Open Cybersecurity Schema Framework (OCSF) log and event data, which includes the Security Lake log type Route 53. Given that Route 53 is a log that captures DNS activity, its log type should be specified as DNS logs when defining a detector. |
+| **Apache access logs** | A log type that is responsible for recording data for all requests processed by an Apache HTTP server. 
 | **Windows logs** | 
 | **AD/LDAP logs** | 
 | **System logs** | 
