@@ -136,16 +136,16 @@ plugins.security.cache.ttl_minutes: 60
 
 ### Enabling user access to system indexes
 
-Mapping a system permission `.opendistro-<index-name>` to a user allows that user to modify the system index specified in the permission's name. (The one exception is the Security plugin's [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/)). The `plugins.security.system_indices.additional_control.enabled` setting provides a way for administrators to make this permission available for or hidden from role mapping.
+Mapping a system permission to a user allows that user to modify the system index specified in the permission's name. (The one exception is the Security plugin's [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/)). The `plugins.security.system_indices.additional_control.enabled` setting provides a way for administrators to make this permission available for or hidden from role mapping.
 
-When set to `true`, the feature is enabled and administrators can add the `system:admin/<system_index_name>` permission for a user.
+When set to `true`, the feature is enabled and users with access to modify roles can add the `system:admin/system_index` as an allowed action and an index pattern in the roles that will be used for system index access.
 
 ```yml
 plugins.security.system_indices.additional_control.enabled: true
 ```
 When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the setting is `false` for a new cluster.
 
-To learn more about system permissions, see [System permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-permissions) in Permissions documentation.
+To learn more about system index permissions, see [System Index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions) in Permissions documentation.
 
 
 ### Password settings
