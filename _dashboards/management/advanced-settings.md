@@ -115,11 +115,11 @@ The following table describes the **Search** settings:
 Setting | Description
 :--- | :--- 
 `courier:batchSearches`  | Enables or disables how dashboard panels load. When disabled, panels load individually, and search requests end when users navigate away or update the query. When enabled, all panels load together when all data is loaded, and searches do not end. Default is `Off`.  |
-`courier:customRequestPreference`  | Enables or disables whether to use the [request preference]({{site.url}}{{site.baseurl}}/app/management/opensearch-dashboards/settings) when setting is set to `custom`. Default is `_local`.  |
+`courier:customRequestPreference`  | Enables or disables whether to use the [request preference]({{site.url}}{{site.baseurl}}//api-reference/popular-api/) when setting is set to `custom`. Default is `_local`.  |
 `courier:ignoreFilterIfFieldNotInIndex`  | Enables or disables support for dashboards that contain visualizations using different indexes. When disabled, all filters are applied to all visualizations. When enabled, filters are ignored for a visualization if the visualization's index does not contain the field being filtered. Default is `Off`.  |
 `courier:maxConcurrentShardRequests`  | Defines the maximum number of concurrent shard requests that can be made for `_msearch` requests sent by OpenSearch Dashboards. Set it to `0` to disable the setting and to use the default value set by OpenSearch. Default is `0`.  |
 `courier:setRequestPreference`  | Defines which shards handle your search requests. Options include **Session ID**, **Custom**, and **None**. **Session ID** restricts operations to run all search requests on the same shard and reuses shard caches across requests, which can improve performance. **Custom** is used to define your own preference. Use `courier:customRequestPreference` to customize your preference value. **None** means that no preference is set. This option can provide better performance because requests can be spread across all shard copies. However, results might be inconsistent because different shards might be in different refresh states. Default is `Session ID`.  |
-`search:includeFrozen`  | Enables or disables whether to include frozen indexes in search results. If enabled, frozen indexes are included in search results. Seaching through frozen indexes can increase the search time. Default is `Off`.  |
+`search:includeFrozen`  | Enables or disables whether to include frozen indexes in search results. If enabled, frozen indexes are included in search results. Searching through frozen indexes can increase the search time. Default is `Off`.  |
 
 ## Timeline settings
 
