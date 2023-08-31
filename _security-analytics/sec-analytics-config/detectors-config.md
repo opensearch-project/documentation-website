@@ -21,7 +21,7 @@ You can define a new detector by naming the detector and then selecting a data s
     When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
     {: .note }
     
-1. In the **Log types and rules** section, select the log type for the data source. You can find a list of supported log types in the [Supported log types]({{site.url}}{{site.baseurl}}) topic.
+1. In the **Log types and rules** section, select the log type for the data source. You can find a list of supported log types in the [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) topic.
     
     After the log type is selected, the system automatically populates the Sigma security rules associated with the log type.
    

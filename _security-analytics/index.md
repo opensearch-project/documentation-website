@@ -20,6 +20,7 @@ As part of the OpenSearch Project, Security Analytics exists in the open source 
 
 If you would like to leave feedback that could help improve Security Analytics, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
 
+
 ---
 ## Components and concepts
 
@@ -33,21 +34,7 @@ For information about configuring detectors, see [Creating detectors]({{site.url
 
 ### Log types
 
-Log types provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log sources include:
-* Network events
-* DNS logs
-* Apache access logs
-* Windows logs
-* AD/LDAP logs
-* System logs
-* AWS CloudTrail logs
-* Amazon S3 access logs
-* Google Workspace logs
-* GitHub actions
-* Microsoft 365 logs
-* Okta events
-* Microsoft Azure logs
-* VPC Flow logs
+Log types provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. See [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) for a list of log types currently supported by Security Analytics.
 
 Log types are specified during the creation of detectors, including steps for mapping log fields to the detector. Security Analytics also automatically selects an appropriate set of rules based on a specific log type and populates them for the detector.
 
@@ -76,6 +63,7 @@ The correlation engine gives Security Analytics the ability to compare findings 
 The correlation engine uses correlation rules to define threat scenarios involving different log types. It can then perform queries on logs to match relevant findings from those different log sources. To depict relationships between events occurring in different logs, a correlation graph provides a visual representation of findings, their connections, and the proximity of those connections. While the correlation rules define what threat scenarios to look for, the graph provides a visualization that helps you identify the relationships between different findings in a chain of security events.
 
 To learn more about defining threat scenarios for correlation rules, see [Creating correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/correlation-config/). To learn more about using the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/).
+
 
 ---
 ## First steps

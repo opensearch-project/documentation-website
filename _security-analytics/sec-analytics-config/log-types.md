@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Creating detectors
+title: Supported log types
 parent: Setting up Security Analytics
 nav_order: 16
 ---
@@ -8,9 +8,9 @@ nav_order: 16
 
 # Supported log types
 
-Logs keep the raw data on events that happen in a system's constellation of its separate parts. The following table shows the log types that are currently supported by Security Analytics for ingestion, mapping, and monitoring.
+Logs keep the raw data on events that happen throughout a system and in its separate parts. The following table shows the log types that are currently supported by Security Analytics for ingestion, mapping, and monitoring.
 
-| Log Type | Description |
+| Log type | Description |
 | :--- |:--- |
 | **Network events** | A log that records events that happen in a system's network, such as login attempts and application events. |
 | **DNS logs** | 
