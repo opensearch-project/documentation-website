@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Commands
-parent: PPL - Piped Processing Language
+parent: PPL &ndash; Piped Processing Language
 grand_parent: SQL and PPL
 nav_order: 2
+redirect_from:
+ - /search-plugins/ppl/commands/
 ---
 
 # Commands

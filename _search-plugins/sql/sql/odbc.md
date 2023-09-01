@@ -4,13 +4,15 @@ title: ODBC Driver
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 72
+redirect_from:
+  - /search-plugins/sql/odbc/
 ---
 
 # ODBC driver
 
-The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Tableau](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/tableau_support.md), [Microsoft Excel](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/microsoft_excel_support.md), and [Power BI](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/power_bi_support.md) to the SQL plugin.
+The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) and [Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) to the SQL plugin.
 
-For information on downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql/tree/main/sql-odbc).
+For information on downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-odbc).
 
 ## Specifications
 
@@ -184,11 +186,11 @@ Pre-requisites:
 2. In the **DSN drop-down**, select the OpenSearch DSN you set up in the previous set of steps. The options you added will be automatically filled in under the **Connection Attributes**.
 
 3. Select **Sign In**. After a few seconds, Tableau connects to your OpenSearch server. Once connected, you will be directed to the **Datasource** window. The **Database** will be already be populated with the name of the OpenSearch cluster.
-To list all the indices, click the search icon under **Table**.
+To list all the indexes, click the search icon under **Table**.
 
 4. Start experimenting with data by dragging the table to the connection area. Choose **Update Now** or **Automatically Update** to populate the table data.
 
-See more detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/tableau_support.md).
+See more detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md).
 
 ### Troubleshooting
 
@@ -204,4 +206,4 @@ Also make sure `.tdc` that was downloaded with the installer is copied correctly
 
 ## Connecting to Microsoft Power BI
 
-Follow the [installation instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/README.md) and the [configuration instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.
+Follow the [installation instructions](https://github.com/opensearch-project/sql-odbc/tree/main/bi-connectors/PowerBIConnector/README.md) and the [configuration instructions](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.

@@ -3,6 +3,7 @@ layout: default
 title: Common issues
 nav_order: 1
 has_toc: false
+nav_exclude: true
 redirect_from: /troubleshoot/
 ---
 
@@ -60,14 +61,14 @@ The operating system for each OpenSearch node handles encryption of data at rest
 cryptsetup luksFormat --key-file <key> <partition>
 ```
 
-For full documentation on the command, see [the Linux man page](https://man7.org/linux/man-pages/man8/cryptsetup.8.html).
+For full documentation about the command, see [cryptsetup(8) — Linux manual page](https://man7.org/linux/man-pages/man8/cryptsetup.8.html).
 
 {% comment %}
 ## Beats
 
 If you encounter compatibility issues when attempting to connect Beats to OpenSearch, make sure you're using the Apache 2.0 distribution of Beats, not the default distribution, which uses a proprietary license.
 
-Try this minimal output configuration for using Beats with the security plugin:
+Try this minimal output configuration for using Beats with the Security plugin:
 
 ```yml
 output.elasticsearch:
@@ -91,7 +92,7 @@ setup.ilm.check_exists: false
 
 ## Logstash
 
-If you have trouble connecting Logstash to OpenSearch, try this minimal output configuration, which works with the security plugin:
+If you have trouble connecting Logstash to OpenSearch, try this minimal output configuration, which works with the Security plugin:
 
 ```conf
 output {
@@ -110,7 +111,7 @@ output {
 
 ## Can't update by script when FLS, DLS, or field masking is active
 
-The security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking are active. You can still update documents using the standard index operation (`PUT <index>/_doc/<id>`).
+The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking are active. You can still update documents using the standard index operation (`PUT <index>/_doc/<id>`).
 
 
 ## Illegal reflective access operation in logs

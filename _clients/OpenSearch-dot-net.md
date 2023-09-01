@@ -10,6 +10,12 @@ parent: .NET clients
 
 OpenSearch.Net is a low-level .NET client that provides the foundational layer of communication with OpenSearch. It is dependency free, and it can handle round-robin load balancing, transport, and the basic request/response cycle. OpenSearch.Net contains all OpenSearch API endpoints as methods. When using OpenSearch.Net, you need to construct the queries yourself.
 
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-net repo](https://github.com/opensearch-project/opensearch-net).
+
+## Stable Release
+
+This documentation reflects the latest updates available in the [GitHub repository](https://github.com/opensearch-project/opensearch-net) and may include changes unavailable in the current stable release. The current stable release in NuGet is [1.2.0](https://www.nuget.org/packages/OpenSearch.Net.Auth.AwsSigV4/1.2.0).
+
 ## Example
 
 The following example illustrates connecting to OpenSearch, indexing documents, and sending queries on the data. It uses the Student class to represent one student, which is equivalent to one document in the index.
@@ -24,6 +30,7 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
+{% include copy.html %}
 
 ## Installing the Opensearch.Net client
 
@@ -32,6 +39,7 @@ To install Opensearch.Net, download the [Opensearch.Net NuGet package](https://w
 - Search for the OpenSearch.Net NuGet package, and select **Install**.
 
 Alternatively, you can add OpenSearch.Net to your .csproj file:
+
 ```xml
 <Project>
   ...
@@ -40,6 +48,7 @@ Alternatively, you can add OpenSearch.Net to your .csproj file:
   </ItemGroup>
 </Project>
 ```
+{% include copy.html %}
 
 ## Connecting to OpenSearch
 
@@ -48,6 +57,7 @@ Use the default constructor when creating an OpenSearchLowLevelClient object to 
 ```cs
 var client  = new OpenSearchLowLevelClient();
 ```
+{% include copy.html %}
 
 To connect to your OpenSearch cluster through a single node with a known address, create a ConnectionConfiguration object with that address and pass it to the OpenSearch.Net constructor:
 
@@ -56,6 +66,7 @@ var nodeAddress = new Uri("http://myserver:9200");
 var config = new ConnectionConfiguration(nodeAddress);
 var client = new OpenSearchLowLevelClient(config);
 ```
+{% include copy.html %}
 
 You can also use a [connection pool]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) to manage the nodes in the cluster. Additionally, you can set up a connection configuration to have OpenSearch return the response as formatted JSON.
 
@@ -65,6 +76,7 @@ var connectionPool = new SingleNodeConnectionPool(uri);
 var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
+{% include copy.html %}
 
 To connect to your OpenSearch cluster using multiple nodes, create a connection pool with their addresses. In this example, a [`SniffingConnectionPool`]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) is used because it keeps track of nodes being removed or added to the cluster, so it works best for clusters that scale automatically. 
 
@@ -79,6 +91,60 @@ var connectionPool = new SniffingConnectionPool(uris);
 var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Service
+
+The following example illustrates connecting to Amazon OpenSearch Service:
+
+```cs
+using OpenSearch.Client;
+using OpenSearch.Net.Auth.AwsSigV4;
+
+namespace Application
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var endpoint = new Uri("https://search-xxx.region.es.amazonaws.com");
+            var connection = new AwsSigV4HttpConnection(RegionEndpoint.APSoutheast2, service: AwsSigV4HttpConnection.OpenSearchService);
+            var config = new ConnectionSettings(endpoint, connection);
+            var client = new OpenSearchClient(config);
+
+            Console.WriteLine($"{client.RootNodeInfo().Version.Distribution}: {client.RootNodeInfo().Version.Number}");
+        }
+    }
+}
+```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+
+```cs
+using OpenSearch.Client;
+using OpenSearch.Net.Auth.AwsSigV4;
+
+namespace Application
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var endpoint = new Uri("https://search-xxx.region.aoss.amazonaws.com");
+            var connection = new AwsSigV4HttpConnection(RegionEndpoint.APSoutheast2, service: AwsSigV4HttpConnection.OpenSearchServerlessService);
+            var config = new ConnectionSettings(endpoint, connection);
+            var client = new OpenSearchClient(config);
+
+            Console.WriteLine($"{client.RootNodeInfo().Version.Distribution}: {client.RootNodeInfo().Version.Number}");
+        }
+    }
+}
+```
+{% include copy.html %}
+
 
 ## Using ConnectionSettings
 
@@ -100,6 +166,8 @@ var settings = new ConnectionSettings(connectionPool)
 
 var client = new OpenSearchLowLevelClient(settings);
 ```
+{% include copy.html %}
+
 ## Indexing one document
 
 To index a document, you first need to create an instance of the Student class:
@@ -113,6 +181,7 @@ var student = new Student {
     GradYear = 2021 
 };
 ```
+{% include copy.html %}
 
 Alternatively, you can create an instance of Student using an anonymous type:
 
@@ -125,6 +194,8 @@ var student = new {
     GradYear = 2021 
 };
 ```
+{% include copy.html %}
+
 Next, upload this Student into the `students` index using the `Index` method:
 
 ```cs
@@ -132,6 +203,7 @@ var response = client.Index<StringResponse>("students", "100",
                                 PostData.Serializable(student));
 Console.WriteLine(response.Body);
 ```
+{% include copy.html %}
 
 The generic type parameter of the `Index` method specifies the response body type. In the example above, the response is a string.
 
@@ -160,6 +232,7 @@ var studentArray = new object[]
 
 var manyResponse = client.Bulk<StringResponse>(PostData.MultiJson(studentArray));
 ```
+{% include copy.html %}
 
 You can send the request body as an anonymous object, string, byte array, or stream in APIs that take a body. For APIs that take multiline JSON, you can send the body as a list of bytes or a list of objects, like in the example above. The `PostData` class has static methods to send the body in all of these forms. 
 
@@ -189,6 +262,7 @@ var searchResponseLow = client.Search<StringResponse>("students",
 
 Console.WriteLine(searchResponseLow.Body);
 ```
+{% include copy.html %}
 
 Alternatively, you can use strings to construct the request. When using strings, you have to escape the `"` character:
 
@@ -209,6 +283,7 @@ var searchResponse = client.Search<StringResponse>("students",
 
 Console.WriteLine(searchResponse.Body);
 ```
+{% include copy.html %}
 
 ## Using OpenSearch.Net methods asynchronously
 
@@ -223,6 +298,7 @@ var response = client.Index<StringResponse>("students", "100",
 var response = client.IndexAsync<StringResponse>("students", "100", 
                                     PostData.Serializable(student));
 ```
+{% include copy.html %}
 
 ## Handling exceptions
 
@@ -245,6 +321,7 @@ var searchResponse = client.Search<StringResponse>("students1",
 
 Console.WriteLine(searchResponse.Body);
 ```
+{% include copy.html %}
 
 The response contains an error status code 404, which is one of the expected error codes for search requests, so no exception is thrown. You can see the status code in the `status` field:
 
@@ -281,6 +358,7 @@ var settings = new ConnectionConfiguration(connectionPool)
                         .PrettyJson().ThrowExceptions();
 var client = new OpenSearchLowLevelClient(settings);
 ```
+{% include copy.html %}
 
 You can use the following properties of the response object to determine response success:
 
@@ -393,3 +471,4 @@ internal class Program
     }
 }
 ```
+{% include copy.html %}

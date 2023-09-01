@@ -40,7 +40,7 @@ query | String | The query to be executed. Required.
 [filter](#filtering-results) | JSON object | The filter for the results. Optional.
 [fetch_size](#paginating-results) | integer | The number of results to return in one response. Used for paginating results. Default is 1,000. Optional. Only supported for the `jdbc` response format.
 
-#### Sample request
+#### Example request
 
 ```json
 POST /_plugins/_sql 
@@ -49,7 +49,7 @@ POST /_plugins/_sql
 }
 ```
 
-#### Sample response
+#### Example response
 
 The response contains the schema and the results:
 

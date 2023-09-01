@@ -7,7 +7,7 @@ nav_order: 2
 
 # Helper methods
 
-Helper methods simplify the use of complicated API tasks.
+Helper methods simplify the use of complicated API tasks. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/2.2/index.html).
 
 ## Bulk helper
 
@@ -34,6 +34,7 @@ const result = await client.helpers.bulk({
 
 console.log(result)
 ```
+{% include copy.html %}
 
 Bulk helper operations return an object with the following fields:
 
@@ -53,7 +54,7 @@ Bulk helper operations return an object with the following fields:
 
 When creating a new bulk helper instance, you can use the following configuration options.
 
-| Option | Data Type | Required/Default | Description 
+| Option | Data type | Required/Default | Description 
 | :--- | :--- | :--- | :---
 | `datasource` | An array, async generator or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index, or update. 
 | `onDocument` | Function | Required | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result.
@@ -67,7 +68,7 @@ When creating a new bulk helper instance, you can use the following configuratio
 
 ### Examples
 
-The following examples illustrate the index, create, update, and delete bulk helper operations.
+The following examples illustrate the index, create, update, and delete bulk helper operations. For more information and advanced index actions, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
 
 #### Index
 
@@ -85,6 +86,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation indexes documents into `example-index` with document overwrite:
 
@@ -101,6 +103,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Create
 
@@ -118,6 +121,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation creates documents in the `example-index` with document overwrite:
 
@@ -134,6 +138,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Update
 
@@ -156,6 +161,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation updates documents in the `arrayOfDocuments` with document overwrite:
 
@@ -175,6 +181,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Delete
 
@@ -192,3 +199,4 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}

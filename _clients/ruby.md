@@ -7,7 +7,9 @@ has_children: false
 
 # Ruby client
 
-The OpenSearch Ruby client allows you to interact with your OpenSearch clusters through Ruby methods rather than HTTP methods and raw JSON. 
+The OpenSearch Ruby client allows you to interact with your OpenSearch clusters through Ruby methods rather than HTTP methods and raw JSON. For the client's complete API documentation and additional examples, see the [`opensearch-transport`](https://rubydoc.info/gems/opensearch-transport), [`opensearch-api`](https://rubydoc.info/gems/opensearch-api), [`opensearch-dsl`](https://rubydoc.info/gems/opensearch-dsl), and [`opensearch-ruby`](https://rubydoc.info/gems/opensearch-ruby/) gem documentation.
+
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-ruby repo](https://github.com/opensearch-project/opensearch-ruby).
 
 ## Installing the Ruby client
 
@@ -16,12 +18,14 @@ To install the Ruby gem for the Ruby client, run the following command:
 ```bash
 gem install opensearch-ruby
 ```
+{% include copy.html %}
 
 To use the client, import it as a module:
 
 ```ruby
 require 'opensearch'
 ```
+{% include copy.html %}
 
 ## Connecting to OpenSearch
 
@@ -30,6 +34,7 @@ To connect to the default OpenSearch host, create a client object, passing the d
 ```ruby
 client = OpenSearch::Client.new(host: 'http://localhost:9200')
 ```
+{% include copy.html %}
 
 The following example creates a client object with a custom URL and the `log` option set to `true`. It sets the `retry_on_failure` parameter to retry a failed request five times rather than the default three times. Finally, it increases the timeout by setting the `request_timeout` parameter to 120 seconds. It then returns the basic cluster health information:
 
@@ -43,6 +48,7 @@ client = OpenSearch::Client.new(
 
 client.cluster.health
 ```
+{% include copy.html %}
 
 The output is as follows:
 
@@ -70,6 +76,87 @@ The output is as follows:
 2022-08-25 14:24:52 -0400: < {"cluster_name":"docker-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":10,"active_shards":10,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":8,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":55.55555555555556}
 ```
 
+## Connecting to Amazon OpenSearch Service
+
+To connect to Amazon OpenSearch Service, first install the `opensearch-aws-sigv4` gem:
+
+```bash
+gem install opensearch-aws-sigv4
+```
+
+```ruby
+require 'opensearch-aws-sigv4'
+require 'aws-sigv4'
+
+signer = Aws::Sigv4::Signer.new(service: 'es',
+                                region: 'us-west-2', # signing service region
+                                access_key_id: 'key_id',
+                                secret_access_key: 'secret')
+
+client = OpenSearch::Aws::Sigv4Client.new({
+    host: 'https://your.amz-managed-opensearch.domain',
+    log: true
+}, signer)
+
+# create an index and document
+index = 'prime'
+client.indices.create(index: index)
+client.index(index: index, id: '1', body: { name: 'Amazon Echo', 
+                                            msrp: '5999', 
+                                            year: 2011 })
+
+# search for the document
+client.search(body: { query: { match: { name: 'Echo' } } })
+
+# delete the document
+client.delete(index: index, id: '1')
+
+# delete the index
+client.indices.delete(index: index)
+```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Serverless
+
+To connect to Amazon OpenSearch Serverless Service, first install the `opensearch-aws-sigv4` gem:
+
+```bash
+gem install opensearch-aws-sigv4
+```
+
+```ruby
+require 'opensearch-aws-sigv4'
+require 'aws-sigv4'
+
+signer = Aws::Sigv4::Signer.new(service: 'aoss',
+                                region: 'us-west-2', # signing service region
+                                access_key_id: 'key_id',
+                                secret_access_key: 'secret')
+
+client = OpenSearch::Aws::Sigv4Client.new({
+    host: 'https://your.amz-managed-opensearch.domain', # serverless endpoint for OpenSearch Serverless
+    log: true
+}, signer)
+
+# create an index and document
+index = 'prime'
+client.indices.create(index: index)
+client.index(index: index, id: '1', body: { name: 'Amazon Echo', 
+                                            msrp: '5999', 
+                                            year: 2011 })
+
+# search for the document
+client.search(body: { query: { match: { name: 'Echo' } } })
+
+# delete the document
+client.delete(index: index, id: '1')
+
+# delete the index
+client.indices.delete(index: index)
+```
+{% include copy.html %}
+
+
 ## Creating an index 
 
 You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. Alternatively, you can create an index explicitly to specify settings like the number of primary and replica shards. To create an index with non-default settings, create an index body hash with those settings:
@@ -89,6 +176,7 @@ client.indices.create(
     body: index_body
 )
 ```
+{% include copy.html %}
 
 ## Mappings
 
@@ -105,6 +193,7 @@ client.indices.put_mapping(
     }
 )
 ```
+{% include copy.html %}
 
 By default, string fields are mapped as `text`, but in the mapping above, the `first_name` and `last_name` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
 
@@ -113,6 +202,7 @@ You can verify the index's mappings using the `get_mapping` method:
 ```ruby
 response = client.indices.get_mapping(index: 'students')
 ```
+{% include copy.html %}
 
 If you know the mapping of your documents in advance and want to avoid mapping errors (for example, misspellings of a field name), you can set the `dynamic` parameter to `strict`:
 
@@ -130,6 +220,7 @@ client.indices.put_mapping(
     }
 )
 ```
+{% include copy.html %}
 
 With strict mapping, you can index a document with a missing field, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `grad_yea` field fails:
 
@@ -148,6 +239,7 @@ client.index(
     refresh: true
 )
 ```
+{% include copy.html %}
 
 OpenSearch returns a mapping error:
 
@@ -174,6 +266,7 @@ client.index(
     refresh: true
 )
 ```
+{% include copy.html %}
 
 ## Updating a document
 
@@ -185,6 +278,7 @@ client.update(index: 'students',
               body: { doc: { gpa: 3.25 } }, 
               refresh: true)
 ```
+{% include copy.html %}
 
 ## Deleting a document
 
@@ -197,6 +291,7 @@ client.delete(
     refresh: true
 )
 ```
+{% include copy.html %}
 
 ## Bulk operations
 
@@ -213,6 +308,7 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
+{% include copy.html %}
 
 You can delete multiple documents as follows:
 
@@ -224,6 +320,7 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
+{% include copy.html %}
 
 You can perform different operations when using `bulk` as follows:
 
@@ -240,6 +337,7 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
+{% include copy.html %}
 
 In the above example, you pass the data and the header together and you denote the data with the `data:` key.
 
@@ -264,12 +362,14 @@ response = client.search(
   index: 'students'
 )
 ```
+{% include copy.html %}
 
 If you omit the request body in the `search` method, your query becomes a `match_all` query and returns all documents in the index:
 
 ```ruby
 client.search(index: 'students')
 ```
+{% include copy.html %}
 
 ## Boolean query
 
@@ -296,6 +396,7 @@ query = {
 
 response = client.search(index: 'students', from: 0, size: 10, body: query)
 ```
+{% include copy.html %}
 
 ## Multi-search
 
@@ -310,6 +411,7 @@ actions = [
 ]
 response = client.msearch(index: 'students', body: actions)
 ```
+{% include copy.html %}
 
 ## Scroll
 
@@ -324,6 +426,7 @@ while response['hits']['hits'].size.positive?
     response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
 end
 ```
+{% include copy.html %}
 
 First, you issue a search query, specifying the `scroll` and `size` parameters. The `scroll` parameter tells OpenSearch how long to keep the search context. In this case, it is set to two minutes. The `size` parameter specifies how many documents you want to return in each request. 
 
@@ -336,6 +439,7 @@ You can delete the index using the `delete` method:
 ```ruby
 response = client.indices.delete(index: index_name)
 ```
+{% include copy.html %}
 
 ## Sample program
 
@@ -526,3 +630,27 @@ response = client.indices.delete(index: index_name)
 
 puts MultiJson.dump(response, pretty: "true")
 ```
+{% include copy.html %}
+
+# Ruby AWS Sigv4 Client
+
+The [opensearch-aws-sigv4](https://github.com/opensearch-project/opensearch-ruby-aws-sigv4) gem provides the `OpenSearch::Aws::Sigv4Client` class, which has all features of `OpenSearch::Client`. The only difference between these two clients is that `OpenSearch::Aws::Sigv4Client` requires an instance of `Aws::Sigv4::Signer` during instantiation to authenticate with AWS:
+
+```ruby
+require 'opensearch-aws-sigv4'
+require 'aws-sigv4'
+
+signer = Aws::Sigv4::Signer.new(service: 'es',
+                                region: 'us-west-2',
+                                access_key_id: 'key_id',
+                                secret_access_key: 'secret')
+
+client = OpenSearch::Aws::Sigv4Client.new({ log: true }, signer)
+
+client.cluster.health
+
+client.transport.reload_connections!
+
+client.search q: 'test'
+```
+{% include copy.html %}

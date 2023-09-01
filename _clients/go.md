@@ -6,7 +6,9 @@ nav_order: 50
 
 # Go client
 
-The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster.
+The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client's complete API documentation and additional examples, see the [Go client API documentation](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v2).
+
+For the client source code, see the [opensearch-go repo](https://github.com/opensearch-project/opensearch-go).
 
 
 ## Setup
@@ -16,12 +18,15 @@ If you're starting a new project, create a new module by running the following c
 ```go
 go mod init <mymodulename>
 ```
+{% include copy.html %}
 
 To add the Go client to your project, import it like any other module:
 
 ```go
 go get github.com/opensearch-project/opensearch-go
 ```
+{% include copy.html %}
+
 ## Connecting to OpenSearch
 
 To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
@@ -36,6 +41,7 @@ client, err := opensearch.NewClient(opensearch.Config{
         Password:  "admin",
     })
 ```
+{% include copy.html %}
 
 If you are not using the Security plugin, create a client object with the address `http://localhost:9200`:
 
@@ -47,6 +53,131 @@ client, err := opensearch.NewClient(opensearch.Config{
         Addresses: []string{"http://localhost:9200"},
     })
 ```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Service
+
+The following example illustrates connecting to Amazon OpenSearch Service:
+
+```go
+package main
+
+import (
+	"context"
+	"log"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	opensearch "github.com/opensearch-project/opensearch-go/v2"
+	opensearchapi "github.com/opensearch-project/opensearch-go/v2/opensearchapi"
+	requestsigner "github.com/opensearch-project/opensearch-go/v2/signer/awsv2"
+)
+
+const endpoint = "" // e.g. https://opensearch-domain.region.com or Amazon OpenSearch Serverless endpoint
+
+func main() {
+	ctx := context.Background()
+
+	awsCfg, err := config.LoadDefaultConfig(ctx,
+		config.WithRegion("<AWS_REGION>"),
+		config.WithCredentialsProvider(
+			getCredentialProvider("<AWS_ACCESS_KEY>", "<AWS_SECRET_ACCESS_KEY>", "<AWS_SESSION_TOKEN>"),
+		),
+	)
+	if err != nil {
+		log.Fatal(err) // Do not log.fatal in a production ready app.
+	}
+
+	// Create an AWS request Signer and load AWS configuration using default config folder or env vars.
+	signer, err := requestsigner.NewSignerWithService(awsCfg, "es")
+	if err != nil {
+		log.Fatal(err) // Do not log.fatal in a production ready app.
+	}
+
+	// Create an opensearch client and use the request-signer
+	client, err := opensearch.NewClient(opensearch.Config{
+		Addresses: []string{endpoint},
+		Signer:    signer,
+	})
+	if err != nil {
+		log.Fatal("client creation err", err)
+	}
+}
+
+func getCredentialProvider(accessKey, secretAccessKey, token string) aws.CredentialsProviderFunc {
+	return func(ctx context.Context) (aws.Credentials, error) {
+		c := &aws.Credentials{
+			AccessKeyID:     accessKey,
+			SecretAccessKey: secretAccessKey,
+			SessionToken:    token,
+		}
+		return *c, nil
+	}
+}
+```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+
+```go
+package main
+
+import (
+	"context"
+	"log"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	opensearch "github.com/opensearch-project/opensearch-go/v2"
+	opensearchapi "github.com/opensearch-project/opensearch-go/v2/opensearchapi"
+	requestsigner "github.com/opensearch-project/opensearch-go/v2/signer/awsv2"
+)
+
+const endpoint = "" // e.g. https://opensearch-domain.region.com or Amazon OpenSearch Serverless endpoint
+
+func main() {
+	ctx := context.Background()
+
+	awsCfg, err := config.LoadDefaultConfig(ctx,
+		config.WithRegion("<AWS_REGION>"),
+		config.WithCredentialsProvider(
+			getCredentialProvider("<AWS_ACCESS_KEY>", "<AWS_SECRET_ACCESS_KEY>", "<AWS_SESSION_TOKEN>"),
+		),
+	)
+	if err != nil {
+		log.Fatal(err) // Do not log.fatal in a production ready app.
+	}
+
+	// Create an AWS request Signer and load AWS configuration using default config folder or env vars.
+	signer, err := requestsigner.NewSignerWithService(awsCfg, "aoss")
+	if err != nil {
+		log.Fatal(err) // Do not log.fatal in a production ready app.
+	}
+
+	// Create an opensearch client and use the request-signer
+	client, err := opensearch.NewClient(opensearch.Config{
+		Addresses: []string{endpoint},
+		Signer:    signer,
+	})
+	if err != nil {
+		log.Fatal("client creation err", err)
+	}
+}
+
+func getCredentialProvider(accessKey, secretAccessKey, token string) aws.CredentialsProviderFunc {
+	return func(ctx context.Context) (aws.Credentials, error) {
+		c := &aws.Credentials{
+			AccessKeyID:     accessKey,
+			SecretAccessKey: secretAccessKey,
+			SessionToken:    token,
+		}
+		return *c, nil
+	}
+}
+```
+{% include copy.html %}
 
 The Go client constructor takes an `opensearch.Config{}` type, which can be customized using options such as a list of OpenSearch node addresses or a username and password combination.
 
@@ -64,6 +195,7 @@ client, err := opensearch.NewClient(opensearch.Config{
         Addresses: urls,
 })
 ```
+{% include copy.html %}
 
 The Go client retries requests for a maximum of three times by default. To customize the number of retries, set the `MaxRetries` parameter. Additionally, you can change the list of response codes for which a request is retried by setting the `RetryOnStatus` parameter. The following code snippet creates a new Go client with custom `MaxRetries` and `RetryOnStatus` values: 
 
@@ -77,6 +209,7 @@ client, err := opensearch.NewClient(opensearch.Config{
         RetryOnStatus: []int{502, 503, 504},
     })
 ```
+{% include copy.html %}
 
 ## Creating an index
 
@@ -97,6 +230,7 @@ res := opensearchapi.IndicesCreateRequest{
     Body:  settings,
 }
 ```
+{% include copy.html %}
 
 ## Indexing a document
 
@@ -117,6 +251,7 @@ req := opensearchapi.IndexRequest{
 }
 insertResponse, err := req.Do(context.Background(), client)
 ```
+{% include copy.html %}
 
 ## Performing bulk operations
 
@@ -134,10 +269,11 @@ blk, err := client.Bulk(
 `),
 	)
 ```
+{% include copy.html %}
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" is in the title field. 
+The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field:
 
 ```go
 content := strings.NewReader(`{
@@ -157,6 +293,7 @@ search := opensearchapi.SearchRequest{
 
 searchResponse, err := search.Do(context.Background(), client)
 ```
+{% include copy.html %}
 
 ## Deleting a document
 
@@ -170,6 +307,7 @@ delete := opensearchapi.DeleteRequest{
 
 deleteResponse, err := delete.Do(context.Background(), client)
 ```
+{% include copy.html %}
 
 ## Deleting an index
 
@@ -182,10 +320,11 @@ deleteIndex := opensearchapi.IndicesDeleteRequest{
 
 deleteIndexResponse, err := deleteIndex.Do(context.Background(), client)
 ```
+{% include copy.html %}
 
 ## Sample program
 
-This sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and, finally, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
 
 ```go
 package main
@@ -256,6 +395,7 @@ func main() {
     }
     fmt.Println("Inserting a document")
     fmt.Println(insertResponse)
+    defer insertResponse.Body.Close()
    
     // Perform bulk operations.
     blk, err := client.Bulk(
@@ -299,6 +439,7 @@ func main() {
     }
     fmt.Println("Searching for a document")
     fmt.Println(searchResponse)
+    defer searchResponse.Body.Close()
 
     // Delete the document.
     delete := opensearchapi.DeleteRequest{
@@ -313,6 +454,7 @@ func main() {
     }
     fmt.Println("Deleting a document")
     fmt.Println(deleteResponse)
+    defer deleteResponse.Body.Close()
 
     // Delete the previously created index.
     deleteIndex := opensearchapi.IndicesDeleteRequest{
@@ -326,5 +468,7 @@ func main() {
     }
     fmt.Println("Deleting the index")
     fmt.Println(deleteIndexResponse)
+    defer deleteIndexResponse.Body.Close()
 }
 ```
+{% include copy.html %}

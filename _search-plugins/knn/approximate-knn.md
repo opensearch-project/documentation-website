@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Approximate search
-nav_order: 2
+title: Approximate k-NN search
+nav_order: 15
 parent: k-NN
 has_children: false
 has_math: true
@@ -18,16 +18,15 @@ For details on the algorithms the plugin currently supports, see [k-NN Index doc
 
 The k-NN plugin builds a native library index of the vectors for each knn-vector field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory. To learn more about this, see the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
 
-Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index
-and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
+Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
 
 ### Recommendations for engines and cluster node sizing
 
 Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. You can follow the general information below to help determine which engine will best meet your requirements.
 
-* The faiss engine performs exceptionally well (on orders of magnitude) with hardware that includes a GPU. When cost is not the first concern, this is the recommended engine.
-* When only a CPU is available, nmslib is a good choice. In general, it outperforms both faiss and Lucene. 
-* For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.<br>Also, the Lucene engine uses pure Java implementation and does not share any of the limitations that engines using platform-native code experience. However, one exception to this is that the maximum number of vector dimensions for the Lucene engine is 1024, compared with 10000 for the other engines. Refer to the sample mapping parameters in the following section to see where this is configured.
+In general, nmslib outperforms both faiss and Lucene on search. However, to optimize for indexing throughput, faiss is a good option. For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.
+
+Also, the Lucene engine uses a pure Java implementation and does not share any of the limitations that engines using platform-native code experience. However, one exception to this is that the maximum dimension count for the Lucene engine is 1,024, compared with 16,000 for the other engines. Refer to the sample mapping parameters in the following section to see where this is configured.
 
 When considering cluster node sizing, a general approach is to first establish an even distribution of the index across the cluster. However, there are other considerations. To help make these choices, you can refer to the OpenSearch managed service guidance in the section [Sizing domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/sizing-domains.html).
 
@@ -80,9 +79,9 @@ PUT my-knn-index-1
 }
 ```
 
-In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#knn_vector-data-type) section.
+In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) section.
 
-The `knn_vector` data type supports a vector of floats that can have a dimension of up to 10000 for the nmslib and faiss engines, as set by the dimension mapping parameter. The maximum dimension for the Lucene library is 1024.
+The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the nmslib and faiss engines, as set by the dimension mapping parameter. The maximum dimension count for the Lucene library is 1,024.
 
 In OpenSearch, codecs handle the storage and retrieval of indexes. The k-NN plugin uses a custom codec to write vector data to native library indexes so that the underlying k-NN search library can read it.
 {: .tip }
@@ -143,17 +142,17 @@ any `knn_vector` field that has a dimension matching the dimension of the model 
 ```json
 PUT /train-index
 {
-  "settings" : {
-    "number_of_shards" : 3,
-    "number_of_replicas" : 0
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 0
   },
   "mappings": {
-       "properties": {
-       "train-field": {
-           "type": "knn_vector",
-           "dimension": 4
+    "properties": {
+      "train-field": {
+        "type": "knn_vector",
+        "dimension": 4
       }
-   }
+    }
   }
 }
 ```
@@ -172,7 +171,6 @@ POST _bulk
 { "train-field": [4.5, 5.5, 6.7, 3.7]}
 { "index": { "_index": "train-index", "_id": "4" } }
 { "train-field": [1.5, 5.5, 4.5, 6.4]}
-...
 ```
 
 After indexing into the training index completes, we can call the Train API:
@@ -183,20 +181,15 @@ POST /_plugins/_knn/models/my-model/_train
   "training_index": "train-index",
   "training_field": "train-field",
   "dimension": 4,
-  "description": "My models description",
-  "search_size": 500,
+  "description": "My model description",
   "method": {
-      "name":"hnsw",
-      "engine":"faiss",
-      "parameters":{
-        "encoder":{
-            "name":"pq",
-            "parameters":{
-                "code_size": 8,
-                "m": 8
-            }
-        }
-      }
+    "name": "ivf",
+    "engine": "faiss",
+    "space_type": "l2",
+    "parameters": {
+      "nlist": 4,
+      "nprobes": 2
+    }
   }
 }
 ```
@@ -216,18 +209,18 @@ library indexes:
 ```json
 PUT /target-index
 {
-  "settings" : {
-    "number_of_shards" : 3,
-    "number_of_replicas" : 1,
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 1,
     "index.knn": true
   },
   "mappings": {
-       "properties": {
-       "target-field": {
-           "type": "knn_vector",
-           "model_id": "my-model"
+    "properties": {
+      "target-field": {
+        "type": "knn_vector",
+        "model_id": "my-model"
       }
-   }
+    }
   }
 }
 ```
@@ -249,30 +242,8 @@ POST _bulk
 After data is ingested, it can be search just like any other `knn_vector` field!
 
 ### Using approximate k-NN with filters
-If you use the `knn` query alongside filters or other clauses (e.g. `bool`, `must`, `match`), you might receive fewer than `k` results. In this example, `post_filter` reduces the number of results from 2 to 1:
 
-```json
-GET my-knn-index-1/_search
-{
-  "size": 2,
-  "query": {
-    "knn": {
-      "my_vector2": {
-        "vector": [2, 3, 5, 6],
-        "k": 2
-      }
-    }
-  },
-  "post_filter": {
-    "range": {
-      "price": {
-        "gte": 5,
-        "lte": 10
-      }
-    }
-  }
-}
-```
+To learn about using filters with k-NN search, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
 ## Spaces
 
@@ -305,8 +276,8 @@ A space corresponds to the function used to measure the distance between two poi
     <td>cosinesimil</td>
     <td>\[ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 1 - 
     {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} &middot; \sqrt{\sum_{i=1}^n y_i^2}}\]
-    where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent normalized vectors.</td>
-    <td><b>nmslib</b> and <b>faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {1 + d \over 2}\]</td>
+    where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent the norms of vectors x and y respectively.</td>
+    <td><b>nmslib</b> and <b>faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {2 - d \over 2}\]</td>
   </tr>
   <tr>
     <td>innerproduct (not supported for Lucene)</td>

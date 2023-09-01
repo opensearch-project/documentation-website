@@ -3,13 +3,15 @@ layout: default
 title: Full-Text Search
 parent: SQL and PPL
 nav_order: 11
+redirect_from:
+  - /search-plugins/sql/sql-full-text/
 ---
 
 # Full-text search
 
 Use SQL commands for full-text search. The SQL plugin supports a subset of full-text queries available in OpenSearch.
 
-To learn about full-text queries in OpenSearch, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
+To learn about full-text queries in OpenSearch, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
 
 ## Match
 
@@ -36,7 +38,7 @@ You can specify the following options in any order:
 - `zero_terms_query`
 - `boost`
 
-Please, refer to `match` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/#match) for parameter description and supported values.
+Refer to the `match` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#match) for parameter descriptions and supported values.
 
 ### Example 1: Search the `message` field for the text "this is a test":
 
@@ -224,7 +226,7 @@ You can specify the following options for `QUERY_STRING` in any order:
 - `tie_breaker`
 - `time_zone`
 
-Please, refer to `query_string` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/#query-string) for parameter description and supported values.
+Refer to the `query_string` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#query-string) for parameter descriptions and supported values.
 
 ### Example of using `query_string` in SQL and PPL queries:
 
@@ -281,7 +283,7 @@ The `MATCHPHRASE`/`MATCH_PHRASE` functions let you specify the following options
 - `zero_terms_query`
 - `boost`
 
-Please, refer to `match_phrase` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/#match-phrase) for parameter description and supported values.
+Refer to the `match_phrase` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#match-phrase) for parameter descriptions and supported values.
 
 ### Example of using `match_phrase` in SQL and PPL queries:
 
@@ -349,7 +351,7 @@ You can specify the following options for `SIMPLE_QUERY_STRING` in any order:
 - `minimum_should_match`
 - `quote_field_suffix`
 
-Please, refer to `simple_query_string` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/#simple-query-string) to check parameter meanings and available values.
+Refer to the `simple_query_string` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#simple-query-string) for parameter descriptions and supported values.
 
 ### *Example* of using `simple_query_string` in SQL and PPL queries:
 
@@ -400,7 +402,7 @@ The `MATCH_PHRASE_PREFIX` function lets you specify the following options in any
 - `zero_terms_query`
 - `boost`
 
-Please, refer to `match_phrase_prefix` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/#match-phrase-prefix) for parameter description and supported values.
+Refer to the `match_phrase_prefix` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#match-phrase-prefix) for parameter descriptions and supported values.
 
 ### *Example* of using `match_phrase_prefix` in SQL and PPL queries:
 
@@ -456,7 +458,7 @@ The `MATCH_BOOL_PREFIX` function lets you specify the following options in any o
 - `analyzer`
 - `operator`
 
-Please, refer to `match_bool_prefix` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/#match-boolean-prefix)  for parameter description and supported values.
+Refer to the `match_bool_prefix` query [documentation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#match-boolean-prefix)  for parameter descriptions and supported values.
 
 ### Example of using `match_bool_prefix` in SQL and PPL queries:
 

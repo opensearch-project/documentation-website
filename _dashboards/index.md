@@ -1,60 +1,33 @@
 ---
 layout: default
-title: Getting started with OpenSearch Dashboards
+title: OpenSearch Dashboards
 nav_order: 1
 has_children: false
-has_toc: false
-redirect_from:
-  - /docs/opensearch-dashboards/
-  - /dashboards/
+nav_exclude: true
 ---
 
-{%- comment -%}The `/docs/opensearch-dashboards/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
+# OpenSearch Dashboards
 
-# Getting started with OpenSearch Dashboards
+OpenSearch Dashboards is the user interface that lets you visualize your OpenSearch data and run and scale your OpenSearch clusters.
 
-OpenSearch Dashboards is an open-source, integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in your data. The image below shows a sample of data visualizations in OpenSearch Dashboards.  
+## Getting started
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight.png" alt="User interface showing several data visualizations">
+| Concept | Description | 
+|---------|-------------|
+| [OpenSearch Dashboards Quickstart]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/) | Learn about the basic concepts and features of OpenSearch Dashboards. |
+| [OpenSearch Playground](https://playground.opensearch.org/app/home#/) | Explore features in OpenSearch Dashboards without downloading or installing anything. |
+| [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/) | Get started with OpenSearch Dashboards. | 
+| [Create visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) | Learn about visualizing data in OpenSearch Dashboards. |
+| [Explore and query data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | Learn how to explore and query data in OpenSearch. |
 
-## Use cases for OpenSearch Dashboards
+## Observability
 
-In OpenSearch Dashboards, a data dashboard is a collection of charts, graphs, gauges, and other visualizations that gives you a snapshot of the data that you're interested in and that you interact with. You can track, analyze, and display real-time search, monitoring, and analysis of business and operational data for use cases like application monitoring, log analytics, observability, and website search. The image below shows data visualization use cases for OpenSearch Dashboards.   
+| Concept | Description | 
+|---------|-------------|
+| [Observability in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}//observing-your-data/index/) | Observe, monitor, and secure data and improve performance across tools and workflows. |
 
-<table style="table-layout: fixed; width: 100%;">
-<tbody>
-<tr>
-<td style="text-align: left; font-family:Open Sans Condensed; vertical-align: top; width: 100%;">Visualize log and trace data with interactive log analytics.<img src="{{site.url}}{{site.baseurl}}/images/visualize-log-data.png" alt="Log analytics" /></td>
-<td style="text-align: left; font-family:Open Sans Condensed; width: 100%;">Detect and mitigate issues faster with anomaly detection.<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection.png" alt="Anomaly detection" /></td>
-</tr>
-<tr>
-<td style="text-align: left; font-family:Open Sans Condensed; vertical-align: top; width: 100%;">Diagnose performance issues and reduce application downtime.<img src="{{site.url}}{{site.baseurl}}/images/observability.png" alt="Observability interface and log monitoring features" /></td>
-<td style="text-align: left; font-family:Open Sans Condensed; vertical-align: top; width: 100%;">Unlock real-time search, monitoring, and analysis of business and operational data.<img src="{{site.url}}{{site.baseurl}}/images/analyzing-data-logs.png" alt="Real-time search, monitoring, and analysis" /></td>
-</tr>
-</tbody>
-</table> 
+## Dev Tools 
 
-## Explore the OpenSearch Dashboards playground
-
-You can interact with the demonstration datasets in the OpenSearch Dashboards playground by following the steps below:
-
-1. Go to the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home).
-2. Choose **OpenSearch Dashboards > Dashboard**. 
-3. Explore the available datasets and select one: **[Flights] Global Flight Dashboard**, **[Logs] Web Traffic**, or **[eCommerce] Revenue Dashboard**.
-4. Interact with the data on a dashboard. Choose **Add filter**, and specify the data you'd like to see. 
-5. Select one of the options from the **Field** menu, and specify an **Operator** to filter the results.  
-
-The image below shows a [Logs] Web Traffic dashboard with filters applied.
-
-<img src="{{site.url}}{{site.baseurl}}/images/log-dashboard-filter.png" alt="Logs web traffic dashboard with filters applied">
-
-## Next steps 
-
-You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/) for installation instructions.  
-
-## Related links
-- [Getting Started with OpenSearch]({{site.url}}{{site.baseurl}}).
-- [Launch Highlight: OpenSearch Playground](https://www.opensearch.org/blog/community/2022/10/opensearch-playground/)
-- [Upgrade from Kibana OSS to OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to/)
-- [OpenSearch Frequently Asked Questions]({{site.url}}/faq/)
-- [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
+| Concept | Description |
+|---------|-------------|
+| [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) | Learn how to run OpenSearch queries in an integrated console. |

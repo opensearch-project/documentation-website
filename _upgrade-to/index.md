@@ -1,14 +1,15 @@
 ---
 layout: default
-title: About the process
+title: About the migration process
 nav_order: 1
+nav_exclude: true
 redirect_from:
   - /upgrade-to/
 ---
 
-# About the process
+# About the migration process
 
-The process of upgrading from Elasticsearch OSS to OpenSearch varies depending on your current version of Elasticsearch OSS, installation type, tolerance for downtime, and cost-sensitivity. Rather than concrete steps to cover every situation, we have general guidance for the process.
+The process of migrating from Elasticsearch OSS to OpenSearch varies depending on your current version of Elasticsearch OSS, installation type, tolerance for downtime, and cost-sensitivity. Rather than concrete steps to cover every situation, we have general guidance for the process.
 
 Three approaches exist:
 
@@ -18,7 +19,7 @@ Three approaches exist:
 
 Regardless of your approach, to safeguard against data loss, we recommend that you take a [snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of all indexes prior to any migration.
 
-If your existing clients include a version check, such as recent versions of Logstash OSS and Filebeat OSS, [check compatibility]({{site.url}}{{site.baseurl}}/clients/agents-and-ingestion-tools/index/) before upgrading.
+If your existing clients include a version check, such as recent versions of Logstash OSS and Filebeat OSS, [check compatibility]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) before upgrading.
 
 ## Upgrading from Open Distro
 
