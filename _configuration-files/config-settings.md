@@ -89,7 +89,7 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.restapi.password_validation_error_message` | [More description needed] |
 | `plugins.security.allow_default_init_securityindex` | [More description needed] |
 | `plugins.security.cache.ttl_minutes` | [More description needed] |
-| `plugins.security.roles_mapping_resolution` | Defines how backend roles are mapped to Security roles.<br>MAPPING_ONLY - mappings must be configured explicitly in roles_mapping.yml (default)<br>BACKENDROLES_ONLY - backend roles are mapped to Security roles directly. Settings in roles_mapping.yml have no effect.<br>BOTH - backend roles are mapped to Security roles mapped directly and via roles_mapping.yml in addition.  |
+| `plugins.security.roles_mapping_resolution` | Defines how backend roles are mapped to Security roles. <br> <br> MAPPING_ONLY - mappings must be configured explicitly in roles_mapping.yml (default) <br> <br> BACKENDROLES_ONLY - backend roles are mapped to Security roles directly. Settings in roles_mapping.yml have no effect. <br> <br> BOTH - backend roles are mapped to Security roles mapped directly and via roles_mapping.yml in addition.  |
 | `plugins.security.restapi.roles_enabled` | Enables role based access to the REST management API for listed roles. Roles are separated by a comma. Default is that no role is allowed to access the REST management API (an empty list). |
 | `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. |
 | `plugins.security.audit.enable_rest` | Enables or disables rest request logging. Default is `true`, enabled. |
@@ -145,9 +145,55 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.protected_indices.indices` | Specifies a list of indexes to mark as protected. These indexes will only be visible to users mapped to the roles specified in `plugins.security.protected_indices.roles`. After this requirement is fulfilled, a user will still need to be mapped to the traditional role used to grant access permission to the index. |
 | `plugins.security.system_indices.enabled` | Set to `true` to enable system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by a super-admin only. No role provides access to these indexes. |
 | `plugins.security.system_indices.indices` | Enter a list of indexes to be used as system indexes. [The `opensearch.yml.example` file also includes this description: "These indices will only be visible / mutable by members of the above setting, in addition to needing permission to the index via a normal role." But it doesn't make sense for this setting.] |
+| `plugins.security.ssl.transport.client.pemkey_password` | Password for the PEM formatted private key used by client. |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+
+plugins.security.ssl.transport.client.pemkey_password —> Password for the PEM formatted private key used by client
+plugins.security.ssl.transport.keystore_keypassword → Provide the password for the key inside the keystore
+plugins.security.ssl.transport.server.keystore_keypassword → Provide the password for the key inside the server keystore plugins.security.ssl.transport.client.keystore_keypassword → Provide the password for the key inside the client keystore
+plugins.security.ssl.http.keystore_keypassword → Provide the password for the key inside the keystore file
+plugins.security.ssl.http.enabled → Enable or disable http
+plugins.security.ssl.http.clientauth_mode → Set the client auth mode for ssl
+plugins.security.ssl.transport.enabled → Enable or disable SSL on transport
+plugins.sercurity.ssl.transport.server.keystore_alias → The alias name for the keystore of the server
+plugins.sercurity.ssl.transport.client.keystore_alias → The alias name for the keystore of the client
+plugins.sercurity.ssl.transport.server.truststore_alias → The alias name for the truststore of the server
+plugins.sercurity.ssl.transport.client.truststore_alias → The alias name for the truststore of the client
+plugins.security.ssl.client.external_context_id → Provide the transport client an id for an external SSL context it should use
+plugins.secuirty.ssl.transport.principal_extractor_class → Pass a class implementing an extractor so a custom part of the certificate is used as the principal
+plugins.security.ssl.http.crl.file_path → A file path to a certificate revocation list file
+plugins.security.ssl.http.crl.validate → Enable CRL validation
+plugins.security.ssl.http.crl.prefer_crlfile_over_ocsp → Default false, CRL cert entry is preferred over OCSP entry if cert contains both
+plugins.security.ssl.http.crl.check_only_end_entitites → Default true, when true only leaf certificates are validated
+plugins.security.ssl.http.crl.disable_ocsp → Disable OSCP
+plugins.security.ssl.http.crl.disable_crldp→ Default false, disable CRL endpoints in certs
+plugins.security.ssl.allow_client_initiated_renegotiation → Enable/disable client renegotiation
+plugins.security.system_indices.enabled → Enable system indices
+plugins.security.system_indices.indices → List of system indices
 
 
 ### Security plugin settings examples
+<!--- another option for these section would be to simply add the example value in the description above where these are defined. It's beginning to feel like a better idea. Although, then, you wouldn't be able to express them in YAML format, and you miss the visual cues that could help a user understand proper formatting. --->
 
 ```yml
 # Common configuration settings
@@ -259,7 +305,34 @@ plugins.security.protected_indices.roles: ['all_access']
 plugins.security.protected_indices.indices: []
 plugins.security.system_indices.enabled: true
 plugins.security.system_indices.indices: ['.opendistro-alerting-config', '.opendistro-ism-*', '.opendistro-reports-*', '.opensearch-notifications-*', '.opensearch-notebooks', '.opensearch-observability', '.opendistro-asynchronous-search-response*', '.replication-metadata-store']
+
+# these need example values:
+plugins.security.ssl.transport.client.pemkey_password:
+plugins.security.ssl.transport.keystore_keypassword:
+plugins.security.ssl.transport.server.keystore_keypassword:
+plugins.security.ssl.http.keystore_keypassword:
+plugins.security.ssl.http.enabled:
+plugins.security.ssl.http.clientauth_mode:
+plugins.security.ssl.transport.enabled:
+plugins.sercurity.ssl.transport.server.keystore_alias:
+plugins.sercurity.ssl.transport.client.keystore_alias:
+plugins.sercurity.ssl.transport.server.truststore_alias:
+plugins.sercurity.ssl.transport.client.truststore_alias:
+plugins.security.ssl.client.external_context_id:
+plugins.secuirty.ssl.transport.principal_extractor_class:
+plugins.security.ssl.http.crl.file_path:
+plugins.security.ssl.http.crl.validate:
+plugins.security.ssl.http.crl.prefer_crlfile_over_ocsp:
+plugins.security.ssl.http.crl.check_only_end_entitites:
+plugins.security.ssl.http.crl.disable_ocsp:
+plugins.security.ssl.http.crl.disable_crldp:
+plugins.security.ssl.allow_client_initiated_renegotiation:
+plugins.security.system_indices.enabled:
+plugins.security.system_indices.indices:
+
+
 ```
+<!--- These need example values  --->
 
 ## Current experimental feature settings
 
