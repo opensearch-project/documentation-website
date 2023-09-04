@@ -13,17 +13,17 @@ Logs contain raw data about events that happen throughout a system and in its se
 | Log type | Description |
 | :--- |:--- |
 | **Network events** | A log that records events that happen in a system's network, such as login attempts and application events. |
-| **DNS logs** | A log that stores Domain Name System (DNS) activity. <br> <br> Security Analytics supports Open Cybersecurity Schema Framework (OCSF) log and event data, which includes the Security Lake log type Route 53. Given that Route 53 is a log that captures DNS activity, its log type should be specified as DNS logs when defining a detector. |
+| **DNS logs** | A log that stores Domain Name System (DNS) activity. <br> <br> Security Analytics supports [Open Cybersecurity Schema Framework](https://docs.aws.amazon.com/security-lake/latest/userguide/open-cybersecurity-schema-framework.html) (OCSF) log and event data, which includes the Security Lake log type Route 53. Given that Route 53 is a log that captures DNS activity, its log type should be specified as DNS logs when defining a detector. |
 | **Apache access logs** | A log type that is responsible for recording data for all requests processed by an Apache HTTP server. 
-| **Windows logs** | 
-| **AD/LDAP logs** | 
-| **System logs** | 
-| **AWS CloudTrail logs** | 
-| **Amazon S3 access logs** | 
-| **Google Workspace logs** | 
-| **GitHub actions** | 
-| **Microsoft 365 logs** | 
-| **Okta events** | 
-| **Microsoft Azure logs** | 
-| **VPC Flow logs** | 
+| **Windows logs** | Logs that record events that have happened in the operating system, applications, and other system services for Windows.
+| **AD/LDAP logs** | Active Directory Logs that track such things as LDAP queries, errors from the LDAP server, time-out events, and un-secure LDAP binds.
+| **System logs** | Logs that record events happening in the operating system.
+| **AWS CloudTrail logs** | Logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both an [AWS Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (S3) account and an [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service account.  
+| **Amazon S3 access logs** | These logs track requests for access to an Amazon S3 bucket.
+| **Google Workspace logs** | Logs for Google Workspace that can monitor log entries such as admin actions, group and group membership actions, and events having to do with log in.   
+| **GitHub actions** | Logs that monitor workflows created by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions).
+| **Microsoft 365 logs** | Microsoft 365 audit logs collect a range of data for Microsoft 365 including records from call details, performance data, SQL Server, security events, and access control activity.
+| **Okta events** | These logs record Okta events from a range of actions such as downloading an export file, requesting an application access, or revoking privileges. 
+| **Microsoft Azure logs** | Logs that monitor log data for Cloud applications managed by the Microsoft Azure cloud service platform.
+| **VPC Flow logs** | [VPC Flow logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html) capture information about the IP traffic going to and from network interfaces in your VPC.
 
