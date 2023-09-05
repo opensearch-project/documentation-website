@@ -182,7 +182,7 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-The preceding query specifies the `-04:00` offset, so the `gte` parameter is converted to `2022-04-17T10:00:00 UTC`.   
+The preceding query specifies the `-04:00` offset, so the `gte` parameter is converted to `2022-04-17T02:00:00 UTC`.   
 
 The `time_zone` parameter does not affect the `now` value.
 {: .note}
