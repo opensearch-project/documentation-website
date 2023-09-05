@@ -7,3 +7,146 @@ nav_order: 65
 
 # Distributed tracing
 
+Distributed tracing is used to monitor and debug distributed systems. You can track the flow of requests through a system and identify performance bottlenecks and errors. A _trace_ is a complete end-to-end path of a request as it flow through a distributed systems. It represents the journey of a specific operation as it traverses various components and services in a distributed architecture. In distributed tracing, a single trace contains a series of tagged time intervals called _spans_. [Spans](#) have a start and end time, and may include other metadata like logs or tags to help classify what happened. 
+
+
+Distributed tracing offers several benefits, including:
+
+- **Performance optimization:** Identify and resolve bottlenecks, reducing latency in your applications.
+- **Debugging:** Quickly pinpoint the source of errors or unexpected behavior in your distributed system.
+- **Resource allocation:** Optimize resource allocation by understanding usage patterns of different services.
+- **Service dependencies:** Visualize dependencies between services, helping you to manage architectures. 
+
+## Distributed tracing pipeline
+
+OpenSearch provides a distributed tracing pipeline that can be used to ingest, process, and visualize tracing data with query and alerting. OpenTelemtry is an open-source observability framework that provides a set of APIs, libraries, agents, and collectors for generating, capturing, and exporting telemetry data. The distributed tracing pipeline consists of the following components: 
+
+- **Creation:** Instrumenting your application code with OpenTelemetry SDKs.
+- **Propagation:** Injecting trace context into requests as they propagate through your system.
+- **Collection:** Collecting trace data from your application and sending it to a backend.
+- **Processing:** Aggregating trace data from multiple sources and enriching it with additional metadata.
+- **Exporting:** Sending trace data to a backend for storage and analysis. 
+
+OpenSearch serves as the sink for traces.
+
+## Trace analytics
+
+OpenSearch provides a `trace-analytics` plugin for visualizing trace data in real time. The plugin includes pre-built dashboards for analyzing trace data, such as service maps, latency histograms, and error rates. With OpenSearch's distributed tracing pipeline, you can quickly identify bottlenecks and errors in your applications. See the [Trace analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) documentation for more information. 
+
+## Get started
+
+The distributed tracing feature is experimental as of OpenSearch 2.10. To begin using the distributed tracing feature, you need to first enable it, and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature, as it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand debugging and request sampling, is described in the following sections.
+
+### Enable on a node using a tarball install
+
+The flag is toggled using a new Java Virtual Machine (JVM) parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in `config/jvm.options`.
+
+#### Option 1: Modify jvm.options
+
+Add the following lines to `config/jvm.options` before starting the OpenSearch process to enable the feature and its dependency:
+
+````
+```bash
+-Dopensearch.experimental.feature.telemetry.enabled=true
+
+Run OpenSearch
+
+./bin/opensearch
+```
+{% include copy-curl.html %}
+````
+
+#### Option 2: Enable from an environment variable
+
+As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done in a single command when you start OpenSearch or by defining the variable with export.
+
+To add these flags inline when starting OpenSearch, run the following command:
+
+````
+```bash
+OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./opensearch-2.9.0/bin/opensearch
+```
+{% include copy-curl.html %}
+````
+
+To define the environment variable separately, prior to running OpenSearch, run the following command:
+
+````
+```bash
+export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
+ ./bin/opensearch
+```
+{% include copy-curl.html %}
+````
+### Enable with Docker containers
+
+If you’re running Docker, add the following line to `docker-compose.yml` underneath the `opensearch-node` and environment section:
+
+````
+```bash
+OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
+```
+{% include copy-curl.html %}
+````
+
+### Enable for OpenSearch development
+
+To enable the distributed feature, you must first enable these features by adding the correct properties to `run.gradle` before building OpenSearch. See the [Developer Guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md#gradle-build) for information about to use how Gradle to build OpenSearch.
+
+Add the following properties to `run.gradle` to enable the feature:
+
+````
+```bash
+testClusters {
+  runTask {
+    testDistribution = 'archive'
+ if (numZones > 1) numberOfZones = numZones
+    if (numNodes > 1) numberOfNodes = numNodes
+    systemProperty 'opensearch.experimental.feature.telemetry.enabled', 'true'
+ }
+ }
+ ```
+ {% include copy-curl.html %}
+ ````
+
+### Enable distributed tracing
+
+Once you've enabled the feature flag, you can enable the tracer using the following dynamic setting. This setting can be adjusted dynamically to enable or disable tracing in the running cluster:
+
+````
+```bash
+telemetry.tracer.enabled=true
+```
+{% include copy-curl.html %}
+````
+### Install the OpenSearch OpenTelemetry plugin
+
+OpenSearch's distributed tracing framework supports various telemetry solutions through plugins. The OpenSearch OpenTelemetry plugin `telemetry-otel` is available and must be installed to enable tracing. The following guide provides you with the installation instructions.
+
+### Exporters
+
+The distributed tracing feature generates traces and spans for requests and other cluster operations. These traces and spans are initially kept in memory using the OpenTelemetry BatchSpanProcessor and then are sent to an exporter based on configured settings. The following table described the key components.
+
+- **Span processors:** As spans conclude on the request path, OpenTelemetry provides them to the `SpanProcessor` for processing and exporting. OpenSearch's distributed tracing framework uses the `BatchSpanProcessor`, which batches spans for specific configurable intervals and then sends them to the exporter. The following configurations are available for the `BatchSpanProcessor`:
+    - `telemetry.otel.tracer.exporter.max_queue_size`: Defines the maximum queue size. When the queue reaches this value, it will be written to the exporter. Default is `2048`.
+    - `telemetry.otel.tracer.exporter.delay`: Defines the delay; if there are not enough spans to fill the max_queue_size until this delay time, they will be flushed. Default `2 seconds`.
+    - `telemetry.otel.tracer.exporter.batch_size`: Configures the maximum batch size for each export to reduce input/output. This value should always be less than the max_queue_size. Default is `512`. 
+- **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch currently supports the following:
+    - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`
+    - `OtlpGrpcSpanExporter`: Exports spans by using [gRPC](https://grpc.io/). To use this exporter, you need to install the `otel-collector` on the node and specify the endpoint using the setting `telemetry.otel.tracer.exporter.endpoint`. By default, it writes to the endpoint `http://localhost:4317/`. If you want to configure it for HTTPS, follow the guidance in the [OpenTelemetry Configuration](https://opentelemetry.io/docs/collector/configuration/) documentation. The setting is as follows:
+        - `telemetry.otel.tracer.span.exporter.class=org.opensearch.telemetry.tracing.exporter.OtlpGrpcSpanExporterProvider`
+        - `telemetry.otel.tracer.exporter.endpoint: https://localhost:4317`
+
+### Sampling
+
+Distributed tracing can generate numerous spans, consuming system resources unnecessarily. To reduce the number of traces, also called samples, you can enable sampling. Sampling is configured by default for only 1% of all requests. Sampling has two types:
+
+1. **Head sampling:** Sampling decisions are made before initiating the root span of a request. OpenSearch supports two head sampling methods:
+    - **Probabilistic:** A blanket limit on incoming requests, dynamically adjustable with the `telemetry.tracer.sampler.probability` setting. This setting ranges between 0 and 1. Default is 0.01, which indicates that 1% of incoming requests are sampled.
+    - **On-Demand:** For debugging specific requests, users can send the `trace=true` attribute as part of the header, causing those requests to be sampled regardless of the probabilistic sampling setting.
+2. **Tail base sampling:** To configure tail-based sampling, follow the [OpenTelemetry Sampling}(https://opentelemetry.io/docs/concepts/sampling/) documentation. Configuration depends on the type of collector you choose. Updates on ongoing work for OpenSearch are in the [RFC](https://github.com/opensearch-project/OpenSearch/issues/8918) on GitHub.
+
+### Collection of spans
+
+The `SpanProcessor` writes spans to the exporter, and the choice of exporter defines the endpoint, which can be logs or gRPC. To collect spans by using gRPC, you need to configure the collector as a sidecar process running on each OpenSearch node. From the collectors, these spans can be written to the sync of your choice, such as Jaeger, Prometheus, Grafana, and FileStore, for further analysis.
+
