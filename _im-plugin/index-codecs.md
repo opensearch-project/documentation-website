@@ -15,7 +15,13 @@ OpenSearch provides support for four codecs that can be used for compressing the
 
 * `default` -- This codec employs the [LZ4 algorithm](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression` but may result in larger index/shard sizes. If no codec is provided in the index settings, then LZ4 is used as the default algorithm for compression.
 * `best_compression` -- This codec uses [zlib](https://en.wikipedia.org/wiki/Zlib) as an underlying algorithm for compression. It achieves high compression ratios that result in smaller index sizes. However, this may incur additional CPU usage during index operations and may subsequently result in high indexing and search latencies. 
-* `zstd` (OpenSearch 2.9 and later) -- This codec uses the [Zstandard compression algorithm](https://github.com/facebook/zstd), which provides a good balance between compression ratio and speed. It provides significant compression comparable to the `best_compression` codec with reasonable CPU usage and improved indexing and search performance compared to the `default` codec.
+
+As of OpenSearch 2.9, two new codecs based on the [Zstandard compression algorithm](https://github.com/facebook/zstd) are available. This algorithm provides a good balance between compression ratio and speed.
+
+It may be challenging to change the codec setting of an existing index (see [Changing an index codec](#changing-an-index-codec)), so it is important to test a representative workload in a non-production environment before using a new codec setting.
+{: .important}
+
+* `zstd` (OpenSearch 2.9 and later) -- This codec provides significant compression comparable to the `best_compression` codec with reasonable CPU usage and improved indexing and search performance compared to the `default` codec.
 * `zstd_no_dict` (OpenSearch 2.9 and later) -- This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
 
 For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compression level in the `index.codec.compression_level` setting. This setting takes integers in the [1, 6] range. A higher compression level results in a higher compression ratio (smaller storage size) with a tradeoff in speed (slower compression and decompression speeds lead to greater indexing and search latencies). 
@@ -25,7 +31,7 @@ When an index segment is created, it uses the current index codec for compressio
 
 ## Choosing a codec 
 
-The choice of index codec impacts the amount of disk space required to store the index data. Codecs like `best_compression`, `zstd`, and `zstd_no_dict` can achieve higher compression ratios, resulting in smaller index sizes. Conversely, the `default` codec doesn’t prioritize compression ratio, resulting in larger index sizes but with faster search operations than `best_compression`. The `zstd` and `zstd_no_dict` codecs ensure better search performance than the other two codecs.
+The choice of index codec impacts the amount of disk space required to store the index data. Codecs like `best_compression`, `zstd`, and `zstd_no_dict` can achieve higher compression ratios, resulting in smaller index sizes. Conversely, the `default` codec doesn’t prioritize compression ratio, resulting in larger index sizes but faster search operations than `best_compression`.
 
 ## Index codec considerations for index operations
 
@@ -57,8 +63,9 @@ When you are performing a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reind
 
 When an index [rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/) or [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/) job is completed, the segments created in the target index will have the properties of the index codec specified during target index creation, irrespective of the source index codec. If the target index is created dynamically through a rollup job, the default codec is used for segments of the target index.
 
-Changing the index codec setting does not affect the size of existing segments. Only new segments created after the update will reflect the new codec setting. To ensure consistent segment sizes and compression ratios, it may be necessary to perform a reindexing or other indexing operation, such as a merge.
-{: .important}
+## Changing an index codec
+
+It is not possible to change the codec setting of an open index. You can close the index, apply the new index codec setting, and reopen the index, at which point only new segments will be written with the new codec. This requires stopping all reads and writes to the index for a brief period to make the codec change and may result in inconsistent segment sizes and compression ratios. Alternatively, you can reindex all data from a source index into a new index with a different codec setting, though this is a very resource-intensive operation.
 
 ## Performance tuning and benchmarking
 
