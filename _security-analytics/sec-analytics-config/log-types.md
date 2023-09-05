@@ -18,7 +18,7 @@ Logs contain raw data about events that happen throughout a system and in its se
 | **Windows logs** | Logs that record events that have happened in the operating system, applications, and other system services for Windows.
 | **AD/LDAP logs** | Active Directory Logs that track such things as LDAP queries, errors from the LDAP server, time-out events, and un-secure LDAP binds.
 | **System logs** | Logs that record events happening in the operating system.
-| **AWS CloudTrail logs** | Logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both an [AWS Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (S3) account and an [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service account.  
+| **AWS CloudTrail logs** | Logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both [AWS Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service accounts.  
 | **Amazon S3 access logs** | These logs track requests for access to an Amazon S3 bucket.
 | **Google Workspace logs** | Logs for Google Workspace that can monitor log entries such as admin actions, group and group membership actions, and events having to do with log in.   
 | **GitHub actions** | Logs that monitor workflows created by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions).
