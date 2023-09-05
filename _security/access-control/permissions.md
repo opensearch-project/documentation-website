@@ -86,6 +86,7 @@ alerting-role:
   - allowed_actions:
     - "system:admin/system_index"
 ```
+{% include copy.html %}
 
 System index permissions also work with the wildcard to extend the reach of access for a partial name. This can be useful, but it should be used with caution to avoid giving unintentional access to system indexes. When specifying system indexes for roles, keep the following considerations in mind:
 
@@ -101,6 +102,7 @@ index_permissions:
     - "*"
     - "system:admin/system_index"
 ```
+{% include copy.html %}
 
 You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permission provides the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
 {: .tip }
