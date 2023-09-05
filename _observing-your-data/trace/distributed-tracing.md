@@ -114,26 +114,30 @@ OpenSearch's distributed tracing framework supports various telemetry solutions 
 
 ### Exporters
 
-The distributed tracing feature generates traces and spans for requests and other cluster operations. These traces and spans are initially kept in memory using the OpenTelemetry `BatchSpanProcessor` and then are sent to an exporter based on configured settings. The following table described the key components.
+The distributed tracing feature generates traces and spans for requests and other cluster operations. These traces and spans are initially kept in memory using the OpenTelemetry `BatchSpanProcessor` and then are sent to an exporter based on configured settings. The following describes the key components:
 
 1. **Span processors:** As spans conclude on the request path, OpenTelemetry provides them to the `SpanProcessor` for processing and exporting. OpenSearch's distributed tracing framework uses the `BatchSpanProcessor`, which batches spans for specific configurable intervals and then sends them to the exporter. The following configurations are available for the `BatchSpanProcessor`:
-    - `telemetry.otel.tracer.exporter.max_queue_size`: Defines the maximum queue size. When the queue reaches this value, it will be written to the exporter. Default is `2048`.
-    - `telemetry.otel.tracer.exporter.delay`: Defines the delay; if there are not enough spans to fill the max_queue_size until this delay time, they will be flushed. Default `2 seconds`.
-    - `telemetry.otel.tracer.exporter.batch_size`: Configures the maximum batch size for each export to reduce input/output. This value should always be less than the max_queue_size. Default is `512`. 
+
+- `telemetry.otel.tracer.exporter.max_queue_size`: Defines the maximum queue size. When the queue reaches this value, it will be written to the exporter. Default is `2048`. 
+- `telemetry.otel.tracer.exporter.delay`: Defines the delay. If there are not enough spans to fill the `max_queue_size` until this delay time, they will be flushed. Default is `2 seconds`.
+- `telemetry.otel.tracer.exporter.batch_size`: Configures the maximum batch size for each export to reduce input/output. This value should always be less than the `max_queue_size`. Default is `512`.
+
 2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch currently supports the following:
-    - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`
-    - `OtlpGrpcSpanExporter`: Exports spans by using [gRPC](https://grpc.io/). To use this exporter, you need to install the `otel-collector` on the node and specify the endpoint using the setting `telemetry.otel.tracer.exporter.endpoint`. By default, it writes to the endpoint `http://localhost:4317/`. If you want to configure it for HTTPS, follow the guidance in the [OpenTelemetry Configuration](https://opentelemetry.io/docs/collector/configuration/) documentation. The setting is as follows:
-        - `telemetry.otel.tracer.span.exporter.class=org.opensearch.telemetry.tracing.exporter.OtlpGrpcSpanExporterProvider`
-        - `telemetry.otel.tracer.exporter.endpoint: https://localhost:4317`
+
+- `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
+- `OtlpGrpcSpanExporter`: Exports spans by using [gRPC](https://grpc.io/). To use this exporter, you need to install the `otel-collector` on the node and specify the endpoint using the setting `telemetry.otel.tracer.exporter.endpoint`. By default, it writes to the endpoint `http://localhost:4317/`. If you want to configure it for HTTPS, follow the guidance in the [OpenTelemetry Configuration](https://opentelemetry.io/docs/collector/configuration/) documentation. The setting is as follows:
+
+    - `telemetry.otel.tracer.span.exporter.class=org.opensearch.telemetry.tracing.exporter.OtlpGrpcSpanExporterProvider`
+    - `telemetry.otel.tracer.exporter.endpoint: https://localhost:4317`
 
 ### Sampling
 
-Distributed tracing can generate numerous spans, consuming system resources unnecessarily. To reduce the number of traces, also called samples, you can enable sampling. Sampling is configured by default for only 1% of all requests. Sampling has two types:
+Distributed tracing can generate numerous spans, consuming system resources unnecessarily. To reduce the number of traces, also called samples, you can enable sampling. Sampling is configured by default for only 1% of all requests. Sampling has the following types:
 
 1. **Head sampling:** Sampling decisions are made before initiating the root span of a request. OpenSearch supports two head sampling methods:
     - **Probabilistic:** A blanket limit on incoming requests, dynamically adjustable with the `telemetry.tracer.sampler.probability` setting. This setting ranges between 0 and 1. Default is 0.01, which indicates that 1% of incoming requests are sampled.
     - **On-Demand:** For debugging specific requests, users can send the `trace=true` attribute as part of the header, causing those requests to be sampled regardless of the probabilistic sampling setting.
-2. **Tail base sampling:** To configure tail-based sampling, follow the [OpenTelemetry Sampling}(https://opentelemetry.io/docs/concepts/sampling/) documentation. Configuration depends on the type of collector you choose. Updates on ongoing work for OpenSearch are in the [RFC](https://github.com/opensearch-project/OpenSearch/issues/8918) on GitHub.
+2. **Tail base sampling:** To configure tail-based sampling, follow the [OpenTelemetry Sampling](https://opentelemetry.io/docs/concepts/sampling/) documentation. Configuration depends on the type of collector you choose. Updates on ongoing work for OpenSearch are in the [RFC](https://github.com/opensearch-project/OpenSearch/issues/8918) on GitHub.
 
 ### Collection of spans
 
