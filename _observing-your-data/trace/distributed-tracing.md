@@ -114,13 +114,13 @@ OpenSearch's distributed tracing framework supports various telemetry solutions 
 
 ### Exporters
 
-The distributed tracing feature generates traces and spans for requests and other cluster operations. These traces and spans are initially kept in memory using the OpenTelemetry BatchSpanProcessor and then are sent to an exporter based on configured settings. The following table described the key components.
+The distributed tracing feature generates traces and spans for requests and other cluster operations. These traces and spans are initially kept in memory using the OpenTelemetry `BatchSpanProcessor` and then are sent to an exporter based on configured settings. The following table described the key components.
 
-- **Span processors:** As spans conclude on the request path, OpenTelemetry provides them to the `SpanProcessor` for processing and exporting. OpenSearch's distributed tracing framework uses the `BatchSpanProcessor`, which batches spans for specific configurable intervals and then sends them to the exporter. The following configurations are available for the `BatchSpanProcessor`:
+1. **Span processors:** As spans conclude on the request path, OpenTelemetry provides them to the `SpanProcessor` for processing and exporting. OpenSearch's distributed tracing framework uses the `BatchSpanProcessor`, which batches spans for specific configurable intervals and then sends them to the exporter. The following configurations are available for the `BatchSpanProcessor`:
     - `telemetry.otel.tracer.exporter.max_queue_size`: Defines the maximum queue size. When the queue reaches this value, it will be written to the exporter. Default is `2048`.
     - `telemetry.otel.tracer.exporter.delay`: Defines the delay; if there are not enough spans to fill the max_queue_size until this delay time, they will be flushed. Default `2 seconds`.
     - `telemetry.otel.tracer.exporter.batch_size`: Configures the maximum batch size for each export to reduce input/output. This value should always be less than the max_queue_size. Default is `512`. 
-- **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch currently supports the following:
+2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch currently supports the following:
     - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`
     - `OtlpGrpcSpanExporter`: Exports spans by using [gRPC](https://grpc.io/). To use this exporter, you need to install the `otel-collector` on the node and specify the endpoint using the setting `telemetry.otel.tracer.exporter.endpoint`. By default, it writes to the endpoint `http://localhost:4317/`. If you want to configure it for HTTPS, follow the guidance in the [OpenTelemetry Configuration](https://opentelemetry.io/docs/collector/configuration/) documentation. The setting is as follows:
         - `telemetry.otel.tracer.span.exporter.class=org.opensearch.telemetry.tracing.exporter.OtlpGrpcSpanExporterProvider`
