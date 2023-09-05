@@ -9,7 +9,6 @@ nav_order: 65
 
 Distributed tracing is used to monitor and debug distributed systems. You can track the flow of requests through a system and identify performance bottlenecks and errors. A _trace_ is a complete end-to-end path of a request as it flow through a distributed systems. It represents the journey of a specific operation as it traverses various components and services in a distributed architecture. In distributed tracing, a single trace contains a series of tagged time intervals called _spans_. [Spans](#) have a start and end time, and may include other metadata like logs or tags to help classify what happened. 
 
-
 Distributed tracing offers several benefits, including:
 
 - **Performance optimization:** Identify and resolve bottlenecks, reducing latency in your applications.
@@ -45,7 +44,6 @@ The flag is toggled using a new Java Virtual Machine (JVM) parameter that is set
 
 Add the following lines to `config/jvm.options` before starting the OpenSearch process to enable the feature and its dependency:
 
-````
 ```bash
 -Dopensearch.experimental.feature.telemetry.enabled=true
 
@@ -54,7 +52,6 @@ Run OpenSearch
 ./bin/opensearch
 ```
 {% include copy-curl.html %}
-````
 
 #### Option 2: Enable from an environment variable
 
@@ -62,32 +59,27 @@ As an alternative to directly modifying `config/jvm.options`, you can define the
 
 To add these flags inline when starting OpenSearch, run the following command:
 
-````
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./opensearch-2.9.0/bin/opensearch
 ```
 {% include copy-curl.html %}
-````
 
 To define the environment variable separately, prior to running OpenSearch, run the following command:
 
-````
 ```bash
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
  ./bin/opensearch
 ```
 {% include copy-curl.html %}
-````
+
 ### Enable with Docker containers
 
 If you’re running Docker, add the following line to `docker-compose.yml` underneath the `opensearch-node` and environment section:
 
-````
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
 ```
 {% include copy-curl.html %}
-````
 
 ### Enable for OpenSearch development
 
@@ -95,7 +87,6 @@ To enable the distributed feature, you must first enable these features by addin
 
 Add the following properties to `run.gradle` to enable the feature:
 
-````
 ```bash
 testClusters {
   runTask {
@@ -107,18 +98,16 @@ testClusters {
  }
  ```
  {% include copy-curl.html %}
- ````
 
 ### Enable distributed tracing
 
 Once you've enabled the feature flag, you can enable the tracer using the following dynamic setting. This setting can be adjusted dynamically to enable or disable tracing in the running cluster:
 
-````
 ```bash
 telemetry.tracer.enabled=true
 ```
 {% include copy-curl.html %}
-````
+
 ### Install the OpenSearch OpenTelemetry plugin
 
 OpenSearch's distributed tracing framework supports various telemetry solutions through plugins. The OpenSearch OpenTelemetry plugin `telemetry-otel` is available and must be installed to enable tracing. The following guide provides you with the installation instructions.
@@ -149,4 +138,3 @@ Distributed tracing can generate numerous spans, consuming system resources unne
 ### Collection of spans
 
 The `SpanProcessor` writes spans to the exporter, and the choice of exporter defines the endpoint, which can be logs or gRPC. To collect spans by using gRPC, you need to configure the collector as a sidecar process running on each OpenSearch node. From the collectors, these spans can be written to the sync of your choice, such as Jaeger, Prometheus, Grafana, and FileStore, for further analysis.
-
