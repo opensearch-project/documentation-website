@@ -1,12 +1,28 @@
 items:
   -
     label: OpenSearchCon
+    fragment: opensearchcon
     children:
       -
         label: Register for OpenSearchCon!
         url: https://opensearchcon2023.splashthat.com
       -
-        label: OpenSearchCon 2023 CFP!
+        label: Sessions
+        url: /events/opensearchcon/sessions/index.html
+      -
+        label: Speakers
+        url: /events/opensearchcon/speakers/index.html
+      -
+        label: Exhibitors
+        url: /events/opensearchcon/exhibitors/index.html
+      -
+        label: Workshops
+        url: /events/opensearchcon/workshops/index.html
+      -
+        label: Unconference
+        url: /events/opensearchcon/unconference/index.html
+      -
+        label: CFP is closed
         url: /opensearchcon2023-cfp.html
   -
     label: Download
@@ -63,6 +79,7 @@ items:
     url: /docs/
   -
     label: Platform
+    fragment: platform
     children:
       -
         label: Vector Database
