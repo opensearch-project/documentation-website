@@ -108,7 +108,7 @@ telemetry.tracer.enabled=true
 ```
 {% include copy-curl.html %}
 
-### Install the OpenSearch OpenTelemetry plugin
+## Install the OpenSearch OpenTelemetry plugin
 
 OpenSearch's distributed tracing framework supports various telemetry solutions through plugins. The OpenSearch OpenTelemetry plugin `telemetry-otel` is available and must be installed to enable tracing. The following guide provides you with the installation instructions.
 
