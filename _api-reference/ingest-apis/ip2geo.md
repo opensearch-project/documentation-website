@@ -188,28 +188,10 @@ PUT /_ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2: Ingest a document into an index.**
+**Step 2 (Optional): Test the pipeline.**
 
-The following query ingests a document into an index named `my-index`:
-
-```json
-PUT /my-index/_doc/my-id?pipeline=ip2geo
-{
-  "ip": "172.0.0.1"
-}
-```
-{% include copy-curl.html %}
-
-**Step 3: View the ingested document.** 
-
-To view the ingested document, run the following query:
-
-```json
-GET /my-index/_doc/my-id
-```
-{% include copy-curl.html %}
-
-**Step 4: Test the pipeline.** 
+It is recommended that you test your pipeline before you ingest documents.
+{: .tip}
 
 To test the pipeline, run the following query:
 
@@ -239,6 +221,29 @@ POST _ingest/pipeline/my-id/_simulate
 ```
 {% include copy-curl.html %}
 
-You'll receive the following response, which confirms that the pipeline is working correctly and producing the expected output: 
+#### Response 
+
+The following response confirms that the pipeline is working as expected: 
 
 <insert response following code freeze>
+
+**Step 3: Ingest a document.**
+
+The following query ingests a document into an index named `my-index`:
+
+```json
+PUT /my-index/_doc/my-id?pipeline=ip2geo
+{
+  "ip": "172.0.0.1"
+}
+```
+{% include copy-curl.html %}
+
+**Step 4 (Optional): Retrieve the document.** 
+
+To retrieve the document, run the following query:
+
+```json
+GET /my-index/_doc/my-id
+```
+{% include copy-curl.html %}
