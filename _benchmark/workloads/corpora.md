@@ -5,6 +5,8 @@ parent: Workload reference
 nav_order: 70
 ---
 
+# corpora
+
 The `corpora` element contains all the document corpora used by the workload. You can use document corpora across workloads by copying and pasting any corpora definitions. 
 
 ## Example

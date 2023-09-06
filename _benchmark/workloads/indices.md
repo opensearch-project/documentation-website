@@ -5,6 +5,8 @@ parent: Workload reference
 nav_order: 65
 ---
 
+# indices
+
 The `indices` element contains a list of all indices used in the workload. 
 
 ## Example
