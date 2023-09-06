@@ -9,8 +9,8 @@ nav_order: 25
 
 When you select **Security Analytics** from the top menu, the Overview page is displayed. The Overview page consists of five sections:
 * Findings and alert count
-* Top recent alerts
-* Top recent findings
+* Recent alerts
+* Recent findings
 * Most frequent detection rules
 * Detectors
 
@@ -34,6 +34,8 @@ You can also select the **Getting started** link to expand the Get started with 
 ## Findings and alert count
 
 The Findings and alert count section provides a graph showing data on the latest findings. Use the **Group by** dropdown list to select either **All findings** or **Log type**.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/count.png" alt="A graph showing counts for findings and alerts." width="75%">
 
 ---
 ## Recent alerts
