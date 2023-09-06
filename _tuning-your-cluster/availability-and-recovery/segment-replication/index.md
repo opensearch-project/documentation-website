@@ -12,7 +12,7 @@ redirect_from:
 
 # Segment replication
 
-With segment replication, segment files are copied across shards instead of documents being indexed on each shard copy. This improves indexing throughput and lowers resource utilization at the expense of increased network utilization.
+Segment replication involves copying segment files across shards instead of indexing documents on each shard copy. This approach enhances indexing throughput and reduces resource utilization, but increases network utilization.
 
 When the primary shard sends a checkpoint to replica shards on a refresh, a new segment replication event is triggered on replica shards. This happens:
 
@@ -22,7 +22,12 @@ When the primary shard sends a checkpoint to replica shards on a refresh, a new 
 
 Segment replication is the first feature in a series of features designed to decouple reads and writes in order to lower compute costs.
 
+**Limitation:** Segment replication is not compatible with the [Alerting]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) plugin. The Alerting plugin relies on the latest data being available on replica shards when using the `immediate` refresh policy. Segment replication does not provide the same guarantee, which means shards can become stale. This especially impacts [document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors).   
+{: .warning}
+
 ## Use cases
+
+Segment replication can be applied in a variety of scenarios, including:
 
 - Users who have high write loads but do not have high search requirements and are comfortable with longer refresh times.
 - Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new node to the cluster.
@@ -30,11 +35,11 @@ Segment replication is the first feature in a series of features designed to dec
 
 ## Segment replication configuration
 
-Setting the default replication type for a cluster affects all newly created indexes. However, you can specify a different replication type when creating an index. Index-level settings always override cluster-level settings.
+Setting the default replication type for a cluster affects all newly created indexes. You can, however, specify a different replication type when creating an index. Index-level settings override cluster-level settings.
 
-### Creating an index with the segment replication type
+### Creating an index with segment replication
 
-To set segment replication as the replication strategy for an index, create the index with `replication.type` set to `SEGMENT`:
+To use segment replication as the replication strategy for an index, create the index with the `replication.type` parameter set to `SEGMENT` as follows:
 
 ```json
 PUT /my-index1
@@ -51,12 +56,12 @@ PUT /my-index1
 In segment replication, the primary shard is usually generating more network traffic than the replicas because it copies segment files to the replicas. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 Segment replication currently does not support the `wait_for` value in the `refresh` query parameter.
-{: .important }
+{: .warning}
 
-For the best performance, we recommend enabling both of the following settings:
+For the best performance, it is recommended that you enable the following settings:
 
-1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
-2. Balanced primary shard allocation:
+1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) 
+2. Balanced primary shard allocation, using the following command:
 
 ```json
 curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json' -d'
@@ -69,7 +74,7 @@ curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json'
 ```
 {% include copy-curl.html %}
 
-### Setting the replication type on a cluster
+### Setting replication type for a cluster
 
 You can set the default replication type for newly created cluster indexes in the `opensearch.yml` file as follows:
 
@@ -78,15 +83,12 @@ cluster.indices.replication.strategy: 'SEGMENT'
 ```
 {% include copy.html %}
 
-This cluster-level setting cannot be enabled through the REST API.
+This cluster-level setting cannot be enabled through the [REST API]({{site.url}}{{site.baseurl}}/api-reference/index/). This setting is not applied to system indexes and hidden indexes. By default, all system and hidden indexes in OpenSearch use document replication even if this setting is enabled.
 {: .note}
 
-This setting is not applied to system indexes and hidden indexes. By default, all system and hidden indexes in OpenSearch will still use document replication even if this setting is enabled.
-{: .note}
+### Creating an index with document replication
 
-### Creating an index with the document replication type
-
-Even when the default replication type is set to segment replication, you can create an index that uses document replication by setting `replication.type` to `DOCUMENT`:
+Even when the default replication type is set to segment replication, you can create an index that uses document replication by setting `replication.type` to `DOCUMENT` as follows:
 
 ```json
 PUT /my-index1
@@ -120,22 +122,18 @@ The following benchmarks were collected with [OpenSearch-benchmark]({{site.url}}
 The benchmarks demonstrate the effect of the following configurations on segment replication:
 
 - [The workload size](#increasing-the-workload-size)
-
 - [The number of primary shards](#increasing-the-number-of-primary-shards)
-
 - [The number of replicas](#increasing-the-number-of-replicas)
 
 Your results may vary based on the cluster topology, hardware used, shard count, and merge settings. 
 {: .note }
 
-### Increasing the workload size
+### Increasing workload size
 
 The following table lists benchmarking results for the `nyc_taxi` dataset with the following configuration:
 
 - 10 m5.xlarge data nodes
-
 - 40 primary shards, 1 replica each (80 shards total)
-
 - 4 primary shards and 4 replica shards per node
 
 <table>
@@ -398,4 +396,4 @@ The benchmarking results show a non-zero error rate as the number of replicas in
 ## Next steps
 
 1. Track [future enhancements to segment replication](https://github.com/orgs/opensearch-project/projects/99).
-1. Read [this blog post about segment replication](https://opensearch.org/blog/segment-replication/).
+1. Read this [blog post about segment replication](https://opensearch.org/blog/segment-replication/).
