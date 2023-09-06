@@ -92,25 +92,35 @@ System index permissions also work with the wildcard to extend the reach of acce
 
 * Specifying the full name of a system index limits access to that index alone: `.opendistro-alerting-config`.
 * Specifying a partial name for a system index along with the wildcard provides access to all system indexes that begin with the name: `.opendistro-anomaly-detector*`.
-* Using `*` alone gives access to all system indexes. You can see in the following example how this preference is configured:
+* Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes. `system:admin/system_index` must be explicitly added.
+* Using `*` index pattern with `system:admin/system_index` will grant access to all system indices.
 
+Following grants a user access to all indices using system indices, and is not recommended:
 ```yml
 index_permissions:
-  - index_patterns:
-    - "*"
-  - allowed_actions:
-    - "*"
-    - "system:admin/system_index"
+    - index_patterns:
+        - '*'
+    - allowed_actions:
+        - '*'
+        - 'system:admin/system_index'
 ```
 {% include copy.html %}
 
 You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permission provides the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
 {: .tip }
 
+Here is an example of granting the system index permission using wildcard pattern `.kibana*`.
+```cmd
+GET /_cat/indices/.kibana*
+
+green open .kibana_1 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
+green open .kibana_2 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
+green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
+```
 
 ### Enabling system index permissions
 
-Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) are able to map system index permissions to all users in the same way they would for a cluster or index permission in the `roles.yml` file. However, to preserve some control over this permission, the system index permission feature is disabled by default and allows administrators to enable this feature by setting the configuration `plugins.security.system_indices.additional_control.enabled` to `true`. For more information about this setting, see [Enabling user access to system indexes]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
+Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) are able to map system index permissions to all users in the same way they would for a cluster or index permission in the `roles.yml` file. However, to preserve some control over this permission, the system index permission feature is disabled by default and allows administrators to enable this feature by setting the configuration `plugins.security.system_indices.permissions.enabled` to `true`. For more information about this setting, see [Enabling user access to system indexes]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
 
 Keep in mind that an admin user who enables this feature necessarily accepts the risks involved with giving normal users access to system indexes, which may contain sensitive information and configurations essential to a cluster's health. An admin user should also take precautions when assigning `restapi:admin/roles` to users because this permission gives a user not only the ability to assign the system index permission to another user but also the ability to self-assign access to any system index.
 {: .warning }
