@@ -23,7 +23,7 @@ You can define a new detector by naming the detector, selecting a data source an
     
 1. In the **Log types and rules** section, select the log type for the data source from the dropdown list. The system automatically populates the detection rules associated with the log type.
    
-   For information about creating your own detection rules, see [Creating detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-detection-rules).
+   For information about creating your own detection rules, see [Creating detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-detection-rules). To create your own log types, see [Creating custom log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/custom-log-type/).
    {: .note }
    
    The example in the following image shows the number of rules associated with **network** after this log type is selected.
