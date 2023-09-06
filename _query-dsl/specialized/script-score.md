@@ -23,7 +23,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-You can use a `match` query to return all documents that match `John`:
+You can use a `match` query to return all documents that contain `John` in the `name` field:
 
 ```json
 GET testindex1/_search
@@ -83,7 +83,7 @@ GET testindex1/_search
         }
       },
       "script": {
-        "source": "_score doc['multiplier'].value"
+        "source": "_score * doc['multiplier'].value"
       }
     }
   }
@@ -123,28 +123,6 @@ In the response, the score for document 1 is half of the original score:
   }
 }
 ```
-
-Optionally, you can include a `min_score` parameter that specifies a minimum threshold score for the documents to be included in the results:
-
-```json
-GET testindex1/_search
-{
-  "query": {
-    "script_score": {
-      "query": {
-        "match": { "name": "John" }
-      },
-      "script": {
-        "source": "_score doc['multiplier'].value"
-      },
-      "min_score": 0.15
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The preceding query returns no results because the document score of the only document in the index is lower than the `min_score` threshold.
 
 ## Parameters
 
