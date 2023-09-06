@@ -69,7 +69,7 @@ Rather than individual permissions, you can often achieve your desired security 
 
 System index permissions are unique among other permissions in that they extend some traditional admin-only accessibility to non-admin users. These permissions give normal users the ability to modify any system index specified in the role or roles to which they are mapped. The exception to this is the security system index, `.opendistro_security`, which is used to store Security's configuration YAML files and remains accessible only to admins with an admin certificate.
 
-Along with standard index permissions, you specify system index permissions in the `roles.yml` configuration file under `index_permissions` (See [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml). You do this by specifying `system:admin/system_index` in the role's `allowed_actions` section and adding the system index in the `index_patterns` section.
+Along with standard index permissions, you specify system index permissions in the `roles.yml` configuration file under `index_permissions` (See [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml)). You do this by specifying `system:admin/system_index` in the role's `allowed_actions` section and adding the system index in the `index_patterns` section.
 
 For example, the system index permission that gives a user permission to modify the system index that stores configurations for the Alerting plugin is defined by the index pattern `.opendistro-alerting-config` and its allowed action is defined as `system:admin/system_index`. The following role shows how this system index permission is configured along with other attributes:
 
@@ -86,13 +86,14 @@ alerting-role:
   - allowed_actions:
     - "system:admin/system_index"
 ```
+{% include copy.html %}
 
-The permission prefix `.opendistro` also works with the wildcard to extend its reach of access. This can be useful, but it should be used with caution to avoid giving unintentional access to system indexes. When specifying system indexes for roles, keep the following considerations in mind:
+System index permissions also work with the wildcard to extend the reach of access for a partial name. This can be useful, but it should be used with caution to avoid giving unintentional access to system indexes. When specifying system indexes for roles, keep the following considerations in mind:
 
 * Specifying the full name of a system index limits access to that index alone: `.opendistro-alerting-config`.
-* Specifying the prefix and a partial name for a system index provides access to all system indexes that begin with the name: `.opendistro-anomaly-detector*`.
-* Using `.*` is effectively the same as specifying the prefix with wildcard, as described in the previous point. This gives access to all system indexes that begin with a `.`.
+* Specifying a partial name for a system index along with the wildcard provides access to all system indexes that begin with the name: `.opendistro-anomaly-detector*`.
 * Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes. `system:admin/system_index` must be explicitly added.
+* Using `*` index pattern with `system:admin/system_index` will grant access to all system indices.
 
 Following grants a user access to all indices using system indices, and is not recommended:
 ```yml
@@ -103,9 +104,10 @@ index_permissions:
         - '*'
         - 'system:admin/system_index'
 ```
+{% include copy.html %}
 
-Use caution when using the wildcard to configure access to system indexes. We highly recommend thinking ahead and anticipating the range of access that you will be extending to users before updating your configuration files.
-{: .warning }
+You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permission provides the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
+{: .tip }
 
 Here is an example of granting the system index permission using wildcard pattern `.kibana*`.
 ```cmd
