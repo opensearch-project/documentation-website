@@ -21,6 +21,7 @@ PUT testindex1/_doc/1
   "multiplier": 0.5
 }
 ```
+{% include copy-curl.html %}
 
 You can use a `match` query to return all documents that match `John`:
 
@@ -34,6 +35,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 In the response, document 1 has the score of `0.2876821`:
 
@@ -87,6 +89,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 In the response, the score for document 1 is half of the original score:
 
@@ -139,6 +142,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The preceding query returns no results because the document score of the only document in the index is lower than the `min_score` threshold.
 
@@ -185,6 +189,7 @@ GET articles/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Sigmoid
 
@@ -211,6 +216,7 @@ GET articles/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Random score
 
@@ -238,6 +244,7 @@ GET articles/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Decay functions
 
