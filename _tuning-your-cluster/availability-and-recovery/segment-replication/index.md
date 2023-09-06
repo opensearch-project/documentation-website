@@ -22,7 +22,7 @@ When the primary shard sends a checkpoint to replica shards on a refresh, a new 
 
 Segment replication is the first feature in a series of features designed to decouple reads and writes in order to lower compute costs.
 
-**Limitation:** Segment replication is not compatible with the [Alerting]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) plugin. The Alerting plugin relies on the latest data being available on replica shards when using the `immediate` refresh policy. Segment replication does not provide the same guarantee, which means shards can become stale. This especially impacts [document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors).   
+**Limitation:** Segment replication is not compatible with the [Alerting]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) plugin. The Alerting plugin relies on the latest data being available on replica shards when using the `immediate` refresh policy. The `immediate` refresh policy in segment replication can resource-intensive and introduce latency due to real-time data synchronization. As such, segment replication cannot guarantee the availability of the `immediate` refresh policy and thus lead to stale replica shards. This especially impacts [document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors). Additionally, segment replication does not support the `wait_for` value in the `refresh` query parameter.   
 {: .warning}
 
 ## Use cases
@@ -54,9 +54,6 @@ PUT /my-index1
 {% include copy-curl.html %}
 
 In segment replication, the primary shard is usually generating more network traffic than the replicas because it copies segment files to the replicas. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
-
-Segment replication currently does not support the `wait_for` value in the `refresh` query parameter.
-{: .warning}
 
 For the best performance, it is recommended that you enable the following settings:
 
