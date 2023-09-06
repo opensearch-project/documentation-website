@@ -43,7 +43,9 @@ Metric | Description
 `get` | Get statistics, including missing stats. 
 `indexing` | Indexing statistics. 
 `merge` | Merge statistics. 
+`nodestats` | Statistics about memory use on nodes for which the index is stored.
 `query_cache` | Query cache statistics. 
+`remotesegmentstats` | Statistics about remote storage, including upload and downloads times from the remote store to nodes, the size of each segment in bytes, and the maximum refresh size and times.
 `refresh` | Refresh statistics. 
 `request_cache` | Shard request cache statistics. 
 `search` | Search statistics, including suggest operation statistics. Search operations can be associated with one or more groups. You can include statistics for custom groups by providing a `groups` parameter, which accepts a comma-separated list of group names. To return statistics for all groups, use `_all`. 

@@ -739,6 +739,8 @@ search.scroll_current | Integer | The number of scroll operations that are curre
 search.suggest_total | Integer | The total number of suggest operations.
 search.suggest_time_in_millis | Integer | The total time for all suggest operations, in milliseconds.
 search.suggest_current | Integer | The number of suggest operations that are currently running.
+total_time_spent | Integer | The cumulative amount of time in seconds both downloading and uploading segments to the remote store across all shards in the node.
+total_time_spent_in_millis | The cumulative amount of time in milliseconds both downloading and uploading segments to the remote store across all shards in the node.
 merges | Object | Statistics about merge operations for the node.
 merges.current | Integer | The number of merge operations that are currently running.
 merges.current_docs | Integer | The number of document merges that are currently running.
@@ -793,6 +795,14 @@ segments.version_map_memory_in_bytes | Integer | The total amount of memory used
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
 segments.file_sizes | Integer | Statistics about the size of the segment files.
+max_refresh_time_lag_in_millis | Integer | The maximum refresh lag time in milliseconds across all shards on the node.
+max_refresh_size_lag_in_bytes | Integer | The maximum lag size across all the shards on the node.
+total_updates.started_bytes | Integer | The amount of segment payload upload attempts to the remote store.
+total_uploads.succeeded_bytes | Integer | The amount of successful segment payloads uploaded to the remote store.
+total_uploads.failed_bytes | Integer | The amount of failed segment payload uploads to the remote store.
+total_downloads.started_bytes | Integer | The amount of segment payload download attempts from the remote store.
+total_downloads.succeeded_bytes | Integer | The amount of successful segment payload download attempts from the remote store.
+total_downloads.failed_bytes | The amount of failed segment payload download attempts from the remote store.
 translog | Object | Statistics about transaction log operations for the node.
 translog.operations | Integer | The number of translog operations.
 translog.size_in_bytes | Integer | The size of the translog, in bytes.

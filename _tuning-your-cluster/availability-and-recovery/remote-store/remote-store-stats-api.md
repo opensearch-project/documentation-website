@@ -132,10 +132,118 @@ The following table lists the available response fields.
 |`consecutive_failure_count`	| The number of consecutive remote refresh failures since the last success.	|
 |`total_remote_refresh`	|The total number of remote refreshes.	|
 |`total_uploads_in_bytes`	| The total number of bytes in all uploads to the remote store. |
+|`total_download_in_bytes` | The total number of bytes for all downloads from the remote store. | 
+| `download_size_in_bytes` | The size of the last successful download in bytes.
+| `download_speed_in_bytes_per_sec` | The average download speed in bytes per second from the remote store.
 |`remote_refresh_size_in_bytes.last_successful`	|The size of data uploaded in the last successful refresh.	|
 |`remote_refresh_size_in_bytes.moving_avg`	|The average size of data (in bytes) uploaded in the last _N_ refreshes. _N_ is defined in `remote_store.segment.pressure.upload_bytes_moving_average_window_size`. For details, see [Remote segment backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).	|
 |`upload_latency_in_bytes_per_sec.moving_avg`	|The average speed of remote store uploads (in bytes per second) for the last _N_ uploads. _N_ is defined in `remote_store.segment.pressure.upload_bytes_per_sec_moving_average_window_size`. For details, see [Remote segment backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).		|
 |`remote_refresh_latency_in_millis.moving_avg`	|The average time taken by a single remote refresh during the last _N_ remote refreshes. _N_ is defined in `remote_store.segment.pressure.upload_time_moving_average_window_size`. For details, see [Remote segment backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).	|
+
+## Remote stote states from all nodes
+
+Use the following API to get remote store statistics for all nodes related to the index.
+
+#### Example request
+
+```json
+GET _remotestore/stats/<index_name>
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta }
+
+
+```json
+{
+	"_shards": {
+		"total": 2,
+		"successful": 2,
+		"failed": 0
+	},
+	"indices": {
+		"remote-index": {
+			"shards": {
+				"0": [
+					{
+						"routing": {
+							"state": "STARTED",
+							"primary": true,
+							"node": "EDUazBdFTYK9-Wij2HtTiQ"
+						},
+						"segment": {
+							"download": {},
+							"upload": {
+								"local_refresh_timestamp_in_millis": 1692264786719,
+								"remote_refresh_timestamp_in_millis": 1692264786719,
+								"refresh_time_lag_in_millis": 0,
+								"refresh_lag": 0,
+								"bytes_lag": 0,
+								"backpressure_rejection_count": 0,
+								"consecutive_failure_count": 0,
+								"total_syncs_to_remote": {
+									"started": 333,
+									"succeeded": 333,
+									"failed": 0
+								},
+								"total_uploads_in_bytes": {
+									"started": 15632029,
+									"succeeded": 15632029,
+									"failed": 0
+								},
+								"remote_refresh_size_in_bytes": {
+									"last_successful": 18694,
+									"moving_avg": 88900.45
+								},
+								"upload_latency_in_bytes_per_sec": {
+									"moving_avg": 481549.75
+								},
+								"remote_refresh_latency_in_millis": {
+									"moving_avg": 92.1
+								}
+							}
+						}
+					},
+					{
+						"routing": {
+							"state": "STARTED",
+							"primary": false,
+							"node": "yKBw3ByYSd6KZnx_qOb9NA"
+						},
+						"segment": {
+							"download": {
+								"last_sync_timestamp": 1692264787173,
+								"total_downloads_in_bytes": {
+									"started": 15631799,
+									"succeeded": 15631799,
+									"failed": 0
+								},
+								"download_size_in_bytes": {
+									"last_successful": 479,
+									"moving_avg": 5793.95
+								},
+								"download_speed_in_bytes_per_sec": {
+									"moving_avg": 289215.3
+								}
+							},
+							"upload": {}
+						}
+					}
+				]
+			}
+		}
+	}
+}
+```
+</details>
+
+
 
 ## Remote store stats for a single shard
 
@@ -205,3 +313,7 @@ Provide the `local` query parameter set to `true` to only fetch the shards prese
 GET _remotestore/stats/<index_name>?local=true
 ```
 {% include copy-curl.html %}
+
+
+
+
