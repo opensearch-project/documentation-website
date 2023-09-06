@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Creating correlation rules
+title: Creating custom log types
 parent: Setting up Security Analytics
 nav_order: 18
 ---
