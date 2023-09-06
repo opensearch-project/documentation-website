@@ -11,6 +11,8 @@ grand_parent: Search pipelines
 
 The `normalization_processor` search phase results processor intercepts the query phase results and normalizes and combines the document scores before passing the documents to the fetch phase. 
 
+## 
+
 ## Request fields
 
 The following table lists all available request fields.
@@ -84,3 +86,6 @@ POST flicker-index/_search?search_pipeline=normalizationPipeline
 }
 ```
 {% include copy-curl.html %}
+
+Normalization processor does not produce consistent results for a cluster with one node and one shard.
+{: .warning}
