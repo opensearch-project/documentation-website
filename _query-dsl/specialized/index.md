@@ -20,6 +20,6 @@ OpenSearch supports the following specialized queries:
 
 - `script`: Uses a script as a filter.
 
-- `script_score`: Provides a custom score for matching documents using a script.
+- `script_score`: Calculates a custom score for matching documents using a script.
 
 - `wrapper`: Accepts other queries as JSON or YAML strings.
