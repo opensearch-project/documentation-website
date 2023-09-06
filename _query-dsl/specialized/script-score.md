@@ -8,7 +8,7 @@ nav_order: 60
 
 # Script score query
 
-A `script_score` query lets you customize the score calculation by using a script. For an expensive scoring function, you can use a `script_score` query to calculate the score only for the returned documents that have been filtered.
+Use a `script_score` query to customize the score calculation by using a script. For an expensive scoring function, you can use a `script_score` query to calculate the score only for the returned documents that have been filtered.
 
 ## Example
 
