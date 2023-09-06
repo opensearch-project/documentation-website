@@ -132,7 +132,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `query` | Object | The query to use for search. Required.
 `script` | Object | The script to use to calculate the score of the documents that the `query` returns. Required.
-`min_score` | Float | Exclude documents with a score lower than `min_score` from results. Optional.
+`min_score` | Float | Excludes documents with a score lower than `min_score` from the results. Optional.
 `boost` | Float | Boosts the documents' scores by the given multiplier. Values less than 1.0 decrease relevance, and values greater than 1.0 increase relevance. Default is 1.0. 
 
 The relevance scores calculated by the `script_score` query cannot be negative. 
@@ -226,7 +226,7 @@ GET articles/_search
 
 ### Decay functions
 
-With decay functions, you can score the results based on proximity or recency. To learn more, see [Decay functions]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score#decay-functions). You can calculate scores using an exponential, Gaussian, or linear decay curves. To apply a decay function, call one of the following Painless methods, depending on the type of field:
+With decay functions, you can score the results based on proximity or recency. To learn more, see [Decay functions]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score#decay-functions). You can calculate scores using an exponential, Gaussian, or linear decay curve. To apply a decay function, call one of the following Painless methods, depending on the type of field:
 
 - [Numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) fields: 
     - `double decayNumericGauss(double <origin>, double <scale>, double <offset>, double <decay>, double <docValue>)`
