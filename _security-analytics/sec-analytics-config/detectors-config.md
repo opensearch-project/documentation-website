@@ -21,16 +21,16 @@ You can define a new detector by naming the detector, selecting a data source an
     When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
     {: .note }
     
-1. In the **Log types and rules** section, select the log type for the data source. The system automatically populates the Sigma security rules associated with the log type.
+1. In the **Log types and rules** section, select the log type for the data source from the dropdown list. The system automatically populates the detection rules associated with the log type.
    
    For information about creating your own detection rules, see [Creating detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-detection-rules).
    {: .note }
    
-   The following image shows the number of associated rules populated in the **Detection rules** section.
+   The example in the following image shows the number of rules associated with **network** after this log type is selected.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="85%">
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-rules.png" alt="Selecting threat detector log type to auto-populate rules" width="85%">
     
-    When you select **Network events**, **CloudTrail logs**, or **S3 access logs** as the log type, the system automatically creates a detector dashboard. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+    When you select **network**, **cloudtrail**, or **s3** for the log type, the system automatically creates a detector dashboard. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
     
     You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
     {: .note }
