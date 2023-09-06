@@ -40,7 +40,6 @@ Option | Required | Type | Description
 `encryption` | No | JSON object | The encryption configuration. For more information, see [Encryption](#encryption).
 `aws` | No | JSON object | The AWS configuration. For more information, see [aws](#aws).
 `acknowledgments` | No | Boolean | If `true`, enables the `kafka` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
-`acknowledgements_timeout` | No | Time | The maximum amount of time to wait for acknowledgements to be received. Default is `30s`.
 `client_dns_lookup` | Yes, when a DNS alias is used. | String | Sets Kafka's `client.dns.lookup` option. Default is `default`.
 
 ### Topics
