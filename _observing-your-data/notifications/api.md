@@ -23,19 +23,18 @@ If you want to programmatically define your notification channels and sources fo
 
 To retrieve a list of all supported notification configuration types, send a GET request to the `features` resource.
 
-#### Example request
+#### Sample Request
 
 ```json
 GET /_plugins/_notifications/features
 ```
 
-#### Example response
+#### Sample Response
 
 ```json
 {
   "allowed_config_type_list" : [
     "slack",
-    "microsoft_teams",
     "chime",
     "webhook",
     "email",
@@ -54,13 +53,13 @@ GET /_plugins/_notifications/features
 
 To retrieve a list of all notification configurations, send a GET request to the `configs` resource.
 
-#### Example request
+#### Sample Request
 
 ```json
 GET _plugins/_notifications/configs
 ```
 
-#### Example response
+#### Sample Response
 
 ```json
 {
@@ -114,17 +113,16 @@ last_updated_time_ms | The Unix time in milliseconds of when the channel was las
 created_time_ms | The Unix time in milliseconds of when the channel was created.
 is_enabled | Indicates whether the channel is enabled.
 config_type | The channel type. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`.
-name | The channel's name.
-description	| The channel's description.
+name | The channel name.
+description	| The channel description.
 email.email_account_id | The sender email addresses the channel uses.
 email.email_group_id_list | The email groups the channel uses.
-email.recipient_list | The channel's recipient list.
-email_group.recipient_list | The channel's list of email recipient groups.
+email.recipient_list | The channel recipient list.
+email_group.recipient_list | The channel list of email recipient groups.
 smtp_account.method | The email encryption method.
-slack.url	| The Slack channel's URL.
-microsoft_teams.url | The Microsoft Teams channel's URL.
-chime.url	| The Amazon Chime connection's URL.
-webhook.url	| The webhook's URL.
+slack.url	| The Slack channel URL.
+chime.url	| The Amazon Chime connection URL.
+webhook.url	| The webhook URL.
 smtp_account.host	| The domain of the SMTP account.
 smtp_account.from_address	| The email account's sender address.
 smtp_account.method | The SMTP account's encryption method.
@@ -138,7 +136,7 @@ ses_account.from_address | The Amazon SES account's sender email address.
 
 To create a notification channel configuration, send a POST request to the `configs` resource.
 
-#### Example request
+#### Sample Request
 
 ```json
 POST /_plugins/_notifications/configs/
@@ -177,9 +175,6 @@ The create channel operation accepts multiple `config_types` as possible notific
 }
 "slack": {
   "url": "https://sample-chime-webhoook"
-}
-"microsoft_teams": {
-  "url": "https://sample.webhook.office.com/1234567"
 }
 "chime": {
   "url": "https://sample-amazon-chime-webhoook"
@@ -241,7 +236,7 @@ POST /_plugins/_notifications/configs/
 }
 ```
 
-#### Example response
+#### Sample Response
 
 ```json
 {
@@ -254,13 +249,13 @@ POST /_plugins/_notifications/configs/
 
 To get a channel configuration by `config_id`, send a GET request and specify the `config_id` as a path parameter.
 
-#### Example request
+#### Sample Request
 
 ```json
 GET _plugins/_notifications/configs/<config_id>
 ```
 
-#### Example response
+#### Sample Response
 
 ```json
 {
@@ -291,7 +286,7 @@ GET _plugins/_notifications/configs/<config_id>
 
 To update a channel configuration, send a POST request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
 
-#### Example request
+#### Sample Request
 
 ```json
 PUT _plugins/_notifications/configs/<config_id>
@@ -308,7 +303,7 @@ PUT _plugins/_notifications/configs/<config_id>
 }
 ```
 
-#### Example response
+#### Sample Response
 
 ```json
 {
@@ -321,13 +316,13 @@ PUT _plugins/_notifications/configs/<config_id>
 
 To delete a channel configuration, send a DELETE request to the `configs` resource and specify the `config_id` as a path parameter.
 
-#### Example request
+#### Sample Request
 
 ```json
 DELETE /_plugins/_notifications/configs/<config_id>
 ```
 
-#### Example response
+#### Sample Response
 
 ```json
 {
@@ -339,13 +334,13 @@ DELETE /_plugins/_notifications/configs/<config_id>
 
 You can also submit a comma-separated list of channel IDs you want to delete, and OpenSearch deletes all of the specified notification channels.
 
-#### Example request
+#### Sample Request
 
 ```json
 DELETE /_plugins/_notifications/configs/?config_id_list=<config_id1>,<config_id2>,<config_id3>...
 ```
 
-#### Example response
+#### Sample Response
 
 ```json
 {
@@ -362,13 +357,13 @@ DELETE /_plugins/_notifications/configs/?config_id_list=<config_id1>,<config_id2
 
 To send a test notification, send a GET request to `/feature/test/` and specify the channel configuration's `config_id` as a path parameter.
 
-#### Example request
+#### Sample Request
 
 ```json
 GET _plugins/_notifications/feature/test/<config_id>
 ```
 
-#### Example response
+#### Sample Response
 
 ```json
 {
