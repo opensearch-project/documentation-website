@@ -42,14 +42,14 @@ The Findings and alert count section provides a graph showing data on the latest
 
 The Recent alerts table displays recent alerts by time, trigger name, and alert severity. Select **View alerts** to go to the Alerts page.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/recent-alerts.png" alt="A graph showing counts for findings and alerts." width="50%">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/recent-alerts.png" alt="A table showing the most recent alerts." width="50%">
 
 ---
 ## Recent findings
 
 The Recent findings table displays recent findings by time, rule name, rule severity, and detector. Select **View all findings** to go to the Findings page.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/recent-findings.png" alt="A graph showing counts for findings and alerts." width="50%">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/recent-findings.png" alt="A table showing the most recent findings." width="50%">
 
 ---
 ## Most frequent detection rules
@@ -63,5 +63,5 @@ This section provides a graphical representation of detection rules that trigger
 
 The Detectors section displays a list of available detectors by detector name, status (active/inactive), and log type. Select **View all detectors** to go to the Detectors page. Select **Create detector** to go directly to the Define detector page.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/detector-overview.png" alt="A graph showing counts for findings and alerts." width="50%">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/detector-overview.png" alt="A table showing available detectors." width="50%">
 
