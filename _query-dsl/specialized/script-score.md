@@ -349,3 +349,6 @@ GET blogs/_search
 }
 ```
 {% include copy-curl.html %}
+
+If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, `script_score` queries are not run.
+{: .important}
