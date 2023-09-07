@@ -12,7 +12,7 @@ The k-NN plugin adds several new cluster settings.
 ## Cluster settings
 
 Setting | Default | Description
-:--- | :-- | :---
+:--- | :--- | :---
 `knn.algo_param.index_thread_qty` | 1 | The number of threads used for native library index creation. Keeping this value low reduces the CPU impact of the k-NN plugin, but also reduces indexing performance.
 `knn.cache.item.expiry.enabled` | false | Whether to remove native library indexes that have not been accessed for a certain duration from memory.
 `knn.cache.item.expiry.minutes` | 3h | If enabled, the idle time before removing a native library index from memory.
@@ -23,4 +23,4 @@ Setting | Default | Description
 `knn.plugin.enabled`| true | Enables or disables the k-NN plugin.
 `knn.model.index.number_of_shards`| 1 | Number of shards to use for the model system index, the OpenSearch index that stores the models used for Approximate k-NN Search.
 `knn.model.index.number_of_replicas`| 1 | Number of replica shards to use for the model system index. Generally, in a multi-node cluster, this should be at least 1 to increase stability.
-`knn.advanced.filtered_exact_search_threshold`| null | Threshold value for the filtered ids that will be used to switch to exact search during Filtered ANN Search. If number of filteredIds on a segment is less than the settings value, exact search will be done on the filtered Ids. 
+`knn.advanced.filtered_exact_search_threshold`| null | Threshold value for the filtered IDs that is used to switch to exact search during filtered ANN search. If number of filtered IDs in a segment is less than this setting's value, exact search will be done on the filtered IDs.  
