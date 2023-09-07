@@ -92,10 +92,10 @@ System index permissions also work with the wildcard to extend the reach of acce
 
 * Specifying the full name of a system index limits access to that index alone: `.opendistro-alerting-config`.
 * Specifying a partial name for a system index along with the wildcard provides access to all system indexes that begin with the name: `.opendistro-anomaly-detector*`.
-* Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes. `system:admin/system_index` must be explicitly added.
-* Using `*` index pattern with `system:admin/system_index` will grant access to all system indices.
+* Using `*` for the index pattern along with `system:admin/system_index` as an allowed action grants access to all system indexes.
+* Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes: the allowed action `system:admin/system_index` must be explicitly added.
 
-Following grants a user access to all indices using system indices, and is not recommended:
+The following example permission grants a user access to all system indexes using system indices, and is not recommended:
 ```yml
 index_permissions:
     - index_patterns:
@@ -106,17 +106,19 @@ index_permissions:
 ```
 {% include copy.html %}
 
+
+### Verifying permissions
+
 You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permission provides the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
-{: .tip }
 
-Here is an example of granting the system index permission using wildcard pattern `.kibana*`.
-```cmd
-GET /_cat/indices/.kibana*
-
+The following example response shows the three system indexes whose access has been granted by including the index pattern `.kibana*` in the system index permission:
+```json
+health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
 green open .kibana_1 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
 green open .kibana_2 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
 green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
 ```
+
 
 ### Enabling system index permissions
 
