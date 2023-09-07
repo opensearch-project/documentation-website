@@ -12,7 +12,7 @@ Use a `script_score` query to customize the score calculation by using a script.
 
 ## Example
 
-For example, the following request creates an index with one document:
+For example, the following request creates an index containing one document:
 
 ```json
 PUT testindex1/_doc/1
@@ -37,7 +37,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-In the response, document 1 has the score of `0.2876821`:
+In the response, document 1 has a score of `0.2876821`:
 
 ```json
 {
@@ -70,7 +70,7 @@ In the response, document 1 has the score of `0.2876821`:
 }
 ```
 
-Now, let's change the document score with a script that calculates the score as the value of the `_score` field multiplied by the value of the `multiplier` field. In the following query, you can access the current relevance score of a document in the `_score` variable and the `multiplier` value as `doc['multiplier'].value`:
+Now let's change the document score by using a script that calculates the score as the value of the `_score` field multiplied by the value of the `multiplier` field. In the following query, you can access the current relevance score of a document in the `_score` variable and the `multiplier` value as `doc['multiplier'].value`:
 
 ```json
 GET testindex1/_search
@@ -130,8 +130,8 @@ The `script_score` query supports the following top-level parameters.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`query` | Object | The query to use for search. Required.
-`script` | Object | The script to use to calculate the score of the documents that the `query` returns. Required.
+`query` | Object | The query used for search. Required.
+`script` | Object | The script used to calculate the score of the documents returned by the `query`. Required.
 `min_score` | Float | Excludes documents with a score lower than `min_score` from the results. Optional.
 `boost` | Float | Boosts the documents' scores by the given multiplier. Values less than 1.0 decrease relevance, and values greater than 1.0 increase relevance. Default is 1.0. 
 
@@ -140,7 +140,7 @@ The relevance scores calculated by the `script_score` query cannot be negative.
 
 ## Customizing score calculation with built-in functions
 
-To customize score calculation, you can use one of the built-in Painless functions. For every function, OpenSearch provides one or more Painless methods you can access in the script score context. You can call the Painless methods listed in the following sections directly, without using a class name or instance name qualifier.
+To customize score calculation, you can use one of the built-in Painless functions. For every function, OpenSearch provides one or more Painless methods you can access in the script score context. You can call the Painless methods listed in the following sections directly without using a class name or instance name qualifier.
 
 ### Saturation
 
@@ -150,7 +150,7 @@ The saturation function calculates saturation as `score = value /(value + pivot)
     
 #### Example
 
-The following example searches for the text `neural search` in the `articles` index. It combines the original document relevance score with the `article_rank` value, which is transformed with a saturation function first:
+The following example query searches for the text `neural search` in the `articles` index. It combines the original document relevance score with the `article_rank` value, which is first transformed with a saturation function:
 
 ```json
 GET articles/_search
@@ -177,7 +177,7 @@ Similarly to the saturation function, the sigmoid function calculates the score 
 
 #### Example
 
-The following example searches for the text `neural search` in the `articles` index. It combines the original document relevance score with the `article_rank` value, which is transformed with a sigmoid function first:
+The following example query searches for the text `neural search` in the `articles` index. It combines the original document relevance score with the `article_rank` value, which is first transformed with a sigmoid function:
 
 ```json
 GET articles/_search
@@ -226,7 +226,7 @@ GET articles/_search
 
 ### Decay functions
 
-With decay functions, you can score the results based on proximity or recency. To learn more, see [Decay functions]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score#decay-functions). You can calculate scores using an exponential, Gaussian, or linear decay curve. To apply a decay function, call one of the following Painless methods, depending on the type of field:
+With decay functions, you can score results based on proximity or recency. To learn more, see [Decay functions]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score#decay-functions). You can calculate scores using an exponential, Gaussian, or linear decay curve. To apply a decay function, call one of the following Painless methods, depending on the field type:
 
 - [Numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) fields: 
     - `double decayNumericGauss(double <origin>, double <scale>, double <offset>, double <decay>, double <docValue>)`
