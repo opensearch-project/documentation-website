@@ -95,7 +95,8 @@ System index permissions also work with the wildcard to extend the reach of acce
 * Using `*` for the index pattern along with `system:admin/system_index` as an allowed action grants access to all system indexes.
 * Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes: the allowed action `system:admin/system_index` must be explicitly added.
 
-The following example permission grants a user access to all system indexes using system indices, and is not recommended:
+The following example permission grants a user mapped to this permission access to all system indexes. (However, we do not recommend this, given the wide-reaching access granted by this permission):
+
 ```yml
 index_permissions:
     - index_patterns:
@@ -104,14 +105,14 @@ index_permissions:
         - '*'
         - 'system:admin/system_index'
 ```
-{% include copy.html %}
 
 
-### Verifying permissions
+### Verifying system index access
 
 You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permission provides the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
 
 The following example response shows the three system indexes whose access has been granted by including the index pattern `.kibana*` in the system index permission:
+
 ```json
 health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
 green open .kibana_1 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
