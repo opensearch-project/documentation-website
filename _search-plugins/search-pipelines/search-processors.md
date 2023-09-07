@@ -39,7 +39,7 @@ Processor | Description | Earliest available version
 
 ## Search phase results processors
 
-A search phase results processor runs between search phases at the coordinating node level. It takes the results retrieved from one search phase and transforms them before passing them to the next search phase.
+A search phase results processor runs between search phases at the coordinating node level. It takes the results retrieved from one search phase and transforms them before passing them to the next search phase. 
 
 The following table lists all supported search request processors.
 

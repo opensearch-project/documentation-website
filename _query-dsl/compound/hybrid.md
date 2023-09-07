@@ -48,4 +48,4 @@ The following table lists all top-level parameters supported by `hybrid` queries
 
 Parameter | Description
 :--- | :---
-`queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause to be returned in the results. If a document matches multiple query clauses, the relevance score is set to the highest relevance score from all matching query clauses. The maximum number of query clauses is 10. Required.
+`queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause to be returned in the results. If a document matches multiple query clauses, the relevance score is set to the highest relevance score from all matching query clauses. The maximum number of query clauses is 5. Required.
