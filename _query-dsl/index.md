@@ -37,17 +37,17 @@ Broadly, you can classify queries into two categories---*leaf queries* and *comp
 
 - **Leaf queries**: Leaf queries search for a specified value in a certain field or fields. You can use leaf queries on their own. They include the following query types:
 
-    - **Full-text queries**: Use full-text queries to search text documents. For an analyzed text field search, full-text queries split the query string into terms using the same analyzer that was used when the field was indexed. For an exact value search, full-text queries look for the specified value without applying text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
+    - [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/): Use full-text queries to search text documents. For an analyzed text field search, full-text queries split the query string into terms using the same analyzer that was used when the field was indexed. For an exact value search, full-text queries look for the specified value without applying text analysis. 
 
-    - **Term-level queries**: Use term-level queries to search documents for an exact term, such as an ID or value range. Term-level queries do not analyze search terms or sort results by relevance score. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/).
+    - [Term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/): Use term-level queries to search documents for an exact term, such as an ID or value range. Term-level queries do not analyze search terms or sort results by relevance score.
 
-    - **Geographic and xy queries**: Use geographic queries to search documents that include geographic data. Use xy queries to search documents that include points and shapes in a two-dimensional coordinate system. To learn more, see [Geographic and xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/index).
+    - [Geographic and xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/index/): Use geographic queries to search documents that include geographic data. Use xy queries to search documents that include points and shapes in a two-dimensional coordinate system. 
 
-    - **Joining queries**: Use joining queries to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
+    - Joining queries: Use joining queries to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 
-    - **Span queries**: Use span queries to perform precise positional searches. Span queries are low-level, specific queries that provide control over the order and proximity of specified query terms. They are primarily used to search legal documents. To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
+    - [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/): Use span queries to perform precise positional searches. Span queries are low-level, specific queries that provide control over the order and proximity of specified query terms. They are primarily used to search legal documents. 
 
-    - **Specialized queries**: Specialized queries include all other query types (`distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, and `pinned_query`).
+    - [Specialized queries]({{site.url}}{{site.baseurl}}/query-dsl/specialized/index/): Specialized queries include all other query types (`distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, and `wrapper`).
 
 - **Compound queries**: Compound queries serve as wrappers for multiple leaf or compound clauses, either to combine their results or to modify their behavior. They include the Boolean, disjunction max, constant score, function score, and boosting query types. To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/index/).
 
