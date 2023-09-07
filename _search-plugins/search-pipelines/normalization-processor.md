@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Normalization processor
+title: Normalization
 nav_order: 15
 has_children: false
 parent: Search processors
@@ -9,15 +9,19 @@ grand_parent: Search pipelines
 
 # Normalization processor
 
-The `normalization_processor` is a [search phase results processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/) that runs between the query and fetch phases of search. It intercepts the query phase results and then normalizes and combines the document scores from different query clauses before passing the documents to the fetch phase. 
+The `normalization_processor` is a search phase results processor that runs between the query and fetch phases of search. It intercepts the query phase results and then normalizes and combines the document scores from different query clauses before passing the documents to the fetch phase.
 
 ## Score normalization and combination
 
 Many applications require both keyword matching and semantic understanding. For example, BM25 accurately provides relevant search results for a query containing keywords, and neural networks perform well when a query requires natural language understanding. Thus, you might want to combine BM25 search results with the results of k-NN or neural search. However, BM25 and k-NN search use different scales to calculate relevance scores for the matching documents. Before combining the scores from multiple queries, it is necessary to normalize those scores so they are on the same scale. For further reading about score normalization and combination, including benchmarks and discussion of various techniques, see this [semantic search blog](https://opensearch.org/blog/semantic-science-benchmarks/).
 
-## Flow diagram
+## Query then fetch
 
-The following flow diagram illustrates search with the `normalization_processor`. 
+OpenSearch supports two search types: `query_then_fetch` and `dfs_query_then_fetch`. The following diagram outlines the query then fetch process that includes a normalization processor.
+
+![Normalization processor flow diagram]({{site.url}}{{site.baseurl}}/images/normalization-processor.png)
+
+When you send a search request to a node, this node becomes a _coordinating node_. During the first phase of search, the _query phase_, the coordinating node routes the search request to all shards in the index, including primary and replica shards. Each shard then runs the search query locally and returns metadata about the matching documents, which includes their doc IDs and relevance scores. The `normalization_processor` then normalizes and combines scores from different query clauses. The coordinating node merges and sorts the local result lists, compiling a global list of top documents that match the query. After that, search enters a _fetch phase_, in which the coordinating node requests the documents in the global list from the shards where they reside. Each shard returns the documents' `_source` to the coordinating node. Finally, the coordinating node sends a search response containing the results back to you.
 
 ## Request fields
 
@@ -64,7 +68,7 @@ PUT /_search/pipeline/my_pipeline
 
 ### Using a search pipeline
 
-Use a `hybrid` query to apply the search pipeline created in the previous section to a search request:
+Provide the query clauses that you want to combine in a `hybrid` query and apply the search pipeline created in the previous section so the scores are combined with the chosen techniques:
 
 ```json
 POST flicker-index/_search?search_pipeline=normalizationPipeline
@@ -92,6 +96,8 @@ POST flicker-index/_search?search_pipeline=normalizationPipeline
 }
 ```
 {% include copy-curl.html %}
+
+For more information, see [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/).
 
 The `normalization_processor` does not produce consistent results for a cluster with one node and one shard.
 {: .warning}

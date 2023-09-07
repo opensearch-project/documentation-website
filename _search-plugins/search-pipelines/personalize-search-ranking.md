@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Personalize search ranking processor
+title: Personalize search ranking
 nav_order: 40
 has_children: false
 parent: Search processors
