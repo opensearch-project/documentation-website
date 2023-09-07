@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Boosting queries
+title: Boosting
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 30

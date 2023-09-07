@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Constant score queries
+title: Constant score
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 40
