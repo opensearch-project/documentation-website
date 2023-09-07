@@ -68,7 +68,7 @@ PUT /_search/pipeline/my_pipeline
 
 ### Using a search pipeline
 
-Provide the query clauses that you want to combine in a `hybrid` query and apply the search pipeline created in the previous section so the scores are combined with the chosen techniques:
+Provide the query clauses that you want to combine in a `hybrid` query and apply the search pipeline created in the previous section so the scores are combined using the chosen techniques:
 
 ```json
 POST flicker-index/_search?search_pipeline=normalizationPipeline
