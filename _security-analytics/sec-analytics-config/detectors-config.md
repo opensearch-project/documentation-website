@@ -147,5 +147,7 @@ To set up an alert for a detector, continue with the following steps:
 ---
 ## What's next
 
-If you are ready to view findings for the new detector, see the [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) section. If you would like to import rules or set up custom rules before working with findings, see the [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/) section. 
+If you are ready to view findings for the new detector, see the [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) section. If you would like to import rules or set up custom rules before working with findings, see the [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/) section.
+
+To configure Security Analytics to identify correlations between events happening in different logs throughout your system, see [Creating correlation rules]({{site.url}}{{site.baseurl}}/sec-analytics-config/correlation-config/).
 
