@@ -8,10 +8,7 @@ nav_order: 70
 
 # Hybrid query
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/neural-search/issues/244).    
-{: .warning}
-
-Use a hybrid query to combine relevance scores from multiple queries into one score for a given document. A hybrid query contains a list of one or more queries, which are run in parallel at the data node level. It calculates document scores at the shard level independently for each subquery. The subquery rewriting is done at the coordinating node level to avoid duplicate computations.
+Use a hybrid query to combine relevance scores from multiple queries into one score for a given document. A hybrid query contains a list of one or more queries and calculates document scores at the shard level independently for each subquery. The subquery rewriting is done at the coordinating node level to avoid duplicate computations.
 
 ## Example
 
