@@ -95,7 +95,7 @@ System index permissions also work with the wildcard to extend the reach of acce
 * Using `*` for the index pattern along with `system:admin/system_index` as an allowed action grants access to all system indexes.
 * Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes: the allowed action `system:admin/system_index` must be explicitly added.
 
-The following example permission grants a user mapped to this permission access to all system indexes. (However, we do not recommend this, given the wide-reaching access granted by this permission):
+The following example permission configuration grants a user mapped to this permission access to all system indexes. (However, we do not recommend this, given the wide-reaching access granted by this permission):
 
 ```yml
 index_permissions:
