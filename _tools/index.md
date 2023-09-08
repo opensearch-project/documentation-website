@@ -15,6 +15,7 @@ This section provides documentation for OpenSearch-supported tools, including:
 - [Agents and ingestion tools](#agents-and-ingestion-tools)
 - [OpenSearch CLI](#opensearch-cli)
 - [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
+- [OpenSearch upgrade, migration, and comparison tools](#opensearch-upgrade-migration-and-comparison-tools)
 
 For information about Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/).
 
@@ -111,3 +112,7 @@ The OpenSearch CLI command line interface (opensearch-cli) lets you manage your 
 ## OpenSearch Kubernetes operator
 
 The OpenSearch Kubernetes (K8s) Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)
+
+## OpenSearch upgrade, migration, and comparison tools
+
+OpenSearch migration tooling facilitates OpenSearch migrations and upgrades. With these tools, you can set up a proof-of-concept environment locally using Docker containers or deploy to AWS using a one-click deployment script. Once set up and deployed, users can redirect their production traffic from a source cluster to a provisioned target cluster, enabling a comparison of results between the two clusters. All traffic directed to the source cluster is stored for future replay. Meanwhile, traffic to the target cluster is replayed at an identical rate to ensure a direct "apple-to-apple" comparison. This toolset empowers users to fine-tune cluster configurations and manage workloads more effectively. For more information, consult the documentation in the [OpenSearch Migration GitHub repository](https://github.com/opensearch-project/opensearch-migrations).
