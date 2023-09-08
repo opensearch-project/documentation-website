@@ -143,6 +143,20 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 
 The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of docs has been collected. In the non-concurrent search workflow, this count is evaluated at each shard, however for the concurrent search workflow this will be evaluated at each leaf slice instead to avoid synchronizing document counts between threads. Functionally there should be no difference, however in the concurrent search case the request may perform slightly more work than expected because of each segment slice on the shard collecting up to the specified number of docs.
 
+## API changes
+
+If you enable the concurrent segment search feature flag, the following stats API responses will contain several additional fields with statistics about slices:
+
+- [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)
+- [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)
+- [CAT Indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
+- [CAT Nodes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-nodes/)
+- [CAT Shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
+
+For the descriptions of the added fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
+
+Additionally, for the [Profile API], some response fields will be modified and others added. For more information, see the [concurrent segment search section of the Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile/).
+
 ## Limitations
 
 Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields do not support the concurrent search model. Thus, if a search request contains a parent aggregation, the aggregation will be executed using the non-concurrent path even if concurrent segment search is enabled at cluster level.
