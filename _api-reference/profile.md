@@ -226,7 +226,7 @@ Field | Data type | Description
 [`profile.shards.searches.collector`](#the-collector-array) | Array of objects | Profiling information about the Lucene collectors that ran the search.
 [`profile.shards.aggregations`](#aggregations) | Array of objects | Profiling information about the aggregation execution.
 
-### The `query` object
+### The `query` array
 
 The `query` object contains the following fields.
 
@@ -998,13 +998,13 @@ The following is an example response for a concurrent search with three segment 
 
 The following sections contain definitions of all modified or added response fields for concurrent segment search.
 
-#### The `query` object
+#### The `query` array
 
 |Field	|Description	|
 |:---	|:---	|
 |`time_in_nanos`	|For concurrent segment search, `time_in_nanos` is the cumulative amount of time to execute all methods across all slices, in nanoseconds. This is not equivalent to the actual amount of time the query took to execute because it does not take into account that multiple slices can execute the methods in parallel.	|
 |`breakdown.<method>`	|For concurrent segment search, this field contains the total amount of time taken by all segments to execute a method.	|
-|`<method>_count`	|For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all segments.	|
+|`breakdown.<method>_count`	|For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all segments.	|
 
 #### The `collector` array
 
