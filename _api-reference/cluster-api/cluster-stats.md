@@ -116,6 +116,29 @@ Parameter | Type | Description
             "version_map_memory_in_bytes": 0,
             "fixed_bit_set_memory_in_bytes": 1112,
             "max_unsafe_auto_id_timestamp": 1644269449096,
+            "remote_store" : {
+               "upload" : {
+                  "total_upload_size" : {
+                     "started_bytes" : 152419,
+                     "succeeded_bytes" : 152419,
+                     "failed_bytes" : 0
+                  },
+                  "refresh_size_lag" : {
+                     "total_bytes" : 0,
+                     "max_bytes" : 0
+                  },
+                  "max_refresh_time_lag_in_millis" : 0,
+                  "total_time_spent_in_millis" : 516
+               },
+               "download" : {
+                  "total_download_size" : {
+                     "started_bytes" : 0,
+                     "succeeded_bytes" : 0,
+                     "failed_bytes" : 0
+                  },
+                  "total_time_spent_in_millis" : 0
+               }
+            },
             "file_sizes": {}
         },
         "mappings": {

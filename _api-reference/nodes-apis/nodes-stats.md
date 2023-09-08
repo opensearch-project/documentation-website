@@ -245,6 +245,29 @@ Select the arrow to view the example response.
           "version_map_memory_in_bytes" : 0,
           "fixed_bit_set_memory_in_bytes" : 288,
           "max_unsafe_auto_id_timestamp" : -1,
+          "remote_store" : {
+            "upload" : {
+              "total_upload_size" : {
+                "started_bytes" : 152419,
+                "succeeded_bytes" : 152419,
+                "failed_bytes" : 0
+              },
+              "refresh_size_lag" : {
+                "total_bytes" : 0,
+                "max_bytes" : 0
+              },
+              "max_refresh_time_lag_in_millis" : 0,
+              "total_time_spent_in_millis" : 516
+            },
+            "download" : {
+              "total_download_size" : {
+                "started_bytes" : 0,
+                "succeeded_bytes" : 0,
+                "failed_bytes" : 0
+              },
+              "total_time_spent_in_millis" : 0
+            }
+          },
           "file_sizes" : { }
         },
         "translog" : {
@@ -252,7 +275,21 @@ Select the arrow to view the example response.
           "size_in_bytes" : 1452,
           "uncommitted_operations" : 12,
           "uncommitted_size_in_bytes" : 1452,
-          "earliest_last_modified_age" : 164160
+          "earliest_last_modified_age" : 164160,
+          "remote_store" : {
+            "upload" : {
+              "total_uploads" : {
+                "started" : 57,
+                "failed" : 0,
+                "succeeded" : 57
+              },
+              "total_upload_size" : {
+                "started_bytes" : 16830,
+                "failed_bytes" : 0,
+                "succeeded_bytes" : 16830
+              }
+            }
+          }
         },
         "request_cache" : {
           "memory_size_in_bytes" : 1649,
@@ -792,6 +829,23 @@ segments.index_writer_memory_in_bytes | Integer | The total amount of memory use
 segments.version_map_memory_in_bytes | Integer | The total amount of memory used by all version maps, in bytes. 
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
+segments.remote_store | Object | Statistics about Remote Segment Store operations.
+segments.remote_store.upload | Object | Statistics about Remote Segment Store upload operations.
+segments.remote_store.upload.total_upload_size | Object | The amount of data uploaded to Remote Segment Store.
+segments.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes for which upload to Remote Segment Store has been started.
+segments.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes for which upload to Remote Segment Store has succeeded.
+segments.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes for which upload to Remote Segment Store has failed.
+segments.remote_store.upload.refresh_size_lag | Object | Statistics about the bytes lag between the Remote Segment Store and local store.
+segments.remote_store.upload.refresh_size_lag.total_bytes | Integer | The total bytes lag between the Remote Segment Store and local store.
+segments.remote_store.upload.refresh_size_lag.max_bytes | Integer | The maximum bytes lag between the Remote Segment Store and local store.
+segments.remote_store.upload.max_refresh_time_lag_in_millis | Integer | The max time duration (in milliseconds) the remote refresh is behind the local refresh.
+segments.remote_store.upload.total_time_spent_in_millis | Integer | The total time duration (in milliseconds) spent on uploads to the Remote Segment Store.
+segments.remote_store.download | Object | Statistics about Remote Segment Store download operations.
+segments.remote_store.download.total_download_size | Object | The amount of data downloaded from Remote Segment Store.
+segments.remote_store.download.total_download_size.started_bytes | Integer | The number of bytes for which download from Remote Segment Store has been started.
+segments.remote_store.download.total_download_size.succeeded_bytes | Integer | The number of bytes for which download from Remote Segment Store has succeeded.
+segments.remote_store.download.total_download_size.failed_bytes | Integer | The number of bytes for which download from Remote Segment Store has failed.
+segments.remote_store.download.total_time_spent_in_millis | Integer | The total time duration (in milliseconds) spent on downloads from the Remote Segment Store.
 segments.file_sizes | Integer | Statistics about the size of the segment files.
 translog | Object | Statistics about transaction log operations for the node.
 translog.operations | Integer | The number of translog operations.
@@ -799,6 +853,16 @@ translog.size_in_bytes | Integer | The size of the translog, in bytes.
 translog.uncommitted_operations | Integer | The number of uncommitted translog operations.
 translog.uncommitted_size_in_bytes | Integer | The size of uncommitted translog operations, in bytes.
 translog.earliest_last_modified_age | Integer | The earliest last modified age for the translog.
+translog.remote_store | Object | Statistics about Remote Translog Store operations.
+translog.remote_store.upload | Object | Statistics about Remote Translog Store upload operations.
+translog.remote_store.upload.total_uploads | Object | The number of syncs to Remote Translog Store.
+translog.remote_store.upload.total_uploads.started | Integer | The number of syncs to Remote Translog Store that have been started.
+translog.remote_store.upload.total_uploads.failed | Integer | The number of syncs to Remote Translog Store that have failed.
+translog.remote_store.upload.total_uploads.succeeded | Integer | The number of syncs to Remote Translog Store that have succeeded.
+translog.remote_store.upload.total_upload_size | Object | The amount of data uploaded to Remote Translog Store.
+translog.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes for which upload to Remote Translog Store has been started.
+translog.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes for which upload to Remote Translog Store has failed.
+translog.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes for which upload to Remote Translog Store has succeeded.
 request_cache | Object | Statistics about the request cache for the node.
 request_cache.memory_size_in_bytes | Integer | The memory size used by the request cache, in bytes.
 request_cache.evictions | Integer | The number of request cache evictions.
