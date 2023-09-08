@@ -6,22 +6,44 @@ nav_order: 53
 
 # Concurrent segment search
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/2587).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/2587) or the [project board](https://github.com/orgs/opensearch-project/projects/117/views/1).    
 {: .warning}
+
+Use concurrent segment search to search the segments in parallel during query phase. Using concurrent segment search improves search latency in the following cases:
+
+- For long-running requests, for example, requests that contain aggregations or large ranges.
+- As an alternative to force-merging segments into a single segment to improve performance.
+- For searchable snapshots, in the index with multiple segments, searching can be concurrent.
 
 ## Background
 
 In OpenSearch, each search request follows the scatter-gather protocol. The coordinating node receives a search request, evaluates which shards are needed to serve this request, and sends a shard-level search request to each of those shards. Each shard that receives the request executes the request locally using Lucene and returns the results. The coordinating node merges the responses received from all shards and sends the search response back to the client. Optionally, the coordinating node can perform a fetch phase before returning the final results to the client if any document field or the entire document is requested by the client as part of response.
 
-## Running requests concurrently
+## Searching segments concurrently
 
-By default, during query phase, Lucene executes the request _sequentially_ across all segments on each shard. The query phase then collects the top hits for the search request. With concurrent segment search, each shard-level request will search the segments in parallel during query phase. For each shard, the segments are divided into multiple work units called _slices._ Each _slice_ is the unit of work which can be executed in parallel on a separate thread, thus slice count determines the maximum degree of parallelism for a shard-level request. Once all the slices complete their work, Lucene performs a reduce operation on the slices to merge them and create the final result for this shard-level request. Slices are executed using a new thread pool _index_searcher_, which is different from the _search_ thread pool that handles shard-level requests. 
-
-By default, Lucene assigns a maximum of 250 K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250 K documents each and the next 6 segments have 20 K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. In OpenSearch, there is an additional slicing mechanism (_max target slice count_) that uses a statically configured max slice limit and divides segments among them in a round-robin fashion . This is useful for cases where there are already too many top-level shard requests and you want to limit the number of slices per request in order to reduce the contention and higher percentile latencies.
+During query phase, Lucene executes the request _sequentially_ across all segments on each shard by default. The query phase then collects the top hits for the search request. With concurrent segment search, each shard-level request will search the segments in parallel during query phase. For each shard, the segments are divided into multiple work units called _slices_. Each _slice_ is the unit of work which can be executed in parallel on a separate thread, thus the slice count determines the maximum degree of parallelism for a shard-level request. Once all the slices complete their work, Lucene performs a reduce operation on the slices, merging them and creating the final result for this shard-level request. Slices are executed using a new `index_searcher` thread pool, which is different from the `search` thread pool that handles shard-level requests.
 
 ## Enabling the feature flag
 
 There are several methods for enabling concurrent segment search, depending on the install type. 
+
+### Enable in opensearch.yml
+
+If you are running an OpenSearch cluster and want to enable concurrent segment search in the config file, add the following line to `opensearch.yml`:
+
+```yaml
+opensearch.experimental.feature.concurrent_segment_search.enabled=true
+```
+{% include copy.html %}
+
+### Enable with Docker containers
+
+If you’re running Docker, add the following line to `docker-compose.yml` under the `opensearch-node` > `environment` section:
+
+```bash
+OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true"
+```
+{% include copy.html %}
 
 ### Enable on a node using a tarball install
 
@@ -67,36 +89,6 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segmen
 ```
 {% include copy.html %}
 
-### Enable with Docker containers
-
-If you’re running Docker, add the following line to `docker-compose.yml` under the `opensearch-node` > `environment` section:
-
-```bash
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true"
-```
-{% include copy.html %}
-
-### Enable in opensearch.yml
-
-If you are running an OpenSearch cluster and want to enable concurrent segment search using the `opensearch.yml` config file, add the following line:
-
-```yaml
-opensearch.experimental.feature.concurrent_segment_search.enabled=true
-```
-{% include copy.html %}
-
-
-By default, concurrent segment search will use the Lucene mechanism described in the previous section to calculate the number of slices for each shard-level request. To use the max target slice count mechanism instead, configure the `search.concurrent.max_slice_count` static setting in the `opensearch.yml` config file:
-
-```yaml
-search.concurrent.max_slice_count=<target slice count>
-```
-{% include copy.html %}
-
-The `search.concurrent.max_slice_count` setting can take the following valid values:
-- `0`: Fall back to the default Lucene mechanism.
-- Positive integer: Use the max target slice count mechanism. Usually, a value 2--8 should be sufficient.
-
 ## Disabling concurrent search for an index or all indexes
 
 After you enable the experimental feature flag, all search requests will use concurrent segment search during query phase. To disable concurrent segment search for all indexes, set following dynamic cluster setting:
@@ -122,238 +114,41 @@ PUT <index-name>/_settings
 ```
 {% include copy-curl.html %}
 
+## Concurrent segment search mechanisms
 
-## API changes
+You can choose one of the two available concurrent segment mechanisms: the default [Lucene mechanism](#the-lucene-mechanism) or the [max slice count mechanism](#the-max-slice-count-mechanism).
 
-With concurrent segment search, if you send a search request, OpenSearch adds a slice-level breakdown in the search response if the `profile` option is set to `true`. 
+### The Lucene mechanism
 
-#### Example search response with profile = true
+By default, Lucene assigns a maximum of 250 K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250 K documents each and the next 6 segments have 20 K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
 
-The following is an example response for a concurrent search with 3 segment slices:
+### The max slice count mechanism
 
-<details closed markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
+The _max slice count_ mechanism is an alternative slicing mechanism that uses a statically configured maximum number of slices and divides segments among the slices in a round-robin fashion. This is useful when there are already too many top-level shard requests and you want to limit the number of slices per request in order to reduce competition between the slices.
 
-```json
-{
-  "took": 76,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 5,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": "idx",
-        "_id": "R0P4cIoBw-T1eu53lQDS",
-        "_score": 1,
-        "_source": {
-          "string_field": "rwRYhBoBvF",
-          "number": 4,
-          "tag": "less"
-        }
-      },
-      {
-        "_index": "idx",
-        "_id": "S0P4cIoBw-T1eu53lQDf",
-        "_score": 1,
-        "_source": {
-          "string_field": "LETllfnHeK",
-          "number": 7,
-          "tag": "less"
-        }
-      },
-      {
-        "_index": "idx",
-        "_id": "SUP4cIoBw-T1eu53lQDe",
-        "_score": 1,
-        "_source": {
-          "string_field": "rwRYhBoBvF",
-          "number": 5,
-          "tag": "more"
-        }
-      },
-      {
-        "_index": "idx",
-        "_id": "SEP4cIoBw-T1eu53lQDd",
-        "_score": 1,
-        "_source": {
-          "string_field": "rwRYhBoBvF",
-          "number": 7,
-          "tag": "more"
-        }
-      },
-      {
-        "_index": "idx",
-        "_id": "SkP4cIoBw-T1eu53lQDf",
-        "_score": 1,
-        "_source": {
-          "string_field": "RkeSDVrerp",
-          "number": 5,
-          "tag": "more"
-        }
-      }
-    ]
-  },
-  "aggregations": {
-    "histo": {
-      "buckets": [
-        {
-          "key": 4,
-          "doc_count": 1
-        },
-        {
-          "key": 5,
-          "doc_count": 2
-        },
-        {
-          "key": 6,
-          "doc_count": 0
-        },
-        {
-          "key": 7,
-          "doc_count": 2
-        }
-      ]
-    }
-  },
-  "profile": {
-    "shards": [
-      {
-        "id": "[Sn2zHhcMTRetEjXvppU8bA][idx][0]",
-        "inbound_network_time_in_millis": 0,
-        "outbound_network_time_in_millis": 0,
-        "searches": [
-          {
-            "query": [
-              {
-                "type": "MatchAllDocsQuery",
-                "description": "*:*",
-                "time_in_nanos": 429246,
-                "breakdown": {
-                  "set_min_competitive_score_count": 0,
-                  "match_count": 0,
-                  "shallow_advance_count": 0,
-                  "set_min_competitive_score": 0,
-                  "next_doc": 5485,
-                  "match": 0,
-                  "next_doc_count": 5,
-                  "score_count": 5,
-                  "compute_max_score_count": 0,
-                  "compute_max_score": 0,
-                  "advance": 3350,
-                  "advance_count": 3,
-                  "score": 5920,
-                  "build_scorer_count": 6,
-                  "create_weight": 429246,
-                  "shallow_advance": 0,
-                  "create_weight_count": 1,
-                  "build_scorer": 2221054
-                }
-              }
-            ],
-            "rewrite_time": 12442,
-            "collector": [
-              {
-                "name": "QueryCollectorManager",
-                "reason": "search_multi",
-                "time_in_nanos": 6786930,
-                "reduce_time_in_nanos": 5892759,
-                "max_slice_time_in_nanos": 5951808,
-                "min_slice_time_in_nanos": 5798174,
-                "avg_slice_time_in_nanos": 5876588,
-                "slice_count": 3,
-                "children": [
-                  {
-                    "name": "SimpleTopDocsCollectorManager",
-                    "reason": "search_top_hits",
-                    "time_in_nanos": 1340186,
-                    "reduce_time_in_nanos": 1084060,
-                    "max_slice_time_in_nanos": 457165,
-                    "min_slice_time_in_nanos": 433706,
-                    "avg_slice_time_in_nanos": 443332,
-                    "slice_count": 3
-                  },
-                  {
-                    "name": "NonGlobalAggCollectorManager: [histo]",
-                    "reason": "aggregation",
-                    "time_in_nanos": 5366791,
-                    "reduce_time_in_nanos": 4637260,
-                    "max_slice_time_in_nanos": 4526680,
-                    "min_slice_time_in_nanos": 4414049,
-                    "avg_slice_time_in_nanos": 4487122,
-                    "slice_count": 3
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "aggregations": [
-          {
-            "type": "NumericHistogramAggregator",
-            "description": "histo",
-            "time_in_nanos": 16454372,
-            "max_slice_time_in_nanos": 7342096,
-            "min_slice_time_in_nanos": 4413728,
-            "avg_slice_time_in_nanos": 5430066,
-            "breakdown": {
-              "min_build_leaf_collector": 4320259,
-              "build_aggregation_count": 3,
-              "post_collection": 9942,
-              "max_collect_count": 2,
-              "initialize_count": 3,
-              "reduce_count": 0,
-              "avg_collect": 146319,
-              "max_build_aggregation": 2826399,
-              "avg_collect_count": 1,
-              "max_build_leaf_collector": 4322299,
-              "min_build_leaf_collector_count": 1,
-              "build_aggregation": 3038635,
-              "min_initialize": 1057,
-              "max_reduce": 0,
-              "build_leaf_collector_count": 3,
-              "avg_reduce": 0,
-              "min_collect_count": 1,
-              "avg_build_leaf_collector_count": 1,
-              "avg_build_leaf_collector": 4321197,
-              "max_collect": 181266,
-              "reduce": 0,
-              "avg_build_aggregation": 954896,
-              "min_post_collection": 1236,
-              "max_initialize": 11603,
-              "max_post_collection": 5350,
-              "collect_count": 5,
-              "avg_post_collection": 2793,
-              "avg_initialize": 4860,
-              "post_collection_count": 3,
-              "build_leaf_collector": 4322299,
-              "min_collect": 78519,
-              "min_build_aggregation": 8543,
-              "initialize": 11971068,
-              "max_build_leaf_collector_count": 1,
-              "min_reduce": 0,
-              "collect": 181838
-            },
-            "debug": {
-              "total_buckets": 1
-            }
-          }
-        ]
-      }
-    ]
-  }
-}
+### Setting the slicing mechanism
+
+By default, concurrent segment search uses the Lucene mechanism to calculate the number of slices for each shard-level request. To use the max slice count mechanism instead, configure the `search.concurrent.max_slice_count` static setting in the `opensearch.yml` config file:
+
+```yaml
+search.concurrent.max_slice_count: 2
 ```
-</details>
+{% include copy.html %}
+
+The `search.concurrent.max_slice_count` setting can take the following valid values:
+- `0`: Use the default Lucene mechanism.
+- Positive integer: Use the max target slice count mechanism. Usually, a value 2--8 should be sufficient.
+
+## The `terminate_after` search parameter
+
+The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of docs has been collected. In the non-concurrent search workflow, this count is evaluated at each shard, however for the concurrent search workflow this will be evaluated at each leaf slice instead to avoid synchronizing document counts between threads. Functionally there should be no difference, however in the concurrent search case the request may perform slightly more work than expected because of each segment slice on the shard collecting up to the specified number of docs.
+
+## Limitations
+
+Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields do not support the concurrent search model. Thus, if a search request contains a parent aggregation, the aggregation will be executed using the non-concurrent path even if concurrent segment search is enabled at cluster level.
+
+## Developer information: AggregatorFactory changes
+
+Because of implementation details, not all aggregator types can support concurrent segment search. To accommodate this, we have introduced a new [`supportsConcurrentSegmentSearch()`](https://github.com/opensearch-project/OpenSearch/blob/bb38ed4836496ac70258c2472668325a012ea3ed/server/src/main/java/org/opensearch/search/aggregations/AggregatorFactory.java#L121) method in the `AggregatorFactory` class to indicate whether or not a given aggregation type supports concurrent segment search. By default, this method returns `false`. Any aggregator that needs to support concurrent segment search must override this method in its own factory implementation. 
+
+To ensure that a custom plugin-based `Aggregator` implementation works with the concurrent search path, plugin developers can verify their implementation with concurrent search enabled and then update the plugin to override the [`supportsConcurrentSegmentSearch()`](https://github.com/opensearch-project/OpenSearch/blob/bb38ed4836496ac70258c2472668325a012ea3ed/server/src/main/java/org/opensearch/search/aggregations/AggregatorFactory.java#L121) method to return `true`.
