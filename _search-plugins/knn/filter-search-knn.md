@@ -13,7 +13,7 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
 
 - [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned (if there are at least `k` results in total). This approach is supported by the following engines:
   - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 
-  - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 or later) or IVF algorithm (k-NN plugin versions 2.10 or later)
+  - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 and later) or IVF algorithm (k-NN plugin versions 2.10 and later)
 
 -  [Post-filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter. You can use the following two filtering strategies for this approach:
     - [Boolean post-filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently, and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
@@ -261,14 +261,14 @@ For more ways to construct a filter, see [Constructing a filter](#constructing-a
 
 ### Faiss k-NN filter implementation 
 
-For k-NN searches, you can use `faiss` filters with an HNSW algorithm (k-NN plugin versions 2.9 or later) or IVF algorithm (k-NN plugin versions 2.10 or later).
+For k-NN searches, you can use `faiss` filters with an HNSW algorithm (k-NN plugin versions 2.9 and later) or IVF algorithm (k-NN plugin versions 2.10 and later).
 
 When you specify a Faiss filter for a k-NN search, the Faiss algorithm decides whether to perform an exact k-NN search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
 
 - N: The number of documents in the index.
 - P: The number of documents in the document subset after the filter is applied (P <= N).
 - k: The maximum number of vectors to return in the response.
-- R: The number of results returned after doing the Filtered Approximate Nearest Neighbor Search.
+- R: The number of results returned after performing the filtered approximate nearest neighbor search.
 - FT (filtered threshold): An index-level threshold defined in the [`knn.advanced.filtered_exact_search_threshold` setting]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings/) that specifies to switch to exact search.
 - MDC (max distance computations): The maximum number of distance computations allowed in exact search if `FT` (filtered threshold) is not set. This value cannot be changed.
 
