@@ -269,8 +269,8 @@ When you specify a Faiss filter for a k-NN search, the Faiss algorithm decides w
 - P: The number of documents in the document subset after the filter is applied (P <= N).
 - k: The maximum number of vectors to return in the response.
 - R: The number of results returned after doing the Filtered Approximate Nearest Neighbor Search.
-- FT: An index-level threshold defined in the [`knn.advanced.filtered_exact_search_threshold` setting]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings/) that specifies to switch to exact search.
-- MDC: The maximum number of distance computations allowed in exact search if `f` filtered threshold is not set. This value cannot be changed.
+- FT (filtered threshold): An index-level threshold defined in the [`knn.advanced.filtered_exact_search_threshold` setting]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings/) that specifies to switch to exact search.
+- MDC (max distance computations): The maximum number of distance computations allowed in exact search if `FT` (filtered threshold) is not set. This value cannot be changed.
 
 The following flow chart outlines the Faiss algorithm.
 
