@@ -11,5 +11,43 @@ After a workload completes, OpenSearch Benchmark stores all metric records withi
 
 ## Storing metrics
 
-You set where metrics are stored using the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file.
+You set where metrics are stored using the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
 
+### In memory
+
+If you want to store your result in memory, use the following settings in the `results_publishing` section of `benchmark.ini`:
+
+```json
+[results_publishing]
+datastore.type = in-memory
+datastore.host = 
+datastore.port = 
+datastore.secure = False
+datastore.ssl.verification_mode = 
+datastore.user = 
+datastore.password =
+```
+
+### OpenSearch
+
+If you want to store your results in an external OpenSearch memory store, use the following settings in the `results_publishing` section of `benchmark.ini`:
+
+```
+[results_publishing]
+datastore.type = opensearch
+datastore.host = <opensearch endpoint>
+datastore.port = 443
+datastore.secure = True
+datastore.ssl.verification_mode = none
+datastore.user = <opensearch basic auth username>
+datastore.password = <opensearch basic auth password>
+```
+
+After you run OpenSearch Benchmark configured to use OpenSearch as a datastore, OpenSeach Benchmark creates a `benchmark-metrics` Dashboard, where you can find your metric results by , as shown in the following image.
+
+![Dashboard index pattern]({{site.url}}{{site.baseurl}}/images/benchmark/metric-index-pattern.png).
+
+## Next steps
+
+- For more information about how to design a metrics store, see [Metric records]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-records).
+- For more information about what metrics are stored, see [Metric keys]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys).
