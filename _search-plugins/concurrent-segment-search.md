@@ -9,11 +9,11 @@ nav_order: 53
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/2587) or the [project board](https://github.com/orgs/opensearch-project/projects/117/views/1).    
 {: .warning}
 
-Use concurrent segment search to search the segments in parallel during query phase. Using concurrent segment search improves search latency in the following cases:
+Use concurrent segment search to search the segments in parallel during query phase. Some cases in which concurrent segment search improves search latency include the following:
 
-- For long-running requests, for example, requests that contain aggregations or large ranges.
-- As an alternative to force-merging segments into a single segment to improve performance.
-- For searchable snapshots, in the index with multiple segments, searching can be concurrent.
+- When sending long-running requests, for example, requests that contain aggregations or large ranges.
+- As an alternative to force-merging segments into a single segment in order to improve performance.
+- Running a search on an index with multiple segments in searchable snapshots.
 
 ## Background
 
