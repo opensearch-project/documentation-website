@@ -52,7 +52,3 @@ include_unloaded_segments | Boolean | Whether to include information from segmen
 ip       |   heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | node.roles |     cluster_manager |  name
 10.11.1.225  |         31   |    32  | 0  |  0.00  |  0.00   | di  | data,ingest,ml  | - |  data-e5b89ad7
 ```
-
-## Concurrent segment search
-
-Starting with OpenSearch 2.10, you can perform [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/), in which each shard-level request will search the segments in parallel during query phase. If you [enable the concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the CAT Nodes API response will contain several additional fields with statistics about slices (units of work executed by a thread). For the descriptions of those fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).

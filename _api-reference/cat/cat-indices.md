@@ -65,7 +65,3 @@ expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Comb
 health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
 green  | open | movies | UZbpfERBQ1-3GSH2bnM3sg | 1 | 1 | 1 | 0 | 7.7kb | 3.8kb
 ```
-
-## Concurrent segment search
-
-Starting with OpenSearch 2.10, you can perform [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/), in which each shard-level request will search the segments in parallel during query phase. If you [enable the concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the CAT Indices API response will contain several additional fields with statistics about slices (units of work executed by a thread). For the descriptions of those fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).

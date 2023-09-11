@@ -757,7 +757,7 @@ Field | Description
 
 ## Concurrent segment search
 
-Starting with OpenSearch 2.10, you can perform [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/), in which each shard-level request will search the segments in parallel during query phase. If you enable concurrent segment search, the Profile API response will contain several additional fields with statistics about _slices_.
+Starting with OpenSearch 2.10, you can perform [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/), in which each shard-level request will search the segments in parallel during query phase. If you enable the experimental concurrent segment search feature flag, the Profile API response will contain several additional fields with statistics about _slices_.
 
 A slice is the unit of work that can be executed by a thread. Each query can be partitioned into multiple slices, with each slice containing one or more segments. All the slices can be executed either in parallel or in some order depending on the available threads in the pool.
 
@@ -790,79 +790,11 @@ The following is an example response for a concurrent search with three segment 
     },
     "max_score": 1,
     "hits": [
-      {
-        "_index": "idx",
-        "_id": "R0P4cIoBw-T1eu53lQDS",
-        "_score": 1,
-        "_source": {
-          "string_field": "rwRYhBoBvF",
-          "number": 4,
-          "tag": "less"
-        }
-      },
-      {
-        "_index": "idx",
-        "_id": "S0P4cIoBw-T1eu53lQDf",
-        "_score": 1,
-        "_source": {
-          "string_field": "LETllfnHeK",
-          "number": 7,
-          "tag": "less"
-        }
-      },
-      {
-        "_index": "idx",
-        "_id": "SUP4cIoBw-T1eu53lQDe",
-        "_score": 1,
-        "_source": {
-          "string_field": "rwRYhBoBvF",
-          "number": 5,
-          "tag": "more"
-        }
-      },
-      {
-        "_index": "idx",
-        "_id": "SEP4cIoBw-T1eu53lQDd",
-        "_score": 1,
-        "_source": {
-          "string_field": "rwRYhBoBvF",
-          "number": 7,
-          "tag": "more"
-        }
-      },
-      {
-        "_index": "idx",
-        "_id": "SkP4cIoBw-T1eu53lQDf",
-        "_score": 1,
-        "_source": {
-          "string_field": "RkeSDVrerp",
-          "number": 5,
-          "tag": "more"
-        }
-      }
+      ...
     ]
   },
   "aggregations": {
-    "histo": {
-      "buckets": [
-        {
-          "key": 4,
-          "doc_count": 1
-        },
-        {
-          "key": 5,
-          "doc_count": 2
-        },
-        {
-          "key": 6,
-          "doc_count": 0
-        },
-        {
-          "key": 7,
-          "doc_count": 2
-        }
-      ]
-    }
+    ...
   },
   "profile": {
     "shards": [

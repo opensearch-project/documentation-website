@@ -13,7 +13,6 @@ Use concurrent segment search to search the segments in parallel during query ph
 
 - When sending long-running requests, for example, requests that contain aggregations or large ranges.
 - As an alternative to force-merging segments into a single segment in order to improve performance.
-- Running a search on an index with multiple segments in searchable snapshots.
 
 ## Background
 
@@ -21,7 +20,7 @@ In OpenSearch, each search request follows the scatter-gather protocol. The coor
 
 ## Searching segments concurrently
 
-Without concurrent segment search, Lucene executes a request sequentially across all segments on each shard during query phase. The query phase then collects the top hits for the search request. With concurrent segment search, each shard-level request will search the segments in parallel during query phase. For each shard, the segments are divided into multiple work units called _slices_. Each _slice_ is the unit of work which can be executed in parallel on a separate thread, thus the slice count determines the maximum degree of parallelism for a shard-level request. Once all the slices complete their work, Lucene performs a reduce operation on the slices, merging them and creating the final result for this shard-level request. Slices are executed using a new `index_searcher` thread pool, which is different from the `search` thread pool that handles shard-level requests.
+Without concurrent segment search, Lucene executes a request sequentially across all segments on each shard during query phase. The query phase then collects the top hits for the search request. With concurrent segment search, each shard-level request will search the segments in parallel during query phase. For each shard, the segments are divided into multiple _slices_. Each _slice_ is the unit of work which can be executed in parallel on a separate thread, thus the slice count determines the maximum degree of parallelism for a shard-level request. Once all the slices complete their work, Lucene performs a reduce operation on the slices, merging them and creating the final result for this shard-level request. Slices are executed using a new `index_searcher` thread pool, which is different from the `search` thread pool that handles shard-level requests.
 
 ## Enabling the feature flag
 
@@ -89,7 +88,7 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segmen
 ```
 {% include copy.html %}
 
-## Disabling concurrent search for an index or all indexes
+## Disabling concurrent search at index or cluster level
 
 After you enable the experimental feature flag, all search requests will use concurrent segment search during query phase. To disable concurrent segment search for all indexes, set following dynamic cluster setting:
 
@@ -114,13 +113,13 @@ PUT <index-name>/_settings
 ```
 {% include copy-curl.html %}
 
-## Concurrent segment search mechanisms
+## Slicing mechanisms
 
-You can choose one of the two available concurrent segment mechanisms: the default [Lucene mechanism](#the-lucene-mechanism) or the [max slice count mechanism](#the-max-slice-count-mechanism).
+You can choose one of the two available mechanisms of assigning segments to slices: the default [Lucene mechanism](#the-lucene-mechanism) or the [max slice count mechanism](#the-max-slice-count-mechanism).
 
 ### The Lucene mechanism
 
-By default, Lucene assigns a maximum of 250 K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250 K documents each and the next 6 segments have 20 K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
+By default, Lucene assigns a maximum of 250 K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250 K documents each and the next 6 segments have 20 K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
 
 ### The max slice count mechanism
 
@@ -141,7 +140,7 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 
 ## The `terminate_after` search parameter
 
-The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of docs has been collected. In the non-concurrent search workflow, this count is evaluated at each shard, however for the concurrent search workflow this will be evaluated at each leaf slice instead to avoid synchronizing document counts between threads. Functionally there should be no difference, however in the concurrent search case the request may perform slightly more work than expected because of each segment slice on the shard collecting up to the specified number of docs.
+The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of docs has been collected. In the non-concurrent search workflow, this count is evaluated at each shard. However, for the concurrent search workflow, it is evaluated at each leaf slice instead in order to avoid synchronizing document counts between threads. In the concurrent search case, the request performs more work than expected because each segment slice on the shard collects up to the specified number of docs. The intent to terminate collection after the threshold is reached is evaluated at slice level. Thus, the hit count in the results will be greater than the `terminate_after` threshold but less than `slice_count * terminate_after`. The actual number of returned hits will be controlled by the `size` parameter.
 
 ## API changes
 
@@ -149,9 +148,6 @@ If you enable the concurrent segment search feature flag, the following stats AP
 
 - [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)
 - [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)
-- [CAT Indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
-- [CAT Nodes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-nodes/)
-- [CAT Shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
 
 For the descriptions of the added fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
 
