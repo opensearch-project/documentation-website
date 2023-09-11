@@ -236,7 +236,7 @@ Once the task is complete, the task status will be `COMPLETED` and the Tasks API
 ```json
 {
   "model_id": "aVeif4oB5Vm0Tdw8zYO2",
-  "task_type": "DEPLOY_MODEL",
+  "task_type": "REGISTER_MODEL",
   "function_name": "TEXT_EMBEDDING",
   "state": "COMPLETED",
   "worker_node": [
