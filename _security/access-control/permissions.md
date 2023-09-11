@@ -78,13 +78,13 @@ alerting-role:
   reserved: true
   hidden: false
   cluster_permissions:
-  - "cluster:admin/opendistro/alerting/alerts/ack"
-  - "cluster:admin/opendistro/alerting/alerts/get"
+    - 'cluster:admin/opendistro/alerting/alerts/ack'
+    - 'cluster:admin/opendistro/alerting/alerts/get'
   index_permissions:
-  - index_patterns:
-    - ".opendistro-alerting-config"
-  - allowed_actions:
-    - "system:admin/system_index"
+    - index_patterns:
+        - .opendistro-alerting-config
+    - allowed_actions:
+        - 'system:admin/system_index'
 ```
 {% include copy.html %}
 
