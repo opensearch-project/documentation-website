@@ -7,7 +7,11 @@ nav_order: 56
 
 # Log type APIs
 
+The log type APIs allow you to create a custom log type, search custom log types, update custom log type, and delete custom log types.
+
+
 ## Create log type
+
 
 
 ### Example request
@@ -154,7 +158,7 @@ POST /_plugins/_security_analytics/logtype/_search
 }
 ```
 
-## Update custome log type
+## Update custom log type
 
 ### Example request
 
