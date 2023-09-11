@@ -337,7 +337,7 @@ Term frequency functions expose term-level statistics in the score script source
 - `long totalTermFreq(String <field-name>, String <term>)`: Retrieves the total term frequency within a field for a specific term.
 - `long sumTotalTermFreq(String <field-name>)`: Retrieves the sum of total term frequencies within a field.
 
-## Using `tf`
+#### Using `tf`
 
 Before using `tf`, you must set the similarity model on the field for which you want to retrieve term frequency:
 
