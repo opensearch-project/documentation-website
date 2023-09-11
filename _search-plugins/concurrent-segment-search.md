@@ -70,7 +70,6 @@ As an alternative to directly modifying `config/jvm.options`, you can define the
 
 To add these flags in-line when starting OpenSearch, run the following command:
 
-
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true" ./opensearch-{{site.opensearch_version}}/bin/opensearch
 ```
@@ -91,7 +90,6 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segmen
 ## Disabling concurrent search at index or cluster level
 
 After you enable the experimental feature flag, all search requests will use concurrent segment search during query phase. To disable concurrent segment search for all indexes, set following dynamic cluster setting:
-
 
 ```json
 PUT _cluster/settings
@@ -119,7 +117,7 @@ You can choose one of the two available mechanisms of assigning segments to slic
 
 ### The Lucene mechanism
 
-By default, Lucene assigns a maximum of 250 K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250 K documents each and the next 6 segments have 20 K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
+By default, Lucene assigns a maximum of 250K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250K documents each and the next 6 segments have 20K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
 
 ### The max slice count mechanism
 
