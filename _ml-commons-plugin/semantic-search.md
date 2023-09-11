@@ -38,7 +38,7 @@ You'll find the explanations of all these components as you follow the tutorial,
 
 ## Prerequisites
 
-Before you get started, make sure to update the default [cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) to the following:
+You'll start this tutorial with uploading an OpenSearch-provided machine learning (ML) model that will be used to generate embeddings. For the basic local setup with no dedicated ML nodes, send the following request that ensures the simplest ML configuration:
 
 ```json
 PUT _cluster/settings
@@ -49,7 +49,6 @@ PUT _cluster/settings
         "only_run_on_ml_node": "false",
         "model_access_control_enabled": "true",
         "native_memory_threshold": "99",
-        "allow_registering_model_via_url": "true"
       }
     }
   }
@@ -57,13 +56,15 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-For more information about machine learning-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
+#### Advanced
+
+To register a custom model, you need to specify an additional cluster setting `"allow_registering_model_via_url": "true"`. Additionally, you may want to specify `"only_run_on_ml_node": "false"` for improved performance. For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
 ## Tutorial overview
 
 This tutorial consists of the following steps:
 
-1. [**Set up a machine learning (ML) language model**](#step-1-set-up-an-ml-language-model)
+1. [**Set up an ML language model**](#step-1-set-up-an-ml-language-model)
     1. [Choose a language model](#step-1a-choose-a-language-model)
     1. [Register a model group](#step-1b-register-a-model-group)
     1. [Register the model to the model group](#step-1c-register-the-model-to-the-model-group)
