@@ -58,7 +58,7 @@ PUT _cluster/settings
 
 #### Advanced
 
-To register a custom model, you need to specify an additional cluster setting `"allow_registering_model_via_url": "true"`. Additionally, you may want to specify `"only_run_on_ml_node": "false"` for improved performance. For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
+To register a custom model, you need to specify an additional `"allow_registering_model_via_url": "true"` cluster setting. On clusters with dedicated ML nodes, you may want to specify `"only_run_on_ml_node": "true"` for improved performance. For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
 ## Tutorial overview
 
