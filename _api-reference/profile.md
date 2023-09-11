@@ -934,7 +934,7 @@ The following sections contain definitions of all modified or added response fie
 
 |Field	|Description	|
 |:---	|:---	|
-|`time_in_nanos`	|For concurrent segment search, `time_in_nanos` is the cumulative amount of time to execute all methods across all slices, in nanoseconds. This is not equivalent to the actual amount of time the query took to execute because it does not take into account that multiple slices can execute the methods in parallel.	|
+|`time_in_nanos`	|For concurrent segment search, `time_in_nanos` is the cumulative amount of time to run all methods across all slices, in nanoseconds. This is not equivalent to the actual amount of time the query took to run because it does not take into account that multiple slices can run the methods in parallel.	|
 |`breakdown.<method>`	|For concurrent segment search, this field contains the total amount of time taken by all segments to execute a method.	|
 |`breakdown.<method>_count`	|For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all segments.	|
 

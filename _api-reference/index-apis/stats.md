@@ -650,7 +650,7 @@ GET /testindex/_stats?level=shards
 
 Starting with OpenSearch 2.10, you can perform [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/), in which each shard-level request will search the segments in parallel during query phase. If you [enable the experimental concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the Index Stats API response will contain several additional fields with statistics about slices (units of work executed by a thread). These fields will be provided whether or not the cluster and index settings for concurrent segment search are enabled. For more information about slices, see [Concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#searching-segments-concurrently).
 
-The following tables provides information about the added response fields.
+The following table provides information about the added response fields.
 
 |Response field	| Description	|
 |:---	|:---	| 
