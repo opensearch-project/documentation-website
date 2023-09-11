@@ -67,11 +67,11 @@ Rather than individual permissions, you can often achieve your desired security 
 
 ## System index permissions
 
-System index permissions are unique among other permissions in that they extend some traditional admin-only accessibility to non-admin users. These permissions give normal users the ability to modify any system index specified in the role or roles to which they are mapped. The exception to this is the security system index, `.opendistro_security`, which is used to store Security's configuration YAML files and remains accessible only to admins with an admin certificate.
+System index permissions are unique among other permissions in that they extend some traditional admin-only accessibility to non-admin users. These permissions give normal users the ability to modify any system index specified in the role or roles to which they are mapped. The exception to this is the security system index, `.opendistro_security`, which is used to store the Security plugin's configuration YAML files and remains accessible only to admins with an admin certificate.
 
-Along with standard index permissions, you specify system index permissions in the `roles.yml` configuration file under `index_permissions` (See [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml)). This involves a two-step process: one, adding the system index in the `index_patterns` section and, two, specifying `system:admin/system_index` in the role's `allowed_actions` section.
+Along with standard index permissions, you specify system index permissions in the `roles.yml` configuration file under `index_permissions` (see [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml)). This involves a two-step process: 1) adding the system index in the `index_patterns` section and 2) specifying `system:admin/system_index` in the role's `allowed_actions` section.
 
-For example, the system index permission that gives a user permission to modify the system index that stores configurations for the Alerting plugin is defined by the index pattern `.opendistro-alerting-config` and its allowed action is defined as `system:admin/system_index`. The following role shows how this system index permission is configured along with other attributes:
+For example, the system index permission that gives a user permission to modify the system index that stores configurations for the Alerting plugin is defined by the index pattern `.opendistro-alerting-config`, and its allowed action is defined as `system:admin/system_index`. The following role shows how this system index permission is configured along with other attributes:
 
 ```yml
 alerting-role:
@@ -88,10 +88,10 @@ alerting-role:
 ```
 {% include copy.html %}
 
-System index permissions also work with the wildcard to extend the reach of access for a partial system index name. This can be useful, but it should be used with caution to avoid giving unintentional access to system indexes. When specifying system indexes for roles, keep the following considerations in mind:
+System index permissions also work with the wildcard to include all variations of a partial system index name. This can be useful, but it should be used with caution to avoid giving unintentional access to system indexes. When specifying system indexes for roles, keep the following considerations in mind:
 
-* Specifying the full name of a system index limits access to that index alone: `.opendistro-alerting-config`.
-* Specifying a partial name for a system index along with the wildcard provides access to all system indexes that begin with the name: `.opendistro-anomaly-detector*`.
+* Specifying the full name of a system index limits access to only that index: `.opendistro-alerting-config`.
+* Specifying a partial name for a system index along with the wildcard provides access to all system indexes that begin with that name: `.opendistro-anomaly-detector*`.
 * Although not recommended---given the wide-reaching access granted by this role definition---using `*` for the index pattern along with `system:admin/system_index` as an allowed action grants access to all system indexes.
   
   Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes: the allowed action `system:admin/system_index` must be explicitly added.
