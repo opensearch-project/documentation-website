@@ -9,7 +9,7 @@ nav_order: 53
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/2587) or the [project board](https://github.com/orgs/opensearch-project/projects/117/views/1).    
 {: .warning}
 
-Use concurrent segment search to search the segments in parallel during query phase. Some cases in which concurrent segment search improves search latency include the following:
+Use concurrent segment search to search segments in parallel during the query phase. Cases in which concurrent segment search improves search latency include the following:
 
 - When sending long-running requests, for example, requests that contain aggregations or large ranges.
 - As an alternative to force-merging segments into a single segment in order to improve performance.
@@ -20,11 +20,11 @@ In OpenSearch, each search request follows the scatter-gather protocol. The coor
 
 ## Searching segments concurrently
 
-Without concurrent segment search, Lucene executes a request sequentially across all segments on each shard during query phase. The query phase then collects the top hits for the search request. With concurrent segment search, each shard-level request will search the segments in parallel during query phase. For each shard, the segments are divided into multiple _slices_. Each _slice_ is the unit of work that can be executed in parallel on a separate thread, and thus, the slice count determines the maximum degree of parallelism for a shard-level request. Once all the slices complete their work, Lucene performs a reduce operation on the slices, merging them and creating the final result for this shard-level request. Slices are executed using a new `index_searcher` thread pool, which is different from the `search` thread pool that handles shard-level requests.
+Without concurrent segment search, Lucene executes a request sequentially across all segments on each shard during the query phase. The query phase then collects the top hits for the search request. With concurrent segment search, each shard-level request will search the segments in parallel during the query phase. For each shard, the segments are divided into multiple _slices_. Each slice is the unit of work that can be executed in parallel on a separate thread, so the slice count determines the maximum degree of parallelism for a shard-level request. Once all the slices complete their work, Lucene performs a reduce operation on the slices, merging them and creating the final result for this shard-level request. Slices are executed using a new `index_searcher` thread pool, which is different from the `search` thread pool that handles shard-level requests.
 
 ## Enabling the feature flag
 
-There are several methods for enabling concurrent segment search, depending on the install type. 
+There are several methods for enabling concurrent segment search, depending on the installation type. 
 
 ### Enable in opensearch.yml
 
@@ -44,9 +44,9 @@ OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_searc
 ```
 {% include copy.html %}
 
-### Enable on a node using a tarball install
+### Enable on a node using a tarball installation
 
-To enable concurrent segment search on a tarball install, provide the new JVM parameter either in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS`.
+To enable concurrent segment search on a tarball installation, provide the new JVM parameter either in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS`.
 
 #### OPTION 1: Modify jvm.options
 
@@ -68,14 +68,14 @@ Then run OpenSearch:
 
 As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done in a single command when you start OpenSearch or by defining the variable with `export`.
 
-To add these flags in-line when starting OpenSearch, run the following command:
+To add these flags inline when starting OpenSearch, run the following command:
 
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true" ./opensearch-{{site.opensearch_version}}/bin/opensearch
 ```
 {% include copy.html %}
 
-If you want to define the environment variable separately, prior to running OpenSearch, run the following commands:
+If you want to define the environment variable separately prior to running OpenSearch, run the following commands:
 
 ```bash
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true"
@@ -87,9 +87,9 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segmen
 ```
 {% include copy.html %}
 
-## Disabling concurrent search at index or cluster level
+## Disabling concurrent search at the index or cluster level
 
-After you enable the experimental feature flag, all search requests will use concurrent segment search during query phase. To disable concurrent segment search for all indexes, set following dynamic cluster setting:
+After you enable the experimental feature flag, all search requests will use concurrent segment search during the query phase. To disable concurrent segment search for all indexes, set the following dynamic cluster setting:
 
 ```json
 PUT _cluster/settings
@@ -113,11 +113,11 @@ PUT <index-name>/_settings
 
 ## Slicing mechanisms
 
-You can choose one of the two available mechanisms of assigning segments to slices: the default [Lucene mechanism](#the-lucene-mechanism) or the [max slice count mechanism](#the-max-slice-count-mechanism).
+You can choose one of two available mechanisms for assigning segments to slices: the default [Lucene mechanism](#the-lucene-mechanism) or the [max slice count mechanism](#the-max-slice-count-mechanism).
 
 ### The Lucene mechanism
 
-By default, Lucene assigns a maximum of 250K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250K documents each and the next 6 segments have 20K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
+By default, Lucene assigns a maximum of 250K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250K documents each, and the next 6 segments have 20K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
 
 ### The max slice count mechanism
 
@@ -138,7 +138,7 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 
 ## The `terminate_after` search parameter
 
-The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. In the non-concurrent search workflow, this count is evaluated at each shard. However, for the concurrent search workflow, it is evaluated at each leaf slice instead in order to avoid synchronizing document counts between threads. In the concurrent search case, the request performs more work than expected because each segment slice on the shard collects up to the specified number of docs. The intent to terminate collection after the threshold is reached is evaluated at slice level. Thus, the hit count in the results will be greater than the `terminate_after` threshold but less than `slice_count * terminate_after`. The actual number of returned hits will be controlled by the `size` parameter.
+The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. In the non-concurrent search workflow, this count is evaluated each shard. However, for the concurrent search workflow, it is evaluated at each leaf slice instead in order to avoid synchronizing document counts between threads. With concurrent search, the request performs more work than expected because each segment slice on the shard collects up to the specified number of documents. The intent to terminate collection after the threshold is reached is evaluated at the slice level. Thus, the hit count in the results will be greater than the `terminate_after` threshold but less than `slice_count * terminate_after`. The actual number of returned hits will be controlled by the `size` parameter.
 
 ## API changes
 
@@ -147,13 +147,13 @@ If you enable the concurrent segment search feature flag, the following stats AP
 - [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)
 - [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)
 
-For the descriptions of the added fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
+For descriptions of the added fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
 
-Additionally, for the [Profile API], some response fields will be modified and others added. For more information, see the [concurrent segment search section of the Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile/).
+Additionally, some [Profile API] response fields will be modified and others added. For more information, see the [concurrent segment search section of the Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile/).
 
 ## Limitations
 
-Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields do not support the concurrent search model. Thus, if a search request contains a parent aggregation, the aggregation will be executed using the non-concurrent path even if concurrent segment search is enabled at cluster level.
+Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields do not support the concurrent search model. Thus, if a search request contains a parent aggregation, the aggregation will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level.
 
 ## Developer information: AggregatorFactory changes
 
