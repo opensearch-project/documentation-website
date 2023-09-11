@@ -330,7 +330,7 @@ GET blogs/_search
 
 ### Term frequency functions
 
-Term frequency functions expose term-level statistics in the score script source. You can use these statistics to implement custom information retrieval and ranking algorithms like query-time multiplicative or additive score boosting by popularity. To apply a term frequency function, call one of the following Painless methods:
+Term frequency functions expose term-level statistics in the score script source. You can use these statistics to implement custom information retrieval and ranking algorithms, like query-time multiplicative or additive score boosting by popularity. To apply a term frequency function, call one of the following Painless methods:
 
 - `int termFreq(String <field-name>, String <term>)`: Retrieves the term frequency within a field for a specific term.
 - `float tf(String <field-name>, String <term>)`: Calculates the term frequency/inverse document frequency (TF/IDF) for a specific term within a field.
@@ -360,7 +360,7 @@ Before using `tf`, you must set the similarity model for the field whose term fr
 
 #### Example
 
-The following query calculates the score as the total term frequency for each field in the `fields` list, multiplied by the `multiplier` value:
+The following query calculates the score as the total term frequency for each field in the `fields` list multiplied by the `multiplier` value:
 
 ```json
 GET /demo_index_v1/_search
