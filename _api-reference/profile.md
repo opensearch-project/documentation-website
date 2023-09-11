@@ -228,7 +228,7 @@ Field | Data type | Description
 
 ### The `query` array
 
-The `query` object contains the following fields.
+The `query` array contains objects with the following fields.
 
 Field | Data type | Description
 :--- | :--- | :---
