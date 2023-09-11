@@ -48,7 +48,7 @@ PUT _cluster/settings
       "ml_commons": {
         "only_run_on_ml_node": "false",
         "model_access_control_enabled": "true",
-        "native_memory_threshold": "99",
+        "native_memory_threshold": "99"
       }
     }
   }
