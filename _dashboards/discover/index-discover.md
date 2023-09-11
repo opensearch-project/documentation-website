@@ -14,21 +14,20 @@ Updated 2.10
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} The legacy **Discover** tool will be retired in OpenSearch 2.11. The updated **Discover** tool provides you with new features and enhancements that make the data exploration experience in OpenSearch Dashboards more intuitive and user-friendly. To experience the updated tool now, install the [latest version of OpenSearch Dashboards](https://opensearch.org/downloads.html) or try out these features using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/).  
 {: .note} 
 
-## Explore and query data with Discover
-
-This tutorial shows you how to use **Discover** to:
+In this tutorial, you'll learn about using **Discover** to:
 
 - Add data
 - Explore and visualize data
-- Share the findings
+- Share the data findings
+- Set alerts
 
 #### Prerequisites
 
-The following are prerequisites for getting started with **Discover**
+The following are prerequisites for using **Discover** to explore your data:
 
 - **_SME: What are the prerequisites?_**  
 
-### Add data
+## Import data
 
 You must add data to OpenSearch before you can start exploring it. This tutorial uses sample data. To add the sample data, follow these steps:
 
@@ -37,72 +36,78 @@ You must add data to OpenSearch before you can start exploring it. This tutorial
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/sample-data.png" alt="Add sample data interface" width="700"/>
 
-**Note:** To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
+{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}//images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **Note**<br>To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
 {: .note}
 
-### Define your search
+## Define your search
 
-To define your search, follow these steps:  
+To define a search, follow these steps:  
 
 1. On the OpenSearch Dashboards navigation menu, select **Discover**.
 2. Choose the data you want to work with. In this case, choose `opensearch_dashboards_sample_data_flights` from the upper-left dropdown menu. 
-3. (Optional) Select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/}) or clock icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/clock-icon.png" class="inline-icon" alt="clock icon"/>{:/}) to change the time range of your search. 
-
-You should see a view like the following image.
+3. Select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/}) or clock icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/clock-icon.png" class="inline-icon" alt="clock icon"/>{:/}) to change the time range of your search. An example is shown in the following image. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-ui.png" alt="Discover interface showing flight sample data query" width="700"/>
 
-### Explore the data
+## Add data fields and explore the data in your document table
 
-Under the bar graph visualization you have a table showing all the documents that match your search. The table includes your selected data fields. To add other fields to the table, follow these steps:
+The document table contains data about the documents. Each row represents a single document and each column represents a different piece of information about the document, such as flight destination, average ticket price, and flight delay. The data fields in a document table can be added, deleted, or modified as needed to meet your data analysis requirements. 
 
-1. Choose a data field(s) listed under **Available fields** by selecting the plus icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/}) For this example, choose `Carrier`, `AvgTicketPrice`, and `Dest`.
-1. Choose the plus (+) sign to add the field to the document table. The field will be automatically added to **Selected fields** and the document table.  
-1. Select **FlightDelay** from the **Available fields** list, and then choose the plus (+) sign to add the field to the document table.
-1. Optional: Rearrange the table columns by selecting the table header and then choosing **Move left** or **Move right**.
+To add or delete fields to a document table, follow these steps:
 
-**Step 3: Search the data**
+1. View the data fields listed under **Available fields** and select the plus icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/}) to add the desired fields to the document table. The field will be automatically added to **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
+1. To arrange or sort the columns, select the column header containing the field name and select the desired action. An example is shown in the following image. 
 
-You can use the search toolbar or enter a DQL query in the **DevTools** console to search data in Dashboards, as shown in the following image. The search toolbar is best for basic queries, such as searching by a field name. DQL is best for complex queries, such as searching data using a term, string, Boolean, date, range, or nested query. Follow these steps to search data:
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/arrange-columns.png" alt="Document table interface" width="700"/>
 
-1. In the search toolbar, enter the Boolean query. For example, enter `FlightDelay:true AND FlightDelayMin >= 60` to search the data for flights delayed by 60 minutes or more.
-1. Choose **Update**.
-1. Optional: Choose the arrow (`>`) in a table row to expand the row and view the document table details.
+You can view individual or multiple fields in the document table to gain deeper knowledge about your data. To explore data in the document table, follow these steps: 
 
-**Step 4: Filter the data**
+1. Choose the inspect icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/}) to open the **Document Details** window.
+1. Review the data details. You can switch between the **Table** and **JSON** tabs to view the data in your preferred format. 
+1. Select **View surrounding documents** to view data about events that occurred before or after the data you're searching or select **View single document** to view data about a particular event. An example is shown in the following image.
 
-Filters allow you to refine sets of documents to subsets of those documents. For example, you can filter data to include or exclude certain fields, as shown in the following image. Follow these steps to filter the data:
+### Search your data
 
-1. In the filter bar, choose **Add filter**.
-1. Select options from the **Field**, **Operator**, and **Value** dropdown lists. For example, `Cancelled`, `is`, and `true`.
+You can use the search toolbar or enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) query using the **DevTools** console to search data. While the search toolbar is best for basic queries, such as searching by a field name, DQL is best for complex queries, such as searching data using a term, string, Boolean, date, range, or nested query. DQL provides suggestions for fields and operators as you type, helping you build structures queries.
+
+To search data, follow these steps:
+
+1. Enter a simple query in the DQL search bar. For example, enter `FlightDelay:true`, which searches for delayed flights.
+1. Select the **Update** button right of the search bar.
+1. Enter a more complex query in the DQL search bar, and then select **Update**. For example, enter `FlightDelay:true AND FlightDelayMin >= 60`, which searches the data for flights delayed by 60 minutes or more.
+
+### Filter your data
+
+Filters allow you to narrow down the results of a query by specifying specific criteria. You can filter by field, value, or range, and the **Add filter** popup suggests the available fields and operators.
+
+To filter your data:
+
+1. Under the DQL search bar, choose **Add filter**.
+1. Select the desired options from the **Field**, **Operator**, and **Value** dropdown lists. For example, select `Cancelled`, `is`, and `true`.
 1. Choose **Save**.
-1. To remove the filter, choose the close icon (x) next to the filter name.
-1. Optional: Add more filters to further explore the data.  
+1. To remove the filter, choose the cross icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/}) next to the filter name.
+1. Add more filters to further explore the data.  
 
-**Step 5: Analyze the data in a document table**
+## Save a search
 
-You can view the document table fields to better understand the data and gather insights for more informed decision-making. Follow these steps to view the data: 
+To save your search, including the query text, filters, and current data view, follow these steps:  
 
-1. Choose the arrow icon (>) to expand a table row.
-1. View the fields and details.
-1. Switch between the **Table** and **JSON** tabs to view the different formats, as shown in the following image.  
-
-**Step 6: Save a search**
-
-Saving a search saves the query text, filters, and current data view. To save your search to use it later, generate a report, or build visualizations and dashboards, follow these steps:  
-
-1. Choose the save icon in the toolbar. 
+1. Select **Save** in the upper-right area. 
 1. Give the search a title, and then choose **Save**. 
-1. Choose the save icon to access the saved search, as shown in the following image. 
+1. Select **Open** to access the saved search. 
 
-**Step 7: Visualize the search**
+## Create visual representations of your data discoveries
 
-You can quickly visualize an aggregated field from **Discover**:
+To create visualizations of your data findings, follow these steps:
 
-1. From the **Available fields** list, select `FlightDelayType` and then choose **Visualize**, as shown in the following image.
+1. Select the inspect icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/}) next to the field you want to visualize. An example is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/discover-visualize.png" alt= "Visualizing search queries with Discover" width="350" height="350">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-visual.png" alt="Visualize button in Discover" width="400"/>
 
-Dashboards creates a visualization for this field, which in this case is a basic bar chart, as shown in the following image.
+2. Select the **Visualize** button. A visualization is displayed. An example is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/discover-visualize-2.png" alt= "Bar chart created with Discover" width="600" height="600">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualize-discover.png" alt="Visual representation of data" width="700"/>
+
+## Set alerts
+
+You can set alerts to notify you when your data changes beyond the thresholds you define. Learn more about using **Discover** to set up [alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/).
