@@ -259,14 +259,7 @@ You'll need the model ID in order to use this model for several following steps.
 Search for the newly created model by providing its ID in the request:
 
 ```json
-POST /_plugins/_ml/models/_search
-{
-  "query": {
-    "match": {
-      "_id": "aVeif4oB5Vm0Tdw8zYO2"
-    }
-  }
-}
+POST /_plugins/_ml/models/_search/aVeif4oB5Vm0Tdw8zYO2
 ```
 {% include copy-curl.html %}
 
