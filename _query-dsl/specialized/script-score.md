@@ -339,7 +339,7 @@ Term frequency functions expose term-level statistics in the score script source
 
 #### Using `tf`
 
-Before using `tf`, you must set the similarity model on the field for which you want to retrieve term frequency:
+Before using `tf`, you must set the similarity model for the field whose term frequency you want to retrieve:
 
 1. Ensure that the similarity model is supported by the version of OpenSearch you're using. For example, the following request sets the similarity to `BM25` on the `description` field:
 
