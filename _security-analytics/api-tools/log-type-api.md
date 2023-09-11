@@ -12,6 +12,7 @@ The log type APIs allow you to create a custom log type, search custom log types
 
 ## Create log type
 
+Creating a new custom log type involves entering a name and a description, and specifying the source as `Custom`.
 
 
 ### Example request
@@ -25,6 +26,7 @@ POST /_plugins/_security_analytics/logtype
 }
 ```
 {% include copy-curl.html %}
+
 
 ### Example response
 
@@ -46,6 +48,9 @@ POST /_plugins/_security_analytics/logtype
 
 ## Search custom log types
 
+This API allows you to search log types in the system.
+
+
 ### Example request
 
 ```json
@@ -57,6 +62,7 @@ POST /_plugins/_security_analytics/logtype/_search
 }
 ```
 {% include copy-curl.html %}
+
 
 ### Example response
 
@@ -158,7 +164,15 @@ POST /_plugins/_security_analytics/logtype/_search
 }
 ```
 
+
 ## Update custom log type
+
+This API allows you to update existing custom log types. Use the log type's ID in the route to specify the log type, as shown in the following example:
+
+```json
+PUT /_plugins/_security_analytics/logtype/<log_type_id>
+```
+
 
 ### Example request
 
@@ -171,6 +185,7 @@ PUT /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 }
 ```
 {% include copy-curl.html %}
+
 
 ### Example response
 
@@ -189,7 +204,15 @@ PUT /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 }
 ```
 
+
 ## Delete custom log type
+
+This API is used to delete a custom log type. Specify the log type's ID in the route to run the operation.
+
+```json
+DELETE /_plugins/_security_analytics/logtype/<log_type_id>
+```
+
 
 ### Example request
 
@@ -198,12 +221,13 @@ DELETE /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 ```
 {% include copy-curl.html %}
 
+
 ### Example response
 
 ```json
 200 OK
 {
-    "_id": "uJVIlIkBOoEYDgnv-Go1",
+    "_id": "m98uk4kBlb9cbROIpEj2",
     "_version": 1
 }
 ```
