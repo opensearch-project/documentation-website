@@ -757,7 +757,7 @@ Field | Description
 
 ## Concurrent segment search
 
-Starting with OpenSearch 2.10, you can perform [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/), in which each shard-level request will search the segments in parallel during query phase. If you enable the experimental concurrent segment search feature flag, the Profile API response will contain several additional fields with statistics about _slices_.
+Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you enable the experimental concurrent segment search feature flag, the Profile API response will contain several additional fields with statistics about _slices_.
 
 A slice is the unit of work that can be executed by a thread. Each query can be partitioned into multiple slices, with each slice containing one or more segments. All the slices can be executed either in parallel or in some order depending on the available threads in the pool.
 
@@ -961,7 +961,7 @@ The following sections contain definitions of all modified or added response fie
 |`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method.	|
 |`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method.	|
 |`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method.	|
-|`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method in order to collect documents into buckets across all slices.	|
+|`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices.	|
 |`max_<method>_count`	|The maximum number of invocations of a `<method>` on any slice.	|
 |`min_<method>_count`	|The minimum number of invocations of a `<method>` on any slice.	|
 |`avg_<method>_count`	|The average number of invocations of a `<method>` on any slice.	|

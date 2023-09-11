@@ -11,8 +11,8 @@ This is an experimental feature and is not recommended for use in a production e
 
 Use concurrent segment search to search segments in parallel during the query phase. Cases in which concurrent segment search improves search latency include the following:
 
-- When sending long-running requests, for example, requests that contain aggregations or large ranges.
-- As an alternative to force-merging segments into a single segment in order to improve performance.
+- When sending long-running requests, for example, requests that contain aggregations or large ranges
+- As an alternative to force-merging segments into a single segment in order to improve performance
 
 ## Background
 
@@ -50,7 +50,7 @@ To enable concurrent segment search on a tarball installation, provide the new J
 
 #### OPTION 1: Modify jvm.options
 
-Add the following lines to `config/jvm.options` before starting the OpenSearch process to enable the feature and its dependency:
+Add the following lines to `config/jvm.options` before starting the `opensearch` process to enable the feature and its dependency:
 
 ```bash
 -Dopensearch.experimental.feature.concurrent_segment_search.enabled=true
@@ -66,7 +66,7 @@ Then run OpenSearch:
 
 #### OPTION 2: Enable with an environment variable
 
-As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done in a single command when you start OpenSearch or by defining the variable with `export`.
+As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done using a single command when you start OpenSearch or by defining the variable with `export`.
 
 To add these flags inline when starting OpenSearch, run the following command:
 
@@ -117,7 +117,7 @@ You can choose one of two available mechanisms for assigning segments to slices:
 
 ### The Lucene mechanism
 
-By default, Lucene assigns a maximum of 250K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250K documents each, and the next 6 segments have 20K documents each. The first 5 segments will be assigned to one slice each because they each contain the maximum allowed document count for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
+By default, Lucene assigns a maximum of 250K documents or 5 segments (whichever is met first) to each slice in a shard. For example, consider a shard with 11 segments. The first 5 segments have 250K documents each, and the next 6 segments have 20K documents each. The first 5 segments will be assigned to 1 slice each because they each contain the maximum number of documents allowed for a slice. Then the next 5 segments will all be assigned to another single slice because of the maximum allowed segment count for a slice. The 11th slice will be assigned to a separate slice. 
 
 ### The max slice count mechanism
 
@@ -134,22 +134,22 @@ search.concurrent.max_slice_count: 2
 
 The `search.concurrent.max_slice_count` setting can take the following valid values:
 - `0`: Use the default Lucene mechanism.
-- Positive integer: Use the max target slice count mechanism. Usually, a value 2--8 should be sufficient.
+- Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
 
 ## The `terminate_after` search parameter
 
-The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. In the non-concurrent search workflow, this count is evaluated each shard. However, for the concurrent search workflow, it is evaluated at each leaf slice instead in order to avoid synchronizing document counts between threads. With concurrent search, the request performs more work than expected because each segment slice on the shard collects up to the specified number of documents. The intent to terminate collection after the threshold is reached is evaluated at the slice level. Thus, the hit count in the results will be greater than the `terminate_after` threshold but less than `slice_count * terminate_after`. The actual number of returned hits will be controlled by the `size` parameter.
+The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. In the non-concurrent search workflow, this count is evaluated for each shard. However, in the concurrent search workflow, it is evaluated for each leaf slice instead in order to avoid synchronizing document counts between threads. With concurrent search, the request performs more work than expected because each segment slice on the shard collects up to the specified number of documents. The intent to terminate collection after the threshold is reached is evaluated at the slice level. Thus, the hit count in the results will be greater than the `terminate_after` threshold but less than `slice_count * terminate_after`. The actual number of returned hits will be controlled by the `size` parameter.
 
 ## API changes
 
-If you enable the concurrent segment search feature flag, the following stats API responses will contain several additional fields with statistics about slices:
+If you enable the concurrent segment search feature flag, the following Stats API responses will contain several additional fields with statistics about slices:
 
 - [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)
 - [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)
 
 For descriptions of the added fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
 
-Additionally, some [Profile API] response fields will be modified and others added. For more information, see the [concurrent segment search section of the Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile/).
+Additionally, some [Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile/) response fields will be modified and others added. For more information, see the [concurrent segment search section of the Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile#concurrent-segment-search).
 
 ## Limitations
 
