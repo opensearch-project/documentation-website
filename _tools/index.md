@@ -111,8 +111,16 @@ The OpenSearch CLI command line interface (opensearch-cli) lets you manage your 
 
 ## OpenSearch Kubernetes operator
 
-The OpenSearch Kubernetes (K8s) Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)
+The OpenSearch Kubernetes (K8s) Operator is an open-source Kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)
 
 ## OpenSearch upgrade, migration, and comparison tools
 
-OpenSearch migration tooling facilitates OpenSearch migrations and upgrades. With these tools, you can set up a proof-of-concept environment locally using Docker containers or deploy to AWS using a one-click deployment script. Once set up and deployed, users can redirect their production traffic from a source cluster to a provisioned target cluster, enabling a comparison of results between the two clusters. All traffic directed to the source cluster is stored for future replay. Meanwhile, traffic to the target cluster is replayed at an identical rate to ensure a direct "apple-to-apple" comparison. This toolset empowers users to fine-tune cluster configurations and manage workloads more effectively. For more information, consult the documentation in the [OpenSearch Migration GitHub repository](https://github.com/opensearch-project/opensearch-migrations).
+The OpenSearch Migration tools facilitate migrations to OpenSearch and upgrades to newer version of OpenSearch. These can help you can set up a proof-of-concept environment locally using Docker containers or deploy to AWS using a one-click deployment script. This empowers you to fine-tune cluster configurations and manage workloads more effectively before migration. 
+
+ After set up and deployment of the migration’s tools and test environment, you can perform the following steps to begin migrating your OpenSearch target cluster:
+ 
+1. Redirect your production traffic from a source cluster to a provisioned OpenSearch target cluster, enabling a comparison of results between the two clusters. All traffic directed to the source cluster is stored for future replay. 
+
+2. Meanwhile, traffic to the target cluster is replayed at an identical rate to ensure a direct comparison between the source cluster and the target. 
+
+For more information about OpenSearch Migration tools, see the documentation in the [OpenSearch Migration GitHub repository](https://github.com/opensearch-project/opensearch-migrations/tree/capture-and-replay-v0.1.0).
