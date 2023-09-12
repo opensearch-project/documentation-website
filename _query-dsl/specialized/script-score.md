@@ -333,30 +333,8 @@ GET blogs/_search
 Term frequency functions expose term-level statistics in the score script source. You can use these statistics to implement custom information retrieval and ranking algorithms like query-time multiplicative or additive score boosting by popularity. To apply a term frequency function, call one of the following Painless methods:
 
 - `int termFreq(String <field-name>, String <term>)`: Retrieves the term frequency within a field for a specific term.
-- `float tf(String <field-name>, String <term>)`: Calculates the term frequency/inverse document frequency (TF/IDF) for a specific term within a field.
 - `long totalTermFreq(String <field-name>, String <term>)`: Retrieves the total term frequency within a field for a specific term.
 - `long sumTotalTermFreq(String <field-name>)`: Retrieves the sum of total term frequencies within a field.
-
-#### Using `tf`
-
-Before using `tf`, you must set the similarity model on the field for which you want to retrieve term frequency:
-
-1. Ensure that the similarity model is supported by the version of OpenSearch you're using. For example, the following request sets the similarity to `BM25` on the `description` field:
-
-  ```json
-  PUT /blogs/_mapping
-  {
-    "properties": {
-      "description": {
-        "type": "text",
-        "similarity": "BM25"
-      }
-    }
-  }
-  ```
-  {% include copy-curl.html %}
-
-1. Reindex your data for the existing indexes.
 
 #### Example
 
