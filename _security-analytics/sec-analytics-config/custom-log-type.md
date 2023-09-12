@@ -20,10 +20,7 @@ To navigate to the **Log types** page, select **Log types** under **Detectors** 
 The table that lists the log types provides the name of the log type, its description, and identifies whether it's based on the industry standard Sigma rule or a custom log type. 
 
 * Select the log type **Name** to open the log type's details page. The **Details** tab is shown by default. You can also select the **Detection rules** tab to show all detection rules associated with the log type.
-  
-  In this view there are options to filter the list of rules by **Log type** (this is helpful in the case where a rule is associated with more than one log type), **Rule severity**, and **Source**. Select the **Rule name** to open details for the detection rule.
-
-* In the **Actions** column, you can select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to delete a log type. Follow the prompts to confirm your intentions and safely remove the log type.
+* In the **Actions** column, you can select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to delete a custom log type (you cannot delete an OpenSearch defined log types). Follow the prompts to confirm your intentions and safely remove the custom log type.
 * Select **Create log type** in the top, right corner of the screen to begin creating a custom log type. The **Create log type** window opens. Continue with the steps in the section that follows to create a custom log type.
 
 
@@ -33,9 +30,9 @@ After selecting **Create log type** in the **Log types** page, the **Create log 
 
 1. Enter a name for the log type.
   
-  The log type name supports characters a-z (lower case), 0-9, hyphens, and underscores.
+  The log type name supports characters a-z (lower case), 0--9, hyphens, and underscores.
   {: .note }
-
+  
 1. Enter a description for the log type.
 1. Select **Create rule category** in the lower, right corner of the screen. The screen returns to the **Log types** window, and the new log type appears in the list of all log types. Note that the source for the new log type indicates **Custom**.
 
