@@ -144,6 +144,18 @@ To set up an alert for a detector, continue with the following steps:
 
 1. Review the specifications for the detector and select **Create detector** in the lower-right corner of the screen. The detector details for the new detector are displayed. When you navigate to the main **Threat detectors** page, the new detector appears in the list.
 
+### Integrated Alerting plugin workflows
+
+By default, when you create a threat detector the system automatically triggers workflows for the Alerting plugin. The new threat detector generates an underlying composite monitor whose configuration is informed by the detection rules selected during creation of the new detector. The composite monitor executes according to the detector's schedule rather than the monitor's schedule.
+
+For more information about composite monitors and their workflows, see [Composite monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/).
+
+You can change the behavior of the automatically generated composite monitor by enabling or disabling the workflow functionality with the `plugins.security_analytics.enable_workflow_usage` setting. By default, the setting is `true`.
+
+When set to `true`, a composite monitor is created with triggers based on the detector's Sigma rules and the Alerting plugin generates workflows.
+
+When set to `false`, the underlying composite monitor is created without workflows and triggers based on Sigma rules are not configured.
+
 ---
 ## What's next
 
