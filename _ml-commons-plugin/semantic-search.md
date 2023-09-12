@@ -38,7 +38,7 @@ You'll find the explanations of all these components as you follow the tutorial,
 
 ## Prerequisites
 
-You'll start this tutorial with uploading an OpenSearch-provided machine learning (ML) model that will be used to generate embeddings. For the basic local setup with no dedicated ML nodes, send the following request that ensures the simplest ML configuration:
+For this simple example, you'll use an OpenSearch-provided machine learning (ML) model and a cluster with no dedicated ML nodes. To ensure this basic local setup works, send the following request to update ML-related cluster settings:
 
 ```json
 PUT _cluster/settings
@@ -58,7 +58,12 @@ PUT _cluster/settings
 
 #### Advanced
 
-To register a custom model, you need to specify an additional `"allow_registering_model_via_url": "true"` cluster setting. On clusters with dedicated ML nodes, you may want to specify `"only_run_on_ml_node": "true"` for improved performance. For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
+For a more advanced setup, note the following requirements:
+
+- To register a custom model, you need to specify an additional `"allow_registering_model_via_url": "true"` cluster setting. 
+- On clusters with dedicated ML nodes, you may want to specify `"only_run_on_ml_node": "true"` for improved performance. 
+
+For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
 ## Tutorial overview
 
@@ -837,7 +842,7 @@ The results contain all five documents. The document order is now closer to the 
 
 ### Search with a combined keyword search and neural search
 
-To combine keyword search and neural search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that is similar to the ingest pipeline but runs at search time instead of ingestion time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization_processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
+To combine keyword search and neural search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization_processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
 
 #### Step 1: Configure a search pipeline
 
