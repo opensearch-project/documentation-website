@@ -860,7 +860,12 @@ PUT /_search/pipeline/nlp-search-pipeline
         },
         "combination": {
           "technique": "arithmetic_mean",
-          "weights" : [0.3, 0.7] 
+          "parameters": {
+            "weights": [
+              0.3,
+              0.7
+            ]
+          }
         }
       }
     }
@@ -917,7 +922,7 @@ Not only does OpenSearch return documents that match the semantic meaning of `wi
 
 ```json
 {
-  "took": 26,
+  "took": 27,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -930,12 +935,12 @@ Not only does OpenSearch return documents that match the semantic meaning of `wi
       "value": 5,
       "relation": "eq"
     },
-    "max_score": 0.8744404,
+    "max_score": 0.86481035,
     "hits": [
       {
         "_index": "my-nlp-index",
         "_id": "5",
-        "_score": 0.8744404,
+        "_score": 0.86481035,
         "_source": {
           "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
           "id": "2691147709.jpg"
@@ -943,17 +948,8 @@ Not only does OpenSearch return documents that match the semantic meaning of `wi
       },
       {
         "_index": "my-nlp-index",
-        "_id": "3",
-        "_score": 0.5005,
-        "_source": {
-          "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco .",
-          "id": "2664027527.jpg"
-        }
-      },
-      {
-        "_index": "my-nlp-index",
         "_id": "4",
-        "_score": 0.5005,
+        "_score": 0.7003,
         "_source": {
           "text": "A man who is riding a wild horse in the rodeo is very near to falling off .",
           "id": "4427058951.jpg"
@@ -962,7 +958,7 @@ Not only does OpenSearch return documents that match the semantic meaning of `wi
       {
         "_index": "my-nlp-index",
         "_id": "2",
-        "_score": 0.48855463,
+        "_score": 0.6839765,
         "_source": {
           "text": "A wild animal races across an uncut field with a minimal amount of trees.",
           "id": "1775029934.jpg"
@@ -970,8 +966,17 @@ Not only does OpenSearch return documents that match the semantic meaning of `wi
       },
       {
         "_index": "my-nlp-index",
+        "_id": "3",
+        "_score": 0.3007,
+        "_source": {
+          "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco .",
+          "id": "2664027527.jpg"
+        }
+      },
+      {
+        "_index": "my-nlp-index",
         "_id": "1",
-        "_score": 0.21370724,
+        "_score": 0.29919013,
         "_source": {
           "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
           "id": "4319130149.jpg"

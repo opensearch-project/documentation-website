@@ -56,7 +56,12 @@ PUT /_search/pipeline/nlp-search-pipeline
         },
         "combination": {
           "technique": "arithmetic_mean",
-          "weights" : [0.3, 0.7] 
+          "parameters": {
+            "weights": [
+              0.3,
+              0.7
+            ]
+          }
         }
       }
     }
