@@ -109,6 +109,3 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {% include copy-curl.html %}
 
 For more information, see [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/).
-
-The `normalization_processor` does not produce consistent results for a cluster with one node and one shard.
-{: .warning}
