@@ -27,6 +27,6 @@ After you've installed OpenSearch, learn about [configuring]({{site.url}}{{site.
 
 For more information about upgrading your OpenSearch cluster, see the [upgrade guide]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/index/).
 
-For tools to aid in upgrades, see [OpenSearch upgrade, migration, and comparison tools]({{site.url}}{{site.baseurl}}/tools/index/#opensearch-upgrade-migration-and-comparison-tools).
+For information about upgrade tools, see [OpenSearch upgrade, migration, and comparison tools]({{site.url}}{{site.baseurl}}/tools/index/#opensearch-upgrade-migration-and-comparison-tools).
 
 For plugin installation, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).

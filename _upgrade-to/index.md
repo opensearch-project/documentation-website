@@ -21,7 +21,7 @@ Regardless of your approach, to safeguard against data loss, we recommend that y
 
 If your existing clients include a version check, such as recent versions of Logstash OSS and Filebeat OSS, [check compatibility]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) before upgrading.
 
-For details on tools to help in migrating to OpenSearch, see [OpenSearch upgrade, migration, and comparison tools]({{site.url}}{{site.baseurl}}/tools/index/#opensearch-upgrade-migration-and-comparison-tools)
+For more information about OpenSearch migration tools, see [OpenSearch upgrade, migration, and comparison tools]({{site.url}}{{site.baseurl}}/tools/index/#opensearch-upgrade-migration-and-comparison-tools).
 
 ## Upgrading from Open Distro
 
