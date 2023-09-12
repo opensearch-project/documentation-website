@@ -122,7 +122,7 @@ The benchmarks demonstrate the effect of the following configurations on segment
 Your results may vary based on the cluster topology, hardware used, shard count, and merge settings. 
 {: .note }
 
-### Increasing workload size
+### Increasing the workload size
 
 The following table lists benchmarking results for the `nyc_taxi` dataset with the following configuration:
 
