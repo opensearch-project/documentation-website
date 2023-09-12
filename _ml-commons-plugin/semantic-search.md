@@ -667,7 +667,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-Documents containing the words `rodeo` and `cowboy` are scored lower because semantic meaning is not considered:
+Document 3 is not returned because it does not contain the specified keywords. Documents containing the words `rodeo` and `cowboy` are scored lower because semantic meaning is not considered:
 
 <details closed markdown="block">
   <summary>
@@ -677,7 +677,7 @@ Documents containing the words `rodeo` and `cowboy` are scored lower because sem
 
 ```json
 {
-  "took": 1,
+  "took": 647,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -687,15 +687,15 @@ Documents containing the words `rodeo` and `cowboy` are scored lower because sem
   },
   "hits": {
     "total": {
-      "value": 5,
+      "value": 4,
       "relation": "eq"
     },
-    "max_score": 1.7723373,
+    "max_score": 1.7878418,
     "hits": [
       {
         "_index": "my-nlp-index",
-        "_id": "2",
-        "_score": 1.7723373,
+        "_id": "1",
+        "_score": 1.7878418,
         "_source": {
           "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
           "id": "4319130149.jpg"
@@ -703,26 +703,17 @@ Documents containing the words `rodeo` and `cowboy` are scored lower because sem
       },
       {
         "_index": "my-nlp-index",
-        "_id": "1",
-        "_score": 1.7579391,
+        "_id": "2",
+        "_score": 0.58093566,
         "_source": {
-          "text": "A West Highland Terrier runs across the dirt .",
-          "id": "2714220101.jpg"
-        }
-      },
-      {
-        "_index": "my-nlp-index",
-        "_id": "3",
-        "_score": 0.54217947,
-        "_source": {
-          "text": "An older , seated woman with wild gray hair has makeup applied by a younger woman with equally wild , but blond-dyed hair .",
-          "id": "6813821371.jpg"
+          "text": "A wild animal races across an uncut field with a minimal amount of trees .",
+          "id": "1775029934.jpg"
         }
       },
       {
         "_index": "my-nlp-index",
         "_id": "5",
-        "_score": 0.43677896,
+        "_score": 0.55228686,
         "_source": {
           "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
           "id": "2691147709.jpg"
@@ -731,7 +722,7 @@ Documents containing the words `rodeo` and `cowboy` are scored lower because sem
       {
         "_index": "my-nlp-index",
         "_id": "4",
-        "_score": 0.4261033,
+        "_score": 0.53899646,
         "_source": {
           "text": "A man who is riding a wild horse in the rodeo is very near to falling off .",
           "id": "4427058951.jpg"
@@ -768,7 +759,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-Documents containing the words `rodeo` and `cowboy` are now scored higher:
+The results contain all five documents. The document order is now closer to the desired one because semantic meaning is considered:
 
 <details closed markdown="block">
   <summary>
@@ -778,7 +769,7 @@ Documents containing the words `rodeo` and `cowboy` are now scored higher:
 
 ```json
 {
-  "took": 27,
+  "took": 25,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -791,17 +782,8 @@ Documents containing the words `rodeo` and `cowboy` are now scored higher:
       "value": 5,
       "relation": "eq"
     },
-    "max_score": 0.016028818,
+    "max_score": 0.01585195,
     "hits": [
-      {
-        "_index": "my-nlp-index",
-        "_id": "3",
-        "_score": 0.016028818,
-        "_source": {
-          "text": "An older , seated woman with wild gray hair has makeup applied by a younger woman with equally wild , but blond-dyed hair .",
-          "id": "6813821371.jpg"
-        }
-      },
       {
         "_index": "my-nlp-index",
         "_id": "4",
@@ -813,11 +795,11 @@ Documents containing the words `rodeo` and `cowboy` are now scored higher:
       },
       {
         "_index": "my-nlp-index",
-        "_id": "1",
-        "_score": 0.015625207,
+        "_id": "2",
+        "_score": 0.015748845,
         "_source": {
-          "text": "A West Highland Terrier runs across the dirt .",
-          "id": "2714220101.jpg"
+          "text": "A wild animal races across an uncut field with a minimal amount of trees.",
+          "id": "1775029934.jpg"
         }
       },
       {
@@ -831,11 +813,20 @@ Documents containing the words `rodeo` and `cowboy` are now scored higher:
       },
       {
         "_index": "my-nlp-index",
-        "_id": "2",
+        "_id": "1",
         "_score": 0.013272902,
         "_source": {
           "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
           "id": "4319130149.jpg"
+        }
+      },
+      {
+        "_index": "my-nlp-index",
+        "_id": "3",
+        "_score": 0.011347735,
+        "_source": {
+          "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco .",
+          "id": "2664027527.jpg"
         }
       }
     ]
@@ -891,7 +882,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
         {
           "match": {
             "text": {
-              "query": "horse"
+              "query": "cowboy rodeo bronco"
             }
           }
         },
@@ -911,7 +902,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-OpenSearch returns documents that match the semantic meaning of the phrase `wild west` and the documents that contain the word `horse` are scored higher:
+Not only does OpenSearch return documents that match the semantic meaning of `wild west`, but now the documents containing the words related to the wild west theme are scored higher relative to the others:
 
 <details closed markdown="block">
   <summary>
@@ -921,7 +912,7 @@ OpenSearch returns documents that match the semantic meaning of the phrase `wild
 
 ```json
 {
-  "took": 27,
+  "took": 26,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -934,12 +925,12 @@ OpenSearch returns documents that match the semantic meaning of the phrase `wild
       "value": 5,
       "relation": "eq"
     },
-    "max_score": 0.84563124,
+    "max_score": 0.8744404,
     "hits": [
       {
         "_index": "my-nlp-index",
         "_id": "5",
-        "_score": 0.84563124,
+        "_score": 0.8744404,
         "_source": {
           "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
           "id": "2691147709.jpg"
@@ -948,16 +939,16 @@ OpenSearch returns documents that match the semantic meaning of the phrase `wild
       {
         "_index": "my-nlp-index",
         "_id": "3",
-        "_score": 0.5,
+        "_score": 0.5005,
         "_source": {
-          "text": "An older , seated woman with wild gray hair has makeup applied by a younger woman with equally wild , but blond-dyed hair .",
-          "id": "6813821371.jpg"
+          "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco .",
+          "id": "2664027527.jpg"
         }
       },
       {
         "_index": "my-nlp-index",
         "_id": "4",
-        "_score": 0.4684113,
+        "_score": 0.5005,
         "_source": {
           "text": "A man who is riding a wild horse in the rodeo is very near to falling off .",
           "id": "4427058951.jpg"
@@ -965,17 +956,17 @@ OpenSearch returns documents that match the semantic meaning of the phrase `wild
       },
       {
         "_index": "my-nlp-index",
-        "_id": "1",
-        "_score": 0.4267737,
+        "_id": "2",
+        "_score": 0.48855463,
         "_source": {
-          "text": "A West Highland Terrier runs across the dirt .",
-          "id": "2714220101.jpg"
+          "text": "A wild animal races across an uncut field with a minimal amount of trees.",
+          "id": "1775029934.jpg"
         }
       },
       {
         "_index": "my-nlp-index",
-        "_id": "2",
-        "_score": 0.0005,
+        "_id": "1",
+        "_score": 0.21370724,
         "_source": {
           "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
           "id": "4319130149.jpg"
