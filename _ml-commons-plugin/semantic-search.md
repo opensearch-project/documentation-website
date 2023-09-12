@@ -354,7 +354,7 @@ POST /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2/_deploy
 ```
 {% include copy-curl.html %}
 
-Similarly to the register operation, the deploy operation is asynchronous so you'll get a task ID in the response:
+Like the register operation, the deploy operation is asynchronous so you'll get a task ID in the response:
 
 ```json
 {
