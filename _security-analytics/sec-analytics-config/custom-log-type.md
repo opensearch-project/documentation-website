@@ -34,5 +34,5 @@ After selecting **Create log type** in the **Log types** page, the **Create log 
   {: .note }
   
 1. Enter a description for the log type.
-1. Select **Create rule category** in the lower, right corner of the screen. The screen returns to the **Log types** window, and the new log type appears in the list of all log types. Note that the source for the new log type indicates **Custom**.
+1. Select **Create log type** in the lower, right corner of the screen. The screen returns to the **Log types** window, and the new log type appears in the list of all log types. Note that the source for the new log type indicates **Custom**.
 
