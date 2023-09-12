@@ -202,7 +202,7 @@ The response contains the model group:
 
 ### Step 1(c): Register the model to the model group
 
-The DistilBERT model you'll use To register the model to the model group, provide the model group ID in the register request:
+To register the model to the model group, provide the model group ID in the register request:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -598,15 +598,6 @@ In this step, you'll ingest several sample documents into the index. The sample 
 ```json
 PUT /my-nlp-index/_doc/1
 {
-  "text": "A West Highland Terrier runs across the dirt .",
-  "id": "2714220101.jpg"
-}
-```
-{% include copy-curl.html %}
-
-```json
-PUT /my-nlp-index/_doc/2
-{
   "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
   "id": "4319130149.jpg"
 }
@@ -614,10 +605,19 @@ PUT /my-nlp-index/_doc/2
 {% include copy-curl.html %}
 
 ```json
+PUT /my-nlp-index/_doc/2
+{
+  "text": "A wild animal races across an uncut field with a minimal amount of trees .",
+  "id": "1775029934.jpg"
+}
+```
+{% include copy-curl.html %}
+
+```json
 PUT /my-nlp-index/_doc/3
 {
-  "text": "An older , seated woman with wild gray hair has makeup applied by a younger woman with equally wild , but blond-dyed hair .",
-  "id": "6813821371.jpg"
+  "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco .",
+  "id": "2664027527.jpg"
 }
 ```
 {% include copy-curl.html %}
