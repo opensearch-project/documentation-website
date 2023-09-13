@@ -75,7 +75,7 @@ cluster.indices.replication.strategy: 'SEGMENT'
 ```
 {% include copy.html %}
 
-This cluster-level setting cannot be enabled through the [REST API]({{site.url}}{{site.baseurl}}/api-reference/index/). This setting is not applied to system indexes and hidden indexes. By default, all system and hidden indexes in OpenSearch use document replication even if this setting is enabled.
+This cluster-level setting cannot be enabled through the [REST API]({{site.url}}{{site.baseurl}}/api-reference/index/). This setting is not applied to system indexes and hidden indexes. By default, all system and hidden indexes in OpenSearch use document replication, even if this setting is enabled.
 {: .note}
 
 ### Creating an index with document replication
