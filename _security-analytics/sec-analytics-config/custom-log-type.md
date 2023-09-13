@@ -35,3 +35,8 @@ After selecting **Create log type** in the **Log types** page, the **Create log 
 1. Enter a description for the log type.
 1. Select **Create log type** in the lower, right corner of the screen. The screen returns to the **Log types** page, and the new log type appears in the list of all log types. Note that the source for the new log type indicates **Custom**.
 
+
+## Log type API
+
+To perform operations for custom log types using the REST API, see [Log type APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/log-type-api/).
+
