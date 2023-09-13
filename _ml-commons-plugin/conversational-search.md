@@ -201,3 +201,9 @@ To delete a conversation, use the `DELETE` operation as showing in the following
 ```json
 DELETE /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
 ```
+
+The Memory API responds with the following:
+
+```json
+{ "success": true }
+```
