@@ -13,11 +13,11 @@ The `normalization_processor` is a search phase results processor that runs betw
 
 ## Score normalization and combination
 
-Many applications require both keyword matching and semantic understanding. For example, BM25 accurately provides relevant search results for a query containing keywords, and neural networks perform well when a query requires natural language understanding. Thus, you might want to combine BM25 search results with the results of k-NN or neural search. However, BM25 and k-NN search use different scales to calculate relevance scores for the matching documents. Before combining the scores from multiple queries, it is beneficial to normalize those scores so they are on the same scale, as shown by experimental data. For further reading about score normalization and combination, including benchmarks and discussion of various techniques, see this [semantic search blog](https://opensearch.org/blog/semantic-science-benchmarks/).
+Many applications require both keyword matching and semantic understanding. For example, BM25 accurately provides relevant search results for a query containing keywords, and neural networks perform well when a query requires natural language understanding. Thus, you might want to combine BM25 search results with the results of a k-NN or neural search. However, BM25 and k-NN search use different scales to calculate relevance scores for the matching documents. Before combining the scores from multiple queries, it is beneficial to normalize them so that they are on the same scale, as shown by experimental data. For further reading about score normalization and combination, including benchmarks and various techniques, see [this semantic search blog post](https://opensearch.org/blog/semantic-science-benchmarks/).
 
 ## Query then fetch
 
-OpenSearch supports two search types: `query_then_fetch` and `dfs_query_then_fetch`. The following diagram outlines the query then fetch process that includes a normalization processor.
+OpenSearch supports two search types: `query_then_fetch` and `dfs_query_then_fetch`. The following diagram outlines the query-then-fetch process, which includes a normalization processor.
 
 ![Normalization processor flow diagram]({{site.url}}{{site.baseurl}}/images/normalization-processor.png)
 
@@ -29,7 +29,7 @@ The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`normalization.technique` | String | The technique for normalizing scores. Valid values are [`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)), [`l2`](https://en.wikipedia.org/wiki/Cosine_similarity#L2-normalized_Euclidean_distance). Optional. Default is `min_max`.
+`normalization.technique` | String | The technique for normalizing scores. Valid values are [`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)) and [`l2`](https://en.wikipedia.org/wiki/Cosine_similarity#L2-normalized_Euclidean_distance). Optional. Default is `min_max`.
 `combination.technique` | String | The technique for combining scores. Valid values are [`arithmetic_mean`](https://en.wikipedia.org/wiki/Arithmetic_mean), [`geometric_mean`](https://en.wikipedia.org/wiki/Geometric_mean), and [`harmonic_mean`](https://en.wikipedia.org/wiki/Harmonic_mean). Optional. Default is `arithmetic_mean`.
 `combination.parameters.weights` | Array of floating-point values | Specifies the weights to use for each query. Valid values are in the [0.0, 1.0] range and signify decimal percentages. The closer the weight is to 1.0, the more weight is given to a query. The number of values in the `weights` array must equal the number of queries. The sum of the values in the array must equal 1.0. Optional. If not provided, all queries are given equal weight.
 `tag` | String | The processor's identifier. Optional.
@@ -72,7 +72,7 @@ PUT /_search/pipeline/nlp-search-pipeline
 
 ### Using a search pipeline
 
-Provide the query clauses that you want to combine in a `hybrid` query and apply the search pipeline created in the previous section so the scores are combined using the chosen techniques:
+Provide the query clauses that you want to combine in a `hybrid` query and apply the search pipeline created in the previous section so that the scores are combined using the chosen techniques:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
