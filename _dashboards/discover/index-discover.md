@@ -25,7 +25,7 @@ In this tutorial, you'll learn about using **Discover** to:
 
 The following are prerequisites for using **Discover** effectively:
 
-- Download the [latest versions of OpenSearch and OpenSearch Dashboards](https://opensearch.org/downloads.html).
+- Install [OpenSearch Dashboards 2.10 or later](https://opensearch.org/downloads.html).
 - Add OpenSearch [sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) or import your own data into OpenSearch.
 - Have foundational understanding of OpenSearch [documents and indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).   
 
@@ -53,9 +53,9 @@ To define a search, follow these steps:
 
 ## Add data fields and explore the data in your document table
 
-The document table contains data about the documents. Each row represents a single document and each column represents a different piece of information about the document, such as flight destination, average ticket price, and flight delay. The data fields in a document table can be added, deleted, or modified as needed to meet your data analysis requirements. 
+The document table contains document data. Each row represents a single document and each column contains a different document field, representing metrics such as flight destination, average ticket price, and flight delay. You can add, delete, or modify data fields in a document table as needed to meet your data analysis requirements. 
 
-To add or delete fields to a document table, follow these steps:
+To add or delete fields in a document table, follow these steps:
 
 1. View the data fields listed under **Available fields** and select the plus icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/}) to add the desired fields to the document table. The field will be automatically added to **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
 1. To arrange or sort the columns, select the column header containing the field name and select the desired action. An example is shown in the following image. 
@@ -80,7 +80,7 @@ To search data, follow these steps:
 
 ### Filter your data
 
-Filters allow you to narrow down the results of a query by specifying specific criteria. You can filter by field, value, or range, and the **Add filter** popup suggests the available fields and operators.
+Filters allow you to narrow down the results of a query by specifying specific criteria. You can filter by field, value, or range. The **Add filter** popup suggests the available fields and operators.
 
 To filter your data:
 
