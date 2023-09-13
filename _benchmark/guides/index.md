@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Guides
+title: Use cases
 nav_order: 70
 has_children: true
 ---
 
-# Guides for specific use cases
+# OpenSearch Benchmark use cases
 
-Here are a list of guides for specific OpenSearch Benchmark use cases.
+The following section provides guides for specific use cases of OpenSearch Benchmark. To get started, select from the following guides:
 
 - [AWS Signature Version 4 (SigV4) Support]({{site.url}}{{site.baseurl}}/benchmark/guides/sigv4-support/)
 
