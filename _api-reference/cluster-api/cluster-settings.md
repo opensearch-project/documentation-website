@@ -27,10 +27,10 @@ All cluster setting parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`flat_settings` | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`.
-`include_defaults (GET only)` | Boolean | Whether to include default settings as part of the response. This parameter is useful for identifying the names and current values of settings you want to update.
-`cluster_manager_timeout` | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
-`timeout` (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
+flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`.
+include_defaults (GET only) | Boolean | Whether to include default settings as part of the response. This parameter is useful for identifying the names and current values of settings you want to update.
+cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
+timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
 
 
 #### Example request
