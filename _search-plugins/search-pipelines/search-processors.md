@@ -17,7 +17,7 @@ Search processors can be of the following types:
 
 ## Search request processors
 
-A search request processor takes a search request (the query and the metadata passed in the request) and performs an operation on the search request before submitting the search request to the index.
+A search request processor intercepts a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and submits the search request to the index.
 
 The following table lists all supported search request processors.
 
@@ -28,7 +28,7 @@ Processor | Description | Earliest available version
 
 ## Search response processors
 
-A search response processor performs an operation on the search response and returns a search response.
+A search response processor intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
 
 The following table lists all supported search response processors.
 
@@ -39,7 +39,7 @@ Processor | Description | Earliest available version
 
 ## Search phase results processors
 
-A search phase results processor runs between search phases at the coordinating node level. It takes the results retrieved from one search phase and transforms them before passing them to the next search phase. 
+A search phase results processor runs between search phases at the coordinating node level. It intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
 
 The following table lists all supported search request processors.
 
