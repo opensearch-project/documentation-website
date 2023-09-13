@@ -9,7 +9,7 @@ redirect_from:
 
 # Running queries in the Dev Tools console
 
-Use the Dev Tools console to send queries to OpenSearch. To access the Dev Tools console, select **Dev Tools** under the **Management** menu on the OpenSearch Dashboards home page. An example query and response are shown in the following image.
+Use the Dev Tools console to send queries to OpenSearch. To access the console, go to the OpenSearch Dashboards main menu and select **Management** > **Dev Tools**. An example query and response are shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-request-ui.png" alt="Console UI with query and request">
 
@@ -27,9 +27,7 @@ To send a query to OpenSearch, select the query by placing the cursor anywhere i
 
 ## Working in the cURL and console formats
 
-The console uses an easier syntax to format REST requests than the `curl` command. 
-
-For example, the following `curl` command runs a search query:
+The console uses an easier syntax to format REST requests than the `curl` command. For example, the following `curl` command runs a search query:
 
 ````
 ```bash
