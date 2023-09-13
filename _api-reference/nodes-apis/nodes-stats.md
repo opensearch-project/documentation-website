@@ -829,6 +829,10 @@ segments.index_writer_memory_in_bytes | Integer | The total amount of memory use
 segments.version_map_memory_in_bytes | Integer | The total amount of memory used by all version maps, in bytes. 
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
+segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is on the node enabled. 
+segments.segment_replication.maxBytesBehind | long | The max number of bytes behind the primary replica is.
+segments.segment_replication.totalBytesBehind | long | The total number of bytes behind the primary replicas are. 
+segments.segment_replication.maxReplicationLag | long | The maximum time, in milliseconds, taken by a replica to catch up to its primary. 
 segments.remote_store | Object | Statistics about remote segment store operations.
 segments.remote_store.upload | Object | Statistics related to upload operation to the remote segment store.
 segments.remote_store.upload.total_upload_size | Object | The amount of data in bytes uploaded to the remote segment store.
