@@ -23,7 +23,9 @@ OSB_SERVICE=aoss
 
 - `--client-options=amazon_aws_log_in:environment`: Tells OpenSearch Benchmark when you've exported your environment's credentials.
 
-Example command:
+## Example
+
+The following example `execute-test` command run a benchmark test with sigv4 enabled:
 ```
 opensearch-benchmark execute-test \
 --distribution-version=2.3.0 \
