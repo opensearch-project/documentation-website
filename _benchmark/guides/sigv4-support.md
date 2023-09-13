@@ -16,7 +16,7 @@ OpenSearch Benchmark supports AWS Signature Version 4 (Sigv4) authentication. To
 OSB_AWS_ACCESS_KEY_ID=<<IAM USER AWS ACCESS KEY ID>
 OSB_AWS_SECRET_ACCESS_KEY=<IAM USER AWS SECRET ACCESS KEY>
 OSB_REGION=<YOUR REGION>
-OSB_SERVICE=aoss
+OSB_SERVICE=aos
 ```
 
 3. Invoke OSB like the command below. Ensure that you are specifying:
