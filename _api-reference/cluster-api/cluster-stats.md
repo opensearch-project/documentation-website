@@ -514,3 +514,4 @@ nodes.network_types | The transport and HTTP networks within the nodes.
 nodes.discovery_type | The method the nodes use to find other nodes within the cluster.
 nodes.packaging_types | Information about the nodes' OpenSearch distribution.
 nodes.ingest | Information about the nodes' ingest pipelines/nodes, if there are any.
+total_time_spent | The total amount of download and upload time take across all shards in the cluster when downloading or uploading from the remote store.
