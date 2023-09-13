@@ -261,7 +261,7 @@ You'll need the model ID in order to use this model for several of the following
 Search for the newly created model by providing its ID in the request:
 
 ```json
-POST /_plugins/_ml/models/_search/aVeif4oB5Vm0Tdw8zYO2
+GET /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2
 ```
 {% include copy-curl.html %}
 
@@ -269,51 +269,31 @@ The response contains the model:
 
 ```json
 {
-  "took": 1,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
+  "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
+  "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
+  "algorithm": "TEXT_EMBEDDING",
+  "model_version": "1",
+  "model_format": "TORCH_SCRIPT",
+  "model_state": "REGISTERED",
+  "model_content_size_in_bytes": 266352827,
+  "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
+  "model_config": {
+    "model_type": "distilbert",
+    "embedding_dimension": 768,
+    "framework_type": "SENTENCE_TRANSFORMERS",
+    "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}"""
   },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": ".plugins-ml-model",
-        "_id": "aVeif4oB5Vm0Tdw8zYO2",
-        "_version": 2,
-        "_seq_no": 95,
-        "_primary_term": 2,
-        "_score": 1,
-        "_source": {
-          "model_version": "1",
-          "created_time": 1694358490550,
-          "model_format": "TORCH_SCRIPT",
-          "model_state": "REGISTERED",
-          "total_chunks": 27,
-          "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
-          "model_config": {
-            "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}""",
-            "model_type": "distilbert",
-            "embedding_dimension": 768,
-            "framework_type": "SENTENCE_TRANSFORMERS"
-          },
-          "last_updated_time": 1694358499122,
-          "last_registered_time": 1694358499121,
-          "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-          "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
-          "model_content_size_in_bytes": 266352827,
-          "algorithm": "TEXT_EMBEDDING"
-        }
-      }
-    ]
-  }
+  "created_time": 1694482261832,
+  "last_updated_time": 1694482324282,
+  "last_registered_time": 1694482270216,
+  "last_deployed_time": 1694482324282,
+  "total_chunks": 27,
+  "planning_worker_node_count": 1,
+  "current_worker_node_count": 1,
+  "planning_worker_nodes": [
+    "4p6FVOmJRtu3wehDD74hzQ"
+  ],
+  "deploy_to_all_nodes": true
 }
 ```
 
@@ -398,14 +378,7 @@ Once the task is complete, the task state will be `COMPLETED`:
 Search for the deployed model by providing its ID in the request:
 
 ```json
-POST /_plugins/_ml/models/_search
-{
-  "query": {
-    "match": {
-      "_id": "aVeif4oB5Vm0Tdw8zYO2"
-    }
-  }
-}
+GET /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2
 ```
 {% include copy-curl.html %}
 
@@ -413,58 +386,31 @@ The response shows the model state as `DEPLOYED`:
 
 ```json
 {
-  "took": 0,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
+  "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
+  "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
+  "algorithm": "TEXT_EMBEDDING",
+  "model_version": "1",
+  "model_format": "TORCH_SCRIPT",
+  "model_state": "DEPLOYED",
+  "model_content_size_in_bytes": 266352827,
+  "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
+  "model_config": {
+    "model_type": "distilbert",
+    "embedding_dimension": 768,
+    "framework_type": "SENTENCE_TRANSFORMERS",
+    "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}"""
   },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": ".plugins-ml-model",
-        "_id": "aVeif4oB5Vm0Tdw8zYO2",
-        "_version": 4,
-        "_seq_no": 97,
-        "_primary_term": 2,
-        "_score": 1,
-        "_source": {
-          "last_deployed_time": 1694360027940,
-          "model_version": "1",
-          "created_time": 1694358490550,
-          "deploy_to_all_nodes": true,
-          "model_format": "TORCH_SCRIPT",
-          "model_state": "DEPLOYED",
-          "planning_worker_node_count": 1,
-          "total_chunks": 27,
-          "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
-          "model_config": {
-            "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}""",
-            "model_type": "distilbert",
-            "embedding_dimension": 768,
-            "framework_type": "SENTENCE_TRANSFORMERS"
-          },
-          "last_updated_time": 1694360027940,
-          "last_registered_time": 1694358499121,
-          "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-          "current_worker_node_count": 1,
-          "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
-          "model_content_size_in_bytes": 266352827,
-          "planning_worker_nodes": [
-            "4p6FVOmJRtu3wehDD74hzQ"
-          ],
-          "algorithm": "TEXT_EMBEDDING"
-        }
-      }
-    ]
-  }
+  "created_time": 1694482261832,
+  "last_updated_time": 1694482324282,
+  "last_registered_time": 1694482270216,
+  "last_deployed_time": 1694482324282,
+  "total_chunks": 27,
+  "planning_worker_node_count": 1,
+  "current_worker_node_count": 1,
+  "planning_worker_nodes": [
+    "4p6FVOmJRtu3wehDD74hzQ"
+  ],
+  "deploy_to_all_nodes": true
 }
 ```
 
