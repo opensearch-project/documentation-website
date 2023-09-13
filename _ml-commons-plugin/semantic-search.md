@@ -345,7 +345,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-For more information, see [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+For more information, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 ### Step 1(d): Deploy the model
 
