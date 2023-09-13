@@ -390,4 +390,4 @@ The benchmarking results show a non-zero error rate as the number of replicas in
 ## Next steps
 
 1. Track [future enhancements to segment replication](https://github.com/orgs/opensearch-project/projects/99).
-1. Read this [blog post about segment replication](https://opensearch.org/blog/segment-replication/).
+1. Read [this blog post about segment replication](https://opensearch.org/blog/segment-replication/).
