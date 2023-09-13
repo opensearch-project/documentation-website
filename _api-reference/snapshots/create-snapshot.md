@@ -142,4 +142,4 @@ The snapshot definition is returned.
 | failures | array | Failures, if any, that occured during snapshot creation. |
 | shards | object | Total number of shards created along with number of successful and failed shards. |
 | state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
-| remote_store_index_shallow_copy | boolean | Whether or not the current snapshot is a full copy or shallow copy. |
+| remote_store_index_shallow_copy | Boolean | Whether the snapshot of the remote store indexes are captured as a shallow copy. Default is `false`. |
