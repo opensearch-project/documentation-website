@@ -18,22 +18,26 @@ An example of the query and response panes is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-request-ui.png" alt="Console UI with query and request">
 
-## Query options 
+### Query options 
 
-The console provides common features for writing queries, including:  
+When writing queries using the console, there are common features that can help you write queries more efficiently and accurately. The following table describes these features and how you can use them.
 
-- **Collapsing or expanding your query:** To hide or show details of your query, select the expander arrow ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-down-icon.png" class="inline-icon" alt="arrow down icon"/>{:/}) next to the line number. This can be helpful if you have a long query or only want to focus on a specific part of the query.
-- **Using the OpenSearch search language:** To use the OpenSearch query domain-specific language (DSL), see the documentation [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl).
-- **Adding single-line comments:** To add notes that are not interpreted by OpenSearch to your queries, you can use a hash (#) to start a single-line comment.
-- **Using autocomplete:** To define your preferences for autocomplete suggestions for fields, indexes, aliases, and templates, configure them in **Settings**.
-- **Auto indenting:** To use auto indent, select the queries that you want to format, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Auto indent**. Auto indenting a well-formatted query puts the request body on a single line. This is useful for working with [bulk APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/). Auto indenting a collapsed query expands it.
-- **Viewing your request history:** You can view up to the 500 most recent requests that OpenSearch ran successfully. To view request history, select **History** from the top menu. If you select the request you want to view from the left pane, the query is shown in the right pane. To copy the query into the editor pane, select the query text and then select **Apply**. To clear the history, select **Clear**.
-- **Using keyboard shortcuts:** To view all available keyboard shortcuts, select **Help** from the top menu.
-- **Accessing documentation from the console:** To access OpenSearch documentation from the console, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}) and choose **Open documentation**.
+Feature | Description | How to use |
+--------|-------------|------------|
+**Collapsing or expanding a query** | Helpful to use when you have a long query or only want to focus on a specific part of the query. | To hide or show details of your query, select the expander arrow ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-down-icon.png" class="inline-icon" alt="arrow down icon"/>{:/}) next to the line number. |
+**OpenSearch search language** | Helpful to use when you need flexibility in writing complex queries. | To learn how to use the OpenSearch query domain-specific language (DSL), see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl). |
+**Single-line comments** | Helpful to use when you want to explain what the query does or to exclude parts of a query. | To add notes that are not interpreted by OpenSearch to your queries, use a hash (`#`) to start the single-line comment. |
+**Autocomplete** | Helpful to use when for suggestions for correct syntax and keywords, avoiding typos and errors, and reducing the amount of typing you do. | To define your preferences for autocomplete suggestions, configure them in **Settings**. |
+**Auto indenting** | Helpful to use to put the request body on a single line, which is useful for working with [bulk APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/). Auto indenting a collapsed query expands it. | To use auto indent, select the queries that you want to format, then select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Auto indent**. |
+**Request history** | Helpful for displaying up to the 500 most recent requests that OpenSearch ran successfully. | To view request history, select **History** from the top menu. If you select the request you want to view from the left pane, the query is shown in the right pane. To copy the query into the editor pane, select the query text and then select **Apply**. To clear the history, select **Clear**. |
+**Keyboard shortcuts** | Helpful for saving time, improving efficiency, and avoiding typos and errors. | To view all available keyboard shortcuts, select **Help** from the top menu. |
+**Documentation access from the console** | Helpful for improving documentation discoverability. | To access OpenSearch documentation from the console, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}) and choose **Open documentation**. |
 
 ## Working in the cURL and console formats
 
-The console uses an easier syntax to format REST requests than the `curl` command. For example, the following `curl` command runs a search query:
+The console uses a simplified syntax to format REST requests in place of the `curl` command. If you paste a `curl` command directly into the console, the command is automatically converted into the format that the console uses. To import a query in cURL format, select the query, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**. 
+
+For example, the following `curl` command runs a search query:
 
 ```bash
 curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: application/json' -d'
@@ -47,7 +51,7 @@ curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: ap
 ```
 {% include copy.html %}
 
-The same query has a simpler syntax in the console format, as shown in the following example:
+The same query has a simplified syntax in the console format, as shown in the following example:
 
 ```json
 GET shakespeare/_search
@@ -60,6 +64,3 @@ GET shakespeare/_search
 }
 ```
 {% include copy-curl.html %}
-
-If you paste a `curl` command directly into the console, the command is automatically converted into the format that the console uses. To import a query in cURL format, select the query, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**.
-
