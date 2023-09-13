@@ -477,7 +477,7 @@ GET /_plugins/_ml/profile/models
 
 ## Step 2: Ingest data with neural search
 
-Neural search uses a language model to transform text into vector embeddings. During ingestion, neural search creates vector embeddings for the text fields in the request. During search, you can generate vector embeddings for the query text by applying the same model, allowing you perform vector similarity search on the documents.
+Neural search uses a language model to transform text into vector embeddings. During ingestion, neural search creates vector embeddings for the text fields in the request. During search, you can generate vector embeddings for the query text by applying the same model, allowing you to perform vector similarity search on the documents.
 
 ### Step 2(a): Create an ingest pipeline for neural search
 
@@ -761,7 +761,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-This time, the response not only contains all five documents, but the document order is improved because neural search considers semantic meaning:
+This time, the response not only contains all five documents, but the document order is also improved because neural search considers semantic meaning:
 
 <details closed markdown="block">
   <summary>
@@ -999,7 +999,7 @@ You can now experiment with different weights, normalization techniques, and com
 
 ### Clean up
 
-After you're done, delete the components you've created in this tutorial from the cluster:
+After you're done, delete the components you've created in tutorial from the cluster:
 
 ```json
 DELETE /my-nlp-index
