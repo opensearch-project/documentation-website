@@ -117,10 +117,4 @@ The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that he
 
 OpenSearch migration tools facilitate migrations to OpenSearch and upgrades to newer versions of OpenSearch. These can help you can set up a proof-of-concept environment locally using Docker containers or deploy to AWS using a one-click deployment script. This empowers you to fine-tune cluster configurations and manage workloads more effectively before migration. 
 
- After setup and deployment of the migration’s tools and test environment, you can perform the following steps to begin migrating your OpenSearch target cluster:
- 
-1. Redirect your production traffic from a source cluster to a provisioned OpenSearch target cluster, enabling a comparison of results between the two clusters. All traffic directed to the source cluster is stored for future replay. 
-
-2. Meanwhile, traffic to the target cluster is replayed at an identical rate to ensure a direct comparison between the source cluster and the target. 
-
 For more information about OpenSearch migration tools, see the documentation in the [OpenSearch Migration GitHub repository](https://github.com/opensearch-project/opensearch-migrations/tree/capture-and-replay-v0.1.0).
