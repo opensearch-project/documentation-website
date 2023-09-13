@@ -16,7 +16,6 @@ You can provision connectors in two ways:
 
 2. A [local connector](#local-connector), saved in the model index, which can only be used with one remote model. Unlike a standalone connector, users only need access to the model itself to access an internal connector because the connection is established inside the model.
 
-
 ## Supported connectors
 
 As of OpenSearch 2.9, connectors have been tested for the following ML services, though it is possible to create connectors for other platforms not listed here:
@@ -76,6 +75,8 @@ If successful, the connector API responds with the `connector_id` for the connec
 }
 ```
 
+With the returned `connector_id` we can register a model that utilizing that connector.
+
 ```json
 POST /_plugins/_ml/models/_register
 {
@@ -83,32 +84,7 @@ POST /_plugins/_ml/models/_register
     "function_name": "remote",
     "model_group_id": "lEFGL4kB4ubqQRzegPo2",
     "description": "test model",
-    "connector": {
-        "name": "OpenAI Connector",
-        "description": "The connector to public OpenAI model service for GPT 3.5",
-        "version": 1,
-        "protocol": "http",
-        "parameters": {
-            "endpoint": "api.openai.com",
-            "max_tokens": 7,
-            "temperature": 0,
-            "model": "text-davinci-003"
-        },
-        "credential": {
-            "openAI_key": "..."
-        },
-        "actions": [
-            {
-                "action_type": "predict",
-                "method": "POST",
-                "url": "https://${parameters.endpoint}/v1/completions",
-                "headers": {
-                    "Authorization": "Bearer ${credential.openAI_key}"
-                },
-                "request_body": "{ \"model\": \"${parameters.model}\", \"prompt\": \"${parameters.prompt}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
-            }
-        ]
-    }
+    "connector_id": "a1eMb4kBJ1eYAeTMAljY"
 }
 ```
 
