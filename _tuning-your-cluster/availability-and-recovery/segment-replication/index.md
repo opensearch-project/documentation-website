@@ -12,7 +12,7 @@ redirect_from:
 
 # Segment replication
 
-Segment replication involves copying segment files across shards instead of indexing documents on each shard copy. This approach enhances indexing throughput and reduces resource utilization, but increases network utilization. Segment replication is the first feature in a series of features designed to decouple reads and writes in order to lower compute costs.
+Segment replication involves copying segment files across shards instead of indexing documents on each shard copy. This approach enhances indexing throughput and reduces resource utilization but increases network utilization. Segment replication is the first feature in a series of features designed to decouple reads and writes in order to lower compute costs.
 
 When the primary shard sends a checkpoint to replica shards on a refresh, a new segment replication event is triggered on replica shards. This happens:
 
