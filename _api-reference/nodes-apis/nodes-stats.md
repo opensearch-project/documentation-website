@@ -830,7 +830,7 @@ segments.version_map_memory_in_bytes | Integer | The total amount of memory used
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
 segments.remote_store | Object | Statistics about remote segment store operations.
-segments.remote_store.upload | Object | Statistics about Remote Segment Store upload operations.
+segments.remote_store.upload | Object | Statistics related to upload operation to the remote segment store.
 segments.remote_store.upload.total_upload_size | Object | The amount of data in bytes uploaded to the remote segment store.
 segments.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes for which to upload to the remote segment store after the upload has started.
 segments.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote segment store.
