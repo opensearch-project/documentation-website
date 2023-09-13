@@ -24,8 +24,8 @@ When the primary shard sends a checkpoint to replica shards on a refresh, a new 
 
 Segment replication can be applied in a variety of scenarios, including:
 
-- Users who have high write loads but do not have high search requirements and are comfortable with longer refresh times.
-- Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new node to the cluster.
+- High write loads without high search requirements and with longer refresh times.
+- When experiencing very high loads, you want to add new nodes but don't want to index all data immediately.
 - OpenSearch cluster deployments with low replica counts, such as those used for log analytics.
 
 ## Segment replication configuration
@@ -100,8 +100,7 @@ When using segment replication, consider the following:
 
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
 1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
-1. Segment replication is not compatible with [document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors), which are used with the [Alerting]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) plugin. The Alerting plugin uses the latest available data on replica shards when using the `immediate` refresh policy, and segment replication can delay the policy's availability, resulting in stale replica shards.
-1. Segment replication is not compatible with [security analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/). Security analytics uses document-level monitors, which are not compatible with segment replication.  
+1. Segment replication is not compatible with [document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors), which are used with the [Alerting]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) and [Security Analytics](({{site.url}}{{site.baseurl}}/security-analytics/index/)) plugins. The plugins also use the latest available data on replica shards when using the `immediate` refresh policy, and segment replication can delay the policy's availability, resulting in stale replica shards.
 1. Segment replication leads to increased network congestion on primary shards. See [Issue - Optimize network bandwidth on primary shards](https://github.com/opensearch-project/OpenSearch/issues/4245).
 1. Integration with remote-backed storage as the source of replication is [currently not supported](https://github.com/opensearch-project/OpenSearch/issues/4448). 
 1. Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for`.  If you set the `refresh` query parameter to `wait_for` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. We are exploring other mechanisms for providing read-after-write guarantees. For more information, see the corresponding [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6046).  
