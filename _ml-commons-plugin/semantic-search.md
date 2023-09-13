@@ -79,11 +79,11 @@ This tutorial consists of the following steps:
     1. [Create a k-NN index](#step-2b-create-a-k-nn-index).
     1. [Ingest documents into the index](#step-2c-ingest-documents-into-the-index).
 1. [**Search the data**](#step-3-search-the-data).
-   - [Search with a keyword search](#search-with-a-keyword-search).
-   - [Search with a neural search](#search-with-a-neural-search).
-   - [Search with a combined keyword search and neural search](#search-with-a-combined-keyword-search-and-neural-search).
+   - [Search using a keyword search](#search-using-a-keyword-search).
+   - [Search using a neural search](#search-using-a-neural-search).
+   - [Search using a combined keyword search and neural search](#search-using-a-combined-keyword-search-and-neural-search).
 
-Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step worked by running requests in these sections.
+Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step was successful by running requests in these sections.
 
 After you're done, follow the steps in the [Clean up](#clean-up) section to delete all created components.
 
