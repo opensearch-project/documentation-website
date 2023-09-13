@@ -23,9 +23,11 @@ In this tutorial, you'll learn about using **Discover** to:
 
 #### Prerequisites
 
-The following are prerequisites for using **Discover** to explore your data:
+The following are prerequisites for using **Discover** effectively:
 
-- **_SME: What are the prerequisites?_**  
+- Download the [latest versions of OpenSearch and OpenSearch Dashboards](https://opensearch.org/downloads.html).
+- Add OpenSearch [sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) or import your own data into OpenSearch.
+- Have foundational understanding of OpenSearch [documents and indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).   
 
 ## Import data
 
