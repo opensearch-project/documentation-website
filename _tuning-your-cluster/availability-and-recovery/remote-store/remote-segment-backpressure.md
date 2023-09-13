@@ -18,8 +18,8 @@ Remote segment backpressure is a shard-level rejection mechanism that dynamicall
 Remote segment backpressure is activated if any of the following thresholds is breached:
 
 - **Consecutive failure**: The backpressure is activated if there are _N_ or more consecutive failures. The value of _N_ is configurable in `remote_store.segment.pressure.consecutive_failures.limit`.
-- **Bytes lag**:  The bytes lag is computed by adding the size of all files that are present in local committed segments but not in the remote store. Backpressure is activated if the bytes lag is greater than _K_ multiplied by the moving average of the size in, in bytes, of files uploaded after each refresh. The variance factor _K_ is configurable in `remote_store.segment.pressure.bytes_lag.variance_factor`. The moving window size is configurable through the `remote_store.moving_average_window_size` setting.
-- **Time lag**: The time lag is computed by comparing the timestamps of the most recent local refresh and the most recent remote store segment upload. Backpressure is activated if the time lag is greater than _K_ multiplied by the moving average of the time taken to upload new segments and metadata file after each refresh. The variance factor _K_ is configurable through `remote_store.segment.pressure.time_lag.variance_factor` setting. The moving window size is configurable through the `remote_store.moving_average_window_size` setting.  
+- **Bytes lag**: The bytes lag is calculated by adding the sizes of all the files that are present in local committed segments but not in the remote store. Backpressure is activated if the bytes lag is greater than _K_ multiplied by the moving average of the size, in bytes, of the files uploaded after each refresh. The variance factor _K_ is configurable in `remote_store.segment.pressure.bytes_lag.variance_factor`. The moving window size is configurable through the `remote_store.moving_average_window_size` setting.
+- **Time lag**: The time lag is calculated by comparing the timestamps of the most recent local refresh and the most recent remote store segment upload. Backpressure is activated if the time lag is greater than _K_ multiplied by the moving average of the time taken to upload new segments and metadata files after each refresh. The variance factor _K_ is configurable through the `remote_store.segment.pressure.time_lag.variance_factor` setting. The moving window size is configurable through the `remote_store.moving_average_window_size` setting.  
 
 ## Handling segment merges 
 
@@ -42,5 +42,5 @@ The following table lists the settings used for statistics.
 
 |Setting	|Data type	|Description	|
 |:---	|:---	|:---	|
-| `remote_store.moving_average_window_size` | Integer | The moving average window size used to calculate the rolling statistic values exposed through [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. |
+| `remote_store.moving_average_window_size` | Integer | The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. |
 

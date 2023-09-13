@@ -829,27 +829,27 @@ segments.index_writer_memory_in_bytes | Integer | The total amount of memory use
 segments.version_map_memory_in_bytes | Integer | The total amount of memory used by all version maps, in bytes. 
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
-segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is on the node enabled. 
-segments.segment_replication.maxBytesBehind | long | The max number of bytes behind the primary replica is.
-segments.segment_replication.totalBytesBehind | long | The total number of bytes behind the primary replicas are. 
-segments.segment_replication.maxReplicationLag | long | The maximum time, in milliseconds, taken by a replica to catch up to its primary. 
+segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is enabled on the node. 
+segments.segment_replication.maxBytesBehind | long | The maximum number of bytes behind the primary replica.
+segments.segment_replication.totalBytesBehind | long | The total number of bytes behind the primary replicas. 
+segments.segment_replication.maxReplicationLag | long | The maximum amount of time, in milliseconds, taken by a replica to catch up to its primary. 
 segments.remote_store | Object | Statistics about remote segment store operations.
-segments.remote_store.upload | Object | Statistics related to upload operation to the remote segment store.
-segments.remote_store.upload.total_upload_size | Object | The amount of data in bytes uploaded to the remote segment store.
-segments.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes for which to upload to the remote segment store after the upload has started.
+segments.remote_store.upload | Object | Statistics related to uploads to the remote segment store.
+segments.remote_store.upload.total_upload_size | Object | The amount of data, in bytes, uploaded to the remote segment store.
+segments.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes to upload to the remote segment store after the upload has started.
 segments.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote segment store.
 segments.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes that failed to upload to the remote segment store.
 segments.remote_store.upload.refresh_size_lag | Object | The amount of lag during upload between the remote segment store and the local store.
-segments.remote_store.upload.refresh_size_lag.total_bytes | Integer | The total bytes that lagged during the upload refresh between the remote segment store and the local store.
-segments.remote_store.upload.refresh_size_lag.max_bytes | Integer | The maximum lag in bytes during the upload refresh between the remote segment store and the local store.
-segments.remote_store.upload.max_refresh_time_lag_in_millis | Integer | The maximum duration in milliseconds the remote refresh is behind the local refresh.
-segments.remote_store.upload.total_time_spent_in_millis | Integer | The total time in milliseconds spent on uploads to the remote segment store.
-segments.remote_store.download | Object | Statistics related to download operation to the remote segment store.
-segments.remote_store.download.total_download_size | Object | The amount of data downloaded from the remote segment store.
+segments.remote_store.upload.refresh_size_lag.total_bytes | Integer | The total number of bytes that lagged during the upload refresh between the remote segment store and the local store.
+segments.remote_store.upload.refresh_size_lag.max_bytes | Integer | The maximum amount of lag, in bytes, during the upload refresh between the remote segment store and the local store.
+segments.remote_store.upload.max_refresh_time_lag_in_millis | Integer | The maximum duration, in milliseconds, that the remote refresh is behind the local refresh.
+segments.remote_store.upload.total_time_spent_in_millis | Integer | The total amount of time, in milliseconds, spent on uploads to the remote segment store.
+segments.remote_store.download | Object | Statistics related to downloads to the remote segment store.
+segments.remote_store.download.total_download_size | Object | The total amount of data download from the remote segment store.
 segments.remote_store.download.total_download_size.started_bytes | Integer | The number of bytes downloaded from the remote segment store after the download starts.
 segments.remote_store.download.total_download_size.succeeded_bytes | Integer | The number of bytes successfully downloaded from the remote segment store.
-segments.remote_store.download.total_download_size.failed_bytes | Integer | The number of bytes that failed to down from the remote segment store.
-segments.remote_store.download.total_time_spent_in_millis | Integer | The total duration in milliseconds spent on downloads from the remote segment store.
+segments.remote_store.download.total_download_size.failed_bytes | Integer | The number of bytes that failed to download from the remote segment store.
+segments.remote_store.download.total_time_spent_in_millis | Integer | The total duration, in milliseconds, spent on downloads from the remote segment store.
 segments.file_sizes | Integer | Statistics about the size of the segment files.
 translog | Object | Statistics about transaction log operations for the node.
 translog.operations | Integer | The number of translog operations.
@@ -858,12 +858,12 @@ translog.uncommitted_operations | Integer | The number of uncommitted translog o
 translog.uncommitted_size_in_bytes | Integer | The size of uncommitted translog operations, in bytes.
 translog.earliest_last_modified_age | Integer | The earliest last modified age for the translog.
 translog.remote_store | Object | Statistics related to operations from the remote translog store.
-translog.remote_store.upload | Object | Statistics about upload operation to the remote translog store.
+translog.remote_store.upload | Object | Statistics related to uploads to the remote translog store.
 translog.remote_store.upload.total_uploads | Object | The number of syncs to the remote translog store.
 translog.remote_store.upload.total_uploads.started | Integer | The number of upload syncs to the remote translog store that have started.
 translog.remote_store.upload.total_uploads.failed | Integer | The number of failed upload syncs to the remote translog store.
 translog.remote_store.upload.total_uploads.succeeded | Integer | The number of successful upload syncs to the remote translog store.
-translog.remote_store.upload.total_upload_size | Object | The amount of data uploaded to the remote translog store.
+translog.remote_store.upload.total_upload_size | Object | The total amount of data uploaded to the remote translog store.
 translog.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes actively uploading to the remote translog store after the upload has started.
 translog.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes that failed to upload to the remote translog store.
 translog.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote translog store.
