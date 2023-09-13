@@ -17,7 +17,7 @@ To navigate to the **Log types** page, select **Log types** under **Detectors** 
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/c-log-type.png" alt="The Log types landing page." width="85%">
 
-The table that lists the log types provides the name of the log type, its description, and identifies whether it's based on the industry standard Sigma rule or a custom log type. 
+The table that lists the log types provides the name of the log type, its description, and identifies whether it's a standard OpenSearch-defined log type or a custom log type. 
 
 * Select the log type **Name** to open the log type's details page. The **Details** tab is shown by default. You can also select the **Detection rules** tab to show all detection rules associated with the log type.
 * In the **Actions** column, you can select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to delete a custom log type (you cannot delete an OpenSearch defined log types). Follow the prompts to confirm your intentions and safely remove the custom log type.
