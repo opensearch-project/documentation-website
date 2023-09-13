@@ -11,8 +11,8 @@ Conversational search is an experimental machine learning (ML) feature that enab
 
 Currently, conversational search utilizes two systems to synthesize documents:
 
-- [Conversation memory]
-- [RAG pipeline]
+- [Conversation memory](#conversation-memory)
+- [Retreival Augmented Generation (RAG) pipeline](#rag-pipeline)
 
 ## Conversation memory
 
@@ -207,3 +207,20 @@ The Memory API responds with the following:
 ```json
 { "success": true }
 ```
+
+## RAG pipeline
+
+RAG is a technique for grounding LLMs and a natural language interface, implemented as a search pipeline. 
+
+### Enabling RAG
+
+Use the following cluster setting to enable the RAG pipeline feature:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent": {"plugins.ml_commons.rag_pipline_feature_enabled": "true"}
+}
+```
+
+RAG requires a LLM to function. We recommend using a [connector](https://opensearch.org/docs/latest/ml-commons-plugin/extensibility/connectors/)
