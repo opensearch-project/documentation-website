@@ -8,7 +8,7 @@ nav_order: 70
 
 # Hybrid query
 
-Use a hybrid query to combine relevance scores from multiple queries into one score for a given document. A hybrid query contains a list of one or more queries and calculates document scores at the shard level independently for each subquery. The subquery rewriting is done at the coordinating node level to avoid duplicate computations.
+You can use a hybrid query to combine relevance scores from multiple queries into one score for a given document. A hybrid query contains a list of one or more queries and independently calculates document scores at the shard level for each subquery. The subquery rewriting is performed at the coordinating node level in order to avoid duplicate computations.
 
 ## Example
 
@@ -22,7 +22,7 @@ The following table lists all top-level parameters supported by `hybrid` queries
 
 Parameter | Description
 :--- | :---
-`queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
+`queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
 
 ## Disabling hybrid queries
 

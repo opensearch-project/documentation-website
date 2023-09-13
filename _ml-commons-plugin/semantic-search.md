@@ -7,7 +7,7 @@ nav_order: 140
 
 # Semantic search
 
-By default, OpenSearch calculates document scores using the [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) algorithm. BM25 is a keyword-based algorithm that performs well on a query containing keywords but fails to capture the semantic meaning of the query terms. Semantic search, unlike keyword-based search, takes into account the meaning of the query in the search context. Thus, semantic search performs well when a query requires natural language understanding. 
+By default, OpenSearch calculates document scores using the [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) algorithm. BM25 is a keyword-based algorithm that performs well on queries containing keywords but fails to capture the semantic meaning of the query terms. Semantic search, unlike keyword-based search, takes into account the meaning of the query in the search context. Thus, semantic search performs well when a query requires natural language understanding. 
 
 In this tutorial, you'll learn how to:
 
@@ -19,11 +19,11 @@ In this tutorial, you'll learn how to:
 It's helpful to understand the following terms before starting this tutorial:
 
 - _Semantic search_: Employs neural search in order to determine the intention of the user's query in the search context and improve search relevance. 
-- _Neural search_: When indexing documents containing text, neural search uses language models to generate vector embeddings from that text. When you then use a _neural query_, the query text is passed through a language model and the resulting vector embeddings are compared with the document text vector embeddings to find the most relevant results.
+- _Neural search_: When indexing documents containing text, neural search uses language models to generate vector embeddings from that text. When you then use a _neural query_, the query text is passed through a language model, and the resulting vector embeddings are compared with the document text vector embeddings to find the most relevant results.
 
 ## OpenSearch components for semantic search
 
-For this tutorial, you'll implement semantic search using the following OpenSearch components:
+In this tutorial, you'll implement semantic search using the following OpenSearch components:
 
 - [Model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups)
 - [Pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)
@@ -34,11 +34,11 @@ For this tutorial, you'll implement semantic search using the following OpenSear
 - [Normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/)
 - [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/)
 
-You'll find the explanations of all these components as you follow the tutorial, so don't worry if you're not familiar with some of them. Each link in the preceding list will take you to a corresponding documentation section if you want to learn more.
+You'll find descriptions of all these components as you follow the tutorial, so don't worry if you're not familiar with some of them. Each link in the preceding list will take you to the documentation section for the corresponding component.
 
 ## Prerequisites
 
-For this simple example, you'll use an OpenSearch-provided machine learning (ML) model and a cluster with no dedicated ML nodes. To ensure this basic local setup works, send the following request to update ML-related cluster settings:
+For this simple example, you'll use an OpenSearch-provided machine learning (ML) model and a cluster with no dedicated ML nodes. To ensure that this basic local setup works, send the following request to update ML-related cluster settings:
 
 ```json
 PUT _cluster/settings
@@ -83,7 +83,7 @@ This tutorial consists of the following steps:
    - [Search with a neural search](#search-with-a-neural-search)
    - [Search with a combined keyword search and neural search](#search-with-a-combined-keyword-search-and-neural-search)
 
-Some steps in the tutorial contain optional `Test it` sections. You can ensure the step worked by running requests in these sections.
+Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step worked by running requests in these sections.
 
 After you're done, follow the steps in the [Clean up](#clean-up) section to delete all created components.
 
@@ -93,7 +93,7 @@ You can follow this tutorial using your command line or the OpenSearch Dashboard
 
 ## Step 1: Set up an ML language model
 
-Neural search requires a language model to generate vector embeddings from text fields both at ingestion time and query time.
+Neural search requires a language model in order to generate vector embeddings from text fields, both at ingestion time and query time.
 
 ### Step 1(a): Choose a language model
 
@@ -108,7 +108,7 @@ For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/trans
 You can choose to use another model:
 
 - One of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
-- Your own model. For instructions how to set up a custom model, see [Model serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- Your own model. For instructions on how to set up a custom model, see [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 Take note of the dimensionality of the model because you'll need it when you set up a k-NN index.
 {: .important}
@@ -229,7 +229,7 @@ Registering a model is an asynchronous task. OpenSearch sends back a task ID for
 }
 ```
 
-OpenSearch downloads the config file for the model and the model contents from the URL. Because the model is larger than 10 MB in size, OpenSearch splits it into chunks of up to 10 MB and saves those chunks in the model index. You can check the status of the task using the Tasks API:
+OpenSearch downloads the config file for the model and the model contents from the URL. Because the model is larger than 10 MB in size, OpenSearch splits it into chunks of up to 10 MB and saves those chunks in the model index. You can check the status of the task by using the Tasks API:
 
 ```json
 GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
@@ -253,7 +253,7 @@ Once the task is complete, the task status will be `COMPLETED` and the Tasks API
 }
 ```
 
-You'll need the model ID in order to use this model for several following steps.
+You'll need the model ID in order to use this model for several of the following steps.
 
 <details closed markdown="block">
   <summary>
@@ -320,12 +320,12 @@ The response contains the model:
 }
 ```
 
-The response contains the model information, including the `model_state` (`REGISTERED`) and the number of chunks it was split into `total_chunks` (27).
+The response contains the model information, including the `model_state` (`REGISTERED`) and the number of chunks into which it was split `total_chunks` (27).
 </details>
 
 #### Advanced: Registering a custom model
 
-To register a custom model, you must provide a model configuration in the register request. For example, the following is a register request with the full format for the model used in this tutorial:
+To register a custom model, you must provide a model configuration in the register request. For example, the following is a register request containing the full format for the model used in this tutorial:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -348,7 +348,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-For more information, see [Model serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+For more information, see [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 ### Step 1(d): Deploy the model
 
@@ -359,7 +359,7 @@ POST /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2/_deploy
 ```
 {% include copy-curl.html %}
 
-Like the register operation, the deploy operation is asynchronous so you'll get a task ID in the response:
+Like the register operation, the deploy operation is asynchronous, so you'll get a task ID in the response:
 
 ```json
 {
@@ -368,7 +368,7 @@ Like the register operation, the deploy operation is asynchronous so you'll get 
 }
 ```
 
-You can check the status of the task using the Tasks API:
+You can check the status of the task by using the Tasks API:
 
 ```json
 GET /_plugins/_ml/tasks/ale6f4oB5Vm0Tdw8NINO
@@ -471,7 +471,7 @@ The response shows the model status as `DEPLOYED`:
 }
 ```
 
-You can also receive statistics for all deployed models in your cluster sending a Models Profile API request:
+You can also receive statistics for all deployed models in your cluster by sending a Models Profile API request:
 
 ```json
 GET /_plugins/_ml/profile/models
@@ -484,7 +484,7 @@ Neural search uses a language model to transform text into vector embeddings. Du
 
 ### Step 2(a): Create an ingest pipeline for neural search
 
-The first step in setting up [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) is to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/). The ingest pipeline will contain one processor: a task that transforms document fields. For neural search, you'll need to set up a `text_embedding` processor that takes in text and creates vector embeddings from that text. You'll need a `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field to take the text from (`text`) and the name of the field to record embeddings in (`passage_embedding`):
+The first step in setting up [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) is to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/). The ingest pipeline will contain one processor: a task that transforms document fields. For neural search, you'll need to set up a `text_embedding` processor that takes in text and creates vector embeddings from that text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`text`) and the name of the field in which to record embeddings (`passage_embedding`):
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -540,7 +540,7 @@ The response contains the ingest pipeline:
 
 ### Step 2(b): Create a k-NN index
 
-Now you'll create a k-NN index with a field called `text` that holds an image description and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field called `passage_embedding` that holds the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a k-NN index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json
@@ -574,7 +574,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-Setting up a k-NN index allows to later perform a vector search on the `passage_embedding` field.
+Setting up a k-NN index allows you to later perform a vector search on the `passage_embedding` field.
 
 <details closed markdown="block">
   <summary>
@@ -598,7 +598,7 @@ GET /my-nlp-index/_mappings
 
 ### Step 2(c): Ingest documents into the index
 
-In this step, you'll ingest several sample documents into the index. The sample data is taken from the [Flickr image dataset](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset). Each document contains a `text` field that corresponds to the image description and an `id` field that corresponds to the image ID:
+In this step, you'll ingest several sample documents into the index. The sample data is taken from the [Flickr image dataset](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset). Each document contains a `text` field corresponding to the image description and an `id` field corresponding to the image ID:
 
 ```json
 PUT /my-nlp-index/_doc/1
@@ -649,9 +649,9 @@ PUT /my-nlp-index/_doc/5
 
 Now you'll search the index using keyword search, neural search, and a combination of the two.
 
-### Search with a keyword search
+### Search using a keyword search
 
-To search with keyword search, use a `match` query. You'll exclude embeddings from the results:
+To search using a keyword search, use a `match` query. You'll exclude embeddings from the results:
 
 ```json
 GET /my-nlp-index/_search
@@ -739,9 +739,9 @@ Document 3 is not returned because it does not contain the specified keywords. D
 ```
 </details>
 
-### Search with a neural search
+### Search using a neural search
 
-To search with neural search, use a `neural` query and provide the model ID of the model set up earlier so that vector embeddings for the query text are generated with the model used at ingestion time:
+To search using a neural search, use a `neural` query and provide the model ID of the model you set up earlier so that vector embeddings for the query text are generated with the model used at ingestion time:
 
 ```json
 GET /my-nlp-index/_search
@@ -840,13 +840,13 @@ The results contain all five documents. The document order is now closer to the 
 ```
 </details>
 
-### Search with a combined keyword search and neural search
+### Search using a combined keyword search and neural search
 
 To combine keyword search and neural search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization_processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
 
 #### Step 1: Configure a search pipeline
 
-To configure a search pipeline with a `normalization_processor`, use the following request. The normalization technique in the processor is set to `min_max` and the combination technique is set to `arithmetic_mean`. The `weights` array specifies the weights to assign each query clause as decimal percentages:
+To configure a search pipeline with a `normalization_processor`, use the following request. The normalization technique in the processor is set to `min_max`, and the combination technique is set to `arithmetic_mean`. The `weights` array specifies the weights assigned to each query clause as decimal percentages:
 
 ```json
 PUT /_search/pipeline/nlp-search-pipeline
@@ -912,7 +912,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-Not only does OpenSearch return documents that match the semantic meaning of `wild west`, but now the documents containing the words related to the wild west theme are scored higher relative to the others:
+Not only does OpenSearch return documents that match the semantic meaning of `wild west`, but now the documents containing words related to the wild west theme are also scored higher relative to the others:
 
 <details closed markdown="block">
   <summary>
@@ -988,7 +988,7 @@ Not only does OpenSearch return documents that match the semantic meaning of `wi
 ```
 </details>
 
-Instead of specifying the search pipeline with every request, you can set it as a default search pipeline for the index as follows:
+Instead of specifying the search pipeline in every request, you can set it as a default search pipeline for the index as follows:
 
 ```json
 PUT /my-nlp-index/_settings 
@@ -998,7 +998,7 @@ PUT /my-nlp-index/_settings
 ```
 {% include copy-curl.html %}
 
-You can now experiment with different weights, normalization techniques, and combination techniques. For more information, see [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) documentation.
+You can now experiment with different weights, normalization techniques, and combination techniques. For more information, see the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) documentation.
 
 ### Clean up
 
@@ -1036,5 +1036,5 @@ DELETE /_plugins/_ml/model_groups/Z1eQf4oB5Vm0Tdw8EIP2
 
 ## Further reading
 
-- Read about the basics of semantic search in OpenSearch in [Building a semantic search engine in OpenSearch](https://opensearch.org/blog/semantic-search-solutions/)
-- Read about the benefits of combining keyword and neural search, the normalization and combination technique options, and the benchmarking tests in [The ABCs of semantic search in OpenSearch: Architectures, benchmarks, and combination strategies](https://opensearch.org/blog/semantic-science-benchmarks/)
+- Read about the basics of OpenSearch semantic search in [Building a semantic search engine in OpenSearch](https://opensearch.org/blog/semantic-search-solutions/).
+- Read about the benefits of combining keyword and neural search, the normalization and combination technique options, and benchmarking tests in [The ABCs of semantic search in OpenSearch: Architectures, benchmarks, and combination strategies](https://opensearch.org/blog/semantic-science-benchmarks/).
