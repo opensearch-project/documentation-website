@@ -38,7 +38,7 @@ You'll find descriptions of all these components as you follow the tutorial, so 
 
 ## Prerequisites
 
-For this simple example, you'll use an OpenSearch-provided machine learning (ML) model and a cluster with no dedicated ML nodes. To ensure that this basic local setup works, send the following request to update ML-related cluster settings:
+For this simple setup, you'll use an OpenSearch-provided machine learning (ML) model and a cluster with no dedicated ML nodes. To ensure that this basic local setup works, send the following request to update ML-related cluster settings:
 
 ```json
 PUT _cluster/settings
@@ -61,7 +61,7 @@ PUT _cluster/settings
 For a more advanced setup, note the following requirements:
 
 - To register a custom model, you need to specify an additional `"allow_registering_model_via_url": "true"` cluster setting. 
-- On clusters with dedicated ML nodes, you may want to specify `"only_run_on_ml_node": "true"` for improved performance. 
+- In production, it's best practice to separate the workloads by having dedicated ML nodes. On clusters with dedicated ML nodes, specify `"only_run_on_ml_node": "true"` for improved performance. 
 
 For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
@@ -297,7 +297,7 @@ The response contains the model:
 }
 ```
 
-The response contains the model information, including the `model_state` (`REGISTERED`) and the number of chunks into which it was split `total_chunks` (27).
+The response contains the model information. You can see that the `model_state` is `REGISTERED`. Additionally, the model was split into 27 chunks, as shown in the `total_chunks` field.
 </details>
 
 #### Advanced: Registering a custom model
@@ -427,7 +427,7 @@ Neural search uses a language model to transform text into vector embeddings. Du
 
 ### Step 2(a): Create an ingest pipeline for neural search
 
-The first step in setting up [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) is to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/). The ingest pipeline will contain one processor: a task that transforms document fields. For neural search, you'll need to set up a `text_embedding` processor that takes in text and creates vector embeddings from that text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`text`) and the name of the field in which to record embeddings (`passage_embedding`):
+Now that you have deployed a model, you can use this model to configure [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). First, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. For neural search, you'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`text`) and the name of the field in which to record embeddings (`passage_embedding`):
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -587,6 +587,37 @@ PUT /my-nlp-index/_doc/5
 }
 ```
 {% include copy-curl.html %}
+
+When the documents are ingested into the index, the `text_embedding` processor creates an additional field that contains vector embeddings and adds that field to the document. To see an example document that is indexed, search for document 1:
+
+```json
+GET /my-nlp-index/_search/1
+```
+{% include copy-curl.html %}
+
+The response shows the document `_source` containing the original `text` and `id` fields and the added `passage_embeddings` field:
+
+```json
+{
+  "_index": "my-nlp-index",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "passage_embedding": [
+      0.04491629,
+      -0.34105563,
+      0.036822468,
+      -0.14139028,
+      ...
+    ],
+    "text": "A West Virginia university women 's basketball team , officials , and a small gathering of fans are in a West Virginia arena .",
+    "id": "4319130149.jpg"
+  }
+}
+```
 
 ## Step 3: Search the data
 
@@ -942,6 +973,10 @@ PUT /my-nlp-index/_settings
 {% include copy-curl.html %}
 
 You can now experiment with different weights, normalization techniques, and combination techniques. For more information, see the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) documentation.
+
+#### Advanced
+
+You can parametrize the search by using search templates, hiding implementation details and reducing the number of nested levels and thus the query complexity. For more information, see [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
 
 ### Clean up
 
