@@ -29,7 +29,7 @@ type-conv-pipeline:
     ...
   ....  
   processor:
-    - convert_entry_type_type:
+    - convert_entry_type:
         key: "response_status"
         type: "integer"
 ```
