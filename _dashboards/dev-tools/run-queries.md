@@ -29,7 +29,6 @@ To send a query to OpenSearch, select the query by placing the cursor anywhere i
 
 The console uses an easier syntax to format REST requests than the `curl` command. For example, the following `curl` command runs a search query:
 
-````
 ```bash
 curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: application/json' -d'
 {
@@ -41,11 +40,9 @@ curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: ap
 }'
 ```
 {% include copy.html %}
-````
 
 The same query has a simpler syntax in the console format:
 
-````
 ```json
 GET shakespeare/_search
 {
@@ -57,11 +54,8 @@ GET shakespeare/_search
 }
 ```
 {% include copy-curl.html %}
-````
 
-If you paste a `curl` command directly into the console, the command is automatically converted into the format the console uses. 
-
-To import a query in cURL format, select the query, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**.
+If you paste a `curl` command directly into the console, the command is automatically converted into the format that the console uses. To import a query in cURL format, select the query, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**.
 
 ## Auto indenting
 
