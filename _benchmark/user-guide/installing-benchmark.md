@@ -151,6 +151,40 @@ run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opens
 
 See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) to learn more about the files and subdirectories located in `/opensearch-benchmark/.benchmark`.
 
+## Directory structure
+
+After running OpenSearch Benchmark for the first time, you can search through all related files, including configuration files, in the `~/.benchmark` directory. The directory includes the following file tree:
+
+```
+# ~/.benchmark Tree
+.
+├── benchmark.ini
+├── benchmarks
+│   ├── data
+│   │   └── geonames
+│   ├── distributions
+│   │   ├── opensearch-1.0.0-linux-x64.tar.gz
+│   │   └── opensearch-2.3.0-linux-x64.tar.gz
+│   ├── test_executions
+│   │   ├── 0279b13b-1e54-49c7-b1a7-cde0b303a797
+│   │   └── 0279c542-a856-4e88-9cc8-04306378cd38
+│   └── workloads
+│       └── default
+│           └── geonames
+├── logging.json
+├── logs
+│   └── benchmark.log
+```
+
+* `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
+* `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
+* `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
+* `test_executions`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark
+* `workloads`: Contains all files related to workloads except for the data corpora.
+* `logging.json`: Contains all the configuration option related to how logging is done within OpenSearch Benchmark
+* `logs`: Contains all the logs from OpenSearch Benchmark runs. This is helpful for when you've encountered errors during runs.
+
+
 ## Next steps
 
 - [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)
