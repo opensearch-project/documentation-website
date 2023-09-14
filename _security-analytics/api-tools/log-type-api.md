@@ -232,21 +232,6 @@ DELETE /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 }
 ```
 
-Only custom log types can be deleted. Trying to delete a standard OpenSearch-defined log type generates the following result:
-
-```json
-{
-  "error": {
-    "root_cause": [
-      {
-        "type": "status_exception",
-        "reason": "Log Type with id apache_access cannot be deleted because source is sigma"
-      }
-    ],
-    "type": "status_exception",
-    "reason": "Log Type with id apache_access cannot be deleted because source is sigma"
-  },
-  "status": 400
-}
-```
+Only custom log types can be deleted. Trying to delete a standard OpenSearch-defined log type results in an error.
+{: .note }
 
