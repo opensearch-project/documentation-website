@@ -8,7 +8,12 @@ nav_order: 15
 
 If you want to migrate from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) unappealing, you can migrate your existing nodes from Elasticsearch OSS to OpenSearch.
 
-If your existing cluster runs an older version of Elasticsearch OSS, the first step is to upgrade to version 6.x or 7.x. Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
+If your existing cluster runs an older version of Elasticsearch OSS, the first step is to upgrade to version 6.x or 7.x.
+
+Before deciding on the version of Elasticsearch OSS for your upgrade, refer to the [Migrating to OpenSearch and limits on the number of nested JSON objects]({{site.url}}{{site.baseurl}}/breaking-changes/#migrating-to-opensearch-and-limits-on-the-number-of-nested-json-objects) documentation in Breaking changes to see whether the issue will have an impact on your cluster and, therefore, your decisions about upgrades and migration.
+{: .important }
+
+Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
 
 - Rolling upgrades let you shut down one node at a time for minimal disruption of service.
 
