@@ -18,7 +18,7 @@ In this tutorial, you'll learn about using **Discover** to:
 
 - Add data.
 - Explore and visualize data.
-- Share the data findings
+- Share the data findings.
 - Set alerts
 
 #### Prerequisites
