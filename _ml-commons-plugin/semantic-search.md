@@ -19,7 +19,13 @@ In this tutorial, you'll learn how to:
 It's helpful to understand the following terms before starting this tutorial:
 
 - _Semantic search_: Employs neural search in order to determine the intention of the user's query in the search context and improve search relevance. 
-- _Neural search_: When indexing documents containing text, neural search uses language models to generate vector embeddings from that text. When you then use a _neural query_, the query text is passed through a language model, and the resulting vector embeddings are compared with the document text vector embeddings to find the most relevant results.
+- _Neural search_: Facilitates vector search at ingestion time and at search time:
+  - At ingestion time, neural search uses language models to generate vector embeddings from the text fields in the document. The documents containing both the original text field and the vector embedding of the field are then indexed in a k-NN index, as shown in the following diagram. 
+
+  ![Neural search at ingestion time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-ingestion.png)
+  - At search time, when you then use a _neural query_, the query text is passed through a language model, and the resulting vector embeddings are compared with the document text vector embeddings to find the most relevant results, as shown in the following diagram.
+  
+  ![Neural search at search time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-query.png)
 
 ## OpenSearch components for semantic search
 
@@ -97,7 +103,7 @@ Neural search requires a language model in order to generate vector embeddings f
 
 ### Step 1(a): Choose a language model
 
-For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch. You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
+For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch that has shown one of the best results in benchmarking tests (for details, see [this blog](https://opensearch.org/blog/semantic-science-benchmarks/)). You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
 
 - The model name is `huggingface/sentence-transformers/msmarco-distilbert-base-tas-b`.
 - The model version is `1.0.1`.
@@ -105,7 +111,7 @@ For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/trans
 
 #### Advanced: Using a different model
 
-Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For instructions on how to set up a custom model, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For information about choosing a model, see [Further reading](#further-reading). For instructions on how to set up a custom model, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 Take note of the dimensionality of the model because you'll need it when you set up a k-NN index.
 {: .important}
