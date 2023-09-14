@@ -232,7 +232,7 @@ DELETE /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 }
 ```
 
-Only custom log types can be deleted. This API cannot delete standard OpenSearch-defined log types. Trying to perform this operation generates the following result:
+Only custom log types can be deleted. Trying to delete a standard OpenSearch-defined log type generates the following result:
 
 ```json
 {
