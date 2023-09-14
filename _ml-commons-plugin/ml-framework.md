@@ -48,7 +48,7 @@ To achieve better performance within the ML Framework, you can take advantage of
 Use the URL upload operation for models that already exist on another server, such as GitHub or S3. 
 
 ```
-POST /_plugins/_ml/models/_upload
+POST /_plugins/_ml/models/_register
 ```
 
 The URL upload method requires the following request fields.
@@ -84,12 +84,13 @@ You can further customize a pre-trained sentence transformer model's post-proces
 The following example request uploads version `1.0.0` of a natural language processing (NLP) sentence transformation model named `all-MiniLM-L6-v2`:
 
 ```json
-POST /_plugins/_ml/models/_upload
+POST /_plugins/_ml/models/_register
 {
   "name": "all-MiniLM-L6-v2",
   "version": "1.0.0",
   "description": "test model",
   "model_format": "TORCH_SCRIPT",
+  "model_content_hash_value": "96a89c2fb80f20550a4fcedb0d86d9bfad788b7bcab7497c7cda015adee1cb32",
   "model_config": {
     "model_type": "bert",
     "embedding_dimension": 384,
@@ -152,7 +153,7 @@ Add the `model_id` to the load API:
 
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_load
+POST /_plugins/_ml/models/<model_id>/_deploy
 ```
 
 By default, the ML Commons setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, models load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true` so that models only load on ML nodes.
@@ -164,7 +165,7 @@ By default, the ML Commons setting `plugins.ml_commons.only_run_on_ml_node` is s
 In this example request, OpenSearch loads the model into all available OpenSearch node: 
 
 ```json
-POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
+POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
 
 #### Example request: Load into a specific node
@@ -173,7 +174,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying each node's ID in the request body:
 
 ```json
-POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
+POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 {
     "node_ids": ["4PLK7KJWReyX0oWKnBA8nA"]
 }
@@ -274,14 +275,14 @@ POST /_plugins/_ml/_predict/text_embedding/WWQI44MBbzI2oUKAvNUt
 If you're done making predictions with your model, use the unload operation to remove the model from your memory cache. The model will remain accessible in the model index.
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_unload
+POST /_plugins/_ml/models/<model_id>/_undeploy
 ```
 
 ### Example request
 
 
 ```json
-POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_unload
+POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
 ```
 
 ### Example response
