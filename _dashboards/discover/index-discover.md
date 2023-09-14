@@ -80,7 +80,7 @@ To search data, follow these steps:
 
 ### Filter your data
 
-Filters allow you to narrow down the results of a query by specifying specific criteria. You can filter by field, value, or range. The **Add filter** popup suggests the available fields and operators.
+Filters allow you to narrow the results of a query by specifying certain criteria. You can filter by field, value, or range. The **Add filter** pop-up suggests the available fields and operators.
 
 To filter your data:
 
