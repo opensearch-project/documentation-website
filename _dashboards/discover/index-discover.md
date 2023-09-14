@@ -62,7 +62,7 @@ To add or delete fields in a document table, follow these steps:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/arrange-columns.png" alt="Document table interface" width="700"/>
 
-You can view individual or multiple fields in the document table to gain deeper knowledge about your data. To explore data in the document table, follow these steps: 
+You can view individual or multiple fields in the document table. To explore data in the document table, follow these steps: 
 
 1. Choose the inspect icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/}) to open the **Document Details** window.
 1. Review the data details. You can switch between the **Table** and **JSON** tabs to view the data in your preferred format. 
