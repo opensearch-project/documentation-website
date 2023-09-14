@@ -55,7 +55,7 @@ GET products/_search
 ```
 {% include copy-curl.html %}
 
-For more information about supported date formats, see [Date fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/).
+For more information about supported date formats, see [Formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats).
 
 ### Format
 
