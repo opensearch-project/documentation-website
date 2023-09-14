@@ -98,7 +98,7 @@ To save your search, including the query text, filters, and current data view, f
 1. Give the search a title, and then choose **Save**. 
 1. Select **Open** to access the saved search. 
 
-## Create visual representations of your data discoveries
+## Create visual representations of your findings
 
 To create visualizations of your data findings, follow these steps:
 
