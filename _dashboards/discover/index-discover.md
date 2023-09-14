@@ -75,7 +75,7 @@ You can use the search toolbar or enter a [DQL]({{site.url}}{{site.baseurl}}/das
 To search data, follow these steps:
 
 1. Enter a simple query in the DQL search bar. For example, enter `FlightDelay:true`, which searches for delayed flights.
-1. Select the **Update** button right of the search bar.
+1. Select the **Update** button to the right of the search bar.
 1. Enter a more complex query in the DQL search bar, and then select **Update**. For example, enter `FlightDelay:true AND FlightDelayMin >= 60`, which searches the data for flights delayed by 60 minutes or more.
 
 ### Filter your data
