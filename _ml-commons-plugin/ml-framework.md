@@ -43,24 +43,25 @@ Most deep learning models are more than 100 MB, making it difficult to fit them 
 To achieve better performance within the ML Framework, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 
 
-## Upload model to OpenSearch
+## Register model to OpenSearch
 
-Use the URL upload operation for models that already exist on another server, such as GitHub or S3. 
+Use the URL Register operation for models that already exist on another server, such as GitHub or S3. 
 
 ```
 POST /_plugins/_ml/models/_register
 ```
 
-The URL upload method requires the following request fields.
-
+The URL register method requires the following request fields.
 
 Field | Data type | Description
 :---  | :--- | :--- 
-`name`| String | The name of the model. |
-`version` | String | The version number of the model. Since OpenSearch does not enforce a specific version schema for models, you can choose any number or format that makes sense for your models. |
+`name`| String | The model's name. |
+`version` | Integer | The model's version number. |
 `model_format` | String | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
-[`model_config`](#the-model_config-object) | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
-`url` | string | The URL where the model is located. |
+`model_group_id` | String | The model group ID of the model group to register this model to. 
+`model_content_hash_value` | String | The model content hash generated using the SHA-256 hashing algorithm.
+`model_config`  | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. |
+`url` | String | The URL that contains the model. |
 
 ### The `model_config` object
 
