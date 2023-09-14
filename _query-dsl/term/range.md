@@ -184,7 +184,7 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-The `gte` parameter in the preceding query is converted to `2022-04-17T10:00:00 UTC` which is the UTC equivalent of `2022-04-17T06:00:00-04:00`.   
+The `gte` parameter in the preceding query is converted to `2022-04-17T10:00:00 UTC`, which is the UTC equivalent of `2022-04-17T06:00:00-04:00`.   
 
 The `time_zone` parameter does not affect the `now` value because `now` always corresponds to the current system time in UTC.
 {: .note}
