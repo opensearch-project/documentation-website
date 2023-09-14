@@ -57,7 +57,7 @@ The document table contains document data. Each row represents a single document
 
 To add or delete fields in a document table, follow these steps:
 
-1. View the data fields listed under **Available fields** and select the plus icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/}) to add the desired fields to the document table. The field will be automatically added to **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
+1. View the data fields listed under **Available fields** and select the plus icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/}) to add the desired fields to the document table. The field will be automatically added to both **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
 1. To arrange or sort the columns, select the column header containing the field name and select the desired action. An example is shown in the following image. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/arrange-columns.png" alt="Document table interface" width="700"/>
