@@ -82,7 +82,7 @@ To search data, follow these steps:
 
 Filters allow you to narrow the results of a query by specifying certain criteria. You can filter by field, value, or range. The **Add filter** pop-up suggests the available fields and operators.
 
-To filter your data:
+To filter your data, follow these steps:
 
 1. Under the DQL search bar, choose **Add filter**.
 1. Select the desired options from the **Field**, **Operator**, and **Value** dropdown lists. For example, select `Cancelled`, `is`, and `true`.
