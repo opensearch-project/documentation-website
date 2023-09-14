@@ -70,7 +70,7 @@ You can view individual or multiple fields in the document table. To explore dat
 
 ### Search your data
 
-You can use the search toolbar or enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) query using the **DevTools** console to search data. While the search toolbar is best for basic queries, such as searching by a field name, DQL is best for complex queries, such as searching data using a term, string, Boolean, date, range, or nested query. DQL provides suggestions for fields and operators as you type, helping you build structures queries.
+You can use the search toolbar or enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) query using the **DevTools** console to search data. While the search toolbar is best for basic queries, such as field name queries, DQL is best for complex queries, such as term, string, Boolean, date, range, or nested queries. DQL provides suggestions for fields and operators as you type, helping you build structures queries.
 
 To search data, follow these steps:
 
