@@ -9,7 +9,7 @@ has_children: true
 Updated 2.10
 {: .label .label-purple } 
 
-**Discover** is the tool for exploring your data in OpenSearch Dashboards. You can use **Discover** to visually represent your data on a dashboard and provide a high-level view of key metrics. 
+**Discover** is a tool for exploring your data in OpenSearch Dashboards. You can use **Discover** to visually represent your data on a dashboard and provide a high-level view of key metrics. 
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} The legacy **Discover** tool will be retired in OpenSearch 2.11. The updated **Discover** tool provides you with new features and enhancements that make the data exploration experience in OpenSearch Dashboards more intuitive and user-friendly. To experience the updated tool now, install the [latest version of OpenSearch Dashboards](https://opensearch.org/downloads.html) or try out these features using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/).  
 {: .note} 
