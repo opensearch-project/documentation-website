@@ -53,7 +53,7 @@ To define a search, follow these steps:
 
 ## Add data fields and explore the data in your document table
 
-The document table contains document data. Each row represents a single document and each column contains a different document field, representing metrics such as flight destination, average ticket price, and flight delay. You can add, delete, or modify data fields in a document table as needed to meet your data analysis requirements. 
+The document table contains document data. Each row represents a single document, and each column contains a different document field representing metrics such as flight destination, average ticket price, and flight delay. You can add, delete, or modify data fields in a document table as needed to meet your data analysis requirements. 
 
 To add or delete fields in a document table, follow these steps:
 
