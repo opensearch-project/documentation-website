@@ -27,7 +27,7 @@ The following are prerequisites for using **Discover** effectively:
 
 - Install [OpenSearch Dashboards 2.10 or later](https://opensearch.org/downloads.html).
 - Add OpenSearch [sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) or import your own data into OpenSearch.
-- Have foundational understanding of OpenSearch [documents and indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).   
+- Have a foundational understanding of OpenSearch [documents and indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).   
 
 ## Import data
 
