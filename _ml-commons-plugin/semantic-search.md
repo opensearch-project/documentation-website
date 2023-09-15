@@ -24,7 +24,7 @@ It's helpful to understand the following terms before starting this tutorial:
 
   ![Neural search at ingestion time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-ingestion.png)
   - At search time, when you then use a _neural query_, the query text is passed through a language model, and the resulting vector embeddings are compared with the document text vector embeddings to find the most relevant results, as shown in the following diagram.
-  
+
   ![Neural search at search time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-query.png)
 
 ## OpenSearch components for semantic search
@@ -103,7 +103,7 @@ Neural search requires a language model in order to generate vector embeddings f
 
 ### Step 1(a): Choose a language model
 
-For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch that has shown one of the best results in benchmarking tests (for details, see [this blog](https://opensearch.org/blog/semantic-science-benchmarks/)). You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
+For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch that has shown some of the best results in benchmarking tests (for details, see [this blog post](https://opensearch.org/blog/semantic-science-benchmarks/)). You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
 
 - The model name is `huggingface/sentence-transformers/msmarco-distilbert-base-tas-b`.
 - The model version is `1.0.1`.
@@ -982,7 +982,7 @@ You can now experiment with different weights, normalization techniques, and com
 
 #### Advanced
 
-You can parametrize the search by using search templates, hiding implementation details and reducing the number of nested levels and thus the query complexity. For more information, see [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
+You can parameterize the search by using search templates. Search templates hide implementation details, reducing the number of nested levels and thus the query complexity. For more information, see [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
 
 ### Clean up
 
