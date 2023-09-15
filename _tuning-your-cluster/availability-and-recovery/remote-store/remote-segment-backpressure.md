@@ -8,6 +8,9 @@ grand_parent: Availability and recovery
 
 # Remote segment backpressure
 
+Introduced 2.10
+{: .label .label-purple }
+
 Remote segment backpressure is a shard-level rejection mechanism that dynamically rejects indexing requests when the remote segment store falls behind the local committed segments on the primary shard. With remote segment backpressure, you can prevent the lag between the remote store and the local primary store. The lag can be caused by slow or failed remote store interaction, remote store throttling, long garbage collection pauses, or high CPU utilization.
 
 ## Thresholds

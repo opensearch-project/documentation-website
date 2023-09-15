@@ -11,6 +11,9 @@ redirect_from:
 
 # Remote-backed storage
 
+Introduced 2.10
+{: .label .label-purple }
+
 
 Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
 
