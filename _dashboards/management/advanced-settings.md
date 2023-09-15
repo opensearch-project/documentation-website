@@ -7,15 +7,11 @@ nav_order: 40
 
 # Advanced settings
 
-Use the **Advanced settings** page to modify settings that govern OpenSearch Dashboards behavior. For example, you can use the page to enable or disable the dark mode, change the default language, change the default number of results displayed on a dashboard, or change the default time zone. You can configure most settings in **Advanced settings**. Certain operations require you to modify the `opensearch-dashboards.yml` configuration file and restart OpenSearch Dashboards.
+Use the **Advanced settings** page to modify settings that govern OpenSearch Dashboards behavior. These settings can be used to customize the look and feel of the application, change the behavior of certain features, and more. To access **Advanced settings**, go to **Dashboards Management** and select **Advanced settings**. The page is divided into several sections, each 
+containing a set of related settings. You can modify these settings by editing the their fields. Once you've made the changes, select **Save** to apply them.  
 
-To modify settings in **Advanced settings**, follow these steps:
-
-1. Open the OpenSearch Dashboards main menu, then select **Dashboards Management** > **Advanced settings**.
-2. Search for the setting you want to modify.
-3. Enter a new value for the setting. 
-4. Select **Save changes**, and refresh the page as prompted. 
+Certain settings require you to modify the `opensearch-dashboards.yml` configuration file and restart OpenSearch Dashboards.
 
 ## Required permissions
 
-To modify settings, you must have permission to make changes. Contact your system administrator for access. 
+To modify settings, you must have permission to make changes. See [Multi-tenancy configuration](https://opensearch.org/docs/latest/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants) for guidance about giving role access to tenants.
