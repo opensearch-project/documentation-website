@@ -12,7 +12,7 @@ redirect_from:
 The Dev Tools console can be used to send queries to OpenSearch. To access the console, go to the OpenSearch Dashboards main menu and select **Management** > **Dev Tools**.
 ## Writing queries
 
-OpenSearch provides a query domain-specific language (DSL) called [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). It is a is a flexible language with a JSON interface. 
+OpenSearch provides a query domain-specific language (DSL) called [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). It is a flexible language with a JSON interface. 
 
 To write your queries, use the editor pane on the left side of the console. To send a query to OpenSearch, select the query by placing the cursor in the query text and then selecting the play icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/play-icon.png" class="inline-icon" alt="play icon"/>{:/}) on the upper right of the request or press `Ctrl/Cmd+Enter`. The response from OpenSearch is displayed in the response pane on the right side of the console. To run multiple commands simultaneously, select all the commands in the editor pane, and then select the play icon or press `Ctrl/Cmd+Enter`. 
 
