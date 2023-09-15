@@ -63,7 +63,7 @@ In this simple example, the first monitor could be a per document monitor config
 
 ## Managing composite monitors with the API
 
-You can manage composite monitors using the REST API or OpenSearch Dashboards. This section covers API functionality for composite monitors.
+You can manage composite monitors using the REST API or [OpenSearch Dashboards](#creating-composite-monitors-in-opensearch-dashboards). This section covers API functionality for composite monitors.
 
 ### Create composite monitor
 
