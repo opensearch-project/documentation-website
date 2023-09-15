@@ -7,7 +7,7 @@ nav_order: 200
 
 # Conversational search
 
-Conversational search is an experimental machine learning (ML) feature that enables a new search interface. Whereas traditional document search allows a user to ask a question and receive a list of documents that might contain the answer to that question, conversation search uses large language models (LLM) to read the top N documents and synthesizes those documents into a plaintest "answer" to your question.
+Conversational search is an experimental machine learning (ML) feature that enables a new search interface. Whereas traditional document search allows a user to ask a question and receive a list of documents that might contain the answer to that question, conversational search uses large language models (LLM) to read the top N documents and synthesizes those documents into a plaintext "answer" to your question.
 
 Currently, conversational search utilizes two systems to synthesize documents:
 
@@ -44,13 +44,13 @@ In the `conversation-interactions` index, the following fields are all set by th
 
 | Field | Description |
 | :--- | :--- |
-| `input` | The question which forms the basis for an interaction.
+| `input` | The question which forms the basis for an interaction. |
 | `prompt_template` | The prompt template that was used as the framework for this interaction. |
 | `response` | The AI’s response to the prompt. |
 | `origin` | The name of the AI or other system that generated the response. |
 | `additional_info` | Any other information that was sent to the “origin” in the prompt. |
 
-The goal of the `conversation-interactions` index is to create a clean interaction and make it easy for the index to reconstruct the exact prompts sent to the LLM, enabling robust debugging and explainability, as shown in the following schema:
+The goal of the `conversation-interactions` index is to create a clean interaction abstraction and make it easy for the index to reconstruct the exact prompts sent to the LLM, enabling robust debugging and explainability, as shown in the following schema:
 
 ```jsx
 .plugins-ml-conversation-interactions
@@ -83,9 +83,9 @@ PUT /_cluster/settings
 }
 ```
 
-After conversation memory is enabled, you can now use the Memory API to create a conversation. Remember, you cannot create an interactions until you've created a conversation. 
+After conversation memory is enabled, you can now use the Memory API to create a conversation. Remember, you cannot create any interactions until you've created a conversation. 
 
-To make the conversation easily identifable, use the optional `name` field in the Memory API, as shown in the following example. This will be your only opportunity to give your conversation a name.
+To make the conversation easily identifiable, use the optional `name` field in the Memory API, as shown in the following example. This will be your only opportunity to give your conversation a name.
 
 
 
@@ -137,7 +137,7 @@ Use the following path parameters to customize your results:
 Parameter | Data type | Description
 :--- | :--- | :---
 `max_results` | Integer | The maximum number of results returned by the response. Default is `10`.
-`next_token` | Integer | The number of paginated results returned when more than the `max_results` exist.
+`next_token` | Integer | Represents the position in the conversation order to retrieve. For example, if three conversation, A, B, and C, exist, `next_token=1` would return conversations B and C. 
 
 The Memory API responds with the most recent conversation created first, as indicated in the `create_time` field of the response as shown in the following example:
 
