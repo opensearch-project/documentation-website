@@ -223,4 +223,144 @@ PUT /_cluster/settings
 }
 ```
 
-RAG requires a LLM to function. We recommend using a [connector](https://opensearch.org/docs/latest/ml-commons-plugin/extensibility/connectors/)
+### Connecting the model
+
+RAG requires a LLM to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+
+In the following step through, we set up an HTTP connector using the OpenAI GPT 3.5 model. To set up that model:
+
+1. Use the Connector API to create the HTTP connector:
+
+  ```json
+  POST /_plugins/_ml/connectors/_create
+  {
+    "name": "OpenAI Chat Connector",
+    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "version": 2,
+    "protocol": "http",
+    "parameters": {
+      "endpoint": "[api.openai.com](http://api.openai.com/)",
+      "model": "gpt-3.5-turbo",
+      "temperature": 0
+    },
+    "credential": {
+      "openAI_key": "<your OpenAI key>"
+   },
+    "actions": [
+      {
+        "action_type": "predict",
+        "method": "POST",
+        "url": "[https://$](https://%24/){parameters.endpoint}/v1/chat/completions",
+        "headers": {
+          "Authorization": "Bearer ${credential.openAI_key}"
+        },
+        "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": $  {parameters.temperature} }"
+      }
+    ]
+  }
+  ```
+
+2. Create a new model group for the connected model. You'll use the `model_group_id` returned by the to register the model:
+
+   ```json
+  POST /_plugins/_ml/model_group/_register
+  {
+    "name": "public_model_group", 
+    "description": "This is a public model group"
+  }
+  ```
+3. Register the model and deploy the model using the `connector_id` from the Connector API response in Step 1 and `model_group_id` returned in Step 2:
+
+  ```java
+  POST /_plugins/_ml/models/_register
+  {
+	"name": "openAI-gpt-3.5-turbo",
+	"function_name": "remote",
+	"model_group_id": "fp-hSYoBu0R6vVqGMnM1",
+	"description": "test model",
+	"connector_id": "f5-iSYoBu0R6vVqGI3PA"
+  }
+  ``` 
+
+4. With the model registered, use the `task_id` returned in the registration response to get the `model_id`. You'll use the `model_id` to deploy the model to OpenSearch:
+
+  ```json
+  GET /_plugins/_ml/tasks/<task_id>
+  ```
+
+5. Using your `model_id` from step 4, deploy the model:
+
+  ```
+  POST /_plugins/_ml/models/<model_id>/_deploy
+  ```
+
+### Setting up the pipeline
+
+Next, we'll create a search pipeline for the connector model. Use the following Search API request to create a pipeline: 
+
+```json
+PUT /_search/pipeline/<pipeline_name>
+{
+  "response_processors": [
+    {
+      "retrieval_augmented_generation": {
+        "tag": "openai_pipeline_demo",
+        "description": "Demo pipeline Using OpenAI Connector",
+        "model_id": "<model_id>",
+        "context_field_list": ["text"]
+      }
+    }
+  ]
+}
+```
+
+`context_field_list`` is the list of fields in document sources that the pipeline uses as context for the RAG. When run against your documents, you might have a response similar to the following:
+
+```json
+{
+  "_index": "qa_demo",
+  "_id": "SimKcIoBOVKVCYpk1IL-",
+  "_score": 1,
+  "_source": {
+    "title": "Abraham Lincoln 2",
+    "text": "Abraham Lincoln was born on February 12, 1809, the second child of Thomas Lincoln and Nancy Hanks Lincoln, in a log cabin on Sinking Spring Farm near Hodgenville, Kentucky.[2] He was a descendant of Samuel Lincoln, an Englishman who migrated from Hingham, Norfolk, to its namesake, Hingham, Massachusetts, in 1638. The family then migrated west, passing through New Jersey, Pennsylvania, and Virginia.[3] Lincoln was also a descendant of the Harrison family of Virginia; his paternal grandfather and namesake, Captain Abraham Lincoln and wife Bathsheba (née Herring) moved the family from Virginia to Jefferson County, Kentucky.[b] The captain was killed in an Indian raid in 1786.[5] His children, including eight-year-old Thomas, Abraham's father, witnessed the attack.[6][c] Thomas then worked at odd jobs in Kentucky and Tennessee before the family settled in Hardin County, Kentucky, in the early 1800s.[6]\n"
+  }
+}
+```
+
+When configured using the preceeding Search API request, the pipeline sends the `text` field from the response to OpenAI model. You can customize `context_field_list`  in your RAG pipeline to send any fields that exist in your documents to the LLM.
+
+### Using the pipeline
+
+Using the pipeline is similar to submitting [search queries]({{site.url}}{{site.baseurl}}/api-reference/search/#example) to OpenSearch, as shown in the following example:
+
+```json
+GET /<index_name>/_search?search_pipeline=<pipeline_name>
+GET /<index_name>/_search?search_pipeline=<pipeline_name>
+{
+	"query" : {...},
+	"ext": {
+		"generative_qa_parameters": {
+			"llm_model": "gpt-3.5-turbo",
+			"llm_question": "Was Abraham Lincoln a good politician",
+			"conversation_id": "_ikaSooBHvd8_FqDUOjZ"
+		}
+	}
+}
+```
+
+The RAG search query uses the following request objects under the `generative_qa_paramters` option:
+
+Parameter | Required | Description
+:--- | :--- | :---
+`llm_question` | Yes | The question the LLM must answer. 
+`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model. For example, using GPT 4 instead of GPT 3.5.
+`coversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of search query to the LLM. 
+
+If you're LLM includes a set token limit, set the `size` field in you OpenSearch query to limit the amount of documents used in the search response.
+
+## Next Steps
+
+- To learn more about ML connectors, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)
+- To learn more about the ML framework for OpenSearch, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/)
+
