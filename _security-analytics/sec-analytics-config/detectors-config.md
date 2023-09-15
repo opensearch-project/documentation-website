@@ -146,15 +146,11 @@ To set up an alert for a detector, continue with the following steps:
 
 ### Integrated Alerting plugin workflows
 
-By default, when you create a threat detector the system automatically triggers workflows for the Alerting plugin. The new threat detector generates an underlying composite monitor whose configuration is informed by the detection rules selected during creation of the new detector. The composite monitor executes according to the detector's schedule rather than the monitor's schedule.
+By default, when you create a threat detector the system automatically creates a composite monitor and triggers workflows for the Alerting plugin. The detector's rules are converted into search queries for the Alerting plugin monitor, and the monitor executes its queries according to a schedule derived from the detector's configuration.
+
+You can change the behavior of automatically generated composite monitors by enabling or disabling the workflow functionality with the `plugins.security_analytics.enable_workflow_usage` setting. This setting is defined using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 For more information about composite monitors and their workflows, see [Composite monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/).
-
-You can change the behavior of the automatically generated composite monitor by enabling or disabling the workflow functionality with the `plugins.security_analytics.enable_workflow_usage` setting. By default, the setting is `true`.
-
-When set to `true`, a composite monitor is created with triggers based on the detector's Sigma rules and the Alerting plugin generates workflows.
-
-When set to `false`, the underlying composite monitor is created without workflows and triggers based on Sigma rules are not configured.
 
 ---
 ## What's next
