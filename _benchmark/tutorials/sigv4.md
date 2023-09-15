@@ -25,10 +25,8 @@ OpenSearch Benchmark supports AWS Signature Version 4 (Sigv4) authentication. To
 
    ```bash
    opensearch-benchmark execute-test \
-   --distribution-version=2.3.0 \
    --target-hosts=<YOUR COLLECTION ENDPOINT> \
    --pipeline=benchmark-only \
-   --workload percolator \
+   --workload=geonames \
    --client-options=timeout:120,amazon_aws_log_in:environment \
-   --exclude-tasks=check-cluster-health,refresh-after-index,force-merge,refresh-after-force-merge,wait-until-merges-finish,percolator_with_content_ignore_me
    ```
