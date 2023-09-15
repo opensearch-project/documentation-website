@@ -420,7 +420,7 @@ The response shows the model state as `DEPLOYED`:
 }
 ```
 
-You can also receive statistics for all deployed models in your cluster by sending a Models Profile API request:
+You can also receive statistics for all deployed models in your cluster by sending a [Models Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#profile) request:
 
 ```json
 GET /_plugins/_ml/profile/models
