@@ -30,9 +30,9 @@ Segment replication can be applied in a variety of scenarios, including:
 
 ## Remote store
 
-As of OpenSearch 2.10, segment replication now supports two methods for storing replica shards:
+As of OpenSearch 2.10, you can use two methods for segment replication:
 
-- Using a **Remote Store**, a remote storage solution where you can store shards, your primary replica uploads segments to the remote store. Then, you can down the replica shards from that store. For more information about using a remote store, see [Remote backend storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#segment-replication-and-remote-backed-storage)
+- Using a **Remote Store**, a remote storage solution where you can store shards, your primary replica uploads segments to the remote store. Then you can download the replica shards from that store. For more information about using a remote store, see [Remote backend storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#segment-replication-and-remote-backed-storage)
 - Without a remote store, where replica shards will directly sync segments from the primary shard using node-to-node communication.
 
 ## Segment replication configuration
@@ -109,7 +109,7 @@ When using segment replication, consider the following:
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
 1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Segment replication is not compatible with [document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors), which are used with the [Alerting]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) and [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) plugins. The plugins also use the latest available data on replica shards when using the `immediate` refresh policy, and segment replication can delay the policy's availability, resulting in stale replica shards.
-1. Segment replication leads to increased network congestion on primary shards when not using a remote store. With a remote store, the primary shard can upload segments to the remote store, then you can down replicas from the same store. 
+1. Segment replication leads to increased network congestion on primary shards using node-to-node replication. With a remote store, the primary shard can upload segments to the remote store, then you can download replicas from the same store. 
 1. Read-after-write (RAW) guarantees: As of OpenSearch 2.10, RAW guarantees are supported when using [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations, or through searching with `_primary`.
 1. As of OpenSearch 2.10, system indexes are now supported inside segment replication. 
 1. Get, MultiGet, TermVector, and MultiTermVector requests serve strong reads by routing requests to the primary shards. In a read heavy cluster, we recommend setting the `realtime` parameter in these requests to `false`, especially with listed request types.
