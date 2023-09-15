@@ -35,7 +35,7 @@ Feature | How to use |
 
 ## Working in the cURL and console formats
 
-The console uses a simplified syntax to format REST requests in place of the `curl` command. If you paste a `curl` command directly into the console, the command is automatically converted into the format that the console uses. To import a query in cURL format, select the query, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**. 
+The console uses a simplified syntax to format REST requests instead of the `curl` command. If you paste a `curl` command directly into the console, the command is automatically converted into the format used by the console. To import a query in cURL format, select the query, then select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**. 
 
 For example, the following `curl` command runs a search query:
 
