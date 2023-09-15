@@ -26,8 +26,8 @@ The OpenSearch Benchmark documentation is seperated into five sections:
 - [Quickstart]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/): Learn how to quickly run and install OpenSearch Benchmark.
 - [User guide]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/): Dive deep into how OpenSearch Benchmark can you help you track the performance of your cluster.
 - [Tutorials]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/): Use step-by-step guides for more advanced Benchmarking configurations and functionality.
-- [Commands]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/commands/index/): A detailed reference of commands and command options supported by OpenSearch.
-- [Workloads]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/workloads/index/): A detailed reference of options available for both default and custom workloads.
+- [Commands]({{site.url}}{{site.baseurl}}/benchmark/commands/index/): A detailed reference of commands and command options supported by OpenSearch.
+- [Workloads]({{site.url}}{{site.baseurl}}/benchmark/workloads/index/): A detailed reference of options available for both default and custom workloads.
 
 
 
