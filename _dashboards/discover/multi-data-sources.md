@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Adding multiple data sources
-parent: Exploring data
+title: Multiple data sources
+parent: Discover
 nav_order: 20
 ---
 
-# Adding multiple data sources
+# Multiple data sources
 
 Use OpenSearch Dashboards to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard. 
 
