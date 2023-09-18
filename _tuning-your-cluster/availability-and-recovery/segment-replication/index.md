@@ -32,8 +32,8 @@ Segment replication can be applied in a variety of scenarios, including:
 
 As of OpenSearch 2.10, you can use two methods for segment replication:
 
-- Using a **Remote Store**, a remote storage solution where you can store shards, your primary replica uploads segments to the remote store. Then you can download the replica shards from that store. For more information about using a remote store, see [Remote backend storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#segment-replication-and-remote-backed-storage)
-- Without a remote store, where replica shards will directly sync segments from the primary shard using node-to-node communication.
+- Using with a **Remote Store**, a persistent storage solution where you can store data more durably, the primary shard mirrors segments to the remote store and the replica shard hydrates the copy from the same store. For more information about using a remote store, see [Remote backend storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#segment-replication-and-remote-backed-storage)
+- Without a remote store, where replica shards will instead sync segments from the primary shard using node-to-node communication.
 
 ## Segment replication configuration
 
@@ -57,7 +57,7 @@ PUT /my-index1
 
 If you're using a remote store, add the `remote_store` property to the index request body. For more information, see [Create an index]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#create-an-index).
 
-When using node-to-node replication, the primary shard is usually generating more network traffic than the replicas because it copies segment files to the replicas. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+When using node-to-node replication, the primary shard consumes higher network bandwidth because it pushes segment files to all the replica shards. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 For the best performance, it is recommended that you enable the following settings:
 
@@ -110,9 +110,9 @@ When using segment replication, consider the following:
 1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Segment replication is not compatible with [document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors), which are used with the [Alerting]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) and [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) plugins. The plugins also use the latest available data on replica shards when using the `immediate` refresh policy, and segment replication can delay the policy's availability, resulting in stale replica shards.
 1. Segment replication leads to increased network congestion on primary shards using node-to-node replication. With a remote store, the primary shard can upload segments to the remote store, then you can download replicas from the same store. 
-Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for`.  If you set the `refresh` query parameter to `wait_for` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If realtime reads are needed, please consider using [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations, or through searching with `_primary` preference (documentation link?)
+Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for`.  If you set the `refresh` query parameter to `wait_for` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If realtime reads are needed, consider using [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations. 
 1. As of OpenSearch 2.10, system indexes are now supported inside segment replication. 
-1. Get, MultiGet, TermVector, and MultiTermVector requests serve strong reads by routing requests to the primary shards. In a read heavy cluster, we recommend setting the `realtime` parameter in these requests to `false`, especially with listed request types.
+1. Get, MultiGet, TermVector, and MultiTermVector requests serve strong reads by routing requests to the primary shards. This can hurt performance since more requests are handled by the primary shards versus distributing requests across primary and replicate shards. To help with performance in read heavy clusters, we recommend setting the `realtime` parameter in these requests to `false`, especially with listed request types. For more information, see [Issue #8700](https://github.com/opensearch-project/OpenSearch/issues/8700).
 
 ## Benchmarks
 
