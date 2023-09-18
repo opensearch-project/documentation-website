@@ -518,7 +518,7 @@ The API returns the following:
 
 ## Profile
 
-The profile operation returns runtime information on ML tasks and models. The profile operation can help debug issues with models at runtime. 
+The profile operation returns runtime information about ML tasks and models. The profile operation can help debug model issues at runtime. 
 
 ### The number of requests returned
 
