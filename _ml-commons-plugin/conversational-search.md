@@ -16,7 +16,7 @@ Currently, conversational search utilizes two systems to synthesize documents:
 
 ## Conversation memory
 
-Conversation memory consists of a simple CRUD-life API comprised of two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages: a human input and the AI response.
+Conversation memory consists of a simple CRUD-life API comprised of two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages: a human input and the AI response. You cannot create any interactions until you've created a conversation. 
 
 To make it easier to build and debug applications that make use of conversation memory, `conversation-meta` and `conversation-interactions` are stored in two system indexes.
 
@@ -86,7 +86,7 @@ PUT /_cluster/settings
 }
 ```
 
-After conversation memory is enabled, you can now use the Memory API to create a conversation. Remember, you cannot create any interactions until you've created a conversation. 
+After conversation memory is enabled, you can now use the Memory API to create a conversation. 
 
 To make the conversation easily identifiable, use the optional `name` field in the Memory API, as shown in the following example. This will be your only opportunity to give your conversation a name.
 
