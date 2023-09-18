@@ -109,3 +109,9 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {% include copy-curl.html %}
 
 For more information, see [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/).
+
+## Search tuning recommendations
+
+To improve search relevance, we recommend increasing the sample size.
+
+If you don't see some results you expect the hybrid query to return, it can be because the subqueries return too few documents. The `normalization_processor` only transforms the results returned by each subquery; it does not perform any additional sampling. During our experiments, we used [nDCG@10](https://en.wikipedia.org/wiki/Discounted_cumulative_gain) to measure quality of information retrieval depending on the number of documents returned (the size). We have found that size in the [100, 200] range works best for datasets of up to 10M documents. We do not recommend increasing the size beyond the recommended values because higher values of size do not improve search relevance but increase search latency.
