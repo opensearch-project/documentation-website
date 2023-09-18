@@ -137,7 +137,7 @@ Use the following path parameters to customize your results:
 Parameter | Data type | Description
 :--- | :--- | :---
 `max_results` | Integer | The maximum number of results returned by the response. Default is `10`.
-`next_token` | Integer | Represents the position in the conversation order to retrieve. For example, if three conversation, A, B, and C, exist, `next_token=1` would return conversations B and C. 
+`next_token` | Integer | Represents the position in the conversation order to retrieve. For example, if three conversation, A, B, and C, exist, `next_token=1` would return conversations B and C. Default is `0`.
 
 The Memory API responds with the most recent conversation created first, as indicated in the `create_time` field of the response as shown in the following example:
 
@@ -336,7 +336,6 @@ Using the pipeline is similar to submitting [search queries]({{site.url}}{{site.
 
 ```json
 GET /<index_name>/_search?search_pipeline=<pipeline_name>
-GET /<index_name>/_search?search_pipeline=<pipeline_name>
 {
 	"query" : {...},
 	"ext": {
@@ -354,7 +353,7 @@ The RAG search query uses the following request objects under the `generative_qa
 Parameter | Required | Description
 :--- | :--- | :---
 `llm_question` | Yes | The question the LLM must answer. 
-`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model. For example, using GPT 4 instead of GPT 3.5.
+`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model. For example, using GPT 4 instead of GPT 3.5. This option is required if a default model is not set during pipeline creation.
 `coversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of search query to the LLM. 
 
 If you're LLM includes a set token limit, set the `size` field in you OpenSearch query to limit the amount of documents used in the search response.
