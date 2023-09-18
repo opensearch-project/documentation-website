@@ -16,7 +16,7 @@ Currently, conversational search utilizes two systems to synthesize documents:
 
 ## Conversation memory
 
-Conversation memory consists of a simple CRUD-life API comprised of two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages; a human input and the AI response.
+Conversation memory consists of a simple CRUD-life API comprised of two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages: a human input and the AI response.
 
 To make it easier to build and debug applications that make use of conversation memory, `conversation-meta` and `conversation-interactions` are stored in two system indexes.
 
@@ -40,7 +40,7 @@ In the `conversation-meta` index, you can customize the `name` field to make it 
 
 ### `conversation-interactions` index
 
-In the `conversation-interactions` index, the following fields are all set by the user or AI application. Each of the following fields are input as strings:
+In the `conversation-interactions` index, all of the following fields are set by the user or AI application. Each field is entered as a string:
 
 | Field | Description |
 | :--- | :--- |
@@ -126,7 +126,7 @@ The Memory API then responds with an interaction ID, as shown in the following r
 
 ### Getting conversations
 
-You can get a list of conversation using the following Memory API operation:
+You can get a list of conversations using the following Memory API operation:
 
 ```json
 GET /_plugins/_ml/memory/conversation?max_results=3&next_token=0
@@ -137,7 +137,7 @@ Use the following path parameters to customize your results:
 Parameter | Data type | Description
 :--- | :--- | :---
 `max_results` | Integer | The maximum number of results returned by the response. Default is `10`.
-`next_token` | Integer | Represents the position in the conversation order to retrieve. For example, if three conversation, A, B, and C, exist, `next_token=1` would return conversations B and C. Default is `0`.
+`next_token` | Integer | Represents the position in the conversation order to retrieve. For example, if three conversations A, B, and C exist, `next_token=1` would return conversations B and C. Default is `0`.
 
 The Memory API responds with the most recent conversation created first, as indicated in the `create_time` field of the response as shown in the following example:
 
@@ -155,7 +155,7 @@ The Memory API responds with the most recent conversation created first, as indi
 ```
 
 
-If there are fewer than the number of conversations set in `max_results`, then the response only returns the number of conversations that exist. Lastly, `next_token` provides an ordered position of the sorted list of conversations. When a conversation is added between subsequent GET conversation calls, then one of the listed conversations will be duplicated in the result, for example:
+If there are fewer conversations than the number set in `max_results`, the response only returns the number of conversations that exist. Lastly, `next_token` provides an ordered position of the sorted list of conversations. When a conversation is added between subsequent GET conversation calls, one of the listed conversations will be duplicated in the result, for example:
 
 ```json
 GetConversations               -> [BCD]EFGH
@@ -227,7 +227,7 @@ PUT /_cluster/settings
 
 RAG requires a LLM to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
 
-In the following step through, we set up an HTTP connector using the OpenAI GPT 3.5 model. To set up that model:
+Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 model:
 
 1. Use the Connector API to create the HTTP connector:
 
@@ -314,13 +314,12 @@ PUT /_search/pipeline/<pipeline_name>
 }
 ```
 
-`context_field_list`` is the list of fields in document sources that the pipeline uses as context for the RAG. When run against your documents, you might have a response similar to the following:
+`context_field_list` is the list of fields in document sources that the pipeline uses as context for the RAG. For example, when `context_field_list` parses through the following document:
 
 ```json
 {
   "_index": "qa_demo",
   "_id": "SimKcIoBOVKVCYpk1IL-",
-  "_score": 1,
   "_source": {
     "title": "Abraham Lincoln 2",
     "text": "Abraham Lincoln was born on February 12, 1809, the second child of Thomas Lincoln and Nancy Hanks Lincoln, in a log cabin on Sinking Spring Farm near Hodgenville, Kentucky.[2] He was a descendant of Samuel Lincoln, an Englishman who migrated from Hingham, Norfolk, to its namesake, Hingham, Massachusetts, in 1638. The family then migrated west, passing through New Jersey, Pennsylvania, and Virginia.[3] Lincoln was also a descendant of the Harrison family of Virginia; his paternal grandfather and namesake, Captain Abraham Lincoln and wife Bathsheba (née Herring) moved the family from Virginia to Jefferson County, Kentucky.[b] The captain was killed in an Indian raid in 1786.[5] His children, including eight-year-old Thomas, Abraham's father, witnessed the attack.[6][c] Thomas then worked at odd jobs in Kentucky and Tennessee before the family settled in Hardin County, Kentucky, in the early 1800s.[6]\n"
@@ -356,7 +355,7 @@ Parameter | Required | Description
 `llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model. For example, using GPT 4 instead of GPT 3.5. This option is required if a default model is not set during pipeline creation.
 `coversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of search query to the LLM. 
 
-If you're LLM includes a set token limit, set the `size` field in you OpenSearch query to limit the amount of documents used in the search response.
+If you're LLM includes a set token limit, set the `size` field in you OpenSearch query to limit the amount of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search result into the LLM.
 
 ## Next Steps
 
