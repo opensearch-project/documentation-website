@@ -228,7 +228,7 @@ PUT /_cluster/settings
 
 ### Connecting the model
 
-RAG requires a LLM to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+RAG requires an LLM to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
 
 Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 model:
 
