@@ -260,7 +260,7 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
   }
   ```
 
-2. Create a new model group for the connected model. You'll use the `model_group_id` returned by the to register the model:
+2. Create a new model group for the connected model. You'll use the `model_group_id` returned by the Register API to register the model:
 
    ```json
   POST /_plugins/_ml/model_group/_register
