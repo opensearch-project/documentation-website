@@ -70,7 +70,7 @@ The goal of the `conversation-interactions` index is to create a clean interacti
 }
 ```
 
-### Creating conversations and interactions
+### Working with conversations and interactions
 
 To begin using conversation memory, enable the following cluster setting:
 
