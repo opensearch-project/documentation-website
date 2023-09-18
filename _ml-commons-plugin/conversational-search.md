@@ -70,7 +70,10 @@ The goal of the `conversation-interactions` index is to create a clean interacti
 }
 ```
 
-### Working with conversations and interactions
+## Working with conversations and interactions
+
+When security is enabled, all conversations are in ML Commons exist in a "private" security mode. Only the person who creates a conversation can interact with that conversation. No other users on the cluster can see another user's conversation.
+{: .note}
 
 To begin using conversation memory, enable the following cluster setting:
 
