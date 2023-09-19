@@ -132,8 +132,6 @@ docker run opensearchproject/opensearch-benchmark execute-test --pipeline=benchm
 
 When the `execute_test` command runs, all tasks and operations inside the `geonames` workload run sequentially.
 
-
-
 ### Understanding the results
 
 OSB returns the following response once the Benchmark completes:
@@ -394,24 +392,6 @@ Each task ran by the `geonames` workload represents a specific OpenSearch API op
 * **Service Time:** The time, excluding wait time, it took for the request and the response to be sent out and received by OSB
 * **Error Rate:** Percent of operations run during the task that were not successful or (200s)
 
-### Provisioning an OpenSearch cluster with a test
-
-OSB is compatiable with JDK versions 17, 16, 15, 14, 13, 12, 11, and 8
-{: .note}
-
-If you installed OpenSearch with PyPi, you can also provision a new OpenSearch cluster by specifying a `distribution-version` in the `execute-test` command.
-
-If you plan on having OSB provision a cluster, you'll need to inform OSB where the `JAVA_HOME` path for the OSB cluster will be. To set the `JAVA_HOME` path and provision a cluster:
-
-1. Find the `JAVA_HOME` path you're currently using. Open a terminal and enter `/usr/libexec/java_home`.
-
-2. Set your corresponding JDK version environment variable by entering the path from the previous step. Enter `export JAVA17_HOME=<Java Path>`.
-
-3. Run the `execute-test` command and indicate the distribution version of OpenSearch you want to use. 
-
-  ```bash
-  opensearch-benchmark execute-test --distribution-version=2.3.0 --workload=geonames --test-mode 
-  ```
 
 ## Next steps
 
