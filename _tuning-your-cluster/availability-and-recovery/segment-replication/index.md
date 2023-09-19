@@ -32,8 +32,8 @@ Segment replication can be applied in a variety of scenarios, including:
 
 As of OpenSearch 2.10, you can use two methods for segment replication:
 
-- With **remote-backed storage**, a persistent storage solution: The primary shard sends segment files to the remote-backed storage and the replica shards source the copy from the same store. For more information about using a remote-backed storage, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#segment-replication-and-remote-backed-storage).
-- Without remote-backed storage: The primary shard sends segment files directly to the replica shards using node-to-node communication.
+- **Remote-backed storage**, a persistent storage solution: The primary shard sends segment files to the remote-backed storage, and the replica shards source the copy from the same store. For more information about using remote-backed storage, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#segment-replication-and-remote-backed-storage).
+- Node-to-node communication: The primary shard sends segment files directly to the replica shards using node-to-node communication.
 
 ## Segment replication configuration
 
@@ -55,9 +55,9 @@ PUT /my-index1
 ```
 {% include copy-curl.html %}
 
-If you're using a remote-backed storage, add the `remote_store` property to the index request body. For more information, see [Create an index]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#create-an-index).
+If you're using remote-backed storage, add the `remote_store` property to the index request body. For more information, see [Create an index]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#create-an-index).
 
-When using node-to-node replication, the primary shard consumes higher network bandwidth because it pushes segment files to all the replica shards. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+When using node-to-node replication, the primary shard consumes more network bandwidth because it pushes segment files to all the replica shards. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 For the best performance, it is recommended that you enable the following settings:
 
@@ -109,10 +109,10 @@ When using segment replication, consider the following:
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
 1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Segment replication is not compatible with [document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors), which are used with the [Alerting]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) and [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) plugins. The plugins also use the latest available data on replica shards when using the `immediate` refresh policy, and segment replication can delay the policy's availability, resulting in stale replica shards.
-1. Segment replication leads to increased network congestion on primary shards using node-to-node replication, because replica shards fetch updates from the primary shard. With a remote-backed storage, the primary shard can upload segments to the remote-backed storage and the replicas can fetch updates from the remote-backed storage. This helps offload responsibilities from the primary shard to the remote-backed storage.
-Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for`.  If you set the `refresh` query parameter to `wait_for` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If realtime reads are needed, consider using [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations. 
+1. Segment replication leads to increased network congestion on primary shards using node-to-node replication because replica shards fetch updates from the primary shard. With remote-backed storage, the primary shard can upload segments to, and the replicas can fetch updates from, the remote-backed storage. This helps offload responsibilities from the primary shard to the remote-backed storage.
+Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for`. If you set the `refresh` query parameter to `wait_for` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If real-time reads are needed, consider using the [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations. 
 1. As of OpenSearch 2.10, system indexes support segment replication. 
-1. Get, MultiGet, TermVector, and MultiTermVector requests serve strong reads by routing requests to the primary shards. Routing more requests to the primary shards may degrade performance compared to distributing requests across primary and replica shards. To improve performance in read-heavy clusters, we recommend setting the `realtime` parameter in these requests to `false`. For more information, see [Issue #8700](https://github.com/opensearch-project/OpenSearch/issues/8700).
+1. Get, MultiGet, TermVector, and MultiTermVector requests serve strong reads by routing requests to the primary shards. Routing more requests to the primary shards may degrade performance as compared to distributing requests across primary and replica shards. To improve performance in read-heavy clusters, we recommend setting the `realtime` parameter in these requests to `false`. For more information, see [Issue #8700](https://github.com/opensearch-project/OpenSearch/issues/8700).
 
 ## Benchmarks
 
