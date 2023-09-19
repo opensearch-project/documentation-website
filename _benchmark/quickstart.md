@@ -22,9 +22,9 @@ Additional prerequisites are required depending on your installation method.
 
 ## Installing OpenSearch Benchmark
 
-You can install OpenSearch Benchmark either using PyPi or Docker. 
+You can install OpenSearch Benchmark using either PyPi or Docker. 
 
-If you plan to run OpenSearch Benchmark with a cluster using Sigv4, see [Sigv4 support]({{site.url}}{{site.baseurl}}/benchmark/tutorials/sigv4/)
+If you plan to run OpenSearch Benchmark with a cluster using AWS Signature Version 4 (AWS Sigv4), see [Sigv4 support]({{site.url}}{{site.baseurl}}/benchmark/tutorials/sigv4/).
 
 ### PyPi
 
@@ -86,7 +86,7 @@ docker pull opensearchproject/opensearch-benchmark:latest
 ```
 {% include copy.html %}
 
-Then, run the Docker image:
+Then run the Docker image:
 
 ```bash
 docker run opensearchproject/opensearch-benchmark -h
