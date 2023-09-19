@@ -10,9 +10,6 @@ grand_parent: Availability and recovery
 Introduced 2.8
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/1968).
-{: .warning}
-
 Use the Remote Store Stats API to monitor shard-level remote store performance.
 
 ## Path and HTTP methods
