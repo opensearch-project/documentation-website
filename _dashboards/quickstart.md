@@ -18,7 +18,7 @@ This quickstart guide covers the core concepts that you need to understand to ge
 Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
 
-Here's a glance at the view you see when you open the Dashboard or Discover tool.
+Here's a glance at the view you see when you open the **Dashboard** or **Discover** tool.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-look.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
 
