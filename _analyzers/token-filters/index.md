@@ -59,6 +59,6 @@ Normalization | `arabic_normalization`: [ArabicNormalizer](https://lucene.apache
 `trim` | [TrimFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/TrimFilter.html) | Trims leading and trailing whitespace from each token in a stream. 
 `truncate` | [TruncateTokenFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/TruncateTokenFilter.html) | Truncates tokens whose length exceeds the specified character limit. 
 `unique` | N/A | Ensures each token is unique by removing duplicate tokens from a stream. 
-`uppercase` | [UpperCaseFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/core/LowerCaseFilter.html) | Converts tokens to lowercase. 
+`uppercase` | [UpperCaseFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/core/LowerCaseFilter.html) | Converts tokens to uppercase. 
 `word_delimiter_graph` | [WordDelimiterFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/WordDelimiterFilter.html) | Splits tokens at non-alphanumeric characters and performs normalization based on the specified rules. 
 `word_delimiter_graph` | [WordDelimiterGraphFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/WordDelimiterGraphFilter.html) | Splits tokens at non-alphanumeric characters and performs normalization based on the specified rules. 

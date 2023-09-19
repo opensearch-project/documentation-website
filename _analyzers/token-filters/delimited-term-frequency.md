@@ -189,7 +189,7 @@ PUT /test
 
 The `test` index uses a keyword tokenizer, delimited term frequency token filter (where the delimiter is `^`), and a custom analyzer that includes a keyword tokenizer and a delimited term frequency token filter. The mappings specify that the field `f1` is a keyword field and the field `f2` is a text field. The field `f2` uses the custom analyzer defined in the settings for text analysis. Additionally, specifying `index_options` signals to OpenSearch to add the term frequencies to the inverted index. You'll use the term frequencies to give documents with repeated terms a higher score.
 
-Then index two documents using bulk upload:
+Next, index two documents using bulk upload:
 
 ```json
 POST /_bulk?refresh=true
@@ -268,7 +268,7 @@ In the response, document 1 has a score of 30 because the term frequency of the 
 
 ## Parameters
 
-The following table lists all parameters the `delimited_term_freq` supports.
+The following table lists all parameters that the `delimited_term_freq` supports.
 
 Parameter | Required/Optional | Description
 :--- | :--- | :---
