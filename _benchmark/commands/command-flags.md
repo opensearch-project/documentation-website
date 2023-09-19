@@ -5,7 +5,8 @@ nav_order: 51
 parent: Command reference
 ---
 
-OpenSearch Benchmark (OSB) uses command line flags to change OpenSearch Benchmark's behavior. Not all flags can be uses with each command. To find out which flags are supported by a specific command, enter `opensearch-benchmark <command> --h`.
+# Command flags
+OpenSearch Benchmark (OSB) uses command line flags to change OpenSearch Benchmark's behavior. Not all flags can be used with each command. To find out which flags are supported by a specific command, enter `opensearch-benchmark <command> --h`.
 
 All command flags are added to a command using the following syntax:
 
@@ -15,8 +16,8 @@ opensearch-benchmark <command> --<command-flag>
 
 Flags that accept comma-seperated values such `--telemetry` can also accept a JSON array. This can be defined by passing in a file path ending in `.json` or inline as a JSON string.
 
-- Comma-seperated values: `--test-procedure="4gheap,trial-license"`
-- JSON file: `cat test-procedure.json`
+- Comma-seperated values: `opensearch-benchmark ... --test-procedure="ingest-only,search-aggregations"`
+- JSON file: `opensearch-benchmark ... --workload-params="params.json"`
 - JSON inline string: `opensearch-benchmark  ... --telemetry='["node-stats", "recovery-stats"]'`
 
 ## workload-path
@@ -34,6 +35,9 @@ Defines a specific revision from the workload source tree that OpenSearch Benchm
 ## workload
 
 Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`. `--workload-path` and `--workload-repository` as well as `--workload` are mutually exclusive.
+
+## workload-params
+Defines which variables to inject into the workload. Variables injected must be available in the workload. To see which parameters are valid in the official workloads, select the workload from [the workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads).
 
 ## test-procedure
 
