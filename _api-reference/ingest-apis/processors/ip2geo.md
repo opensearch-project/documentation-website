@@ -221,12 +221,6 @@ POST _ingest/pipeline/my-id/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response 
-
-The following response confirms that the pipeline is working as expected: 
-
-<insert response following code freeze>
-
 **Step 3: Ingest a document.**
 
 The following query ingests a document into an index named `my-index`:
