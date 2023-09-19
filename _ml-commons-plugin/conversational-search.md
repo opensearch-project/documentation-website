@@ -213,7 +213,7 @@ The Memory API responds with the following:
 
 ## RAG pipeline
 
-RAG is a technique for grounding LLMs and a natural language interface, implemented as a search pipeline. 
+ RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then generates more-grounded outputs.
 
 ### Enabling RAG
 
