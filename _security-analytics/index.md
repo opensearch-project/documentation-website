@@ -33,7 +33,7 @@ For information about configuring detectors, see [Creating detectors]({{site.url
 
 ### Log types
 
-Log types provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log types include:
+Log types provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log types include the following:
 * Network events
 * DNS logs
 * Apache access logs

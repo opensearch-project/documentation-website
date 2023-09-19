@@ -54,7 +54,7 @@ The Recent findings table displays recent findings by time, rule name, rule seve
 ---
 ## Most frequent detection rules
 
-This section provides a graphical representation of detection rules that trigger findings most often and how they compare to others as a percentage of the whole. The rule names represented by the graph are listed to the right. You can hover over each color in the graph to see details about the detection rule it represents.
+This section provides a graphical representation of detection rules that trigger findings most often and how they compare to others as a percentage of the whole. The rule names represented by the graph are listed to the right. You can hover over each color on the graph to see details about the detection rule it represents.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/rule_graph.png" alt="The detection rule graph on the Overview page" width="50%">
 

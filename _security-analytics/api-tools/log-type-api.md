@@ -7,12 +7,12 @@ nav_order: 56
 
 # Log type APIs
 
-The log type APIs allow you to create a custom log type, search custom log types, update custom log type, and delete custom log types.
+The log type APIs allow you to create a custom log type, search custom log types, update custom log types, and delete custom log types.
 
 
 ## Create log type
 
-Creating a new custom log type involves entering a name and a description, and specifying the source as `Custom`.
+Creating a new custom log type involves entering a name and a description and specifying the source as `Custom`.
 
 
 ### Example request
@@ -207,7 +207,7 @@ PUT /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 
 ## Delete custom log type
 
-This API is used to delete a custom log type. Specify the log type's ID in the route to run the operation.
+This API is used to delete a custom log type. Specify the log type's ID in the route to run the operation:
 
 ```json
 DELETE /_plugins/_security_analytics/logtype/<log_type_id>
