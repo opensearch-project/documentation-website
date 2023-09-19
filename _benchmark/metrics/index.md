@@ -42,12 +42,18 @@ datastore.ssl.verification_mode = none
 datastore.user = <opensearch basic auth username>
 datastore.password = <opensearch basic auth password>
 ```
+When `datastore.number_of_replicas` and `datastore.number_of_shards` are not provided, the defaults provided by OpenSearch are used, `0` for the number of replicas, and `1` for the number of shards. If these settings are changed after the datastore cluster has been created, the new replica and shards settings will only apply when new results indices are created at the end of the month. 
 
-After you run OpenSearch Benchmark configured to use OpenSearch as a datastore, OpenSeach Benchmark creates a `benchmark-metrics` Dashboard, where you can find your metric results by , as shown in the following image.
+After you run OpenSearch Benchmark configured to use OpenSearch as a datastore, OpenSeach Benchmark creates three indices:
 
-![Dashboard index pattern]({{site.url}}{{site.baseurl}}/images/benchmark/metric-index-pattern.png).
+- `benchmark-metrics-YYYY-MM`: Holds granular metrics and telemetry data.
+- `benchmark-results-YYYY-MM`: Holds data based on final results.
+- `benchmark-test-executions-YYYY-MM`: Holds data about `execution-ids`.
+
+You can visualize data inside these indices inside OpenSearch Dashboards.
+
 
 ## Next steps
 
-- For more information about how to design a metrics store, see [Metric records]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-records).
-- For more information about what metrics are stored, see [Metric keys]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys).
+- For more information about how to design a metrics store, see [Metric records]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-records/).
+- For more information about what metrics are stored, see [Metric keys]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys/).

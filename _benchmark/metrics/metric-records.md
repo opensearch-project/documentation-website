@@ -84,7 +84,7 @@ The timestamp (always in UTC) for when the workload was invoked.
 
 ## environment
 
-The environment describes the origin of a metric record. This is defined when initially [configuring]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark) OpenSearch Benchmark. You can use seperate environments for different Benchmarks, but store the metric records in the same index.
+The environment describes the origin of a metric record. This is defined when initially [configuring]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) OpenSearch Benchmark. You can use separate environments for different Benchmarks, but store the metric records in the same index.
 
 ## workload, test_procedure, provision-config-instance
 
