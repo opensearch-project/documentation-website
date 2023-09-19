@@ -7,18 +7,18 @@ nav_order: 200
 
 # Conversational search
 
-Conversational search is an experimental machine learning (ML) feature that enables a new search interface. Whereas traditional document search allows a user to ask a question and receive a list of documents that might contain the answer to that question, conversational search uses large language models (LLM) to read the top N documents and synthesizes those documents into a plaintext "answer" to your question.
+Conversational search is an experimental machine learning (ML) feature that enables a new search interface. Whereas traditional document search allows you to ask a question and receive a list of documents that might contain the answer to that question, conversational search uses large language models (LLMs) to read the top N documents and synthesizes those documents into a plaintext "answer" to your question.
 
-Currently, conversational search utilizes two systems to synthesize documents:
+Currently, conversational search uses two systems to synthesize documents:
 
 - [Conversation memory](#conversation-memory)
 - [Retreival Augmented Generation (RAG) pipeline](#rag-pipeline)
 
 ## Conversation memory
 
-Conversation memory consists of a simple CRUD-life API comprised of two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages: a human input and the AI response. You cannot create any interactions until you've created a conversation. 
+Conversation memory consists of a simple CRUD-life API comprising two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages: a human input and an artificial intelligence (AI) response. You cannot create any interactions until you've created a conversation. 
 
-To make it easier to build and debug applications that make use of conversation memory, `conversation-meta` and `conversation-interactions` are stored in two system indexes.
+To make it easier to build and debug applications that use conversation memory, `conversation-meta` and `conversation-interactions` are stored in two system indexes.
 
 ### `conversation-meta` index
 
@@ -40,17 +40,17 @@ In the `conversation-meta` index, you can customize the `name` field to make it 
 
 ### `conversation-interactions` index
 
-In the `conversation-interactions` index, all of the following fields are set by the user or AI application. Each field is entered as a string:
+In the `conversation-interactions` index, all of the following fields are set by the user or AI application. Each field is entered as a string.
 
 | Field | Description |
 | :--- | :--- |
-| `input` | The question which forms the basis for an interaction. |
+| `input` | The question that forms the basis for an interaction. |
 | `prompt_template` | The prompt template that was used as the framework for this interaction. |
-| `response` | The AI’s response to the prompt. |
+| `response` | The AI response to the prompt. |
 | `origin` | The name of the AI or other system that generated the response. |
-| `additional_info` | Any other information that was sent to the “origin” in the prompt. |
+| `additional_info` | Any other information that was sent to the "origin" in the prompt. |
 
-The goal of the `conversation-interactions` index is to create a clean interaction abstraction and make it easy for the index to reconstruct the exact prompts sent to the LLM, enabling robust debugging and explainability, as shown in the following schema:
+The `conversation-interactions` index creates a clean interaction abstraction and make it easy for the index to reconstruct the exact prompts sent to the LLM, enabling robust debugging and explainability, as shown in the following schema:
 
 ```jsx
 .plugins-ml-conversation-interactions
@@ -72,7 +72,7 @@ The goal of the `conversation-interactions` index is to create a clean interacti
 
 ## Working with conversations and interactions
 
-When security is enabled, all conversations are in ML Commons exist in a "private" security mode. Only the person who creates a conversation can interact with that conversation. No other users on the cluster can see another user's conversation.
+When the Security plugin is enabled, all conversations in ML Commons exist in a "private" security mode. Only the user who created a conversation can interact with that conversation. No users on the cluster can see another user's conversation.
 {: .note}
 
 To begin using conversation memory, enable the following cluster setting:
@@ -86,9 +86,9 @@ PUT /_cluster/settings
 }
 ```
 
-After conversation memory is enabled, you can now use the Memory API to create a conversation. 
+After conversation memory is enabled, you can use the Memory API to create a conversation. 
 
-To make the conversation easily identifiable, use the optional `name` field in the Memory API, as shown in the following example. This will be your only opportunity to give your conversation a name.
+To make the conversation easily identifiable, use the optional `name` field in the Memory API, as shown in the following example. This will be your only opportunity to name your conversation.
 
 
 
@@ -105,7 +105,7 @@ The Memory API responds with the conversation ID, as shown in the following exam
 { "conversation_id": "4of2c9nhoIuhcr" }
 ```
 
-You'll use the `conversation_id` to create interactions inside the conversation. To create interactions, enter the `conversation_id` into the Memory API path. Then, customize the [fields](#conversation-interactions-index) in the request body, as shown in the following example:
+You'll use the `conversation_id` to create interactions inside the conversation. To create interactions, enter the `conversation_id` into the Memory API path. Then customize the [fields](#conversation-interactions-index) in the request body, as shown in the following example:
 
 ```json
 POST /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
@@ -121,7 +121,7 @@ POST /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
 }
 ```
 
-The Memory API then responds with an interaction ID, as shown in the following response:
+The Memory API then responds with an interaction ID, as shown in the following example response:
 
 ```json
 { "interaction_id": "948vh_PoiY2hrnpo" }
@@ -135,14 +135,14 @@ You can get a list of conversations using the following Memory API operation:
 GET /_plugins/_ml/memory/conversation?max_results=3&next_token=0
 ```
 
-Use the following path parameters to customize your results:
+Use the following path parameters to customize your results.
 
 Parameter | Data type | Description
 :--- | :--- | :---
 `max_results` | Integer | The maximum number of results returned by the response. Default is `10`.
-`next_token` | Integer | Represents the position in the conversation order to retrieve. For example, if three conversations A, B, and C exist, `next_token=1` would return conversations B and C. Default is `0`.
+`next_token` | Integer | Represents the conversation order position that will be retrieved. For example, if conversations A, B, and C exist, `next_token=1` would return conversations B and C. Default is `0`.
 
-The Memory API responds with the most recent conversation created first, as indicated in the `create_time` field of the response as shown in the following example:
+The Memory API responds with the most recent conversation, as indicated in the `create_time` field of the following example response:
 
 ```json
 {
@@ -158,7 +158,7 @@ The Memory API responds with the most recent conversation created first, as indi
 ```
 
 
-If there are fewer conversations than the number set in `max_results`, the response only returns the number of conversations that exist. Lastly, `next_token` provides an ordered position of the sorted list of conversations. When a conversation is added between subsequent GET conversation calls, one of the listed conversations will be duplicated in the result, for example:
+If there are fewer conversations than the number set in `max_results`, the response only returns the number of conversations that exist. Lastly, `next_token` provides an ordered position of the sorted list of conversations. When a conversation is added between subsequent GET conversation calls, one of the listed conversations will be duplicated in the results, for example:
 
 ```json
 GetConversations               -> [BCD]EFGH
@@ -168,7 +168,7 @@ GetConversations(next_token=3) -> ABC[DEF]GH
 
 ### Getting interactions
 
-To see a list of interactions in a conversation, enter the `conversation_id` at the end of API request, as shown in the following example. You can use the `max_results` and `next_token` to sort the response:
+To see a list of interactions in a conversation, enter the `conversation_id` at the end of the API request, as shown in the following example. You can use `max_results` and `next_token` to sort the response:
 
 ```json
 GET /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
@@ -199,7 +199,7 @@ The Memory API returns the following interaction information:
 
 ### Deleting conversations
 
-To delete a conversation, use the `DELETE` operation as showing in the following example:
+To delete a conversation, use the `DELETE` operation, as showing in the following example:
 
 ```json
 DELETE /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
@@ -213,7 +213,7 @@ The Memory API responds with the following:
 
 ## RAG pipeline
 
- RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then generates more-grounded outputs.
+ RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then generates more factual outputs.
 
 ### Enabling RAG
 
@@ -228,7 +228,7 @@ PUT /_cluster/settings
 
 ### Connecting the model
 
-RAG requires an LLM to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+RAG requires an LLM in order to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
 
 Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 model:
 
@@ -272,7 +272,7 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
     "description": "This is a public model group"
   }
   ```
-3. Register the model and deploy the model using the `connector_id` from the Connector API response in Step 1 and `model_group_id` returned in Step 2:
+3. Register and deploy the model using the `connector_id` from the Connector API response in Step 1 and the `model_group_id` returned in Step 2:
 
   ```java
   POST /_plugins/_ml/models/_register
@@ -291,7 +291,7 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
   GET /_plugins/_ml/tasks/<task_id>
   ```
 
-5. Using your `model_id` from step 4, deploy the model:
+5. Using the `model_id` from step 4, deploy the model:
 
   ```
   POST /_plugins/_ml/models/<model_id>/_deploy
@@ -299,7 +299,7 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
 
 ### Setting up the pipeline
 
-Next, we'll create a search pipeline for the connector model. Use the following Search API request to create a pipeline: 
+Next, you'll create a search pipeline for the connector model. Use the following Search API request to create a pipeline: 
 
 ```json
 PUT /_search/pipeline/<pipeline_name>
@@ -317,7 +317,7 @@ PUT /_search/pipeline/<pipeline_name>
 }
 ```
 
-`context_field_list` is the list of fields in document sources that the pipeline uses as context for the RAG. For example, when `context_field_list` parses through the following document:
+`context_field_list` is the list of fields in document sources that the pipeline uses as context for the RAG. For example, when `context_field_list` parses through the following document, the pipeline sends the `text` field from the response to OpenAI model:
 
 ```json
 {
@@ -330,7 +330,7 @@ PUT /_search/pipeline/<pipeline_name>
 }
 ```
 
-When configured using the preceeding Search API request, the pipeline sends the `text` field from the response to OpenAI model. You can customize `context_field_list`  in your RAG pipeline to send any fields that exist in your documents to the LLM.
+You can customize `context_field_list` in your RAG pipeline to send any fields that exist in your documents to the LLM.
 
 ### Using the pipeline
 
@@ -350,18 +350,18 @@ GET /<index_name>/_search?search_pipeline=<pipeline_name>
 }
 ```
 
-The RAG search query uses the following request objects under the `generative_qa_paramters` option:
+The RAG search query uses the following request objects under the `generative_qa_paramters` option.
 
 Parameter | Required | Description
 :--- | :--- | :---
 `llm_question` | Yes | The question the LLM must answer. 
-`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model. For example, using GPT 4 instead of GPT 3.5. This option is required if a default model is not set during pipeline creation.
-`coversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of search query to the LLM. 
+`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
+`coversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of the search query to the LLM. 
 
-If you're LLM includes a set token limit, set the `size` field in you OpenSearch query to limit the amount of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search result into the LLM.
+If your LLM includes a set token limit, set the `size` field in your OpenSearch query to limit the number of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search results to the LLM.
 
-## Next Steps
+## Next steps
 
 - To learn more about ML connectors, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)
-- To learn more about the ML framework for OpenSearch, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/)
+- To learn more about the OpenSearch ML framework, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
