@@ -140,6 +140,133 @@ The response contains both the original token and the parsed version with the te
 }
 ```
 
+## Combining `delimited_token_filter` with scripts
+
+You can write Painless scripts to calculate custom scores for the documents in the results.
+
+First, create an index and provide the following mappings and settings:
+
+```json
+PUT /test
+{
+  "settings": {
+    "number_of_shards": 1,
+    "analysis": {
+      "tokenizer": {
+        "keyword_tokenizer": {
+          "type": "keyword"
+        }
+      },
+      "filter": {
+        "my_delimited_term_freq": {
+          "type": "delimited_term_freq",
+          "delimiter": "^"
+        }
+      },
+      "analyzer": {
+        "custom_delimited_analyzer": {
+          "tokenizer": "keyword_tokenizer",
+          "filter": ["my_delimited_term_freq"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "f1": {
+        "type": "keyword"
+      },
+      "f2": {
+        "type": "text",
+        "similarity": "BM25",
+        "analyzer": "custom_delimited_analyzer",
+        "index_options": "freqs"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `test` index uses a keyword tokenizer, delimited term frequency token filter (where the delimiter is `^`), and a custom analyzer that includes a keyword tokenizer and a delimited term frequency token filter. The mappings specify that the field `f1` is a keyword field and the field `f2` is a text field. The field `f2` uses the custom analyzer defined in the settings for text analysis. The `similarity` setting sets the similiarity algorithm to BM25. Additionally, specifying `index_options` signals to OpenSearch to add the term frequencies to the inverted index. You'll use the term frequencies to give documents with repeated terms a higher score.
+
+Then index two documents using bulk upload:
+
+```json
+POST /_bulk?refresh=true
+{"index": {"_index": "test", "_id": "doc1"}}
+{"f1": "v0|100", "f2": "v1^30"}
+{"index": {"_index": "test", "_id": "doc2"}}
+{"f2": "v2|100"}
+```
+{% include copy-curl.html %}
+
+The following query searches for all documents in the index and calculates document scores as the term frequency of the term `v1` in the field `f2`:
+
+```json
+GET /test/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "match_all": {}
+      },
+      "script_score": {
+        "script": {
+          "source": "termFreq(params.field, params.term)",
+          "params": {
+            "field": "f2",
+            "term": "v1"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+In the response, document 1 has a score of 30 because the term frequency of the term `v1` in the field `f2` is 30. Document 2 has a score of 0 because the term `v1` does not appear in `f2`:
+
+```json
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 30,
+    "hits": [
+      {
+        "_index": "test",
+        "_id": "doc1",
+        "_score": 30,
+        "_source": {
+          "f1": "v0|100",
+          "f2": "v1^30"
+        }
+      },
+      {
+        "_index": "test",
+        "_id": "doc2",
+        "_score": 0,
+        "_source": {
+          "f2": "v2|100"
+        }
+      }
+    ]
+  }
+}
+```
+
 ## Parameters
 
 The following table lists all parameters the `delimited_term_freq` supports.
