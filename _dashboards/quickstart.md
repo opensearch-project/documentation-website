@@ -18,6 +18,10 @@ This quickstart guide covers the core concepts that you need to understand to ge
 Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
 
+Here's a glance at the view you see when you open the Dashboard or Discover tool.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-request-ui.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
+
 # Adding sample data
 
 Sample datasets come with visualizations, dashboards, and other tools to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
@@ -26,7 +30,7 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**.
 2. Choose **Add data** to add the datasets, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="800">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="700">
 
 # Exploring and inspecting data
 
