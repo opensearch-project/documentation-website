@@ -30,14 +30,14 @@ datastore.password =
 
 ### OpenSearch
 
-If you want to store your results in an external OpenSearch memory store, use the following settings in the `results_publishing` section of `benchmark.ini`:
+If you want to store metrics in an external OpenSearch memory store while running the benchmark, provide the following settings in the `results_publishing` section of `benchmark.ini`:
 
 ```ini
 [results_publishing]
 datastore.type = opensearch
 datastore.host = <opensearch endpoint>
 datastore.port = 443
-datastore.secure = True
+datastore.secure = true
 datastore.ssl.verification_mode = none
 datastore.user = <opensearch basic auth username>
 datastore.password = <opensearch basic auth password>
