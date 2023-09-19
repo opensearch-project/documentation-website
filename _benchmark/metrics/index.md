@@ -41,6 +41,8 @@ datastore.secure = True
 datastore.ssl.verification_mode = none
 datastore.user = <opensearch basic auth username>
 datastore.password = <opensearch basic auth password>
+datastore.number_of_replicas = 
+datastore.number_of_shards = 
 ```
 When `datastore.number_of_replicas` and `datastore.number_of_shards` are not provided, the defaults provided by OpenSearch are used, `0` for the number of replicas, and `1` for the number of shards. If these settings are changed after the datastore cluster has been created, the new replica and shards settings will only apply when new results indices are created at the end of the month. 
 
