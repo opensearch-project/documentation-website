@@ -49,7 +49,7 @@ In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discove
 
 2. Search using the DQL query `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then choose **Update**. You should see results for US-bound flights delayed by 60 minutes or more, as shown in the following image.
    
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt="DQL search field example" width="1000"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt="DQL search field example" width="700"/>
 
 3. To filter data, choose **Add filter** and then select an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather delay** from the **Field**, **Operator**, and **Value** dropdown lists, as shown in the following image.
 
@@ -69,14 +69,14 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboard**.
 1. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="800"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="700"/>
 
 1. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
 1. In the **Add panels** window, choose the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window on the lower right confirming that you've added the panel.
 1. Select `x` to close the **Add panels** window.
 1. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="600"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="700"/>
 
 ## Try it: Creating a visualization panel
 
@@ -91,7 +91,7 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 1. Choose **Save** and name the visualization in the **Title** field.
 2. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-panel-quickstart.png" alt="Creating a visualization panel" width="500"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-panel-quickstart.png" alt="Creating a visualization panel" width="700"/>
 
 # Interacting with data
 
@@ -111,7 +111,7 @@ Alternatively, you can apply filters using the dashboard toolbar:
 
 1. Choose **Save**. The dashboard updates automatically, and the result is the dashboard shown in the following image.
 
-  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="800"/>
+  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="700"/>
 
 # Next steps
 
