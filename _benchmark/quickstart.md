@@ -388,9 +388,9 @@ OSB returns the following response once the Benchmark completes:
 Each task ran by the `geonames` workload represents a specific OpenSearch API operation, such as Bulk or Search, that was performed when the test was ran. Each task in the output summary contains the following information: 
 
 * **Throughput:** The number of successful OpenSearch operations per second. 
-* **Latency:** The time, including wait time, it took for the request and the response to be sent out and received by OSB
-* **Service Time:** The time, excluding wait time, it took for the request and the response to be sent out and received by OSB
-* **Error Rate:** Percent of operations run during the task that were not successful or (200s)
+* **Latency:** The time, including wait time, it took for the request and the response to be sent out and received by OSB.
+* **Service Time:** The time, excluding wait time, it took for the request and the response to be sent out and received by OSB.
+* **Error Rate:** Percent of operations run during the task that were not successful or (200s).
 
 
 ## Next steps
