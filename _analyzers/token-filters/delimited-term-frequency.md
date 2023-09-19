@@ -178,7 +178,6 @@ PUT /test
       },
       "f2": {
         "type": "text",
-        "similarity": "BM25",
         "analyzer": "custom_delimited_analyzer",
         "index_options": "freqs"
       }
@@ -188,7 +187,7 @@ PUT /test
 ```
 {% include copy-curl.html %}
 
-The `test` index uses a keyword tokenizer, delimited term frequency token filter (where the delimiter is `^`), and a custom analyzer that includes a keyword tokenizer and a delimited term frequency token filter. The mappings specify that the field `f1` is a keyword field and the field `f2` is a text field. The field `f2` uses the custom analyzer defined in the settings for text analysis. The `similarity` setting sets the similiarity algorithm to BM25. Additionally, specifying `index_options` signals to OpenSearch to add the term frequencies to the inverted index. You'll use the term frequencies to give documents with repeated terms a higher score.
+The `test` index uses a keyword tokenizer, delimited term frequency token filter (where the delimiter is `^`), and a custom analyzer that includes a keyword tokenizer and a delimited term frequency token filter. The mappings specify that the field `f1` is a keyword field and the field `f2` is a text field. The field `f2` uses the custom analyzer defined in the settings for text analysis. Additionally, specifying `index_options` signals to OpenSearch to add the term frequencies to the inverted index. You'll use the term frequencies to give documents with repeated terms a higher score.
 
 Then index two documents using bulk upload:
 
