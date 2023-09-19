@@ -103,17 +103,17 @@ Determines whether to configure a benchmark to run in warmup mode by setting to 
 The meta information for each metric record, including
 
 - CPU info: The number of physical and logical cores and also the model name
-- OS info: OS name and version
+- OS info: The name and version of the operating system.
 - Host name
 - Node name: A unique name for each node when OpenSearch Benchmark provisions the cluster.
 - Source revision: The git hash of the version of OpenSearch that is benchmarked. 
 - Distribution version: The distribution version of Elasticsearch that is benchmarked. 
-- Custom tags: You can define custom tags with the command line flag --user-tags. The tags are prefixed by tag_ in order to avoid accidental clashes with OpenSearch Benchmark's internal tags.
+- Custom tags: You can define custom tags with the command line flag `--user-tags`. The tags are prefixed by `tag_` in order to avoid accidental clashes with OpenSearch Benchmark's internal tags.
 - Operation-specific: The optional substructure operation contains additional information depending on the type of operation. For bulk requests, this may be the number of documents or for searches the number of hits.
 
 Depending on the level of metric record, some meta information might be missing.
 
 ## Next steps
 
-- for more information about how to access OpenSearch Benchmark metrics, see [Metrics]({{site.url}}{{site.baseurl}}/benchmark/metrics/index/).
+- For more information about how to access OpenSearch Benchmark metrics, see [Metrics]({{site.url}}{{site.baseurl}}/benchmark/metrics/index/).
 - For more information about the metrics stored in OpenSearch Benchmark, see [Metric keys]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys).
