@@ -20,7 +20,7 @@ Before you get started, make sure you've installed OpenSearch and OpenSearch Das
 
 Here's a glance at the view you see when you open the Dashboard or Discover tool.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-request-ui.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-look.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
 
 # Adding sample data
 
