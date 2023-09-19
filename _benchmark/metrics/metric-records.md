@@ -7,7 +7,7 @@ parent: Metrics
 
 # Metric records
 
-OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indices, which creates a new index each month. The following is in example metric record stored in the `benchmark-metrics-2023-08` index.
+OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indices. A new index is created each month. The following is an example metric record stored in the `benchmark-metrics-2023-08` index:
 
 ```json
 {
@@ -64,15 +64,15 @@ OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indices, which 
 }
 ```
 
-The following fields are configurable in the `opensearch-benchmarks-metrics-*` file, as found in the `_source` section of the metric's record:
+The following fields found in the `_source` section of the metric's record are configurable in the `opensearch-benchmarks-metrics-*` file.
 
 ## @timestamp
 
-The timestamp in milliseconds since the epoch determined when the sample was taken. For request-related metrics, such as `latency`` or `service_time`` this is the timestamp when OpenSearch Benchmark has issued the request.
+The timestamp when the sample was taken since the epoch, in milliseconds. For request-related metrics such as `latency` or `service_time`, this is the timestamp when OpenSearch Benchmark has issued the request.
 
 ## relative-time-ms
 
-The relative time in milliseconds since the start of the benchmark. This is useful for comparing time-series graphs over multiple tests. For example, you could compare the indexing throughput over time across multiple tests. 
+The relative time since the start of the benchmark, in milliseconds. This is useful for comparing time series graphs over multiple tests. For example, you can compare the indexing throughput over time across multiple tests. 
 
 ## test-execution-id
 
@@ -80,11 +80,11 @@ A UUID which changes on every invocation of the workload. It is intended to grou
 
 ## test-execution-timestamp
 
-The timestamp (always in UTC) for when the workload was invoked.
+The timestamp when the workload was invoked (always in UTC).
 
 ## environment
 
-The environment describes the origin of a metric record. This is defined when initially [configuring]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) OpenSearch Benchmark. You can use separate environments for different Benchmarks, but store the metric records in the same index.
+The `environment` describes the origin of a metric record. This is defined when initially [configuring]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) OpenSearch Benchmark. You can use separate environments for different Benchmarks but store the metric records in the same index.
 
 ## workload, test_procedure, provision-config-instance
 
@@ -102,13 +102,13 @@ Determines whether to configure a benchmark to run in warmup mode by setting to 
 
 The meta information for each metric record, including
 
-- CPU info: The number of physical and logical cores and also the model name
+- CPU info: The number of physical and logical cores and the model name.
 - OS info: The name and version of the operating system.
-- Host name
+- Host name.
 - Node name: A unique name for each node when OpenSearch Benchmark provisions the cluster.
 - Source revision: The git hash of the version of OpenSearch that is benchmarked. 
-- Distribution version: The distribution version of Elasticsearch that is benchmarked. 
-- Custom tags: You can define custom tags with the command line flag `--user-tags`. The tags are prefixed by `tag_` in order to avoid accidental clashes with OpenSearch Benchmark's internal tags.
+- Distribution version: The distribution version of OpenSearch that is benchmarked. 
+- Custom tags: You can define custom tags with the command line flag `--user-tags`. The tags are prefixed by `tag_` in order to avoid accidental clashes with OpenSearch Benchmark internal tags.
 - Operation-specific: The optional substructure operation contains additional information depending on the type of operation. For bulk requests, this may be the number of documents or for searches the number of hits.
 
 Depending on the level of metric record, some meta information might be missing.

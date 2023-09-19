@@ -7,17 +7,17 @@ has_children: true
 
 # Metrics
 
-After a workload completes, OpenSearch Benchmark stores all metric records within its metrics store. These metrics can be kept in memory or inside of an OpenSearch cluster. 
+After a workload completes, OpenSearch Benchmark stores all metric records within its metrics store. These metrics can be kept in memory or in an OpenSearch cluster. 
 
 ## Storing metrics
 
-You set where metrics are stored using the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
+You can specify if metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
 
 ### In memory
 
-If you want to store your result in memory, use the following settings in the `results_publishing` section of `benchmark.ini`:
+If you want to store metrics in memory while running the benchmark, provide the following settings in the `results_publishing` section of `benchmark.ini`:
 
-```json
+```ini
 [results_publishing]
 datastore.type = in-memory
 datastore.host = 
@@ -32,7 +32,7 @@ datastore.password =
 
 If you want to store your results in an external OpenSearch memory store, use the following settings in the `results_publishing` section of `benchmark.ini`:
 
-```
+```ini
 [results_publishing]
 datastore.type = opensearch
 datastore.host = <opensearch endpoint>
@@ -44,9 +44,9 @@ datastore.password = <opensearch basic auth password>
 datastore.number_of_replicas = 
 datastore.number_of_shards = 
 ```
-When `datastore.number_of_replicas` and `datastore.number_of_shards` are not provided, the defaults provided by OpenSearch are used, `0` for the number of replicas, and `1` for the number of shards. If these settings are changed after the datastore cluster has been created, the new replica and shards settings will only apply when new results indices are created at the end of the month. 
+When neither `datastore.number_of_replicas` nor `datastore.number_of_shards` are provided, OpenSearch uses the defaults values: `0` for the number of replicas and `1` for the number of shards. If these settings are changed after the datastore cluster is created, the new replica and shard settings will only apply when new results indices are created at the end of the month. 
 
-After you run OpenSearch Benchmark configured to use OpenSearch as a datastore, OpenSeach Benchmark creates three indices:
+After you run OpenSearch Benchmark configured to use OpenSearch as a data store, OpenSearch Benchmark creates three indexes:
 
 - `benchmark-metrics-YYYY-MM`: Holds granular metrics and telemetry data.
 - `benchmark-results-YYYY-MM`: Holds data based on final results.
