@@ -24,7 +24,7 @@ Additional prerequisites are required depending on your installation method.
 
 You can install OpenSearch Benchmark either using PyPi or Docker. 
 
-If you plan to run OpenSearch Benchmark with a cluster using Sigv4, see [Sigv4 support]({{site.url}}{{site.baseurl}}/benchmark/tutorials/sigv4)
+If you plan to run OpenSearch Benchmark with a cluster using Sigv4, see [Sigv4 support]({{site.url}}{{site.baseurl}}/benchmark/tutorials/sigv4/)
 
 ### PyPi
 
@@ -45,7 +45,7 @@ opensearch-benchmark --help
 If successful, OpenSearch returns the following response:
 
 ```bash
-$ opensearch-benchmark % opensearch-benchmark --help
+$ opensearch-benchmark --help
 usage: opensearch-benchmark [-h] [--version] {execute-test,list,info,create-workload,generate,compare,download,install,start,stop} ...
 
    ____                  _____                      __       ____                  __                         __
@@ -106,13 +106,13 @@ Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/bench
 For additional `execute_test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`
 {: .tip}
 
-* `--pipeline=benchmark-only` : Informs OSB that you wants to provide their own OpenSearch cluster.
-- `workload=geoname`: The name of workload the benchmark uses.
+* `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
+- `workload=geonames`: The name of workload the OpenSearch Benchmark uses.
 * `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that OSB will benchmark. Enter the endpoint to your OpenSearch cluster here.
 * `--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`: The username and password for your OpenSearch cluster.
-* `--test-mode`: Indicates that this Benchmark is a test. Test mode only runs the first thousand operations of each task indicated in the workload. 
+* `--test-mode`: Allows users to run the workload without running it for the entire duration. When this flag is present, OSB runs the first thousand operations of each task in the workload. This is only meant for sanity checks and the metrics produced are meaningless.
 
-The `--distribution-version`, which indicates what version of OpenSearch OSB will user when provisioning a cluster, is not required. When run, the `execute-test` command will parse the correct distribution version when it connects to the OpenSearch cluster.
+The `--distribution-version`, which indicates which OpenSearch version OSB will use when provisioning. When run, the `execute-test` command will parse the correct distribution version when it connects to the OpenSearch cluster.
 
 ### Running the workload
 
@@ -387,7 +387,7 @@ OSB returns the following response once the Benchmark completes:
 --------------------------------
 ```
 
-Each task ran by the `geonames` workload represents a specific OpenSearch API operation, such as Bulk or Search, that was performed when the test was ran. Each task in the output summary contains the the following information: 
+Each task ran by the `geonames` workload represents a specific OpenSearch API operation, such as Bulk or Search, that was performed when the test was ran. Each task in the output summary contains the following information: 
 
 * **Throughput:** The number of successful OpenSearch operations per second. 
 * **Latency:** The time, including wait time, it took for the request and the response to be sent out and received by OSB
