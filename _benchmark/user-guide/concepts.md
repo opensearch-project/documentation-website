@@ -11,7 +11,7 @@ Before using OpenSearch Benchmark, familiarize yourself with the following conce
 
 ## Core concepts and definitions
 
-- **Workload**: The description of one or more benchmarking scenarios that use a specific document corpus from which to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workflow runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads inside the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For more details about the parts the comprise a workload, see [Anatomy of a workload](#anatomy-of-a-workload) For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/).
+- **Workload**: The description of one or more benchmarking scenarios that use a specific document corpus from which to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workflow runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads inside the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For more details about the parts that compose a workload, see [Anatomy of a workload](#anatomy-of-a-workload) For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/).
 
 - **Pipeline**: A series of steps before and after a workload is run that determines benchmark results. OpenSearch Benchmark supports three pipelines:
   - `from-sources`: Builds and provisions OpenSearch, runs a benchmark, and then publishes the results.
@@ -27,7 +27,7 @@ A workload is a specification of one or more benchmarking scenarios. A workload 
 
 ## Anatomy of a workload
 
-The following example workload shows all of the essential elements needed to create a workload.json file. You can run this workload in your own benchmark configuration in order to understand how all of the elements work together:
+The following example workload shows all of the essential elements needed to create a workload.json file. You can run this workload in your own benchmark configuration to understand how all of the elements work together:
 
 ```json
 {
@@ -90,11 +90,11 @@ The following example workload shows all of the essential elements needed to cre
 }
 ```
 
-A workload usually consists of the following elements:
+A workload usually includes the following elements:
 
 - [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indices and index templates used for the workload.
 - [corpora]({{site.url}}{{site.baseurl}}/benchmark/workloads/corpora/): Defines all document corpora used for the workload.
-- `schedule`: Defines operations and in what order the operations run in-line. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations. 
+- `schedule`: Defines operations and the order in which the operations run in-line. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations. 
 - `operations`: **Optional**. Describes which operations are available for the workload and how they are parameterized. 
 
 ### Indices
