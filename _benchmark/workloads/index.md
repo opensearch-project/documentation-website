@@ -12,9 +12,9 @@ A workload is a specification of one or more benchmarking scenarios. A workload 
 - One or more data streams that are ingested into indices
 - A set of queries and operations that are invoked as part of the benchmark
 
-This section provides you with a list of options and examples you can use when customizing or using a workload.
+This section provides a list of options and examples you can use when customizing or using a workload.
 
-For more information about what comprises a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts#anatomy-of-a-workload) 
+For more information about what comprises a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts#anatomy-of-a-workload). 
 
 
 ## Workload examples

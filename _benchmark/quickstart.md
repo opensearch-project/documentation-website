@@ -6,7 +6,7 @@ nav_order: 2
 
 # OpenSearch Benchmark quickstart
 
-This tutorial outlines how to quickly install OpenSearch Benchmark (OSB) and run your first OpenSearch Benchmark workload. 
+This tutorial outlines how to quickly install OpenSearch Benchmark and run your first OpenSearch Benchmark workload. 
 
 ## Prerequisites
 
@@ -15,16 +15,16 @@ To perform the Quickstart steps, you'll need to fulfill the following prerequisi
 - A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}//tuning-your-cluster/index/).
 - Git 2.3 or greater.
 
-Additional prerequisites are required depending on your installation method.
+Additional prerequisites are required, depending on your installation method:
 
-- If you plan to install OpenSearch Benchmark with [PyPi](https://pypi.org/), install Python 3.8 or greater.
+- If you plan to install OpenSearch Benchmark with [PyPi](https://pypi.org/), install Python 3.8 or later.
 - If you plan to install OpenSearch Benchmark using Docker, install Docker. 
 
 ## Installing OpenSearch Benchmark
 
 You can install OpenSearch Benchmark using either PyPi or Docker. 
 
-If you plan to run OpenSearch Benchmark with a cluster using AWS Signature Version 4 (AWS Sigv4), see [Sigv4 support]({{site.url}}{{site.baseurl}}/benchmark/tutorials/sigv4/).
+If you plan to run OpenSearch Benchmark with a cluster using AWS Signature Version 4, see [Sigv4 support]({{site.url}}{{site.baseurl}}/benchmark/tutorials/sigv4/).
 
 ### PyPi
 
@@ -35,7 +35,7 @@ pip3 install opensearch-benchmark
 ```
 {% include copy.html %}
 
-After the installation completes, verify that OSB is running by entering the following command:
+After the installation completes, verify that OpenSearch Benchmark is running by entering the following command:
 
 ```bash
 opensearch-benchmark --help
@@ -94,47 +94,47 @@ docker run opensearchproject/opensearch-benchmark -h
 {% include copy.html %}
 
 
-## Running your first Benchmark
+## Running your first benchmark
 
 You can now run your first benchmark. For your first benchmark, you'll use the [geonames](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames) workload.
 
 
 ### Understanding workload command flags
 
-Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) with the following command flags:
+Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) command with the following command flags:
 
-For additional `execute_test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`
+For additional `execute_test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
 {: .tip}
 
 * `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
-- `workload=geonames`: The name of workload the OpenSearch Benchmark uses.
-* `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that OSB will benchmark. Enter the endpoint to your OpenSearch cluster here.
+- `workload=geonames`: The name of workload used by OpenSearch Benchmark.
+* `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that will be benchmarked. Enter the endpoint of your OpenSearch cluster here.
 * `--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`: The username and password for your OpenSearch cluster.
-* `--test-mode`: Allows users to run the workload without running it for the entire duration. When this flag is present, OSB runs the first thousand operations of each task in the workload. This is only meant for sanity checks and the metrics produced are meaningless.
+* `--test-mode`: Allows a user to run the workload without running it for the entire duration. When this flag is present, Benchmark runs the first thousand operations of each task in the workload. This is only meant for sanity checks---the metrics produced are meaningless.
 
-The `--distribution-version`, which indicates which OpenSearch version OSB will use when provisioning. When run, the `execute-test` command will parse the correct distribution version when it connects to the OpenSearch cluster.
+The `--distribution-version`, which indicates which OpenSearch version Benchmark will use when provisioning. When run, the `execute-test` command will parse the correct distribution version when it connects to the OpenSearch cluster.
 
 ### Running the workload
 
-If you installed OSB with PyPi, customize and use the following command:
+If you installed Benchmark with PyPi, customize and use the following command:
 
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=geonames --target-host="<OpenSearch Cluster Endpoint>" --client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'" --test-mode
 ```
 {% include copy.html %}
 
-If you installed OSB with Docker, customize and use the following command:
+If you installed Benchmark with Docker, customize and use the following command:
 
 ```bash
 docker run opensearchproject/opensearch-benchmark execute-test --pipeline=benchmark-only --workload=geonames --target-host="<OpenSearch Cluster Endpoint>" --client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'" --test-mode
 ```
 {% include copy.html %}
 
-When the `execute_test` command runs, all tasks and operations inside the `geonames` workload run sequentially.
+When the `execute_test` command runs, all tasks and operations in the `geonames` workload run sequentially.
 
 ### Understanding the results
 
-OSB returns the following response once the Benchmark completes:
+Benchmark returns the following response once the benchmark completes:
 
 ```bash
 -----------------------------------------------------
@@ -385,17 +385,17 @@ OSB returns the following response once the Benchmark completes:
 --------------------------------
 ```
 
-Each task ran by the `geonames` workload represents a specific OpenSearch API operation, such as Bulk or Search, that was performed when the test was ran. Each task in the output summary contains the following information: 
+Each task run by the `geonames` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information: 
 
 * **Throughput:** The number of successful OpenSearch operations per second. 
-* **Latency:** The time, including wait time, it took for the request and the response to be sent out and received by OSB.
-* **Service Time:** The time, excluding wait time, it took for the request and the response to be sent out and received by OSB.
-* **Error Rate:** Percent of operations run during the task that were not successful or (200s).
+* **Latency:** The amount of time, including wait time, taken for the request and the response to be sent and received by Benchmark.
+* **Service Time:** The amount of time, excluding wait time, taken for the request and the response to be sent and received by Benchmark.
+* **Error Rate:** The percentage of operations run during the task that were not successful or returned a 200 error code.
 
 
 ## Next steps
 
-To learn more about OpenSearch Benchmark:
+See the following resources to learn more about OpenSearch Benchmark:
 
 - [User guide]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/): Dive deep into how OpenSearch Benchmark can you help you track the performance of your cluster.
 - [Tutorials]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/): Use step-by-step guides for more advanced Benchmarking configurations and functionality.

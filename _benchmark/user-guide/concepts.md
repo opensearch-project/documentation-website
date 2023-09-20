@@ -11,9 +11,9 @@ Before using OpenSearch Benchmark, familiarize yourself with the following conce
 
 ## Core concepts and definitions
 
-- **Workload**: The description of one or more benchmarking scenarios that use a specific document corpus from which to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workflow runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads inside the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For more details about the parts that compose a workload, see [Anatomy of a workload](#anatomy-of-a-workload) For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/).
+- **Workload**: The description of one or more benchmarking scenarios that use a specific document corpus to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workflow runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads in the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For more information about the elements of a workload, see [Anatomy of a workload](#anatomy-of-a-workload). For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/).
 
-- **Pipeline**: A series of steps before and after a workload is run that determines benchmark results. OpenSearch Benchmark supports three pipelines:
+- **Pipeline**: A series of steps occurring before and after a workload is run that determines benchmark results. OpenSearch Benchmark supports three pipelines:
   - `from-sources`: Builds and provisions OpenSearch, runs a benchmark, and then publishes the results.
   - `from-distribution`: Downloads an OpenSearch distribution, provisions it, runs a benchmark, and then publishes the results.
   - `benchmark-only`: The default pipeline. Assumes an already running OpenSearch instance, runs a benchmark on that instance, and then publishes the results.
@@ -22,12 +22,12 @@ Before using OpenSearch Benchmark, familiarize yourself with the following conce
 
 A workload is a specification of one or more benchmarking scenarios. A workload typically includes the following:
 
-- One or more data streams that are ingested into indices
+- One or more data streams that are ingested into indexes
 - A set of queries and operations that are invoked as part of the benchmark
 
 ## Anatomy of a workload
 
-The following example workload shows all of the essential elements needed to create a workload.json file. You can run this workload in your own benchmark configuration to understand how all of the elements work together:
+The following example workload shows all of the essential elements needed to create a `workload.json` file. You can run this workload in your own benchmark configuration to understand how all of the elements work together:
 
 ```json
 {
@@ -92,27 +92,27 @@ The following example workload shows all of the essential elements needed to cre
 
 A workload usually includes the following elements:
 
-- [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indices and index templates used for the workload.
+- [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indexes and index templates used for the workload.
 - [corpora]({{site.url}}{{site.baseurl}}/benchmark/workloads/corpora/): Defines all document corpora used for the workload.
-- `schedule`: Defines operations and the order in which the operations run in-line. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations. 
+- `schedule`: Defines operations and the order in which the operations run inline. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations. 
 - `operations`: **Optional**. Describes which operations are available for the workload and how they are parameterized. 
 
 ### Indices
 
-To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/). For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
+To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/Indices/).
 
 ### Corpora
 
 The `corpora` element requires the name of the index containing the document corpus, for example, `movies`, and a list of parameters that define the document corpora. This list includes the following parameters:
 
 -  `source-file`: The file name that contains the workload's corresponding documents. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must have one JSON file containing the name. 
--  `document-count`: The number of documents in the `source-file`, which determines which client indices correlate to which parts of the document corpus. Each N client receives an Nth of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. 
+-  `document-count`: The number of documents in the `source-file`, which determines which client indexes correlate to which parts of the document corpus. Each N client receives an Nth of the document corpus. When using a source that contains a document with a parent-child relationship, specify the number of parent documents. 
 - `uncompressed-bytes`: The size, in bytes, of the source file after decompression, indicating how much disk space the decompressed source file needs. 
 - `compressed-bytes`: The size, in bytes, of the source file before decompression. This can help you assess the amount of time needed for the cluster to ingest documents.
 
 ### Operations
 
-The `operations` element lists the OpenSearch API operations performed by the workload. For example, you can set an operation to `create-index`, which creates an index in the test cluster that OpenSearch Benchmark can write documents into. Operations are usually listed inside of `schedule`.
+The `operations` element lists the OpenSearch API operations performed by the workload. For example, you can set an operation to `create-index`, an index in the test cluster to which OpenSearch Benchmark can write documents. Operations are usually listed inside of `schedule`.
 
 ### Schedule
 
