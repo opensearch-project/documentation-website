@@ -11,7 +11,7 @@ To enhance and customize your OpenSearch cluster for machine learning (ML), you 
 
 ## ML node
 
-By default ML tasks and models only run on ML nodes. When configuring without the `data` node role, ML nodes will not store any shards and will calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
+By default, ML tasks and models only run on ML nodes. When configured without the `data` node role, ML nodes do not store any shards and instead calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
 
 ```yml
 node.roles: [ ml ]
