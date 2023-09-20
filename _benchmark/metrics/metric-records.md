@@ -111,7 +111,7 @@ The meta information for each metric record, including
 - Custom tags: You can define custom tags with the command line flag `--user-tags`. The tags are prefixed by `tag_` in order to avoid accidental clashes with OpenSearch Benchmark internal tags.
 - Operation-specific: An optional substructure of the operation. For bulk requests, this may be the number of documents; for searches, the number of hits.
 
-Depending on the level of metric record, some meta information might be missing.
+Depending on the metric record, some meta information might be missing.
 
 ## Next steps
 
