@@ -8,11 +8,11 @@ nav_order: 80
 
 # REST layer authorization
 
-Authorization on the REST layer provides an added level of security for plugin and extension API requests by offering a mechanism for authorization checks on the REST layer. This level of security sits atop the transport layer and provides a complementary method of authorization without replacing, modifying, or in any way changing the same process on the transport layer. REST layer authorization was initially created to address the need for an authorization check for extensions, which do not communicate on the transport layer. However, the feature is also supported for existing plugins and will be available for future plugins created to operate with OpenSearch.
+Authorization on the REST layer provides an added level of security for plugin and extension API requests by offering a mechanism for authorization checks on the REST layer. This level of security sits atop the transport layer and provides a complementary method of authorization without replacing, modifying, or in any way changing the same process on the transport layer. REST layer authorization was initially created to address the need for an authorization check for extensions, which do not communicate on the transport layer. However, the feature is also available to developers who wish to use it when creating future plugins for OpenSearch.
 
 For users that work with REST layer authorization, the methods of assigning roles and mapping users and roles, and the general usage of plugins and extensions, remain the same: the only additional requirement being that users become familiar with a new scheme for permissions. Developers, on the other hand, will need to understand the ideas behind `NamedRoute` and how the new route scheme is constructed. For detailed information, see [Authorization at REST Layer for plugins](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md).
 
-The benefits to developers when using the REST layer for authorization mean that they do not need to build transport layer actions and get authorization for them to adhere to security procedures. As a result, this decreases the code-writing burden and time invested in creating a single action. As an alternative, they can create REST API actions and authorize them on the REST layer.
+The benefits to developers when using the REST layer for authorization mean that they can authorize requests at the REST layer and filter out unauthorized requests. As a result, this decreases the processing burden on the transport layer while allowing granular control over access to APIs.
 
 The Security plugin must be enabled to use REST layer authorization.
 {: .note }
