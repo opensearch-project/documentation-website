@@ -17,7 +17,7 @@ Models [trained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#training-the
 
 Should you not want to use a model, you can use the [Train and Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#train-and-predict) API to test your model without having to evaluate the model's performance.
 
-## Utilizing ML Commons
+## Using ML Commons
 
 1. Ensure you've set the appropriate cluster settings outlined in [Cluster Settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/). 
 2. Set up model access described in [Model Access Control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/). 
