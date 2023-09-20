@@ -27,7 +27,7 @@ POST /_analyze
 ```
 {% include copy-curl.html %}
 
-The `attributes` array specifies that you want to filter the output of the `explain` parameter to return only `termFrequency`. The response contains both the original token and the parsed output of the token filter that includes term frequency:
+The `attributes` array specifies that you want to filter the output of the `explain` parameter to return only `termFrequency`. The response contains both the original token and the parsed output of the token filter that includes the term frequency:
 
 ```json
 {
@@ -187,7 +187,7 @@ PUT /test
 ```
 {% include copy-curl.html %}
 
-The `test` index uses a keyword tokenizer, delimited term frequency token filter (where the delimiter is `^`), and a custom analyzer that includes a keyword tokenizer and a delimited term frequency token filter. The mappings specify that the field `f1` is a keyword field and the field `f2` is a text field. The field `f2` uses the custom analyzer defined in the settings for text analysis. Additionally, specifying `index_options` signals to OpenSearch to add the term frequencies to the inverted index. You'll use the term frequencies to give documents with repeated terms a higher score.
+The `test` index uses a keyword tokenizer, a delimited term frequency token filter (where the delimiter is `^`), and a custom analyzer that includes a keyword tokenizer and a delimited term frequency token filter. The mappings specify that the field `f1` is a keyword field and the field `f2` is a text field. The field `f2` uses the custom analyzer defined in the settings for text analysis. Additionally, specifying `index_options` signals to OpenSearch to add the term frequencies to the inverted index. You'll use the term frequencies to give documents with repeated terms a higher score.
 
 Next, index two documents using bulk upload:
 
