@@ -11,7 +11,7 @@ After a workload completes, OpenSearch Benchmark stores all metric records withi
 
 ## Storing metrics
 
-You can specify if metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
+You can specify whether metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
 
 ### In memory
 
@@ -44,15 +44,15 @@ datastore.password = <opensearch basic auth password>
 datastore.number_of_replicas = 
 datastore.number_of_shards = 
 ```
-When neither `datastore.number_of_replicas` nor `datastore.number_of_shards` are provided, OpenSearch uses the defaults values: `0` for the number of replicas and `1` for the number of shards. If these settings are changed after the datastore cluster is created, the new replica and shard settings will only apply when new results indices are created at the end of the month. 
+When neither `datastore.number_of_replicas` nor `datastore.number_of_shards` is provided, OpenSearch uses the default values: `0` for the number of replicas and `1` for the number of shards. If these settings are changed after the data store cluster is created, the new replica and shard settings will only apply when new results indexes are created at the end of the month. 
 
 After you run OpenSearch Benchmark configured to use OpenSearch as a data store, OpenSearch Benchmark creates three indexes:
 
-- `benchmark-metrics-YYYY-MM`: Holds granular metrics and telemetry data.
+- `benchmark-metrics-YYYY-MM`: Holds granular metric and telemetry data.
 - `benchmark-results-YYYY-MM`: Holds data based on final results.
 - `benchmark-test-executions-YYYY-MM`: Holds data about `execution-ids`.
 
-You can visualize data inside these indices inside OpenSearch Dashboards.
+You can visualize data inside these indexes in OpenSearch Dashboards.
 
 
 ## Next steps
