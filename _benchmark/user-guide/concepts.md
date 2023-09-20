@@ -22,8 +22,8 @@ Before using OpenSearch Benchmark, familiarize yourself with the following conce
 
 A workload is a specification of one or more benchmarking scenarios. A workload typically includes the following:
 
-- One or more data streams that are ingested into indexes
-- A set of queries and operations that are invoked as part of the benchmark
+- One or more data streams that are ingested into indexes.
+- A set of queries and operations that are invoked as part of the benchmark.
 
 ## Anatomy of a workload
 
@@ -99,7 +99,7 @@ A workload usually includes the following elements:
 
 ### Indices
 
-To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/Indices/).
+To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
 
 ### Corpora
 
