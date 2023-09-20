@@ -20,4 +20,4 @@ To access **Advanced settings**, go to **Dashboards Management** and select **Ad
 
 ## Required permissions
 
-To modify settings, you must have permission to make changes. See [Multi-tenancy configuration](https://opensearch.org/docs/latest/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants) for guidance about giving role access to tenants.
+To modify settings, you must have permission to make changes. See [Multi-tenancy configuration](https://opensearch.org/docs/latest/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants) for guidance about assigning role access to tenants.
