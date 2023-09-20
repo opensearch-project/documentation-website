@@ -22,5 +22,5 @@ Should you not want to use a model, you can use the [Train and Predict]({{site.u
 1. Ensure you've set the appropriate cluster settings outlined in [Cluster Settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/). 
 2. Set up model access described in [Model Access Control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/). 
 3. Start using models: 
-  - [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) for running models within OpenSearch. 
+  - [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) allows you to run models within OpenSearch. 
   - [ML Extensibility]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/) to access remote models. 
