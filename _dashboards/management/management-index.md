@@ -6,11 +6,17 @@ has_children: true
 ---
 
 # Dashboards Management
+Introduced 2.10
+{: .label .label-purple }
 
-Dashboards Management serves as the command center for customizing OpenSearch Dashboards to your needs. 
+Dashboards Management serves as the command center for customizing OpenSearch Dashboards to your needs. A view of the interface is shown in the following image.
 
-OpenSearch and OpenSearch Dashboards privileges govern access to individual features. If you do not have the appropriate access, consult your administrator. 
-{: .tip}
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-management-ui.png" alt="Dashboards Management interface" width="700"/>
+
+{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>OpenSearch and OpenSearch Dashboards privileges govern access to individual features. If you do not have the appropriate access, consult your administrator. 
+{: .note}
+
+## Applications
 
 The following applications are available in Dashboards Management:
 
