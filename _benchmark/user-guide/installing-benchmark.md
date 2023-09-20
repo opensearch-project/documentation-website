@@ -2,7 +2,8 @@
 layout: default
 title: Installing OpenSearch Benchmark
 nav_order: 5
-has_children: false
+parent: User guide
+redirect_from: /benchmark/installing-benchmark/
 ---
 
 # Installing OpenSearch Benchmark
@@ -149,6 +150,59 @@ run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opens
 {% include copy.html %}
 
 See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) to learn more about the files and subdirectories located in `/opensearch-benchmark/.benchmark`.
+
+## Provisioning an OpenSearch cluster with a test
+
+OpenSearch Benchmark is compatible with JDK versions 17, 16, 15, 14, 13, 12, 11, and 8.
+{: .note}
+
+If you installed OpenSearch with PyPi, you can also provision a new OpenSearch cluster by specifying a `distribution-version` in the `execute-test` command.
+
+If you plan on having Benchmark provision a cluster, you'll need to inform Benchmark of the location of the `JAVA_HOME` path for the Benchmark cluster. To set the `JAVA_HOME` path and provision a cluster:
+
+1. Find the `JAVA_HOME` path you're currently using. Open a terminal and enter `/usr/libexec/java_home`.
+
+2. Set your corresponding JDK version environment variable by entering the path from the previous step. Enter `export JAVA17_HOME=<Java Path>`.
+
+3. Run the `execute-test` command and indicate the distribution version of OpenSearch you want to use: 
+
+  ```bash
+  opensearch-benchmark execute-test --distribution-version=2.3.0 --workload=geonames --test-mode 
+  ```
+
+## Directory structure
+
+After running OpenSearch Benchmark for the first time, you can search through all related files, including configuration files, in the `~/.benchmark` directory. The directory includes the following file tree:
+
+```
+# ~/.benchmark Tree
+.
+├── benchmark.ini
+├── benchmarks
+│   ├── data
+│   │   └── geonames
+│   ├── distributions
+│   │   ├── opensearch-1.0.0-linux-x64.tar.gz
+│   │   └── opensearch-2.3.0-linux-x64.tar.gz
+│   ├── test_executions
+│   │   ├── 0279b13b-1e54-49c7-b1a7-cde0b303a797
+│   │   └── 0279c542-a856-4e88-9cc8-04306378cd38
+│   └── workloads
+│       └── default
+│           └── geonames
+├── logging.json
+├── logs
+│   └── benchmark.log
+```
+
+* `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
+* `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
+* `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
+* `test_executions`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
+* `workloads`: Contains all files related to workloads, except for the data corpora.
+* `logging.json`: Contains all of the configuration options related to how logging is performed within OpenSearch Benchmark.
+* `logs`: Contains all the logs from OpenSearch Benchmark runs. This can be helpful when you've encountered errors during runs.
+
 
 ## Next steps
 
