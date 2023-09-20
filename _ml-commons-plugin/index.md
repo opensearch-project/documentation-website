@@ -23,4 +23,4 @@ Should you not want to use a model, you can use the [Train and Predict]({{site.u
 2. Set up model access described in [Model Access Control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/). 
 3. Start using models: 
   - [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) allows you to run models within OpenSearch. 
-  - [ML Extensibility]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/) to access remote models. 
+  - [ML Extensibility]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/) allows you to access remote models. 
