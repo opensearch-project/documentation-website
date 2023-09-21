@@ -75,7 +75,7 @@ If successful, the connector API responds with the `connector_id` for the connec
 }
 ```
 
-With the returned `connector_id` we can register a model that utilizing that connector.
+With the returned `connector_id` we can register a model that uses that connector:
 
 ```json
 POST /_plugins/_ml/models/_register
