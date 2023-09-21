@@ -35,7 +35,7 @@ The settings in the following table apply specifically to OpenSearch core.
 | `cluster.remote_store.translog.repository` | The repository used for translog upload when enforcing remote store for an index. |
 
 
-### OpenSearch settings examples
+## OpenSearch settings examples
 
 ```yml
 network.host: 192.168.0.1
@@ -60,6 +60,8 @@ cluster.remote_store.translog.repository: my-repo-1
 
 
 ## Security plugin settings
+<!--- It might be a good idea to have Security settings broken up into level-heading 3 tables, since there are so many. I started doing that for "### Hostname verification and DNS lookup" below. --->
+
 
 The settings in the following table apply specifically to the Security plugin.
 
@@ -168,6 +170,7 @@ The settings in the following table apply specifically to the Security plugin.
 | n | d |
 | n | d |
 
+<!--- And that's not all... --->
 plugins.security.ssl.transport.client.pemkey_password —> Password for the PEM formatted private key used by client
 plugins.security.ssl.transport.keystore_keypassword → Provide the password for the key inside the keystore
 plugins.security.ssl.transport.server.keystore_keypassword → Provide the password for the key inside the server keystore plugins.security.ssl.transport.client.keystore_keypassword → Provide the password for the key inside the client keystore
@@ -192,7 +195,41 @@ plugins.security.system_indices.enabled → Enable system indices
 plugins.security.system_indices.indices → List of system indices
 
 
-### Security plugin settings examples
+<!--- And there are more... --->
+### Hostname verification and DNS lookup
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is true. |
+| `plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is true. Only works if hostname verification is also enabled. |
+
+### Client authentication
+
+| `plugins.security.ssl.http.clientauth_mode` | The TLS client authentication mode to use. Can be one of `NONE`, `OPTIONAL` (default) or `REQUIRE`. Optional. |
+
+### Enabled ciphers and protocols
+
+Values for these settings are expressed in an array. See [Enabled ciphers and protocols]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-enabled-ciphers-and-protocols) for more information.
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.ssl.http.enabled_ciphers` | Enabled TLS cipher suites for the REST layer. Only Java format is supported. |
+| `plugins.security.ssl.http.enabled_protocols` | Enabled TLS protocols for the REST layer. Only Java format is supported. |
+| `plugins.security.ssl.transport.enabled_ciphers` | Enabled TLS cipher suites for the transport layer. Only Java format is supported. |
+| `plugins.security.ssl.transport.enabled_protocols` | Enabled TLS protocols for the transport layer. Only Java format is supported. |
+| n | d |
+
+
+
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+
+
+
+## Security plugin settings examples
 <!--- another option for these section would be to simply add the example value in the description above where these are defined. It's beginning to feel like a better idea. Although, then, you wouldn't be able to express them in YAML format, and you miss the visual cues that could help a user understand proper formatting. --->
 
 ```yml
