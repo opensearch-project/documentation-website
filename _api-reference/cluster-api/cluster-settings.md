@@ -32,6 +32,7 @@ include_defaults (GET only) | Boolean | Whether to include default settings as p
 cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
 timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
 
+
 #### Example request
 
 ```json
@@ -82,6 +83,9 @@ The following request field parameters are compatible with the cluster API.
 | network.breaker.inflight_requests.limit | String | The limit for the in-flight requests breaker. Default is `100%` of the JVM heap. |
 | network.breaker.inflight_requests.overhead | Integer/Time unit | The constant that all in-flight request estimations are multiplied by to determine a final estimation. Default is `2`. |
 | script.max_compilations_rate | String | The limit for the number of unique dynamic scripts within a defined interval that are allowed to be compiled. Default is 150 every 5 minutes: `150/5m`. |
+| cluster.default.index.refresh_interval | Time unit | Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and also support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. |
+| cluster.minimum.index.refresh_interval | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum set, index creation fails. |
+| cluster.remote_store.translog.buffer_interval | Time unit | The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. |
 | cluster.routing.allocation.enable | String | Enables or disables allocation for specific kinds of shards: <br /> <br /> `all` – Allows shard allocation for all types of shards. <br /> <br /> `primaries` – Allows shard allocation for primary shards only. <br /> <br /> `new_primaries` – Allows shard allocation for primary shards for new indexes only. <br /> <br /> `none` – No shard allocations are allowed for any indexes. <br /> <br /> Default is `all`. |
 | cluster.routing.allocation.node_concurrent_incoming_recoveries | Integer | Configures how many concurrent incoming shard recoveries are allowed to happen on a node. Default is `2`. |
 | cluster.routing.allocation.node_concurrent_outgoing_recoveries | Integer | Configures how many concurrent outgoing shard recoveries are allowed to happen on a node. Default is `2`. |
@@ -110,6 +114,7 @@ The following request field parameters are compatible with the cluster API.
 | cluster.persistent_tasks.allocation.enable | String | Enables or disables allocation for persistent tasks: <br /> <br /> `all` – Allows persistent tasks to be assigned to nodes. <br /> <br /> `none` – No allocations are allowed for persistent tasks. This does not affect persistent tasks already running. <br /> <br /> Default is `all`. |
 | cluster.persistent_tasks.allocation.recheck_interval | Time unit | The cluster manager automatically checks whether or not persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether or not persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. |
 | remote_store.moving_average_window_size | Integer | The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. |
+
 
 #### Example request
 
