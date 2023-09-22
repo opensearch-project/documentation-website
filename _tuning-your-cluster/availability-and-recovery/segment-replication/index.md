@@ -55,7 +55,7 @@ PUT /my-index1
 ```
 {% include copy-curl.html %}
 
-If you're using remote-backed storage, add the `remote_store` property to the index request body. For more information, see [Create an index]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#create-an-index).
+If you're using remote-backed storage, add the `remote_store` property to the index request body. 
 
 When using node-to-node replication, the primary shard consumes more network bandwidth because it pushes segment files to all the replica shards. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
