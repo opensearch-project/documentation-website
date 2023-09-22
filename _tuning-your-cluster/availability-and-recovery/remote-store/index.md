@@ -58,9 +58,9 @@ node.attr.remote_store.repository.my-repo-3.settings.region: us-east-1
 ```
 {% include copy-curl.html %}
 
-You do not have the use three different remote store repositories for segment, translog, and state. All three stores can share the same repository. 
+You do not have to use three different remote store repositories for segment, translog, and state. All three stores can share the same repository. 
 
-After the cluster is created with the `remote_store` settings, all indexes created in that cluster will start uploading data to the configured remote store.
+During the bootstrapping process, the remote-backed repositories listed in `opensearch.yml` are automatically registered. After the cluster is created with the `remote_store` settings, all indexes created in that cluster will start uploading data to the configured remote store.
 
 ## Related cluster settings
 
@@ -90,7 +90,7 @@ curl -X POST "https://localhost:9200/_remotestore/_restore" -H 'Content-Type: ap
 **Remote all shards of a given index**
 
 ```bash
-curl -X POST "https://localhost:9200/_remotestore/_restore" -ku admin:admin -H 'Content-Type: application/json' -d'
+curl -X POST "https://localhost:9200/_remotestore/_restore?restore_all_shards=true" -ku admin:admin -H 'Content-Type: application/json' -d'
 {
   "indices": ["my-index"]
 }
