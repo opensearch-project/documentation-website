@@ -1,10 +1,11 @@
 ---
 layout: default
 title: Getting Started
-parent: Trace analytics
+parent: Trace Analytics
 nav_order: 1
 redirect_from:
   - /observability-plugin/trace/get-started/
+  - /monitoring-plugins/trace/get-started/
 ---
 
 # Getting started with Trace Analytics

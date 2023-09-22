@@ -21,7 +21,7 @@ You can access the `maps-server` image via the official OpenSearch [Docker Hub r
 
 Open your terminal and run the following command:
 
-`docker pull opensearch/opensearch-maps-server`
+`docker pull opensearchproject/opensearch-maps-server:1.0.0`
 
 ## Setting up the server
 
@@ -96,7 +96,7 @@ Configure the manifest URL in `opensearch_dashboards.yml`:
 
 ### Option 2: Configure Default WMS properties in OpenSearch Dashboards
 
-1. On the OpenSearch Dashboards console, select **Stack Management > Advanced Settings**. 
+1. On the OpenSearch Dashboards console, select **Dashboards Management** > **Advanced Settings**. 
 2. Locate `visualization:tileMap:WMSdefaults` under **Default WMS properties**. 
 3. Change `"enabled": false` to `"enabled": true` and add the URL for the valid map server.
 

@@ -27,7 +27,7 @@ distance_type | enum, such as `EUCLIDEAN`, `COSINE`, or `L1` | The type of measu
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-the-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 * [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
@@ -77,7 +77,7 @@ optimizerType | OptimizerType | The optimizer used in the model. | SIMPLE_SGD
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-the-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 
 ### Example
@@ -189,7 +189,7 @@ time_zone | string | The time zone for the `time_field` field. | "UTC"
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-the-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 * [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
@@ -211,7 +211,7 @@ RCF Summarize is a clustering algorithm based on the Clustering Using Representa
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-the-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 * [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
@@ -429,7 +429,7 @@ A classification algorithm, logistic regression models the probability of a disc
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-the-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 
 ### Example: Train/Predict with Iris data

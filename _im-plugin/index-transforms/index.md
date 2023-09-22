@@ -151,3 +151,7 @@ GET finished_flight_job/_search
 }
 
 ```
+
+## Index codec considerations
+
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms).

@@ -19,13 +19,31 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example.zip).
-1. At the command line, run `docker-compose up`.
+1. Download [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example-custom.zip) to a preferred location in your directory and unzip it.
+1. At the command line, specify the location of the files in your directory and run `docker-compose up`.
 1. Review the files:
 
-   * `docker-compose.yml` defines two OpenSearch nodes, an OpenSearch Dashboards server, and a SAML server.
-   * `custom-opensearch_dashboards.yml` add a few SAML settings to the default `opensearch_dashboards.yml` file.
-   * `config.yml` configures SAML for authentication.
+   * `customize-docker-compose.yml`: Defines two OpenSearch nodes, an OpenSearch Dashboards server, and a SAML server.  
+   * `customize-opensearch_dashboards.yml`: Includes SAML settings for the default `opensearch_dashboards.yml` file.
+   * `customize-config.yml`: Configures SAML for authentication.
+
+   You can remove "customize" from the file names if you plan to modify and keep these files for production.
+   {: .tip }  
+
+1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2, and OpenSearch Dashboards server. For example, if you are running OpenSearch version 2.6, the `image` fields will resemble the following examples:
+   
+   ```yml
+   opensearch-saml-node1:
+    image: opensearchproject/opensearch:2.8.0
+    ```
+    ```yml
+    opensearch-saml-node2:
+    image: opensearchproject/opensearch:2.8.0
+    ```
+    ```yml
+    opensearch-saml-dashboards:
+    image: opensearchproject/opensearch-dashboards:2.8.0
+    ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
 
@@ -175,6 +193,8 @@ Name | Description
 `sp.signature_private_key_password` | The password of the private key, if any.
 `sp.signature_private_key_filepath` | Path to the private key. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to that same directory.
 `sp.signature_algorithm` | The algorithm used to sign the requests. See the next table for possible values.
+
+The private key must be in PKCS#8 format. If you want to use an encrypted key, it must be encrypted with a PKCS#12-compatible algorithm (3DES).
 
 The Security plugin supports the following signature algorithms.
 

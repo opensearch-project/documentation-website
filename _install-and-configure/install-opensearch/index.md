@@ -17,7 +17,17 @@ This section details how to install OpenSearch on your host, including which ope
 
 ## Operating system compatibility
 
-We recommend installing OpenSearch on Red Hat Enterprise Linux (RHEL) or Debian-based Linux distributions that use [systemd](https://en.wikipedia.org/wiki/Systemd), such as CentOS, Amazon Linux 2, or Ubuntu Long-Term Support (LTS). OpenSearch should work on most Linux distributions, but we only test a handful. We recommend RHEL 7 or 8, CentOS 7 or 8, Amazon Linux 2, or Ubuntu 16.04, 18.04, or 20.04 for any version of OpenSearch. OpenSearch also supports Windows Server 2019.
+OpenSearch and OpenSearch Dashboards are compatible with Red Hat Enterprise Linux (RHEL) and Debian-based Linux distributions that use [`systemd`](https://en.wikipedia.org/wiki/Systemd), such as CentOS, Amazon Linux 2, and Ubuntu Long-Term Support (LTS). While OpenSearch and OpenSearch Dashboards should work on most Linux distributions, we only test a subset. 
+
+The following table lists the operating system versions that we currently support. 
+
+OS | Version
+:---------- | :-------- 
+RHEL/CentOS |	7/8
+Rocky Linux |	8
+Ubuntu | 16.04/18.04/20.04
+Windows Server | 2019
+
 
 ## File system recommendations
 
@@ -90,3 +100,11 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/install-and-configu
 Do not declare the same JVM options in multiple locations because it can result in unexpected behavior or a failure of the OpenSearch service to start. If you declare JVM options using an environment variable, such as `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`, then you should comment out any references to that JVM option in `config/jvm.options`. Conversely, if you define JVM options in `config/jvm.options`, then you should not define those JVM options using environment variables.
 {: .note}
 
+## Important system properties
+
+OpenSearch has a number of system properties, listed in the following table, that you can specify in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS` using `-D` command line argument notation.
+
+Property | Description
+:---------- | :-------- 
+`opensearch.xcontent.string.length.max=<value>` | By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.  | 
+`opensearch.xcontent.fast_double_writer=[true|false]` | By default, OpenSearch serializes floating-point numbers using the default implementation provided by the Java Runtime Environment. Set this value to `true` to use the Schubfach algorithm, which is faster but may lead to small differences in precision. Default is `false`. |

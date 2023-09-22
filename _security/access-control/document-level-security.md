@@ -5,6 +5,7 @@ parent: Access control
 nav_order: 85
 redirect_from:
  - /security/access-control/document-level-security/
+ - /security-plugin/access-control/document-level-security/
 ---
 
 # Document-level security (DLS)
@@ -167,7 +168,7 @@ You can perform term-level lookup queries (TLQs) with document-level security (D
 
 By default, the Security plugin detects if a DLS query contains a TLQ or not and chooses the appropriate mode automatically at runtime.
 
-To learn more about OpenSearch queries, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
+To learn more about OpenSearch queries, see [Term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/).
 
 ### How to set the DLS evaluation mode in `opensearch.yml`
 

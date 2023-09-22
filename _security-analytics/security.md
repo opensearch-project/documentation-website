@@ -9,12 +9,12 @@ has_children: false
 
 You can use OpenSearch Security with Security Analytics to assign user permissions and manage the actions that users can and cannot perform. For example, you might want one group of users to be able to create, update, or delete detectors and another group of users to only view detectors. You may want still another group to be able to receive and acknowledge alerts but to be prevented from performing other tasks. The OpenSearch Security framework allows you to control the level of access users have to Security Analytics functionality.
 
-
+---
 ## Security Analytics system indexes
 
 Security Analytics indexes are protected as system indexes and treated differently than other indexes in a cluster. System indexes store configurations and other system settings and, for that reason, cannot be modified using the REST API or the OpenSearch Dashboards interface. Only a user with a TLS [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can access system indexes. For more information about working with this type of index, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
-
+---
 ## Basic permissions
 
 As an administrator, you can use OpenSearch Dashboards or the Security REST API to assign specific permissions to users based on the specific APIs they need to access. For a list of supported APIs, see [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
@@ -23,7 +23,7 @@ OpenSearch Security has three built-in roles that cover most Security Analytics 
 
 If these roles don't meet your needs, mix and match individual Security Analytics [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-analytics-permissions) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/securityanalytics/detector/delete` permission allows you to delete detectors.
 
-
+---
 ## (Advanced) Limit access by backend role
 
 You can use backend roles to configure fine-grained access to individual detectors based on roles. For example, backend roles can be assigned to users working in different departments of an organization so that they can view only those detectors owned by the departments in which they work.
@@ -90,7 +90,7 @@ PUT /_plugins/_security/api/rolesmapping/security_analytics_full_access
 
 However, because they have different backend roles, `alice` and `bob` cannot view each other's detectors or their results.
 
-
+---
 ## A note on using fine-grained access control with the plugin
 
 When a trigger generates an alert, the detector configurations, the alert itself, and any notifications that are sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.

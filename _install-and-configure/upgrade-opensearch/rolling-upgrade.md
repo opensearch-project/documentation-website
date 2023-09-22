@@ -69,6 +69,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      "transient" : { }
    }
    ```
+
 1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
    ```json
    POST "/_flush?pretty"

@@ -5,10 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.7.0'
-opensearch_dashboards_version: '2.7.0'
-opensearch_major_minor_version: '2.7'
-lucene_version: '9_5_0'
+opensearch_version: '2.9.0'
+opensearch_dashboards_version: '2.9.0'
+opensearch_major_minor_version: '2.9'
+lucene_version: '9_7_0'
 
 # Build settings
 markdown: kramdown
@@ -40,6 +40,9 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
+  integrations:
+    permalink: /:collection/:path/
+    output: true
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -64,13 +67,25 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
+  reporting:
+    permalink: /:collection/:path/
+    output: true
+  analyzers:
+    permalink: /:collection/:path/
+    output: true
   query-dsl:
     permalink: /:collection/:path/
     output: true 
+  aggregations:
+    permalink: /:collection/:path/
+    output: true
   field-types:
     permalink: /:collection/:path/
     output: true
   clients:
+    permalink: /:collection/:path/
+    output: true
+  benchmark:
     permalink: /:collection/:path/
     output: true
   data-prepper: 
@@ -91,6 +106,9 @@ collections:
   external_links:
     permalink: /:collection/:path/
     output: true
+  developer-documentation:
+    permalink: /:collection/:path/
+    output: true
 
 just_the_docs:
   # Define the collections used in the theme
@@ -109,8 +127,11 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
+    integrations:
+      name: OpenSearch Integrations
+      nav_fold: true
     tuning-your-cluster:
-      name: Tuning your cluster
+      name: Creating and tuning your cluster
       nav_fold: true
     security:
       name: Security in OpenSearch
@@ -118,29 +139,38 @@ just_the_docs:
     security-analytics:
       name: Security analytics 
       nav_fold: true
+    field-types:
+      name: Mappings and field types
+      nav_fold: true
+    analyzers:
+      name: Text analysis
+      nav_fold: true
+    query-dsl:
+      name: Query DSL
+      nav_fold: true
+    aggregations:
+      name: Aggregations
+      nav_fold: true
     search-plugins:
       name: Search 
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
-    tuning-your-cluster:
-      name: Creating and tuning your cluster
-      nav_fold: true 
     monitoring-your-cluster:
       name: Monitoring your cluster
       nav_fold: true
     observing-your-data:
       name: Observability
       nav_fold: true
-    query-dsl:
-      name: Query DSL, Aggregations, and Analyzers
-      nav_fold: true
-    field-types:
-      name: Mappings and field types
+    reporting:
+      name: Reporting
       nav_fold: true
     clients:
       name: Clients
+      nav_fold: true
+    benchmark:
+      name: OpenSearch Benchmark
       nav_fold: true
     data-prepper: 
       name: Data Prepper
@@ -156,6 +186,9 @@ just_the_docs:
       nav_fold: true
     troubleshoot:
       name: Troubleshooting
+      nav_fold: true
+    developer-documentation:
+      name: Developer documentation
       nav_fold: true
 
 
@@ -230,3 +263,4 @@ exclude:
   - vendor/ruby/
   - README.md
   - .idea
+  - templates

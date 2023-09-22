@@ -20,7 +20,7 @@ If needed, you can combine tokenizers, token filters, and character filters to c
 
 #### Tokenizers
 
-Tokenizers break unstuctured text into tokens and maintain metadata about tokens, such as their start and ending positions in the text.
+Tokenizers break unstructured text into tokens and maintain metadata about tokens, such as their starting and ending positions in the text.
 
 #### Character filters
 

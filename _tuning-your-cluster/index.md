@@ -35,6 +35,7 @@ Data | Stores and searches data. Performs all data-related operations (indexing,
 Ingest | Pre-processes data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
 Coordinating | Delegates client requests to the shards on the data nodes, collects and aggregates the results into one final result, and sends this result back to the client. | A couple of dedicated coordinating-only nodes is appropriate to prevent bottlenecks for search-heavy workloads. We recommend using CPUs with as many cores as you can.
 Dynamic | Delegates a specific node for custom work, such as machine learning (ML) tasks, preventing the consumption of resources from data nodes and therefore not affecting any OpenSearch functionality. 
+Search | Provides access to [searchable snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/searchable_snapshot/). Incorporates techniques like frequently caching used segments and removing the least used data segments in order to access the searchable snapshot index (stored in a remote long-term storage source, for example, Amazon S3 or Google Cloud Storage). | Search nodes contain an index allocated as a snapshot cache. Thus, we recommend dedicated nodes with a setup with more compute (CPU and memory) than storage capacity (hard disk).
 
 By default, each node is a cluster-manager-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
 
@@ -120,16 +121,16 @@ node.roles: []
 
 ## Step 3: Bind a cluster to specific IP addresses
 
-`network_host` defines the IP address used to bind the node. By default, OpenSearch listens on a local host, which limits the cluster to a single node. You can also use `_local_` and `_site_` to bind to any loopback or site-local address, whether IPv4 or IPv6:
+`network.bind_host` defines the IP address used to bind the node. By default, OpenSearch listens on a local host, which limits the cluster to a single node. You can also use `_local_` and `_site_` to bind to any loopback or site-local address, whether IPv4 or IPv6:
 
 ```yml
-network.host: [_local_, _site_]
+network.bind_host: [_local_, _site_]
 ```
 
 To form a multi-node cluster, specify the IP address of the node:
 
 ```yml
-network.host: <IP address of the node>
+network.bind_host: <IP address of the node>
 ```
 
 Make sure to configure these settings on all of your nodes.
@@ -257,13 +258,13 @@ The `routing.allocation.awareness.balance` setting is false by default. When it 
 `routing.allocation.awareness.balance` takes effect only if `cluster.routing.allocation.awareness.attributes` and `cluster.routing.allocation.awareness.force.zone.values` are set.
 {: .note}
 
-`routing.allocation.awareness.balance` applies to all operations that create or update indices. For example, let's say you're running a cluster with three nodes and three zones in a zone-aware setting. If you try to create an index with one replica or update an index's settings to one replica, the attempt will fail with a validation exception because the number of shards must be a multiple of three. Similarly, if you try to create an index template with one shard and no replicas, the attempt will fail for the same reason. However, in all of those operations, if you set the number of shards to one and the number of replicas to two, the total number of shards is three and the attempt will succeed. 
+`routing.allocation.awareness.balance` applies to all operations that create or update indexes. For example, let's say you're running a cluster with three nodes and three zones in a zone-aware setting. If you try to create an index with one replica or update an index's settings to one replica, the attempt will fail with a validation exception because the number of shards must be a multiple of three. Similarly, if you try to create an index template with one shard and no replicas, the attempt will fail for the same reason. However, in all of those operations, if you set the number of shards to one and the number of replicas to two, the total number of shards is three and the attempt will succeed. 
 
 ## (Advanced) Step 7: Set up a hot-warm architecture
 
 You can design a hot-warm architecture where you first index your data to hot nodes---fast and expensive---and after a certain period of time move them to warm nodes---slow and cheap.
 
-If you analyze time series data that you rarely update and want the older data to go onto cheaper storage, this architecture can be a good fit.
+If you analyze time-series data that you rarely update and want the older data to go onto cheaper storage, this architecture can be a good fit.
 
 This architecture helps save money on storage costs. Rather than increasing the number of hot nodes and using fast, expensive storage, you can add warm nodes for data that you don't access as frequently.
 

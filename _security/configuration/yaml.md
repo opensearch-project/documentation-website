@@ -9,7 +9,7 @@ redirect_from:
 
 # Modifying the YAML files
 
-The Security installation provides a number of YAML confguration files that are used to store the necessary settings that define the way Security manages users, roles, and activity within the cluster. These settings range from configurations for authentication backends to lists of allowed endpoints and HTTP requests. 
+The Security installation provides a number of YAML configuration files that are used to store the necessary settings that define the way the Security plugin manages users, roles, and activity within the cluster. These settings range from configurations for authentication backends to lists of allowed endpoints and HTTP requests. 
 
 Before running [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) to load the settings into the `.opendistro_security` index, perform an initial configuration of the YAML files. The files can be found in the `config/opensearch-security` directory. It's also good practice to back up these files so that you can reuse them for other clusters.
 
@@ -120,6 +120,37 @@ plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opend
 node.max_local_storage_nodes: 3
 ```
 
+### Refining your configuration
+
+The `plugins.security.allow_default_init_securityindex` setting, when set to `true`, sets the Security plugin to its default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
+
+```yml
+plugins.security.allow_default_init_securityindex: true
+```
+
+An authentication cache for the Security plugin exists to help speed up authentication by temporarily storing user objects returned from the backend so that the Security plugin is not required to make repeated requests for them. To determine how long it takes for caching to time out, you can use the `plugins.security.cache.ttl_minutes` property to set a value in minutes. The default is `60`. You can disable caching by setting the value to `0`.
+
+```yml
+plugins.security.cache.ttl_minutes: 60
+```
+
+### Enabling user access to system indexes
+
+Mapping a system index permission to a user allows that user to modify the system index specified in the permission's name (the one exception is the Security plugin's [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/)). The `plugins.security.system_indices.permissions.enabled` setting provides a way for administrators to make this permission available for or hidden from role mapping.
+
+When set to `true`, the feature is enabled and users with permission to modify roles can create roles that include permissions that grant access to system indexes:
+
+```yml
+plugins.security.system_indices.permissions.enabled: true
+```
+
+When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the permission is set to `false` in a new cluster.
+
+To learn more about system index permissions, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
+
+
+### Password settings
+
 If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
 
 Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API.
@@ -129,16 +160,36 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
-The opensearch.yml file also contains the `plugins.security.allow_default_init_securityindex` property. When set to `true`, the Security plugin uses default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
+In addition, a score-based password strength estimator allows you to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
+
+For information about creating users, see [Create users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users).
+
+This feature is not compatible with users specified as reserved. For information about reserved resources, see [Reserved and hidden resources]({{site.url}}{{site.baseurl}}/security/access-control/api#reserved-and-hidden-resources).
+{: .important }
+
+Score-based password strength requires two settings to configure the feature. The following table describes the two settings.
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length. The default is `8`. This is also the minimum. |
+| `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. There are four values that represent a threshold's increasing complexity.<br>`fair`--A very "guessable" password: provides protection from throttled online attacks.<br>`good`--A somewhat guessable password: provides protection from unthrottled online attacks.<br>`strong`--A safely "unguessable" password: provides moderate protection from an offline, slow-hash scenario.<br>`very_strong`--A very unguessable password: provides strong protection from an offline, slow-hash scenario. |
+
+The following example shows the settings configured for the `opensearch.yml` file and enabling a password with a minimum of 10 characters and a threshold requiring the highest strength:
 
 ```yml
-plugins.security.allow_default_init_securityindex: true
+plugins.security.restapi.password_min_length: 10
+plugins.security.restapi.password_score_based_validation_strength: very_strong
 ```
 
-Authentication cache for the Security plugin exists to help speed up authentication by temporarily storing user objects returned from the backend so that the Security plugin is not required to make repeated requests for them. To determine how long it takes for caching to time out, you can use the `plugins.security.cache.ttl_minutes` property to set a value in minutes. The default is `60`. You can disable caching by setting the value to `0`.
+When you try to create a user with a password that doesn't reach the specified threshold, the system generates a "weak password" warning, indicating that the password needs to be modified before you can save the user. 
 
-```yml
-plugins.security.cache.ttl_minutes: 60
+The following example shows the response from the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-user) API when the password is weak:
+
+```json
+{
+  "status": "error",
+  "reason": "Weak password"
+}
 ```
 
 ## allowlist.yml
@@ -182,7 +233,7 @@ requests:
     - PUT
 ```
 
-You can also add custom indices to the allow list. `allowlist.yml` doesn't support wildcards, so you must manually specify all of the indexes you want to add.
+You can also add custom indexes to the allow list. `allowlist.yml` doesn't support wildcards, so you must manually specify all of the indexes you want to add.
 
 ```yml
 requests: # Only allow GET requests to /sample-index1/_doc/1 and /sample-index2/_doc/1

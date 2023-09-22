@@ -4,6 +4,8 @@ title: JSON Support
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 8
+redirect_from:
+  - /search-plugins/sql/partiql/
 ---
 
 # JSON Support

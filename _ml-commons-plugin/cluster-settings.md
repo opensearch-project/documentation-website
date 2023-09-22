@@ -103,14 +103,14 @@ plugins.ml_commons.monitoring_request_count: 100
 - Default value: `100`
 - Value range: [0, 10,000,000]
 
-## Upload model tasks per node
+## Register model tasks per node
 
-Controls how many upload model tasks can run in parallel on one node. If set to `0`, you cannot upload models to any node.
+Controls how many register model tasks can run in parallel on one node. If set to `0`, you cannot run register model tasks on any node.
 
 ### Setting
 
 ```
-plugins.ml_commons.max_upload_model_tasks_per_node: 10
+plugins.ml_commons.max_register_model_tasks_per_node: 10
 ```
 
 
@@ -120,24 +120,54 @@ plugins.ml_commons.max_upload_model_tasks_per_node: 10
 - Value range: [0, 10]
 
 
-## Load model tasks per node
+## Deploy model tasks per node
 
-Controls how many load model tasks can run in parallel on one node. If set to 0, you cannot load models to any node.
+Controls how many deploy model tasks can run in parallel on one node. If set to 0, you cannot deploy models to any node.
 
 ### Setting
 
 ```
-plugins.ml_commons.max_load_model_tasks_per_node: 10
+plugins.ml_commons.max_deploy_model_tasks_per_node: 10
 ```
 
 ### Values 
 
 - Default value: `10`
 - Value range: [0, 10]
+
+## Register models using URLs
+
+This setting gives you the ability to register models using a URL. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}//ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
+
+### Setting
+
+```
+plugins.ml_commons.allow_registering_model_via_url: false
+```
+
+### Values
+
+- Default value: false
+- Valid values: `false`, `true`
+
+## Register models using local files
+
+This setting gives you the ability to register a model using a local file. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}//ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
+
+### Setting
+
+```
+plugins.ml_commons.allow_registering_model_via_local_file: false
+```
+
+### Values
+
+- Default value: false
+- Valid values: `false`, `true`
 
 ## Add trusted URL
 
-The default value allows you to upload a model file from any http/https/ftp/local file. You can change this value to restrict trusted model URLs.
+The default value allows you to register a model file from any http/https/ftp/local file. You can change this value to restrict trusted model URLs.
 
 
 ### Setting
@@ -200,7 +230,7 @@ plugins.ml_commons.allow_custom_deployment_plan: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Enable auto redeploy
 
@@ -215,7 +245,7 @@ plugins.ml_commons.model_auto_redeploy.enable: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Set retires for auto redeploy
 
@@ -246,3 +276,38 @@ plugins.ml_commons.model_auto_redeploy_success_ratio: 0.8
 
 - Default value: 0.8
 - Value range: [0, 1]
+
+## Run Python-based models
+
+When set to `true`, this setting enables the ability to run Python-based models supported by OpenSearch, such as [Metrics correlation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#metrics-correlation).
+
+### Setting
+
+```
+plugins.ml_commons.enable_inhouse_python_model: false
+```
+
+### Values
+
+- Default value: false
+- Valid values: `false`, `true`
+
+## Enable access control for connectors
+
+When set to `true`, the setting allows admins to control access and permissions to the connector API using `backend_roles`.
+
+### Setting
+
+```
+plugins.ml_commons.connector_access_control_enabled: true
+```
+
+### Values
+
+- Default value: false
+- Valid values: `false`, `true`
+
+
+
+
+

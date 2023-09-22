@@ -2,9 +2,10 @@
 layout: default
 title: Create or update mappings
 parent: Index APIs
-nav_order: 220
+nav_order: 27
 redirect_from:
   - /opensearch/rest-api/index-apis/update-mapping/
+  - /opensearch/rest-api/update-mapping/
 ---
 
 # Create or update mappings
@@ -50,8 +51,8 @@ You can make the document structure match the structure of the index mapping by 
 
 ```json
 {
+  "dynamic": "strict",
   "properties":{
-    "dynamic": "strict",
     "color":{
       "type": "text"
     }

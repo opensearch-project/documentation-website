@@ -4,6 +4,8 @@ title: Basic Queries
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 5
+Redirect_from:
+  - /search-plugins/sql/basic/
 ---
 
 
@@ -11,7 +13,7 @@ nav_order: 5
 
 Use the `SELECT` clause, along with `FROM`, `WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`, and `LIMIT` to search and aggregate data.
 
-Among these clauses, `SELECT` and `FROM` are required, as they specify which fields to retrieve and which indices to retrieve them from. All other clauses are optional. Use them according to your needs.
+Among these clauses, `SELECT` and `FROM` are required, as they specify which fields to retrieve and which indexes to retrieve them from. All other clauses are optional. Use them according to your needs.
 
 ### Syntax
 
@@ -164,7 +166,7 @@ FROM accounts acc
 | 13 | 28
 | 18 | 33
 
-*Example 2*: Use index patterns to query indices that match a specific pattern:
+*Example 2*: Use index patterns to query indexes that match a specific pattern:
 
 ```sql
 SELECT account_number
@@ -191,8 +193,8 @@ Specify a condition to filter the results.
 `>=` | Greater than or equal to.
 `<=` | Less than or equal to.
 `IN` | Specify multiple `OR` operators.
-`BETWEEN` | Similar to a range query. For more information about range queries, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term#range).
-`LIKE` | Use for full-text search. For more information about full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
+`BETWEEN` | Similar to a range query. For more information about range queries, see [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/).
+`LIKE` | Use for full-text search. For more information about full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
 `IS NULL` | Check if the field value is `NULL`.
 `IS NOT NULL` | Check if the field value is `NOT NULL`.
 
@@ -210,7 +212,7 @@ WHERE account_number = 1
 | :---
 | 1
 
-*Example 2*: OpenSearch allows for flexible schema， so documents in an index may have different fields. Use `IS NULL` or `IS NOT NULL` to retrieve only missing fields or existing fields. We do not differentiate between missing fields and fields explicitly set to `NULL`:
+*Example 2*: OpenSearch allows for flexible schema，so documents in an index may have different fields. Use `IS NULL` or `IS NOT NULL` to retrieve only missing fields or existing fields. OpenSearch does not differentiate between missing fields and fields explicitly set to `NULL`:
 
 ```sql
 SELECT account_number, employer
@@ -346,7 +348,7 @@ ORDER BY account_number LIMIT 1
 | :---
 | 1
 
-*Example 2*: If you pass in two arguments, the first is mapped to the `from` parameter and the second to the `size` parameter in OpenSearch. You can use this for simple pagination for small indices, as it's inefficient for large indices.
+*Example 2*: If you pass in two arguments, the first is mapped to the `from` parameter and the second to the `size` parameter in OpenSearch. You can use this for simple pagination for small indexes, as it's inefficient for large indexes.
 Use `ORDER BY` to ensure the same order between pages:
 
 ```sql

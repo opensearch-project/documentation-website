@@ -11,7 +11,7 @@ nav_exclude: true
 
 OpenSearch provides several features for customizing your search use cases and improving search relevance. In OpenSearch, you can:
 
-- Use [SQL and Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/) as alternatives to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/) to search data.
+- Use [SQL and Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) as alternatives to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) for searching data.
 
 - Run resource-intensive queries asynchronously with [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/).
 
@@ -25,6 +25,8 @@ OpenSearch provides several features for customizing your search use cases and i
 
 - Use a dataset that is fixed in time to paginate results with [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time/).
 
-- [Paginate]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate) and [sort]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/) search results, [highlight]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) search terms, and use the [autocomplete]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/) and [did-you-mean]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/) functionality.
+- [Paginate]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/) and [sort]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/) search results, [highlight]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) search terms, and use the [autocomplete]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/) and [did-you-mean]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/) functionality.
 
-- Rewrite queries with [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy).
+- Rewrite queries with [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/).
+
+- Process search queries and search results with [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/).

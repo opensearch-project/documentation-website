@@ -1,10 +1,11 @@
 ---
 layout: default
 title: OpenSearch Dashboards plugin
-parent: Trace analytics
+parent: Trace Analytics
 nav_order: 50
 redirect_from:
   - /observability-plugin/trace/ta-dashboards/
+  - /monitoring-plugins/trace/ta-dashboards/
 ---
 
 # Trace Analytics OpenSearch Dashboards plugin
@@ -15,7 +16,7 @@ The **Dashboard** view groups traces together by HTTP method and path so that yo
 
 ![Dashboard view]({{site.url}}{{site.baseurl}}/images/ta-dashboard.png)
 
-To drill down on the traces that make up a trace group, choose the number of traces in righthand column. Then choose an individual trace for a detailed summary.
+To drill down on the traces that make up a trace group, choose the number of traces in the column on the right. Then choose an individual trace for a detailed summary.
 
 ![Detailed trace view]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
 

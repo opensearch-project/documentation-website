@@ -4,6 +4,8 @@ title: Complex Queries
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 6
+Redirect_from:
+  - /search-plugins/sql/complex/
 ---
 
 # Complex queries
@@ -19,10 +21,10 @@ OpenSearch SQL supports inner joins, cross joins, and left outer joins.
 
 Joins have a number of constraints:
 
-1. You can only join two indices.
-1. You must use aliases for indices (e.g. `people p`).
+1. You can only join two indexes.
+1. You must use aliases for indexes (for example, `people p`).
 1. Within an ON clause, you can only use AND conditions.
-1. In a WHERE statement, don't combine trees that contain multiple indices. For example, the following statement works:
+1. In a WHERE statement, don't combine trees that contain multiple indexes. For example, the following statement works:
 
    ```
    WHERE (a.type1 > 3 OR a.type1 < 0) AND (b.type2 > 4 OR b.type2 < -1)
@@ -39,7 +41,7 @@ Joins have a number of constraints:
 
 ### Description
 
-The `JOIN` clause combines columns from one or more indices using values common to each.
+The `JOIN` clause combines columns from one or more indexes using values common to each.
 
 ### Syntax
 
@@ -53,7 +55,7 @@ Rule `joinPart`:
 
 ### Example 1: Inner join
 
-Inner join creates a new result set by combining columns of two indices based on your join predicates. It iterates the two indices and compares each document to find the ones that satisfy the join predicates. You can optionally precede the `JOIN` clause with an `INNER` keyword.
+Inner join creates a new result set by combining columns of two indexes based on your join predicates. It iterates the two indexes and compares each document to find the ones that satisfy the join predicates. You can optionally precede the `JOIN` clause with an `INNER` keyword.
 
 The join predicate(s) is specified by the ON clause.
 
@@ -149,10 +151,10 @@ Result set:
 ### Example 2: Cross join
 
 Cross join, also known as cartesian join, combines each document from the first index with each document from the second.
-The result set is the the cartesian product of documents of both indices.
+The result set is the the cartesian product of documents of both indexes.
 This operation is similar to the inner join without the `ON` clause that specifies the join condition.
 
-It's risky to perform cross join on two indices of large or even medium size. It might trigger a circuit breaker that terminates the query to avoid running out of memory.
+It's risky to perform cross join on two indexes of large or even medium size. It might trigger a circuit breaker that terminates the query to avoid running out of memory.
 {: .warning }
 
 SQL query:

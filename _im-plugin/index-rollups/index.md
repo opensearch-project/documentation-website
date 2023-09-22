@@ -343,7 +343,7 @@ POST example_rollup/_search
 }
 ```
 
-#### Sample Response
+#### Example response
 
 ```json
 {
@@ -830,3 +830,7 @@ The response contains two buckets, "Error" and "Success", and the document count
   }
 }
 ```
+
+## Index codec considerations
+
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms).

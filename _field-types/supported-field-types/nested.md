@@ -37,7 +37,7 @@ When these objects are stored, they are flattened, so their internal representat
 {
     "patients.name" : ["John Doe", "Mary Major"],
     "patients.age" : [56, 85],
-    "smoker" : [true, false]
+    "patients.smoker" : [true, false]
 }
 ```
 
@@ -172,11 +172,118 @@ PUT testindex1/_doc/100
 ```
 {% include copy-curl.html %}
 
-Now if you run the same query to search for patients older than 75 AND smokers, nothing is returned, which is correct.
+You can use the following nested query to search for patients older than 75 OR smokers:
+
+```json
+GET testindex1/_search
+{
+  "query": {
+    "nested": {
+      "path": "patients",
+      "query": {
+        "bool": {
+          "should": [
+            {
+              "term": {
+                "patients.smoker": true
+              }
+            },
+            {
+              "range": {
+                "patients.age": {
+                  "gte": 75
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The query correctly returns both patients:
 
 ```json
 {
-  "took" : 3,
+  "took" : 7,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 1,
+      "relation" : "eq"
+    },
+    "max_score" : 0.8465736,
+    "hits" : [
+      {
+        "_index" : "testindex1",
+        "_id" : "100",
+        "_score" : 0.8465736,
+        "_source" : {
+          "patients" : [
+            {
+              "name" : "John Doe",
+              "age" : 56,
+              "smoker" : true
+            },
+            {
+              "name" : "Mary Major",
+              "age" : 85,
+              "smoker" : false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+You can use the following nested query to search for patients older than 75 AND smokers:
+
+```json
+GET testindex1/_search
+{
+  "query": {
+    "nested": {
+      "path": "patients",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "patients.smoker": true
+              }
+            },
+            {
+              "range": {
+                "patients.age": {
+                  "gte": 75
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The previous query returns no results, as expected:
+
+```json
+{
+  "took" : 7,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -203,5 +310,5 @@ Parameter | Description
 :--- | :--- 
 [`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to this object. Valid values are `true`, `false`, and `strict`. Default is `true`.
 `include_in_parent` | A Boolean value that specifies whether all fields in the child nested object should also be added to the parent document in flattened form. Default is `false`.
-`incude_in_root` | A Boolean value that specifies whether all fields in the child nested object should also be added to the root document in flattened form. Default is `false`.
+`include_in_root` | A Boolean value that specifies whether all fields in the child nested object should also be added to the root document in flattened form. Default is `false`.
 `properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.

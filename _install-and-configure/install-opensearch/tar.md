@@ -86,7 +86,7 @@ If you only want to verify that the service is properly configured and you inten
 An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh`, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
-### Option 1: Test your Opensearch settings with security enabled
+### Option 1: Test your OpenSearch settings with security enabled
 
 1. Change to the top directory of your OpenSearch installation.
    ```bash
@@ -94,7 +94,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```
    {% include copy.html %}
 
-1. Run the demo security script.
+1. Run the OpenSearch startup script with the security demo configuration.
    ```bash
    ./opensearch-tar-install.sh
    ```
