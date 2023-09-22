@@ -22,7 +22,7 @@ Flags that accept comma-seperated values such `--telemetry` can also accept a JS
 
 ## workload-path
 
-Can be either a directory that contains a `workload.json` file or a `.json` file with an arbitrary name that contains a track specification. `--workload-path` and `--workload-repository` as well as `--workload` are mutually exclusive.
+Can be either a directory that contains a `workload.json` file or a `.json` file with an arbitrary name that contains a workload specification. `--workload-path` and `--workload-repository` as well as `--workload` are mutually exclusive.
 
 ## workload-repository
 
@@ -167,7 +167,7 @@ Enables the provided telemetry devices when the devices are provided using a com
 
 ## telemetry-params
 
-Enables the provided telemetry devices when the devices are provided using a comma-separated list. You can find a list of possible telemetry devices by using `opensearch-benchmark list telemetry`.
+Enables setting parameters for telemetry devices. Accepts a list of comma-separated key-value pairs, each of which are delimited by a colon, or a JSON file name. 
 
 ## on-error
 
