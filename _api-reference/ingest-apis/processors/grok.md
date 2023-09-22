@@ -24,13 +24,13 @@ The following is the syntax for the `grok` processor:
 
 ## Grok patterns
 
-The Grok processor is based on the [`java-grok`](https://mvnrepository.com/artifact/io.krakens/java-grok) library and supports all compatible patterns. The `java-grok` library is built using the []`java.util.regex`](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html) regular expression library.
+The Grok processor is based on the [`java-grok`](https://mvnrepository.com/artifact/io.krakens/java-grok) library and supports all compatible patterns. The `java-grok` library is built using the [`java.util.regex`](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html) regular expression library.
 
 You can add custom patterns to your pipelines using the `patterns_definitions` option. When debugging custom patterns, the [Grok Debugger](https://grokdebugger.com/) can be helpful.
 
 ## Configuration parameters
 
-The following table lists the required and optional parameters for the `grok` processor.
+To configure the `grok` processor, you can use various options that allow you to define patterns, match specific keys, and control the processor's behavior. The following table lists the required and optional parameters for the `grok` processor.
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
@@ -71,7 +71,7 @@ PUT _ingest/pipeline/log_line
 
 **Step 2 (Optional): Test the pipeline.**
 
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **NOTE**<br>It is recommended that you test your pipeline before you ingest documents.
+{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **NOTE**<br>It is recommended that you test your pipeline before you ingest documents.
 {: .note}
 
 To test the pipeline, run the following query:
@@ -136,7 +136,6 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
-
 
 ## Using custom patterns
 
