@@ -32,7 +32,7 @@ Segment replication can be applied in a variety of scenarios, including:
 
 As of OpenSearch 2.10, you can use two methods for segment replication:
 
-- **Remote-backed storage**, a persistent storage solution: The primary shard sends segment files to the remote-backed storage, and the replica shards source the copy from the same store. For more information about using remote-backed storage, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#segment-replication-and-remote-backed-storage).
+- **Remote-backed storage**, a persistent storage solution: The primary shard sends segment files to the remote-backed storage, and the replica shards source the copy from the same store. For more information about using remote-backed storage, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 - Node-to-node communication: The primary shard sends segment files directly to the replica shards using node-to-node communication.
 
 ## Segment replication configuration
@@ -55,7 +55,7 @@ PUT /my-index1
 ```
 {% include copy-curl.html %}
 
-If you're using remote-backed storage, add the `remote_store` property to the index request body. For more information, see [Create an index]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#create-an-index).
+If you're using remote-backed storage, add the `remote_store` property to the index request body. 
 
 When using node-to-node replication, the primary shard consumes more network bandwidth because it pushes segment files to all the replica shards. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
