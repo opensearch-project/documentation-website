@@ -27,7 +27,7 @@ Remote-backed storage is a cluster level setting. It can only be enabled when bo
 
 Communication to the configured remote cluster happens inside the repository plugin interface. All the existing implementations of the Repository plugin, such as Azure Blob Storage, Google Cloud Store, and AWS S3, are compatible with remote-backed storage.
 
-Make sure remote store settings are configured the same across all nodes in the cluster. If not, bootstrapping will fail for nodes with different attributes from the elected cluster manager node.
+Make sure remote store settings are configured the same way across all nodes in the cluster. If not, bootstrapping will fail for nodes whose attributes are different from the elected cluster manager node.
 {: .note}
 
 To enable remote-backed storage for a given cluster, provide the remote store repository details as node attributes in `opensearch.yml`, as shown in the following example:
