@@ -14,7 +14,7 @@ All command flags are added to a command using the following syntax:
 opensearch-benchmark <command> --<command-flag>
 ```
 
-Flags that accept comma-seperated values such `--telemetry` can also accept a JSON array. This can be defined by passing in a file path ending in `.json` or inline as a JSON string.
+Flags that accept comma-separated values such `--telemetry` can also accept a JSON array. This can be defined by passing a file path ending in `.json` or inline as a JSON string.
 
 - Comma-seperated values: `opensearch-benchmark ... --test-procedure="ingest-only,search-aggregations"`
 - JSON file: `opensearch-benchmark ... --workload-params="params.json"`
@@ -22,11 +22,11 @@ Flags that accept comma-seperated values such `--telemetry` can also accept a JS
 
 ## workload-path
 
-Can be either a directory that contains a `workload.json` file or a `.json` file with an arbitrary name that contains a workload specification. `--workload-path` and `--workload-repository` as well as `--workload` are mutually exclusive.
+This can be either a directory that contains a `workload.json` file or a `.json` file with an arbitrary name that contains a workload specification. `--workload-path` and `--workload-repository` as well as `--workload` are mutually exclusive.
 
 ## workload-repository
 
-Defines the repository from which OpenSearch Benchmark loads workloads. `--workload-path` and `--workload-repository` as well as `--workload` are mutually exclusive.
+This defines the repository from which OpenSearch Benchmark loads workloads. `--workload-path` and `--workload-repository` as well as `--workload` are mutually exclusive.
 
 ## workload-revision
 
@@ -139,7 +139,7 @@ Defines which [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-conf
 
 ## plugin-params
 
-Defines a comma-separated list of key:value pairs that are injected verbatim into all plugins as variables.
+Defines a comma-separated list of key-value pairs that are injected verbatim into all plugins as variables.
 
 ## runtime-jdk
 
@@ -197,7 +197,7 @@ Generates the indicated chart type, either `time-series` or `bar`. Default is `t
 
 ## output-path
 
-The path and name where the chart outputs. Default is `stdout`. 
+The name and path used for the chart's output. Default is `stdout`. 
 
 ## limit
 
