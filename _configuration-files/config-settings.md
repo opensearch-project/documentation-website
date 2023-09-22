@@ -70,8 +70,6 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.ssl.transport.pemcert_filepath` | [More description needed] |
 | `plugins.security.ssl.transport.pemkey_filepath` | [More description needed] |
 | `plugins.security.ssl.transport.pemtrustedcas_filepath` | [More description needed] |
-| `plugins.security.ssl.transport.enforce_hostname_verification` | [More description needed] |
-| `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`. |
 | `plugins.security.ssl.http.pemcert_filepath` | [More description needed] |
 | `plugins.security.ssl.http.pemkey_filepath` | [More description needed] |
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | [More description needed] |
@@ -175,8 +173,6 @@ plugins.security.ssl.transport.client.pemkey_password —> Password for the PEM 
 plugins.security.ssl.transport.keystore_keypassword → Provide the password for the key inside the keystore
 plugins.security.ssl.transport.server.keystore_keypassword → Provide the password for the key inside the server keystore plugins.security.ssl.transport.client.keystore_keypassword → Provide the password for the key inside the client keystore
 plugins.security.ssl.http.keystore_keypassword → Provide the password for the key inside the keystore file
-plugins.security.ssl.http.enabled → Enable or disable http
-plugins.security.ssl.http.clientauth_mode → Set the client auth mode for ssl
 plugins.security.ssl.transport.enabled → Enable or disable SSL on transport
 plugins.sercurity.ssl.transport.server.keystore_alias → The alias name for the keystore of the server
 plugins.sercurity.ssl.transport.client.keystore_alias → The alias name for the keystore of the client
@@ -218,15 +214,15 @@ Values for these settings are expressed in an array. See [Enabled ciphers and pr
 | `plugins.security.ssl.transport.enabled_ciphers` | Enabled TLS cipher suites for the transport layer. Only Java format is supported. |
 | `plugins.security.ssl.transport.enabled_protocols` | Enabled TLS protocols for the transport layer. Only Java format is supported. |
 
-### ### Keystore and truststore files--Transport layer TLS
+### Keystore and truststore files--Transport layer TLS
 
-see [Transport layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls-1).
+see [Transport layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls-1) for keystore and truststore files.
 
 | Setting | Description |
 | :--- | :--- |
 | `plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS. |
 | `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required. |
-| `plugins.security.ssl.transport.keystore_alias: my_alias` | Alias name. Optional. Default is the first alias. |
+| `plugins.security.ssl.transport.keystore_alias` | Alias name. Optional. Default is the first alias. |
 | `plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`. |
 | `plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS. |
 | `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required. |
@@ -402,7 +398,6 @@ plugins.security.ssl.transport.client.pemkey_password:
 plugins.security.ssl.transport.keystore_keypassword:
 plugins.security.ssl.transport.server.keystore_keypassword:
 plugins.security.ssl.http.keystore_keypassword:
-plugins.security.ssl.http.enabled:
 plugins.security.ssl.http.clientauth_mode:
 plugins.security.ssl.transport.enabled:
 plugins.sercurity.ssl.transport.server.keystore_alias:
