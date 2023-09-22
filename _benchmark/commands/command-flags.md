@@ -6,7 +6,7 @@ parent: Command reference
 ---
 
 # Command flags
-OpenSearch Benchmark (OSB) uses command line flags to change OpenSearch Benchmark's behavior. Not all flags can be used with each command. To find out which flags are supported by a specific command, enter `opensearch-benchmark <command> --h`.
+OpenSearch Benchmark uses command line flags to change Benchmark's behavior. Not all flags can be used with each command. To find out which flags are supported by a specific command, enter `opensearch-benchmark <command> --h`.
 
 All command flags are added to a command using the following syntax:
 
@@ -14,7 +14,7 @@ All command flags are added to a command using the following syntax:
 opensearch-benchmark <command> --<command-flag>
 ```
 
-Flags that accept comma-separated values such `--telemetry` can also accept a JSON array. This can be defined by passing a file path ending in `.json` or inline as a JSON string.
+Flags that accept comma-separated values, such `--telemetry`, can also accept a JSON array. This can be defined by passing a file path ending in `.json` or inline as a JSON string.
 
 - Comma-seperated values: `opensearch-benchmark ... --test-procedure="ingest-only,search-aggregations"`
 - JSON file: `opensearch-benchmark ... --workload-params="params.json"`
@@ -41,19 +41,19 @@ Defines which variables to inject into the workload. Variables injected must be 
 
 ## test-procedure
 
-Defines a test procedure to use. You can find a list of test procedures using `opensearch-benchmark list test-procedures`.
+Defines a test procedure to use. You can find a list of test procedures by using `opensearch-benchmark list test-procedures`.
 
 ## test-execution-id
 
-Defines a unique ID for this test run.
+Defines a unique ID for the test run.
 
 ## include-tasks
 
 Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
 
-Tests are executed in the order they are defined in `test-procedure`, not in the order they are defined in the command. 
+Tests are executed in the order they are defined in `test-procedure`---not in the order they are defined in the command. 
 
-All task filters are case sensitive
+All task filters are case sensitive.
 
 ## exclude-tasks
 
@@ -89,7 +89,7 @@ Defines the repository from which OpenSearch Benchmark loads `provision-configs`
 
 ## provision-config-revision
 
-Defines a specific Git revision in the `provision-config` that OpenSearch Benchmark should use. 
+Defines the specific Git revision in the `provision-config` that OpenSearch Benchmark should use. 
 
 ## provision-config-path
 
@@ -101,11 +101,11 @@ Downloads the specified OpenSearch distribution based on version number. For a l
 
 ## distribution-repository
 
-Defines the repository from where the OpenSearch distribution should be downloaded. Default is `release`.
+Defines the repository from which the OpenSearch distribution should be downloaded. Default is `release`.
 
 ## provision-config-instance
 
-Defines the `--provision-config-instance` to use. You can view possible configuration instances using the command `opensearch-benchmark list provision-config-instances`.  
+Defines the `--provision-config-instance` to use. You can view possible configuration instances by using the command `opensearch-benchmark list provision-config-instances`.  
 
 ## provision-config-instance-params
 
@@ -131,7 +131,8 @@ This command flag can use the following options:
 
    - `current`: Uses the source tree's current revision based on your OpenSearch distribution. 
    - `latest`: Fetches the latest revision from the main branch of the source tree. 
-   - You can also use a timestamp or commit ID from the source tree. When using a timestamp, specify `@ts`, where "ts" is a valid ISO 8601 timestamp, for example, `@2013-07-27T10:37:00Z`. 
+
+You can also use a timestamp or commit ID from the source tree. When using a timestamp, specify `@ts`, where "ts" is a valid ISO 8601 timestamp, for example, `@2013-07-27T10:37:00Z`. 
 
 ## opensearch-plugins
 
@@ -155,7 +156,7 @@ Defines a comma-separated list of hosts that coordinate loads. Default is `local
 
 ## enable-worker-coordinator-profiling
 
-Enables an analysis of the performance of OpenSearch Benchmark's worker coordinator. Default is `false`.
+Enables a performance analysis of OpenSearch Benchmark's worker coordinator. Default is `false`.
 
 ## pipeline
 
@@ -167,7 +168,7 @@ Enables the provided telemetry devices when the devices are provided using a com
 
 ## telemetry-params
 
-Enables setting parameters for telemetry devices. Accepts a list of comma-separated key-value pairs, each of which are delimited by a colon, or a JSON file name. 
+Enables setting parameters for telemetry devices. Accepts a list of comma-separated key-value pairs, each of which are delimited by a colon or a JSON file name. 
 
 ## on-error
 
@@ -184,7 +185,7 @@ Keeps the Benchmark candidate and its index. Default is `false`.
 
 ## kill-running-processes
 
-When set to `true`, stops any OpenSearch Benchmark processes currently running and allows OpenSearch Benchmark to continue to run. Default is `false`. 
+When set to `true`, stops any OpenSearch Benchmark processes currently running and allows Benchmark to continue to run. Default is `false`. 
 
 
 ## chart-spec-path
