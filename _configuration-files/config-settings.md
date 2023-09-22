@@ -67,12 +67,6 @@ The settings in the following table apply specifically to the Security plugin.
 
 | Setting | Description |
 | :--- | :--- |
-| `plugins.security.ssl.transport.pemcert_filepath` | [More description needed] |
-| `plugins.security.ssl.transport.pemkey_filepath` | [More description needed] |
-| `plugins.security.ssl.transport.pemtrustedcas_filepath` | [More description needed] |
-| `plugins.security.ssl.http.pemcert_filepath` | [More description needed] |
-| `plugins.security.ssl.http.pemkey_filepath` | [More description needed] |
-| `plugins.security.ssl.http.pemtrustedcas_filepath` | [More description needed] |
 | `plugins.security.allow_default_init_securityindex` | [More description needed] |
 | `plugins.security.authcz.admin_dn` | Defines the distinguished names (DNs) of certificates to which admin privileges should be assigned. Required. |
 | `plugins.security.nodes_dn` | Specifies a list of DNs which denote the other nodes in the cluster. This settings support wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`. |
@@ -145,16 +139,9 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.protected_indices.indices` | Specifies a list of indexes to mark as protected. These indexes will only be visible to users mapped to the roles specified in `plugins.security.protected_indices.roles`. After this requirement is fulfilled, a user will still need to be mapped to the traditional role used to grant access permission to the index. |
 | `plugins.security.system_indices.enabled` | Set to `true` to enable system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by a super-admin only. No role provides access to these indexes. |
 | `plugins.security.system_indices.indices` | Enter a list of indexes to be used as system indexes. [The `opensearch.yml.example` file also includes this description: "These indices will only be visible / mutable by members of the above setting, in addition to needing permission to the index via a normal role." But it doesn't make sense for this setting.] |
-| `plugins.security.ssl.transport.client.pemkey_password` | Password for the PEM formatted private key used by client. |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
+| `plugins.security.ssl.transport.client.pemkey_password` | Password for the PEM formatted private key used by client. ?? |
+| `plugins.security.ssl.transport.keystore_keypassword` | Provides the password for the key inside the keystore. ?? |
+| `plugins.security.ssl.transport.server.keystore_keypassword` | Provides the password for the key inside the server keystore. ?? |
 | n | d |
 | n | d |
 | n | d |
@@ -169,9 +156,7 @@ The settings in the following table apply specifically to the Security plugin.
 | n | d |
 
 <!--- And that's not all... --->
-plugins.security.ssl.transport.client.pemkey_password —> Password for the PEM formatted private key used by client
-plugins.security.ssl.transport.keystore_keypassword → Provide the password for the key inside the keystore
-plugins.security.ssl.transport.server.keystore_keypassword → Provide the password for the key inside the server keystore plugins.security.ssl.transport.client.keystore_keypassword → Provide the password for the key inside the client keystore
+
 plugins.security.ssl.http.keystore_keypassword → Provide the password for the key inside the keystore file
 plugins.security.ssl.transport.enabled → Enable or disable SSL on transport
 plugins.sercurity.ssl.transport.server.keystore_alias → The alias name for the keystore of the server
