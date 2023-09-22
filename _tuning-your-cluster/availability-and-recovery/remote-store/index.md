@@ -19,7 +19,7 @@ Remote-backed storage offers OpenSearch users a new way to protect against data 
 
 With remote-backed storage, when a write request lands on the primary shard, the request is indexed to Lucene on the primary shard only. The corresponding translog is then uploaded to remote store. OpenSearch does not send the write request to the replicas, but rather performs a primary term validation to confirm that the request originator shard is still the primary shard. Primary term validation ensures that the acting primary shard fails if it becomes isolated and is unaware of the cluster manager electing a new primary.
 
-After segments are created on the primary shard as part of the refresh, flush, and merge flow, segments are uploaded to remote segment store and the replica shards source the copy from the same store. This frees up the primary shard from data copying operation.
+After segments are created on the primary shard as part of the refresh, flush, and merge flow, the segments are uploaded to remote segment store and the replica shards source a copy from the same remote segment store. This frees up the primary shard from having to perform a data copying operation.
 
 ## Configuring remote-backed storage
 

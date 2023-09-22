@@ -32,5 +32,5 @@ Consider the following before using shallow copy snapshots:
 
 - Shallow copy snapshots only work for remote-backed indexes.
 - All nodes in the cluster must use OpenSearch 2.10 or later to take advantage of shallow copy snapshots.
-- The file size difference of shallow copy snapshot shards is zero, because no segment data is stored in the snapshot itself.
-- Searchable snapshot are not supported inside shallow copy snapshots.
+- There is no difference in file size between standard (regular, normal, primary or replica???) shards and shallow copy snapshot shards because no segment data is stored in the snapshot itself.
+- Searchable snapshots are not supported inside shallow copy snapshots.
