@@ -1140,6 +1140,10 @@ total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | T
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
 
+## Concurrent segment search
+
+Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you [enable the experimental concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the Nodes Stats API response will contain several additional fields with statistics about slices (units of work executed by a thread). For the descriptions of those fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
+
 ## Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/stats`.
