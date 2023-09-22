@@ -19,13 +19,13 @@ Remote-backed storage offers OpenSearch users a new way to protect against data 
 
 With remote-backed storage, when a write request lands on the primary shard, the request is indexed to Lucene on the primary shard only. The corresponding translog is then uploaded to remote store. OpenSearch does not send the write request to the replicas, but rather performs a primary term validation to confirm that the request originator shard is still the primary shard. Primary term validation ensures that the acting primary shard fails if it becomes isolated and is unaware of the cluster manager electing a new primary.
 
-After segments are created on the primary shard as part of the refresh, flush, and merge flow, the segments are uploaded to remote segment store and the replica shards source a copy from the same remote segment store. This frees up the primary shard from having to perform a data copying operation.
+After segments are created on the primary shard as part of the refresh, flush, and merge flow, the segments are uploaded to remote segment store and the replica shards source a copy from the same remote segment store. This prevents the primary shard from having to perform any write operations.
 
 ## Configuring remote-backed storage
 
 Remote-backed storage is a cluster level setting. It can only be enabled when bootstrapping to the cluster. After bootstrapping completes, the remote-backed storage cannot be enabled or disabled. This provides durability at the cluster level.
 
-Communication to the configured remote cluster happens inside the repository plugin interface. All the existing implementations of the Repository plugin, such as Azure Blob Storage, Google Cloud Store, and AWS S3, are compatible with remote-backed storage.
+Communication with the configured remote cluster happens in the Repository plugin interface. All the existing implementations of the Repository plugin, such as Azure Blob Storage, Google Cloud Storage, and Amazon Simple Storage Service (Amazon S3), are compatible with remote-backed storage.
 
 Make sure remote store settings are configured the same way across all nodes in the cluster. If not, bootstrapping will fail for nodes whose attributes are different from the elected cluster manager node.
 {: .note}
@@ -69,7 +69,7 @@ You can use the following [cluster settings]({{site.url}}{{site.baseurl}}//api-r
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | cluster.default.index.refresh_interval | Time unit | Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and also support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. |
-| cluster.minimum.index.refresh_interval | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum set, index creation fails. |
+| cluster.minimum.index.refresh_interval | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum, index creation fails. |
 | cluster.remote_store.translog.buffer_interval | Time unit | The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. |
 
 
