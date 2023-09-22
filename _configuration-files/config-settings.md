@@ -71,7 +71,7 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.ssl.transport.pemkey_filepath` | [More description needed] |
 | `plugins.security.ssl.transport.pemtrustedcas_filepath` | [More description needed] |
 | `plugins.security.ssl.transport.enforce_hostname_verification` | [More description needed] |
-| `plugins.security.ssl.http.enabled` | [More description needed] |
+| `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`. |
 | `plugins.security.ssl.http.pemcert_filepath` | [More description needed] |
 | `plugins.security.ssl.http.pemkey_filepath` | [More description needed] |
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | [More description needed] |
@@ -217,13 +217,67 @@ Values for these settings are expressed in an array. See [Enabled ciphers and pr
 | `plugins.security.ssl.http.enabled_protocols` | Enabled TLS protocols for the REST layer. Only Java format is supported. |
 | `plugins.security.ssl.transport.enabled_ciphers` | Enabled TLS cipher suites for the transport layer. Only Java format is supported. |
 | `plugins.security.ssl.transport.enabled_protocols` | Enabled TLS protocols for the transport layer. Only Java format is supported. |
-| n | d |
 
+### ### Keystore and truststore files--Transport layer TLS
 
+see [Transport layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls-1).
 
-| n | d |
-| n | d |
-| n | d |
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS. |
+| `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.transport.keystore_alias: my_alias` | Alias name. Optional. Default is the first alias. |
+| `plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`. |
+| `plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS. |
+| `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.transport.truststore_alias` | Alias name. Optional. Default is all certificates. |
+| `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`. |
+
+### Keystore and truststore files--REST layer TLS
+
+For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls-1).
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`. |
+| `plugins.security.ssl.http.keystore_type` | The type of the keystore file: JKS or PKCS12/PFX. Optional. Default is `JKS`. |
+| `plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.http.keystore_alias` | Alias name. Optional. Default is the first alias. |
+| `plugins.security.ssl.http.keystore_password` | Keystore password. Default is `changeit`. |
+| `plugins.security.ssl.http.truststore_type` | The type of the truststore file: JKS or PKCS12/PFX. Default is `JKS`. |
+| `plugins.security.ssl.http.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.http.truststore_alias` | Alias name. Optional. Default is all certificates. |
+| `plugins.security.ssl.http.truststore_password` | Truststore password. Default is `changeit`. |
+
+### OpenSSL
+
+For more information, see [OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-openssl).
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is `true`. |
+| `plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is `true`. |
+
+### X.509 PEM certificates and PKCS #8 keys--Transport layer TLS
+
+For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls).
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.ssl.transport.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.transport.pemkey_password` | Key password. Omit this setting if the key has no password. Optional. |
+| `plugins.security.ssl.transport.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required. |
+
+### X.509 PEM certificates and PKCS #8 keys--REST layer TLS
+
+For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls).
+
+| `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`. |
+| `plugins.security.ssl.http.pemkey_filepath` | Path to the certificate’s key file (PKCS #8), which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional. |
+| `plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the config directory, specified using a relative path. Required. |
 | n | d |
 | n | d |
 
