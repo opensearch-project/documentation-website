@@ -21,7 +21,7 @@ With remote-backed storage, when a write request lands on the primary shard, the
 
 After segments are created on the primary shard as part of the refresh, flush, and merge flow, segments are uploaded to remote segment store and the replica shards source the copy from the same store. This frees up the primary shard from data copying operation.
 
-## Configuration
+## Configuring remote-backed storage
 
 Remote-backed storage is a cluster level setting. It can only be enabled when bootstrapping to the cluster. After bootstrapping completes, the remote-backed storage cannot be enabled or disabled. This provides durability at the cluster level.
 
