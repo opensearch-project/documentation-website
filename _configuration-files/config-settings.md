@@ -139,9 +139,6 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.protected_indices.indices` | Specifies a list of indexes to mark as protected. These indexes will only be visible to users mapped to the roles specified in `plugins.security.protected_indices.roles`. After this requirement is fulfilled, a user will still need to be mapped to the traditional role used to grant access permission to the index. |
 | `plugins.security.system_indices.enabled` | Set to `true` to enable system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by a super-admin only. No role provides access to these indexes. |
 | `plugins.security.system_indices.indices` | Enter a list of indexes to be used as system indexes. [The `opensearch.yml.example` file also includes this description: "These indices will only be visible / mutable by members of the above setting, in addition to needing permission to the index via a normal role." But it doesn't make sense for this setting.] |
-| `plugins.security.ssl.transport.client.pemkey_password` | Password for the PEM formatted private key used by client. ?? |
-| `plugins.security.ssl.transport.keystore_keypassword` | Provides the password for the key inside the keystore. ?? |
-| `plugins.security.ssl.transport.server.keystore_keypassword` | Provides the password for the key inside the server keystore. ?? |
 | n | d |
 | n | d |
 | n | d |
@@ -157,10 +154,6 @@ The settings in the following table apply specifically to the Security plugin.
 
 <!--- And that's not all... --->
 
-plugins.security.ssl.http.keystore_keypassword → Provide the password for the key inside the keystore file
-plugins.security.ssl.transport.enabled → Enable or disable SSL on transport
-plugins.sercurity.ssl.transport.server.keystore_alias → The alias name for the keystore of the server
-plugins.sercurity.ssl.transport.client.keystore_alias → The alias name for the keystore of the client
 plugins.sercurity.ssl.transport.server.truststore_alias → The alias name for the truststore of the server
 plugins.sercurity.ssl.transport.client.truststore_alias → The alias name for the truststore of the client
 plugins.security.ssl.client.external_context_id → Provide the transport client an id for an external SSL context it should use
@@ -176,7 +169,6 @@ plugins.security.system_indices.enabled → Enable system indices
 plugins.security.system_indices.indices → List of system indices
 
 
-<!--- And there are more... --->
 ### Hostname verification and DNS lookup
 
 | Setting | Description |
@@ -261,6 +253,33 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the config directory, specified using a relative path. Required. |
 | n | d |
 | n | d |
+
+
+### Additional TLS
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.ssl.transport.enabled` | Enables or disables SSL on the transport layer. |
+| `plugins.security.ssl.transport.client.pemkey_password` | Password for the PEM formatted private key used by client. ?? |
+| `plugins.security.ssl.transport.keystore_keypassword` | Provides the password for the key inside the keystore. ?? |
+| `plugins.security.ssl.transport.server.keystore_keypassword` | Provides the password for the key inside the server keystore. ?? |
+| `plugins.sercurity.ssl.transport.server.keystore_alias` | The alias name for the keystore of the server. |
+| `plugins.sercurity.ssl.transport.client.keystore_alias` | The alias name for the keystore of the client. |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+
+
+
 
 
 
