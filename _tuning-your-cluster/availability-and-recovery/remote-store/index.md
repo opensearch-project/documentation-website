@@ -87,7 +87,7 @@ curl -X POST "https://localhost:9200/_remotestore/_restore" -H 'Content-Type: ap
 '
 ```
 
-**Remote all shards of a given index**
+**Restore all shards of a given index**
 
 ```bash
 curl -X POST "https://localhost:9200/_remotestore/_restore?restore_all_shards=true" -ku admin:admin -H 'Content-Type: application/json' -d'
