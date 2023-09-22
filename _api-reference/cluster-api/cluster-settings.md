@@ -32,6 +32,7 @@ include_defaults (GET only) | Boolean | Whether to include default settings as p
 cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
 timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
 
+
 #### Example request
 
 ```json
@@ -60,7 +61,8 @@ Not all cluster settings can be updated using the cluster settings API. You will
 The following request field parameters are compatible with the cluster API.
 
 | Field | Data type | Description |
-:--- | :--- | :---
+| :--- | :--- | :--- |
+| plugins.security_analytics.enable_workflow_usage | Boolean | Supports Alerting plugin workflow integration with Security Analytics. Determines whether composite monitor workflows are generated for the Alerting plugin after creating a new threat detector in Security Analytics. By default, the setting is `true`. <br> <br> When set to `true`, composite monitor workflows based on an associated threat detector's configuration are enabled. When set to `false`, composite monitor workflows based on an associated threat detector's configuration are disabled. <br> <br> For more information about Alerting plugin workflow integration with Security Analytics, see [Integrated Alerting plugin workflows]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#integrated-alerting-plugin-workflows). |
 | action.auto_create_index | Boolean | Automatically creates an index if the index doesn't already exist. Also applies any index templates that are configured. Default is `true`. |
 | action.destructive_requires_name | Boolean | When set to `true`, you must specify the index name to delete an index. You cannot delete all indexes or use wildcards. Default is `true`. |
 | cluster.indices.close.enable | Boolean | Enables closing of open indexes in OpenSearch. Default is `true`. |
@@ -81,6 +83,9 @@ The following request field parameters are compatible with the cluster API.
 | network.breaker.inflight_requests.limit | String | The limit for the in-flight requests breaker. Default is `100%` of the JVM heap. |
 | network.breaker.inflight_requests.overhead | Integer/Time unit | The constant that all in-flight request estimations are multiplied by to determine a final estimation. Default is `2`. |
 | script.max_compilations_rate | String | The limit for the number of unique dynamic scripts within a defined interval that are allowed to be compiled. Default is 150 every 5 minutes: `150/5m`. |
+| cluster.default.index.refresh_interval | Time unit | Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and also support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. |
+| cluster.minimum.index.refresh_interval | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum set, index creation fails. |
+| cluster.remote_store.translog.buffer_interval | Time unit | The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. |
 | cluster.routing.allocation.enable | String | Enables or disables allocation for specific kinds of shards: <br /> <br /> `all` – Allows shard allocation for all types of shards. <br /> <br /> `primaries` – Allows shard allocation for primary shards only. <br /> <br /> `new_primaries` – Allows shard allocation for primary shards for new indexes only. <br /> <br /> `none` – No shard allocations are allowed for any indexes. <br /> <br /> Default is `all`. |
 | cluster.routing.allocation.node_concurrent_incoming_recoveries | Integer | Configures how many concurrent incoming shard recoveries are allowed to happen on a node. Default is `2`. |
 | cluster.routing.allocation.node_concurrent_outgoing_recoveries | Integer | Configures how many concurrent outgoing shard recoveries are allowed to happen on a node. Default is `2`. |
@@ -102,12 +107,14 @@ The following request field parameters are compatible with the cluster API.
 | cluster.routing.allocation.include.<attribute> | Enum | Allocates shards to a node whose `attribute` has at least one of the included comma-separated values. |
 | cluster.routing.allocation.require.<attribute> | Enum | Only allocates shards to a node whose `attribute` has all of the included comma-separated values. |
 | cluster.routing.allocation.exclude.<attribute> | Enum | Does not allocate shards to a node whose `attribute` has any of the included comma-separated values. The cluster allocation settings support the following built-in attributes: <br /> <br /> `_name` – Match nodes by node name. <br /> <br /> `_host_ip` – Match nodes by host IP address. <br /> <br /> `_publish_ip` – Match nodes by publish IP address. <br /> <br /> `_ip` – Match either `_host_ip` or `_publish_ip`. <br /> <br /> `_host` – Match nodes by hostname. <br /> <br /> `_id` – Match nodes by node ID. <br /> <br /> `_tier` – Match nodes by data tier role. |
+| cluster.routing.allocation.shard_movement_strategy | Enum |  Determines the order in which shards are relocated from outgoing to incoming nodes. This setting supports the following strategies: <br /> <br /> `PRIMARY_FIRST` – Primary shards are relocated first, before replica shards. This prioritization may help prevent a cluster's health status from going red if the relocating nodes fail during the process. <br /> <br /> `REPLICA_FIRST` – Replica shards are relocated first, before primary shards. This prioritization may help prevent a cluster's health status from going red when carrying out shard relocation in a mixed-version, segment-replication-enabled OpenSearch cluster. In this situation, primary shards relocated to OpenSearch nodes of a newer version could try to copy segment files to replica shards on an older version of OpenSearch, which would result in shard failure. Relocating replica shards first may help to avoid this in multi-version clusters. <br /> <br /> `NO_PREFERENCE` – The default behavior in which the order of shard relocation has no importance.
 | cluster.blocks.read_only | Boolean | Sets the entire cluster to read-only. Default is `false`. |
 | cluster.blocks.read_only_allow_delete | Boolean | Similar to `cluster.blocks.read_only` but allows you to delete indexes. |
 | cluster.max_shards_per_node | Integer | Limits the total number of primary and replica shards for the cluster. The limit is calculated as follows: `cluster.max_shards_per_node` multiplied by the number of non-frozen data nodes. Shards for closed indexes do not count toward this limit. Default is `1000`. |
 | cluster.persistent_tasks.allocation.enable | String | Enables or disables allocation for persistent tasks: <br /> <br /> `all` – Allows persistent tasks to be assigned to nodes. <br /> <br /> `none` – No allocations are allowed for persistent tasks. This does not affect persistent tasks already running. <br /> <br /> Default is `all`. |
 | cluster.persistent_tasks.allocation.recheck_interval | Time unit | The cluster manager automatically checks whether or not persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether or not persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. |
 | remote_store.moving_average_window_size | Integer | The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. |
+
 
 #### Example request
 
