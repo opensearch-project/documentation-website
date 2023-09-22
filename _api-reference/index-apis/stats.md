@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 72
 ---
 
-# Index stats 
+# Index Stats 
 
 The Index Stats API provides index statistics. For data streams, the API provides statistics for the stream's backing indexes. By default, the returned statistics are index level. To receive shard-level statistics, set the `level` parameter to `shards`.
 
@@ -793,3 +793,16 @@ GET /testindex*/_stats?expand_wildcards=open,hidden
 GET /testindex/_stats?level=shards
 ```
 {% include copy-curl.html %}
+
+## Concurrent segment search
+
+Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you [enable the experimental concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the Index Stats API response will contain several additional fields with statistics about slices (units of work executed by a thread). These fields will be provided whether or not the cluster and index settings for concurrent segment search are enabled. For more information about slices, see [Concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#searching-segments-concurrently).
+
+The following table provides information about the added response fields.
+
+|Response field	| Description	|
+|:---	|:---	| 
+|`search.concurrent_avg_slice_count`	|The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	|
+|`search.concurrent_query_total`	|The total number of query operations that use concurrent segment search.	|
+|`search.concurrent_query_time_in_millis`	|The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	|
+|`search.concurrent_query_current`	|The number of currently running query operations that use concurrent segment search.	|
