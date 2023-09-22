@@ -27,7 +27,7 @@ OpenSearch Dashboards is the user interface that lets you visualize your OpenSea
 | [Observability in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}//observing-your-data/index/) | Observe, monitor, and secure data and improve performance across tools and workflows. |
 
 
-## Dsahboards Management
+## Dashboards Management
 
 | Concept | Description | 
 |---------|-------------|
