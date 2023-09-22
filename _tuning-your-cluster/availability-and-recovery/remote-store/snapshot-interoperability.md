@@ -10,7 +10,7 @@ grand_parent: Availability and recovery
 
 Shallow copy snapshots allow you to reference data from an entire remote-backed segment instead of storing all of the data from the segment in a snapshot. This makes accessing segment data faster than normal snapshots, because segment data is not stored in the snapshot repository.
 
-## Enabling shallowing snapshots
+## Enabling shallow snapshots
 
 Use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) to enable the `remote_store_index_shallow_copy` repository setting, as shown in the following example:
 

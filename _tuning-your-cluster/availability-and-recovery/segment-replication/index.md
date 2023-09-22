@@ -32,7 +32,7 @@ Segment replication can be applied in a variety of scenarios, including:
 
 As of OpenSearch 2.10, you can use two methods for segment replication:
 
-- **Remote-backed storage**, a persistent storage solution: The primary shard sends segment files to the remote-backed storage, and the replica shards source the copy from the same store. For more information about using remote-backed storage, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#segment-replication-and-remote-backed-storage).
+- **Remote-backed storage**, a persistent storage solution: The primary shard sends segment files to the remote-backed storage, and the replica shards source the copy from the same store. For more information about using remote-backed storage, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 - Node-to-node communication: The primary shard sends segment files directly to the replica shards using node-to-node communication.
 
 ## Segment replication configuration
