@@ -139,29 +139,10 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.protected_indices.indices` | Specifies a list of indexes to mark as protected. These indexes will only be visible to users mapped to the roles specified in `plugins.security.protected_indices.roles`. After this requirement is fulfilled, a user will still need to be mapped to the traditional role used to grant access permission to the index. |
 | `plugins.security.system_indices.enabled` | Set to `true` to enable system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by a super-admin only. No role provides access to these indexes. |
 | `plugins.security.system_indices.indices` | Enter a list of indexes to be used as system indexes. [The `opensearch.yml.example` file also includes this description: "These indices will only be visible / mutable by members of the above setting, in addition to needing permission to the index via a normal role." But it doesn't make sense for this setting.] |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
+
 
 <!--- And that's not all... --->
 
-plugins.sercurity.ssl.transport.server.truststore_alias → The alias name for the truststore of the server
-plugins.sercurity.ssl.transport.client.truststore_alias → The alias name for the truststore of the client
-plugins.security.ssl.client.external_context_id → Provide the transport client an id for an external SSL context it should use
-plugins.secuirty.ssl.transport.principal_extractor_class → Pass a class implementing an extractor so a custom part of the certificate is used as the principal
-plugins.security.ssl.http.crl.file_path → A file path to a certificate revocation list file
-plugins.security.ssl.http.crl.validate → Enable CRL validation
-plugins.security.ssl.http.crl.prefer_crlfile_over_ocsp → Default false, CRL cert entry is preferred over OCSP entry if cert contains both
-plugins.security.ssl.http.crl.check_only_end_entitites → Default true, when true only leaf certificates are validated
 plugins.security.ssl.http.crl.disable_ocsp → Disable OSCP
 plugins.security.ssl.http.crl.disable_crldp→ Default false, disable CRL endpoints in certs
 plugins.security.ssl.allow_client_initiated_renegotiation → Enable/disable client renegotiation
@@ -251,11 +232,9 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional. |
 | `plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the config directory, specified using a relative path. Required. |
-| n | d |
-| n | d |
 
-
-### Additional TLS
+### Transport Layer Security
+<!--- Not sure whether this is the best way to describe a category for these settings, and not sure whether they fit into a cohesive group of related settings. Need to solicit info from Security team that clarifies how these fit or don't fit with other TLS settings (above). Many of these descriptions need clarification (they came across very rough). --->
 
 | Setting | Description |
 | :--- | :--- |
@@ -265,13 +244,15 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.transport.server.keystore_keypassword` | Provides the password for the key inside the server keystore. ?? |
 | `plugins.sercurity.ssl.transport.server.keystore_alias` | The alias name for the keystore of the server. |
 | `plugins.sercurity.ssl.transport.client.keystore_alias` | The alias name for the keystore of the client. |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
+| `plugins.sercurity.ssl.transport.server.truststore_alias` | The alias name for the truststore of the server. |
+| `plugins.sercurity.ssl.transport.client.truststore_alias` | The alias name for the truststore of the client. |
+| `plugins.security.ssl.client.external_context_id` | Provides the transport client an ID for an external SSL context it should use. |
+| `plugins.secuirty.ssl.transport.principal_extractor_class` | Passes a class implementing an extractor so a custom part of the certificate is used as the principal. |
+| `plugins.security.ssl.http.crl.file_path` | A file path to a certificate revocation list file. |
+| `plugins.security.ssl.http.crl.validate` | Enables CRL validation. |
+| `plugins.security.ssl.http.crl.prefer_crlfile_over_ocsp` | Default is `false`. CRL certificate entry is preferred over OCSP entry if the certificate contains both. |
+| `plugins.security.ssl.http.crl.check_only_end_entitites` | Default is `true`. When `true`, only leaf certificates are validated. |
+| `plugins.security.ssl.http.crl.disable_ocsp` | Disables OSCP. |
 | n | d |
 | n | d |
 | n | d |
@@ -280,7 +261,18 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 
 
 
-
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
+| n | d |
 
 
 ## Security plugin settings examples
