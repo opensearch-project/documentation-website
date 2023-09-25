@@ -116,4 +116,4 @@ Depending on the metric record, some meta information might be missing.
 ## Next steps
 
 - For more information about how to access OpenSearch Benchmark metrics, see [Metrics]({{site.url}}{{site.baseurl}}/benchmark/metrics/index/).
-- For more information about the metrics stored in OpenSearch Benchmark, see [Metric keys]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys).
+- For more information about the metrics stored in OpenSearch Benchmark, see [Metric keys]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys/).
