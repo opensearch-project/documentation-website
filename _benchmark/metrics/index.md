@@ -20,12 +20,12 @@ If you want to store metrics in memory while running the benchmark, provide the 
 ```ini
 [results_publishing]
 datastore.type = in-memory
-datastore.host = 
-datastore.port = 
+datastore.host = <host-url>
+datastore.port = <host-port>
 datastore.secure = False
-datastore.ssl.verification_mode = 
-datastore.user = 
-datastore.password =
+datastore.ssl.verification_mode = <ssl-verification-details>
+datastore.user = <username>
+datastore.password = <password>
 ```
 
 ### OpenSearch
