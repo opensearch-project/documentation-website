@@ -2,7 +2,8 @@
 layout: default
 title: Creating custom workloads
 nav_order: 10
-has_children: false
+parent: User guide
+redirect_from: /benchmark/creating-custom-workloads/
 ---
 
 # Creating custom workloads

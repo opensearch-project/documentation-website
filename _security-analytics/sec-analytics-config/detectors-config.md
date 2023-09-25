@@ -21,16 +21,16 @@ You can define a new detector by naming the detector, selecting a data source an
     When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
     {: .note }
     
-1. In the **Log types and rules** section, select the log type for the data source. The system automatically populates the Sigma security rules associated with the log type.
+1. In the **Log types and rules** section, select the log type for the data source from the dropdown list. The system automatically populates the detection rules associated with the log type.
    
-   For information about creating your own detection rules, see [Creating detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-detection-rules).
+   For information about creating your own detection rules, see [Creating detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-detection-rules). To create your own log types, see [Creating custom log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/custom-log-type/).
    {: .note }
    
-   The following image shows the number of associated rules populated in the **Detection rules** section.
+   The example in the following image shows the number of rules associated with **network** after this log type is selected.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="85%">
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-rules.png" alt="Selecting threat detector log type to auto-populate rules" width="85%">
     
-    When you select **Network events**, **CloudTrail logs**, or **S3 access logs** as the log type, the system automatically creates a detector dashboard. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+    When you select **network**, **cloudtrail**, or **s3** as the log type, the system automatically creates a detector dashboard. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
     
     You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
     {: .note }
@@ -69,7 +69,7 @@ Although the ECS rule field names are largely self-explanatory, you can find pre
 
 [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) converts security log and event data to the [Open Cybersecurity Schema Framework](https://docs.aws.amazon.com/security-lake/latest/userguide/open-cybersecurity-schema-framework.html) (OCSF) to normalize combined data and facilitate its management. OpenSearch supports ingestion of log data from Security Lake in the OCSF format, and Security Analytics can automatically map fields from OCSF to ECS (the default field-mapping schema).
 
-The Security Lake log types that can be used as log sources for detector creation include CloudTrail, Route 53, and VPC Flow. Given that Route 53 is a log that captures DNS activity, its log type should be specified as **DNS logs** when [defining a detector](#step-1-define-a-detector). Furthermore, because logs such as CloudTrail can conceivably be captured in both raw format and OCSF, it's good practice to name indexes in a way that keeps these logs separate and easily identifiable. This becomes helpful when specifying an index name in any of the APIs associated with Security Analytics.
+The Security Lake log types that can be used as log sources for detector creation include CloudTrail, Route 53, and VPC Flow. Given that Route 53 is a log that captures DNS activity, its log type should be specified as **dns** when [defining a detector](#step-1-define-a-detector). Furthermore, because logs such as CloudTrail logs can conceivably be captured in both raw format and OCSF, it's good practice to name indexes in a way that keeps these logs separate and easily identifiable. This becomes helpful when specifying an index name in any of the APIs associated with Security Analytics.
 
 To reveal fields for a log index in either raw format or OCSF, use the [Get Mappings View]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/#get-mappings-view) API and specify the index in the `index_name` field of the request.
 {: .tip }
@@ -144,8 +144,18 @@ To set up an alert for a detector, continue with the following steps:
 
 1. Review the specifications for the detector and select **Create detector** in the lower-right corner of the screen. The detector details for the new detector are displayed. When you navigate to the main **Threat detectors** page, the new detector appears in the list.
 
+## Integrated Alerting plugin workflows
+
+By default, when you create a threat detector, the system automatically creates a composite monitor and triggers workflows for the Alerting plugin. The detector's rules are converted into search queries for the Alerting plugin monitor, and the monitor executes its queries according to a schedule derived from the detector's configuration.
+
+You can change the behavior of automatically generated composite monitors by enabling or disabling the workflow functionality with the `plugins.security_analytics.enable_workflow_usage` setting. This setting is defined using the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+
+For more information about composite monitors and their workflows, see [Composite monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/).
+
 ---
 ## What's next
 
-If you are ready to view findings for the new detector, see the [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) section. If you would like to import rules or set up custom rules before working with findings, see the [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/) section. 
+If you are ready to view findings generated by the new detector, see the [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) section. If you would like to import rules or set up custom rules before working with findings, see the [Working with detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/) section.
+
+To configure Security Analytics to identify correlations between events happening in different logs throughout your system, see [Creating correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/correlation-config/).
 

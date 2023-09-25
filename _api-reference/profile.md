@@ -221,14 +221,14 @@ Field | Data type | Description
 `profile.shards` | Array of objects | A search request can be executed against one or more shards in the index, and a search may involve one or more indexes. Thus, the `profile.shards` array contains profiling information for each shard that was involved in the search.
 `profile.shards.id` | String | The shard ID of the shard in the `[node-ID][index-name][shard-ID]` format.
 `profile.shards.searches` | Array of objects | A search represents a query executed against the underlying Lucene index. Most search requests execute a single search against a Lucene index, but some search requests can execute more than one search. For example, including a global aggregation results in a secondary `match_all` query for the global context. The `profile.shards` array contains profiling information about each search execution.
-[`profile.shards.searches.query`](#the-query-object) | Array of objects | Profiling information about the query execution.
+[`profile.shards.searches.query`](#the-query-array) | Array of objects | Profiling information about the query execution.
 `profile.shards.searches.rewrite_time` | Integer | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing a query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds.
 [`profile.shards.searches.collector`](#the-collector-array) | Array of objects | Profiling information about the Lucene collectors that ran the search.
 [`profile.shards.aggregations`](#aggregations) | Array of objects | Profiling information about the aggregation execution.
 
-### The `query` object
+### The `query` array
 
-The `query` object contains the following fields.
+The `query` array contains objects with the following fields.
 
 Field | Data type | Description
 :--- | :--- | :---
@@ -754,3 +754,214 @@ Field | Description
 `build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation.
 `reduce`| Contains the time spent in the `reduce` phase.
 `<method>_count` | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. 
+
+## Concurrent segment search
+
+Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you enable the experimental concurrent segment search feature flag, the Profile API response will contain several additional fields with statistics about _slices_.
+
+A slice is the unit of work that can be executed by a thread. Each query can be partitioned into multiple slices, with each slice containing one or more segments. All the slices can be executed either in parallel or in some order depending on the available threads in the pool.
+
+In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
+
+#### Example response
+
+The following is an example response for a concurrent search with three segment slices:
+
+<details closed markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 76,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      ...
+    ]
+  },
+  "aggregations": {
+    ...
+  },
+  "profile": {
+    "shards": [
+      {
+        "id": "[Sn2zHhcMTRetEjXvppU8bA][idx][0]",
+        "inbound_network_time_in_millis": 0,
+        "outbound_network_time_in_millis": 0,
+        "searches": [
+          {
+            "query": [
+              {
+                "type": "MatchAllDocsQuery",
+                "description": "*:*",
+                "time_in_nanos": 429246,
+                "breakdown": {
+                  "set_min_competitive_score_count": 0,
+                  "match_count": 0,
+                  "shallow_advance_count": 0,
+                  "set_min_competitive_score": 0,
+                  "next_doc": 5485,
+                  "match": 0,
+                  "next_doc_count": 5,
+                  "score_count": 5,
+                  "compute_max_score_count": 0,
+                  "compute_max_score": 0,
+                  "advance": 3350,
+                  "advance_count": 3,
+                  "score": 5920,
+                  "build_scorer_count": 6,
+                  "create_weight": 429246,
+                  "shallow_advance": 0,
+                  "create_weight_count": 1,
+                  "build_scorer": 2221054
+                }
+              }
+            ],
+            "rewrite_time": 12442,
+            "collector": [
+              {
+                "name": "QueryCollectorManager",
+                "reason": "search_multi",
+                "time_in_nanos": 6786930,
+                "reduce_time_in_nanos": 5892759,
+                "max_slice_time_in_nanos": 5951808,
+                "min_slice_time_in_nanos": 5798174,
+                "avg_slice_time_in_nanos": 5876588,
+                "slice_count": 3,
+                "children": [
+                  {
+                    "name": "SimpleTopDocsCollectorManager",
+                    "reason": "search_top_hits",
+                    "time_in_nanos": 1340186,
+                    "reduce_time_in_nanos": 1084060,
+                    "max_slice_time_in_nanos": 457165,
+                    "min_slice_time_in_nanos": 433706,
+                    "avg_slice_time_in_nanos": 443332,
+                    "slice_count": 3
+                  },
+                  {
+                    "name": "NonGlobalAggCollectorManager: [histo]",
+                    "reason": "aggregation",
+                    "time_in_nanos": 5366791,
+                    "reduce_time_in_nanos": 4637260,
+                    "max_slice_time_in_nanos": 4526680,
+                    "min_slice_time_in_nanos": 4414049,
+                    "avg_slice_time_in_nanos": 4487122,
+                    "slice_count": 3
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aggregations": [
+          {
+            "type": "NumericHistogramAggregator",
+            "description": "histo",
+            "time_in_nanos": 16454372,
+            "max_slice_time_in_nanos": 7342096,
+            "min_slice_time_in_nanos": 4413728,
+            "avg_slice_time_in_nanos": 5430066,
+            "breakdown": {
+              "min_build_leaf_collector": 4320259,
+              "build_aggregation_count": 3,
+              "post_collection": 9942,
+              "max_collect_count": 2,
+              "initialize_count": 3,
+              "reduce_count": 0,
+              "avg_collect": 146319,
+              "max_build_aggregation": 2826399,
+              "avg_collect_count": 1,
+              "max_build_leaf_collector": 4322299,
+              "min_build_leaf_collector_count": 1,
+              "build_aggregation": 3038635,
+              "min_initialize": 1057,
+              "max_reduce": 0,
+              "build_leaf_collector_count": 3,
+              "avg_reduce": 0,
+              "min_collect_count": 1,
+              "avg_build_leaf_collector_count": 1,
+              "avg_build_leaf_collector": 4321197,
+              "max_collect": 181266,
+              "reduce": 0,
+              "avg_build_aggregation": 954896,
+              "min_post_collection": 1236,
+              "max_initialize": 11603,
+              "max_post_collection": 5350,
+              "collect_count": 5,
+              "avg_post_collection": 2793,
+              "avg_initialize": 4860,
+              "post_collection_count": 3,
+              "build_leaf_collector": 4322299,
+              "min_collect": 78519,
+              "min_build_aggregation": 8543,
+              "initialize": 11971068,
+              "max_build_leaf_collector_count": 1,
+              "min_reduce": 0,
+              "collect": 181838
+            },
+            "debug": {
+              "total_buckets": 1
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+</details>
+
+### Modified or added response fields
+
+The following sections contain definitions of all modified or added response fields for concurrent segment search.
+
+#### The `query` array
+
+|Field	|Description	|
+|:---	|:---	|
+|`time_in_nanos`	|For concurrent segment search, `time_in_nanos` is the cumulative amount of time taken to run all methods across all slices, in nanoseconds. This is not equivalent to the actual amount of time the query took to run because it does not take into account that multiple slices can run the methods in parallel.	|
+|`breakdown.<method>`	|For concurrent segment search, this field contains the total amount of time taken by all segments to run a method.	|
+|`breakdown.<method>_count`	|For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all segments.	|
+
+#### The `collector` array
+
+|Field	|Description	|
+|:---	|:---	|
+|`time_in_nanos`	|The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).	|
+|`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice, in nanoseconds.	|
+|`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice, in nanoseconds.	|
+|`avg_slice_time_in_nanos`	|The average amount of time taken by any slice, in nanoseconds.	|
+|`slice_count`	|The total slice count for this query.	|
+|`reduce_time_in_nanos`	|The amount of time taken to reduce results for all slice collectors, in nanoseconds.	|
+
+#### The `aggregations` array
+
+|Field	|Description	|
+|:---	|:---	|
+|`time_in_nanos`	|The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).	|
+|`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
+|`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
+|`avg_slice_time_in_nanos`	|The average amount of time taken by any slice to run an aggregation, in nanoseconds.	|
+|`<method>`	|The total elapsed time across all slices (`max(slice_end_time) - min(slice_start_time)`). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	|
+|`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method.	|
+|`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method.	|
+|`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method.	|
+|`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices.	|
+|`max_<method>_count`	|The maximum number of invocations of a `<method>` on any slice.	|
+|`min_<method>_count`	|The minimum number of invocations of a `<method>` on any slice.	|
+|`avg_<method>_count`	|The average number of invocations of a `<method>` on any slice.	|
