@@ -1,56 +1,59 @@
 ---
 layout: default
-title: Get ingest pipeline
-parent: Ingest APIs
-nav_order: 10
+title: Get pipeline
+parent: Ingest pipelines
+grand_parent: Ingest APIs
+nav_order: 12
 redirect_from:
   - /opensearch/rest-api/ingest-apis/get-ingest/
 ---
 
-## Get ingest pipeline
+# Get pipeline
 
-After you create a pipeline, use the get ingest pipeline API operation to return all the information about a specific ingest pipeline.
+Use the get ingest pipeline API operation to retrieve all the information about the pipeline.
 
-## Example
+## Retrieving information about all pipelines
 
-```
-GET _ingest/pipeline/12345
+The following example request returns information about all ingest pipelines:
+
+```json
+GET _ingest/pipeline/
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## Retrieving information about a specific pipeline
 
-Return all ingest pipelines.
+The following example request returns information about a specific pipeline, which for this example is `my-pipeline`: 
 
+```json
+GET _ingest/pipeline/my-pipeline
 ```
-GET _ingest/pipeline
-```
+{% include copy-curl.html %}
 
-Returns a single ingest pipeline based on the pipeline's ID.
-
-```
-GET _ingest/pipeline/{id}
-```
-
-## URL parameters
-
-All parameters are optional.
-
-Parameter | Type | Description
-:--- | :--- | :---
-master_timeout | time | How long to wait for a connection to the master node.
-
-## Response
+The response contains the pipeline information:
 
 ```json
 {
-  "pipeline-id" : {
-    "description" : "A description for your pipeline",
-    "processors" : [
+  "my-pipeline": {
+    "description": "This pipeline processes student data",
+    "processors": [
       {
-        "set" : {
-          "field" : "field-name",
-          "value" : "value"
+        "set": {
+          "description": "Sets the graduation year to 2023",
+          "field": "grad_year",
+          "value": 2023
+        }
+      },
+      {
+        "set": {
+          "description": "Sets graduated to true",
+          "field": "graduated",
+          "value": true
+        }
+      },
+      {
+        "uppercase": {
+          "field": "name"
         }
       }
     ]

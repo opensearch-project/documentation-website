@@ -1,16 +1,13 @@
 ---
 layout: default
-title: Script processor
+title: Script
 nav_order: 30
 has_children: false
-parent: Search pipelines
-grand_parent: Search
+parent: Search processors
+grand_parent: Search pipelines
 ---
 
 # Script processor
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/t/rfc-search-pipelines/12099).    
-{: .warning}
 
 The `script` search request processor intercepts a search request and adds an inline Painless script that is run on incoming requests. The script can only run on the following request fields:
 
@@ -37,6 +34,7 @@ Field | Data type | Description
 `lang` | String | The script language. Optional. Only `painless` is supported.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
+`ignore_failure` | Boolean | If `true`, OpenSearch [ignores a failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
 
 ## Example 
 
@@ -57,4 +55,3 @@ PUT /_search/pipeline/explain_one_result
 } 
 ```
 {% include copy-curl.html %}
-

@@ -79,11 +79,11 @@ There are other ways to change log levels:
 
    ```properties
    appender.console.layout.pattern = [%d{ISO8601}][%-5p][%-25c{1.}] [%node_name]%marker %m%n
-   appender.rolling_old.fileName = ${sys:os.logs.base_path}${sys:file.separator}${sys:os.logs.cluster_name}.log
+   appender.rolling_old.fileName = ${sys:opensearch.logs.base_path}${sys:file.separator}${sys:opensearch.logs.cluster_name}.log
    ```
 
-   - `${sys:os.logs.base_path}` is the directory for logs (for example, `/var/log/opensearch/`).
-   - `${sys:os.logs.cluster_name}` is the name of the cluster.
+   - `${sys:opensearch.logs.base_path}` is the directory for logs (for example, `/var/log/opensearch/`).
+   - `${sys:opensearch.logs.cluster_name}` is the name of the cluster.
    - `[%node_name]` is the name of the node.
 
 

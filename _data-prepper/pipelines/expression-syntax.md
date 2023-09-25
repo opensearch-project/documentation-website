@@ -22,6 +22,7 @@ Operators are listed in order of precedence (top to bottom, left to right).
 | `and`, `or`          | Conditional Expression                                | left-to-right |
 
 ## Reserved for possible future functionality
+
 Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
 ## Set initializer
@@ -33,15 +34,19 @@ The set initializer defines a set or term and/or expressions.
 The following are examples of set initializer syntax.
 
 #### HTTP status codes
+
 ```
 {200, 201, 202}
 ```
+
 #### HTTP response payloads
+
 ```
 {"Created", "Accepted"}
 ```
 
 #### Handle multiple event types with different keys
+
 ```
 {/request_payload, /request_message}
 ```
@@ -57,9 +62,11 @@ A priority expression identifies an expression that will be evaluated at the hig
 ```
 
 ## Relational operators
+
 Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON Pointers that resolve to numbers.
 
 ### Syntax
+
 ```
 <Number | JSON Pointer> < <Number | JSON Pointer>
 <Number | JSON Pointer> <= <Number | JSON Pointer>
@@ -68,11 +75,13 @@ Relational operators are used to test the relationship of two numeric values. Th
 ```
 
 ### Example
+
 ```
 /status_code >= 200 and /status_code < 300
 ```
 
 ## Equality operators
+
 Equality operators are used to test whether two values are equivalent.
 
 ### Syntax
@@ -106,6 +115,7 @@ null != /response
 ```
 
 #### Conditional expression
+
 A conditional expression is used to chain together multiple expressions and/or values.
 
 #### Syntax
@@ -208,3 +218,30 @@ White space is **required** surrounding set initializers, priority expressions, 
 | `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
 | `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
 | `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
+
+
+## Functions
+
+Data Prepper supports the following built-in functions that can be used in an expression.
+
+### `length()`
+
+The `length()` function takes one argument of the JSON pointer type and returns the length of the value passed. For example, `length(/message)` returns a length of `10` when a key message exists in the event and has a value of `1234567890`.
+
+### `hasTags()`
+
+The `hastags()` function takes one or more string type arguments and returns `true` if all the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains a `tag1` tag, Data Prepper returns `false`.
+
+### `getMetadata()`
+
+The `getMetadata()` function takes one literal string argument to look up specific keys in a an event's metadata. If the key contains a `/`, then the function looks up the metadata recursively. When passed, the expression returns the value corresponding to the key. The value returned can be of any type. For example, if the metadata contains `{"key1": "value2", "key2": 10}`, then the function, `getMetadata("key1")`, returns `value2`. The function, `getMetadata("key2")`, returns 10.
+
+### `contains()`
+
+The `contains()` function takes two string arguments and determines whether either a literal string or a JSON pointer is contained within an event. When the second argument contains a substring of the first argument, such as `contains("abcde", "abcd")`, the function returns `true`. If the second argument does not contain any substrings, such as `contains("abcde", "xyz")`, it returns `false`.
+
+### `cidrContains()`
+
+The `cidrContains()` function takes two or more arguments. The first argument is a JSON pointer, which represents the key to the IP address that is checked. It supports both IPv4 and IPv6 addresses. Every argument that comes after the key is a string type that represents CIDR blocks that are checked against.
+
+If the IP address in the first argument is in the range of any of the given CIDR blocks, the function returns `true`. If the IP address is not in the range of the CIDR blocks, the function returns `false`. For example, `cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` will return `true` if the `sourceIp` field indicated in the JSON pointer has a value of `192.0.2.5`.

@@ -20,7 +20,7 @@ As part of the OpenSearch Project, Security Analytics exists in the open source 
 
 If you would like to leave feedback that could help improve Security Analytics, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
 
-
+---
 ## Components and concepts
 
 Security Analytics includes a number of tools and features elemental to its operation. The major components that compose the plugin are summarized in the following sections.
@@ -33,7 +33,7 @@ For information about configuring detectors, see [Creating detectors]({{site.url
 
 ### Log types
 
-Log types provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log sources include:
+Log types provide the data used to evaluate events occurring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log types include the following:
 * Network events
 * DNS logs
 * Apache access logs
@@ -47,12 +47,13 @@ Log types provide the data used to evaluate events occurring in a system. OpenSe
 * Microsoft 365 logs
 * Okta events
 * Microsoft Azure logs
+* VPC Flow logs
 
 Log types are specified during the creation of detectors, including steps for mapping log fields to the detector. Security Analytics also automatically selects an appropriate set of rules based on a specific log type and populates them for the detector.
 
-### Rules
+### Detection rules
 
-Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security Analytics uses prepackaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide users of Security Analytics with options for importing and customizing the rules. You can take advantage of these options using either Dashboards or the API.
+The security rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security Analytics uses prepackaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide Security Analytics users with options for importing and customizing the rules. You can take advantage of these options using either OpenSearch Dashboards or the API.
 
 For information about configuring rules, see [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/).
 
@@ -70,16 +71,13 @@ For information about setting up alerts, see [Step 4. Set up alerts]({{site.url}
 
 ### Correlation engine
 
-The correlation engine is an experimental feature released in OpenSearch 2.7. Therefore, we do not recommend using the feature in a production environment at this time. For updates on the progress of the correlation engine, see [Security Analytics Correlation Engine](https://github.com/opensearch-project/security-analytics/issues/369) on GitHub. To share ideas and provide feedback, join the [Security Analytics forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
-{: .warning }
-
 The correlation engine gives Security Analytics the ability to compare findings from different log types and draw correlations between them. This facilitates understanding of the relationships between findings from different systems in an infrastructure and increases confidence that an event is meaningful and requires attention.
 
 The correlation engine uses correlation rules to define threat scenarios involving different log types. It can then perform queries on logs to match relevant findings from those different log sources. To depict relationships between events occurring in different logs, a correlation graph provides a visual representation of findings, their connections, and the proximity of those connections. While the correlation rules define what threat scenarios to look for, the graph provides a visualization that helps you identify the relationships between different findings in a chain of security events.
 
 To learn more about defining threat scenarios for correlation rules, see [Creating correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/correlation-config/). To learn more about using the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/).
 
-
+---
 ## First steps
 
 To get started with Security Analytics, you need to define detectors, ingest log data, generate findings, define correlation rules, and configure alerts. See [Setting up Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/index/) to begin configuring the platform to meet your objectives.

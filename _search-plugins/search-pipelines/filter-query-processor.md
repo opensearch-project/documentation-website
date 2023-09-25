@@ -1,16 +1,13 @@
 ---
 layout: default
-title: Filter query processor
+title: Filter query
 nav_order: 10
 has_children: false
-parent: Search pipelines
-grand_parent: Search
+parent: Search processors
+grand_parent: Search pipelines
 ---
 
 # Filter query processor
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion in the [OpenSearch forum](https://forum.opensearch.org/t/rfc-search-pipelines/12099).    
-{: .warning}
 
 The `filter_query` search request processor intercepts a search request and applies an additional query to the request, filtering the results. This is useful when you don't want to rewrite existing queries in your application but need additional filtering of the results.
 
@@ -23,6 +20,7 @@ Field | Data type | Description
 `query` | Object | A query in query domain-specific language (DSL). For a list of OpenSearch query types, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). Required. 
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
+`ignore_failure` | Boolean | If `true`, OpenSearch [ignores a failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
 
 ## Example 
 

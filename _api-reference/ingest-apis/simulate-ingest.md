@@ -1,34 +1,82 @@
 ---
 layout: default
-title: Simulate an ingest pipeline
-parent: Ingest APIs
-nav_order: 13
+title: Simulate pipeline
+parent: Ingest pipelines
+grand_parent: Ingest APIs
+nav_order: 11
 redirect_from:
   - /opensearch/rest-api/ingest-apis/simulate-ingest/
 ---
 
-# Simulate a pipeline
+# Simulate pipeline
 
-Simulates an ingest pipeline with any example documents you specify.
+Use the simulate ingest pipeline API operation to run or test the pipeline.
 
-## Example
+## Path and HTTP methods
+
+The following requests **simulate the latest ingest pipeline created**:
 
 ```
-POST /_ingest/pipeline/35678/_simulate
+GET _ingest/pipeline/_simulate
+POST _ingest/pipeline/_simulate
+```
+{% include copy-curl.html %}
+
+The following requests **simulate a single pipeline based on the pipeline ID**:
+
+```
+GET _ingest/pipeline/<pipeline-id>/_simulate
+POST _ingest/pipeline/<pipeline-id>/_simulate
+```
+{% include copy-curl.html %}
+
+## Request body fields
+
+The following table lists the request body fields used to run a pipeline.
+
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+`docs` | Required | Array | The documents to be used to test the pipeline.
+`pipeline` | Optional | Object | The pipeline to be simulated. If the pipeline identifier is not included, then the response simulates the latest pipeline created.
+
+The `docs` field can include subfields listed in the following table.
+
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+`source` | Required | Object | The document's JSON body.
+`id` | Optional | String | A unique document identifier. The identifier cannot be used elsewhere in the index.
+`index` | Optional | String | The index where the document's transformed data appears.
+
+## Query parameters 
+
+The following table lists the query parameters for running a pipeline. 
+
+Parameter | Type | Description
+:--- | :--- | :---
+`verbose` | Boolean | Verbose mode. Display data output for each processor in the executed pipeline.
+
+#### Example: Specify a pipeline in the path
+
+```json
+POST /_ingest/pipeline/my-pipeline/_simulate
 {
   "docs": [
     {
-      "_index": "index",
-      "_id": "id",
+      "_index": "my-index",
+      "_id": "1",
       "_source": {
-        "location": "document-name"
+        "grad_year": 2024,
+        "graduated": false,
+        "name": "John Doe"
       }
     },
     {
-      "_index": "index",
-      "_id": "id",
+      "_index": "my-index",
+      "_id": "2",
       "_source": {
-        "location": "document-name"
+        "grad_year": 2025,
+        "graduated": false,
+        "name": "Jane Doe"
       }
     }
   ]
@@ -36,77 +84,36 @@ POST /_ingest/pipeline/35678/_simulate
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
-
-Simulate the last ingest pipeline created.
-
-```
-GET _ingest/pipeline/_simulate
-POST _ingest/pipeline/_simulate
-```
-
-Simulate a single pipeline based on the pipeline's ID.
-
-```
-GET _ingest/pipeline/{id}/_simulate
-POST _ingest/pipeline/{id}/_simulate
-```
-
-## URL parameters
-
-All URL parameters are optional.
-
-Parameter | Type | Description
-:--- | :--- | :---
-verbose | boolean | Verbose mode. Display data output for each processor in executed pipeline.
-
-## Request body fields
-
-Field | Required | Type | Description
-:--- | :--- | :--- | :---
-`pipeline` | Optional | object | The pipeline you want to simulate. When included without the pipeline `{id}` inside the request path, the response simulates the last pipeline created.
-`docs` | Required | array of objects | The documents you want to use to test the pipeline.
-
-The `docs` field can include the following subfields:
-
-Field | Required | Type | Description
-:--- | :--- | :---
-`id` | Optional |string | An optional identifier for the document. The identifier cannot be used elsewhere in the index.
-`index` | Optional | string | The index where the document's transformed data appears.
-`source` | Required | object | The document's JSON body.
-
-## Response
-
-Responses vary based on which path and HTTP method you choose. 
-
-### Specify pipeline in request body
+The request returns the following response:
 
 ```json
 {
-  "docs" : [
+  "docs": [
     {
-      "doc" : {
-        "_index" : "index",
-        "_id" : "id",
-        "_source" : {
-          "location" : "new-new",
-          "field2" : "_value"
+      "doc": {
+        "_index": "my-index",
+        "_id": "1",
+        "_source": {
+          "name": "JOHN DOE",
+          "grad_year": 2023,
+          "graduated": true
         },
-        "_ingest" : {
-          "timestamp" : "2022-02-07T18:47:57.479230835Z"
+        "_ingest": {
+          "timestamp": "2023-06-20T23:19:54.635306588Z"
         }
       }
     },
     {
-      "doc" : {
-        "_index" : "index",
-        "_id" : "id",
-        "_source" : {
-          "location" : "new-new",
-          "field2" : "_value"
+      "doc": {
+        "_index": "my-index",
+        "_id": "2",
+        "_source": {
+          "name": "JANE DOE",
+          "grad_year": 2023,
+          "graduated": true
         },
-        "_ingest" : {
-          "timestamp" : "2022-02-07T18:47:57.47933496Z"
+        "_ingest": {
+          "timestamp": "2023-06-20T23:19:54.635746046Z"
         }
       }
     }
@@ -114,87 +121,154 @@ Responses vary based on which path and HTTP method you choose.
 }
 ```
 
-### Specify pipeline ID inside HTTP path
+### Example: Verbose mode
+
+When the previous request is run with the `verbose` parameter set to `true`, the response shows the sequence of transformations for each document. For example, for the document with the ID `1`, the response contains the results of applying each processor in the pipeline in sequence:
 
 ```json
 {
-  "docs" : [
+  "docs": [
     {
-      "doc" : {
-        "_index" : "index",
-        "_id" : "id",
-        "_source" : {
-          "field-name" : "value",
-          "location" : "document-name"
+      "processor_results": [
+        {
+          "processor_type": "set",
+          "status": "success",
+          "description": "Sets the graduation year to 2023",
+          "doc": {
+            "_index": "my-index",
+            "_id": "1",
+            "_source": {
+              "name": "John Doe",
+              "grad_year": 2023,
+              "graduated": false
+            },
+            "_ingest": {
+              "pipeline": "my-pipeline",
+              "timestamp": "2023-06-20T23:23:26.656564631Z"
+            }
+          }
         },
-        "_ingest" : {
-          "timestamp" : "2022-02-03T21:47:05.382744877Z"
-        }
-      }
-    },
-    {
-      "doc" : {
-        "_index" : "index",
-        "_id" : "id",
-        "_source" : {
-          "field-name" : "value",
-          "location" : "document-name"
+        {
+          "processor_type": "set",
+          "status": "success",
+          "description": "Sets 'graduated' to true",
+          "doc": {
+            "_index": "my-index",
+            "_id": "1",
+            "_source": {
+              "name": "John Doe",
+              "grad_year": 2023,
+              "graduated": true
+            },
+            "_ingest": {
+              "pipeline": "my-pipeline",
+              "timestamp": "2023-06-20T23:23:26.656564631Z"
+            }
+          }
         },
-        "_ingest" : {
-          "timestamp" : "2022-02-03T21:47:05.382803544Z"
+        {
+          "processor_type": "uppercase",
+          "status": "success",
+          "doc": {
+            "_index": "my-index",
+            "_id": "1",
+            "_source": {
+              "name": "JOHN DOE",
+              "grad_year": 2023,
+              "graduated": true
+            },
+            "_ingest": {
+              "pipeline": "my-pipeline",
+              "timestamp": "2023-06-20T23:23:26.656564631Z"
+            }
+          }
         }
-      }
+      ]
     }
   ]
 }
 ```
 
-### Receive verbose response 
+### Example: Specify a pipeline in the request body
 
-With the `verbose` parameter set to `true`, the response shows how each processor transforms the specified document. 
+Alternatively, you can specify a pipeline directly in the request body without first creating a pipeline:
+
+```json
+POST /_ingest/pipeline/_simulate
+{
+  "pipeline" :
+  {
+    "description": "Splits text on whitespace characters",
+    "processors": [
+      {
+        "csv" : {
+          "field" : "name",
+          "separator": ",",
+          "target_fields": ["last_name", "first_name"],
+          "trim": true
+        }
+      },
+      {
+      "uppercase": {
+        "field": "last_name"
+      }
+    }
+    ]
+  },
+  "docs": [
+    {
+      "_index": "second-index",
+      "_id": "1",
+      "_source": {
+        "name": "Doe,John"
+      }
+    },
+    {
+      "_index": "second-index",
+      "_id": "2",
+      "_source": {
+        "name": "Doe, Jane"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+#### Response
+
+The request returns the following response:
 
 ```json
 {
-  "docs" : [
+  "docs": [
     {
-      "processor_results" : [
-        {
-          "processor_type" : "set",
-          "status" : "success",
-          "doc" : {
-            "_index" : "index",
-            "_id" : "id",
-            "_source" : {
-              "field-name" : "value",
-              "location" : "document-name"
-            },
-            "_ingest" : {
-              "pipeline" : "35678",
-              "timestamp" : "2022-02-03T21:45:09.414049004Z"
-            }
-          }
+      "doc": {
+        "_index": "second-index",
+        "_id": "1",
+        "_source": {
+          "name": "Doe,John",
+          "last_name": "DOE",
+          "first_name": "John"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-24T19:20:44.816219673Z"
         }
-      ]
+      }
     },
     {
-      "processor_results" : [
-        {
-          "processor_type" : "set",
-          "status" : "success",
-          "doc" : {
-            "_index" : "index",
-            "_id" : "id",
-            "_source" : {
-              "field-name" : "value",
-              "location" : "document-name"
-            },
-            "_ingest" : {
-              "pipeline" : "35678",
-              "timestamp" : "2022-02-03T21:45:09.414093212Z"
-            }
-          }
+      "doc": {
+        "_index": "second-index",
+        "_id": "2",
+        "_source": {
+          "name": "Doe, Jane",
+          "last_name": "DOE",
+          "first_name": "Jane"
+        },
+        "_ingest": {
+          "timestamp": "2023-08-24T19:20:44.816492381Z"
         }
-      ]
+      }
     }
   ]
 }

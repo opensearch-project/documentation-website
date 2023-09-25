@@ -17,18 +17,10 @@ Models [trained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#training-the
 
 Should you not want to use a model, you can use the [Train and Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#train-and-predict) API to test your model without having to evaluate the model's performance.
 
-# Permissions
+## Using ML Commons
 
-The ML Commons plugin has two reserved roles:
-
-- `ml_full_access`: Grants full access to all ML features, including starting new ML tasks and reading or deleting models.
-- `ml_readonly_access`: Grants read-only access to ML tasks, trained models, and statistics relevant to the model's cluster. Does not grant permissions to start or delete ML tasks or models.
-
-## ML node
-
-To prevent your cluster from failing when running ML tasks, you configure a node with the `ml` node role. When configuring without the `data` node role, ML nodes will not store any shards and will calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
-
-```yml
-node.name: ml-node
-node.roles: [ ml ]
-```
+1. Ensure that you've appropriately set the cluster settings described in [Cluster Settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/). 
+2. Set up model access as described in [Model Access Control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/). 
+3. Start using models: 
+  - [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) allows you to run models within OpenSearch. 
+  - [ML Extensibility]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/) allows you to access remote models. 

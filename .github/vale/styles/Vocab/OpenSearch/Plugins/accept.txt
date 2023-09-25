@@ -1,6 +1,7 @@
 Alerting plugin
 Anomaly Detection plugin
 Asynchronous Search plugin
+Crypto plugin
 Cross-Cluster Replication plugin
 Maps plugin
 Notebooks plugin

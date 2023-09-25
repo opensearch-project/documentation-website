@@ -11,7 +11,7 @@ You can configure global default notification settings for index operations on t
 
 ## Configuring default notification settings
 
-On the **Notification settings** page, you can configure the default notification settings for the following index operations that may take longer to complete:
+In the **Notification settings** interface, you can configure the default notification settings for the following index operations that may take longer to complete:
 
 - Open
 - Reindex
@@ -20,22 +20,22 @@ On the **Notification settings** page, you can configure the default notificatio
 - Clone
 - Force merge
 
-To get started, select **OpenSearch Plugins** > **Index Management** from the top menu. Under **Index Management**, select **Notification settings**.
+To get started, from the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Index Management**. Under **Index Management**, select **Notification settings**. 
 
 You can choose to be notified when the operation has completed or failed. Additionally, you can select the notification channels for this notification, as shown in the following image.
 
 ![Default notification settings]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications.png)
 
-If you don't have permission to view notification settings, you will not be able to view the default settings. 
+If you don't have permission to view notification settings, you cannot view the default settings. 
 {: .note}
 
 ## Configuring notification settings for an individual operation
 
-You can view default notification settings when you perform an indexing operation. You can also set up additional notifications. For example, if you want to configure an additional notification for a reindex operation, perform the following steps:
+You can view default notification settings when you perform an indexing operation as well as set up additional notifications. For example, if you want to configure an additional notification for a reindex operation, perform the following steps:
 
-1. From the top menu, select **OpenSearch Plugins** > **Index Management**.
+1. Select **OpenSearch Plugins** > **Index Management**.
 
-1. Under **Index Management**, select **Indices**.
+1. In the **Index Management** interface, select **Indices**.
 
 1. Select the index you want to reindex.
 
@@ -54,7 +54,7 @@ You can view default notification settings when you perform an indexing operatio
 
 1. Select a channel from the **Notification channels** dropdown list. If you want to configure a new notification channel, select **Manage channels**.
     
-    To configure a new notification channel, ensure the `dashboards-notification` plugin is enabled in OpenSearch Dashboards. 
+    To configure a new notification channel, confirm that the `dashboards-notification` plugin is enabled in OpenSearch Dashboards. 
     {: .note}
     
 1. Select the **Reindex** button.

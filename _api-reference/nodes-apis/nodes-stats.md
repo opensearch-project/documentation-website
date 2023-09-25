@@ -106,6 +106,14 @@ GET _nodes/stats/
 
 #### Example response
 
+Select the arrow to view the example response.
+
+<details closed markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
 ```json
 {
   "_nodes" : {
@@ -237,6 +245,29 @@ GET _nodes/stats/
           "version_map_memory_in_bytes" : 0,
           "fixed_bit_set_memory_in_bytes" : 288,
           "max_unsafe_auto_id_timestamp" : -1,
+          "remote_store" : {
+            "upload" : {
+              "total_upload_size" : {
+                "started_bytes" : 152419,
+                "succeeded_bytes" : 152419,
+                "failed_bytes" : 0
+              },
+              "refresh_size_lag" : {
+                "total_bytes" : 0,
+                "max_bytes" : 0
+              },
+              "max_refresh_time_lag_in_millis" : 0,
+              "total_time_spent_in_millis" : 516
+            },
+            "download" : {
+              "total_download_size" : {
+                "started_bytes" : 0,
+                "succeeded_bytes" : 0,
+                "failed_bytes" : 0
+              },
+              "total_time_spent_in_millis" : 0
+            }
+          },
           "file_sizes" : { }
         },
         "translog" : {
@@ -244,7 +275,21 @@ GET _nodes/stats/
           "size_in_bytes" : 1452,
           "uncommitted_operations" : 12,
           "uncommitted_size_in_bytes" : 1452,
-          "earliest_last_modified_age" : 164160
+          "earliest_last_modified_age" : 164160,
+          "remote_store" : {
+            "upload" : {
+              "total_uploads" : {
+                "started" : 57,
+                "failed" : 0,
+                "succeeded" : 57
+              },
+              "total_upload_size" : {
+                "started_bytes" : 16830,
+                "failed_bytes" : 0,
+                "succeeded_bytes" : 16830
+              }
+            }
+          }
         },
         "request_cache" : {
           "memory_size_in_bytes" : 1649,
@@ -509,6 +554,64 @@ GET _nodes/stats/
         },
         "pipelines" : { }
       },
+      "search_pipeline" : {
+        "total_request" : {
+          "count" : 5,
+          "time_in_millis" : 158,
+          "current" : 0,
+          "failed" : 0
+        },
+        "total_response" : {
+          "count" : 2,
+          "time_in_millis" : 1,
+          "current" : 0,
+          "failed" : 0
+        },
+        "pipelines" : {
+          "public_info" : {
+            "request" : {
+              "count" : 3,
+              "time_in_millis" : 71,
+              "current" : 0,
+              "failed" : 0
+            },
+            "response" : {
+              "count" : 0,
+              "time_in_millis" : 0,
+              "current" : 0,
+              "failed" : 0
+            },
+            "request_processors" : [
+              {
+                "filter_query:abc" : {
+                  "type" : "filter_query",
+                  "stats" : {
+                    "count" : 1,
+                    "time_in_millis" : 0,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              },
+            ]
+              ...
+            "response_processors" : [
+              {
+                "rename_field" : {
+                  "type" : "rename_field",
+                  "stats" : {
+                    "count" : 2,
+                    "time_in_millis" : 1,
+                    "current" : 0,
+                    "failed" : 0
+                  }
+                }
+              }
+            ]
+          },
+          ...
+        }
+      },
       "adaptive_selection" : {
         "F-ByTQzVQ3GQeYzQJArJGQ" : {
           "outgoing_searches" : 0,
@@ -576,6 +679,7 @@ GET _nodes/stats/
   }
 }
 ```
+</details>
 
 ## Response fields
 
@@ -618,6 +722,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [script_cache](#script-and-script_cache)| Object | Script cache statistics for the node.
 [discovery](#discovery) | Object | Node discovery statistics for the node.
 [ingest](#ingest) | Object | Ingest statistics for the node.
+[search_pipeline](#search_pipeline) | Object | Statistics related to [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/).
 [adaptive_selection](#adaptive_selection) | Object | Statistics about adaptive selections for the node. 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
@@ -724,6 +829,27 @@ segments.index_writer_memory_in_bytes | Integer | The total amount of memory use
 segments.version_map_memory_in_bytes | Integer | The total amount of memory used by all version maps, in bytes. 
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
+segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is enabled on the node. 
+segments.segment_replication.maxBytesBehind | long | The maximum number of bytes behind the primary replica.
+segments.segment_replication.totalBytesBehind | long | The total number of bytes behind the primary replicas. 
+segments.segment_replication.maxReplicationLag | long | The maximum amount of time, in milliseconds, taken by a replica to catch up to its primary. 
+segments.remote_store | Object | Statistics about remote segment store operations.
+segments.remote_store.upload | Object | Statistics related to uploads to the remote segment store.
+segments.remote_store.upload.total_upload_size | Object | The amount of data, in bytes, uploaded to the remote segment store.
+segments.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes to upload to the remote segment store after the upload has started.
+segments.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote segment store.
+segments.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes that failed to upload to the remote segment store.
+segments.remote_store.upload.refresh_size_lag | Object | The amount of lag during upload between the remote segment store and the local store.
+segments.remote_store.upload.refresh_size_lag.total_bytes | Integer | The total number of bytes that lagged during the upload refresh between the remote segment store and the local store.
+segments.remote_store.upload.refresh_size_lag.max_bytes | Integer | The maximum amount of lag, in bytes, during the upload refresh between the remote segment store and the local store.
+segments.remote_store.upload.max_refresh_time_lag_in_millis | Integer | The maximum duration, in milliseconds, that the remote refresh is behind the local refresh.
+segments.remote_store.upload.total_time_spent_in_millis | Integer | The total amount of time, in milliseconds, spent on uploads to the remote segment store.
+segments.remote_store.download | Object | Statistics related to downloads to the remote segment store.
+segments.remote_store.download.total_download_size | Object | The total amount of data download from the remote segment store.
+segments.remote_store.download.total_download_size.started_bytes | Integer | The number of bytes downloaded from the remote segment store after the download starts.
+segments.remote_store.download.total_download_size.succeeded_bytes | Integer | The number of bytes successfully downloaded from the remote segment store.
+segments.remote_store.download.total_download_size.failed_bytes | Integer | The number of bytes that failed to download from the remote segment store.
+segments.remote_store.download.total_time_spent_in_millis | Integer | The total duration, in milliseconds, spent on downloads from the remote segment store.
 segments.file_sizes | Integer | Statistics about the size of the segment files.
 translog | Object | Statistics about transaction log operations for the node.
 translog.operations | Integer | The number of translog operations.
@@ -731,6 +857,16 @@ translog.size_in_bytes | Integer | The size of the translog, in bytes.
 translog.uncommitted_operations | Integer | The number of uncommitted translog operations.
 translog.uncommitted_size_in_bytes | Integer | The size of uncommitted translog operations, in bytes.
 translog.earliest_last_modified_age | Integer | The earliest last modified age for the translog.
+translog.remote_store | Object | Statistics related to operations from the remote translog store.
+translog.remote_store.upload | Object | Statistics related to uploads to the remote translog store.
+translog.remote_store.upload.total_uploads | Object | The number of syncs to the remote translog store.
+translog.remote_store.upload.total_uploads.started | Integer | The number of upload syncs to the remote translog store that have started.
+translog.remote_store.upload.total_uploads.failed | Integer | The number of failed upload syncs to the remote translog store.
+translog.remote_store.upload.total_uploads.succeeded | Integer | The number of successful upload syncs to the remote translog store.
+translog.remote_store.upload.total_upload_size | Object | The total amount of data uploaded to the remote translog store.
+translog.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes actively uploading to the remote translog store after the upload has started.
+translog.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes that failed to upload to the remote translog store.
+translog.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote translog store.
 request_cache | Object | Statistics about the request cache for the node.
 request_cache.memory_size_in_bytes | Integer | The memory size used by the request cache, in bytes.
 request_cache.evictions | Integer | The number of request cache evictions.
@@ -936,6 +1072,34 @@ pipelines._id_.time_in_millis | Integer | The total amount of time for preproces
 pipelines._id_.failed | Integer | The total number of failed ingestions for the ingest pipeline.
 pipelines._id_.processors | Array of objects | Statistics for the ingest processors. Includes the number of documents that are currently transformed, the total number of transformed documents, the number of failed transformations, and the time spent transforming documents.
 
+### `search_pipeline`
+
+The `search_pipeline` object contains the statistics related to [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) and has the following properties.
+
+Field | Field type | Description
+:--- | :--- | :---
+total_request | Object | Cumulative statistics related to all search request processors. 
+total_request.count | Integer | The total number of search request processor executions.
+total_request.time_in_millis | Integer | The total amount of time for all search request processor executions, in milliseconds.
+total_request.current | Integer | The total number of search request processor executions currently in progress.
+total_request.failed | Integer | The total number of failed search request processor executions.
+total_response | Object | Cumulative statistics related to all search response processors.
+total_response.count | Integer | The total number of search response processor executions.
+total_response.time_in_millis | Integer | The total amount of time for all search response processor executions, in milliseconds.
+total_response.current | Integer | The total number of search response processor executions currently in progress.
+total_response.failed | Integer | The total number of failed search response processor executions.
+pipelines | Object | Search pipeline statistics. Each pipeline is a nested object specified by its ID, with the properties listed in the following rows. If a processor has a `tag`, statistics for the processor are provided in the object with the name `<processor_type>:<tag>` (for example, `filter_query:abc`). Statistics for all processors of the same type that do not have a `tag` are aggregated and provided in the object with the name `<processor-type>` (for example, `filter_query`).
+pipelines._id_.request.count | Integer | The number of search request processor executions performed by the search pipeline.
+pipelines._id_.request.time_in_millis | Integer | The total amount of time for search request processor executions in the search pipeline, in milliseconds.
+pipelines._id_.request.current | Integer | The number of search request processor executions currently in progress for the search pipeline.
+pipelines._id_.request.failed | Integer | The number of failed search request processor executions for the search pipeline.
+pipelines._id_.request_processors | Array of objects | Statistics for the search request processors. Includes the total number of executions, the total amount of time of executions, the total number of executions currently in progress, and the number of failed executions.
+pipelines._id_.response.count | Integer | The number of search response processor executions performed by the search pipeline.
+pipelines._id_.response.time_in_millis | Integer | The total amount of time for search response processor executions in the search pipeline, in milliseconds.
+pipelines._id_.response.current | Integer | The number of search response processor executions currently in progress for the search pipeline.
+pipelines._id_.response.failed | Integer | The number of failed search response processor executions for the search pipeline.
+pipelines._id_.response_processors | Array of objects | Statistics for the search response processors. Includes the total number of executions, the total amount of time of executions, the total number of executions currently in progress, and the number of failed executions.
+
 ### `adaptive_selection`
 
 The `adaptive_selection` object contains the adaptive selection statistics. Each entry is specified by the node ID and has the properties listed below. 
@@ -975,6 +1139,10 @@ total_rejections_breakup_shadow_mode.no_successful_request_limits | Integer | Th
 total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
+
+## Concurrent segment search
+
+Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you [enable the experimental concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the Nodes Stats API response will contain several additional fields with statistics about slices (units of work executed by a thread). For the descriptions of those fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
 
 ## Required permissions
 

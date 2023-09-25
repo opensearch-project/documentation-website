@@ -22,6 +22,7 @@ Gradle
 Grafana
 Faiss
 Filebeat
+Flickr
 Fluent Bit
 Fluentd
 Helm
@@ -53,6 +54,7 @@ Okta
 Open Distro
 OpenID Connect
 OpenSearch
+OpenSearch Benchmark
 OpenSearch Dashboards
 OpenSearch Project
 OpenSearch Service
@@ -73,7 +75,6 @@ Querqy
 Query Workbench
 RPM Package Manager
 Ruby
-SigV4 
 Simple Schema for Observability
 Tableau
 TorchScript

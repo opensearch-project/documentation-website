@@ -90,7 +90,11 @@ Such queries are successfully executed by the `V2` engine unless they have `V1`-
 ### V2 engine limitations
 
 * The [cursor feature](#pagination-only-supports-basic-queries) is supported by the `V1` engine only.
-For support of `cursor`/`pagination` in the `V2` engine, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656).
+  * For support of `cursor`/`pagination` in the `V2` engine, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656).
+* `json` formatted output is supported in `V1` engine only. 
 * The `V2` engine does not track query execution time, so slow queries are not reported.
-* The `V2` query engine not only runs queries in the OpenSearch engine but also supports post-processing for complicated queries. Accordingly, the explain output is no longer pure OpenSearch domain-specific language (DSL) but also includes query plan information from the `V2` query engine.
-* The `V2` engine does not support [`SCORE_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#score-query) and [`WILDCARD_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#wildcard-query) functions.
+* The `V2` query engine not only runs queries in the OpenSearch engine but also supports post-processing for complex queries. Accordingly, the `explain` output is no longer OpenSearch domain-specific language (DSL) but also includes query plan information from the `V2` query engine.
+Suggested change
+* The `V2` query engine does not support aggregation queries such as `histogram`, `date_histogram`, `percentiles`, `topHits`, `stats`, `extended_stats`, `terms`, or `range`.
+* JOINs and sub-queries are not supported. To stay up to date on the development for JOINs and sub-queries, track [GitHub issue #1441](https://github.com/opensearch-project/sql/issues/1441) and [GitHub issue #892](https://github.com/opensearch-project/sql/issues/892).
+* PartiQL syntax for `nested` queries are not supported.  Additionally, arrays of objects and primitive types return the first index of the array, while in `V1` they return the entire array as a JSON object. 

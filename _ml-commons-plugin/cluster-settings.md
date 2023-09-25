@@ -2,13 +2,20 @@
 layout: default
 title: ML Commons cluster settings
 has_children: false
-nav_order: 160
+nav_order: 10
 ---
 
 # ML Commons cluster settings
 
 To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file.
 
+## ML node
+
+By default, ML tasks and models only run on ML nodes. When configured without the `data` node role, ML nodes do not store any shards and instead calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
+
+```yml
+node.roles: [ ml ]
+```
 
 ## Run tasks and models on ML nodes only
 
@@ -148,7 +155,7 @@ plugins.ml_commons.allow_registering_model_via_url: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Register models using local files
 
@@ -163,7 +170,7 @@ plugins.ml_commons.allow_registering_model_via_local_file: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Add trusted URL
 
@@ -230,7 +237,7 @@ plugins.ml_commons.allow_custom_deployment_plan: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Enable auto redeploy
 
@@ -245,7 +252,7 @@ plugins.ml_commons.model_auto_redeploy.enable: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
 
 ## Set retires for auto redeploy
 
@@ -290,7 +297,22 @@ plugins.ml_commons.enable_inhouse_python_model: false
 ### Values
 
 - Default value: false
-- Value range: [false, true]
+- Valid values: `false`, `true`
+
+## Enable access control for connectors
+
+When set to `true`, the setting allows admins to control access and permissions to the connector API using `backend_roles`.
+
+### Setting
+
+```
+plugins.ml_commons.connector_access_control_enabled: true
+```
+
+### Values
+
+- Default value: false
+- Valid values: `false`, `true`
 
 
 

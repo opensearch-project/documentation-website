@@ -37,7 +37,7 @@ When these objects are stored, they are flattened, so their internal representat
 {
     "patients.name" : ["John Doe", "Mary Major"],
     "patients.age" : [56, 85],
-    "smoker" : [true, false]
+    "patients.smoker" : [true, false]
 }
 ```
 

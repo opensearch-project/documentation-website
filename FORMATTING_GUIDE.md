@@ -31,6 +31,23 @@ This guide provides an overview of the formatted elements commonly used in the O
 
 ## Adding pages or sections
 
+This repository contains [Markdown](https://guides.github.com/features/mastering-markdown/) files organized into Jekyll _collections_ (for example, `_api-reference` or `_dashboards`). Each Markdown file corresponds to one page on the website.
+
+In addition to the content for a given page, each Markdown file contains some Jekyll [front matter](https://jekyllrb.com/docs/front-matter/) similar to the following:
+
+```
+---
+layout: default
+title: Date
+nav_order: 25
+has_children: false
+parent: Date field types
+grand_parent: Supported field types
+---
+```
+
+If you want to reorganize content or add a new page, make sure to set the appropriate `has_children`, `parent`, `grand_parent`, and `nav_order` variables, which define the hierarchy of pages in the left navigation. 
+
 When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting additional child pages easier because it does not require you to renumber existing pages.
 
 Each collection must have an `index.md` file that corresponds to the collection's index page. In the `index.md` file's front matter, specify `nav_excluded: true` so that the page does not appear separately under the collection.
@@ -405,7 +422,9 @@ Body 1 | List:<br>&ensp;&#x2022; One<br>&ensp;&#x2022; Two
 You can style text in the following ways:
 
 * ```**bold**```
-* ```_italic_``` or ```*italic*```    
+* ```_italic_``` or ```*italic*```
+
+For guidance on using code examples and when to use code font, see [Code examples](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#code-examples).
 
 ## Variables in curly braces
 

@@ -11,6 +11,10 @@ redirect_from:
 
 You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
+
+For plugins to work properly with OpenSearch, all plugins must have the ability to access the data in the cluster, including metadata about cluster operations. Therefore, to protect your cluster's data and preserve its integrity, first be sure you understand the function of a plugin before installing it on your OpenSearch cluster. Second, when selecting a custom plugin, make sure the plugin's source is a reliable one.
+{: .warning}
+
 ## Managing plugins
 
 OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
@@ -243,6 +247,7 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 |
 | Asynchronous Search | [opensearch-asynchronous-search](https://github.com/opensearch-project/asynchronous-search) | 1.0.0 |
 | Cross Cluster Replication | [opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication) | 1.1.0 |
+| Custom Codecs | [opensearch-custom-codecs](https://github.com/opensearch-project/custom-codecs) | 2.10.0 |
 | Notebooks<sup>1</sup> | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0 |
 | Notifications | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0
 | Reports Scheduler | [opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 |
@@ -288,21 +293,6 @@ Members of the OpenSearch community have built countless plugins for the service
 | repository-s3 | 1.0.0 |
 | store-smb | 1.0.0 |
 | transport-nio | 1.0.0 |
-
-### Experimental plugins
-
-OpenSearch offers experimental plugins that may be used in a snapshot distribution that has the [sandbox feature enabled](https://github.com/opensearch-project/OpenSearch/blob/main/sandbox/build.gradle).
-
-| Plugin Name | Description | Earliest Available Version |
-| :--- | :--- |
-| custom-codecs | Provides additional compression codecs. | 1.0.0 |
-
-Use the following example command to enable the sandbox feature:
-
-```bash
-./gradlew assemble -Dsandbox.enabled=true
-bin/opensearch-plugin install file:///path/to/plugin-<version>-SNAPSHOT.zip
-```
 
 ## Related links
 

@@ -2,7 +2,7 @@
 layout: default
 title: Model access control
 has_children: false
-nav_order: 180
+nav_order: 20
 ---
 
 # Model access control
@@ -10,6 +10,13 @@ nav_order: 180
 You can use the Security plugin with ML Commons to manage access to specific models for non-admin users. For example, one department in an organization might want to restrict users in other departments from accessing their models.
 
 To accomplish this, users are assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/). Rather than assign individual roles to individual users during user configuration, backend roles provide a way to map a set of users to a role by assigning the backend role to users when they log in. For example, users may be assigned an `IT` backend role that includes the `ml_full_access` role and have full access to all ML Commons features. Alternatively, other users may be assigned an `HR` backend role that includes the `ml_readonly_access` role and be limited to read-only access to machine learning (ML) features. Given this flexibility, backend roles can provide finer-grained access to models and make it easier to assign multiple users to a role rather than mapping a user and role individually.
+
+## ML Commons roles
+
+The ML Commons plugin has two reserved roles:
+
+- `ml_full_access`: Grants full access to all ML features, including starting new ML tasks and reading or deleting models.
+- `ml_readonly_access`: Grants read-only access to ML tasks, trained models, and statistics relevant to the model's cluster. Does not grant permissions to start or delete ML tasks or models.
 
 ## Model groups
 
@@ -30,7 +37,7 @@ Before using model access control, you must satisfy the following prerequisites:
 
 1. Enable the Security plugin on your cluster. For more information, see [Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/). 
 2. For `restricted` model groups, ensure that an admin has [assigned backend roles to users](#assigning-backend-roles-to-users).
-3. [Enable model access control](#enabling-model-access-control) on your cluster. You can enable model access control dynamically by setting `plugins.ml_commons.model_access_control_enabled` to `true`.
+3. [Enable model access control](#enabling-model-access-control) on your cluster.
 
 If any of the prerequisites are not met, all models in the cluster are `public` and can be accessed by any user who has access to the cluster.
 {: .note}
@@ -102,7 +109,10 @@ PUT _cluster/settings
 
 ## Registering a model group
 
-Use the `_register` endpoint to register a model group. You can register a model group with a `public`, `private`, or `restricted` access mode. 
+To register a model group, send a `POST` request to the `_register` endpoint. You can register a model group in `public`, `private`, or `restricted` access mode. 
+
+Each model group name in the cluster must be globally unique.
+{: .important}
 
 ### Path and HTTP method
 
@@ -118,8 +128,8 @@ Field |Data type | Description
 :--- | :--- | :---
 `name` | String | The model group name. Required.
 `description` | String | The model group description. Optional.
-`model_access_mode` | String | The access mode for this model. Valid values are `public`, `private`, and `restricted`. When this parameter is set to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles`, but not both. Optional. Default is `restricted`.
-`backend_roles` | Array | A list of the model owner's backend roles to add to the model. Can be specified only if the `model_access_mode` is `restricted`. Cannot be specified at the same time as `add_all_backend_roles`. Optional.
+`access_mode` | String | The access mode for this model. Valid values are `public`, `private`, and `restricted`. When this parameter is set to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles`, but not both. Optional. If you specify none of the security parameters (`access_mode`, `backend_roles`, and `add_all_backend_roles`), the default `access_mode` is `private`.
+`backend_roles` | Array | A list of the model owner's backend roles to add to the model. Can be specified only if `access_mode` is `restricted`. Cannot be specified at the same time as `add_all_backend_roles`. Optional.
 `add_all_backend_roles` | Boolean | If `true`, all backend roles of the model owner are added to the model group. Default is `false`. Cannot be specified at the same time as `backend_roles`. Admin users cannot set this parameter to `true`. Optional.
 
 #### Example request
@@ -129,7 +139,7 @@ POST /_plugins/_ml/model_groups/_register
 {
     "name": "test_model_group_public",
     "description": "This is a public model group",
-    "model_access_mode": "public"
+    "access_mode": "public"
 }
 ```
 {% include copy-curl.html %}
@@ -161,7 +171,7 @@ POST /_plugins/_ml/model_groups/_register
 {
     "name": "test_model_group_public",
     "description": "This is a public model group",
-    "model_access_mode": "public"
+    "access_mode": "public"
 }
 ```
 {% include copy-curl.html %}
@@ -188,7 +198,7 @@ POST /_plugins/_ml/model_groups/_register
 {
     "name": "model_group_test",
     "description": "This is an example description",
-    "model_access_mode": "restricted",
+    "access_mode": "restricted",
     "backend_roles" : ["IT"]
 }
 ```
@@ -203,7 +213,7 @@ POST /_plugins/_ml/model_groups/_register
 {
     "name": "model_group_test",
     "description": "This is an example description",
-    "model_access_mode": "restricted",
+    "access_mode": "restricted",
     "add_all_backend_roles": "true"
 }
 ```
@@ -218,7 +228,18 @@ POST /_plugins/_ml/model_groups/_register
 {
     "name": "model_group_test",
     "description": "This is an example description",
-    "model_access_mode": "private"
+    "access_mode": "private"
+}
+```
+{% include copy-curl.html %}
+
+If you don't specify any of the `access_mode`, `backend_roles`, or `add_all_backend_roles`, the model will have a `private` access mode:
+
+```json
+POST /_plugins/_ml/model_groups/_register
+{
+    "name": "model_group_test",
+    "description": "This is an example description"
 }
 ```
 {% include copy-curl.html %}
@@ -229,17 +250,18 @@ If model access control is disabled on your cluster (one of the [prerequisites](
 
 ## Updating a model group
 
-To update a model group, send a request to the `<model_group_id>_update` endpoint. 
+To update a model group, send a `PUT` request to the `model_groups` endpoint and provide the ID of the model group you want to update.
 
 When updating a model group, the following restrictions apply:
 
 - The model owner or an admin user can update all fields. Any user who shares one or more backend roles with the model group can update the `name` and `description` fields only.
-- When updating the `model_access_mode` to `restricted`, you must specify one but not both `backend_roles` or `add_all_backend_roles`.
+- When updating the `access_mode` to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles` but not both.
+- When updating the `name`, ensure the name is globally unique in the cluster.
 
 ### Path and HTTP method
 
 ```json
-PUT /_plugins/_ml/model_groups/<model_group_id>_update
+PUT /_plugins/_ml/model_groups/<model_group_id>
 ```
 
 ### Request fields
@@ -249,10 +271,10 @@ Refer to [Request fields](#request-fields-1) for request field descriptions.
 #### Example request
 
 ```json
-PUT /_plugins/_ml/model_groups/<model_group_id>_update
+PUT /_plugins/_ml/model_groups/<model_group_id>
 {
     "name": "model_group_test",
-    "description": "This is an example description",
+    "description": "This is the updated description",
     "add_all_backend_roles": true
 }
 ```
@@ -566,6 +588,9 @@ If model access control is disabled on your cluster, users with the `delete mode
 
 Admin users can delete any model group.
 {: .note}
+
+When you delete the last model version in a model group, that model group is automatically deleted from the index.
+{: .important}
 
 #### Example request
 
