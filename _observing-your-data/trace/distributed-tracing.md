@@ -6,8 +6,10 @@ nav_order: 65
 ---
 
 # Distributed tracing
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](<insertlink>) or the [project board](insert-link).    
+{: .warning}
 
-Distributed tracing is used to monitor and debug distributed systems. You can track the flow of requests through a system and identify performance bottlenecks and errors. A _trace_ is a complete end-to-end path of a request as it flow through a distributed systems. It represents the journey of a specific operation as it traverses various components and services in a distributed architecture. In distributed tracing, a single trace contains a series of tagged time intervals called _spans_. [Spans](#) have a start and end time, and may include other metadata like logs or tags to help classify what happened. 
+Distributed tracing is used to monitor and debug distributed systems. You can track the flow of requests through a system and identify performance bottlenecks and errors. A _trace_ is a complete end-to-end path of a request as it flow through a distributed systems. It represents the journey of a specific operation as it traverses various components and services in a distributed architecture. In distributed tracing, a single trace contains a series of tagged time intervals called _spans_. Spans have a start and end time, and may include other metadata like logs or tags to help classify what happened. 
 
 Distributed tracing offers several benefits, including:
 
@@ -34,7 +36,7 @@ OpenSearch provides a `trace-analytics` plugin for visualizing trace data in rea
 
 ## Get started
 
-The distributed tracing feature is experimental as of OpenSearch 2.10. To begin using the distributed tracing feature, you need to first enable it using `opensearch.experimental.feature.telemetry.enabled` feature flag, and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature, as it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand debugging and request sampling, is described in the following sections.
+The distributed tracing feature is experimental as of OpenSearch 2.11. To begin using the distributed tracing feature, you need to first enable it using `opensearch.experimental.feature.telemetry.enabled` feature flag, and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature, as it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand debugging and request sampling, is described in the following sections.
 
 ### Enable on a node using a tarball install
 
@@ -120,11 +122,8 @@ The distributed tracing feature generates traces and spans for HTTP requests onl
     - `telemetry.otel.tracer.exporter.max_queue_size`: Defines the maximum queue size. When the queue reaches this value, it will be written to the exporter. Default is `2048`. 
     - `telemetry.otel.tracer.exporter.delay`: Defines the delay. If there are not enough spans to fill the `max_queue_size` until this delay time, they will be flushed. Default is `2 seconds`.
     - `telemetry.otel.tracer.exporter.batch_size`: Configures the maximum batch size for each export to reduce input/output. This value should always be less than the `max_queue_size`. Default is `512`.
-2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch currently supports the following:
+2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters, and OpenSearch supports the following:
     - `LoggingSpanExporter`: Exports spans to a log file, generating a separate file in the logs directory `_otel_traces.log`. Default is `telemetry.otel.tracer.span.exporter.class=io.opentelemetry.exporter.logging.LoggingSpanExporter`.
-    - `OtlpGrpcSpanExporter`: Exports spans by using [gRPC](https://grpc.io/). To use this exporter, you need to install the `otel-collector` on the node and specify the endpoint using the setting `telemetry.otel.tracer.exporter.endpoint`. By default, it writes to the endpoint `http://localhost:4317/`. If you want to configure it for HTTPS, follow the guidance in the [OpenTelemetry Configuration](https://opentelemetry.io/docs/collector/configuration/) documentation. The setting is as follows:
-        - `telemetry.otel.tracer.span.exporter.class=org.opensearch.telemetry.tracing.exporter.OtlpGrpcSpanExporterProvider`
-        - `telemetry.otel.tracer.exporter.endpoint: https://localhost:4317`
 
 ### Sampling
 
