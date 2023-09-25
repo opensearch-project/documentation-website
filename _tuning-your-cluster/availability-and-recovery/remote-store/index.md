@@ -131,7 +131,7 @@ For these benchmarks, we used the following cluster, shard, and test configurati
 
 ### StackOverflow
 
-The following table lists the benchmarking results for the `so` workload a remote translog buffer interval of 250ms.
+The following table lists the benchmarking results for the `so` workload a remote translog buffer interval of 250 ms.
 
 |	|	|8 bulk indexing clients (Default)	|16 bulk indexing clients	|24 bulk indexing clients	|
 |---	|---	|---	|---	|---	|
@@ -142,7 +142,7 @@ The following table lists the benchmarking results for the `so` workload a remot
 
 ### HTTP logs
 
-The following table lists the benchmarking results for the `http_logs` workload with a remote translog buffer interval of 200ms.
+The following table lists the benchmarking results for the `http_logs` workload with a remote translog buffer interval of 200 ms.
 
 |	|	|8 bulk indexing clients (Default)	|16 bulk indexing clients	|24 bulk indexing clients	|
 |---	|---	|---	|---	|---	|
@@ -153,7 +153,7 @@ The following table lists the benchmarking results for the `http_logs` workload 
 
 ### NYC taxis
 
-The following table lists the benchmarking results for the `http_logs` workload with a remote translog buffer interval of 250ms.
+The following table lists the benchmarking results for the `http_logs` workload with a remote translog buffer interval of 250 ms.
 
 |	|	|8 bulk indexing clients (Default)	|16 bulk indexing clients	|24 bulk indexing clients	|
 |---	|---	|---	|---	|---	|
@@ -162,7 +162,7 @@ The following table lists the benchmarking results for the `http_logs` workload 
 |P50	|91645.1	|93906.7	|2.47	|89659.8	|125443	|39.91	|91120.3	|132166	|45.05	|
 |Indexing Latency	|P90	|995.217	|1014.01	|1.89	|2236.33	|1750.06	|-21.74	|3353.45	|2472	|-26.28	|
 
-As detailed by the results, you can see consistent gains for cases where the indexing latency is more than the average remote upload time. When you increase the bulk indexing clients, remote-enabled configuration provides indexing throughput gains of up to 60-65%. For more detailed results, see [Issue #9790](https://github.com/opensearch-project/OpenSearch/issues/9790).
+As detailed by the results, you can see consistent gains for cases where the indexing latency is more than the average remote upload time. When you increase the bulk indexing clients, remote-enabled configuration provides indexing throughput gains of up to 60--65%. For more detailed results, see [Issue #9790](https://github.com/opensearch-project/OpenSearch/issues/9790).
 
 ## Next steps
 
