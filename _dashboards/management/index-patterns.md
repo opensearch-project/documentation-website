@@ -46,7 +46,7 @@ An example using the index pattern `security*` is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt="Index pattern step 2 UI " width="700"/>
 
-Once the index pattern has been created, OpenSearch inspects the mapping of the matching indexes. Within the table, you can see the list of fields, along with their data type and how you can use them. An example is shown in the following image.
+Once the index pattern has been created, you can view the mapping of the matching indexes. Within the table, you can see the list of fields, along with their data type and how you can use them. An example is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png" alt="Index pattern table UI " width="700"/>
 
