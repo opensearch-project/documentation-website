@@ -12,7 +12,7 @@ By default, OpenSearch calculates document scores using the [Okapi BM25](https:/
 In this tutorial, you'll learn how to:
 
 - Implement semantic search in OpenSearch.
-- Combine semantic search with keyword search to improve search relevance. 
+- Implement hybrid search by combining semantic and keyword search to improve search relevance. 
 
 ## Terminology
 
@@ -26,6 +26,7 @@ It's helpful to understand the following terms before starting this tutorial:
   - At search time, when you then use a _neural query_, the query text is passed through a language model, and the resulting vector embeddings are compared with the document text vector embeddings to find the most relevant results, as shown in the following diagram.
 
   ![Neural search at search time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-query.png)
+- _Hybrid search_: Combines semantic and keyword search to improve search relevance. 
 
 ## OpenSearch components for semantic search
 
@@ -87,7 +88,7 @@ This tutorial consists of the following steps:
 1. [**Search the data**](#step-3-search-the-data).
    - [Search using a keyword search](#search-using-a-keyword-search).
    - [Search using a neural search](#search-using-a-neural-search).
-   - [Search using a combined keyword search and neural search](#search-using-a-combined-keyword-search-and-neural-search).
+   - [Search using a hybrid search](#search-using-a-hybrid-search).
 
 Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step was successful by running requests in these sections.
 
@@ -820,9 +821,9 @@ This time, the response not only contains all five documents, but the document o
 ```
 </details>
 
-### Search using a combined keyword search and neural search
+### Search using a hybrid search
 
-To combine keyword search and neural search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization_processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
+Hybrid search combines keyword and neural search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization_processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
 
 #### Step 1: Configure a search pipeline
 
@@ -986,7 +987,7 @@ You can parameterize the search by using search templates. Search templates hide
 
 ### Clean up
 
-After you're done, delete the components you've created in tutorial from the cluster:
+After you're done, delete the components you've created in this tutorial from the cluster:
 
 ```json
 DELETE /my-nlp-index
