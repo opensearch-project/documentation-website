@@ -88,7 +88,7 @@ This tutorial consists of the following steps:
 1. [**Search the data**](#step-3-search-the-data).
    - [Search using a keyword search](#search-using-a-keyword-search).
    - [Search using a neural search](#search-using-a-neural-search).
-   - [Search using a combined keyword search and neural search](#search-using-a-combined-keyword-search-and-neural-search).
+   - [Search using a hybrid search](#search-using-a-hybrid-search).
 
 Some steps in the tutorial contain optional `Test it` sections. You can ensure that the step was successful by running requests in these sections.
 
