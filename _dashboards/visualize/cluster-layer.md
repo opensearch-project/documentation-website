@@ -8,23 +8,25 @@ has_children: false
 ---
 
 # Maps cluster layer
-Introduced 2.9
+Introduced 2.11
 {: .label .label-purple }
 
-The cluster layer aggregates all points and shapes from an index using geospatial aggregations. Examples of how you can use the maps cluster layer include: 
+The cluster layer aggregates all points and shapes from an index using [geotile grid aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/geotile-grid/) or [geohex grid aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/geohex-grid/). Once your data points have been grouped into grids, you can calculate metrics for each gridded cell. By grouping data points into grids, you can improve the readability of maps with large datasets. 
 
-- Visualizing the distribution of your data
-- Tracking the movement of objects
-- Identifying clusters of data
-- Creating heatmaps
+You can use the maps cluster layer to: 
 
-## Prerequisites
+- Visualize the distribution of your data.
+- Track the movement of goods.
+- Identify areas with high concentrations of a particular feature, such as crime, air pollution, or traffic congestion.
 
-To use the maps cluster layer in OpenSearch:
+Before getting started with using the maps cluster layer, make sure you have the following prerequisites in place:
 
-- <what are the prerequistes?>
-- <do we need to reference the Maps Stats API?>
+- <What are the prerequistes?>
+- <Do we need to reference the Maps Stats API?>
+- Understand [Maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) basics, including creating a new map.
 
 To enable the cluster layer:
 
-1. Select 
+1. Select **Maps** > **Add layer**.
+2. Choose **<insert-feature-name>** from the **Add layer** pop-up window.
+3. 
