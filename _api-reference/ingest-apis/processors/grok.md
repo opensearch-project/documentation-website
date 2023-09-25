@@ -8,7 +8,7 @@ nav_order: 140
 
 # Grok 
 
-The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. It also allows you to define custom patterns to handle specific formats. The `grok` processor can also perform transformations on extracted data, such as converting a timestamp to a proper date field. 
+The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. The `grok` processor can perform transformations on extracted data, such as converting a timestamp to a proper date field. 
 
 The following is the syntax for the `grok` processor: 
 
@@ -26,11 +26,11 @@ The following is the syntax for the `grok` processor:
 
 The Grok processor is based on the [`java-grok`](https://mvnrepository.com/artifact/io.krakens/java-grok) library and supports all compatible patterns. The `java-grok` library is built using the [`java.util.regex`](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html) regular expression library.
 
-You can add custom patterns to your pipelines using the `patterns_definitions` option. When debugging custom patterns, the [Grok Debugger](https://grokdebugger.com/) can be helpful.
+You can add custom patterns to your pipelines using the `patterns_definitions` parameter. When debugging custom patterns, the [Grok Debugger](https://grokdebugger.com/) can help you test and debug grok patterns before using them in your [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
 
 ## Configuration parameters
 
-To configure the `grok` processor, you can use various options that allow you to define patterns, match specific keys, and control the processor's behavior. The following table lists the required and optional parameters for the `grok` processor.
+To configure the `grok` processor, you have various options that allow you to define patterns, match specific keys, and control the processor's behavior. The following table lists the required and optional parameters for the `grok` processor.
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
@@ -41,7 +41,7 @@ Parameter | Required | Description |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing` | Optional | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`pattern_definitions`  | Optional  | A dictionary of pattern names and pattern tuples (a pair of a pattern name, which is a string that identifies the pattern, and a pattern, which is the string that specifies the pattern itself) is used to define custom patterns for the current processor. If a pattern matches an existing name, it will override the pre-existing definition. |
+`pattern_definitions`  | Optional  | A dictionary of pattern names and pattern tuples (a pair of a pattern name, which is a string that identifies the pattern, and a pattern, which is the string that specifies the pattern itself) is used to define custom patterns for the current processor. If a pattern matches an existing name, it overrides the pre-existing definition. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `trace_match` | Optional | When `_ingest._grok_match_index` is set to `true`, the matched document's metadata will contain the index into the pattern found in patterns that match. |
 
@@ -138,4 +138,27 @@ GET testindex1/_doc/1
 {% include copy-curl.html %}
 
 ## Using custom patterns
+
+Custom grok patterns can be used in a pipeline to extract structured data from log messages that do not match the built-in grok patterns. This can be useful for parsing log messages from custom applications or for parsing log messages that have been modified in some way. 
+
+To use custom grok patterns in a pipeline, you first need to create a file that contains your custom patterns. This file should be in a format that is compatible with the grok pattern language. Once you have created the file, add it to your OpenSearch configuration. Once you have added the file, you can update the `grok` processor in your pipeline to use custom patterns.
+
+The following examples show how you can use custom grok patterns in a pipeline:
+
+- To extract the name of a custom application from a log message: 
+
+
+- To extract the version of the custom application from a log message:
+
+
+- To extract the HTTP request method from a log message:
+
+
+- To extract the HTTP request path from a log message:
+
+
+- To extract the HTTP response status code from a log message:
+
+
+
 
