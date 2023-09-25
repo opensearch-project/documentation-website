@@ -137,17 +137,8 @@ The settings in the following table apply specifically to the Security plugin.
 | `plugins.security.protected_indices.enabled` | Set to `true` to enable protected indexes. Protected indexes are even more secure than normal indexes. These indexes require a role to access like any other traditional index, but they also require an additional role to be visible. This setting is used in conjunction with the `plugins.security.protected_indices.roles` and `plugins.security.protected_indices.indices` settings. |
 | `plugins.security.protected_indices.roles` | Specifies a list of roles to which a user must be mapped to access protected indexes. [a user must be mapped to all roles in the list, if there are multiple?] |
 | `plugins.security.protected_indices.indices` | Specifies a list of indexes to mark as protected. These indexes will only be visible to users mapped to the roles specified in `plugins.security.protected_indices.roles`. After this requirement is fulfilled, a user will still need to be mapped to the traditional role used to grant access permission to the index. |
-| `plugins.security.system_indices.enabled` | Set to `true` to enable system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by a super-admin only. No role provides access to these indexes. |
-| `plugins.security.system_indices.indices` | Enter a list of indexes to be used as system indexes. [The `opensearch.yml.example` file also includes this description: "These indices will only be visible / mutable by members of the above setting, in addition to needing permission to the index via a normal role." But it doesn't make sense for this setting.] |
-
-
-<!--- And that's not all... --->
-
-plugins.security.ssl.http.crl.disable_ocsp → Disable OSCP
-plugins.security.ssl.http.crl.disable_crldp→ Default false, disable CRL endpoints in certs
-plugins.security.ssl.allow_client_initiated_renegotiation → Enable/disable client renegotiation
-plugins.security.system_indices.enabled → Enable system indices
-plugins.security.system_indices.indices → List of system indices
+| `plugins.security.system_indices.enabled` | Set to `true` to enable system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by either a super-admin or a user with a role that includes the [system index permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions). For more information about system indexes, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). |
+| `plugins.security.system_indices.indices` | Enter a list of indexes to be used as system indexes. This setting is controlled by the `plugins.security.system_indices.enabled` setting. |
 
 
 ### Hostname verification and DNS lookup
@@ -157,9 +148,11 @@ plugins.security.system_indices.indices → List of system indices
 | `plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is true. |
 | `plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is true. Only works if hostname verification is also enabled. |
 
+
 ### Client authentication
 
 | `plugins.security.ssl.http.clientauth_mode` | The TLS client authentication mode to use. Can be one of `NONE`, `OPTIONAL` (default) or `REQUIRE`. Optional. |
+
 
 ### Enabled ciphers and protocols
 
@@ -171,6 +164,7 @@ Values for these settings are expressed in an array. See [Enabled ciphers and pr
 | `plugins.security.ssl.http.enabled_protocols` | Enabled TLS protocols for the REST layer. Only Java format is supported. |
 | `plugins.security.ssl.transport.enabled_ciphers` | Enabled TLS cipher suites for the transport layer. Only Java format is supported. |
 | `plugins.security.ssl.transport.enabled_protocols` | Enabled TLS protocols for the transport layer. Only Java format is supported. |
+
 
 ### Keystore and truststore files--Transport layer TLS
 
@@ -186,6 +180,7 @@ see [Transport layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tl
 | `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.transport.truststore_alias` | Alias name. Optional. Default is all certificates. |
 | `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`. |
+
 
 ### Keystore and truststore files--REST layer TLS
 
@@ -203,6 +198,7 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.http.truststore_alias` | Alias name. Optional. Default is all certificates. |
 | `plugins.security.ssl.http.truststore_password` | Truststore password. Default is `changeit`. |
 
+
 ### OpenSSL
 
 For more information, see [OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-openssl).
@@ -211,6 +207,7 @@ For more information, see [OpenSSL]({{site.url}}{{site.baseurl}}/security/config
 | :--- | :--- |
 | `plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is `true`. |
 | `plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is `true`. |
+
 
 ### X.509 PEM certificates and PKCS #8 keys--Transport layer TLS
 
@@ -223,6 +220,7 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.transport.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required. |
 
+
 ### X.509 PEM certificates and PKCS #8 keys--REST layer TLS
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls).
@@ -232,6 +230,7 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional. |
 | `plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the config directory, specified using a relative path. Required. |
+
 
 ### Transport Layer Security
 <!--- Not sure whether this is the best way to describe a category for these settings, and not sure whether they fit into a cohesive group of related settings. Need to solicit info from Security team that clarifies how these fit or don't fit with other TLS settings (above). Many of these descriptions need clarification (they came across very rough). --->
@@ -253,26 +252,8 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.http.crl.prefer_crlfile_over_ocsp` | Default is `false`. CRL certificate entry is preferred over OCSP entry if the certificate contains both. |
 | `plugins.security.ssl.http.crl.check_only_end_entitites` | Default is `true`. When `true`, only leaf certificates are validated. |
 | `plugins.security.ssl.http.crl.disable_ocsp` | Disables OSCP. |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-
-
-
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
-| n | d |
+| `plugins.security.ssl.http.crl.disable_crldp` | Default is `false`. Disables CRL endpoints in certificates. |
+| `plugins.security.ssl.allow_client_initiated_renegotiation` | Enables or disables client renegotiation. |
 
 
 ## Security plugin settings examples
