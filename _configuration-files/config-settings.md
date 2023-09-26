@@ -173,6 +173,8 @@ For more information, see [Hostname verification and DNS lookup]({{site.url}}{{s
 
 For more information, see [Client authentication]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-client-authentication).
 
+| Setting | Description |
+| :--- | :--- |
 | `plugins.security.ssl.http.clientauth_mode` | The TLS client authentication mode to use. Can be one of `NONE`, `OPTIONAL` (default) or `REQUIRE`. Optional. |
 
 
@@ -247,6 +249,8 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls).
 
+| Setting | Description |
+| :--- | :--- |
 | `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`. |
 | `plugins.security.ssl.http.pemkey_filepath` | Path to the certificate’s key file (PKCS #8), which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional. |
@@ -288,6 +292,7 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.check_snapshot_restore_write_privileges` | [More description needed] |
 | `config.dynamic.http.anonymous_auth_enabled` | [More description needed] <!--- Search Guard has a similar "legacy configuration" setting: `dynamic.http.anonymous_auth_enabled`. Our current security documentation mentions an `anonymous_auth_enabled` setting in the HTTP section of the `config.yml file. See issue #627: https://github.com/opensearch-project/documentation-website/issues/627. --->
 | `opendistro_security_anonymous_backendrole` | [More description needed] <!--- Like the `anonymous_auth_enabled` setting above, this may be configured elsewhere now. Need clarification from Security team. See issue #627: https://github.com/opensearch-project/documentation-website/issues/627. --->
+
 
 ## Security plugin settings examples
 <!--- another option for these section would be to simply add the example value in the description above where these are defined. It's beginning to feel like a better idea. Although, then, you wouldn't be able to express them in YAML format, and you miss the visual cues that could help a user understand proper formatting. --->
