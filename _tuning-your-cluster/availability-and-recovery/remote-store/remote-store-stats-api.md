@@ -7,6 +7,7 @@ grand_parent: Availability and recovery
 ---
 
 # Remote Store Stats API
+
 Introduced 2.8
 {: .label .label-purple }
 
@@ -264,70 +265,76 @@ The response body of the Remote Store Stats API is split into three categories:
 * `segment` : Contains stats related to segment transfers from remote-backed storage.
 * `translog` : Contains stats related to translog transfers from remote-backed storage.
 
+#### routing
+
 The `routing` object contains the following fields:
 
 |Field	|Description	|
 |:---	|:---	|
-|primary    |Denotes if the shard copy is primary or not    |
-|node   |Node name to which the shard is assigned to    |
+| `primary` | Denotes if the shard copy is primary shard or not.|
+| `node` | Node name to which the shard is assigned. |
+
+#### segment
 
 The `segment.upload` object contains the following fields:
 
 |Field	|Description	|
 |:---	|:---	|
-|local_refresh_timestamp_in_millis  | The last successful local refresh timestamp, in milliseconds.  |
+| `local_refresh_timestamp_in_millis` | The last successful local refresh timestamp, in milliseconds.  |
 | `remote_refresh_timestamp_in_millis` | The last successful remote refresh timestamp, in milliseconds. |
 | `refresh_time_lag_in_millis` | The time, in milliseconds, the remote refresh is behind the local refresh. |
 | `refresh_lag` | The number of refreshes by which the remote store is lagging behind the local store.   |
-|bytes_lag  |The bytes lag between the remote and local store.  |
-|backpressure_rejection_count   |The total number of write rejections made because of remote store backpressure.    |
-|consecutive_failure_count  |The number of consecutive remote refresh failures since the last success.  |
-|total_remote_refresh   |The total number of remote refreshes.  |
-|total_uploads_in_bytes |The total number of bytes in all uploads to the remote store.  |
-|remote_refresh_size_in_bytes.last_successful   |The size of data uploaded in the last successful refresh.  |
-|remote_refresh_size_in_bytes.moving_avg    |The average size of data (in bytes) uploaded in the last *N* refreshes. *N* is defined in remote_store.moving_average_window_size. For details, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
-|upload_latency_in_bytes_per_sec.moving_avg |The average speed of remote store segment uploads (in bytes per second) for the last *N* uploads. *N* is defined in remote_store.moving_average_window_size. For details, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
-|remote_refresh_latency_in_millis.moving_avg    |The average time taken by a single remote refresh during the last *N* remote refreshes. *N* is defined in remote_store.moving_average_window_size. For details, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
+| `bytes_lag` | The lag in bytes between the remote and local store.  |
+| `backpressure_rejection_count` | The total number of write rejections made due to backpressure in the remote store.    |
+| `consecutive_failure_count` | The number of consecutive remote refresh failures since the last successful refresh.  |
+| `total_remote_refresh` | The total number of remote refreshes.  |
+| `total_uploads_in_bytes` | The total number of bytes in all uploads to the remote store.  |
+| `remote_refresh_size_in_bytes.last_successful` | The size of the data uploaded during the last successful refresh.  |
+| `remote_refresh_size_in_bytes.moving_avg` | The average size of data, in bytes, uploaded in the last *N* refreshes. *N* is defined in the `remote_store.moving_average_window_size` setting. For details, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/). |
+| `upload_latency_in_bytes_per_sec.moving_avg` | The average speed of remote segment uploads, in bytes per second, for the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting. For details, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
+| `remote_refresh_latency_in_millis.moving_avg` | The average time taken by a single remote refresh during the last *N* remote refreshes. *N* is defined in `remote_store.moving_average_window_size` setting. For details, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
 
 The `segment.download` object contains the following fields:
 
 |Field	|Description	|
 |:---	|:---	|
-|last_sync_timestamp    |Timestamp in epoch millis for the last successful segement file download from the remote store |
-|total_download_size.started_bytes  |Total bytes of segment files attempted to be downloaded from the remote store  |
-|total_download_size.succeeded_bytes    |Total bytes of segment files successfully downloaded from the remote store |
-|total_download_size.failed_bytes   |Total bytes of segment files failed to be downloaded from the remote store |
-|download_size_in_bytes.last_successful |Size of the last successful segment file downloaded from the remote store  |
-|download_size_in_bytes.moving_avg  |The average size of segement data (in bytes) downloaded in the last 20 downloads.  |
-|download_speed_in_bytes_per_sec.moving_avg |The average download speed (in bytes/sec) for the last 20 downloads.   |
+| `last_sync_timestamp`| The timestamp in millisecond since the last successful segement file download from the remote-backed storage. |
+| `total_download_size.started_bytes` | The total number of bytes of segment files actively being downloaded from remote-backed storage.   |
+| `total_download_size.succeeded_bytes` | The total number of bytes of successfully downloaded segment files from remote-backed storage. |
+| `total_download_size.failed_bytes` | The total number of bytes of segment files that failed to download from remote-back storage. |
+| `download_size_in_bytes.last_successful` | The size, in bytes, of the last successful segment file downloaded from remote-backed storage. |
+| `download_size_in_bytes.moving_avg`  | The average size of segement data, in bytes, downloaded in the last 20 downloads. |
+| `download_speed_in_bytes_per_sec.moving_avg` | The average download speed, in bytes per seconds, for the last 20 downloads. |
+
+#### translog
 
 The `translog.upload` object contains the following fields:
 
 |Field	|Description	|
 |:---	|:---	|
-|last_successful_upload_timestamp   |Timestamp in epoch millis for the last successful translog file upload to the remote store |
-|total_uploads.started  |Total number of attempted translog upload syncs to the remote store    |
-|total_uploads.failed   |Total number of failed translog upload syncs to the remote store   |
-|total_uploads.succeeded    |Total number of succeeded translog upload syncs to the remote store    |
-|total_upload_size.started_bytes    |Total bytes of translog files attempted to be uploaded to the remote store |
-|total_upload_size.succeeded_bytes  |Total bytes of translog files successfully uploaded to the remote store    |
-|total_upload_size.failed_bytes |Total bytes of translog files failed to be uploaded to the remote store    |
-|total_upload_time_in_millis    |Total time spent in translog uploads to the remote store   |
-|upload_size_in_bytes.moving_avg    |The average size of translog data (in bytes) uploaded in the last *N* downloads. *N* is defined in remote_store.moving_average_window_size.    |
-|upload_speed_in_bytes_per_sec.moving_avg   |The average speed of remote store translog uploads (in bytes per second) for the last *N* uploads. *N* is defined in remote_store.moving_average_window_size.    |
-|upload_time_in_millis.moving_avg   |The average time taken by a single translog upload (in milliseconds) for the last *N* uploads. *N* is defined in remote_store.moving_average_window_size.    |
+| `last_successful_upload_timestamp`| The timestamp, in milliseconds, since the last successful translog file uploaded to remore-backed storage. |
+| `total_uploads.started` | The total number of attempted translog upload syncs to remote-backed storage. |
+| `total_uploads.failed` | The total number of failed translog upload syncs to remote-backed storage.   |
+| `total_uploads.succeeded` | The total number of successful translog upload syncs to remote-backed storage.  |
+| `total_upload_size.started_bytes` | The total number of bytes of translog files actively being downloaded from remote-backed storage. |
+| `total_upload_size.succeeded_bytes` | The total number of bytes of translog files successfully uploaded to remote-backed storage. |
+|`total_upload_size.failed_bytes` | The total number of bytes of translog files that failed to uploaded to remote-backed storage. |
+| `total_upload_time_in_millis` | The total time spent, in milliseconds, uploading translog files to remote-backed storage. |
+| `upload_size_in_bytes.moving_avg` | The average size of translog data, in bytes, uploaded in the last *N* downloads. *N* is defined in the `remote_store.moving_average_window_size` setting. |
+| `upload_speed_in_bytes_per_sec.moving_avg` | The average speed of translog uploads, in bytes per second, for the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting.    |
+| `upload_time_in_millis.moving_avg` | The average time taken by a single translog upload, in milliseconds, since the last *N* uploads. *N* is defined in `remote_store.moving_average_window_size` setting.    |
 
 The `translog.download` object contains the following fields:
 
 |Field	|Description	|
 |:---	|:---	|
-|last_successful_download_timestamp |Timestamp in epoch millis for the last successful translog file download from the remote store |
-|total_downloads.succeeded  |Total number of successful translog download syncs from the remote store   |
-|total_download_size.succeeded_bytes    |Total bytes of translog files successfully download from the remote store  |
-|total_download_time_in_millis  |Total time spent in translog downloads from the remote store   |
-|download_size_in_bytes.moving_avg  |The average size of translog data (in bytes) downloaded in the last *N* downloads. *N* is defined in remote_store.moving_average_window_size.    |
-|download_speed_in_bytes_per_sec.moving_avg |The average speed of remote store translog downloads (in bytes per second) for the last *N* downloads. *N* is defined in remote_store.moving_average_window_size.    |
-|download_time_in_millis.moving_avg |The average time taken by a single translog download (in milliseconds) for the last *N* downloads. *N* is defined in remote_store.moving_average_window_size.    |
+| `last_successful_download_timestamp` | The timestamp, in milliseconds, since the last successful translog file uploaded to remote-backed storage. |
+| `total_downloads.succeeded` | The total number of successful translog download syncs from remote-backed storage. |
+| `total_download_size.succeeded_bytes` | The total number of bytes of translog files successfully uploaded from remote-backed storage.  |
+| `total_download_time_in_millis` | The total time spent, in milliseconds, downloading translog files from remote-backed storage.  |
+| `download_size_in_bytes.moving_avg`  | The average size of translog data, in bytes, downloaded in the last *N* downloads. *N* is defined in the `remote_store.moving_average_window_size` setting.    |
+| `download_speed_in_bytes_per_sec.moving_avg` | The average speed of translog downloads, in bytes per second, for the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting.   |
+| `download_time_in_millis.moving_avg` |  The average time taken by a single translog download, in milliseconds, since the last *N* uploads. *N* is defined in `remote_store.moving_average_window_size` setting.  |
 
 ## Remote store stats for a single shard
 
@@ -463,7 +470,8 @@ GET _remotestore/stats/<index_name>/<shard_id>
 
 ### Remote store stats for a local shard
 
-Provide the `local` query parameter set to `true` to only fetch the shards present on the node that is serving the request:
+If you want to only fetch shards present on the node serving a Remote Store Stats API request, set the `local` query parameter to `true`, as shown in the following example request:
+
 
 ```json
 GET _remotestore/stats/<index_name>?local=true
