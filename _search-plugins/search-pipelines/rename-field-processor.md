@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Rename field processor
+title: Rename field
 nav_order: 20
 has_children: false
 parent: Search processors

@@ -116,6 +116,29 @@ Parameter | Type | Description
             "version_map_memory_in_bytes": 0,
             "fixed_bit_set_memory_in_bytes": 1112,
             "max_unsafe_auto_id_timestamp": 1644269449096,
+            "remote_store" : {
+               "upload" : {
+                  "total_upload_size" : {
+                     "started_bytes" : 152419,
+                     "succeeded_bytes" : 152419,
+                     "failed_bytes" : 0
+                  },
+                  "refresh_size_lag" : {
+                     "total_bytes" : 0,
+                     "max_bytes" : 0
+                  },
+                  "max_refresh_time_lag_in_millis" : 0,
+                  "total_time_spent_in_millis" : 516
+               },
+               "download" : {
+                  "total_download_size" : {
+                     "started_bytes" : 0,
+                     "succeeded_bytes" : 0,
+                     "failed_bytes" : 0
+                  },
+                  "total_time_spent_in_millis" : 0
+               }
+            },
             "file_sizes": {}
         },
         "mappings": {
@@ -491,3 +514,4 @@ nodes.network_types | The transport and HTTP networks within the nodes.
 nodes.discovery_type | The method the nodes use to find other nodes within the cluster.
 nodes.packaging_types | Information about the nodes' OpenSearch distribution.
 nodes.ingest | Information about the nodes' ingest pipelines/nodes, if there are any.
+total_time_spent | The total amount of download and upload time spent across all shards in the cluster when downloading or uploading from the remote store.

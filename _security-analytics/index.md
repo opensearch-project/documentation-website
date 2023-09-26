@@ -12,7 +12,9 @@ redirect_from:
 
 # About Security Analytics
 
+
 Security Analytics is a security information and event management (SIEM) solution for OpenSearch, designed to investigate, detect, analyze, and respond to security threats that can jeopardize the success of businesses and organizations and their online operations. These threats include the potential exposure of confidential data, cyber attacks, and other adverse security events. Security Analytics provides an out-of-the-box solution that installs automatically with any OpenSearch distribution. It includes the tools and features necessary for defining detection parameters, generating alerts, and responding effectively to potential threats.
+
 
 ### Resources and information
 
@@ -26,11 +28,13 @@ If you would like to leave feedback that could help improve Security Analytics, 
 
 Security Analytics includes a number of tools and features elemental to its operation. The major components that compose the plugin are summarized in the following sections.
 
+
 ### Detectors
 
 Detectors are core components that are configured to identify a range of cybersecurity threats corresponding to an ever-growing knowledge base of adversary tactics and techniques maintained by the [MITRE ATT&CK](https://attack.mitre.org/) organization. Detectors use log data to evaluate events occurring in the system. They then apply a set of security rules specified for the detector and determine findings from these events.
 
 For information about configuring detectors, see [Creating detectors]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/).
+
 
 ### Log types
 
@@ -38,11 +42,13 @@ Log types provide the data used to evaluate events occurring in a system. OpenSe
 
 Log types are specified during the creation of detectors, including steps for mapping log fields to the detector. Security Analytics also automatically selects an appropriate set of rules based on a specific log type and populates them for the detector.
 
+
 ### Detection rules
 
 The security rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security Analytics uses prepackaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide Security Analytics users with options for importing and customizing the rules. You can take advantage of these options using either OpenSearch Dashboards or the API.
 
 For information about configuring rules, see [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/).
+
 
 ### Findings
 
@@ -50,11 +56,13 @@ Findings are generated every time a detector matches a rule with a log event. Fi
 
 To learn more about findings, see [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/).
 
+
 ### Alerts
 
 When defining a detector, you can specify certain conditions that will trigger an alert. When an event triggers an alert, the system sends a notification to a preferred channel, such as Amazon Chime, Slack, or email. The alert can be triggered when the detector matches one or multiple rules. Further conditions can be set by rule severity and tags. You can also create a notification message with a customized subject line and message body.
 
 For information about setting up alerts, see [Step 4. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-4-set-up-alerts) in the detector creation documentation. For information about managing alerts in the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
+
 
 ### Correlation engine
 
