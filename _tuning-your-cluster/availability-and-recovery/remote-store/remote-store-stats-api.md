@@ -10,9 +10,9 @@ grand_parent: Availability and recovery
 Introduced 2.8
 {: .label .label-purple }
 
-Use the Remote Store Stats API to monitor shard-level remote store performance. Metrics are only relevant if the index is remote store backed.
+Use the Remote Store Stats API to monitor shard-level remote-backed storage performance. 
 
-For an aggregated output on an index, node or cluster level, use the Index Stats, Nodes Stats or Cluster Stats API respectively.
+Metrics returned from this API only relate to indexes stored on remote-backed nodes. For an aggregated output on an index in a node or cluster level, use the [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/), [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) or [Cluster Stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) APIs.
 
 ## Path and HTTP methods
 
@@ -258,11 +258,11 @@ GET _remotestore/stats/<index_name>
 
 ### Response fields
 
-The response is categorized into 3 parts:
+The response body of the Remote Store Stats API is split into three categories:
 
-* `routing` : Contains information related to the shard’s routing
-* `segment` : Contains stats related to segment transfers to and from the remote store
-* `translog` : Contains stats related to translog transfers to and from the remote store
+* `routing` : Contains information related to the shard’s routing.
+* `segment` : Contains stats related to segment transfers from remote-backed storage.
+* `translog` : Contains stats related to translog transfers from remote-backed storage.
 
 The `routing` object contains the following fields:
 
@@ -275,10 +275,10 @@ The `segment.upload` object contains the following fields:
 
 |Field	|Description	|
 |:---	|:---	|
-|local_refresh_timestamp_in_millis  |Last successful local refresh timestamp (in milliseconds)  |
-|remote_refresh_timestamp_in_millis |Last successful remote refresh timestamp (in milliseconds) |
-|refresh_time_lag_in_millis |The time (in milliseconds) the remote refresh is behind the local refresh. |
-|refresh_lag    |The number of refreshes by which the remote store is lagging behind the local store.   |
+|local_refresh_timestamp_in_millis  | The last successful local refresh timestamp, in milliseconds.  |
+| `remote_refresh_timestamp_in_millis` | The last successful remote refresh timestamp, in milliseconds. |
+| `refresh_time_lag_in_millis` | The time, in milliseconds, the remote refresh is behind the local refresh. |
+| `refresh_lag` | The number of refreshes by which the remote store is lagging behind the local store.   |
 |bytes_lag  |The bytes lag between the remote and local store.  |
 |backpressure_rejection_count   |The total number of write rejections made because of remote store backpressure.    |
 |consecutive_failure_count  |The number of consecutive remote refresh failures since the last success.  |
