@@ -62,7 +62,6 @@ cluster.remote_store.translog.repository: my-repo-1
 ## Security plugin settings
 <!--- It might be a good idea to have Security settings broken up into level-heading 3 tables, since there are so many. I started doing that below. --->
 
-
 The settings in the following tables apply specifically to the Security plugin.
 
 
@@ -78,43 +77,39 @@ The settings in the following tables apply specifically to the Security plugin.
 
 ### REST management API configuration
 
+| Setting | Description |
+| :--- | :--- |
 | `plugins.security.restapi.roles_enabled` | Enables role based access to the REST management API for listed roles. Roles are separated by a comma. Default is that no role is allowed to access the REST management API (an empty list). |
-
-| `config.dynamic.http.anonymous_auth_enabled` | [More description needed] <!--- Search Guard has a similar "legacy configuration" setting: `dynamic.http.anonymous_auth_enabled`. Our current security documentation mentions an `anonymous_auth_enabled` setting in the HTTP section of the `config.yml file. See issue #627: https://github.com/opensearch-project/documentation-website/issues/627. --->
-| `opendistro_security_anonymous_backendrole` | [More description needed] <!--- Like the `anonymous_auth_enabled` setting above, this may be configured elsewhere now. Need clarification from Security team. See issue #627: https://github.com/opensearch-project/documentation-website/issues/627. --->
-
-| `plugins.security.allow_default_init_securityindex` | [More description needed] |
-
-| `plugins.security.cert.intercluster_request_evaluator_class` | [More description needed] |
-
-| `plugins.security.enable_snapshot_restore_privilege` | [More description needed] |
-| `plugins.security.check_snapshot_restore_write_privileges` | [More description needed] |
-| `plugins.security.restapi.roles_enabled` | [More description needed] |
-| `cluster.routing.allocation.disk.threshold_enabled` | [More description needed] |
-
-| `plugins.security.restapi.password_validation_regex` | [More description needed] |
-| `plugins.security.restapi.password_validation_error_message` | [More description needed] |
-| `plugins.security.allow_default_init_securityindex` | [More description needed] |
-| `plugins.security.cache.ttl_minutes` | [More description needed] |
-
-
 | `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. |
-
-| `plugins.security.authcz.impersonation_dn` | Enables transport layer impersonation. This allows DNs (distinguished names) to impersonate as other users. |
-| `plugins.security.authcz.rest_impersonation_user` | Enables REST layer impersonation. This allows users to impersonate as other users. |
-| `plugins.security.allow_default_init_securityindex` | When set to `true`, OpenSearch Security will automatically initialize the configuration index with the files in the /config directory if the index does not exist. _This will use well-known default passwords. Use only in a private network/environment._ |
-| `plugins.security.allow_unsafe_democertificates` | When set to `true`, OpenSearch starts up with demo certificates. These certificates are issued by **floragunn GmbH** for demo purposes. _These certificates are well known and therefore unsafe for production. Use only in a private network/environment._ |
-| `plugins.security.cache.ttl_minutes` | Determines how long it takes for authentication caching to time out. The authentication cache helps speed up authentication by temporarily storing user objects returned from the backend so that the Security plugin is not required to make repeated requests for them. Set the value in minutes. The default is `60`. Disable caching by setting the value to `0`. |
 | `plugins.security.restapi.password_validation_regex` | Specify a regular expression (regex) to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings). |
 | `plugins.security.restapi.password_validation_error_message` | Enter an error message that loads when a password doesn’t pass validation. This setting is used in conjunction with `plugins.security.restapi.password_validation_regex`. |
 | `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings). |
 | `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. The options are `fair`, `good`, `strong`, `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`. |
+
+
+### Advanced configuration
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.authcz.impersonation_dn` | Enables transport layer impersonation. This allows DNs (distinguished names) to impersonate as other users. |
+| `plugins.security.authcz.rest_impersonation_user` | Enables REST layer impersonation. This allows users to impersonate as other users. |
+| `plugins.security.allow_default_init_securityindex` | When set to `true`, OpenSearch Security will automatically initialize the configuration index with the files in the /config directory if the index does not exist. _This will use well-known default passwords. Use only in a private network/environment._ |
+| `plugins.security.allow_unsafe_democertificates` | When set to `true`, OpenSearch starts up with demo certificates. These certificates are issued only for demo purposes. _These certificates are well known and therefore unsafe for production. Use only in a private network/environment._ |
+| `plugins.security.system_indices.permissions.enabled` | Enables the system index permissions feature. When set to `true`, the feature is enabled and users with permission to modify roles can create roles that include permissions that grant access to system indexes. When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the permission is set to `false` in a new cluster. |
+
+
+### Expert configuration
+
+An expert setting should only be configured and deployed by an admin who understands the feature completely. Misunderstandings of a feature can lead to security risks or cause the Security plugin to not operate properly.
+
+| Setting | Description |
+| :--- | :--- |
 | `plugins.security.config_index_name` | The name of the index where .opendistro_security stores its configuration. |
 | `plugins.security.cert.oid` | This defines the OID of server node certificates. |
 | `plugins.security.cert.intercluster_request_evaluator_class` | Specifies the implementation of org.opensearch.security.transport.InterClusterRequestEvaluator that is used to determine inter-cluster request. Instances of org.opensearch.security.transport.InterClusterRequestEvaluator must implement a single argument constructor that takes an org.opensearch.common.settings.Settings. [Not sure what this means. More description needed.] |
 | `plugins.security.enable_snapshot_restore_privilege` | When set to `false`, this disables snapshot restore for normal users. In this case, only snapshot restore requests signed by an admin TLS certificate are accepted. By default (`true`), normal users can restore snapshots if they have the privileges 'cluster:admin/snapshot/restore', 'indices:admin/create', and 'indices:data/write/index' [They must have all of these?]. NOTE: A snapshot can only be restored when it does not contain global state and does not restore the '.opendistro_security' index. |
 | `plugins.security.check_snapshot_restore_write_privileges` | When set to `false`, additional index checks are omitted. [This needs further explanation] |
-| `plugins.security.cache.ttl_minutes` | Authentication cache timeout in minutes. A value of `0` disables caching. The default is `60`. |
+| `plugins.security.cache.ttl_minutes` | Determines how long it takes for authentication caching to time out. The authentication cache helps speed up authentication by temporarily storing user objects returned from the backend so that the Security plugin is not required to make repeated requests for them. Set the value in minutes. The default is `60`. Disable caching by setting the value to `0`. |
 | `plugins.security.disabled` | Disables OpenSearch Security. WARNING: This can expose your configuration (including passwords) to the public. |
 | `plugins.security.protected_indices.enabled` | Set to `true` to enable protected indexes. Protected indexes are even more secure than normal indexes. These indexes require a role to access like any other traditional index, but they also require an additional role to be visible. This setting is used in conjunction with the `plugins.security.protected_indices.roles` and `plugins.security.protected_indices.indices` settings. |
 | `plugins.security.protected_indices.roles` | Specifies a list of roles to which a user must be mapped to access protected indexes. [a user must be mapped to all roles in the list, if there are multiple?] |
@@ -282,6 +277,17 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.http.crl.disable_crldp` | Default is `false`. Disables CRL endpoints in certificates. |
 | `plugins.security.ssl.allow_client_initiated_renegotiation` | Enables or disables client renegotiation. |
 
+
+### Other configuration settings
+
+| Setting | Description |
+| :--- | :--- |
+| `plugins.security.allow_default_init_securityindex` | When set to `true`, sets the Security plugin to its default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the opensearch-project/security/config directory. By default, this setting is `false`. |
+| `plugins.security.cert.intercluster_request_evaluator_class` | [More description needed] |
+| `plugins.security.enable_snapshot_restore_privilege` | [More description needed] |
+| `plugins.security.check_snapshot_restore_write_privileges` | [More description needed] |
+| `config.dynamic.http.anonymous_auth_enabled` | [More description needed] <!--- Search Guard has a similar "legacy configuration" setting: `dynamic.http.anonymous_auth_enabled`. Our current security documentation mentions an `anonymous_auth_enabled` setting in the HTTP section of the `config.yml file. See issue #627: https://github.com/opensearch-project/documentation-website/issues/627. --->
+| `opendistro_security_anonymous_backendrole` | [More description needed] <!--- Like the `anonymous_auth_enabled` setting above, this may be configured elsewhere now. Need clarification from Security team. See issue #627: https://github.com/opensearch-project/documentation-website/issues/627. --->
 
 ## Security plugin settings examples
 <!--- another option for these section would be to simply add the example value in the description above where these are defined. It's beginning to feel like a better idea. Although, then, you wouldn't be able to express them in YAML format, and you miss the visual cues that could help a user understand proper formatting. --->
