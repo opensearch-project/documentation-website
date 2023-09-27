@@ -859,7 +859,7 @@ $footer-1-column-max: 833px;
     @include mq(md) {
       position: relative;
     }
-    @media screen and(max-width: 1200px) {
+    @media screen and (max-width: 1200px) {
       padding-right: 10px;
     }
   }
