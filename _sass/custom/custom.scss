@@ -1154,6 +1154,10 @@ $footer-1-column-max: 833px;
               height: 100%;
               right: 0;
               left: auto;
+              top: 13.5px;
+              @media screen and (max-width: $header-banner-mobile-breakpoint) {
+                top: 21px;
+              }
             }
 
             >.search-label {
@@ -1166,6 +1170,7 @@ $footer-1-column-max: 833px;
               @media screen and (max-width: $header-banner-mobile-breakpoint) {
                 width: 25px;
                 height: 26px;
+                top: 17px;
               }
             }
           }
@@ -1246,6 +1251,9 @@ $footer-1-column-max: 833px;
               }
               > h4 {
                   @include header-level4($white);
+                  margin-top: 35px;
+                  margin-bottom: 20px;
+                  font-size: 15px !important; // Sorry, but the base theme uses !important.
               }
               > ul {
                   list-style-type: none;
@@ -1303,7 +1311,7 @@ $footer-1-column-max: 833px;
   }
 
   ul {
-    @include font-size(14);
+    font-size: 14px;
     font-weight: 400;
     list-style: none;
     margin: 15px 0 0 0;
@@ -1331,7 +1339,7 @@ $footer-1-column-max: 833px;
   .footer {
     background: $primary-deep-blue-sea-s3;
     padding: 10px 0 30px;
-    color: $white;
+    color: #d9d9d9;
     .footer--flex-wrapper {
       text-align: center;
       .footer--legal-rows-wrapper {
@@ -1352,6 +1360,7 @@ $footer-1-column-max: 833px;
         }
         > .footer--legal-rows-wrapper--row {
           flex-basis: 60px;
+          font-size: 18px;
           @media screen and (max-width: $footer-1-column-max) {
             > .footer--legal-rows-wrapper--row--logo__desktop {
                 display: none;
