@@ -651,6 +651,140 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>FollowerCheck_Latency (WIP)
       </td>
     </tr>
+    <tr>
+      <td>searchbp_shard_stats_cancellationCount
+      </td>
+      <td rowspan="22">NodeID, searchbp_mode
+      </td>
+      <td>The number of tasks marked for cancellation, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_limitReachedCount
+      </td>
+      <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_heap_usage_cancellationCount
+      </td>
+      <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_heap_usage_currentMax
+      </td>
+      <td>The maximum heap usage for tasks currently running, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_heap_usage_rollingAvg
+      </td>
+      <td> The rolling average heap usage for n most recent tasks, on search shard task level. The default value for n is 100.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_cpu_usage_cancellationCount
+      </td>
+      <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_cpu_usage_currentMax
+      </td>
+      <td>The maximum CPU time for all tasks currently running on the node, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_cpu_usage_currentAvg
+      </td>
+      <td>The average CPU time for all tasks currently running on the node, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_elaspedtime_usage_cancellationCount
+      </td>
+      <td>The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_elaspedtime_usage_currentMax
+      </td>
+      <td>The maximum elapsed time for all tasks currently running on the node, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_shard_stats_resource_elaspedtime_usage_currentAvg
+      </td>
+      <td>The average elapsed time for all tasks currently running on the node, on search shard task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_cancellationCount
+      </td>
+      <td>The number of tasks marked for cancellation, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_limitReachedCount
+      </td>
+      <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_heap_usage_cancellationCount
+      </td>
+      <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_heap_usage_currentMax
+      </td>
+      <td>The maximum heap usage for tasks currently running, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_heap_usage_rollingAvg
+      </td>
+      <td> The rolling average heap usage for n most recent tasks, on search task level. The default value for n is 100.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_cpu_usage_cancellationCount
+      </td>
+      <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_cpu_usage_currentMax
+      </td>
+      <td>The maximum CPU time for all tasks currently running on the node, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_cpu_usage_currentAvg
+      </td>
+      <td>The average CPU time for all tasks currently running on the node, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_elaspedtime_usage_cancellationCount
+      </td>
+      <td>The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_elaspedtime_usage_currentMax
+      </td>
+      <td>The maximum elapsed time for all tasks currently running on the node, on search task level.
+      </td>
+    </tr>
+    <tr>
+      <td>searchbp_task_stats_resource_elaspedtime_usage_currentAvg
+      </td>
+      <td>The average elapsed time for all tasks currently running on the node, on search task level.
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -677,3 +811,5 @@ MasterTaskPriority | Priority of the task (e.g. `URGENT`). OpenSearch executes h
 MasterTaskType | `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, `Update snapshot state`
 MasterTaskMetadata | Metadata for the task (if any).
 CacheType | `Field_Data_Cache`, `Shard_Request_Cache`, `Node_Query_Cache`
+NodeID | ID for the node
+searchbp_mode | `monitor_only` (default), `enforced`, `disabled`
