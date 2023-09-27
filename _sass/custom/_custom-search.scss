@@ -12,17 +12,19 @@
  *  Copyright (c) 2016 Patrick Marsceill
  *  SPDX-License-Identifier: MIT
  */
-
- // This is the sum of the logo + the navigation menu items + the search field.
- $header-banner-min-width: 1019px;
- $header-banner-mobile-breakpoint: 1018px;
  
  /*
   * Notes about some peculiar implementation details regarding the use of !important,
   * and media queries with pixels and similar media queries with rems.
   * The styles copied over from the project website that uses rems don't work in this
   * application, because of disparate roote font sizes. The theme in use provides
-  * rules using rems, and !important. So, there are some kludges present to get it done.
+  * rules using rems, and !important. Base theme rules set using !important are difficult
+  * to override without abandoning those classes all together.
+  * So, there are some kludges present to get it done. The longer term, future proof
+  * solution would be to reimplement NOT using those class names at all. Otherwise
+  * reuse of the header navigation across multiple repos is going to be problematic
+  * to maintain. It already is a problem sharing the design between both the project,
+  * and documentation websits.
   */
  .copy-banner {
    a,
@@ -363,7 +365,7 @@
    transition: opacity ease 400ms, width 0s 400ms, height 0s 400ms;
  }
  
- @media screen and (max-width: 1018px) {
+ @media screen and (max-width: $header-banner-mobile-breakpoint) {
    .search-active .search.opensearch-more-important {
      position: fixed !important;
      top: 0;
@@ -451,7 +453,7 @@
  
  .custom-search-results > div {
    padding: 0 16px;
-   @media screen and (min-width: 1019px) {
+   @media screen and (min-width: $header-banner-min-width) {
      padding: 16px;
    }
  }

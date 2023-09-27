@@ -1,10 +1,6 @@
-// This is the sum of the logo + the navigation menu items + the search field.
-$header-banner-min-width: 1019px;
-$header-banner-mobile-breakpoint: 1018px;
 $primary-open-sky-t3: #E1F0F9;
 $primary-open-sky-s2: #006D97;
 $primary-open-sky-s1: #0085B8;
-$text: #002a3a; //midnight sky
 
 @mixin header-level3($color: $primary-open-sky-s1) {
   color: $color;
