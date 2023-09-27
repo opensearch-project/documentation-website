@@ -746,7 +746,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>searchbp_task_stats_resource_heap_usage_rollingAvg
       </td>
-      <td> The rolling average heap usage for n most recent tasks, on search task level. The default value for n is 100.
+      <td> The rolling average heap usage for n most recent tasks, on search task level. The default value for n is 10.
       </td>
     </tr>
     <tr>
