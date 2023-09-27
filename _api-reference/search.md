@@ -173,3 +173,50 @@ version | Boolean | Whether to include the document version in the response.
   }
 }
 ```
+
+## The `ext` object
+
+Starting with OpenSearch 2.10, plugin authors can add an `ext` object to the search response. The purpose of the `ext` object is to contain plugin-specific response fields. For example, in conversational search, the result of Retrieval Augmented Generation (RAG) is a single "hit" (answer). Plugin authors can include this answer in the search response as part of the `ext` object so that it is separate from the search hits. In the following example response, the RAG result is in the `ext.retrieval_augmented_generation.answer` field:
+
+```json
+{
+  "took": 3,
+  "timed_out": false,
+  "_shards": {
+    "total": 3,
+    "successful": 3,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 110,
+      "relation": "eq"
+    },
+    "max_score": 0.55129033,
+    "hits": [
+      {
+       "_index": "...",
+        "_id": "...",
+        "_score": 0.55129033,
+        "_source": {
+          "text": "...",
+          "title": "..."
+        }
+      },
+      {
+      ...
+      }
+      ...
+      {
+      ...
+      }
+    ],
+  }, // end of hits
+  "ext": {
+    "retrieval_augmented_generation": { // a search response processor
+      "answer": "RAG answer"
+    }
+  }
+} 
+```
