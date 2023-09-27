@@ -109,13 +109,13 @@ You can use remote-backed storage for the following purposes:
 
 ## Benchmarks
 
-The OpenSearch team has run remote store using multiple workload options available within [OpenSearch Benchmark (OSB)](https://opensearch.org/docs/latest/benchmark/index/) tool. This section summarises the benchmark results for the following OSB workloads: 
+The OpenSearch team has run remote store using multiple workload options available within the [OpenSearch Benchmark (OSB)](https://opensearch.org/docs/latest/benchmark/index/) tool. This section summarizes the benchmark results for the following OSB workloads: 
 
 - [StackOverflow](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/so)
 - [HTTP logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs)
 - [NYC taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis),
 
-Each workload was tested using multiple cluster configurations indexing data using bulk indexing clients, which simulates a high level of requests made to the cluster concurrently. 
+Each workload was tested using multiple cluster configurations. Indexed data was added to each cluster using varying numbers of bulk indexing clients. This simulates a high level of requests made to the cluster concurrently. 
 
 Your results may vary based on your cluster topology, hardware used, shard count, and merge settings.
 
@@ -131,7 +131,7 @@ For these benchmarks, we used the following cluster, shard, and test configurati
 
 ### StackOverflow
 
-The following table lists the benchmarking results for the `so` workload a remote translog buffer interval of 250 ms.
+The following table lists the benchmarking results for the `so` workload with a remote translog buffer interval of 250 ms.
 
 |	|	|8 bulk indexing clients (Default)	|16 bulk indexing clients	|24 bulk indexing clients	|
 |---	|---	|---	|---	|---	|
