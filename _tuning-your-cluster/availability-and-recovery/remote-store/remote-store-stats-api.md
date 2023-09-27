@@ -13,7 +13,7 @@ Introduced 2.8
 
 Use the Remote Store Stats API to monitor shard-level remote-backed storage performance. 
 
-Metrics returned from this API only relate to indexes stored on remote-backed nodes. For an aggregated output on an index in a node or cluster level, use the [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/), [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) or [Cluster Stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) APIs.
+Metrics returned from this API only relate to indexes stored on remote-backed nodes. For an aggregated output on an index in a node or cluster level, use the [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/), [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) or [Cluster Stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) API.
 
 ## Path and HTTP methods
 
@@ -271,7 +271,7 @@ The `routing` object contains the following fields:
 
 |Field	|Description	|
 |:---	|:---	|
-| `primary` | Denotes if the shard copy is primary shard or not.|
+| `primary` | Denotes whether the shard copy is a primary shard or not.|
 | `node` | Node name to which the shard is assigned. |
 
 #### segment
@@ -282,7 +282,7 @@ The `segment.upload` object contains the following fields:
 |:---	|:---	|
 | `local_refresh_timestamp_in_millis` | The last successful local refresh timestamp, in milliseconds.  |
 | `remote_refresh_timestamp_in_millis` | The last successful remote refresh timestamp, in milliseconds. |
-| `refresh_time_lag_in_millis` | The time, in milliseconds, the remote refresh is behind the local refresh. |
+| `refresh_time_lag_in_millis` | The time, in milliseconds, that the remote refresh is behind the local refresh. |
 | `refresh_lag` | The number of refreshes by which the remote store is lagging behind the local store.   |
 | `bytes_lag` | The lag in bytes between the remote and local store.  |
 | `backpressure_rejection_count` | The total number of write rejections made due to backpressure in the remote store.    |
@@ -298,7 +298,7 @@ The `segment.download` object contains the following fields:
 
 |Field	|Description	|
 |:---	|:---	|
-| `last_sync_timestamp`| The timestamp in millisecond since the last successful segement file download from the remote-backed storage. |
+| `last_sync_timestamp`| The timestamp in milliseconds since the last successful segment file download from the remote-backed storage. |
 | `total_download_size.started_bytes` | The total number of bytes of segment files actively being downloaded from remote-backed storage.   |
 | `total_download_size.succeeded_bytes` | The total number of bytes of successfully downloaded segment files from remote-backed storage. |
 | `total_download_size.failed_bytes` | The total number of bytes of segment files that failed to download from remote-back storage. |
@@ -470,7 +470,7 @@ GET _remotestore/stats/<index_name>/<shard_id>
 
 ### Remote store stats for a local shard
 
-If you want to only fetch shards present on the node serving a Remote Store Stats API request, set the `local` query parameter to `true`, as shown in the following example request:
+If you want to fetch only shards present on the node serving a Remote Store Stats API request, set the `local` query parameter to `true`, as shown in the following example request:
 
 
 ```json
