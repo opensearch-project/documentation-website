@@ -10,10 +10,40 @@ has_children: true
 Updated 2.10
 {: .label .label-purple }
 
-Index patterns allow you to define field properties and customize how the data is visualized in OpenSearch Dashboards. An _index pattern_ is a way to define which data to use and how to interact with it in OpenSearch. An index pattern can point to one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain your data. 
+Index patterns are essential for querying and analyzing data in OpenSearch. They are used to define the fields that are available in the data and the mapping between the fields and their data types. Index patterns are also used to create dashboards and visualizations in OpenSearch Dashboards. 
 
-To visualize your data, you need to tell OpenSearch from which indexes to retrieve the data. Because it's a common approach to have data stored in multiple indexes, creating an index pattern enables your visualizations retrieve data from any indexes that match the index pattern. 
+An index pattern can point to one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain your data. To visualize your data, you need to tell OpenSearch from which indexes to retrieve the data. Because it's a common approach to have data stored in multiple indexes, creating an index pattern enables your visualizations retrieve data from any indexes that match the index pattern. 
 
+The following is a basic example of an index pattern:
+
+```json
+{
+    "index-patterns": ["my-index-*"],
+    "mappings": {
+        "my-field": {
+            "type": "string"
+        }
+    }
+}
+```
+
+This index pattern defines a single field, `my-field`, which is a string field. The index pattern also specifies that the index pattern matches any index that starts with the prefix `my-index`. 
+
+To use this index, you could query for all documents in the index pattern that have the value `my-value` in the `my-field` field, as shown in the following example:
+
+```json
+{
+    "query": {
+        "match": {
+            "my-field": "my-value"
+        }
+    }
+}
+```
+
+This query would return all documents in the `my-index-*` indexes that have the value `my-value` in the `my-field` field. 
+
+## Get started
 In this tutorial, you'll learn to create index patterns.  
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon" size="m"/>{:/}**Note**<br>
@@ -23,6 +53,14 @@ To create or modify index patterns, you must have write permissions. Contact you
 ## Prerequisites
 
 Before you can create an index pattern, your data must be indexed. To learn about indexing your data in OpenSearch, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/). 
+
+## Best practices
+
+Consider the following best practices when creating index patterns:
+
+- **Make your index patterns specific.** Instead of creating an index pattern that matches all indexes, create an index pattern that match all indexes starting with a certain prefix, for example, `my-index-`. The more specific your index patterns, the better it will be to query and analyze your data.
+- **Use wildcards sparingly.** Wildcards can be useful for matching multiple indexes, but they can also make it more difficult to manage your index patterns. Try to use wildcards as specifically as possible.
+- **Test your index patterns.** Make sure to test your index patterns to ensure they are matching the correct indexes. 
 
 ## Creating an index pattern
 
@@ -35,7 +73,7 @@ If you added sample data, you have index patterns that you can use to analyze th
 3. From the **Create index pattern** window, define the index pattern by entering a name for your index pattern in the **Index pattern name** field. Dashboards automatically adds a wildcard, `*`, once you start typing. Using a wildcard is helpful for matching an index pattern to multiple sources or indexes. A dropdown list displaying all the indexes that match your index pattern appears when you start typing. 
 4. Select **Next step**.
 
-An example using the index pattern `security*` is shown in the following image.
+An example using the index pattern `security*` is shown in the following image. Note that the index pattern `security*` matches three indexes. By defining the pattern with a wildcard `*`, you can query and visualize all the data in your indexes.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-patterns-step1.png" alt="Index pattern step 1 UI " width="700"/>
 
@@ -52,4 +90,5 @@ Once the index pattern has been created, you can view the mapping of the matchin
 
 ## Next steps
 
-- [Visualize your data]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
+- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
+- [Dig into your data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/)
