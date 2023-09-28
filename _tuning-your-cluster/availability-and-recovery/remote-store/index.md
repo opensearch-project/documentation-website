@@ -123,7 +123,7 @@ Your results may vary based on your cluster topology, hardware, shard count, and
 
 For these benchmarks, we used the following cluster, shard, and test configuration:
 
-* Node types: Three nodes---one data, one ingest, and one cluster manager node
+* Nodes: Three nodes, each using the data, ingest, and cluster manager roles
 * Node instance: Amazon EC2 r6g.xlarge
 * OpenSearch Benchmark host: Single Amazon EC2 m5.2xlarge instance
 * Shard configuration: Three shards with one replica
