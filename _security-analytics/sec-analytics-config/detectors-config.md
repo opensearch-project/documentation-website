@@ -12,7 +12,7 @@ Security Analytics provides the options and functionality to monitor and respond
 ---
 ## Step 1. Define a detector
 
-You can define a new detector by naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
+You can define a new detector by naming the detector and then selecting a data source and detector type. After defining a detector, you can also configure field mappings, create a detector schedule, and set up alerts. Follow the steps in this section to accomplish all of these setup tasks.
 
 1. On the **Threat detectors** page, choose **Create detector**. The **Define detector** page opens.
 1. In **Detector details**, give the detector a name. Adding a description for the detector is optional. 
@@ -21,7 +21,9 @@ You can define a new detector by naming the detector, selecting a data source an
     When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
     {: .note }
     
-1. In the **Log types and rules** section, select the log type for the data source from the dropdown list. The system automatically populates the detection rules associated with the log type.
+1. In the **Log types and rules** section, select the log type for the data source from the dropdown list. You can find a list of supported log types in the [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) topic.
+
+   After the log type is selected, the system automatically populates the detection rules associated with the log type.
    
    For information about creating your own detection rules, see [Creating detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-detection-rules). To create your own log types, see [Creating custom log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/custom-log-type/).
    {: .note }
@@ -33,16 +35,15 @@ You can define a new detector by naming the detector, selecting a data source an
     When you select **network**, **cloudtrail**, or **s3** as the log type, the system automatically creates a detector dashboard. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
     
     You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
-    {: .note }
-    
+        
 1. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following image illustrates this.
-
+    
     <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that the detector will use for findings" width="85%">
-
+    
     * Use the toggle to the left of **Rule name** to select or deselect rules.
     * Use the **Rule severity** and **Source** dropdown lists to filter the rules you want to select from. 
     * Use the **Search** bar to search for specific rules.
-
+    
     To quickly select one or more known rules and dismiss others, first deselect all rules by turning off the **Rule name** toggle, then search for your target rule names and select each individually by turning its toggle on.
     {: .tip }
     
