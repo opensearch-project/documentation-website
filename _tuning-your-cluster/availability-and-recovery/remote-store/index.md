@@ -102,31 +102,31 @@ If the Security plugin is enabled, a user must have the `cluster:admin/remotesto
 
 ## Potential use cases
 
-You can use remote-backed storage for the following purposes:
+You can use remote-backed storage to:
 
-- To restore red clusters or indexes.
-- To recover all data up to the last acknowledged write, regardless of replica count, if `index.translog.durability` is set to `request`.
+- Restore red clusters or indexes.
+- Recover all data up to the last acknowledged write, regardless of replica count, if `index.translog.durability` is set to `request`.
 
 ## Benchmarks
 
-The OpenSearch team has run remote store using multiple workload options available within the [OpenSearch Benchmark (OSB)](https://opensearch.org/docs/latest/benchmark/index/) tool. This section summarizes the benchmark results for the following OSB workloads: 
+The OpenSearch Project has run remote store using multiple workload options available within the [OpenSearch Benchmark](https://opensearch.org/docs/latest/benchmark/index/) tool. This section summarizes the benchmark results for the following workloads: 
 
 - [StackOverflow](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/so)
 - [HTTP logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs)
 - [NYC taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis),
 
-Each workload was tested using multiple cluster configurations. Indexed data was added to each cluster using varying numbers of bulk indexing clients. This simulates a high level of requests made to the cluster concurrently. 
+Each workload was tested against multiple bulk indexing client configurations in order to simulate varying degrees of request concurrency.
 
-Your results may vary based on your cluster topology, hardware used, shard count, and merge settings.
+Your results may vary based on your cluster topology, hardware, shard count, and merge settings.
 
-### Cluster, shard, & test configuration
+### Cluster, shard, and test configuration
 
-For these benchmarks, we used the following cluster, shard, and test configuration.
+For these benchmarks, we used the following cluster, shard, and test configuration:
 
-* Node types: Three nodes, one data, one ingest, and one cluster manager node
-* Node instance: AWS EC2 r6g.xlarge
-* OpenSearch Benchmark host: Single AWS EC2 m5.2xlarge
-* Shard configuration: 3 shards with 1 replica
+* Node types: Three nodes---one data, one ingest, and one cluster manager node
+* Node instance: Amazon EC2 r6g.xlarge
+* OpenSearch Benchmark host: Single Amazon EC2 m5.2xlarge instance
+* Shard configuration: Three shards with one replica
 * The `repository-s3` plugin installed with the default S3 settings 
 
 ### StackOverflow
@@ -162,7 +162,7 @@ The following table lists the benchmarking results for the `http_logs` workload 
 |P50	|91645.1	|93906.7	|2.47	|89659.8	|125443	|39.91	|91120.3	|132166	|45.05	|
 |Indexing Latency	|P90	|995.217	|1014.01	|1.89	|2236.33	|1750.06	|-21.74	|3353.45	|2472	|-26.28	|
 
-As detailed by the results, you can see consistent gains for cases where the indexing latency is more than the average remote upload time. When you increase the bulk indexing clients, remote-enabled configuration provides indexing throughput gains of up to 60--65%. For more detailed results, see [Issue #9790](https://github.com/opensearch-project/OpenSearch/issues/9790).
+As shown by the results, there are consistent gains in cases where the indexing latency is more than the average remote upload time. When you increase the number of bulk indexing clients, a remote-enabled configuration provides indexing throughput gains of up to 60--65%. For more detailed results, see [Issue #9790](https://github.com/opensearch-project/OpenSearch/issues/9790).
 
 ## Next steps
 
