@@ -288,6 +288,7 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 
 
 ### Other configuration settings
+<!--- It's possible that these can go in another category above, such as "Advanced configuration". Some input from the Security team would be helpful with this question. --->
 
 | Setting | Description |
 | :--- | :--- |
