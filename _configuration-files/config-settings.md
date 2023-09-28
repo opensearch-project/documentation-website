@@ -73,26 +73,32 @@ The settings in the following tables apply specifically to the Security plugin.
 | `plugins.security.nodes_dn_dynamic_config_enabled` | Relevant for cross_cluster usecases where there is a need to manage the whitelisted nodes_dn without having to restart the nodes every time a new cross_cluster remote is configured. Setting nodes_dn_dynamic_config_enabled to `true` enables **super-admin callable** Distinguished names APIs, which provide means to update/retrieve nodesdn dynamically. This setting only has effect if `plugins.security.cert.intercluster_request_evaluator_class` is not set. Default is `false`. |
 | `plugins.security.authcz.admin_dn` | Defines the distinguished names (DNs) of certificates to which admin privileges should be assigned. Required. |
 | `plugins.security.roles_mapping_resolution` | Defines how backend roles are mapped to Security roles. <br> <br> MAPPING_ONLY - mappings must be configured explicitly in roles_mapping.yml (default) <br> <br> BACKENDROLES_ONLY - backend roles are mapped to Security roles directly. Settings in roles_mapping.yml have no effect. <br> <br> BOTH - backend roles are mapped to Security roles mapped directly and via roles_mapping.yml in addition.  |
+| `node.max_local_storage_nodes` | [More description needed-this setting may fit better in another category, such as "Advanced configuration".] |
+| `plugins.security.dls.mode` | Sets the document level security (DLS) evaluation mode. By default, the setting is `adaptive`. See [How to set the DLS evaluation mode]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/#how-to-set-the-dls-evaluation-mode-in-opensearchyml). |
+| `plugins.security.compliance.salt` | The salt to use when generating the hash value for field masking. Must be at least 32 characters. Only ASCII characters are allowed. Optional. |
 
 
 ### REST management API configuration
 
 | Setting | Description |
 | :--- | :--- |
-| `plugins.security.restapi.roles_enabled` | Enables role based access to the REST management API for listed roles. Roles are separated by a comma. Default is that no role is allowed to access the REST management API (an empty list). |
-| `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. |
+| `plugins.security.restapi.roles_enabled` | Enables role based access to the REST management API for listed roles. Roles are separated by a comma. Default is that no role is allowed to access the REST management API (an empty list). See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
+| `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` | Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]. By default, all endpoints and methods are allowed. Existing endpoints include: ACTIONGROUPS, CACHE, CONFIG, ROLES, ROLESMAPPING, INTERNALUSERS, SYSTEMINFO, PERMISSIONSINFO, LICENSE. See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
 | `plugins.security.restapi.password_validation_regex` | Specify a regular expression (regex) to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings). |
 | `plugins.security.restapi.password_validation_error_message` | Enter an error message that loads when a password doesn’t pass validation. This setting is used in conjunction with `plugins.security.restapi.password_validation_regex`. |
 | `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings). |
 | `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. The options are `fair`, `good`, `strong`, `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`. |
+| `plugins.security.unsupported.restapi.allow_securityconfig_modification` | Enables the use of the PUT and PATCH methods for the configuration APIs. |
+| `plugins.security.restapi.endpoints_disabled.test-role.ROLES` | [More description needed] See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
+| `plugins.security.restapi.endpoints_disabled.test-role.INTERNALUSERS` | [More description needed] See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
 
 
 ### Advanced configuration
 
 | Setting | Description |
 | :--- | :--- |
-| `plugins.security.authcz.impersonation_dn` | Enables transport layer impersonation. This allows DNs (distinguished names) to impersonate as other users. |
-| `plugins.security.authcz.rest_impersonation_user` | Enables REST layer impersonation. This allows users to impersonate as other users. |
+| `plugins.security.authcz.impersonation_dn` | Enables transport layer impersonation. This allows DNs (distinguished names) to impersonate as other users. See [User impersonation]({{site.url}}{{site.baseurl}}/security/access-control/impersonation/). |
+| `plugins.security.authcz.rest_impersonation_user` | Enables REST layer impersonation. This allows users to impersonate as other users. See [User impersonation]({{site.url}}{{site.baseurl}}/security/access-control/impersonation/). |
 | `plugins.security.allow_default_init_securityindex` | When set to `true`, OpenSearch Security will automatically initialize the configuration index with the files in the /config directory if the index does not exist. _This will use well-known default passwords. Use only in a private network/environment._ |
 | `plugins.security.allow_unsafe_democertificates` | When set to `true`, OpenSearch starts up with demo certificates. These certificates are issued only for demo purposes. _These certificates are well known and therefore unsafe for production. Use only in a private network/environment._ |
 | `plugins.security.system_indices.permissions.enabled` | Enables the system index permissions feature. When set to `true`, the feature is enabled and users with permission to modify roles can create roles that include permissions that grant access to system indexes. When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the permission is set to `false` in a new cluster. |
@@ -154,7 +160,6 @@ An expert setting should only be configured and deployed by an admin who underst
 | `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` | [More description needed] |
 | `plugins.security.audit.config.log4j.logger_name` | [More description needed] |
 | `plugins.security.audit.config.log4j.level` | [More description needed] |
-
 | `opendistro_security.audit.config.disabled_rest_categories` | [More description needed] |
 | `opendistro_security.audit.config.disabled_transport_categories` | [More description needed] |
 
