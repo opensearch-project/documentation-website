@@ -18,7 +18,7 @@ The following table lists all available request fields.
 Field | Data type | Description
 :--- | :--- | :---
 `default_model_id` | String | The model ID of the default model for an index. Optional.
-`neural_field_default_id` | String | A map of key-value pairs representing document field names and their associated default model IDs. Optional. 
+`neural_field_default_id` | Object | A map of key-value pairs representing document field names and their associated default model IDs. Optional. 
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
 
