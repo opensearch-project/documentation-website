@@ -10,9 +10,11 @@ nav_order: 80
 
 Authorization on the REST layer provides an added level of security for plugin and extension API requests by offering a mechanism for authorization checks on the REST layer. This level of security sits atop the transport layer and provides a complementary method of authorization without replacing, modifying, or in any way changing the same process on the transport layer. REST layer authorization was initially created to address the need for an authorization check for extensions, which do not communicate on the transport layer. However, the feature is also available to developers who wish to use it when creating future plugins for OpenSearch.
 
-For users that work with REST layer authorization, the methods of assigning roles and mapping users and roles, and the general usage of plugins and extensions, remain the same: the only additional requirement being that users become familiar with a new scheme for permissions. Developers, on the other hand, will need to understand the ideas behind `NamedRoute` and how the new route scheme is constructed. For detailed information, see [Authorization at REST Layer for plugins](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md).
+For users that work with REST layer authorization, the methods of assigning roles and mapping users and roles, and the general usage of plugins and extensions, remain the same: the only additional requirement being that users become familiar with a new scheme for permissions. 
 
-The benefits to developers when using the REST layer for authorization include the ability to authorize requests at the REST layer and filter out unauthorized requests. As a result, this decreases the processing burden on the transport layer while allowing granular control over access to APIs.
+Developers, on the other hand, will need to understand the ideas behind `NamedRoute` and how the new route scheme is constructed. For detailed information, see [Authorization at REST Layer for plugins](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md).
+
+The benefits of using the REST layer for authorization include the ability to authorize requests at the REST layer and filter out unauthorized requests. As a result, this decreases the processing burden on the transport layer while allowing granular control over access to APIs.
 
 The Security plugin must be enabled to use REST layer authorization.
 {: .note }
@@ -28,7 +30,7 @@ For example, consider the following route for an Anomaly Detection resource:
 
 `_/detectors/<detectorId>/profile`
 
-For extensions, you can create a NamedRoute from this by referencing the `routeNamePrefix` value in the `settings.yml` file for the resource (`ad` in this case) and adding it to the route to complete a unique name. The result is shown in the following example:
+For extensions, you can create a `NamedRoute` from this by referencing the `routeNamePrefix` value in the `settings.yml` file for the resource (`ad` in this case) and adding it to the route to complete a unique name. The result is shown in the following example:
 
 `ad:detectors/profile`
 
