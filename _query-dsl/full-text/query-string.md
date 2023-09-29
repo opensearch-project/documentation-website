@@ -107,7 +107,7 @@ Query | Criterion for a document to match | Matching documents from the `testind
 
 You can specify wildcard expressions using special characters: `?` replaces a single character and `*` replaces zero or more characters.
 
-## Example
+#### Example
 
 The following query searches for the speaker `KING` in the play name that ends with `well`:
 
@@ -116,12 +116,35 @@ GET shakespeare/_search
 {
  "query": {
     "query_string": {
-      "query": "speaker:KING AND play_name: *well"
+      "query": "speaker: KING AND play_name: *well"
     }
   }
 }
 ```
 {% include copy-curl.html %}
+
+Wildcard queries can use a significant amount of memory, which can degrade performance. Wildcards at the beginning of a word (for example, `*well`) are the most expensive because matching documents on such wildcards requires examining all terms in the index. To disable leading wildcards,set `allow_leading_wildcard` to `false`.
+{: .warning}
+
+For efficiency, pure wildcards such as `\*` are rewritten as `exists` queries. Therefore, the `play: *` wildcard will match documents containing an empty value in the `play` field but will not match documents in which the `play` field is either missing or has a `null` value.
+
+If you set `analyze_wildcard` to `true`, OpenSearch will analyze queries that end with a * (such as `*well`) and will build a Boolean query comprised of the resulting tokens by taking the exact matches on the first N-1 tokens, and prefix matching the last token.
+
+## Regular expressions
+
+To specify regular expression patterns in a query string, surround them with forward slashes (`/`), for example `speaker: /K[A-Z]NG/`.
+
+The `allow_leading_wildcard` parameter does not apply to regular expressions. For example, a query string such as  `/.*G/` will examine all terms in the index. 
+{: .important}
+
+## Fuzziness
+
+You can run fuzzy queries using the `~` operator, for example `title: rise~`.
+
+The query searches for documents containing terms that are similar to the search term within the maximum allowed edit distance. The edit distance is defined as the [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance), which measures the number of one-character changes (insertions, deletions, substitutions, or transpositions) needed to change one term to another term.
+
+The default edit distance of 2 should catch 80% of misspellings. To change the default edit distance, specify the new edit distance after the `~` operator. For example, to set the edit distance to `1`, use the query `title: rise~1`.
+
 
 ## Parameters
 
