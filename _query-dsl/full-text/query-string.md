@@ -145,6 +145,8 @@ The query searches for documents containing terms that are similar to the search
 
 The default edit distance of 2 should catch 80% of misspellings. To change the default edit distance, specify the new edit distance after the `~` operator. For example, to set the edit distance to `1`, use the query `title: rise~1`.
 
+Do not mix fuzzy and wildcard operators. If you specify both fuzzy and wildcard operators, one of the operators will not be applied. For example, if you can search for `wnid*~1`, the wildcard operator `*` will be applied but the fuzzy operator `~1` will not be applied.
+{: .important}
 
 ## Parameters
 
