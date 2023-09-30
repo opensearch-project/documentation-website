@@ -32,7 +32,7 @@ To learn more about available search processors, see [Search processors]({{site.
 
 ## Example
 
-To create a search pipeline, send a request to the search pipeline endpoint, specifying the ordered list of processors, which will be applied sequentially:
+To create a search pipeline, send a request to the search pipeline endpoint, specifying an ordered list of processors, which will be applied sequentially:
 
 ```json
 PUT /_search/pipeline/my_pipeline 
@@ -73,58 +73,7 @@ GET /my_index/_search?search_pipeline=my_pipeline
 
 Alternatively, you can use a temporary pipeline with a request or set a default pipeline for an index. To learn more, see [Using a search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/).
 
-## Retrieving search pipelines
-
-To retrieve the details of an existing search pipeline, use the Search Pipeline API. 
-
-To view all search pipelines, use the following request:
-
-```json
-GET /_search/pipeline
-```
-{% include copy-curl.html %}
-
-The response contains the pipeline that you set up in the previous section:
-<details open markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
-
-```json
-{
-  "my_pipeline" : {
-    "request_processors" : [
-      {
-        "filter_query" : {
-          "tag" : "tag1",
-          "description" : "This processor is going to restrict to publicly visible documents",
-          "query" : {
-            "term" : {
-              "visibility" : "public"
-            }
-          }
-        }
-      }
-    ]
-  }
-}
-```
-</details>
-
-To view a particular pipeline, specify the pipeline name as a path parameter:
-
-```json
-GET /_search/pipeline/my_pipeline
-```
-{% include copy-curl.html %}
-
-You can also use wildcard patterns to view a subset of pipelines, for example:
-
-```json
-GET /_search/pipeline/my*
-```
-{% include copy-curl.html %}
+To learn about retrieving details for an existing search pipeline, see [Retrieving search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/retrieving-search-pipeline/).
 
 
 ## Search pipeline metrics

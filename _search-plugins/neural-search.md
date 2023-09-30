@@ -10,12 +10,9 @@ redirect_from:
 
 # Neural search
 
-The Neural Search plugin is Generally Available as of OpenSearch 2.9. 
-{: .note}
+Neural search transforms text into vectors and facilitates vector search both at ingestion time and at search time. During ingestion, neural search transforms document text into vector embeddings and indexes both the text and its vector embeddings in a k-NN index. When you use a neural query during search, neural search converts the query text into vector embeddings, uses vector search to compare the query and document embeddings, and returns the closest results.
 
-Neural search facilitates vector search during ingestion and search. During ingestion, neural search transforms text into vector embeddings and indexes a document containing both the text and its vector embeddings in a k-NN index. When you use a neural query during search, neural search converts the query text into vector embeddings, uses vector search to compare the query and document embeddings, and returns the closest results.
-
-The Neural Search plugin comes bundled with OpenSearch. For more information, see [Managing plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#managing-plugins).
+The Neural Search plugin comes bundled with OpenSearch and is generally available as of OpenSearch 2.9. For more information, see [Managing plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#managing-plugins).
 
 ## Using neural search
 
