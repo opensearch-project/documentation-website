@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Customizing your branding
-nav_order: 15
+title: Custom branding
+nav_order: 125
 ---
 
 # Customizing your branding
