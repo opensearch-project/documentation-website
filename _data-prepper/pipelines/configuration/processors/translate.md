@@ -149,6 +149,7 @@ mappings:
 ```
 
 `file` has the following options:
+
 | Parameter | Required | Description |
 | :--- | :---  | :---  |
 | name | Yes | Full path to a local file or key name for an S3 object |
