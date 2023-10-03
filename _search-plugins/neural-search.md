@@ -187,7 +187,7 @@ GET /my-nlp-index/_search
   },
   "query": {
     "bool": {
-    "filter": {
+      "filter": {
          "wildcard":  { "id": "*1" }
       },
       "should": [
@@ -230,7 +230,7 @@ GET /my-nlp-index/_search
 
 To eliminate passing the model ID with each neural query request, you can set a default model on a k-NN index or a field. 
 
-First, create a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) request processor. To set a default model on an index, provide the model ID in the `default_model_id` parameter. To set a default model on a specific field, provide the field name and the corresponding model ID in the `neural_field_default_id` map:
+First, create a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) request processor. To set a default model on an index, provide the model ID in the `default_model_id` parameter. To set a default model on a specific field, provide the field name and the corresponding model ID in the `neural_field_default_id` map. If you provide both `default_model_id` and `neural_field_default_id`, `neural_field_default_id` takes precedence:
 
 ```json
 PUT /_search/pipeline/default_model_pipeline 
