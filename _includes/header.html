@@ -118,21 +118,15 @@
 </div>
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
-    const subMenuHeights = [
-      '336px',
-      '144px',
-      '288px',
-      '240px',
-    ];
     function getSubMenu(button) {
       const parentLI = button.closest('li');
       const childUL = parentLI.querySelector('ul');
       return childUL;
     }
-    function initializeCustomMenuHeights(button, index) {
-        const height = subMenuHeights[index];
+    function initializeCustomMenuHeights(button) {
         const childUL = getSubMenu(button);
-        childUL?.style?.setProperty?.('--expanded-height', height);
+        const height = childUL?.scrollHeight;
+        childUL?.style?.setProperty?.('--expanded-height', `${height}px`);
     }
     function onToggleButtonClick(e) {
       const visibleClassName = 'opensearch-toggle-button-link__visible';
@@ -154,7 +148,7 @@
     const topNavigationToggleButtons = document.querySelectorAll('#top .opensearch-toggle-button--wrapper');
     for (let i = 0; i < topNavigationToggleButtons.length; ++i) {
       const button = topNavigationToggleButtons[i];
-      initializeCustomMenuHeights(button, i);
+      initializeCustomMenuHeights(button);
       button.addEventListener('click', onToggleButtonClick);
     }
   });
