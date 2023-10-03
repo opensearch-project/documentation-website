@@ -1069,7 +1069,7 @@ total.count | Integer | The total number of documents ingested by the node.
 total.time_in_millis | Integer | The total amount of time for preprocessing ingest documents, in milliseconds.
 total.current | Integer | The total number of documents that are currently being ingested by the node.
 total.failed | Integer | The total number of failed ingestions for the node.
-pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object specified by its ID with the following properties.
+pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object that is specified by its ID and has the following properties.
 pipelines._id_.count | Integer | The number of documents preprocessed by the ingest pipeline.
 pipelines._id_.time_in_millis | Integer | The total amount of time for preprocessing documents in the ingest pipeline, in milliseconds.
 pipelines._id_.failed | Integer | The total number of failed ingestions for the ingest pipeline.
