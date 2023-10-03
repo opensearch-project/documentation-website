@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Creating dashboards
+title: Dashboards
 nav_order: 30
 has_children: false
 ---
 
-# Creating dashboards
+# Dashboards
 
-The **Dashboard** application in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help you quickly understand the trends in your data, giving you a high-level view of key metrics, simplifying data exploration, and delivering insights when and where you need them.
+The **Dashboards** application in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help you quickly understand the trends in your data, giving you a high-level view of key metrics, simplifying data exploration, and delivering insights when and where you need them.
 
-In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. In this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards. 
+In this tutorial you'll learn the basics of creating a dashboard using the **Dashboards** application and OpenSearch sample data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. In this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards. 
 
 This OpenSearch Playground [dashboard example](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view)) shows you what's possible with OpenSearch Dashboards.
 {: .note}
 
 ## Getting familiar with the UI
 
-Before getting started, let's get familiar with the **Dashboard** UI. The UI comprises the following main components:
+Before getting started, let's get familiar with the **Dashboards** UI. The UI comprises the following main components:
 
 ![Dashboard user interface]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png)
 
@@ -29,12 +29,12 @@ Before getting started, let's get familiar with the **Dashboard** UI. The UI com
 
 ## Defining terminology
 
-The following is some useful terminology for working with OpenSearch Dashboards and the **Dashboard** application:
+The following is some useful terminology for working with OpenSearch Dashboards and the **Dashboards** application:
 
-- _Dashboards_ is the abbreviated name for OpenSearch Dashboards. OpenSearch Dashboards is an open-source visualization tool designed to work with OpenSearch.
-- _Dashboard_ is the OpenSearch Dashboards application used to track, analyze, and display data.
-- _dashboard_ or _dashboards_ are common names for a tool used to visually display data.
-- _Panel_ is a term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other Dashboards documentation.
+- _OpenSearch Dashboards_: The open-source visualization tool designed to work with OpenSearch.
+- _Dashboards_: The application used to track, analyze, and display data.
+- _dashboard_ or _dashboards_: Common names for a tool used to visually display data.
+- _panel_: A term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other OpenSearch Dashboards documentation.
 
 The following tutorial assumes you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
 {: .note}
