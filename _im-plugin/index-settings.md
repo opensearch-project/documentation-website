@@ -42,6 +42,7 @@ index.routing_partition_size | The number of shards a custom routing value can g
 index.soft_deletes.retention_lease.period | The maximum amount of time to retain a shard's history of operations. Default is `12h`.
 index.load_fixed_bitset_filters_eagerly | Whether OpenSearch should preload cached filters. Available options are `true` and `false`. Default is `true`.
 index.hidden | Whether the index should be hidden. Hidden indexes are not returned as part of queries that have wildcards. Available options are `true` and `false`. Default is `false`.
+index.merge.policy | This setting controls the merge policy for the lucene segments. Available options are `tiered` and `log_byte_size`. Default is `tiered`. However, for time-series data, such as log events, it is advisable to switch to the `log_byte_size` merge policy. This can improve the query performance when conducting range queries on the `@timestamp` field.  It is advisable not to change the merge policy of an existing index. Instead, configure this setting when creating a new index.
 
 ## Updating a static index setting
 
