@@ -138,7 +138,9 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 
 ## The `terminate_after` search parameter
 
-The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. In the non-concurrent search workflow, this count is evaluated for each shard. However, in the concurrent search workflow, it is evaluated for each leaf slice instead in order to avoid synchronizing document counts between threads. With concurrent search, the request performs more work than expected because each segment slice on the shard collects up to the specified number of documents. The intent to terminate collection after the threshold is reached is evaluated at the slice level. Thus, the hit count in the results will be greater than the `terminate_after` threshold but less than `slice_count * terminate_after`. The actual number of returned hits will be controlled by the `size` parameter.
+The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. If you include the `terminate_after` parameter in a request, concurrent segment search is disabled and the request is run in a non-concurrent manner.
+
+ Typically, queries with `terminate_after` are expected to be used with smaller values and thus complete very quickly because the search is performed on a reduced dataset, so concurrent search may not improve performance in this case. Moreover, when `terminate_after` is used with other search request parameters, such as `track_total_hits` and `size`, it adds complexity and changes the expected query behavior. Falling back to non-concurrent path for these search requests ensures consistent results between concurrent and non-concurrent requests.
 
 ## API changes
 
