@@ -10,6 +10,12 @@ redirect_from:
 
 [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) are backups of a cluster’s indexes and state. The state includes cluster settings, node information, index metadata (mappings, settings, templates), and shard allocation. The Snapshot Management (SM) interface in OpenSearch Dashboards provides a unified solution for taking and restoring snapshots.
 
+An example of the interface is shown in the following image.
+
+![Snapshot Management user interface]({{site.url}}{{site.baseurl}}/images/dashboards/snapshots-UI.png)
+
+## Snapshots use cases
+
 Snapshots have two main uses:
 
 1. Recovering from failure
@@ -24,12 +30,13 @@ Snapshots have two main uses:
 
 Before you create an SM policy, set up a repository for snapshots. 
 
-1. From the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Snapshot Management**.
-1. In the left panel, under **Snapshot Management**, select **Repositories**.
-1. Choose the **Create Repository** button.
-1. Enter the repository name, type, and location. 
-1. (Optional) Select **Advanced Settings** and enter additional settings for this repository as a JSON object. Example:
-    ```json
+1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
+2. In the left panel, under **Snapshot Management**, select **Repositories**.
+3. Choose the **Create Repository** button.
+4. Enter the repository name, type, and location. 
+5. (Optional) Select **Advanced Settings** and enter additional settings for this repository as a JSON object. 
+#### Example
+```json
     {
         "chunk_size": null,
         "compress": false,
@@ -37,11 +44,11 @@ Before you create an SM policy, set up a repository for snapshots.
         "max_snapshot_bytes_per_sec": "40m",
         "readonly": false
     }
-    ```
-1. Choose the **Add** button.
+```
+6. Choose the **Add** button.
 
-If you need to automate snapshot creation, you can use a snapshot policy.
-{: .note}
+{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class="inline-icon" alt="star icon"/>{:/} **Note:** If you need to automate snapshot creation, you can use a snapshot policy.
+{: .note purple}
 
 ## Deleting a repository
 
@@ -51,7 +58,7 @@ To delete a snapshot repository configuration, select the repository from the **
 
 Create an SM policy to set up automatic snapshots. An SM policy defines an automated snapshot creation schedule and an optional automated deletion schedule.
 
-1. From the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Snapshot Management**.
+1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshot Policies**.
 1. Select the **Create Policy** button.
 1. In the **Policy settings** section:
@@ -77,7 +84,7 @@ Create an SM policy to set up automatic snapshots. An SM policy defines an autom
 
 You can view, edit, or delete an SM policy on the policy details page.
 
-1. From the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Snapshot Management**.
+1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshot Policies**.
 1. Click on the **Policy name** of the policy you want to view, edit, or delete. <br>
 The policy settings, snapshot schedule, snapshot retention period, notifications, and last creation and deletion are displayed in the policy details page. <br> If a snapshot creation or deletion fails, you can view information about the failure in the **Last Creation/Deletion** section. To view the failure message, click on the **cause** in the **Info** column. 
@@ -85,14 +92,14 @@ The policy settings, snapshot schedule, snapshot retention period, notifications
 
 ## Enable, disable, or delete SM policies
 
-1. From the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Snapshot Management**.
+1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshot Policies**.
 1. Select one or more policies in the list.
 1. To enable or disable selected SM policies, select the **Enable** or **Disable** button. To delete selected SM policies, in the **Actions** list, select the **Delete** option.
 
 ## View snapshots
 
-1. From the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Snapshot Management**.
+1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**.
 All automatically or manually taken snapshots appear in the list.
 1. To view a snapshot, click on its **Name**.
@@ -101,7 +108,7 @@ All automatically or manually taken snapshots appear in the list.
 
 Follow these steps to take a snapshot manually:
 
-1. From the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Snapshot Management**.
+1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**.
 1. Select the **Take snapshot** button.
 1. Enter the snapshot name.
@@ -122,7 +129,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
 ## Restoring a snapshot
 
-1. From the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Snapshot Management**.
+1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**. The **Snapshots** tab is selected by default.
 1. Select the checkbox next to the snapshot you want to restore, as shown in the following image: 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-main.png" alt="Snapshots">{: .img-fluid}
