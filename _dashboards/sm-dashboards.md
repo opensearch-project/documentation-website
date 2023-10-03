@@ -131,11 +131,11 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
 1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**. The **Snapshots** tab is selected by default.
-1. Select the checkbox next to the snapshot you want to restore, as shown in the following image: 
+1. Select the checkbox next to the snapshot you want to restore. An example is shown in the following image: 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-main.png" alt="Snapshots">{: .img-fluid}
 
-    You can only restore snapshots with the status of `Success` or `Partial`. The status of the snapshot is displayed in the **Snapshot status** column.
-    {: .note}
+    {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class="inline-icon" alt="star icon"/>{:/} **Note:** You can only restore snapshots with the status of `Success` or `Partial`. The status of the snapshot is displayed in the **Snapshot status** column.
+    {: .note purple}
 1. In the **Restore snapshot** flyout, select the options for restoring the snapshot.
 
     The **Restore snapshot** flyout lists the snapshot name and status. To view the list of indexes in the snapshot, select the number under **Indices** (for example, `27` in the following image). This number represents the number of indexes in the snapshot.
@@ -169,8 +169,8 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
     You can view the percentage of the job that has been completed in the **Status** column. Once the snapshot restore is complete, the **Status** changes to `Completed (100%)`. 
 
-    The **Restore activities in progress** panel is not persistent. It displays only the progress of the current restore operation. If multiple restore operations are running, the panel displays the most recent one.
-    {: .note }
+    {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class="inline-icon" alt="star icon"/>{:/} **Note:** The **Restore activities in progress** panel is not persistent. It displays only the progress of the current restore operation. If multiple restore operations are running, the panel displays the most recent one.
+    {: .note purple}
     To view the status of each index being restored, select the link in the **Indices being restored** column (in the preceding image, the `27 Indices` link). The **Indices being restored** flyout (shown in the following image) displays each index and its restore status.
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices.png" alt="Restore Indices">{: .img-fluid}
