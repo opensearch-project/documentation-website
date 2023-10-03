@@ -8,19 +8,22 @@ grand_parent: Availability and recovery
 
 # Shallow snapshots
 
-Shallow copy snapshots allow you to reference data from an entire remote-backed segment instead of storing all of the data from the segment in a snapshot. This makes accessing segment data faster than using normal snapshots because segment data is not stored in the snapshot repository.
+Shallow copy snapshots allow you to reference data from an entire remote-backed repository instead of storing all of the data from the segment in a snapshot repository. This makes accessing segment data faster than using normal snapshots because segment data is not stored in the snapshot repository.
 
 ## Enabling shallow snapshots
 
-Use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) to enable the `remote_store_index_shallow_copy` repository setting, as shown in the following example:
+Use the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/) and set the `remote_store_index_shallow_copy` repository setting to `true` to enable shallow snapshot copies, as shown in the following example:
 
 ```bash
-PUT _cluster/settings
+PUT /_snapshot/snap_repo
 {
-   "persistent":{
-      "remote_store_index_shallow_copy": true
-   }
-}
+        "type": "s3",
+        "settings": {
+            "bucket": "test-bucket",
+            "base_path": "daily-snaps",
+            "remote_store_index_shallow_copy": true
+        }
+    }
 ```
 {% include copy-curl.html %}
 
@@ -32,5 +35,5 @@ Consider the following before using shallow copy snapshots:
 
 - Shallow copy snapshots only work for remote-backed indexes.
 - All nodes in the cluster must use OpenSearch 2.10 or later to take advantage of shallow copy snapshots.
-- There is no difference in file size between standard shards and shallow copy snapshot shards because no segment data is stored in the snapshot itself.
+- The `incremental` file count and size between the current snapshot and the last snapshot is `0` when using shallow copy snapshots.
 - Searchable snapshots are not supported inside shallow copy snapshots.
