@@ -54,32 +54,47 @@ You can also write conditional statements within pipeline configurations to perf
 
 ## Install Logstash
 
-The OpenSearch Logstash plugin has two installation options at this time: Linux (ARM64/X64) and Docker (ARM64/X64).
-
-Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) version 8 or 11 installed.
-
-If you're migrating from an existing Logstash installation, you can install the [OpenSearch output plugin](https://rubygems.org/gems/logstash-output-opensearch/) manually and [update pipeline.conf](https://opensearch.org/docs/latest/tools/logstash/index/). We include this plugin by default in our tarball and Docker downloads.
-{: .note }
+Installing Logstash involves two main steps. The first is installing the Logstash itself. The second is installing the OpenSearch Logstash plugin.
 
 ### Tarball
 
-1. Download the Logstash tarball from [OpenSearch downloads](https://opensearch.org/downloads.html).
+Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) version 8 or 11 installed.
 
-2. Navigate to the downloaded folder in the terminal and extract the files:
+1. Download the Logstash tarball from [Logstash downloads](https://www.elastic.co/downloads/logstash).
+
+2. Navigate to the downloaded folder in the terminal and extract the files (Note that the version and platform may vary from the command below):
 
      ```bash
-     tar -zxvf logstash-oss-with-opensearch-output-plugin-7.16.2-linux-x64.tar.gz
+     tar -zxvf logstash-8.8.2-linux-x86_64.tar.gz
      ```
 
-3. Navigate to the `logstash-7.16.2` directory.
+3. Navigate to the `logstash-8.8.2` directory.
+
+4. Install the plugin
+
+     ```bash
+     bin/logstash-plugin install logstash-output-opensearch
+     ```
+
+- The output will look somewhat like the following
+
+     ```
+     Validating logstash-output-opensearch
+     Resolving mixin dependencies
+     Updating mixin dependencies logstash-mixin-ecs_compatibility_support
+     Bundler attempted to update logstash-mixin-ecs_compatibility_support but its version stayed the same
+     Installing logstash-output-opensearch
+     Installation successful
+     ```
+
 - You can add your pipeline configurations to the `config` directory. Logstash saves any data from the plugins in the `data` directory. The `bin` directory contains the binaries for starting Logstash and managing plugins.
 
 ### Docker
 
-1. Pull the Logstash oss package with the OpenSearch output plugin image:
+1. Pull the latest Logstash image as stated in the [Logstash downloads](https://www.elastic.co/downloads/logstash).
 
     ```
-    docker pull opensearchproject/logstash-oss-with-opensearch-output-plugin:7.16.2
+    docker pull docker.elastic.co/logstash/logstash:8.8.2
     ```
 
 1. Create a Docker network:
