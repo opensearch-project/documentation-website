@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Approximate search
+title: Approximate k-NN search
 nav_order: 15
 parent: k-NN
 has_children: false
@@ -79,7 +79,7 @@ PUT my-knn-index-1
 }
 ```
 
-In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#knn_vector-data-type) section.
+In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) section.
 
 The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the nmslib and faiss engines, as set by the dimension mapping parameter. The maximum dimension count for the Lucene library is 1,024.
 

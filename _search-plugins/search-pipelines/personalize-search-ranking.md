@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Personalize search ranking processor
+title: Personalize search ranking
 nav_order: 40
 has_children: false
-parent: Search pipelines
-grand_parent: Search
+parent: Search processors
+grand_parent: Search pipelines
 ---
 
 # Personalize search ranking processor

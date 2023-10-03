@@ -12,19 +12,18 @@ The following APIs can be used for a number of tasks related to mappings, from c
 ---
 ## Get Mappings View
 
-
-this API returns a view of the fields contained in an index used as a log source.
+This API returns a view of the fields contained in an index used as a log source.
 
 ### Request fields
 
 The following fields are used to get field mappings.
 
 Field | Type | Description
-:--- | :--- |:--- |
-| `index_name` | String | The name of the index used for log ingestion. |
-| `rule_topic` | String | The log type of the index. |
+:--- | :--- |:--- 
+`index_name` | String | The name of the index used for log ingestion. 
+`rule_topic` | String | The log type of the index. 
 
-### Example request
+#### Example request
 
 ```json
 GET /_plugins/_security_analytics/mappings/view
@@ -35,7 +34,7 @@ GET /_plugins/_security_analytics/mappings/view
 }
 ```
 
-### Example response
+#### Example response
 
 ```json
 {
@@ -79,7 +78,7 @@ GET /_plugins/_security_analytics/mappings/view
 ---
 ## Create Mappings
 
-### Example request
+#### Example request
 
 ```json
 POST /_plugins/_security_analytics/mappings
@@ -99,7 +98,7 @@ POST /_plugins/_security_analytics/mappings
 }
 ```
 
-### Example response
+#### Example response
 
 ```json
 {
@@ -110,13 +109,13 @@ POST /_plugins/_security_analytics/mappings
 ---
 ## Get Mappings
 
-### Example request
+#### Example request
 
 ```json
 GET /_plugins/_security_analytics/mappings
 ```
 
-### Example response
+#### Example response
 
 ```json
 {
@@ -140,7 +139,7 @@ GET /_plugins/_security_analytics/mappings
 ---
 ## Update Mappings
 
-### Example request
+#### Example request
 
 ```json
 PUT /_plugins/_security_analytics/mappings
@@ -152,7 +151,7 @@ PUT /_plugins/_security_analytics/mappings
 }
 ```
 
-### Example response
+#### Example response
 
 ```json
 {

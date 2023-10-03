@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Triggers
-nav_order: 10
+nav_order: 40
 grand_parent: Alerting
 parent: Monitors
 ---

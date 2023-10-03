@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Filter query processor
+title: Filter query
 nav_order: 10
 has_children: false
-parent: Search pipelines
-grand_parent: Search
+parent: Search processors
+grand_parent: Search pipelines
 ---
 
 # Filter query processor

@@ -154,6 +154,8 @@ certificate authority
 
 Use _certificates_ on first mention. It’s OK to use _certs_ thereafter.
 
+**checkbox, checkboxes**
+
 **CI/CD**
 
 Use _continuous integration_ and _continuous delivery (CI/CD)_ or _continuous integration and delivery (CI/CD)_ on first mention.
@@ -165,6 +167,10 @@ A collection of one or more nodes.
 **cluster manager**
 
 A single node that routes requests for the cluster and makes changes to other nodes. Each cluster contains a single cluster manager.
+
+**command line, command-line**
+
+Two words as a noun. Hyphenate as an adjective.
 
 **console**
 
@@ -507,11 +513,15 @@ OpenSearch is a community-driven, open-source search and analytics suite derived
 
 **OpenSearch Dashboards**
 
-The default visualization tool for data in OpenSearch. On first appearance, use the full name. “Dashboards” may be used on subsequent appearances.
+The default visualization tool for data in OpenSearch. On first appearance, use the full name. *Dashboards* may be used on subsequent appearances.
 
 open source (n.), open-source (adj.)
 
 Use _open source_ as a noun (for example, “The code used throughout this tutorial is open source and can be freely modified”). Use _open-source_ as an adjective _(open-source software)_.
+
+**OpenSearch Playground**
+
+OpenSearch Playground provides a central location for existing and evaluating users to explore features in OpenSearch and OpenSearch Dashboards without downloading or installing any OpenSearch components locally.
 
 **operating system**
 

@@ -11,207 +11,86 @@ redirect_from:
 
 # Remote-backed storage
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/1968).
-{: .warning}
+Introduced 2.10
+{: .label .label-purple }
+
 
 Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
 
-## Translog
-
-Any index changes, such as indexing or deleting documents, are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called *translog*. When a document is indexed, it is added to the memory buffer and recorded in the translog. Frequent refresh operations write the documents in the memory buffer to a segment and then clear the memory buffer. Periodically, a flush performs a Lucene commit, which includes writing the segments to disk using fsync, purging the old translog, and starting a new translog. Thus, a translog contains all operations that have not yet been flushed. 
-
-## Segment replication and remote-backed storage
-
-When neither segment replication nor remote-backed storage is enabled, OpenSearch uses document replication. In document replication, when a write request lands on the primary shard, the request is indexed to Lucene and stored in the translog. After this, the request is sent to the replicas, where, in turn, it is indexed to Lucene and stored in the translog for durability. 
-
-With segment replication, segments are created on the primary shard only and then copied to all replicas. The replicas do not index requests to Lucene, but they do create and maintain a translog.
-
 With remote-backed storage, when a write request lands on the primary shard, the request is indexed to Lucene on the primary shard only. The corresponding translog is then uploaded to remote store. OpenSearch does not send the write request to the replicas, but rather performs a primary term validation to confirm that the request originator shard is still the primary shard. Primary term validation ensures that the acting primary shard fails if it becomes isolated and is unaware of the cluster manager electing a new primary.
 
-## The `index.translog.durability` translog setting
+After segments are created on the primary shard as part of the refresh, flush, and merge flow, the segments are uploaded to remote segment store and the replica shards source a copy from the same remote segment store. This prevents the primary shard from having to perform any write operations.
 
-Without remote-backed storage, indexing operations are only persisted to disk when the translog is fsynced. Therefore, any data that has not been written to disk can potentially be lost. 
+## Configuring remote-backed storage
 
-The `index.translog.durability` setting controls how frequently OpenSearch fsyncs the translog to disk:
+Remote-backed storage is a cluster level setting. It can only be enabled when bootstrapping to the cluster. After bootstrapping completes, the remote-backed storage cannot be enabled or disabled. This provides durability at the cluster level.
 
-- By default, `index.translog.durability` is set to `request`. This means that fsync happens after every request, and all acknowledged write requests persist in case of failure.
+Communication with the configured remote cluster happens in the Repository plugin interface. All the existing implementations of the Repository plugin, such as Azure Blob Storage, Google Cloud Storage, and Amazon Simple Storage Service (Amazon S3), are compatible with remote-backed storage.
 
-- If you set `index.translog.durability` to `async`, fsync happens periodically at the specified `sync_interval` (5 seconds by default). The fsync operation is asynchronous, so acknowledge is sent without waiting for fsync. Consequently, all acknowledged writes since the last commit are lost in case of failure.
-
-With remote-backed storage, the translog is uploaded to a remote store for durability.
-
-`index.translog.durability` is a dynamic setting. To update it, use the following query:
-
-```json
-PUT my_index/_settings
-{
-  "index" : {
-    "translog.durability" : "request"
-  }
-}
-```
-
-## Refresh-level and request-level durability
-
-The remote store feature supports two levels of durability:
-
-- Refresh-level durability: Segment files are uploaded to remote store after every refresh. Set the `remote_store` flag to `true` to achieve refresh-level durability. Commit-level durability is inherent, and uploads are asynchronous.
-
-  If you need to refresh an index manually, you can use the `_refresh` API. For example, to refresh the `my_index` index, use the following request:
-   
-  ```json
-  POST my_index/_refresh
-  ```
-
-- Request-level durability: Translogs are uploaded before acknowledging the request. Set the `translog` flag to `true` to achieve request-level durability. In this scenario, we recommend to batch as many requests as possible in a bulk request. Batching requests will improve indexing throughput and latency compared to sending individual write requests.
-
-## Enable the feature flag
-
-There are several methods for enabling remote store feature, depending on the install type. You will also need to enable `remote_store` property when creating the index.
-
-Segment replication must also be enabled to use remote-backed storage.
+Make sure remote store settings are configured the same way across all nodes in the cluster. If not, bootstrapping will fail for nodes whose attributes are different from the elected cluster manager node.
 {: .note}
 
-### Enable on a node using a tarball install
+To enable remote-backed storage for a given cluster, provide the remote store repository details as node attributes in `opensearch.yml`, as shown in the following example:
 
-The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in config/jvm.options.
+```yml
+# Repository name
+node.attr.remote_store.segment.repository: my-repo-1
+node.attr.remote_store.translog.repository: my-repo-2
+node.attr.remote_store.state.repository: my-repo-3
 
-#### Option 1: Modify jvm.options
+# Segment repository settings
+node.attr.remote_store.repository.my-repo-1.type: s3
+node.attr.remote_store.repository.my-repo-1.settings.bucket: <Bucket Name 1>
+node.attr.remote_store.repository.my-repo-1.settings.base_path: <Bucket Base Path 1>
+node.attr.remote_store.repository.my-repo-1.settings.region: us-east-1
 
-Add the following lines to `config/jvm.options` before starting the OpenSearch process to enable the feature and its dependency:
+# Translog repository settings
+node.attr.remote_store.repository.my-repo-2.type: s3
+node.attr.remote_store.repository.my-repo-2.settings.bucket: <Bucket Name 2>
+node.attr.remote_store.repository.my-repo-2.settings.base_path: <Bucket Base Path 2>
+node.attr.remote_store.repository.my-repo-2.settings.region: us-east-1
 
+# Cluster state repository settings
+node.attr.remote_store.repository.my-repo-3.type: s3
+node.attr.remote_store.repository.my-repo-3.settings.bucket: <Bucket Name 3>
+node.attr.remote_store.repository.my-repo-3.settings.base_path: <Bucket Base Path 3>
+node.attr.remote_store.repository.my-repo-3.settings.region: us-east-1
 ```
--Dopensearch.experimental.feature.replication_type.enabled=true
--Dopensearch.experimental.feature.remote_store.enabled=true
-```
+{% include copy-curl.html %}
 
-Run OpenSearch
+You do not have to use three different remote store repositories for segment, translog, and state. All three stores can share the same repository. 
+
+During the bootstrapping process, the remote-backed repositories listed in `opensearch.yml` are automatically registered. After the cluster is created with the `remote_store` settings, all indexes created in that cluster will start uploading data to the configured remote store.
+
+## Related cluster settings
+
+You can use the following [cluster settings]({{site.url}}{{site.baseurl}}//api-reference/cluster-api/cluster-settings/) to tune how remote-backed clusters handle each workload.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| cluster.default.index.refresh_interval | Time unit | Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and also support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. |
+| cluster.minimum.index.refresh_interval | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum, index creation fails. |
+| cluster.remote_store.translog.buffer_interval | Time unit | The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. |
+
+
+## Restoring from a backup
+
+To restore an index from a remote backup, such as in the event of a node failure, use one of the following options:
+
+**Restore only unassigned shards**
 
 ```bash
-./bin/opensearch
-```
-
-#### Option 2: Enable from an environment variable
-
-As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done in a single command when you start OpenSearch or by defining the variable with `export`.
-
-To add these flags in-line when starting OpenSearch:
-
-```bash
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true" ./opensearch-{{site.opensearch_version}}/bin/opensearch
-```
-
-If you want to define the environment variable separately, prior to running OpenSearch:
-
-```bash
-export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true"
-./bin/opensearch
-```
-
-### Enable with Docker containers
-
-If you're running Docker, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` section:
-
-````json
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true"
-````
-
-### Enable for OpenSearch development
-
-To create new indexes with remote-backed storage enabled, you must first enable these features by adding the correct properties to `run.gradle` before building OpenSearch. See the [developer guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md) for information about to use how Gradle to build OpenSearch.
-
-Add the following properties to `run.gradle` to enable the feature:
-
-```bash
-testClusters {
-  runTask {
-    testDistribution = 'archive'
-    if (numZones > 1) numberOfZones = numZones
-    if (numNodes > 1) numberOfNodes = numNodes
-    systemProperty 'opensearch.experimental.feature.replication_type.enabled', 'true'
-    systemProperty 'opensearch.experimental.feature.remote_store.enabled', 'true'
-  }
-}
-```
-
-## Register a remote repository
-
-Now that your deployment is running with the feature flags enabled, the next step is to register a remote repository where backups will be stored. See [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository) for more information.
-
-## Create an index
-
-Remote-backed storage is enabled for an index when it is created. This feature cannot be enabled for indexes that already exist.
-
-For refresh-level durability, include the `remote_store` property to enable the feature and specify a segment repository:
-
-```bash
-curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content-Type: application/json' -d'
+curl -X POST "https://localhost:9200/_remotestore/_restore" -H 'Content-Type: application/json' -d'
 {
-  "settings": {
-    "index": {
-      "number_of_shards": 1,
-      "number_of_replicas": 0,
-      "replication": {
-        "type": "SEGMENT"
-      },
-      "remote_store": {
-        "enabled": true,
-        "repository": "segment-repo"
-      }
-    }
-  }
+  "indices": ["my-index-1", "my-index-2"]
 }
 '
 ```
 
-For request-level durability, in addition to the `remote_store` and segment repository, include the `translog` property and specify a translog repository:
+**Restore all shards of a given index**
 
 ```bash
-curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content-Type: application/json' -d'
-{
-  "settings": {
-    "index": {
-      "number_of_shards": 1,
-      "number_of_replicas": 1,
-      "replication": {
-        "type": "SEGMENT"
-      },
-      "remote_store": {
-        "enabled": true,
-        "repository": "segment-repo",
-        "translog": {
-          "enabled": true,
-          "repository": "translog-repo",
-          "buffer_interval": "300ms"
-        }
-      }
-    }
-  }
-}
-'
-```
-
-You can have the same repository serve as both the segment repository and translog repository. 
-{: .note}
-
-As data is added to the index, it also will be continuously uploaded to remote storage in the form of segment and translog files because of refreshes, flushes, and translog fsyncs to disk. Along with data, other metadata files will be uploaded.
-The `buffer_interval` setting specifies the time interval during which translog operations are buffered. Instead of uploading individual translog files, OpenSearch creates a single translog file with all the write operations received during the configured interval. Bundling translog files leads to higher throughput but also increases latency. The default `buffer_interval` value is 100 ms.
-
-Setting `translog.enabled` to `true` is currently an irreversible operation.
-{: .warning}
-
-### Restoring from a backup
-
-To restore an index from a remote backup, such as in the event of a node failure, you must first close the index:
-
-```bash
-curl -X POST "https://localhost:9200/my-index/_close" -ku admin:admin
-```
-
-Restore the index from the backup stored on the remote repository:
-
-```bash
-curl -X POST "https://localhost:9200/_remotestore/_restore" -ku admin:admin -H 'Content-Type: application/json' -d'
+curl -X POST "https://localhost:9200/_remotestore/_restore?restore_all_shards=true" -ku admin:admin -H 'Content-Type: application/json' -d'
 {
   "indices": ["my-index"]
 }
@@ -223,14 +102,69 @@ If the Security plugin is enabled, a user must have the `cluster:admin/remotesto
 
 ## Potential use cases
 
-You can use remote-backed storage for the following purposes:
+You can use remote-backed storage to:
 
-- To restore red clusters or indexes
-- To recover all data up to the last acknowledged write, regardless of replica count, if `index.translog.durability` is set to `request`
+- Restore red clusters or indexes.
+- Recover all data up to the last acknowledged write, regardless of replica count, if `index.translog.durability` is set to `request`.
 
-## Known limitations
+## Benchmarks
 
-The following are known limitations of the remote-backed storage feature:
+The OpenSearch Project has run remote store using multiple workload options available within the [OpenSearch Benchmark](https://opensearch.org/docs/latest/benchmark/index/) tool. This section summarizes the benchmark results for the following workloads: 
 
-- Writing data to a remote store can be a high-latency operation when compared to writing data on the local file system. This may impact the indexing throughput and latency. For performance benchmarking results, see [issue #6376](https://github.com/opensearch-project/OpenSearch/issues/6376).
+- [StackOverflow](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/so)
+- [HTTP logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs)
+- [NYC taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis),
+
+Each workload was tested against multiple bulk indexing client configurations in order to simulate varying degrees of request concurrency.
+
+Your results may vary based on your cluster topology, hardware, shard count, and merge settings.
+
+### Cluster, shard, and test configuration
+
+For these benchmarks, we used the following cluster, shard, and test configuration:
+
+* Nodes: Three nodes, each using the data, ingest, and cluster manager roles
+* Node instance: Amazon EC2 r6g.xlarge
+* OpenSearch Benchmark host: Single Amazon EC2 m5.2xlarge instance
+* Shard configuration: Three shards with one replica
+* The `repository-s3` plugin installed with the default S3 settings 
+
+### StackOverflow
+
+The following table lists the benchmarking results for the `so` workload with a remote translog buffer interval of 250 ms.
+
+|	|	| 8 bulk indexing clients (Default)	| | | 16 bulk indexing clients	| | | 24 bulk indexing clients	| | |
+|---	|---	|---	|---	|---	| --- | --- | --- | --- | --- | --- |
+|	|	| Document replication	| Remote enabled	| Percent difference	| Document replication	| Remote enabled	| Percent difference	| Document replication	| Remote enabled	| Percent difference	|
+|Indexing throughput	|Mean	|29582.5	| 40667.4	|37.47	|31154.9	|47862.3	|53.63	|31777.2	|51123.2	|60.88	|
+|P50	|28915.4	|40343.4	|39.52	|30406.4	|47472.5	|56.13	|30852.1	|50547.2	|63.84	|
+|Indexing latency	|P90	|1716.34	|1469.5	|-14.38	|3709.77	|2799.82	|-24.53	|5768.68	|3794.13	|-34.23	|
+
+### HTTP logs
+
+The following table lists the benchmarking results for the `http_logs` workload with a remote translog buffer interval of 200 ms.
+
+|	|	| 8 bulk indexing clients (Default)	| | | 16 bulk indexing clients	| | | 24 bulk indexing clients	| | |
+|---	|---	|---	|---	|---	| --- | --- | --- | --- | --- | --- |
+|	|	| Document replication	| Remote enabled	|Percent difference	| Document replication	| Remote enabled	| Percent difference	|Document replication	| Remote enabled	| Percent difference	|
+|Indexing throughput	|Mean	|149062	|82198.7	|-44.86	|134696	|148749	|10.43	|133050	|197239	|48.24	|
+|P50	|148123	|81656.1	|-44.87	|133591	|148859	|11.43	|132872	|197455	|48.61	|
+|Indexing latency	|P90	|327.011	|610.036	|86.55	|751.705	|669.073	|-10.99	|1145.19	|817.185	|-28.64	|
+
+### NYC taxis
+
+The following table lists the benchmarking results for the `http_logs` workload with a remote translog buffer interval of 250 ms.
+
+|	|	| 8 bulk indexing clients (Default)	| | | 16 bulk indexing clients	| | | 24 bulk indexing clients	| | |
+|---	|---	|---	|---	|---	| --- | --- | --- | --- | --- | --- |
+|	|	| Document replication	| Remote enabled	|Percent difference	| Document replication	| Remote enabled	| Percent difference	|Document replication	| Remote enabled	| Percent difference	|
+|Indexing throughput	|Mean	|93383.9	|94186.1	|0.86	|91624.8	|125770	|37.27	|93627.7	|132006	|40.99	|
+|P50	|91645.1	|93906.7	|2.47	|89659.8	|125443	|39.91	|91120.3	|132166	|45.05	|
+|Indexing latency	|P90	|995.217	|1014.01	|1.89	|2236.33	|1750.06	|-21.74	|3353.45	|2472	|-26.28	|
+
+As shown by the results, there are consistent gains in cases where the indexing latency is more than the average remote upload time. When you increase the number of bulk indexing clients, a remote-enabled configuration provides indexing throughput gains of up to 60--65%. For more detailed results, see [Issue #9790](https://github.com/opensearch-project/OpenSearch/issues/9790).
+
+## Next steps
+
+To track future enhancements to remote-backed storage, see [Issue #10181](https://github.com/opensearch-project/OpenSearch/issues/10181).
 

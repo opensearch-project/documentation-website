@@ -13,7 +13,6 @@ nav_order: 15
 
 The `otel_trace` source is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace` source.
 
-<!--- What does otel_trace_source do? Other plugins include that in the overview section.--->
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -33,10 +32,6 @@ acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN.
 awsRegion | Conditionally | String | Represents the AWS region used by ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are Amazon S3 paths.
 authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This parameter uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
-
-<!--- ## Configuration
-
-Content will be added to this section.--->
 
 ## Metrics
 

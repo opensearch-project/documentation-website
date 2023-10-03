@@ -39,3 +39,4 @@ gem "webrick", "~> 1.7"
 # Link checker
 gem "typhoeus"
 gem "ruby-link-checker"
+gem "ruby-enum"

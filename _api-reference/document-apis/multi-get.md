@@ -13,53 +13,13 @@ Introduced 1.0
 
 The multi-get operation allows you to run multiple GET operations in one request, so you can get back all documents that match your criteria.
 
-## Example without specifying index in URL
-
-```json
-GET _mget
-{
-  "docs": [
-  {
-    "_index": "sample-index1",
-    "_id": "1"
-  },
-  {
-    "_index": "sample-index2",
-    "_id": "1",
-    "_source": {
-      "include": ["Length"]
-    }
-  }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-## Example of specifying index in URL
-
-```json
-GET sample-index1/_mget
-
-{
-  "docs": [
-    {
-      "_id": "1",
-      "_source": false
-    },
-    {
-      "_id": "2",
-      "_source": [ "Director", "Title" ]
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
 ## Path and HTTP methods
 
 ```
 GET _mget
 GET <index>/_mget
+POST _mget
+POST <index>/_mget
 ```
 
 ## URL parameters
@@ -93,7 +53,49 @@ _source.includes | Array | Specifies which fields to include in the query respon
 _source.excludes | Array | Specifies which fields to exclude in the query response. For example, `"_source": { "exclude": ["Director"] }` excludes `Director` from the query response. | No
 ids | Array | IDs of the documents to retrieve. Only allowed when an index is specified in the URL. | No
 
-## Response
+
+#### Example without specifying index in URL
+
+```json
+GET _mget
+{
+  "docs": [
+  {
+    "_index": "sample-index1",
+    "_id": "1"
+  },
+  {
+    "_index": "sample-index2",
+    "_id": "1",
+    "_source": {
+      "include": ["Length"]
+    }
+  }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+#### Example of specifying index in URL
+
+```json
+GET sample-index1/_mget
+{
+  "docs": [
+    {
+      "_id": "1",
+      "_source": false
+    },
+    {
+      "_id": "2",
+      "_source": [ "Director", "Title" ]
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+#### Example Response 
 ```json
 {
   "docs": [

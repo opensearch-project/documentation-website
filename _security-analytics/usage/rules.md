@@ -34,7 +34,7 @@ In Visual view, rule details are arranged in fields, and the links are active. S
 * To copy the rule, select the copy icon in the upper-right corner of the rule. To quickly create a new, customized rule, you can paste the rule into the YAML editor and make any modifications before saving it. See [Customizing rules](#customizing-rules) for more information.
 
 ---
-## Creating rules
+## Creating detection rules
 
 There are multiple ways to create rules on the **Detection rules** page. These methods include manually creating a custom rule, importing a rule, and duplicating an existing rule to customize it. The following sections discuss these methods in detail.  
 
