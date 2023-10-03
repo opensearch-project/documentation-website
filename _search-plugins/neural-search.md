@@ -226,6 +226,39 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
+The response contains the matching document:
+
+```json
+{
+  "took" : 36,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 1,
+      "relation" : "eq"
+    },
+    "max_score" : 1.2251667,
+    "hits" : [
+      {
+        "_index" : "my-nlp-index",
+        "_id" : "1",
+        "_score" : 1.2251667,
+        "_source" : {
+          "passage_text" : "Hello world",
+          "id" : "s1"
+        }
+      }
+    ]
+  }
+}
+```
+
 ### Setting a default model on an index or field
 
 To eliminate passing the model ID with each neural query request, you can set a default model on a k-NN index or a field. 
@@ -281,3 +314,45 @@ GET /my-nlp-index/_search
 }
 ```
 {% include copy-curl.html %}
+
+The response contains both documents:
+
+```json
+{
+  "took" : 41,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.22762,
+    "hits" : [
+      {
+        "_index" : "my-nlp-index",
+        "_id" : "2",
+        "_score" : 1.22762,
+        "_source" : {
+          "passage_text" : "Hi planet",
+          "id" : "s2"
+        }
+      },
+      {
+        "_index" : "my-nlp-index",
+        "_id" : "1",
+        "_score" : 1.2251667,
+        "_source" : {
+          "passage_text" : "Hello world",
+          "id" : "s1"
+        }
+      }
+    ]
+  }
+}
+```
