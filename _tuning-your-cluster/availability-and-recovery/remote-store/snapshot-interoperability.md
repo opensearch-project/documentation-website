@@ -15,7 +15,7 @@ Shallow copy snapshots allow you to reference data from an entire remote-backed 
 Use the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/) and set the `remote_store_index_shallow_copy` repository setting to `true` to enable shallow snapshot copies, as shown in the following example:
 
 ```bash
-curl -X PUT "localhost:9200/_snapshot/snap_repo?pretty" -H 'Content-Type: application/json' -d'
+PUT /_snapshot/snap_repo
 {
         "type": "s3",
         "settings": {
@@ -24,8 +24,8 @@ curl -X PUT "localhost:9200/_snapshot/snap_repo?pretty" -H 'Content-Type: applic
             "remote_store_index_shallow_copy": true
         }
     }
-'
 ```
+{% include copy-curl.html %}
 
 Once enabled, all requests using the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) will remain the same for all snapshots. After the setting is enabled, we recommend not disabling the setting. Doing so could affect data durability. 
 
