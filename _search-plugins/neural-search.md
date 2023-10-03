@@ -45,7 +45,7 @@ In the pipeline request body, you must set up a `text_embedding` processor, the 
 
 ```json
 "text_embedding": {
-  "model_id": "bxoDJ7IHGM14UqatWc_2j",
+  "model_id": "<model_id>",
   "field_map": {
       "<input_field>": "<vector_field>"
   }
@@ -65,15 +65,15 @@ Field | Data type | Description
 The following example request creates an ingest pipeline where the text from `passage_text` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
 
 ```json
-PUT _ingest/pipeline/nlp-pipeline
+PUT /_ingest/pipeline/nlp-ingest-pipeline
 {
-  "description": "An example neural search pipeline",
-  "processors" : [
+  "description": "An NLP ingest pipeline",
+  "processors": [
     {
       "text_embedding": {
-        "model_id": "bxoDJ7IHGM14UqatWc_2j",
+        "model_id": "bQ1J8ooBpBj3wT4HVUsb",
         "field_map": {
-           "passage_text": "passage_embedding"
+          "passage_text": "passage_embedding"
         }
       }
     }
@@ -91,21 +91,24 @@ In order to use the text embedding processor defined in your pipelines, create a
 The following example request creates a k-NN index that is set up with a default ingest pipeline:
 
 ```json
-PUT /my-nlp-index-1
+PUT /my-nlp-index
 {
   "settings": {
     "index.knn": true,
-    "default_pipeline": "nlp-pipeline"
+    "default_pipeline": "nlp-ingest-pipeline"
   },
   "mappings": {
     "properties": {
+      "id": {
+        "type": "text"
+      },
       "passage_embedding": {
         "type": "knn_vector",
         "dimension": 768,
         "method": {
-          "name": "hnsw",
-          "space_type": "l2",
           "engine": "lucene",
+          "space_type": "l2",
+          "name": "hnsw",
           "parameters": {}
         }
       },
@@ -125,9 +128,19 @@ For more information about creating a k-NN index and the methods it supports, se
 To ingest documents into the index created in the previous section, send a POST request for each document:
 
 ```json
-POST /my-nlp-index-1/_doc/1
+PUT /my-nlp-index/_doc/1
 {
-   "passage_text": "Hello world"
+  "passage_text": "Hello world",
+  "id": "s1"
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /my-nlp-index/_doc/2
+{
+  "passage_text": "Hi planet",
+  "id": "s2"
 }
 ```
 {% include copy-curl.html %}
@@ -145,8 +158,8 @@ Include the following request fields under the `neural` query clause:
 ```json
 "neural": {
   "<vector_field>": {
-    "query_text": "Hello world",
-    "model_id": "bxoDJ7IHGM14UqatWc_2j",
+    "query_text": "<query_text>",
+    "model_id": "<model_id>",
     "k": 100
   }
 }
@@ -165,16 +178,17 @@ Field | Data type | Description
 The following example request uses a Boolean query to combine a filter clause and two query clauses---a neural query and a `match` query. The `script_score` query assigns custom weights to the query clauses:
 
 ```json
-GET /my-nlp-index-1/_search
+GET /my-nlp-index/_search
 {
+    "_source": {
+    "excludes": [
+      "passage_embedding"
+    ]
+  },
   "query": {
     "bool": {
-      "filter": {
-        "range": {
-          "distance": {
-            "lte": 20
-          }
-        }
+    "filter": {
+         "wildcard":  { "id": "*1" }
       },
       "should": [
         {
@@ -183,7 +197,7 @@ GET /my-nlp-index-1/_search
               "neural": {
                 "passage_embedding": {
                   "query_text": "Hi world",
-                  "model_id": "bxoDJ7IHGM14UqatWc_2j",
+                  "model_id": "bQ1J8ooBpBj3wT4HVUsb",
                   "k": 100
                 }
               }
@@ -224,7 +238,7 @@ PUT /_search/pipeline/default_model_pipeline
   "request_processors": [
     {
       "neural_query_enricher" : {
-        "default_model_id": "u5j0qYoBMtvQlfhaxOsa",
+        "default_model_id": "bQ1J8ooBpBj3wT4HVUsb",
         "neural_field_default_id": {
            "my_field_1": "uZj0qYoBMtvQlfhaYeud",
            "my_field_2": "upj0qYoBMtvQlfhaZOuM"
@@ -239,7 +253,7 @@ PUT /_search/pipeline/default_model_pipeline
 Then set the default model for your index:
 
 ```json
-PUT /my-nlp-index-1/_settings
+PUT /my-nlp-index/_settings
 {
   "index.search.default_pipeline" : "default_model_pipeline"
 }
@@ -249,12 +263,21 @@ PUT /my-nlp-index-1/_settings
 You can now omit the model ID when searching:
 
 ```json
-"query": {
-  "neural": {
-    "passage_embedding": {
-      "query_text": "Hi world",
-      "k": 100
+GET /my-nlp-index/_search
+{
+  "_source": {
+    "excludes": [
+      "passage_embedding"
+    ]
+  },
+  "query": {
+    "neural": {
+      "passage_embedding": {
+        "query_text": "Hi world",
+        "k": 100
+      }
     }
   }
 }
 ```
+{% include copy-curl.html %}
