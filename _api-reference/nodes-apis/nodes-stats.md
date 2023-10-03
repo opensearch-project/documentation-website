@@ -27,7 +27,7 @@ The following table lists the available path parameters. All path parameters are
 Parameter | Type | Description
 :--- | :--- | :---
 nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
-metric | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,fs`. See the following list of all index metrics. Defaults to all metrics.
+metric | String | A comma-separated list of metric groups that are included in the response. For example, `jvm,fs`. See the following list of all index metrics. Defaults to all metrics.
 index_metric | String | A comma-separated list of index metric groups that will be included in the response. For example, `docs,store`. See the following list of all index metrics. Defaults to all index metrics.
 
 The following table lists all available metric groups.
