@@ -32,7 +32,7 @@ To learn more about available search processors, see [Search processors]({{site.
 
 ## Example
 
-To create a search pipeline, send a request to the search pipeline endpoint, specifying an ordered list of processors, which will be applied sequentially:
+To create a search pipeline, send a request to the search pipeline endpoint specifying an ordered list of processors, which will be applied sequentially:
 
 ```json
 PUT /_search/pipeline/my_pipeline 

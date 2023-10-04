@@ -41,7 +41,7 @@ Use `pipeline_name` to create a name for your neural search ingest pipeline.
 
 ### Request fields
 
-In the pipeline request body, you must set up a `text_embedding` processor, the only processor supported by neural search, which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields into which to store the embeddings:
+In the pipeline request body, you must set up a `text_embedding` processor (the only processor supported by neural search), which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields in which to store the embeddings:
 
 ```json
 "text_embedding": {
@@ -125,7 +125,7 @@ For more information about creating a k-NN index and the methods it supports, se
 
 ## Step 3: Ingest documents into the index
 
-To ingest documents into the index created in the previous section, send a POST request for each document:
+To ingest documents into the index created in the previous step, send a POST request for each document:
 
 ```json
 PUT /my-nlp-index/_doc/1
@@ -171,7 +171,7 @@ Field | Data type | Description
 :--- | :--- | :--- 
 `query_text` | String | The query text from which to generate text embeddings.
 `model_id` | String | The ID of the model that will be used to generate text embeddings from the query text. The model must be indexed in OpenSearch before it can be used in neural search.
-`k` | Integer | The number of results the k-NN search returns.
+`k` | Integer | The number of results returned by the k-NN search.
 
 ### Example request
 
@@ -263,7 +263,7 @@ The response contains the matching document:
 
 To eliminate passing the model ID with each neural query request, you can set a default model on a k-NN index or a field. 
 
-First, create a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) request processor. To set a default model on an index, provide the model ID in the `default_model_id` parameter. To set a default model on a specific field, provide the field name and the corresponding model ID in the `neural_field_default_id` map. If you provide both `default_model_id` and `neural_field_default_id`, `neural_field_default_id` takes precedence:
+First, create a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) request processor. To set a default model for an index, provide the model ID in the `default_model_id` parameter. To set a default model for a specific field, provide the field name and the corresponding model ID in the `neural_field_default_id` map. If you provide both `default_model_id` and `neural_field_default_id`, `neural_field_default_id` takes precedence:
 
 ```json
 PUT /_search/pipeline/default_model_pipeline 

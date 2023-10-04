@@ -9,7 +9,7 @@ grand_parent: Search
 
 # Creating a search pipeline
 
-Search pipelines are stored in the cluster state. To create a search pipeline, you must configure an ordered list of processors in your OpenSearch cluster. You can have more than one processor of the same type in the pipeline. Each processor has a `tag` identifier that distinguishes it from the others. Tagging a specific processor can be helpful for debugging error messages, especially if you add multiple processors of the same type.
+Search pipelines are stored in the cluster state. To create a search pipeline, you must configure an ordered list of processors in your OpenSearch cluster. You can have more than one processor of the same type in the pipeline. Each processor has a `tag` identifier that distinguishes it from the others. Tagging a specific processor can be helpful when debugging error messages, especially if you add multiple processors of the same type.
 
 #### Example request
 
@@ -68,7 +68,7 @@ To update a search pipeline dynamically, replace the search pipeline using the S
 
 #### Example request
 
-The following request upserts `my_pipeline` by adding a `filter_query` request processor and a `rename_field` response processor:
+The following example request upserts `my_pipeline` by adding a `filter_query` request processor and a `rename_field` response processor:
 
 ```json
 PUT /_search/pipeline/my_pipeline
