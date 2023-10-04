@@ -24,7 +24,7 @@ Field | Data type | Description
 
 ## Example 
 
-The following request creates a search pipeline with a `neural_query_enricher` request processor. The processor sets a default model ID at index level and provides different default model IDs for two specific fields in the index:
+The following request creates a search pipeline with a `neural_query_enricher` search request processor. The processor sets a default model ID at index level and provides different default model IDs for two specific fields in the index:
 
 ```json
 PUT /_search/pipeline/default_model_pipeline 
