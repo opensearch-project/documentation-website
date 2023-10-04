@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Script processor
+title: Script
 nav_order: 30
 has_children: false
-parent: Search pipelines
-grand_parent: Search
+parent: Search processors
+grand_parent: Search pipelines
 ---
 
 # Script processor

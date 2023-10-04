@@ -14,8 +14,9 @@ Operator | Description
 :--- | :---
 `*` | Matches zero or more characters.
 `?` | Matches any single character.
+`case_insensitive` | If `true`, the wildcard query is case insensitive. If `false`, the wildcard query is case sensitive. Optional. Default is `true` (case insensitive).
 
-To search for terms that start with `H` and end with `Y`, use the following request:
+For a case-sensitive search for terms that start with `H` and end with `Y`, use the following request:
 
 ```json
 GET shakespeare/_search
@@ -23,7 +24,8 @@ GET shakespeare/_search
   "query": {
     "wildcard": {
       "speaker": {
-        "value": "H*Y"
+        "value": "H*Y",
+        "case_insensitive": false
       }
     }
   }

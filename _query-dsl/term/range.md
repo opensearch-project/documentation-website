@@ -55,6 +55,8 @@ GET products/_search
 ```
 {% include copy-curl.html %}
 
+For more information about supported date formats, see [Formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats).
+
 ### Format
 
 To use a date format other than the field's mapped format in a query, specify it in the `format` field.
@@ -165,7 +167,7 @@ Parameter | Rounding rule | Example: The value `2022-05-18||/M` is rounded to
 
 ### Time zone
 
-To convert `date` values to [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) using a [UTC offset](https://en.wikipedia.org/wiki/UTC_offset), use the `time_zone` parameter:
+By default, dates are assumed to be in [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time). If you specify a `time_zone` parameter in the query, the provided date values are converted to UTC. You can specify the `time_zone` parameter as a [UTC offset](https://en.wikipedia.org/wiki/UTC_offset), such as `-04:00`, or an [IANA time zone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), such as `America/New_York`. For example, the following query specifies that the `gte` date provided in the query is in the `-04:00` time zone:
 
 ```json
 GET /products/_search
@@ -182,9 +184,9 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-The preceding query specifies the `-04:00` offset, so the `gte` parameter is converted to `2022-04-17T10:00:00 UTC`.   
+The `gte` parameter in the preceding query is converted to `2022-04-17T10:00:00 UTC`, which is the UTC equivalent of `2022-04-17T06:00:00-04:00`.   
 
-The `time_zone` parameter does not affect the `now` value.
+The `time_zone` parameter does not affect the `now` value because `now` always corresponds to the current system time in UTC.
 {: .note}
 
 ## Parameters

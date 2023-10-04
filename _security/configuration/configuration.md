@@ -9,11 +9,11 @@ redirect_from:
 
 # Configuring the Security backend
 
-One of the first steps to using the Security plugin is to decide on an authentication backend, which handles [steps 2-3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
+One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The role played by the backend in authentication is covered in [steps 2 and 3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
-The main configuration file for authentication and authorization backends is `config/opensearch-security/config.yml`. It defines how the Security plugin retrieves the user credentials, how it verifies these credentials, and how to fetch additional roles from backend systems (optional).
+The primary file used to configure an authentication and authorization backend is `config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how it verifies the credentials, and how it fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
 
-`config.yml` has three main parts:
+The `config.yml` file includes three main parts:
 
 ```yml
 config:
@@ -26,24 +26,33 @@ config:
       ...
 ```
 
-For a more complete example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
+The sections that follow describe the main elements in each part of the `config.yml` file and provide basic examples of their configuration. For a more detailed example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
 
 
 ## HTTP
 
-The `http` section has the following format:
+The `http` section includes the following format:
 
 ```yml
-anonymous_auth_enabled: <true|false>
-xff: # optional section
-  enabled: <true|false>
-  internalProxies: <string> # Regex pattern
-  remoteIpHeader: <string> # Name of the header in which to look. Typically: x-forwarded-for
-  proxiesHeader: <string>
-  trustedProxies: <string> # Regex pattern
+http:
+  anonymous_auth_enabled: <true|false>
+  xff: # optional section
+    enabled: <true|false>
+    internalProxies: <string> # Regex pattern
+    remoteIpHeader: <string> # Name of the header in which to look. Typically: x-forwarded-for
+    proxiesHeader: <string>
+    trustedProxies: <string> # Regex pattern
 ```
 
+The settings used in this configuration are described in the following table.
+
+| Setting | Description |
+| :--- | :--- |
+| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user is authenticated. If none are found, the user is authenticated as an "anonymous" user. This user then has the username "anonymous" and one role named "anonymous_backendrole". When you enable anonymous authentication, all defined [HTTP authenticators](#authentication) are non-challenging. Also see [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
+| `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/). |
+
 If you disable anonymous authentication, the Security plugin won't initialize if you have not provided at least one `authc`.
+{: .important }
 
 
 ## Authentication
@@ -51,23 +60,30 @@ If you disable anonymous authentication, the Security plugin won't initialize if
 The `authc` section has the following format:
 
 ```yml
-<name>:
-  http_enabled: <true|false>
-  transport_enabled: <true|false>
-  order: <integer>
-  http_authenticator:
-    ...
-  authentication_backend:
-    ...
+authc:
+  <domain_name>:
+    http_enabled: <true|false>
+    transport_enabled: <true|false>
+    order: <integer>
+    http_authenticator:
+      ...
+    authentication_backend:
+      ...
 ```
 
 An entry in the `authc` section is called an *authentication domain*. It specifies where to get the user credentials and against which backend they should be authenticated.
 
-You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), `enabled` flags, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
+You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), settings for enabling the domain on the REST and transport layers, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
 
-`http_authenticator` specifies which authentication method that you want to use on the HTTP layer.
+Settings that are typically found in this part of the configuration are included in the following table.
 
-This is the syntax for defining an authenticator on the HTTP layer:
+| Setting | Description |
+| :--- | :--- |
+| `http_enabled` | Enables or disables authentication on the REST layer. Default is `true` (enabled). |
+| `transport_enabled` | Enables or disables authentication on the transport layer. Default is `true` (enabled). |
+| `order` | Determines the order in which an authentication domain is queried with an authentication request when multiple backends are configured in combination. Once authentication succeeds, any remaining domains do not need to be queried. Its value is an integer. |
+
+The `http_authenticator` definition specifies the authentication method for the HTTP layer. The following example shows the syntax used for defining an HTTP authenticator:
 
 ```yml
 http_authenticator:
@@ -77,11 +93,16 @@ http_authenticator:
     ...
 ```
 
-These are the allowed values for `type`:
+The `type` setting for `http_authenticator` accepts the following values. For more information about each of the authentication options, see the links to authentication backends in [Next steps](#next-steps).
 
-- `basic`: HTTP basic authentication. No additional configuration is needed.
-- `jwt`: JSON Web Token (JWT) authentication. Additional configuration is needed. See [Configuring JWTs]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/#configuring-jwts) for more information.
-- `clientcert`: Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes.
+| Value | Description |
+| :--- | :--- |
+| `basic` | HTTP basic authentication. For more information about using basic authentication, see the HTTP basic authentication documentation. |
+| `jwt` | JSON Web Token (JWT) authentication. See the JSON Web Token documentation for additional configuration information. |
+| `openid` | OpenID Connect authentication. See the OpenID Connect documentation for additional configuration information. |
+| `saml` | SAML authentication. See the SAML documentation for additional configuration information. |
+| `proxy`, `extended-proxy` | Proxy-based authentication. The `extended-proxy` type authenticator allows you to pass additional user attributes for use with document-level security. See the Proxy-based authentication documentation for additional configuration information. |
+| `clientcert` | Authentication through a client TLS certificate. This certificate must be trusted by one of the root certificate authorities (CAs) in the truststore of your nodes. See the Client certificate authentication documentation for additional configuration information. |
 
 After setting an HTTP authenticator, you must specify against which backend system you want to authenticate the user:
 
@@ -92,16 +113,18 @@ authentication_backend:
     ...
 ```
 
-These are the possible values for `type`:
+The following table shows the possible values for the `type` setting under `authentication_backend`.
 
-- `noop`: No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT or client certificate authentication.
-- `internal`: Use the users and roles defined in `internal_users.yml` for authentication.
-- `ldap`: Authenticate users against an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
+| Value | Description |
+| :--- | :--- |
+| `noop` | No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT or client certificate authentication. |
+| `internal` | Use the users and roles defined in `internal_users.yml` for authentication. |
+| `ldap` | Authenticate users against an LDAP server. This setting requires [additional LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
 
 
 ## Authorization
 
-After the user has been authenticated, the Security plugin can optionally collect additional roles from backend systems. The authorization configuration has the following format:
+The `authz` configuration is used to extract backend roles from an LDAP implementation. After the user has been authenticated, the Security plugin can optionally collect additional roles from the backend system. The authorization configuration has the following format:
 
 ```yml
 authz:
@@ -114,106 +137,14 @@ authz:
         ...
 ```
 
-You can define multiple entries in this section the same way as you can for authentication entries. In this case, execution order is not relevant, so there is no `order` field.
+You can define multiple entries in this section, as with authentication entries. In this case, however, the execution order is not relevant and the `order` setting is not used.
 
-These are the possible values for `type`:
+The following table shows the possible values for the `type` setting under `authorization_backend`.
 
-- `noop`: Skip this step altogether.
-- `ldap`: Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
-
-## HTTP basic authentication
-
-To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration:
-<!--- provide more description about what basic gives you and describe the function of the internal database --->
-
-```yml
-http_authenticator:
-  type: basic
-  challenge: true
-```
-
-In most cases, you set the `challenge` flag to `true`. The flag defines the behavior of the Security plugin if the `Authorization` field in the HTTP header is not set.
-
-If `challenge` is set to `true`, the Security plugin sends a response with status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a user name and password.
-
-If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. Consider using this setting if you have more than one challenge `http_authenticator` keys in your configured authentication domains. This might be the case, for example, when you plan to use basic authentication and OpenID Connect together.
-
-
-## API rate limiting
-
-API rate limiting is typically used to restrict the number of API calls that users can make in a set span of time, thereby helping to manage the rate of API traffic. For security purposes, rate limiting features have the potential to defend against DoS attacks, or repeated login attempts to gain access through trial and error, by restricting failed login attempts.
-
-You have the option to configure the Security plugin for username rate limiting, IP address rate limiting, or both. These configurations are made in the `config.yml` file. See the following sections for information about each type of rate limiting configuration.
-
-
-### Username rate limiting
-
-This configuration limits login attempts by username. When a login fails, the username is blocked for any machine in the network. The following example shows `config.yml` file settings configured for username rate limiting:
-
-```yml
-auth_failure_listeners:
-      internal_authentication_backend_limiting:
-        type: username
-        authentication_backend: internal
-        allowed_tries: 3
-        time_window_seconds: 60
-        block_expiry_seconds: 60
-        max_blocked_clients: 100000
-        max_tracked_clients: 100000
-```
-{% include copy.html %}
-
-The following table describes the individual settings for this type of configuration.
-
-| Setting | Description |
+| Value | Description |
 | :--- | :--- |
-| `type` |  The type of rate limiting. In this case, `username`. |
-| `authentication_backend` | The internal backend. Enter `internal`. |
-| `allowed_tries` |  The number of login attempts allowed before login is blocked. Be aware that increasing the number increases heap usage. |
-| `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries` is `3` and `time_window_seconds` is `60`, a username has three attempts to log in successfully within a 60-second time span before login is blocked. |
-| `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the username can attempt successful login again. |
-| `max_blocked_clients` |  The maximum number of blocked usernames. This limits heap usage to avoid a potential DoS. |
-| `max_tracked_clients` | The maximum number of tracked usernames that have failed login. This limits heap usage to avoid a potential DoS. |
-
-
-### IP address rate limiting
-
-This configuration limits login attempts by IP address. When a login fails, the IP address specific to the machine being used for login is blocked. 
-
-There are two steps for configuring IP address rate limiting. First, set the `challenge` setting to `false` in the `http_authenticator` section of the `config.yml` file.
-
-```yml
-http_authenticator:
-  type: basic
-  challenge: false
-```
-
-For more information about this setting, see [HTTP basic authentication](#http-basic-authentication).
-
-Second, configure the IP address rate limiting settings. The following example shows a completed configuration:
-
-```yml
-auth_failure_listeners:
-      ip_rate_limiting:
-        type: ip
-        allowed_tries: 1
-        time_window_seconds: 20
-        block_expiry_seconds: 180
-        max_blocked_clients: 100000
-        max_tracked_clients: 100000
-```
-{% include copy.html %}
-
-The following table describes the individual settings for this type of configuration.
-
-| Setting | Description |
-| :--- | :--- |
-| `type` |  The type of rate limiting. In this case, `ip`. |
-| `allowed_tries` |  The number of login attempts allowed before login is blocked. Be aware that increasing the number increases heap usage. |
-| `time_window_seconds` | The window of time in which the value for `allowed_tries` is enforced. For example, if `allowed_tries` is `3` and `time_window_seconds` is `60`, an IP address has three attempts to log in successfully within a 60-second time span before login is blocked. |
-| `block_expiry_seconds` | The duration of time that login remains blocked after a failed login. After this time elapses, login is reset and the IP address can attempt successful login again. |
-| `max_blocked_clients` |  The maximum number of blocked IP addresses. This limits heap usage to avoid a potential DoS. |
-| `max_tracked_clients` | The maximum number of tracked IP addresses that have failed login. This limits heap usage to avoid a potential DoS. |
+| `noop` | Skips the authorization configuration step altogether. |
+| `ldap` | Fetches additional roles from an LDAP server. This setting requires [additional LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
 
 
 ## Backend configuration examples
@@ -223,7 +154,16 @@ The default `config/opensearch-security/config.yml` file included in your OpenSe
 
 ## Next steps
 
-To learn about configuring supported authentication backends, see the relevant topic for each type in the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation.
+To learn about configuring the authentication backends, see the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation. Alternatively, you can view documentation for a specific backend by using the links in the following list of topics:
+
+* [HTTP basic authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/)
+* [JSON Web Token]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/)
+* [OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/)
+* [SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/)
+* [Active Directory and LDAP]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)
+* [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/)
+* [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/)
+
 
 <!--- Remvoving Kerberos documentation until issue #907 is resolved.
 ### Kerberos

@@ -9,7 +9,7 @@ redirect_from:
 
 # Modifying the YAML files
 
-The Security installation provides a number of YAML confguration files that are used to store the necessary settings that define the way Security manages users, roles, and activity within the cluster. These settings range from configurations for authentication backends to lists of allowed endpoints and HTTP requests. 
+The Security installation provides a number of YAML configuration files that are used to store the necessary settings that define the way the Security plugin manages users, roles, and activity within the cluster. These settings range from configurations for authentication backends to lists of allowed endpoints and HTTP requests. 
 
 Before running [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) to load the settings into the `.opendistro_security` index, perform an initial configuration of the YAML files. The files can be found in the `config/opensearch-security` directory. It's also good practice to back up these files so that you can reuse them for other clusters.
 
@@ -133,6 +133,21 @@ An authentication cache for the Security plugin exists to help speed up authenti
 ```yml
 plugins.security.cache.ttl_minutes: 60
 ```
+
+### Enabling user access to system indexes
+
+Mapping a system index permission to a user allows that user to modify the system index specified in the permission's name (the one exception is the Security plugin's [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/)). The `plugins.security.system_indices.permissions.enabled` setting provides a way for administrators to make this permission available for or hidden from role mapping.
+
+When set to `true`, the feature is enabled and users with permission to modify roles can create roles that include permissions that grant access to system indexes:
+
+```yml
+plugins.security.system_indices.permissions.enabled: true
+```
+
+When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the permission is set to `false` in a new cluster.
+
+To learn more about system index permissions, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
+
 
 ### Password settings
 
