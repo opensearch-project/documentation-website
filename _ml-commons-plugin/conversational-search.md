@@ -5,6 +5,9 @@ has_children: false
 nav_order: 200
 ---
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/feedback-conversational-search-and-retrieval-augmented-generation-using-search-pipeline-experimental-release/16073). 
+{: .warning}
+
 # Conversational search
 
 Conversational search is an experimental machine learning (ML) feature that enables a new search interface. Whereas traditional document search allows you to ask a question and receive a list of documents that might contain the answer to that question, conversational search uses large language models (LLMs) to read the top N documents and synthesizes those documents into a plaintext "answer" to your question.
