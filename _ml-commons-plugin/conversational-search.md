@@ -5,6 +5,9 @@ has_children: false
 nav_order: 200
 ---
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/feedback-conversational-search-and-retrieval-augmented-generation-using-search-pipeline-experimental-release/16073). 
+{: .warning}
+
 # Conversational search
 
 Conversational search is an experimental machine learning (ML) feature that enables a new search interface. Whereas traditional document search allows you to ask a question and receive a list of documents that might contain the answer to that question, conversational search uses large language models (LLMs) to read the top N documents and synthesizes those documents into a plaintext "answer" to your question.
@@ -350,13 +353,13 @@ GET /<index_name>/_search?search_pipeline=<pipeline_name>
 }
 ```
 
-The RAG search query uses the following request objects under the `generative_qa_paramters` option.
+The RAG search query uses the following request objects under the `generative_qa_parameters` option.
 
 Parameter | Required | Description
 :--- | :--- | :---
 `llm_question` | Yes | The question the LLM must answer. 
 `llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
-`coversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of the search query to the LLM. 
+`conversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of the search query to the LLM. 
 
 If your LLM includes a set token limit, set the `size` field in your OpenSearch query to limit the number of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search results to the LLM.
 
