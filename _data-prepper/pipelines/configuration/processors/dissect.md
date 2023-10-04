@@ -28,7 +28,7 @@ dissect-pipeline:
     - stdout:
 ```
 
-Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of a file containing this json data:
+Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of a file containing this JSON data:
 
 ```
 {"log": "07-25-2023 10:00:00 ERROR: error message"}
@@ -62,15 +62,15 @@ You can configure the `dissect` processor with the following options.
 
 You can define a dissect patterns with the following types of fields.
 
-#### Normal Field
+#### Normal field
 
 A field without a suffix or prefix. The field will be directly added to the output Event. The format is `%{field_name}`.
 
-#### Skip Field
+#### Skip field
 
 A field that will not be put in the event. The format is `%{}` or `%{?field_name}`.
 
-#### Append Field
+#### Append field
 
 A field that will be combined with other fields. To append multiple values and put the final value in the field, we can use + before the field name in the dissect pattern. The format is `%{+field_name}`. 
 
@@ -82,7 +82,7 @@ For example, with a pattern `"%{+field_name/2}, %{+field_name/1}"`, log message 
 
 If the order is not mentioned, the append operation will take place in the order of fields specified in the dissect pattern. 
 
-#### Indirect Field
+#### Indirect field
 
 A field that uses the value from another field as field name. While defining a pattern, prefix the field with a `&` to assign the value found with this field to the value of another field found as the key.
 
