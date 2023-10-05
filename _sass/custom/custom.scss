@@ -781,6 +781,9 @@ main {
 
   @include mq(xs) {
     padding: 0 calc(#{$top-button-margin} + 1rem);
+    &.footer-container {
+      padding: 0;
+    }
   }
 
   @include mq(md) {
@@ -837,10 +840,10 @@ $primary-open-sky-s2: #006D97;
 $primary-deep-blue-sea-s3: #001E30;
 $primary-open-sky-t3: #E1F0F9;
 $primary-deep-blue-sea-t1: #2C5E7A;
-$footer-3-column-min: 1440px;
-$footer-2-column-max: 1439px;
-$footer-2-column-min: 834px;
-$footer-1-column-max: 833px;
+$footer-3-column-min: 835px;
+$footer-2-column-max: 834px;
+$footer-2-column-min: 701px;
+$footer-1-column-max:700px;
 @mixin gradient-deep-blue-sea {
   background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
 }
@@ -898,7 +901,9 @@ $footer-1-column-max: 833px;
     position: relative;
 
     // NOTE: The min() call is wrapped in a calc() call to workaround the
-    // outdated SASS compiler that has an issue mixing the percentage with pixels.
+    // outdated SASS compiler that has an issue mixing the percentage with pixels,
+    // and will not interpolate the variable for 1019px either because of the error
+    // which is why the constant value as a "magic number" is present.
     left: calc(min(80px, 100% - 1019px));
     @media screen and (max-width: 1339px) {
       left: 0;
@@ -1200,6 +1205,9 @@ $footer-1-column-max: 833px;
     }
   }
 }
+body {
+  padding-bottom: 0;
+}
 
 [role="contentinfo"] {
   // Global Footer at bottom of page
@@ -1220,11 +1228,8 @@ $footer-1-column-max: 833px;
 
   .subfooter {
     @include clearfix;
-    padding: 0 10px;
+    padding: 0;
     @include gradient-deep-blue-sea;
-    @include respond-min(46.25rem) {
-        padding: 0;
-    }
     .subfooter--flex-wrapper {
       display: flex;
       flex-direction: row;
@@ -1238,35 +1243,40 @@ $footer-1-column-max: 833px;
           flex-wrap: wrap;
           justify-content: space-between;
           align-items: flex-start;
+          padding-bottom: 60px;
           > .subfooter--columns-wrapper--column {
+              box-sizing: border-box;
               @media screen and (min-width: $footer-3-column-min) {
                   flex-basis: 33%;
                   max-width: 350px;
+                  padding-left: 80px;
               }
               @media screen and (max-width: $footer-2-column-max) and (min-width: $footer-2-column-min) {
                   &:nth-of-type(1) {
-                      flex-basis: calc(50% - 80px);
-                      padding-left: 80px;
+                      flex-basis: 50%;
+                      padding-left: 40px;
                   }
                   &:nth-of-type(2) {
-                      flex-basis: calc(50% - 40px);
+                      flex-basis: 50%;
                       padding-left: 40px;
                   }
                   &:nth-of-type(3) {
-                      flex-basis: calc(100% - 80px);
-                      padding-left: 80px;
+                      flex-basis: 100%;
+                      padding-left: 40px;
                   }
               }
               @media screen and (max-width: $footer-1-column-max) {
-                  flex-basis: calc(100% - 80px);
-                  padding-left: 40px;
+                  flex-basis: 100%;
+                  padding-left: 10px;
                   padding-bottom: 80px;
               }
               > h4 {
                   @include header-level4($white);
                   margin-top: 35px;
                   margin-bottom: 20px;
-                  font-size: 15px !important; // Sorry, but the base theme uses !important.
+                  &.opensearch-more-important {
+                    font-size: 15px !important; // Sorry, but the base theme uses !important.
+                  }
               }
               > ul {
                   list-style-type: none;
@@ -1354,45 +1364,53 @@ $footer-1-column-max: 833px;
     padding: 10px 0 30px;
     color: #d9d9d9;
     .footer--flex-wrapper {
-      text-align: center;
+      box-sizing: border-box;
       .footer--legal-rows-wrapper {
         text-align: left;
         margin: auto;
         max-width: 1265px;
         display: flex;
         flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: space-between;
         align-items: flex-start;
-        row-gap: 40px;
-        @media screen and (max-width: $footer-2-column-max) {
-            padding-left: 80px;
+        row-gap: 24px;
+        box-sizing: border-box;
+        @media screen and (min-width: $footer-3-column-min) {
+          padding-left: 80px;
+        }
+        @media screen and (min-width: $footer-2-column-min) and (max-width: $footer-2-column-max) {
+          padding-left: 40px;
         }
         @media screen and (max-width: $footer-1-column-max) {
-            padding-left: 40px;
+          padding-left: 20px;
         }
         > .footer--legal-rows-wrapper--row {
           flex-basis: 60px;
-          font-size: 18px;
+          font-size: 15px;
+          line-height: 24px;
+          a:not([class]) {
+            color: #D9D9D9;
+            background-image: none;
+          }
           @media screen and (max-width: $footer-1-column-max) {
             > .footer--legal-rows-wrapper--row--logo__desktop {
                 display: none;
             }
             > .footer--legal-rows-wrapper--row--logo__mobile {
-              display: block;
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+              justify-content: center;
               > div {
-                height: 50px;
                 color: #FFF;
                 font-family: 'Open Sans';
-                font-size: 24.666px;
+                font-size: 24px;
                 font-style: normal;
                 font-weight: 600;
-                line-height: 36.177px;
+                line-height: 36px;
                 letter-spacing: 8.387px;
                 text-transform: uppercase;
-                > a {
-                    color: #fff;
-                }
+                flex-basis: 281px;
+                box-sizing: border-box;
               }
             }
           }
@@ -1403,6 +1421,10 @@ $footer-1-column-max: 833px;
             > .footer--legal-rows-wrapper--row--logo__desktop {
               display: block;
             }
+          }
+          &:nth-of-type(2) {
+            box-sizing: border-box;
+            padding-right: calc(#{$top-button-margin} * 2);
           }
         }
       }
@@ -1415,7 +1437,6 @@ $footer-1-column-max: 833px;
         height: 50px;
         padding-top: 40px;
         padding-right: 30px;
-        
     }
     .copyright {
       float: left;
