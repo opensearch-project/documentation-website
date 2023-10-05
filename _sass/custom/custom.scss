@@ -841,6 +841,8 @@ $primary-open-sky-s2: #006D97;
 $primary-deep-blue-sea-s3: #001E30;
 $primary-open-sky-t3: #E1F0F9;
 $primary-deep-blue-sea-t1: #2C5E7A;
+$primary-open-sky-t1: #4FB3E3;
+$primary-open-sky-t2: #9BCFED;
 $footer-3-column-min: 835px;
 $footer-2-column-max: 834px;
 $footer-2-column-min: 701px;
@@ -1389,8 +1391,18 @@ body {
           font-size: 15px;
           line-height: 24px;
           a:not([class]) {
-            color: #D9D9D9;
+            color: $primary-open-sky-t1;
             background-image: none;
+          }
+          a {
+            color: $primary-open-sky-t1;
+            text-decoration: underline;
+            &:hover {
+              color: $primary-pacific-sky-t3;
+            }
+            &:visited {
+              color: $primary-open-sky-t2;
+            }
           }
           svg > path {
             fill: $primary-pacific-sky-t3;
