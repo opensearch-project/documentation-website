@@ -69,6 +69,7 @@ The following request field parameters are compatible with the cluster API.
 | indices.recovery.max_bytes_per_sec | String | Limits the total inbound and outbound recovery traffic for each node. This applies to peer recoveries and snapshot recoveries. Default is `40mb`. If you set the recovery traffic value to less than or equal to `0mb`, rate limiting will be disabled, which causes recovery data to be transferred at the highest possible rate. |
 | indices.recovery.max_concurrent_file_chunks | Integer | The number of file chunks sent in parallel for each recovery operation. Default is `2`. |
 | indices.recovery.max_concurrent_operations | Integer | The number of operations sent in parallel for each recovery. Default is `1`. |
+| indices.recovery.max_concurrent_remote_store_streams | Integer | The number of streams to the remote repository that can be opened in parallel when recovering a remote store index. Default is `20`. |
 | logger.org.opensearch.discovery | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
 | breaker.model_inference.limit | String | The limit for the trained model circuit breaker. Default is `50%` of the JVM heap. |
 | breaker.model_inference.overhead | Integer | The constant that all trained model estimations are multiplied by to determine a final estimation. Default is `1`. |
