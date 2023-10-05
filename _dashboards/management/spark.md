@@ -13,7 +13,7 @@ Once you have installed OpenSearch and OpenSearch Dashboards, you can use Dashbo
 
 Configuration of the YAML files and installation of certain [OpenSearch plugins]({{site.url}}{{site.baseurl}}/opensearch-sql/) is necessary. The following plugins are required for using the Apache Spark integration feature: `opensearch-sql`, `opensearch-security`, and `opensearch-observability`. 
 
-<SME provide information: what configuration is necessary? what settings need to be configured? provide examples of the configuration. Do users need to enable `data_sources` in the YAML file? >
+<SME provide information: What are prerequisites? Do you need to have OpenSearch Service to use this feature? What YAML configuration is necessary? What settings need to be configured? Do users need to enable `data_sources` in the YAML file? Provide configuration examples.>
 
 The following tutorial guides you through using OpenSearch Dashboards to connect Apache Spark and OpenSearch. 
 
