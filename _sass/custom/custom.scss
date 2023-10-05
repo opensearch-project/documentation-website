@@ -1417,13 +1417,13 @@ body {
               display: block;
             }
           }
+          box-sizing: border-box;
           &:nth-of-type(1) {
             width: 100%;
             box-sizing: border-box;
           }
           &:nth-of-type(2) {
-            box-sizing: border-box;
-            padding-right: calc(#{$top-button-margin} * 2);
+            padding-right: $top-button-margin;
           }
         }
       }
