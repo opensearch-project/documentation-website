@@ -48,7 +48,7 @@ Parameter | Description
 :--- | :--- 
 `boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
 `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
-`format` | The format for parsing dates. Default is `strict_date_optional_time||epoch_millis`.
+`format` | The format for parsing dates. Default is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`.
 `index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
 `locale` | A region- and language-specific way of representing the date. Default is [`ROOT`](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT) (a region- and language-neutral locale).
@@ -58,7 +58,7 @@ Parameter | Description
 
 ## Formats
 
-OpenSearch has built-in date formats, but you can also create your own custom formats. The default format is `strict_date_optional_time||epoch_millis`. You can specify multiple date formats, separated by `||`.
+OpenSearch has built-in date formats, but you can also create your own custom formats. The default format is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`. You can specify multiple date formats, separated by `||`.
 
 ## Built-in formats
 
@@ -223,7 +223,11 @@ GET testindex/_search
 
 The date field type supports using date math to specify durations in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/bucket/date-range/) accept date math expressions.
 
-A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_optional_time||epoch_millis` format.
+A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_time_no_millis||strict_date_optional_time||epoch_millis` format.
+
+If you specify multiple date formats in the field mapping, OpenSearch uses the first format to convert the milliseconds since the epoch value to a string. <br>
+If a field mapping for a field contains no format, OpenSearch uses `strict_date_optional_time` to convert the epoch value to a string.
+{: .note}
 
 Date math supports the following mathematical operators.
 
