@@ -9,12 +9,12 @@ redirect_from:
 ---
 
 # CAT indices
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT indices operation lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.
 
-## Example
+**Example**
 
 ```
 GET _cat/indices?v

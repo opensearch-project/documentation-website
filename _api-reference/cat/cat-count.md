@@ -10,12 +10,12 @@ redirect_from:
 ---
 
 # CAT count
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT count operation lists the number of documents in your cluster.
 
-## Example
+**Example**
 
 ```json
 GET _cat/count?v

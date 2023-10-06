@@ -7,6 +7,8 @@ nav_order: 10
 ---
 
 # Append
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `append` processor is used to add values to a field:
 - If the field is an array, the `append` processor appends the specified values to that array.

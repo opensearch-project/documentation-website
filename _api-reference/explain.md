@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 # Explain
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 Wondering why a specific document ranks higher (or lower) for a query? You can use the explain API for an explanation of how the relevance score (`_score`) is calculated for every result.
@@ -18,7 +18,7 @@ The explain API is an expensive operation in terms of both resources and time. O
 {: .warning }
 
 
-## Example
+**Example**
 
 To see the explain output for all results, set the `explain` flag to `true` either in the URL or in the body of the request:
 

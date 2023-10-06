@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 # Scroll
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 You can use the `scroll` operation to retrieve a large number of results. For example, for machine learning jobs, you can request an unlimited number of results in batches.
@@ -17,7 +17,7 @@ To use the `scroll` operation, add a `scroll` parameter to the request header wi
 Because search contexts consume a lot of memory, we suggest you don't use the `scroll` operation for frequent user queries. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
 {: .note }
 
-## Example
+**Example**
 
 To set the number of results that you want returned for each batch, use the `size` parameter:
 

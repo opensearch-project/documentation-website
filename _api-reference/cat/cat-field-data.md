@@ -9,12 +9,12 @@ redirect_from:
 ---
 
 # CAT fielddata
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT fielddata operation lists the memory size used by each field per node.
 
-## Example
+**Example**
 
 ```json
 GET _cat/fielddata?v

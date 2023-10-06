@@ -8,12 +8,12 @@ redirect_from:
 ---
 
 # Delete index
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 If you no longer need an index, you can use the delete index API operation to delete it.
 
-## Example
+**Example**
 
 ```json
 DELETE /sample-index

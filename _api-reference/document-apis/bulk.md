@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Bulk
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The bulk operation lets you add, update, or delete multiple documents in a single request. Compared to individual OpenSearch indexing requests, the bulk operation has significant performance benefits. Whenever practical, we recommend batching indexing operations into bulk requests.
@@ -17,7 +17,7 @@ The bulk operation lets you add, update, or delete multiple documents in a singl
 Beginning in OpenSearch 2.9, when indexing documents using the bulk operation, the document `_id` must be 512 bytes or less in size.
 {: .note}
 
-## Example
+**Example**
 
 ```json
 POST _bulk

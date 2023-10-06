@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # Create or update mappings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 If you want to create or add mappings and fields to an index, you can use the put mapping API operation. For an existing mapping, this operation updates the mapping.
@@ -43,9 +43,9 @@ The request body must contain `properties`, which has all of the mappings that y
 }
 ```
 
-## Optional request body fields
+#### Optional request body fields
 
-### dynamic
+#### dynamic
 
 You can make the document structure match the structure of the index mapping by setting the `dynamic` request body field to `strict`, as seen in the following example:
 
@@ -60,7 +60,7 @@ You can make the document structure match the structure of the index mapping by 
 }
 ```
 
-## Optional query parameters
+#### Optional query parameters
 
 Optionally, you can add query parameters to make a more specific request. For example, to skip any missing or closed indexes in the response, you can add the `ignore_unavailable` query parameter to your request as follows:
 
