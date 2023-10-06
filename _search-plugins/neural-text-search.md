@@ -10,6 +10,10 @@ parent: Neural search
 
 Use text search for text data. In neural search, text search is facilitated by text-based embedding models. 
 
+**PREREQUISITE**<br>
+Before using text search, you must set up a text-based embedding model. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+{: .note}
+
 ## Using text search
 
 To use text search, follow these steps:

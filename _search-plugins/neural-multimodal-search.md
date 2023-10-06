@@ -10,6 +10,10 @@ parent: Neural search
 
 Use multimodal search to search text and image data. In neural search, text search is facilitated by vision-language embedding models. 
 
+**PREREQUISITE**<br>
+Before using text search, you must set up a vision-language embedding model. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+{: .note}
+
 ## Using multimodal search
 
 To use neural search with text and image embeddings, follow these steps:
