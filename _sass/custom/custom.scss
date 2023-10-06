@@ -106,6 +106,16 @@ nav#site-nav > .nav-list:nth-of-type(1) {
   padding-top: 2px;
 }
 
+nav#site-nav > .nav-list,
+nav#site-nav > .version-wrapper {
+  width: 264px;
+  position: relative;
+  box-sizing: border-box;
+  left: -21px;
+}
+nav#site-nav > .version-wrapper {
+  left: -36px;
+}
 .nav-list {
   margin-top: 1px;
 }
@@ -557,6 +567,8 @@ p.label {
 .main-content-wrap {
   max-width: 100%;
   min-width: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .toc-wrap {
@@ -726,7 +738,7 @@ html {
 body {
   @include sans-serif;
   @include font-size(16);
-  background: $background-lightest;
+  background: linear-gradient(to right, #F5F7F7 100%, transparent 100%);;
   color: $text;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -744,7 +756,7 @@ main {
   align-content: stretch;
   height: 100%;
   position: relative;
-  justify-content: center;
+  justify-content: space-between;
 
   @include mq(lg) {
     background: linear-gradient(to right, $sidebar-color $nav-width, transparent $nav-width); 
@@ -754,9 +766,9 @@ main {
     background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
   }
 
-  @include mq(md) {
-    padding-top: calc(4rem + 9px);
-  }
+  // @include mq(md) {
+  //   padding-top: calc(4rem + 9px);
+  // }
 
   .side-bar {
     @include sans-serif;
@@ -789,7 +801,8 @@ main {
   @include mq(md) {
     margin: 0 auto;
     max-width: 1440px;
-    padding: 0 (32/768) * 100%;
+    // max-width: 1440px;
+    // padding: 0 (32/768) * 100%;
   }
 
   &.sidebar-right {
@@ -907,7 +920,7 @@ $footer-1-column-max:700px;
     // outdated SASS compiler that has an issue mixing the percentage with pixels,
     // and will not interpolate the variable for 1019px either because of the error
     // which is why the constant value as a "magic number" is present.
-    left: calc(min(80px, 100% - 1019px));
+    // left: calc(min(80px, 100% - 1019px));
     @media screen and (max-width: 1339px) {
       left: 0;
     }
@@ -1070,7 +1083,7 @@ $footer-1-column-max:700px;
 
 [role="banner"] [role="navigation"] {
   margin-top: 17px;
-  margin-right: 40px;
+  margin-right: 10px;
   @media screen and (max-width: 1339px) {
     margin-right: 0;
   }
@@ -1162,6 +1175,8 @@ $footer-1-column-max:700px;
                 height: 45px;
                 position: relative;
                 border: none;
+                padding-bottom: 17px;
+                padding-top: 1em;
               }
             }
 
@@ -1589,12 +1604,12 @@ body {
 
   @include mq(md) {
     display: block;
-    padding: 1px 0;
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    top: 0;
+    // padding: 1px 0;
+    // position: absolute;
+    // left: 0;
+    // right: 0;
+    // z-index: 2;
+    // top: 0;
   }
 
   h1 {
