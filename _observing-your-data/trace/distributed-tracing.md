@@ -24,7 +24,7 @@ OpenSearch provides a distributed tracing pipeline that can be used to ingest, p
 
 - **Instrumentation:** Instrumenting your application code with OpenTelemetry SDKs.
 - **Propagation:** Injecting trace context into requests as they propagate through your system.
-- **Collection:** Collecting trace data from your application and sending it to a backend.
+- **Collection:** Collecting trace data from your application.
 - **Processing:** Aggregating trace data from multiple sources and enriching it with additional metadata.
 - **Exporting:** Sending trace data to a backend for storage and analysis. 
 
