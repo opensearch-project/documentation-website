@@ -96,7 +96,7 @@ To ingest documents into the index created in the previous step, send a POST req
 ```json
 PUT /nlp-index/_doc/1
 {
- "passage_text": "Hello world",
+ "passage_text": "Orange table",
  "passage_image": "iVBORw0KGgoAAAANSUI..."
 }
 ```
@@ -117,7 +117,7 @@ GET /my-nlp-index/_search
   "query": {
     "neural": {
       "passage_embedding": {
-        "query_text": "show my pets",
+        "query_text": "Orange table",
         "query_image": "iVBORw0KGgoAAAANSUI...",
         "model_id": "-fYQAosBQkdnhhBsK593",
         "k": 5
