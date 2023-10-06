@@ -226,7 +226,7 @@ The date field type supports using date math to specify durations in queries. Fo
 A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_time_no_millis||strict_date_optional_time||epoch_millis` format.
 
 If you specify multiple date formats in the field mapping, OpenSearch uses the first format to convert the milliseconds since the epoch value to a string. <br>
-If a field mapping for a field contains no format, OpenSearch uses `strict_date_optional_time` to convert the epoch value to a string.
+If a field mapping for a field contains no format, OpenSearch uses the `strict_date_optional_time` format to convert the epoch value to a string.
 {: .note}
 
 Date math supports the following mathematical operators.
