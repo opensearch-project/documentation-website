@@ -127,7 +127,7 @@ At the moment, the distributed tracing feature generates traces and spans for HT
 
 ### Sampling
 
-Distributed tracing can generate numerous spans, consuming system resources unnecessarily. To reduce the number of traces, also called samples, you can enable sampling. Sampling is configured by default for only 1% of all HTTP requests. Sampling has the following types:
+Distributed tracing can generate numerous spans, consuming system resources unnecessarily. To reduce the number of traces, also called samples, you can configure different sampling thresholds. Sampling is configured by default for only 1% of all HTTP requests. Sampling has the following types:
 
 1. **Head sampling:** Sampling decisions are made before initiating the root span of a request. OpenSearch supports two head sampling methods:
     - **Probabilistic:** A blanket limit on incoming requests, dynamically adjustable with the `telemetry.tracer.sampler.probability` setting. This setting ranges between 0 and 1. Default is 0.01, which indicates that 1% of incoming requests are sampled.
