@@ -28,7 +28,7 @@ OpenSearch provides a distributed tracing pipeline that can be used to ingest, p
 - **Processing:** Aggregating trace data from multiple sources and enriching it with additional metadata.
 - **Exporting:** Sending trace data to a backend for storage and analysis. 
 
-OpenSearch serves as the sink for traces.
+OpenSearch is often chosen as the sink for storing trace data.
 
 ## Trace analytics
 
