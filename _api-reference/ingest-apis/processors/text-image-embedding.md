@@ -117,7 +117,7 @@ The response confirms that in addition to the `image_description` and `image_bin
             -0.16352308
           ],
           "image_description": "hello world",
-          "image_binary": "bGlkaHQtd29rfx43"
+          "image_binary": "bGlkaHQtd29rfx43..."
         },
         "_ingest": {
           "timestamp": "2023-10-05T15:15:19.691345393Z"
