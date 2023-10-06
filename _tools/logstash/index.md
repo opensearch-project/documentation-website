@@ -62,7 +62,7 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 
 1. Download the Logstash tarball from [Logstash downloads](https://www.elastic.co/downloads/logstash).
 
-2. Navigate to the downloaded folder in the terminal and extract the files (Note that the version and platform may vary from the command below):
+2. Navigate to the downloaded folder in the terminal and extract the files (Note that the version and platform may vary from the following command):
 
      ```bash
      tar -zxvf logstash-8.8.2-linux-x86_64.tar.gz
