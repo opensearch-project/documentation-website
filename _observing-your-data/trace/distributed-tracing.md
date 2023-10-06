@@ -20,7 +20,7 @@ Distributed tracing offers several benefits, including:
 
 ## Distributed tracing pipeline
 
-OpenSearch provides a distributed tracing pipeline that can be used to ingest, process, and visualize tracing data with query and alerting. OpenTelemtry is an open-source observability framework that provides a set of APIs, libraries, agents, and collectors for generating, capturing, and exporting telemetry data. The distributed tracing pipeline consists of the following components: 
+OpenSearch provides a distributed tracing pipeline that can be used to ingest, process, and visualize tracing data with query and alerting. [OpenTelemetry](https://opentelemetry.io/) is an open-source observability framework that provides a set of APIs, libraries, agents, and collectors for generating, capturing, and exporting telemetry data. The distributed tracing pipeline consists of the following components: 
 
 - **Creation:** Instrumenting your application code with OpenTelemetry SDKs.
 - **Propagation:** Injecting trace context into requests as they propagate through your system.
