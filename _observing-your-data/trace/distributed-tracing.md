@@ -103,7 +103,7 @@ testClusters {
 
 ### Enable distributed tracing
 
-Once you've enabled the feature flag, you can enable the tracer using the following dynamic setting. This setting can be adjusted dynamically to enable or disable tracing in the running cluster:
+Once you've enabled the feature flag, you can enable the tracer (which is disabled by default) using the following dynamic setting. This setting can be adjusted dynamically to enable or disable tracing in the running cluster:
 
 ```bash
 telemetry.tracer.enabled=true
