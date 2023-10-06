@@ -14,6 +14,8 @@ OpenSearch supports the following specialized queries:
 
 - `more_like_this`: Finds documents similar to the provided text, document, or collection of documents.
 
+- `neural`: 
+
 - `percolate`: Finds queries (stored as documents) that match the provided document.
 
 - `rank_feature`: Calculates scores based on the values of numeric features. This query can skip non-competitive hits.
