@@ -10,12 +10,12 @@ redirect_from:
 ---
 
 # CAT recovery
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT recovery operation lists all completed and ongoing index and shard recoveries.
 
-## Example
+**Example**
 
 ```
 GET _cat/recovery?v

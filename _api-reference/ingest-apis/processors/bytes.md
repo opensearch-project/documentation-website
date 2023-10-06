@@ -7,6 +7,8 @@ nav_order: 20
 ---
 
 # Bytes
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `bytes` processor converts a human-readable byte value to its equivalent value in bytes. The field can be a scalar or an array. If the field is a scalar, the value is converted and stored in the field. If the field is an array, all values of the array are converted.
 

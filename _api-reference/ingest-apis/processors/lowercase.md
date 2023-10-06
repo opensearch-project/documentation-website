@@ -7,6 +7,8 @@ nav_order: 210
 ---
 
 # Lowercase
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `lowercase` processor converts all the text in a specific field to lowercase letters. The following is the syntax for the `lowercase` processor: 
 

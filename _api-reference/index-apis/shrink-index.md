@@ -8,10 +8,12 @@ redirect_from:
 ---
 
 # Shrink index
+**Introduced 1.0**
+{: .label .label-purple }
 
 The shrink index API operation moves all of your data in an existing index into a new index with fewer primary shards.
 
-## Example
+**Example**
 
 ```json
 POST /my-old-index/_shrink/my-new-index
@@ -66,7 +68,7 @@ alias | Object | Sets an alias for the target index. Can have the fields `filter
 settings | Object | Index settings you can apply to your target index. See [Index Settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
 [max_shard_size](#the-max_shard_size-parameter) | Bytes | Specifies the maximum size of a primary shard in the target index. Because `max_shard_size` conflicts with the `index.number_of_shards` setting, you cannot set both of them at the same time. 
 
-### The `max_shard_size` parameter
+#### The `max_shard_size` parameter
 
 The `max_shard_size` parameter specifies the maximum size of a primary shard in the target index. OpenSearch uses `max_shard_size` and the total storage for all primary shards in the source index to calculate the number of primary shards and their size for the target index. 
 
@@ -80,6 +82,6 @@ The maximum number of primary shards for the target index is equal to the number
 The minimum number of primary shards for the target index is 1.
 {: .note}
 
-## Index codec considerations
+#### Index codec considerations
 
 For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#splits-and-shrinks).

@@ -10,12 +10,12 @@ redirect_from:
 ---
 
 # Cluster stats
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The cluster stats API operation returns statistics about your cluster.
 
-## Examples
+**Examples**
 
 ```json
 GET _cluster/stats/nodes/_cluster_manager
@@ -28,7 +28,6 @@ GET _cluster/stats/nodes/_cluster_manager
 GET _cluster/stats
 GET _cluster/stats/nodes/<node-filters>
 ```
-
 
 ## URL parameters
 

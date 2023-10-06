@@ -10,14 +10,14 @@ redirect_from:
 ---
 
 # CAT nodes
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT nodes operation lists node-level information, including node roles and load metrics.
 
 A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
 
-## Example
+**Example**
 
 ```
 GET _cat/nodes?v

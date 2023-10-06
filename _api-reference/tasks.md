@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 # Tasks
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 A task is any operation you run in a cluster. For example, searching your data collection of books for a title or author name is a task. When you run OpenSearch, a task is automatically created to monitor your cluster's health and performance. For more information about all of the tasks currently executing in your cluster, you can use the `tasks` API operation.

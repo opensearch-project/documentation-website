@@ -8,12 +8,12 @@ redirect_from:
 ---
 
 # Get settings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The get settings API operation returns all the settings in your index.
 
-## Example
+**Example**
 
 ```json
 GET /sample-index1/_settings

@@ -8,12 +8,12 @@ redirect_from:
 ---
 
 # Index exists
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The index exists API operation returns whether or not an index already exists.
 
-## Example
+**Example**
 
 ```json
 HEAD /sample-index

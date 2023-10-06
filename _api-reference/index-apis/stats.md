@@ -6,6 +6,8 @@ nav_order: 72
 ---
 
 # Index Stats 
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Index Stats API provides index statistics. For data streams, the API provides statistics for the stream's backing indexes. By default, the returned statistics are index level. To receive shard-level statistics, set the `level` parameter to `shards`.
 

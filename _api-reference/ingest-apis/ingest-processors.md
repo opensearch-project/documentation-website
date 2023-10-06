@@ -7,6 +7,8 @@ has_children: true
 ---
 
 # Ingest processors
+**Introduced 1.0**
+{: .label .label-purple }
 
 Ingest processors are a core component of [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) because they preprocess documents before indexing. For example, you can remove fields, extract values from text, convert data formats, or append additional information.
 

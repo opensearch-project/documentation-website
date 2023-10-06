@@ -8,12 +8,12 @@ redirect_from:
 ---
 
 # Update by query
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple}
 
 You can include a query and a script as part of your update request so OpenSearch can run the script to update all of the documents that match the query.
 
-## Example
+**Example**
 
 ```json
 POST test-index1/_update_by_query

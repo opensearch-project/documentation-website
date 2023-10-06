@@ -7,7 +7,7 @@ nav_order: 130
 ---
 
 # IP2Geo
-Introduced 2.10
+**Introduced 2.10**
 {: .label .label-purple }
 
 The `ip2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `ip2geo` processor uses IP geolocation (GeoIP) data from an external endpoint and therefore requires an additional component, `datasource`, that defines from where to download GeoIP data and how frequently to update the data.
@@ -43,7 +43,7 @@ OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country,
 
 If an OpenSearch cluster cannot update a data source from the endpoints within 30 days, the cluster does not add GeoIP data to the documents and instead adds `"error":"ip2geo_data_expired"`.
 
-### Data source options
+#### Data source options
 
 The following table lists the data source options for the `ip2geo` processor.   
 
@@ -65,7 +65,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 
 A `true` response means that the request was successful and that the server was able to process the request. A `false` response indicates that you should check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 
-### Sending a GET request
+#### Sending a GET request
 
 To get information about one or more IP2Geo data sources, send a GET request:  
 
@@ -112,7 +112,7 @@ You'll receive the following response:
 }
 ```
 
-### Updating an IP2Geo data source
+#### Updating an IP2Geo data source
 
 See the Creating the IP2Geo data source section for a list of endpoints and request field descriptions. 
 
@@ -127,7 +127,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 ```
 {% include copy-curl.html %}
 
-### Deleting the IP2Geo data source
+#### Deleting the IP2Geo data source
 
 To delete the IP2Geo data source, you must first delete all processors associated with the data source. Otherwise, the request fails. 
 
@@ -152,7 +152,7 @@ Once the data source is created, you can create the pipeline. The following is t
 ```
 {% include copy-curl.html %}
 
-### Configuration parameters
+#### Configuration parameters
 
 The following table lists the required and optional parameters for the `ip2geo` processor.
 

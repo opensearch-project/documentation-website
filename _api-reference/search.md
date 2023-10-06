@@ -7,12 +7,12 @@ redirect_from:
 ---
 
 # Search
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The Search API operation lets you execute a search request to search your cluster for data.
 
-## Example
+**Example**
 
 ```json
 GET /movies/_search

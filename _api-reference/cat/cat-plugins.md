@@ -10,12 +10,12 @@ redirect_from:
 ---
 
 # CAT plugins
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT plugins operation lists the names, components, and versions of the installed plugins.
 
-## Example
+**Example**
 
 ```
 GET _cat/plugins?v

@@ -10,12 +10,12 @@ redirect_from:
 ---
 
 # CAT tasks
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT tasks operation lists the progress of all tasks currently running on your cluster.
 
-## Example
+**Example**
 
 ```
 GET _cat/tasks?v
