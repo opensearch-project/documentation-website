@@ -8,4 +8,7 @@ has_children: false
 ---
 
 # Improving query performance to external data sources
+Introduced 2.11
+{: .label .label-purple }
+
 

@@ -7,14 +7,12 @@ has_children: true
 ---
 
 # Data sources
-Introduced 2.11
-{: .label .label-purple }
 
 Data sources in OpenSearch are the system and applications that OpenSearch can connect to and ingest data from. Once your data sources have been connected and your data has been ingested, it can be indexed, searched, and analyzed using [REST APIs]({{site.url}}{{site.baseurl}}/api-reference/index/) or the OpenSearch Dashboards user interface. 
 
 The focus of this documentation is on using the OpenSeach Dashboards interface to connect and manage your data sources. For information about using an API to connect data sources, see the following:
 
-- _<which APIs do we link user to?>_
+- _<which APIs do we link user to? Do we have links to API information on GitHub?>_
 
 ## Prerequisites
 
@@ -32,27 +30,32 @@ A data source connection specifies the parameters needed to connect to a data so
 
 The following steps guide you through the basics of creating a data source connection:
 
-1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**.
+1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**. The user interface is shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-UI.png" alt="Connecting a data source UI" width="700"/>
+
 2. Add information to each field to configure **Connection Details** and **Authentication Method**. 
    
-   Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
+   - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
 
-   Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
-    - **No authentication**: No authentication is used to connect to the data source.
-    - **Username & Password**: A basic username and password are used to connect to the data source.
-    - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key.
+   - Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
+       - **No authentication**: No authentication is used to connect to the data source.
+       - **Username & Password**: A basic username and password are used to connect to the data source.
+       - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key. 
+       
+           - For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization.
 
-      For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization.
-
-    After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
+    After you have populated the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
 3. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
-4. To delete the data source connection, select the check box to the left of the title and then choose **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported.
+4. To delete a data source connection, select the check box to the left of the data source **Title** and then select the **Delete 1 connection** button. Selecting multiple check boxes for multiple connections is supported. An example of the user interface is shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt="Deleting a data source UI" width="700"/>
 
 ## Connecting multiple or external data sources
 
-See [Connecting multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) and [Speeding up external data ingestion]({{site.url}}{{site.baseurl}}dashboards/management/accelerate-external-data/).
+For information, see the documentation for [Connecting multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) and [Improving query performance to external data sources]({{site.url}}{{site.baseurl}}dashboards/management/accelerate-external-data/).
 
 ## Modifying a data source connection
 
