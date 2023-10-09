@@ -602,7 +602,7 @@ GET /my-nlp-index/_search/1
 ```
 {% include copy-curl.html %}
 
-The response shows the document `_source` containing the original `text` and `id` fields and the added `passage_embeddings` field:
+The response shows the document `_source` containing the original `text` and `id` fields and the added `passage_embedding` field:
 
 ```json
 {
