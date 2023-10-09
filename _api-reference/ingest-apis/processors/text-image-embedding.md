@@ -11,8 +11,7 @@ nav_order: 270
 The `text_image_embedding` processor is used to generate combined vector embeddings from text and image fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
 
 **PREREQUISITE**<br>
-Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model and provide the model ID when creating the processor.
-For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
 {: .note}
 
 The following is the syntax for the `text_image_embedding` processor: 
@@ -72,6 +71,9 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 }
 ```
 {% include copy-curl.html %}
+
+You can set up multiple processors in one pipeline to generate embeddings for multiple fields.
+{: .note}
 
 **Step 2 (Optional): Test the pipeline.**
 
