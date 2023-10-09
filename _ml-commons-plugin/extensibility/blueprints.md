@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Building blueprints
+title: Connector blueprints
 has_children: false
 nav_order: 65
-parent: ML extensibility 
+parent: Connecting to remote models 
 ---
 
 # Building blueprints

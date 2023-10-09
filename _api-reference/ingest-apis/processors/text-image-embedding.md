@@ -51,7 +51,7 @@ Follow these steps to use the processor in a pipeline. You must provide a model 
 
 **Step 1: Create a pipeline.** 
 
-The following example request creates an ingest pipeline where the text from `image_description` and the image from `image_binary` will be converted into vector embeddings and the embeddings will be stored in `image_embedding`:
+The following example request creates an ingest pipeline where the text from `image_description` and the image from `image_binary` will be converted into vector embeddings and the embeddings will be stored in `vector_embedding`:
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -61,7 +61,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
     {
       "text_image_embedding": {
         "model_id": "bQ1J8ooBpBj3wT4HVUsb",
-        "embedding": "image_embedding",
+        "embedding": "vector_embedding",
         "field_map": {
           "text": "image_description",
           "image": "image_binary"
@@ -88,7 +88,7 @@ POST _ingest/pipeline/nlp-ingest-pipeline/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source":{
-         "image_description": "hello world",
+         "image_description": "Orange table",
          "image_binary": "bGlkaHQtd29rfx43..."
       }
     }
@@ -99,7 +99,7 @@ POST _ingest/pipeline/nlp-ingest-pipeline/_simulate
 
 #### Response
 
-The response confirms that in addition to the `image_description` and `image_binary` fields, the processor has generated vector embeddings in the `image_embedding` field:
+The response confirms that in addition to the `image_description` and `image_binary` fields, the processor has generated vector embeddings in the `vector_embedding` field:
 
 ```json
 {
@@ -109,14 +109,14 @@ The response confirms that in addition to the `image_description` and `image_bin
         "_index": "testindex1",
         "_id": "1",
         "_source": {
-          "image_embedding": [
+          "vector_embedding": [
             -0.048237972,
             -0.07612712,
             0.3262124,
             ...
             -0.16352308
           ],
-          "image_description": "hello world",
+          "image_description": "Orange table",
           "image_binary": "bGlkaHQtd29rfx43..."
         },
         "_ingest": {

@@ -112,7 +112,7 @@ For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/trans
 
 #### Advanced: Using a different model
 
-Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For information about choosing a model, see [Further reading](#further-reading). For instructions on how to set up a custom model, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For information about choosing a model, see [Further reading](#further-reading). For instructions on how to set up a custom model, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 Take note of the dimensionality of the model because you'll need it when you set up a k-NN index.
 {: .important}
@@ -332,7 +332,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-For more information, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 ### Step 1(d): Deploy the model
 

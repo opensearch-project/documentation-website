@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Creating connectors for third-party ML platforms
-has_children: false
+title: Connectors
+has_children: true
 nav_order: 61
-parent: ML extensibility
+parent: Connecting to remote models 
 ---
 
 # Creating connectors for third-party ML platforms
@@ -431,7 +431,7 @@ POST /_plugins/_ml/connectors/_create
 
 ## Next steps
 
-- To learn more about using models in OpenSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about using models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 - To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 

@@ -8,10 +8,10 @@ parent: Neural search
 
 # Multimodal search
 
-Use multimodal search to search text and image data. In neural search, text search is facilitated by vision-language embedding models. 
+Use multimodal search to search text and image data. In neural search, text search is facilitated by multimodal embedding models. 
 
 **PREREQUISITE**<br>
-Before using text search, you must set up a vision-language embedding model. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using text search, you must set up a multimodal embedding model. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 {: .note}
 
 ## Using multimodal search
@@ -27,7 +27,7 @@ To use neural search with text and image embeddings, follow these steps:
 
 To generate vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`text_image_embedding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-image-embedding/), which will convert the text and image in a document field to vector embeddings. The processor's `field_map` determines the text and image fields from which to generate vector embeddings and the output vector field in which to store the embeddings.
 
-The following example request creates an ingest pipeline where the text from `passage_text` and an image from `passage_image` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
+The following example request creates an ingest pipeline where the text from `image_description` and an image from `image_binary` will be converted into text embeddings and the embeddings will be stored in `vector_embedding`:
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -37,22 +37,21 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
     {
       "text_image_embedding": {
         "model_id": "-fYQAosBQkdnhhBsK593",
-        "embedding": "passage_embedding",
+        "embedding": "vector_embedding",
         "field_map": {
-          "text": "passage_text",
-          "image": "passage_image"
+          "text": "image_description",
+          "image": "image_binary"
         }
       }
     }
   ]
-}]
 }
 ```
 {% include copy-curl.html %}
 
 ## Step 2: Create an index for ingestion
 
-In order to use the text embedding processor defined in your pipelines, create a k-NN index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `passage_text` field should be mapped as `text` and the `passage_image` should be mapped as `binary`.
+In order to use the text embedding processor defined in your pipelines, create a k-NN index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `vector_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `image_description` field should be mapped as `text` and the `image_binary` should be mapped as `binary`.
 
 The following example request creates a k-NN index that is set up with a default ingest pipeline:
 
@@ -66,7 +65,7 @@ PUT /my-nlp-index
   },
   "mappings": {
     "properties": {
-      "passage_embedding": {
+      "vector_embedding": {
         "type": "knn_vector",
         "dimension": 1024,
         "method": {
@@ -75,10 +74,10 @@ PUT /my-nlp-index
           "parameters": {}
         }
       },
-      "passage_text": {
+      "image_description": {
         "type": "text"
       },
-      "passage_image": {
+      "image_binary": {
         "type": "binary"
       }
     }
@@ -96,13 +95,13 @@ To ingest documents into the index created in the previous step, send a POST req
 ```json
 PUT /nlp-index/_doc/1
 {
- "passage_text": "Orange table",
- "passage_image": "iVBORw0KGgoAAAANSUI..."
+ "image_description": "Orange table",
+ "image_binary": "iVBORw0KGgoAAAANSUI..."
 }
 ```
 {% include copy-curl.html %}
 
-Before the document is ingested into the index, the ingest pipeline runs the `text_image_embedding` processor on the document, generating vector embeddings for the `passage_text` and `passage_image` fields. In addition to the original `passage_text` and `passage_image` fields, the indexed document contains the `passage_embedding` field that contains the combined vector embeddings. 
+Before the document is ingested into the index, the ingest pipeline runs the `text_image_embedding` processor on the document, generating vector embeddings for the `image_description` and `image_binary` fields. In addition to the original `image_description` and `image_binary` fields, the indexed document contains the `vector_embedding` field that contains the combined vector embeddings. 
 
 ## Step 4: Search the index using neural search
 
@@ -116,7 +115,7 @@ GET /my-nlp-index/_search
   "size": 10,
   "query": {
     "neural": {
-      "passage_embedding": {
+      "vector_embedding": {
         "query_text": "Orange table",
         "query_image": "iVBORw0KGgoAAAANSUI...",
         "model_id": "-fYQAosBQkdnhhBsK593",

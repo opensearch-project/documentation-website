@@ -1,11 +1,11 @@
 ---
 layout: default
-title: ML extensibility 
+title: Connecting to remote models 
 has_children: true
 nav_order: 60
 ---
 
-# ML extensibility
+# Connecting to remote models
 
 Machine learning (ML) extensibility enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. These integrations provide system administrators and data scientists the ability to run ML workloads outside of their OpenSearch cluster. 
 
@@ -90,7 +90,7 @@ PUT /_cluster/settings
 
 ## Next steps
 
-- For more information about managing ML models in OpenSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+- For more information about managing ML models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 - For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
 
 
