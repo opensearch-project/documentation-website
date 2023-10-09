@@ -52,7 +52,7 @@ Use the **Rule severity** dropdown list to filter the list of findings by severi
 The **Actions** column includes two options for each finding:
 * The diagonal arrow provides a way to open the [**Finding details**](#finding-details) pane, which describes the finding according to parameters defined when creating the detector and includes the document that generated the finding.
 * The bell icon allows you to open the **Create detector alert trigger** pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions as required.
-For information about setting up alerts, see [Step 4. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-2-set-up-alerts) in the detector creation documentation.
+For information about setting up alerts, see [Step 2. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-2-set-up-alerts) in the detector creation documentation.
 
 ### Finding details
 
@@ -80,7 +80,7 @@ For details about working with **Discover** in OpenSearch Dashboards, see [Explo
 
 #### Viewing correlated findings
 
-To see how the finding is correlated with other findings, select the **Correlations** tab. Correlations are relationships between findings that express a particular threat scenario involving multiple log types. Information in the **Cßorrelated findings** table shows the time at which a correlated finding was generated, a finding's ID, the log type used to generate the finding, its threat severity, and the correlation score---a measure of its proximity to the reference finding---as shown in the following image.
+To see how the finding is correlated with other findings, select the **Correlations** tab. Correlations are relationships between findings that express a particular threat scenario involving multiple log types. Information in the **Correlated findings** table shows the time at which a correlated finding was generated, a finding's ID, the log type used to generate the finding, its threat severity, and the correlation score---a measure of its proximity to the reference finding---as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/corr-details-findings.png" alt="A table of correlated findings with respect to the reference finding" width="60%">
 
