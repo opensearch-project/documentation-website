@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Speeding up external data ingestion
+title: Improving query performance to external data sources
 parent: Data sources
 grand_parent: Dashboards Management
-nav_order: 10
+nav_order: 30
 has_children: false
 ---
 
-# Speeding up external data ingestion
+# Improving query performance to external data sources
 

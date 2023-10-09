@@ -10,7 +10,11 @@ has_children: true
 Introduced 2.11
 {: .label .label-purple }
 
-Data sources in OpenSearch are the system and applications that OpenSearch can connect to and ingest data from. Once your data sources have been connected and your data has been ingested, it can be indexed, searched, and analyzed using the _<which API>_ API or the OpenSearch Dashboards user interface. 
+Data sources in OpenSearch are the system and applications that OpenSearch can connect to and ingest data from. Once your data sources have been connected and your data has been ingested, it can be indexed, searched, and analyzed using [REST APIs]({{site.url}}{{site.baseurl}}/api-reference/index/) or the OpenSearch Dashboards user interface. 
+
+The focus of this documentation is on using the OpenSeach Dashboards interface to connect and manage your data sources. For information about using an API to connect data sources, see the following:
+
+- _<which APIs do we link user to?>_
 
 ## Prerequisites
 
@@ -42,9 +46,9 @@ The following steps guide you through the basics of creating a data source conne
 
     After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
-4. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
+3. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
-5. Delete the data source connection by selecting the check box to the left of the title and then choosing **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported.
+4. To delete the data source connection, select the check box to the left of the title and then choose **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported.
 
 ## Connecting multiple or external data sources
 
