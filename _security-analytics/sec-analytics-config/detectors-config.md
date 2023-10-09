@@ -12,23 +12,25 @@ Security Analytics provides the options and functionality to monitor and respond
 ---
 ## Step 1. Define a detector
 
-You can define a new detector by naming the detector and then selecting a data source and detector type. After defining a detector, you can also configure field mappings, create a detector schedule, and set up alerts. Follow the steps in this section to accomplish all of these setup tasks.
+You can define a new detector by naming the detector and then selecting a data source and detector type. After defining a detector, you can also configure field mappings, create a detector schedule, and set up alerts. 
 
-1. On the **Threat detectors** page, choose **Create detector**. The **Define detector** page opens.
-1. In **Detector details**, give the detector a name. Adding a description for the detector is optional. 
-1. In the **Data source** section, select the dropdown arrow and select one or multiple sources for the log data.
+For information about working with detection rules, see [Creating detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-detection-rules).
+
+To define a detector:
+
+1. On the **Security Analytics** home page or the **Detectors** page, choose **Create detector**.
+1. Give the detector a name, and optionally, a description. 
+1. In the **Data source** section, select one or more sources for the log data. Use an asterisk (*) to indicate a wildcard pattern.
     
     When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
     {: .note }
     
-1. In the **Log types and rules** section, select the log type for the data source from the dropdown list. You can find a list of supported log types in the [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) topic.
-
-   After the log type is selected, the system automatically populates the detection rules associated with the log type.
-   
-   For information about creating your own detection rules, see [Creating detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-detection-rules). To create your own log types, see [Creating custom log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/custom-log-type/).
+1. In the **Detection** section, select a log type and review the detection rules and field mappings. Do the following:
+    A. Select a log type for the data source from the dropdown list. You can find a list of supported log types in the [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) topic.  
+    To create your own log types, see [Creating custom log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/custom-log-type/).
    {: .note }
    
-   The example in the following image shows the number of rules associated with **network** after this log type is selected.
+   The example in the following image shows the number of rules associated with **windows** after this log type is selected.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-rules.png" alt="Selecting threat detector log type to auto-populate rules" width="85%">
     
@@ -36,7 +38,7 @@ You can define a new detector by naming the detector and then selecting a data s
     
     You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
         
-1. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following image illustrates this.
+    B. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following image illustrates this.
     
     <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that the detector will use for findings" width="85%">
     
@@ -45,18 +47,21 @@ You can define a new detector by naming the detector and then selecting a data s
     * Use the **Search** bar to search for specific rules.
     
     To quickly select one or more known rules and dismiss others, first deselect all rules by turning off the **Rule name** toggle, then search for your target rule names and select each individually by turning its toggle on.
-    {: .tip }
+    {: .tip } 
+
+    C. Review field mappings. In The field mapping step matches field names from the detector rule with field names from the log index being used to provide data. Creating field mappings allows the system to accurately pass event data from the log to the detector and then use the data to trigger alerts.
+
+    The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter, along with the specific detection rules, determines the list of detection field names available for the mapping. Similarly, the selected data source determines the list of log source field names that are available for the mapping.
+
+    The system uses prepackaged Sigma rules for detector creation. It can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes customized rules, you can follow this step to manually map detector rule field names to log source field names.
+
+    Because the system has the ability to automatically map field names, this step is optional. However, the more fields that can be mapped between detector fields and log source fields, the greater the accuracy of generated findings.
     
----
-## Step 2. Create field mappings
-
-The field mapping step matches field names from the detector rule with field names from the log index being used to provide data. Creating field mappings allows the system to accurately pass event data from the log to the detector and then use the data to trigger alerts.
-
-The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter, along with the specific detection rules, determines the list of detection field names available for the mapping. Similarly, the selected data source determines the list of log source field names that are available for the mapping.
-
-The system uses prepackaged Sigma rules for detector creation. It can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes customized rules, you can follow this step to manually map detector rule field names to log source field names.
-
-Because the system has the ability to automatically map field names, this step is optional. However, the more fields that can be mapped between detector fields and log source fields, the greater the accuracy of generated findings.
+1. Create a detector schedule. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval. The following image shows that the detector runs every 3 minutes.
+    
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png" alt="Detector schedule settings to determine how often the detector runs" width="40%">
+    
+1. Select **Next** in the lower-right corner of the screen. The **Set up alerts** page appears and displays settings for an alert trigger.
 
 #### A note on field names
 
@@ -75,24 +80,24 @@ The Security Lake log types that can be used as log sources for detector creatio
 To reveal fields for a log index in either raw format or OCSF, use the [Get Mappings View]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/#get-mappings-view) API and specify the index in the `index_name` field of the request.
 {: .tip }
 
-### Automatically mapped fields
+#### Automatically mapped fields
 
-Once you select a data source and log type, the system attempts to automatically map fields between the log and rule fields. Expand **Automatically mapped fields** to show the list of these mappings. When the field names are similar to one another, the system can successfully match the two, as shown in the following image.
+Once you select a data source and log type, the system attempts to automatically map fields between the log and rule fields. Switch to the **Mapped fields** tab to show the list of these mappings. When the field names are similar to one another, the system can successfully match the two, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/automatic-mappings.png" alt="Field mapping example for automatic mappings" width="85%">
 
-Although these automatic matches are normally dependable, it's still a good idea to review the mappings in the **Automatically mapped fields** table and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list to search for and select the correct field name. For more on matching field names, see the [Pending field mappings](#pending-field-mappings) section that follows.
+Although these automatic matches are normally dependable, it's still a good idea to review the mappings in the **Mapped fields** table and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list to search for and select the correct field name. For more on matching field names, see the [Pending field mappings](#pending-field-mappings) section that follows.
 
-### Pending field mappings
+#### Available fields
 
-The field names that are not automatically mapped appear in the **Pending field mappings** table. In this table you can manually map rule fields to log source fields, as shown in the following image.
+The field names that are not automatically mapped appear in the **Available fields** table. In this table you can manually map detection rule fields to data source fields, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for pending mappings" width="85%">
 
 While mapping fields, consider the following:
-* The **Detector field name** column lists field names based on all of the prepackaged rules associated with the selected log type.
-* The **Log source field name** column includes a dropdown list for each of the detector fields. Each dropdown list contains field names extracted from the log index.
-* To map a detector field name to a log source field name, use the dropdown arrow to open the list of log source fields and select the log field name from the list. To search for names in the log field list, enter text in the **Select a mapping field** box, as shown in the following image.
+* The **Detection rule field** column lists field names based on all of the prepackaged rules associated with the selected log type.
+* The **Data source field** column includes a dropdown list for each of the detector fields. Each dropdown list contains field names extracted from the log index.
+* To map a detector field name to a log source field name, use the dropdown arrow to open the list of log source fields and select the log field name from the list. To search for names in the log field list, enter text in the **Select a data source field** box, as shown in the following image.
   
   <img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Mapping the log field to a detector rule field" width="60%">
   
@@ -100,18 +105,9 @@ While mapping fields, consider the following:
 * Make as many matches between field names as possible to complete an accurate mapping for the detector and log source fields.
 
 ---
-## Step 3. Create a detector schedule
+## Step 2. Set up alert triggers
 
-1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval. The following image shows that the detector runs every 3 minutes.
-    
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png" alt="Detector schedule settings to determine how often the detector runs" width="40%">
-    
-1. After specifying how often the detector will run, select **Next** in the lower-right corner of the screen. The **Set up alerts** page appears and displays settings for an alert trigger.
-
----
-## Step 4. Set up alerts
-
-The fourth step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send notifications of possible security events. You can select rule names, rule severity, and tags in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
+The second step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send notifications of possible security events. You can select rule names, rule severity, and tags in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
 
 At least one alert condition is required before a detector can begin generating findings.
 {: .note }
@@ -120,7 +116,7 @@ You can also configure alerts from the **Findings** window. To see how to set up
 
 To set up an alert for a detector, continue with the following steps:
 
-1. In the **Trigger name** box, enter a name for the trigger.
+1. In the **Trigger name** box, optionally enter a name for the trigger or edit the default name.
 1. To define rule matches for the alert, select security rules, severity levels, and tags.
     
     <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Defining an alert" width="70%">
@@ -129,7 +125,7 @@ To set up an alert for a detector, continue with the following steps:
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules" width="45%">
 
-    * Select one or more rule severity levels as conditions for the alert.
+    * Select one or more rule severity levßels as conditions for the alert.
     * Select from a list of tags to include as conditions for the alert.
 
 1. To define a notification for the alert, assign an alert severity, select a channel for the notification, and customize a message generated for the alert.
@@ -141,9 +137,7 @@ To set up an alert for a detector, continue with the following steps:
     * Expand **Show notify message** to show message preferences. The message subject and message body are populated with details about the current alert configuration. You can edit these text fields to customize the message. Beneath the message body text box, you can select **Generate message** to populate more details in the message, such as rule names, rule severity levels, and rule tags.
     * Select **Add another alert trigger** to configure an additional alert.
 
-1. After configuring the conditions in the preceding fields, select **Next** in the lower-right corner of the screen. The **Review and create** page opens.
-
-1. Review the specifications for the detector and select **Create detector** in the lower-right corner of the screen. The detector details for the new detector are displayed. When you navigate to the main **Threat detectors** page, the new detector appears in the list.
+1. After configuring the conditions in the preceding fields, select **Create detector** in the lower-right corner of the screen.
 
 ## Integrated Alerting plugin workflows
 
@@ -159,4 +153,3 @@ For more information about composite monitors and their workflows, see [Composit
 If you are ready to view findings generated by the new detector, see the [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) section. If you would like to import rules or set up custom rules before working with findings, see the [Working with detection rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/) section.
 
 To configure Security Analytics to identify correlations between events happening in different logs throughout your system, see [Creating correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/correlation-config/).
-
