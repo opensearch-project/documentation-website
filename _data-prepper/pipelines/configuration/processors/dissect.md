@@ -37,7 +37,7 @@ Then create the following file named `logs_json.log` and replace the `path` in t
 
 The `dissect` processor will retrieve the fields (`Date`, `Time`, `Log_Type`, and `Message`) from the `log` message, based on the pattern `%{Date} %{Time} %{Type}: %{Message}` configured in the pipeline.
 
-When you run Data Prepper the following`pipeline.yaml` passed in, you should receive  the following standard output:
+After running the pipeline, you should receive the following standard output:
 
 ```
 {
