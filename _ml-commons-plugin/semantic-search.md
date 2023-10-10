@@ -598,7 +598,7 @@ PUT /my-nlp-index/_doc/5
 When the documents are ingested into the index, the `text_embedding` processor creates an additional field that contains vector embeddings and adds that field to the document. To see an example document that is indexed, search for document 1:
 
 ```json
-GET /my-nlp-index/_search/1
+GET /my-nlp-index/_doc/1
 ```
 {% include copy-curl.html %}
 
