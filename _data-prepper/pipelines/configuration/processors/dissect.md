@@ -12,7 +12,7 @@ The `dissect` processor extracts values from an event and maps them to individua
 
 ## Basic usage
 
-To create a `dissect` processor, create the following `pipeline.yaml` file:
+To use the `dissect` processor, create the following `pipeline.yaml` file:
 
 ```yaml
 dissect-pipeline:
@@ -85,7 +85,7 @@ If the order is not mentioned, the append operation will occur in the order of t
 
 #### Indirect field
 
-A field that uses the value from another field as its field name. While defining a pattern, prefix the field with a `&` to assign the value found with this field to the value of another field found as the key.
+A field that uses the value from another field as its field name. When defining a pattern, prefix the field with a `&` to assign the value found in the field as the key in the key-value pair.
 
 For example, with a pattern `"%{?field_name}, %{&field_name}"`, the log message `"foo, bar"` will parse into `{“foo”: “bar”}`. In the log message, `foo` is captured from the skip field `%{?field_name}`. `foo` then serves as the key to the value captured from the field `%{&field_name}`.
 
