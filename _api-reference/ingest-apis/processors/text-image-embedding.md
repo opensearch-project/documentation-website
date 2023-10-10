@@ -8,7 +8,7 @@ nav_order: 270
 
 # Text/image embedding
 
-The `text_image_embedding` processor is used to generate combined vector embeddings from text and image fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
+The `text_image_embedding` processor is used to generate combined vector embeddings from text and image fields for [multimodal neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/). 
 
 **PREREQUISITE**<br>
 Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).

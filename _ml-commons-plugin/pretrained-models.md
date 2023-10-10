@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Pretrained models
-parent: ML framework
+parent: Using custom models within OpenSearch
 nav_order: 120
 ---
 

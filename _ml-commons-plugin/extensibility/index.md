@@ -13,7 +13,7 @@ Machine learning (ML) extensibility enables ML developers to create integrations
 To get started with ML extensibility, choose from the following options:
 
 - If you're an ML developer wanting to integrate with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
 
 ## Prerequisites
 

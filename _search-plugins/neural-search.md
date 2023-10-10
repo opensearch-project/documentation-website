@@ -16,7 +16,7 @@ Neural search supports the following search types:
 
 - [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/): Uses dense retrieval based on text embedding models to search text data. 
 - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/): Uses vision-language embedding models to search text and image data. 
-- [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
+- [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
 
 ## Embedding models
 

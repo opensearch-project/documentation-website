@@ -31,7 +31,7 @@ The top-level `vector_field` specifies the vector field against which to run a s
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- 
 `query_text` | String | Optional | The query text from which to generate vector embeddings. You must specify at least one `query_text` or `query_image`.
-`model_id` | String | Required | The ID of the sparse encoding model that will be used to generate vector embeddings from the query text. The model must be indexed in OpenSearch before it can be used in sparse neural search. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+`model_id` | String | Required | The ID of the sparse encoding model that will be used to generate vector embeddings from the query text. The model must be indexed in OpenSearch before it can be used in sparse neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
 `max_token_score` | Float | Optional | The theoretical upper bound of the score for all tokens in the vocabulary (required for performance optimization).
 
 #### Example request
