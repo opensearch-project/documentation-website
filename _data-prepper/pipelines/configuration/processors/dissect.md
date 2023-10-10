@@ -77,7 +77,7 @@ A field that will be combined with other fields. To append multiple values and p
 
 For example, with the pattern `%{+field_name}, %{+field_name}`, log message `"foo, bar"` will parse into `{"field_name": "foobar"}`.
 
-We can also define the order the concatenation with the help of suffix `/<integer>`. 
+You can also define the order the concatenation with the help of suffix `/<integer>`. 
 
 For example, with a pattern `"%{+field_name/2}, %{+field_name/1}"`, log message `"foo, bar"` will parse into `{"field_name": "barfoo"}`.
 
