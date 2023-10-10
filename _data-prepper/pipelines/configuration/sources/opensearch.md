@@ -1,6 +1,6 @@
 ---
 layout: default
-title: opensearch source
+title: opensearch 
 parent: Sources
 grand_parent: Pipelines
 nav_order: 30
