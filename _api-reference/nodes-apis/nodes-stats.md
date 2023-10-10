@@ -451,8 +451,7 @@ Select the arrow to view the example response.
           "active" : 0,
           "rejected" : 0,
           "largest" : 0,
-          "completed" : 0,
-          "total_wait_time_in_nanos" : 0
+          "completed" : 0
         },
         "ad-batch-task-threadpool" : {
           "threads" : 0,
@@ -460,8 +459,7 @@ Select the arrow to view the example response.
           "active" : 0,
           "rejected" : 0,
           "largest" : 0,
-          "completed" : 0,
-          "total_wait_time_in_nanos" : 0
+          "completed" : 0
         },
         ...
       },
