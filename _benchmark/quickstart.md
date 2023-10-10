@@ -14,21 +14,41 @@ To perform the Quickstart steps, you'll need to fulfill the following prerequisi
 
 - A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}//tuning-your-cluster/index/).
 - Git 2.3 or greater.
+- Python 3.8 or later
 
-Additional prerequisites are required, depending on your installation method:
+## Set up an OpenSearch cluster
 
-- If you plan to install OpenSearch Benchmark with [PyPi](https://pypi.org/), install Python 3.8 or later.
-- If you plan to install OpenSearch Benchmark using Docker, install Docker. 
+Follow the instructions on the [OpenSearch download page](https://opensearch.org/downloads.html) to start up your cluster.  You can either use *Docker Compose* or download the appropriate distribution for your platform, extract or install it, then follow instructions.  For instance, on Linux or MacOS, you would run the `opensearch-tar-install.sh` script.  This will bring up a cluster with its endpoint at localhost:9200, and since the security plugin is enabled with basic authentication configured, it will expect SSL connections with the username "admin" and password "admin".  However, since the "localhost" address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled.
+
+Now, in another terminal window, verify that the cluster is running.
+
+```bash
+curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL certificate checks
+
+{
+  "name" : "147ddae31bf8.opensearch.org",
+  "cluster_name" : "opensearch",
+  "cluster_uuid" : "n10q2RirTIuhEJCiKMkpzw",
+  "version" : {
+    "distribution" : "opensearch",
+    "number" : "2.10.0",
+    "build_type" : "tar",
+    "build_hash" : "eee49cb340edc6c4d489bcd9324dda571fc8dc03",
+    "build_date" : "2023-09-20T23:54:29.889267151Z",
+    "build_snapshot" : false,
+    "lucene_version" : "9.7.0",
+    "minimum_wire_compatibility_version" : "7.10.0",
+    "minimum_index_compatibility_version" : "7.0.0"
+  },
+  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+}
+```
+
+Now, you can proceed to install OSB.
 
 ## Installing OpenSearch Benchmark
 
-You can install OpenSearch Benchmark using either PyPi or Docker. 
-
-If you plan to run OpenSearch Benchmark with a cluster using AWS Signature Version 4, see [Sigv4 support]({{site.url}}{{site.baseurl}}/benchmark/tutorials/sigv4/).
-
-### PyPi
-
-To install OpenSearch Benchmark with PyPi, enter the following `pip` command:
+To install OpenSearch Benchmark from PyPi, enter the following `pip` command:
 
 ```bash
 pip3 install opensearch-benchmark
@@ -40,7 +60,6 @@ After the installation completes, verify that OpenSearch Benchmark is running by
 ```bash
 opensearch-benchmark --help
 ```
-{% include copy.html %}
 
 If successful, OpenSearch returns the following response:
 
@@ -77,26 +96,9 @@ subcommands:
 Find out more about Benchmark at https://opensearch.org/docs
 ```
 
-### Docker
-
-To pull the image from Docker Hub, run the following command:
-
-```bash
-docker pull opensearchproject/opensearch-benchmark:latest
-```
-{% include copy.html %}
-
-Then run the Docker image:
-
-```bash
-docker run opensearchproject/opensearch-benchmark -h
-```
-{% include copy.html %}
-
-
 ## Running your first benchmark
 
-You can now run your first benchmark. For your first benchmark, you'll use the [geonames](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames) workload.
+You can now run your first benchmark.  We will use the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload.
 
 
 ### Understanding workload command flags
@@ -107,7 +109,7 @@ For additional `execute_test` command flags, see the [execute-test]({{site.url}}
 {: .tip}
 
 * `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
-- `workload=geonames`: The name of workload used by OpenSearch Benchmark.
+- `workload=percolator`: The name of workload used by OpenSearch Benchmark.
 * `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that will be benchmarked. Enter the endpoint of your OpenSearch cluster here.
 * `--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`: The username and password for your OpenSearch cluster.
 * `--test-mode`: Allows a user to run the workload without running it for the entire duration. When this flag is present, Benchmark runs the first thousand operations of each task in the workload. This is only meant for sanity checks---the metrics produced are meaningless.
@@ -116,28 +118,21 @@ The `--distribution-version`, which indicates which OpenSearch version Benchmark
 
 ### Running the workload
 
-If you installed Benchmark with PyPi, customize and use the following command:
+To run the workload with OSB, invoke the `execute-test` command below.
 
 ```bash
-opensearch-benchmark execute-test --pipeline=benchmark-only --workload=geonames --target-host="<OpenSearch Cluster Endpoint>" --client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'" --test-mode
+opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
 {% include copy.html %}
 
-If you installed Benchmark with Docker, customize and use the following command:
-
-```bash
-docker run opensearchproject/opensearch-benchmark execute-test --pipeline=benchmark-only --workload=geonames --target-host="<OpenSearch Cluster Endpoint>" --client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'" --test-mode
-```
-{% include copy.html %}
-
-When the `execute_test` command runs, all tasks and operations in the `geonames` workload run sequentially.
+When the `execute_test` command runs, all tasks and operations in the `percolator` workload run sequentially.
 
 ### Understanding the results
 
 Benchmark returns the following response once the benchmark completes:
 
 ```bash
------------------------------------------------------
+------------------------------------------------------
     _______             __   _____
    / ____(_)___  ____ _/ /  / ___/_________  ________
   / /_  / / __ \/ __ `/ /   \__ \/ ___/ __ \/ ___/ _ \
@@ -145,247 +140,97 @@ Benchmark returns the following response once the benchmark completes:
 /_/   /_/_/ /_/\__,_/_/   /____/\___/\____/_/   \___/
 ------------------------------------------------------
 
-|                                                         Metric |                           Task |       Value |    Unit |
-|---------------------------------------------------------------:|-------------------------------:|------------:|--------:|
-|                     Cumulative indexing time of primary shards |                                |   0.0359333 |     min |
-|             Min cumulative indexing time across primary shards |                                |  0.00453333 |     min |
-|          Median cumulative indexing time across primary shards |                                |  0.00726667 |     min |
-|             Max cumulative indexing time across primary shards |                                |  0.00878333 |     min |
-|            Cumulative indexing throttle time of primary shards |                                |           0 |     min |
-|    Min cumulative indexing throttle time across primary shards |                                |           0 |     min |
-| Median cumulative indexing throttle time across primary shards |                                |           0 |     min |
-|    Max cumulative indexing throttle time across primary shards |                                |           0 |     min |
-|                        Cumulative merge time of primary shards |                                |           0 |     min |
-|                       Cumulative merge count of primary shards |                                |           0 |         |
-|                Min cumulative merge time across primary shards |                                |           0 |     min |
-|             Median cumulative merge time across primary shards |                                |           0 |     min |
-|                Max cumulative merge time across primary shards |                                |           0 |     min |
-|               Cumulative merge throttle time of primary shards |                                |           0 |     min |
-|       Min cumulative merge throttle time across primary shards |                                |           0 |     min |
-|    Median cumulative merge throttle time across primary shards |                                |           0 |     min |
-|       Max cumulative merge throttle time across primary shards |                                |           0 |     min |
-|                      Cumulative refresh time of primary shards |                                |  0.00728333 |     min |
-|                     Cumulative refresh count of primary shards |                                |          35 |         |
-|              Min cumulative refresh time across primary shards |                                | 0.000966667 |     min |
-|           Median cumulative refresh time across primary shards |                                |  0.00136667 |     min |
-|              Max cumulative refresh time across primary shards |                                |  0.00236667 |     min |
-|                        Cumulative flush time of primary shards |                                |           0 |     min |
-|                       Cumulative flush count of primary shards |                                |           0 |         |
-|                Min cumulative flush time across primary shards |                                |           0 |     min |
-|             Median cumulative flush time across primary shards |                                |           0 |     min |
-|                Max cumulative flush time across primary shards |                                |           0 |     min |
-|                                        Total Young Gen GC time |                                |        0.01 |       s |
-|                                       Total Young Gen GC count |                                |           1 |         |
-|                                          Total Old Gen GC time |                                |           0 |       s |
-|                                         Total Old Gen GC count |                                |           0 |         |
-|                                                     Store size |                                |  0.00046468 |      GB |
-|                                                  Translog size |                                | 2.56114e-07 |      GB |
-|                                         Heap used for segments |                                |    0.113216 |      MB |
-|                                       Heap used for doc values |                                |   0.0171394 |      MB |
-|                                            Heap used for terms |                                |   0.0777283 |      MB |
-|                                            Heap used for norms |                                |    0.010437 |      MB |
-|                                           Heap used for points |                                |           0 |      MB |
-|                                    Heap used for stored fields |                                |  0.00791168 |      MB |
-|                                                  Segment count |                                |          17 |         |
-|                                                 Min Throughput |                   index-append |      1879.5 |  docs/s |
-|                                                Mean Throughput |                   index-append |      1879.5 |  docs/s |
-|                                              Median Throughput |                   index-append |      1879.5 |  docs/s |
-|                                                 Max Throughput |                   index-append |      1879.5 |  docs/s |
-|                                        50th percentile latency |                   index-append |     505.028 |      ms |
-|                                       100th percentile latency |                   index-append |     597.718 |      ms |
-|                                   50th percentile service time |                   index-append |     505.028 |      ms |
-|                                  100th percentile service time |                   index-append |     597.718 |      ms |
-|                                                     error rate |                   index-append |           0 |       % |
-|                                                 Min Throughput |       wait-until-merges-finish |       43.82 |   ops/s |
-|                                                Mean Throughput |       wait-until-merges-finish |       43.82 |   ops/s |
-|                                              Median Throughput |       wait-until-merges-finish |       43.82 |   ops/s |
-|                                                 Max Throughput |       wait-until-merges-finish |       43.82 |   ops/s |
-|                                       100th percentile latency |       wait-until-merges-finish |     22.2577 |      ms |
-|                                  100th percentile service time |       wait-until-merges-finish |     22.2577 |      ms |
-|                                                     error rate |       wait-until-merges-finish |           0 |       % |
-|                                                 Min Throughput |                    index-stats |       58.04 |   ops/s |
-|                                                Mean Throughput |                    index-stats |       58.04 |   ops/s |
-|                                              Median Throughput |                    index-stats |       58.04 |   ops/s |
-|                                                 Max Throughput |                    index-stats |       58.04 |   ops/s |
-|                                       100th percentile latency |                    index-stats |      24.891 |      ms |
-|                                  100th percentile service time |                    index-stats |     7.02568 |      ms |
-|                                                     error rate |                    index-stats |           0 |       % |
-|                                                 Min Throughput |                     node-stats |       51.21 |   ops/s |
-|                                                Mean Throughput |                     node-stats |       51.21 |   ops/s |
-|                                              Median Throughput |                     node-stats |       51.21 |   ops/s |
-|                                                 Max Throughput |                     node-stats |       51.21 |   ops/s |
-|                                       100th percentile latency |                     node-stats |     26.4279 |      ms |
-|                                  100th percentile service time |                     node-stats |     6.38569 |      ms |
-|                                                     error rate |                     node-stats |           0 |       % |
-|                                                 Min Throughput |                        default |       14.03 |   ops/s |
-|                                                Mean Throughput |                        default |       14.03 |   ops/s |
-|                                              Median Throughput |                        default |       14.03 |   ops/s |
-|                                                 Max Throughput |                        default |       14.03 |   ops/s |
-|                                       100th percentile latency |                        default |     78.9157 |      ms |
-|                                  100th percentile service time |                        default |     7.30501 |      ms |
-|                                                     error rate |                        default |           0 |       % |
-|                                                 Min Throughput |                           term |       59.96 |   ops/s |
-|                                                Mean Throughput |                           term |       59.96 |   ops/s |
-|                                              Median Throughput |                           term |       59.96 |   ops/s |
-|                                                 Max Throughput |                           term |       59.96 |   ops/s |
-|                                       100th percentile latency |                           term |     22.4626 |      ms |
-|                                  100th percentile service time |                           term |     5.38508 |      ms |
-|                                                     error rate |                           term |           0 |       % |
-|                                                 Min Throughput |                         phrase |       44.66 |   ops/s |
-|                                                Mean Throughput |                         phrase |       44.66 |   ops/s |
-|                                              Median Throughput |                         phrase |       44.66 |   ops/s |
-|                                                 Max Throughput |                         phrase |       44.66 |   ops/s |
-|                                       100th percentile latency |                         phrase |     27.4984 |      ms |
-|                                  100th percentile service time |                         phrase |     4.81552 |      ms |
-|                                                     error rate |                         phrase |           0 |       % |
-|                                                 Min Throughput |           country_agg_uncached |       16.16 |   ops/s |
-|                                                Mean Throughput |           country_agg_uncached |       16.16 |   ops/s |
-|                                              Median Throughput |           country_agg_uncached |       16.16 |   ops/s |
-|                                                 Max Throughput |           country_agg_uncached |       16.16 |   ops/s |
-|                                       100th percentile latency |           country_agg_uncached |     67.5527 |      ms |
-|                                  100th percentile service time |           country_agg_uncached |     5.40069 |      ms |
-|                                                     error rate |           country_agg_uncached |           0 |       % |
-|                                                 Min Throughput |             country_agg_cached |       49.31 |   ops/s |
-|                                                Mean Throughput |             country_agg_cached |       49.31 |   ops/s |
-|                                              Median Throughput |             country_agg_cached |       49.31 |   ops/s |
-|                                                 Max Throughput |             country_agg_cached |       49.31 |   ops/s |
-|                                       100th percentile latency |             country_agg_cached |     38.2485 |      ms |
-|                                  100th percentile service time |             country_agg_cached |     17.6579 |      ms |
-|                                                     error rate |             country_agg_cached |           0 |       % |
-|                                                 Min Throughput |                         scroll |       29.76 | pages/s |
-|                                                Mean Throughput |                         scroll |       29.76 | pages/s |
-|                                              Median Throughput |                         scroll |       29.76 | pages/s |
-|                                                 Max Throughput |                         scroll |       29.76 | pages/s |
-|                                       100th percentile latency |                         scroll |     93.1197 |      ms |
-|                                  100th percentile service time |                         scroll |     25.3068 |      ms |
-|                                                     error rate |                         scroll |           0 |       % |
-|                                                 Min Throughput |                     expression |        8.32 |   ops/s |
-|                                                Mean Throughput |                     expression |        8.32 |   ops/s |
-|                                              Median Throughput |                     expression |        8.32 |   ops/s |
-|                                                 Max Throughput |                     expression |        8.32 |   ops/s |
-|                                       100th percentile latency |                     expression |     127.701 |      ms |
-|                                  100th percentile service time |                     expression |     7.30691 |      ms |
-|                                                     error rate |                     expression |           0 |       % |
-|                                                 Min Throughput |                painless_static |         6.2 |   ops/s |
-|                                                Mean Throughput |                painless_static |         6.2 |   ops/s |
-|                                              Median Throughput |                painless_static |         6.2 |   ops/s |
-|                                                 Max Throughput |                painless_static |         6.2 |   ops/s |
-|                                       100th percentile latency |                painless_static |     167.239 |      ms |
-|                                  100th percentile service time |                painless_static |     5.76951 |      ms |
-|                                                     error rate |                painless_static |           0 |       % |
-|                                                 Min Throughput |               painless_dynamic |       19.56 |   ops/s |
-|                                                Mean Throughput |               painless_dynamic |       19.56 |   ops/s |
-|                                              Median Throughput |               painless_dynamic |       19.56 |   ops/s |
-|                                                 Max Throughput |               painless_dynamic |       19.56 |   ops/s |
-|                                       100th percentile latency |               painless_dynamic |     56.9046 |      ms |
-|                                  100th percentile service time |               painless_dynamic |     5.50498 |      ms |
-|                                                     error rate |               painless_dynamic |           0 |       % |
-|                                                 Min Throughput | decay_geo_gauss_function_score |       50.28 |   ops/s |
-|                                                Mean Throughput | decay_geo_gauss_function_score |       50.28 |   ops/s |
-|                                              Median Throughput | decay_geo_gauss_function_score |       50.28 |   ops/s |
-|                                                 Max Throughput | decay_geo_gauss_function_score |       50.28 |   ops/s |
-|                                       100th percentile latency | decay_geo_gauss_function_score |     25.9491 |      ms |
-|                                  100th percentile service time | decay_geo_gauss_function_score |      5.7773 |      ms |
-|                                                     error rate | decay_geo_gauss_function_score |           0 |       % |
-|                                                 Min Throughput |   decay_geo_gauss_script_score |       28.96 |   ops/s |
-|                                                Mean Throughput |   decay_geo_gauss_script_score |       28.96 |   ops/s |
-|                                              Median Throughput |   decay_geo_gauss_script_score |       28.96 |   ops/s |
-|                                                 Max Throughput |   decay_geo_gauss_script_score |       28.96 |   ops/s |
-|                                       100th percentile latency |   decay_geo_gauss_script_score |      41.179 |      ms |
-|                                  100th percentile service time |   decay_geo_gauss_script_score |     6.20007 |      ms |
-|                                                     error rate |   decay_geo_gauss_script_score |           0 |       % |
-|                                                 Min Throughput |     field_value_function_score |       52.97 |   ops/s |
-|                                                Mean Throughput |     field_value_function_score |       52.97 |   ops/s |
-|                                              Median Throughput |     field_value_function_score |       52.97 |   ops/s |
-|                                                 Max Throughput |     field_value_function_score |       52.97 |   ops/s |
-|                                       100th percentile latency |     field_value_function_score |     25.9004 |      ms |
-|                                  100th percentile service time |     field_value_function_score |     6.68765 |      ms |
-|                                                     error rate |     field_value_function_score |           0 |       % |
-|                                                 Min Throughput |       field_value_script_score |       35.24 |   ops/s |
-|                                                Mean Throughput |       field_value_script_score |       35.24 |   ops/s |
-|                                              Median Throughput |       field_value_script_score |       35.24 |   ops/s |
-|                                                 Max Throughput |       field_value_script_score |       35.24 |   ops/s |
-|                                       100th percentile latency |       field_value_script_score |     34.2866 |      ms |
-|                                  100th percentile service time |       field_value_script_score |     5.63202 |      ms |
-|                                                     error rate |       field_value_script_score |           0 |       % |
-|                                                 Min Throughput |                    large_terms |        1.05 |   ops/s |
-|                                                Mean Throughput |                    large_terms |        1.05 |   ops/s |
-|                                              Median Throughput |                    large_terms |        1.05 |   ops/s |
-|                                                 Max Throughput |                    large_terms |        1.05 |   ops/s |
-|                                       100th percentile latency |                    large_terms |     1220.12 |      ms |
-|                                  100th percentile service time |                    large_terms |     256.856 |      ms |
-|                                                     error rate |                    large_terms |           0 |       % |
-|                                                 Min Throughput |           large_filtered_terms |        4.11 |   ops/s |
-|                                                Mean Throughput |           large_filtered_terms |        4.11 |   ops/s |
-|                                              Median Throughput |           large_filtered_terms |        4.11 |   ops/s |
-|                                                 Max Throughput |           large_filtered_terms |        4.11 |   ops/s |
-|                                       100th percentile latency |           large_filtered_terms |     389.415 |      ms |
-|                                  100th percentile service time |           large_filtered_terms |     137.216 |      ms |
-|                                                     error rate |           large_filtered_terms |           0 |       % |
-|                                                 Min Throughput |         large_prohibited_terms |        5.68 |   ops/s |
-|                                                Mean Throughput |         large_prohibited_terms |        5.68 |   ops/s |
-|                                              Median Throughput |         large_prohibited_terms |        5.68 |   ops/s |
-|                                                 Max Throughput |         large_prohibited_terms |        5.68 |   ops/s |
-|                                       100th percentile latency |         large_prohibited_terms |     352.926 |      ms |
-|                                  100th percentile service time |         large_prohibited_terms |     169.633 |      ms |
-|                                                     error rate |         large_prohibited_terms |           0 |       % |
-|                                                 Min Throughput |           desc_sort_population |       42.48 |   ops/s |
-|                                                Mean Throughput |           desc_sort_population |       42.48 |   ops/s |
-|                                              Median Throughput |           desc_sort_population |       42.48 |   ops/s |
-|                                                 Max Throughput |           desc_sort_population |       42.48 |   ops/s |
-|                                       100th percentile latency |           desc_sort_population |     28.6485 |      ms |
-|                                  100th percentile service time |           desc_sort_population |     4.82649 |      ms |
-|                                                     error rate |           desc_sort_population |           0 |       % |
-|                                                 Min Throughput |            :_sort_population |       49.06 |   ops/s |
-|                                                Mean Throughput |            asc_sort_population |       49.06 |   ops/s |
-|                                              Median Throughput |            asc_sort_population |       49.06 |   ops/s |
-|                                                 Max Throughput |            asc_sort_population |       49.06 |   ops/s |
-|                                       100th percentile latency |            asc_sort_population |     30.7929 |      ms |
-|                                  100th percentile service time |            asc_sort_population |     10.0023 |      ms |
-|                                                     error rate |            asc_sort_population |           0 |       % |
-|                                                 Min Throughput | asc_sort_with_after_population |        55.9 |   ops/s |
-|                                                Mean Throughput | asc_sort_with_after_population |        55.9 |   ops/s |
-|                                              Median Throughput | asc_sort_with_after_population |        55.9 |   ops/s |
-|                                                 Max Throughput | asc_sort_with_after_population |        55.9 |   ops/s |
-|                                       100th percentile latency | asc_sort_with_after_population |      25.413 |      ms |
-|                                  100th percentile service time | asc_sort_with_after_population |     7.00911 |      ms |
-|                                                     error rate | asc_sort_with_after_population |           0 |       % |
-|                                                 Min Throughput |            desc_sort_geonameid |       63.86 |   ops/s |
-|                                                Mean Throughput |            desc_sort_geonameid |       63.86 |   ops/s |
-|                                              Median Throughput |            desc_sort_geonameid |       63.86 |   ops/s |
-|                                                 Max Throughput |            desc_sort_geonameid |       63.86 |   ops/s |
-|                                       100th percentile latency |            desc_sort_geonameid |     21.3566 |      ms |
-|                                  100th percentile service time |            desc_sort_geonameid |     5.41555 |      ms |
-|                                                     error rate |            desc_sort_geonameid |           0 |       % |
-|                                                 Min Throughput | desc_sort_with_after_geonameid |       58.36 |   ops/s |
-|                                                Mean Throughput | desc_sort_with_after_geonameid |       58.36 |   ops/s |
-|                                              Median Throughput | desc_sort_with_after_geonameid |       58.36 |   ops/s |
-|                                                 Max Throughput | desc_sort_with_after_geonameid |       58.36 |   ops/s |
-|                                       100th percentile latency | desc_sort_with_after_geonameid |     24.3476 |      ms |
-|                                  100th percentile service time | desc_sort_with_after_geonameid |     6.81395 |      ms |
-|                                                     error rate | desc_sort_with_after_geonameid |           0 |       % |
-|                                                 Min Throughput |             asc_sort_geonameid |       69.44 |   ops/s |
-|                                                Mean Throughput |             asc_sort_geonameid |       69.44 |   ops/s |
-|                                              Median Throughput |             asc_sort_geonameid |       69.44 |   ops/s |
-|                                                 Max Throughput |             asc_sort_geonameid |       69.44 |   ops/s |
-|                                       100th percentile latency |             asc_sort_geonameid |     19.4046 |      ms |
-|                                  100th percentile service time |             asc_sort_geonameid |     4.72967 |      ms |
-|                                                     error rate |             asc_sort_geonameid |           0 |       % |
-|                                                 Min Throughput |  asc_sort_with_after_geonameid |       70.35 |   ops/s |
-|                                                Mean Throughput |  asc_sort_with_after_geonameid |       70.35 |   ops/s |
-|                                              Median Throughput |  asc_sort_with_after_geonameid |       70.35 |   ops/s |
-|                                                 Max Throughput |  asc_sort_with_after_geonameid |       70.35 |   ops/s |
-|                                       100th percentile latency |  asc_sort_with_after_geonameid |      18.664 |      ms |
-|                                  100th percentile service time |  asc_sort_with_after_geonameid |     4.16119 |      ms |
-|                                                     error rate |  asc_sort_with_after_geonameid |           0 |       % |
+|                                                         Metric |                                       Task |       Value |   Unit |
+|---------------------------------------------------------------:|-------------------------------------------:|------------:|-------:|
+|                     Cumulative indexing time of primary shards |                                            |     0.02655 |    min |
+|             Min cumulative indexing time across primary shards |                                            |           0 |    min |
+|          Median cumulative indexing time across primary shards |                                            |  0.00176667 |    min |
+|             Max cumulative indexing time across primary shards |                                            |   0.0140333 |    min |
+|            Cumulative indexing throttle time of primary shards |                                            |           0 |    min |
+|    Min cumulative indexing throttle time across primary shards |                                            |           0 |    min |
+| Median cumulative indexing throttle time across primary shards |                                            |           0 |    min |
+|    Max cumulative indexing throttle time across primary shards |                                            |           0 |    min |
+|                        Cumulative merge time of primary shards |                                            |   0.0102333 |    min |
+|                       Cumulative merge count of primary shards |                                            |           3 |        |
+|                Min cumulative merge time across primary shards |                                            |           0 |    min |
+|             Median cumulative merge time across primary shards |                                            |           0 |    min |
+|                Max cumulative merge time across primary shards |                                            |   0.0102333 |    min |
+|               Cumulative merge throttle time of primary shards |                                            |           0 |    min |
+|       Min cumulative merge throttle time across primary shards |                                            |           0 |    min |
+|    Median cumulative merge throttle time across primary shards |                                            |           0 |    min |
+|       Max cumulative merge throttle time across primary shards |                                            |           0 |    min |
+|                      Cumulative refresh time of primary shards |                                            |   0.0709333 |    min |
+|                     Cumulative refresh count of primary shards |                                            |         118 |        |
+|              Min cumulative refresh time across primary shards |                                            |           0 |    min |
+|           Median cumulative refresh time across primary shards |                                            |  0.00186667 |    min |
+|              Max cumulative refresh time across primary shards |                                            |   0.0511667 |    min |
+|                        Cumulative flush time of primary shards |                                            |  0.00963333 |    min |
+|                       Cumulative flush count of primary shards |                                            |           4 |        |
+|                Min cumulative flush time across primary shards |                                            |           0 |    min |
+|             Median cumulative flush time across primary shards |                                            |           0 |    min |
+|                Max cumulative flush time across primary shards |                                            |  0.00398333 |    min |
+|                                        Total Young Gen GC time |                                            |           0 |      s |
+|                                       Total Young Gen GC count |                                            |           0 |        |
+|                                          Total Old Gen GC time |                                            |           0 |      s |
+|                                         Total Old Gen GC count |                                            |           0 |        |
+|                                                     Store size |                                            | 0.000485923 |     GB |
+|                                                  Translog size |                                            | 2.01873e-05 |     GB |
+|                                         Heap used for segments |                                            |           0 |     MB |
+|                                       Heap used for doc values |                                            |           0 |     MB |
+|                                            Heap used for terms |                                            |           0 |     MB |
+|                                            Heap used for norms |                                            |           0 |     MB |
+|                                           Heap used for points |                                            |           0 |     MB |
+|                                    Heap used for stored fields |                                            |           0 |     MB |
+|                                                  Segment count |                                            |          32 |        |
+|                                                 Min Throughput |                                      index |     3008.97 | docs/s |
+|                                                Mean Throughput |                                      index |     3008.97 | docs/s |
+|                                              Median Throughput |                                      index |     3008.97 | docs/s |
+|                                                 Max Throughput |                                      index |     3008.97 | docs/s |
+|                                        50th percentile latency |                                      index |     351.059 |     ms |
+|                                       100th percentile latency |                                      index |     365.058 |     ms |
+|                                   50th percentile service time |                                      index |     351.059 |     ms |
+|                                  100th percentile service time |                                      index |     365.058 |     ms |
+|                                                     error rate |                                      index |           0 |      % |
+|                                                 Min Throughput |                   wait-until-merges-finish |       28.41 |  ops/s |
+|                                                Mean Throughput |                   wait-until-merges-finish |       28.41 |  ops/s |
+|                                              Median Throughput |                   wait-until-merges-finish |       28.41 |  ops/s |
+|                                                 Max Throughput |                   wait-until-merges-finish |       28.41 |  ops/s |
+|                                       100th percentile latency |                   wait-until-merges-finish |     34.7088 |     ms |
+|                                  100th percentile service time |                   wait-until-merges-finish |     34.7088 |     ms |
+|                                                     error rate |                   wait-until-merges-finish |           0 |      % |
+|                                                 Min Throughput |     percolator_with_content_president_bush |       36.09 |  ops/s |
+|                                                Mean Throughput |     percolator_with_content_president_bush |       36.09 |  ops/s |
+|                                              Median Throughput |     percolator_with_content_president_bush |       36.09 |  ops/s |
+|                                                 Max Throughput |     percolator_with_content_president_bush |       36.09 |  ops/s |
+|                                       100th percentile latency |     percolator_with_content_president_bush |     35.9822 |     ms |
+|                                  100th percentile service time |     percolator_with_content_president_bush |     7.93048 |     ms |
+|                                                     error rate |     percolator_with_content_president_bush |           0 |      % |
+
+[...]
+
+|                                                 Min Throughput |          percolator_with_content_ignore_me |        16.1 |  ops/s |
+|                                                Mean Throughput |          percolator_with_content_ignore_me |        16.1 |  ops/s |
+|                                              Median Throughput |          percolator_with_content_ignore_me |        16.1 |  ops/s |
+|                                                 Max Throughput |          percolator_with_content_ignore_me |        16.1 |  ops/s |
+|                                       100th percentile latency |          percolator_with_content_ignore_me |     131.798 |     ms |
+|                                  100th percentile service time |          percolator_with_content_ignore_me |     69.5237 |     ms |
+|                                                     error rate |          percolator_with_content_ignore_me |           0 |      % |
+|                                                 Min Throughput | percolator_no_score_with_content_ignore_me |       29.37 |  ops/s |
+|                                                Mean Throughput | percolator_no_score_with_content_ignore_me |       29.37 |  ops/s |
+|                                              Median Throughput | percolator_no_score_with_content_ignore_me |       29.37 |  ops/s |
+|                                                 Max Throughput | percolator_no_score_with_content_ignore_me |       29.37 |  ops/s |
+|                                       100th percentile latency | percolator_no_score_with_content_ignore_me |     45.5703 |     ms |
+|                                  100th percentile service time | percolator_no_score_with_content_ignore_me |      11.316 |     ms |
+|                                                     error rate | percolator_no_score_with_content_ignore_me |           0 |      % |
+
 
 
 --------------------------------
-[INFO] SUCCESS (took 98 seconds)
+[INFO] SUCCESS (took 18 seconds)
 --------------------------------
 ```
 
-Each task run by the `geonames` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information: 
+Each task run by the `percolator` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information: 
 
 * **Throughput:** The number of successful OpenSearch operations per second. 
 * **Latency:** The amount of time, including wait time, taken for the request and the response to be sent and received by Benchmark.
@@ -394,6 +239,15 @@ Each task run by the `geonames` workload represents a specific OpenSearch API op
 
 
 ## Next steps
+
+At this point, you can run OSB against a different cluster, rather than single node test cluster generated from the packaged configuration above.  In the command line above:
+
+  * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
+  * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
+  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up, such as the test cluster above.
+  * If you are using a `HOST:PORT`specification and expect to use SSL/TLS, either specify `https://` or add the `use_ssl:true` directive to the client-options string.
+  * Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
+  * To run OSB with Docker, replace `opensearch-benchmark` with `docker run opensearchproject/opensearch-benchmark:latest`.  Note that the `localhost` address is generally not available within Docker containers.  To access this endpoint inside the container, you will need to use `host.docker.internal` instead.  Furthermore, on Linux, the command above becomes `docker run --add-host host.docker.internal:host-gateway opensearchproject/opensearch-benchmark:latest`.  See the [Docker documentation](https://docs.docker.com/engine/reference/run/#network-settings) for more details.
 
 See the following resources to learn more about OpenSearch Benchmark:
 
