@@ -51,7 +51,7 @@ When you run Data Prepper with the previous `pipeline.yaml`, you should see the 
 
 ## More options
 
-The following example shows a more involved mapping with additional configurations for `translate` processor.
+The following example shows a more involved mapping with additional configurations for `translate` processor:
 
 ```yaml
 processor:
@@ -79,7 +79,7 @@ processor:
           sts_role_arn: arn:aws:iam::123456789012:role/MyS3Role
 ```
 
-On the top level, specify `mappings` for inline mapping configuration or `file` for a file that contains mapping configuration. Both `mappings` and `file` options can be specified together, and the processor considers the mappings from both sources for translations. In instances where the pipeline configuration and file mappings share duplicate `source` and `target` pair, the mappings specified within the pipeline configuration take precedence.
+On the top level, specify `mappings` for inline mapping configuration or `file` for a file that contains mapping configurations. Both `mappings` and `file` options can be specified together, and the processor considers the mappings from both sources for translations. In instances where the pipeline configuration and file mappings share duplicate `source` and `target` pairs, the mappings specified within the pipeline configuration take precedence.
 
 
 ## Configuration
@@ -105,7 +105,7 @@ Each item in the `targets` list contains the following options:
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
 | target | Yes | String | The key that specifies the field in the output where the translated value will be placed. |
-| map | No | Map | A list of key-value pairs that define the translations. Each key represents a possible value in the source field, and the corresponding value represents what it should be translated to. For examples, see [map option](#map-options). At least one of `map` and `regex` should be configured. |
+| map | No | Map | A list of key-value pairs that define the translations. Each key represents a possible value in the source field, and the corresponding value represents what it should be translated to. For examples, see [map option](#map-option). At least one of `map` and `regex` should be configured. |
 | regex | No | Map | A map of keys which defines the translation map. For more options, see [regex option](#regex-option). At least one of `map` and `regex` should be configured. |
 | default | No | String | The default value to use when no match is found during translation. |
 | type | No | String | Specify the type of the data for the target value |
