@@ -109,7 +109,7 @@ The response contains the connector ID that you'll use to register a model:
 
 ## Step 3: Register the Bedrock model
 
-To register the Bedrock model to which you'll be connecting to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request:
+To register the Bedrock model to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
