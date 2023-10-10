@@ -20,7 +20,7 @@ To create a custom log type:
    The log type name supports characters a--z (lowercase), 0--9, hyphens, and underscores.
    {: .note }
    
-1. Select a category. The categories are listed in [Log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/).
+1. Select a category. The categories are listed in [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/).
 1. Select **Create log type** in the lower-right corner of the screen. The screen returns to the **Log types** page, and the new log type appears in the list. Note that the source for the new log type indicates **Custom**.
 
 ## Log type API
