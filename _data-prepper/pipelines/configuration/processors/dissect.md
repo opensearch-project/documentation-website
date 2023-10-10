@@ -12,7 +12,8 @@ The `dissect` processor extracts values from an event and map them to individual
 
 ## Basic usage
 
-For an example using dissect processor, create the following `pipeline.yaml`.
+For an example of using the `dissect` processor, create the following `pipeline.yaml`:
+
 ```yaml
 dissect-pipeline:
   source:
@@ -28,15 +29,15 @@ dissect-pipeline:
     - stdout:
 ```
 
-Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of a file containing this JSON data:
+Then create the following file, named `logs_json.log`, and replace the `path` in the file source of your `pipeline.yaml` with the path of a file containing the following JSON data:
 
 ```
 {"log": "07-25-2023 10:00:00 ERROR: error message"}
 ```
 
-The `dissect` processor will retrieve the fields (`Date`, `Time`, `Log_Type`, and `Message`) from the `log` message, , based on the pattern `%{Date} %{Time} %{Type}: %{Message}` configured in the pipeline.
+The `dissect` processor will retrieve the fields (`Date`, `Time`, `Log_Type`, and `Message`) from the `log` message, based on the pattern `%{Date} %{Time} %{Type}: %{Message}` configured in the pipeline.
 
-When you run Data Prepper with this `pipeline.yaml` passed in, you should see the following standard output.
+When you run Data Prepper the following`pipeline.yaml` passed in, you should receive  the following standard output:
 
 ```
 {
@@ -54,17 +55,17 @@ You can configure the `dissect` processor with the following options.
 
 | Option | Required | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `map` | Yes | Map | Defines the dissect patterns for specific keys. For details on how to define fields in the dissect pattern, see [Field notations](#field-notations) |
+| `map` | Yes | Map | Defines the `dissect` patterns for specific keys. For details on how to define fields in the dissect pattern, see [Field notations](#field-notations) |
 | `target_types` | No | Map | Specifies the data types for extract fields. Valid options are `integer`, `double`, `string`, and `boolean`. By default, all fields are of `string` type. |
 | `dissect_when` | No | String | Specifies a condition for performing the dissect operation using a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). If specified, dissect only when the expression evaluates to true. |
 
 ### Field notations
 
-You can define a dissect patterns with the following types of fields.
+You can define `dissect` patterns with the following types of fields.
 
 #### Normal field
 
-A field without a suffix or prefix. The field will be directly added to the output Event. The format is `%{field_name}`.
+A field without a suffix or prefix. The field will be directly added to the output event. The format is `%{field_name}`.
 
 #### Skip field
 
@@ -72,9 +73,9 @@ A field that will not be put in the event. The format is `%{}` or `%{?field_name
 
 #### Append field
 
-A field that will be combined with other fields. To append multiple values and put the final value in the field, we can use + before the field name in the dissect pattern. The format is `%{+field_name}`. 
+A field that will be combined with other fields. To append multiple values and put the final value in the field, use `+` before the field name in the `dissect` pattern. The format is `%{+field_name}`. 
 
-For example, with a pattern `%{+field_name}, %{+field_name}`, log message `"foo, bar"` will parse into `{"field_name": "foobar"}`.
+For example, with the pattern `%{+field_name}, %{+field_name}`, log message `"foo, bar"` will parse into `{"field_name": "foobar"}`.
 
 We can also define the order the concatenation with the help of suffix `/<integer>`. 
 
@@ -86,7 +87,7 @@ If the order is not mentioned, the append operation will take place in the order
 
 A field that uses the value from another field as field name. While defining a pattern, prefix the field with a `&` to assign the value found with this field to the value of another field found as the key.
 
-For example, with a pattern `"%{?field_name}, %{&field_name}"`, log message `"foo, bar"` will parse into `{“foo”: “bar”}`. Here we can see that `foo` which is captured from the skip field `%{?field_name}` serves as the key to the value captured form the field `%{&field_name}`.
+For example, with a pattern `"%{?field_name}, %{&field_name}"`, the log message `"foo, bar"` will parse into `{“foo”: “bar”}`. In the message, `foo` is captured from the skip field `%{?field_name}` serves as the key to the value captured from the field `%{&field_name}`.
 
 #### Padded field
 
