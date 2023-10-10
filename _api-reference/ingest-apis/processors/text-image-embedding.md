@@ -11,7 +11,7 @@ nav_order: 270
 The `text_image_embedding` processor is used to generate combined vector embeddings from text and image fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
 
 **PREREQUISITE**<br>
-Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
 {: .note}
 
 The following is the syntax for the `text_image_embedding` processor: 
@@ -36,7 +36,7 @@ The following table lists the required and optional parameters for the `text_ima
 
 | Name  | Data type | Required  | Description  |
 |:---|:---|:---|:---|
-`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be indexed in OpenSearch before it can be used in neural search. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be indexed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
 `embedding` | String | Required | The name of the vector field in which to store the generated embeddings. A single embedding is generated for both `text` and `image` fields.
 `field_map` | Object | Required | Contains key/value pairs that specify the fields from which to generate embeddings.
 `field_map.text` | String | Optional | The name of the field from which to obtain text for generating vector embeddings. You must specify at least one `text` or `image`.
@@ -46,7 +46,7 @@ The following table lists the required and optional parameters for the `text_ima
 
 ## Using the processor
 
-Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/). 
+Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/). 
 
 **Step 1: Create a pipeline.** 
 
@@ -132,6 +132,7 @@ The response confirms that in addition to the `image_description` and `image_bin
 
 ## Next steps
 
-- To learn more about neural search, see [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/).
-- To learn more about using models in OpenSearch, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn how to use the `neural` query for a multimodal search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
+- To learn more about multimodal neural search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/).
+- To learn more about using models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 - For a semantic search tutorial, see [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).

@@ -7,6 +7,8 @@ parent: Neural search
 ---
 
 # Multimodal search
+Introduced 2.11
+{: .label .label-purple }
 
 Use multimodal search to search text and image data. In neural search, text search is facilitated by multimodal embedding models. 
 

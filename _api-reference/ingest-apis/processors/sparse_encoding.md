@@ -1,24 +1,24 @@
 ---
 layout: default
-title: Text embedding
+title: Sparse encoding
 parent: Ingest processors 
 grand_parent: Ingest APIs
-nav_order: 260
+nav_order: 240
 ---
 
-# Text embedding
+# Sparse encoding
 
-The `text_embedding` processor is used to generate vector embeddings from text fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
+The `sparse_encoding` processor is used to generate vector embeddings from text fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) using sparse retrieval. 
 
 **PREREQUISITE**<br>
-Before using the `text_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+Before using the `sparse_encoding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
 {: .note}
 
-The following is the syntax for the `text_embedding` processor: 
+The following is the syntax for the `sparse_encoding` processor: 
 
 ```json
 {
-  "text_embedding": {
+  "sparse_encoding": {
     "model_id": "<model_id>",
     "field_map": {
       "<input_field>": "<vector_field>"
@@ -30,14 +30,14 @@ The following is the syntax for the `text_embedding` processor:
 
 #### Configuration parameters
 
-The following table lists the required and optional parameters for the `text_embedding` processor.
+The following table lists the required and optional parameters for the `sparse_encoding` processor.
 
 | Name  | Data type | Required  | Description  |
 |:---|:---|:---|:---|
 `model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be indexed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
 `field_map` | Object | Required | Contains key/value pairs that specify the mapping of a text field to a vector field.
-`field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating text embeddings.
-`field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated text embeddings.
+`field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating vector embeddings.
+`field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated vector embeddings.
 `description`  | String | Optional  | A brief description of the processor.  |
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 
@@ -52,11 +52,11 @@ The following example request creates an ingest pipeline where the text from `pa
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
 {
-  "description": "A text embedding pipeline",
+  "description": "A sparse encoding ingest pipeline",
   "processors": [
     {
-      "text_embedding": {
-        "model_id": "bQ1J8ooBpBj3wT4HVUsb",
+      "sparse_encoding": {
+        "model_id": "aP2Q8ooBpBj3wT4HVS8a",
         "field_map": {
           "passage_text": "passage_embedding"
         }
@@ -122,7 +122,7 @@ The response confirms that in addition to the `passage_text` field, the processo
 
 ## Next steps
 
-- To learn how to use the `neural` query for text search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
-- To learn more about neural text search, see [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/).
+- To learn how to use the `neural_sparse` query for a sparse search, see [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/).
+- To learn more about sparse neural search, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/).
 - To learn more about using models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 - For a semantic search tutorial, see [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).

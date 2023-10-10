@@ -10,12 +10,13 @@ redirect_from:
 
 # Neural search
 
-Neural search transforms text into vectors and facilitates vector search both at ingestion time and at search time. During ingestion, neural search transforms document text into vector embeddings and indexes both the text and its vector embeddings in a k-NN index. When you use a neural query during search, neural search converts the query text into vector embeddings, uses vector search to compare the query and document embeddings, and returns the closest results.
+Neural search transforms text into vectors and facilitates vector search both at ingestion time and at search time. During ingestion, neural search transforms document text into vector embeddings and indexes both the text and its vector embeddings in a vector index. When you use a neural query during search, neural search converts the query text into vector embeddings, uses vector search to compare the query and document embeddings, and returns the closest results.
 
 Neural search supports the following search types:
 
-- [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/): Uses text-based embedding models to search text data. 
+- [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/): Uses dense retrieval based on text embedding models to search text data. 
 - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/): Uses vision-language embedding models to search text and image data. 
+- [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
 
 ## Embedding models
 

@@ -8,10 +8,10 @@ parent: Neural search
 
 # Text search
 
-Use text search for text data. In neural search, text search is facilitated by text-based embedding models. 
+Use text search for text data. In neural search, text search is facilitated by text embedding models. Text search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
 
 **PREREQUISITE**<br>
-Before using text search, you must set up a text-based embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using text search, you must set up a text embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 {: .note}
 
 ## Using text search
@@ -200,7 +200,7 @@ The response contains the matching document:
 
 ## Setting a default model on an index or field
 
-A `neural` query requires a model ID for generating vector embeddings. To eliminate passing the model ID with each neural query request, you can set a default model on a k-NN index or a field. 
+A [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) query requires a model ID for generating vector embeddings. To eliminate passing the model ID with each neural query request, you can set a default model on a k-NN index or a field. 
 
 First, create a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) request processor. To set a default model for an index, provide the model ID in the `default_model_id` parameter. To set a default model for a specific field, provide the field name and the corresponding model ID in the `neural_field_default_id` map. If you provide both `default_model_id` and `neural_field_default_id`, `neural_field_default_id` takes precedence:
 
