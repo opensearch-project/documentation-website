@@ -140,7 +140,7 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 
 The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. If you include the `terminate_after` parameter in a request, concurrent segment search is disabled and the request is run in a non-concurrent manner.
 
-Typically, queries are used with smaller `terminate_after` values and thus complete quickly because the search is performed on a reduced dataset. Therefore, concurrent search may not further improve performance in this case. Moreover, when `terminate_after` is used with other search request parameters, such as `track_total_hits` and `size`, it adds complexity and changes the expected query behavior. Falling back to a non-concurrent path for search requests that include `terminate_after` ensures consistent results between concurrent and non-concurrent requests.
+Typically, queries are used with smaller `terminate_after` values and thus complete quickly because the search is performed on a reduced dataset. Therefore, concurrent search may not further improve performance in this case. Moreover, when `terminate_after` is used with other search request parameters, such as `track_total_hits` or `size`, it adds complexity and changes the expected query behavior. Falling back to a non-concurrent path for search requests that include `terminate_after` ensures consistent results between concurrent and non-concurrent requests.
 
 ## API changes
 
