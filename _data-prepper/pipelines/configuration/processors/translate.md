@@ -159,7 +159,7 @@ You can use the following options in the `file` configuration.
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
-| name | Yes | String | Full path to a local file or key name for an S3 object |
+| name | Yes | String | The full path to a local file or key name for an S3 object. |
 | aws | No | Map | The AWS configuration if the file is an S3 object. See the following table for more information. |
 
 You can use the following options with the `aws` configuration.
