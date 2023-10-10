@@ -338,7 +338,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Average throughput of the last n requests (The value of n is determined by `shard_indexing_pressure.secondary_parameter.throughput.request_size_window` setting) for a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
       </td>
     </tr>
-    </table>
+ </table>
 
     
   #### Dimensions: Operation, Exception, Indices, HTTPRespCode, ShardID, IndexName, ShardRole   
@@ -354,12 +354,10 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Latency
       </td>
-      <td>Operation, Exception, Indices, HTTPRespCode, ShardID, IndexName, ShardRole
-      </td>
       <td>Latency (milliseconds) of a request.
       </td>
     </tr>
-    </table>
+ </table>
 
   #### Dimensions: MemType   
    
