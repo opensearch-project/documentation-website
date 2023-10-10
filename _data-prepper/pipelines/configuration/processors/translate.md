@@ -100,7 +100,7 @@ Each item in the `mappings` configuration contains the following options:
 | source | Yes | String or List | The source field to translate. Can be a string or a list of strings. |
 | targets | Yes | List | The target fields configurations, which can include the target field key, translation maps, and more. |
 
-Each item in the `targets` list contains the following options:
+Each item in the `targets` configuration contains the following options:
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
