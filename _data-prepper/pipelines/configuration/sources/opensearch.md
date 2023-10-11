@@ -133,7 +133,7 @@ Option | Required | Type  | Description
 Use the following setting under the `include` and `exclude` options to indicate the regex pattern for the index.
 Option | Required | Type    | Description
 :--- |:----|:-----------------| :---
-`index_name_regex` | Yes | Regex String | The regex pattern to match indexes against. 
+`index_name_regex` | Yes | Regex string | The regex pattern to match indexes against. 
 
 ### search_options
 
