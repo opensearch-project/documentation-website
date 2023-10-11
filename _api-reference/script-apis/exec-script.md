@@ -15,6 +15,7 @@ The Execute Painless script API allows you to run a script that is not stored.
 GET /_scripts/painless/_execute
 POST /_scripts/painless/_execute
 ```
+{% include copy-curl.html %}
 
 ### Request fields
 
