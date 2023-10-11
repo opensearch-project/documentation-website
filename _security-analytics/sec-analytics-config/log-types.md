@@ -24,14 +24,14 @@ The following table shows the log types that are currently supported by Security
 | Applications | `GitHub` | GitHub | Logs that monitor workflows created by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions). |
 | Applications| `Gworkspace` | Google Workspace | Logs for Google Workspace that can monitor log entries such as admin actions, group and group membership actions, and events having to do with logging in. |  
 | Applications| `M365` | Microsoft 365 | Microsoft 365 audit logs collect a range of data for Microsoft 365 including records from call details, performance data, SQL Server, security events, and access control activity. |
-| Cloud Services | `Azure` | Azure | Logs that monitor log data for cloud applications managed by Microsoft Azure Cloud Services. |
+| Cloud Services | `Azure` | Microsoft Azure | Logs that monitor log data for cloud applications managed by Microsoft Azure Cloud Services. |
 | Cloud Services | `CloudTrail` | AWS Cloudtrail | Logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both [AWS Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service accounts. | 
 | Cloud Services | `S3` | AWS S3 | These logs track requests for access to an Amazon S3 bucket. |
 | Network Activity| `Dns` | DNS | A log that stores Domain Name System (DNS) activity. |
 | Network Activity | `Network` | Network | A log that records events that happen in a system's network, such as login attempts and application events. | 
 | Network Activity | `vpcflow` | VPC Flow | [VPC Flow Logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html) capture information about the IP traffic going to and from network interfaces in your VPC. |
 | Security | `Waf` | Web Application Firewall |  The role of WAF (Web Application Firewall) is to monitor and filter HTTP traffic between a web application and the internet. It is tasked wth preventing common security attacks such as cross-site scripting (XSS), SQL Injection (SQi), and so on. This new log type (introduced in OpenSearch 2.11) is for users that require monitoring for the WAF use case out-of-the box from the Security plugin. |
-| System Activity | `Linux` | Sys logs | Logs that record syslog events on Linux. |
+| System Activity | `Linux` | Linux System logs | Logs that record syslog events on Linux. |
 | System Activity | `Windows` | Windows | Logs that record events that have happened in the operating system, applications, and other system services for Windows. |
 | Other | `Email` | Email | Logs that record email activity. |
 
