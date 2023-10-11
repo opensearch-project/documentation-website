@@ -21,6 +21,7 @@ When creating an index, you can specify its mappings, settings, and aliases.
 ```
 PUT <index-name>
 ```
+{% include copy-curl.html %}
 
 ## Index naming restrictions
 
@@ -75,3 +76,4 @@ PUT /sample-index1
   }
 }
 ```
+{% include copy-curl.html %}
