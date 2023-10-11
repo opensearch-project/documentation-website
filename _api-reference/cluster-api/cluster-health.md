@@ -34,6 +34,7 @@ If the cluster health becomes yellow or green before 50 seconds elapse, it retur
 GET _cluster/health
 GET _cluster/health/<index>
 ```
+{% include copy-curl.html %}
 
 ## Query parameters
 
@@ -198,6 +199,7 @@ The response contains cluster health metrics partitioned by awareness attribute:
   }
 }
 ```
+{% include copy-curl.html %}
 
 If you're interested in a particular awareness attribute, you can include the name of the awareness attribute as a query parameter:
 
