@@ -41,6 +41,7 @@ GET _cat/allocation/node_name_1,node_name_2,node_name_3
 GET _cat/allocation?v
 GET _cat/allocation/<node_name>
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
