@@ -41,6 +41,7 @@ GET _cat/fielddata/field_name_1,field_name_2,field_name_3
 GET _cat/fielddata?v
 GET _cat/fielddata/<field_name>?v
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
