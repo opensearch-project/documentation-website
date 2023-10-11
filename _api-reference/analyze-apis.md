@@ -25,6 +25,7 @@ GET /{index}/_analyze
 POST /_analyze
 POST /{index}/_analyze
 ```
+{% include copy-curl.html %}
 
 Although you can issue an analyze request using both `GET` and `POST` requests, the two have important distinctions. A `GET` request causes data to be cached in the index so that the next time the data is requested, it is retrieved faster. A `POST` request sends a string that does not already exist to the analyzer to be compared with data that is already in the index. `POST` requests are not cached.
 {: .note}
@@ -141,6 +142,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 #### Apply a built-in analyzer
 
@@ -186,6 +188,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 #### Apply a custom analyzer
 
@@ -240,6 +243,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 #### Apply a custom transient analyzer
 
@@ -272,6 +276,8 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
+
 <hr />
 
 The following request uses the `html_strip` filter to remove HTML characters from the text:
@@ -302,6 +308,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 <hr />
 
@@ -369,6 +376,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 #### Specify an index
 
@@ -413,6 +421,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 <hr />
 
@@ -442,6 +451,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 #### Derive the analyzer from an index field
 
@@ -489,6 +499,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 #### Specify a normalizer
 
@@ -522,6 +533,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 <hr />
 
@@ -553,6 +565,7 @@ The previous request returns the following fields:
   ]
 }
 ````
+{% include copy-curl.html %}
 
 #### Get token details
 
@@ -636,6 +649,7 @@ The previous request returns the following fields:
   }
 }
 ````
+{% include copy-curl.html %}
 
 #### Set a token limit
 
