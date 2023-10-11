@@ -42,6 +42,7 @@ GET _cat/count/index_or_alias_1,index_or_alias_2,index_or_alias_3
 GET _cat/count?v
 GET _cat/count/<index>?v
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
