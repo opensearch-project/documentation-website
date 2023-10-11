@@ -39,6 +39,7 @@ POST test-index1/_update_by_query
 ```
 POST <target-index1>, <target-index2>/_update_by_query
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
@@ -101,6 +102,7 @@ To update your indexes and documents by query, you must include a [query]({{site
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Response
 ```json
