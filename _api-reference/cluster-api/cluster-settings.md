@@ -20,6 +20,7 @@ The cluster settings operation lets you check the current settings for your clus
 GET _cluster/settings
 PUT _cluster/settings
 ```
+{% include copy-curl.html %}
 
 ### Path parameters
 
