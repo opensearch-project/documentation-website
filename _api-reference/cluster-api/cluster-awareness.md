@@ -20,6 +20,7 @@ PUT /_cluster/routing/awareness/<attribute>/weights
 GET /_cluster/routing/awareness/<attribute>/weights?local
 GET /_cluster/routing/awareness/<attribute>/weights
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
@@ -48,6 +49,7 @@ In the following example request body, `zone_1` and `zone_2` receive 50 requests
       "_version" : 1
 }
 ```
+{% include copy-curl.html %}
 
 ## Example: Weighted round robin search
 
