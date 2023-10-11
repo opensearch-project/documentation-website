@@ -70,6 +70,7 @@ POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
   "include_aliases": false
 }
 ````
+{% include copy-curl.html %}
 
 #### Example response
 
