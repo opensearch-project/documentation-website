@@ -111,7 +111,7 @@ Option | Required | Type    | Description
 
 The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the the `index_read_count` and recount time `interval`. 
 
-For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being processed 3 times, 1 hour apart. By default, indexes will only be processed once. 
+For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being reprocessed 3 times, 1 hour apart. By default, indexes will only be processed once. 
 
 Use the following options under the `scheduling` configuration.
 
