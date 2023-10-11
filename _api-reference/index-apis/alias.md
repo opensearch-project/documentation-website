@@ -43,6 +43,7 @@ POST _aliases
 ```
 POST _aliases
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
