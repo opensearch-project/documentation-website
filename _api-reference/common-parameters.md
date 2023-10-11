@@ -22,6 +22,7 @@ The following request requires response values to be in human-readable format:
 
 GET <index_name>/_search?human=true
 ```
+{% include copy-curl.html %}
 
 ## Pretty result
 
@@ -35,6 +36,7 @@ The following request requires the response to be displayed in pretty JSON forma
 
 GET <index_name>/_search?pretty=true
 ```
+{% include copy-curl.html %}
 
 ## Content type
 
@@ -48,6 +50,7 @@ The following request specifies JSON format for the request body:
 
 curl -H "Content-type: application/json" -XGET localhost:9200/_scripts/<template_name>
 ```
+{% include copy-curl.html %}
 
 ## Request body in query string
 
@@ -62,6 +65,7 @@ The following request searches the documents in the `shakespeare` index for a sp
 
 GET shakespeare/search?source={"query":{"exists":{"field":"speaker"}}}&source_content_type=application/json
 ```
+{% include copy-curl.html %}
 
 ## Stack traces
 
@@ -75,6 +79,7 @@ The following request sets `error_trace` to `true` so that the response returns 
 
 GET <index_name>/_search?error_trace=true
 ```
+{% include copy-curl.html %}
 
 ## Filtered responses
 
@@ -88,3 +93,4 @@ The following request specifies filters to limit the fields returned in the resp
 
 GET _search?filter_path=<field_name>.*,-<field_name>
 ```
+{% include copy-curl.html %}
