@@ -44,6 +44,7 @@ The endpoint the OpenSearch Dashboards Security plugin provides is:
 ```
 /_opendistro/_security/saml/acs
 ```
+{% include copy-curl.html %}
 
 Make sure that you have configured this endpoint correctly in your IdP. Some IdPs also require you to add all endpoints to the allow list that they send requests to. Ensure that the ACS endpoint is listed.
 
@@ -52,6 +53,7 @@ OpenSearch Dashboards also requires you to add this endpoint to the allow list. 
 ```
 server.xsrf.allowlist: [/_opendistro/_security/saml/acs]
 ```
+{% include copy-curl.html %}
 
 
 ## Sign all documents
@@ -88,6 +90,7 @@ If you are not sure what the SAML response of your IdP contains and where it pla
 logger.token.name = com.amazon.dlic.auth.http.saml.Token
 logger.token.level = debug
 ```
+{% include copy-curl.html %}
 
 This setting prints the SAML response to the OpenSearch log file so that you can inspect and debug it. Setting this logger to `debug` generates many statements, so we don't recommend using it in production.
 
@@ -96,6 +99,7 @@ Another way of inspecting the SAML response is to monitor network traffic while 
 ```
 /_opendistro/_security/saml/acs
 ```
+{% include copy-curl.html %}
 
 Inspect the payload of this POST request, and use a tool like [base64decode.org](https://www.base64decode.org/) to decode it.
 
