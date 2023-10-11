@@ -14,6 +14,7 @@ The [rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) 
 GET <index_name>/_rank_eval 
 POST <index_name>/_rank_eval
 ```
+{% include copy-curl.html %}
 
 ## Query parameters
 
