@@ -41,6 +41,7 @@ GET _cat/recovery/index1,index2,index3
 ```
 GET _cat/recovery
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
