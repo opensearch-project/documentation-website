@@ -24,12 +24,14 @@ To begin, log in to your Kubernetes cluster and add the Helm repository (repo) f
 ```
 helm repo add opensearch-operator https://opster.github.io/opensearch-k8s-operator/
 ```
+{% include copy.html %}
 
 Make sure that the repo is included in your Kubernetes cluster. 
 
 ```
 helm repo list | grep opensearch
 ```
+{% include copy.html %}
 
 Both the `opensearch` and `opensearch-operator` repos appear in the list of repos.
 
@@ -39,6 +41,7 @@ Install the manager that operates all of the OpenSearch Kubernetes Operator's ac
 ```
 helm install opensearch-operator opensearch-operator/opensearch-operator
 ```
+{% include copy.html %}
 
 After the installation completes, the operator returns information on the deployment with `STATUS: deployed`. Then you can configure and start your [OpenSearch cluster](#deploy-a-new-opensearch-cluster).
 
@@ -121,24 +124,28 @@ With your cluster configured, run the `kubectl apply` command.
 ```
 kubectl apply -f opensearch-cluster.yaml
 ```
+{% include copy.html %}
 
 The operator creates several pods, including a bootstrap pod, three OpenSearch cluster pods, and one Dashboards pod. To connect to your cluster, use the `port-forward` command.
 
 ```
 kubectl port-forward svc/my-cluster-dashboards 5601
 ```
+{% include copy.html %}
 
 Open http://localhost:5601 in your preferred browser and log in with the default demo credentials `admin / admin`. You can also run curl commands against the OpenSearch REST API by forwarding to port 9200.
 
 ```
 kubectl port-forward svc/my-cluster 9200
 ```
+{% include copy.html %}
 
 In order to delete the OpenSearch cluster, delete the cluster resources. The following command deletes the cluster namespace and all its resources.
 
 ```
 kubectl delete -f opensearch-cluster.yaml
 ```
+{% include copy.html %}
 
 ## Next steps
 
