@@ -194,6 +194,8 @@ Use data is, not data are. Don’t use datas. Use pieces of data or equivalent t
 
 **dataset**
 
+**data source**
+
 **data store, datastore**
 
 Two words when used generically, but one word when referring to the VMware product.
@@ -767,6 +769,8 @@ Do not use. Use *open day* instead.
 **whitelist**
 
 Do not use. Use *allow list* instead.
+
+**white space**
 
 **wish, want, desire, need**
 
