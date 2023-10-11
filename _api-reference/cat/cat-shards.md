@@ -41,6 +41,7 @@ GET _cat/shards/index1,index2,index3
 ```
 GET _cat/shards
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
