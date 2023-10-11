@@ -31,6 +31,7 @@ You can use OpenSSL to display the content of each PEM certificate:
 ```bash
 openssl x509 -subject -nameopt RFC2253 -noout -in node1.pem
 ```
+{% include copy-curl.html %}
 
 Then ensure that the value matches the one in `opensearch.yml`.
 
@@ -39,6 +40,7 @@ For more complete information on a certificate:
 ```bash
 openssl x509 -in node1.pem -text -noout
 ```
+{% include copy-curl.html %}
 
 
 ### Check for special characters and whitespace in DNs
@@ -51,6 +53,7 @@ If parts of your DN contain special characters (e.g. a comma), make sure you esc
 plugins.security.nodes_dn:
   - 'CN=node-0.example.com,OU=SSL,O=My\, Test,L=Test,C=DE'
 ```
+{% include copy-curl.html %}
 
 You can have whitespace within a field, but not between fields.
 
@@ -60,6 +63,7 @@ You can have whitespace within a field, but not between fields.
 plugins.security.nodes_dn:
   - 'CN=node-0.example.com, OU=SSL,O=My\, Test, L=Test, C=DE'
 ```
+{% include copy-curl.html %}
 
 #### Good configuration
 
@@ -67,6 +71,7 @@ plugins.security.nodes_dn:
 plugins.security.nodes_dn:
   - 'CN=node-0.example.com,OU=SSL,O=My\, Test,L=Test,C=DE'
 ```
+{% include copy-curl.html %}
 
 
 ### Check certificate IP addresses
@@ -136,6 +141,7 @@ In order to view information about the certificates stored in your keystore or t
 ```bash
 keytool -list -v -keystore keystore.jks
 ```
+{% include copy-curl.html %}
 
 `keytool` prompts for the password of the keystore and lists all entries. For example, you can use this output to check for the correctness of the SAN and EKU settings.
 
@@ -158,6 +164,7 @@ SubjectAlternativeName [
   ...
 ]
 ```
+{% include copy-curl.html %}
 
 
 ## Check OID for node certificates
@@ -176,6 +183,7 @@ SubjectAlternativeName [
   OIDName: 1.2.3.4.5.5
 ]
 ```
+{% include copy-curl.html %}
 
 
 ## Check EKU field for node certificates
@@ -189,6 +197,7 @@ ExtendedKeyUsages [
   clientAuth
 ]
 ```
+{% include copy-curl.html %}
 
 
 ## TLS versions
@@ -201,6 +210,7 @@ plugins.security.ssl.http.enabled_protocols:
   - "TLSv1.1"
   - "TLSv1.2"
 ```
+{% include copy-curl.html %}
 
 
 ## Supported ciphers
