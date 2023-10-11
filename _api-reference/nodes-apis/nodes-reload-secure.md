@@ -15,6 +15,7 @@ The nodes reload secure settings endpoint allows you to change secure settings o
 POST _nodes/reload_secure_settings
 POST _nodes/<nodeId>/reload_secure_settings
 ```
+{% include copy-curl.html %}
 
 ## Path parameter
 
@@ -33,6 +34,7 @@ The request may include an optional object containing the password for the OpenS
   "secure_settings_password": "keystore_password"
 }
 ```
+{% include copy-curl.html %}
 
 #### Example request
 
