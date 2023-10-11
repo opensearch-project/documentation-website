@@ -35,6 +35,7 @@ PUT /sample-index1/_split/split-index1
 POST /<source-index>/_split/<target-index>
 PUT /<source-index>/_split/<target-index>
 ```
+{% include copy-curl.html %}
 
 ## Index naming restrictions
 
