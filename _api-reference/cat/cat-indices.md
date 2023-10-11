@@ -41,6 +41,7 @@ GET _cat/indices/index1,index2,index3
 GET _cat/indices/<index>
 GET _cat/indices
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
