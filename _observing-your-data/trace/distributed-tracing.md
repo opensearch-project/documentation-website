@@ -152,7 +152,7 @@ Distributed tracing can generate numerous spans, consuming system resources unne
 1. **Head sampling:** Sampling decisions are made before initiating the root span of a request. OpenSearch supports two head sampling methods:
     - **Probabilistic:** A blanket limit on incoming requests, dynamically adjustable with the `telemetry.tracer.sampler.probability` setting. This setting ranges between 0 and 1. Default is 0.01, which indicates that 1% of incoming requests are sampled.
     - **On-Demand:** For debugging specific requests, you can send the `trace=true` attribute as part of the HTTP headers, causing those requests to be sampled regardless of the probabilistic sampling setting.
-2. **Tail base sampling:** To configure tail-based sampling, follow the [OpenTelemetry Sampling](https://opentelemetry.io/docs/concepts/sampling/) documentation. Configuration depends on the type of collector you choose. Updates on ongoing work for OpenSearch are in the [RFC](https://github.com/opensearch-project/OpenSearch/issues/8918) on GitHub.
+2. **Tail sampling:** To configure tail sampling, follow the [OpenTelemetry tail sampling documentation](https://opentelemetry.io/docs/concepts/sampling/#tail-sampling). Configuration depends on the type of collector you choose. Updates on ongoing work for OpenSearch are in the [RFC](https://github.com/opensearch-project/OpenSearch/issues/8918) on GitHub.
 
 ### Collection of spans
 
