@@ -40,6 +40,7 @@ GET _cat/thread_pool/<thread_pool_name>?v
 ```
 GET _cat/thread_pool
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
