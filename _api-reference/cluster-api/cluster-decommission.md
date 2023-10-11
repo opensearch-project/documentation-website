@@ -23,6 +23,7 @@ PUT  /_cluster/decommission/awareness/{awareness_attribute_name}/{awareness_attr
 GET  /_cluster/decommission/awareness/{awareness_attribute_name}/_status
 DELETE /_cluster/decommission/awareness
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
