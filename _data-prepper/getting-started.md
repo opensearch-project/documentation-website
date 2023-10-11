@@ -39,6 +39,7 @@ For Data Prepper versions earlier than 2.0, the `.jar` file expects the pipeline
 ```
 java -jar data-prepper-core-$VERSION.jar pipelines.yaml data-prepper-config.yaml
 ```
+{% include copy-curl.html %}
 
 Optionally, you can add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command to pass a custom Log4j 2 configuration file. If you don't provide a properties file, Data Prepper defaults to the `log4j2.properties` file in the `shared-config` directory.
 
@@ -48,6 +49,7 @@ Starting with Data Prepper 2.0, you can launch Data Prepper by using the followi
 ```
 bin/data-prepper
 ```
+{% include copy-curl.html %}
 
 Configuration files are read from specific subdirectories in the application's home directory:
 1. `pipelines/`: Used for pipeline configurations. Pipeline configurations can be written in one or more YAML files.
