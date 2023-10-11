@@ -35,18 +35,21 @@ opensearch-cli ad delete ecommerce-count-quantity --profile staging
    ```bash
    chmod +x ./opensearch-cli
    ```
+   {% include copy.html %}
 
 1. Add the command to your path:
 
    ```bash
    export PATH=$PATH:$(pwd)
    ```
+   {% include copy.html %}
 
 1. Confirm the CLI is working properly:
 
    ```bash
    opensearch-cli --version
    ```
+   {% include copy.html %}
 
 
 ## Profiles
@@ -56,6 +59,7 @@ Profiles let you easily switch between different clusters and user credentials. 
 ```bash
 opensearch-cli profile create --auth-type basic --endpoint https://localhost:9200 --name docker-local
 ```
+{% include copy.html %}
 
 Alternatively, save a configuration file to `~/.opensearch-cli/config.yaml`:
 
@@ -71,6 +75,7 @@ profiles:
         profile: ""
         service: es
 ```
+{% include copy.html %}
 
 
 ## Usage
@@ -80,18 +85,21 @@ opensearch-cli commands use the following syntax:
 ```bash
 opensearch-cli <command> <subcommand> <flags>
 ```
+{% include copy.html %}
 
 For example, the following command retrieves information about a detector:
 
 ```bash
 opensearch-cli ad get my-detector --profile docker-local
 ```
+{% include copy.html %}
 
 For a request to the OpenSearch CAT API, try the following command:
 
 ```bash
 opensearch-cli curl get --path _cat/plugins --profile aws
 ```
+{% include copy.html %}
 
 Use the `-h` or `--help` flag to see all supported commands, subcommands, or usage for a specific command:
 
@@ -100,3 +108,4 @@ opensearch-cli -h
 opensearch-cli ad -h
 opensearch-cli ad get -h
 ```
+{% include copy.html %}
