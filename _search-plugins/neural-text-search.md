@@ -119,7 +119,7 @@ The following example request uses a Boolean query to combine a filter clause an
 ```json
 GET /my-nlp-index/_search
 {
-    "_source": {
+  "_source": {
     "excludes": [
       "passage_embedding"
     ]

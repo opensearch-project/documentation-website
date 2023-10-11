@@ -113,11 +113,13 @@ The following example request uses a `neural_sparse` query to search for relevan
 ```json
 GET my-nlp-index/_search
 {
-  "neural_sparse": {
-    "passage_embedding": {
-      "query_text": "Hi world",
-      "model_id": "aP2Q8ooBpBj3wT4HVS8a",
-      "max_token_score": 2
+  "query": {
+    "neural_sparse": {
+      "passage_embedding": {
+        "query_text": "Hi world",
+        "model_id": "aP2Q8ooBpBj3wT4HVS8a",
+        "max_token_score": 2
+      }
     }
   }
 }
@@ -128,7 +130,7 @@ The response contains the matching documents:
 
 ```json
 {
-  "took" : 41,
+  "took" : 688,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -141,24 +143,58 @@ The response contains the matching documents:
       "value" : 2,
       "relation" : "eq"
     },
-    "max_score" : 1.22762,
+    "max_score" : 30.0029,
     "hits" : [
       {
         "_index" : "my-nlp-index",
-        "_id" : "2",
-        "_score" : 1.22762,
+        "_id" : "1",
+        "_score" : 30.0029,
         "_source" : {
-          "passage_text" : "Hi planet",
-          "id" : "s2"
+          "passage_text" : "Hello world",
+          "passage_embedding" : {
+            "!" : 0.8708904,
+            "door" : 0.8587369,
+            "hi" : 2.3929274,
+            "worlds" : 2.7839446,
+            "yes" : 0.75845814,
+            "##world" : 2.5432441,
+            "born" : 0.2682308,
+            "nothing" : 0.8625516,
+            "goodbye" : 0.17146169,
+            "greeting" : 0.96817183,
+            "birth" : 1.2788506,
+            "come" : 0.1623208,
+            "global" : 0.4371151,
+            "it" : 0.42951578,
+            "life" : 1.5750692,
+            "thanks" : 0.26481047,
+            "world" : 4.7300377,
+            "tiny" : 0.5462298,
+            "earth" : 2.6555297,
+            "universe" : 2.0308156,
+            "worldwide" : 1.3903781,
+            "hello" : 6.696973,
+            "so" : 0.20279501,
+            "?" : 0.67785245
+          },
+          "id" : "s1"
         }
       },
       {
         "_index" : "my-nlp-index",
-        "_id" : "1",
-        "_score" : 1.2251667,
+        "_id" : "2",
+        "_score" : 16.480486,
         "_source" : {
-          "passage_text" : "Hello world",
-          "id" : "s1"
+          "passage_text" : "Hi planet",
+          "passage_embedding" : {
+            "hi" : 4.338913,
+            "planets" : 2.7755864,
+            "planet" : 5.0969057,
+            "mars" : 1.7405145,
+            "earth" : 2.6087382,
+            "hello" : 3.3210192
+          },
+          "id" : "s2"
         }
       }
     ]
