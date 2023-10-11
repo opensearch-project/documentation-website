@@ -42,7 +42,7 @@ GET _cat/aliases/alias1,alias2,alias3
 GET _cat/aliases/<alias>
 GET _cat/aliases
 ```
-
+{% include copy-curl.html %}
 
 ## URL parameters
 
@@ -64,5 +64,6 @@ alias   | index     | filter  | routing.index | routing.search  | is_write_index
 alias1  | movies    |   *     |      -        |       -         |      -
 .opensearch-dashboards | .opensearch-dashboards_1 |   -     |      -        |       -         |      -
 ```
+{% include copy-curl.html %}
 
 To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).
