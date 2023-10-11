@@ -32,6 +32,7 @@ POST <index>/_doc
 PUT <index>/_create/<_id>
 POST <index>/_create/<_id>
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
@@ -62,6 +63,7 @@ Your request body must contain the information you want to index.
   "Description": "This is just a sample document"
 }
 ```
+{% include copy-curl.html %}
 
 ## Response
 ```json
