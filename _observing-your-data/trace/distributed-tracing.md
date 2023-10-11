@@ -97,7 +97,7 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled
 
 ### Enable with Docker containers
 
-If you’re running Docker, add the following line to `docker-compose.yml` underneath the `opensearch-node` and environment section:
+If you’re running Docker, add the following line to `docker-compose.yml` under the `opensearch-node` and environment section:
 
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
