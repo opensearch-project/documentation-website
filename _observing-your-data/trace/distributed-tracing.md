@@ -120,7 +120,7 @@ testClusters {
  }
  }
  ```
- {% include copy-curl.html %}
+ {% include copy.html %}
 
 ### Enable distributed tracing
 
