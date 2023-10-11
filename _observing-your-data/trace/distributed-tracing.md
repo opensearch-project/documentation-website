@@ -66,6 +66,8 @@ Add the following lines to `config/jvm.options` before starting the OpenSearch p
 
 ```bash
 -Dopensearch.experimental.feature.telemetry.enabled=true
+```
+{% include copy.html %}
 
 Run OpenSearch
 
