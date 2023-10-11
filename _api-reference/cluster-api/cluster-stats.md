@@ -28,7 +28,7 @@ GET _cluster/stats/nodes/_cluster_manager
 GET _cluster/stats
 GET _cluster/stats/nodes/<node-filters>
 ```
-
+{% include copy-curl.html %}
 
 ## URL parameters
 
@@ -481,6 +481,7 @@ Parameter | Type | Description
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Response body fields
 
