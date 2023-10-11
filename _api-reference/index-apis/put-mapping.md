@@ -25,6 +25,7 @@ The only required path parameter is the index with which to associate the mappin
 PUT /<target-index>/_mapping
 PUT /<target-index1>,<target-index2>/_mapping
 ```
+{% include copy-curl.html %}
 
 ## Required request body field
 
@@ -42,6 +43,7 @@ The request body must contain `properties`, which has all of the mappings that y
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Optional request body fields
 
@@ -59,6 +61,7 @@ You can make the document structure match the structure of the index mapping by 
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Optional query parameters
 
@@ -67,6 +70,7 @@ Optionally, you can add query parameters to make a more specific request. For ex
 ```json
 PUT /sample-index/_mapping?ignore_unavailable
 ```
+{% include copy-curl.html %}
 
 The following table defines the put mapping query parameters:
 
