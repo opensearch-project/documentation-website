@@ -27,6 +27,7 @@ GET _cat/plugins?v
 ```
 GET _cat/plugins
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
