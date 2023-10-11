@@ -26,10 +26,13 @@ GET sample-index1/_doc/1
 GET <index>/_doc/<_id>
 HEAD <index>/_doc/<_id>
 ```
+{% include copy-curl.html %}
+
 ```
 GET <index>/_source/<_id>
 HEAD <index>/_source/<_id>
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
