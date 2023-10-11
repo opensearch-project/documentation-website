@@ -93,7 +93,7 @@ To define the environment variable separately, prior to running OpenSearch, run 
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
  ./bin/opensearch
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Enable with Docker containers
 
