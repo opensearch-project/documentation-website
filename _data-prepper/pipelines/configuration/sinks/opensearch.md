@@ -30,6 +30,7 @@ pipeline:
       max_retries: 20
       bulk_size: 4
 ```
+{% include copy.html %}
 
 To configure an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) sink, specify the domain endpoint as the `hosts` option:
 
@@ -45,6 +46,7 @@ pipeline:
       index_type: trace-analytics-service-map
       bulk_size: 4
 ```
+{% include copy.html %}
 
 ## Configuration options
 
@@ -168,6 +170,7 @@ sink:
       hosts: ["https://your-fgac-amazon-opensearch-service-endpoint"]
       aws_sigv4: true
 ```
+{% include copy.html %}
 
 Run `aws configure` using the AWS CLI to use the master IAM user credentials. If you don't want to use the master user, you can specify a different IAM role using the `aws_sts_role_arn` option. The plugin will then use this role to sign requests sent to the domain sink. The ARN that you specify must be included in the [domain access policy]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#amazon-opensearch-service-domain-security).
 
@@ -183,6 +186,7 @@ sink:
       username: "master-username"
       password: "master-password"
 ```
+{% include copy.html %}
 
 For more information, see [Recommended configurations](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html#fgac-recommendations) in the Amazon OpenSearch Service documentation.
 
@@ -290,3 +294,4 @@ log-pipeline:
           sts_role_arn: "arn:aws:iam::<AccountId>:role/PipelineRole"
           region: "us-east-1"
 ```
+{% include copy.html %}
