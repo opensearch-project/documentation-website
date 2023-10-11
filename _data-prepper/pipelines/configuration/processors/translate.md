@@ -100,7 +100,7 @@ Each item in the `mappings` configuration contains the following options.
 | Parameter | Required | Type | Description |
 | :--- | :--- | :--- | :--- |
 | source | Yes | String or List | The source field to translate. Can be a string or a list of strings. |
-| targets | Yes | List | The target fields configurations, which may include the target field key, translation maps, and more. |
+| targets | Yes | List |  A list of target field configurations, such as the target field key or translation maps. |
 
 Each item in the `targets` configuration contains the following options.
 
@@ -111,7 +111,7 @@ Each item in the `targets` configuration contains the following options.
 | regex | No | Map | A map of keys that defines the translation map. For more options, see [regex option](#regex-option). At least one of `map` and `regex` should be configured. |
 | default | No | String | The default value to use when no match is found during translation. |
 | type | No | String | Specifies the data type for the target value. |
-| translate_when | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. If specified, the expression when translate only when the expression evaluates to `true`. |
+| translate_when | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. When specified, the expression will only translate when the condition is met. |
 
 #### map option
 
@@ -136,7 +136,7 @@ You can use the following key types when using the map option:
       "100-200,key4": "value2"
   ```
 
-When configuring the keys in inside the `map` option, do not use any overlapping number ranges or duplicate keys.
+When configuring the keys inside the `map` option, do not use any overlapping number ranges or duplicate keys.
 
 #### regex option
 
