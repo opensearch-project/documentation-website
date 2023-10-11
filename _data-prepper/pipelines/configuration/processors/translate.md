@@ -8,11 +8,11 @@ nav_order: 117
 
 # translate
 
-The `translate` processor modifies values in events to preconfigured values.
+The `translate` processor transforms values in events into preconfigured values.
 
 ## Basic usage
 
-For an example using the translate processor, create the following `pipeline.yaml`:
+To use the `translate` processor, create the following `pipeline.yaml` file:
 
 ```yaml
 translate-pipeline:
@@ -33,7 +33,7 @@ translate-pipeline:
     - stdout:
 ```
 
-Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of a file containing this json data:
+Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the path of a file containing the following JSON data:
 ```json
 { "status": "404" }
 ```
@@ -41,7 +41,7 @@ Then create the following file named `logs_json.log` and replace the `path` in t
 The `translate` processor configuration in `pipeline.yaml` retrieves the `source` value from the event data and compares it against the keys specified under the `targets`. 
 When a match is found, the processor places the corresponding mapped value into the `target` key provided in the configuration.
 
-When you run Data Prepper with the previous `pipeline.yaml`, you should see the following output:
+When you run Data Prepper with the previous `pipeline.yaml` file, you should receive the following output:
 ```json
 {
   "status": "404",
@@ -51,7 +51,7 @@ When you run Data Prepper with the previous `pipeline.yaml`, you should see the 
 
 ## More options
 
-The following example shows a more involved mapping with additional configurations for `translate` processor:
+The following example shows a more involved mapping with additional configurations for the `translate` processor:
 
 ```yaml
 processor:
@@ -93,26 +93,26 @@ You can use the following options to configure the `translate` processor.
 
 ### mappings
 
-Each item in the `mappings` configuration contains the following options:
+Each item in the `mappings` configuration contains the following options.
 
 | Parameter | Required | Type | Description |
 | :--- | :--- | :--- | :--- |
 | source | Yes | String or List | The source field to translate. Can be a string or a list of strings. |
-| targets | Yes | List | The target fields configurations, which can include the target field key, translation maps, and more. |
+| targets | Yes | List | The target fields configurations, which may include the target field key, translation maps, and more. |
 
 Each item in the `targets` configuration contains the following options:
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
-| target | Yes | String | The key that specifies the field in the output where the translated value will be placed. |
+| target | Yes | String | The key that specifies the field in the output in which the translated value will be placed. |
 | map | No | Map | A list of key-value pairs that define the translations. Each key represents a possible value in the source field, and the corresponding value represents what it should be translated to. For examples, see [map option](#map-option). At least one of `map` and `regex` should be configured. |
-| regex | No | Map | A map of keys which defines the translation map. For more options, see [regex option](#regex-option). At least one of `map` and `regex` should be configured. |
+| regex | No | Map | A map of keys that defines the translation map. For more options, see [regex option](#regex-option). At least one of `map` and `regex` should be configured. |
 | default | No | String | The default value to use when no match is found during translation. |
-| type | No | String | Specify the type of the data for the target value |
-| translate_when | No | String | Use a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. If specified, the expression when translate only when the expression evaluates to `true`. |
+| type | No | String | Specifies the data type for the target value. |
+| translate_when | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. If specified, the expression when translate only when the expression evaluates to `true`. |
 
 #### map option
-You can use the following key types when using the map option
+You can use the following key types when using the map option:
 * Individual keys
   ```yaml
     map:
@@ -132,7 +132,7 @@ You can use the following key types when using the map option
       "100-200,key4": "value2"
   ```
 
-While configuring the keys in map, do not use any overlapping number ranges or duplicate keys.
+When configuring the keys in map, do not use any overlapping number ranges or duplicate keys.
 
 #### regex option
 You can use the following options with the `regex` parameter. 
@@ -140,11 +140,11 @@ You can use the following options with the `regex` parameter.
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
 | patterns | Yes | Map | A map of key-value pairs defining the regex patterns of keys and the value to translate to for each pattern. |
-| exact | No | Boolean | Whether to use full string match or partial string match on the regex patterns. If `true`, the pattern is considered a match only when the entire key matches the pattern. Otherwise, the pattern is considered a match as long as a sub-string of the key matches the pattern. |
+| exact | No | Boolean | Whether to use full string match or partial string match on the regex pattern. If `true`, the pattern is considered a match only when the entire key matches the pattern. Otherwise, the pattern is considered a match when a sub-string of the key matches the pattern. |
 
 ### file
 
-The `file` option in the translate processor takes a local YAML file or an S3 object containing translation mappings. The file's contents should be in the following format:
+The `file` option in the `translate` processor takes a local YAML file or an Amazon Simple Storage Service (Amazon S3) object containing translation mappings. The file's contents should be in the following format:
 ```yaml
 mappings:
   - source: "status"
@@ -160,7 +160,7 @@ You can use the following options in the `file` configuration.
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
 | name | Yes | String | The full path to a local file or key name for an S3 object. |
-| aws | No | Map | The AWS configuration if the file is an S3 object. See the following table for more information. |
+| aws | No | Map | The AWS configuration when the file is an S3 object. See the following table for more information. |
 
 You can use the following options with the `aws` configuration.
 
