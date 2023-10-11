@@ -29,6 +29,7 @@ GET _cat/nodes?v
 ```
 GET _cat/nodes
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
