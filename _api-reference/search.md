@@ -35,6 +35,7 @@ GET /_search
 POST /<target-index>/_search
 POST /_search
 ```
+{% include copy-curl.html %}
 
 ## URL Parameters
 
