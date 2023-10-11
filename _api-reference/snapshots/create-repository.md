@@ -23,6 +23,7 @@ For instructions on creating a repository, see [Register repository]({{site.url}
 POST /_snapshot/my-first-repo/ 
 PUT /_snapshot/my-first-repo/
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
