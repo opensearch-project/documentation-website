@@ -26,6 +26,7 @@ To help troubleshoot OpenID Connect, set the log level to `debug` on OpenSearch.
 logger.securityjwt.name = com.amazon.dlic.auth.http.jwt
 logger.securityjwt.level = trace
 ```
+{% include copy-curl.html %}
 
 This setting prints a lot of helpful information to your log file. If this information isn't sufficient, you can also set the log level to `trace`.
 
@@ -37,6 +38,7 @@ This error indicates that the Security plugin can't reach the metadata endpoint 
 ```
 plugins.security.openid.connect_url: "http://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration"
 ```
+{% include copy-curl.html %}
 
 If this error occurs on OpenSearch, check the following setting in `config.yml`:
 
@@ -51,6 +53,7 @@ openid_auth_domain:
       openid_connect_url: http://keycloak.examplesss.com:8080/auth/realms/master/.well-known/openid-configuration
     ...
 ```
+{% include copy-curl.html %}
 
 ## "ValidationError: child 'opensearch_security' fails"
 
@@ -63,6 +66,7 @@ plugins.security.openid.connect_url: "..."
 plugins.security.openid.client_id: "..."
 plugins.security.openid.client_secret: "..."
 ```
+{% include copy-curl.html %}
 
 
 ## "Authentication failed. Please provide a new token."
@@ -82,6 +86,7 @@ To trade the access token for an identity token, most IdPs require you to provid
 ```
 plugins.security.openid.client_secret: "..."
 ```
+{% include copy-curl.html %}
 
 
 ### "Failed to get subject from JWT claims"
@@ -99,6 +104,7 @@ openid_auth_domain:
       subject_key: <subject key>
     ...
 ```
+{% include copy-curl.html %}
 
 ### "Failed to get roles from JWT claims with roles_key"
 
@@ -115,3 +121,4 @@ openid_auth_domain:
       roles_key: <roles key>
     ...
 ```
+{% include copy-curl.html %}
