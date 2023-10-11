@@ -11,7 +11,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 Distributed tracing is used to monitor and debug distributed systems. You can track the flow of requests through the system and identify performance bottlenecks and errors. A _trace_ is a complete end-to-end path of a request as it flows through a distributed system. It represents the journey of a specific operation as it traverses various components and services in a distributed architecture. In distributed tracing, a single trace contains a series of tagged time intervals called _spans_. Spans have a start and end time, and may include other metadata like logs or tags to help classify what happened. 
 
-Distributed tracing offers several benefits, including:
+Use distributed tracing for the following purposes:
 
 - **Performance optimization:** Identify and resolve bottlenecks, reducing latency in your applications.
 - **Troubleshooting:** Quickly pinpoint the source of errors or unexpected behavior in your distributed system.
