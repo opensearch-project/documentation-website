@@ -27,6 +27,7 @@ GET _cat/pending_tasks?v
 ```
 GET _cat/pending_tasks
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
