@@ -26,6 +26,7 @@ GET _cat/nodeattrs?v
 ```
 GET _cat/nodeattrs
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
