@@ -34,6 +34,7 @@ translate-pipeline:
 ```
 
 Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the path of a file containing the following JSON data:
+
 ```json
 { "status": "404" }
 ```
@@ -42,6 +43,7 @@ The `translate` processor configuration in `pipeline.yaml` retrieves the `source
 When a match is found, the processor places the corresponding mapped value into the `target` key provided in the configuration.
 
 When you run Data Prepper with the previous `pipeline.yaml` file, you should receive the following output:
+
 ```json
 {
   "status": "404",
@@ -49,7 +51,7 @@ When you run Data Prepper with the previous `pipeline.yaml` file, you should rec
 }
 ```
 
-## More options
+## Advanced options
 
 The following example shows a more involved mapping with additional configurations for the `translate` processor:
 
@@ -79,7 +81,7 @@ processor:
           sts_role_arn: arn:aws:iam::123456789012:role/MyS3Role
 ```
 
-On the top level, specify `mappings` for inline mapping configurations, or `file` for a file that contains mapping configurations. Both `mappings` and `file` options can be specified together, and the processor considers the mappings from both sources for translations. In instances where the pipeline configuration and file mappings share duplicate `source` and `target` pairs, the mappings specified within the pipeline configuration take precedence.
+On the top level, specify `mappings` for inline mapping configurations, or `file` pull mapping configurations from a file. Both `mappings` and `file` options can be specified together, and the processor considers the mappings from both sources for translations. In instances where the pipeline configuration and file mappings share duplicate `source` and `target` pairs, the mappings specified within the pipeline configuration take precedence.
 
 
 ## Configuration
@@ -112,7 +114,9 @@ Each item in the `targets` configuration contains the following options.
 | translate_when | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. If specified, the expression when translate only when the expression evaluates to `true`. |
 
 #### map option
+
 You can use the following key types when using the map option:
+
 * Individual keys
   ```yaml
     map:
@@ -132,10 +136,11 @@ You can use the following key types when using the map option:
       "100-200,key4": "value2"
   ```
 
-When configuring the keys in map, do not use any overlapping number ranges or duplicate keys.
+When configuring the keys in inside the `map` option, do not use any overlapping number ranges or duplicate keys.
 
 #### regex option
-You can use the following options with the `regex` parameter. 
+
+You can use the following options with the `regex` option. 
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
