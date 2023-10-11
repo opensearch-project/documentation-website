@@ -218,7 +218,7 @@ GET books/_search
     ]
   }
 }
-```
+````
 
 ## Sort results using painless stored script
 You can use painless stored script to sort results.
@@ -254,7 +254,8 @@ GET books/_search
     }
   }
 }
-```
+````
+{% include copy-curl.html %}
 
 ### Sample response
 
@@ -320,4 +321,4 @@ GET books/_search
     ]
   }
 }
-```
+````
