@@ -19,6 +19,7 @@ GET /_nodes/<node_id>/stats/<metric>
 GET /_nodes/stats/<metric>/<index_metric>
 GET /_nodes/<node_id>/stats/<metric>/<index_metric>
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
@@ -57,6 +58,7 @@ GET _nodes/stats/
 GET _nodes/stats/_all
 GET _nodes/stats/indices
 ```
+{% include copy-curl.html %}
 
 The following index metrics are supported:
 
