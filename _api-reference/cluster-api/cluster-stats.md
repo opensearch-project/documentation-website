@@ -128,7 +128,10 @@ Parameter | Type | Description
                      "max_bytes" : 0
                   },
                   "max_refresh_time_lag_in_millis" : 0,
-                  "total_time_spent_in_millis" : 516
+                  "total_time_spent_in_millis" : 516,
+                  "pressure" : {
+                     "total_rejections" : 0
+                  }
                },
                "download" : {
                   "total_download_size" : {
@@ -137,6 +140,14 @@ Parameter | Type | Description
                      "failed_bytes" : 0
                   },
                   "total_time_spent_in_millis" : 0
+               }
+            },
+            "segment_replication" : {
+               "max_bytes_behind" : "0b", 
+               "total_bytes_behind" : "0b", 
+               "max_replication_lag" : "0s", 
+               "pressure" : {
+                  "total_rejections" : 0
                }
             },
             "file_sizes": {}
