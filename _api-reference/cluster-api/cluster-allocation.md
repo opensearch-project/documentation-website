@@ -35,7 +35,7 @@ GET _cluster/allocation/explain?include_yes_decisions=true
 GET _cluster/allocation/explain
 POST _cluster/allocation/explain
 ```
-
+{% include copy-curl.html %}
 
 ## URL parameters
 
@@ -147,3 +147,4 @@ shard | Integer | The shard ID that you want an explanation for.
   }]
 }
 ```
+{% include copy-curl.html %}
