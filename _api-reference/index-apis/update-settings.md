@@ -33,6 +33,7 @@ PUT /sample-index1/_settings
 ```
 PUT /<target-index>/_settings
 ```
+{% include copy-curl.html %}
 
 ## Query parameters
 
@@ -60,6 +61,7 @@ The request body must all of the index settings that you want to update.
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Response
 
