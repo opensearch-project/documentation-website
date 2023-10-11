@@ -41,6 +41,7 @@ GET _cat/segments/index1,index2,index3
 ```
 GET _cat/segments
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
