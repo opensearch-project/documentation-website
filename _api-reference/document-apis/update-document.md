@@ -43,6 +43,7 @@ POST /test-index1/_update/1
 ```
 POST /<index>/_update/<_id>
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
