@@ -37,6 +37,7 @@ The following request verifies that the my-opensearch-repo is functional:
 ````json
 POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s
 ````
+{% include copy-curl.html %}
 
 #### Example response
 
