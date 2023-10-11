@@ -27,6 +27,7 @@ GET _cat/snapshots?v
 ```
 GET _cat/snapshots
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
