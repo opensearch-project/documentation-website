@@ -19,6 +19,7 @@ GET /_stats
 GET /<index_ids>/_stats
 GET /<index_ids>/_stats/<metric>
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
