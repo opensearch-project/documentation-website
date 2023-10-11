@@ -106,7 +106,7 @@ OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
 
 ### Enable for OpenSearch development
 
-To enable the distributed feature, you must first enable these features by adding the correct properties to `run.gradle` before building OpenSearch. See the [Developer Guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md#gradle-build) for information about to use how Gradle to build OpenSearch.
+To enable the distributed tracing feature, you must first add the correct properties to `run.gradle` before building OpenSearch. See the [Developer Guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md#gradle-build) for information about to use how Gradle to build OpenSearch.
 
 Add the following properties to `run.gradle` to enable the feature:
 
