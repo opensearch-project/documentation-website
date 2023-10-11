@@ -101,5 +101,6 @@ For more information on why `securityadmin.sh` is not executing, add the `--diag
 ```
 ./securityadmin.sh -diagnose -cd ../../../config/opensearch-security/ -cacert ... -cert ... -key ... -keypass ...
 ```
+{% include copy-curl.html %}
 
 The script prints the location of the generated diagnostic file.
