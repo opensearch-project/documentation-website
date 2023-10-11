@@ -35,6 +35,7 @@ PUT /sample-index1/_clone/cloned-index1
 POST /<source-index>/_clone/<target-index>
 PUT /<source-index>/_clone/<target-index>
 ```
+{% include copy-curl.html %}
 
 ## Index naming restrictions
 
