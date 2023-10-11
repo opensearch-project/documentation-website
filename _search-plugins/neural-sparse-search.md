@@ -10,7 +10,7 @@ parent: Neural search
 Introduced 2.11
 {: .label .label-purple }
 
-[Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/) relies on dense retrieval that is based on text embedding models. However, dense methods use k-NN search, which consumes a large amount of memory and CPU resources. An alternative to neural text search, sparse neural search is implemented using an inverted index and thus is as efficient as BM25. Sparse search is facilitated by sparse embedding models. When you perform a sparse search, it creates a sparse vector (a list of `token: weight` key/value pairs representing an entry and its weight) and ingests data into a rank features index.
+[Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/) relies on dense retrieval that is based on text embedding models. However, dense methods use k-NN search, which consumes a large amount of memory and CPU resources. An alternative to neural text search, sparse neural search is implemented using an inverted index and thus is as efficient as BM25. Sparse search is facilitated by sparse embedding models. When you perform a sparse search, it creates a sparse vector (a list of `token: weight` key-value pairs representing an entry and its weight) and ingests data into a rank features index.
 
 **PREREQUISITE**<br>
 Before using sparse search, you must set up a sparse embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).

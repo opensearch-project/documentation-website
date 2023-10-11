@@ -38,7 +38,7 @@ The following table lists the required and optional parameters for the `text_ima
 |:---|:---|:---|:---|
 `model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be indexed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
 `embedding` | String | Required | The name of the vector field in which to store the generated embeddings. A single embedding is generated for both `text` and `image` fields.
-`field_map` | Object | Required | Contains key/value pairs that specify the fields from which to generate embeddings.
+`field_map` | Object | Required | Contains key-value pairs that specify the fields from which to generate embeddings.
 `field_map.text` | String | Optional | The name of the field from which to obtain text for generating vector embeddings. You must specify at least one `text` or `image`.
 `field_map.image`  | String | Optional | The name of the field from which to obtain the image for generating vector embeddings. You must specify at least one `text` or `image`.
 `description`  | String | Optional  | A brief description of the processor.  |

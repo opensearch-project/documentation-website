@@ -97,7 +97,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-Note that Bedrock access keys expire in 10--12 hours after creation. To learn more, about the parameters in the preceding request, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints#configuration-options).
+Note that Bedrock access keys expire in 10--12 hours after creation. To learn more about the parameters in the preceding request, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints#configuration-options).
 
 The response contains the connector ID that you'll use to register a model:
 

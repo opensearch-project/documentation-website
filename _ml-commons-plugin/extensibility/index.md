@@ -122,7 +122,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 You can create a standalone connector or an internal connector that is part of a specific model. For more information about connectors and connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
 
-The Connectors Create API, `/_plugins/_ml/connectors/_create` creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, you can connect to a ChatGPT modelusing the `api.openai.com` endpoint:
+The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool using its specific API endpoint. For example, you can connect to a ChatGPT model using the `api.openai.com` endpoint:
 
 ```json
 POST /_plugins/_ml/connectors/_create
