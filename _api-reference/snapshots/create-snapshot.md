@@ -19,6 +19,7 @@ Creates a snapshot within an existing repository.
 PUT /_snapshot/<repository>/<snapshot>
 POST /_snapshot/<repository>/<snapshot>
 ```
+{% include copy-curl.html %}
 
 ### Path parameters
 
