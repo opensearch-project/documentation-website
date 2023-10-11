@@ -17,6 +17,7 @@ GET _nodes/<nodeId>/usage
 GET _nodes/usage/<metric>
 GET _nodes/<nodeId>/usage/<metric>
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
