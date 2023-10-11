@@ -119,7 +119,7 @@ Option | Required | Type            | Description
 :--- | :--- |:----------------| :---
 `index_read_count` | No | Integer | The number of times each index will be processed. Default is `1`.
 `interval` | No | String | The interval that determines the amount of time between reprocessing. Supports ISO 8601 notation strings, such as "PT20.345S" or "PT15M", as well as simple notation strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `8h`.
-`start_time` | No | String | The time when processing should begin. The source will not start processing until this instant is reached. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately. 
+`start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately. 
 
 
 ### indices
