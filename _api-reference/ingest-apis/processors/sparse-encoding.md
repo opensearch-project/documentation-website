@@ -96,44 +96,42 @@ The response confirms that in addition to the `passage_text` field, the processo
 
 ```json
 {
-  "docs": [
+  "docs" : [
     {
-      "doc": {
-        "_index": "testindex1",
-        "_id": "1",
-        "_source": {
-          "passage_embedding": [
-            {
-              "!": 0.8708904,
-              "door": 0.8587369,
-              "hi": 2.3929274,
-              "worlds": 2.7839446,
-              "yes": 0.75845814,
-              "##world": 2.5432441,
-              "born": 0.2682308,
-              "nothing": 0.8625516,
-              "goodbye": 0.17146169,
-              "greeting": 0.96817183,
-              "birth": 1.2788506,
-              "come": 0.1623208,
-              "global": 0.4371151,
-              "it": 0.42951578,
-              "life": 1.5750692,
-              "thanks": 0.26481047,
-              "world": 4.7300377,
-              "tiny": 0.5462298,
-              "earth": 2.6555297,
-              "universe": 2.0308156,
-              "worldwide": 1.3903781,
-              "hello": 6.696973,
-              "so": 0.20279501,
-              "?": 0.67785245
-            }
-          ],
-          "passage_text": "hello world"
+      "doc" : {
+        "_index" : "testindex1",
+        "_id" : "1",
+        "_source" : {
+          "passage_embedding" : {
+            "!" : 0.8708904,
+            "door" : 0.8587369,
+            "hi" : 2.3929274,
+            "worlds" : 2.7839446,
+            "yes" : 0.75845814,
+            "##world" : 2.5432441,
+            "born" : 0.2682308,
+            "nothing" : 0.8625516,
+            "goodbye" : 0.17146169,
+            "greeting" : 0.96817183,
+            "birth" : 1.2788506,
+            "come" : 0.1623208,
+            "global" : 0.4371151,
+            "it" : 0.42951578,
+            "life" : 1.5750692,
+            "thanks" : 0.26481047,
+            "world" : 4.7300377,
+            "tiny" : 0.5462298,
+            "earth" : 2.6555297,
+            "universe" : 2.0308156,
+            "worldwide" : 1.3903781,
+            "hello" : 6.696973,
+            "so" : 0.20279501,
+            "?" : 0.67785245
+          },
+          "passage_text" : "hello world"
         },
-        "_ingest": {
-          "timestamp": "2023-10-05T15:15:19.691345393Z"
+        "_ingest" : {
+          "timestamp" : "2023-10-11T22:35:53.654650086Z"
         }
       }
     }
