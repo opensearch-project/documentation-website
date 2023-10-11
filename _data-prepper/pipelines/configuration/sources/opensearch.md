@@ -8,7 +8,7 @@ nav_order: 30
 
 # opensearch
 
-The `opensearch` source plugin to read indexes from an OpenSearch cluster, a legacy Elasticsearch cluster, an Amazon OpenSearch Service domain, or an Amazon OpenSearch Serverless collection.
+The `opensearch` source plugin is used to read indexes from an OpenSearch cluster, a legacy Elasticsearch cluster, an Amazon OpenSearch Service domain, or an Amazon OpenSearch Serverless collection.
 
 The plugin supports OpenSearch 2.x and Elasticsearch 7.x.
 
@@ -26,7 +26,7 @@ opensearch-source-pipeline:
  ...
 ```
 
-To use the `opensearch` source with all configuration settings, including `indices`, `scheduling`, `search_options`, and `connection`, add the following exampe to your `pipeline.yaml` file:
+To use the `opensearch` source with all configuration settings, including `indices`, `scheduling`, `search_options`, and `connection`, add the following example to your `pipeline.yaml` file:
 
 ```yaml
 opensearch-source-pipeline:
@@ -55,7 +55,7 @@ opensearch-source-pipeline:
 
 ## Amazon OpenSearch Service
 
-The `opensearch` source can be configured for an Amazon OpenSearch service domain by passing an `sts_role_arn` with access to the domain, as shown in the following example:
+The `opensearch` source can be configured for an Amazon OpenSearch Service domain by passing an `sts_role_arn` with access to the domain, as shown in the following example:
 
 ```yaml
 opensearch-source-pipeline:
@@ -68,7 +68,7 @@ opensearch-source-pipeline:
   ...
 ```
 
-## Using Metadata
+## Using metadata
 
 When the `opensource` source constructs Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
 
@@ -103,9 +103,9 @@ Option | Required | Type    | Description
 `aws` | No | Object  | The AWS configuration. For more information, see [aws](#aws).
 `acknowledgments` | No | Boolean | When `true`, enables the `opensearch` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
 `connection` | No | Object  | The connection configuration. For more information, see [Connection](#connection).
-`indices` | No | Object | The indices configuration for filtering which indexes are processed. Defaults to all indices, including system indices. For more information, see [Indices](#indices).
+`indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [Indices](#indices).
 `scheduling` | No | Object | The scheduling configuration. For more information, see [Scheduling](#scheduling).
-`search_options` | No | Object | The search options configuration. For more information, see [Search options](#search_options).
+`search_options` | No | Object | A list of search options performed by the source. For more information, see [Search options](#search_options).
 
 ### Scheduling
 
@@ -115,19 +115,20 @@ For example, setting `index_read_count` to `3` with an `interval` of `1h` will r
 Option | Required | Type            | Description
 :--- | :--- |:----------------| :---
 `index_read_count` | No | Integer | The number of times each index will be processed. Default is `1`.
-`interval` | No | String | The interval to reprocess indexes. Supports ISO_8601 notation Strings ("PT20.345S", "PT15M", etc.) as well as simple notation Strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `8h`.
+`interval` | No | String | The interval in which indexes are reprocessed. Supports ISO_8601 notation strings, such as "PT20.345S" or "PT15M", as well as simple notation strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `8h`.
 `start_time` | No | String | The instant of time when processing should begin. The source will not start processing until this instant is reached. The String must be in ISO-8601 format, such as `2007-12-03T10:15:30.00Z`. Defaults to starting processing immediately.
 
 
 ### indices
 
-The following options help the `opensearch` source which indexes are processed from the source cluster using regex patterns. An index will only be processed if it matches one of the `index_name_regex` patterns under the `include` setting and does not match any of the 
-patterns under `exclude` setting.
+The following options help the `opensearch` source determine which indexes are processed from the source cluster using regex patterns. An index will only be processed if it matches one of the `index_name_regex` patterns under the `include` setting and does not match any of the 
+patterns under the `exclude` setting.
 
 Option | Required | Type  | Description
 :--- | :--- |:-----------------| :---
 `include` | No | Array of Objects | A list of index configuration patterns that specifies which indexes will be processed.
 `exclude` | No | Array of Objects | A list of index configuration patterns that specifies which indexes will not be processed. For example, you can specify an `index_name_regex` pattern of `\..*` to exclude system indices.
+
 
 Use the following setting under the `include` and `exclude` options to indicate the regex pattern for the index.
 Option | Required | Type    | Description
@@ -140,15 +141,15 @@ Use the following settings under the `search_options` configuration.
 
 Option | Required | Type    | Description
 :--- |:---------|:--------| :---
-`batch_size` | No       | Integer | The number of documents to read at a time while paginating from OpenSearch. Default is `1000` 
-`search_context_type` | No | Enum | An override for the type of search/pagination to use on indices. Can be [point_in_time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after)), [scroll]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search), or `none`. The `none` option will use the [search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) parameter. For more information, see [Default Search Behavior](#default_search_behavior) for default behavior.
+`batch_size` | No       | Integer | The number of documents to read while paginating from OpenSearch. Default is `1000`. 
+`search_context_type` | No | Enum | An override for the type of search/pagination to use on indexes. Can be [point_in_time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after)), [scroll]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search), or `none`. The `none` option will use the [search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) parameter. For more information, see [Default Search Behavior](#default_search_behavior).
 
 ### Default search behavior
 
-By default, the `opensearch` source will lookip the cluster version and distribution to determine 
+By default, the `opensearch` source will look up the cluster version and distribution to determine 
 which `search_context_type` to use. For versions and distributions that support [Point in Time](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used. 
 If `point_in_time` is not supported by the cluster, then [scroll](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter)
-will be used because neither `point_in_time` or `scroll` are supported by collections.
+will be used because neither `point_in_time` nor `scroll` are supported by collections.
 
 ### Connection
 
@@ -156,7 +157,7 @@ Use the following settings under the `connection` configuration.
 
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
-`cert` | No | String  | The path to the security certificate, for example `"config/root-ca.pem"`, when the cluster uses the OpenSearch Security plugin.
+`cert` | No | String  | The path to the security certificate, for example, `"config/root-ca.pem"`, when the cluster uses the OpenSearch Security plugin.
 `insecure` | No | Boolean | Whether or not to verify SSL certificates. If set to `true`, the certificate authority (CA) certificate verification is disabled and insecure HTTP requests are sent. Default is `false`.
 
 
@@ -168,12 +169,12 @@ Option | Required | Type    | Description
 :--- | :--- |:--------| :---
 `region` | No | String  | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
 `sts_role_arn` | No | String  | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon OpenSearch Service and Amazon OpenSearch Serverless. Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-`serverless` | No | Boolean | Should be set to true when processing from an Amazon OpenSearch Serverless collection. Defaults to false.
+`serverless` | No | Boolean | Should be set to `true` when processing from an Amazon OpenSearch Serverless collection. Defaults to `false`.
 
 
 ## OpenSearch cluster security
 
-In order to pull data from an OpenSearch cluster using the `opensearch` source plugin, you must specify your username and password within the pipeline configuration. The following example `pipelines.yaml` file demonstrates how to specify the default admin security credentials:
+In order to pull data from an OpenSearch cluster using the `opensearch` source plugin, you must specify your username and password within the pipeline configuration. The following example `pipeline.yaml` file demonstrates how to specify the default admin security credentials:
 
 ```yaml
 source:
@@ -185,7 +186,7 @@ source:
 
 ### Amazon OpenSearch Service domain security
 
-The `opensearch` source plugin can pull data from an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) domain, which uses IAM for security. The plugin uses the default credential Amazon OpenSearch Service credential chain. Run `aws configure` using the [AWS Command Line Interface (AWS CLI)](https://aws.amazon.com/cli/) to set your credentials.
+The `opensearch` source plugin can pull data from an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) domain, which uses AWS Identity and Access Management (IAM) for security. The plugin uses the default Amazon OpenSearch Service credential chain. Run `aws configure` using the [AWS Command Line Interface (AWS CLI)](https://aws.amazon.com/cli/) to set your credentials.
 
 Make sure the credentials that you configure have the required IAM permissions. The following domain access policy shows the minimum required permissions:
 
@@ -240,7 +241,7 @@ For instructions on how to configure the domain access policy, see [Resource-bas
 
 The `opensearch` source plugin can receive data from an [Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html) collection.
 
-You can not read from a collection that uses virtual private cloud (VPC) access. The collection must be accessible from public networks.
+You cannot read from a collection that uses virtual private cloud (VPC) access. The collection must be accessible from public networks.
 {: .warning}
 
 #### Creating a pipeline role
@@ -295,11 +296,11 @@ Next, create a collection with the following settings:
 Make sure to replace the ARN in the `Principal` element with the ARN of the pipeline role that you created in the preceding step.
 {: .tip}
 
- For instructions on how to create collections, see [Creating collections](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) in the Amazon OpenSearch Service documentation.
+For instructions on how to create collections, see [Creating collections](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) in the Amazon OpenSearch Service documentation.
 
 #### Creating a pipeline
 
-Within your `pipelines.yaml` file, specify the OpenSearch Serverless collection endpoint as the `hosts` option. In addition, you must set the `serverless` option to `true`. Specify the pipeline role in the `sts_role_arn` option, as shown in the following example:
+Within your `pipeline.yaml` file, specify the OpenSearch Serverless collection endpoint as the `hosts` option. In addition, you must set the `serverless` option to `true`. Specify the pipeline role in the `sts_role_arn` option, as shown in the following example:
 
 ```yaml
 opensearch-source-pipeline:
