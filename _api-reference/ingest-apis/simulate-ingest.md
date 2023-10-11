@@ -188,6 +188,7 @@ When the previous request is run with the `verbose` parameter set to `true`, the
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Example: Specify a pipeline in the request body
 
