@@ -21,6 +21,7 @@ GET <index>/_mget
 POST _mget
 POST <index>/_mget
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
@@ -126,6 +127,7 @@ GET sample-index1/_mget
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Response body fields
 
