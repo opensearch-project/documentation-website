@@ -32,6 +32,7 @@ POST sample-index1/_delete_by_query
 ```
 POST <index>/_delete_by_query
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
@@ -87,6 +88,7 @@ To search your index for specific documents, you must include a [query]({{site.u
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Response
 ```json
