@@ -70,7 +70,7 @@ opensearch-source-pipeline:
 
 ## Using metadata
 
-When the `opensource` source constructs Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
+When the `opensource` source constructs Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
 
 
 ```yaml
@@ -110,13 +110,15 @@ Option | Required | Type    | Description
 ### Scheduling
 
 The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the the `index_read_count` and recount time `interval`. 
-For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indices being processed three times, one hour apart. By default, indexes will only be processed once.
+For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being processed 3 times, 1 hour apart. By default, indexes will only be processed once. 
+
+Use the following options under the `scheduling` configuration.
 
 Option | Required | Type            | Description
 :--- | :--- |:----------------| :---
 `index_read_count` | No | Integer | The number of times each index will be processed. Default is `1`.
 `interval` | No | String | The interval in which indexes are reprocessed. Supports ISO_8601 notation strings, such as "PT20.345S" or "PT15M", as well as simple notation strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `8h`.
-`start_time` | No | String | The instant of time when processing should begin. The source will not start processing until this instant is reached. The String must be in ISO-8601 format, such as `2007-12-03T10:15:30.00Z`. Defaults to starting processing immediately.
+`start_time` | No | String | The time when processing should begin. The source will not start processing until this instant is reached. The String must be in ISO-8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately. 
 
 
 ### indices
@@ -126,8 +128,8 @@ patterns under the `exclude` setting.
 
 Option | Required | Type  | Description
 :--- | :--- |:-----------------| :---
-`include` | No | Array of Objects | A list of index configuration patterns that specifies which indexes will be processed.
-`exclude` | No | Array of Objects | A list of index configuration patterns that specifies which indexes will not be processed. For example, you can specify an `index_name_regex` pattern of `\..*` to exclude system indices.
+`include` | No | Array of objects | A list of index configuration patterns that specifies which indexes will be processed.
+`exclude` | No | Array of Objects | A list of index configuration patterns that specifies which indexes will not be processed. For example, you can specify an `index_name_regex` pattern of `\..*` to exclude system indexes.
 
 
 Use the following setting under the `include` and `exclude` options to indicate the regex pattern for the index.
