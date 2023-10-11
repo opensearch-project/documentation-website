@@ -25,6 +25,7 @@ HEAD /sample-index
 ```
 HEAD /<index-name>
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
