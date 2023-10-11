@@ -110,6 +110,7 @@ Option | Required | Type    | Description
 ### Scheduling
 
 The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the the `index_read_count` and recount time `interval`. 
+
 For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being processed 3 times, 1 hour apart. By default, indexes will only be processed once. 
 
 Use the following options under the `scheduling` configuration.
@@ -133,6 +134,7 @@ Option | Required | Type  | Description
 
 
 Use the following setting under the `include` and `exclude` options to indicate the regex pattern for the index.
+
 Option | Required | Type    | Description
 :--- |:----|:-----------------| :---
 `index_name_regex` | Yes | Regex string | The regex pattern to match indexes against. 
@@ -150,8 +152,7 @@ Option | Required | Type    | Description
 
 By default, the `opensearch` source will look up the cluster version and distribution to determine 
 which `search_context_type` to use. For versions and distributions that support [Point in Time](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used. 
-If `point_in_time` is not supported by the cluster, then [scroll](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter)
-will be used because neither `point_in_time` nor `scroll` are supported by collections.
+If `point_in_time` is not supported by the cluster, then [scroll](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
 
 ### Connection
 
