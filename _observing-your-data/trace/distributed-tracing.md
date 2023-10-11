@@ -85,7 +85,7 @@ To add these flags inline when starting OpenSearch, run the following command:
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./opensearch-2.9.0/bin/opensearch
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 To define the environment variable separately, prior to running OpenSearch, run the following command:
 
