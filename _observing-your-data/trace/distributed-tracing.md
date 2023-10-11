@@ -71,6 +71,7 @@ Add the following lines to `config/jvm.options` before starting the OpenSearch p
 
 Run OpenSearch
 
+```bash
 ./bin/opensearch
 ```
 {% include copy-curl.html %}
