@@ -26,6 +26,7 @@ GET _cat/cluster_manager?v
 ```
 GET _cat/cluster_manager
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
