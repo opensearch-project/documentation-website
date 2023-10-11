@@ -25,6 +25,7 @@ POST /sample-index/_open
 ```
 POST /<index-name>/_open
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
