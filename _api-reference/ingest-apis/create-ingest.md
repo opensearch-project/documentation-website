@@ -19,6 +19,8 @@ Replace `<pipeline-id>` with your pipeline ID:
 ```json
 PUT _ingest/pipeline/<pipeline-id>
 ```
+{% include copy-curl.html %}
+
 #### Example request
 
 Here is an example in JSON format that creates an ingest pipeline with two `set` processors and an `uppercase` processor. The first `set` processor sets the `grad_year` to `2023`, and the second `set` processor sets `graduated` to `true`. The `uppercase` processor converts the `name` field to uppercase.
