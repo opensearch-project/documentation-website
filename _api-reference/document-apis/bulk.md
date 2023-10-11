@@ -39,6 +39,7 @@ POST _bulk
 POST _bulk
 POST <index>/_bulk
 ```
+{% include copy-curl.html %}
 
 Specifying the index in the path means you don't need to include it in the [request body]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#request-body).
 
@@ -75,6 +76,7 @@ Action and metadata\n
 Optional document\n
 
 ```
+{% include copy-curl.html %}
 
 The optional JSON document doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse bulk requests and requires that the request body end with a newline character.
 
@@ -88,6 +90,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "create": { "_index": "movies", "_id": "tt1392214" } }
   { "title": "Prisoners", "year": 2013 }
   ```
+  {% include copy-curl.html %}
 
 - Delete
 
@@ -96,6 +99,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   ```json
   { "delete": { "_index": "movies", "_id": "tt2229499" } }
   ```
+  {% include copy-curl.html %}
 
 - Index
 
@@ -105,6 +109,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "index": { "_index": "movies", "_id": "tt1979320" } }
   { "title": "Rush", "year": 2013}
   ```
+  {% include copy-curl.html %}
 
 - Update
 
@@ -114,6 +119,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "doc" : { "title": "World War Z" } }
   ```
+  {% include copy-curl.html %}
   
   It can also include a script or upsert for more complex document updates.
 
@@ -122,12 +128,14 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
   ```
+  {% include copy-curl.html %}
   
   - Upsert
   ```json
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
   ```
+  {% include copy-curl.html %}
 
 ## Response
 
