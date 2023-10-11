@@ -21,6 +21,7 @@ Call the CAT Segment Replication API only on indexes with segment replication en
 GET /_cat/segment_replication
 GET /_cat/segment_replication/<index>
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
