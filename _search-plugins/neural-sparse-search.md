@@ -82,7 +82,7 @@ For more information about the rank features field type, see [Rank features]({{s
 
 ## Step 3: Ingest documents into the index
 
-To ingest documents into the index created in the previous step, send a POST request for each document:
+To ingest documents into the index created in the previous step, send the following requests:
 
 ```json
 PUT /my-nlp-index/_doc/1

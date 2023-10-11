@@ -92,7 +92,7 @@ For more information about creating a k-NN index and the methods it supports, se
 
 ## Step 3: Ingest documents into the index
 
-To ingest documents into the index created in the previous step, send a POST request for each document:
+To ingest documents into the index created in the previous step, send the following request:
 
 ```json
 PUT /nlp-index/_doc/1

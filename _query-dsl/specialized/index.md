@@ -14,7 +14,9 @@ OpenSearch supports the following specialized queries:
 
 - `more_like_this`: Finds documents similar to the provided text, document, or collection of documents.
 
-- `neural`: 
+- [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/): Used for vector field search in [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/).
+
+- [`neural_sparse`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/): Used for vector field search in [sparse neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/)
 
 - `percolate`: Finds queries (stored as documents) that match the provided document.
 
@@ -22,6 +24,6 @@ OpenSearch supports the following specialized queries:
 
 - `script`: Uses a script as a filter.
 
-- `script_score`: Calculates a custom score for matching documents using a script.
+- [`script_score`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/): Calculates a custom score for matching documents using a script.
 
 - `wrapper`: Accepts other queries as JSON or YAML strings.
