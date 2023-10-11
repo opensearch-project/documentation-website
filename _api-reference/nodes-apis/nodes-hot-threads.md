@@ -22,6 +22,7 @@ GET /_nodes/hot_threads
 GET /_nodes/hot_threads
 GET /_nodes/<nodeId>/hot_threads
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
