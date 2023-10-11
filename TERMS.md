@@ -393,6 +393,8 @@ Use *just* in the sense of *just now* (as in "the resources that you just create
 
 ## K
 
+**key store**
+
 **kill**
 
 Do not use. Replace with *stop*, *end*, *clear*, *remove*, or *cancel*.
@@ -705,6 +707,8 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 **trigger**
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
+
+**trust store**
 
 **turn on, turn off**
 
