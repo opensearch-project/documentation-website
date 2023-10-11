@@ -25,6 +25,7 @@ DELETE /sample-index1/_doc/1
 ```
 DELETE /<index>/_doc/<_id>
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
