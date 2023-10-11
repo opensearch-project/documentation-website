@@ -34,7 +34,7 @@ GET <indices>/_msearch
 POST _msearch
 POST <indices>/_msearch
 ```
-
+{% include copy-curl.html %}
 
 ## Request body
 
@@ -47,6 +47,7 @@ Metadata\n
 Query\n
 
 ```
+{% include copy-curl.html %}
 
 - Metadata lines include options, such as which indexes to search and the type of search.
 - Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
