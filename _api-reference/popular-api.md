@@ -41,6 +41,7 @@ PUT my-logs
   }
 }
 ```
+{% include copy-curl.html %}
 
 
 ## Index a document with a random ID
@@ -52,6 +53,7 @@ POST my-logs/_doc
   "year": "2016"
 }
 ```
+{% include copy-curl.html %}
 
 
 ## Index a document with a specific ID
@@ -63,6 +65,7 @@ PUT my-logs/_doc/1
   "year": "2019"
 }
 ```
+{% include copy-curl.html %}
 
 
 ## Index several documents at once
@@ -77,6 +80,7 @@ POST _bulk
 { "title": "5 Centimeters Per Second", "year": 2007 }
 
 ```
+{% include copy-curl.html %}
 
 
 ## List all indices
@@ -84,6 +88,7 @@ POST _bulk
 ```
 GET _cat/indices?v&expand_wildcards=all
 ```
+{% include copy-curl.html %}
 
 
 ## Open or close all indices that match a pattern
@@ -92,6 +97,7 @@ GET _cat/indices?v&expand_wildcards=all
 POST my-logs*/_open
 POST my-logs*/_close
 ```
+{% include copy-curl.html %}
 
 
 ## Delete all indices that match a pattern
@@ -99,6 +105,7 @@ POST my-logs*/_close
 ```
 DELETE my-logs*
 ```
+{% include copy-curl.html %}
 
 
 ## Create an index alias
@@ -108,6 +115,7 @@ This request creates the alias `my-logs-today` for the index `my-logs-2019-11-13
 ```
 PUT my-logs-2019-11-13/_alias/my-logs-today
 ```
+{% include copy-curl.html %}
 
 
 ## List all aliases
@@ -115,6 +123,7 @@ PUT my-logs-2019-11-13/_alias/my-logs-today
 ```
 GET _cat/aliases?v
 ```
+{% include copy-curl.html %}
 
 
 ## Search an index or all indices that match a pattern
@@ -123,6 +132,7 @@ GET _cat/aliases?v
 GET my-logs/_search?q=test
 GET my-logs*/_search?q=test
 ```
+{% include copy-curl.html %}
 
 
 ## Get cluster settings, including defaults
@@ -130,6 +140,7 @@ GET my-logs*/_search?q=test
 ```
 GET _cluster/settings?include_defaults=true
 ```
+{% include copy-curl.html %}
 
 
 ## Change disk watermarks (or other cluster settings)
@@ -143,6 +154,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 
 ## Get cluster health
@@ -150,6 +162,7 @@ PUT _cluster/settings
 ```
 GET _cluster/health
 ```
+{% include copy-curl.html %}
 
 
 ## List nodes in the cluster
@@ -157,6 +170,7 @@ GET _cluster/health
 ```
 GET _cat/nodes?v
 ```
+{% include copy-curl.html %}
 
 
 ## Get node statistics
@@ -164,6 +178,7 @@ GET _cat/nodes?v
 ```
 GET _nodes/stats
 ```
+{% include copy-curl.html %}
 
 
 ## Get snapshots in a repository
@@ -171,6 +186,7 @@ GET _nodes/stats
 ```
 GET _snapshot/my-repository/_all
 ```
+{% include copy-curl.html %}
 
 
 ## Take a snapshot
@@ -178,6 +194,7 @@ GET _snapshot/my-repository/_all
 ```
 PUT _snapshot/my-repository/my-snapshot
 ```
+{% include copy-curl.html %}
 
 
 ## Restore a snapshot
@@ -189,3 +206,4 @@ POST _snapshot/my-repository/my-snapshot/_restore
   "include_global_state": false
 }
 ```
+{% include copy-curl.html %}
