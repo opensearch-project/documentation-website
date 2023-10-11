@@ -293,7 +293,7 @@ Next, create a collection with the following settings:
   ]
   ```
 
-Make sure to replace the ARN in the `Principal` element with the ARN of the pipeline role that you created in the preceding step.
+Make sure to replace the Amazon Resource Name (ARN) in the `Principal` element with the ARN of the pipeline role that you created in the preceding step.
 {: .tip}
 
 For instructions on how to create collections, see [Creating collections](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) in the Amazon OpenSearch Service documentation.
