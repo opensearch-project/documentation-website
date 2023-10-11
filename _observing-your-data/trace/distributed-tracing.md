@@ -110,14 +110,14 @@ To enable the distributed tracing feature, you must first add the correct proper
 
 Add the following properties to `run.gradle` to enable the feature:
 
-```bash
+```json
 testClusters {
   runTask {
     testDistribution = 'archive'
  if (numZones > 1) numberOfZones = numZones
     if (numNodes > 1) numberOfNodes = numNodes
     systemProperty 'opensearch.experimental.feature.telemetry.enabled', 'true'
- }
+    }
  }
  ```
  {% include copy.html %}
@@ -133,13 +133,13 @@ telemetry.tracer.enabled=true
 
 ## Install the OpenSearch OpenTelemetry plugin
 
-OpenSearch's distributed tracing framework aims to support various telemetry solutions through plugins. The OpenSearch OpenTelemetry plugin `telemetry-otel` is available and must be installed to enable tracing. The following guide provides you with the installation instructions.
+The OpenSearch distributed tracing framework aims to support various telemetry solutions through plugins. The OpenSearch OpenTelemetry plugin `telemetry-otel` is available and must be installed to enable tracing. The following guide provides you with the installation instructions.
 
 ### Exporters
 
 At the moment, the distributed tracing feature generates traces and spans for HTTP requests and a subset of transport requests. These traces and spans are initially kept in memory using the OpenTelemetry `BatchSpanProcessor` and then are sent to an exporter based on configured settings. The following are the key components:
 
-1. **Span processors:** As spans conclude on the request path, OpenTelemetry provides them to the `SpanProcessor` for processing and exporting. OpenSearch's distributed tracing framework uses the `BatchSpanProcessor`, which batches spans for specific configurable intervals and then sends them to the exporter. The following configurations are available for the `BatchSpanProcessor`:
+1. **Span processors:** As spans conclude on the request path, OpenTelemetry provides them to the `SpanProcessor` for processing and exporting. The OpenSearch distributed tracing framework uses the `BatchSpanProcessor`, which batches spans for specific configurable intervals and then sends them to the exporter. The following configurations are available for the `BatchSpanProcessor`:
     - `telemetry.otel.tracer.exporter.max_queue_size`: Defines the maximum queue size. When the queue reaches this value, it will be written to the exporter. Default is `2048`. 
     - `telemetry.otel.tracer.exporter.delay`: Defines the delay---a time period after which spans in the queue will be flushed, even if there are not enough spans to fill the `max_queue_size`. Default is `2 seconds`.
     - `telemetry.otel.tracer.exporter.batch_size`: Configures the maximum batch size for each export to reduce input/output. This value should always be less than the `max_queue_size`. Default is `512`.
