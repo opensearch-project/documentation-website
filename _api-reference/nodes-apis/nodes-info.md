@@ -42,6 +42,7 @@ GET /_nodes/<nodeId>/<metrics>
 # or full path equivalent
 GET /_nodes/<nodeId>/info/<metrics>
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
