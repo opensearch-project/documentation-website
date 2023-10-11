@@ -34,6 +34,7 @@ POST /_reindex
 ```
 POST /_reindex
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
