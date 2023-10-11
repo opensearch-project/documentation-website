@@ -25,12 +25,15 @@ To configure a DLQ writer for the `s3` source, add the following to your pipelin
           region: "us-west-2"
           sts_role_arn: "arn:aws:iam::123456789012:role/dlq-role"
 ```
+{% include copy-curl.html %}
 
 The resulting DLQ file outputs as a JSON array of DLQ objects. Any file written to the S3 DLQ contains the following name pattern:
 
 ```
 dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}
 ```
+{% include copy-curl.html %}
+
 The following information is replaced in the name pattern:
 
 
