@@ -25,6 +25,7 @@ DELETE /sample-index
 ```
 DELETE /<index-name>
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
