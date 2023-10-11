@@ -305,6 +305,7 @@ docker run --name data-prepper \
     -v /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml \
     opensearchproject/data-prepper:latest
 ```
+{% include copy-curl.html %}
 
 ## Configure peer forwarder
 
