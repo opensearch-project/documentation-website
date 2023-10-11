@@ -56,7 +56,7 @@ cd \path\to\opensearch
 ```bash
 opensearch.experimental.feature.telemetry.enabled=true
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 4. Save your changes and close the file.
 
