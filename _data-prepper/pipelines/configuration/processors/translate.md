@@ -79,7 +79,7 @@ processor:
           sts_role_arn: arn:aws:iam::123456789012:role/MyS3Role
 ```
 
-On the top level, specify `mappings` for inline mapping configuration or `file` for a file that contains mapping configurations. Both `mappings` and `file` options can be specified together, and the processor considers the mappings from both sources for translations. In instances where the pipeline configuration and file mappings share duplicate `source` and `target` pairs, the mappings specified within the pipeline configuration take precedence.
+On the top level, specify `mappings` for inline mapping configurations, or `file` for a file that contains mapping configurations. Both `mappings` and `file` options can be specified together, and the processor considers the mappings from both sources for translations. In instances where the pipeline configuration and file mappings share duplicate `source` and `target` pairs, the mappings specified within the pipeline configuration take precedence.
 
 
 ## Configuration
@@ -100,7 +100,7 @@ Each item in the `mappings` configuration contains the following options.
 | source | Yes | String or List | The source field to translate. Can be a string or a list of strings. |
 | targets | Yes | List | The target fields configurations, which may include the target field key, translation maps, and more. |
 
-Each item in the `targets` configuration contains the following options:
+Each item in the `targets` configuration contains the following options.
 
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
