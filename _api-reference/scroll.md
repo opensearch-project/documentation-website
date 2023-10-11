@@ -91,10 +91,13 @@ The `scroll` operation corresponds to a specific timestamp. It doesn't consider 
 GET _search/scroll
 POST _search/scroll
 ```
+{% include copy-curl.html %}
+
 ```
 GET _search/scroll/<scroll-id>
 POST _search/scroll/<scroll-id>
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 
