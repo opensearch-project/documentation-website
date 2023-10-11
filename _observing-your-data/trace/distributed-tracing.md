@@ -137,7 +137,7 @@ OpenSearch's distributed tracing framework aims to support various telemetry sol
 
 ### Exporters
 
-At the moment, the distributed tracing feature generates traces and spans for HTTP requests and subset of transport requests. These traces and spans are initially kept in memory using the OpenTelemetry `BatchSpanProcessor` and then are sent to an exporter based on configured settings. The following are the key components:
+At the moment, the distributed tracing feature generates traces and spans for HTTP requests and a subset of transport requests. These traces and spans are initially kept in memory using the OpenTelemetry `BatchSpanProcessor` and then are sent to an exporter based on configured settings. The following are the key components:
 
 1. **Span processors:** As spans conclude on the request path, OpenTelemetry provides them to the `SpanProcessor` for processing and exporting. OpenSearch's distributed tracing framework uses the `BatchSpanProcessor`, which batches spans for specific configurable intervals and then sends them to the exporter. The following configurations are available for the `BatchSpanProcessor`:
     - `telemetry.otel.tracer.exporter.max_queue_size`: Defines the maximum queue size. When the queue reaches this value, it will be written to the exporter. Default is `2048`. 
