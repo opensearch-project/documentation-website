@@ -129,7 +129,7 @@ Once you've enabled the feature flag, you can enable the tracer (which is disabl
 ```bash
 telemetry.tracer.enabled=true
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Install the OpenSearch OpenTelemetry plugin
 
