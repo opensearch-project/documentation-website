@@ -11,12 +11,13 @@ redirect_from:
 
 OpenSearch provides a number of metrics to help you evaluate performance. The tables below describe the metrics available, grouped by their supported dimensions. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although certain metrics measure one thing, making the choice of aggregation irrelevant.
 
-For information about each of the dimensions, see [Dimensions reference](#dimensions-reference) later in this topic.
+For information about each of the dimensions, see [dimensions reference](#dimensions-reference) later in this topic.
 
 This list is extensive. We recommend using Ctrl/Cmd + F to find what you're looking for.
 {: .tip }
 
-#### Dimensions: ShardID, IndexName, Operation, ShardRole 
+## Dimensions `ShardID`, `IndexName`, `Operation`, `ShardRole`
+
 <table>
  <thead style="text-align: left">
     <tr>
@@ -28,10 +29,10 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>CPU_Utilization
       </td>
-           <td>CPU usage ratio. CPU time (in milliseconds) used by the associated thread(s) in the past five seconds, divided by 5000 milliseconds.
+      <td>CPU usage ratio. CPU time (in milliseconds) used by the associated thread(s) in the past five seconds, divided by 5000 milliseconds.
       </td>
     </tr>
- <tr>
+    <tr>
       <td>Paging_MajfltRate
       </td>
       <td>The number of major faults per second in the past five seconds. A major fault requires the process to load a memory page from disk.
@@ -144,11 +145,11 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       </td>
       <td>The total number of documents indexed in the past five seconds.
       </td>
-    </tr>
-    
+    </tr> 
+  </tbody>
 </table>
 
-#### Dimensions: ShardID, IndexName
+## Dimensions `ShardID`, `IndexName` 
 
 <table>
   <thead style="text-align: left">
@@ -156,11 +157,10 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <th>Metric</th>
       <th>Description</th>
     </tr>
- </thead>
+  </thead>
   <tbody>
   <tr>
       <td>Indexing_ThrottleTime
-      </td>
       </td>
       <td>Time (milliseconds) that the index has been under merge throttling control in the past five seconds.
       </td>
@@ -297,20 +297,22 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Estimated disk usage of the shard in bytes.
       </td>
     </tr>
-    </table>
+  </tbody>
+</table>
 
-#### Dimensions: ShardID, IndexName, IndexingStage 
+## Dimensions `ShardID`, `IndexName`, `IndexingStage`  
   
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
+<table>
+  <thead style="text-align: left">
+   <tr>
+    <th>Metric</th>
+    <th>Description</th>
     </tr>
-   </thead>
-   <tbody>
+  </thead>
+  <tbody>
     <tr>
       <td>Indexing_Pressure_Current_Limits
+      </td>
       <td>Total heap size (in bytes) that is available for utilization by a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
       </td>
     </tr>
@@ -338,31 +340,32 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Average throughput of the last n requests (The value of n is determined by `shard_indexing_pressure.secondary_parameter.throughput.request_size_window` setting) for a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
       </td>
     </tr>
+   </tbody>
  </table>
-
     
-  #### Dimensions: Operation, Exception, Indices, HTTPRespCode, ShardID, IndexName, ShardRole   
+## Dimensions `Operation`, `Exception`, `Indices`, `HTTPRespCode`, `ShardID`, `IndexName`, `ShardRole`    
    
-  <table>
-    <thead style="text-align: left">
+ <table>
+  <thead style="text-align: left">
     <tr>
-      <th>Metric</th>
-      <th>Description</th>
+     <th>Metric</th>
+     <th>Description</th>
     </tr>
    </thead>
    <tbody>
     <tr>
-      <td>Latency
+     <td>Latency
       </td>
       <td>Latency (milliseconds) of a request.
       </td>
     </tr>
+   </tbody>
  </table>
 
-  #### Dimensions: MemType   
+## Dimension `MemType`   
    
-  <table>
-    <thead style="text-align: left">
+ <table>
+   <thead style="text-align: left">
     <tr>
       <th>Metric</th>
       <th>Description</th>
@@ -371,7 +374,6 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tbody>  
     <tr>
       <td>GC_Collection_Event
-      </td>
       </td>
       <td>The number of garbage collections that have occurred in the past five seconds.
       </td>
@@ -406,12 +408,13 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>The amount of used memory in bytes.
       </td>
     </tr>
-    </table>
+   </tbody>
+  </table>
 
-  #### Dimensions: DiskName   
+## Dimension `DiskName`   
    
-  <table>
-    <thead style="text-align: left">
+ <table>
+   <thead style="text-align: left">
     <tr>
       <th>Metric</th>
       <th>Description</th>
@@ -420,7 +423,6 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tbody>  
     <tr>
       <td>Disk_Utilization
-      </td>
       </td>
       <td>Disk utilization rate: percentage of disk time spent reading and writing by the OpenSearch process in the past five seconds.
       </td>
@@ -437,73 +439,73 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Service rate: MB read or written per second in the past five seconds. This metric assumes that each disk sector stores 512 bytes.
       </td>
     </tr>
-    </table>
+  </tbody>
+</table>
 
-  #### Dimensions: DestAddr   
+## Dimension `DestAddr`   
    
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
+ <table>
+  <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Net_TCP_NumFlows
+     </td>
+     <td>Number of samples collected. Performance Analyzer collects one sample every five seconds.
+     </td>
+   </tr>
+   <tr>
+     <td>Net_TCP_TxQ
+     </td>
+     <td>Average number of TCP packets in the send buffer.
+     </td>
+   </tr>
+   <tr>
+     <td>Net_TCP_RxQ
+     </td>
+     <td>Average number of TCP packets in the receive buffer.
+     </td>
+   </tr>
+   <tr>
+     <td>Net_TCP_Lost
+     </td>
+     <td>Average number of unrecovered recurring timeouts. This number is reset when the recovery finishes or `SND.UNA` is advanced. `SND.UNA` is the sequence number of the first byte of data that has been sent, but not yet acknowledged.
+     </td>
+  </tr>
+  <tr>
+     <td>Net_TCP_SendCWND
+     </td>
+     <td>Average size (bytes) of the sending congestion window.
+     </td>
+   </tr>
+   <tr>
+     <td>Net_TCP_SSThresh
+     </td>
+     <td>Average size (bytes) of the slow start size threshold.
+     </td>
+   </tr>
+ </tbody>
+</table>
+
+## Dimension `Direction`    
+   
+ <table>
+   <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
    </thead>
    <tbody>  
     <tr>
-      <td>Net_TCP_NumFlows
-      </td>
-      </td>
-      <td>Number of samples collected. Performance Analyzer collects one sample every five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_TxQ
-      </td>
-      <td>Average number of TCP packets in the send buffer.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_RxQ
-      </td>
-      <td>Average number of TCP packets in the receive buffer.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_Lost
-      </td>
-      <td>Average number of unrecovered recurring timeouts. This number is reset when the recovery finishes or `SND.UNA` is advanced. `SND.UNA` is the sequence number of the first byte of data that has been sent, but not yet acknowledged.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_SendCWND
-      </td>
-      <td>Average size (bytes) of the sending congestion window.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_SSThresh
-      </td>
-      <td>Average size (bytes) of the slow start size threshold.
-      </td>
-    </tr>
-    </table>
-
-  #### Dimensions: Direction   
-   
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>Net_PacketRate4
-      </td>
-      </td>
-      <td>The total number of IPv4 datagrams transmitted/received from/by interfaces per second, including those transmitted or received in error.
-      </td>
+     <td>Net_PacketRate4
+     </td>
+     <td>The total number of IPv4 datagrams transmitted/received from/by interfaces per second, including those transmitted or received in error.
+     </td>
     </tr>
     <tr>
       <td>Net_PacketDropRate4
@@ -529,120 +531,124 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>The number of bits transmitted or received per second by all network interfaces.
       </td>
     </tr>
-    </table>
+   </tbody>
+  </table>
 
 
-  #### Dimensions: ThreadPoolType   
+## Dimension `ThreadPoolType`   
    
-  <table>
-    <thead style="text-align: left">
+ <table>
+   <thead style="text-align: left">
     <tr>
-      <th>Metric</th>
-      <th>Description</th>
+     <th>Metric</th>
+     <th>Description</th>
     </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>ThreadPool_QueueSize
-      </td>
-      </td>
-      <td>The size of the task queue.
-      </td>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>ThreadPool_QueueSize
+     </td>
+     <td>The size of the task queue.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_RejectedReqs
+     </td>
+     <td>The number of rejected executions.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_TotalThreads
+     </td>
+     <td>The current number of threads in the pool.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_ActiveThreads
+     </td>
+     <td>The approximate number of threads that are actively executing tasks.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_QueueLatency
+     </td>
+     <td>The latency of the task queue.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_QueueCapacity
+     </td>
+     <td>The current capacity of the task queue.
+     </td>
     </tr>
-    <tr>
-      <td>ThreadPool_RejectedReqs
-      </td>
-      <td>The number of rejected executions.
-      </td>
-    </tr>
-    <tr>
-      <td>ThreadPool_TotalThreads
-      </td>
-      <td>The current number of threads in the pool.
-      </td>
-    </tr>
-    <tr>
-      <td>ThreadPool_ActiveThreads
-      </td>
-      <td>The approximate number of threads that are actively executing tasks.
-      </td>
-    </tr>
-    <tr>
-      <td>ThreadPool_QueueLatency
-      </td>
-      <td>The latency of the task queue.
-      </td>
-    </tr>
-    <tr>
-      <td>ThreadPool_QueueCapacity
-      </td>
-      <td>The current capacity of the task queue.
-      </td>
-    </tr>
-    </table>
+  </tbody>
+</table>
 
-  #### Dimensions: Master_PendingTaskType  
+## Dimension `Master_PendingTaskType`  
    
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>Master_PendingQueueSize
-      </td>
-      <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks (create index, update mapping, allocate shard, fail shard, etc.).
-      </td>
-    </tr>
-    </table>
+ <table>
+  <thead style="text-align: left">
+   <tr>
+    <th>Metric</th>
+    <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Master_PendingQueueSize
+     </td>
+     <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks (create index, update mapping, allocate shard, fail shard, etc.).
+     </td>
+   </tr>
+  </tbody>
+ </table>
 
- #### Dimensions: Operation, Exception, Indices, HTTPRespCode   
+## Dimensions `Operation`, `Exception`, `Indices`, `HTTPRespCode`   
    
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>HTTP_RequestDocs
-      </td>
-      <td>The number of items in the request (only for `_bulk` request type).
-      </td>
-    </tr>
-    <tr>
-      <td>HTTP_TotalRequests
-      </td>
-      <td>The number of finished requests in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-    </table>
+<table>
+  <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+    <td>HTTP_RequestDocs
+    </td>
+    <td>The number of items in the request (only for `_bulk` request type).
+    </td>
+  </tr>
+  <tr>
+    <td>HTTP_TotalRequests
+    </td>
+    <td>The number of finished requests in the past five seconds.
+    </td>
+  </tr>
+  </tbody>
+</table>
 
-#### Dimensions: CBType
-   <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-      <td>CB_EstimatedSize
-      </td>
+## Dimension `CBType` 
+  
+<table>
+  <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>CB_EstimatedSize
+     </td>
      <td>The current number of estimated bytes.
-      </td>
+     </td>
     </tr>
     <tr>
-      <td>CB_TrippedEvents
-      </td>
-      <td>The number of times the circuit breaker has tripped.
-      </td>
+     <td>CB_TrippedEvents
+     </td>
+     <td>The number of times the circuit breaker has tripped.
+     </td>
     </tr>
     <tr>
       <td>CB_ConfiguredSize
@@ -650,86 +656,93 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>The limit (bytes) for how much memory operations can use.
       </td>
     </tr>
-       </table>
+   </tbody>
+  </table>
 
-#### Dimensions: MasterTaskInsertOrder, MasterTaskPriority, MasterTaskType, MasterTaskMetadata
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>Master_Task_Queue_Time
-      </td>
-      <td>The time (milliseconds) that a master task spent in the queue.
-      </td>
-    </tr>
-    <tr>
+## Dimensions `MasterTaskInsertOrder`, `MasterTaskPriority`, `MasterTaskType`, `MasterTaskMetadata`
+ 
+<table>
+ <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+ </thead>
+ <tbody>  
+   <tr>
+     <td>Master_Task_Queue_Time
+     </td>
+     <td>The time (milliseconds) that a master task spent in the queue.
+     </td>
+   </tr>
+   <tr>
       <td>Master_Task_Run_Time
       </td>
       <td>The time (milliseconds) that a master task has been executed.
       </td>
     </tr>
+ </tbody>
 </table>
      
-#### Dimensions: CacheType
-  <table>
-    <thead style="text-align: left">
+## Dimension `CacheType` 
+  
+<table>
+  <thead style="text-align: left">
     <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>Cache_MaxSize
-      </td>
-      <td>The max size of the cache in bytes.
-      </td>
-    </tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Cache_MaxSize
+     </td>
+     <td>The max size of the cache in bytes.
+     </td>
+   </tr>
+ </tbody>
 </table>
 
-  #### Dimensions: ControllerName
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>AdmissionControl_RejectionCount (WIP)
-      </td>
-      <td>Total rejections performed by a Controller of Admission Control.
-      </td>
-    </tr>
-    <tr>
-      <td>AdmissionControl_CurrentValue (WIP)
-      </td>
-      <td>Current value for Controller of Admission Control.
-      </td>
-    </tr>
-    <tr>
-      <td>AdmissionControl_ThresholdValue (WIP)
-      </td>
-      <td>Threshold value for Controller of Admission Control.
-      </td>
-    </tr>
-    </table>
+## Dimension `ControllerName` 
+<table>
+ <thead style="text-align: left">
+  <tr>
+    <th>Metric</th>
+    <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>  
+  <tr>
+    <td>AdmissionControl_RejectionCount (WIP)
+    </td>
+    <td>Total rejections performed by a Controller of Admission Control.
+    </td>
+  </tr>
+  <tr>
+    <td>AdmissionControl_CurrentValue (WIP)
+    </td>
+    <td>Current value for Controller of Admission Control.
+    </td>
+  </tr>
+  <tr>
+    <td>AdmissionControl_ThresholdValue (WIP)
+    </td>
+    <td>Threshold value for Controller of Admission Control.
+    </td>
+  </tr>
+ </tbody>
+</table>
 
-  #### Dimensions: NodeID
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
+## Dimension `NodeID` 
+  
+<table>
+  <thead style="text-align: left">
+   <tr>
+   <th>Metric</th>
+   <th>Description</th>
     </tr>
-   </thead>
-   <tbody>  
+  </thead>
+  <tbody>  
     <tr>
       <td>Data_RetryingPendingTasksCount (WIP)
       </td>
@@ -742,269 +755,274 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Sum of total pending tasks which got throttled by node (master node). It is a cumulative metric so look at the max aggregation.
       </td>
     </tr>
-    </table>
-
-  #### Dimensions: N/A
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>Election_Term (WIP)
-      </td>
-      <td>Monotonically increasing number with every master election.
-      </td>
-    </tr>
-    <tr>
-      <td>PublishClusterState_Latency (WIP)
-      </td>
-      <td>The time taken by quorum of nodes to publish new cluster state. This metric is available for current master.
-      </td>
-    </tr>
-    <tr>
-      <td>PublishClusterState_Failure (WIP)
-      </td>
-      <td>The number of times publish new cluster state action failed on master node.
-      </td>
-    </tr>
-    <tr>
-      <td>ClusterApplierService_Latency (WIP)
-      </td>
-      <td>The time taken by each node to apply cluster state sent by master.
-      </td>
-    </tr>
-    <tr>
-      <td>ClusterApplierService_Failure (WIP)
-      </td>
-      <td>The number of times apply cluster state action failed on each node.
-      </td>
-    </tr>
-    </table>
-
-  #### Dimensions: IndexName, NodeName, ShardType, ShardID
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody>  
-    <tr>
-      <td>Shard_State (WIP)
-      </td>
-      <td>The state of each shard - whether it is STARTED, UNASSIGNED, RELOCATING etc.
-      </td>
-    </tr>
+  </tbody>
  </table>
 
-  #### Dimensions: WIP
-  <table>
-    <thead style="text-align: left">
+## Dimensions: N/A
+<table>
+  <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Election_Term (WIP)
+     </td>
+     <td>Monotonically increasing number with every master election.
+     </td>
+   </tr>
+   <tr>
+     <td>PublishClusterState_Latency (WIP)
+     </td>
+     <td>The time taken by quorum of nodes to publish new cluster state. This metric is available for current master.
+     </td>
+   </tr>
+   <tr>
+     <td>PublishClusterState_Failure (WIP)
+     </td>
+     <td>The number of times publish new cluster state action failed on master node.
+     </td>
+   </tr>
+   <tr>
+     <td>ClusterApplierService_Latency (WIP)
+     </td>
+     <td>The time taken by each node to apply cluster state sent by master.
+     </td>
+   </tr>
+   <tr>
+     <td>ClusterApplierService_Failure (WIP)
+     </td>
+     <td>The number of times apply cluster state action failed on each node.
+     </td>
+   </tr>
+  </tbody>
+ </table>
+
+## Dimensions `IndexName`, `NodeName`, `ShardType`, `ShardID`
+  
+<table>
+   <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Shard_State (WIP)
+     </td>
+     <td>The state of each shard - whether it is STARTED, UNASSIGNED, RELOCATING etc.
+     </td>
+   </tr>
+   </tbody>
+</table>
+
+## Dimension `WIP`
+ 
+ <table>
+   <thead style="text-align: left">
     <tr>
       <th>Metric</th>
       <th>Description</th>
     </tr>
    </thead>
    <tbody>  
-       <tr>
-      <td>LeaderCheck_Latency (WIP)
-      </td>
-      <td> WIP
-      </td>
+      <tr>
+        <td>LeaderCheck_Latency (WIP)
+        </td>
+        <td> WIP
+        </td>
       </tr>
     <tr>
       <td>FollowerCheck_Failure (WIP)
       </td>
-      </td>
       <td> WIP
+      </td>
     </tr>
     <tr>
       <td>LeaderCheck_Failure (WIP)
       </td>
-      </td>
       <td> WIP
+       </td>
     </tr>
     <tr>
       <td>FollowerCheck_Latency (WIP)
       </td>
-      </td>
       <td> WIP
+      </td>
     </tr>
   </tbody>
 </table>
 
-
-#### Dimensions: NodeID, searchbp_mode
+## Dimensions `NodeID`, `searchbp_mode`
 The following metrics are new as of OpenSearch 2.11.
 
-  <table>
-    <thead style="text-align: left">
-    <tr>
-      <th>Metric</th>
-      <th>Description</th>
-    </tr>
-   </thead>
-   <tbody> 
-      <tr>
-      <td>searchbp_shard_stats_cancellationCount
-      </td>
-      <td>The number of tasks marked for cancellation, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_limitReachedCount
-      </td>
-      <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_heap_usage_cancellationCount
-      </td>
-      <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_heap_usage_currentMax
-      </td>
-      <td>The maximum heap usage for tasks currently running, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_heap_usage_rollingAvg
-      </td>
-      <td> The rolling average heap usage for n most recent tasks, on search shard task level. The default value for n is 100.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_cpu_usage_cancellationCount
-      </td>
-      <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_cpu_usage_currentMax
-      </td>
-      <td>The maximum CPU time for all tasks currently running on the node, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_cpu_usage_currentAvg
-      </td>
-      <td>The average CPU time for all tasks currently running on the node, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_elaspedtime_usage_cancellationCount
-      </td>
-      <td>The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_elaspedtime_usage_currentMax
-      </td>
-      <td>The maximum elapsed time for all tasks currently running on the node, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_shard_stats_resource_elaspedtime_usage_currentAvg
-      </td>
-      <td>The average elapsed time for all tasks currently running on the node, on search shard task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_cancellationCount
-      </td>
-      <td>The number of tasks marked for cancellation, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_limitReachedCount
-      </td>
-      <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_heap_usage_cancellationCount
-      </td>
-      <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_heap_usage_currentMax
-      </td>
-      <td>The maximum heap usage for tasks currently running, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_heap_usage_rollingAvg
-      </td>
-      <td> The rolling average heap usage for n most recent tasks, on search task level. The default value for n is 10.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_cpu_usage_cancellationCount
-      </td>
-      <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_cpu_usage_currentMax
-      </td>
-      <td>The maximum CPU time for all tasks currently running on the node, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_cpu_usage_currentAvg
-      </td>
-      <td>The average CPU time for all tasks currently running on the node, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_elaspedtime_usage_cancellationCount
-      </td>
-      <td>The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_elaspedtime_usage_currentMax
-      </td>
-      <td>The maximum elapsed time for all tasks currently running on the node, on search task level.
-      </td>
-    </tr>
-    <tr>
-      <td>searchbp_task_stats_resource_elaspedtime_usage_currentAvg
-      </td>
-      <td>The average elapsed time for all tasks currently running on the node, on search task level.
-      </td>
-    </tr>
-  </tbody>
+<table>
+   <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody> 
+     <tr>
+     <td>searchbp_shard_stats_cancellationCount
+     </td>
+     <td>The number of tasks marked for cancellation, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_limitReachedCount
+     </td>
+     <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_heap_usage_cancellationCount
+     </td>
+     <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_heap_usage_currentMax
+     </td>
+     <td>The maximum heap usage for tasks currently running, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_heap_usage_rollingAvg
+     </td>
+     <td> The rolling average heap usage for n most recent tasks, on search shard task level. The default value for n is 100.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_cpu_usage_cancellationCount
+     </td>
+     <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_cpu_usage_currentMax
+     </td>
+     <td>The maximum CPU time for all tasks currently running on the node, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_cpu_usage_currentAvg
+     </td>
+     <td>The average CPU time for all tasks currently running on the node, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_elaspedtime_usage_cancellationCount
+     </td>
+     <td>The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_elaspedtime_usage_currentMax
+     </td>
+     <td>The maximum elapsed time for all tasks currently running on the node, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_shard_stats_resource_elaspedtime_usage_currentAvg
+     </td>
+     <td>The average elapsed time for all tasks currently running on the node, on search shard task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_cancellationCount
+     </td>
+     <td>The number of tasks marked for cancellation, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_limitReachedCount
+     </td>
+     <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_heap_usage_cancellationCount
+     </td>
+     <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_heap_usage_currentMax
+     </td>
+     <td>The maximum heap usage for tasks currently running, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_heap_usage_rollingAvg
+     </td>
+     <td> The rolling average heap usage for n most recent tasks, on search task level. The default value for n is 10.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_cpu_usage_cancellationCount
+     </td>
+     <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_cpu_usage_currentMax
+     </td>
+     <td>The maximum CPU time for all tasks currently running on the node, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_cpu_usage_currentAvg
+     </td>
+     <td>The average CPU time for all tasks currently running on the node, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_elaspedtime_usage_cancellationCount
+     </td>
+     <td>The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_elaspedtime_usage_currentMax
+     </td>
+     <td>The maximum elapsed time for all tasks currently running on the node, on search task level.
+     </td>
+   </tr>
+   <tr>
+     <td>searchbp_task_stats_resource_elaspedtime_usage_currentAvg
+     </td>
+     <td>The average elapsed time for all tasks currently running on the node, on search task level.
+     </td>
+   </tr>
+ </tbody>
 </table> 
 
+## Dimensions reference
 
-#### Dimensions reference
-
-Dimension | Return values
-:--- | :---
-ShardID | ID for the shard (for example, `1`).
-IndexName | Name of the index (for example, `my-index`).
-Operation | Type of operation (for example,`shardbulk`).
-ShardRole | `primary`, `replica`
-Exception | OpenSearch exceptions (for example, `org.opensearch.index_not_found_exception`).
-Indices | The list of indices in the request URI.
-HTTPRespCode | Response code from OpenSearch (for example, `200`).
-MemType | `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, `Heap`
-DiskName | Name of the disk (for example, `sda1`).
-DestAddr | Destination address (for example, `010015AC`).
-Direction | `in`, `out`
-ThreadPoolType | The OpenSearch thread pools (for example, `index`, `search`,`snapshot`).
-CBType | `accounting`, `fielddata`, `in_flight_requests`, `parent`, `request`
-MasterTaskInsertOrder | The order in which the task was inserted (for example, `3691`).
-MasterTaskPriority | Priority of the task (for example, `URGENT`). OpenSearch executes higher priority tasks before lower priority ones, regardless of `insert_order`.
-MasterTaskType | `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, `Update snapshot state`
-MasterTaskMetadata | Metadata for the task (if any).
-CacheType | `Field_Data_Cache`, `Shard_Request_Cache`, `Node_Query_Cache`
+| Dimension            | Return values                                   |
+|----------------------|-------------------------------------------------|
+| ShardID              | ID for the shard (for example, `1`).           |
+| IndexName            | Name of the index (for example, `my-index`).   |
+| Operation            | Type of operation (for example, `shardbulk`).  |
+| ShardRole            | `primary`, `replica`                            |
+| Exception            | OpenSearch exceptions (for example, `org.opensearch.index_not_found_exception`). |
+| Indices              | The list of indexes in the request URI.        |
+| HTTPRespCode         | Response code from OpenSearch (for example, `200`). |
+| MemType              | `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, `Heap` |
+| DiskName             | Name of the disk (for example, `sda1`).        |
+| DestAddr             | Destination address (for example, `010015AC`). |
+| Direction            | `in`, `out`                                    |
+| ThreadPoolType       | The OpenSearch thread pools (for example, `index`, `search`, `snapshot`). |
+| CBType               | `accounting`, `fielddata`, `in_flight_requests`, `parent`, `request` |
+| MasterTaskInsertOrder| The order in which the task was inserted (for example, `3691`). |
+| MasterTaskPriority   | Priority of the task (for example, `URGENT`). OpenSearch executes higher priority tasks before lower priority ones, regardless of `insert_order`. |
+| MasterTaskType       | `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, `Update snapshot state` |
+| MasterTaskMetadata   | Metadata for the task (if any).                 |
+| CacheType            | `Field_Data_Cache`, `Shard_Request_Cache`, `Node_Query_Cache` |
+| NodeID               | ID for the node                                |
+| searchbp_mode        | `monitor_only` (default), `enforced`, `disabled` |
