@@ -74,7 +74,7 @@ Run OpenSearch
 ```bash
 ./bin/opensearch
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 #### Option 3: Enable from an environment variable
 
