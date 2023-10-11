@@ -24,6 +24,8 @@ pipeline:
         username: YOUR_USERNAME_HERE
         password: YOUR_PASSWORD_HERE
 ```
+{% include copy.html %}
+
 
 See [OpenSearch security]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#opensearch-cluster-security) for a more detailed explanation of which OpenSearch credentials and permissions are required and how to configure those credentials for the OTel trace group processor.
 
@@ -41,6 +43,7 @@ pipeline:
         cert: path/to/cert
         insecure: false
 ```
+{% include copy.html %}
 
 ## Configuration
 
