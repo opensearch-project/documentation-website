@@ -102,7 +102,7 @@ If you’re running Docker, add the following line to `docker-compose.yml` under
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Enable for OpenSearch development
 
