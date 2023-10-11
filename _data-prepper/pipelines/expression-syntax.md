@@ -73,6 +73,7 @@ Relational operators are used to test the relationship of two numeric values. Th
 <Number | JSON Pointer> > <Number | JSON Pointer>
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
+{% include copy-curl.html %}
 
 ### Example
 
@@ -89,6 +90,7 @@ Equality operators are used to test whether two values are equivalent.
 <Any> == <Any>
 <Any> != <Any>
 ```
+{% include copy-curl.html %}
 
 ### Examples
 ```
@@ -107,6 +109,7 @@ Equality operators can also be used to check whether a JSON Pointer exists by co
 null == <JSON Pointer>
 null != <JSON Pointer>
 ```
+{% include copy-curl.html %}
 
 ### Example
 ```
@@ -124,6 +127,7 @@ A conditional expression is used to chain together multiple expressions and/or v
 <Any> or <Any>
 not <Any>
 ```
+{% include copy-curl.html %}
 
 ### Example
 ```
@@ -177,6 +181,7 @@ The following are examples of JSON Pointers:
 ```
 /\w+(/\w+)*
 ```
+{% include copy-curl.html %}
 
 #### Example of shorthand
 
@@ -192,6 +197,7 @@ The following is an example of escaped syntax:
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
+{% include copy-curl.html %}
 
 #### Example of an escaped JSON Pointer
 
@@ -201,6 +207,7 @@ The following is an example of an escaped JSON Pointer:
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
 "/Hello - 'world\//0/\"JsonPointer\""
 ```
+{% include copy-curl.html %}
 
 ## White space
 
