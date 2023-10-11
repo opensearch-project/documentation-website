@@ -55,6 +55,8 @@ alias index filter routing.index routing.search is_write_index
 .kibana .kibana_1 - - - -
 sample-alias1 sample-index-1 - - - -
 ```
+{% include copy-curl.html %}
+
 Without the verbose parameter, `v`, the response simply returns the alias names:
 
 ```
@@ -62,6 +64,7 @@ Without the verbose parameter, `v`, the response simply returns the alias names:
 .kibana .kibana_1 - - - -
 sample-alias1 sample-index-1 - - - -
 ```
+{% include copy-curl.html %}
 
 ### Get all available headers
 
@@ -70,6 +73,7 @@ To see all the available headers, use the `help` parameter:
 ```
 GET _cat/<operation_name>?help
 ```
+{% include copy-curl.html %}
 
 ### Get a subset of headers
 
@@ -78,6 +82,7 @@ To limit the output to a subset of headers, use the `h` parameter:
 ```
 GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
 ```
+{% include copy-curl.html %}
 
 Typically, for any operation you can find out what headers are available using the `help` parameter, and then use the `h` parameter to limit the output to only the headers that you care about.
 
