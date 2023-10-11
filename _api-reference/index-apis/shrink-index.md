@@ -33,6 +33,7 @@ POST /my-old-index/_shrink/my-new-index
 POST /<index-name>/_shrink/<target-index>
 PUT /<index-name>/_shrink/<target-index>
 ```
+{% include copy-curl.html %}
 
 When creating new indexes with this operation, remember that OpenSearch indexes have the following naming restrictions:
 
