@@ -1,26 +1,37 @@
 ---
 layout: default
-title: Connecting Amazon S3 and OpenSearch
+title: Integrating Amazon S3 and OpenSearch
 parent: Data sources
 grand_parent: Dashboards Management
 nav_order: 15
 has_children: false
 ---
 
-# Connecting Amazon S3 and OpenSearch
+# Integrating Amazon S3 and OpenSearch
 Introduced 2.11
 {: .label .label-purple }
 
-You can connect your Amazon S3 data source data to OpenSearch using the OpenSearch Dashboards interface. Then, you can use Dashboards to query that data, accelerate querying performance, define tables, and integrate data. The following sections, guide you through using Dashboards to connect Amazon S3 and OpenSearch.
+You can integrate the Amazon S3 and OpenSearch applications using the OpenSearch Dashboards interface. Then, you can use Dashboards to connect your data sources, query that data, accelerate query performance, and define data tables. 
+
+The following tutorial, guides you through using Dashboards to integrate Amazon S3 and OpenSearch and then integrate your Amazon S3 data sources into OpenSearch.
 
 ## Prerequisites
 
-<SMEs: What are the prerequisites?>
+Before getting started, you need to complete the following tasks:
 
-## Using Dashboards to connect an Amazon S3 data source
+- <SMEs: What are the prerequisites?>
+- <What do we need to mention about the API?> 
+- 
 
-To connect Amazon S3 and OpenSearch, follow these steps:
+## Using Dashboards to integrate the Amazon S3 and OpenSearch applications
+
+To integrate the applications, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboards Management**.
 2. From the Dashboards Management interface, select **Data sources**.
 3. 
+
+
+## Using Dashboards to integrate an Amazon S3 data source
+
+To integrate your Amazon S3 data source, follow these steps:
