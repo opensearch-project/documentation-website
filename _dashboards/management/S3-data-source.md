@@ -55,8 +55,8 @@ This feature is still under development, including the data integration function
 
 ## Next steps
 
--  Learn about [querying your data in Data Explorer]() through OpenSearch Dashboards.
+- Learn about [querying your data in Data Explorer]() through OpenSearch Dashboards.
 - Learn about ways to [optimize query performance of your external data sources](), such as Amazon S3, through Query Workbench. 
 - Learn about the [Amazon S3 and AWS Glue connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst), including configuration settings and query examples.
 - Learn about [managing your indexes]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
-- <SME: What other links do we need to include?>
+  
