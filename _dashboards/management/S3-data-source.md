@@ -19,9 +19,6 @@ To connect data from Amazon S3 to OpenSearch using OpenSearch Dashboards, you mu
 - Access to Amazon S3.
 - Access to OpenSearch and OpenSearch Dashboards.
 - Basic understanding of data and data flow.
-- <SMEs: What are the prerequisites? Installing specific plugins? update cluster settings? Provide settings examples.>
-- <Do we need to mention anything about the API?>
-- <Does Snapshot Management S3 documentation relate to this topic? https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3>
 
 ## Connect your Amazon S3 data source 
 
@@ -54,8 +51,7 @@ Once you've connected your Amazon S3 data source, you can explore that data thro
 
 This feature is still under development, including the data integration functionality. The following are some limitations:
 
-- <SME: What are the limitations?>
-- <SME: What is the GitHub link where users can leave feedback?>
+- 
 
 ## Next steps
 
