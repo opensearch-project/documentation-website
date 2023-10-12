@@ -12,7 +12,7 @@ Updated 2.10
 
 Index patterns are essential for querying and analyzing data in OpenSearch. They are used to define the fields that are available in the data and the mapping between the fields and their data types. Index patterns are also used to create dashboards and visualizations in OpenSearch Dashboards. 
 
-An index pattern can point to one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain your data. To visualize your data, you need to tell OpenSearch from which indexes to retrieve the data. Because it's a common approach to have data stored in multiple indexes, creating an index pattern enables your visualizations retrieve data from any indexes that match the index pattern. 
+An index pattern can point to one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain your data. If you store data in multiple indexes, creating an index pattern enables your visualizations to retrieve data from all indexes that match the index pattern. 
 
 The following is a basic example of an index pattern:
 
