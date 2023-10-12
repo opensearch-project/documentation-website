@@ -9,9 +9,7 @@ has_children: true
 
 Data sources in OpenSearch are the system and applications that OpenSearch can connect to and ingest data from. Once your data sources have been connected and your data has been ingested, it can be indexed, searched, and analyzed using [REST APIs]({{site.url}}{{site.baseurl}}/api-reference/index/) or the OpenSearch Dashboards user interface. 
 
-The focus of this documentation is on using the OpenSeach Dashboards interface to connect and manage your data sources. For information about using an API to connect data sources, see the following:
-
-- _<which APIs do we link user to? Do we have links to API information on GitHub?>_
+The focus of this documentation is on using the OpenSeach Dashboards interface to connect and manage your data sources. For information about using an API to connect data sources, see <insert links to API references>.
 
 ## Prerequisites
 
@@ -20,8 +18,6 @@ The first step in connecting your data sources and OpenSearch is to install Open
 Once you have installed OpenSearch and OpenSearch Dashboards, you can use Dashboards to connect your data sources and OpenSearch and then use Dashboards to manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
 
 Configuration of the [YAML files]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/#configuration-file) and installation of certain [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) is necessary. The data sources feature flag `data_source.enabled:` must be set to `true`. The default is `false`. The following plugins also are required for integrating your data sources and OpenSearch: `opensearch-sql`, `opensearch-security`, and `opensearch-observability`. 
-
-_<SME provide information: What are prerequisites? Do you need to have OpenSearch Service to use this feature? What YAML configuration is necessary? What settings need to be configured? Provide configuration examples.>_
 
 ## Create a data source connection
 
