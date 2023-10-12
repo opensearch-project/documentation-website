@@ -37,6 +37,7 @@ output {
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Sample output
 
@@ -99,6 +100,7 @@ output {
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## grok
 
@@ -109,6 +111,7 @@ The format of a text pattern is as follows:
 ```bash
 %{SYNTAX:SEMANTIC}
 ```
+{% include copy-curl.html %}
 
 `SYNTAX` is the format a piece of text should be in for the pattern to match. You can enter any of `grok`'s predefined patterns. For example, you can use the email identifier to match an email address from a given piece of text.
 
@@ -119,6 +122,7 @@ The following request consists of the IP address of the visitor, name of the vis
 ```bash
 184.252.108.229 - joe [20/Sep/2017:13:22:22 +0200] GET /products/view/123 200 12798
 ```
+{% include copy-curl.html %}
 
 To split this request into different fields:
 
@@ -134,6 +138,7 @@ filter {
   }
 }
 ```
+{% include copy-curl.html %}
 
 where:
 
