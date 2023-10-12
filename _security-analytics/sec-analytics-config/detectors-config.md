@@ -22,16 +22,16 @@ To define a detector:
 1. Give the detector a name and, optionally, a description. 
 1. In the **Data source** section, select one or more sources for the log data. Use an asterisk (*) to indicate a wildcard pattern. When selecting multiple data sources, their logs must be of the same type. We recommend creating separate detectors for different log types.
    
-1. In the **Detection** section, select a log type and review the detection rules and field mappings. Do the following:
-    1. Select a log type for the data source. For a list of supported log types, see [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/). To create your own log types, see [Creating custom log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/custom-log-type/). The following example shows the number of rules associated with the **windows** log type.
-
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-rules.png" alt="Selecting threat detector log type to auto-populate rules" width="85%">
+1. In the **Detection** section, select a log type for the data source. For a list of supported log types, see [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/). To create your own log types, see [Creating custom log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/custom-log-type/). 
     
     When you select `network`, `cloudtrail`, or `s3` as the log type, the system automatically creates a detector dashboard. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
     
-    You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
-        
-    1. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following image illustrates this.
+     
+1. Expand **Detection rules** to show the list of available detection rules for the selected log type. Initially, all rules are selected by default. The following example shows the rules associated with the **windows** log type.
+
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector-rules.png" alt="Selecting threat detector log type to auto-populate rules" width="100%">
+
+    You can perform the following actions when viewing rules:
     
     * Use the toggle to the left of **Rule name** to select or deselect rules.
     * Use the **Rule severity** and **Source** dropdown lists to filter the rules you want to select from. 
@@ -40,8 +40,7 @@ To define a detector:
     To quickly select one or more known rules and dismiss others, first deselect all rules by turning off the **Rule name** toggle, then search for your target rule names and select each individually by turning its toggle on.
     {: .tip } 
 
-    1. Review the field mappings. Field mappings allow the system to accurately pass event data from the log to the detector and then use the data to trigger alerts. For more information about field mappings, see the **About field mappings** section later in this topic.
-
+1. Review the field mappings. Field mappings allow the system to accurately pass event data from the log to the detector and then use the data to trigger alerts. For more information about field mappings, see the **About field mappings** section later in this topic.
     
 1. In the **Detector schedule** section, create a schedule for how often to run the detector. Specify a unit of time and a corresponding number to set the interval. The following image shows that the detector runs every 3 minutes.
     
