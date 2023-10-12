@@ -33,7 +33,7 @@ The following table shows the log types that are currently supported by Security
 | Security | `Waf` | Web Application Firewall (WAF) logs (introduced in OpenSearch 2.11) for users that require monitoring of the WAF use case that's provided out-of-the box in the Security plugin. The role of WAF is to monitor and filter HTTP traffic between a web application and the internet. WAF prevents common security attacks, such as cross-site scripting (XSS), SQL Injection (SQi), and so on. |
 | System Activity | `Linux` | Linux System logs that record syslog events on Linux. |
 | System Activity | `Windows` | Windows logs that record events that have happened in the operating system, applications, and other system services for Windows. |
-| Other | `Email` | logs that record email activity. |
+| Other | `Email` | Logs that record email activity. |
 
 
 ## Page actions
