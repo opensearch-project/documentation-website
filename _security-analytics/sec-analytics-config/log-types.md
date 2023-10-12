@@ -17,7 +17,7 @@ To navigate to the **Log types** page, select **Log types** under **Detectors** 
 The following table shows the log types that are currently supported by Security Analytics for ingestion, mapping, and monitoring. 
 
 | Category | Log type | Description | 
-| :--- |:--- |:--- 
+| :--- |:--- |:--- |
 | Access Management | `Ad_ldap` | Active Directory logs that track LDAP queries, errors from the LDAP server, timeout events, and unsecure LDAP binds. |
 | Access Management | `Apache_access` | Apache Access logs that record data for all requests processed by an Apache HTTP server. |
 | Access Management | `Okta` | Okta logs that record Okta events from a range of actions such as downloading an export file, requesting an application access, or revoking privileges. |
