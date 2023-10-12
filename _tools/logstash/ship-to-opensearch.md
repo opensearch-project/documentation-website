@@ -29,6 +29,7 @@ output {
   }
 }
 ```
+{% include copy-curl.html %}
 
 
 ## Sample walkthrough
@@ -52,6 +53,7 @@ output {
       }
     }
     ```
+    {% include copy-curl.html %}
 
     This Logstash pipeline accepts JSON input through the terminal and ships the events to an OpenSearch cluster running locally. Logstash writes the events to an index with the `logstash-logs-%{+YYYY.MM.dd}` naming convention.
 
@@ -60,6 +62,7 @@ output {
     ```bash
     $ bin/logstash -f config/pipeline.conf --config.reload.automatic
     ```
+    {% include copy-curl.html %}
 
     `config/pipeline.conf` is a relative path to the `pipeline.conf` file. You can use an absolute path as well.
 
@@ -68,6 +71,7 @@ output {
     ```json
     { "amount": 10, "quantity": 2}
     ```
+    {% include copy-curl.html %}
 
 4. Start OpenSearch Dashboards and choose **Dev Tools**:
 
@@ -77,6 +81,7 @@ output {
     health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
     green | open | logstash-logs-2021.07.01 | iuh648LYSnmQrkGf70pplA | 1 | 1 | 1 | 0 | 10.3kb | 5.1kb
     ```
+    {% include copy-curl.html %}
 
 ## Adding different Authentication mechanisms in the Output plugin
 
@@ -99,6 +104,8 @@ output {
    }            
 }               
 ```
+{% include copy-curl.html %}
+
 ### Parameters inside auth_type
 
 - type (string) - We should specify the type of authentication
@@ -126,6 +133,7 @@ output {
    }            
 }
 ```
+{% include copy-curl.html %}
 
 ### Required Parameters
 
@@ -174,3 +182,4 @@ output {
    }            
 }               
 ```
+{% include copy-curl.html %}
