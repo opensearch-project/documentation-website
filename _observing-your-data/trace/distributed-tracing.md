@@ -38,9 +38,9 @@ OpenSearch provides a `trace-analytics` plugin for visualizing trace data in rea
 
 The distributed tracing feature is experimental as of OpenSearch 2.10. To begin using the distributed tracing feature, you need to first enable it using the `opensearch.experimental.feature.telemetry.enabled` feature flag and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature because it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand troubleshooting and request sampling, is described in the following sections.
 
-### Enable on a node using a tarball install
+### Enabling the flag on a node using tarball
 
-The flag is toggled using a new Java Virtual Machine (JVM) parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in `config/jvm.options`.
+The enable flag is toggled using a new Java Virtual Machine (JVM) parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in `config/jvm.options`.
 
 #### Option 1: Enable the experimental feature flag in the `opensearch.yml` file
 
@@ -78,7 +78,7 @@ Run OpenSearch:
 
 #### Option 3: Enable from an environment variable
 
-As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done in a single command when you start OpenSearch or by defining the variable with export.
+As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. You can enable this feature in a single command when you start OpenSearch or by setting an environment variable.
 
 To add these flags inline when starting OpenSearch, run the following command:
 
@@ -97,7 +97,7 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled
 
 ### Enable with Docker containers
 
-If you’re running Docker, add the following line to `docker-compose.yml` under the `opensearch-node` and environment section:
+If you’re running Docker, add the following line to `docker-compose.yml` under `environment`:
 
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
@@ -155,7 +155,7 @@ Distributed tracing can generate numerous spans, consuming system resources unne
 1. **Head sampling:** Sampling decisions are made before initiating the root span of a request. OpenSearch supports two head sampling methods:
     - **Probabilistic:** A blanket limit on incoming requests, dynamically adjustable with the `telemetry.tracer.sampler.probability` setting. This setting ranges between 0 and 1. Default is 0.01, which indicates that 1% of incoming requests are sampled.
     - **On-Demand:** For debugging specific requests, you can send the `trace=true` attribute as part of the HTTP headers, causing those requests to be sampled regardless of the probabilistic sampling setting.
-2. **Tail sampling:** To configure tail sampling, follow the [OpenTelemetry tail sampling documentation](https://opentelemetry.io/docs/concepts/sampling/#tail-sampling). Configuration depends on the type of collector you choose. Updates on ongoing work for OpenSearch are in the [RFC](https://github.com/opensearch-project/OpenSearch/issues/8918) on GitHub.
+2. **Tail sampling:** To configure tail sampling, follow the instructions in [OpenTelemetry tail sampling documentation](https://opentelemetry.io/docs/concepts/sampling/#tail-sampling). Configuration depends on the type of collector you choose.
 
 ### Collection of spans
 
