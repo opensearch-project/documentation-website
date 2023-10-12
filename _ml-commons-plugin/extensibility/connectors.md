@@ -24,6 +24,7 @@ As of OpenSearch 2.9, connectors have been tested for the following ML services,
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
 - [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
+- The [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/) model, which can drive semantic search and retrieval augmented generation in OpenSearch.
 
 All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
 

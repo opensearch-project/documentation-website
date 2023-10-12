@@ -34,7 +34,7 @@ The following table lists the required and optional parameters for the `text_emb
 
 | Name  | Data type | Required  | Description  |
 |:---|:---|:---|:---|
-`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be indexed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
 `field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a vector field.
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating text embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated text embeddings.

@@ -80,7 +80,6 @@ The `action` parameter supports the following options.
 
 Call the built-in pre- and post-processing functions instead of writing a custom Painless script when connecting to the following text embedding models or your own text embedding models deployed on a remote server (for example, Amazon SageMaker):
 
-- [Pretrained models provided by OpenSearch](https://opensearch.org/docs/latest/ml-commons-plugin/pretrained-models/)
 - [OpenAI remote models](https://platform.openai.com/docs/api-reference/embeddings)
 - [Cohere remote models](https://docs.cohere.com/reference/embed)
 
@@ -136,10 +135,14 @@ The `request_body` template must be `${parameters.input}``.
 
 The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
 
-The model input format must be a list of strings, for example:
+The model must be able to process the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-commons-plugin/api/#predict) request input, such as the following:
 
 ```json
-["hello", "world"]
+{
+    "parameters": {
+        "input": ["hello", "world"]
+     }
+}
 ```
 
 ### Post-processing function 

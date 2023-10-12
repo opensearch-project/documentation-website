@@ -56,7 +56,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
 
 ## Step 2: Create an index for ingestion
 
-In order to use the text embedding processor defined in your pipelines, create a rank features index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `passage_text` field should be mapped as `text`.
+In order to use the text embedding processor defined in your pipelines, create a rank features index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as [`rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features). Similarly, the `passage_text` field should be mapped as `text`.
 
 The following example request creates a rank features index that is set up with a default ingest pipeline:
 
@@ -83,7 +83,6 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-For more information about the rank features field type, see [Rank features]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features).
 
 ## Step 3: Ingest documents into the index
 
