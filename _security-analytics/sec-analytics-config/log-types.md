@@ -19,7 +19,7 @@ The following table shows the log types that are currently supported by Security
 | Category | Log type | Description | 
 | :--- |:--- |:--- |
 | Access Management | `Ad_ldap` | Active Directory logs that track LDAP queries, errors from the LDAP server, timeout events, and unsecure LDAP binds. |
-| Access Management | `Apache_access` | Apache Access logs that record data for all requests processed by an Apache HTTP server. |
+| Access Management | `Apache_access` | Apache access logs that record data for all requests processed by an Apache HTTP server. |
 | Access Management | `Okta` | Okta logs that record Okta events from a range of actions such as downloading an export file, requesting an application access, or revoking privileges. |
 | Applications | `GitHub` | GitHub logs that monitor workflows created by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions). |
 | Applications| `Gworkspace` | Google Workspace logs that monitor log entries such as admin actions, group and group membership actions, and events having to do with logging in. |  
