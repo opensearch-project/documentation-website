@@ -27,7 +27,7 @@ To use neural search with text and image embeddings, follow these steps:
 
 ## Step 1: Create an ingest pipeline
 
-To generate vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`text_image_embedding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-image-embedding/), which will convert the text and image in a document field to vector embeddings. The processor's `field_map` determines the text and image fields from which to generate vector embeddings and the output vector field in which to store the embeddings.
+To generate vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`text_image_embedding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-image-embedding/), which will convert the text or image in a document field to vector embeddings. The processor's `field_map` determines the text and image fields from which to generate vector embeddings and the output vector field in which to store the embeddings.
 
 The following example request creates an ingest pipeline where the text from `image_description` and an image from `image_binary` will be converted into text embeddings and the embeddings will be stored in `vector_embedding`:
 
@@ -53,7 +53,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ## Step 2: Create an index for ingestion
 
-In order to use the text embedding processor defined in your pipelines, create a k-NN index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `vector_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `image_description` field should be mapped as `text` and the `image_binary` should be mapped as `binary`.
+In order to use the text embedding processor defined in your pipeline, create a k-NN index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `vector_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `image_description` field should be mapped as `text`, and the `image_binary` should be mapped as `binary`.
 
 The following example request creates a k-NN index that is set up with a default ingest pipeline:
 
@@ -88,7 +88,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-For more information about creating a k-NN index and the methods it supports, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+For more information about creating a k-NN index and its supported methods, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 
 ## Step 3: Ingest documents into the index
 
@@ -103,7 +103,7 @@ PUT /nlp-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-Before the document is ingested into the index, the ingest pipeline runs the `text_image_embedding` processor on the document, generating vector embeddings for the `image_description` and `image_binary` fields. In addition to the original `image_description` and `image_binary` fields, the indexed document contains the `vector_embedding` field that contains the combined vector embeddings. 
+Before the document is ingested into the index, the ingest pipeline runs the `text_image_embedding` processor on the document, generating vector embeddings for the `image_description` and `image_binary` fields. In addition to the original `image_description` and `image_binary` fields, the indexed document includes the `vector_embedding` field, which contains the combined vector embeddings. 
 
 ## Step 4: Search the index using neural search
 

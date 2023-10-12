@@ -9,11 +9,11 @@ parent: Connecting to remote models
 
 # Creating connectors for third-party ML platforms
 
-Connectors facilitate accessing remote models hosted on third-party platforms. 
+Connectors facilitate access to remote models hosted on third-party platforms. 
 
 You can provision connectors in two ways:
 
-1. Create a [standalone connector](#standalone-connector): A standalone connector can be reused and shared by multiple remote models but requires access to both the model and connector in OpenSearch, and the third-party platform, such as OpenAI or Amazon SageMaker, which the connector is accessing. Standalone connectors are saved in a connector index.
+1. Create a [standalone connector](#standalone-connector): A standalone connector can be reused and shared by multiple remote models but requires access to both the model and connector in OpenSearch and the third-party platform, such as OpenAI or Amazon SageMaker, that the connector is accessing. Standalone connectors are saved in a connector index.
 
 2. Create a remote model with an [internal connector](#internal-connector): An internal connector can only be used with the remote model in which it was created. To access an internal connector, you only need access to the model itself because the connection is established inside the model. Internal connectors are saved in the model index.
 
@@ -24,7 +24,7 @@ As of OpenSearch 2.9, connectors have been tested for the following ML services,
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
 - [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
-- The [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/) model, which can drive semantic search and retrieval augmented generation in OpenSearch.
+- The [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/) model, which can drive semantic search and retrieval-augmented generation in OpenSearch.
 
 All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
 
@@ -37,7 +37,7 @@ Admins are only required to enter their `credential` settings, such as `"openAI_
 
 ## Standalone connector
 
-To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/):
+To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/):
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -70,7 +70,7 @@ POST /_plugins/_ml/connectors/_create
 
 ## Internal connector
 
-To create an internal connector, provide all parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) within the `connector` object of a request to the `models/_register` endpoint:
+To create an internal connector, provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) within the `connector` object of a request to the `models/_register` endpoint:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -228,4 +228,3 @@ POST /_plugins/_ml/connectors/_create
 
 - To learn more about using models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 - To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
-- To learn how to create a Bedrock connector, see [Bedrock connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/bedrock-connector/).
