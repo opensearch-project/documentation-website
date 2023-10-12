@@ -266,7 +266,7 @@ Next, create a collection with the following settings:
       ],
       "Description":"Pipeline role access"
    }
- ]
+  ]
   ```
 
   ***Important***: Make sure to replace the ARN in the `Principal` element with the ARN of the pipeline role that you created in the preceding step.
