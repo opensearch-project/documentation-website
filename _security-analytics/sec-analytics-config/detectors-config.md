@@ -19,7 +19,7 @@ You can define a new detector by naming the detector and then selecting a data s
 To define a detector:
 
 1. On the **Security Analytics** home page or the **Detectors** page, choose **Create detector**.
-1. Give the detector a name, and optionally, a description. 
+1. Give the detector a name and, optionally, a description. 
 1. In the **Data source** section, select one or more sources for the log data. Use an asterisk (*) to indicate a wildcard pattern. When selecting multiple data sources, their logs must be of the same type. We recommend creating separate detectors for different log types.
    
 1. In the **Detection** section, select a log type and review the detection rules and field mappings. Do the following:
