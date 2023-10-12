@@ -21,6 +21,7 @@ redirect_from:
    tar -zxf opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.tar.gz
    cd opensearch-dashboards
    ```
+   {% include copy.html %}
 
 1. If desired, modify `config/opensearch_dashboards.yml`.
 
@@ -29,3 +30,4 @@ redirect_from:
    ```bash
    ./bin/opensearch-dashboards
    ```
+   {% include copy.html %}
