@@ -7,7 +7,7 @@ has_children: true
 
 # Telemetry devices
 
-Telemetry devices give you additional insights on benchmark results. To see a list of telemetry devices avaliable, use `opensearch-benchmark list telemetry`. 
+Telemetry devices give you additional insights on benchmark results. To see a list of telemetry devices available, use `opensearch-benchmark list telemetry`. 
 
 All telemetry devices with a `-stats` can be used with clusters not provisioned by OpenSearch Benchmark. These devices are referred to as **Runtime level telemetry devices**. Alternatively, **Setup level telemetry devices** encompass devices that can only be used when OpenSearch Benchmark provisions a cluster. 
 
@@ -17,7 +17,7 @@ This page lists the telemetry devices supported by OpenSearch Benchmark.
 
 The jfr telemetry device enables the [Java Flight Recorder](https://docs.oracle.com/javacomponents/jmc-5-5/jfr-runtime-guide/index.html) on the benchmark candidate. Up to JDK 11, Java flight recorder ships only with Oracle JDK. OpenSearch Benchmark assumes that Oracle JDK is used for benchmarking. If you run benchmarks on JDK 11 or later, [Java flight recorder](https://jdk.java.net/jmc/) is also available on OpenJDK.
 
-To enable `jfr`, invoke Workload with `opensearch-benchmark workload --workload=pmc --telemetry jfr`. jfr will then write a flight recording file which can be opened in Java Mission Control. OpenSearch Benchmark prints the location of the flight recording file on the command line.
+To enable `jfr`, invoke Workload with `opensearch-benchmark workload --workload=pmc --telemetry jfr`. `jfr` will then write a flight recording file which can be opened in Java Mission Control. OpenSearch Benchmark prints the location of the flight recording file on the command line.
 
 The `jfr` devices supports the following parameters:
 
