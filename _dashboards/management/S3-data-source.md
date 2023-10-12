@@ -3,7 +3,7 @@ layout: default
 title: Connecting Amazon S3 to OpenSearch
 parent: Data sources
 nav_order: 15
-has_children: false
+has_children: true
 ---
 
 # Connecting Amazon S3 to OpenSearch
@@ -39,7 +39,6 @@ To connect your Amazon S3 data source, follow these steps:
 4. Select the **Review Configuration** button and verify the details.
 5. Select the **Connect to Amazon S3** button.
 
-
 ## Manage your Amazon S3 data source
 
 Once you've connected your Amazon S3 data source, you can explore that data through the **Manage data sources** tab. The following steps guide you through using this functionality:
@@ -49,19 +48,19 @@ Once you've connected your Amazon S3 data source, you can explore that data thro
 
     ![Manage data sources UI]({{site.url}}{{site.baseurl}}/images/dashboards/manage-data-source-UI.png)
 
-
+3. (Optional) Explore the Amazon S3 use cases. Go to **Next steps** to learn more about each use case.
 
 ## Limitations
 
-This feature is still under development, so there are some limitations:
+This feature is still under development, including the data integration functionality. The following are some limitations:
 
 - <SME: What are the limitations?>
 - <SME: What is the GitHub link where users can leave feedback?>
 
 ## Next steps
 
-- [Optimize query performance of your external data sources](), such as Amazon S3, through Query Workbench. 
-- [Query your data in Data Explorer]
-- Learn about the [Amazon S3 and AWS Glue connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst), including configuration and queries.
-- Learn about [Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
+-  Learn about [querying your data in Data Explorer]() through OpenSearch Dashboards.
+- Learn about ways to [optimize query performance of your external data sources](), such as Amazon S3, through Query Workbench. 
+- Learn about the [Amazon S3 and AWS Glue connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst), including configuration settings and query examples.
+- Learn about [managing your indexes]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
 - <SME: What other links do we need to include?>

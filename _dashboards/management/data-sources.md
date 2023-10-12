@@ -64,21 +64,14 @@ To make changes to **Connection Details**, edit one or both of the **Title** and
 To delete the data source connection, select the delete icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/}).
 
 ## Create an index pattern
-Once you've created a data source connection, you can create an index pattern for the data source. An index pattern is a template that OpenSearch uses to create indexes for data from the data source.
 
-Learn how to load your own data and create an index pattern in the following steps. This tutorial uses the preconfigured index pattern `opensearch_dashboards_sample_data_ecommerce Default`.
-
-1. In the Dashboards console, select **Index Patterns** > **Create index pattern**.
-2. Select **Use external data source connection**.
-3. Start typing in the **Search data sources** field to search for the data source you want to connect. Select the data source and **Next step**.
-4. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
-5. Choose an option for the **Time** field and then select **Create index pattern**.
-
-Now you can start indexing data from the data source.
+Once you've created a data source connection, you can create an index pattern for the data source. An _index pattern_ is a template that OpenSearch uses to create indexes for data from the data source. See [Index patterns]() for more information and a tutorial. 
 
 ## Next steps
 
-- Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) in OpenSearch Dashboards.
+- Learn about [managing index patterns]() through OpenSearch Dashboards.
+- Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
 - Learn about how to connect [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
 - Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
 - Learn about the [Integrations]({{site.url}}{{site.baseurl}}/integrations/index/) tool that gives you flexibility to use various data ingestion methods and connect data from the Dashboards UI.
+
