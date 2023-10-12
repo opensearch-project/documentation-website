@@ -9,7 +9,7 @@ nav_order: 65
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6750).    
 {: .warning}
 
-Distributed tracing is used to monitor and debug distributed systems. You can track the flow of requests through the system and identify performance bottlenecks and errors. A _trace_ is a complete end-to-end path of a request as it flows through a distributed system. It represents the journey of a specific operation as it traverses various components and services in a distributed architecture. In distributed tracing, a single trace contains a series of tagged time intervals called _spans_. Spans have a start and end time, and may include other metadata like logs or tags to help classify what happened. 
+Distributed tracing is used to monitor and debug distributed systems. You can track the flow of requests through the system and identify performance bottlenecks and errors. A _trace_ is a complete end-to-end path of a request as it flows through a distributed system. It represents the journey of a specific operation as it traverses various components and services in a distributed architecture. In distributed tracing, a single trace contains a series of tagged time intervals called _spans_. Spans have a start and end time and may include other metadata like logs or tags to help classify what happened. 
 
 Use distributed tracing for the following purposes:
 
