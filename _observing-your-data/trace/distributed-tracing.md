@@ -44,7 +44,7 @@ The flag is toggled using a new Java Virtual Machine (JVM) parameter that is set
 
 #### Option 1: Enable the experimental feature flag in the `opensearch.yml` file
 
-1. Change to the top directory of your OpenSearch installation.
+1. Change to the top directory of your OpenSearch installation:
 
 ```bash
 cd \path\to\opensearch
