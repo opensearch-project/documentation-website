@@ -16,24 +16,24 @@ To navigate to the **Log types** page, select **Log types** under **Detectors** 
 
 The following table shows the log types that are currently supported by Security Analytics for ingestion, mapping, and monitoring. 
 
-| Category | Log type | Log Name | Description | 
+| Category | Log type | Description | 
 | :--- |:--- |:--- |:---
-| Access Management | `Ad_ldap` | AD/LDAP | Active Directory logs that track such things as LDAP queries, errors from the LDAP server, time-out events, and unsecure LDAP binds. |
-| Access Management | `Apache_access` | Apache Access | Logs that record data for all requests processed by an Apache HTTP server. |
-| Access Management | `Okta` | Okta | Logs that record Okta events from a range of actions such as downloading an export file, requesting an application access, or revoking privileges. |
-| Applications | `GitHub` | GitHub | Logs that monitor workflows created by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions). |
-| Applications| `Gworkspace` | Google Workspace | Logs for Google Workspace that can monitor log entries such as admin actions, group and group membership actions, and events having to do with logging in. |  
-| Applications| `M365` | Microsoft 365 | Microsoft 365 audit logs collect a range of data for Microsoft 365 including records from call details, performance data, SQL Server, security events, and access control activity. |
-| Cloud Services | `Azure` | Microsoft Azure | Logs that monitor log data for cloud applications managed by Microsoft Azure Cloud Services. |
-| Cloud Services | `CloudTrail` | AWS Cloudtrail | Logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both [AWS Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service accounts. | 
-| Cloud Services | `S3` | AWS S3 | Logs that track requests for access to an Amazon S3 bucket. |
-| Network Activity| `Dns` | DNS | Logs that store Domain Name System (DNS) activity. |
-| Network Activity | `Network` | Network | Logs that records events that happen in a system's network, such as login attempts and application events. | 
-| Network Activity | `vpcflow` | VPC Flow | [VPC Flow Logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html) capture information about the IP traffic going to and from network interfaces in your VPC. |
-| Security | `Waf` | Web Application Firewall |  The role of WAF (Web Application Firewall) is to monitor and filter HTTP traffic between a web application and the internet. It is tasked wth preventing common security attacks such as cross-site scripting (XSS), SQL Injection (SQi), and so on. This new log type (introduced in OpenSearch 2.11) is for users that require monitoring for the WAF use case out-of-the box from the Security plugin. |
-| System Activity | `Linux` | Linux System logs | Logs that record syslog events on Linux. |
-| System Activity | `Windows` | Windows | Logs that record events that have happened in the operating system, applications, and other system services for Windows. |
-| Other | `Email` | Email | Logs that record email activity. |
+| Access Management | `Ad_ldap` | Active Directory logs that track such things as LDAP queries, errors from the LDAP server, time-out events, and unsecure LDAP binds. |
+| Access Management | `Apache_access` | Apache Access logs that record data for all requests processed by an Apache HTTP server. |
+| Access Management | `Okta` | Okta logs that record Okta events from a range of actions such as downloading an export file, requesting an application access, or revoking privileges. |
+| Applications | `GitHub` | GitHub logs that monitor workflows created by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions). |
+| Applications| `Gworkspace` | Google Workspace logs that monitor log entries such as admin actions, group and group membership actions, and events having to do with logging in. |  
+| Applications| `M365` | Microsoft 365 audit logs that collect a range of data for Microsoft 365 including records from call details, performance data, SQL Server, security events, and access control activity. |
+| Cloud Services | `Azure` | Microsoft Azure logs that monitor log data for cloud applications managed by Microsoft Azure Cloud Services. |
+| Cloud Services | `CloudTrail` | AWS CloudTrail logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both [AWS Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service accounts. | 
+| Cloud Services | `S3` | AWS S3 logs that track requests for access to an Amazon S3 bucket. |
+| Network Activity| `Dns` | DNS logs that store Domain Name System (DNS) activity. |
+| Network Activity | `Network` | Network logs that records events that happen in a system's network, such as login attempts and application events. | 
+| Network Activity | `vpcflow` | [VPC Flow Logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html) that capture information about the IP traffic going to and from network interfaces in your VPC. |
+| Security | `Waf` | Web Application Firewall (WAF) logs (introduced in OpenSearch 2.11) for users that require monitoring of the WAF use case that's provided out-of-the box from the Security plugin. The role of WAF is to monitor and filter HTTP traffic between a web application and the internet. It is tasked wth preventing common security attacks such as cross-site scripting (XSS), SQL Injection (SQi), and so on. |
+| System Activity | `Linux` | Linux System logs that record syslog events on Linux. |
+| System Activity | `Windows` | Windows logs that record events that have happened in the operating system, applications, and other system services for Windows. |
+| Other | `Email` | Logs that record email activity. |
 
 
 ## Page actions
