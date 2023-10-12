@@ -966,7 +966,7 @@ The following metrics are new as of OpenSearch 2.11.
    <tr>
      <td>searchbp_task_stats_resource_cpu_usage_cancellationCount
      </td>
-     <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted on the search task level.
+     <td>The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted on the search task level.
      </td>
    </tr>
    <tr>
