@@ -24,6 +24,8 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     ```bash
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
+    {% include copy.html %}
+   
 1. From the command line interface (CLI), you can install the package with `rpm` or `yum`.
     **x64**
     ```bash
@@ -32,6 +34,8 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     # Install the x64 package using rpm.
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
     ```
+    {% include copy.html %}
+   
     **arm64**
     ```bash
     # Install the arm64 package using yum.
@@ -39,18 +43,25 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     # Install the arm64 package using rpm.
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
     ```
+    {% include copy.html %}
+   
 1. After the installation succeeds, enable OpenSearch Dashboards as a service.
     ```bash
     sudo systemctl enable opensearch-dashboards
     ```
+    {% include copy.html %}
+   
 1. Start OpenSearch Dashboards.
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
+    {% include copy.html %}
+   
 1. Verify that OpenSearch Dashboards launched correctly.
     ```bash
     sudo systemctl status opensearch-dashboards
     ```
+    {% include copy.html %}
 
 ## Install OpenSearch Dashboards from a local YUM repository
 
@@ -60,33 +71,49 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    ```bash
    sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{major_version_mask}}/opensearch-dashboards-{{major_version_mask}}.repo -o /etc/yum.repos.d/opensearch-dashboards-{{major_version_mask}}.repo
    ```
+   {% include copy.html %}
+   
 1. Verify that the repository was created successfully.
     ```bash
     sudo yum repolist
     ```
+    {% include copy.html %}
+   
 1. Clean your YUM cache, to ensure a smooth installation:
    ```bash
    sudo yum clean all
    ```
+   {% include copy.html %}
+   
 1. With the repository file downloaded, list all available versions of OpenSearch-Dashboards:
    ```bash
    sudo yum list opensearch-dashboards --showduplicates
    ```
+   {% include copy.html %}
+   
 1. Choose the version of OpenSearch Dashboards you want to install: 
    - Unless otherwise indicated, the highest minor version of OpenSearch installs.
    ```bash
    sudo yum install opensearch-dashboards
    ```
+   {% include copy.html %}
+   
    - To install a specific version of OpenSearch Dashboards:
    ```bash
    sudo yum install 'opensearch-dashboards-{{site.opensearch_version}}'
    ```
+   {% include copy.html %}
+   
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
    Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
    ```
+   {% include copy.html %}
+   
     - If correct, enter `yes` or `y`. The OpenSearch installation continues.
 1. Once complete, you can run OpenSearch Dashboards.
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
+    {% include copy.html %}
+    
