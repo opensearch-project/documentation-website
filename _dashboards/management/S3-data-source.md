@@ -1,15 +1,18 @@
 ---
 layout: default
 title: Connecting Amazon S3 to OpenSearch
+title: Connecting Amazon S3 to OpenSearch
 parent: Data sources
 nav_order: 15
 has_children: true
 ---
 
 # Connecting Amazon S3 to OpenSearch
+# Connecting Amazon S3 to OpenSearch
 Introduced 2.11
 {: .label .label-purple }
 
+Starting with OpenSearch 2.11, you can connect OpenSearch to your Amazon S3 data source using the OpenSearch Dashboards user interface (UI). You can then query that data, optimize query performance, define tables, and integrate your S3 data from a single UI.  
 Starting with OpenSearch 2.11, you can connect OpenSearch to your Amazon S3 data source using the OpenSearch Dashboards user interface (UI). You can then query that data, optimize query performance, define tables, and integrate your S3 data from a single UI.  
 
 ## Prerequisites

@@ -11,6 +11,7 @@ has_children: false
 Introduced 2.11
 {: .label .label-purple }
 
+
 Query performance can be slow when using external data sources for reasons such as network latency, data transformation, and data volume. You can optimize your query performance by using OpenSearch indexing, such as a skipping index or a covering index. A _skipping index_ uses skip acceleration methods, such as partition, minimum and maximum values, and value sets, to ingest and create compact aggregate data structures. This makes them an economical option for direct querying scenarios. A _covering index_ ingests all or some of the data from the source into OpenSearch and makes it possible to use all OpenSearch Dashboards and plugin functionality. See the [Flint Index Reference Manual](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md) for comprehensive guidance about this feature's indexing process.
 
 ## Data sources use case: Accelerate performance

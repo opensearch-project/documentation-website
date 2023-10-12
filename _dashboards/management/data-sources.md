@@ -2,6 +2,7 @@
 layout: default
 title: Data sources
 nav_order: 110
+nav_order: 110
 has_children: true
 ---
 
@@ -47,6 +48,7 @@ The following steps guide you through the basics of creating a data source conne
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt="Deleting a data source UI" width="700"/>
 
+### Modify a data source connection
 ### Modify a data source connection
 
 To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
