@@ -13,10 +13,10 @@ Distributed tracing is used to monitor and debug distributed systems. You can tr
 
 Use distributed tracing for the following purposes:
 
-- **Optimize performance:** Identify and resolve bottlenecks, reducing latency in your applications.
-- **Troubleshoot errors:** Quickly pinpoint the source of errors or unexpected behavior in your distributed system.
-- **Allocate resources:** Optimize resource allocation by understanding usage patterns of different services.
-- **Visualize service dependencies:** Visualize dependencies between services, helping you to manage architectures. 
+- **Optimize performance:** Identifying and resolving bottlenecks, reducing latency in your applications.
+- **Troubleshoot errors:** Quickly pinpointing the source of errors or unexpected behavior in your distributed system.
+- **Allocate resources:** Optimizing resource allocation by understanding usage patterns of different services.
+- **Visualize service dependencies:** Visualizing dependencies between services, helping you to manage architectures. 
 
 ## Distributed tracing pipeline
 
