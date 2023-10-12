@@ -125,7 +125,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Thread_Waited_Time
       </td>
-      <td>Average time (seconds) that the associated thread(s) waited to enter or reenter a monitor in the WAITING or TIMED_WAITING state.
+      <td>Average time (seconds) that the associated thread(s) waited to enter or reenter a monitor in the `WAITING` or `TIMED_WAITING` state.
       </td>
     </tr>
     <tr>
