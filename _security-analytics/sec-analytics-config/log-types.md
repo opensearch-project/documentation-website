@@ -17,7 +17,7 @@ To navigate to the **Log types** page, select **Log types** under **Detectors** 
 The following table shows the log types that are currently supported by Security Analytics for ingestion, mapping, and monitoring. 
 
 | Category | Log type | Description | 
-| :--- |:--- |:--- |:---
+| :--- |:--- |:--- 
 | Access Management | `Ad_ldap` | Active Directory logs that track such things as LDAP queries, errors from the LDAP server, time-out events, and unsecure LDAP binds. |
 | Access Management | `Apache_access` | Apache Access logs that record data for all requests processed by an Apache HTTP server. |
 | Access Management | `Okta` | Okta logs that record Okta events from a range of actions such as downloading an export file, requesting an application access, or revoking privileges. |
@@ -33,7 +33,7 @@ The following table shows the log types that are currently supported by Security
 | Security | `Waf` | Web Application Firewall (WAF) logs (introduced in OpenSearch 2.11) for users that require monitoring of the WAF use case that's provided out-of-the box from the Security plugin. The role of WAF is to monitor and filter HTTP traffic between a web application and the internet. It is tasked wth preventing common security attacks such as cross-site scripting (XSS), SQL Injection (SQi), and so on. |
 | System Activity | `Linux` | Linux System logs that record syslog events on Linux. |
 | System Activity | `Windows` | Windows logs that record events that have happened in the operating system, applications, and other system services for Windows. |
-| Other | `Email` | Logs that record email activity. |
+| Other | `Email` | logs that record email activity. |
 
 
 ## Page actions
