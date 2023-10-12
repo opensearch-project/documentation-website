@@ -32,7 +32,7 @@ OpenSearch is often chosen as the sink for storing trace data.
 
 ## Trace analytics
 
-OpenSearch provides a `trace-analytics` plugin for visualizing trace data in real time. The plugin includes pre-built dashboards for analyzing trace data, such as service maps, latency histograms, and error rates. With OpenSearch's distributed tracing pipeline, you can quickly identify bottlenecks and errors in your applications. See the [Trace analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) documentation for more information. 
+OpenSearch provides a `trace-analytics` plugin for visualizing trace data in real time. The plugin includes prebuilt dashboards for analyzing trace data, such as service maps, latency histograms, and error rates. With OpenSearch's distributed tracing pipeline, you can quickly identify bottlenecks and errors in your applications. See the [Trace analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) documentation for more information. 
 
 ## Get started
 
