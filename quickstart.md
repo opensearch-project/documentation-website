@@ -31,7 +31,9 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
 
     # Reload the kernel parameters.
     sudo sysctl -p
-    ```  
+    ```
+    {% include copy.html %}
+   
 1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
     ```bash
     # Using cURL:
@@ -40,10 +42,14 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     # Using wget:
     wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml
     ```
+    {% include copy.html %}
+    
 1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you just downloaded, and run the following command to create and start the cluster as a background process.
     ```bash
     docker-compose up -d
     ```
+    {% include copy.html %}
+   
 1. Confirm that the containers are running with the command `docker-compose ps`. You should see an output like the following:
     ```bash
     $ docker-compose ps
@@ -56,6 +62,8 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     ```bash
     curl https://localhost:9200 -ku admin:admin
     ```
+    {% include copy.html %}
+    
     Sample response:
     ```json
     {
@@ -90,6 +98,8 @@ Create an index and define field mappings using a dataset provided by the OpenSe
     # Using wget:
     wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json
     ```
+    {% include copy.html %}
+    
 1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json). This file contains the index data formatted so that it can be ingested by the bulk API. To learn more, see [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) and [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
     ```bash
     # Using cURL:
@@ -98,18 +108,26 @@ Create an index and define field mappings using a dataset provided by the OpenSe
     # Using wget:
     wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json
     ```
+    {% include copy.html %}
+    
 1. Define the field mappings with the mapping file.
     ```bash
     curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce" -ku admin:admin --data-binary "@ecommerce-field_mappings.json"
     ```
+    {% include copy.html %}
+   
 1. Upload the index to the bulk API.
     ```bash
     curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:admin --data-binary "@ecommerce.json"
     ```
+    {% include copy.html %}
+   
 1. Query the data using the search API. The following command submits a query that will return documents where `customer_first_name` is `Sonya`.
     ```bash
     curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
     ```
+    {% include copy.html %}
+   
     Queries submitted to the OpenSearch REST API will generally return a flat JSON by default. For a human readable response body, use the query parameter `pretty=true`. For more information about `pretty` and other useful query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
 1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is `admin`.
 1. On the top menu bar, go to **Management > Dev Tools**.
@@ -124,6 +142,8 @@ Create an index and define field mappings using a dataset provided by the OpenSe
         }
     }
     ```
+    {% include copy.html %}
+   
 1. Choose the triangle icon at the top right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or `Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/).
 
 ## Next steps
@@ -146,6 +166,7 @@ Eliminate the need for running your Docker commands with `sudo` by adding your u
 ```bash
 sudo usermod -aG docker $USER
 ```
+{% include copy.html %}
 
 ### Error message: "-bash: docker-compose: command not found"
 
