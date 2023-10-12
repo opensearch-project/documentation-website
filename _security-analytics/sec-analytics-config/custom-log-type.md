@@ -13,7 +13,7 @@ Log types represent the different sources of data used for threat detection in S
 ## Creating a custom log type
 
 To create a custom log type: 
-1. From the dashboard, select **OpenSearch Plugins** > **Security Analytics**, then select > **Detectors** > **Log types**.
+1. From the dashboard, select **OpenSearch Plugins** > **Security Analytics**, then select **Detectors** > **Log types**.
 1. Select **Create log type**.
 1. Enter a name and, optionally, a description for the log type.
    
