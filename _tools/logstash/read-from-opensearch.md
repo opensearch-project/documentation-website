@@ -37,6 +37,7 @@ filter {
 output {
 }
 ```
+{% include copy-curl.html %}
 
 To ingest data according to a schedule, use a cron expression that specifies the schedule you want. For example, to load in data every minute, add `schedule => "* * * * *"` to the input section of your `pipeline.conf` file.
 
@@ -45,6 +46,7 @@ Like the output plugin, after adding your configuration to the `pipeline.conf` f
  ```bash
  $ bin/logstash -f config/pipeline.conf --config.reload.automatic
  ```
+{% include copy-curl.html %}
 
 `config/pipeline.conf` is a relative path to the `pipeline.conf` file. You can use an absolute path as well.
 
