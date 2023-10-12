@@ -40,6 +40,7 @@ output {
   output_plugin => {}
 }
 ```
+{% include copy-curl.html %}
 
 where:
 
@@ -70,6 +71,7 @@ If you're migrating from an existing Logstash installation, you can install the 
      ```bash
      tar -zxvf logstash-oss-with-opensearch-output-plugin-7.16.2-linux-x64.tar.gz
      ```
+     {% include copy-curl.html %}
 
 3. Navigate to the `logstash-7.16.2` directory.
 - You can add your pipeline configurations to the `config` directory. Logstash saves any data from the plugins in the `data` directory. The `bin` directory contains the binaries for starting Logstash and managing plugins.
@@ -81,18 +83,21 @@ If you're migrating from an existing Logstash installation, you can install the 
     ```
     docker pull opensearchproject/logstash-oss-with-opensearch-output-plugin:7.16.2
     ```
+    {% include copy-curl.html %}
 
 1. Create a Docker network:
 
     ```
     docker network create test
     ```
+    {% include copy-curl.html %}
 
 1. Start OpenSearch with this network:
 
     ```
     docker run -p 9200:9200 -p 9600:9600 --name opensearch --net test -e "discovery.type=single-node" opensearchproject/opensearch:1.2.0
     ```
+    {% include copy-curl.html %}
 
 1. Start Logstash:
 
@@ -108,6 +113,7 @@ If you're migrating from an existing Logstash installation, you can install the 
       }
     }'
     ```
+    {% include copy-curl.html %}
 
 ## Process text from the terminal
 
@@ -120,9 +126,10 @@ To enter some text in the terminal and see the event data in the output:
     ```bash
     bin/logstash -e "input { stdin { } } output { stdout { } }"
     ```
+    {% include copy-curl.html %}
     Add the `—debug` flag to see a more detailed output.
 
-2. Enter "hello world" in your terminal. Logstash processes the text and outputs it back to the terminal:
+3. Enter "hello world" in your terminal. Logstash processes the text and outputs it back to the terminal:
 
     ```yml
     {
@@ -132,10 +139,11 @@ To enter some text in the terminal and see the event data in the output:
      "@version" => "1"
     }
     ```
+    {% include copy-curl.html %}
 
     The `message` field contains your raw input. The `host` field is an IP address when you don’t run Logstash locally. `@timestamp` shows the date and time for when the event is processed. Logstash uses the `@version` field for internal processing.
 
-3. Press `Ctrl + C` to shut down Logstash.
+4. Press `Ctrl + C` to shut down Logstash.
 
 ### Troubleshooting
 
@@ -147,6 +155,7 @@ If you already have a Logstash process running, you’ll get an error. To fix th
     cd data
     rm -rf .lock
     ```
+    {% include copy-curl.html %}
 
 2. Restart Logstash.
 
@@ -168,6 +177,7 @@ To define a pipeline that handles JSON requests:
       }
     }
     ```
+    {% include copy-curl.html %}
 
     To process inputs from a file, add an input file to the `events-data` directory and then pass its path to the `file` plugin at the input:
 
@@ -178,12 +188,14 @@ To define a pipeline that handles JSON requests:
       }
     }
     ```
+    {% include copy-curl.html %}
 
 2. Start Logstash:
 
     ```bash
     $ bin/logstash -f config/pipeline.conf
     ```
+    {% include copy-curl.html %}
 
     `config/pipeline.conf` is a relative path to the `pipeline.conf` file. You can use an absolute path as well.
 
@@ -192,6 +204,7 @@ To define a pipeline that handles JSON requests:
     ```json
     { "amount": 10, "quantity": 2}
     ```
+    {% include copy-curl.html %}
 
     The pipeline only handles a single line of input. If you paste some JSON that spans multiple lines, you’ll get an error.
 
@@ -208,6 +221,7 @@ To define a pipeline that handles JSON requests:
       "quantity": 2
     }
     ```
+    {% include copy-curl.html %}
 
     If you type in some invalid JSON as the input, you'll see a JSON parsing error. Logstash doesn't discard the invalid JSON because you still might want to do something with it. For example, you can trigger an email or send a notification to a Slack channel.
 
@@ -229,6 +243,7 @@ To define a pipeline that handles HTTP requests:
       }
     }
     ```
+    {% include copy-curl.html %}
 
     If you don’t specify any options, the `http` plugin binds to `localhost` and listens on port 8080.
 
@@ -237,6 +252,7 @@ To define a pipeline that handles HTTP requests:
     ```bash
     $ bin/logstash -f config/pipeline.conf
     ```
+    {% include copy-curl.html %}
 
 3. Use Postman to send an HTTP request. Set `Content-Type` to an HTTP header with a value of `application/json`:
 
@@ -248,12 +264,14 @@ To define a pipeline that handles HTTP requests:
       "quantity": 2
     }
     ```
+    {% include copy-curl.html %}
 
     Or, you can use the `curl` command:
 
     ```bash
     curl -XPUT -H "Content-Type: application/json" -d ' {"amount": 7, "quantity": 3 }' http://localhost:8080 (http://localhost:8080/)
     ```
+    {% include copy-curl.html %}
 
     Even though we haven't added the `json` plugin to the input, the pipeline configuration still works because the HTTP plugin automatically applies the appropriate codec based on the `Content-Type` header.
     If you specify a value of `applications/json`, Logstash parses the request body as JSON.
@@ -283,6 +301,7 @@ To define a pipeline that handles HTTP requests:
     "@version": "1"
     }
     ```
+    {% include copy-curl.html %}
 
 
 ## Automatically reload the pipeline configuration
@@ -302,6 +321,7 @@ The `stdin` plugin doesn’t supporting automatic reloading.
       }
     }
     ```
+    {% include copy-curl.html %}
 
     Logstash only processes any new events added to the input file and ignores the ones that it has already processed to avoid processing the same event more than once on restart.
 
@@ -319,6 +339,7 @@ The `stdin` plugin doesn’t supporting automatic reloading.
 
     51575938 1 4 7727
     ```
+    {% include copy-curl.html %}
 
     The last number in the `sinceDB` file (7727) is the byte offset of the last known event processed.
 
@@ -327,12 +348,14 @@ The `stdin` plugin doesn’t supporting automatic reloading.
     ```yml
     rm .sincedb_*
     ```
+    {% include copy-curl.html %}
 
 2. Start Logstash with a `—-config.reload.automatic` argument:
 
     ```bash
     bin/logstash -f config/pipeline.conf --config.reload.automatic
     ```
+    {% include copy-curl.html %}
 
     The `reload` option only reloads if you add a new line at the end of the pipeline configuration file.
 
