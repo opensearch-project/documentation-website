@@ -159,4 +159,4 @@ Distributed tracing can generate numerous spans, consuming system resources unne
 
 ### Collection of spans
 
-The `SpanProcessor` writes spans to the exporter, and the choice of exporter defines the endpoint, which can be logs or gRPC. To collect spans by using gRPC, you need to configure the collector as a sidecar process running on each OpenSearch node. From the collectors, these spans can be written to the sink of your choice, such as Jaeger, Prometheus, Grafana, and FileStore, for further analysis.
+The `SpanProcessor` writes spans to the exporter, and the choice of exporter defines the endpoint, which can be logs or gRPC. To collect spans by using gRPC, you need to configure the collector as a sidecar process running on each OpenSearch node. From the collectors, these spans can be written to the sink of your choice, such as Jaeger, Prometheus, Grafana, or FileStore, for further analysis.
