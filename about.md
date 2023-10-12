@@ -80,17 +80,20 @@ PUT https://<host>:<port>/<index-name>/_doc/<document-id>
   "release_date": "2013-07-20"
 }
 ```
+{% include copy.html %}
 
 To run a search for the document:
 
 ```
 GET https://<host>:<port>/<index-name>/_search?q=wind
 ```
+{% include copy.html %}
 
 To delete the document:
 
 ```
 DELETE https://<host>:<port>/<index-name>/_doc/<document-id>
 ```
+{% include copy.html %}
 
 You can change most OpenSearch settings using the REST API, modify indices, check the health of the cluster, get statistics---almost everything.
