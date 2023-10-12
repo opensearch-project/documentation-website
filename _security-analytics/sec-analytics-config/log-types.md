@@ -28,7 +28,7 @@ The following table shows the log types that are currently supported by Security
 | Cloud Services | `CloudTrail` | AWS CloudTrail logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both [AWS Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service accounts. | 
 | Cloud Services | `S3` | AWS S3 logs that track requests for access to an Amazon S3 bucket. |
 | Network Activity| `Dns` | DNS logs that store Domain Name System (DNS) activity. |
-| Network Activity | `Network` | Network logs that records events that happen in a system's network, such as login attempts and application events. | 
+| Network Activity | `Network` | Network logs that record events that happen in a system's network, such as login attempts and application events. | 
 | Network Activity | `vpcflow` | [VPC Flow Logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html) that capture information about the IP traffic going to and from network interfaces in your VPC. |
 | Security | `Waf` | Web Application Firewall (WAF) logs (introduced in OpenSearch 2.11) for users that require monitoring of the WAF use case that's provided out-of-the box from the Security plugin. The role of WAF is to monitor and filter HTTP traffic between a web application and the internet. It is tasked wth preventing common security attacks such as cross-site scripting (XSS), SQL Injection (SQi), and so on. |
 | System Activity | `Linux` | Linux System logs that record syslog events on Linux. |
