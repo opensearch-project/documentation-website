@@ -813,7 +813,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>Shard_State 
      </td>
-     <td>The state of each shard, for example, STARTED, UNASSIGNED, RELOCATING, and so on.
+     <td>The state of each shard, for example, `STARTED`, `UNASSIGNED`,  and `RELOCATING`.
      </td>
    </tr>
    </tbody>
