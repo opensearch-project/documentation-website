@@ -597,7 +597,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>ClusterManager_PendingQueueSize
      </td>
-     <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks (create index, update mapping, allocate shard, fail shard, and so on).
+     <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks, such as create index, update mapping, allocate shard, and, fail shard.
      </td>
    </tr>
   </tbody>
