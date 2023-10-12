@@ -16,7 +16,7 @@ OpenSearch supports the following specialized queries:
 
 - [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/): Used for vector field search in [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/).
 
-- [`neural_sparse`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/): Used for vector field search in [sparse neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/)
+- [`neural_sparse`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/): Used for vector field search in [sparse neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 
 - `percolate`: Finds queries (stored as documents) that match the provided document.
 
