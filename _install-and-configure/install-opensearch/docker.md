@@ -37,6 +37,8 @@ Before launching OpenSearch you should review some [important system settings]({
    ```bash
    sudo swapoff -a
    ```
+   {% include copy.html %}
+   
 1. Increase the number of memory maps available to OpenSearch.
    ```bash
    # Edit the sysctl config file
@@ -53,6 +55,7 @@ Before launching OpenSearch you should review some [important system settings]({
    # Verify that the change was applied by checking the value
    cat /proc/sys/vm/max_map_count
    ```
+   {% include copy.html %}
 
 ## Run OpenSearch in a Docker container
 
@@ -148,6 +151,7 @@ You can specify a custom file location and name when invoking `docker-compose` w
 # Use a relative or absolute path to the file.
 docker-compose -f /path/to/your-file.yml up
 ```
+{% include copy.html %}
 
 If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
 
