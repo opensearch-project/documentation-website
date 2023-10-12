@@ -106,7 +106,8 @@ POST /_plugins/_ml/connectors/_create
   "protocol": "aws_sigv4",
   "credential": {
     "access_key": "<REPLACE WITH SAGEMAKER ACCESS KEY>",
-    "secret_key": "<REPLACE WITH SAGEMAKER SECRET KEY>"
+    "secret_key": "<REPLACE WITH SAGEMAKER SECRET KEY>",
+    "session_token": "<REPLACE WITH AWS SECURITY TOKEN>"
   },
   "parameters": {
     "region": "ap-northeast-1",
@@ -139,9 +140,9 @@ The model must be able to process the [Predict API]({{site.url}}{{site.baseurl}}
 
 ```json
 {
-    "parameters": {
-        "input": ["hello", "world"]
-     }
+  "parameters": {
+    "input": ["hello", "world"]
+  }
 }
 ```
 
