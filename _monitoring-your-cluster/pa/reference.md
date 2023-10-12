@@ -9,14 +9,14 @@ redirect_from:
 
 # Metrics reference
 
-OpenSearch provides a number of metrics to help you evaluate performance. The tables below describe the metrics available, grouped by their supported dimensions. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although certain metrics measure one thing, making the choice of aggregation irrelevant.
+OpenSearch provides a number of metrics to help you evaluate performance. The tables below describe the metrics available, grouped by the dimensions that are most relevant for that metric. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although certain metrics measure one thing, making the choice of aggregation irrelevant.
 
 For information about each of the dimensions, see [dimensions reference](#dimensions-reference) later in this topic.
 
 This list is extensive. We recommend using Ctrl/Cmd + F to find what you're looking for.
 {: .tip }
 
-## Dimensions `ShardID`, `IndexName`, `Operation`, `ShardRole`
+## Relevant dimensions `ShardID`, `IndexName`, `Operation`, `ShardRole`
 
 <table>
  <thead style="text-align: left">
@@ -149,7 +149,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </tbody>
 </table>
 
-## Dimensions `ShardID`, `IndexName` 
+## Relevant dimensions `ShardID`, `IndexName` 
 
 <table>
   <thead style="text-align: left">
@@ -300,7 +300,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </tbody>
 </table>
 
-## Dimensions `ShardID`, `IndexName`, `IndexingStage`  
+## Relevant dimensions: `ShardID`, `IndexName`, `IndexingStage`  
   
 <table>
   <thead style="text-align: left">
@@ -343,7 +343,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    </tbody>
  </table>
     
-## Dimensions `Operation`, `Exception`, `Indices`, `HTTPRespCode`, `ShardID`, `IndexName`, `ShardRole`    
+## Relevant dimensions: `Operation`, `Exception`, `Indices`, `HTTPRespCode`, `ShardID`, `IndexName`, `ShardRole`    
    
  <table>
   <thead style="text-align: left">
@@ -362,7 +362,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    </tbody>
  </table>
 
-## Dimension `MemType`   
+## Relevant dimension: `MemType`   
    
  <table>
    <thead style="text-align: left">
@@ -411,7 +411,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    </tbody>
   </table>
 
-## Dimension `DiskName`   
+## Relevant dimension: `DiskName`   
    
  <table>
    <thead style="text-align: left">
@@ -442,7 +442,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </tbody>
 </table>
 
-## Dimension `DestAddr`   
+## Relevant dimension: `DestAddr`   
    
  <table>
   <thead style="text-align: left">
@@ -491,7 +491,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
  </tbody>
 </table>
 
-## Dimension `Direction`    
+## Relevant dimension: `Direction`    
    
  <table>
    <thead style="text-align: left">
@@ -535,7 +535,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </table>
 
 
-## Dimension `ThreadPoolType`   
+## Relevant dimension: `ThreadPoolType`   
    
  <table>
    <thead style="text-align: left">
@@ -584,7 +584,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </tbody>
 </table>
 
-## Dimension `Master_PendingTaskType`  
+## Relevant dimension: `ClusterManager_PendingTaskType`  
    
  <table>
   <thead style="text-align: left">
@@ -595,7 +595,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </thead>
   <tbody>  
    <tr>
-     <td>Master_PendingQueueSize
+     <td>ClusterManager_PendingQueueSize
      </td>
      <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks (create index, update mapping, allocate shard, fail shard, etc.).
      </td>
@@ -603,7 +603,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </tbody>
  </table>
 
-## Dimensions `Operation`, `Exception`, `Indices`, `HTTPRespCode`   
+## Relevant dimensions: `Operation`, `Exception`, `Indices`, `HTTPRespCode`   
    
 <table>
   <thead style="text-align: left">
@@ -628,7 +628,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </tbody>
 </table>
 
-## Dimension `CBType` 
+## Relevant dimensions: `CBType` 
   
 <table>
   <thead style="text-align: left">
@@ -659,7 +659,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    </tbody>
   </table>
 
-## Dimensions `MasterTaskInsertOrder`, `MasterTaskPriority`, `MasterTaskType`, `MasterTaskMetadata`
+## Relevant dimensions: `ClusterManagerTaskInsertOrder`, `ClusterManagerTaskPriority`, `ClusterManagerTaskType`, `ClusterManagerTaskMetadata`
  
 <table>
  <thead style="text-align: left">
@@ -670,21 +670,21 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
  </thead>
  <tbody>  
    <tr>
-     <td>Master_Task_Queue_Time
+     <td>ClusterManager_Task_Queue_Time
      </td>
-     <td>The time (milliseconds) that a master task spent in the queue.
+     <td>The time (milliseconds) that a cluster manager task spent in the queue.
      </td>
    </tr>
    <tr>
-      <td>Master_Task_Run_Time
+      <td>ClusterManager_Task_Run_Time
       </td>
-      <td>The time (milliseconds) that a master task has been executed.
+      <td>The time (milliseconds) that a ClusterManager task has been executed.
       </td>
     </tr>
  </tbody>
 </table>
      
-## Dimension `CacheType` 
+## Relevant dimension: `CacheType` 
   
 <table>
   <thead style="text-align: left">
@@ -703,7 +703,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
  </tbody>
 </table>
 
-## Dimension `ControllerName` 
+## Relevant dimension: `ControllerName` 
 <table>
  <thead style="text-align: left">
   <tr>
@@ -713,19 +713,19 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
  </thead>
  <tbody>  
   <tr>
-    <td>AdmissionControl_RejectionCount (WIP)
+    <td>AdmissionControl_RejectionCount 
     </td>
     <td>Total rejections performed by a Controller of Admission Control.
     </td>
   </tr>
   <tr>
-    <td>AdmissionControl_CurrentValue (WIP)
+    <td>AdmissionControl_CurrentValue 
     </td>
     <td>Current value for Controller of Admission Control.
     </td>
   </tr>
   <tr>
-    <td>AdmissionControl_ThresholdValue (WIP)
+    <td>AdmissionControl_ThresholdValue
     </td>
     <td>Threshold value for Controller of Admission Control.
     </td>
@@ -733,7 +733,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
  </tbody>
 </table>
 
-## Dimension `NodeID` 
+## Relevant dimension: `NodeID` 
   
 <table>
   <thead style="text-align: left">
@@ -744,21 +744,21 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </thead>
   <tbody>  
     <tr>
-      <td>Data_RetryingPendingTasksCount (WIP)
+      <td>Data_RetryingPendingTasksCount 
       </td>
       <td>Number of throttled pending tasks on which data node is actively performing retries. It will be an absolute metric at that point of time.
       </td>
     </tr>
     <tr>
-      <td>Master_ThrottledPendingTasksCount (WIP)
+      <td>ClusterManager_ThrottledPendingTasksCount 
       </td>
-      <td>Sum of total pending tasks which got throttled by node (master node). It is a cumulative metric so look at the max aggregation.
+      <td>Sum of total pending tasks which got throttled by node (ClusterManager node). It is a cumulative metric so look at the max aggregation.
       </td>
     </tr>
   </tbody>
  </table>
 
-## Dimensions: N/A
+## Relevant dimensions: N/A
 <table>
   <thead style="text-align: left">
    <tr>
@@ -768,31 +768,31 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </thead>
   <tbody>  
    <tr>
-     <td>Election_Term (WIP)
+     <td>Election_Term 
      </td>
-     <td>Monotonically increasing number with every master election.
-     </td>
-   </tr>
-   <tr>
-     <td>PublishClusterState_Latency (WIP)
-     </td>
-     <td>The time taken by quorum of nodes to publish new cluster state. This metric is available for current master.
+     <td>Monotonically increasing number with every ClusterManager election.
      </td>
    </tr>
    <tr>
-     <td>PublishClusterState_Failure (WIP)
+     <td>PublishClusterState_Latency 
+     </td>
+     <td>The time taken by quorum of nodes to publish new cluster state. This metric is available for current ClusterManager.
+     </td>
+   </tr>
+   <tr>
+     <td>PublishClusterState_Failure 
      </td>
      <td>The number of times publish new cluster state action failed on master node.
      </td>
    </tr>
    <tr>
-     <td>ClusterApplierService_Latency (WIP)
+     <td>ClusterApplierService_Latency 
      </td>
      <td>The time taken by each node to apply cluster state sent by master.
      </td>
    </tr>
    <tr>
-     <td>ClusterApplierService_Failure (WIP)
+     <td>ClusterApplierService_Failure 
      </td>
      <td>The number of times apply cluster state action failed on each node.
      </td>
@@ -800,7 +800,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </tbody>
  </table>
 
-## Dimensions `IndexName`, `NodeName`, `ShardType`, `ShardID`
+## Relevant dimensions: `IndexName`, `NodeName`, `ShardType`, `ShardID`
   
 <table>
    <thead style="text-align: left">
@@ -811,7 +811,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </thead>
   <tbody>  
    <tr>
-     <td>Shard_State (WIP)
+     <td>Shard_State 
      </td>
      <td>The state of each shard - whether it is STARTED, UNASSIGNED, RELOCATING etc.
      </td>
@@ -819,7 +819,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    </tbody>
 </table>
 
-## Dimension `WIP`
+## Relevant dimensions: TBD
  
  <table>
    <thead style="text-align: left">
@@ -830,33 +830,33 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    </thead>
    <tbody>  
       <tr>
-        <td>LeaderCheck_Latency (WIP)
+        <td>LeaderCheck_Latency 
         </td>
-        <td> WIP
+        <td> TBD
         </td>
       </tr>
     <tr>
-      <td>FollowerCheck_Failure (WIP)
+      <td>FollowerCheck_Failure 
       </td>
-      <td> WIP
+      <td> TBD
       </td>
     </tr>
     <tr>
-      <td>LeaderCheck_Failure (WIP)
+      <td>LeaderCheck_Failure 
       </td>
-      <td> WIP
+      <td> TBD
        </td>
     </tr>
     <tr>
-      <td>FollowerCheck_Latency (WIP)
+      <td>FollowerCheck_Latency
       </td>
-      <td> WIP
+      <td> TBD
       </td>
     </tr>
   </tbody>
 </table>
 
-## Dimensions `NodeID`, `searchbp_mode`
+## Relevant dimensions: `NodeID`, `searchbp_mode`
 The following metrics are new as of OpenSearch 2.11.
 
 <table>
@@ -1018,11 +1018,11 @@ The following metrics are new as of OpenSearch 2.11.
 | DestAddr             | Destination address (for example, `010015AC`). |
 | Direction            | `in`, `out`                                    |
 | ThreadPoolType       | The OpenSearch thread pools (for example, `index`, `search`, `snapshot`). |
-| CBType               | `accounting`, `fielddata`, `in_flight_requests`, `parent`, `request` |
-| MasterTaskInsertOrder| The order in which the task was inserted (for example, `3691`). |
-| MasterTaskPriority   | Priority of the task (for example, `URGENT`). OpenSearch executes higher priority tasks before lower priority ones, regardless of `insert_order`. |
-| MasterTaskType       | `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, `Update snapshot state` |
-| MasterTaskMetadata   | Metadata for the task (if any).                 |
+| CBType               | Circuit breaker type: `accounting`, `fielddata`, `in_flight_requests`, `parent`, `request` |
+| ClusterManagerTaskInsertOrder| The order in which the task was inserted (for example, `3691`). |
+| ClusterManagerTaskPriority   | Priority of the task (for example, `URGENT`). OpenSearch executes higher priority tasks before lower priority ones, regardless of `insert_order`. |
+| ClusterManagerTaskType       | `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, `Update snapshot state` |
+| ClusterManagerTaskMetadata   | Metadata for the task (if any).                 |
 | CacheType            | `Field_Data_Cache`, `Shard_Request_Cache`, `Node_Query_Cache` |
-| NodeID               | ID for the node                                |
-| searchbp_mode        | `monitor_only` (default), `enforced`, `disabled` |
+| NodeID               | The ID for the node.                                |
+| searchbp_mode        | Search backpressure mode: `monitor_only` (default), `enforced`, `disabled` |
