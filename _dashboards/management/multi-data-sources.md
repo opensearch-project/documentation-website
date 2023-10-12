@@ -8,7 +8,6 @@ nav_order: 10
 =======
 title: Connecting multiple data sources
 parent: Data sources
-grand_parent: Dashboards Management
 nav_order: 10
 redirect_from: 
   - /dashboards/discover/multi-data-sources/
@@ -16,12 +15,10 @@ redirect_from:
 ---
 
 # Connecting multiple data sources
-Updated 2.11
-{: .label .label-purple }
 
 Learn how to enable the `data_source` setting in Dashboards; add credentials, data source connections, and index patterns; and combine visualizations in a single dashboard in this tutorial.
 
-## Modifying the YAML file settings for multiple data sources
+## Modify the YAML file settings for multiple data sources
 
 This tutorial uses a preconfigured data source and index pattern for which you aren’t required to configure settings. However, you have to enable the multiple data sources feature because it is disabled by default.
 
@@ -35,7 +32,7 @@ To enable multiple data sources:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="700">
 
-## Selecting multiple data sources using the Dev Tools console
+## Select multiple data sources using the Dev Tools console
 
 <<<<<<< HEAD
 A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections.
@@ -139,7 +136,7 @@ To select a data source using the Dev Tools console, follow these steps:
 
 ## Limitations
 
-This feature has the following limitations:
+This feature is still under development, so there are some limitations:
 
 * The multiple data sources feature is supported for index-pattern-based visualizations only.
 * The visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.

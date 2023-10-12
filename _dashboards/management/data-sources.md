@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Data sources
-parent: Dashboards Management
-nav_order: 10
+nav_order: 110
 has_children: true
 ---
 
@@ -24,7 +23,7 @@ Configuration of the [YAML files]({{site.url}}{{site.baseurl}}/install-and-confi
 
 _<SME provide information: What are prerequisites? Do you need to have OpenSearch Service to use this feature? What YAML configuration is necessary? What settings need to be configured? Provide configuration examples.>_
 
-## Creating a data source connection
+## Create a data source connection
 
 A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using Dashboards, you can add new data source connections or manage existing ones.
 
@@ -52,11 +51,7 @@ The following steps guide you through the basics of creating a data source conne
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt="Deleting a data source UI" width="700"/>
 
-## Connecting multiple or external data sources
-
-For information, see the documentation for [Connecting multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) and [Improving query performance to external data sources]({{site.url}}{{site.baseurl}}dashboards/management/accelerate-external-data/).
-
-## Modifying a data source connection
+### Modify a data source connection
 
 To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
 
@@ -67,3 +62,23 @@ To make changes to **Connection Details**, edit one or both of the **Title** and
     - When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
 To delete the data source connection, select the delete icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/}).
+
+## Create an index pattern
+Once you've created a data source connection, you can create an index pattern for the data source. An index pattern is a template that OpenSearch uses to create indexes for data from the data source.
+
+Learn how to load your own data and create an index pattern in the following steps. This tutorial uses the preconfigured index pattern `opensearch_dashboards_sample_data_ecommerce Default`.
+
+1. In the Dashboards console, select **Index Patterns** > **Create index pattern**.
+2. Select **Use external data source connection**.
+3. Start typing in the **Search data sources** field to search for the data source you want to connect. Select the data source and **Next step**.
+4. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
+5. Choose an option for the **Time** field and then select **Create index pattern**.
+
+Now you can start indexing data from the data source.
+
+## Next steps
+
+- Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) in OpenSearch Dashboards.
+- Learn about how to connect [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
+- Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
+- Learn about the [Integrations]({{site.url}}{{site.baseurl}}/integrations/index/) tool that gives you flexibility to use various data ingestion methods and connect data from the Dashboards UI.

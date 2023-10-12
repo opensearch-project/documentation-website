@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Improving query performance to external data sources
+title: Optimize query performance of external data sources
 parent: Data sources
-grand_parent: Dashboards Management
 nav_order: 30
 has_children: false
 ---
 
-# Improving query performance to external data sources
+# Optimize query performance of external data sources
 Introduced 2.11
 {: .label .label-purple }
+
 
 

@@ -1,37 +1,67 @@
 ---
 layout: default
-title: Integrating Amazon S3 and OpenSearch
+title: Connecting Amazon S3 to OpenSearch
 parent: Data sources
-grand_parent: Dashboards Management
 nav_order: 15
 has_children: false
 ---
 
-# Integrating Amazon S3 and OpenSearch
+# Connecting Amazon S3 to OpenSearch
 Introduced 2.11
 {: .label .label-purple }
 
-You can integrate the Amazon S3 and OpenSearch applications using the OpenSearch Dashboards interface. Then, you can use Dashboards to connect your data sources, query that data, accelerate query performance, and define data tables. 
-
-The following tutorial, guides you through using Dashboards to integrate Amazon S3 and OpenSearch and then integrate your Amazon S3 data sources into OpenSearch.
+Starting with OpenSearch 2.11, you can connect OpenSearch to your Amazon S3 data source using the OpenSearch Dashboards user interface (UI). You can then query that data, optimize query performance, define tables, and integrate your S3 data from a single UI.  
 
 ## Prerequisites
 
-Before getting started, you need to complete the following tasks:
+To connect data from Amazon S3 to OpenSearch using OpenSearch Dashboards, you must have:
 
-- <SMEs: What are the prerequisites?>
-- <What do we need to mention about the API?> 
-- 
+- Access to Amazon S3.
+- Access to OpenSearch and OpenSearch Dashboards.
+- Basic understanding of data and data flow.
+- <SMEs: What are the prerequisites? Installing specific plugins? update cluster settings? Provide settings examples.>
+- <Do we need to mention anything about the API?>
+- <Does Snapshot Management S3 documentation relate to this topic? https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3>
 
-## Using Dashboards to integrate the Amazon S3 and OpenSearch applications
+## Connect your Amazon S3 data source 
 
-To integrate the applications, follow these steps:
+To connect your Amazon S3 data source, follow these steps:
 
-1. From the OpenSearch Dashboards main menu, select **Dashboards Management**.
-2. From the Dashboards Management interface, select **Data sources**.
-3. 
+1. From the OpenSearch Dashboards main menu, select **Management** > **Data sources**.
+2. From the **Data sources** page, select **New data source** > **S3**. A screenshot of the UI is shown in the following image.
+
+    ![Data sources UI]({{site.url}}{{site.baseurl}}/images/dashboards/data-sources-UI.png)
+
+3. From the **Configure Amazon S3 data source** page, enter the required **Data source details**, **AWS Glue authentication details**, **AWS Glue index store details**, and **Query permissions**.
+
+    ![Amazon S3 configuration UI]({{site.url}}{{site.baseurl}}/images/dashboards/S3-config-UI.png)
+
+4. Select the **Review Configuration** button and verify the details.
+5. Select the **Connect to Amazon S3** button.
 
 
-## Using Dashboards to integrate an Amazon S3 data source
+## Manage your Amazon S3 data source
 
-To integrate your Amazon S3 data source, follow these steps:
+Once you've connected your Amazon S3 data source, you can explore that data through the **Manage data sources** tab. The following steps guide you through using this functionality:
+
+1. From the **Manage data sources** tab, choose a date source from the list. 
+2. From that data source's page, manage the data source, choose a use case, and manage access controls and configurations. An example UI is shown in the following image: 
+
+    ![Manage data sources UI]({{site.url}}{{site.baseurl}}/images/dashboards/manage-data-source-UI.png)
+
+
+
+## Limitations
+
+This feature is still under development, so there are some limitations:
+
+- <SME: What are the limitations?>
+- <SME: What is the GitHub link where users can leave feedback?>
+
+## Next steps
+
+- [Optimize query performance of your external data sources](), such as Amazon S3, through Query Workbench. 
+- [Query your data in Data Explorer]
+- Learn about the [Amazon S3 and AWS Glue connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst), including configuration and queries.
+- Learn about [Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
+- <SME: What other links do we need to include?>
