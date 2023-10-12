@@ -10,7 +10,7 @@ nav_order: 16
 
 Logs contain raw data about events that happen throughout a system and in its separate parts. As of OpenSearch 2.11, log types are grouped by category to help select, filter, and search the log types. 
 
-To navigate to the **Log types** page, select **Log types** under **Detectors** in the **Security Analytics** navigation menu. The page shows the name of the log type, its description, it's category, and identifies whether it's a standard OpenSearch-defined log type or a custom log type. The following image shows the **Log types** landing page with the Category column selected, and where you can filter the list by the category. 
+To navigate to the **Log types** page, select **Log types** under **Detectors** in the **Security Analytics** navigation menu. The page shows the name of the log type, its description, its category, and identifies whether it's a standard OpenSearch-defined log type or a custom log type. The following image shows the **Log types** landing page with the Category column selected, and the **Category** filter you can use to filter the list by the category. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/c-log-type.png" alt="The Log types landing page." width="85%">
 
