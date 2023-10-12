@@ -69,7 +69,7 @@ Add the following lines to `config/jvm.options` before starting the OpenSearch p
 ```
 {% include copy.html %}
 
-Run OpenSearch
+Run OpenSearch:
 
 ```bash
 ./bin/opensearch
