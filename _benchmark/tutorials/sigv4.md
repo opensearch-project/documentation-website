@@ -14,7 +14,7 @@ OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run Ben
 2. Set up the following environment variables for your IAM user:
 
    ```bash
-   OSB_AWS_ACCESS_KEY_ID=<<IAM USER AWS ACCESS KEY ID>
+   OSB_AWS_ACCESS_KEY_ID=<IAM USER AWS ACCESS KEY ID>
    OSB_AWS_SECRET_ACCESS_KEY=<IAM USER AWS SECRET ACCESS KEY>
    OSB_REGION=<YOUR REGION>
    OSB_SERVICE=aos
