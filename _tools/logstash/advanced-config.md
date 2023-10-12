@@ -70,6 +70,7 @@ file {
   }
 }
 ```
+{% include copy-curl.html %}
 
 Start Logstash and send an HTTP request. The processed event is output in the terminal. The event now includes a field named `type`.
 
@@ -90,6 +91,7 @@ if EXPR {
   ...
 }
 ```
+{% include copy-curl.html %}
 
 `EXPR` is any valid Logstash syntax that evaluates to a Boolean value.
 For example, you can check if an event type is set to `access` or `error` and perform some action based on that:
@@ -103,6 +105,7 @@ file { .. }
 ...
 }
 ```
+{% include copy-curl.html %}
 
 You can compare a field value to some arbitrary value:
 
@@ -111,6 +114,7 @@ if [headers][content_length] >= 1000 {
 ...
 }
 ```
+{% include copy-curl.html %}
 
 You can regex:
 
@@ -119,6 +123,7 @@ if [some_field =~ /[0-9]+/ {
   //some field only contains digits
 }
 ```
+{% include copy-curl.html %}
 
 You can use arrays:
 
@@ -127,6 +132,7 @@ if [some_field] in ["one", "two", "three"] {
   some field is either "one", "two", or "three"
 }
 ```
+{% include copy-curl.html %}
 
 You can use Boolean operators:
 
@@ -135,6 +141,7 @@ if [type] == "access" or [type] == "error" {
   ...
 }
 ```
+{% include copy-curl.html %}
 
 
 ## Formatting dates
@@ -149,6 +156,8 @@ file {
   path => "%{[type]}_%{+yyyy_MM_dd}.log"
 }
 ```
+{% include copy-curl.html %}
+
 
 This is the date stored within the @timestamp fields, which is the time and date of the event.
 Send a request to the pipeline and verify that a filename is outputted that contains the events date.
@@ -174,6 +183,7 @@ date {
   match => [ "timestamp", "dd/MMM/yyyy:HH:mm:ss Z" ]
 }
 ```
+{% include copy-curl.html %}
 
 timestamp is the field that the `grok` pattern creates.
 `Z` is the timezone. i.e., UTC offsets.
@@ -192,6 +202,7 @@ date {
   remove_field => [ "timestamp" ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Parsing user agents
 
@@ -213,6 +224,7 @@ useragent {
   target => "ua"
 }
 ```
+{% include copy-curl.html %}
 
 Start Logstash and send an HTTP request.
 
@@ -234,6 +246,7 @@ geoip {
   source => "clientip"
 }
 ```
+{% include copy-curl.html %}
 
 Start Logstash and send an HTTP request.
 
