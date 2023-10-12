@@ -61,11 +61,11 @@ To delete the data source connection, select the delete icon ({::nomarkdown}<img
 
 ## Create an index pattern
 
-Once you've created a data source connection, you can create an index pattern for the data source. An _index pattern_ is a template that OpenSearch uses to create indexes for data from the data source. See [Index patterns]() for more information and a tutorial. 
+Once you've created a data source connection, you can create an index pattern for the data source. An _index pattern_ is a template that OpenSearch uses to create indexes for data from the data source. See [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) for more information and a tutorial. 
 
 ## Next steps
 
-- Learn about [managing index patterns]() through OpenSearch Dashboards.
+- Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
 - Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
 - Learn about how to connect [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
 - Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
