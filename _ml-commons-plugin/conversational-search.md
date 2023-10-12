@@ -15,7 +15,7 @@ Conversational search is an experimental machine learning (ML) feature that enab
 Currently, conversational search uses two systems to synthesize documents:
 
 - [Conversation memory](#conversation-memory)
-- [Retreival Augmented Generation (RAG) pipeline](#rag-pipeline)
+- [Retrieval Augmented Generation (RAG) pipeline](#rag-pipeline)
 
 ## Conversation memory
 
@@ -216,7 +216,10 @@ The Memory API responds with the following:
 
 ## RAG pipeline
 
- RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then generates more factual outputs.
+RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then generates more factual outputs.
+
+As of OpenSearch 2.11, the RAG technique has only been tested with the OpenAI and Bedrock Anthropic Claude models.
+{: .warning}
 
 ### Enabling RAG
 
@@ -275,6 +278,8 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
     "description": "This is a public model group"
   }
   ```
+  {% include copy-curl.html %}
+
 3. Register and deploy the model using the `connector_id` from the Connector API response in Step 1 and the `model_group_id` returned in Step 2:
 
   ```java
@@ -287,18 +292,21 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
 	"connector_id": "f5-iSYoBu0R6vVqGI3PA"
   }
   ``` 
+  {% include copy-curl.html %}
 
 4. With the model registered, use the `task_id` returned in the registration response to get the `model_id`. You'll use the `model_id` to deploy the model to OpenSearch:
 
-  ```json
+  ```curl
   GET /_plugins/_ml/tasks/<task_id>
   ```
+  {% include copy-curl.html %}
 
 5. Using the `model_id` from step 4, deploy the model:
 
-  ```
+  ```curl
   POST /_plugins/_ml/models/<model_id>/_deploy
   ```
+  {% include copy-curl.html %}
 
 ### Setting up the pipeline
 
@@ -313,12 +321,17 @@ PUT /_search/pipeline/<pipeline_name>
         "tag": "openai_pipeline_demo",
         "description": "Demo pipeline Using OpenAI Connector",
         "model_id": "<model_id>",
-        "context_field_list": ["text"]
+        "context_field_list": ["text"],
+        "system_prompt": "You are a helpful assistance",
+        "user_instructions": "Generate a concise and informative answer in less than 100 words for the given question"
       }
     }
   ]
 }
 ```
+{% include copy-curl.html %}
+
+### Context field list
 
 `context_field_list` is the list of fields in document sources that the pipeline uses as context for the RAG. For example, when `context_field_list` parses through the following document, the pipeline sends the `text` field from the response to OpenAI model:
 
@@ -335,6 +348,19 @@ PUT /_search/pipeline/<pipeline_name>
 
 You can customize `context_field_list` in your RAG pipeline to send any fields that exist in your documents to the LLM.
 
+### RAG parameter options
+
+Use the following options when setting up a RAG pipeline under the `retrieval_augmented_generation` argument:
+
+Parameter | Required | Description
+:--- | :--- | :---
+`tag` | Yes | A tag to help identify the pipeline.
+`description` | Yes | A description of the pipeline.
+`model_id` | Yes | The ID of the model used in the pipeline.
+`context_field_list` | Yes | The list of fields in document sources that the pipeline uses as context for the RAG. For more information, see [Context Field List](#context-field-list).
+`system_prompt` | No | The message sent to the LLM with a `system` role. This is the message the user sees when the LLM receives an interaction.
+`user_instructions` | No | An additional message sent by the LLM with a `user` role. This parameter allows for further customization of what the user receives when interacting with the LLM.
+
 ### Using the pipeline
 
 Using the pipeline is similar to submitting [search queries]({{site.url}}{{site.baseurl}}/api-reference/search/#example) to OpenSearch, as shown in the following example:
@@ -347,11 +373,15 @@ GET /<index_name>/_search?search_pipeline=<pipeline_name>
 		"generative_qa_parameters": {
 			"llm_model": "gpt-3.5-turbo",
 			"llm_question": "Was Abraham Lincoln a good politician",
-			"conversation_id": "_ikaSooBHvd8_FqDUOjZ"
+			"conversation_id": "_ikaSooBHvd8_FqDUOjZ",
+                         "context_size": 5,
+                         "interaction_size": 5,
+                         "timeout": 15
 		}
 	}
 }
 ```
+{% include copy-curl.html %}
 
 The RAG search query uses the following request objects under the `generative_qa_parameters` option.
 
@@ -360,6 +390,9 @@ Parameter | Required | Description
 `llm_question` | Yes | The question the LLM must answer. 
 `llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
 `conversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of the search query to the LLM. 
+`context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary model to model. Alternatively, you can use the `size` parameter in the Search API to control the amount of information sent to LLMs.
+`interaction_size` | No | The number of interactions sent to the LLMs. Similar to the number of search results, this affects the total number of token seen by the LLM. When set, the pipeline uses the default interaction size, `10`.
+`timeout` | No | The number of seconds the pipeline waits for the remote model using a connector to respond. Default is `30s`.
 
 If your LLM includes a set token limit, set the `size` field in your OpenSearch query to limit the number of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search results to the LLM.
 
