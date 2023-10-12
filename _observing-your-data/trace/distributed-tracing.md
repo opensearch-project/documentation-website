@@ -50,7 +50,7 @@ The flag is toggled using a new Java Virtual Machine (JVM) parameter that is set
 cd \path\to\opensearch
 ```
 
-2. Open your OpenSearch configuration folder, then open the `opensearch.yml` file with a text editor.
+2. Open your OpenSearch configuration folder, and then open the `opensearch.yml` file with a text editor.
 3. Add the following line:
 
 ```bash
