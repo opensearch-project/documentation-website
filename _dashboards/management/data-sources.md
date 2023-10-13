@@ -51,7 +51,7 @@ The following steps guide you through the basics of creating a data source conne
 ### Modify a data source connection
 ### Modify a data source connection
 
-To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
+To make changes to a data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
 
 To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
 
