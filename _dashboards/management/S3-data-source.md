@@ -32,7 +32,7 @@ To connect your Amazon S3 data source, follow these steps:
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-UI.png" alt="Amazon S3 data sources UI" width="700"/>
 
-3. From the **Configure Amazon S3 data source** page, enter the required **Data source details**, **AWS Glue authentication details**, **AWS Glue index store details**, and **Query permissions**.
+3. On the **Configure Amazon S3 data source** page, enter the required **Data source details**, **AWS Glue authentication details**, **AWS Glue index store details**, and **Query permissions**. An example UI is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/S3-config-UI.png" alt="Amazon S3 configuration UI" width="700"/>
 
