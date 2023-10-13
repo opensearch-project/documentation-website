@@ -25,6 +25,8 @@ Make sure you have a zip utility installed.
       ```bat
       Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem LongPathsEnabled -Type DWORD -Value 1 -Force
       ```
+      {% include copy.html %}
+      
    1. Restart your computer.
 
 1. Run OpenSearch Dashboards.
@@ -44,11 +46,15 @@ Make sure you have a zip utility installed.
          ```bat
          cd \path\to\opensearch-dashboards-{{site.opensearch_version}}
          ```
+         {% include copy.html %}
+         
       1. If desired, modify `config\opensearch_dashboards.yml`.
       1. Run the batch script to start OpenSearch Dashboards.
          ```bat
          .\bin\opensearch-dashboards.bat
          ```
+         {% include copy.html %}
+         
 
 To stop OpenSearch Dashboards, press `Ctrl+C` in Command Prompt or Powershell, or simply close the Command Prompt or Powershell window.
 {: .tip} 
