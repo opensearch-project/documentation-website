@@ -363,7 +363,7 @@ Use the following options when setting up a RAG pipeline under the `retrieval_au
 
 Parameter | Required | Description
 :--- | :--- | :---
-`tag` | Yes | A tag to help identify the pipeline.
+`tag` | No | A tag to help identify the pipeline.
 `description` | Yes | A description of the pipeline.
 `model_id` | Yes | The ID of the model used in the pipeline.
 `context_field_list` | Yes | The list of fields in document sources that the pipeline uses as context for the RAG. For more information, see [Context Field List](#context-field-list).
