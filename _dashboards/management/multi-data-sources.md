@@ -35,6 +35,7 @@ To enable multiple data sources:
 ## Select multiple data sources by using the Dev Tools console
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections.
 
 To create a new data source connection:
@@ -117,6 +118,9 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
 =======
 Selecting multiple data sources using the Dev Tools console gives you the flexibility to work with a broader range of data and gain deeper insight into your code and applications. Watch the following video to see it in action, and then try it out yourself. 
 >>>>>>> 0e1f96cd (writing)
+=======
+Selecting multiple data sources by using the Dev Tools console gives you the flexibility to work with a broader range of data and gain deeper insight into your code and applications. Watch the following video to see it in action, and then try it out yourself. 
+>>>>>>> 7f57cc3e (Update _dashboards/management/multi-data-sources.md)
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
