@@ -32,6 +32,8 @@ To create an alias, use a POST request:
 ```json
 POST _aliases
 ```
+{% include copy.html %}
+
 
 Use the `actions` method to specify the list of actions that you want to perform. This command creates an alias named `alias1` and adds `index-1` to this alias:
 
@@ -48,6 +50,8 @@ POST _aliases
   ]
 }
 ```
+{% include copy.html %}
+
 
 You should see the following response:
 
@@ -67,6 +71,8 @@ POST <index>/_aliases/<alias name>
 PUT <index>/_alias/<alias name>
 POST <index>/_alias/<alias name>
 ```
+{% include copy.html %}
+
 
 The `<index>` in the above requests can be an index name, a comma-separated list of index names, or a wildcard expression. Use `_all` to refer to all indexes.
 
@@ -76,12 +82,16 @@ To check if `alias1` refers to `index-1`, run one of the following commands:
 GET /_alias/alias1
 GET /index-1/_alias/alias1
 ```
+{% include copy.html %}
+
 
 To get the mappings and settings information of the indexes that the alias references, run the following command:
 
 ```json
 GET alias1
 ```
+{% include copy.html %}
+
 
 ## Add or remove indexes
 
@@ -107,6 +117,8 @@ POST _aliases
   ]
 }
 ```
+{% include copy.html %}
+
 
 The `add` and `remove` actions occur atomically, which means that at no point will `alias1` point to both `index-1` and `index-2`.
 
@@ -125,6 +137,8 @@ POST _aliases
   ]
 }
 ```
+{% include copy.html %}
+
 
 ## Manage aliases
 
@@ -133,6 +147,8 @@ To list the mapping of aliases to indexes, run the following command:
 ```json
 GET _cat/aliases?v
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -146,6 +162,8 @@ To check which indexes an alias points to, run the following command:
 ```json
 GET _alias/alias1
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -164,12 +182,16 @@ Conversely, to find which alias points to a specific index, run the following co
 ```json
 GET /index-2/_alias/*
 ```
+{% include copy.html %}
+
 
 To get all index names and their aliases, run the following command:
 
 ```json
 GET /_alias
 ```
+{% include copy.html %}
+
 
 To check if an alias exists, run one of the following commands:
 
@@ -178,6 +200,8 @@ HEAD /alias1/_alias/
 HEAD /_alias/alias1/
 HEAD index-1/_alias/alias1/
 ```
+{% include copy.html %}
+
 
 ## Add aliases at index creation
 
@@ -191,6 +215,8 @@ PUT index-1
   }
 }
 ```
+{% include copy.html %}
+
 
 ## Create filtered aliases
 
@@ -216,6 +242,8 @@ POST _aliases
   ]
 }
 ```
+{% include copy.html %}
+
 
 ## Index alias options
 
@@ -238,6 +266,8 @@ To delete one or more aliases from an index, use the following request:
 DELETE <index>/_alias/<alias>
 DELETE <index>/_aliases/<alias>
 ```
+{% include copy.html %}
+
 
 Both `<index>` and `<alias>` in the above request support comma-separated lists and wildcard expressions. Use `_all` in place of `<alias>` to delete all aliases for the indexes listed in `<index>`.
 
@@ -246,5 +276,7 @@ For example, if `alias1` refers to `index-1` and `index-2`, you can run the foll
 ```json
 DELETE index-1/_alias/alias1
 ```
+{% include copy.html %}
+
 
 After you run the request above, `alias1` no longer refers to `index-1`, but still refers to `index-2`.
