@@ -42,7 +42,7 @@ To get started with the **Accelerate performance** use case available in **Data 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-fields-skipping-index.png" alt="Skipping index add fields" width="700"/> 
 
 2. Select the **Copy Query to Editor** button to apply your skipping index settings. 
-3. View the skipping index query details in the table pane and then select the **Run** button. Your index is added the left-side navigation menu containing the list of your databases. An example is shown in the following image:
+3. View the skipping index query details in the table pane and then select the **Run** button. Your index is added to the left-side navigation menu containing the list of your databases. An example is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/query-workbench-S3.png" alt="Run a skippping or covering index UI" width="700"/>
 
