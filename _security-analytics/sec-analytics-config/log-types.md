@@ -24,15 +24,15 @@ The following table shows the log types that are currently supported by Security
 | Applications | `GitHub` | GitHub logs that monitor workflows created by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions). |
 | Applications| `Gworkspace` | Google Workspace logs that monitor log entries such as admin actions, group and group membership actions, and events related to logging in. |  
 | Applications| `M365` | Microsoft 365 audit logs that collect a range of data for Microsoft 365, including records from call details, performance data, SQL Server, security events, and access control activity. |
-| Cloud Services | `Azure` | Microsoft Azure logs that monitor log data for cloud applications managed by Azure Cloud Services. |
-| Cloud Services | `CloudTrail` | AWS CloudTrail logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both [Amazon Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (Amazon S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service accounts. | 
-| Cloud Services | `S3` | Amazon S3 logs that track requests for access to an S3 bucket. |
-| Network Activity| `Dns` | DNS logs that store DNS activity. |
-| Network Activity | `Network` | Network logs that record events that happen in a system's network, such as login attempts and application events. | 
-| Network Activity | `vpcflow` | [VPC Flow Logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html) that capture information about the IP traffic going to and from network interfaces in your virtual private cloud (VPC). |
+| Cloud services | `Azure` | Microsoft Azure logs that monitor log data for cloud applications managed by Azure Cloud Services. |
+| Cloud services | `CloudTrail` | AWS CloudTrail logs that monitor events for an AWS CloudTrail account. OpenSearch can ingest CloudTrail log data from both [Amazon Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (Amazon S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service accounts. | 
+| Cloud services | `S3` | Amazon S3 logs that track requests for access to an S3 bucket. |
+| Network activity| `Dns` | DNS logs that store DNS activity. |
+| Network activity | `Network` | Network logs that record events that happen in a system's network, such as login attempts and application events. | 
+| Network activity | `vpcflow` | [VPC Flow Logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html) that capture information about the IP traffic going to and from network interfaces in your virtual private cloud (VPC). |
 | Security | `Waf` | Web Application Firewall (WAF) logs (introduced in OpenSearch 2.11) for users that require monitoring of the WAF use case that's provided out of the box in the Security plugin. The role of WAF is to monitor and filter HTTP traffic between a web application and the internet. WAF prevents common security attacks, such as cross-site scripting (XSS) and SQL Injection (SQi). |
-| System Activity | `Linux` | Linux System logs that record syslog events on Linux. |
-| System Activity | `Windows` | Windows logs that record events that have happened in the operating system, applications, and other Windows system services. |
+| System activity | `Linux` | Linux System logs that record syslog events on Linux. |
+| System activity | `Windows` | Windows logs that record events that have happened in the operating system, applications, and other Windows system services. |
 | Other | `Email` | Logs that record email activity. |
 
 
