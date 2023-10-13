@@ -21,7 +21,7 @@ You must be using the `opensearch-security` plugin and have the appropriate role
 
 To get started, follow these steps:
 
-1. From the **Manage data sources** page, select your data source from the list. 
+1. On the **Manage data sources** page, select your data source from the list. 
 2. From the data source's detail page, select the **Query data** card. This option takes you to the **Observability** > **Logs** page, which is shown in the following image:
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/observability-logs-UI.png" alt="Observability Logs UI" width="700">
