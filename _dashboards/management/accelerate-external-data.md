@@ -19,7 +19,7 @@ Query performance can be slow when using external data sources for reasons such 
 To get started with the **Accelerate performance** use case available in **Data sources**, follow these steps:
 
 1. Go to **OpenSearch Dashboards** > **Query Workbench** and select your Amazon S3 data source from the **Data Sources** dropdown menu in the upper-left corner.
-2. From the left-side navigation menu, select a database. An example using the `http_logs` database is shown in the following image:
+2. From the left-side navigation menu, select a database. An example using the `http_logs` database is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-accelerate-data.png" alt="Query Workbench accelerate data UI" width="700"/>
 
