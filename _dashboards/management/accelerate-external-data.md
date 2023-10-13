@@ -31,7 +31,7 @@ To get started with the **Accelerate performance** use case available in **Data 
 
     2. Enter your details in the **Select data fields**. In the **Database** field, select the desired acceleration index: **Skipping index** or **Covering index**. A _skipping index_ uses skip acceleration methods, such as partition, min/max, and value sets, to ingest data using compact aggregate data structures. This makes them an economical option for direct querying scenarios. A _covering index_ ingests all or some of the data from the source into OpenSearch and makes it possible to use all OpenSearch Dashboards and plugin functionality.
     
-5. Under **Index settings**, enter the details for your acceleration index. For information about naming, select **Help**. Note that an Amazon S3 table can only have one skipping index at a time. An example is shown in the following image:
+5. Under **Index settings**, enter the information for your acceleration index. For information about naming, select **Help**. Note that an Amazon S3 table can only have one skipping index at a time. An example is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/skipping-index-settings.png" alt="Skipping index settings" width="700"/>
 
