@@ -399,9 +399,9 @@ Parameter | Required | Description
 `llm_question` | Yes | The question the LLM must answer. 
 `llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
 `conversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of the search query to the LLM. 
-`context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary model to model. Alternatively, you can use the `size` parameter in the Search API to control the amount of information sent to LLMs.
-`interaction_size` | No | The number of interactions sent to the LLMs. Similar to the number of search results, this affects the total number of tokens seen by the LLM. When not set, the pipeline uses the default interaction size, `10`.
-`timeout` | No | The number of seconds the pipeline waits for the remote model using a connector to respond. Default is `30`.
+`context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary by model. Alternatively, you can use the `size` parameter in the Search API to control the amount of information sent to the LLM.
+`interaction_size` | No | The number of interactions sent to the LLM. Similarly to the number of search results, this affects the total number of tokens seen by the LLM. When not set, the pipeline uses the default interaction size of `10`.
+`timeout` | No | The number of seconds that the pipeline waits for the remote model using a connector to respond. Default is `30`.
 
 If your LLM includes a set token limit, set the `size` field in your OpenSearch query to limit the number of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search results to the LLM.
 
