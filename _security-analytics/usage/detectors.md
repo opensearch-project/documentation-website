@@ -53,5 +53,3 @@ Threat detector actions allow you to stop and start detectors or delete a detect
 1. Select **Delete** in the dropdown list. The Delete detector popup window opens and asks you to verify that you want to delete the detector or detectors.
 1. Select **Cancel** to decline the action. Select **Delete detector** to delete the detector or detectors permanently from the list.
 
-## Related articles
-[Creating detectors]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/)
