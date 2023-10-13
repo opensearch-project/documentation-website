@@ -119,7 +119,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Thread_Blocked_Event
       </td>
-      <td>The total number of times that the associated thread(s) blocked to enter or reenter a monitor (that is, the number of times a thread has been in the blocked state).
+      <td>The total number of times that the associated thread(s) blocked to enter or reenter a monitor (that is, the number of times a thread has been in the `blocked` state).
       </td>
     </tr>
     <tr>
