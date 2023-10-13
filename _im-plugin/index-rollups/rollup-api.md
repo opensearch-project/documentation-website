@@ -89,6 +89,8 @@ PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
   }
 }
 ```
+{% include copy.html %}
+
 
 You can specify the following options.
 
@@ -197,6 +199,8 @@ Returns all information about an index rollup job based on the `rollup_id`.
 ```json
 GET _plugins/_rollup/jobs/<rollup_id>
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -224,6 +228,8 @@ Deletes an index rollup job based on the `rollup_id`.
 ```json
 DELETE _plugins/_rollup/jobs/<rollup_id>
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -246,6 +252,8 @@ Start or stop an index rollup job.
 POST _plugins/_rollup/jobs/<rollup_id>/_start
 POST _plugins/_rollup/jobs/<rollup_id>/_stop
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -268,6 +276,8 @@ Returns detailed metadata information about the index rollup job and its current
 ```json
 GET _plugins/_rollup/jobs/<rollup_id>/_explain
 ```
+{% include copy.html %}
+
 
 
 #### Example response
