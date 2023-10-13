@@ -22,5 +22,5 @@ If you don't want to use a model, you can use the [Train and Predict API]({{site
 1. Ensure that you've appropriately set the cluster settings described in [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/). 
 2. Set up model access as described in [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/). 
 3. Start using models: 
-  - ML Framework allows you to [run models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/). 
-  - ML Extensibility allows you to [access remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/). 
+  - [Run your custom models within an OpenSearch cluster]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/). 
+  - [Integrate models hosted on an external platform]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/). 
