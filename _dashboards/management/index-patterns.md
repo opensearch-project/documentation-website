@@ -10,9 +10,12 @@ has_children: true
 Updated 2.10
 {: .label .label-purple }
 
-Index patterns are essential for querying and analyzing data in OpenSearch or displaying your data on a dashboard or visualization. An _index pattern_ is the schema of an OpenSearch index. It provides a way for OpenSearch to select the data to use and for you to define the properties of a field. An index pattern can point to one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain that data. If you store data in multiple indexes, creating an index pattern enables your visualizations to retrieve data from all indexes that match the index pattern. 
+Index patterns are essential for accessing OpenSearch data. An _index pattern_ is the schema of an OpenSearch index. You need to create index patterns, which define how data is retrieved and fields are formatted, to query, search, and display data. 
+
+An index pattern can point to one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain that data. If you store data in multiple indexes, creating an index pattern enables your visualizations to retrieve data from all indexes that match the index pattern. 
 
 ## Get started
+
 In this tutorial, you'll learn to create index patterns.  
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon" size="m"/>{:/}**Note**<br>
