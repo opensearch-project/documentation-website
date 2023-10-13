@@ -38,7 +38,7 @@ To create visualizations, follow these steps:
 
 1. From the Explorer page, select the **Visualizations** tab. An example is shown in the following image:
 
-    img src="{{site.url}}{{site.baseurl}}/images/dashboards/explorer-S3viz-UI.png" alt="Explorer Amazon S3 visualizations UI" width="700">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/explorer-S3viz-UI.png" alt="Explorer Amazon S3 visualizations UI" width="700">
 
 2. Select **Index data to visualize**. This option currently only creates [acceleration indexes]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/), which give you views of the data visualizations from within the **Visualizations** tab. To create a visualization of your Amazon S3 data, go to **Discover**. See the [**Discover** documentation]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) for information and a tutorial. <SME: How does the user create visualizations of their S3 data? Through Discover?>
 
@@ -57,6 +57,6 @@ To use Query Workbench with your Amazon S3 data, follow these steps:
 4. Choose the **Describe Index** button to learn more about how data is stored in that particular index.
 5. Choose the **Drop index** button to delete and clear both the OpenSearch index and the Amazon S3 Spark job that refreshes the data.  
 
-## Nest steps
+## Next steps
 
 - Learn about [accelerating query performance of your external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/).
