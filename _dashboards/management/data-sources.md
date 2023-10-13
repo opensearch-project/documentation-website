@@ -2,7 +2,6 @@
 layout: default
 title: Data sources
 nav_order: 110
-nav_order: 110
 has_children: true
 ---
 
@@ -30,7 +29,7 @@ The following steps guide you through the basics of creating a data source conne
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-UI.png" alt="Connecting a data source UI" width="700"/>
 
-2. Add information to each field to configure **Connection Details** and **Authentication Method**. 
+2. Create the data source connection by entering the appropriate information into the **Connection Details** and **Authentication Method** fields. 
    
    - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
 
@@ -42,22 +41,21 @@ The following steps guide you through the basics of creating a data source conne
 
     After you have populated the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
-3. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
+3. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data sources** main page, and the new connection appears in the list of data sources.
 
-4. To delete a data source connection, select the checkbox to the left of the data source **Title** and then select the **Delete 1 connection** button. Selecting multiple checkboxes for multiple connections is supported. An example of the UI is shown in the following image.
+4. To delete a data source connection, select the checkbox to the left of the data source **Title** and then select the **Delete 1 connection** button. Selecting multiple checkboxes for multiple connections is supported. An example UI is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt="Deleting a data source UI" width="700"/>
 
 ### Modify a data source connection
-### Modify a data source connection
 
-To make changes to a data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
+To make changes to a data source connection, select a connection in the list on the **Data sources** main page. The **Connection Details** window opens.
 
 To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
 
-- When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
+When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
 
-- When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
+When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
 To delete the data source connection, select the delete icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/}).
 

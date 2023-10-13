@@ -18,18 +18,18 @@ Query performance can be slow when using external data sources for reasons such 
 
 To get started with the **Accelerate performance** use case available in **Data sources**, follow these steps:
 
-1. Go to **OpenSearch Dashboards** > **Query Workbench** and select your Amazon S3 data source from the **Data Sources** dropdown menu in the upper-left corner.
+1. Go to **OpenSearch Dashboards** > **Query Workbench** and select your Amazon S3 data source from the **Data sources** dropdown menu in the upper-left corner.
 2. From the left-side navigation menu, select a database. An example using the `http_logs` database is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-accelerate-data.png" alt="Query Workbench accelerate data UI" width="700"/>
 
 3. View the results in the table and confirm that you have the desired data.
-4. Create an acceleration index by following these steps:
+4. Create an OpenSearch index by following these steps:
     1. Select the **Accelerate data** button. A pop-up window appears. An example is shown in the following image.
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/accelerate-data-popup.png" alt="Accelerate data pop-up window" width="700"/>
 
-    2. Enter your details in the **Select data fields**. In the **Database** field, select the desired acceleration index: **Skipping index** or **Covering index**. A _skipping index_ uses skip acceleration methods, such as partition, min/max, and value sets, to ingest data using compact aggregate data structures. This makes them an economical option for direct querying scenarios. A _covering index_ ingests all or some of the data from the source into OpenSearch and makes it possible to use all OpenSearch Dashboards and plugin functionality.
+    2. Enter your details in **Select data fields**. In the **Database** field, select the desired acceleration index: **Skipping index** or **Covering index**. A _skipping index_ uses skip acceleration methods, such as partition, min/max, and value sets, to ingest data using compact aggregate data structures. This makes them an economical option for direct querying scenarios. A _covering index_ ingests all or some of the data from the source into OpenSearch and makes it possible to use all OpenSearch Dashboards and plugin functionality.
     
 5. Under **Index settings**, enter the information for your acceleration index. For information about naming, select **Help**. Note that an Amazon S3 table can only have one skipping index at a time. An example is shown in the following image.
 
@@ -57,7 +57,7 @@ To get started with the **Accelerate performance** use case available in **Data 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/covering-index-fields.png" alt="Covering index field naming" width="700"/>
 
 3. Select the **Copy Query to Editor** button to apply your covering index settings.
-4. View the covering index query details in the table pane and then select the **Run** button. Your index is added to the left-side navigation menu containing the list of your databases.   
+4. View the covering index query details in the table pane and then select the **Run** button. Your index is added to the left-side navigation menu containing the list of your databases. An example UI is shown in the following image.  
  
      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/run-index-query-workbench.png" alt="Run index in Query Workbench" width="700"/>
 

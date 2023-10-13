@@ -1,13 +1,11 @@
 ---
 layout: default
 title: Connecting Amazon S3 to OpenSearch
-title: Connecting Amazon S3 to OpenSearch
 parent: Data sources
 nav_order: 15
 has_children: true
 ---
 
-# Connecting Amazon S3 to OpenSearch
 # Connecting Amazon S3 to OpenSearch
 Introduced 2.11
 {: .label .label-purple }
@@ -58,6 +56,6 @@ This feature is still under development, including the data integration function
 
 - Learn about [querying your data in Data Explorer]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/) through OpenSearch Dashboards.
 - Learn about ways to [optimize the query performance of your external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/), such as Amazon S3, through Query Workbench. 
-- Learn about [Amazon S3 and AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst) and the APIS used in the Data Sources tool, including configuration settings and query examples.
+- Learn about [Amazon S3 and AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst) and the APIS used with Amazon S3 data sources, including configuration settings and query examples.
 - Learn about [managing your indexes]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
   
