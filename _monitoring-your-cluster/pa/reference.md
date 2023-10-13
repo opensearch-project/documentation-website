@@ -9,14 +9,14 @@ redirect_from:
 
 # Metrics reference
 
-OpenSearch provides a number of metrics to help you evaluate performance. The following tables describe the available metrics, grouped by the dimensions that are most relevant for that metric. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although for certain metrics the measured value is the same regardless of aggregation type. 
+OpenSearch provides a number of metrics to help you evaluate performance. The following tables describe the available metrics, grouped by the dimensions that are most relevant for that metric. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although for certain metrics, the measured value is the same regardless of aggregation type. 
 
 For information about each of the dimensions, see [dimensions reference](#dimensions-reference) later in this topic.
 
 This list is extensive. We recommend using Ctrl/Cmd + F to find what you're looking for.
 {: .tip }
 
-## Relevant dimensions `ShardID`, `IndexName`, `Operation`, `ShardRole`
+## Relevant dimensions: `ShardID`, `IndexName`, `Operation`, `ShardRole`
 
 <table>
  <thead style="text-align: left">
@@ -71,7 +71,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Heap_AllocRate
       </td>
-      <td>An approximation of the heap memory allocated, in bytes, per second in the past five seconds.
+      <td>An approximation, in bytes, of the heap memory allocated per second in the last 5 seconds.
       </td>
     </tr>
     <tr>
@@ -131,7 +131,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Thread_Waited_Event
       </td>
-      <td>The total number of times that the associated thread(s) waited to enter or reenter a monitor (that is, the number of times a thread has been in the <code>WAITING</code> or <code>TIMED_WAITING</code> state).
+      <td>The total number of times that the associated thread has waited to enter or reenter a monitor (that is, the number of times a thread has been in the <code>WAITING</code> or <code>TIMED_WAITING</code> state).
       </td>
     </tr>
     <tr>
@@ -149,7 +149,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   </tbody>
 </table>
 
-## Relevant dimensions `ShardID`, `IndexName` 
+## Relevant dimensions: `ShardID`, `IndexName` 
 
 <table>
   <thead style="text-align: left">
@@ -313,31 +313,31 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Indexing_Pressure_Current_Limits
       </td>
-      <td>Total heap size (in bytes) that is available for utilization by a shard of an index in a particular indexing stage (Coordinating, Primary, or Replica).
+      <td>The total heap size, in bytes, that is available for use by an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
     <tr>
       <td>Indexing_Pressure_Current_Bytes
       </td>
-      <td>Total heap size (in bytes) occupied by a shard of an index in a particular indexing stage (Coordinating, Primary, or Replica).
+      <td>The total heap size, in bytes, occupied by an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
     <tr>
       <td>Indexing_Pressure_Last_Successful_Timestamp
       </td>
-      <td>Timestamp of a request that was successful for a shard of an index in a particular indexing stage (Coordinating, Primary, or Replica).
+      <td>The timestamp of a successful request for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
     <tr>
       <td>Indexing_Pressure_Rejection_Count
       </td>
-      <td>Total rejections performed by OpenSearch for a shard of an index in a particular indexing stage (Coordinating, Primary, or Replica).
+      <td>The total number of rejections performed by OpenSearch for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
     <tr>
       <td>Indexing_Pressure_Average_Window_Throughput
       </td>
-      <td>Average throughput of the last n requests (The value of n is determined by the `shard_indexing_pressure.secondary_parameter.throughput.request_size_window` setting) for a shard of an index in a particular indexing stage (Coordinating, Primary, or Replica).
+      <td>The average throughput of the last n requests (The value of n is determined by the `shard_indexing_pressure.secondary_parameter.throughput.request_size_window` setting) for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
    </tbody>
@@ -455,37 +455,37 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>Net_TCP_NumFlows
      </td>
-     <td>Number of samples collected. Performance Analyzer collects one sample every five seconds.
+     <td>The number of samples collected. Performance Analyzer collects 1 sample every 5 seconds.
      </td>
    </tr>
    <tr>
      <td>Net_TCP_TxQ
      </td>
-     <td>Average number of TCP packets in the send buffer.
+     <td>The average number of TCP packets in the send buffer.
      </td>
    </tr>
    <tr>
      <td>Net_TCP_RxQ
      </td>
-     <td>Average number of TCP packets in the receive buffer.
+     <td>The average number of TCP packets in the receive buffer.
      </td>
    </tr>
    <tr>
      <td>Net_TCP_Lost
      </td>
-     <td>Average number of unrecovered recurring timeouts. This number is reset when the recovery finishes or `SND.UNA` is advanced. `SND.UNA` is the sequence number of the first byte of data that has been sent, but not yet acknowledged.
+     <td>The average number of unrecovered recurring timeouts. This number is reset when the recovery finishes or `SND.UNA` is advanced. `SND.UNA` is the sequence number of the first byte of data that has been sent but not yet acknowledged.
      </td>
   </tr>
   <tr>
      <td>Net_TCP_SendCWND
      </td>
-     <td>Average size (bytes) of the sending congestion window.
+     <td>The average size, in bytes, of the sending congestion window.
      </td>
    </tr>
    <tr>
      <td>Net_TCP_SSThresh
      </td>
-     <td>Average size (bytes) of the slow start size threshold.
+     <td>The average size, in bytes, of the slow start size threshold.
      </td>
    </tr>
  </tbody>
@@ -597,7 +597,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>ClusterManager_PendingQueueSize
      </td>
-     <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks, such as create index, update mapping, allocate shard, and, fail shard.
+     <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks, such as create index, update mapping, allocate shard, and fail shard.
      </td>
    </tr>
   </tbody>
@@ -622,13 +622,13 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   <tr>
     <td>HTTP_TotalRequests
     </td>
-    <td>The number of finished requests in the past five seconds.
+    <td>The number of requests completed in the last 5 seconds.
     </td>
   </tr>
   </tbody>
 </table>
 
-## Relevant dimensions: `CBType` 
+## Relevant dimension: `CBType` 
   
 <table>
   <thead style="text-align: left">
@@ -647,13 +647,13 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
      <td>CB_TrippedEvents
      </td>
-     <td>The number of times the circuit breaker has tripped.
+     <td>The number of times that the circuit breaker has tripped.
      </td>
     </tr>
     <tr>
       <td>CB_ConfiguredSize
       </td>
-      <td>The limit (in bytes) for how much memory operations can use.
+      <td>The limit, in bytes, of the amount of memory operations can use.
       </td>
     </tr>
    </tbody>
@@ -672,13 +672,13 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>ClusterManager_Task_Queue_Time
      </td>
-     <td>The time (milliseconds) that a cluster manager task spent in the queue.
+     <td>The amount of time, in milliseconds, that a cluster manager task spent in the queue.
      </td>
    </tr>
    <tr>
       <td>ClusterManager_Task_Run_Time
       </td>
-      <td>The time (milliseconds) that a cluster manager task has been executed.
+      <td>The amount of time, in milliseconds, that a cluster manager task has been running.
       </td>
     </tr>
  </tbody>
@@ -697,7 +697,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>Cache_MaxSize
      </td>
-     <td>The max size of the cache in bytes.
+     <td>The maximum size of the cache, in bytes.
      </td>
    </tr>
  </tbody>
@@ -715,19 +715,19 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
   <tr>
     <td>AdmissionControl_RejectionCount 
     </td>
-    <td>Total rejections performed by a Controller of Admission Control.
+    <td>The total number of rejections performed by a Controller of Admission Control.
     </td>
   </tr>
   <tr>
     <td>AdmissionControl_CurrentValue 
     </td>
-    <td>Current value for Controller of Admission Control.
+    <td>The current value for Controller of Admission Control.
     </td>
   </tr>
   <tr>
     <td>AdmissionControl_ThresholdValue
     </td>
-    <td>Threshold value for Controller of Admission Control.
+    <td>The threshold value for Controller of Admission Control.
     </td>
   </tr>
  </tbody>
@@ -746,13 +746,13 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Data_RetryingPendingTasksCount 
       </td>
-      <td>Number of throttled pending tasks on which the data node is actively performing retries. It is an absolute metric at that point of time.
+      <td>The number of throttled pending tasks on which the data node is actively performing retries. It is an absolute metric at that point in time.
       </td>
     </tr>
     <tr>
       <td>ClusterManager_ThrottledPendingTasksCount 
       </td>
-      <td>Sum of the total pending tasks which were throttled by the cluster manager node. It is a cumulative metric, so make sure to look at the max aggregation.
+      <td>The sum of the total pending tasks that were throttled by the cluster manager node. This is a cumulative metric, so make sure to check the max aggregation.
       </td>
     </tr>
   </tbody>
@@ -770,13 +770,13 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>Election_Term 
      </td>
-     <td>Monotonically increasing number with every cluster manager election.
+     <td>A number that increases monotonically with every cluster manager election.
      </td>
    </tr>
    <tr>
      <td>PublishClusterState_Latency 
      </td>
-     <td>The time taken by the quorum of nodes to publish the new cluster state. This metric is available for the current cluster manager.
+     <td>The amount of time taken by the quorum of nodes to publish the new cluster state. This metric is available for the current cluster manager.
      </td>
    </tr>
    <tr>
@@ -788,7 +788,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>ClusterApplierService_Latency 
      </td>
-     <td>The time taken by each node for the apply cluster state sent by the cluster manager.
+     <td>The amount of time taken by each node for the apply cluster state sent by the cluster manager.
      </td>
    </tr>
    <tr>
@@ -813,7 +813,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>Shard_State 
      </td>
-     <td>The state of each shard, for example, `STARTED`, `UNASSIGNED`,  and `RELOCATING`.
+     <td>The state of each shard, for example, `STARTED`, `UNASSIGNED`, or `RELOCATING`.
      </td>
    </tr>
    </tbody>
@@ -876,7 +876,7 @@ The following metrics are new as of OpenSearch 2.11.
    <tr>
      <td>searchbp_shard_stats_limitReachedCount
      </td>
-     <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold on the shard task.
+     <td>The number of times that the number of tasks eligible for cancellation exceeded the set cancellation threshold on the shard task.
      </td>
    </tr>
    <tr>
@@ -894,13 +894,13 @@ The following metrics are new as of OpenSearch 2.11.
    <tr>
      <td>searchbp_shard_stats_resource_heap_usage_rollingAvg
      </td>
-     <td> The rolling average heap usage for n most recent tasks on the shard task. The default value for n is 100.
+     <td> The rolling average heap usage for the n most recent tasks on the shard task. The default value for n is 100.
      </td>
    </tr>
    <tr>
      <td>searchbp_shard_stats_resource_cpu_usage_cancellationCount
      </td>
-     <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted on the shard task.
+     <td>The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted on the shard task.
      </td>
    </tr>
    <tr>
@@ -942,7 +942,7 @@ The following metrics are new as of OpenSearch 2.11.
    <tr>
      <td>searchbp_task_stats_limitReachedCount
      </td>
-     <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold on the search task level.
+     <td>The number of times that the number of tasks eligible for cancellation exceeded the set cancellation threshold on the search task level.
      </td>
    </tr>
    <tr>
@@ -960,7 +960,7 @@ The following metrics are new as of OpenSearch 2.11.
    <tr>
      <td>searchbp_task_stats_resource_heap_usage_rollingAvg
      </td>
-     <td> The rolling average heap usage for n most recent tasks on the search task level. The default value for n is 10.
+     <td> The rolling average heap usage for the n most recent tasks on the search task level. The default value for n is 10.
      </td>
    </tr>
    <tr>
@@ -1009,18 +1009,18 @@ The following metrics are new as of OpenSearch 2.11.
 | ShardID              | The ID for the shard, for example, `1`.           |
 | IndexName            | The name of the index, for example, `my-index`.   |
 | Operation            | The type of operation, for example, `shardbulk`.  |
-| ShardRole            | The shard role, for example, `primary`, or `replica`.                            |
+| ShardRole            | The shard role, for example, `primary` or `replica`.                            |
 | Exception            | OpenSearch exceptions, for example, `org.opensearch.index_not_found_exception`. |
 | Indices              | The list of indexes in the request URL.        |
 | HTTPRespCode         | The response code from OpenSearch, for example, `200`. |
 | MemType              | The memory type, for example, `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, or `Heap`. |
 | DiskName             | The name of the disk, for example, `sda1`.        |
 | DestAddr             | The destination address, for example, `010015AC`. |
-| Direction            | The direction, for example, `in`, or `out`.                                    |
+| Direction            | The direction, for example, `in` or `out`.                                    |
 | ThreadPoolType       | The OpenSearch thread pools, for example, `index`, `search`, or `snapshot`. |
 | CBType               | The circuit breaker type, for example, `accounting`, `fielddata`, `in_flight_requests`, `parent`, or `request`. |
 | ClusterManagerTaskInsertOrder| The order in which the task was inserted, for example, `3691`. |
-| ClusterManagerTaskPriority   | The priority of the task, for example, `URGENT`. OpenSearch executes higher priority tasks before lower priority ones, regardless of `insert_order`. |
+| ClusterManagerTaskPriority   | The priority of the task, for example, `URGENT`. OpenSearch executes higher-priority tasks before lower-priority ones, regardless of `insert_order`. |
 | ClusterManagerTaskType       | The task type, for example, `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, or `Update snapshot state`. |
 | ClusterManagerTaskMetadata   | The metadata for the task (if any).                 |
 | CacheType            | The cache type, for example, `Field_Data_Cache`, `Shard_Request_Cache`, or `Node_Query_Cache`. |
