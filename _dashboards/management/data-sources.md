@@ -26,7 +26,7 @@ A data source connection specifies the parameters needed to connect to a data so
 
 The following steps guide you through the basics of creating a data source connection:
 
-1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**. The user interface is shown in the following image.
+1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**. The UI is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-UI.png" alt="Connecting a data source UI" width="700"/>
 
