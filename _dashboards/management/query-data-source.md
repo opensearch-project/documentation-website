@@ -15,7 +15,7 @@ This tutorial guides you through using the **Query data** use case for querying 
 
 ## Prerequisites
 
-You must be using the `opensearch-security` plugin and have the appropriate role permissions. Contact your IT admin to assign you the necessary permissions.  
+You must be using the `opensearch-security` plugin and have the appropriate role permissions. Contact your IT administrator to assign you the necessary permissions.  
 
 ## Get started with querying
 
