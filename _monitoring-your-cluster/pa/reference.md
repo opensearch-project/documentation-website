@@ -662,7 +662,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>searchbp_shard_stats_limitReachedCount
       </td>
-      <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold, on search shard task level.
+      <td>The number of times when cancellable task total exceeded the set cancellation threshold, on search shard task level.
       </td>
     </tr>
     <tr>
@@ -680,13 +680,13 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>searchbp_shard_stats_resource_heap_usage_rollingAvg
       </td>
-      <td> The rolling average heap usage for n most recent tasks, on search shard task level. The default value for n is 100.
+      <td> The rolling average heap usage for N most recent tasks, on search shard task level. The default value for N is 100.
       </td>
     </tr>
     <tr>
       <td>searchbp_shard_stats_resource_cpu_usage_cancellationCount
       </td>
-      <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search shard task level.
+      <td>The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search shard task level.
       </td>
     </tr>
     <tr>
@@ -728,7 +728,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>searchbp_task_stats_limitReachedCount
       </td>
-      <td>The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold, on search task level.
+      <td>The number of times when cancellable task total exceeded the set cancellation threshold, on search task level.
       </td>
     </tr>
     <tr>
@@ -746,13 +746,13 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>searchbp_task_stats_resource_heap_usage_rollingAvg
       </td>
-      <td> The rolling average heap usage for n most recent tasks, on search task level. The default value for n is 10.
+      <td> The rolling average heap usage for N most recent tasks, on search task level. The default value for N is 10.
       </td>
     </tr>
     <tr>
       <td>searchbp_task_stats_resource_cpu_usage_cancellationCount
       </td>
-      <td>he number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search task level.
+      <td>The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted, on search task level.
       </td>
     </tr>
     <tr>
