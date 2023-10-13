@@ -91,7 +91,7 @@ OpenSearch provides the following pre- and post-processing functions:
 
 ### Default pre- and post-processing functions
 
-The default pre- and post-processing functions translate between the format that the model expects and the format that [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) expects. 
+When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a remote model, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
 
 #### Example request
 
@@ -136,7 +136,7 @@ The `request_body` template must be `${parameters.input}``.
 
 The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
 
-The model must be able to process the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) request input, such as the following:
+The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) provides parameters in the following format:
 
 ```json
 {
@@ -144,6 +144,12 @@ The model must be able to process the [Predict API]({{site.url}}{{site.baseurl}}
     "input": ["hello", "world"]
   }
 }
+```
+
+The default preprocessing function sends the `input` field contents to the model. Thus, the model input format must be a list of strings, for example:
+
+```json
+["hello", "world"]
 ```
 
 ### Post-processing function 
