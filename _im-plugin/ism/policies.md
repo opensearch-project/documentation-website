@@ -127,6 +127,8 @@ task_execution_timeout | Time | The explicit task execution timeout. Only useful
   }
 }
 ```
+{% include copy.html %}
+
 
 ### read_only
 
@@ -137,6 +139,8 @@ Sets a managed index to be read only.
   "read_only": {}
 }
 ```
+{% include copy.html %}
+
 
 Set the index setting `index.blocks.write` to `true` for a managed index. ***Note:** this block does not prevent the index from refreshing.
 
@@ -149,6 +153,8 @@ Sets a managed index to be writeable.
   "read_write": {}
 }
 ```
+{% include copy.html %}
+
 
 ### replica_count
 
@@ -165,6 +171,8 @@ Parameter | Description | Type | Required
   }
 }
 ```
+{% include copy.html %}
+
 
 For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
 
@@ -190,6 +198,8 @@ Allows you to reduce the number of primary shards in your indexes. With this act
     "force_unsafe": false
 }
 ```
+{% include copy.html %}
+
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
@@ -222,6 +232,8 @@ If you want to add `aliases` to the action, the parameter must include an array 
   },
 ]
 ```
+{% include copy.html %}
+
 
 ### close
 
@@ -232,6 +244,8 @@ Closes the managed index.
   "close": {}
 }
 ```
+{% include copy.html %}
+
 
 Closed indexes remain on disk, but consume no CPU or memory. You can't read from, write to, or search closed indexes.
 
@@ -246,6 +260,8 @@ Opens a managed index.
   "open": {}
 }
 ```
+{% include copy.html %}
+
 
 ### delete
 
@@ -256,6 +272,8 @@ Deletes a managed index.
   "delete": {}
 }
 ```
+{% include copy.html %}
+
 
 ### rollover
 
@@ -282,6 +300,8 @@ Parameter | Description | Type | Example | Required
   }
 }
 ```
+{% include copy.html %}
+
 
 ```json
 {
@@ -290,6 +310,8 @@ Parameter | Description | Type | Example | Required
   }
 }
 ```
+{% include copy.html %}
+
 
 ```json
 {
@@ -298,6 +320,8 @@ Parameter | Description | Type | Example | Required
   }
 }
 ```
+{% include copy.html %}
+
 
 ```json
 {
@@ -306,6 +330,8 @@ Parameter | Description | Type | Example | Required
   }
 }
 ```
+{% include copy.html %}
+
 
 ### notification
 
@@ -334,6 +360,8 @@ The destination system **must** return a response otherwise the notification ope
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Example 2: Custom webhook notification
 
@@ -351,6 +379,8 @@ The destination system **must** return a response otherwise the notification ope
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Example 3: Slack notification
 
@@ -368,6 +398,8 @@ The destination system **must** return a response otherwise the notification ope
   }
 }
 ```
+{% include copy.html %}
+
 
 You can use `ctx` variables in your message to represent a number of policy parameters based on the past executions of your policy. For example, if your policy has a rollover action, you can use `{% raw %}{{ctx.action.name}}{% endraw %}` in your message to represent the name of the rollover.
 
@@ -400,6 +432,8 @@ Parameter | Description | Type | Required | Default
   }
 }
 ```
+{% include copy.html %}
+
 
 ### index_priority
 
@@ -420,6 +454,8 @@ Parameter | Description | Type | Required | Default
   }
 ]
 ```
+{% include copy.html %}
+
 
 ### allocation
 
@@ -444,6 +480,8 @@ Parameter | Description | Type | Required
   }
 ]
 ```
+{% include copy.html %}
+
 
 ### rollup
 
@@ -462,6 +500,8 @@ POST _plugins/_rollup/jobs/<rollup_id>/_start
 POST _plugins/_rollup/jobs/<rollup_id>/_stop
 GET _plugins/_rollup/jobs/<rollup_id>/_explain
 ````
+{% include copy.html %}
+
 
 #### Sample ISM rollup policy
 
@@ -592,6 +632,8 @@ The following example transitions the index to a `cold` state after a period of 
   }
 ]
 ```
+{% include copy.html %}
+
 
 ISM checks the conditions on every execution of the policy based on the set interval.
 
@@ -612,6 +654,8 @@ This example uses the `cron` condition to transition indexes every Saturday at 5
   }
 ]
 ```
+{% include copy.html %}
+
 
 Note that this condition does not execute at exactly 5:00 PM; the job still executes based off the `job_interval` setting. Due to this variance in start time and the amount of time that it can take for actions to complete prior to checking transition conditions, we recommend against overly narrow cron expressions. For example, don't use `15 17 * * SAT` (5:15 PM on Saturday).
 
@@ -639,6 +683,8 @@ Set up error notifications at the policy level:
   }
 }
 ```
+{% include copy.html %}
+
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
@@ -664,6 +710,8 @@ The destination system **must** return a response otherwise the `error_notificat
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Example 2: Custom webhook notification
 
@@ -681,6 +729,8 @@ The destination system **must** return a response otherwise the `error_notificat
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Example 3: Slack notification
 
@@ -698,6 +748,8 @@ The destination system **must** return a response otherwise the `error_notificat
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Example 4: Using a notification channel
 
@@ -713,6 +765,8 @@ The destination system **must** return a response otherwise the `error_notificat
   }
 }
 ```
+{% include copy.html %}
+
 
 You can use the same options for `ctx` variables as the [notification](#notification) operation.
 
@@ -750,6 +804,8 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
      }
    }
    ```
+   {% include copy.html %}
+
 
    You need to specify the `index_patterns` field. If you don't specify a value for `priority`, it defaults to 0.
 
@@ -766,6 +822,8 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
     }
    }
    ```
+   {% include copy.html %}
+
 
 3. Create an index with the `log` alias:
 
@@ -779,6 +837,8 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
      }
    }
    ```
+   {% include copy.html %}
+
 
 4. Index a document to trigger the rollover condition:
 
@@ -788,12 +848,16 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
      "message": "dummy"
    }
    ```
+   {% include copy.html %}
+
 
 5. Verify if the policy is attached to the `log-000001` index:
 
    ```json
    GET _plugins/_ism/explain/log-000001?pretty
    ```
+   {% include copy.html %}
+
 
 ## Example policy with ISM templates for the alias action
 
@@ -850,6 +914,8 @@ PUT /_plugins/_ism/policies/rollover_policy?pretty
   }
 }
 ```
+{% include copy.html %}
+
 
 Next, create an index template on which to enable the policy:
 
