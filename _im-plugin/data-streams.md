@@ -32,6 +32,8 @@ PUT _index_template/logs-template
   "priority": 100
 }
 ```
+{% include copy.html %}
+
 
 In this case, each ingested document must have an `@timestamp` field.
 You also have the ability to define your own custom timestamp field as a property in the `data_stream` object. You can also add index mappings and other settings here, just as you would for a regular index template.
@@ -54,6 +56,8 @@ PUT _index_template/logs-template-nginx
   }
 }
 ```
+{% include copy.html %}
+
 
 In this case, `logs-nginx` index matches both the `logs-template` and `logs-template-nginx` templates. When you have a tie, OpenSearch selects the matching index template with the higher priority value.
 
@@ -66,6 +70,8 @@ You can use the data stream API to explicitly create a data stream. The data str
 PUT _data_stream/logs-redis
 PUT _data_stream/logs-nginx
 ```
+{% include copy.html %}
+
 
 You can also directly start ingesting data without creating a data stream.
 
@@ -78,12 +84,16 @@ POST logs-staging/_doc
   "@timestamp": "2013-03-01T00:00:00"
 }
 ```
+{% include copy.html %}
+
 
 To see information about a specific data stream:
 
 ```json
 GET _data_stream/logs-nginx
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -109,6 +119,7 @@ GET _data_stream/logs-nginx
 }
 ```
 
+
 You can see the name of the timestamp field, the list of the backing indexes, and the template that's used to create the data stream. You can also see the health of the data stream, which represents the lowest status of all its backing indexes.
 
 To see more insights about the data stream, use the `_stats` endpoint:
@@ -116,6 +127,8 @@ To see more insights about the data stream, use the `_stats` endpoint:
 ```json
 GET _data_stream/logs-nginx/_stats
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -143,8 +156,11 @@ GET _data_stream/logs-nginx/_stats
 To see information about all data streams, use the following request:
 
 ```json
-GET _data_stream
+GET _dat
+a_stream
 ```
+{% include copy.html %}
+
 
 ### Step 3: Ingest data into the data stream
 
@@ -157,6 +173,8 @@ POST logs-redis/_doc
   "@timestamp": "2013-03-01T00:00:00"
 }
 ```
+{% include copy.html %}
+
 
 ### Step 4: Searching a data stream
 
@@ -173,6 +191,8 @@ GET logs-redis/_search
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -217,6 +237,8 @@ To perform manual rollover operation on the data stream:
 ```json
 POST logs-redis/_rollover
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -263,6 +285,8 @@ To delete a data stream and all of its hidden backing indexes:
 ```json
 DELETE _data_stream/<name_of_data_stream>
 ```
+{% include copy.html %}
+
 
 You can use wildcards to delete more than one data stream.
 
