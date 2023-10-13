@@ -124,7 +124,7 @@ Selecting multiple data sources by using the Dev Tools console gives you the fle
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
-To select a data source using the Dev Tools console, follow these steps:
+To select a data source by using the Dev Tools console, follow these steps:
 
 1. Locate your copy of `opensearch_dashboards.yml` and open it in the editor of your choice. 
 2. Set `data_source.enabled` to `true`.
