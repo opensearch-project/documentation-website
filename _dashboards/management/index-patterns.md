@@ -43,7 +43,7 @@ If you added sample data, you have index patterns that you can use to analyze th
 3. From the **Create index pattern** window, define the index pattern by entering a name for your index pattern in the **Index pattern name** field. Dashboards automatically adds a wildcard, `*`, once you start typing. Using a wildcard is helpful for matching an index pattern to multiple sources or indexes. A dropdown list displaying all the indexes that match your index pattern appears when you start typing. 
 4. Select **Next step**.
 
-An example using the index pattern `security*` is shown in the following image. Note that the index pattern `security*` matches three indexes. By defining the pattern with a wildcard `*`, you can query and visualize all the data in your indexes.
+An example of step 1 is shown in the following image. Note that the index pattern `security*` matches three indexes. By defining the pattern with a wildcard `*`, you can query and visualize all the data in your indexes.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-patterns-step1.png" alt="Index pattern step 1 UI " width="700"/>
 
@@ -61,5 +61,5 @@ Once the index pattern has been created, you can view the mapping of the matchin
 
 ## Next steps
 
-- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
-- [Dig into your data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/)
+- [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+- [Dig into your data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
