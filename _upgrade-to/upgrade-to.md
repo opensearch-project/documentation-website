@@ -50,6 +50,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
      }
    }
    ```
+   {% include copy.html %}
 
 1. Stop Elasticsearch OSS on one node (rolling upgrade) or all nodes (cluster restart upgrade).
 
@@ -58,6 +59,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    ```bash
    sudo systemctl stop elasticsearch.service
    ```
+   {% include copy.html %}
 
    For tarball installations, find the process ID (`ps aux`) and kill it (`kill <pid>`).
 
@@ -68,6 +70,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    ```bash
    sudo yum install elasticsearch-oss-7.10.2 --enablerepo=elasticsearch
    ```
+   {% include copy.html %}
 
    For tarball installations, extract to a new directory to ensure you **do not overwrite** your `config`, `data`, and `logs` directories. Ideally, these directories should have their own, independent paths and *not* be colocated with the Elasticsearch application directory. Then set the `ES_PATH_CONF` environment variable to the directory that contains `elasticsearch.yml` (for example, `/etc/elasticsearch/`). In `elasticsearch.yml`, set `path.data` and `path.logs` to your `data` and `logs` directories (for example, `/var/lib/elasticsearch` and `/var/log/opensearch`).
 
@@ -78,6 +81,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    ```bash
    sudo systemctl start elasticsearch.service
    ```
+   {% include copy.html %}
 
    For tarball installations, run `./bin/elasticsearch -d`.
 
@@ -89,6 +93,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    # Open Distro for Elasticsearch with Security plugin enabled
    curl -XGET 'https://localhost:9200/_nodes/_all?pretty=true' -u 'admin:admin' -k
    ```
+   {% include copy.html %}
 
    Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indexes.
 
@@ -104,6 +109,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
      }
    }
    ```
+   {% include copy.html %}
 
 1. If you upgraded from 5.x to 6.x, [reindex]({{site.url}}{{site.baseurl}}/opensearch/reindex-data/) all indexes.
 
@@ -122,6 +128,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
      }
    }
    ```
+   {% include copy.html %}
 
 1. Stop Elasticsearch OSS on one node (rolling upgrade) or all nodes (cluster restart upgrade).
 
@@ -130,6 +137,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    ```bash
    sudo systemctl stop elasticsearch.service
    ```
+   {% include copy.html %}
 
    For tarball installations, find the process ID (`ps aux`) and kill it (`kill <pid>`).
 
@@ -156,6 +164,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
       ```yml
       compatibility.override_main_response_version: true
       ```
+      {% include copy.html %}
 
    1. (Optional) Add your certificates to your `config` directory, add them to `opensearch.yml`, and initialize the Security plugin.
 
@@ -171,6 +180,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    # Security plugin enabled
    curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_nodes/_all?pretty=true'
    ```
+   {% include copy.html %}
 
    Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indexes.
 
@@ -186,6 +196,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
      }
    }
    ```
+   {% include copy.html %}
 
 ## Upgrade tool
 
@@ -222,6 +233,7 @@ Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migr
      }
    }
    ```
+   {% include copy.html %}
 
 1. On any one of the nodes, download and extract the OpenSearch tarball to a new directory.
 
@@ -232,24 +244,28 @@ Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migr
       ```bash
       export ES_HOME=/home/workspace/upgrade-demo/node1/elasticsearch-7.10.2
       ```
+      {% include copy.html %}
 
     - `ES_PATH_CONF` - Path to the existing Elasticsearch config directory.
 
       ```bash
       export ES_PATH_CONF=/home/workspace/upgrade-demo/node1/os-config
       ```
+      {% include copy.html %}
 
     - `OPENSEARCH_HOME` - Path to the OpenSearch installation home.
 
       ```bash
       export OPENSEARCH_HOME=/home/workspace/upgrade-demo/node1/opensearch-1.0.0
       ```
+      {% include copy.html %}
 
     - `OPENSEARCH_PATH_CONF` - Path to the OpenSearch config directory.
 
       ```bash
       export OPENSEARCH_PATH_CONF=/home/workspace/upgrade-demo/node1/opensearch-config
       ```
+      {% include copy.html %}
 
 1. The `opensearch-upgrade` tool is in the `bin` directory of the distribution. Run the following command from the distribution home:
 
@@ -259,6 +275,7 @@ Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migr
    ```json
    ./bin/opensearch-upgrade
    ```
+   {% include copy.html %}
 
 1. Stop Elasticsearch OSS on the node.
 
@@ -267,6 +284,7 @@ Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migr
    ```bash
    sudo systemctl stop elasticsearch.service
    ```
+   {% include copy.html %}
 
    For tarball installations, find the process ID (`ps aux`) and kill it (`kill <pid>`).
 
@@ -275,6 +293,7 @@ Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migr
    ```json
    ./bin/opensearch -d.
    ```
+   {% include copy.html %}
 
 1. Repeat steps 2--6 until all nodes are using the new version.
 
@@ -288,6 +307,7 @@ Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migr
      }
    }
    ```
+   {% include copy.html %}
 
 ### How it works
 
