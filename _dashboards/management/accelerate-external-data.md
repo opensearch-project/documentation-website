@@ -52,7 +52,7 @@ To get started with the **Accelerate performance** use case available in **Data 
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/covering-index-naming.png" alt="Covering index settings" width="700"/>
 
-2. Once you have added the index name, define the covering index fields by selecting `(add fields here)` under **Covering index definition**. An example is shown in the following image:
+2. Once you have added the index name, define the covering index fields by selecting `(add fields here)` under **Covering index definition**. An example is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/covering-index-fields.png" alt="Covering index field naming" width="700"/>
 
