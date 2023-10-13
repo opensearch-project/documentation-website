@@ -27,7 +27,7 @@ To get started, follow these steps:
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/observability-logs-UI.png" alt="Observability Logs UI" width="700">
 
 3. Select the **Event Explorer** button. This option creates and saves frequently searched queries and visualizations using [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) or [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/), which connects to Spark SQL.
-4. Select the Amazon S3 data source from the dropdown menu in the upper-left corner. An example is shown in the following image:
+4. Select the Amazon S3 data source from the dropdown menu in the upper-left corner. An example is shown in the following image.
 
      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-data-sources-UI-2.png" alt="Observability Logs Amazon S3 dropdown menu" width="700">
 
