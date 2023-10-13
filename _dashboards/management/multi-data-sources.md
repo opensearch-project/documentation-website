@@ -72,7 +72,7 @@ To delete the data source connection, select the trash can icon ({::nomarkdown}<
 
 Use index patterns to access the OpenSearch data that you want to explore. Learn how to load your own data and create an index pattern in the following steps. This tutorial uses the preconfigured index pattern `opensearch_dashboards_sample_data_ecommerce Default`.
 
-1. Go to OpenSearch Dashboards, and select **Management** > **Dashboards Management** > **Index patterns**. 
+1. Go to OpenSearch Dashboards and select **Management** > **Dashboards Management** > **Index patterns**. 
 2. Select **Create index pattern**.
 3. Select **Use external data source connection**.
 4. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**.
