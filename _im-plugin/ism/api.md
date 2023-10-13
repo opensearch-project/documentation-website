@@ -74,6 +74,8 @@ PUT _plugins/_ism/policies/policy_1
   }
 }
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -152,6 +154,8 @@ POST _plugins/_ism/add/index_1
   "policy_id": "policy_1"
 }
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -227,6 +231,8 @@ PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
   }
 }
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -302,6 +308,8 @@ Gets the policy by `policy_id`.
 ```json
 GET _plugins/_ism/policies/policy_1
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -374,6 +382,8 @@ Removes any ISM policy from the index.
 ```json
 POST _plugins/_ism/remove/index_1
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -412,6 +422,8 @@ POST _plugins/_ism/change_policy/index_1
   ]
 }
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -440,6 +452,8 @@ POST _plugins/_ism/retry/index_1
   "state": "delete"
 }
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -465,6 +479,8 @@ Gets the current state of the index. You can use index patterns to get the statu
 ```json
 GET _plugins/_ism/explain/index_1
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -484,6 +500,8 @@ Optionally, you can add the `show_policy` parameter to your request's path to ge
 ```json
 GET _plugins/_ism/explain/index_1?show_policy=true
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -526,6 +544,8 @@ Deletes the policy by `policy_id`.
 ```json
 DELETE _plugins/_ism/policies/policy_1
 ```
+{% include copy.html %}
+
 
 
 #### Example response
@@ -563,6 +583,8 @@ PUT _cluster/settings
    }
 }
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -587,6 +609,8 @@ To check an error prevention validation status and message, pass `validate_actio
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=true
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -643,12 +667,16 @@ If you pass `validate_action=false` or do not pass a `validate_action` value to 
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=false
 ```
+{% include copy.html %}
+
 
 Or:
 
 ```bash
 GET _plugins/_ism/explain/test-000001
 ```
+{% include copy.html %}
+
 
 #### Example response
 
