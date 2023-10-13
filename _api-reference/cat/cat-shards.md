@@ -15,7 +15,7 @@ redirect_from:
 
 The CAT shards operation lists the state of all primary and replica shards and how they are distributed.
 
-**Example**
+#### Example
 
 ```
 GET _cat/shards?v

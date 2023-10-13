@@ -13,7 +13,7 @@ redirect_from:
 
 The shrink index API operation moves all of your data in an existing index into a new index with fewer primary shards.
 
-**Example**
+#### Example
 
 ```json
 POST /my-old-index/_shrink/my-new-index

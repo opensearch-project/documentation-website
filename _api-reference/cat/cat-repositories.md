@@ -15,7 +15,7 @@ redirect_from:
 
 The CAT repositories operation lists all completed and ongoing index and shard recoveries.
 
-**Example**
+#### Example
 
 ```
 GET _cat/repositories?v

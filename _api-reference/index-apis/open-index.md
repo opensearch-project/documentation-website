@@ -13,7 +13,7 @@ redirect_from:
 
 The open index API operation opens a closed index, letting you add or search for data within the index.
 
-**Example**
+#### Example
 
 ```json
 POST /sample-index/_open

@@ -10,12 +10,12 @@ redirect_from:
 ---
 
 # CAT templates
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT templates operation lists the names, patterns, order numbers, and version numbers of index templates.
 
-## Example
+#### Example
 
 ```
 GET _cat/templates?v

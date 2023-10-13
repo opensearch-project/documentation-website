@@ -15,7 +15,7 @@ has_children: false
 
 The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
 
-**Example**
+#### Example
 
 ```json
 GET _cat/aliases?v

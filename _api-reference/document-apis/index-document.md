@@ -13,7 +13,7 @@ redirect_from:
 
 Before you can search for data, you must first add documents. This operation adds a single document to your index.
 
-**Example**
+#### Example
 
 ```json
 PUT sample-index/_doc/1

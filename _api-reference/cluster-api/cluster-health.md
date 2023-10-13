@@ -17,7 +17,7 @@ The most basic cluster health request returns a simple status of the health of y
 
 To get the status of a specific index, provide the index name.
 
-**Example**
+#### Example
 
 This request waits 50 seconds for the cluster to reach the yellow status or better:
 

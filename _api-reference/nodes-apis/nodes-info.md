@@ -18,7 +18,7 @@ The nodes info API represents mostly static information about your cluster's nod
 - Thread pools settings 
 - Installed plugins
 
-**Example**
+#### Example
 
 To get information about all nodes in a cluster, use the following query:
 

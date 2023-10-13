@@ -14,7 +14,7 @@ redirect_from:
 
 The CAT nodeattrs operation lists the attributes of custom nodes.
 
-**Example**
+#### Example
 
 ```
 GET _cat/nodeattrs?v

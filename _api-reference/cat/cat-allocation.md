@@ -14,7 +14,7 @@ has_children: false
 
 The CAT allocation operation lists the allocation of disk space for indexes and the number of shards on each node.
 
-**Example**
+#### Example
 
 ```json
 GET _cat/allocation?v

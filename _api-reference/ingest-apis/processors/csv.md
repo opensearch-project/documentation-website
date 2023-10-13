@@ -10,7 +10,10 @@ nav_order: 40
 **Introduced 1.0**
 {: .label .label-purple }
 
-The `csv` processor is used to parse CSVs and store them as individual fields in a document. The processor ignores empty fields. The following is the syntax for the `csv` processor: 
+The `csv` processor is used to parse CSVs and store them as individual fields in a document. The processor ignores empty fields. 
+
+#### Example
+The following is the syntax for the `csv` processor: 
 
 ```json
 {

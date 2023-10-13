@@ -10,7 +10,10 @@ nav_order: 310
 **Introduced 1.0**
 {: .label .label-purple }
 
-The `uppercase` processor converts all the text in a specific field to uppercase letters. The following is the syntax for the `uppercase` processor: 
+The `uppercase` processor converts all the text in a specific field to uppercase letters. 
+
+#### Example
+The following is the syntax for the `uppercase` processor: 
 
 ```json
 {

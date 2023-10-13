@@ -10,7 +10,10 @@ nav_order: 230
 **Introduced 1.0**
 {: .label .label-purple }
 
-The `remove` processor is used to remove a field from a document. The following is the syntax for the `remove` processor: 
+The `remove` processor is used to remove a field from a document. 
+
+#### Example
+The following is the syntax for the `remove` processor: 
 
 ```json
 {

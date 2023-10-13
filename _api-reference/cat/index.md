@@ -9,12 +9,13 @@ redirect_from:
 ---
 
 # CAT API
-
+**Introduced 1.0**
+{: .label .label-purple }
 You can get essential statistics about your cluster in an easy-to-understand, tabular format using the compact and aligned text (CAT) API. The CAT API is a human-readable interface that returns plain text instead of traditional JSON.
 
 Using the CAT API, you can answer questions like which node is the elected master, what state is the cluster in, how many documents are in each index, and so on.
 
-## Example
+#### Example
 
 To see the available operations in the CAT API, use the following command:
 

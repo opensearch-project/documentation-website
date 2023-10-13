@@ -15,7 +15,7 @@ redirect_from:
 
 The CAT plugins operation lists the names, components, and versions of the installed plugins.
 
-**Example**
+#### Example
 
 ```
 GET _cat/plugins?v

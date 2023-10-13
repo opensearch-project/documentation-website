@@ -13,7 +13,7 @@ redirect_from:
 
 You can include a query as part of your delete request so OpenSearch deletes all documents that match that query.
 
-**Example**
+#### Example
 
 ```json
 POST sample-index1/_delete_by_query

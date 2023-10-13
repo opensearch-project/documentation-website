@@ -14,7 +14,7 @@ has_children: false
 
 The CAT cluster manager operation lists information that helps identify the elected cluster manager node.
 
-**Example**
+#### Example
 
 ```
 GET _cat/cluster_manager?v

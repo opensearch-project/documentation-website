@@ -13,7 +13,7 @@ redirect_from:
 
 You can use the get index API operation to return information about an index.
 
-**Example**
+#### Example
 
 ```json
 GET /sample-index

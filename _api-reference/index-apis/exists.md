@@ -13,7 +13,7 @@ redirect_from:
 
 The index exists API operation returns whether or not an index already exists.
 
-**Example**
+#### Example
 
 ```json
 HEAD /sample-index

@@ -47,7 +47,7 @@ Parameter | Data type  | Description
 `v` | Boolean    | If `true`, the response includes column headings. Defaults to `false`.
 `s` | String     | Specifies to sort the results. For example, `s=shardId:desc` sorts by shardId in descending order.
 
-### Examples 
+#### Example
 
 The following examples illustrate various segment replication responses.
 
