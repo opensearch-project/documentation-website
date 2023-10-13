@@ -331,7 +331,7 @@ PUT /_search/pipeline/<pipeline_name>
         "description": "Demo pipeline Using OpenAI Connector",
         "model_id": "<model_id>",
         "context_field_list": ["text"],
-        "system_prompt": "You are a helpful assistance",
+        "system_prompt": "You are a helpful assistant",
         "user_instructions": "Generate a concise and informative answer in less than 100 words for the given question"
       }
     }
