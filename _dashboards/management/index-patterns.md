@@ -7,8 +7,6 @@ has_children: true
 ---
 
 # Index patterns
-Updated 2.10
-{: .label .label-purple }
 
 Index patterns are essential for accessing OpenSearch data. An _index pattern_ is the schema of an OpenSearch index. You need to create index patterns to define how data is retrieved and fields are formatted so that you can query, search, and display data. 
 
@@ -51,7 +49,8 @@ An example using the index pattern `security*` is shown in the following image. 
 
 ### Step 2: Configure the settings
 
-1. Select `@timestamp` from the dropdown menu to specify the time field for OpenSearch to use when filtering documents based on time. Selecting this time filter determines which field the time filter is applied to. It can be the timestamp of a request or any relevant timestamp field. If you don't want to use a time filter, select that option from the dropdown menu. Note that if you select this option, OpenSearch will return all of the data in the indexes that match the pattern.
+1. Select `@timestamp` from the dropdown menu to specify the time field for OpenSearch to use when filtering documents based on time. Selecting this time filter determines which field the time filter is applied to. It can be the timestamp of a request or any relevant timestamp field. If you don't want to use a time filter, select that option from the dropdown menu. If you select this option, OpenSearch returns all of the data in the indexes that match the pattern.
+
 2. Select  **Create index pattern.** An example is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt="Index pattern step 2 UI " width="700"/>
