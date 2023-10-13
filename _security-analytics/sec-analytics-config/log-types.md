@@ -31,7 +31,7 @@ The following table shows the log types that are currently supported by Security
 | Network Activity | `Network` | Network logs that record events that happen in a system's network, such as login attempts and application events. | 
 | Network Activity | `vpcflow` | [VPC Flow Logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html) that capture information about the IP traffic going to and from network interfaces in your virtual private cloud (VPC). |
 | Security | `Waf` | Web Application Firewall (WAF) logs (introduced in OpenSearch 2.11) for users that require monitoring of the WAF use case that's provided out of the box in the Security plugin. The role of WAF is to monitor and filter HTTP traffic between a web application and the internet. WAF prevents common security attacks, such as cross-site scripting (XSS) and SQL Injection (SQi). |
-| System Activity | `Linux` | Linux System logs that record syslog events on Linux. |
+| System Activity | `Linux` | Linux system logs that record Linux syslog events. |
 | System Activity | `Windows` | Windows logs that record events that have happened in the operating system, applications, and other Windows system services. |
 | Other | `Email` | Logs that record email activity. |
 
