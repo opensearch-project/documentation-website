@@ -67,6 +67,8 @@ Once the transform job finishes, you can use the `_search` API operation to sear
 ```json
 GET <target_index>/_search
 ```
+{% include copy.html %}
+
 
 For example, after running a transform job that transforms the flight data based on a `DestAirportID` field, you can run the following request that returns all of the fields that have a value of `SFO`.
 
@@ -82,6 +84,8 @@ GET finished_flight_job/_search
   }
 }
 ```
+{% include copy.html %}
+
 
 **Sample Response**
 
