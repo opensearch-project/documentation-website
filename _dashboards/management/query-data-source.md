@@ -11,7 +11,7 @@ has_children: false
 Introduced 2.11
 {: .label .label-purple }
 
-This tutorial guides you through querying and visualizing your Amazon S3 data using OpenSearch Dashboards. This tool uses **Data Explorer** or **Observability Logs** to query your data. 
+This tutorial guides you through using the **Query data** use case for querying and visualizing your Amazon S3 data using OpenSearch Dashboards.
 
 ## Get started with querying
 

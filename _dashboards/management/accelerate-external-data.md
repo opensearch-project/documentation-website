@@ -1,17 +1,19 @@
 ---
 layout: default
-title: Optimize query performance using an acceleration index
+title: Optimize query performance using OpenSearch indexing
 parent: Connecting Amazon S3 to OpenSearch
 grand_parent: Data sources
 nav_order: 15
 has_children: false
 ---
 
-# Optimize query performance using an acceleration index
+# Optimize query performance using OpenSearch indexing
 Introduced 2.11
 {: .label .label-purple }
 
-Query performance can be slow when using external data sources for reasons such as network latency, data transformation, and data volume. You can optimize your query performance by using an acceleration index. 
+Query performance can be slow when using external data sources for reasons such as network latency, data transformation, and data volume. You can optimize your query performance by using OpenSearch indexing, such as a skipping index or a covering index. A _skipping index_ uses skip acceleration methods, such as partition, minimum and maximum values, and value sets, to ingest and create compact aggregate data structures. This makes them an economical option for direct querying scenarios. A _covering index_ ingests all or some of the data from the source into OpenSearch and makes it possible to use all OpenSearch Dashboards and plugin functionality. See the [Flint Index Reference Manual](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md) for comprehensive guidance about this feature's indexing process.
+
+## Data sources use case: Accelerate performance
 
 To get started with the **Accelerate performance** use case available in **Data sources**, follow these steps:
 
@@ -45,7 +47,7 @@ To get started with the **Accelerate performance** use case available in **Data 
 
 ### Define covering index settings
 
-1. Under **Index settings**, enter a valid index name. Note that each Amazon S3 table can have multiple covering indexes, unlike the skipping index that can only have one. An example is shown in the following image:
+1. Under **Index settings**, enter a valid index name. Note that each Amazon S3 table can have multiple covering indexes. An example is shown in the following image:
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/covering-index-naming.png" alt="Covering index settings" width="700"/>
 
