@@ -224,7 +224,7 @@ The Memory API responds with the following:
 
 ## RAG pipeline
 
-RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then generates more factual outputs.
+RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then supplements the static LLM information with the dynamically retrieved data in context.
 
 As of OpenSearch 2.11, the RAG technique has only been tested with OpenAI models and the Anthropic Claude model on Amazon Bedrock.
 {: .warning}
