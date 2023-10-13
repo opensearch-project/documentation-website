@@ -63,4 +63,4 @@ To use Query Workbench with your Amazon S3 data, follow these steps:
 6. Enter your SQL query and select **Run**. 
 ## Next steps
 
-- Learn about [accelerating query performance of your external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/).
+- Learn about [accelerating the query performance of your external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/).
