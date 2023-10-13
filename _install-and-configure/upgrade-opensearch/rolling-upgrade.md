@@ -24,6 +24,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```json
    GET "/_cluster/health?pretty"
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```json
    {
@@ -53,6 +55,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
        }
    }
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```json
    {
@@ -74,6 +78,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```json
    POST "/_flush?pretty"
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```json
    {
@@ -89,6 +95,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -102,6 +110,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -115,6 +125,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -127,6 +139,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    GET "/_nodes/<nodeName>?pretty=true" | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```bash
    os-node-01 v1.3.7
@@ -135,6 +149,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -152,6 +168,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
        }
    }
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```json
    {
@@ -172,6 +190,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    GET "/_cluster/health?pretty"
    ```
+   {% include copy.html %}
+   
    The response should look similar to the following example:
    ```json
    {
