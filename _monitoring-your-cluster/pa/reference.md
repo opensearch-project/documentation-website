@@ -759,7 +759,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
  </table>
 
 ## Relevant dimensions: N/A
-The following metrics are relevant for the cluster as a whole, and do not require specific dimensions.
+The following metrics are relevant to the cluster as a whole and do not require specific dimensions.
 
 <table>
   <thead style="text-align: left">
