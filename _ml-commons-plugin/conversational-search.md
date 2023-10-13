@@ -392,7 +392,7 @@ Parameter | Required | Description
 `conversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of the search query to the LLM. 
 `context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary model to model. Alternatively, you can use the `size` parameter in the Search API to control the amount of information sent to LLMs.
 `interaction_size` | No | The number of interactions sent to the LLMs. Similar to the number of search results, this affects the total number of token seen by the LLM. When set, the pipeline uses the default interaction size, `10`.
-`timeout` | No | The number of seconds the pipeline waits for the remote model using a connector to respond. Default is `30s`.
+`timeout` | No | The number of seconds the pipeline waits for the remote model using a connector to respond. Default is `30`.
 
 If your LLM includes a set token limit, set the `size` field in your OpenSearch query to limit the number of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search results to the LLM.
 
