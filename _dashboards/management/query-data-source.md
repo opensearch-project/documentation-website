@@ -53,7 +53,7 @@ To create visualizations, follow these steps:
 To use Query Workbench with your Amazon S3 data, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Query Workbench**.
-2. From the **Data Sources** dropdown menu in the upper-left corner, choose your Amazon S3 data source. Your data begins loading the databases that are part of your data source. An example is shown in the following image:
+2. From the **Data Sources** dropdown menu in the upper-left corner, choose your Amazon S3 data source. Your data begins loading the databases that are part of your data source. An example is shown in the following image.
 
      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-S3.png" alt="Query Workbench Amazon S3 data loading UI" width="700">
 
