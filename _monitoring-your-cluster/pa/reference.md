@@ -759,6 +759,8 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
  </table>
 
 ## Relevant dimensions: N/A
+The following metrics are relevant for the cluster as a whole, and do not require specific dimensions.
+
 <table>
   <thead style="text-align: left">
    <tr>
@@ -782,7 +784,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
    <tr>
      <td>PublishClusterState_Failure 
      </td>
-     <td>The number of times the publish the new cluster state action failed on the cluster manager node.
+     <td>The number of times the new cluster state failed to publish on the cluster manager node.
      </td>
    </tr>
    <tr>
@@ -1006,7 +1008,7 @@ The following metrics are new as of OpenSearch 2.11.
 
 | Dimension            | Return values                                   |
 |----------------------|-------------------------------------------------|
-| ShardID              | The ID for the shard, for example, `1`.           |
+| ShardID              | The ID of the shard, for example, `1`.           |
 | IndexName            | The name of the index, for example, `my-index`.   |
 | Operation            | The type of operation, for example, `shardbulk`.  |
 | ShardRole            | The shard role, for example, `primary` or `replica`.                            |
@@ -1024,5 +1026,5 @@ The following metrics are new as of OpenSearch 2.11.
 | ClusterManagerTaskType       | The task type, for example, `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, or `Update snapshot state`. |
 | ClusterManagerTaskMetadata   | The metadata for the task (if any).                 |
 | CacheType            | The cache type, for example, `Field_Data_Cache`, `Shard_Request_Cache`, or `Node_Query_Cache`. |
-| NodeID               | The ID for the node.                                |
+| NodeID               | The ID of the node.                                |
 | Searchbp_mode        | The search backpressure mode, for example, `monitor_only` (default), `enforced`, or `disabled`. |
