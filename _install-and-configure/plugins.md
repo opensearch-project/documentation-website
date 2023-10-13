@@ -36,6 +36,7 @@ Use `list` to see a list of plugins that have already been installed.
 ```bash
 bin/opensearch-plugin list
 ```
+{% include copy.html %}
 
 #### Example:
 ```bash
@@ -65,6 +66,7 @@ You can also list installed plugins by using the [CAT API]({{site.url}}{{site.ba
 ```bash
 GET _cat/plugins
 ```
+{% include copy.html %}
 
 #### Sample response
 
@@ -97,6 +99,7 @@ For a list of plugins that can be installed by name, see [Additional plugins]({{
 ```bash
 bin/opensearch-plugin install <plugin-name>
 ```
+{% include copy.html %}
 
 #### Example:
 ```bash
@@ -115,6 +118,7 @@ Remote zip files can be installed by replacing `<zip-file>` with the URL of the 
 ```bash
 bin/opensearch-plugin install <zip-file>
 ```
+{% include copy.html %}
 
 #### Example:
 ```bash
@@ -175,6 +179,7 @@ The `opensearch-plugin install` tool also accepts Maven coordinates for availabl
 ```bash
 bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 ```
+{% include copy.html %}
 
 #### Example:
 ```bash
@@ -213,6 +218,7 @@ You can remove a plugin that has already been installed with the `remove` option
 ```bash
 bin/opensearch-plugin remove <plugin-name>
 ```
+{% include copy.html %}
 
 #### Example:
 ```bash
@@ -231,6 +237,7 @@ To force batch mode when installing plugins, add the `-b` or `--batch` option:
 ```bash
 bin/opensearch-plugin install --batch <plugin-name>
 ```
+{% include copy.html %}
 
 ## Available plugins
 
