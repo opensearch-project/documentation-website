@@ -51,7 +51,7 @@ An example using the index pattern `security*` is shown in the following image. 
 
 1. Select `@timestamp` from the dropdown menu to specify the time field for OpenSearch to use when filtering documents based on time. Selecting this time filter determines which field the time filter is applied to. It can be the timestamp of a request or any relevant timestamp field. If you don't want to use a time filter, select that option from the dropdown menu. If you select this option, OpenSearch returns all of the data in the indexes that match the pattern.
 
-2. Select  **Create index pattern.** An example is shown in the following image.
+2. Select **Create index pattern.** An example is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt="Index pattern step 2 UI " width="700"/>
 
