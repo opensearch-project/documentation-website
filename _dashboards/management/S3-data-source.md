@@ -21,7 +21,7 @@ To connect data from Amazon S3 to OpenSearch using OpenSearch Dashboards, you mu
 
 - Access to Amazon S3 and the [AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst#id2).
 - Access to OpenSearch and OpenSearch Dashboards.
-- Understanding of data source and connector concepts in OpenSearch. See the [developer documentation for information about these concepts](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst#introduction).
+- An understanding of OpenSearch data source and connector concepts. See the [developer documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst#introduction) for information about these concepts.
 
 ## Connect your Amazon S3 data source 
 
