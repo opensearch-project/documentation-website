@@ -57,7 +57,7 @@ To get started with the **Accelerate performance** use case available in **Data 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/covering-index-fields.png" alt="Covering index field naming" width="700"/>
 
 3. Select the **Copy Query to Editor** button to apply your covering index settings.
-4. View the covering index query details in the table pane and then select the **Run** button. Your index is added the left-side navigation menu containing the list of your databases.   
+4. View the covering index query details in the table pane and then select the **Run** button. Your index is added to the left-side navigation menu containing the list of your databases.   
  
      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/run-index-query-workbench.png" alt="Run index in Query Workbench" width="700"/>
 
