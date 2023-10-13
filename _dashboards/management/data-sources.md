@@ -17,7 +17,7 @@ The first step in connecting your data sources and OpenSearch is to install Open
 
 Once you have installed OpenSearch and OpenSearch Dashboards, you can use Dashboards to connect your data sources and OpenSearch and then use Dashboards to manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
 
-Configuration of the [YAML files]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/#configuration-file) and installation of certain [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) is necessary. The data sources feature flag `data_source.enabled:` must be set to `true`. The default is `false`. The following plugins also are required for integrating your data sources and OpenSearch: `opensearch-sql`, `opensearch-security`, and `opensearch-observability`. 
+Configuration of the [YAML files]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/#configuration-file) and installation of the `dashboards-observability` and `opensearch-sql` plugins is necessary. For more information, see [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ## Create a data source connection
 
