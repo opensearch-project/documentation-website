@@ -10,44 +10,13 @@ has_children: true
 Updated 2.10
 {: .label .label-purple }
 
-Index patterns are essential for querying and analyzing data in OpenSearch. They are used to define the fields that are available in the data and the mapping between the fields and their data types. Index patterns are also used to create dashboards and visualizations in OpenSearch Dashboards. 
-
-An index pattern can point to one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain your data. If you store data in multiple indexes, creating an index pattern enables your visualizations to retrieve data from all indexes that match the index pattern. 
-
-The following is a basic example of an index pattern:
-
-```json
-{
-    "index-patterns": ["my-index-*"],
-    "mappings": {
-        "my-field": {
-            "type": "string"
-        }
-    }
-}
-```
-
-This index pattern defines a single field, `my-field`, which is a string field. The index pattern also specifies that the index pattern matches any index that starts with the prefix `my-index`. 
-
-To use this index, you could query for all documents in the index pattern that have the value `my-value` in the `my-field` field, as shown in the following example:
-
-```json
-{
-    "query": {
-        "match": {
-            "my-field": "my-value"
-        }
-    }
-}
-```
-
-This query would return all documents in the `my-index-*` indexes that have the value `my-value` in the `my-field` field. 
+Index patterns are essential for querying and analyzing data in OpenSearch or displaying your data on a dashboard or visualization. An _index pattern_ is the schema of an OpenSearch index. It provides a way for OpenSearch to select the data to use and for you to define the properties of a field. An index pattern can point to one or more indexes, data streams, or index aliases. For example, an index pattern can point you to your log data from yesterday or all indexes that contain that data. If you store data in multiple indexes, creating an index pattern enables your visualizations to retrieve data from all indexes that match the index pattern. 
 
 ## Get started
 In this tutorial, you'll learn to create index patterns.  
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon" size="m"/>{:/}**Note**<br>
-To create or modify index patterns, you must have write permissions. Contact your administrator for support. For more information, refer to [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants).
+To create or modify index patterns, you must have create, manage, and delete permissions. Contact your administrator for support. For more information, refer to [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants).
 {: .note}
 
 ## Prerequisites
@@ -79,14 +48,14 @@ An example using the index pattern `security*` is shown in the following image. 
 
 ### Step 2: Configure the settings
 
-1. Select `@timestamp` from the dropdown menu to specify the time field for OpenSearch to use when filtering documents based on time. This field is the timestamp for when the request was received. 
+1. Select `@timestamp` from the dropdown menu to specify the time field for OpenSearch to use when filtering documents based on time. Selecting this time filter determines which field the time filter is applied to. It can be the timestamp of a request or any relevant timestamp field. If you don't want to use a time filter, select that option from the dropdown menu. Note that if you select this option, OpenSearch will return all of the data in the indexes that match the pattern.
 2. Select  **Create index pattern.** An example is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt="Index pattern step 2 UI " width="700"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt="Index pattern step 2 UI " width="700"/>
 
 Once the index pattern has been created, you can view the mapping of the matching indexes. Within the table, you can see the list of fields, along with their data type and properties. An example is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png" alt="Index pattern table UI " width="700"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png" alt="Index pattern table UI " width="700"/>
 
 ## Next steps
 
