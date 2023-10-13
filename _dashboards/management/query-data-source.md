@@ -56,7 +56,7 @@ To use Query Workbench with your Amazon S3 data, follow these steps:
 3. View the databases listed in the left-side navigation menu and select a database to view its details. Any information about acceleration indexes is listed under **Acceleration index destination**. 
 4. Choose the **Describe Index** button to learn more about how data is stored in that particular index.
 5. Choose the **Drop index** button to delete and clear both the OpenSearch index and the Amazon S3 Spark job that refreshes the data.  
-
+6. Enter your SQL query and select **Run**. 
 ## Next steps
 
 - Learn about [accelerating query performance of your external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/).
