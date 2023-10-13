@@ -40,7 +40,7 @@ To get started, follow these steps:
 
 To create visualizations, follow these steps:
 
-1. From the Explorer page, select the **Visualizations** tab. An example is shown in the following image:
+1. On the **Explorer** page, select the **Visualizations** tab. An example is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/explorer-S3viz-UI.png" alt="Explorer Amazon S3 visualizations UI" width="700">
 
