@@ -48,7 +48,7 @@ To get started with the **Accelerate performance** use case available in **Data 
 
 ### Define covering index settings
 
-1. Under **Index settings**, enter a valid index name. Note that each Amazon S3 table can have multiple covering indexes. An example is shown in the following image:
+1. Under **Index settings**, enter a valid index name. Note that each Amazon S3 table can have multiple covering indexes. An example is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/covering-index-naming.png" alt="Covering index settings" width="700"/>
 
