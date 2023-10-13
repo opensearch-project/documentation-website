@@ -41,6 +41,8 @@ PUT destination
    }
 }
 ```
+{% include copy.html %}
+
 
 This `reindex` command copies all the documents from a source index to a destination index:
 
@@ -55,6 +57,8 @@ POST _reindex
    }
 }
 ```
+{% include copy.html %}
+
 
 If the destination index is not already created, the `reindex` operation creates a new destination index with default configurations.
 
@@ -80,6 +84,8 @@ POST _reindex
    }
 }
 ```
+{% include copy.html %}
+
 
 You can specify the following options:
 
@@ -114,6 +120,8 @@ POST _reindex
    }
 }
 ```
+{% include copy.html %}
+
 
 For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
 
@@ -137,6 +145,8 @@ POST _reindex
    }
 }
 ```
+{% include copy.html %}
+
 Make sure the number of shards for your source and destination indexes is the same.
 
 ## Reindex only unique documents
@@ -158,6 +168,8 @@ POST _reindex
    }
 }
 ```
+{% include copy.html %}
+
 
 ## Transform documents during reindexing
 
@@ -181,6 +193,8 @@ POST _reindex
    }
 }
 ```
+{% include copy.html %}
+
 
 You can also specify an ingest pipeline to transform your data during the reindexing process.
 
@@ -213,6 +227,8 @@ PUT _ingest/pipeline/pipeline-test
  }
 ]
 }
+{% include copy.html %}
+
 ```
 
 After creating a pipeline, you can use the `reindex` operation:
@@ -229,6 +245,8 @@ POST _reindex
   }
 }
 ```
+{% include copy.html %}
+
 
 ## Update documents in the current index
 
@@ -239,6 +257,8 @@ The `update_by_query` operation is `POST` operation that you can perform on a si
 ```json
 POST <index_name>/_update_by_query
 ```
+{% include copy.html %}
+
 
 If you run this command with no parameters, it increments the version number for all documents in the index.
 
