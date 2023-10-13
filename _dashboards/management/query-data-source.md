@@ -33,7 +33,7 @@ To get started, follow these steps:
 
 5. Enter the query in the **Enter PPL query** field. Note that the default language is SQL. To change the language, select PPL from the dropdown menu.
 6. Select the **Search** button. The **Query Processing** message is shown, confirming that your query is being processed.
-7. View the results, which are listed in a table under the **Events** tab. From this page, details such as available fields, source, and time are shown in a table format.
+7. View the results, which are listed in a table on the **Events** tab. On this page, details such as available fields, source, and time are shown in a table format.
 8. (Optional) Create data visualizations.
 
 ## Create visualizations of your Amazon S3 data
