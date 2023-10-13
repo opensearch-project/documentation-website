@@ -71,6 +71,8 @@ PUT _plugins/_ism/policies/policy_id
   }
 }
 ```
+{% include copy.html %}
+
 
 If you have more than one template that matches an index pattern, ISM uses the priority value to determine which template to apply.
 
@@ -91,6 +93,8 @@ PUT _index_template/<template_name>
   }
 }
 ```
+{% include copy.html %}
+
 
 The `opendistro.index_state_management.policy_id` setting is deprecated. You can continue to automatically manage newly created indexes with the ISM template field.
 {: .note }
