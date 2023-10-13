@@ -37,7 +37,7 @@ To get started with the **Accelerate performance** use case available in **Data 
 
 ### Define skipping index settings
 
-1. Under **Skipping index definition**, select the **Add fields** button to define the skipping index acceleration method and choose the fields you want to add. An example is shown in the following image:
+1. Under **Skipping index definition**, select the **Add fields** button to define the skipping index acceleration method and choose the fields you want to add. An example is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-fields-skipping-index.png" alt="Skipping index add fields" width="700"/> 
 
