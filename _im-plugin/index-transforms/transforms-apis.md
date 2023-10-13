@@ -25,6 +25,8 @@ Creates a transform job.
 ```json
 PUT _plugins/_transform/<transform_id>
 ```
+{% include copy.html %}
+
 
 ### Path parameters
 
@@ -100,6 +102,8 @@ PUT _plugins/_transform/sample
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -170,6 +174,8 @@ Updates the transform job if `transform_id` already exists. For this request you
 ```json
 PUT _plugins/_transform/<transform_id>?if_seq_no=<seq_no>&if_primary_term=<primary_term>
 ```
+{% include copy.html %}
+
 
 ### Query parameters
 
@@ -240,6 +246,8 @@ PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -298,6 +306,8 @@ Returns a transform job's details.
 ```json
 GET _plugins/_transform/<transform_id>
 ```
+{% include copy.html %}
+
 
 #### Sample Request
 
@@ -306,6 +316,8 @@ The following request returns the details of the transform job with the id `samp
 ```json
 GET _plugins/_transform/sample
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -374,6 +386,8 @@ The following request returns the details of all transform jobs:
 ```json
 GET _plugins/_transform/
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -456,6 +470,8 @@ The following request returns two results starting from transform `8`:
 ```json
 GET _plugins/_transform?size=2&from=8
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -580,6 +596,8 @@ Transform jobs created using the API are automatically enabled, but if you ever 
 ```
 POST _plugins/_transform/<transform_id>/_start
 ```
+{% include copy.html %}
+
 
 #### Sample Request
 
@@ -588,6 +606,8 @@ The following request starts the transform job with the ID `sample`:
 ```json
 POST _plugins/_transform/sample/_start
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -608,6 +628,8 @@ Stops a transform job.
 ```
 POST _plugins/_transform/<transform_id>/_stop
 ```
+{% include copy.html %}
+
 
 #### Sample Request
 
@@ -616,6 +638,8 @@ The following request stops the transform job with the ID `sample`:
 ```json
 POST _plugins/_transform/sample/_stop
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -636,6 +660,8 @@ Returns the status and metadata of a transform job.
 ```
 GET _plugins/_transform/<transform_id>/_explain
 ```
+{% include copy.html %}
+
 
 #### Sample Request
 
@@ -644,6 +670,8 @@ The following request returns the details of the transform job with the ID `samp
 ```json
 GET _plugins/_transform/sample/_explain
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -726,6 +754,8 @@ POST _plugins/_transform/_preview
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
@@ -772,6 +802,8 @@ Deletes a transform job. This operation does not delete the source or target ind
 ```
 DELETE _plugins/_transform/<transform_id>
 ```
+{% include copy.html %}
+
 
 #### Sample Request
 
@@ -780,6 +812,8 @@ The following request deletes the transform job with the ID `sample`:
 ```json
 DELETE _plugins/_transform/sample
 ```
+{% include copy.html %}
+
 
 #### Sample Response
 
