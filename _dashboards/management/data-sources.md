@@ -44,7 +44,7 @@ The following steps guide you through the basics of creating a data source conne
 
 3. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
-4. To delete a data source connection, select the check box to the left of the data source **Title** and then select the **Delete 1 connection** button. Selecting multiple check boxes for multiple connections is supported. An example of the user interface is shown in the following image.
+4. To delete a data source connection, select the checkbox to the left of the data source **Title** and then select the **Delete 1 connection** button. Selecting multiple checkboxes for multiple connections is supported. An example of the UI is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt="Deleting a data source UI" width="700"/>
 
