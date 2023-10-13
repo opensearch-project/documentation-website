@@ -271,14 +271,6 @@ Select the arrow to view the example response.
               "total_time_spent_in_millis" : 0
             }
           },
-          "segment_replication" : {
-            "max_bytes_behind" : "0b",
-            "total_bytes_behind" : "0b",
-            "max_replication_lag" : "0s",
-            "pressure" : {
-              "total_rejections" : 0
-            }
-          },
           "file_sizes" : { }
         },
         "translog" : {
@@ -840,12 +832,7 @@ segments.index_writer_memory_in_bytes | Integer | The total amount of memory use
 segments.version_map_memory_in_bytes | Integer | The total amount of memory used by all version maps, in bytes. 
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
-segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is enabled on the node. 
-segments.segment_replication.max_bytes_behind | Integer | The maximum number of bytes behind the primary replica.
-segments.segment_replication.total_bytes_behind | Integer | The total number of bytes behind the primary replicas. 
-segments.segment_replication.max_replication_lag | Integer | The maximum amount of time, in milliseconds, taken by a replica to catch up to its primary. 
-segments.segment_replication.pressure | Object | Statistics related to segment replication backpressure.
-segments.segment_replication.pressure.total_rejections | Integer | The total number of requests rejected due to segment replication backpressure. 
+segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is enabled on the node.
 segments.remote_store | Object | Statistics about remote segment store operations.
 segments.remote_store.upload | Object | Statistics related to uploads to the remote segment store.
 segments.remote_store.upload.total_upload_size | Object | The amount of data, in bytes, uploaded to the remote segment store.

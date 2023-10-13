@@ -225,14 +225,6 @@ By default, the returned statistics are aggregated in the `primaries` and `total
             "total_time_spent_in_millis" : 0
           }
         },
-        "segment_replication" : {
-          "max_bytes_behind" : "0b",
-          "total_bytes_behind" : "0b",
-          "max_replication_lag" : "0s",
-          "pressure" : {
-            "total_rejections" : 0
-          }
-        },
         "file_sizes": {}
       },
       "translog": {
@@ -398,14 +390,6 @@ By default, the returned statistics are aggregated in the `primaries` and `total
               "failed_bytes" : 0
             },
             "total_time_spent_in_millis" : 0
-          }
-        },
-        "segment_replication" : {
-          "max_bytes_behind" : "0b",
-          "total_bytes_behind" : "0b",
-          "max_replication_lag" : "0s",
-          "pressure" : {
-            "total_rejections" : 0
           }
         },
         "file_sizes": {}
@@ -579,14 +563,6 @@ By default, the returned statistics are aggregated in the `primaries` and `total
               "total_time_spent_in_millis" : 0
             }
           },
-          "segment_replication" : {
-            "max_bytes_behind" : "0b",
-            "total_bytes_behind" : "0b",
-            "max_replication_lag" : "0s",
-            "pressure" : {
-              "total_rejections" : 0
-            }
-          },
           "file_sizes": {}
         },
         "translog": {
@@ -752,14 +728,6 @@ By default, the returned statistics are aggregated in the `primaries` and `total
                 "failed_bytes" : 0
               },
               "total_time_spent_in_millis" : 0
-            }
-          },
-          "segment_replication" : {
-            "max_bytes_behind" : "0b",
-            "total_bytes_behind" : "0b",
-            "max_replication_lag" : "0s",
-            "pressure" : {
-              "total_rejections" : 0
             }
           },
           "file_sizes": {}

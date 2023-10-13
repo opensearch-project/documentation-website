@@ -142,14 +142,6 @@ Parameter | Type | Description
                   "total_time_spent_in_millis" : 0
                }
             },
-            "segment_replication" : {
-               "max_bytes_behind" : "0b", 
-               "total_bytes_behind" : "0b", 
-               "max_replication_lag" : "0s", 
-               "pressure" : {
-                  "total_rejections" : 0
-               }
-            },
             "file_sizes": {}
         },
         "mappings": {
