@@ -24,7 +24,7 @@ To get started with the **Accelerate performance** use case available in **Data 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-accelerate-data.png" alt="Query Workbench accelerate data UI" width="700"/>
 
 3. View the results in the table and confirm that you have the desired data.
-4. Create an acceleration index by follow these steps:
+4. Create an acceleration index by following these steps:
     1. Select the **Accelerate data** button. A pop-up window appears. An example is shown in the following image:
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/accelerate-data-popup.png" alt="Accelerate data pop-up window" width="700"/>
