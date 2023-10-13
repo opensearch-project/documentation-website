@@ -11,7 +11,11 @@ has_children: false
 Introduced 2.11
 {: .label .label-purple }
 
-This tutorial guides you through using the **Query data** use case for querying and visualizing your Amazon S3 data using OpenSearch Dashboards.
+This tutorial guides you through using the **Query data** use case for querying and visualizing your Amazon S3 data using OpenSearch Dashboards. 
+
+## Prerequisites
+
+You must be using the `opensearch-security` plugin and have the appropriate role permissions. Contact your IT admin to assign you the necessary permissions.  
 
 ## Get started with querying
 
