@@ -28,7 +28,7 @@ To connect data from Amazon S3 to OpenSearch using OpenSearch Dashboards, you mu
 To connect your Amazon S3 data source, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Management** > **Data sources**.
-2. From the **Data sources** page, select **New data source** > **S3**. A screenshot of the UI is shown in the following image.
+2. On the **Data sources** page, select **New data source** > **S3**. An example UI is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-UI.png" alt="Amazon S3 data sources UI" width="700"/>
 
