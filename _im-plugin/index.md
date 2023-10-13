@@ -31,6 +31,8 @@ A request to the index API looks like this:
 PUT <index>/_doc/<id>
 { "A JSON": "document" }
 ```
+{% include copy.html %}
+
 
 A request to the `_bulk` API looks a little different, because you specify the index and ID in the bulk data:
 
@@ -39,6 +41,8 @@ POST _bulk
 { "index": { "_index": "<index>", "_id": "<id>" } }
 { "A JSON": "document" }
 ```
+{% include copy.html %}
+
 
 Bulk data must conform to a specific format, which requires a newline character (`\n`) at the end of every line, including the last line. This is the basic format:
 
@@ -48,6 +52,8 @@ Optional document\n
 Action and metadata\n
 Optional document\n
 ```
+{% include copy.html %}
+
 
 The document is optional, because `delete` actions don't require a document. The other actions (`index`, `create`, and `update`) all require a document. If you specifically want the action to fail if the document already exists, use the `create` action instead of the `index` action.
 {: .note }
@@ -57,6 +63,8 @@ To index bulk data using the `curl` command, navigate to the folder where you ha
 ```json
 curl -H "Content-Type: application/x-ndjson" -POST https://localhost:9200/data/_bulk -u 'admin:admin' --insecure --data-binary "@data.json"
 ```
+{% include copy.html %}
+
 
 If any one of the actions in the `_bulk` API fail, OpenSearch continues to execute the other actions. Examine the `items` array in the response to figure out what went wrong. The entries in the `items` array are in the same order as the actions specified in the request.
 
@@ -66,6 +74,8 @@ OpenSearch automatically creates an index when you add a document to an index th
 POST movies/_doc
 { "title": "Spirited Away" }
 ```
+{% include copy.html %}
+
 
 Automatic ID generation has a clear downside: because the indexing request didn't specify a document ID, you can't easily update the document at a later time. Also, if you run this request 10 times, OpenSearch indexes this document as 10 different documents with unique IDs. To specify an ID of 1, use the following request (note the use of PUT instead of POST):
 
@@ -73,6 +83,8 @@ Automatic ID generation has a clear downside: because the indexing request didn'
 PUT movies/_doc/1
 { "title": "Spirited Away" }
 ```
+{% include copy.html %}
+
 
 Because you must specify an ID, if you run this command 10 times, you still have just one document indexed with the `_version` field incremented to 10.
 
@@ -82,6 +94,8 @@ Indexes default to one primary shard and one replica. If you want to specify non
 PUT more-movies
 { "settings": { "number_of_shards": 6, "number_of_replicas": 2 } }
 ```
+{% include copy.html %}
+
 
 ## Naming restrictions for indexes
 
@@ -115,6 +129,8 @@ GET movies/_doc/1
   }
 }
 ```
+{% include copy.html %}
+
 
 You can see the document in the `_source` object. If the document is not found, the `found` key is `false` and the `_source` object is not part of the response.
 
@@ -136,6 +152,8 @@ GET _mget
   ]
 }
 ```
+{% include copy.html %}
+
 
 To only return specific fields in a document:
 
@@ -156,12 +174,16 @@ GET _mget
   ]
 }
 ```
+{% include copy.html %}
+
 
 To check if a document exists:
 
 ```json
 HEAD movies/_doc/<doc-id>
 ```
+{% include copy.html %}
+
 
 If the document exists, you get back a `200 OK` response, and if it doesn't, you get back a `404 - Not Found` error.
 
@@ -178,6 +200,8 @@ POST movies/_update/1
   }
 }
 ```
+{% include copy.html %}
+
 
 Note the updated `title` field and new `genre` field:
 
@@ -201,6 +225,8 @@ GET movies/_doc/1
   }
 }
 ```
+{% include copy.html %}
+
 
 The document also has an incremented `_version` field. Use this field to keep track of how many times a document is updated.
 
@@ -212,6 +238,8 @@ PUT movies/_doc/1
   "title": "Spirited Away"
 }
 ```
+{% include copy.html %}
+
 
 The document with ID of 1 will contain only the `title` field, because the entire document will be replaced with the document indexed in this PUT request.
 
@@ -230,6 +258,8 @@ POST movies/_update/2
   }
 }
 ```
+{% include copy.html %}
+
 
 ### Example response
 
@@ -265,6 +295,8 @@ POST movies/_update/2?if_seq_no=3&if_primary_term=1
   }
 }
 ```
+{% include copy.html %}
+
 
 If the document is updated after we retrieved it, the `_seq_no` and `_primary_term` values are different and our update operation fails with a `409 — Conflict` error.
 
@@ -277,6 +309,8 @@ To delete a document from an index, use a DELETE request:
 ```json
 DELETE movies/_doc/1
 ```
+{% include copy.html %}
+
 
 The DELETE operation increments the `_version` field. If you add the document back to the same ID, the `_version` field increments again. This behavior occurs because OpenSearch deletes the document `_source`, but retains its metadata.
 
