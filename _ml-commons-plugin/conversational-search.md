@@ -19,7 +19,7 @@ Currently, conversational search uses two systems to synthesize documents:
 
 ## Conversation memory
 
-Conversation memory consists of a simple CRUD-life API comprising two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages: a human input and an artificial intelligence (AI) response. You cannot create any interactions until you've created a conversation. 
+Conversation memory consists of a simple CRUD-like API comprising two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages: a human input and an artificial intelligence (AI) response. You cannot create any interactions until you've created a conversation. 
 
 To make it easier to build and debug applications that use conversation memory, `conversation-meta` and `conversation-interactions` are stored in two system indexes.
 
@@ -40,6 +40,7 @@ In the `conversation-meta` index, you can customize the `name` field to make it 
     }
 }
 ```
+{% include copy-curl.html %}
 
 ### `conversation-interactions` index
 
@@ -72,6 +73,7 @@ The `conversation-interactions` index creates a clean interaction abstraction an
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Working with conversations and interactions
 
@@ -88,6 +90,7 @@ PUT /_cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 After conversation memory is enabled, you can use the Memory API to create a conversation. 
 
@@ -101,6 +104,7 @@ POST /_plugins/_ml/memory/conversation
   "name": Example conversation
 }
 ```
+{% include copy-curl.html %}
 
 The Memory API responds with the conversation ID, as shown in the following example response:
 
@@ -123,6 +127,7 @@ POST /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
 											A JSON or other semi-structured response"
 }
 ```
+{% include copy-curl.html %}
 
 The Memory API then responds with an interaction ID, as shown in the following example response:
 
@@ -137,6 +142,7 @@ You can get a list of conversations using the following Memory API operation:
 ```json
 GET /_plugins/_ml/memory/conversation?max_results=3&next_token=0
 ```
+{% include copy-curl.html %}
 
 Use the following path parameters to customize your results.
 
@@ -176,6 +182,7 @@ To see a list of interactions in a conversation, enter the `conversation_id` at 
 ```json
 GET /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
 ```
+{% include copy-curl.html %}
 
 The Memory API returns the following interaction information:
 
@@ -202,11 +209,12 @@ The Memory API returns the following interaction information:
 
 ### Deleting conversations
 
-To delete a conversation, use the `DELETE` operation, as showing in the following example:
+To delete a conversation, use the `DELETE` operation, as shown in the following example:
 
 ```json
 DELETE /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
 ```
+{% include copy-curl.html %}
 
 The Memory API responds with the following:
 
@@ -231,6 +239,7 @@ PUT /_cluster/settings
   "persistent": {"plugins.ml_commons.rag_pipline_feature_enabled": "true"}
 }
 ```
+{% include copy-curl.html %}
 
 ### Connecting the model
 
@@ -271,18 +280,18 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
 
 2. Create a new model group for the connected model. You'll use the `model_group_id` returned by the Register API to register the model:
 
-   ```json
-  POST /_plugins/_ml/model_group/_register
-  {
+  ```json
+   POST /_plugins/_ml/model_group/_register
+   {
     "name": "public_model_group", 
     "description": "This is a public model group"
-  }
+   }
   ```
   {% include copy-curl.html %}
 
 3. Register and deploy the model using the `connector_id` from the Connector API response in Step 1 and the `model_group_id` returned in Step 2:
 
-  ```java
+  ```json
   POST /_plugins/_ml/models/_register
   {
 	"name": "openAI-gpt-3.5-turbo",
@@ -296,14 +305,14 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
 
 4. With the model registered, use the `task_id` returned in the registration response to get the `model_id`. You'll use the `model_id` to deploy the model to OpenSearch:
 
-  ```curl
+  ```json
   GET /_plugins/_ml/tasks/<task_id>
   ```
   {% include copy-curl.html %}
 
 5. Using the `model_id` from step 4, deploy the model:
 
-  ```curl
+  ```json
   POST /_plugins/_ml/models/<model_id>/_deploy
   ```
   {% include copy-curl.html %}
