@@ -41,7 +41,7 @@ To connect your Amazon S3 data source, follow these steps:
 
 ## Manage your Amazon S3 data source
 
-Once you've connected your Amazon S3 data source, you can explore that data through the **Manage data sources** tab. The following steps guide you through using this functionality:
+Once you've connected your Amazon S3 data source, you can explore your data through the **Manage data sources** tab. The following steps guide you through using this functionality:
 
 1. From the **Manage data sources** tab, choose a date source from the list. 
 2. From that data source's page, manage the data source, choose a use case, and manage access controls and configurations. An example UI is shown in the following image: 
