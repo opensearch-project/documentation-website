@@ -18,6 +18,8 @@ To create an index template, use a PUT or POST request:
 PUT _index_template/<template name>
 POST _index_template/<template name>
 ```
+{% include copy.html %}
+
 
 This command creates a template named `daily_logs` and applies it to any new index whose name matches the pattern `logs-2020-01-*` and also adds it to the `my_logs` alias:
 
@@ -64,6 +66,8 @@ If you create an index named `logs-2020-01-01`, you can see that it has the mapp
 PUT logs-2020-01-01
 GET logs-2020-01-01
 ```
+{% include copy.html %}
+
 
 ```json
 {
@@ -110,24 +114,32 @@ To list all index templates:
 GET _cat/templates
 GET /_index_template
 ```
+{% include copy.html %}
+
 
 To find a template by its name:
 
 ```json
 GET _index_template/daily_logs
 ```
+{% include copy.html %}
+
 
 To get a list of all templates that match a pattern:
 
 ```json
 GET _index_template/daily*
 ```
+{% include copy.html %}
+
 
 To check if a specific template exists:
 
 ```json
 HEAD _index_template/<name>
 ```
+{% include copy.html %}
+
 
 ### Configure multiple templates
 
@@ -152,6 +164,8 @@ PUT _index_template/template-01
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Template 2
 
@@ -169,6 +183,8 @@ PUT _index_template/template-02
   }
 }
 ```
+{% include copy.html %}
+
 
 Because `template-02` has a higher `priority` value, it takes precedence over `template-01` . The `logs-2020-01-02` index would have the `number_of_shards` value as 3 and the `number_of_replicas` as the default value 1.
 
@@ -179,6 +195,8 @@ You can delete an index template using its name:
 ```json
 DELETE _index_template/daily_logs
 ```
+{% include copy.html %}
+
 
 ## Composable index templates
 
@@ -214,6 +232,8 @@ PUT _component_template/component_template_1
   }
 }
 ```
+{% include copy.html %}
+
 
 #### Component template 2
 
@@ -231,6 +251,8 @@ PUT _component_template/component_template_2
   }
 }
 ```
+{% include copy.html %}
+
 
 ### Use component templates to create an index template
 
@@ -275,6 +297,8 @@ PUT _index_template/daily_logs
   }
 }
 ```
+{% include copy.html %}
+
 
 If you create an index named `logs-2020-01-01`, you can see that it derives its mappings and settings from both the component templates:
 
@@ -282,6 +306,8 @@ If you create an index named `logs-2020-01-01`, you can see that it derives its 
 PUT logs-2020-01-01
 GET logs-2020-01-01
 ```
+{% include copy.html %}
+
 
 #### Example response
 
