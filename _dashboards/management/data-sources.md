@@ -38,7 +38,7 @@ The following steps guide you through the basics of creating a data source conne
        - **No authentication**: No authentication is used to connect to the data source.
        - **Username & Password**: A basic username and password are used to connect to the data source.
        - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key. 
-         - For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization.
+         - For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Lastly, enter the **Access Key** and **Secret Key** for authorization.
 
     After you have populated the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
