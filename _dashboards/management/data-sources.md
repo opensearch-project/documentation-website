@@ -71,5 +71,5 @@ Once you've created a data source connection, you can create an index pattern fo
 - Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
 - Learn about how to connect [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
 - Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
-- Learn about the [Integrations]({{site.url}}{{site.baseurl}}/integrations/index/) tool that gives you flexibility to use various data ingestion methods and connect data from the Dashboards UI.
+- Learn about the [Integrations]({{site.url}}{{site.baseurl}}/integrations/index/) tool, which gives you the flexibility to use various data ingestion methods and connect data from the Dashboards UI.
 
