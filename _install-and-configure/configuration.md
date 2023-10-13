@@ -20,6 +20,7 @@ You can specify environment variables as arguments using `-E` when launching Ope
 ```bash
 ./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
 ```
+{% include copy.html %}
 
 ## Update cluster settings using the API
 
@@ -28,12 +29,14 @@ The first step in changing a setting is to view the current settings:
 ```
 GET _cluster/settings?include_defaults=true
 ```
+{% include copy.html %}
 
 For a more concise summary of non-default settings:
 
 ```
 GET _cluster/settings
 ```
+{% include copy.html %}
 
 Three categories of setting exist in the cluster settings API: persistent, transient, and default. Persistent settings, well, persist after a cluster restart. After a restart, OpenSearch clears transient settings.
 
@@ -54,6 +57,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy.html %}
 
 You can also use the expanded form, which lets you copy and paste from the GET response and change existing values:
 
@@ -67,6 +71,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy.html %}
 
 For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/).
 
@@ -88,6 +93,7 @@ cluster.name: my-application
 action.auto_create_index: true
 compatibility.override_main_response_version: true
 ```
+{% include copy.html %}
 
 The demo configuration includes a number of settings for the Security plugin that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
 
@@ -101,3 +107,4 @@ If you are working on a client application running against an OpenSearch cluster
 - http.cors.allow-headers:X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
 - http.cors.allow-credentials:true
 ```
+{% include copy.html %}
