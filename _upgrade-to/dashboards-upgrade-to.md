@@ -32,5 +32,6 @@ Consider exporting all Kibana objects prior to starting the migration. In Kibana
    ```
    ./bin/opensearch-dashboards
    ```
+   {% include copy.html %}
 
 1. Log in, and verify that your saved searches, visualizations, and dashboards are present.
