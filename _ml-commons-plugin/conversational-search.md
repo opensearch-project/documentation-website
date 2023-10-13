@@ -359,7 +359,7 @@ You can customize `context_field_list` in your RAG pipeline to send any fields t
 
 ### RAG parameter options
 
-Use the following options when setting up a RAG pipeline under the `retrieval_augmented_generation` argument:
+Use the following options when setting up a RAG pipeline under the `retrieval_augmented_generation` argument.
 
 Parameter | Required | Description
 :--- | :--- | :---
