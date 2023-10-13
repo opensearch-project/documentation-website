@@ -138,6 +138,7 @@ To view the list of installed plugins from the command line, use the following c
 ```bash
 sudo bin/opensearch-dashboards-plugin list
 ```
+{% include copy.html %}
 
 ## Remove plugins
 
@@ -146,6 +147,7 @@ To remove a plugin:
 ```bash
 sudo bin/opensearch-dashboards-plugin remove <plugin-name>
 ```
+{% include copy.html %}
 
 Then remove all associated entries from `opensearch_dashboards.yml`.
 
@@ -154,6 +156,7 @@ For certain plugins, you must also remove the "optimize" bundle. This is a sampl
 ```bash
 sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
 ```
+{% include copy.html %}
 
 Then restart OpenSearch Dashboards. After you remove any plugin, OpenSearch Dashboards performs an optimize operation the next time you start it. This operation takes several minutes even on fast machines, so be patient.
 
@@ -166,18 +169,21 @@ OpenSearch Dashboards doesn’t update plugins. Instead, you have to remove the 
    ```bash
    sudo bin/opensearch-dashboards-plugin remove <plugin-name>
    ```
+   {% include copy.html %}
 
 1. Remove the optimized bundle:
 
    ```bash
    sudo rm /usr/share/opensearch-dashboards/optimize/bundles/<bundle-name>
    ```
+   {% include copy.html %}
 
 1. Reinstall the new version:
 
    ```bash
    sudo bin/opensearch-dashboards-plugin install <plugin-name>
    ```
+   {% include copy.html %}
 
 1. Restart OpenSearch Dashboards.
 
@@ -188,3 +194,4 @@ sudo bin/opensearch-dashboards-plugin remove anomalyDetectionDashboards
 sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
 sudo bin/opensearch-dashboards-plugin install <AD OpenSearch Dashboards plugin artifact URL>
 ```
+{% include copy.html %}
