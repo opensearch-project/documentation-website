@@ -32,7 +32,7 @@ To enable multiple data sources:
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="700">
 
-## Select multiple data sources using the Dev Tools console
+## Select multiple data sources by using the Dev Tools console
 
 <<<<<<< HEAD
 A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections.
