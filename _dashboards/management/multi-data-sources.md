@@ -1,17 +1,10 @@
 ---
 layout: default
-<<<<<<< HEAD
-title: Multiple data sources
-parent: Index patterns
-grand_parent: Dashboards Management
-nav_order: 10
-=======
 title: Connecting multiple data sources
 parent: Data sources
 nav_order: 10
 redirect_from: 
   - /dashboards/discover/multi-data-sources/
->>>>>>> 0e1f96cd (writing)
 ---
 
 # Connecting multiple data sources
