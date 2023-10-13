@@ -96,6 +96,8 @@ Then run a search:
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
+{% include copy.html %}
+
 
 #### Example response
 
@@ -301,6 +303,7 @@ PUT _plugins/_rollup/jobs/example
   }
 }
 ```
+{% include copy.html %}
 
 You can query the `example_rollup` index for the terms aggregations on the fields set up in the rollup job.
 You get back the same response that you would on the original `opensearch_dashboards_sample_data_ecommerce` source index:
@@ -342,6 +345,7 @@ POST example_rollup/_search
   }
 }
 ```
+{% include copy.html %}
 
 #### Example response
 
@@ -529,6 +533,7 @@ To take advantage of shorter and more easily written strings in Query DSL, you c
       }
   }
 ```
+{% include copy.html %}
 
 The following example uses a query string with a `*` wildcard operator to search inside a rollup index called `my_server_logs_rollup`:
 
@@ -566,6 +571,8 @@ GET my_server_logs_rollup/_search
     }
 }
 ```
+{% include copy.html %}
+
 
 For more information about query string query parameters, see [Query string query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/query-string/#parameters).
 
@@ -604,6 +611,7 @@ PUT _index_template/ism_rollover
  }
 }
 ```
+{% include copy.html %}
 
 **Step 2:** Set up an ISM rollover policy to roll over any index whose name starts with `log*` after one document is uploaded to it, and then roll up the individual backing index. The target index name is dynamically generated from the source index name by prepending the string `rollup_ndx-` to the source index name.
 
@@ -676,6 +684,7 @@ PUT _plugins/_ism/policies/rollover_policy
   } 
 }
 ```
+{% include copy.html %}
 
 **Step 3:** Create an index named `log-000001` and set up an alias `log` for it.
 
@@ -689,6 +698,7 @@ PUT log-000001
   }
 }
 ```
+{% include copy.html %}
 
 **Step 4:** Index four documents into the index created above. Two of the documents have the message "Success", and two have the message "Error".
 
@@ -700,6 +710,7 @@ POST log/_doc?refresh=true
   "msg_size": 10 
 }
 ```
+{% include copy.html %}
 
 ```json
 POST log/_doc?refresh=true 
@@ -709,6 +720,7 @@ POST log/_doc?refresh=true
   "msg_size": 20 
 }
 ```
+{% include copy.html %}
 
 ```json
 POST log/_doc?refresh=true 
@@ -718,6 +730,7 @@ POST log/_doc?refresh=true
   "msg_size": 30 
 }
 ```
+{% include copy.html %}
 
 ```json
 POST log/_doc?refresh=true 
@@ -727,6 +740,7 @@ POST log/_doc?refresh=true
   "msg_size": 40 
 }
 ```
+{% include copy.html %}
 
 Once you index the first document, the rollover action is executed. This action creates the index `log-000002` with `rollover_policy` attached to it. Then the rollup action is executed, which creates the rollup index `rollup_ndx-log-000001`.
 
@@ -764,6 +778,7 @@ GET rollup_ndx-log-*/_search
     }
   }
 }
+{% include copy.html %}
 ```
 
 The response contains two buckets, "Error" and "Success", and the document count for each bucket is 2:
