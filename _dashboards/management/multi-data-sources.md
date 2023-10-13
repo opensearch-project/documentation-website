@@ -1,10 +1,9 @@
 ---
 layout: default
 title: Multiple data sources
-parent: Dashboards Management
-nav_order: 20
-redirect_from: 
-  - /dashboards/discover/multi-data-sources/
+parent: Index patterns
+grand_parent: Dashboards Management
+nav_order: 10
 ---
 
 # Multiple data sources
@@ -25,7 +24,7 @@ To enable multiple data sources:
 4. Restart the Dashboards container.
 5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Dashboards Management** console. **Data Sources** appears in the sidebar, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="40%">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="700">
 
 ## Creating a data source connection
 
@@ -73,18 +72,19 @@ To delete the data source connection, select the trash can icon ({::nomarkdown}<
 
 Use index patterns to access the OpenSearch data that you want to explore. Learn how to load your own data and create an index pattern in the following steps. This tutorial uses the preconfigured index pattern `opensearch_dashboards_sample_data_ecommerce Default`.
 
-1. In the Dashboards console, select **Index Patterns** and then **Create index pattern**.
-2. Select **Use external data source connection**.
-3. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**.
-1. In the Dashboards console, choose **Index Patterns** and then **Create index pattern**.
-2. Choose **Use external data source connection**.
-3. Start typing in the **Search data sources** field to search for the data source you created earlier, select the data source, and then select **Next step**.
-4. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
-5. Choose an option for the **Time field** and then select **Create index pattern**.
+1. Go to OpenSearch Dashboards and select **Management** > **Dashboards Management** > **Index patterns**. 
+2. Select **Create index pattern**.
+3. Select **Use external data source connection**.
+4. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**.
+5. In the Dashboards console, choose **Index Patterns** and then **Create index pattern**.
+6. Choose **Use external data source connection**.
+7. Start typing in the **Search data sources** field to search for the data source you created earlier, select the data source, and then select **Next step**.
+8. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
+9. Choose an option for the **Time field** and then select **Create index pattern**.
 
 ## Searching data
 
-Before you start searching for data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can choose the time filter to change the time range or select a specific time range in the histogram.
+The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can choose the time filter to change the time range or select a specific time range in the histogram.
 
 ### Setting the time filter
 
