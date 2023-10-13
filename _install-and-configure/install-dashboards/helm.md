@@ -53,6 +53,7 @@ $ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 ```
+{% include copy.html %}
 
 ## Install OpenSearch Dashboards using Helm
 
@@ -61,24 +62,29 @@ $ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
    ```bash
    cd opensearch-dashboards
    ```
+   {% include copy.html %}
 
 1. Package the Helm chart:
 
    ```bash
    helm package .
    ```
+   {% include copy.html %}
 
 1. Deploy OpenSearch Dashboards:
 
    ```bash
    helm install --generate-name opensearch-dashboards-1.0.0.tgz
    ```
+   {% include copy.html %}
+   
    The output shows you the specifications instantiated from the install.
    To customize the deployment, pass in the values that you want to override with a custom YAML file:
 
    ```bash
    helm install --values=customvalues.yaml opensearch-dashboards-1.0.0.tgz
    ```
+   {% include copy.html %}
 
 #### Sample output
 
@@ -98,6 +104,7 @@ ensearch-dashboards-1-1629223356" -o jsonpath="{.items[0].metadata.name}")
   kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
 ```
 
+
 To make sure your OpenSearch Dashboards pod is up and running, run the following command:
 
 ```bash
@@ -108,12 +115,14 @@ opensearch-cluster-master-1                           1/1     Running   0       
 opensearch-cluster-master-2                           1/1     Running   0          4m35s
 opensearch-dashboards-1-1629223356-758bd8747f-8www5   1/1     Running   0          66s
 ```
+{% include copy.html %}
 
 To set up port forwarding to access OpenSearch Dashboards, exit the OpenSearch shell and run the following command:
 
 ```bash
 $ kubectl port-forward deployment/opensearch-dashboards-1-1629223356 5601
 ```
+{% include copy.html %}
 
 You can now access OpenSearch Dashboards from your browser at: http://localhost:5601.
 
@@ -129,9 +138,11 @@ opensearch-1-1629223146 default 1 2021-08-17 17:59:07.664498239 +0000 UTCdeploye
 opensearch-dashboards-1-1629223356 default  1 2021-08-17  18:02:37.600796946 +0000  UTCdepl
 oyedopensearch-dashboards-1.0.0 1.0.0        
 ```
+{% include copy.html %}
 
 To delete or uninstall a deployment, run the following command:
 
 ```bash
 helm delete opensearch-dashboards-1-1629223356
 ```
+{% include copy.html %}
