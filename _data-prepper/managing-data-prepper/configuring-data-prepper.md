@@ -104,7 +104,7 @@ check_interval | No | Duration | Specifies the time between checks of the heap s
 ### Extension plugins
 
 Since Data Prepper 2.5, Data Prepper provides support for user configurable extension plugins. Extension plugins are shared common 
-configurations shared across pipeline plugins, i.e. [source/buffer/processor/sink](../index.md#concepts).
+configurations shared across pipeline plugins, i.e. [source/buffer/processor/sink]({{site.url}}{{site.baseurl}}/data-prepper/index/#concepts).
 
 #### AWS extension plugins
 
