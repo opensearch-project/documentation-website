@@ -103,16 +103,16 @@ check_interval | No | Duration | Specifies the time between checks of the heap s
 
 ### Extension plugins
 
-Since 2.5, Data Prepper provides support for user configurable extension plugins. Extension plugins are shared common 
-configurations shared across pipeline plugins, i.e. [source/buffer/processor/sink](../index.md#data-prepper).
+Since Data Prepper 2.5, Data Prepper provides support for user configurable extension plugins. Extension plugins are shared common 
+configurations shared across pipeline plugins, i.e. [source/buffer/processor/sink](../index.md#concepts).
 
 #### AWS extension plugins
 
 Collection of AWS resource related extension plugins. All such plugin configuration objects are under `aws:`
 
-Option | Required | Type   | Description
-:--- |:---|:-------| :---
-aws | No | Object | The AWS extension plugins configuration.
+| Option | Required | Type   | Description                              |
+|:-------|:---------|:-------|:-----------------------------------------|
+| aws    | No       | Object | The AWS extension plugins configuration. |
 
 ##### AWS secrets extension plugin
 
@@ -132,20 +132,20 @@ extensions:
         ...
 ```
 
-Option | Required | Type   | Description
-:--- |:---|:-------| :---
-secrets | No | Object | The AWS Secrets Manager extension plugin configuration. See [Secrets](#secrets) for details.
+| Option  | Required | Type   | Description                                                                                  |
+|:--------|:---------|:-------|:---------------------------------------------------------------------------------------------|
+| secrets | No       | Object | The AWS Secrets Manager extension plugin configuration. See [Secrets](#secrets) for details. |
 
 ###### Secrets
 
 Multiple secrets configuration objects can be defined with unique id for each.
 
-Option | Required | Type     | Description
-:--- |:---|:---------| :---
-secret_id | Yes | String   | The AWS secret name or ARN.
-region | No | String   | The AWS region of the secret. Defaults to `us-east-1`.
-sts_role_arn | No | String   | The AWS Security Token Service (AWS STS) role to assume for requests to AWS Secrets Manager. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-refresh_interval | No | Duration | The refreshment interval for AWS secrets extension plugin to poll new secret values. Defaults to `PT1H`.
+| Option           | Required | Type     | Description                                                                                                                                                                                                                                                    |
+|:-----------------|:---------|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| secret_id        | Yes      | String   | The AWS secret name or ARN.                                                                                                                                                                                                                                    |
+| region           | No       | String   | The AWS region of the secret. Defaults to `us-east-1`.                                                                                                                                                                                                         |
+| sts_role_arn     | No       | String   | The AWS Security Token Service (AWS STS) role to assume for requests to AWS Secrets Manager. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). |
+| refresh_interval | No       | Duration | The refreshment interval for AWS secrets extension plugin to poll new secret values. See [Secrets refreshment](#secrets-refreshment) for details. Defaults to `PT1H`.                                                                                          |
 
 ###### Reference secrets
 
@@ -195,3 +195,8 @@ extensions:
         sts_role_arn: <YOUR_STS_ROLE_ARN_2>
         refresh_interval: <YOUR_REFRESH_INTERVAL_2>
 ```
+
+###### Secrets refreshment
+
+For each individual secret configuration, the latest secret value is polled on a regular interval to support secrets refreshment in AWS Secrets Manager. The refreshed secret values are utilized by certain pipeline plugins to refresh their components, e.g. connection and authentication to the backend service. 
+For multiple secret configurations, jitter within 60s will be applied across them on the initial secrets polling.
