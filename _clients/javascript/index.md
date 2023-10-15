@@ -202,6 +202,63 @@ const client = new Client({
 ```
 {% include copy.html %}
 
+From within AWS Lambda function
+
+Within an AWS Lambda function, objects declared outside the handler function retain their initialization. For more information, see [Lambda Execution Environment](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html). To leverage this, you should initialize the OpenSearch client outside of the handler function to ensure the reuse of the original connection in subsequent invocations, promoting efficiency without the need to create a new connection each time. 
+
+Conversely, initializing the client within the handler function poses a potential risk of encountering a `ConnectionError: getaddrinfo EMFILE error`. This occurs when multiple connections are created in subsequent invocations, exceeding the system's file descriptor limit.
+
+Below is an example of AWS Lambda function code that demonstrates the correct initialization of the OpenSearch client:
+
+```javascript
+const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
+const { Client } = require('@opensearch-project/opensearch');
+const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws');
+
+const client = new Client({
+  ...AwsSigv4Signer({
+    region: 'us-east-1',
+    service: 'es',  // 'aoss' for OpenSearch Serverless
+    // Must return a Promise that resolve to an AWS.Credentials object.
+    // This function is used to acquire the credentials when the client start and
+    // when the credentials are expired.
+    // The Client will refresh the Credentials only when they are expired.
+    // With AWS SDK V2, Credentials.refreshPromise is used when available to refresh the credentials.
+
+    // Example with AWS SDK V3:
+    getCredentials: () => {
+      // Any other method to acquire a new Credentials object can be used.
+      const credentialsProvider = defaultProvider();
+      return credentialsProvider();
+    },
+  }),
+  node: 'https://search-xxx.region.es.amazonaws.com', // OpenSearch domain URL
+  // node: "https://xxx.region.aoss.amazonaws.com" for OpenSearch Serverless
+});
+
+export const handler = async (event, context) => {
+  const indexName = "books";
+
+  const settings = {
+    settings: {
+      index: {
+        number_of_shards: 4,
+        number_of_replicas: 3,
+      },
+    },
+  };
+
+  // Use the already initialized client
+  const response = await client.indices.create({
+    index: indexName,
+    body: settings,
+  });
+
+};
+```
+{% include copy.html %}
+
+
 ## Creating an index
 
 To create an OpenSearch index, use the `indices.create()` method. You can use the following code to construct a JSON object with custom settings:
