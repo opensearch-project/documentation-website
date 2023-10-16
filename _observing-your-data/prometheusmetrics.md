@@ -57,7 +57,7 @@ After configuring the connection from Prometheus to OpenSearch, Prometheus metri
 ![Metrics UI example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
 
 * For more information about authentication and authorization of data source APIs, see [data source documentation on GitHub](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst).
-* For more information about Prometheus connector, see the [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/prometheus_connector.rst) GitHub page.
+* For more information about the Prometheus connector, see the [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.rst) GitHub page.
 
 ## Creating visualizations based on metrics
 

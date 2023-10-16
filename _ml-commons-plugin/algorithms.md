@@ -2,10 +2,10 @@
 layout: default
 title: Supported Algorithms 
 has_children: false
-nav_order: 100
+nav_order: 30
 ---
 
-# Supported Algorithms
+# Supported algorithms
 
 ML Commons supports various algorithms to help train and predict machine learning (ML) models or test data-driven predictions without a model. This page outlines the algorithms supported by the ML Commons plugin and the API operations they support.
 
