@@ -219,7 +219,7 @@ POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
 
-The response contains the task ID that you can use to check the status of the deploy operation. Once the operation finishes, the status changes to `COMPLETED`:
+The response contains the task ID that you can use to check the status of the deploy operation:
 
 ```json
 {
