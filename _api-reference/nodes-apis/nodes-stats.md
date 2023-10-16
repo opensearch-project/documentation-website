@@ -27,8 +27,8 @@ The following table lists the available path parameters. All path parameters are
 Parameter | Type | Description
 :--- | :--- | :---
 nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
-metric | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,fs`. See the list of all metrics below. Defaults to all metrics.
-index_metric | String | A comma-separated list of index metric groups that will be included in the response. For example, `docs,store`. See the list of all index metrics below. Defaults to all index metrics.
+metric | String | A comma-separated list of metric groups that are included in the response. For example, `jvm,fs`. See the following list of all index metrics. Defaults to all metrics.
+index_metric | String | A comma-separated list of index metric groups that are included in the response. For example, `docs,store`. See the following list of all index metrics. Defaults to all index metrics.
 
 The following table lists all available metric groups.
 
@@ -967,7 +967,7 @@ classes.total_unloaded_count | Integer | The total number of classes unloaded by
 
 ### `thread_pool`
 
-The `thread_pool` object contains a list of all thread pools. Each thread pool is a nested object specified by its ID with the properties listed below.
+The `thread_pool` object contains a list of all thread pools. Each thread pool is a nested object that is specified by its ID and contains the following properties.
 
 Field | Field type | Description
 :--- | :--- | :---
@@ -977,6 +977,7 @@ active | Integer | The number of active threads in the pool.
 rejected | Integer | The number of tasks that have been rejected.
 largest | Integer | The peak number of threads in the pool.
 completed | Integer | The number of tasks completed.
+total_wait_time | Integer | The total amount of time tasks spent waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
 
 ### `fs`
 
@@ -989,7 +990,7 @@ total | Object | Statistics for all file stores of the node.
 total.total_in_bytes | Integer | The total memory size of all file stores, in bytes. 
 total.free_in_bytes | Integer | The total unallocated disk space in all file stores, in bytes.
 total.available_in_bytes | Integer | The total disk space available to the JVM on all file stores. Represents the actual amount of memory, in bytes, that OpenSearch can use.
-data | Array | The list of all file stores. Each file store has the properties listed below.
+data | Array | The list of all file stores. Each file store has the following properties.
 data.path | String | The path to the file store.
 data.mount | String | The mount point of the file store.
 data.type | String | The type of the file store (for example, overlay).
@@ -1066,7 +1067,7 @@ total.count | Integer | The total number of documents ingested by the node.
 total.time_in_millis | Integer | The total amount of time for preprocessing ingest documents, in milliseconds.
 total.current | Integer | The total number of documents that are currently being ingested by the node.
 total.failed | Integer | The total number of failed ingestions for the node.
-pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object specified by its ID with the properties listed below.
+pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object that is specified by its ID and has the following properties.
 pipelines._id_.count | Integer | The number of documents preprocessed by the ingest pipeline.
 pipelines._id_.time_in_millis | Integer | The total amount of time for preprocessing documents in the ingest pipeline, in milliseconds.
 pipelines._id_.failed | Integer | The total number of failed ingestions for the ingest pipeline.
@@ -1102,7 +1103,7 @@ pipelines._id_.response_processors | Array of objects | Statistics for the searc
 
 ### `adaptive_selection`
 
-The `adaptive_selection` object contains the adaptive selection statistics. Each entry is specified by the node ID and has the properties listed below. 
+The `adaptive_selection` object contains the adaptive selection statistics. Each entry is specified by the node ID and has the following properties. 
 
 Field | Field type | Description
 :--- | :--- | :---
