@@ -117,12 +117,52 @@ Training data can either the same data that is going to be ingested or a separat
 You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. *faiss* has
 several encoder types, but currently, the plugin only supports *flat* and *pq* encoding.
 
-An example method definition that specifies an encoder may look something like this:
+An example method definition that specifies an encoder (method `hnsw` using `pq` encoder) may look something like this:
 
 ```json
 "method": {
   "name":"hnsw",
   "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder":{
+      "name":"pq",
+      "parameters":{
+        "code_size": 8,
+        "m": 8
+      }
+    }
+  }
+}
+```
+**Note** - Method `hnsw` supports `pq` encoder only from OpenSearch 2.10
+
+Encoder Name | Requires Training? | Description
+:--- | :--- | :---
+`flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
+`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
+
+These are few other example method definitions of faiss methods using encoders:
+
+* method `ivf` using `flat` encoder
+```json
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "nlist": 4,
+    "nprobes": 2
+  }
+}
+```
+
+* method `ivf` using `pq` encoder
+```json
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -135,10 +175,18 @@ An example method definition that specifies an encoder may look something like t
 }
 ```
 
-Encoder Name | Requires Training? | Description
-:--- | :--- | :---
-`flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
-`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
+* method `hnsw` using `flat` encoder
+```json
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "ef_construction": 256,
+    "m": 8
+  }
+}
+```
 
 #### PQ Parameters
 
