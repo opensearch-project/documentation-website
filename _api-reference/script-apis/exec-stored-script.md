@@ -146,7 +146,7 @@ The following request runs the stored script that was created in [Create or upda
 
 * `"multiplier": 2` in the `params` field is a variable passed to the stored script `multiplier-script`:
 
-````json
+```json
 GET books/_search
 {
    "query": {
@@ -163,11 +163,12 @@ GET books/_search
     }
   }
 }
-````
+```
 {% include copy-curl.html %}
 
 #### Example response
-````json
+
+```json
 {
   "took" : 12,
   "timed_out" : false,
@@ -227,7 +228,7 @@ You can use painless stored script to sort results.**
 
 #### Sample request
 
-````json
+```json
 GET books/_search
 {
    "query": {
@@ -260,7 +261,7 @@ GET books/_search
 
 #### Sample response
 
-````json
+```json
 {
   "took" : 90,
   "timed_out" : false,
