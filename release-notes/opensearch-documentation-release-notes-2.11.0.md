@@ -6,6 +6,7 @@ The OpenSearch 2.11.0 documentation includes the following additions and updates
 
 - Add Conversational Search changes for 2.11 [#5195](https://github.com/opensearch-project/documentation-website/pull/5195)
 - Removes warning about alerting and segment replication compatibility  [#5191](https://github.com/opensearch-project/documentation-website/pull/5191)
+- Adds documentation for log type categories [#5181](https://github.com/opensearch-project/documentation-website/pull/5181)
 - Add updates to creating a detector UX [#5176](https://github.com/opensearch-project/documentation-website/pull/5176)
 - Add multimodal search/sparse search/pre- and post-processing function documentation [#5168](https://github.com/opensearch-project/documentation-website/pull/5168)
 - Add documentation for new recovery setting [#5162](https://github.com/opensearch-project/documentation-website/pull/5162)
@@ -16,7 +17,3 @@ The OpenSearch 2.11.0 documentation includes the following additions and updates
 - Add total wait time to thread pool in nodes stats [#5120](https://github.com/opensearch-project/documentation-website/pull/5120)
 - [DOC] Add new documentation for distributed tracing [#4964](https://github.com/opensearch-project/documentation-website/pull/4964)
 - Add documentation for authorization on the REST layer [#4544](https://github.com/opensearch-project/documentation-website/pull/4544)
-
-## In progress documentation for 2.11.0
-
-- Adds documentation for log type categories [#5181](https://github.com/opensearch-project/documentation-website/pull/5181)
