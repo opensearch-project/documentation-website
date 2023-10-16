@@ -4,6 +4,7 @@ title: Dashboards Query Language (DQL)
 nav_order: 130
 redirect_from:
   - /dashboards/dql/
+  - /dashboards/discover/dql/
 ---
 
 # Dashboards Query Language (DQL)
