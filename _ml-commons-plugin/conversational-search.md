@@ -236,7 +236,7 @@ Use the following cluster setting to enable the RAG pipeline feature:
 ```json
 PUT /_cluster/settings
 {
-  "persistent": {"plugins.ml_commons.rag_pipline_feature_enabled": "true"}
+  "persistent": {"plugins.ml_commons.rag_pipeline_feature_enabled": "true"}
 }
 ```
 {% include copy-curl.html %}
