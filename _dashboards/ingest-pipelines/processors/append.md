@@ -1,10 +1,11 @@
 ---
 layout: default
 title: Append
-parent: Ingest processors 
-grand_parent: Ingest APIs
+parent: Ingest processors
+grand_parent: Ingest pipelines 
 nav_order: 10
----
+redirect_from:
+   - /api-reference/ingest-apis/processors/append/
 
 # Append
 

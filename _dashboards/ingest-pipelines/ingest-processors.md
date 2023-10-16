@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Ingest processors
-parent: Ingest APIs
+parent: Ingest pipelines
 nav_order: 10
 has_children: true
 ---

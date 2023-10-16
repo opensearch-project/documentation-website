@@ -2,10 +2,10 @@
 layout: default
 title: Create pipeline
 parent: Ingest pipelines
-grand_parent: Ingest APIs
 nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
+  - /api-reference/ingest-apis/create-ingest/
 ---
 
 # Create pipeline

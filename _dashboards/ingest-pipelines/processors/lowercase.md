@@ -1,36 +1,40 @@
 ---
 layout: default
-title: Remove
-parent: Ingest processors 
-grand_parent: Ingest APIs
-nav_order: 230
+title: Lowercase
+parent: Ingest processors
+grand_parent: Ingest pipelines 
+nav_order: 210
+redirect_from:
+   - /api-reference/ingest-apis/processors/lowercase/
 ---
 
-# Remove
+# Lowercase
 
-The `remove` processor is used to remove a field from a document. The following is the syntax for the `remove` processor: 
+The `lowercase` processor converts all the text in a specific field to lowercase letters. The following is the syntax for the `lowercase` processor: 
 
 ```json
 {
-    "remove": {
-        "field": "field_name"
-    }
+  "lowercase": {
+    "field": "field_name"
+  }
 }
 ```
 {% include copy-curl.html %}
 
 #### Configuration parameters
 
-The following table lists the required and optional parameters for the `remove` processor.
+The following table lists the required and optional parameters for the `lowercase` processor.
 
 | Name  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field to which the data should be appended. Supports template snippets. |
+`field`  | Required  | The name of the field that contains the data to be converted. Supports template snippets. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
+`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`target_field`  | Optional  | The name of the field in which to store the parsed data. Default is `field`. By default, `field` is updated in place. |
 
 ## Using the processor
 
@@ -38,16 +42,16 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline.** 
 
-The following query creates a pipeline, named `remove_ip`, that removes the `ip_address` field from a document: 
+The following query creates a pipeline, named `lowercase-title`, that uses the `lowercase` processor to lowercase the `title` field of a document:
 
 ```json
-PUT /_ingest/pipeline/remove_ip
+PUT _ingest/pipeline/lowercase-title
 {
-  "description": "Pipeline that excludes the ip_address field.",
-  "processors": [
+  "description" : "Pipeline that lowercases the title field",
+  "processors" : [
     {
-      "remove": {
-        "field": "ip_address"
+      "lowercase" : {
+        "field" : "title"
       }
     }
   ]
@@ -63,15 +67,14 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/remove_ip/_simulate
+POST _ingest/pipeline/lowercase-title/_simulate
 {
   "docs": [
     {
       "_index": "testindex1",
       "_id": "1",
-      "_source":{
-         "ip_address": "203.0.113.1",
-         "name": "John Doe"
+      "_source": {
+        "title": "WAR AND PEACE"
       }
     }
   ]
@@ -91,10 +94,10 @@ The following example response confirms that the pipeline is working as expected
         "_index": "testindex1",
         "_id": "1",
         "_source": {
-          "name": "John Doe"
+          "title": "war and peace"
         },
         "_ingest": {
-          "timestamp": "2023-08-24T18:02:13.218986756Z"
+          "timestamp": "2023-08-22T17:39:39.872671834Z"
         }
       }
     }
@@ -107,10 +110,9 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-PPUT testindex1/_doc/1?pipeline=remove_ip
+PUT testindex1/_doc/1?pipeline=lowercase-title
 {
-  "ip_address": "203.0.113.1",
-  "name": "John Doe"
+  "title": "WAR AND PEACE"
 }
 ```
 {% include copy-curl.html %}

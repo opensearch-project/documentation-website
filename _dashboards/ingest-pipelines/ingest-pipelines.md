@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Ingest pipelines
-parent: Ingest APIs
 has_children: true
 nav_order: 5
+redirect_from:
+   - /api-reference/ingest-apis/ingest-pipelines/
 ---
 
 # Ingest pipelines

@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Text/image embedding
-parent: Ingest processors 
-grand_parent: Ingest APIs
+parent: Ingest processors
+grand_parent: Ingest pipelines 
 nav_order: 270
+redirect_from:
+   - /api-reference/ingest-apis/processors/text-image-embedding/
 ---
 
 # Text/image embedding
