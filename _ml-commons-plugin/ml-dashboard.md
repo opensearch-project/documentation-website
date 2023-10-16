@@ -66,4 +66,4 @@ A list of nodes gives you a view of each node the model is running on, including
 
 ## Next steps
 
-For more information about how to manage ML models in OpenSearch, see [ML Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+For more information about how to manage ML models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
