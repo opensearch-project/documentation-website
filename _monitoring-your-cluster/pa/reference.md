@@ -9,26 +9,25 @@ redirect_from:
 
 # Metrics reference
 
-This page contains all Performance Analyzer metrics. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although certain metrics measure only one thing, making the choice of aggregation irrelevant.
+Performance Analyzer provides a number of metrics to help you evaluate performance. The following tables describe the available metrics, grouped by the dimensions that are most relevant for that metric. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although for certain metrics, the measured value is the same regardless of aggregation type. 
 
-For information on dimensions, see the [dimensions reference](#dimensions-reference).
+For information about each of the dimensions, see [dimensions reference](#dimensions-reference) later in this topic.
 
 This list is extensive. We recommend using Ctrl/Cmd + F to find what you're looking for.
 {: .tip }
 
+## Relevant dimensions: `ShardID`, `IndexName`, `Operation`, `ShardRole`
+
 <table>
-  <thead style="text-align: left">
+ <thead style="text-align: left">
     <tr>
       <th>Metric</th>
-      <th>Dimensions</th>
       <th>Description</th>
     </tr>
-  </thead>
+ </thead>
   <tbody>
     <tr>
       <td>CPU_Utilization
-      </td>
-      <td rowspan="20">ShardID, IndexName, Operation, ShardRole
       </td>
       <td>CPU usage ratio. CPU time (in milliseconds) used by the associated thread(s) in the past five seconds, divided by 5000 milliseconds.
       </td>
@@ -72,7 +71,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Heap_AllocRate
       </td>
-      <td>An approximation of the heap memory allocated, in bytes, per second in the past five seconds
+      <td>An approximation, in bytes, of the heap memory allocated per second in the last 5 seconds.
       </td>
     </tr>
     <tr>
@@ -114,25 +113,25 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>Thread_Blocked_Time
       </td>
-      <td>Average time (seconds) that the associated thread(s) blocked to enter or reenter a monitor.
+      <td>The average amount of time, in seconds, that the associated thread has been blocked from entering or reentering a monitor.
       </td>
     </tr>
     <tr>
       <td>Thread_Blocked_Event
       </td>
-      <td>The total number of times that the associated thread(s) blocked to enter or reenter a monitor (i.e. the number of times a thread has been in the blocked state).
+      <td>The total number of times that the associated thread has been blocked from entering or reentering a monitor (that is, the number of times a thread has been in the `blocked` state).
       </td>
     </tr>
     <tr>
       <td>Thread_Waited_Time
       </td>
-      <td>Average time (seconds) that the associated thread(s) waited to enter or reenter a monitor in WAITING or TIMED_WAITING state.
+      <td>The average amount of time, in seconds, that the associated thread has waited to enter or reenter a monitor (that is, the amount of time a thread has been in the `WAITING` or `TIMED_WAITING` state)".
       </td>
     </tr>
     <tr>
       <td>Thread_Waited_Event
       </td>
-      <td>The total number of times that the associated thread(s) waited to enter or reenter a monitor (i.e. the number of times a thread has been in the WAITING or TIMED_WAITING state).
+      <td>The total number of times that the associated thread has waited to enter or reenter a monitor (that is, the number of times a thread has been in the <code>WAITING</code> or <code>TIMED_WAITING</code> state).
       </td>
     </tr>
     <tr>
@@ -146,11 +145,22 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       </td>
       <td>The total number of documents indexed in the past five seconds.
       </td>
-    </tr>
+    </tr> 
+  </tbody>
+</table>
+
+## Relevant dimensions: `ShardID`, `IndexName` 
+
+<table>
+  <thead style="text-align: left">
     <tr>
+      <th>Metric</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
       <td>Indexing_ThrottleTime
-      </td>
-      <td rowspan="30">ShardID, IndexName
       </td>
       <td>Time (milliseconds) that the index has been under merge throttling control in the past five seconds.
       </td>
@@ -287,50 +297,83 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Estimated disk usage of the shard in bytes.
       </td>
     </tr>
+  </tbody>
+</table>
+
+## Relevant dimensions: `ShardID`, `IndexName`, `IndexingStage`  
+  
+<table>
+  <thead style="text-align: left">
+   <tr>
+    <th>Metric</th>
+    <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>Indexing_Pressure_Current_Limits
       </td>
-      <td rowspan="5">ShardID, IndexName, IndexingStage
-      </td>
-      <td>Total heap size (in bytes) that is available for utilization by a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      <td>The total heap size, in bytes, that is available for use by an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
     <tr>
       <td>Indexing_Pressure_Current_Bytes
       </td>
-      <td>Total heap size (in bytes) occupied by a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      <td>The total heap size, in bytes, occupied by an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
     <tr>
       <td>Indexing_Pressure_Last_Successful_Timestamp
       </td>
-      <td>Timestamp of a request that was successful for a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      <td>The timestamp of a successful request for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
     <tr>
       <td>Indexing_Pressure_Rejection_Count
       </td>
-      <td>Total rejections performed by OpenSearch for a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      <td>The total number of rejections performed by OpenSearch for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
     <tr>
       <td>Indexing_Pressure_Average_Window_Throughput
       </td>
-      <td>Average throughput of the last n requests (The value of n is determined by `shard_indexing_pressure.secondary_parameter.throughput.request_size_window` setting) for a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      <td>The average throughput of the last n requests (The value of n is determined by the `shard_indexing_pressure.secondary_parameter.throughput.request_size_window` setting) for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
       </td>
     </tr>
+   </tbody>
+ </table>
+    
+## Relevant dimensions: `Operation`, `Exception`, `Indices`, `HTTPRespCode`, `ShardID`, `IndexName`, `ShardRole`    
+   
+ <table>
+  <thead style="text-align: left">
     <tr>
-      <td>Latency
-      </td>
-      <td>Operation, Exception, Indices, HTTPRespCode, ShardID, IndexName, ShardRole
+     <th>Metric</th>
+     <th>Description</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>Latency
       </td>
       <td>Latency (milliseconds) of a request.
       </td>
     </tr>
+   </tbody>
+ </table>
+
+## Relevant dimension: `MemType`   
+   
+ <table>
+   <thead style="text-align: left">
+    <tr>
+      <th>Metric</th>
+      <th>Description</th>
+    </tr>
+   </thead>
+   <tbody>  
     <tr>
       <td>GC_Collection_Event
-      </td>
-      <td rowspan="6">MemType
       </td>
       <td>The number of garbage collections that have occurred in the past five seconds.
       </td>
@@ -365,10 +408,21 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>The amount of used memory in bytes.
       </td>
     </tr>
+   </tbody>
+  </table>
+
+## Relevant dimension: `DiskName`   
+   
+ <table>
+   <thead style="text-align: left">
+    <tr>
+      <th>Metric</th>
+      <th>Description</th>
+    </tr>
+   </thead>
+   <tbody>  
     <tr>
       <td>Disk_Utilization
-      </td>
-      <td rowspan="3">DiskName
       </td>
       <td>Disk utilization rate: percentage of disk time spent reading and writing by the OpenSearch process in the past five seconds.
       </td>
@@ -385,51 +439,73 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Service rate: MB read or written per second in the past five seconds. This metric assumes that each disk sector stores 512 bytes.
       </td>
     </tr>
+  </tbody>
+</table>
+
+## Relevant dimension: `DestAddr`   
+   
+ <table>
+  <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Net_TCP_NumFlows
+     </td>
+     <td>The number of samples collected. Performance Analyzer collects 1 sample every 5 seconds.
+     </td>
+   </tr>
+   <tr>
+     <td>Net_TCP_TxQ
+     </td>
+     <td>The average number of TCP packets in the send buffer.
+     </td>
+   </tr>
+   <tr>
+     <td>Net_TCP_RxQ
+     </td>
+     <td>The average number of TCP packets in the receive buffer.
+     </td>
+   </tr>
+   <tr>
+     <td>Net_TCP_Lost
+     </td>
+     <td>The average number of unrecovered recurring timeouts. This number is reset when the recovery finishes or `SND.UNA` is advanced. `SND.UNA` is the sequence number of the first byte of data that has been sent but not yet acknowledged.
+     </td>
+  </tr>
+  <tr>
+     <td>Net_TCP_SendCWND
+     </td>
+     <td>The average size, in bytes, of the sending congestion window.
+     </td>
+   </tr>
+   <tr>
+     <td>Net_TCP_SSThresh
+     </td>
+     <td>The average size, in bytes, of the slow start size threshold.
+     </td>
+   </tr>
+ </tbody>
+</table>
+
+## Relevant dimension: `Direction`    
+   
+ <table>
+   <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+   </thead>
+   <tbody>  
     <tr>
-      <td>Net_TCP_NumFlows
-      </td>
-      <td rowspan="6">DestAddr
-      </td>
-      <td>Number of samples collected. Performance Analyzer collects one sample every five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_TxQ
-      </td>
-      <td>Average number of TCP packets in the send buffer.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_RxQ
-      </td>
-      <td>Average number of TCP packets in the receive buffer.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_Lost
-      </td>
-      <td>Average number of unrecovered recurring timeouts. This number is reset when the recovery finishes or `SND.UNA` is advanced. `SND.UNA` is the sequence number of the first byte of data that has been sent, but not yet acknowledged.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_SendCWND
-      </td>
-      <td>Average size (bytes) of the sending congestion window.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_TCP_SSThresh
-      </td>
-      <td>Average size (bytes) of the slow start size threshold.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_PacketRate4
-      </td>
-      <td rowspan="5">Direction
-      </td>
-      <td>The total number of IPv4 datagrams transmitted/received from/by interfaces per second, including those transmitted or received in error.
-      </td>
+     <td>Net_PacketRate4
+     </td>
+     <td>The total number of IPv4 datagrams transmitted/received from/by interfaces per second, including those transmitted or received in error.
+     </td>
     </tr>
     <tr>
       <td>Net_PacketDropRate4
@@ -455,225 +531,317 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>The number of bits transmitted or received per second by all network interfaces.
       </td>
     </tr>
+   </tbody>
+  </table>
+
+
+## Relevant dimension: `ThreadPoolType`   
+   
+ <table>
+   <thead style="text-align: left">
     <tr>
-      <td>ThreadPool_QueueSize
-      </td>
-      <td rowspan="6">ThreadPoolType
-      </td>
-      <td>The size of the task queue.
-      </td>
+     <th>Metric</th>
+     <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>ThreadPool_QueueSize
+     </td>
+     <td>The size of the task queue.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_RejectedReqs
+     </td>
+     <td>The number of rejected executions.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_TotalThreads
+     </td>
+     <td>The current number of threads in the pool.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_ActiveThreads
+     </td>
+     <td>The approximate number of threads that are actively executing tasks.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_QueueLatency
+     </td>
+     <td>The latency of the task queue.
+     </td>
+   </tr>
+   <tr>
+     <td>ThreadPool_QueueCapacity
+     </td>
+     <td>The current capacity of the task queue.
+     </td>
+    </tr>
+  </tbody>
+</table>
+
+## Relevant dimension: `ClusterManager_PendingTaskType`  
+   
+ <table>
+  <thead style="text-align: left">
+   <tr>
+    <th>Metric</th>
+    <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>ClusterManager_PendingQueueSize
+     </td>
+     <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks, such as create index, update mapping, allocate shard, and fail shard.
+     </td>
+   </tr>
+  </tbody>
+ </table>
+
+## Relevant dimensions: `Operation`, `Exception`, `Indices`, `HTTPRespCode`   
+   
+<table>
+  <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+    <td>HTTP_RequestDocs
+    </td>
+    <td>The number of items in the request (only for the `_bulk` request type).
+    </td>
+  </tr>
+  <tr>
+    <td>HTTP_TotalRequests
+    </td>
+    <td>The number of requests completed in the last 5 seconds.
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+## Relevant dimension: `CBType` 
+  
+<table>
+  <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>CB_EstimatedSize
+     </td>
+     <td>The current number of estimated bytes.
+     </td>
     </tr>
     <tr>
-      <td>ThreadPool_RejectedReqs
-      </td>
-      <td>The number of rejected executions.
-      </td>
-    </tr>
-    <tr>
-      <td>ThreadPool_TotalThreads
-      </td>
-      <td>The current number of threads in the pool.
-      </td>
-    </tr>
-    <tr>
-      <td>ThreadPool_ActiveThreads
-      </td>
-      <td>The approximate number of threads that are actively executing tasks.
-      </td>
-    </tr>
-    <tr>
-      <td>ThreadPool_QueueLatency
-      </td>
-      <td>The latency of the task queue.
-      </td>
-    </tr>
-    <tr>
-      <td>ThreadPool_QueueCapacity
-      </td>
-      <td>The current capacity of the task queue.
-      </td>
-    </tr>
-    <tr>
-      <td>Master_PendingQueueSize
-      </td>
-      <td>Master_PendingTaskType
-      </td>
-      <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks (create index, update mapping, allocate shard, fail shard, etc.).
-      </td>
-    </tr>
-    <tr>
-      <td>HTTP_RequestDocs
-      </td>
-      <td rowspan="2">Operation, Exception, Indices, HTTPRespCode
-      </td>
-      <td>The number of items in the request (only for `_bulk` request type).
-      </td>
-    </tr>
-    <tr>
-      <td>HTTP_TotalRequests
-      </td>
-      <td>The number of finished requests in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>CB_EstimatedSize
-      </td>
-      <td rowspan="3">CBType
-      </td>
-      <td>The current number of estimated bytes.
-      </td>
-    </tr>
-    <tr>
-      <td>CB_TrippedEvents
-      </td>
-      <td>The number of times the circuit breaker has tripped.
-      </td>
+     <td>CB_TrippedEvents
+     </td>
+     <td>The number of times that the circuit breaker has tripped.
+     </td>
     </tr>
     <tr>
       <td>CB_ConfiguredSize
       </td>
-      <td>The limit (bytes) for how much memory operations can use.
+      <td>The limit, in bytes, of the amount of memory operations can use.
+      </td>
+    </tr>
+   </tbody>
+  </table>
+
+## Relevant dimensions: `ClusterManagerTaskInsertOrder`, `ClusterManagerTaskPriority`, `ClusterManagerTaskType`, `ClusterManagerTaskMetadata`
+ 
+<table>
+ <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+ </thead>
+ <tbody>  
+   <tr>
+     <td>ClusterManager_Task_Queue_Time
+     </td>
+     <td>The amount of time, in milliseconds, that a cluster manager task spent in the queue.
+     </td>
+   </tr>
+   <tr>
+      <td>ClusterManager_Task_Run_Time
+      </td>
+      <td>The amount of time, in milliseconds, that a cluster manager task has been running.
+      </td>
+    </tr>
+ </tbody>
+</table>
+     
+## Relevant dimension: `CacheType` 
+  
+<table>
+  <thead style="text-align: left">
+    <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Cache_MaxSize
+     </td>
+     <td>The maximum size of the cache, in bytes.
+     </td>
+   </tr>
+ </tbody>
+</table>
+
+## Relevant dimension: `ControllerName` 
+<table>
+ <thead style="text-align: left">
+  <tr>
+    <th>Metric</th>
+    <th>Description</th>
+  </tr>
+ </thead>
+ <tbody>  
+  <tr>
+    <td>AdmissionControl_RejectionCount 
+    </td>
+    <td>The total number of rejections performed by a Controller of Admission Control.
+    </td>
+  </tr>
+  <tr>
+    <td>AdmissionControl_CurrentValue 
+    </td>
+    <td>The current value for Controller of Admission Control.
+    </td>
+  </tr>
+  <tr>
+    <td>AdmissionControl_ThresholdValue
+    </td>
+    <td>The threshold value for Controller of Admission Control.
+    </td>
+  </tr>
+ </tbody>
+</table>
+
+## Relevant dimension: `NodeID` 
+  
+<table>
+  <thead style="text-align: left">
+   <tr>
+   <th>Metric</th>
+   <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>  
+    <tr>
+      <td>Data_RetryingPendingTasksCount 
+      </td>
+      <td>The number of throttled pending tasks on which the data node is actively performing retries. It is an absolute metric at that point in time.
       </td>
     </tr>
     <tr>
-      <td>Master_Task_Queue_Time
+      <td>ClusterManager_ThrottledPendingTasksCount 
       </td>
-      <td rowspan="2">MasterTaskInsertOrder, MasterTaskPriority, MasterTaskType, MasterTaskMetadata
-      </td>
-      <td>The time (milliseconds) that a master task spent in the queue.
-      </td>
-    </tr>
-    <tr>
-      <td>Master_Task_Run_Time
-      </td>
-      <td>The time (milliseconds) that a master task has been executed.
-      </td>
-    </tr>
-    <tr>
-      <td>Cache_MaxSize
-      </td>
-      <td>CacheType
-      </td>
-      <td>The max size of the cache in bytes.
-      </td>
-    </tr>
-    <tr>
-      <td>AdmissionControl_RejectionCount (WIP)
-      </td>
-      <td rowspan="3">ControllerName
-      </td>
-      <td>Total rejections performed by a Controller of Admission Control.
-      </td>
-    </tr>
-    <tr>
-      <td>AdmissionControl_CurrentValue (WIP)
-      </td>
-      <td>Current value for Controller of Admission Control.
-      </td>
-    </tr>
-    <tr>
-      <td>AdmissionControl_ThresholdValue (WIP)
-      </td>
-      <td>Threshold value for Controller of Admission Control.
-      </td>
-    </tr>
-    <tr>
-      <td>Data_RetryingPendingTasksCount (WIP)
-      </td>
-      <td rowspan="2"> NodeID
-      </td>
-      <td>Number of throttled pending tasks on which data node is actively performing retries. It will be an absolute metric at that point of time.
-      </td>
-    </tr>
-    <tr>
-      <td>Master_ThrottledPendingTasksCount (WIP)
-      </td>
-      <td>Sum of total pending tasks which got throttled by node (master node). It is a cumulative metric so look at the max aggregation.
-      </td>
-    </tr>
-    <tr>
-      <td>Election_Term (WIP)
-      </td>
-      <td rowspan="5">N/A
-      </td>
-      <td>Monotonically increasing number with every master election.
-      </td>
-    </tr>
-    <tr>
-      <td>PublishClusterState_Latency (WIP)
-      </td>
-      <td>The time taken by quorum of nodes to publish new cluster state. This metric is available for current master.
-      </td>
-    </tr>
-    <tr>
-      <td>PublishClusterState_Failure (WIP)
-      </td>
-      <td>The number of times publish new cluster state action failed on master node.
-      </td>
-    </tr>
-    <tr>
-      <td>ClusterApplierService_Latency (WIP)
-      </td>
-      <td>The time taken by each node to apply cluster state sent by master.
-      </td>
-    </tr>
-    <tr>
-      <td>ClusterApplierService_Failure (WIP)
-      </td>
-      <td>The number of times apply cluster state action failed on each node.
-      </td>
-    </tr>
-    <tr>
-      <td>Shard_State (WIP)
-      </td>
-      <td>IndexName, NodeName, ShardType, ShardID
-      </td>
-      <td>The state of each shard - whether it is STARTED, UNASSIGNED, RELOCATING etc.
-      </td>
-    </tr>
-    <tr>
-      <td>LeaderCheck_Latency (WIP)
-      </td>
-      <td rowspan="4">WIP
-      </td>
-      <td rowspan="4">WIP
-      </td>
-    </tr>
-    <tr>
-      <td>FollowerCheck_Failure (WIP)
-      </td>
-    </tr>
-    <tr>
-      <td>LeaderCheck_Failure (WIP)
-      </td>
-    </tr>
-    <tr>
-      <td>FollowerCheck_Latency (WIP)
+      <td>The sum of the total pending tasks that were throttled by the cluster manager node. This is a cumulative metric, so make sure to check the max aggregation.
       </td>
     </tr>
   </tbody>
+ </table>
+
+## Relevant dimensions: N/A
+The following metrics are relevant to the cluster as a whole and do not require specific dimensions.
+
+<table>
+  <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Election_Term 
+     </td>
+     <td>A number that increases monotonically with every cluster manager election.
+     </td>
+   </tr>
+   <tr>
+     <td>PublishClusterState_Latency 
+     </td>
+     <td>The amount of time taken by the quorum of nodes to publish the new cluster state. This metric is available for the current cluster manager.
+     </td>
+   </tr>
+   <tr>
+     <td>PublishClusterState_Failure 
+     </td>
+     <td>The number of times the new cluster state failed to publish on the cluster manager node.
+     </td>
+   </tr>
+   <tr>
+     <td>ClusterApplierService_Latency 
+     </td>
+     <td>The amount of time taken by each node for the apply cluster state sent by the cluster manager.
+     </td>
+   </tr>
+   <tr>
+     <td>ClusterApplierService_Failure 
+     </td>
+     <td>The number of times that the apply cluster state action failed on each node.
+     </td>
+   </tr>
+  </tbody>
+ </table>
+
+## Relevant dimensions: `IndexName`, `NodeName`, `ShardType`, `ShardID`
+  
+<table>
+   <thead style="text-align: left">
+   <tr>
+     <th>Metric</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>  
+   <tr>
+     <td>Shard_State 
+     </td>
+     <td>The state of each shard, for example, `STARTED`, `UNASSIGNED`, or `RELOCATING`.
+     </td>
+   </tr>
+   </tbody>
 </table>
 
 
 ## Dimensions reference
 
-Dimension | Return values
-:--- | :---
-ShardID | ID for the shard (e.g. `1`).
-IndexName | Name of the index (e.g. `my-index`).
-Operation | Type of operation (e.g. `shardbulk`).
-ShardRole | `primary`, `replica`
-Exception | OpenSearch exceptions (e.g. `org.opensearch.index_not_found_exception`).
-Indices | The list of indices in the request URI.
-HTTPRespCode | Response code from OpenSearch (e.g. `200`).
-MemType | `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, `Heap`
-DiskName | Name of the disk (e.g. `sda1`).
-DestAddr | Destination address (e.g. `010015AC`).
-Direction | `in`, `out`
-ThreadPoolType | The OpenSearch thread pools (e.g. `index`, `search`,`snapshot`).
-CBType | `accounting`, `fielddata`, `in_flight_requests`, `parent`, `request`
-MasterTaskInsertOrder | The order in which the task was inserted (e.g. `3691`).
-MasterTaskPriority | Priority of the task (e.g. `URGENT`). OpenSearch executes higher priority tasks before lower priority ones, regardless of `insert_order`.
-MasterTaskType | `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, `Update snapshot state`
-MasterTaskMetadata | Metadata for the task (if any).
-CacheType | `Field_Data_Cache`, `Shard_Request_Cache`, `Node_Query_Cache`
+| Dimension            | Return values                                   |
+|----------------------|-------------------------------------------------|
+| ShardID              | The ID of the shard, for example, `1`.           |
+| IndexName            | The name of the index, for example, `my-index`.   |
+| Operation            | The type of operation, for example, `shardbulk`.  |
+| ShardRole            | The shard role, for example, `primary` or `replica`.                            |
+| Exception            | OpenSearch exceptions, for example, `org.opensearch.index_not_found_exception`. |
+| Indices              | The list of indexes in the request URL.        |
+| HTTPRespCode         | The response code from OpenSearch, for example, `200`. |
+| MemType              | The memory type, for example, `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, or `Heap`. |
+| DiskName             | The name of the disk, for example, `sda1`.        |
+| DestAddr             | The destination address, for example, `010015AC`. |
+| Direction            | The direction, for example, `in` or `out`.                                    |
+| ThreadPoolType       | The OpenSearch thread pools, for example, `index`, `search`, or `snapshot`. |
+| CBType               | The circuit breaker type, for example, `accounting`, `fielddata`, `in_flight_requests`, `parent`, or `request`. |
+| ClusterManagerTaskInsertOrder| The order in which the task was inserted, for example, `3691`. |
+| ClusterManagerTaskPriority   | The priority of the task, for example, `URGENT`. OpenSearch executes higher-priority tasks before lower-priority ones, regardless of `insert_order`. |
+| ClusterManagerTaskType       | The task type, for example, `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, or `Update snapshot state`. |
+| ClusterManagerTaskMetadata   | The metadata for the task (if any).                 |
+| CacheType            | The cache type, for example, `Field_Data_Cache`, `Shard_Request_Cache`, or `Node_Query_Cache`. |
+

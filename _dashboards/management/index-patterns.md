@@ -57,7 +57,7 @@ An example of step 1 is shown in the following image. Note that the index patter
 
 Once the index pattern has been created, you can view the mapping of the matching indexes. Within the table, you can see the list of fields, along with their data type and properties. An example is shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png" alt="Index pattern table UI " width="700"/>
+<img src="{{site.url}}{{site.baseurl}}//images/dashboards/index-pattern-table.png" alt="Index pattern table UI " width="700"/>
 
 ## Next steps
 
