@@ -20,8 +20,8 @@ To perform the Quickstart steps, you'll need to fulfill the following prerequisi
 
 If you don't already have an acitive OpenSearch cluster, you can launch a new cluster to being using OpenSearch Benchmark.
 
-- Using **Docker Compose**. For instuctions on how to use Docker Compose, see [OpenSearch Quickstart]({{site.url}}{{site.baseurl}}/quickstart/).
-- Using **Tar**. For instructions on how to install OpenSearch with Tar, see [Installtion OpenSearch > Tarball]({{site.url}}{{site.baseurl}}/install-opensearch/tar/#step-1-download-and-unpack-opensearch/).
+- Using **Docker Compose**. For instructions on how to use Docker Compose, see [OpenSearch Quickstart]({{site.url}}{{site.baseurl}}/quickstart/).
+- Using **Tar**. For instructions on how to install OpenSearch with Tar, see [Installing OpenSearch > Tarball]({{site.url}}{{site.baseurl}}/install-opensearch/tar/#step-1-download-and-unpack-opensearch/).
 
 OpenSearch Benchmark has not been tested with the Window's distribution of OpenSearch.
 {: .note}
