@@ -15,7 +15,7 @@ redirect_from:
 
 The CAT count operation lists the number of documents in your cluster.
 
-#### Example
+## Example
 
 ```json
 GET _cat/count?v
