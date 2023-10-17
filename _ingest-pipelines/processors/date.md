@@ -2,7 +2,6 @@
 layout: default
 title: Date
 parent: Ingest processors
-grand_parent: Ingest pipelines 
 nav_order: 50
 redirect_from:
    - /api-reference/ingest-apis/processors/date/

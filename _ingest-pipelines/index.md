@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Ingest pipelines
-has_children: true
 nav_order: 5
+nav_exclude: true
 redirect_from:
    - /api-reference/ingest-apis/ingest-pipelines/
 ---

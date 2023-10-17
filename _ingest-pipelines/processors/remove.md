@@ -2,7 +2,6 @@
 layout: default
 title: Remove
 parent: Ingest processors
-grand_parent: Ingest pipelines 
 nav_order: 230
 redirect_from:
    - /api-reference/ingest-apis/processors/remove/

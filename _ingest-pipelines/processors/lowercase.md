@@ -2,7 +2,6 @@
 layout: default
 title: Lowercase
 parent: Ingest processors
-grand_parent: Ingest pipelines 
 nav_order: 210
 redirect_from:
    - /api-reference/ingest-apis/processors/lowercase/

@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Create pipeline
-parent: Ingest pipelines
 nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/

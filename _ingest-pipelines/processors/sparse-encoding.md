@@ -2,7 +2,6 @@
 layout: default
 title: Sparse encoding
 parent: Ingest processors
-grand_parent: Ingest pipelines 
 nav_order: 240
 redirect_from:
    - /api-reference/ingest-apis/processors/sparse-encoding/

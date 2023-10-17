@@ -2,7 +2,6 @@
 layout: default
 title: Convert
 parent: Ingest processors
-grand_parent: Ingest pipelines 
 nav_order: 30
 redirect_from:
    - /api-reference/ingest-apis/processors/convert/

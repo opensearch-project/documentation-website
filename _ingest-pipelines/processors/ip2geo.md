@@ -2,7 +2,6 @@
 layout: default
 title: IP2Geo
 parent: Ingest processors
-grand_parent: Ingest pipelines 
 nav_order: 130
 redirect_from:
    - /api-reference/ingest-apis/processors/ip2geo/

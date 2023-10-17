@@ -2,7 +2,6 @@
 layout: default
 title: Bytes
 parent: Ingest processors
-grand_parent: Ingest pipelines 
 nav_order: 20
 redirect_from:
    - /api-reference/ingest-apis/processors/bytes/
