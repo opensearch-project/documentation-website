@@ -129,7 +129,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The `request_body` template must be `${parameters.input}``. 
+The `request_body` template must be `${parameters.input}`. 
 {: .important}
 
 ### Preprocessing function 
