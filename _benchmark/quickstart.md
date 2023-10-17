@@ -249,16 +249,24 @@ Each task run by the `percolator` workload represents a specific OpenSearch API 
 * **Error Rate:** The percentage of operations run during the task that were not successful or returned a 200 error code.
 
 
-## Next steps
+## Running OpenSearch Benchmark on your own cluster
 
-At this point, you can run OSB against a different cluster, rather than single node test cluster generated from the packaged configuration above.  In the command line above:
-
+Now that you're familar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `execute-test` command, replacing the following settings.
+ 
   * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
   * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up, such as the test cluster above.
-  * If you are using a `HOST:PORT`specification and expect to use SSL/TLS, either specify `https://` or add the `use_ssl:true` directive to the client-options string.
+  * If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
   * Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
-  * To run OSB with Docker, replace `opensearch-benchmark` with `docker run opensearchproject/opensearch-benchmark:latest`.  Note that the `localhost` address is generally not available within Docker containers.  To access this endpoint inside the container, you will need to use `host.docker.internal` instead.  Furthermore, on Linux, the command above becomes `docker run --add-host host.docker.internal:host-gateway opensearchproject/opensearch-benchmark:latest`.  See the [Docker documentation](https://docs.docker.com/engine/reference/run/#network-settings) for more details.
+
+You can copy the following command template to use in your own terminal:
+
+```bash
+opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
+```
+{% include copy.html %}
+
+## Next steps
 
 See the following resources to learn more about OpenSearch Benchmark:
 
