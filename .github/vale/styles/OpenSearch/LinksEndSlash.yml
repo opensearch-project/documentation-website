@@ -1,0 +1,7 @@
+extends: existence
+message: "Add a trailing slash to the link '%s'."
+level: error
+nonword: true
+scope: raw
+tokens:
+  - '\(\{\{site.url\}\}\{\{site.baseurl\}\}(\/[A-Za-z0-9-_]+)+\s*\)'

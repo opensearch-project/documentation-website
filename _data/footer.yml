@@ -11,9 +11,9 @@ columns:
       -
         title: 'Github'
         url: 'https://github.com/opensearch-project'
-      -
-        title: 'Partners'
-        url: '/partners/'
+      # -
+        # title: 'Partners'
+        # url: '/partners/'
       -
         title: 'Community Projects'
         url: '/community_projects'
@@ -29,12 +29,9 @@ columns:
       -
         title: Testimonials
         url: '/testimonials.html'
-      -
-        title: 'Brand Guidelines'
-        url: '/brand.html'
-      -
-        title: 'Trademark Usage Policy'
-        url: '/trademark-usage.html'
+      - 
+        title: 'Trademark and Brand Policy'
+        url: '/trademark-brand-policy.html'
       -
         title: OpenSearch Disambiguation
         url: '/disambiguation.html'

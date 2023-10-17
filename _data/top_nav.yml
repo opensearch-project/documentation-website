@@ -1,0 +1,93 @@
+items:
+  -
+    label: OpenSearchCon
+    fragment: opensearchcon
+    children:
+      -
+        label: Register for OpenSearchCon!
+        url: https://opensearchcon2023.splashthat.com
+      -
+        label: Sessions
+        url: /events/opensearchcon/sessions/index.html
+      -
+        label: Speakers
+        url: /events/opensearchcon/speakers/index.html
+      -
+        label: Exhibitors
+        url: /events/opensearchcon/exhibitors/index.html
+      -
+        label: Workshops
+        url: /events/opensearchcon/workshops/index.html
+      -
+        label: Unconference
+        url: /events/opensearchcon/unconference/index.html
+      -
+        label: CFP is closed
+        url: /opensearchcon2023-cfp.html
+  -
+    label: Download
+    fragments:
+      - downloads
+      - versions
+    url: /downloads.html
+  -
+    label: About
+    fragments:
+      - about
+      - releases
+      - faq
+    children:
+      -
+       label: OpenSearch
+       url: /about.html
+      -
+       label: Releases
+       url: /releases.html
+      -
+       label: FAQ
+       url: /faq
+  -
+    label: Community
+    fragments:
+      - events
+      - community_projects
+      - blog
+      - partners
+      - slack
+    children:
+      -
+        label: Blog
+        url: /blog
+      -
+        label: Forum
+        url: https://forum.opensearch.org/
+      -
+        label: Slack
+        url: /slack.html
+      -
+        label: Events
+        url: /events
+      -
+        label: Partners
+        url: /partners
+      -
+        label: Projects
+        url: /community_projects
+  -
+    label: Documentation
+    fragment: docs
+    url: /docs/
+  -
+    label: Platform
+    fragment: platform
+    children:
+      -
+        label: Vector Database
+        url: /platform/search/vector-database.html
+      -
+        label: Live Demo
+        url: https://playground.opensearch.org/
+      -
+        label: Performance Benchmarks
+        url: /benchmarks
+  

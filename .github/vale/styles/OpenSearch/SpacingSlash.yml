@@ -1,0 +1,6 @@
+extends: existence
+message: "When using '/' between words, do not insert space on either side of it."
+ignorecase: true
+level: error
+tokens:
+  - '[A-Za-z]+ +\/ +[A-Za-z]+'

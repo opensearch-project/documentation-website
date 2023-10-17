@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source "http://rubygems.org"
 
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
@@ -8,7 +8,7 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll", "~> 4.2.0"
+gem "jekyll", "~> 4.3.2"
 
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 gem "just-the-docs", "~> 0.3.3"
@@ -22,6 +22,7 @@ gem "jekyll-redirect-from", "~> 0.16"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
+  gem "jekyll-last-modified-at"
   gem "jekyll-sitemap"
 end
 
@@ -30,3 +31,12 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
+
+# Installs webrick dependency for building locally
+gem "webrick", "~> 1.7"
+
+
+# Link checker
+gem "typhoeus"
+gem "ruby-link-checker"
+gem "ruby-enum"

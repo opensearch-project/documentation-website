@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Exact k-NN with scoring script
-nav_order: 3
+nav_order: 10
 parent: k-NN
 has_children: false
 has_math: true
@@ -282,44 +282,44 @@ GET my-long-index/_search
 A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. The following table illustrates how OpenSearch converts spaces to scores:
 
 <table>
-  <thead style="text-align: left">
+  <thead style="text-align: center">
   <tr>
     <th>spaceType</th>
-    <th>Distance Function</th>
+    <th>Distance Function (d)</th>
     <th>OpenSearch Score</th>
   </tr>
   </thead>
   <tr>
-    <td>l2</td>
-    <td>\[ Distance(X, Y) = \sum_{i=1}^n (X_i - Y_i)^2 \]</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>l1</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n |x_i - y_i| \]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
   <tr>
-    <td>l1</td>
-    <td>\[ Distance(X, Y) = \sum_{i=1}^n (X_i - Y_i) \]</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>l2</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n (x_i - y_i)^2 \]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
   <tr>
     <td>linf</td>
-    <td>\[ Distance(X, Y) = Max(X_i - Y_i) \]</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = max(|x_i - y_i|) \]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
   <tr>
     <td>cosinesimil</td>
-    <td>\[ {A &middot; B \over \|A\| &middot; \|B\|} =
-    {\sum_{i=1}^n (A_i &middot; B_i) \over \sqrt{\sum_{i=1}^n A_i^2} &middot; \sqrt{\sum_{i=1}^n B_i^2}}\]
-    where \(\|A\|\) and \(\|B\|\) represent normalized vectors.</td>
-    <td>1 + Distance Function</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 1 - 
+    {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} &middot; \sqrt{\sum_{i=1}^n y_i^2}}\]
+    where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent the norms of vectors x and y respectively.</td>
+    <td>\[ score = 2 - d \]</td>
   </tr>
   <tr>
-    <td>innerproduct</td>
-    <td>\[ Distance(X, Y) = \sum_{i=1}^n (X_i - Y_i) \]</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>innerproduct (not supported for Lucene)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]</td>
+    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]</td>
   </tr>
   <tr>
     <td>hammingbit</td>
-    <td style="text-align:center">Distance = countSetBits(X \(\oplus\) Y)</td>
-    <td> 1 / (1 + Distance Function)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})\]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
 </table>
 

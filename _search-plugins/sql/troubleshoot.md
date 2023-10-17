@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Troubleshooting
-parent: SQL
-nav_order: 17
+parent: SQL and PPL
+nav_order: 88
+redirect_from:
+  - /search-plugins/sql/troubleshoot/
 ---
 
 # Troubleshooting
@@ -20,7 +22,7 @@ POST _plugins/_sql
 
 If a query isn't behaving the way you expect, use the `_explain` API to see the translated query, which you can then troubleshoot. For most operations, `_explain` returns OpenSearch query DSL. For `UNION`, `MINUS`, and `JOIN`, it returns something more akin to a SQL execution plan.
 
-#### Sample request
+#### Example request
 
 ```json
 POST _plugins/_sql/_explain
@@ -30,7 +32,7 @@ POST _plugins/_sql/_explain
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -41,7 +43,7 @@ POST _plugins/_sql/_explain
 
 ## Index mapping verification exception
 
-If you see the following verification exception:
+If you see the following verification exception, make sure the index in your query isn't an index pattern and doesn't have multiple types:
 
 ```json
 {
@@ -53,7 +55,5 @@ If you see the following verification exception:
   "status": 503
 }
 ```
-
-Make sure the index in your query is not an index pattern and is not an index pattern and doesn't have multiple types.
 
 If these steps don't work, submit a Github issue [here](https://github.com/opensearch-project/sql/issues).

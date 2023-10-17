@@ -104,7 +104,6 @@ GET finished_flight_job/_search
     "hits" : [
       {
         "_index" : "finished_flight_job",
-        "_type" : "_doc",
         "_id" : "dSNKGb8U3OJOmC4RqVCi1Q",
         "_score" : 3.845883,
         "_source" : {
@@ -116,7 +115,6 @@ GET finished_flight_job/_search
       },
       {
         "_index" : "finished_flight_job",
-        "_type" : "_doc",
         "_id" : "_D7oqOy7drx9E-MG96U5RA",
         "_score" : 3.845883,
         "_source" : {
@@ -128,7 +126,6 @@ GET finished_flight_job/_search
       },
       {
         "_index" : "finished_flight_job",
-        "_type" : "_doc",
         "_id" : "YuZ8tOt1OsBA54e84WuAEw",
         "_score" : 3.6988301,
         "_source" : {
@@ -140,7 +137,6 @@ GET finished_flight_job/_search
       },
       {
         "_index" : "finished_flight_job",
-        "_type" : "_doc",
         "_id" : "W_-e7bVmH6eu8veJeK8ZxQ",
         "_score" : 3.6988301,
         "_source" : {
@@ -155,3 +151,7 @@ GET finished_flight_job/_search
 }
 
 ```
+
+## Index codec considerations
+
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms).

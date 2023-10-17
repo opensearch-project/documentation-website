@@ -50,38 +50,42 @@ PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
       "example_rollup_index_all"
     ],
     "continuous": false,
-    "dimensions": {
-      "date_histogram": {
-        "source_field": "tpep_pickup_datetime",
-        "fixed_interval": "1h",
-        "timezone": "America/Los_Angeles"
-      },
-      "terms": {
-        "source_field": "PULocationID"
-      },
-      "metrics": [
-        {
-          "source_field": "passenger_count",
-          "metrics": [
-            {
-              "avg": {}
-            },
-            {
-              "sum": {}
-            },
-            {
-              "max": {}
-            },
-            {
-              "min": {}
-            },
-            {
-              "value_count": {}
-            }
-          ]
+    "dimensions": [
+      {
+        "date_histogram": {
+          "source_field": "tpep_pickup_datetime",
+          "fixed_interval": "1h",
+          "timezone": "America/Los_Angeles"
         }
-      ]
-    }
+      },
+      {
+        "terms": {
+          "source_field": "PULocationID"
+        }
+      }
+    ],
+    "metrics": [
+      {
+        "source_field": "passenger_count",
+        "metrics": [
+          {
+            "avg": {}
+          },
+          {
+            "sum": {}
+          },
+          {
+            "max": {}
+          },
+          {
+            "min": {}
+          },
+          {
+            "value_count": {}
+          }
+        ]
+      }
+    ]
   }
 }
 ```
@@ -91,7 +95,7 @@ You can specify the following options.
 Options | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `source_index` |  The name of the detector. | String | Yes
-`target_index` |  Specify the target index that the rolled up data is ingested into. You could either create a new target index or use an existing index. The target index cannot be a combination of raw and rolled up data. | String | Yes
+`target_index` |  Specify the target index that the rolled up data is ingested into. You can either create a new target index or use an existing index. The target index cannot be a combination of raw and rolled up data. This field supports dynamically generated index names like {% raw %}`rollup_{{ctx.source_index}}`{% endraw %}, where `source_index` cannot contain wildcards.  | String | Yes
 `schedule` |  Schedule of the index rollup job which can be an interval or a cron expression. | Object | Yes
 `schedule.interval`  |  Specify the frequency of execution of the rollup job. | Object | No
 `schedule.interval.start_time` | Start time of the interval. | Timestamp | Yes
@@ -103,33 +107,81 @@ Options | Description | Type | Required
 `description` | Optionally, describe the rollup job. | String | No
 `enabled` | When true, the index rollup job is scheduled. Default is true. | Boolean | Yes
 `continuous` | Specify whether or not the index rollup job continuously rolls up data forever or just executes over the current data set once and stops. Default is false. | Boolean | Yes
-`error_notification` | Set up a Mustache message template sent for error notifications. For example, if an index rollup job fails, the system sends a message to a Slack channel. | Object | No
-`page_size` | Specify the number of buckets to paginate through at a time while rolling up. | Number | Yes
+`error_notification` | Set up a Mustache message template for error notifications. For example, if an index rollup job fails, the system sends a message to a Slack channel. | Object | No
+`page_size` | Specify the number of buckets to paginate at a time during rollup. | Number | Yes
 `delay` | The number of milliseconds to delay execution of the index rollup job. | Long | No
-`dimensions` | Specify aggregations to create dimensions for the roll up time window. | Object | Yes
-`dimensions.date_histogram` | Specify either fixed_interval or calendar_interval, but not both. Either one limits what you can query in the target index. | Object | No
-`dimensions.date_histogram.fixed_interval` | Specify the fixed interval for aggregations in milliseconds, seconds, minutes, hours, or days. | String | No
-`dimensions.date_histogram.calendar_interval` | Specify the calendar interval for aggregations in minutes, hours, days, weeks, months, quarters, or years. | String | No
-`dimensions.date_histogram.field` | Specify the date field used in date histogram aggregation. | String | No
-`dimensions.date_histogram.timezone` | Specify the timezones as defined by the IANA Time Zone Database. The default is UTC. | String | No
-`dimensions.terms` | Specify the term aggregations that you want to roll up. | Object | No
-`dimensions.terms.fields` | Specify terms aggregation for compatible fields. | Object | No
-`dimensions.histogram` | Specify the histogram aggregations that you want to roll up. | Object | No
-`dimensions.histogram.field` | Add a field for histogram aggregations. | String | Yes
-`dimensions.histogram.interval` | Specify the histogram aggregation interval for the field. | Long | Yes
-`dimensions.metrics` | Specify a list of objects that represent the fields and metrics that you want to calculate. | Nested object | No
-`dimensions.metrics.field` | Specify the field that you want to perform metric aggregations on. | String | No
-`dimensions.metrics.field.metrics` | Specify the metric aggregations you want to calculate for the field. | Multiple strings | No
+`dimensions` | Specify aggregations to create dimensions for the roll up time window. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Array | Yes
+`metrics` | Specify a list of objects that represent the fields and metrics that you want to calculate. Supported metrics are `sum`, `max`, `min`, `value_count` and `avg`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Array | No
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
-  "_id": "rollup_id",
-  "_seqNo": 1,
-  "_primaryTerm": 1,
-  "rollup": { ... }
+  "_id": "<rollup_id>",
+  "_version": 3,
+  "_seq_no": 1,
+  "_primary_term": 1,
+  "rollup": {
+    "rollup_id": "<rollup_id>",
+    "enabled": true,
+    "schedule": {
+      "interval": {
+        "start_time": 1680159934649,
+        "period": 1,
+        "unit": "Days",
+        "schedule_delay": 0
+      }
+    },
+    "last_updated_time": 1680159934649,
+    "enabled_time": 1680159934649,
+    "description": "Example rollup job",
+    "schema_version": 17,
+    "source_index": "nyc-taxi-data",
+    "target_index": "rollup-nyc-taxi-data",
+    "metadata_id": null,
+    "page_size": 200,
+    "delay": 0,
+    "continuous": false,
+    "dimensions": [
+      {
+        "date_histogram": {
+          "fixed_interval": "1h",
+          "source_field": "tpep_pickup_datetime",
+          "target_field": "tpep_pickup_datetime",
+          "timezone": "America/Los_Angeles"
+        }
+      },
+      {
+        "terms": {
+          "source_field": "PULocationID",
+          "target_field": "PULocationID"
+        }
+      }
+    ],
+    "metrics": [
+      {
+        "source_field": "passenger_count",
+        "metrics": [
+          {
+            "avg": {}
+          },
+          {
+            "sum": {}
+          },
+          {
+            "max": {}
+          },
+          {
+            "min": {}
+          },
+          {
+            "value_count": {}
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -147,7 +199,7 @@ GET _plugins/_rollup/jobs/<rollup_id>
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -173,7 +225,7 @@ Deletes an index rollup job based on the `rollup_id`.
 DELETE _plugins/_rollup/jobs/<rollup_id>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 200 OK
@@ -196,7 +248,7 @@ POST _plugins/_rollup/jobs/<rollup_id>/_stop
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 200 OK
@@ -218,7 +270,7 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {

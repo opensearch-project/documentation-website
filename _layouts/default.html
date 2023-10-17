@@ -52,12 +52,11 @@ layout: table_wrappers
     <div id="main-header"></div>
     <div class="side-bar">
       <div class="site-header">
-        <a href="#" id="menu-button" class="site-button">
+        <a href="/docs/latest/" id="menu-button" class="site-button">
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
       <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
-        {% assign past_versions = site.data.versions.past | join: ";" %}
         <div class="version-wrapper">
           <version-selector selected="{{ site.data.versions.current }}"></version-selector>
         </div>
@@ -67,7 +66,7 @@ layout: table_wrappers
             | where_exp:"item", "item.nav_exclude != true"
             | size %}
         {% if pages_top_size > 0 %}
-          {% include nav.html pages=site.html_pages key=nil %}
+          {% include nav.html pages=site.html_pages key=nil expanded=true %}
         {% endif %}
         {% if site.just_the_docs.collections %}
           {% assign collections_size = site.just_the_docs.collections | size %}
@@ -76,35 +75,58 @@ layout: table_wrappers
             {% assign collection_value = collection_entry[1] %}
             {% assign collection = site[collection_key] %}
             {% if collection_value.nav_exclude != true %}
+              {% assign owned_tree_id = collection_key | append: "_" | append: forloop.index | append: "_navitems" | replace: " ", "_" %}
               {% if collections_size > 1 or pages_top_size > 0 %}
                 {% if collection_value.nav_fold == true %}
-                  <ul class="nav-list nav-category-list">
-                    <li class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
+                  <ul
+                    role="tree" 
+                    class="nav-list nav-category-list"
+                  >
+                    <li role="none" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
+                      
+                      {% assign collection_url_path = collection_key | append: "/index/" %}
+                      {% assign category_comparison_url = "/" | append: collection_url_path %}
                       {%- if collection.size > 0 -%}
-                      <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+                        <a 
+                          role="treeitem"
+                          aria-owns="{{ owned_tree_id }}"
+                          aria-current="{% if page.collection == collection_key %}page{% endif %}"
+                          href="#" 
+                          class="nav-list-expander"
+                        ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                       {%- endif -%}
-                      <div class="nav-category">{{ collection_value.name }}</div>
-                      {% include nav.html pages=collection key=collection_key %}
+                      <a 
+                        role="treeitem"
+                        aria-owns="{{ owned_tree_id }}"
+                        aria-current="{% if page.collection == collection_key %}page{% endif %}"
+                        class="nav-category{% if category_comparison_url == page.url %} active{% endif %}" 
+                        href="{{ collection_url_path | relative_url  }}"
+                      >{{ collection_value.name }}</a>
+                      {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
                     </li>
                   </ul>
                 {% else %}
-                  <div class="nav-category">{{ collection_value.name }}</div>
-                  {% include nav.html pages=collection key=collection_key %}
+                  {% assign collection_url_path = collection_key | append: "/index/" %}
+                  <a 
+                    role="treeitem"
+                    aria-owns="{{ owned_tree_id }}"
+                    aria-current="{% if page.collection == collection_key %}page{% endif %}"
+                    class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
+                    href="{{ collection_url_path | relative_url }}"
+                  >{{ collection_value.name }}</a>
+                  {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
                 {% endif %}
               {% else %}
-                {% include nav.html pages=collection key=collection_key %}
+                {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
               {% endif %}
             {% endif %}
           {% endfor %}
         {% endif %}
-      </nav>
-      <div class="site-footer">
-        <p class="text-small text-grey-dk-100">See a problem? Submit <a href="https://github.com/opensearch-project/documentation-website/issues">issues</a> or <a href="https://github.com/opensearch-project/documentation-website/edit/main/{{ page.path }}">edit this page</a> on <a href="https://github.com/opensearch-project/documentation-website/">GitHub</a>.</p>
-      </div>
+        </nav>
     </div>
     <div class="copy-banner">
       <div class="container">
-        <h1><a href="#">Documentation</a></h1>
+        <h1><a href="/docs/latest/">Documentation</a></h1>
         {% if site.search_enabled != false or site.use_custom_search == true %}
         <div class="search">
           <div class="search-input-wrap">
@@ -113,8 +135,8 @@ layout: table_wrappers
               {% assign docs_version = "latest" %}
             {% endif %}
             <input type="text" id="search-input" class="search-input"
-                   tabindex="0" placeholder="Search..." aria-label="Search {{ site.title }}"
-                   data-docs-version="{{ docs_version }}" autocomplete="off">
+              placeholder="Search..." aria-label="Search {{ site.title }}"
+              data-docs-version="{{ docs_version }}" autocomplete="off">
             <div class="search-spinner"><i></i></div>
             <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
           </div>
@@ -128,7 +150,7 @@ layout: table_wrappers
       </div>
       <div class="search-overlay"></div>
     </div>
-    <div class="main" id="top">
+    <div class="main">
       <div id="main-content-wrap" class="main-content-wrap">
         {% unless page.url == "/" %}
           {% if page.parent %}
@@ -151,10 +173,14 @@ layout: table_wrappers
           {% else %}
             {{ content }}
           {% endif %}
+          
+          <a class="top-link" href="#top">
+            <svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg>
+          </a>
 
           {% if page.has_children == true and page.has_toc != false %}
             <hr>
-            <h2 class="text-delta">Table of contents</h2>
+            <h2>Related articles</h2>
             <ul>
               {% for child in toc_list %}
                 <li>
@@ -202,8 +228,11 @@ layout: table_wrappers
         </div>
       </div>
       <div class="toc-wrap">
-        <div class="toc">
-          {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+        <div class="sticky-wrap">
+          <div class="toc">
+            {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+          </div>
+          {% include feedback.html %}
         </div>
       </div>
       {% if site.search_enabled != false %}
@@ -227,5 +256,8 @@ layout: table_wrappers
   {% if site.search_enabled == false and site.use_custom_search == true %}
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   {% endif %}
+  <script src="{{ '/assets/js/copy-button.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/nav-scroll.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/listener.js' | relative_url }}"></script>
 </body>
 </html>

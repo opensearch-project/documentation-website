@@ -31,7 +31,7 @@ Options | Description | Default value | Required
 `keep_on_completion` |  Whether you want to save the results in the cluster after the search is complete. You can examine the stored results at a later time. | `false` | No
 `keep_alive` |  The amount of time that the result is saved in the cluster. For example, `2d` means that the results are stored in the cluster for 48 hours. The saved search results are deleted after this period or if the search is canceled. Note that this includes the query execution time. If the query overruns this time, the process cancels this query automatically. | 12 hours | No
 
-#### Sample request
+#### Example request
 
 ```json
 POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1ms&keep_on_completion=true&request_cache=false
@@ -47,7 +47,7 @@ POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -102,7 +102,7 @@ POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1
 Options | Description
 :--- | :---
 `id` | The ID of an asynchronous search. Use this ID to monitor the progress of the search, get its partial results, and/or delete the results. If the asynchronous search finishes within the timeout period, the response doesn't include the ID because the results aren't stored in the cluster.
-`state` | Specifies whether the search is still running or if it has finished, and if the results persist in the cluster. The possible states are `RUNNING`, `COMPLETED`, and `PERSISTED`.
+`state` | Specifies whether the search is still running or if it has finished, and if the results persist in the cluster. The possible states are `RUNNING`, `SUCCEEDED`, `FAILED`, `PERSISTING`, `PERSIST_SUCCEEDED`, `PERSIST_FAILED`, `CLOSED` and `STORE_RESIDENT`.
 `start_time_in_millis` | The start time in milliseconds.
 `expiration_time_in_millis` | The expiration time in milliseconds.
 `took` | The total time that the search is running.
@@ -122,7 +122,7 @@ After you submit an asynchronous search request, you can request partial respons
 GET _plugins/_asynchronous_search/<ID>?pretty
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -148,7 +148,6 @@ GET _plugins/_asynchronous_search/<ID>?pretty
       "hits": [
         {
           "_index": "bank",
-          "_type": "_doc",
           "_id": "1",
           "_score": 1,
           "_source": {
@@ -204,7 +203,7 @@ DELETE _plugins/_asynchronous_search/<ID>?pretty
 - If the search is complete, OpenSearch deletes the saved results.
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -222,7 +221,7 @@ You can use the stats API operation to monitor asynchronous searches that are ru
 GET _plugins/_asynchronous_search/stats
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

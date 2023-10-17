@@ -1,0 +1,7 @@
+extends: sequence
+message: "Use 'timeout' as an adjective or noun instead of '%s'."
+level: error
+ignorecase: true
+tokens:
+  - tag: NN|JJ
+    pattern: '(?:time out|time-out)'

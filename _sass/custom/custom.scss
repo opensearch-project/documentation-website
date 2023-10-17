@@ -1,9 +1,8 @@
-$content-width: 740px !default;
-
 @import "../../assets/fonts/open-sans/webfont.css";
 @import "../../assets/fonts/open-sans-condensed/webfont.css";
 @import "../../assets/fonts/noto-serif/webfont.css";
 @import "../../assets/fonts/fira-mono/webfont.css";
+@import "../color_schemes/opensearch.scss";
 
 // Font Family Mixins
 @mixin serif {
@@ -37,21 +36,8 @@ $content-width: 740px !default;
   }
 }
 
-// Additional variables
-$table-border-color: $grey-lt-300;
-$toc-width: 232px !default;
-
-// Replaces xl size
-$media-queries: (
-  xs: 320px,
-  sm: 500px,
-  md: $content-width,
-  lg: $content-width + $nav-width,
-  xl: $content-width + $nav-width + $toc-width
-);
-
 body {
-  @include serif;
+  @include sans-serif;
 }
 
 code {
@@ -62,11 +48,28 @@ code {
 }
 
 .site-nav {
-  padding-top: 1rem;
+  padding-top: 0;
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-x: hidden;
+  min-width: 14rem;
+  padding-right: 1px;
+  padding-left: 1px;
+  padding-bottom: 1px;
+}
+
+nav#site-nav > .nav-list:nth-of-type(1) {
+  padding-top: 2px;
+}
+
+.nav-list {
+  margin-top: 1px;
 }
 
 .nav-category {
   text-align: start;
+  display: block;
 }
 
 .main-content {
@@ -123,15 +126,39 @@ code {
   left: 0.25rem;
 }
 
+.panel {
+  border-radius: $border-radius;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.td-custom {
+  @extend td;
+  
+  &:first-of-type {
+    border-left: $border $border-color;
+  }
+}
+
 img {
-  padding: 1rem 0;
+  @extend .panel;
+}
+
+.no-border {
+  border: none;
+  box-shadow: none;
+}
+
+.inline-icon {
+  @extend .no-border;
+  height: 1.2rem;
+  vertical-align: middle;
 }
 
 .img-border {
   border: 1px solid $grey-lt-300;
 }
 
-// Note, tip, and warning blocks
+// Note, tip, important, and warning blocks
 %callout {
   border: 1px solid $grey-lt-300;
   border-radius: 5px;
@@ -148,6 +175,11 @@ img {
 .tip {
   @extend %callout;
   border-left: 5px solid $green-100;
+}
+
+.important {
+  @extend %callout;
+  border-left: 5px solid $yellow-000;
 }
 
 .warning {
@@ -195,6 +227,177 @@ img {
   @include btn-color($white, $green-300);
 }
 
+@mixin btn-default {
+  color: $blue-100;
+  background-color: white;
+  font-size: 0.9rem;
+  font-weight: 510;
+  border-width: 1px; 
+  border-style: solid;
+  border-radius: 5px;
+  box-shadow: 1px 1px $grey-lt-300;
+  cursor: pointer;
+}
+
+@mixin elt-disabled {
+  color: mix(black, $base-button-color, 40%);
+  border-color: $base-button-color;
+  cursor: default;
+  background-color: mix(white, $base-button-color, 50%);
+  box-shadow: none;
+}
+
+.btn-general {
+  @include btn-default;
+  border-color: $blue-100;
+  padding: 0.5rem 1rem;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  &:hover {
+    &:not([disabled]) {
+      background-color: $blue-lt-100;
+      box-shadow: 1px 2px 4px $grey-lt-300;
+      transform: translateY(-1px);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+  &:disabled {
+    @include elt-disabled;
+  }
+}
+
+// Back to top button
+.top-link {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: $blue-dk-100;
+  background-color: white;
+  border-width:2px; 
+  border-style:solid;
+  border-color: $grey-lt-300;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px $grey-lt-300;
+  padding: 0.2rem;
+  position: fixed;
+  bottom: 30px;
+  right: 16px;
+  z-index: 1;
+  svg {
+    transform: rotate(-90deg);
+  }
+  &:hover {
+    border-color: $blue-dk-100;
+    background-color: $sidebar-color; 
+    color: $blue-100;
+  }
+}
+
+.copy-button-wrap {
+  background-color: $sidebar-color;
+  padding: 0.25rem 2rem 0.5rem 2rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: flex-end; 
+}
+ 
+// Copy code button
+.copy-button {
+  @extend .btn-general;
+  background-color: $sidebar-color;
+  display: inline;
+}
+
+// Copy as curl button
+.copy-curl-button {
+  @extend .copy-button;
+}
+
+.send-button {
+  @extend .btn-general;
+}
+
+// Feedback question
+.feedback-header {
+  @extend %toc-font;
+  letter-spacing: 0.08em;
+  margin: 1rem 0;
+}
+
+.feedback-text-header {
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 500; 
+  margin-top: 1rem;
+}
+
+.feedback-radio-div {
+  display: flex;
+  justify-content: space-between;  
+}
+
+// hide the browser-rendered radio button 
+.feedback-radio-div input[type="radio"] {
+  display: none;
+} 
+
+.feedback-radio {
+  @include btn-default;
+  border-color: $grey-lt-100;
+  margin: 0;
+  padding: 0.5rem 1.2rem;
+  border-color: $grey-lt-100;
+  &:hover {
+    &:not([disabled]) {    
+      background-color: mix(white, $blue-lt-000, 50%);
+      box-shadow: 1px 2px 4px $grey-lt-300;
+    }
+  }
+}
+
+.feedback-radio-div input[type="radio"]:checked+label {
+  border-color: $blue-100;
+  background-color: $blue-lt-100;
+  box-shadow: inset 1px 1px 3px $blue-dk-100;
+}
+
+.feedback-radio-div input[type="radio"]:disabled+label {
+  @include elt-disabled;
+}
+
+// Feedback text area
+textarea {
+  @extend .panel, .img-border;
+  width: 100%;
+  height: 5rem;
+  color: $grey-dk-300;
+  background-color: mix(white, $grey-lt-000, 50%);
+  font-size: 0.9rem;
+  resize: vertical;
+  &:focus {
+    outline: none;
+    border: 1px solid $blue-100;
+    background-color: white;
+  }
+  &:disabled {
+    @include elt-disabled;
+  }
+}
+
+.num-chars {
+  margin-bottom: 0.5rem;
+  text-align: left;
+  color: mix(white, $grey-dk-300, 40%);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
 // Tables
 th,
 td {
@@ -231,27 +434,89 @@ p.label {
   }
 }
 
+.os-banner {
+  @extend .panel;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  background: linear-gradient(to right, $blue-dk-300, $blue-dk-200 80%); // fallback if image is not rendered
+}
+
+.banner-head {
+  @extend .panel;
+  background-size: cover;
+}
+
+.banner-text-div {
+  margin: 1rem 1rem 0 1.5rem;
+  padding: 0 1.5rem;
+  border-style: none none none solid;
+  border-color: $blue-lt-300;
+  border-width: 4px;
+  border-radius: 1px;
+  max-width: 47rem;
+  @include mq(sm) {  
+    margin: 2rem 4rem 0 4rem;
+  }
+}
+
+.banner-text-header {
+  font-size: 2rem;
+  font-weight: 700;
+  @include mq(sm) {
+    font-size: 2.5rem;
+  }
+}
+
+.banner-text-description {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.btn-contribute {
+  @extend .btn-general;
+  margin-bottom: 2rem;
+  margin-right: 4rem;
+  float: right;
+  color: $blue-dk-300;
+  box-shadow: 2px 3px 5px #000000;
+  &:hover {
+    box-shadow: 2px 3px 5px $blue-dk-300 !important;
+  }
+}
+
+.btn-contribute span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
 
 // Modifies margins in xl layout to support TOC
 .side-bar {
-  @include mq(xl) {
-    width: calc((100% - #{$nav-width + $content-width + $toc-width}) / 2 + #{$nav-width});
-    min-width: $nav-width;
+  @include mq(lg) {
+    width: $nav-width;
   }
 }
 
 .main {
+  @include mq(lg) {
+    max-width: calc(100% - #{$nav-width + $top-button-margin});
+  }
+
   @include mq(xl) {
-    margin-left: calc((100% - #{$nav-width + $content-width + $toc-width}) / 2 + #{$nav-width});
+    max-width: calc(min(#{$max-content-width + $toc-width + $top-button-margin}, calc(100% - (#{$nav-width + $top-button-margin}))));
   }
 }
 
-// Adds TOC to righthand side in xl layout
+// Adds TOC to right hand side in xl layout
 .main-content-wrap {
   max-width: 100%;
+  min-width: 0;
 }
+
 .toc-wrap {
-  width: 0;
   display: none;
 
   @include mq(xl) {
@@ -259,30 +524,37 @@ p.label {
     padding: 2rem 0;
   }
 }
-.toc {
-  display: none;
 
+.sticky-wrap {
   @include mq(xl) {
     z-index: 1;
-    display: block;
     position: sticky;
     top: 2rem;
     width: $toc-width;
+  }
+}
+
+.toc {
+  @include mq(xl) {
     max-height: calc(100vh - 4rem);
     overflow: auto;
   }
 }
 
+%toc-font {
+  @include heading-sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 14px !important;
+}
+
 .toc-list {
   &:before {
     content: "On this page";
-    // Basically duplicates h4 styling
-    font-size: 12px;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: $grey-dk-300;
-    line-height: 1.8;
+    @extend %toc-font;
   }
   border: 1px solid $border-color;
   font-size: 14px;
@@ -290,7 +562,7 @@ p.label {
   background-color: $sidebar-color;
   padding: $sp-6 $sp-4;
   margin-left: $sp-6;
-  margin-right: 0;
+  margin-right: $sp-6;
   margin-bottom: 0;
   overflow: auto;
 }
@@ -298,6 +570,18 @@ p.label {
 .toc-item {
   padding-top: .25rem;
   padding-bottom: .25rem;
+}
+
+.div-feedback {
+  @extend .table-wrapper;
+  width: calc(#{$toc-width} - 4rem);
+  text-align: center;
+  margin-top: 3rem;
+  margin-left: $sp-6;
+  margin-right: $sp-6;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: block;
 }
 
 /* Website Header & Footer */
@@ -397,7 +681,7 @@ html {
 }
 
 body {
-  @include serif;
+  @include sans-serif;
   @include font-size(16);
   background: $background-lightest;
   color: $text;
@@ -409,11 +693,6 @@ body {
   [role="complementary"] {
     @include sans-serif; // reverse font style on sidebar and secondary areas
   }
-
-  // don't activate mobile styles for larger screens
-  @include mq(md) {
-    min-width: 768px;
-  }
 }
 
 main {
@@ -422,6 +701,15 @@ main {
   align-content: stretch;
   height: 100%;
   position: relative;
+  justify-content: center;
+
+  @include mq(lg) {
+    background: linear-gradient(to right, $sidebar-color $nav-width, transparent $nav-width); 
+  }
+
+  @include mq(xl) {
+    background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
+  }
 
   @include mq(md) {
     padding-top: calc(4rem + 9px);
@@ -447,6 +735,10 @@ main {
 
 .container {
   box-sizing: content-box;
+
+  @include mq(xs) {
+    padding: 0 calc(#{$top-button-margin} + 1rem);
+  }
 
   @include mq(md) {
     margin: 0 auto;
@@ -541,9 +833,9 @@ main {
       top: 1px;
       left: 1px
     }
-    .mdzr-svg & { // deliver svg logo if applicable
-      /*background: url(../img/opensearch-logo-monochrome.svg) center center no-repeat;*/
-    }
+    /*.mdzr-svg & { // deliver svg logo if applicable
+      background: url(../img/opensearch-logo-monochrome.svg) center center no-repeat;
+    }*/
 
     @include mq(md) {
       margin-left: 0;
@@ -923,7 +1215,7 @@ main {
   @include clearfix;
 }
 
-@media screen and (max-width: 46.24rem) {
+@media screen and (max-width: ($content-width - 1)) {
   [role="banner"] .nav-menu-on .small-nav {
 
     li {
@@ -1018,6 +1310,13 @@ main {
 }
 
 .search-active {
+  body {
+    position: fixed;
+
+    @include mq(md) {
+      position: unset;
+    }
+  }
   .main {
     position: relative !important;
   }
@@ -1031,6 +1330,7 @@ main {
     }
   }
 }
+
 
 .site-header {
   background: #D9E1E2;
@@ -1121,12 +1421,16 @@ main {
 
 .version-wrapper {
   text-align: center;
-  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 9999999;
+  background-color: $sidebar-color;
 }
 
 version-selector {
   z-index: 1;
   font-size: .9rem;
+  margin: 1.5rem 3px;
 
   --normal-bg: linear-gradient(#{lighten($blue-300, 5%)}, #{darken($blue-300, 2%)});
   --hover-bg: linear-gradient(#{lighten($blue-300, 2%)}, #{darken($blue-300, 4%)});
@@ -1175,8 +1479,10 @@ version-selector {
   }
 }
 
-.banner-alert ~ main .custom-search-results {
-  max-height: calc(100vh - 200% - 60px - 3.6rem) !important;
+@include respond-min(46.25rem) {
+  .banner-alert ~ main .custom-search-results {
+    max-height: calc(100vh - 200% - 60px - 3.6rem) !important;
+  }
 }
 
 .search-spinner {
@@ -1234,3 +1540,5 @@ version-selector {
     transform: rotate(359deg)
   }
 }
+
+@import "../_nested-nav.scss";

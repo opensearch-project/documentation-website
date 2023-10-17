@@ -6,7 +6,7 @@ nav_order: 10
 
 # securityadmin.sh Troubleshooting
 
-This page includes troubleshooting steps for `securityadmin.sh`.
+This page includes troubleshooting steps for `securityadmin.sh`. The script can be found at `/plugins/opensearch-security/tools/securityadmin.sh`. For more information about using this tool, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
 
 
 ---
@@ -80,7 +80,7 @@ If your cluster state is red, you can still execute `securityadmin.sh`, but you 
 
 ### Check the security index name
 
-By default, the security plugin uses `.opendistro_security` as the name of the configuration index. If you configured a different index name in `opensearch.yml`, specify it using the `-i` option.
+By default, the Security plugin uses `.opendistro_security` as the name of the configuration index. If you configured a different index name in `opensearch.yml`, specify it using the `-i` option.
 
 
 ## "ERR: DN is not an admin user"
@@ -92,15 +92,14 @@ Connected as CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE
 ERR: CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE is not an admin user
 ```
 
-You must use an admin certificate when executing the script. To learn more, see [Configure admin certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls#configure-admin-certificates).
-
+You must use an admin certificate when executing the script. To learn more, see [Configuring admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
 
 ## Use the diagnose option
 
 For more information on why `securityadmin.sh` is not executing, add the `--diagnose` option:
 
 ```
-./securityadmin.sh -diagnose -cd ../securityconfig/ -cacert ... -cert ... -key ... -keypass ...
+./securityadmin.sh -diagnose -cd ../../../config/opensearch-security/ -cacert ... -cert ... -key ... -keypass ...
 ```
 
 The script prints the location of the generated diagnostic file.

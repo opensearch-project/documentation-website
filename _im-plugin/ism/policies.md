@@ -99,6 +99,7 @@ ISM supports the following operations:
 - [read_only](#read_only)
 - [read_write](#read_write)
 - [replica_count](#replica_count)
+- [shrink](#shrink)
 - [close](#close)
 - [open](#open)
 - [delete](#delete)
@@ -107,6 +108,7 @@ ISM supports the following operations:
 - [snapshot](#snapshot)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
+- [rollup](#rollup)
 
 ### force_merge
 
@@ -115,6 +117,8 @@ Reduces the number of Lucene segments by merging the segments of individual shar
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `max_num_segments` | The number of segments to reduce the shard to. | `number` | Yes
+wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
+task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`. | No
 
 ```json
 {
@@ -133,6 +137,8 @@ Sets a managed index to be read only.
   "read_only": {}
 }
 ```
+
+Set the index setting `index.blocks.write` to `true` for a managed index. ***Note:** this block does not prevent the index from refreshing.
 
 ### read_write
 
@@ -161,6 +167,61 @@ Parameter | Description | Type | Required
 ```
 
 For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
+
+### shrink
+
+Allows you to reduce the number of primary shards in your indexes. With this action, you can specify:
+
+- The number of primary shards that the target index should contain.
+- A max shard size for the primary shards in the target index.
+- Specify a percentage to shrink the number of primary shards in the target index.
+
+```json
+"shrink": {
+    "num_new_shards": 1,
+    "target_index_name_template": {
+        "source": "{{ctx.index}}_shrunken"
+    },
+    "aliases": [
+      {
+        "my-alias": {}
+      }
+    ],
+    "force_unsafe": false
+}
+```
+
+Parameter | Description | Type | Example | Required
+:--- | :--- |:--- |:--- |
+`num_new_shards` | The maximum number of primary shards in the shrunken index. | integer | `5` | Yes, however it cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however it cannot be used with `num_new_shards` or `percentage_of_source_shards`
+`percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
+`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | `string` or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
+`aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
+`force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
+
+If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/). For example,
+
+```json
+"aliases": [
+  {
+    "my-alias": {}
+  },
+  {
+    "my-second-alias": {
+      "is_write_index": false,
+      "filter": {
+        "multi_match": {
+          "query": "QUEEN",
+          "fields": ["speaker", "text_entry"]
+        }
+      },
+      "index_routing" : "1",
+      "search_routing" : "1"
+    }
+  },
+]
+```
 
 ### close
 
@@ -200,19 +261,32 @@ Deletes a managed index.
 
 Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
 
+ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit (e.g., 105GiB) by the next check, the operation is performed.
+
+If you need to skip the rollover action, you can set the index setting `index.plugins.index_state_management.rollover_skip` to `true`. For example, if you receive the error message "Missing alias or not the write index...", you can set the `index.plugins.index_state_management.rollover_skip` parameter to `true` and retry to skip rollover action.
+
 The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
 Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. ISM doesn't check indexes continually, so it doesn't roll over indexes at exactly 100 GiB. Instead, if an index is continuously growing, ISM might check it at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation. | `string` | `20gb` or `5mb` | No
-`min_doc_count` |  The minimum number of documents required to roll over the index. | `number` | `2000000` | No
-`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. | `string` | `5d` or `7h` | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
+`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See **Important** note above. | `string` | `5d` or `7h` | No
 
 ```json
 {
   "rollover": {
     "min_size": "50gb"
+  }
+}
+```
+
+```json
+{
+  "rollover": {
+    "min_primary_shard_size": "30gb"
   }
 }
 ```
@@ -309,7 +383,7 @@ Parameter | Description | Type
 
 ### snapshot
 
-Backup your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/).
+Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore).
 
 The `snapshot` operation has the following parameters:
 
@@ -371,6 +445,112 @@ Parameter | Description | Type | Required
 ]
 ```
 
+### rollup
+
+[Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indexes.
+
+Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
+{: .note }
+
+#### Path and HTTP methods
+
+````bash
+PUT _plugins/_rollup/jobs/<rollup_id>
+GET _plugins/_rollup/jobs/<rollup_id>
+DELETE _plugins/_rollup/jobs/<rollup_id>
+POST _plugins/_rollup/jobs/<rollup_id>/_start
+POST _plugins/_rollup/jobs/<rollup_id>/_stop
+GET _plugins/_rollup/jobs/<rollup_id>/_explain
+````
+
+#### Sample ISM rollup policy
+
+````json
+{
+    "policy": {
+        "description": "Sample rollup" ,
+        "default_state": "rollup",
+        "states": [
+            {
+                "name": "rollup",
+                "actions": [
+                    {
+                        "rollup": {
+                            "ism_rollup": {
+                                "description": "Creating rollup through ISM",
+                                "target_index": "target",
+                                "page_size": 1000,
+                                "dimensions": [
+                                    {
+                                        "date_histogram": {
+                                            "fixed_interval": "60m",
+                                            "source_field": "order_date",
+                                            "target_field": "order_date",
+                                            "timezone": "America/Los_Angeles"
+                                        }
+                                    },
+                                    {
+                                        "terms": {
+                                            "source_field": "customer_gender",
+                                            "target_field": "customer_gender"
+                                        }
+                                    },
+                                    {
+                                        "terms": {
+                                            "source_field": "day_of_week",
+                                            "target_field": "day_of_week"
+                                        }
+                                    }
+                                ],
+                                "metrics": [
+                                    {
+                                        "source_field": "taxless_total_price",
+                                        "metrics": [
+                                            {
+                                                "sum": {}
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "source_field": "total_quantity",
+                                        "metrics": [
+                                            {
+                                                "avg": {}
+                                            },
+                                            {
+                                                "max": {}
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "transitions": []
+            }
+        ]
+    }
+}
+````
+
+#### Request fields
+
+Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page for request field options.
+
+#### Adding a rollup policy in Dashboards
+
+To add a rollup policy in Dashboards, follow the steps below.
+
+- Select the menu button on the top-left of the Dashboards user interface.
+- In the Dashboards menu, select `Index Management`.
+- On the next screen select `Rollup jobs`.
+- Select the `Create rollup` button.
+- Follow the steps in the `Create rollup job` wizard.
+- Add a name for the policy in the `Name` box.
+- You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page to configure the rollup policy.
+- Finally, select the `Create` button on the bottom-right of the Dashboards user interface.
+
 ---
 
 ## Transitions
@@ -393,6 +573,7 @@ The `conditions` object has the following parameters:
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `min_index_age` | The minimum age of the index required to transition. | `string` | No
+`min_rollover_age` | The minimum age required after a rollover has occurred to transition to the next state. | `string` | No
 `min_doc_count` | The minimum document count of the index required to transition. | `number` | No
 `min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | `string` | No
 `cron` | The `cron` job that triggers the transition if no other transition happens first. | `object` | No
@@ -443,7 +624,7 @@ For information on writing cron expressions, see [Cron expression reference]({{s
 ## Error notifications
 
 The `error_notification` operation sends you a notification if your managed index fails.
-It notifies a single destination with a custom message.
+It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index) with a custom message.
 
 Set up error notifications at the policy level:
 
@@ -461,7 +642,8 @@ Set up error notifications at the policy level:
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes
+`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes if `channel` isn't specified
+`channel` | A notification channel's ID | `string` | Yes if `destination` isn't specified
 `message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
 
 The destination system **must** return a response otherwise the `error_notification` operation throws an error.
@@ -509,6 +691,21 @@ The destination system **must** return a response otherwise the `error_notificat
       "slack": {
         "url": "https://hooks.slack.com/services/xxx/xxxxxx"
       }
+    },
+    "message_template": {
+      "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."
+    }
+  }
+}
+```
+
+#### Example 4: Using a notification channel
+
+```json
+{
+  "error_notification": {
+    "channel": {
+      "id": "some-channel-config-id"
     },
     "message_template": {
       "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."
@@ -598,6 +795,128 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    GET _plugins/_ism/explain/log-000001?pretty
    ```
 
+## Example policy with ISM templates for the alias action
+
+The following example policy is for an alias action use case.
+
+In the following example, the first job will trigger the rollover action, and a new index will be created. Next, another document is added to the two indexes. The new job will then cause the second index to point to the log alias, and the older index will be removed due to the alias action.
+
+First, create an ISM policy:
+
+```json
+PUT /_plugins/_ism/policies/rollover_policy?pretty
+{
+  "policy": {
+    "description": "Example rollover policy.",
+    "default_state": "rollover",
+    "states": [
+      {
+        "name": "rollover",
+        "actions": [
+          {
+            "rollover": {
+              "min_doc_count": 1
+            }
+          }
+        ],
+        "transitions": [{
+            "state_name": "alias",
+            "conditions": {
+              "min_doc_count": "2"
+            }
+          }]
+      },
+      {
+        "name": "alias",
+        "actions": [
+          {
+            "alias": {
+              "actions": [
+                {
+                  "remove": {
+                      "alias": "log"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
+  }
+}
+```
+
+Next, create an index template on which to enable the policy:
+
+```json
+PUT /_index_template/ism_rollover?
+{
+  "index_patterns": ["log*"],
+  "template": {
+   "settings": {
+    "plugins.index_state_management.rollover_alias": "log"
+   }
+ }
+}
+```
+{% include copy-curl.html %}
+
+Next, change the cluster settings to trigger jobs every minute:
+
+```json
+PUT /_cluster/settings?pretty=true
+{
+  "persistent" : {
+    "plugins.index_state_management.job_interval" : 1
+  }
+}
+```
+{% include copy-curl.html %}
+
+Next, create a new index:
+
+```json
+PUT /log-000001
+{
+  "aliases": {
+    "log": {
+      "is_write_index": true
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Finally, add a document to the index to trigger the job:
+
+```json
+POST /log-000001/_doc
+{
+  "message": "dummy"
+}
+```
+{% include copy-curl.html %}
+
+You can verify these steps using the Alias and Index API:
+
+```json
+GET /_cat/indices?pretty
+```
+{% include copy-curl.html %}
+
+```json
+GET /_cat/aliases?pretty
+```
+{% include copy-curl.html %}
+
+Note: The `index` and `remove_index` parameters are not allowed with alias action policies. Only the `add` and `remove` alias action parameters are allowed.
+{: .warning }
+
 ## Example policy
 
 The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indexes based on their levels of activity.
@@ -618,7 +937,8 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "rollover": {
-              "min_index_age": "1d"
+              "min_index_age": "1d",
+              "min_primary_shard_size": "30gb"
             }
           }
         ],
@@ -666,7 +986,11 @@ After 30 days, the policy moves this index into a `delete` state. The service se
           }
         ]
       }
-    ]
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
   }
 }
 ```

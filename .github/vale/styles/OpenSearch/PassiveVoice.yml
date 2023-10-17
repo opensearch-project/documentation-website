@@ -1,0 +1,45 @@
+extends: existence
+message: "'%s': Whenever possible, use the active voice instead of the passive voice."
+ignorecase: true
+level: suggestion
+raw:
+  - \b(am|are|were|being|is|been|was|be)\b\s*
+tokens:
+  - '[\w]+ed'
+  - become
+  - been
+  - begun
+  - brought
+  - built
+  - cast
+  - caught
+  - chosen
+  - come
+  - cut
+  - dealt
+  - done
+  - drawn
+  - forbidden
+  - found
+  - given
+  - gone
+  - gotten
+  - held
+  - hidden
+  - kept
+  - known
+  - led
+  - let
+  - made
+  - put
+  - quit
+  - read
+  - seen
+  - sent
+  - sped
+  - spent
+  - stuck
+  - swept
+  - taken
+  - understood
+  - written

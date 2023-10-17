@@ -1,33 +1,40 @@
 ---
 layout: default
-title: Upgrade from Elasticsearch OSS to OpenSearch
+title: Migrating from Elasticsearch OSS to OpenSearch
 nav_order: 15
 ---
 
-# Upgrade from Elasticsearch OSS to OpenSearch
+# Migrating from Elasticsearch OSS to OpenSearch
 
-If you want to upgrade from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) unappealing, you can upgrade your existing nodes from Elasticsearch OSS to OpenSearch.
+If you want to migrate from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) unappealing, you can migrate your existing nodes from Elasticsearch OSS to OpenSearch.
 
-If your existing cluster runs an older version of Elasticsearch OSS, the first step is to upgrade to version 6.x or 7.x. Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
+If your existing cluster runs an older version of Elasticsearch OSS, the first step is to upgrade to version 6.x or 7.x.
+
+Before deciding on the version of Elasticsearch OSS for your upgrade, refer to the [Migrating to OpenSearch and limits on the number of nested JSON objects]({{site.url}}{{site.baseurl}}/breaking-changes/#migrating-to-opensearch-and-limits-on-the-number-of-nested-json-objects) documentation in Breaking changes to see whether the issue will have an impact on your cluster and, therefore, your decisions about upgrades and migration.
+{: .important }
+
+Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
 
 - Rolling upgrades let you shut down one node at a time for minimal disruption of service.
 
-  Rolling upgrades work between minor versions (e.g. 6.5 to 6.8) and also support a single path to the next major version (e.g. 6.8 to 7.10.2). Performing these upgrades might require intermediate upgrades to arrive at your desired version and can affect cluster performance as nodes leave and rejoin, but the cluster remains available throughout the process.
+  Rolling upgrades work between minor versions (for example, 6.5 to 6.8) and also support a single path to the next major version (for example, 6.8 to 7.10.2). Performing these upgrades might require intermediate upgrades to arrive at your desired version and can affect cluster performance as nodes leave and rejoin, but the cluster remains available throughout the process.
 
 - Cluster restart upgrades require you to shut down all nodes, perform the upgrade, and restart the cluster.
 
-  Cluster restart upgrades work between minor versions (e.g. 6.5 to 6.8) and the next major version (for example, 6.x to 7.10.2). Cluster restart upgrades are faster to perform and require fewer intermediate upgrades, but require downtime.
+  Cluster restart upgrades work between minor versions (for example, 6.5 to 6.8) and the next major version (for example, 6.x to 7.10.2). Cluster restart upgrades are faster to perform and require fewer intermediate upgrades, but require downtime.
 
+To migrate a post-fork version of Elasticsearch (7.11+) to OpenSearch, you can use Logstash.  You'll need to employ the Elasticsearch input plugin within Logstash to extract data from the Elasticsearch cluster, and the [Logstash Output OpenSearch plugin](https://github.com/opensearch-project/logstash-output-opensearch#configuration-for-logstash-output-opensearch-plugin) to write the data to the OpenSearch 2.x cluster. We suggest using Logstash version 7.13.4 or earlier, as newer versions may encounter compatibility issues when establishing a connection with OpenSearch due to changes introduced by Elasticsearch subsequent to the fork. We strongly recommend that users test this solution with their own data to ensure effectiveness. 
+{: .note} 
 
-## Upgrade paths
+## Migration paths
 
 Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
 :--- | :--- | :---
-5.x | Upgrade to 5.6, upgrade to 6.8, reindex all 5.x indices, upgrade to 7.10.2, and upgrade to OpenSearch. | Upgrade to 6.8, reindex all 5.x indices, and upgrade to OpenSearch.
-6.x | Upgrade to 6.8, upgrade to 7.10.2, and upgrade to OpenSearch. | Upgrade to OpenSearch.
-7.x | Upgrade to OpenSearch. | Upgrade to OpenSearch.
+5.x | Upgrade to 5.6, upgrade to 6.8, reindex all 5.x indexes, upgrade to 7.10.2, and migrate to OpenSearch. | Upgrade to 6.8, reindex all 5.x indexes, and migrate to OpenSearch.
+6.x | Upgrade to 6.8, upgrade to 7.10.2, and migrate to OpenSearch. | Migrate to OpenSearch.
+7.x | Migrate to OpenSearch. | Migrate to OpenSearch.
 
-If you are upgrading an Open Distro for Elasticsearch cluster, we recommend first upgrading to ODFE 1.13 and then upgrading to OpenSearch.
+If you are migrating an Open Distro for Elasticsearch cluster, we recommend first upgrading to ODFE 1.13 and then migrating to OpenSearch.
 {: .note }
 
 
@@ -62,7 +69,7 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
    sudo yum install elasticsearch-oss-7.10.2 --enablerepo=elasticsearch
    ```
 
-   For tarball installations, extract to a new directory to ensure you **do not overwrite** your `config`, `data`, and `logs` directories. Ideally, these directories should have their own, independent paths and *not* be colocated with the Elasticsearch application directory. Then set the `ES_PATH_CONF` environment variable to the directory that contains `elasticsearch.yml` (e.g. `/etc/elasticesarch/`). In `elasticsearch.yml`, set `path.data` and `path.logs` to your `data` and `logs` directories (e.g. `/var/lib/elasticsearch` and `/var/log/opensearch`).
+   For tarball installations, extract to a new directory to ensure you **do not overwrite** your `config`, `data`, and `logs` directories. Ideally, these directories should have their own, independent paths and *not* be colocated with the Elasticsearch application directory. Then set the `ES_PATH_CONF` environment variable to the directory that contains `elasticsearch.yml` (for example, `/etc/elasticsearch/`). In `elasticsearch.yml`, set `path.data` and `path.logs` to your `data` and `logs` directories (for example, `/var/lib/elasticsearch` and `/var/log/opensearch`).
 
 1. Restart Elasticsearch OSS on the node (rolling) or all nodes (cluster restart).
 
@@ -79,11 +86,11 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
    ```bash
    # Elasticsearch OSS
    curl -XGET 'localhost:9200/_nodes/_all?pretty=true'
-   # Open Distro for Elasticsearch with security plugin enabled
+   # Open Distro for Elasticsearch with Security plugin enabled
    curl -XGET 'https://localhost:9200/_nodes/_all?pretty=true' -u 'admin:admin' -k
    ```
 
-   Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indices.
+   Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indexes.
 
 1. (Rolling) Repeat steps 2--5 until all nodes are using the new version.
 
@@ -98,12 +105,12 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
    }
    ```
 
-1. If you upgraded from 5.x to 6.x, [reindex]({{site.url}}{{site.baseurl}}/opensearch/reindex-data/) all indices.
+1. If you upgraded from 5.x to 6.x, [reindex]({{site.url}}{{site.baseurl}}/opensearch/reindex-data/) all indexes.
 
 1. Repeat all steps as necessary until you arrive at your desired Elasticsearch OSS version.
 
 
-## Upgrade to OpenSearch
+## Migrate to OpenSearch
 
 1. Disable shard allocation to prevent Elasticsearch OSS from replicating shards as you shut down nodes:
 
@@ -132,9 +139,9 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
 
    1. (Optional) Copy or move your Elasticsearch OSS `data` and `logs` directories to new paths. For example, you might move `/var/lib/elasticsearch` to `/var/lib/opensearch`.
 
-   1. Set the `OPENSEARCH_PATH_CONF` environment variable to the directory that contains `opensearch.yml` (e.g. `/etc/opensearch`).
+   1. Set the `OPENSEARCH_PATH_CONF` environment variable to the directory that contains `opensearch.yml` (for example, `/etc/opensearch`).
 
-   1. In `opensearch.yml`, set `path.data` and `path.logs`. You might also want to disable the security plugin for now. `opensearch.yml` might look something like this:
+   1. In `opensearch.yml`, set `path.data` and `path.logs`. You might also want to disable the Security plugin for now. `opensearch.yml` might look something like this:
 
       ```yml
       path.data: /var/lib/opensearch
@@ -142,15 +149,15 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
       plugins.security.disabled: true
       ```
 
-   1. Port your settings from `elasticsearch.yml` to `opensearch.yml`. Most settings use the same names. At a minimum, specify `cluster.name`, `node.name`, `discovery.seed_hosts`, and `cluster.initial_master_nodes`.
+   1. Port your settings from `elasticsearch.yml` to `opensearch.yml`. Most settings use the same names. At a minimum, specify `cluster.name`, `node.name`, `discovery.seed_hosts`, and `cluster.initial_cluster_manager_nodes`.
 
-   1. (Optional) If you're actively connecting to the cluster with legacy clients that check for a particular version number, such as Logstash OSS, add a [compatibility setting]({{site.url}}{{site.baseurl}}/clients/agents-and-ingestion-tools/) to `opensearch.yml`:
+   1. (Optional) If you're actively connecting to the cluster with legacy clients that check for a particular version number, such as Logstash OSS, add a [compatibility setting]({{site.url}}{{site.baseurl}}/tools/index/) to `opensearch.yml`:
 
       ```yml
       compatibility.override_main_response_version: true
       ```
 
-   1. (Optional) Add your certificates to your `config` directory, add them to `opensearch.yml`, and initialize the security plugin.
+   1. (Optional) Add your certificates to your `config` directory, add them to `opensearch.yml`, and initialize the Security plugin.
 
 1. Start OpenSearch on the node (rolling) or all nodes (cluster restart).
 
@@ -165,7 +172,7 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
    curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_nodes/_all?pretty=true'
    ```
 
-   Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indices.
+   Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indexes.
 
 1. (Rolling) Repeat steps 2--5 until all nodes are using OpenSearch.
 
@@ -182,7 +189,7 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
 
 ## Upgrade tool
 
-The `opensearch-upgrade` tool lets you automate some of the steps in [Upgrade to OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#upgrade-to-opensearch), eliminating the need for error-prone manual operations.
+The `opensearch-upgrade` tool lets you automate some of the steps in [Migrate to OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migrate-to-opensearch), eliminating the need for error-prone manual operations.
 
 The `opensearch-upgrade` tool performs the following functions:
 
@@ -202,7 +209,7 @@ The `opensearch-upgrade` tool doesn't perform an end-to-end upgrade:
 
 To perform a rolling upgrade using the [OpenSearch tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) distribution:
 
-Check [Upgrade paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#upgrade-paths) to make sure that the version you’re upgrading to is supported and whether you need to upgrade to a supported Elasticsearch OSS version first.
+Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migration-paths) to make sure that the version you’re upgrading to is supported and whether you need to upgrade to a supported Elasticsearch OSS version first.
 {: .note }
 
 1. Disable shard allocation to prevent Elasticsearch OSS from replicating shards as you shut down nodes:
@@ -223,25 +230,25 @@ Check [Upgrade paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#upgrad
     - `ES_HOME` - Path to the existing Elasticsearch installation home.
 
       ```bash
-      export ES_HOME = /home/workspace/upgrade-demo/node1/elasticsearch-7.10.2
+      export ES_HOME=/home/workspace/upgrade-demo/node1/elasticsearch-7.10.2
       ```
 
     - `ES_PATH_CONF` - Path to the existing Elasticsearch config directory.
 
       ```bash
-      export ES_PATH_CONF = /home/workspace/upgrade-demo/node1/os-config
+      export ES_PATH_CONF=/home/workspace/upgrade-demo/node1/os-config
       ```
 
     - `OPENSEARCH_HOME` - Path to the OpenSearch installation home.
 
       ```bash
-      export OPENSEARCH_HOME = /home/workspace/upgrade-demo/node1/opensearch-1.0.0
+      export OPENSEARCH_HOME=/home/workspace/upgrade-demo/node1/opensearch-1.0.0
       ```
 
     - `OPENSEARCH_PATH_CONF` - Path to the OpenSearch config directory.
 
       ```bash
-      export OPENSEARCH_PATH_CONF = /home/workspace/upgrade-demo/node1/opensearch-config
+      export OPENSEARCH_PATH_CONF=/home/workspace/upgrade-demo/node1/opensearch-config
       ```
 
 1. The `opensearch-upgrade` tool is in the `bin` directory of the distribution. Run the following command from the distribution home:
