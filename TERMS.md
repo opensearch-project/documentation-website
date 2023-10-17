@@ -194,6 +194,8 @@ Use data is, not data are. Don’t use datas. Use pieces of data or equivalent t
 
 **dataset**
 
+**data source**
+
 **data store, datastore**
 
 Two words when used generically, but one word when referring to the VMware product.
@@ -390,6 +392,8 @@ Don’t abbreviate as _IP only_.
 Use *just* in the sense of *just now* (as in "the resources that you just created"). Otherwise, use *only* in all other contexts (to mean "limited to; nothing more than").
 
 ## K
+
+**key store**
 
 **kill**
 
@@ -704,6 +708,8 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
+**trust store**
+
 **turn on, turn off**
 
 Use *turn on* and *turn off* in reference to a toggle to describe switching a setting or mode on or off.
@@ -767,6 +773,8 @@ Do not use. Use *open day* instead.
 **whitelist**
 
 Do not use. Use *allow list* instead.
+
+**white space**
 
 **wish, want, desire, need**
 

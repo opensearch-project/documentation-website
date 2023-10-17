@@ -133,7 +133,7 @@ You will most likely not need to specify any parameters except for `location`. F
    s3.client.default.proxy.port: 8080 # port for your proxy server
    s3.client.default.read_timeout: 50s # the S3 connection timeout
    s3.client.default.use_throttle_retries: true # whether the client should wait a progressively longer amount of time (exponential backoff) between each successive retry
-   s3.client.default.region: us-east-2 # AWS region to use
+   s3.client.default.region: us-east-2 # AWS region to use. For non-AWS S3 storage, this value is required but has no effect.
    ```
 
 1. (Optional) If you don't want to use AWS access and secret keys, you could configure the S3 plugin to use AWS Identity and Access Management (IAM) roles for service accounts:
