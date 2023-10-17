@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Append
-parent: Ingest processors 
-grand_parent: Ingest APIs
+parent: Ingest processors
 nav_order: 10
+redirect_from:
+   - /api-reference/ingest-apis/processors/append/
 ---
-
+ 
 # Append
 
 The `append` processor is used to add values to a field:
