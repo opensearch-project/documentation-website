@@ -481,6 +481,8 @@ p.label {
 }
 
 .main {
+  flex-grow: 1;
+
   @include mq(lg) {
     max-width: calc(100% - #{$nav-width + $top-button-margin});
   }
@@ -492,8 +494,7 @@ p.label {
 
 // Adds TOC to right hand side in xl layout
 .main-content-wrap {
-  max-width: 100%;
-  min-width: 0;
+  width: 100%;
 }
 
 .toc-wrap {
