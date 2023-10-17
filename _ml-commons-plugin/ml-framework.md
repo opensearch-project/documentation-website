@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ML framework 
+title: Using custom models within OpenSearch
 has_children: true
 nav_order: 50
 redirect_from:
@@ -11,7 +11,7 @@ ML Framework was taken out of experimental status and released as Generally Avai
 {: .note}
 
 
-# ML Framework
+# Using custom models within OpenSearch
 
 ML Commons allows you to serve custom models and use those models to make inferences through the OpenSearch Machine Learning (ML) Framework. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
 

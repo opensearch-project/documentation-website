@@ -112,7 +112,7 @@ For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/trans
 
 #### Advanced: Using a different model
 
-Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For information about choosing a model, see [Further reading](#further-reading). For instructions on how to set up a custom model, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For information about choosing a model, see [Further reading](#further-reading). For instructions on how to set up a custom model, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 Take note of the dimensionality of the model because you'll need it when you set up a k-NN index.
 {: .important}
@@ -332,7 +332,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-For more information, see [ML framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 ### Step 1(d): Deploy the model
 
@@ -598,11 +598,11 @@ PUT /my-nlp-index/_doc/5
 When the documents are ingested into the index, the `text_embedding` processor creates an additional field that contains vector embeddings and adds that field to the document. To see an example document that is indexed, search for document 1:
 
 ```json
-GET /my-nlp-index/_search/1
+GET /my-nlp-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-The response shows the document `_source` containing the original `text` and `id` fields and the added `passage_embeddings` field:
+The response includes the document `_source` containing the original `text` and `id` fields and the added `passage_embedding` field:
 
 ```json
 {
