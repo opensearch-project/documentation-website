@@ -26,7 +26,7 @@ If you don't already have an active OpenSearch cluster, you can launch a new Ope
 OpenSearch Benchmark has not been tested with the Window's distribution of OpenSearch.
 {: .note}
 
-After instillation, you can verify OpenSearch is running by going to `localhost:9200`. If you're running your cluster with the Security plugin enabled, OpenSearch will expect SSL connections with the username "admin" and password "admin".  However, since the localhost address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled using the `-k` option.
+After installation, you can verify OpenSearch is running by going to `localhost:9200`. If you're running your cluster with the Security plugin enabled, OpenSearch will expect SSL connections with the username "admin" and password "admin".  However, since the localhost address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled using the `-k` option.
 
 Use the following command to verify OpenSearch is running with SSL certificate checks disabled:
 
