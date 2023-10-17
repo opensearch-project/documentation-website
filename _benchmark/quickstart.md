@@ -18,9 +18,17 @@ To perform the Quickstart steps, you'll need to fulfill the following prerequisi
 
 ## Set up an OpenSearch cluster
 
-Follow the instructions on the [OpenSearch download page](https://opensearch.org/downloads.html) to start up your cluster.  You can either use *Docker Compose* or download the appropriate distribution for your platform, extract or install it, then follow instructions.  For instance, on Linux or MacOS, you would run the `opensearch-tar-install.sh` script.  This will bring up a cluster with its endpoint at localhost:9200, and since the security plugin is enabled with basic authentication configured, it will expect SSL connections with the username "admin" and password "admin".  However, since the "localhost" address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled.
+If you don't already have an acitive OpenSearch cluster, you can launch a new cluster to being using OpenSearch Benchmark.
 
-Now, in another terminal window, verify that the cluster is running.
+- Using **Docker Compose**. For instuctions on how to use Docker Compose, see [OpenSearch Quickstart]({{site.url}}{{site.baseurl}}/quickstart/).
+- Using **Tar**. For instructions on how to install OpenSearch with Tar, see [Installtion OpenSearch > Tarball]({{site.url}}{{site.baseurl}}/install-opensearch/tar/#step-1-download-and-unpack-opensearch/).
+
+OpenSearch Benchmark has not been tested with the Window's distribution of OpenSearch.
+{: .note}
+
+After instllation, you can verify OpenSearch is running by going to `localhost:9200`. If you're running your cluster with the security plugin enabled, OpenSearch will expect SSL connections with the username "admin" and password "admin".  However, since the localhost address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled using the `-k` option.
+
+Use the following command to verify OpenSearch is running with SSL certificate checks disabled:
 
 ```bash
 curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL certificate checks
@@ -44,9 +52,12 @@ curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL cert
 }
 ```
 
-Now, you can proceed to install OSB.
+With your cluster running, you can now install OpenSearch Benchmark.
 
 ## Installing OpenSearch Benchmark
+
+To install OpenSearch Benchmark with Docker, see [Installing OpenSearch Benchmark > Installing with Docker]({{site.url}}{{site.baseurl}}/benchmark/user-guide/installing-benchmark/#installing-with-docker).
+{: .tip}
 
 To install OpenSearch Benchmark from PyPi, enter the following `pip` command:
 
@@ -118,7 +129,7 @@ The `--distribution-version`, which indicates which OpenSearch version Benchmark
 
 ### Running the workload
 
-To run the workload with OSB, invoke the `execute-test` command below.
+To run the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload with OpenSearch Benchmark, use the following `execute-test` command: 
 
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
