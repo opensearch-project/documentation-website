@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Grok
-parent: Ingest processors 
-grand_parent: Ingest APIs
+parent: Ingest processors
+grand_parent: Ingest pipelines
 nav_order: 140
 ---
 
 # Grok 
 
-The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. The `grok` processor can perform transformations on extracted data, such as converting a timestamp to a proper date field. 
+The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The Grok processor is based on the [`java-grok`](https://mvnrepository.com/artifact/io.krakens/java-grok) library and supports all compatible patterns. The `java-grok` library is built using the [java.util.regex](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html) regular expression library. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. The `grok` processor can perform transformations on extracted data, such as converting a timestamp to a proper date field. 
 
 The following is the syntax for the `grok` processor: 
 
@@ -137,28 +137,27 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Using custom patterns
+## Tailoring grok with custom patterns
 
-Custom grok patterns can be used in a pipeline to extract structured data from log messages that do not match the built-in grok patterns. This can be useful for parsing log messages from custom applications or for parsing log messages that have been modified in some way. 
+Custom grok patterns can be used in a pipeline to extract structured data from log messages that do not match the built-in grok patterns. This can be useful for parsing log messages from custom applications or for parsing log messages that have been modified in some way. Custom patterns adhere to a straightforward structure: each pattern has a unique name and the corresponding regular expression that defines its matching behavior.These custom patterns can be incorporated into the `grok` processor using the `pattern_definitons` parameter. This parameter accepts a dictionary where the keys represent the pattern names and the values represent the corresponding regular expressions. When debugging custom patterns, the [Grok Debugger](https://grokdebugger.com/) can be helpful. 
 
-To use custom grok patterns in a pipeline, you first need to create a file that contains your custom patterns. This file should be in a format that is compatible with the grok pattern language. Once you have created the file, add it to your OpenSearch configuration. Once you have added the file, you can update the `grok` processor in your pipeline to use custom patterns.
+The following is an example of how to include a custom pattern in your configuration. In this example, `MY_CUSTOM_PATTERN` is defined and subsequently used in the `patterns` list, which tells grok to look for this pattern in the log message. The pattern is a regular expression that matches any sequence of alphanumeric characters and captures the matched characters into the `my_field`.
 
-The following examples show how you can use custom grok patterns in a pipeline:
-
-- To extract the name of a custom application from a log message: 
-
-
-- To extract the version of the custom application from a log message:
-
-
-- To extract the HTTP request method from a log message:
-
-
-- To extract the HTTP request path from a log message:
-
-
-- To extract the HTTP response status code from a log message:
-
-
-
-
+```json
+{
+   "processors":[
+      {
+         "grok":{
+            "field":"message",
+            "patterns":[
+               "%{MY_CUSTOM_PATTERN:my_field}"
+            ],
+            "pattern_definitions":{
+               "MY_CUSTOM_PATTERN":"(?<my_data>[a-zA-Z0-9]+)"
+            }
+         }
+      }
+   ]
+}
+```
+{% include copy-curl.html %}
