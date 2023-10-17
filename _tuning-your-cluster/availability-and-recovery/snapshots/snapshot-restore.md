@@ -119,7 +119,6 @@ You will most likely not need to specify any parameters except for `location`. F
 1. (Optional) Add other settings to `opensearch.yml`:
 
    ```yml
-   s3.client.default.disable_chunked_encoding: false # Disables chunked encoding for compatibility with some storage services, but you probably don't need to change this value.
    s3.client.default.endpoint: s3.amazonaws.com # S3 has alternate endpoints, but you probably don't need to change this value.
    s3.client.default.max_retries: 3 # number of retries if a request fails
    s3.client.default.path_style_access: false # whether to use the deprecated path-style bucket URLs.
