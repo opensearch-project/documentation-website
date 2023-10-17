@@ -18,15 +18,15 @@ To perform the Quickstart steps, you'll need to fulfill the following prerequisi
 
 ## Set up an OpenSearch cluster
 
-If you don't already have an acitive OpenSearch cluster, you can launch a new cluster to being using OpenSearch Benchmark.
+If you don't already have an active OpenSearch cluster, you can launch a new cluster to being using OpenSearch Benchmark.
 
 - Using **Docker Compose**. For instructions on how to use Docker Compose, see [OpenSearch Quickstart]({{site.url}}{{site.baseurl}}/quickstart/).
-- Using **Tar**. For instructions on how to install OpenSearch with Tar, see [Installing OpenSearch > Tarball]({{site.url}}{{site.baseurl}}/install-opensearch/tar/#step-1-download-and-unpack-opensearch/).
+- Using **Tar**. For instructions on how to install OpenSearch with Tar, see [Installing OpenSearch > Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/#step-1-download-and-unpack-opensearch/).
 
 OpenSearch Benchmark has not been tested with the Window's distribution of OpenSearch.
 {: .note}
 
-After instllation, you can verify OpenSearch is running by going to `localhost:9200`. If you're running your cluster with the security plugin enabled, OpenSearch will expect SSL connections with the username "admin" and password "admin".  However, since the localhost address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled using the `-k` option.
+After instillation, you can verify OpenSearch is running by going to `localhost:9200`. If you're running your cluster with the Security plugin enabled, OpenSearch will expect SSL connections with the username "admin" and password "admin".  However, since the localhost address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled using the `-k` option.
 
 Use the following command to verify OpenSearch is running with SSL certificate checks disabled:
 
@@ -109,7 +109,7 @@ Find out more about Benchmark at https://opensearch.org/docs
 
 ## Running your first benchmark
 
-You can now run your first benchmark.  We will use the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload.
+You can now run your first benchmark. The following benchmark uses the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload.
 
 
 ### Understanding workload command flags
@@ -251,11 +251,11 @@ Each task run by the `percolator` workload represents a specific OpenSearch API 
 
 ## Running OpenSearch Benchmark on your own cluster
 
-Now that you're familar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `execute-test` command, replacing the following settings.
+Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `execute-test` command, replacing the following settings.
  
   * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
-  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up, such as the test cluster above.
+  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up.
   * If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
   * Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
 
