@@ -135,7 +135,7 @@ An example method definition that specifies an encoder (method `hnsw` using `pq`
   }
 }
 ```
-**Note** - Method `hnsw` supports `pq` encoder only from OpenSearch 2.10
+**Note** - Method `hnsw` supports `pq` encoder only from OpenSearch 2.10. Also, the `code_size` parameter of a `pq` encoder with method `hnsw` must be **8**.
 
 Encoder Name | Requires Training? | Description
 :--- | :--- | :---
@@ -144,7 +144,7 @@ Encoder Name | Requires Training? | Description
 
 These are few other example method definitions of faiss methods using encoders:
 
-* method `ivf` using `flat` encoder
+* method `ivf` without specifying encoder (by default uses `flat` encoder)
 ```json
 "method": {
   "name":"ivf",
@@ -175,7 +175,7 @@ These are few other example method definitions of faiss methods using encoders:
 }
 ```
 
-* method `hnsw` using `flat` encoder
+* method `hnsw` without specifying encoder (by default uses `flat` encoder)
 ```json
 "method": {
   "name":"hnsw",
