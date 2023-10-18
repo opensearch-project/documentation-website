@@ -75,8 +75,8 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
      ```bash
      bin/logstash-plugin install logstash-output-opensearch
      ```
-
-- The output will look somewhat like the following
+  
+   You should receive the following output:
 
      ```
      Validating logstash-output-opensearch
@@ -87,7 +87,7 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
      Installation successful
      ```
 
-- You can add your pipeline configurations to the `config` directory. Logstash saves any data from the plugins in the `data` directory. The `bin` directory contains the binaries for starting Logstash and managing plugins.
+You can add your pipeline configurations to the `config` directory. Logstash saves any data from the plugins in the `data` directory. The `bin` directory contains the binaries for starting Logstash and managing plugins.
 
 ### Docker
 
