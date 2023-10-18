@@ -54,7 +54,7 @@ You can also write conditional statements within pipeline configurations to perf
 
 ## Install Logstash
 
-Installing Logstash involves two main steps. The first is installing the Logstash itself. The second is installing the OpenSearch Logstash plugin.
+To install Logstash on OpenSearch, first install Logstash on your cluster, then the OpenSearch Logstash plugin, as described in the following steps.
 
 ### Tarball
 
@@ -62,7 +62,7 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 
 1. Download the Logstash tarball from [Logstash downloads](https://www.elastic.co/downloads/logstash).
 
-2. Navigate to the downloaded folder in the terminal and extract the files (Note that the version and platform may vary from the following command):
+2. Navigate to the downloaded folder in the terminal and extract the files. Make sure that your version of Logstash and platform matches the one downloaded:
 
      ```bash
      tar -zxvf logstash-8.8.2-linux-x86_64.tar.gz
@@ -70,7 +70,7 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 
 3. Navigate to the `logstash-8.8.2` directory.
 
-4. Install the plugin
+4. Use the following command to install the plugin:
 
      ```bash
      bin/logstash-plugin install logstash-output-opensearch
