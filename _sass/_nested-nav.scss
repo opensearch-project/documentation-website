@@ -69,6 +69,13 @@
         }
       }
 
+      &:last-child {
+        > ul {
+          right: .5em;
+          left: auto;
+        }
+      }
+
       &:hover {
         > ul {
           display: block;
