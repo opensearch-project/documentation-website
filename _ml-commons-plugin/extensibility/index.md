@@ -32,7 +32,8 @@ PUT /_cluster/settings
         "plugins.ml_commons.trusted_connector_endpoints_regex": [
           "^https://runtime\\.sagemaker\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
           "^https://api\\.openai\\.com/.*$",
-          "^https://api\\.cohere\\.ai/.*$"
+          "^https://api\\.cohere\\.ai/.*$",
+          "^https://bedrock-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$"
         ]
     }
 }

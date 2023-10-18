@@ -10,7 +10,7 @@ parent: Connecting to remote models
 
 All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
 
-The following example shows a blueprint that connects to Amazon SageMaker:
+The following example shows a blueprint of an Amazon SageMaker connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -20,12 +20,12 @@ POST /_plugins/_ml/connectors/_create
   "version": "<YOUR CONNECTOR VERSION>",
   "protocol": "aws_sigv4",
   "credential": {
-    "access_key": "<ADD YOUR AWS ACCESS KEY HERE>",
-    "secret_key": "<ADD YOUR AWS SECRET KEY HERE>",
-    "session_token": "<ADD YOUR AWS SECURITY TOKEN HERE>"
+    "access_key": "<YOUR AWS ACCESS KEY>",
+    "secret_key": "<YOUR AWS SECRET KEY>",
+    "session_token": "<YOUR AWS SECURITY TOKEN>"
   },
   "parameters": {
-    "region": "<ADD YOUR AWS REGION HERE>",
+    "region": "<YOUR AWS REGION>",
     "service_name": "sagemaker"
   },
   "actions": [
@@ -35,8 +35,8 @@ POST /_plugins/_ml/connectors/_create
       "headers": {
         "content-type": "application/json"
       },
-      "url": "<ADD YOUR Sagemaker MODEL ENDPOINT URL>",
-      "request_body": "<ADD YOUR REQUEST BODY. Example: ${parameters.inputs}>"
+      "url": "<YOUR SAGEMAKER MODEL ENDPOINT URL>",
+      "request_body": "<YOUR REQUEST BODY. Example: ${parameters.inputs}>"
     }
   ]
 }
@@ -105,9 +105,9 @@ POST /_plugins/_ml/connectors/_create
   "version": 1,
   "protocol": "aws_sigv4",
   "credential": {
-    "access_key": "<REPLACE WITH SAGEMAKER ACCESS KEY>",
-    "secret_key": "<REPLACE WITH SAGEMAKER SECRET KEY>",
-    "session_token": "<REPLACE WITH AWS SECURITY TOKEN>"
+    "access_key": "<YOUR SAGEMAKER ACCESS KEY>",
+    "secret_key": "<YOUR SAGEMAKER SECRET KEY>",
+    "session_token": "<YOUR AWS SECURITY TOKEN>"
   },
   "parameters": {
     "region": "ap-northeast-1",
@@ -173,6 +173,43 @@ The remote text embedding model output must be a two-dimensional float array, ea
 ]
 ```
 
+## Custom pre- and post-processing functions
+
+You can write your own pre- and post-processing functions specifically for your model format. For example, the following Amazon Bedrock connector definition contains custom pre- and post-processing functions for the Amazon Bedrock Titan model:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "Amazon Bedrock Connector: embedding",
+  "description": "The connector to the Bedrock Titan embedding model",
+  "version": 1,
+  "protocol": "aws_sigv4",
+  "parameters": {
+    "region": "<ADD YOUR AWS REGION>",
+    "service_name": "bedrock"
+  },
+  "credential": {
+    "access_key": "<ADD YOUR AWS ACCESS KEY>",
+    "secret_key": "<ADD YOUR AWS SECRET KEY>",
+    "session_token": "<ADD YOUR AWS SECURITY TOKEN>"
+  },
+  "actions": [
+    {
+      "action_type": "predict",
+      "method": "POST",
+      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/amazon.titan-embed-text-v1/invoke",
+      "headers": {
+        "content-type": "application/json",
+        "x-amz-content-sha256": "required"
+      },
+      "request_body": "{ \"inputText\": \"${parameters.inputText}\" }",
+      "pre_process_function": "\n    StringBuilder builder = new StringBuilder();\n    builder.append(\"\\\"\");\n    String first = params.text_docs[0];\n    builder.append(first);\n    builder.append(\"\\\"\");\n    def parameters = \"{\" +\"\\\"inputText\\\":\" + builder + \"}\";\n    return  \"{\" +\"\\\"parameters\\\":\" + parameters + \"}\";",
+      "post_process_function": "\n      def name = \"sentence_embedding\";\n      def dataType = \"FLOAT32\";\n      if (params.embedding == null || params.embedding.length == 0) {\n        return params.message;\n      }\n      def shape = [params.embedding.length];\n      def json = \"{\" +\n                 \"\\\"name\\\":\\\"\" + name + \"\\\",\" +\n                 \"\\\"data_type\\\":\\\"\" + dataType + \"\\\",\" +\n                 \"\\\"shape\\\":\" + shape + \",\" +\n                 \"\\\"data\\\":\" + params.embedding +\n                 \"}\";\n      return json;\n    "
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
 
 ## Next step
 
