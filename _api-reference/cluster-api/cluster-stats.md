@@ -15,7 +15,7 @@ redirect_from:
 
 The cluster stats API operation returns statistics about your cluster.
 
-#### Example
+## Example
 
 ```json
 GET _cluster/stats/nodes/_cluster_manager

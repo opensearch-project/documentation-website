@@ -51,7 +51,7 @@ In the following example request body, `zone_1` and `zone_2` receive 50 requests
 }
 ```
 
-#### Example: Weighted round robin search
+## Example: Weighted round robin search
 
 The following example request creates a round robin shard allocation for search traffic by using an undefined ratio:
 
@@ -80,7 +80,7 @@ PUT /_cluster/routing/awareness/zone/weights
 ```
 
 
-#### Example: Getting weights for all zones
+## Example: Getting weights for all zones
 
 The following example request gets weights for all zones.
 
@@ -108,7 +108,7 @@ OpenSearch responds with the weight of each zone:
 }
 ```
 
-#### Example: Deleting weights
+## Example: Deleting weights
 
 You can remove your weight ratio for each zone using the `DELETE` method.
 

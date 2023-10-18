@@ -34,7 +34,7 @@ awareness_attribute_name | String | The name of awareness attribute, usually `zo
 awareness_attribute_value | String | The value of the awareness attribute. For example, if you have shards allocated in two different zones, you can give each zone a value of `zone-a` or `zoneb`. The cluster decommission operation decommissions the zone listed in the method.
 
 
-#### Example: Decommissioning and recommissioning a zone
+## Example: Decommissioning and recommissioning a zone
 
 You can use the following example requests to decommission and recommission a zone:
 
@@ -63,7 +63,7 @@ DELETE /_cluster/decommission/awareness
 }
 ```
 
-#### Example: Getting zone decommission status
+## Example: Getting zone decommission status
 
 The following example requests returns the decommission status of all zones.
 
