@@ -87,6 +87,32 @@ There are other ways to change log levels:
    - `[%node_name]` is the name of the node.
 
 
+## Search request slow logs
+OpenSearch offers request-level slow logs for search queries. These are different from traditional slow logs which monitor individual query and fetch phases at the shard level.
+
+Logging thresholds are configured for total request duration and are enabled dynamically through the cluster settings API:
+
+```json
+PUT /_cluster/settings
+
+{
+   "persistent" : {
+      "cluster.search.request.slowlog.threshold.level" : "TRACE",
+      "cluster.search.request.slowlog.threshold.warn": "10s",
+      "cluster.search.request.slowlog.threshold.info": "5s",
+      "cluster.search.request.slowlog.threshold.debug": "2s",
+      "cluster.search.request.slowlog.threshold.trace": "10ms"
+   }
+}
+```
+
+A line from `opensearch_index_search_slowlog.log` might look like this:
+```
+[2023-10-18T11:46:48,484][TRACE][c.s.r.slowlog] [runTask-0] took[78.9ms], took_millis[78], phase_took_millis[{expand=0, query=59, fetch=5}], search_type[QUERY_THEN_FETCH], total_shards[10], source[{"query":{"query_string":{"query":"abc","fields":[],"type":"best_fields","default_operator":"or","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}}], id[my-id]
+```
+
+Request slow logs can consume considerable disk space and affect performance if you set thresholds too low. Consider enabling them temporarily for troubleshooting or performance tuning. To disable slow logs, return all thresholds to -1.
+
 ## Slow logs
 
 OpenSearch has two *slow logs*, logs that help you identify performance issues: the search slow log and the indexing slow log.
