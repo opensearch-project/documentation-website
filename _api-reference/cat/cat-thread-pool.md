@@ -14,7 +14,7 @@ redirect_from:
 
 The CAT thread pool operation lists the active, queued, and rejected threads of different thread pools on each node.
 
-#### Example
+## Example
 
 ```
 GET _cat/thread_pool?v

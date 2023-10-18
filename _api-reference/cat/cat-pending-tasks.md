@@ -15,7 +15,7 @@ redirect_from:
 
 The CAT pending tasks operation lists the progress of all pending tasks, including task priority and time in queue.
 
-#### Example
+## Example
 
 ```
 GET _cat/pending_tasks?v

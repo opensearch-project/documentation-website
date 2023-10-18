@@ -15,7 +15,7 @@ redirect_from:
 
 The cat segments operation lists Lucene segment-level information for each index.
 
-#### Example
+## Example
 
 ```
 GET _cat/segments?v

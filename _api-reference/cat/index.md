@@ -15,7 +15,7 @@ You can get essential statistics about your cluster in an easy-to-understand, ta
 
 Using the CAT API, you can answer questions like which node is the elected master, what state is the cluster in, how many documents are in each index, and so on.
 
-#### Example
+## Example
 
 To see the available operations in the CAT API, use the following command:
 
