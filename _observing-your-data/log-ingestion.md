@@ -12,7 +12,7 @@ Log ingestion provides a way to transform unstructured log data into structured 
 
 ## Get started with log ingestion
 
-OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/) and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/)---that fit into the OpenSearch ecosystem. The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
+OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/). The Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
 
 ### Basic flow of data
 
