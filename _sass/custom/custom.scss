@@ -339,7 +339,8 @@ img {
   position: fixed;
   bottom: 30px;
   right: 16px;
-  z-index: 1;
+  z-index: 999;
+
   svg {
     transform: rotate(-90deg);
   }
@@ -554,6 +555,8 @@ p.label {
 }
 
 .main {
+  flex-grow: 1;
+
   @include mq(lg) {
     
   }

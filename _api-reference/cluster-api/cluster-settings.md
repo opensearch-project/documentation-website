@@ -69,10 +69,12 @@ The following request field parameters are compatible with the cluster API.
 | indices.recovery.max_bytes_per_sec | String | Limits the total inbound and outbound recovery traffic for each node. This applies to peer recoveries and snapshot recoveries. Default is `40mb`. If you set the recovery traffic value to less than or equal to `0mb`, rate limiting will be disabled, which causes recovery data to be transferred at the highest possible rate. |
 | indices.recovery.max_concurrent_file_chunks | Integer | The number of file chunks sent in parallel for each recovery operation. Default is `2`. |
 | indices.recovery.max_concurrent_operations | Integer | The number of operations sent in parallel for each recovery. Default is `1`. |
+| indices.recovery.max_concurrent_remote_store_streams | Integer | The number of streams to the remote repository that can be opened in parallel when recovering a remote store index. Default is `20`. |
 | logger.org.opensearch.discovery | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
 | breaker.model_inference.limit | String | The limit for the trained model circuit breaker. Default is `50%` of the JVM heap. |
 | breaker.model_inference.overhead | Integer | The constant that all trained model estimations are multiplied by to determine a final estimation. Default is `1`. |
 | search.max_buckets | Integer | The maximum number of aggregation buckets allowed in a single response. Default is `65536`. |
+| search.phase_took_enabled | Boolean | Enables returning phase-level `took` time values in search responses. Default is `false`. |
 | snapshot.max_concurrent_operations | Integer | The maximum number of concurrent snapshot operations. Default is `1000`. |
 | slm.health.failed_snapshot_warn_threshold | String | The number of failed invocations since the last successful snapshot that will indicate a problem as per the health API profile. Default is five repeated failures: `5L`. |
 | indices.breaker.total.limit | String | The starting limit for the overall parent breaker. Default is `70%` of the JVM heap if `indices.breaker.total.use_real_memory` is set to `false`. Default is `95%` of the JVM heap if `indices.breaker.total.use_real_memory` is set to `true`. |

@@ -223,6 +223,13 @@ $primary-open-sky-s1: #0085B8;
         }
       }
 
+      &:last-child {
+        > ul {
+          right: .5em;
+          left: auto;
+        }
+      }
+
       &:hover {
         > ul {
           display: block;
