@@ -72,7 +72,7 @@ Parameter name | Required | Default | Updatable | Description
 `nprobes` | false | 1 | false | Number of buckets to search during query. Higher values lead to more accurate but slower searches.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
 
-For more information about setting these parameters, refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
+For more information about setting these parameters, refer to the [Faiss documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
 
 #### IVF training requirements
 
