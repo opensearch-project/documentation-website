@@ -13,7 +13,7 @@ redirect_from:
 
 The get settings API operation returns all the settings in your index.
 
-#### Example
+## Example
 
 ```json
 GET /sample-index1/_settings

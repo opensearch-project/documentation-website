@@ -13,7 +13,7 @@ redirect_from:
 
 If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want in your index or by including a script in your request body, which OpenSearch runs to update the document.
 
-#### Example
+## Example
 
 ```json
 POST /sample-index1/_update/1

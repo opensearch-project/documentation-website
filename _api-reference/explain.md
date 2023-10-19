@@ -18,7 +18,7 @@ The explain API is an expensive operation in terms of both resources and time. O
 {: .warning }
 
 
-#### Example
+## Example
 
 To see the explain output for all results, set the `explain` flag to `true` either in the URL or in the body of the request:
 

@@ -36,7 +36,7 @@ repository | String | Repository name |
 
 Request parameters depend on the type of repository: `fs` or `s3`.
 
-#### fs repository
+### fs repository
 
 Request field | Description
 :--- | :---

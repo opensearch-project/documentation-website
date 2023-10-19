@@ -12,7 +12,7 @@ redirect_from:
 
 As the name suggests, the multi-search operation lets you bundle multiple search requests into a single request. OpenSearch then executes the searches in parallel, so you get back the response more quickly compared to sending one request per search. OpenSearch executes each search independently, so the failure of one doesn't affect the others.
 
-#### Example
+## Example
 
 ```json
 GET _msearch

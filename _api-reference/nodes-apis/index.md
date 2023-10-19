@@ -61,7 +61,7 @@ GET /_nodes/data:true/stats
 ```
 {% include copy-curl.html %}
 
-#### Order of resolution mechanisms
+### Order of resolution mechanisms
 
 The order of resolution mechanisms is applied sequentially, and each can add or remove nodes. The following examples yield different results.
 

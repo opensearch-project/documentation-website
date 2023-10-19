@@ -17,7 +17,7 @@ The bulk operation lets you add, update, or delete multiple documents in a singl
 Beginning in OpenSearch 2.9, when indexing documents using the bulk operation, the document `_id` must be 512 bytes or less in size.
 {: .note}
 
-#### Example
+## Example
 
 ```json
 POST _bulk

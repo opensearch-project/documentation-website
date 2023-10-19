@@ -12,7 +12,7 @@ nav_order: 230
 
 The `remove` processor is used to remove a field from a document. 
 
-#### Example
+## Example
 The following is the syntax for the `remove` processor: 
 
 ```json

@@ -13,7 +13,7 @@ redirect_from:
 
 The split index API operation splits an existing read-only index into a new index, cutting each primary shard into some amount of primary shards in the new index.
 
-#### Example
+## Example
 
 ```json
 PUT /sample-index1/_split/split-index1
@@ -76,6 +76,6 @@ The split index API operation creates a new target index, so you can specify any
 }
 ```
 
-#### Index codec considerations
+## Index codec considerations
 
 For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#splits-and-shrinks).

@@ -13,7 +13,7 @@ redirect_from:
 The count API gives you quick access to the number of documents that match a query.
 You can also use it to check the document count of an index, data stream, or cluster.
 
-#### Example
+## Example
 
 To see the number of documents that match a query:
 

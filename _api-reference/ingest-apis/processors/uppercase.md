@@ -12,7 +12,7 @@ nav_order: 310
 
 The `uppercase` processor converts all the text in a specific field to uppercase letters. 
 
-#### Example
+## Example
 The following is the syntax for the `uppercase` processor: 
 
 ```json

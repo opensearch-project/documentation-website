@@ -12,7 +12,7 @@ nav_order: 50
 
 The `date` processor is used to parse dates from document fields and to add the parsed data to a new field. By default, the parsed data is stored in the `@timestamp` field. 
 
-#### Example
+## Example
 The following is the syntax for the `date` processor:
 
 ```json

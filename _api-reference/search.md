@@ -12,7 +12,7 @@ redirect_from:
 
 The Search API operation lets you execute a search request to search your cluster for data.
 
-#### Example
+## Example
 
 ```json
 GET /movies/_search
