@@ -118,7 +118,7 @@ Lucene HNSW implementation ignores `ef_search`  and dynamically sets it to the v
 You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. faiss has
 several encoder types, but the plugin currently only supports *flat* and *pq* encoding.
 
-An example method definition that specifies an encoder (method `hnsw` using `pq` encoder) may look something like this:
+The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
 ```json
 "method": {
@@ -136,16 +136,17 @@ An example method definition that specifies an encoder (method `hnsw` using `pq`
   }
 }
 ```
-**Note** - Method `hnsw` supports `pq` encoder only from OpenSearch 2.10. Also, the `code_size` parameter of a `pq` encoder with method `hnsw` must be **8**.
+The `hnsw` method supports the `pq` encoder for OpenSearch versions 2.10 and later. The `code_size` parameter of a `pq` encoder with the `hnsw` method must be **8**.
+{: .note}
 
 Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
 `pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
 
-These are few other example method definitions of faiss methods using encoders:
+The following examples illustrate specifying various method definitions of `faiss` methods using encoders.
 
-* method `ivf` without specifying encoder (by default uses `flat` encoder)
+The `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
 ```json
 "method": {
   "name":"ivf",
@@ -158,7 +159,7 @@ These are few other example method definitions of faiss methods using encoders:
 }
 ```
 
-* method `ivf` using `pq` encoder
+* The `ivf` method using the `pq` encoder:
 ```json
 "method": {
   "name":"ivf",
@@ -176,7 +177,7 @@ These are few other example method definitions of faiss methods using encoders:
 }
 ```
 
-* method `hnsw` without specifying encoder (by default uses `flat` encoder)
+* The `hnsw` method without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
 ```json
 "method": {
   "name":"hnsw",
