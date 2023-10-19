@@ -147,7 +147,6 @@ Encoder name | Requires training | Description
 
 #### Examples
 
-The following examples illustrate specifying various method definitions of `faiss` methods using encoders.
 
 The following example uses the `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
 
