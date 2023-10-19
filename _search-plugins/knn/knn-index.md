@@ -121,7 +121,7 @@ An example method definition that specifies an encoder may look something like t
 
 ```json
 "method": {
-  "name":"hnsw",
+  "name":"ivf",
   "engine":"faiss",
   "parameters":{
     "encoder":{
