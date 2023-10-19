@@ -143,7 +143,7 @@ The `hnsw` method supports the `pq` encoder for OpenSearch versions 2.10 and lat
 Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
-`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
+`pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
 
 #### Examples
 
@@ -162,7 +162,7 @@ The following example uses the `ivf` method  without specifying an encoder (by d
 }
 ```
 
-The following example uses the `ivf` method using the `pq` encoder:
+The following example uses the `ivf` method with a `pq` encoder:
 
 ```json
 "method": {
@@ -195,7 +195,7 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 }
 ```
 
-#### PQ Parameters
+#### PQ parameters
 
 Paramater Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
