@@ -72,7 +72,7 @@ Parameter name | Required | Default | Updatable | Description
 `nprobes` | false | 1 | false | Number of buckets to search during query. Higher values lead to more accurate but slower searches.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
 
-For more information about setting these parameters, please refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
+For more information about setting these parameters, refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
 
 #### IVF training requirements
 
@@ -136,17 +136,21 @@ The following example method definition specifies the `hnsw` method and a `pq` e
   }
 }
 ```
+
 The `hnsw` method supports the `pq` encoder for OpenSearch versions 2.10 and later. The `code_size` parameter of a `pq` encoder with the `hnsw` method must be **8**.
-{: .note}
+{: .important}
 
 Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
-`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
+`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
+
+#### Examples
 
 The following examples illustrate specifying various method definitions of `faiss` methods using encoders.
 
-The `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+The following example uses the `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+
 ```json
 "method": {
   "name":"ivf",
@@ -159,7 +163,8 @@ The `ivf` method  without specifying an encoder (by default, OpenSearch uses the
 }
 ```
 
-* The `ivf` method using the `pq` encoder:
+The following example uses the `ivf` method using the `pq` encoder:
+
 ```json
 "method": {
   "name":"ivf",
@@ -177,7 +182,8 @@ The `ivf` method  without specifying an encoder (by default, OpenSearch uses the
 }
 ```
 
-* The `hnsw` method without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+The following example uses the `hnsw` method without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+
 ```json
 "method": {
   "name":"hnsw",
