@@ -197,12 +197,12 @@ The following example request creates a standalone Cohere connector:
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "YOUR CONNECTOR NAME",
-  "description": "YOUR CONNECTOR DESCRIPTION",
-  "version": "YOUR CONNECTOR VERSION",
+  "name": "<YOUR CONNECTOR NAME>",
+  "description": "<YOUR CONNECTOR DESCRIPTION>",
+  "version": "<YOUR CONNECTOR VERSION>",
   "protocol": "http",
   "credential": {
-    "cohere_key": "YOUR Cohere API KEY HERE"
+    "cohere_key": "<YOUR COHERE API KEY>"
   },
   "parameters": {
     "model": "embed-english-v2.0",
@@ -235,13 +235,13 @@ POST /_plugins/_ml/connectors/_create
   "version": 1,
   "protocol": "aws_sigv4",
   "parameters": {
-    "region": "<YOUR AWS REGION HERE>",
+    "region": "<YOUR AWS REGION>",
     "service_name": "bedrock"
   },
   "credential": {
-    "access_key": "<YOUR AWS ACCESS KEY HERE>",
-    "secret_key": "<YOUR AWS SECRET KEY HERE>",
-    "session_token": "<YOUR AWS SECURITY TOKEN HERE>"
+    "access_key": "<YOUR AWS ACCESS KEY>",
+    "secret_key": "<YOUR AWS SECRET KEY>",
+    "session_token": "<YOUR AWS SECURITY TOKEN>"
   },
   "actions": [
     {
