@@ -185,13 +185,13 @@ POST /_plugins/_ml/connectors/_create
   "version": 1,
   "protocol": "aws_sigv4",
   "parameters": {
-    "region": "<ADD YOUR AWS REGION>",
+    "region": "<YOUR AWS REGION>",
     "service_name": "bedrock"
   },
   "credential": {
-    "access_key": "<ADD YOUR AWS ACCESS KEY>",
-    "secret_key": "<ADD YOUR AWS SECRET KEY>",
-    "session_token": "<ADD YOUR AWS SECURITY TOKEN>"
+    "access_key": "<YOUR AWS ACCESS KEY>",
+    "secret_key": "<YOUR AWS SECRET KEY>",
+    "session_token": "<YOUR AWS SECURITY TOKEN>"
   },
   "actions": [
     {
