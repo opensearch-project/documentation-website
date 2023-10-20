@@ -81,7 +81,7 @@ node.name: opensearch-cluster_manager
 You can also explicitly specify that this node is a cluster manager node, even though it is already set to true by default. Set the node role to `cluster_manager` to make it easier to identify the cluster manager node.
 
 ```yml
-node.roles: [ cluster_manager ]
+node.roles: [ master ]
 ```
 
 #### Data nodes
