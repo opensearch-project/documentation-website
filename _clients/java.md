@@ -295,9 +295,8 @@ CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(i
 client.indices().create(createIndexRequest);
 
 IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
-IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexSettings).build();
-PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
-client.indices().putSettings(putSettingsRequest);
+PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
+client.indices().putSettings(PutIndicesSettingsRequest);
 ```
 {% include copy.html %}
 
