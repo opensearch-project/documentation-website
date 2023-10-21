@@ -2,7 +2,7 @@
 layout: default
 title: Count
 nav_order: 21
-redirect_from: 
+redirect_from:
  - /opensearch/rest-api/count/
 ---
 
@@ -62,7 +62,7 @@ GET _count
 ```
 {% include copy-curl.html %}
 
-Alternatively, you could use the [cat indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) and [cat count]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) APIs to see the number of documents per index or data stream.
+Alternatively, you could use the [cat indexes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) and [cat count]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) APIs to see the number of documents per index or data stream.
 {: .note }
 
 

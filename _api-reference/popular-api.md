@@ -79,14 +79,14 @@ POST _bulk
 ```
 
 
-## List all indices
+## List all indexes
 
 ```
 GET _cat/indices?v&expand_wildcards=all
 ```
 
 
-## Open or close all indices that match a pattern
+## Open or close all indexes that match a pattern
 
 ```
 POST my-logs*/_open
@@ -94,7 +94,7 @@ POST my-logs*/_close
 ```
 
 
-## Delete all indices that match a pattern
+## Delete all indexes that match a pattern
 
 ```
 DELETE my-logs*
@@ -117,7 +117,7 @@ GET _cat/aliases?v
 ```
 
 
-## Search an index or all indices that match a pattern
+## Search an index or all indexes that match a pattern
 
 ```
 GET my-logs/_search?q=test

@@ -93,10 +93,10 @@ System index permissions also work with the wildcard to include all variations o
 * Specifying the full name of a system index limits access to only that index: `.opendistro-alerting-config`.
 * Specifying a partial name for a system index along with the wildcard provides access to all system indexes that begin with that name: `.opendistro-anomaly-detector*`.
 * Although not recommended---given the wide-reaching access granted by this role definition---using `*` for the index pattern along with `system:admin/system_index` as an allowed action grants access to all system indexes.
-  
+
   Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes. The allowed action `system:admin/system_index` must be explicitly added.
   {: .note }
-  
+
 The following example shows a role that grants access to all system indexes:
 
 ```yml
@@ -110,7 +110,7 @@ index_permissions:
 
 ### Verifying system index access
 
-You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permissions provide the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
+You can use the [CAT indexes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permissions provide the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
 
 The following example response shows the three system indexes associated with the index pattern `.kibana*`:
 
