@@ -54,7 +54,7 @@ For more information about how to upload and use ML models, see [Using custom mo
 
 ## Supported pretrained models
 
-The ML Framework supports the following models, categorized by type. Text embedding models are sourced from [Hugging Face](https://huggingface.co/). Sparse encoding models are trained by OpenSearch. Although models with the same type will have similar use cases, each model has a different model size and will perform differently depending on your cluster. For a performance comparison of some pretrained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
+OpenSearch supports the following models, categorized by type. Text embedding models are sourced from [Hugging Face](https://huggingface.co/). Sparse encoding models are trained by OpenSearch. Although models with the same type will have similar use cases, each model has a different model size and will perform differently depending on your cluster setup. For a performance comparison of some pretrained models, see the [SBERT documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
 
 
 ### Sentence transformers
