@@ -5,8 +5,8 @@ parent: Using custom models within OpenSearch
 nav_order: 120
 ---
 
-Pretrained models were taken out of experimental status and released to General Availability in OpenSearch 2.9. 
-Also, sparse encoding models are General Availability in OpenSearch 2.11. 
+Pretrained models are generally available in OpenSearch 2.9 and later. 
+Sparse encoding models are generally available in OpenSearch 2.11 and later. 
 {: .warning}
 
 # Pretrained models
@@ -29,7 +29,8 @@ POST /_plugins/_ml/models/_upload
 }
 ```
 
-Note: For sparse encoding model, you still need to upload the full request body like: 
+Note that for sparse encoding models, you still need to upload the full request body, as shown in the following example: 
+
 ```
 POST /_plugins/_ml/models/_upload
 {
@@ -42,14 +43,15 @@ POST /_plugins/_ml/models/_upload
     "url":  "https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1/1.0.0/torch_script/opensearch-neural-sparse-encoding-doc-v1-1.0.0-torch_script.zip"
 }
 ```
+{% include copy-curl.html %}
 
-You can find the `url` and `model_content_hash_value` in the following Supported pretrained model configs. And set `function_name` to "SPARSE_ENCODING" or "SPARSE_TOKENIZE". (Could be acquired in model config link)
+You can find the `url` and `model_content_hash_value` in the model config link for each model in the [Supported pretrained models section](#supported-pretrained-models). Set the `function_name` to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. Note that the `function_name` parameter in the request corresponds to the `model_task_type` parameter in the model config. When using a pretrained model, make sure to change the name of the parameter from `model_task_type` to `function_name` in the model upload request.
 
 For more information about how to upload and use ML models, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 
 ## Supported pretrained models
 
-The ML Framework supports the following models, categorized by type. Text embedding models are traced from [Hugging Face](https://huggingface.co/). Sparse encoding models are trained by ourselves. Although models with the same type will have similar use cases, each model has a different model size and performs differently depending on your cluster. For a performance comparison of some pretrained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
+The ML Framework supports the following models, categorized by type. Text embedding models are sourced from [Hugging Face](https://huggingface.co/). Sparse encoding models are trained by OpenSearch. Although models with the same type will have similar use cases, each model has a different model size and performs differently depending on your cluster. For a performance comparison of some pretrained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
 
 
 ### Sentence transformers
@@ -71,11 +73,11 @@ The following table provides a list of sentence transformer models and artifact 
 | `huggingface/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` | 384-dimensional dense vector space. | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/1.0.1/torch_script/sentence-transformers_paraphrase-multilingual-MiniLM-L12-v2-1.0.1-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/1.0.1/torch_script/config.json) | - [model_url](https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/1.0.1/onnx/sentence-transformers_paraphrase-multilingual-MiniLM-L12-v2-1.0.1-onnx.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/1.0.1/onnx/config.json) |
 
 
-### Sparse Encoding
+### Sparse encoding models
 
-Sparse encoding models transfer sentence into sparse vector, and convert it to a list of `<token: weight>`, representing the entry and corresponding weight inside the sparse vector. Use these models for use cases such as clustering and neural sparse search.
+Sparse encoding models transfer text into a sparse vector and convert the vector to a list of `<token: weight>` pairs, representing the text entry and its corresponding weight in the sparse vector. Use these models for use cases such as clustering and neural sparse search.
 
-The following table provides a list of sentence transformer models and artifact links you can use to download them.
+The following table provides a list of sparse encoding models and artifact links you can use to download them.
 
 | Model name | Auto-truncation | TorchScript artifact | 
 |---|---|

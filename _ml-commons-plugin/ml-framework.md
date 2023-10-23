@@ -26,7 +26,7 @@ To upload a custom model to OpenSearch, you need to prepare it outside of your O
 
 As of OpenSearch 2.6, the ML Framework supports text-embedding models.
 
-And after opensearch 2.11, the ML framework supports sparse encoding model.
+As of OpenSearch 2.11, the ML framework supports sparse encoding models.
 
 ### Model format
 
@@ -34,13 +34,13 @@ To use a model in OpenSearch, you'll need to export the model into a portable fo
 
 Furthermore, files must be saved as zip files before upload. Therefore, to ensure that ML Commons can upload your model, compress your TorchScript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
-#### Special requirements to uploading own model 
+#### Uploading own model 
 
-Your must also provide the tokenizer json file inside the zip file, both for text embedding and sparse encoding. 
+For both text embedding and sparse encoding models, you must provide a tokenizer JSON file within the model zip file.
 
-And for sparse encoding model, please make sure your output format would be `{"output":<sparse_vector>}` so ml-commons can post process the sparse vector.
+For sparse encoding models, make sure your output format is `{"output":<sparse_vector>}` so ML Commons can post-process the sparse vector.
 
-Also, if you finetune the sparse model on your own dataset, you may also want to use your own sparse tokenizer model. It would be better to provide your own [IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) json file inside the tokenizer model zip. It will increase the performance when you use tokenizer model in the query. ML-commons provide a general IDF from the MSMARCO [here](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.0/torch_script/opensearch-neural-sparse-tokenizer-v1-1.0.0.zip). If the IDF file not provided, ML-commons will set the default weight of each token to 1, which may influence the neural sparse search performance.  
+If you fine-tune a sparse model on your own dataset, you may also want to use your own sparse tokenizer model. It is preferable to provide your own [IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) JSON file in the tokenizer model zip file because this increases query performance when you use the tokenizer model in the query. Alternatively,  you can use an OpenSearch-provided generic [IDF from the MSMARCO](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.0/torch_script/opensearch-neural-sparse-tokenizer-v1-1.0.0.zip). If the IDF file is not provided, the default weight of each token is set to 1, which may influence neural sparse search performance.  
 
 
 ### Model size
