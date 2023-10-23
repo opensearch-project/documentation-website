@@ -40,7 +40,7 @@ For both text embedding and sparse encoding models, you must provide a tokenizer
 
 For sparse encoding models, make sure your output format is `{"output":<sparse_vector>}` so that ML Commons can post-process the sparse vector.
 
-If you fine-tune a sparse model on your own dataset, you may also want to use your own sparse tokenizer model. It is preferable to provide your own [IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) JSON file in the tokenizer model zip file because this increases query performance when you use the tokenizer model in the query. Alternatively,  you can use an OpenSearch-provided generic [IDF from the MSMARCO](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.0/torch_script/opensearch-neural-sparse-tokenizer-v1-1.0.0.zip). If the IDF file is not provided, the default weight of each token is set to 1, which may influence neural sparse search performance.  
+If you fine-tune a sparse model on your own dataset, you may also want to use your own sparse tokenizer model. It is preferable to provide your own [IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) JSON file in the tokenizer model zip file because this increases query performance when you use the tokenizer model in the query. Alternatively, you can use an OpenSearch-provided generic [IDF from the MSMARCO](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.0/torch_script/opensearch-neural-sparse-tokenizer-v1-1.0.0.zip). If the IDF file is not provided, the default weight of each token is set to 1, which may influence sparse neural search performance.  
 
 
 ### Model size
