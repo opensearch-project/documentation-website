@@ -34,9 +34,9 @@ Note that for sparse encoding models, you still need to upload the full request 
 ```
 POST /_plugins/_ml/models/_upload
 {
-    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-v1",
+    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1",
     "version": "1.0.0",
-    "description": "This is a neural sparse encoding model: It transfers text into sparse vector, and then extract nonzero index and value to entry and weights. It serves in both ingestion and search",
+    "description": "This is a neural sparse encoding model: It transfers text into sparse vector, and then extract nonzero index and value to entry and weights. It serves only in ingestion and customer should use tokenizer model in query.",
     "model_format": "TORCH_SCRIPT",
     "function_name": "SPARSE_ENCODING",
     "model_content_hash_value": "9a41adb6c13cf49a7e3eff91aef62ed5035487a6eca99c996156d25be2800a9a",
