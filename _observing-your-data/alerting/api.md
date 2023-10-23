@@ -1350,7 +1350,7 @@ Parameter | Data type | Description
 `sortOrder` | String | Determines the order of the results. Options are `asc` or `desc`. Defaults to `asc`.
 `missing` | String | Optional.
 `size` | String | Determines the size of the request to be returned. Defaults to `20`.
-`startIndex` | String | The start index to start from. Used for paginating results. Defaults to `0`.
+`startIndex` | String | The index to start from. Used for paginating results. Defaults to `0`.
 `searchString` | String | A search string used to look for a specific alert. Defaults to an empty string.
 `severityLevel` | String | The severity level to filter for. Defaults to `ALL`.
 `alertState` | String | The alert state to filter for. Defaults to `ALL`.
