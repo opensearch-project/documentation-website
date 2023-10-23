@@ -185,7 +185,7 @@ PUT _ingest/pipeline/log_line
 
 #### Response
 
-The following response shows the output of the same pipeline used in step 1, but with `trace_match` set to true:
+The following response shows the output of the pipeline: 
 
 ```json
 {
