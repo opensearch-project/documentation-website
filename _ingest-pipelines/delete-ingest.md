@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Delete pipeline
+**Introduced 1.0**
+{: .label .label-purple }
 
 Use the following request to delete a pipeline. 
 
