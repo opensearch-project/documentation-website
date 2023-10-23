@@ -11,7 +11,7 @@ OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run Ben
 
 1. Set up an [IAM user or an IAM Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using Signature Version 4 authentication.
 
-2a. Set up the following environment variables for your IAM user:
+2. Set up the following environment variables for your IAM user:
 
    ```bash
    export OSB_AWS_ACCESS_KEY_ID=<IAM USER AWS ACCESS KEY ID>
@@ -21,7 +21,7 @@ OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run Ben
    ```
    {% include copy.html %}
 
-2b. If you intend to use IAM role instead of IAM user, Set up following environment variables
+   If you want to set up an IAM role instead of an IAM user, use the following environment variables instead:
 
    ```bash
    export OSB_AWS_ACCESS_KEY_ID=<IAM Role AWS ACCESS KEY ID>
