@@ -197,7 +197,26 @@ PUT /_ingest/pipeline/my-pipeline
 To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/my-id/_simulate
+POST _ingest/pipeline/my-pipeline/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "ip": "172.0.0.1",
+        "datasource": "my-datasource"
+      }
+    }
+  ]
+}
+```
+
+#### Response
+
+The following response confirms that the pipeline is working as expected:
+
+```json
 {
   "docs": [
     {
