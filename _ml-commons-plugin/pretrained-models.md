@@ -7,7 +7,7 @@ nav_order: 120
 
 Pretrained models are generally available in OpenSearch 2.9 and later. 
 Sparse encoding models are generally available in OpenSearch 2.11 and later. 
-{: .warning}
+{: .note}
 
 # Pretrained models
 
