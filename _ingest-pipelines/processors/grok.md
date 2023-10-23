@@ -8,7 +8,7 @@ nav_order: 140
 
 # Grok 
 
-The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The Grok processor is based on the [`java-grok`](https://mvnrepository.com/artifact/io.krakens/java-grok) library and supports all compatible patterns. The `java-grok` library is built using the [java.util.regex](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html) regular expression library. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. The `grok` processor can perform transformations on extracted data, such as converting a timestamp to a proper date field. 
+The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. The `grok` processor can perform transformations on extracted data, such as converting a timestamp to a proper date field. 
 
 The following is the syntax for the `grok` processor: 
 
@@ -34,16 +34,16 @@ To configure the `grok` processor, you have various options that allow you to de
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field to which the data should be parsed. <Does it support template snippets?>|
+`field`  | Required  | The name of the field to which the data should be parsed. |
 `patterns`  | Required  | A list of grok expressions used to match and extract named captures. The first expression in the list that matches is returned. | 
+`pattern_definitions`  | Optional  | A dictionary of pattern names and pattern tuples (a pair of a pattern name, which is a string that identifies the pattern, and a pattern, which is the string that specifies the pattern itself) is used to define custom patterns for the current processor. If a pattern matches an existing name, it overrides the pre-existing definition. |
+`trace_match` | Optional | When the parameter is set to `true`, the processor adds a field named `_grok_match_index` to the processed document. This field contains the index of the pattern within the `patterns` array that successfully matched the document. This information can be useful for debugging and understanding which pattern was applied to the document. Default is `false`. |
 `description` | Optional | A brief description of the processor. |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing` | Optional | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`pattern_definitions`  | Optional  | A dictionary of pattern names and pattern tuples (a pair of a pattern name, which is a string that identifies the pattern, and a pattern, which is the string that specifies the pattern itself) is used to define custom patterns for the current processor. If a pattern matches an existing name, it overrides the pre-existing definition. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`trace_match` | Optional | When `_ingest._grok_match_index` is set to `true`, the matched document's metadata will contain the index into the pattern found in patterns that match. |
 
 ## Using the processor
 
@@ -161,3 +161,51 @@ The following is an example of how to include a custom pattern in your configura
 }
 ```
 {% include copy-curl.html %}
+
+## Tracing which patterns matched
+
+To trace which patterns matched and populated the fields, you can use the `trace_match` parameter. The following is an example of how to include this parameter in your configuration:
+
+```json
+PUT _ingest/pipeline/log_line
+{
+  "description": "Extract fields from a log line",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "patterns": ["%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"],
+        "trace_match": true
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+#### Response
+
+The following response shows the output of the same pipeline used in step 1, but with `trace_match` set to true:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "message": "127.0.0.1 198.126.12 10/Oct/2000:13:55:36 -0700 200",
+          "response_status": 200,
+          "clientip": "198.126.12",
+          "timestamp": "10/Oct/2000:13:55:36 -0700"
+        },
+        "_ingest": {
+          "_grok_match_index": "0",
+          "timestamp": "2023-10-23T19:18:37.14624097Z"
+        }
+      }
+    }
+  ]
+}
+```
