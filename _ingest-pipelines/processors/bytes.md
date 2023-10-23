@@ -1,15 +1,19 @@
 ---
 layout: default
 title: Bytes
-parent: Ingest processors 
-grand_parent: Ingest APIs
+parent: Ingest processors
 nav_order: 20
+redirect_from:
+   - /api-reference/ingest-apis/processors/bytes/
 ---
 
 # Bytes
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `bytes` processor converts a human-readable byte value to its equivalent value in bytes. The field can be a scalar or an array. If the field is a scalar, the value is converted and stored in the field. If the field is an array, all values of the array are converted.
 
+### Example
 The following is the syntax for the `bytes` processor: 
 
 ```json

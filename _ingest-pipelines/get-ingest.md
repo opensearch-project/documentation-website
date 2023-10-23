@@ -1,14 +1,15 @@
 ---
 layout: default
 title: Get pipeline
-parent: Ingest pipelines
-grand_parent: Ingest APIs
 nav_order: 12
 redirect_from:
   - /opensearch/rest-api/ingest-apis/get-ingest/
+  - /api-reference/ingest-apis/get-ingest/
 ---
 
 # Get pipeline
+**Introduced 1.0**
+{: .label .label-purple }
 
 Use the get ingest pipeline API operation to retrieve all the information about the pipeline.
 

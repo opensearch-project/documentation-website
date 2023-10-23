@@ -6,6 +6,8 @@ nav_order: 1
 ---
 
 # Registering or updating a snapshot repository
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can register a new repository in which to store snapshots or update information for an existing repository by using the snapshots API.
 
@@ -61,7 +63,7 @@ PUT /_snapshot/my-fs-repository
 ```
 {% include copy-curl.html %}
 
-### s3 repository
+#### s3 repository
 
 Request field | Description
 :--- | :---
