@@ -59,7 +59,7 @@ OpenSearch supports the following models, categorized by type. Text embedding mo
 
 ### Sentence transformers
 
-Sentence transformer models map sentences and paragraphs across a dimensional dense vector space. The number of vectors depends on the type of model. You can use these models for use cases such as clustering and semantic search.
+Sentence transformer models map sentences and paragraphs across a dimensional dense vector space. The number of vectors depends on the type of model. You can use these models for use cases such as clustering or semantic search.
 
 The following table provides a list of sentence transformer models and artifact links you can use to download them. Note that you must prefix the model name with `huggingface/`, as shown in the **Model name** column. As of OpenSearch 2.6, all artifacts are set to version 1.0.1.
 
