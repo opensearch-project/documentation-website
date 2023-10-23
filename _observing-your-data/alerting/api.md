@@ -1354,7 +1354,7 @@ Parameter | Data type | Description
 `searchString` | String | A search string used to look for a specific alert. Defaults to an empty string.
 `severityLevel` | String | The severity level to filter for. Defaults to `ALL`.
 `alertState` | String | Alert state to filter for. Defaults to `ALL`.
-`monitorId` | String | Filter by monitor ID.
+`monitorId` | String | Filters by monitor ID.
 
 #### Request
 
