@@ -31,7 +31,7 @@ There are several methods for enabling concurrent segment search, depending on t
 If you are running an OpenSearch cluster and want to enable concurrent segment search in the config file, add the following line to `opensearch.yml`:
 
 ```yaml
-opensearch.experimental.feature.concurrent_segment_search.enabled=true
+opensearch.experimental.feature.concurrent_segment_search.enabled: true
 ```
 {% include copy.html %}
 
