@@ -9,7 +9,7 @@ has_children: false
 ---
 
 # CAT allocation
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT allocation operation lists the allocation of disk space for indexes and the number of shards on each node.

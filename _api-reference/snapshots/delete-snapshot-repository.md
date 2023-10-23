@@ -5,7 +5,9 @@ parent: Snapshot APIs
 nav_order: 3
 ---
 
-## Delete snapshot repository configuration
+# Delete snapshot repository configuration
+**Introduced 1.0**
+{: .label .label-purple }
 
  Deletes a snapshot repository configuration.  
  
@@ -13,7 +15,7 @@ nav_order: 3
 
  To learn more about repositories, see [Register or update snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository).
 
-### Path parameters
+## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
