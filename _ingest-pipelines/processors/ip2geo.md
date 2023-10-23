@@ -220,8 +220,8 @@ The following response confirms that the pipeline is working as expected:
 {
   "docs": [
     {
-      "_index":"my-index",
-      "_id":"my-id",
+      "_index":"testindex1",
+      "_id":"1",
       "_source":{
         "my_ip_field":"172.0.0.1",
         "ip2geo":{
