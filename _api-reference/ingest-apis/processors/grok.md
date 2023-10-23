@@ -153,7 +153,7 @@ The following is an example of how to include a custom pattern in your configura
                "%{MY_CUSTOM_PATTERN:my_field}"
             ],
             "pattern_definitions":{
-               "MY_CUSTOM_PATTERN":"(?<my_data>[a-zA-Z0-9]+)"
+               "MY_CUSTOM_PATTERN":"([a-zA-Z0-9]+)"
             }
          }
       }
