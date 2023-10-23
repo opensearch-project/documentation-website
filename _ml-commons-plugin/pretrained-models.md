@@ -43,7 +43,7 @@ POST /_plugins/_ml/models/_upload
 }
 ```
 
-You can find the `url` and `model_content_hash_value` in the following Supported pretrained models. And set `function_name` to "SPARSE_ENCODING" or "SPARSE_TOKENIZE". (Could be acquired in model config link)
+You can find the `url` and `model_content_hash_value` in the following Supported pretrained model configs. And set `function_name` to "SPARSE_ENCODING" or "SPARSE_TOKENIZE". (Could be acquired in model config link)
 
 For more information about how to upload and use ML models, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 
