@@ -18,7 +18,7 @@ When selecting a model, choose one of the following options:
 - Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
 
 **PREREQUISITE**<br>
-Before using sparse search, make sure to set up a pretrained sparse embedding model or use your own sparse embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using sparse search, make sure to set up a pretrained sparse embedding model or your own sparse embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 {: .note}
 
 ## Using sparse search
