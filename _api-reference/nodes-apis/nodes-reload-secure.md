@@ -6,6 +6,8 @@ nav_order: 50
 ---
 
 # Nodes reload secure settings
+**Introduced 1.0**
+{: .label .label-purple }
 
 The nodes reload secure settings endpoint allows you to change secure settings on a node and reload the secure settings without restarting the node.
 

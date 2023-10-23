@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # CAT shards
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT shards operation lists the state of all primary and replica shards and how they are distributed.

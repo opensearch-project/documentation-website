@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Shrink index
+**Introduced 1.0**
+{: .label .label-purple }
 
 The shrink index API operation moves all of your data in an existing index into a new index with fewer primary shards.
 
