@@ -34,7 +34,7 @@ To use a model in OpenSearch, you'll need to export the model into a portable fo
 
 Furthermore, files must be saved as zip files before upload. Therefore, to ensure that ML Commons can upload your model, compress your TorchScript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
-#### Uploading own model 
+### Uploading your own model 
 
 For both text embedding and sparse encoding models, you must provide a tokenizer JSON file within the model zip file.
 
