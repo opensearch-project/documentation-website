@@ -1353,7 +1353,7 @@ Parameter | Data type | Description
 `startIndex` | String | The start index to start from. Used for paginating results. Defaults to `0`.
 `searchString` | String | A search string used to look for a specific alert. Defaults to an empty string.
 `severityLevel` | String | The severity level to filter for. Defaults to `ALL`.
-`alertState` | String | Alert state to filter for. Defaults to `ALL`.
+`alertState` | String | The alert state to filter for. Defaults to `ALL`.
 `monitorId` | String | Filters by monitor ID.
 
 #### Request
