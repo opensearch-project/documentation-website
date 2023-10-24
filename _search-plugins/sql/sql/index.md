@@ -12,13 +12,7 @@ redirect_from:
 
 # SQL
 
-## Query Workbench
-
-A simple way to test queries through the SQL plugin is to use the **Query Workbench** tool in OpenSearch Dashboards. You can access **Query Workbench** from the OpenSearch Dashboards main menu under **OpenSearch Plugins** > **Query Workbench**. Learn more about how to use this tool in the [Query Workbench]({{site.url}}{{site.baseurl}}/search-plugins/sql/workbench/) documentation.
-
-The following image shows a view of the **Query Workbench** user interface.
-
-![OpenSearch Dashboards SQL UI plugin]({{site.url}}{{site.baseurl}}/images/query-workbench-UI.png)
+SQL in OpenSearch bridges the gap between traditional relational database concepts and the flexibility of OpenSearch's document-oriented data storage. This integration gives you the ability to use your SQL knowledge to query, analyze, and extract insights from your OpenSearch data.
 
 ## SQL and OpenSearch terminology
 
