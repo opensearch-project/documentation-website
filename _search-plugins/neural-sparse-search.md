@@ -110,7 +110,7 @@ PUT /my-nlp-index
   }
 }
 ```
-Once the `<token, weights>` terms have been excluded from the source, they cannot be recovered through reindexing.
+Once the `<token, weights>` terms have been excluded from the source, they cannot be recovered. It is a trade-off so please make sure you don't these  `<token, weights>` pairs before you applied this optimization.
 
 ## Step 3: Ingest documents into the index
 
