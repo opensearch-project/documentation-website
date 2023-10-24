@@ -11,12 +11,11 @@ redirect_from:
 
 # Query Workbench
 
-Use the Query Workbench to easily run on-demand SQL queries, translate SQL into its REST equivalent, and view and save results as text, JSON, JDBC, or CSV.
+Use Query Workbench to run on-demand SQL queries, translate SQL into its REST equivalent, and view and save results as text, JSON, JDBC, or CSV.
 
+## Get started
 
-## Quick start
-
-To get started with SQL Workbench, choose **Dev Tools** in OpenSearch Dashboards and use the `bulk` operation to index some sample data:
+To get started with SQL Workbench, choose **Dev Tools** in OpenSearch Dashboards and use the following `bulk` operation to index some sample data:
 
 ```json
 PUT accounts/_bulk?refresh
@@ -29,9 +28,9 @@ PUT accounts/_bulk?refresh
 {"index":{"_id":"18"}}
 {"account_number":18,"balance":4180,"firstname":"Dale","lastname":"Adams","age":33,"gender":"M","address":"467 Hutchinson Court","email":"daleadams@boink.com","city":"Orick","state":"MD"}
 ```
+{% include copy-curl.html %}
 
 Then return to SQL Workbench.
-
 
 ### List indexes
 
@@ -70,6 +69,7 @@ DELETE
 FROM accounts
 WHERE _id = 0
 ```
+{% include copy-curl.html %}
 
 | deleted_rows
 | :---
