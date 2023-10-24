@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # CAT thread pool
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT thread pool operation lists the active, queued, and rejected threads of different thread pools on each node.

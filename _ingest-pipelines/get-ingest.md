@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Get pipeline
+**Introduced 1.0**
+{: .label .label-purple }
 
 Use the get ingest pipeline API operation to retrieve all the information about the pipeline.
 

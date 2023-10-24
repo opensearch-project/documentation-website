@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # Reindex document
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple}
 
 The reindex document API operation lets you copy all or a subset of your data from a source index into a destination index.

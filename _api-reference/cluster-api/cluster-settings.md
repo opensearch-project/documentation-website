@@ -9,19 +9,19 @@ redirect_from:
 ---
 
 # Cluster settings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
 
-### Path and HTTP methods
+## Path and HTTP methods
 
 ```
 GET _cluster/settings
 PUT _cluster/settings
 ```
 
-### Path parameters
+## Path parameters
 
 All cluster setting parameters are optional.
 
@@ -51,7 +51,7 @@ PUT _cluster/settings
 }
 ```
 
-### Request fields
+## Request fields
 
 The GET operation has no request body options. All cluster setting field parameters are optional.
 
