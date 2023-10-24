@@ -83,6 +83,33 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
+Note here we recommend you to exclude embedding vector source. It will save tons of disk space. Do it like:
+```json
+PUT /my-nlp-index
+{
+  "settings": {
+    "default_pipeline": "nlp-ingest-pipeline-sparse"
+  },
+  "mappings": {
+      "_source": {
+      "excludes": [
+        "passage_embedding"
+      ]
+    },
+    "properties": {
+      "id": {
+        "type": "text"
+      },
+      "passage_embedding": {
+        "type": "rank_features"
+      },
+      "passage_text": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
 
 ## Step 3: Ingest documents into the index
 
