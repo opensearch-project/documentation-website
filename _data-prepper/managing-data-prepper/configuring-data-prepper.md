@@ -31,7 +31,7 @@ processorShutdownTimeout | No | Duration | The time given to processors to clear
 sinkShutdownTimeout | No | Duration | The time given to sinks to clear any in-flight data and gracefully shut down. Default is 30s.
 peer_forwarder | No | Object | Peer forwarder configurations. See [Peer forwarder options](#peer-forwarder-options) for more details.
 circuit_breakers | No | [circuit_breakers](#circuit-breakers) | Configures a circuit breaker on incoming data.
-extensions | No | Object | The pipline extension plugin configurations. See [Extension plugins](#extension-plugins) for more details.
+extensions | No | Object | The pipeline extension plugin configurations. See [Extension plugins](#extension-plugins) for more details.
 
 ### Peer forwarder options
 
@@ -145,16 +145,16 @@ Multiple secrets configuration objects can be defined with unique id for each.
 | secret_id        | Yes      | String   | The AWS secret name or ARN.                                                                                                                                                                                                                                    |
 | region           | No       | String   | The AWS region of the secret. Defaults to `us-east-1`.                                                                                                                                                                                                         |
 | sts_role_arn     | No       | String   | The AWS Security Token Service (AWS STS) role to assume for requests to AWS Secrets Manager. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). |
-| refresh_interval | No       | Duration | The refreshment interval for AWS secrets extension plugin to poll new secret values. See [Secrets refreshment](#secrets-refreshment) for details. Defaults to `PT1H`.                                                                                          |
+| refresh_interval | No       | Duration | The refreshment interval for AWS secrets extension plugin to poll new secret values. See [Secrets refreshment](#automatically-refreshing-secrets) for details. Defaults to `PT1H`.                                                                             |
 
 ###### Reference secrets
 
 In `pipelines.yaml`, secret values can be referenced within pipeline plugins using the following formats:
 
 * plaintext: `${{aws_secrets:<YOUR_SECRET_CONFIG_ID>}}`.
-* json (key-value pairs): `${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}`
+* JSON (key-value pairs): `${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}`
 
-The secret value reference string format can be interpreted for the following plugin setting data types:
+Note that `<YOUR_SECRET_CONFIG_ID>` should be replaced with the corresponding secret config ID under `/extensions/aws/secrets` and `<YOUR_KEY>` should be replaced with the desired key in the secret JSON value. The secret value reference string format can be interpreted for the following plugin setting data types:
 
 * String
 * Number
@@ -166,7 +166,7 @@ The secret value reference string format can be interpreted for the following pl
 * Boolean
 * Character
 
-The following snippet in `pipelines.yaml` uses opensearch sink as an example
+The following snippet in `pipelines.yaml` uses an OpenSearch sink as an example
 
 ```
 sink:
@@ -196,7 +196,7 @@ extensions:
         refresh_interval: <YOUR_REFRESH_INTERVAL_2>
 ```
 
-###### Secrets refreshment
+###### Automatically refreshing secrets
 
-For each individual secret configuration, the latest secret value is polled on a regular interval to support secrets refreshment in AWS Secrets Manager. The refreshed secret values are utilized by certain pipeline plugins to refresh their components, e.g. connection and authentication to the backend service. 
+For each individual secret configuration, the latest secret value is polled on a regular interval to support refreshing secrets in AWS Secrets Manager. The refreshed secret values are utilized by certain pipeline plugins to refresh their components, e.g. connection and authentication to the backend service. 
 For multiple secret configurations, jitter within 60s will be applied across them on the initial secrets polling.
