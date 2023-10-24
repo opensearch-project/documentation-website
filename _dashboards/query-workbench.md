@@ -8,7 +8,7 @@ redirect_from:
 
 # Query Workbench
 
-Query Workbench is a tool within OpenSearch Dashboards. You can use Query Workbench to run on-demand [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries, translate queries into their equivalent REST API calls, and view and save results in different [response formats]({{site.url}}{{site.baseurl}}/sql/response-formats/). 
+Query Workbench is a tool within OpenSearch Dashboards. You can use Query Workbench to run on-demand [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries, translate queries into their equivalent REST API calls, and view and save results in different [response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/). 
 
 The following image shows a view of the Query Workbench interface within OpenSearch Dashboards.
 
@@ -143,7 +143,7 @@ Follow these steps to learn how to run SQL queries against your OpenSearch data 
 
    The following image shows the query editor pane and results pane for the preceding SQL query:
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-query-step2.png" alt="Query Workbench query input and results output panes"  width="700">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-query-step2.png" alt="Query Workbench SQL query input and results output panes" width="800">
 
 4. Clear the query editor.  
     - Select the **Clear** button to clear the query editor and run a new query. 
@@ -153,11 +153,11 @@ Follow these steps to learn how to run SQL queries against your OpenSearch data 
 
     The following image shows the explanation of the SQL query that was run in step 2.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-explain.png" alt="Query Workbench query explanation pane">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-explain.png" alt="Query Workbench SQL query explanation pane" width="500">
 
 ### Viewing indexes
 
-To view a list of your indexes, run the following query in the Query Workbench editor:
+To view a list of all your indexes, run the following `SHOW` statement:
 
 ```sql
 SHOW TABLES LIKE %
@@ -166,9 +166,9 @@ SHOW TABLES LIKE %
 
 The following image shows an example of indexes listed in the **Results** pane:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-list.png" alt="Query Workbench list of indexes view within the Results pane">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-list.png" alt="Query Workbench list of indexes view within the Results pane" width="800">
 
-### Reading data
+### Retrieving data
 
 To retrieve a document, run a `SELECT` statement with a `FROM` clause in the Query Workbench editor. The following is the basic SQL syntax to retrieve a document in OpenSearch: 
 
@@ -204,28 +204,21 @@ Follow these steps to learn how to run PPL queries against your OpenSearch data 
 2. Run a query.
     - Select the **PPL** button. In the query editor, type a PPL query and then select the **Run** button to run the query. 
     
-    The following is an example query that retrieves the first name, last name, and balance from the `accounts` index for accounts with a balance greater than 10,000 and sorts by balance in descending order:
-
+    The following is an example query that retrieves the `firstname` and `lastname` fields for documents in the `accounts` index with age greater than `18`:
+    
     ```sql
-    SELECT
-      firstname,
-      lastname,
-      balance
-    FROM
-      accounts
-    WHERE
-      balance > 10000
-    ORDER BY
-      balance DESC;
+    search source=accounts
+    | where age > 18
+    | fields firstname, lastname
     ```
     {% include copy.html %}
     
 3. Analyze the results.
     - View the results in the **Results** pane, which presents the query output in tabular format. You can sort, filter, and download the results as needed.
 
-   The following image shows the query editor pane and results pane for the preceding SQL query:
+   The following image shows the query editor pane and results pane for the preceding PPL query:
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-query-step2.png" alt="Query Workbench query input and results output panes"  width="700">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-ppl.png" alt="Query Workbench PPL query input and results output panes">
 
 4. Clear the query editor.  
     - Select the **Clear** button to clear the query editor and run a new query. 
@@ -233,6 +226,6 @@ Follow these steps to learn how to run PPL queries against your OpenSearch data 
 5. Examine how the query is processed.
     - Select the **Explain** button to examine how OpenSearch processes the query, including the steps involved and order of operations. 
 
-    The following image shows the explanation of the SQL query that was run in step 2.
+    The following image shows the explanation of the PPL query that was run in step 2.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-explain.png" alt="Query Workbench query explanation pane">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-PPL-explain.png" alt="Query Workbench PPL query explanation pane" width="500">

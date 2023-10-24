@@ -26,7 +26,7 @@ Column | Field
 
 ## REST API
 
-For a complete REST API reference for the SQL plugin, see [SQL/PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api). 
+For a complete REST API reference for the SQL plugin, see [SQL/PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/). 
 
 To use the SQL plugin with your own applications, send requests to the `_plugins/_sql` endpoint:
 
