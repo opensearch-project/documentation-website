@@ -83,7 +83,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-Note here we recommend you to exclude embedding vector source. It will save tons of disk space. Do it like:
+Note here you can exclude embedding vector source. It will save tons of disk space. Do it like:
 ```json
 PUT /my-nlp-index
 {
@@ -110,6 +110,7 @@ PUT /my-nlp-index
   }
 }
 ```
+Once the `<token, weights>` terms have been excluded from the source, they cannot be recovered through reindexing.
 
 ## Step 3: Ingest documents into the index
 
