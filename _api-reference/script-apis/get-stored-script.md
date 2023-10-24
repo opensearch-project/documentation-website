@@ -5,17 +5,19 @@ parent: Script APIs
 nav_order: 3
 ---
 
-## Get stored script
+# Get stored script
+**Introduced 1.0**
+{: .label .label-purple }
 
 Retrieves a stored script.
 
-### Path parameters
+## Path parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
 | script | String | Stored script or search template name. Required.|
 
-### Query parameters
+## Query parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -51,7 +53,7 @@ The `GET _scripts/my-first-script` request returns the following fields:
 }
 ````
 
-### Response fields
+## Response fields
 
 The `GET _scripts/my-first-script` request returns the following response fields:
 
