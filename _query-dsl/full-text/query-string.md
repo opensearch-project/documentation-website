@@ -31,6 +31,9 @@ GET _search
 ```
 {% include copy-curl.html %}
 
+Searches with `query_string` queries do not return nested documents. To search nested fields, use the [`nested` query]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/).
+{: .note}
+
 ## Syntax
 
 A query string consists of _terms_ and _operators_. A term is a single word (for example, in the query `wind rises`, the terms are `wind` and `rises`). If several terms are surrounded by quotation marks, they are treated as one phrase where words are marched in the order they appear (for example, `"wind rises"`).
@@ -90,7 +93,34 @@ PUT /testindex/_doc/4
 ```
 {% include copy-curl.html %}
 
-### Field names
+## Reserved characters
+
+The following is a list of reserved characters for the query string query: 
+
+`+`, `-`, `=`, `&&`, `||`, `>`, `<`, `!`, `(`, `)`,`{`, `}`, `[`, `]`, `^`, `"`, `~`, `*`, `?`, `:`, `\`, `/`
+
+Escape reserved characters with a backslash. When sending a JSON request, use `\\` to escape reserved characters (because the backslash character is itself reserved, you must escape the backslash with another backslash). For example, to search for an expression `2*3`, specify the query string: `2\\*3`:
+
+```json
+GET testindex/_search
+{
+ "query": {
+    "query_string": {
+      "query": "title: 2\\*3"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `>` and `<` signs cannot be escaped. They are interpreted as a range query. 
+{: .important}
+
+# White space characters and empty queries
+
+White space characters are not considered operators. If a query string is empty or only contains white space characters, the query does not return results.
+
+## Field names
 
 Specify the field name before the colon. The following table contains example queries with field names.
 
@@ -103,7 +133,7 @@ Query | Criterion for a document to match | Matching documents from the `testind
 `title.\\*: rise` | Every field that begins with `title.` (in this example, `title.english`) contains the word `rise`. Escape the wildcard character with a backslash. | 1
 `_exists_: description` | The field `description` exists. | 2
 
-### Wildcard expressions
+## Wildcard expressions
 
 You can specify wildcard expressions using special characters: `?` replaces a single character and `*` replaces zero or more characters.
 
@@ -147,6 +177,208 @@ The default edit distance of 2 should catch 80% of misspellings. To change the d
 
 Do not mix fuzzy and wildcard operators. If you specify both fuzzy and wildcard operators, one of the operators will not be applied. For example, if you can search for `wnid*~1`, the wildcard operator `*` will be applied but the fuzzy operator `~1` will not be applied.
 {: .important}
+
+## Proximity queries
+
+A proximity query does not require the search phrase to be in the specified order. It allows the words in the phrase to be im a different order or separated by other words. A proximity query specifies a maximum edit distance of words in a phrase. For example, the following query allows an edit distance of 4 when matching the words in the specified phrase:
+
+```json
+GET testindex/_search
+{
+ "query": {
+    "query_string": {
+      "query": "title: \"wind gone\"~4"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+When OpenSearch matches documents, the closer the words in the document to the word order specified in the query (the less the edit distance), the higher the document's relevance score.  
+
+## Ranges
+
+To specify a range for a numeric, string, or date field, use square brackets (`[min TO max]`) for an inclusive range and curly braces (`{min TO max}`) for an exclusive range. You can also mix square brackets and curly braces to include or exclude the lower and upper bound (for example, `{min TO max]`). 
+
+The dates for a date range must be provided in the format that you used when mapping the field containing the date. For more information about supported date formats, see [Formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats).
+
+The following table provides range syntax examples.
+
+Data type | Query | Query string
+:--- | :--- | :---
+Numeric | Documents whose account numbers are from 1 to 15, inclusive. | `account_number: [1 TO 15]` or <br> `account_number: (>=1 AND <=15)` or <br> `account_number: (+>=1 +<=15)`
+| Documents whose account numbers 15 and greater. | `account_number: [15 TO *]` or <br> `account_number: >=15` (note no space after the `>=` sign)
+String | Documents where last name is from Bates, inclusive, to Duke, exclusive. | `lastname: [Bates TO Duke}` or <br> `lastname: (>=Bates AND <Duke)`
+| Documents where last name precedes Bates alphabetically. | `lastname: {* TO Bates}` or <br> `lastname: <Bates` (note no space after the `<` sign)
+Date | Documents where the release date is between 03/21/2023 and 09/25/2023, inclusive. | `release_date: [03/21/2023 TO 09/25/2023]`
+
+As an alternative to specifying a range in a query string, you can use a [range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/), which provides a more reliable syntax.
+{: .tip}
+
+## Boosting
+
+Use the caret (`^`) boost operator to boost the relevance score of documents by a multiplier. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
+
+The following table provides boost examples.
+
+Type | Description | Query string
+:--- | :--- | :---
+Word boost | Find all addresses containing the word `street` and boost the ones containing the word `Madison`. | `address: Madison^2 street`
+Phrase boost | Find documents with the title containing the phrase `wind rises`, boosted by 2. | `title: \"wind rises\"^2` 
+| Find documents with the title containing the words `wind rises`, and boost the documents containing the phrase `wind rises` by 2. | `title: (wind rises)^2`
+
+## Boolean operators
+
+When you provide search terms in the query, by default, the query returns documents containing at least one of the provided terms. You can use the `default_operator` parameter to specify an operator for all terms. Thus, if you set the `default_operator` to `AND`, all terms will be required, whereas if you set it to `OR`, all terms will be optional. 
+
+### `+` and `-` operators
+
+If you want more granular control over the required and optional terms, you can use the `+` and `-` operators. The `+` operator makes the term following it required, while the `-` operator excludes the term following it.
+
+For example, in the query string `title: (gone +wind -turbines)` specifies that the term `gone` is optional, the term `wind` must be present and the term `turbines` must not be present in the title of the matching documents:
+
+```json
+GET testindex/_search
+{
+ "query": {
+    "query_string": {
+      "query": "title: (gone +wind -turbines)"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The query returns two matching documents:
+
+```json
+{
+  "_index": "testindex",
+  "_id": "2",
+  "_score": 1.3159468,
+  "_source": {
+    "title": "Gone with the wind",
+    "description": "A 1939 American epic historical film"
+  }
+},
+{
+  "_index": "testindex",
+  "_id": "1",
+  "_score": 0.3438858,
+  "_source": {
+    "title": "The wind rises"
+  }
+}
+```
+
+The preceding query is equivalent to the following Boolean query:
+
+```json
+GET testindex/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match": {
+          "title": "wind"
+        }
+      },
+      "should": {
+        "match": {
+          "title": "gone"
+        }
+      },
+      "must_not": {
+        "match": {
+          "title": "turbines"
+        }
+      }
+    }
+  }
+}
+```
+
+### Conventional Boolean operators
+
+Alternatively, you can use the following Boolean operators: `AND`, `&&`, `OR`, `||`, `NOT`, `!`. However, these operators do not follow the precedence rules so you must use parentheses to specify precedence when using multiple Boolean operators. For example, the query string `title: (gone +wind -turbines)` can be rewritten as follows using Boolean operators:
+
+`title: ((gone AND wind) OR wind) AND NOT turbines`
+
+Run the following query that contains the rewritten query string:
+
+```json
+GET testindex/_search
+{
+ "query": {
+    "query_string": {
+      "query": "title: ((gone AND wind) OR wind) AND NOT turbines"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The query returns the same results as the query that uses the `+` and `-` operators. However, note that the relevance scores of the matching documents are not the same as in the previous results:
+
+```json
+{
+  "_index": "testindex",
+  "_id": "2",
+  "_score": 1.6166971,
+  "_source": {
+    "title": "Gone with the wind",
+    "description": "A 1939 American epic historical film"
+  }
+},
+{
+  "_index": "testindex",
+  "_id": "1",
+  "_score": 0.3438858,
+  "_source": {
+    "title": "The wind rises"
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Grouping
+
+Group multiple clauses or terms into subqueries using parentheses. For example, the following query searches for documents containing the words `gone` or `rises` that must contain the word `wind` in the title:
+
+```json
+GET testindex/_search
+{
+ "query": {
+    "query_string": {
+      "query": "title: (gone OR rises) AND wind"
+    }
+  }
+}
+```
+
+The results contain the two matching documents:
+
+```json
+{
+  "_index": "testindex",
+  "_id": "1",
+  "_score": 1.5046883,
+  "_source": {
+    "title": "The wind rises"
+  }
+},
+{
+  "_index": "testindex",
+  "_id": "2",
+  "_score": 1.3159468,
+  "_source": {
+    "title": "Gone with the wind",
+    "description": "A 1939 American epic historical film"
+  }
+}
+```
+
+You can also use grouping to boost subquery results or to target the specified field, for example `title:(gone AND wind) description:(historical film)^2`.
 
 ## Parameters
 
