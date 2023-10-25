@@ -159,7 +159,7 @@ GET /shakespeare/_search
 Wildcard queries can use a significant amount of memory, which can degrade performance. Wildcards at the beginning of a word (for example, `*well`) are the most expensive because matching documents on such wildcards requires examining all terms in the index. To disable leading wildcards,set `allow_leading_wildcard` to `false`.
 {: .warning}
 
-For efficiency, pure wildcards such as `\*` are rewritten as `exists` queries. Therefore, the `play: *` wildcard will match documents containing an empty value in the `play` field but will not match documents in which the `play` field is either missing or has a `null` value.
+For efficiency, pure wildcards such as `*` are rewritten as `exists` queries. Therefore, the `play: *` wildcard will match documents containing an empty value in the `play` field but will not match documents in which the `play` field is either missing or has a `null` value.
 
 If you set `analyze_wildcard` to `true`, OpenSearch will analyze queries that end with a * (such as `*well`) and will build a Boolean query comprised of the resulting tokens by taking the exact matches on the first N-1 tokens, and prefix matching the last token.
 
@@ -183,7 +183,7 @@ Do not mix fuzzy and wildcard operators. If you specify both fuzzy and wildcard 
 
 ## Proximity queries
 
-A proximity query does not require the search phrase to be in the specified order. It allows the words in the phrase to be im a different order or separated by other words. A proximity query specifies a maximum edit distance of words in a phrase. For example, the following query allows an edit distance of 4 when matching the words in the specified phrase:
+A proximity query does not require the search phrase to be in the specified order. It allows the words in the phrase to be in a different order or separated by other words. A proximity query specifies a maximum edit distance of words in a phrase. For example, the following query allows an edit distance of 4 when matching the words in the specified phrase:
 
 ```json
 GET /testindex/_search
@@ -606,9 +606,7 @@ GET /testindex/_search
 
 For this query, OpenSearch creates the following Boolean query: `((title:historical | description:historical) (description:epic | title:epic) (description:heroic | title:heroic))~2`. The query matches at least two of the three clauses. Each clause represents a `dis_max` query on both the `title` and `description` fields for each term.
 
-### Minimum should match with cross-field searches
-
-If you set the `type` parameter to `cross_fields`, this indicates that the fields with the same analyzer are grouped together when the input text is analyzed:
+Alternatively, to ensure that `minimum_should_match` can be applied, you can set the `type` parameter to `cross_fields`. This indicates that the fields with the same analyzer should be grouped together when the input text is analyzed:
 
 ```json
 GET /testindex/_search
@@ -619,7 +617,7 @@ GET /testindex/_search
         "title",
         "description"
       ],
-      "query": "historical OR epic OR heroic",
+      "query": "historical epic heroic",
       "type": "cross_fields",
       "minimum_should_match": 2
     }
@@ -628,10 +626,9 @@ GET /testindex/_search
 ```
 {% include copy-curl.html %}
 
-For this query, OpenSearch creates the following Boolean query: `(blended(terms:[description:historical, title:historical]) blended(terms:[description:epic, title:epic]) blended(terms:[description:heroic, title:heroic]))~2`. The query matches documents containing at least two of the three term-level blended queries.
+For this query, OpenSearch creates the following Boolean query: `((title:historical | description:historical) (description:epic | title:epic) (description:heroic | title:heroic))~2`. 
 
-If you use different analyzers, you must use explicit operators in the query to ensure that the `minimum_should_match` parameter is applied to each term.
-
+However, if you use different analyzers, you must use explicit operators in the query to ensure that the `minimum_should_match` parameter is applied to each term.
 
 Query string queries may be internally converted into [prefix queries]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/). If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, prefix queries are not executed. If `index_prefixes` is enabled, the `search.allow_expensive_queries` setting is ignored and an optimized query is built and executed.
 {: .important}
