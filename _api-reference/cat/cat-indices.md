@@ -8,8 +8,8 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-indices/
 ---
 
-# CAT indexes
-Introduced 1.0
+# CAT indices
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT indexes operation lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.

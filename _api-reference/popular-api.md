@@ -7,6 +7,8 @@ redirect_from:
 ---
 
 # Popular APIs
+**Introduced 1.0**
+{: .label .label-purple }
 
 This page contains example requests for popular OpenSearch operations.
 
