@@ -157,13 +157,13 @@ To build a workload with source files, create a directory for your workload and 
       - `uncompressed-bytes`: The number of bytes inside the index. To get an accurate number of bytes, run `stat -f %z <index>-documents.json` on macOS or `stat -c %s <index>-documents.json` on GNU/Linux. Alternatively, run `ls -lrt | grep <index>-documents.json`.
    - `schedule`: Defines the sequence of operations and available test procedures for the workload.
 
-   The following example `workload.json` file provides the entry point for the `movies` workload. The `indices` section creates an index called `movies`. The corpora section refers to the source file created in step one, `movie-documents.json`, and provides the document count and the amount of uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including:
+The following example `workload.json` file provides the entry point for the `movies` workload. The `indices` section creates an index called `movies`. The corpora section refers to the source file created in step one, `movie-documents.json`, and provides the document count and the amount of uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including:
 
-   - Deleting any current index named `movies`.
-   - Creating an index named `movies` based on data from `movie-documents.json` and the mappings from `index.json`.
-   - Verifying that the cluster is in good health and can ingest the new index.
-   - Ingesting the data corpora from `workload.json` into the cluster.
-   - Querying the results.
+- Deleting any current index named `movies`.
+- Creating an index named `movies` based on data from `movie-documents.json` and the mappings from `index.json`.
+- Verifying that the cluster is in good health and can ingest the new index.
+- Ingesting the data corpora from `workload.json` into the cluster.
+- Querying the results.
 
     ```json
     {
@@ -239,11 +239,21 @@ To build a workload with source files, create a directory for your workload and 
     }
     ```
 
-4. For all the workload files created, verify that the workload is functional by running a test. To verify the workload, run the following command, replacing `--workload-path` with a path to your workload directory:
+The corpora section refers to the source file created in step one, `movie-documents.json`, and provides the document count and the amount of uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including:
 
-    ```
-    opensearch-benchmark list workloads --workload-path=</path/to/workload/>
-    ```
+- Deleting any current index named `movies`.
+- Creating an index named `movies` based on data from `movie-documents.json` and the mappings from `index.json`.
+   - Verifying that the cluster is in good health and can ingest the new index.
+   - Ingesting the data corpora from `workload.json` into the cluster.
+   - Querying the results.
+
+
+
+For all the workload files created, verify that the workload is functional by running a test. To verify the workload, run the following command, replacing `--workload-path` with a path to your workload directory:
+
+```
+opensearch-benchmark list workloads --workload-path=</path/to/workload/>
+```
 
 ## Invoking your custom workload
 
