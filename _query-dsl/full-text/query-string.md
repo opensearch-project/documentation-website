@@ -630,5 +630,7 @@ For this query, OpenSearch creates the following Boolean query: `((title:histori
 
 However, if you use different analyzers, you must use explicit operators in the query to ensure that the `minimum_should_match` parameter is applied to each term.
 
+## Allow expensive queries
+
 Query string queries may be internally converted into [prefix queries]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/). If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, prefix queries are not executed. If `index_prefixes` is enabled, the `search.allow_expensive_queries` setting is ignored and an optimized query is built and executed.
 {: .important}
