@@ -83,7 +83,8 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-Note here you can exclude embedding vector source. It will save tons of disk space. Do it like:
+To save disk space, you can exclude the embedding vector from the source as follows:
+
 ```json
 PUT /my-nlp-index
 {
