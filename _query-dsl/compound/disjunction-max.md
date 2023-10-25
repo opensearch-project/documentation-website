@@ -25,6 +25,7 @@ PUT testindex1/_doc/1
   "description": "Top 10 sonnets of England's national poet and the Bard of Avon"
 }
 ```
+{% include copy-curl.html %}
 
 ```json
 PUT testindex1/_doc/2
@@ -33,8 +34,9 @@ PUT testindex1/_doc/2
   "body": "The poems written by various 16-th century poets"
 }
 ```
+{% include copy-curl.html %}
 
-Use a `dis_max` query to search for documents that contain the words "Shakespeare works":
+Use a `dis_max` query to search for documents that contain the words "Shakespeare poems":
 
 ```json
 GET testindex1/_search

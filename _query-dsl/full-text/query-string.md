@@ -34,6 +34,9 @@ GET _search
 Searches with `query_string` queries do not return nested documents. To search nested fields, use the [`nested` query]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/).
 {: .note}
 
+Query string query has a strict syntax and returns an error in case of invalid syntax. Therefore, it does not work well for search box applications. For a less strict alternative, consider using [`simple_query_string` query](). If you don't need query syntax support, use the [`match` query]().
+{: .important}
+
 ## Syntax
 
 A query string consists of _terms_ and _operators_. A term is a single word (for example, in the query `wind rises`, the terms are `wind` and `rises`). If several terms are surrounded by quotation marks, they are treated as one phrase where words are marched in the order they appear (for example, `"wind rises"`).
@@ -102,7 +105,7 @@ The following is a list of reserved characters for the query string query:
 Escape reserved characters with a backslash. When sending a JSON request, use `\\` to escape reserved characters (because the backslash character is itself reserved, you must escape the backslash with another backslash). For example, to search for an expression `2*3`, specify the query string: `2\\*3`:
 
 ```json
-GET testindex/_search
+GET /testindex/_search
 {
  "query": {
     "query_string": {
@@ -142,7 +145,7 @@ You can specify wildcard expressions using special characters: `?` replaces a si
 The following query searches for the speaker `KING` in the play name that ends with `well`:
 
 ```json
-GET shakespeare/_search
+GET /shakespeare/_search
 {
  "query": {
     "query_string": {
@@ -183,7 +186,7 @@ Do not mix fuzzy and wildcard operators. If you specify both fuzzy and wildcard 
 A proximity query does not require the search phrase to be in the specified order. It allows the words in the phrase to be im a different order or separated by other words. A proximity query specifies a maximum edit distance of words in a phrase. For example, the following query allows an edit distance of 4 when matching the words in the specified phrase:
 
 ```json
-GET testindex/_search
+GET /testindex/_search
 {
  "query": {
     "query_string": {
@@ -238,7 +241,7 @@ If you want more granular control over the required and optional terms, you can 
 For example, in the query string `title: (gone +wind -turbines)` specifies that the term `gone` is optional, the term `wind` must be present and the term `turbines` must not be present in the title of the matching documents:
 
 ```json
-GET testindex/_search
+GET /testindex/_search
 {
  "query": {
     "query_string": {
@@ -407,3 +410,228 @@ Parameter | Data type | Description
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
 `auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create [match queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) automatically for multi-term synonyms. Default is `true`.
 `time_zone` | String | Specifies the number of hours to offset the desired time zone from `UTC`. You need to indicate the time zone offset number if the query string contains a date range. For example, set `time_zone": "-08:00"` for a query with a date range such as `"query": "wind rises release_date[2012-01-01 TO 2014-01-01]"`). The default time zone format used to specify number of offset hours is `UTC`.
+
+## Searching multiple fields
+
+To search multiple fields, use the `fields` parameter. When you provide the `fields` parameter, the query is rewritten as `field_1: query OR field_2: query ...`. 
+
+For example, the following query searches for the terms `wind` or `film` in the `title` and `description` fields:
+
+```json
+GET testindex/_search
+{
+  "query": {
+    "query_string": {
+      "fields": [ "title", "description" ],
+      "query": "wind AND film"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The preceding query is equivalent to the following query that does not provide the `fields` parameter:
+
+```json
+GET testindex/_search
+{
+  "query": {
+    "query_string": {
+      "query": "(title:wind OR description:wind) AND (title:film OR description:film)"
+    }
+  }
+}
+```
+
+### Searching multiple subfields of a field
+
+To search all inner fields of a field, you can use a wildcard. For example, to search all subfields within the `address` field, use the following query:
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "query_string" : {
+      "fields" : ["address.*"],
+      "query" : "New AND (York OR Jersey)"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The preceding query is equivalent to the following query that does not provide the `fields` parameter (note that the `*` is escaped with `\\`):
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "query_string" : {
+      "query" : "address.\\*: New AND (York OR Jersey)"
+    }
+  }
+}
+```
+
+### Boosting
+
+The subqueries that are generated from each search term are combined using a [`dis_max` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/disjunction-max/) with a `tie_breaker`. To boost individual fields, use the `^` operator. For example, the following query boosts the `title` field by a factor of 2:
+
+```json
+GET testindex/_search
+{
+  "query": {
+    "query_string": {
+      "fields": [ "title^2", "description" ],
+      "query": "wind AND film"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+To boost all subfields of a field, specify the boost operator after the wildcard:
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "query_string" : {
+      "fields" : ["work_address", "address.*^2"],
+      "query" : "New AND (York OR Jersey)"
+    }
+  }
+}
+```
+
+### Parameters for multiple field searches
+
+When searching multiple fields, you can pass the additional optional `type` parameter to the `query_string` query. 
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`type` | String | Determines how OpenSearch executes the query and scores the results. Valid values are `best_fields`, `bool_prefix`, `most_fields`, `cross_fields`, `phrase`, and `phrase_prefix`. Default is `best_fields`. For descriptions of valid values, see [Multi-match query types]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#multi-match-query-types). 
+
+## Synonyms in the `query_string` query
+
+The `query_string` query supports multi-term synonym expansion with the `synonym_graph` token filter. If you use the `synonym_graph` token filter, OpenSearch creates a [match phrase query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) for each synonym. 
+
+The `auto_generate_synonyms_phrase_query` parameter specifies whether to create a match phrase query automatically for multi-term synonyms. By default, `auto_generate_synonyms_phrase_query` is `true`, so if you specify `ml, machine learning` as synonyms and search for `ml`, OpenSearch searches for `ml OR "machine learning"`. 
+
+Alternatively, you can match multi-term synonyms using conjunctions. If you set `auto_generate_synonyms_phrase_query` to `false`, OpenSearch searches for `ml OR (machine AND learning)`. 
+
+For example, the following query searches for the text `ml models` and specifies not to auto-generate a match phrase query for each synonym:
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "query_string": {
+      "default_field": "title",
+      "query": "ml models",
+      "auto_generate_synonyms_phrase_query": false
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For this query, OpenSearch creates the following Boolean query: `(ml OR (machine AND learning)) models`.
+
+## Minimum should match
+
+The `query_string` query splits the query around each operator and creates a Boolean query for the entire input. The [`minimum_should_match` parameter]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/) specifies the minimum number of terms a document must match to be returned in search results. For example, the following query specifies that the `description` field must match at least two terms for each search result:
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "query_string": {
+      "fields": [
+        "description"
+      ],
+      "query": "historical epic film",
+      "minimum_should_match": 2
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For this query, OpenSearch creates the following Boolean query: `(description:historical description:epic description:film)~2`.
+
+### Minimum should match with multiple fields
+
+If you specify multiple fields in a `query_string` query, OpenSearch creates a [`dis_max` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/disjunction-max/) for the specified fields. If you don't explicitly specify an operator for the query terms, the whole query text is treated as one clause. OpenSearch builds a query for each field using this single clause. The final Boolean query contains a single clause that corresponds to the `dis_max` query for all fields, therefore the `minimum_should_match` parameter is not applied.
+
+For example, in the following query, `historical epic heroic` is treated as a single clause:
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "query_string": {
+      "fields": [
+        "title",
+        "description"
+      ],
+      "query": "historical epic heroic",
+      "minimum_should_match": 2
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For this query, OpenSearch creates the following Boolean query: `((title:historical title:epic title:heroic) | (description:historical description:epic description:heroic))`.
+
+If you add explicit operators (`AND` or `OR`) to the query terms, each term is considered a separate clause, to which the `minimum_should_match` parameter can be applied. For example, in the following query, `historical`, `epic`, and `heroic` are considered separate clauses:
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "query_string": {
+      "fields": [
+        "title",
+        "description"
+      ],
+      "query": "historical OR epic OR heroic",
+      "minimum_should_match": 2
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For this query, OpenSearch creates the following Boolean query: `((title:historical | description:historical) (description:epic | title:epic) (description:heroic | title:heroic))~2`. The query matches at least two of the three clauses. Each clause represents a `dis_max` query on both the `title` and `description` fields for each term.
+
+### Minimum should match with cross-field searches
+
+If you set the `type` parameter to `cross_fields`, this indicates that the fields with the same analyzer are grouped together when the input text is analyzed:
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "query_string": {
+      "fields": [
+        "title",
+        "description"
+      ],
+      "query": "historical OR epic OR heroic",
+      "type": "cross_fields",
+      "minimum_should_match": 2
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For this query, OpenSearch creates the following Boolean query: `(blended(terms:[description:historical, title:historical]) blended(terms:[description:epic, title:epic]) blended(terms:[description:heroic, title:heroic]))~2`. The query matches documents containing at least two of the three term-level blended queries.
+
+If you use different analyzers, you must use explicit operators in the query to ensure that the `minimum_should_match` parameter is applied to each term.
+
+
+Query string queries may be internally converted into [prefix queries]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/). If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, prefix queries are not executed. If `index_prefixes` is enabled, the `search.allow_expensive_queries` setting is ignored and an optimized query is built and executed.
+{: .important}

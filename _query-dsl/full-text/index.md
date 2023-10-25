@@ -20,6 +20,19 @@ To learn more about search query classes, see [Lucene query JavaDocs](https://lu
 
 The full-text query types shown in this section use the standard analyzer, which analyzes text automatically when the query is submitted.
 
+The following table lists all full-text query types.
+
+Query type | Description
+:--- | :--- 
+[`intervals`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/intervals/) | Allows fine-grained control of the of matching terms' proximity and order. 
+[`match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) | The default full-text query, which can be used for fuzzy matching and phrase or proximity searches.
+[`match_bool_prefix`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/) | Creates a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) that matches all terms in any position, treating the last term as a prefix.
+[`match_phrase`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) | Similar to the `match` query but matches a whole phrase up to a configurable slop.
+[`match_phrase_prefix`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase-prefix/) | Similar to the `match_phrase` query but matches matches terms as a whole phrase, treating the last term as a prefix.
+[`multi_match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/) | Similar to the `match` query but is used on multiple fields.
+[`query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) | Uses a strict syntax to specify Boolean conditions and multi-field search within a single query string. 
+[`simple_query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/) | A simpler, less strict version of `query_string` query. 
+
 ### All parameters
 
 <!-- remove this section when edited. This is so the editing effort is not duplicated. -->
@@ -30,7 +43,7 @@ Parameter | Data type | Description
 `allow_leading_wildcard` | Boolean | Specifies whether `*` and `?` are allowed as first characters of a search term. Default is `true`.
 `analyze_wildcard` | Boolean | Specifies whether OpenSearch should attempt to analyze wildcard terms. Default is `false`.
 `analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query string text. Default is the index-time analyzer specified for the `default_field`. If no analyzer is specified for the `default_field`, the `analyzer` is the default analyzer for the index.
-`auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create a [match phrase query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) automatically for multi-term synonyms. For example, if you specify `ba, batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"` (if this option is `true`) or `ba OR (batting AND average)` (if this option is `false`).Default is `true`.
+`auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create a [match phrase query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) automatically for multi-term synonyms. For example, if you specify `ba, batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"` (if this option is `true`) or `ba OR (batting AND average)` (if this option is `false`). Default is `true`.
 `boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
 `default_field` | String | The field in which to search if the field is not specified in the query string. Supports wildcards. Defaults to the value specified in the `index.query.default_field` index setting. By default, the `index.query.default_field` is `*`, which means extract all fields eligible for term query and filter the metadata fields. The extracted fields are combined into a query if the `prefix` is not specified. Eligible fields do not include nested documents. Searching all eligible fields could be a resource-intensive operation. The `indices.query.bool.max_clause_count` search setting defines the maximum value for the product of the number of fields and the number of terms that can be queried at one time. The default value for `indices.query.bool.max_clause_count` is 4,096.
 `default_operator`| String | If the query string contains multiple search terms, whether all terms need to match (`AND`) or only one term needs to match (`OR`) for a document to be considered a match. Valid values are:<br>- `OR`: The string `to be` is interpreted as `to OR be`<br>- `AND`: The string `to be` is interpreted as `to AND be`<br> Default is `OR`.
