@@ -80,7 +80,7 @@ The following table provides a list of sentence transformer models and artifact 
 
 Sparse encoding models transfer text into a sparse vector and convert the vector to a list of `<token: weight>` pairs representing the text entry and its corresponding weight in the sparse vector. You can use these models for use cases such as clustering or sparse neural search.
 
-We recommend the following model choice options for best performance:
+We recommend the following models for optimal performance:
 
 - Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` model during both ingestion and search.
 - Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` model during ingestion and the
