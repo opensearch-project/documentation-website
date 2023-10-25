@@ -9,19 +9,19 @@ redirect_from:
 ---
 
 # Cluster settings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
 
-### Path and HTTP methods
+## Path and HTTP methods
 
 ```
 GET _cluster/settings
 PUT _cluster/settings
 ```
 
-### Path parameters
+## Path parameters
 
 All cluster setting parameters are optional.
 
@@ -51,7 +51,7 @@ PUT _cluster/settings
 }
 ```
 
-### Request fields
+## Request fields
 
 The GET operation has no request body options. All cluster setting field parameters are optional.
 
@@ -74,6 +74,7 @@ The following request field parameters are compatible with the cluster API.
 | breaker.model_inference.limit | String | The limit for the trained model circuit breaker. Default is `50%` of the JVM heap. |
 | breaker.model_inference.overhead | Integer | The constant that all trained model estimations are multiplied by to determine a final estimation. Default is `1`. |
 | search.max_buckets | Integer | The maximum number of aggregation buckets allowed in a single response. Default is `65536`. |
+| search.phase_took_enabled | Boolean | Enables returning phase-level `took` time values in search responses. Default is `false`. |
 | snapshot.max_concurrent_operations | Integer | The maximum number of concurrent snapshot operations. Default is `1000`. |
 | slm.health.failed_snapshot_warn_threshold | String | The number of failed invocations since the last successful snapshot that will indicate a problem as per the health API profile. Default is five repeated failures: `5L`. |
 | indices.breaker.total.limit | String | The starting limit for the overall parent breaker. Default is `70%` of the JVM heap if `indices.breaker.total.use_real_memory` is set to `false`. Default is `95%` of the JVM heap if `indices.breaker.total.use_real_memory` is set to `true`. |

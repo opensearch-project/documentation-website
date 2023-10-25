@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Delete by query
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple}
 
 You can include a query as part of your delete request so OpenSearch deletes all documents that match that query.

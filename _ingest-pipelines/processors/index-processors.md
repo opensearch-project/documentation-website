@@ -1,14 +1,17 @@
 ---
 layout: default
 title: Ingest processors
-parent: Ingest APIs
-nav_order: 10
+nav_order: 30
 has_children: true
+redirect_from:
+   - /api-reference/ingest-apis/ingest-processors/
 ---
 
 # Ingest processors
+**Introduced 1.0**
+{: .label .label-purple }
 
-Ingest processors are a core component of [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) because they preprocess documents before indexing. For example, you can remove fields, extract values from text, convert data formats, or append additional information.
+Ingest processors are a core component of [ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/index/). They preprocess documents before indexing. For example, you can remove fields, extract values from text, convert data formats, or append additional information.
 
 OpenSearch provides a standard set of ingest processors within your OpenSearch installation. For a list of processors available in OpenSearch, use the [Nodes Info]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/) API operation:
 

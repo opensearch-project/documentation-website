@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Cluster decommission
+**Introduced 1.0**
+{: .label .label-purple }
 
 The cluster decommission operation adds support decommissioning based on awareness. It greatly benefits multi-zone deployments, where awareness attributes, such as `zones`, can aid in applying new upgrades to a cluster in a controlled fashion. This is especially useful during outages, in which case, you can decommission the unhealthy zone to prevent replication requests from stalling and prevent your request backlog from becoming too large.
 
@@ -36,7 +38,7 @@ awareness_attribute_value | String | The value of the awareness attribute. For e
 
 You can use the following example requests to decommission and recommission a zone:
 
-### Request
+#### Request
 
 The following example request decommissions `zone-a`:
 
@@ -52,7 +54,7 @@ DELETE /_cluster/decommission/awareness
 ```
 {% include copy-curl.html %}
 
-### Response
+#### Response
 
 
 ```json
@@ -65,14 +67,14 @@ DELETE /_cluster/decommission/awareness
 
 The following example requests returns the decommission status of all zones.
 
-### Request
+#### Request
 
 ```json
 GET /_cluster/decommission/awareness/zone/_status
 ```
 {% include copy-curl.html %}
 
-### Response
+#### Response
 
 ```json
 {

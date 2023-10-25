@@ -1,14 +1,20 @@
 ---
 layout: default
 title: CSV
-parent: Ingest processors 
-grand_parent: Ingest APIs
+parent: Ingest processors
 nav_order: 40
+redirect_from:
+   - /api-reference/ingest-apis/processors/csv/
 ---
 
 # CSV
+**Introduced 1.0**
+{: .label .label-purple }
 
-The `csv` processor is used to parse CSVs and store them as individual fields in a document. The processor ignores empty fields. The following is the syntax for the `csv` processor: 
+The `csv` processor is used to parse CSVs and store them as individual fields in a document. The processor ignores empty fields. 
+
+## Example
+The following is the syntax for the `csv` processor: 
 
 ```json
 {

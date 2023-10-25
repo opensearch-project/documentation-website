@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Handling pipeline failures
-parent: Ingest pipelines
-grand_parent: Ingest APIs
 nav_order: 15
+redirect_from:
+  - /api-reference/ingest-apis/pipeline-failures/
 ---
 
 # Handling pipeline failures
+**Introduced 1.0**
+{: .label .label-purple }
 
 Each ingest pipeline consists of a series of processors that are applied to the documents in sequence. If a processor fails, the entire pipeline will fail. You have two options for handling failures:
 

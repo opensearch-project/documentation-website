@@ -1,14 +1,15 @@
 ---
 layout: default
 title: Delete pipeline
-parent: Ingest pipelines
-grand_parent: Ingest APIs
 nav_order: 13
 redirect_from:
   - /opensearch/rest-api/ingest-apis/delete-ingest/
+  - /api-reference/ingest-apis/delete-ingest/
 ---
 
 # Delete pipeline
+**Introduced 1.0**
+{: .label .label-purple }
 
 Use the following request to delete a pipeline. 
 

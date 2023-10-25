@@ -6,6 +6,8 @@ nav_order: 1
 ---
 
 # Registering or updating a snapshot repository
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can register a new repository in which to store snapshots or update information for an existing repository by using the snapshots API.
 
@@ -61,7 +63,7 @@ PUT /_snapshot/my-fs-repository
 ```
 {% include copy-curl.html %}
 
-### s3 repository
+#### s3 repository
 
 Request field | Description
 :--- | :---
@@ -72,6 +74,7 @@ Request field | Description
 `chunk_size` | Breaks files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `1gb`. Optional.
 `client` | When specifying client settings (e.g. `s3.client.default.access_key`), you can use a string other than `default` (e.g. `s3.client.backup-role.access_key`). If you used an alternate name, change this value to match. Default and recommended value is `default`. Optional.
 `compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
+`disable_chunked_encoding` | Disables chunked encoding for compatibility with some storage services. Default is `false`. Optional.
 `max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.

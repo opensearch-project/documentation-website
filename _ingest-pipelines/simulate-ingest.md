@@ -1,14 +1,15 @@
 ---
 layout: default
 title: Simulate pipeline
-parent: Ingest pipelines
-grand_parent: Ingest APIs
 nav_order: 11
 redirect_from:
   - /opensearch/rest-api/ingest-apis/simulate-ingest/
+  - /api-reference/ingest-apis/simulate-ingest/
 ---
 
 # Simulate pipeline
+**Introduced 1.0**
+{: .label .label-purple }
 
 Use the simulate ingest pipeline API operation to run or test the pipeline.
 
@@ -121,7 +122,7 @@ The request returns the following response:
 }
 ```
 
-### Example: Verbose mode
+#### Example: Verbose mode
 
 When the previous request is run with the `verbose` parameter set to `true`, the response shows the sequence of transformations for each document. For example, for the document with the ID `1`, the response contains the results of applying each processor in the pipeline in sequence:
 
@@ -189,7 +190,7 @@ When the previous request is run with the `verbose` parameter set to `true`, the
 }
 ```
 
-### Example: Specify a pipeline in the request body
+#### Example: Specify a pipeline in the request body
 
 Alternatively, you can specify a pipeline directly in the request body without first creating a pipeline:
 

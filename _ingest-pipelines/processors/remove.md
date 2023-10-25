@@ -1,14 +1,20 @@
 ---
 layout: default
 title: Remove
-parent: Ingest processors 
-grand_parent: Ingest APIs
+parent: Ingest processors
 nav_order: 230
+redirect_from:
+   - /api-reference/ingest-apis/processors/remove/
 ---
 
 # Remove
+**Introduced 1.0**
+{: .label .label-purple }
 
-The `remove` processor is used to remove a field from a document. The following is the syntax for the `remove` processor: 
+The `remove` processor is used to remove a field from a document. 
+
+## Example
+The following is the syntax for the `remove` processor: 
 
 ```json
 {
