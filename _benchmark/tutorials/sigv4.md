@@ -9,15 +9,26 @@ parent: Tutorials
 
 OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run Benchmark with Signature Version 4, use the following steps:
 
-1. Set up an [IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using Signature Version 4 authentication.
+1. Set up an [IAM user or an IAM Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using Signature Version 4 authentication.
 
 2. Set up the following environment variables for your IAM user:
 
    ```bash
-   OSB_AWS_ACCESS_KEY_ID=<IAM USER AWS ACCESS KEY ID>
-   OSB_AWS_SECRET_ACCESS_KEY=<IAM USER AWS SECRET ACCESS KEY>
-   OSB_REGION=<YOUR REGION>
-   OSB_SERVICE=es
+   export OSB_AWS_ACCESS_KEY_ID=<IAM USER AWS ACCESS KEY ID>
+   export OSB_AWS_SECRET_ACCESS_KEY=<IAM USER AWS SECRET ACCESS KEY>
+   export OSB_REGION=<YOUR REGION>
+   export OSB_SERVICE=es
+   ```
+   {% include copy.html %}
+
+   If you want to set up an IAM role instead of an IAM user, use the following environment variables instead:
+
+   ```bash
+   export OSB_AWS_ACCESS_KEY_ID=<IAM Role AWS ACCESS KEY ID>
+   export OSB_AWS_SECRET_ACCESS_KEY=<IAM Role AWS SECRET ACCESS KEY>
+   export OSB_AWS_SESSION_TOKEN=<IAM Role SESSION TOKEN>
+   export OSB_REGION=<YOUR REGION>
+   export OSB_SERVICE=es
    ```
    {% include copy.html %}
 
