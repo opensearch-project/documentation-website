@@ -227,7 +227,7 @@ GET testindex/_search
 
 The date field type supports using date math to specify durations in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/bucket/date-range/) accept date math expressions.
 
-A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the [default format](#default-format), which by default is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`.
+A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the [default format](#default-format) (which is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis` by default).
 
 If you specify multiple date formats in the field mapping, OpenSearch uses the first format to convert the milliseconds since the epoch value to a string. <br>
 If a field mapping for a field contains no format, OpenSearch uses the `strict_date_optional_time` format to convert the epoch value to a string.
