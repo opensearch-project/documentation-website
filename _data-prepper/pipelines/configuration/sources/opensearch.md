@@ -103,7 +103,7 @@ Option | Required | Type    | Description
 `aws` | No | Object  | The AWS configuration. For more information, see [aws](#aws).
 `acknowledgments` | No | Boolean | When `true`, enables the `opensearch` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
 `connection` | No | Object  | The connection configuration. For more information, see [Connection](#connection).
-`indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [indexes](#indexes).
+`indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [indexes](#indices).
 `scheduling` | No | Object | The scheduling configuration. For more information, see [Scheduling](#scheduling).
 `search_options` | No | Object | A list of search options performed by the source. For more information, see [Search options](#search_options).
 
@@ -122,7 +122,7 @@ Option | Required | Type            | Description
 `start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately.
 
 
-### indexes
+### indices
 
 The following options help the `opensearch` source determine which indexes are processed from the source cluster using regex patterns. An index will only be processed if it matches one of the `index_name_regex` patterns under the `include` setting and does not match any of the
 patterns under the `exclude` setting.

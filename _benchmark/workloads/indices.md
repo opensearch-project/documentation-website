@@ -1,11 +1,11 @@
 ---
 layout: default
-title: indexes
+title: indices
 parent: Workload reference
 nav_order: 65
 ---
 
-# indexes
+# indices
 
 The `indices` element contains a list of all indexes used in the workload.
 

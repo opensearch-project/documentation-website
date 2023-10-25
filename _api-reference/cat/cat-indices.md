@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT indexes operation
+title: CAT indices operation
 parent: CAT API
 nav_order: 25
 has_children: false

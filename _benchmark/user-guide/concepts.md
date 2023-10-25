@@ -92,14 +92,14 @@ The following example workload shows all of the essential elements needed to cre
 
 A workload usually includes the following elements:
 
-- [indexes]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indexes and index templates used for the workload.
+- [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/): Defines the relevant indexes and index templates used for the workload.
 - [corpora]({{site.url}}{{site.baseurl}}/benchmark/workloads/corpora/): Defines all document corpora used for the workload.
 - `schedule`: Defines operations and the order in which the operations run inline. Alternatively, you can use `operations` to group operations and the `test_procedures` parameter to specify the order of operations.
 - `operations`: **Optional**. Describes which operations are available for the workload and how they are parameterized.
 
-### Indexes
+### Indices
 
-To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indexes]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
+To create an index, specify its `name`. To add definitions to your index, use the `body` option and point it to the JSON file containing the index definitions. For more information, see [indices]({{site.url}}{{site.baseurl}}/benchmark/workloads/indices/).
 
 ### Corpora
 
