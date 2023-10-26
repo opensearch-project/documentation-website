@@ -35,4 +35,4 @@ PPL filters, transforms, and aggregates data using a series of commands. See [Co
 
 ## Using PPL within OpenSearch 
 
-To use PPL, you must have installed OpenSearch Dashboards. PPL is available within the [Query Workbench tool](https://playground.opensearch.org/app/opensearch-query-workbench#/). See the [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) documentation for a tutorial on using PPL in OpenSearch.
+To use PPL, you must have installed OpenSearch Dashboards. PPL is available within the [Query Workbench tool](https://playground.opensearch.org/app/opensearch-query-workbench#/). See the [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) documentation for a tutorial on using PPL within OpenSearch.
