@@ -10,7 +10,7 @@ has_children: false
 ---
 
 # CAT aliases
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.

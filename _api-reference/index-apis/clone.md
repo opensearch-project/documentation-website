@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Clone index
+**Introduced 1.0**
+{: .label .label-purple }
 
 The clone index API operation clones all data in an existing read-only index into a new index. The new index cannot already exist.
 
