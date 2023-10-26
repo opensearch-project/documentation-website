@@ -2,12 +2,14 @@
 layout: default
 title: Metric keys
 nav_order: 35
-parent: Metrics
+parent: Metrics reference
+grand_parent: OpenSearch Benchmark Reference
+redirect_from: /benchmark/metrics/metric-keys/
 ---
 
 # Metric keys
 
-Metric keys are the metrics that OpenSearch Benchmark stores, based on the configuration in the [metrics record]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys/). OpenSearch Benchmark stores the following metrics:
+Metric keys are the metrics that OpenSearch Benchmark stores, based on the configuration in the [metrics record]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-records/). OpenSearch Benchmark stores the following metrics:
 
 
 - `latency`: The time period between submitting a request and receiving the complete response. This also includes wait time, such as the time the request spends waiting until it is ready to be serviced by OpenSearch Benchmark.
