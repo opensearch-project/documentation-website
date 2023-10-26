@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # Create index
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 While you can create an index by using a document as a base, you can also create an empty index for later use.

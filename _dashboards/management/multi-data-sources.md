@@ -1,19 +1,17 @@
 ---
 layout: default
-title: Multiple data sources
-parent: Dashboards Management
-nav_order: 20
+title: Connecting multiple data sources
+parent: Data sources
+nav_order: 10
 redirect_from: 
   - /dashboards/discover/multi-data-sources/
 ---
 
-# Multiple data sources
-
-Use OpenSearch Dashboards to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard. 
+# Connecting multiple data sources
 
 Learn how to enable the `data_source` setting in Dashboards; add credentials, data source connections, and index patterns; and combine visualizations in a single dashboard in this tutorial.
 
-## Modifying the YAML file settings for multiple data sources
+## Modify the YAML file settings for multiple data sources
 
 This tutorial uses a preconfigured data source and index pattern for which you aren’t required to configure settings. However, you have to enable the multiple data sources feature because it is disabled by default.
 
@@ -23,12 +21,14 @@ To enable multiple data sources:
 2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) is available on GitHub.
 3. Set `data_source.enabled:` to  `true` and save the YAML file.
 4. Restart the Dashboards container.
-5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Dashboards Management** console. **Data Sources** appears in the sidebar, as shown in the following image.
+5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Dashboards Management** navigation menu. **Data sources** appears in the sidebar, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="40%">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="700">
 
-## Creating a data source connection
+## Select multiple data sources by using the Dev Tools console
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections.
 
 To create a new data source connection:
@@ -73,18 +73,19 @@ To delete the data source connection, select the trash can icon ({::nomarkdown}<
 
 Use index patterns to access the OpenSearch data that you want to explore. Learn how to load your own data and create an index pattern in the following steps. This tutorial uses the preconfigured index pattern `opensearch_dashboards_sample_data_ecommerce Default`.
 
-1. In the Dashboards console, select **Index Patterns** and then **Create index pattern**.
-2. Select **Use external data source connection**.
-3. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**.
-1. In the Dashboards console, choose **Index Patterns** and then **Create index pattern**.
-2. Choose **Use external data source connection**.
-3. Start typing in the **Search data sources** field to search for the data source you created earlier, select the data source, and then select **Next step**.
-4. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
-5. Choose an option for the **Time field** and then select **Create index pattern**.
+1. Go to OpenSearch Dashboards and select **Management** > **Dashboards Management** > **Index patterns**. 
+2. Select **Create index pattern**.
+3. Select **Use external data source connection**.
+4. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**.
+5. In the Dashboards console, choose **Index Patterns** and then **Create index pattern**.
+6. Choose **Use external data source connection**.
+7. Start typing in the **Search data sources** field to search for the data source you created earlier, select the data source, and then select **Next step**.
+8. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
+9. Choose an option for the **Time field** and then select **Create index pattern**.
 
 ## Searching data
 
-Before you start searching for data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can choose the time filter to change the time range or select a specific time range in the histogram.
+The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can choose the time filter to change the time range or select a specific time range in the histogram.
 
 ### Setting the time filter
 
@@ -107,8 +108,16 @@ To select a time range for the histogram, choose from the following options:
 ## Selecting multiple data sources in the Dev Tools console
 
 Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insight into your code and applications. Watch the video to see it in action, and then try it out in the following steps.
+=======
+Selecting multiple data sources using the Dev Tools console gives you the flexibility to work with a broader range of data and gain deeper insight into your code and applications. Watch the following video to see it in action, and then try it out yourself. 
+>>>>>>> 0e1f96cd (writing)
+=======
+Selecting multiple data sources by using the Dev Tools console gives you the flexibility to work with a broader range of data and gain deeper insight into your code and applications. Watch the following video to see it in action, and then try it out yourself. 
+>>>>>>> 7f57cc3e (Update _dashboards/management/multi-data-sources.md)
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
+
+To select a data source by using the Dev Tools console, follow these steps:
 
 1. Locate your copy of `opensearch_dashboards.yml` and open it in the editor of your choice. 
 2. Set `data_source.enabled` to `true`.
@@ -122,33 +131,9 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
 5. From the **DataSource** dropdown menu, select a data source and then query the source.
 6. Repeat the preceding steps for each data source you want to select.
 
-## Creating data visualizations for a dashboard
-
-To create data visualizations for a dashboard, follow these steps:
-
-1. In the Dashboards console, choose **Visualize** > **Create visualization**.
-2. Select the visualization type. For this tutorial, choose **Line**.
-3. Select a source. For this tutorial, choose the index pattern `opensearch_dashboards_sample_data_ecommerce`.
-4. Under **Buckets**, choose **Add** > **X-axis**.
-5. In the **Aggregation** field, choose **Date Histogram** > **Update**.
-6. Choose **Save** and add the file name.
-
-## Connecting visualizations in a single dashboard
-
-To connect your visualizations in a single dashboard, follow these steps: 
-
-1. In the Dashboards console, choose **Dashboard** > **Create dashboard**. 
-2. Choose **Add an existing** and then select the data you want to add.
-3. Choose **Save** and add the dashboard name in the **Title field**. This tutorial uses preconfigured dashboards, so you won’t be able to save your dashboard.
-4. Click on the white space left of **Add panels** to view the visualizations in a single dashboard.
-
-Your dashboard might look like the one in the following image.
-
-<img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=700 alt="Example dashboard using data visualizations from many data sources">
-
 ## Limitations
 
-This feature has the following limitations:
+This feature is still under development, so there are some limitations:
 
 * The multiple data sources feature is supported for index-pattern-based visualizations only.
 * The visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.

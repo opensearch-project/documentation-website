@@ -9,6 +9,8 @@ redirect_from:
 ---
 
 # Analyze API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Analyze API allows you to perform [text analysis]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/), which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.
 

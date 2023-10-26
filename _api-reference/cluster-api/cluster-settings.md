@@ -9,19 +9,19 @@ redirect_from:
 ---
 
 # Cluster settings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
 
-### Path and HTTP methods
+## Path and HTTP methods
 
 ```
 GET _cluster/settings
 PUT _cluster/settings
 ```
 
-### Path parameters
+## Path parameters
 
 All cluster setting parameters are optional.
 
@@ -51,7 +51,7 @@ PUT _cluster/settings
 }
 ```
 
-### Request fields
+## Request fields
 
 The GET operation has no request body options. All cluster setting field parameters are optional.
 
@@ -69,10 +69,12 @@ The following request field parameters are compatible with the cluster API.
 | indices.recovery.max_bytes_per_sec | String | Limits the total inbound and outbound recovery traffic for each node. This applies to peer recoveries and snapshot recoveries. Default is `40mb`. If you set the recovery traffic value to less than or equal to `0mb`, rate limiting will be disabled, which causes recovery data to be transferred at the highest possible rate. |
 | indices.recovery.max_concurrent_file_chunks | Integer | The number of file chunks sent in parallel for each recovery operation. Default is `2`. |
 | indices.recovery.max_concurrent_operations | Integer | The number of operations sent in parallel for each recovery. Default is `1`. |
+| indices.recovery.max_concurrent_remote_store_streams | Integer | The number of streams to the remote repository that can be opened in parallel when recovering a remote store index. Default is `20`. |
 | logger.org.opensearch.discovery | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
 | breaker.model_inference.limit | String | The limit for the trained model circuit breaker. Default is `50%` of the JVM heap. |
 | breaker.model_inference.overhead | Integer | The constant that all trained model estimations are multiplied by to determine a final estimation. Default is `1`. |
 | search.max_buckets | Integer | The maximum number of aggregation buckets allowed in a single response. Default is `65536`. |
+| search.phase_took_enabled | Boolean | Enables returning phase-level `took` time values in search responses. Default is `false`. |
 | snapshot.max_concurrent_operations | Integer | The maximum number of concurrent snapshot operations. Default is `1000`. |
 | slm.health.failed_snapshot_warn_threshold | String | The number of failed invocations since the last successful snapshot that will indicate a problem as per the health API profile. Default is five repeated failures: `5L`. |
 | indices.breaker.total.limit | String | The starting limit for the overall parent breaker. Default is `70%` of the JVM heap if `indices.breaker.total.use_real_memory` is set to `false`. Default is `95%` of the JVM heap if `indices.breaker.total.use_real_memory` is set to `true`. |
@@ -114,6 +116,7 @@ The following request field parameters are compatible with the cluster API.
 | cluster.persistent_tasks.allocation.enable | String | Enables or disables allocation for persistent tasks: <br /> <br /> `all` – Allows persistent tasks to be assigned to nodes. <br /> <br /> `none` – No allocations are allowed for persistent tasks. This does not affect persistent tasks already running. <br /> <br /> Default is `all`. |
 | cluster.persistent_tasks.allocation.recheck_interval | Time unit | The cluster manager automatically checks whether or not persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether or not persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. |
 | remote_store.moving_average_window_size | Integer | The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. |
+| indices.time_series_index.default_index_merge_policy | String | This setting allows you to specify the default merge policy for time-series indexes, particularly for those with an `@timestamp` field, such as data streams. The two available options are `tiered` (default) and `log_byte_size`. We recommend using `log_byte_size` for time-series indexes to enhance the performance of range queries with the `@timestamp` field. To override the merge policy on a per-index basis, you can use the `index.merge.policy` index setting. |
 
 
 #### Example request

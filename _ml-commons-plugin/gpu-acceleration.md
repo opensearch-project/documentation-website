@@ -1,7 +1,7 @@
 ---
 layout: default
 title: GPU acceleration
-parent: ML framework
+parent: Using custom models within OpenSearch
 nav_order: 150
 ---
 
@@ -12,7 +12,7 @@ When running a natural language processing (NLP) model in your OpenSearch cluste
 
 ## Supported GPUs
 
-Currently, ML nodes following GPU instances:
+Currently, ML nodes support the following GPU instances:
 
 - [NVIDIA instances with CUDA 11.6](https://aws.amazon.com/nvidia/)
 - [AWS Inferentia](https://aws.amazon.com/machine-learning/inferentia/)

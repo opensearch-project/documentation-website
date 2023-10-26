@@ -328,5 +328,51 @@ GET blogs/_search
 ```
 {% include copy-curl.html %}
 
+### Term frequency functions
+
+Term frequency functions expose term-level statistics in the score script source. You can use these statistics to implement custom information retrieval and ranking algorithms, like query-time multiplicative or additive score boosting by popularity. To apply a term frequency function, call one of the following Painless methods:
+
+- `int termFreq(String <field-name>, String <term>)`: Retrieves the term frequency within a field for a specific term.
+- `long totalTermFreq(String <field-name>, String <term>)`: Retrieves the total term frequency within a field for a specific term.
+- `long sumTotalTermFreq(String <field-name>)`: Retrieves the sum of total term frequencies within a field.
+
+#### Example
+
+The following query calculates the score as the total term frequency for each field in the `fields` list multiplied by the `multiplier` value:
+
+```json
+GET /demo_index_v1/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "match_all": {}
+      },
+      "script_score": {
+        "script": {
+          "source": """
+            for (int x = 0; x < params.fields.length; x++) {
+              String field = params.fields[x];
+              if (field != null) {
+                return params.multiplier * totalTermFreq(field, params.term);
+              }
+            }
+            return params.default_value;
+            
+          """,
+          "params": {
+              "fields": ["title", "description"],
+              "term": "ai",
+              "multiplier": 2,
+              "default_value": 1
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, `script_score` queries are not executed.
 {: .important}

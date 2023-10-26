@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Notification settings
-parent: Index management in Dashboards
+parent: Index Management
 nav_order: 60
 ---
 

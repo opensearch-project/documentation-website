@@ -5,9 +5,9 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.9.0'
-opensearch_dashboards_version: '2.9.0'
-opensearch_major_minor_version: '2.9'
+opensearch_version: '2.11.0'
+opensearch_dashboards_version: '2.11.0'
+opensearch_major_minor_version: '2.11'
 lucene_version: '9_7_0'
 
 # Build settings
@@ -35,6 +35,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   im-plugin:
+    permalink: /:collection/:path/
+    output: true
+  ingest-pipelines:
     permalink: /:collection/:path/
     output: true
   dashboards:
@@ -120,6 +123,9 @@ just_the_docs:
       # search_exclude: true
     im-plugin:
       name: Managing Indexes
+      nav_fold: true
+    ingest-pipelines:
+      name: Ingest Pipelines
       nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
