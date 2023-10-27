@@ -1126,19 +1126,21 @@ Introduced 1.0
 
 Returns an array of all alerts.
 
-**Path parameters**
+#### Path parameters
+
 The following table lists the available path parameters. All path parameters are optional.
-Parameter | Data type | Description
-:--- | :--- | :---
-`sortString` | String | Determines how to sort the results. Defaults to `monitor_name.keyword`.
-`sortOrder` | String | Determines the order of the results. Options are `asc` or `desc`. Defaults to `asc`.
-`missing` | String | Optional.
-`size` | String | Determines the size of the request to be returned. Defaults to `20`.
-`startIndex` | String | The index to start from. Used for paginating results. Defaults to `0`.
-`searchString` | String | A search string used to look for a specific alert. Defaults to an empty string.
-`severityLevel` | String | The severity level to filter for. Defaults to `ALL`.
-`alertState` | String | The alert state to filter for. Defaults to `ALL`.
-`monitorId` | String | Filters by monitor ID.
+
+| Parameter | Data type | Description
+| :--- | :--- | :---
+| `sortString` | String | Determines how to sort the results. Defaults to `monitor_name.keyword`.
+| `sortOrder` | String | Determines the order of the results. Options are `asc` or `desc`. Defaults to `asc`.
+| `missing` | String | Optional.
+| `size` | String | Determines the size of the request to be returned. Defaults to `20`.
+| `startIndex` | String | The index to start from. Used for paginating results. Defaults to `0`.
+| `searchString` | String | A search string used to look for a specific alert. Defaults to an empty string.
+| `severityLevel` | String | The severity level to filter for. Defaults to `ALL`.
+| `alertState` | String | The alert state to filter for. Defaults to `ALL`.
+| `monitorId` | String | Filters by monitor ID.
 
 #### Request
 
