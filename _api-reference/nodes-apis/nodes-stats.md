@@ -677,6 +677,13 @@ Select the arrow to view the example response.
         },
         "enabled" : false,
         "enforced" : false
+      },
+      "resource_usage_stats": {
+        "nxLWtMdXQmWA-ZBVWU8nwA": {
+          "timestamp": 1698401391000,
+          "cpu_utilization_percent": "0.1",
+          "memory_utilization_percent": "3.9"
+        }
       }
     }
   }
@@ -730,7 +737,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
-[resource_usage_stats](#resourceusagestats) | Object | Statistics related to resource usage stats for the node.
+[resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage stats for the node.
 
 
 ### `indices`
