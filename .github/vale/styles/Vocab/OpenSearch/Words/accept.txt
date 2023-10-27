@@ -5,6 +5,7 @@
 [Bb]ackporting
 [Bb]ackpressure
 [Bb]asemap
+[Bb]enchmarked
 [Bb]igram
 Boolean
 [Cc]allout
@@ -20,13 +21,16 @@ Boolean
 [Dd]eserialize
 [Dd]eserialization
 Dev
+[Dd]iscoverability
 Distro
+[Dd]uplicative
 [Ee]gress
 [Ee]num
 [Ff]ailover
 [Ff]lyout
 [Ff]sync
 Gantt
+[Gg]eobounds
 [Gg]eodistance
 [Gg]eohash
 [Gg]eohex
@@ -61,6 +65,7 @@ Levenshtein
 [Mm]isorder
 [Mm]ultifield
 [Mm]ultiline
+[Mm]ultimodal
 [Mm]ultipoint
 [Mm]ultipolygon
 [Mm]ultithreaded
@@ -77,6 +82,7 @@ pebibyte
 [Pp]repper
 [Pp]reprocess
 [Pp]retrain
+[Pp]seudocode
 [Rr]ebalance
 [Rr]ebalancing
 [Rr]edownload
@@ -86,6 +92,7 @@ pebibyte
 [Rr]erank(er|ed|ing)?
 [Rr]epo
 [Rr]ewriter
+[Rr]ollout
 [Rr]ollup
 [Rr]unbooks?
 [Ss]harding
@@ -95,9 +102,10 @@ pebibyte
 stdout
 [Ss]ubaggregation
 [Ss]ubcalculation
+[Ss]ubcollectors?
 [Ss]ubcommands?
 [Ss]ubfield
-[Ss]ubquery
+[Ss]ubquer(y|ies)
 [Ss]ubstrings?
 [Ss]ubtag
 [Ss]ubtree

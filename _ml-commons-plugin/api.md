@@ -2,7 +2,7 @@
 layout: default
 title: API
 has_children: false
-nav_order: 99
+nav_order: 130
 ---
 
 # ML Commons API 
@@ -518,8 +518,24 @@ The API returns the following:
 
 ## Profile
 
-The profile operation returns runtime information on ML tasks and models. The profile operation can help debug issues with models at runtime.
+The profile operation returns runtime information about ML tasks and models. The profile operation can help debug model issues at runtime. 
 
+### The number of requests returned
+
+By default, the Profile API monitors the last 100 requests. To change the number of monitoring requests, update the following cluster setting:
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "plugins.ml_commons.monitoring_request_count" : 1000000 
+  }
+}
+```
+
+To clear all monitoring requests, set `plugins.ml_commons.monitoring_request_count` to `0`. 
+
+### Path and HTTP methods
 
 ```json
 GET /_plugins/_ml/profile

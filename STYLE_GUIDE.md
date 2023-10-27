@@ -123,6 +123,7 @@ The following table lists acronyms that you don't need to spell out.
 | BASIC | Beginner's All-Purpose Symbolic Instruction Code |
 | BM25 | Best Match 25 |
 | CPU | central processing unit |
+| CRUD | create, read, update, and delete |
 | CSV | comma-separated values |
 | DNS | Domain Name System |
 | DOS | disk operating system |
@@ -486,8 +487,6 @@ The following terms may be associated with unconscious racial bias, violence, or
 | abort          | Don't use because it has unpleasant associations and is unnecessarily harsh sounding. Use *stop*, *end*, or *cancel* instead.                    |
 | black day      | blocked day                 |
 | blacklist      | deny list                   |
-| execute        | Replace with a more specific verb. In the sense of carrying out an action, use *run*, *process*, or *apply*. In the sense of initiating an operation, use *start*, *launch*, or *initiate*.<br><br> Exception: *Execution* is unavoidable for third-party terms for which no alternative was determined, such as SQL execution plans. *Executable* is also unavoidable.                              |
-| hang           | Don't use. This term is unnecessarily violent for technical documentation. Use *stop responding* instead.                                       |
 | kill           | Don't use. Replace with *stop*, *end*, *clear*, *remove*, or *cancel*. <br><br> Exception: *Kill* is unavoidable when referring to Linux kill commands. |
 | master         | primary, main, leader       |
 | master account | management account          |
@@ -503,11 +502,7 @@ The following terms may be problematic *in some contexts*. This doesn’t mean t
 |--------------------------|-------------------------------------|
 | blackout                 | service outage, blocked             |
 | demilitarized zone (DMZ) | perimeter network, perimeter zone   |
-| invalid                  | not valid                           |
 | primitive                | Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*. |
-| purge                    | Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.                                                |
-| segregate                | separate, isolate                   |
-| trigger                  | Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*. |
 
 ## Trademark policy
 

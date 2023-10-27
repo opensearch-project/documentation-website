@@ -1,133 +1,18 @@
 ---
 layout: default
-title: k-NN Index
+title: k-NN index
 nav_order: 5
 parent: k-NN
 has_children: false
 ---
 
-# k-NN Index
+# k-NN index
 
-## knn_vector data type
+The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
-The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors
-into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. In general, a `knn_vector` field can be built either by providing a method definition or specifying a model id.
+## Lucene byte vector
 
-Method definitions are used when the underlying Approximate k-NN algorithm does not require training. For example, the following `knn_vector` field specifies that *nmslib*'s implementation of *hnsw* should be used for Approximate k-NN search. During indexing, *nmslib* will build the corresponding *hnsw* segment files.
-
-```json
-"my_vector": {
-  "type": "knn_vector",
-  "dimension": 4,
-  "method": {
-    "name": "hnsw",
-    "space_type": "l2",
-    "engine": "nmslib",
-    "parameters": {
-      "ef_construction": 128,
-      "m": 24
-    }
-  }
-}
-```
-
-Model IDs are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the
-model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model). The
-model contains the information needed to initialize the native library segment files.
-
-```json
-  "type": "knn_vector",
-  "model_id": "my-model"
-}
-```
-
-However, if you intend to just use painless scripting or a k-NN score script, you only need to pass the dimension.
- ```json
-   "type": "knn_vector",
-   "dimension": 128
- }
- ```
-
-### Lucene byte vector
-
-By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
- 
-Byte vectors are supported only for the `lucene` engine. They are not supported for the `nmslib` and `faiss` engines.
-{: .note}
-
-When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
-{: .important}
- 
-Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
-
-To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index:
-
- ```json
-PUT test-index
-{
-  "settings": {
-    "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
-    }
-  },
-  "mappings": {
-    "properties": {
-      "my_vector1": {
-        "type": "knn_vector",
-        "dimension": 3,
-        "data_type": "byte",
-        "method": {
-          "name": "hnsw",
-          "space_type": "l2",
-          "engine": "lucene",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
-          }
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-Then ingest documents as usual. Make sure each dimension in the vector is in the supported [-128, 127] range:
-
-```json
-PUT test-index/_doc/1
-{
-  "my_vector1": [-126, 28, 127]
-}
-```
-{% include copy-curl.html %}
-
-```json
-PUT test-index/_doc/2
-{
-  "my_vector1": [100, -128, 0]
-}
-```
-{% include copy-curl.html %}
-
-When querying, be sure to use a `byte` vector:
-
-```json
-GET test-index/_search
-{
-  "size": 2,
-  "query": {
-    "knn": {
-      "my_vector1": {
-        "vector": [26, -120, 99],
-        "k": 2
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
+Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
 ## Method definitions
 
@@ -186,7 +71,7 @@ Parameter name | Required | Default | Updatable | Description
 `nprobes` | false | 1 | false | Number of buckets to search during query. Higher values lead to more accurate but slower searches.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
 
-For more information about setting these parameters, please refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
+For more information about setting these parameters, refer to the [Faiss documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
 
 #### IVF training requirements
 
@@ -232,12 +117,13 @@ Lucene HNSW implementation ignores `ef_search`  and dynamically sets it to the v
 You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. faiss has
 several encoder types, but the plugin currently only supports *flat* and *pq* encoding.
 
-An example method definition that specifies an encoder may look something like this:
+The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
 ```json
 "method": {
   "name":"hnsw",
   "engine":"faiss",
+  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -250,10 +136,63 @@ An example method definition that specifies an encoder may look something like t
 }
 ```
 
+The `hnsw` method supports the `pq` encoder for OpenSearch versions 2.10 and later. The `code_size` parameter of a `pq` encoder with the `hnsw` method must be **8**.
+{: .important}
+
 Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
-`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
+`pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
+
+#### Examples
+
+
+The following example uses the `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+
+```json
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "nlist": 4,
+    "nprobes": 2
+  }
+}
+```
+
+The following example uses the `ivf` method with a `pq` encoder:
+
+```json
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder":{
+      "name":"pq",
+      "parameters":{
+        "code_size": 8,
+        "m": 8
+      }
+    }
+  }
+}
+```
+
+The following example uses the `hnsw` method without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+
+```json
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "ef_construction": 256,
+    "m": 8
+  }
+}
+```
 
 #### PQ parameters
 

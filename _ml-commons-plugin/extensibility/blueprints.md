@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Building blueprints
+title: Connector blueprints
 has_children: false
 nav_order: 65
-parent: ML extensibility 
+parent: Connecting to remote models 
 ---
 
-# Building blueprints
+# Connector blueprints
 
 All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
 
@@ -41,7 +41,7 @@ POST /_plugins/_ml/connectors/_create
   ]
 }
 ```
-
+{% include copy-curl.html %}
 
 ## Example blueprints
 
@@ -58,7 +58,7 @@ The following configuration options are **required** in order to build a connect
 | `version` | Integer | The version of the connector. |
 | `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameters` | JSON object | The default connector parameters, including `endpoint` and `model`. Any parameters indicated in this field can be overridden by parameters specified in a predict request. |
-| `credential` | `Map<string, string>` | Defines any credential variables required to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
+| `credential` | JSON object | Defines any credential variables required in order to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
 | `actions` | JSON array | Define what actions can run within the connector. If you're an administrator making a connection, add the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) for your desired connection. |
 | `backend_roles` | JSON array | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users). |
 | `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups). |
@@ -73,7 +73,107 @@ The `action` parameter supports the following options.
 | `url` | String | Required. Sets the connection endpoint at which the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index#adding-trusted-endpoints). |
 | `headers` | JSON object | Sets the headers used inside the request or response body. Default is `ContentType: application/json`. If your third-party ML tool requires access control, define the required `credential` parameters in the `headers` parameter. |
 | `request_body` | String | Required. Sets the parameters contained inside the request body of the action. The parameters must include `\"inputText\`, which specifies how users of the connector should construct the request payload for the `action_type`. |
+| `pre_process_function` | String |  Optional. A built-in or custom Painless script used to preprocess the input data. OpenSearch provides the following built-in preprocess functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere](https://cohere.com/) embedding models<br> - `connector.pre_process.openai.embedding` for [OpenAI](https://openai.com/) embedding models <br> - `connector.pre_process.default.embedding`, which you can use to preprocess documents in neural search requests so that they are in the format that ML Commons can process with the default preprocessor (OpenSearch 2.11 or later). For more information, see [built-in functions](#built-in-pre--and-post-processing-functions).  |
+| `post_process_function` | String | Optional. A built-in or custom Painless script used to post-process the model output data. OpenSearch provides the following built-in post-process functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere text embedding models](https://docs.cohere.com/reference/embed)<br> - `connector.pre_process.openai.embedding` for [OpenAI text embedding models](https://platform.openai.com/docs/api-reference/embeddings) <br> - `connector.post_process.default.embedding`, which you can use to post-process documents in the model response so that they are in the format that neural search expects (OpenSearch 2.11 or later). For more information, see [built-in functions](#built-in-pre--and-post-processing-functions).  |
+
+## Built-in pre- and post-processing functions
+
+Call the built-in pre- and post-processing functions instead of writing a custom Painless script when connecting to the following text embedding models or your own text embedding models deployed on a remote server (for example, Amazon SageMaker):
+
+- [OpenAI remote models](https://platform.openai.com/docs/api-reference/embeddings)
+- [Cohere remote models](https://docs.cohere.com/reference/embed)
+
+OpenSearch provides the following pre- and post-processing functions:
+
+- OpenAI: `connector.pre_process.openai.embedding` and `connector.post_process.openai.embedding`
+- Cohere: `connector.pre_process.cohere.embedding` and `connector.post_process.cohere.embedding`
+- [Default](#default-pre--and-post-processing-functions) (for neural search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
+
+### Default pre- and post-processing functions
+
+When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a remote model, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
+
+#### Example request
+
+The following example request creates a SageMaker text embedding connector and calls the default post-processing function:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "Sagemaker text embedding connector",
+  "description": "The connector to Sagemaker",
+  "version": 1,
+  "protocol": "aws_sigv4",
+  "credential": {
+    "access_key": "<REPLACE WITH SAGEMAKER ACCESS KEY>",
+    "secret_key": "<REPLACE WITH SAGEMAKER SECRET KEY>",
+    "session_token": "<REPLACE WITH AWS SECURITY TOKEN>"
+  },
+  "parameters": {
+    "region": "ap-northeast-1",
+    "service_name": "sagemaker"
+  },
+  "actions": [
+    {
+      "action_type": "predict",
+      "method": "POST",
+      "url": "sagemaker.ap-northeast-1.amazonaws.com/endpoints/",
+      "headers": {
+        "content-type": "application/json"
+      },
+      "post_process_function": "connector.post_process.default.embedding",
+      "request_body": "${parameters.input}"
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The `request_body` template must be `${parameters.input}`. 
+{: .important}
+
+### Preprocessing function 
+
+The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
+
+The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) provides parameters in the following format:
+
+```json
+{
+  "parameters": {
+    "input": ["hello", "world"]
+  }
+}
+```
+
+The default preprocessing function sends the `input` field contents to the model. Thus, the model input format must be a list of strings, for example:
+
+```json
+["hello", "world"]
+```
+
+### Post-processing function 
+
+The `connector.post_process.default.embedding` default post-processing function parses the model response and transforms it into the format that neural search expects as input.
+
+The remote text embedding model output must be a two-dimensional float array, each element of which represents an embedding of a string from the input list. For example, the following two-dimensional array corresponds to the embedding of the list `["hello", "world"]`:
+
+```json
+[
+  [
+    -0.048237994,
+    -0.07612697,
+    ...
+  ],
+  [
+    0.32621247,
+    0.02328475,
+    ...
+  ]
+]
+```
+
 
 ## Next step
 
-To see how system administrators and data scientists use blueprints for connectors, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+For examples of creating various connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).

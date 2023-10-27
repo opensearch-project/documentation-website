@@ -2,13 +2,20 @@
 layout: default
 title: ML Commons cluster settings
 has_children: false
-nav_order: 160
+nav_order: 10
 ---
 
 # ML Commons cluster settings
 
 To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file.
 
+## ML node
+
+By default, ML tasks and models only run on ML nodes. When configured without the `data` node role, ML nodes do not store any shards and instead calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
+
+```yml
+node.roles: [ ml ]
+```
 
 ## Run tasks and models on ML nodes only
 

@@ -14,8 +14,9 @@ Operator | Description
 :--- | :---
 `*` | Matches zero or more characters.
 `?` | Matches any single character.
+`case_insensitive` | If `true`, the wildcard query is case insensitive. If `false`, the wildcard query is case sensitive. Default is `false` (case sensitive).
 
-To search for terms that start with `H` and end with `Y`, use the following request:
+For a case-sensitive search for terms that start with `H` and end with `Y`, use the following request:
 
 ```json
 GET shakespeare/_search
@@ -23,7 +24,8 @@ GET shakespeare/_search
   "query": {
     "wildcard": {
       "speaker": {
-        "value": "H*Y"
+        "value": "H*Y",
+        "case_insensitive": false
       }
     }
   }
@@ -46,7 +48,7 @@ GET _search
     "wildcard": {
       "<field>": {
         "value": "patt*rn",
-        ... 
+        ...
       }
     }
   }
@@ -59,7 +61,7 @@ The `<field>` accepts the following parameters. All parameters except `value` ar
 Parameter | Data type | Description
 :--- | :--- | :---
 `value` | String | The wildcard pattern used for matching terms in the field specified in `<field>`.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
+`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`.
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
 

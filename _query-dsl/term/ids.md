@@ -31,4 +31,4 @@ The query accepts the following parameter.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`value` | Array of strings | The document IDs to search for. Required.
+`values` | Array of strings | The document IDs to search for. Required.

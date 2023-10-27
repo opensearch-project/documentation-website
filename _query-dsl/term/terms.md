@@ -249,4 +249,4 @@ Parameter | Data type | Description
 `index` | String | The name of the index in which to fetch field values. Required.
 `id` | String | The document ID of the document from which to fetch field values. Required.
 `path` | String | The name of the field from which to fetch field values. Specify nested fields using dot path notation. Required.
-`routing` | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
+`routing` | String | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
