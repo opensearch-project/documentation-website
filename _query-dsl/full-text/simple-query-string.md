@@ -45,7 +45,7 @@ Operator | Description
 `~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. 
 `-` | Negates the term.
 
-Escape any of the preceding reserved characters with a backslash. When sending a JSON request, use `\\` to escape reserved characters (because the backslash character is itself reserved, you must escape the backslash with another backslash).
+All of the preceding operators are reserved characters. To refer to them as raw characters and not operators, escape any of them with a backslash. When sending a JSON request, use `\\` to escape reserved characters (because the backslash character is itself reserved, you must escape the backslash with another backslash).
 
 ## Default operator
 
@@ -109,7 +109,7 @@ GET /customers/_search
 
 However, the results include not only the expected document, but all four documents:
 
-<details open markdown="block">
+<details closed markdown="block">
   <summary>
     Response
   </summary>
@@ -213,7 +213,7 @@ GET /customers/_search
 
 The preceding query returns document 2:
 
-<details open markdown="block">
+<details closed markdown="block">
   <summary>
     Response
   </summary>
@@ -362,8 +362,8 @@ Parameter | Data type | Description
 `fields` | String array | The list of fields to search (for example, `"fields": ["title^4", "description"]`). Supports wildcards. If unspecified, defaults to the `index.query.default_field` setting, which defaults to `["*"]`. The maximum number of fields that can be searched at the same time is defined by `indices.query.bool.max_clause_count`, which is 1,024 by default.
 `flags` | String | A `|`-delimited string of [flags]({{site.baseurl}}/query-dsl/full-text/simple-query-string/) to enable (e.g., `AND|OR|NOT`). Default is `ALL`. You can explicitly set the value for `default_field`. For example, to return all titles, set it to `"default_field": "title"`.
 `fuzzy_max_expansions` | Positive integer | The maximum number of terms to which the query can expand. Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms. Default is `50`.
-`fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
-`fuzzy_prefix_length`| 
+`fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to `true` (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
+`fuzzy_prefix_length`| Integer | The number of beginning characters left unchanged for fuzzy matching. Default is 0. 
 `lenient` | Boolean | Setting `lenient` to `true` lets you ignore data type mismatches between the query and the document field. For example, a query string of `"8.2"` could match a field of type `float`. Default is `false`.
 `minimum_should_match` | Positive or negative integer, positive or negative percentage, combination | If the query string contains multiple search terms and you use the `or` operator, the number of terms that need to match for the document to be considered a match. For example, if `minimum_should_match` is 2, `wind often rising` does not match `The Wind Rises.` If `minimum_should_match` is `1`, it matches. For details, see [Minimum should match]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/).
 `quote_field_suffix` | String | This option lets you search for exact matches (surrounded with quotation marks) using a different analysis method than non-exact matches use. For example, if `quote_field_suffix` is `.exact` and you search for `\"lightly\"` in the `title` field, OpenSearch searches for the word `lightly` in the `title.exact` field. This second field might use a different type (for example, `keyword` rather than `text`) or a different analyzer.
