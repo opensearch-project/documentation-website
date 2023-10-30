@@ -14,25 +14,6 @@ redirect_from:
 
 A `query_string` query parses the query string based on the [query string syntax](#query-string-syntax). It lets you create powerful yet concise queries that can incorporate wildcards and search multiple fields.
 
-The query string query splits text based on operators and analyzes each individually.
-
-If you search using the HTTP request query parameters (for example, `_search?q=wind`), OpenSearch creates a query string query.
-{: .note }
-
-The following is the `query_string` query format:
-
-```json
-GET _search
-{
-  "query": {
-    "query_string": {
-      "query": "the wind AND (rises OR rising)"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
 Searches with `query_string` queries do not return nested documents. To search nested fields, use the [`nested` query]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/).
 {: .note}
 
@@ -40,6 +21,32 @@ Query string query has a strict syntax and returns an error in case of invalid s
 {: .important}
 
 ## Query string syntax
+
+Query string syntax is based on [Apache Lucene query syntax](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html).
+
+You can use query string syntax in the following cases:
+
+1. In a `query_string` query, for example:
+    ```json
+    GET _search
+    {
+      "query": {
+        "query_string": {
+          "query": "the wind AND (rises OR rising)"
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+1. In the Discover app of OpenSearch Dashboards, if you turn off DQL, as shown in the following image.
+  ![Using query string syntax in OpenSearch Dashboards Discover]({{site.url}}{{site.baseurl}}/images/discover-lucene-syntax.png)
+  For more information, see [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
+
+1. If you search using the HTTP request query parameters, for example: 
+  ```json
+    GET _search?q=wind
+  ```
 
 A query string consists of _terms_ and _operators_. A term is a single word (for example, in the query `wind rises`, the terms are `wind` and `rises`). If several terms are surrounded by quotation marks, they are treated as one phrase where words are marched in the order they appear (for example, `"wind rises"`). Operators (such as `OR`, `AND`, and `NOT`) specify the Boolean logic used to interpret text in the query string. 
 
@@ -104,7 +111,10 @@ The following is a list of reserved characters for the query string query:
 
 `+`, `-`, `=`, `&&`, `||`, `>`, `<`, `!`, `(`, `)`,`{`, `}`, `[`, `]`, `^`, `"`, `~`, `*`, `?`, `:`, `\`, `/`
 
-Escape reserved characters with a backslash. When sending a JSON request, use `\\` to escape reserved characters (because the backslash character is itself reserved, you must escape the backslash with another backslash). For example, to search for an expression `2*3`, specify the query string: `2\\*3`:
+Escape reserved characters with a backslash (`\`). When sending a JSON request, use a double backslash (`\\`) to escape reserved characters (because the backslash character is itself reserved, you must escape the backslash with another backslash). 
+{: .tip}
+
+For example, to search for an expression `2*3`, specify the query string: `2\\*3`:
 
 ```json
 GET /testindex/_search
@@ -129,14 +139,14 @@ White space characters are not considered operators. If a query string is empty 
 
 Specify the field name before the colon. The following table contains example queries with field names.
 
-Query | Criterion for a document to match | Matching documents from the `testindex` index
-:--- | :--- | :---
-`title: wind` | The `title` field contains the word `wind`. | 1, 2
-`title: (wind OR windy)` | The `title` field contains the word `wind` or the word `windy`. | 1, 2, 3
-`title: \"wind rises\"` | The `title` field contains the phrase `wind rises`. Escape quotation marks with a backslash. | 1
-`article\\ title: wind` | The `article title` field contains the word `wind`. Escape the space character with a backslash. | 4
-`title.\\*: rise` | Every field that begins with `title.` (in this example, `title.english`) contains the word `rise`. Escape the wildcard character with a backslash. | 1
-`_exists_: description` | The field `description` exists. | 2
+Query in the `query_string` query | Query in Discover | Criterion for a document to match | Matching documents from the `testindex` index
+:--- | :--- | :--- | :---
+`title: wind` | `title: wind` | The `title` field contains the word `wind`. | 1, 2
+`title: (wind OR windy)` | `title: (wind OR windy)` | The `title` field contains the word `wind` or the word `windy`. | 1, 2, 3
+`title: \"wind rises\"` | `title: "wind rises"` | The `title` field contains the phrase `wind rises`. Escape quotation marks with a backslash. | 1
+`article\\ title: wind` | `article\ title: wind` | The `article title` field contains the word `wind`. Escape the space character with a backslash. | 4
+`title.\\*: rise` | `title.\*: rise` | Every field that begins with `title.` (in this example, `title.english`) contains the word `rise`. Escape the wildcard character with a backslash. | 1
+`_exists_: description` | `_exists_: description` | The field `description` exists. | 2
 
 ## Wildcard expressions
 
@@ -144,32 +154,32 @@ You can specify wildcard expressions using special characters: `?` replaces a si
 
 #### Example
 
-The following query searches for the speaker `KING` in the play name that ends with `well`:
+The following query searches for the title containing the word `gone` and a description that contains a word starting with `hist`:
 
 ```json
-GET /shakespeare/_search
+GET /testindex/_search
 {
  "query": {
     "query_string": {
-      "query": "speaker: KING AND play_name: *well"
+      "query": "title: gone AND description: hist*"
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-Wildcard queries can use a significant amount of memory, which can degrade performance. Wildcards at the beginning of a word (for example, `*well`) are the most expensive because matching documents on such wildcards requires examining all terms in the index. To disable leading wildcards,set `allow_leading_wildcard` to `false`.
+Wildcard queries can use a significant amount of memory, which can degrade performance. Wildcards at the beginning of a word (for example, `*cal`) are the most expensive because matching documents on such wildcards requires examining all terms in the index. To disable leading wildcards,set `allow_leading_wildcard` to `false`.
 {: .warning}
 
-For efficiency, pure wildcards such as `*` are rewritten as `exists` queries. Therefore, the `play: *` wildcard will match documents containing an empty value in the `play` field but will not match documents in which the `play` field is either missing or has a `null` value.
+For efficiency, pure wildcards such as `*` are rewritten as `exists` queries. Therefore, the `description: *` wildcard will match documents containing an empty value in the `description` field but will not match documents in which the `description` field is either missing or has a `null` value.
 
-If you set `analyze_wildcard` to `true`, OpenSearch will analyze queries that end with a * (such as `*well`) and will build a Boolean query comprised of the resulting tokens by taking the exact matches on the first N-1 tokens, and prefix matching the last token.
+If you set `analyze_wildcard` to `true`, OpenSearch will analyze queries that end with a `*` (such as `hist*`). Consequently, Opensearch will build a Boolean query comprised of the resulting tokens by taking exact matches on the first n-1 tokens, and a prefix match on the last token.
 
 ## Regular expressions
 
-To specify regular expression patterns in a query string, surround them with forward slashes (`/`), for example `speaker: /K[A-Z]NG/`.
+To specify regular expression patterns in a query string, surround them with forward slashes (`/`), for example `title: /w[a-z]nd/`.
 
-The `allow_leading_wildcard` parameter does not apply to regular expressions. For example, a query string such as  `/.*G/` will examine all terms in the index. 
+The `allow_leading_wildcard` parameter does not apply to regular expressions. For example, a query string such as  `/.*d/` will examine all terms in the index. 
 {: .important}
 
 ## Fuzziness
