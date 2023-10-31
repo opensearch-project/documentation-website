@@ -108,12 +108,6 @@ To select a time range for the histogram, choose from the following options:
 ## Selecting multiple data sources in the Dev Tools console
 
 Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insight into your code and applications. Watch the video to see it in action, and then try it out in the following steps.
-=======
-Selecting multiple data sources using the Dev Tools console gives you the flexibility to work with a broader range of data and gain deeper insight into your code and applications. Watch the following video to see it in action, and then try it out yourself. 
->>>>>>> 0e1f96cd (writing)
-=======
-Selecting multiple data sources by using the Dev Tools console gives you the flexibility to work with a broader range of data and gain deeper insight into your code and applications. Watch the following video to see it in action, and then try it out yourself. 
->>>>>>> 7f57cc3e (Update _dashboards/management/multi-data-sources.md)
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
