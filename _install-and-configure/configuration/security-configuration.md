@@ -1,71 +1,16 @@
 ---
 layout: default
-title: Settings for opensearch.yml
-nav_order: 5
+title: Security plugin settings
+parent: Configuring OpenSearch
+nav_order: 20
 ---
 
-# Settings for opensearch.yml
+# Security plugin settings
 
-Configuration file settings customize your distribution. You can use the settings in the following tables to configure your `opensearch.yml` file for core OpenSearch, Security, and whichever plugins you run. This section categorizes the settings and provides description for each. Examples for settings in the groupings follow each table. 
-
-
-## OpenSearch core settings
-
-The settings in the following table apply specifically to OpenSearch core.
-
-| Setting | Description |
-| :--- | :--- |
-| `network.host` | Bind OpenSearch to the correct network interface. Use 0.0.0.0 to include all available interfaces, or specify an IP address assigned to a specific interface. |
-| `http.port` | Used for setting the custom port for HTTP. |
-| `discovery.seed_hosts` | The list of hosts that perform discovery when a node is started. The default list of hosts is `["127.0.0.1", "[::1]"]`.
-| `cluster.initial_cluster_manager_nodes` | A list of cluster-manager-eligible nodes used to bootstrap the cluster. |
-| `discovery.zen.minimum_master_nodes` | The minimum number of master nodes. Set to 1 to allow single node clusters. |
-| `gateway.recover_after_nodes` | After a full cluster restart, the number of nodes that must start before recovery can begin.
-| `discovery.type` | Before configuring a cluster, set discovery.type to single-node to prevent the bootstrap checks from failing when you start the service. |
-| `cluster.name` | Enter a name for the cluster |
-| `node.name` | a descriptive name for the node |
-| `node.attr.rack` | Custom attributes for the node |
-| `path.data` | A path to the directory where your data is stored. Separate multiple locations with commas. |
-| `path.logs` | A path to log files |
-| `bootstrap.memory_lock` | Locks the memory at startup. We recommend setting the heap size to about half the memory available on the system and that the owner of the process is allowed to use this limit. OpenSearch doesn't perform well when the system is swapping the memory. |
-| `action.destructive_requires_name` | Determines whether explicit names are required to delete indexes. Default is `true`. |
-| `cluster.remote_store.enabled` | Determines whether the cluster forces index creation when remote store is enabled. Default is `true`. |
-| `cluster.remote_store.repository` | The repository used for segment upload when enforcing remote store for an index. |
-| `cluster.remote_store.translog.enabled` | Determines whether the cluster forces index creation when translog remote store is enabled. Default is `true`. |
-| `cluster.remote_store.translog.repository` | The repository used for translog upload when enforcing remote store for an index. |
+The `opensearch.yml` settings in the following tables apply specifically to the Security plugin.
 
 
-## OpenSearch settings examples
-
-```yml
-network.host: 192.168.0.1
-http.port: 9200
-discovery.seed_hosts: ["host1", "host2"]
-cluster.initial_cluster_manager_nodes: ["node-1", "node-2"]
-discovery.zen.minimum_master_nodes: 1
-gateway.recover_after_nodes: 3
-discovery.type: single-node
-cluster.name: my-application
-node.name: node-1
-node.attr.rack: r1
-path.data: path/to/data/datafile/
-path.logs: path/to/logs/logfile/
-bootstrap.memory_lock: true
-action.destructive_requires_name: true
-cluster.remote_store.enabled: true
-cluster.remote_store.repository: my-repo-1
-cluster.remote_store.translog.enabled: true
-cluster.remote_store.translog.repository: my-repo-1
-```
-
-
-## Security plugin settings
-<!--- It might be a good idea to have Security settings broken up into level-heading 3 tables, since there are so many. I started doing that below. --->
-
-The settings in the following tables apply specifically to the Security plugin.
-
-
-### Common configuration
+## Common configuration
 
 | Setting | Description |
 | :--- | :--- |
@@ -78,7 +23,7 @@ The settings in the following tables apply specifically to the Security plugin.
 | `plugins.security.compliance.salt` | The salt to use when generating the hash value for field masking. Must be at least 32 characters. Only ASCII characters are allowed. Optional. |
 
 
-### REST management API configuration
+## REST management API configuration
 
 | Setting | Description |
 | :--- | :--- |
@@ -93,7 +38,7 @@ The settings in the following tables apply specifically to the Security plugin.
 | `plugins.security.restapi.endpoints_disabled.test-role.INTERNALUSERS` | [More description needed] See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
 
 
-### Advanced configuration
+## Advanced configuration
 
 | Setting | Description |
 | :--- | :--- |
@@ -104,7 +49,7 @@ The settings in the following tables apply specifically to the Security plugin.
 | `plugins.security.system_indices.permissions.enabled` | Enables the system index permissions feature. When set to `true`, the feature is enabled and users with permission to modify roles can create roles that include permissions that grant access to system indexes. When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the permission is set to `false` in a new cluster. |
 
 
-### Expert configuration
+## Expert configuration
 
 An expert setting should only be configured and deployed by an admin who understands the feature completely. Misunderstandings of a feature can lead to security risks or cause the Security plugin to not operate properly.
 
@@ -124,7 +69,7 @@ An expert setting should only be configured and deployed by an admin who underst
 | `plugins.security.system_indices.indices` | Enter a list of indexes to be used as system indexes. This setting is controlled by the `plugins.security.system_indices.enabled` setting. |
 
 
-### Audit log configuration
+## Audit log configuration
 
 | Setting | Description |
 | :--- | :--- |
@@ -164,7 +109,7 @@ An expert setting should only be configured and deployed by an admin who underst
 | `opendistro_security.audit.config.disabled_transport_categories` | [More description needed] |
 
 
-### Hostname verification and DNS lookup
+## Hostname verification and DNS lookup
 
 For more information, see [Hostname verification and DNS lookup]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
 
@@ -174,7 +119,7 @@ For more information, see [Hostname verification and DNS lookup]({{site.url}}{{s
 | `plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is true. Only works if hostname verification is also enabled. |
 
 
-### Client authentication
+## Client authentication
 
 For more information, see [Client authentication]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-client-authentication).
 
@@ -183,7 +128,7 @@ For more information, see [Client authentication]({{site.url}}{{site.baseurl}}/s
 | `plugins.security.ssl.http.clientauth_mode` | The TLS client authentication mode to use. Can be one of `NONE`, `OPTIONAL` (default) or `REQUIRE`. Optional. |
 
 
-### Enabled ciphers and protocols
+## Enabled ciphers and protocols
 
 Values for these settings are expressed in an array. See [Enabled ciphers and protocols]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-enabled-ciphers-and-protocols) for more information.
 
@@ -195,40 +140,40 @@ Values for these settings are expressed in an array. See [Enabled ciphers and pr
 | `plugins.security.ssl.transport.enabled_protocols` | Enabled TLS protocols for the transport layer. Only Java format is supported. |
 
 
-### Keystore and truststore files--Transport layer TLS
+## Key store and trust store files--Transport layer TLS
 
-see [Transport layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls-1) for keystore and truststore files.
+see [Transport layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls-1) for key store and trust store files.
 
 | Setting | Description |
 | :--- | :--- |
-| `plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS. |
-| `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.transport.keystore_type` | The type of the key store file, JKS or PKCS12/PFX. Optional. Default is JKS. |
+| `plugins.security.ssl.transport.keystore_filepath` | Path to the key store file, which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.transport.keystore_alias` | Alias name. Optional. Default is the first alias. |
-| `plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`. |
-| `plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS. |
-| `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.transport.keystore_password` | Key store password. Default is `changeit`. |
+| `plugins.security.ssl.transport.truststore_type` | The type of the trust store file, JKS or PKCS12/PFX. Default is JKS. |
+| `plugins.security.ssl.transport.truststore_filepath` | Path to the trust store file, which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.transport.truststore_alias` | Alias name. Optional. Default is all certificates. |
-| `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`. |
+| `plugins.security.ssl.transport.truststore_password` | Trust store password. Default is `changeit`. |
 
 
-### Keystore and truststore files--REST layer TLS
+## Key store and trust store files--REST layer TLS
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls-1).
 
 | Setting | Description |
 | :--- | :--- |
 | `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`. |
-| `plugins.security.ssl.http.keystore_type` | The type of the keystore file: JKS or PKCS12/PFX. Optional. Default is `JKS`. |
-| `plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.http.keystore_type` | The type of the key store file: JKS or PKCS12/PFX. Optional. Default is `JKS`. |
+| `plugins.security.ssl.http.keystore_filepath` | Path to the key store file, which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.http.keystore_alias` | Alias name. Optional. Default is the first alias. |
-| `plugins.security.ssl.http.keystore_password` | Keystore password. Default is `changeit`. |
-| `plugins.security.ssl.http.truststore_type` | The type of the truststore file: JKS or PKCS12/PFX. Default is `JKS`. |
-| `plugins.security.ssl.http.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required. |
+| `plugins.security.ssl.http.keystore_password` | Key store password. Default is `changeit`. |
+| `plugins.security.ssl.http.truststore_type` | The type of the trust store file: JKS or PKCS12/PFX. Default is `JKS`. |
+| `plugins.security.ssl.http.truststore_filepath` | Path to the trust store file, which must be under the `config` directory, specified using a relative path. Required. |
 | `plugins.security.ssl.http.truststore_alias` | Alias name. Optional. Default is all certificates. |
-| `plugins.security.ssl.http.truststore_password` | Truststore password. Default is `changeit`. |
+| `plugins.security.ssl.http.truststore_password` | Trust store password. Default is `changeit`. |
 
 
-### OpenSSL
+## OpenSSL
 
 For more information, see [OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-openssl).
 
@@ -238,7 +183,7 @@ For more information, see [OpenSSL]({{site.url}}{{site.baseurl}}/security/config
 | `plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is `true`. |
 
 
-### X.509 PEM certificates and PKCS #8 keys--Transport layer TLS
+## X.509 PEM certificates and PKCS #8 keys--Transport layer TLS
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls).
 
@@ -250,7 +195,7 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required. |
 
 
-### X.509 PEM certificates and PKCS #8 keys--REST layer TLS
+## X.509 PEM certificates and PKCS #8 keys--REST layer TLS
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls).
 
@@ -263,19 +208,19 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the config directory, specified using a relative path. Required. |
 
 
-### Transport Layer Security
+## Transport Layer Security
 <!--- Not sure whether this is the best way to describe a category for these settings, and not sure whether they fit into a cohesive group of related settings. Need to solicit info from Security team that clarifies how these fit or don't fit with other TLS settings (above). Many of these descriptions need clarification (they came across very rough). --->
 
 | Setting | Description |
 | :--- | :--- |
 | `plugins.security.ssl.transport.enabled` | Enables or disables SSL on the transport layer. |
 | `plugins.security.ssl.transport.client.pemkey_password` | Password for the PEM formatted private key used by client. ?? |
-| `plugins.security.ssl.transport.keystore_keypassword` | Provides the password for the key inside the keystore. ?? |
-| `plugins.security.ssl.transport.server.keystore_keypassword` | Provides the password for the key inside the server keystore. ?? |
-| `plugins.sercurity.ssl.transport.server.keystore_alias` | The alias name for the keystore of the server. |
-| `plugins.sercurity.ssl.transport.client.keystore_alias` | The alias name for the keystore of the client. |
-| `plugins.sercurity.ssl.transport.server.truststore_alias` | The alias name for the truststore of the server. |
-| `plugins.sercurity.ssl.transport.client.truststore_alias` | The alias name for the truststore of the client. |
+| `plugins.security.ssl.transport.keystore_keypassword` | Provides the password for the key inside the key store. ?? |
+| `plugins.security.ssl.transport.server.keystore_keypassword` | Provides the password for the key inside the server key store. ?? |
+| `plugins.sercurity.ssl.transport.server.keystore_alias` | The alias name for the key store of the server. |
+| `plugins.sercurity.ssl.transport.client.keystore_alias` | The alias name for the key store of the client. |
+| `plugins.sercurity.ssl.transport.server.truststore_alias` | The alias name for the trust store of the server. |
+| `plugins.sercurity.ssl.transport.client.truststore_alias` | The alias name for the trust store of the client. |
 | `plugins.security.ssl.client.external_context_id` | Provides the transport client an ID for an external SSL context it should use. |
 | `plugins.secuirty.ssl.transport.principal_extractor_class` | Passes a class implementing an extractor so a custom part of the certificate is used as the principal. |
 | `plugins.security.ssl.http.crl.file_path` | A file path to a certificate revocation list file. |
@@ -440,25 +385,3 @@ plugins.security.system_indices.indices:
 
 ```
 <!--- These need example values  --->
-
-## Current experimental feature settings
-
-| Setting | Description |
-| :--- | :--- |
-| `opensearch.experimental.feature.replication_type.enabled` | Enables the index setting that allows for changing the replication type. |
-| `opensearch.experimental.feature.remote_store.enabled` | Enables the index setting that allows for persisting data to remote store in addition to the local disk. |
-| `opensearch.experimental.feature.searchable_snapshot.enabled` | Enables a new parameter for the snapshot restore API that allows for creation of a new index type, which searches a snapshot directly in a remote repository without restoring all index data to disk ahead of time. |
-| `opensearch.experimental.feature.extensions.enabled` | Enables extensions to work with OpenSearch and extend application features of OpenSearch outside of the core. |
-| `opensearch.experimental.feature.search_pipeline.enabled: false` | Enables configurable processors for search requests and search responses, similar to ingest pipelines. |
-
-
-### Example settings for currently experimental features
-
-```yml
-opensearch.experimental.feature.replication_type.enabled: false
-opensearch.experimental.feature.remote_store.enabled: false
-opensearch.experimental.feature.searchable_snapshot.enabled: false
-opensearch.experimental.feature.extensions.enabled: false
-opensearch.experimental.feature.search_pipeline.enabled: false
-```
-

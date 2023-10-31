@@ -100,9 +100,6 @@ collections:
   api-reference:
     permalink: /:collection/:path/
     output: true  
-  configuration-files:
-    permalink: /:collection/:path/
-    output: true
   troubleshoot:
     permalink: /:collection/:path/
     output: true
@@ -186,9 +183,6 @@ just_the_docs:
       nav_fold: true
     api-reference:
       name: API reference
-      nav_fold: true
-    configuration-files:
-      name: Configuration files
       nav_fold: true
     troubleshoot:
       name: Troubleshooting
