@@ -215,7 +215,7 @@ Follow these steps to learn how to run PPL queries against your OpenSearch data 
     ```
     {% include copy.html %}
     
-3. Analyze the results.
+3. View the results.
     - View the results in the **Results** pane, which presents the query output in tabular format. You can sort, filter, and download the results as needed.
 
    The following image shows the query editor pane and results pane for the preceding PPL query:
