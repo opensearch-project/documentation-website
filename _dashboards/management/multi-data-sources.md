@@ -17,7 +17,7 @@ This tutorial uses a preconfigured data source and index pattern for which you a
 
 To enable multiple data sources:
 
-1. Navigate to your Dashboards home directory, for example, in Docker, `/usr/share/opensearch-dashboards`.
+1. Navigate to your Dashboards home directory, for example, in Docker, `/usr/share/opensearch-dashboards/config`.
 2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) is available on GitHub.
 3. Set `data_source.enabled:` to  `true` and save the YAML file.
 4. Restart the Dashboards container.
