@@ -14,7 +14,6 @@ You can use the following methods to paginate search results in OpenSearch:
 1. The [`from` and `size` parameters](#the-from-and-size-parameters)
 1. The [scroll search](#scroll-search) operation
 1. The [`search_after` parameter](#the-search_after-parameter)
-1. [Point in Time with `search_after`](#point-in-time-with-search_after)
 
 ## The `from` and `size` parameters
 
@@ -275,7 +274,3 @@ GET shakespeare/_search
 ```
 
 Unlike the `scroll` operation, the `search_after` parameter is stateless, so the document order may change because of documents being indexed or deleted.
-
-## Point in Time with `search_after`
-
-Point in Time (PIT) with `search_after` is the preferred pagination method in OpenSearch, especially for deep pagination. It bypasses the limitations of all other methods because it operates on a dataset that is frozen in time, it is not bound to a query, and it supports consistent pagination going forward and backward. To learn more, see [Point in Time]({{site.url}}{{site.baseurl}}/opensearch/point-in-time).
