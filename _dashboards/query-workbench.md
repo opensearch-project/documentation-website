@@ -35,85 +35,6 @@ PUT accounts/_bulk?refresh
 ```
 {% include copy-curl.html %}
 
-The following response confirms the data is indexed:
-
-```json
-{
-  "took": 118,
-  "errors": false,
-  "items": [
-    {
-      "index": {
-        "_index": "accounts",
-        "_id": "1",
-        "_version": 1,
-        "result": "created",
-        "forced_refresh": true,
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
-        },
-        "_seq_no": 0,
-        "_primary_term": 1,
-        "status": 201
-      }
-    },
-    {
-      "index": {
-        "_index": "accounts",
-        "_id": "6",
-        "_version": 1,
-        "result": "created",
-        "forced_refresh": true,
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
-        },
-        "_seq_no": 1,
-        "_primary_term": 1,
-        "status": 201
-      }
-    },
-    {
-      "index": {
-        "_index": "accounts",
-        "_id": "13",
-        "_version": 1,
-        "result": "created",
-        "forced_refresh": true,
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
-        },
-        "_seq_no": 2,
-        "_primary_term": 1,
-        "status": 201
-      }
-    },
-    {
-      "index": {
-        "_index": "accounts",
-        "_id": "18",
-        "_version": 1,
-        "result": "created",
-        "forced_refresh": true,
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
-        },
-        "_seq_no": 3,
-        "_primary_term": 1,
-        "status": 201
-      }
-    }
-  ]
-}
-```
-
 ## Running SQL queries within Query Workbench
 
 Follow these steps to learn how to run SQL queries against your OpenSearch data using Query Workbench:
@@ -124,7 +45,7 @@ Follow these steps to learn how to run SQL queries against your OpenSearch data 
 2. Run a query.
     - Select the **SQL** button. In the query editor, type a SQL expression and then select the **Run** button to run the query. 
     
-    The following is an example query that retrieves the first name, last name, and balance from the `accounts` index for accounts with a balance greater than 10,000 and sorts by balance in descending order:
+    The following example query retrieves the first name, last name, and balance from the `accounts` index for accounts with a balance greater than 10,000 and sorts by balance in descending order:
 
     ```sql
     SELECT
@@ -141,7 +62,7 @@ Follow these steps to learn how to run SQL queries against your OpenSearch data 
     {% include copy.html %}
     
 3. View the results.
-    - View the results in the **Results** pane, which presents the query output in tabular format. You can sort, filter, and download the results as needed.
+    - View the results in the **Results** pane, which presents the query output in tabular format. You can filter and download the results as needed.
 
    The following image shows the query editor pane and results pane for the preceding SQL query:
 
@@ -156,45 +77,6 @@ Follow these steps to learn how to run SQL queries against your OpenSearch data 
     The following image shows the explanation of the SQL query that was run in step 2.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-explain.png" alt="Query Workbench SQL query explanation pane" width="500">
-
-### Viewing indexes
-
-To view a list of all your indexes, run the following `SHOW` statement:
-
-```sql
-SHOW TABLES LIKE %
-```
-{% include copy.html %}
-
-The following image shows an example of indexes listed in the **Results** pane:
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-list.png" alt="Query Workbench list of indexes view within the Results pane" width="800">
-
-### Retrieving data
-
-To retrieve a document, run a `SELECT` statement with a `FROM` clause in the Query Workbench editor. The following is the basic SQL syntax to retrieve a document in OpenSearch: 
-
-```sql
-SELECT *
-FROM <index_name>
-WHERE <field_name> = <field_value>
-```
-{% include copy.html %}
-
-In this syntax, replace `<index_name` with the name of the index where the document is stored, `<field_name` with the name of the field you want to search, and `<field_value` with the value you want to search for. The `*` in the `SELECT` statement means that you want to retrieve all fields from the document. If you only want to retrieve specific fields, replace `*` with a comma-separated list of field names. 
-
-### Deleting data
-
-To delete a document from an index, run a `DELETE` statement with the `WHERE` clause. The following is the basic SQL syntax to delete a document from an index: 
-
-```sql
-DELETE
-FROM <index_name>
-WHERE <field_name> = <field_value>
-```
-{% include copy.html %}
-
-In this syntax, replace `<index_name>` with the name of the index where the document is stored, `<field_name>` with the name of the field you want to search, and `<field_value>` with the value you want to search for.
 
 ## Running PPL queries within Query Workbench
 
@@ -216,9 +98,9 @@ Follow these steps to learn how to run PPL queries against your OpenSearch data 
     {% include copy.html %}
     
 3. View the results.
-    - View the results in the **Results** pane, which presents the query output in tabular format. You can sort, filter, and download the results as needed.
+    - View the results in the **Results** pane, which presents the query output in tabular format.
 
-   The following image shows the query editor pane and results pane for the preceding PPL query:
+   The following image shows the query editor pane and results pane for the PPL query that was run in step 2:
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-ppl.png" alt="Query Workbench PPL query input and results output panes">
 
