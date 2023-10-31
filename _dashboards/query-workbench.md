@@ -20,7 +20,7 @@ Before getting started, make sure you have [indexed your data]({{site.url}}{{sit
 
 For this tutorial, you can index the following sample document. Alternatively, you can use the [OpenSearch Playground](https://playground.opensearch.org/app/opensearch-query-workbench#/), which has preloaded indexes that you can use to try out Query Workbench.
 
-To index the sample document, go to **OpenSearch Dashboards** > **Dev Tools** and enter the following `bulk` operation in the left-side **Console** pane:
+To index the sample document, send the following Bulk API request:
 
 ```json
 PUT accounts/_bulk?refresh
