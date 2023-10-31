@@ -194,7 +194,7 @@ WHERE <field_name> = <field_value>
 ```
 {% include copy.html %}
 
-In this syntax, replace `<index_name` with the name of the index where the document is stored, `<field_name` with the name of the field you want to search, and `<field_value` with the value you want to search for.
+In this syntax, replace `<index_name>` with the name of the index where the document is stored, `<field_name>` with the name of the field you want to search, and `<field_value>` with the value you want to search for.
 
 ## Running PPL queries within Query Workbench
 
