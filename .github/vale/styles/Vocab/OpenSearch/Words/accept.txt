@@ -5,6 +5,7 @@
 [Bb]ackporting
 [Bb]ackpressure
 [Bb]asemap
+[Bb]enchmarked
 [Bb]igram
 Boolean
 [Cc]allout
@@ -64,6 +65,7 @@ Levenshtein
 [Mm]isorder
 [Mm]ultifield
 [Mm]ultiline
+[Mm]ultimodal
 [Mm]ultipoint
 [Mm]ultipolygon
 [Mm]ultithreaded

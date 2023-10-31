@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # CAT health
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.

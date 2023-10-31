@@ -16,6 +16,7 @@ exceptions:
   - BM25
   - CSV
   - CPU
+  - CRUD
   - DNS
   - DOS
   - FAQ

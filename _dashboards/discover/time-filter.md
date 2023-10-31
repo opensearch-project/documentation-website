@@ -2,7 +2,7 @@
 layout: default
 title: Time filter
 parent: Discover
-nav_order: 10
+nav_order: 20
 redirect_from:
   - /dashboards/get-started/time-filter/
 ---
