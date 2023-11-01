@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Connecting multiple data sources
+title: Multiple data sources
 parent: Data sources
 nav_order: 10
 redirect_from: 
   - /dashboards/discover/multi-data-sources/
 ---
 
-# Connecting multiple data sources
+# Multiple data sources
 
 Learn how to enable the `data_source` setting in Dashboards; add credentials, data source connections, and index patterns; and combine visualizations in a single dashboard in this tutorial.
 
-## Modify the YAML file settings for multiple data sources
+## Step 1: Modify the YAML file settings.
 
 This tutorial uses a preconfigured data source and index pattern for which you aren’t required to configure settings. However, you have to enable the multiple data sources feature because it is disabled by default.
 
@@ -25,11 +25,9 @@ To enable multiple data sources:
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="700">
 
-## Select multiple data sources by using the Dev Tools console
+## Step 2: Create a new data source connection through the Dev Tools console.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections.
+A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections using the Dev Tool console.
 
 To create a new data source connection:
 
@@ -57,7 +55,7 @@ To create a new data source connection:
 
 5. Delete the data source connection by selecting the check box to the left of the title and then choosing **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported.
 
-### Editing and updating a data source connection
+### Edit and update a data source connection
 
 To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
 
@@ -69,7 +67,7 @@ When **AWS SigV4** is the selected authentication method, you can update the cre
 
 To delete the data source connection, select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}).
 
-## Creating an index pattern
+## Step 3: Create an index pattern.
 
 Use index patterns to access the OpenSearch data that you want to explore. Learn how to load your own data and create an index pattern in the following steps. This tutorial uses the preconfigured index pattern `opensearch_dashboards_sample_data_ecommerce Default`.
 
@@ -83,11 +81,11 @@ Use index patterns to access the OpenSearch data that you want to explore. Learn
 8. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
 9. Choose an option for the **Time field** and then select **Create index pattern**.
 
-## Searching data
+## Step 4: Search your data.
 
 The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can choose the time filter to change the time range or select a specific time range in the histogram.
 
-### Setting the time filter
+### Set the time filter
 
 To set the time filter:
 
@@ -97,7 +95,7 @@ To set the time filter:
 4. Change start or end times by selecting the start or end time in the search bar.
 5. In the pop-up window, choose **Absolute**, **Relative**, or **Now** and then specify the date.
 
-### Selecting a time range from the histogram
+### Select a time range from the histogram
 
 To select a time range for the histogram, choose from the following options:
 
@@ -105,9 +103,9 @@ To select a time range for the histogram, choose from the following options:
 * Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart (the cursor changes to a plus sign when you hover over a valid start point).
 * Select the dropdown and then select an interval.
 
-## Selecting multiple data sources in the Dev Tools console
+**Step 5: Select multiple data sources through the Dev Tools console.**
 
-Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insight into your code and applications. Watch the video to see it in action, and then try it out in the following steps.
+Selecting multiple data sources through the Dev Tools console provides for working with a broader range of data and gaining deeper insight into your code and applications. Watch the following 10-second video to see it in action or follow these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
@@ -127,7 +125,7 @@ To select a data source by using the Dev Tools console, follow these steps:
 
 ## Limitations
 
-This feature is still under development, so there are some limitations:
+This feature has some limitations:
 
 * The multiple data sources feature is supported for index-pattern-based visualizations only.
 * The visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.
