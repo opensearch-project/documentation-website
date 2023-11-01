@@ -3,7 +3,6 @@ layout: default
 title: Index patterns
 parent: Dashboards Management
 nav_order: 10
-has_children: true
 ---
 
 # Index patterns
