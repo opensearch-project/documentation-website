@@ -23,7 +23,7 @@ To enable multiple data sources:
 4. Restart the Dashboards container.
 5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Dashboards Management** navigation menu. **Data sources** appears in the sidebar, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt="Data sources sidebar on the Dashboards Management interface" width="700">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt="Data sources sidebar on the Dashboards Management interface">
 
 ## Step 2: Create a new data source connection through the Dev Tools console.
 
