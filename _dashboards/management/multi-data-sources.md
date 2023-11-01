@@ -13,7 +13,7 @@ Learn how to enable the `data_source` setting in Dashboards; add credentials, da
 
 ## Step 1: Modify the YAML file settings.
 
-This tutorial uses a preconfigured data source and index pattern for which you aren’t required to configure settings. However, you have to enable the multiple data sources feature because it is disabled by default.
+To use the multiple data sources feature, the setting must be enabled. It is disabled by default.
 
 To enable multiple data sources:
 
@@ -23,7 +23,7 @@ To enable multiple data sources:
 4. Restart the Dashboards container.
 5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Dashboards Management** navigation menu. **Data sources** appears in the sidebar, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="700">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt="Data sources sidebar on the Dashboards Management interface" width="700">
 
 ## Step 2: Create a new data source connection through the Dev Tools console.
 
@@ -103,7 +103,7 @@ To select a time range for the histogram, choose from the following options:
 * Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart (the cursor changes to a plus sign when you hover over a valid start point).
 * Select the dropdown and then select an interval.
 
-**Step 5: Select multiple data sources through the Dev Tools console.**
+## Step 5: Select multiple data sources through the Dev Tools console.
 
 Selecting multiple data sources through the Dev Tools console provides for working with a broader range of data and gaining deeper insight into your code and applications. Watch the following 10-second video to see it in action or follow these steps.
 
