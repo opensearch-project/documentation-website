@@ -171,7 +171,7 @@ Geo-bounding box queries accept the following fields.
 Field | Data type | Description
 :--- | :--- | :--- 
 `_name` | String | The name of the filter. Optional.
-validation_method | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
+`validation_method` | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
 `type` | String | Specifies how to execute the filter. Valid values are `indexed` (index the filter) and `memory` (execute the filter in memory). Default is `memory`.
 `ignore_unmapped` | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, the query does not return any documents that have an unmapped field. If set to `false`, an exception is thrown when the field is unmapped. Default is `false`.
 
