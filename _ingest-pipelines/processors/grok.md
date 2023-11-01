@@ -8,7 +8,9 @@ nav_order: 140
 
 # Grok 
 
-The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. The `grok` processor can perform transformations on extracted data, such as converting a timestamp to a proper date field. 
+The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. 
+
+The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. The `grok` processor can perform transformations on extracted data, such as converting a timestamp to a proper date field.
 
 The following is the syntax for the `grok` processor: 
 
@@ -22,11 +24,11 @@ The following is the syntax for the `grok` processor:
 ```
 {% include copy-curl.html %}
 
-## Grok patterns
+The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE). It enhances regular expressions by naming and renaming patterns for intricate matches. Its syntax variants are `%{SYNTAX:SEMANTIC}`, `%{SYNTAX}`, and `%{SYNTAX:SEMANTIC:TYPE}`. The following bullets provide a breakdown of these variants:
 
-The Grok processor is based on the [`java-grok`](https://mvnrepository.com/artifact/io.krakens/java-grok) library and supports all compatible patterns. The `java-grok` library is built using the [`java.util.regex`](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html) regular expression library.
-
-You can add custom patterns to your pipelines using the `patterns_definitions` parameter. When debugging custom patterns, the [Grok Debugger](https://grokdebugger.com/) can help you test and debug grok patterns before using them in your [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
+- `SYNTAX`: The pattern, for example, `NUMBER` matches `3.44`, and `IP` matches `55.3.244.1`.
+- `SEMANTIC`: The label for the matched text, for example, naming `3.44` as `duration` or `55.3.244.1` as `client_IP`.
+- `TYPE`: Converts the named field to types such as `int`, `long`, `double`, `float`, or `boolean`.
 
 ## Configuration parameters
 
@@ -137,7 +139,11 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Tailoring grok with custom patterns
+## Grok patterns
+
+You can use default patterns, or you can add custom patterns to your pipelines using the `patterns_definitions` parameter. The [Grok Debugger](https://grokdebugger.com/) can help you test and debug grok patterns before using them in your [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/). The [Grok Constructor](https://grokconstructor.appspot.com/) can help you test and construct regular expressions for the Grok filter that parses logfile lines in [Logstash](/tools/logstash/index/). 
+
+### Using with custom patterns
 
 Custom grok patterns can be used in a pipeline to extract structured data from log messages that do not match the built-in grok patterns. This can be useful for parsing log messages from custom applications or for parsing log messages that have been modified in some way. Custom patterns adhere to a straightforward structure: each pattern has a unique name and the corresponding regular expression that defines its matching behavior.These custom patterns can be incorporated into the `grok` processor using the `pattern_definitons` parameter. This parameter accepts a dictionary where the keys represent the pattern names and the values represent the corresponding regular expressions.
 
