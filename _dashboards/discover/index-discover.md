@@ -9,7 +9,7 @@ has_children: true
 
 **Discover** is a tool for exploring your data in OpenSearch Dashboards. You can use **Discover** to visually represent your data on a dashboard and provide a high-level view of key metrics. 
 
-A screenshot of the **Discover** start screen is shown in the following image.
+The following image represents a typical **Discover** page using sample data.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-app.png" alt="Discover start screen" width="700">
 
