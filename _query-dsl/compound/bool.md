@@ -10,7 +10,7 @@ redirect_from:
   - /query-dsl/query-dsl/compound/bool/
 ---
 
-# Boolean queries
+# Boolean query
 
 A Boolean (`bool`) query can combine several query clauses into one advanced query. The clauses are combined with Boolean logic to find matching documents returned in the results.
 
