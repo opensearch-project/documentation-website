@@ -64,7 +64,7 @@ PUT testindex/_doc/2
 ```
 {% include copy-curl.html %}
 
-The following `match_phrase` query searches for the phrase `wind rises`, where the word `wind` is follwed by the word `rises`:
+The following `match_phrase` query searches for the phrase `wind rises`, where the word `wind` is followed by the word `rises`:
 
 ```json
 GET testindex/_search
@@ -186,7 +186,7 @@ The `english` analyzer removes the stopword `the` and performs stemming, produci
 
 ## Slop
 
-If you provide a `slop` parameter, the query tolerates reorderings of the search terms. Slop specifies the number of other words permitted between words in query phrase. For example, in the following query, the search text is reordered compared to the document text:
+If you provide a `slop` parameter, the query tolerates reorderings of the search terms. Slop specifies the number of other words permitted between words in a query phrase. For example, in the following query, the search text is reordered compared to the document text:
 
 ```json
 GET _search

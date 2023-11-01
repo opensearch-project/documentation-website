@@ -10,7 +10,7 @@ nav_order: 50
 
 A multi-match operation functions similarly to the [match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) operation. You can use a `multi_match` query to search multiple fields. 
 
-The `^` lets you "boost" certain fields. Boosts are multipliers that weigh matches in one field more heavily than matches in other fields. In the following example, a match for "wind" in the title field influences `_score` four times as much as a match in the plot field:
+The `^` "boosts" certain fields. Boosts are multipliers that weigh matches in one field more heavily than matches in other fields. In the following example, a match for "wind" in the title field influences `_score` four times as much as a match in the plot field:
 
 ```json
 GET _search
@@ -243,7 +243,7 @@ GET articles/_search
 
 To calculate the relevance score, a document's scores for all `match` clauses are added together and then the result is divided by the number of `match` clauses.
 
-Including the `title.english` field lets you receive the second document that matches the stemmed tokens:
+Including the `title.english` field retrieves the second document that matches the stemmed tokens:
 
 ```json
 {
@@ -891,7 +891,7 @@ GET articles/_search
 }
 ```
 
-The `fuzziness`, `prefix_length`, `max_expansions`, `fuzzy_rewrite`, and `fuzzy_transpositions` parameters are supported for the terms that are used to construct term queries, but do not have an effect on the prefix query constructed from the final term.
+The `fuzziness`, `prefix_length`, `max_expansions`, `fuzzy_rewrite`, and `fuzzy_transpositions` parameters are supported for the terms that are used to construct term queries, but they do not have an effect on the prefix query constructed from the final term.
 {: .note}
 
 ## Parameters

@@ -8,7 +8,7 @@ grand_parent: Query DSL
 
 # Intervals query
 
-The intervals query matches documents based on the proximity and order of matching terms. It applies a set of _matching rules_ to terms contained in the specified field. The query generates sequences of minimal intervals that span terms in the text. You can comtine the intervals and filter them by parent sources.
+The intervals query matches documents based on the proximity and order of matching terms. It applies a set of _matching rules_ to terms contained in the specified field. The query generates sequences of minimal intervals that span terms in the text. You can combine the intervals and filter them by parent sources.
 
 Consider an index containing the following documents:
 

@@ -178,7 +178,7 @@ However, the results include not only the expected document, but all four docume
 ```
 </details>
 
-In fact, because the default operator is `OR`, this query includes documents that contain the words `street` or `st` (documents 2 and 3) and also documents that do not contain the word `madison` (documents 1 and 4).
+Because the default operator is `OR`, this query includes documents that contain the words `street` or `st` (documents 2 and 3) and documents that do not contain the word `madison` (documents 1 and 4).
 
 To express the query intent correctly, precede `-madison` with `+`:
 

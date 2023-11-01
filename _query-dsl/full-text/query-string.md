@@ -12,7 +12,7 @@ redirect_from:
 
 # Query string query
 
-A `query_string` query parses the query string based on the [query string syntax](#query-string-syntax). It lets you create powerful yet concise queries that can incorporate wildcards and search multiple fields.
+A `query_string` query parses the query string based on the [query string syntax](#query-string-syntax). It provides for creating powerful yet concise queries that can incorporate wildcards and search multiple fields.
 
 Searches with `query_string` queries do not return nested documents. To search nested fields, use the [`nested` query]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/).
 {: .note}
@@ -168,12 +168,12 @@ GET /testindex/_search
 ```
 {% include copy-curl.html %}
 
-Wildcard queries can use a significant amount of memory, which can degrade performance. Wildcards at the beginning of a word (for example, `*cal`) are the most expensive because matching documents on such wildcards requires examining all terms in the index. To disable leading wildcards,set `allow_leading_wildcard` to `false`.
+Wildcard queries can use a significant amount of memory, which can degrade performance. Wildcards at the beginning of a word (for example, `*cal`) are the most expensive because matching documents on such wildcards requires examining all terms in the index. To disable leading wildcards, set `allow_leading_wildcard` to `false`.
 {: .warning}
 
 For efficiency, pure wildcards such as `*` are rewritten as `exists` queries. Therefore, the `description: *` wildcard will match documents containing an empty value in the `description` field but will not match documents in which the `description` field is either missing or has a `null` value.
 
-If you set `analyze_wildcard` to `true`, OpenSearch will analyze queries that end with a `*` (such as `hist*`). Consequently, Opensearch will build a Boolean query comprised of the resulting tokens by taking exact matches on the first n-1 tokens, and a prefix match on the last token.
+If you set `analyze_wildcard` to `true`, OpenSearch will analyze queries that end with a `*` (such as `hist*`). Consequently, OpenSearch will build a Boolean query comprising the resulting tokens by taking exact matches on the first n-1 tokens and a prefix match on the last token.
 
 ## Regular expressions
 
@@ -222,7 +222,7 @@ The following table provides range syntax examples.
 Data type | Query | Query string
 :--- | :--- | :---
 Numeric | Documents whose account numbers are from 1 to 15, inclusive. | `account_number: [1 TO 15]` or <br> `account_number: (>=1 AND <=15)` or <br> `account_number: (+>=1 +<=15)`
-| Documents whose account numbers 15 and greater. | `account_number: [15 TO *]` or <br> `account_number: >=15` (note no space after the `>=` sign)
+| Documents whose account numbers are 15 and greater. | `account_number: [15 TO *]` or <br> `account_number: >=15` (note no space after the `>=` sign)
 String | Documents where last name is from Bates, inclusive, to Duke, exclusive. | `lastname: [Bates TO Duke}` or <br> `lastname: (>=Bates AND <Duke)`
 | Documents where last name precedes Bates alphabetically. | `lastname: {* TO Bates}` or <br> `lastname: <Bates` (note no space after the `<` sign)
 Date | Documents where the release date is between 03/21/2023 and 09/25/2023, inclusive. | `release_date: [03/21/2023 TO 09/25/2023]`
@@ -315,7 +315,7 @@ GET testindex/_search
 
 ### Conventional Boolean operators
 
-Alternatively, you can use the following Boolean operators: `AND`, `&&`, `OR`, `||`, `NOT`, `!`. However, these operators do not follow the precedence rules so you must use parentheses to specify precedence when using multiple Boolean operators. For example, the query string `title: (gone +wind -turbines)` can be rewritten as follows using Boolean operators:
+Alternatively, you can use the following Boolean operators: `AND`, `&&`, `OR`, `||`, `NOT`, `!`. However, these operators do not follow the precedence rules, so you must use parentheses to specify precedence when using multiple Boolean operators. For example, the query string `title: (gone +wind -turbines)` can be rewritten as follows using Boolean operators:
 
 `title: ((gone AND wind) OR wind) AND NOT turbines`
 
