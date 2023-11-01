@@ -20,7 +20,7 @@ Before getting started, make sure you have [indexed your data]({{site.url}}{{sit
 
 For this tutorial, you can index the following sample document. Alternatively, you can use the [OpenSearch Playground](https://playground.opensearch.org/app/opensearch-query-workbench#/), which has preloaded indexes that you can use to try out Query Workbench.
 
-To index the sample document, send the following Bulk API request:
+To index sample documents, send the following [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request:
 
 ```json
 PUT accounts/_bulk?refresh
@@ -113,3 +113,6 @@ Follow these steps to learn how to run PPL queries against your OpenSearch data 
     The following image shows the explanation of the PPL query that was run in step 2.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-PPL-explain.png" alt="Query Workbench PPL query explanation pane" width="500">
+
+Query Workbench does not support delete or update operations through SQL or PPL. Access to data is read-only.
+{: .important}
