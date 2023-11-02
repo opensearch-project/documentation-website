@@ -106,7 +106,7 @@ To save your search, including the query text, filters, and current data view, f
 2. Give the search a title, and then choose **Save**. 
 3. Select **Open** to access the saved search. 
 
-## Creatinge data visualizations through Discover
+## Creating data visualizations through Discover
 
 To create visualizations of the data findings using the **Discover** app, follow these steps:
 
