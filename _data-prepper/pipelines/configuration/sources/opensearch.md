@@ -1,6 +1,6 @@
 ---
 layout: default
-title: opensearch 
+title: opensearch
 parent: Sources
 grand_parent: Pipelines
 nav_order: 30
@@ -39,7 +39,7 @@ opensearch-source-pipeline:
         include:
           - index_name_regex: "test-index-.*"
         exclude:
-          - index_name_regex: "\..*"  
+          - index_name_regex: "\..*"
       scheduling:
         interval: "PT1H"
         index_read_count: 2
@@ -103,15 +103,15 @@ Option | Required | Type    | Description
 `aws` | No | Object  | The AWS configuration. For more information, see [aws](#aws).
 `acknowledgments` | No | Boolean | When `true`, enables the `opensearch` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
 `connection` | No | Object  | The connection configuration. For more information, see [Connection](#connection).
-`indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [Indices](#indices).
+`indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [indexes](#indices).
 `scheduling` | No | Object | The scheduling configuration. For more information, see [Scheduling](#scheduling).
 `search_options` | No | Object | A list of search options performed by the source. For more information, see [Search options](#search_options).
 
 ### Scheduling
 
-The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the the `index_read_count` and recount time `interval`. 
+The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the the `index_read_count` and recount time `interval`.
 
-For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being reprocessed 3 times, 1 hour apart. By default, indexes will only be processed once. 
+For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being reprocessed 3 times, 1 hour apart. By default, indexes will only be processed once.
 
 Use the following options under the `scheduling` configuration.
 
@@ -119,12 +119,12 @@ Option | Required | Type            | Description
 :--- | :--- |:----------------| :---
 `index_read_count` | No | Integer | The number of times each index will be processed. Default is `1`.
 `interval` | No | String | The interval that determines the amount of time between reprocessing. Supports ISO 8601 notation strings, such as "PT20.345S" or "PT15M", as well as simple notation strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `8h`.
-`start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately. 
+`start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately.
 
 
 ### indices
 
-The following options help the `opensearch` source determine which indexes are processed from the source cluster using regex patterns. An index will only be processed if it matches one of the `index_name_regex` patterns under the `include` setting and does not match any of the 
+The following options help the `opensearch` source determine which indexes are processed from the source cluster using regex patterns. An index will only be processed if it matches one of the `index_name_regex` patterns under the `include` setting and does not match any of the
 patterns under the `exclude` setting.
 
 Option | Required | Type  | Description
@@ -137,7 +137,7 @@ Use the following setting under the `include` and `exclude` options to indicate 
 
 Option | Required | Type    | Description
 :--- |:----|:-----------------| :---
-`index_name_regex` | Yes | Regex string | The regex pattern to match indexes against. 
+`index_name_regex` | Yes | Regex string | The regex pattern to match indexes against.
 
 ### search_options
 
@@ -145,13 +145,13 @@ Use the following settings under the `search_options` configuration.
 
 Option | Required | Type    | Description
 :--- |:---------|:--------| :---
-`batch_size` | No       | Integer | The number of documents to read while paginating from OpenSearch. Default is `1000`. 
+`batch_size` | No       | Integer | The number of documents to read while paginating from OpenSearch. Default is `1000`.
 `search_context_type` | No | Enum | An override for the type of search/pagination to use on indexes. Can be [point_in_time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after)), [scroll]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search), or `none`. The `none` option will use the [search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) parameter. For more information, see [Default Search Behavior](#default-search-behavior).
 
 ### Default search behavior
 
-By default, the `opensearch` source will look up the cluster version and distribution to determine 
-which `search_context_type` to use. For versions and distributions that support [Point in Time](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used. 
+By default, the `opensearch` source will look up the cluster version and distribution to determine
+which `search_context_type` to use. For versions and distributions that support [Point in Time](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used.
 If `point_in_time` is not supported by the cluster, then [scroll](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
 
 ### Connection
