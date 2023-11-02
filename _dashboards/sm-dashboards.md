@@ -28,13 +28,13 @@ Snapshots have two main uses:
 
 ## Creating a repository
 
-Before you create an SM policy, set up a repository for snapshots. 
+Before you create an SM policy, set up a repository for snapshots.
 
 1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 2. In the left panel, under **Snapshot Management**, select **Repositories**.
 3. Choose the **Create Repository** button.
-4. Enter the repository name, type, and location. 
-5. (Optional) Select **Advanced Settings** and enter additional settings for this repository as a JSON object. 
+4. Enter the repository name, type, and location.
+5. (Optional) Select **Advanced Settings** and enter additional settings for this repository as a JSON object.
 #### Example
 ```json
     {
@@ -87,7 +87,7 @@ You can view, edit, or delete an SM policy on the policy details page.
 1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshot Policies**.
 1. Click on the **Policy name** of the policy you want to view, edit, or delete. <br>
-The policy settings, snapshot schedule, snapshot retention period, notifications, and last creation and deletion are displayed in the policy details page. <br> If a snapshot creation or deletion fails, you can view information about the failure in the **Last Creation/Deletion** section. To view the failure message, click on the **cause** in the **Info** column. 
+The policy settings, snapshot schedule, snapshot retention period, notifications, and last creation and deletion are displayed in the policy details page. <br> If a snapshot creation or deletion fails, you can view information about the failure in the **Last Creation/Deletion** section. To view the failure message, click on the **cause** in the **Info** column.
 1. To edit or delete the SM policy, select the **Edit** or **Delete** button.
 
 ## Enable, disable, or delete SM policies
@@ -131,7 +131,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
 1. From the OpenSearch Dashboards main menu, select **Management** > **Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**. The **Snapshots** tab is selected by default.
-1. Select the checkbox next to the snapshot you want to restore. An example is shown in the following image: 
+1. Select the checkbox next to the snapshot you want to restore. An example is shown in the following image:
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-main.png" alt="Snapshots">{: .img-fluid}
 
     {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class="inline-icon" alt="star icon"/>{:/} **Note:** You can only restore snapshots with the status of `Success` or `Partial`. The status of the snapshot is displayed in the **Snapshot status** column.
@@ -142,7 +142,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot.png" alt="Restore Snapshot" width="450">
 
-    For more information about the options in the **Restore snapshot** flyout, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots). 
+    For more information about the options in the **Restore snapshot** flyout, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots).
 
     **Ignoring missing indexes**
 
@@ -154,20 +154,20 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
         &emsp;&#x2022; Select the **Customize index settings** checkbox to provide new values for the specified index settings. All newly restored indexes will use these values instead of the ones in the snapshot. <br>
         &emsp;&#x2022; Select the **Ignore index settings** checkbox to specify the settings in the snapshot to ignore. All newly restored indexes will use the cluster defaults for these settings.
 
-    The examples in the following image set `index.number_of_replicas` to `0`, `index.auto_expand_replicas` to `true`, and `index.refresh_interval` and `index.max_script_fields` to the cluster default values for all newly restored indexes. 
+    The examples in the following image set `index.number_of_replicas` to `0`, `index.auto_expand_replicas` to `true`, and `index.refresh_interval` and `index.max_script_fields` to the cluster default values for all newly restored indexes.
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png" alt="Custom settings" width="450">
 
     For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
 
     For a list of settings that you cannot change or ignore, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots).
-    
+
     After choosing the options, select the **Restore snapshot** button.
-1. (Optional) To monitor the restore progress, select **View restore activities** in the confirmation dialog. You can also monitor the restore progress at any time by selecting the **Restore activities in progress** tab, as shown in the following image. 
+1. (Optional) To monitor the restore progress, select **View restore activities** in the confirmation dialog. You can also monitor the restore progress at any time by selecting the **Restore activities in progress** tab, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-activities.png" alt="Restore Activities">{: .img-fluid}
 
-    You can view the percentage of the job that has been completed in the **Status** column. Once the snapshot restore is complete, the **Status** changes to `Completed (100%)`. 
+    You can view the percentage of the job that has been completed in the **Status** column. Once the snapshot restore is complete, the **Status** changes to `Completed (100%)`.
 
     {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class="inline-icon" alt="star icon"/>{:/} **Note:** The **Restore activities in progress** panel is not persistent. It displays only the progress of the current restore operation. If multiple restore operations are running, the panel displays the most recent one.
     {: .note purple}
@@ -178,4 +178,3 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
  After the restore operation is complete, the restored indexes are listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, choose **Indices**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png" alt="View Indices">{: .img-fluid}
- 
