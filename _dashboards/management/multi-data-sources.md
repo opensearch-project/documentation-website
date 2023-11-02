@@ -70,7 +70,7 @@ An example data source connection is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-connection.png" alt="Data source connection screen" width="700">
 
-## Selecting multiple data sources through the Dev Tools console
+### Selecting multiple data sources through the Dev Tools console
 
 Alternatively, you can select multiple data sources through the Dev Tools console. This option provides for working with a broader range of data and gaining deeper insight into your code and applications. 
 
