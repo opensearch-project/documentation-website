@@ -30,9 +30,9 @@ To use the multiple data sources feature, the setting must be enabled. It is dis
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt="Data sources in sidebar within Dashboards Management" width="700">
 
-### Step 2: Create a new data source connection through the Dev Tools console
+### Step 2: Create a new data source connection
 
-A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections using the Dev Tool console.
+A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source.
 
 To create a new data source connection:
 
