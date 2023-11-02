@@ -72,7 +72,7 @@ An example data source connection screen is shown in the following image.
 
 ### Selecting multiple data sources through the Dev Tools console
 
-Alternatively, you can select multiple data sources through the Dev Tools console. This option provides for working with a broader range of data and gaining deeper insight into your code and applications. 
+Alternatively, you can select multiple data sources through the [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) console. This option provides for working with a broader range of data and gaining deeper insight into your code and applications. 
 
 Watch the following 10-second video to see it in action.
 
