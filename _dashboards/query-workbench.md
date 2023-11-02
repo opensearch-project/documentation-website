@@ -10,7 +10,7 @@ redirect_from:
 
 Query Workbench is a tool within OpenSearch Dashboards. You can use Query Workbench to run on-demand [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries, translate queries into their equivalent REST API calls, and view and save results in different [response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/). 
 
-The following image shows a view of the Query Workbench interface within OpenSearch Dashboards.
+A view of the Query Workbench interface within OpenSearch Dashboards is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-ui.png" alt="Query Workbench interface within OpenSearch Dashboards"  width="700">
 
@@ -18,7 +18,7 @@ The following image shows a view of the Query Workbench interface within OpenSea
 
 Before getting started, make sure you have [indexed your data]({{site.url}}{{site.baseurl}}/im-plugin/index/). 
 
-For this tutorial, you can index the following sample document. Alternatively, you can use the [OpenSearch Playground](https://playground.opensearch.org/app/opensearch-query-workbench#/), which has preloaded indexes that you can use to try out Query Workbench.
+For this tutorial, you can index the following sample documents. Alternatively, you can use the [OpenSearch Playground](https://playground.opensearch.org/app/opensearch-query-workbench#/), which has preloaded indexes that you can use to try out Query Workbench.
 
 To index sample documents, send the following [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request:
 
