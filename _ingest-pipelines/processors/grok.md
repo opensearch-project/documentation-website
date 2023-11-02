@@ -8,11 +8,17 @@ nav_order: 140
 
 # Grok 
 
-The `grok` processor is used to parse and extract structured data from unstructured data. It is useful in log analytics and data processing pipelines where data is often in a raw and unformatted state. 
+The `grok` processor is used to parse and structure unstructured data using pattern matching. You can use the `grok` processor to extract fields from log messages, web server access logs, application logs, and other text data that follows a consistent format.
 
-The `grok` processor uses a combination of pattern matching and regular expressions to identify and extract information from the input text. The processor supports a range of predefined patterns for common data types such as timestamps, IP addresses, and usernames. The `grok` processor can perform transformations on extracted data, such as converting a timestamp to a proper date field.
+## Grok basiscs
 
-The following is the syntax for the `grok` processor: 
+The `grok` processor uses a set of predefined patterns to match parts of the input text. Each pattern consists of a name and a regular expression. For example, the pattern `%{IP:ip_address}` matches an IP address and assigns it to the field `ip_address`. You can combine multiple patterns to create more complex expressions. For example, the pattern `%{IP:client} %{WORD:method} %{URIPATHPARM:request} %{NUMBER:bytes %NUMBER:duration}` matches a line from a web server access log and extracts the client IP address, the HTTP method, the request URI, the number of bytes sent, and the duration of the request.
+
+The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can us the [Grok Debugger](https://grokdebugger.com/) tool to test and debug your grok expressions.
+
+## Grok processor syntax
+
+The following is the basic syntax for the `grok` processor: 
 
 ```json
 {
@@ -23,12 +29,6 @@ The following is the syntax for the `grok` processor:
 }
 ```
 {% include copy-curl.html %}
-
-The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE). It enhances regular expressions by naming and renaming patterns for intricate matches. Its syntax variants are `%{SYNTAX:SEMANTIC}`, `%{SYNTAX}`, and `%{SYNTAX:SEMANTIC:TYPE}`. The following bullets provide a breakdown of these variants:
-
-- `SYNTAX`: The pattern, for example, `NUMBER` matches `3.44`, and `IP` matches `55.3.244.1`.
-- `SEMANTIC`: The label for the matched text, for example, naming `3.44` as `duration` or `55.3.244.1` as `client_IP`.
-- `TYPE`: Converts the named field to types such as `int`, `long`, `double`, `float`, or `boolean`.
 
 ## Configuration parameters
 
@@ -47,9 +47,9 @@ Parameter | Required | Description |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 
-## Using the processor
+## Creating a pipeline
 
-Follow these steps to use the processor in a pipeline.
+The following steps guide you through creating an [ingest pipeline]({site.url}}{{site.baseurl}}/ingest-pipelines/index/) with the `grok` processor. 
 
 **Step 1: Create a pipeline.** 
 
@@ -139,12 +139,9 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Grok patterns
+## Custom patterns
 
-You can use default patterns, or you can add custom patterns to your pipelines using the `patterns_definitions` parameter. The [Grok Debugger](https://grokdebugger.com/) can help you test and debug grok patterns before using them in your [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/). The [Grok Constructor](https://grokconstructor.appspot.com/) can help you test and construct regular expressions for the Grok filter that parses logfile lines in [Logstash](/tools/logstash/index/). 
-
-### Using with custom patterns
-
+You can use default patterns, or you can add custom patterns to your pipelines using the `patterns_definitions` parameter.  
 Custom grok patterns can be used in a pipeline to extract structured data from log messages that do not match the built-in grok patterns. This can be useful for parsing log messages from custom applications or for parsing log messages that have been modified in some way. Custom patterns adhere to a straightforward structure: each pattern has a unique name and the corresponding regular expression that defines its matching behavior.These custom patterns can be incorporated into the `grok` processor using the `pattern_definitons` parameter. This parameter accepts a dictionary where the keys represent the pattern names and the values represent the corresponding regular expressions.
 
 The following is an example of how to include a custom pattern in your configuration. In this example, `MY_CUSTOM_PATTERN` is defined and subsequently used in the `patterns` list, which tells grok to look for this pattern in the log message. The pattern is a regular expression that matches any sequence of alphanumeric characters and captures the matched characters into the `my_field`.
@@ -173,25 +170,23 @@ The following is an example of how to include a custom pattern in your configura
 To trace which patterns matched and populated the fields, you can use the `trace_match` parameter. The following is an example of how to include this parameter in your configuration:
 
 ```json
-PUT _ingest/pipeline/log_line
-{
-  "description": "Extract fields from a log line",
-  "processors": [
-    {
-      "grok": {
-        "field": "message",
-        "patterns": ["%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"],
-        "trace_match": true
-      }
-    }
-  ]
-}
+PUT _ingest/pipeline/log_line  
+{  
+  "description": "Extract fields from a log line",  
+  "processors": [  
+    {  
+      "grok": {  
+        "field": "message",  
+        "patterns": ["%{HTTPDATE:timestamp} %{IPORHOST:clientip}", "%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"],  
+        "trace_match": true  
+      }  
+    }  
+  ]  
+}  
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The following response shows the output of the pipeline: 
+The `grok_match_index` returns 1 match, as shown in the following output:
 
 ```json
 {
@@ -207,11 +202,12 @@ The following response shows the output of the pipeline:
           "timestamp": "10/Oct/2000:13:55:36 -0700"
         },
         "_ingest": {
-          "_grok_match_index": "0",
-          "timestamp": "2023-10-23T19:18:37.14624097Z"
+          "_grok_match_index": "1",
+          "timestamp": "2023-11-02T18:48:40.455619084Z"
         }
       }
     }
   ]
 }
 ```
+
