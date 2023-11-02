@@ -5,6 +5,7 @@ parent: Data sources
 nav_order: 10
 redirect_from: 
   - /dashboards/discover/multi-data-sources/
+  - /dashboards/management/multi-data-sources/
 ---
 
 # Configuring and using multiple data sources
