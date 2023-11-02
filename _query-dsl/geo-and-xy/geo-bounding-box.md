@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Geo-bounding box queries
+title: Geo-bounding box
 parent: Geographic and xy queries
 grand_parent: Query DSL
 nav_order: 10
@@ -9,9 +9,9 @@ redirect_from:
   - /query-dsl/query-dsl/geo-and-xy/geo-bounding-box/
 ---
 
-# Geo-bounding box queries
+# Geo-bounding box query
 
-To search for documents that contain [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point) fields, use a geo-bounding box query. The geo-bounding box query returns documents whose geopoints are within the bounding box specified in the query. A document with multiple geopoints matches the query if at least one geopoint is within the bounding box.
+To search for documents that contain [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) fields, use a geo-bounding box query. The geo-bounding box query returns documents whose geopoints are within the bounding box specified in the query. A document with multiple geopoints matches the query if at least one geopoint is within the bounding box.
 
 ## Example
 
@@ -170,10 +170,10 @@ Geo-bounding box queries accept the following fields.
 
 Field | Data type | Description
 :--- | :--- | :--- 
-_name | String | The name of the filter. Optional.
-validation_method | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce  coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
-type | String | Specifies how to execute the filter. Valid values are `indexed` (index  the filter) and `memory` (execute the filter in memory). Default is `memory`.
-ignore_unmapped | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, the query does not return any documents that have an unmapped field. If set to `false`, an exception is thrown when the field is unmapped. Default is `false`.
+`_name` | String | The name of the filter. Optional.
+`validation_method` | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
+`type` | String | Specifies how to execute the filter. Valid values are `indexed` (index the filter) and `memory` (execute the filter in memory). Default is `memory`.
+`ignore_unmapped` | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, the query does not return any documents that have an unmapped field. If set to `false`, an exception is thrown when the field is unmapped. Default is `false`.
 
 ## Accepted formats
 
