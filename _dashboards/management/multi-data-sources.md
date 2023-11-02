@@ -70,28 +70,6 @@ An example data source connection is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-connection.png" alt="Data source connection screen" width="700">
 
-### Step 3: Creating an index pattern
-
-If you are unfamiliar with creating index patterns within OpenSearch Dashboards, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/). 
-
-### Step 4: Searching the data
-
-You can set a time filter that displays only the data within a specified time range, and you can choose the time filter to change the time range or select a specific time range in the histogram.
-
-To set the time filter:
-
-1. In the Dashboards console, select **Discover** and confirm that the index pattern being used is `opensearch_dashboards_sample_data_ecommerce`.
-2. Select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/}) to change the time field. The default time period is **Last 15 minutes**.
-3. Change the time field to a particular time period, for example, **Last 7 days**, and then select **Refresh**.
-4. Change start or end times by selecting the start or end time in the search bar.
-5. In the pop-up window, choose **Absolute**, **Relative**, or **Now** and then specify the date.
-
-To select a time range for the histogram, choose from the following options:
-
-* Select the bar that represents the time range you want to zoom in on.
-* Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart (the cursor changes to a plus sign when you hover over a valid start point).
-* Select the dropdown and then select an interval.
-
 ## Selecting multiple data sources through the Dev Tools console
 
 Alternatively, you can select multiple data sources through the Dev Tools console. This option provides for working with a broader range of data and gaining deeper insight into your code and applications. 
@@ -114,6 +92,15 @@ To select a data source through the Dev Tools console, follow these steps:
 
 5. From the **DataSource** dropdown menu, select a data source and then query the source.
 6. Repeat the preceding steps for each data source you want to select.
+
+## Next steps 
+
+Once you've configured your multiple data sources, you can start exploring that data. See the following resources to learn more:
+
+- Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
+- Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
+- Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
+- Learn about the [Integrations tool]({{site.url}}{{site.baseurl}}/integrations/index/), which gives you the flexibility to use various data ingestion methods and connect data from the Dashboards UI.
 
 ## Limitations
 
