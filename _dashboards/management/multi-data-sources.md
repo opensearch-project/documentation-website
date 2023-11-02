@@ -11,7 +11,6 @@ redirect_from:
 
 You can ingest, process, and analyze data from multiple data sources in OpenSearch Dashboards. You configure the data sources in the **Dashboards Management** > **Data sources** app, as shown in the following image.
 
-A view of the main screen is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-management.png" alt="Dashboards Management Data sources main screen" width="700">
 
