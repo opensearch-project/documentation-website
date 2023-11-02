@@ -41,6 +41,7 @@ $nested-nav-desktop-min-width: $header-banner-min-width;
       a {
         @include body-text;
         color: $primary-open-sky-t3;
+        padding-left: 10px;
       } 
     }
   }
@@ -73,6 +74,7 @@ $nested-nav-desktop-min-width: $header-banner-min-width;
           flex-shrink: 1;
           > a {
             @include header-level3($primary-open-sky-t3);
+            padding-left: 10px;
           }
         }
         > .nested-nav--top-menu-item-wrapper--toggle {

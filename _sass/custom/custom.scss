@@ -1135,8 +1135,8 @@ $footer-1-column-max:700px;
   align-items: flex-start;
   @media screen and (max-width: $header-banner-mobile-breakpoint) {
       display: flex;
-      width: calc(100% - 40px);
-      padding: 15px 20px;
+      width: calc(100% - 20px);
+      padding: 15px 10px;
       height: 60px;
       box-sizing: content-box;
   }
