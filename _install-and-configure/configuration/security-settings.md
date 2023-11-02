@@ -7,7 +7,7 @@ nav_order: 20
 
 # Security plugin settings
 
-The `opensearch.yml` settings in the following tables apply specifically to the Security plugin.
+The settings in the following tables apply specifically to the Security plugin.
 
 
 ## Common configuration

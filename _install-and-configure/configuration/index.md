@@ -10,9 +10,9 @@ redirect_from:
 
 # Configuring OpenSearch
 
-Most OpenSearch configuration can take place in the cluster settings API. Certain operations require you to modify `opensearch.yml` and restart the cluster.
+You can configure dynamic OpenSearch settings through the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). Certain operations are static and require you to modify `opensearch.yml` and restart the cluster.
 
-Whenever possible, use the cluster settings API instead; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. Certain settings, however, require `opensearch.yml`. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. Certain settings, however, require `opensearch.yml`. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
 ## Specify settings as environment variables
 
@@ -69,9 +69,6 @@ PUT _cluster/settings
 }
 ```
 
-For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/).
-
-
 ---
 
 ## Configuration file
@@ -92,7 +89,7 @@ compatibility.override_main_response_version: true
 
 A standard Docker download stores the `opensearch_dashboards.yml` file in the following location: `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml`.
 
-The demo configuration includes a number of [settings for the Security plugin]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-configuration/) that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
+The demo configuration includes a number of [settings for the Security plugin]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-settings/) that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
 
 ### (Optional) CORS header configuration
 

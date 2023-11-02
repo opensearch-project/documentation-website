@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Enabling experimental features
-nav_order: 10
-parent: OpenSearch documentation
+title: Experimental feature flags
+parent: Configuring OpenSearch
+nav_order: 100
 ---
 
-# Enabling experimental features
+# Experimental feature flags
 
 OpenSearch releases may contain experimental features that you can enable or disable as needed. There are several methods for enabling feature flags, depending on the installation type. 
 

@@ -1,9 +1,11 @@
 ---
 layout: default
-title: Logs
-nav_order: 60
+title: Logging settings
+parent: Configuring OpenSearch
+nav_order: 90
 redirect_from:
   - /opensearch/logs/
+  - /monitoring-your-cluster/logs/
 ---
 
 # Logs
@@ -18,7 +20,11 @@ Logs are available as `.log` (plain text) and `.json` files. Permissions for the
 
 ## Application logs
 
-For its application logs, OpenSearch uses [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) and its built-in log levels (from least to most severe) of TRACE, DEBUG, INFO, WARN, ERROR, and FATAL. The default OpenSearch log level is INFO.
+For its application logs, OpenSearch uses [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) and its built-in log levels (from least to most severe). The following table describes logging settings.
+
+| Setting | Data type | Description |
+| :--- | :--- | :--- |
+| logger.org.opensearch.discovery | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
 
 Rather than changing the default log level (`logger.level`), you change the log level for individual OpenSearch modules:
 

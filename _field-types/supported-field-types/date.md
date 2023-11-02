@@ -62,7 +62,7 @@ OpenSearch has built-in date formats, but you can also create your own custom fo
 
 ## Default format
 
-As of OpenSearch 2.12, the default date format is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`. To revert the default format back to `strict_date_optional_time||epoch_millis` (the default format for OpenSearch 2.11 and earlier), set the `opensearch.experimental.optimization.datetime_formatter_caching.enabled` feature flag to `false`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/experimental/).
+As of OpenSearch 2.12, the default date format is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`. To revert the default format back to `strict_date_optional_time||epoch_millis` (the default format for OpenSearch 2.11 and earlier), set the `opensearch.experimental.optimization.datetime_formatter_caching.enabled` feature flag to `false`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/experimental/).
 
 ## Built-in formats
 
