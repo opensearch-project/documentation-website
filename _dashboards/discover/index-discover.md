@@ -13,7 +13,7 @@ The following image represents a typical **Discover** page using sample data.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-app.png" alt="Discover start screen" width="700">
 
-## Get started
+## Getting started
 
 In this tutorial, you'll learn about using **Discover** to:
 
@@ -22,7 +22,7 @@ In this tutorial, you'll learn about using **Discover** to:
 - Share the data findings.
 - Set alerts.
 
-### Prerequisites
+## Prerequisites
 
 The following are prerequisites for using **Discover**:
 
@@ -30,7 +30,7 @@ The following are prerequisites for using **Discover**:
 - Add OpenSearch [sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) or import your own data into OpenSearch.
 - Have a foundational understanding of OpenSearch [documents and indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).   
 
-## Add data
+## Adding data
 
 Data must be added to OpenSearch before it can be analyzed. In this tutorial, you'll use the sample data. To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
 
@@ -41,7 +41,7 @@ To add the sample data, follow these steps:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample.png" alt="Add sample data interface"  width="700">
 
-## Define the search
+## Defining the search
 
 To define a search, follow these steps:  
 
@@ -53,7 +53,7 @@ You'll see a view similar to the one in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/define-search.png" alt="Discover interface showing search of flight sample data for Last 7 days"  width="700">
 
-## Add data fields and view data details
+## Adding data fields and viewing data details
 
 The document table contains document data. Each row represents a single document, and each column contains a different document field representing metrics such as flight destination, average ticket price, and flight delay. You can add, delete, or modify data fields in a document table as needed to meet your data analysis requirements. 
 
@@ -76,7 +76,7 @@ You'll see a view similar to the one in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/doc-details.png" alt="Document details interface"  width="700">
 
-### Search the data
+## Searching the data
 
 You can use the search toolbar or enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) query using the **DevTools** console to search data. While the search toolbar is best for basic queries, such as field name queries, DQL is best for complex queries, such as term, string, Boolean, date, range, or nested queries. DQL provides suggestions for fields and operators as you type, helping you build structured queries.
 
@@ -86,7 +86,7 @@ To search data, follow these steps:
 2. Select the **Update** button to the right of the search bar.
 3. Enter a more complex query in the DQL search bar, and then select **Update**. For example, enter `FlightDelay:true AND FlightDelayMin >= 60`, which searches the data for flights delayed by 60 minutes or more.
 
-### Filter the data
+## Filtering the data
 
 Filters allow you to narrow the results of a query by specifying certain criteria. You can filter by field, value, or range. The **Add filter** pop-up suggests the available fields and operators.
 
@@ -98,7 +98,7 @@ To filter your data, follow these steps:
 4. To remove the filter, choose the cross icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/}) next to the filter name.
 5. Add more filters to further explore the data.  
 
-## Save a search
+## Saving a search
 
 To save your search, including the query text, filters, and current data view, follow these steps:  
 
@@ -106,7 +106,7 @@ To save your search, including the query text, filters, and current data view, f
 2. Give the search a title, and then choose **Save**. 
 3. Select **Open** to access the saved search. 
 
-## Create data visualizations in Discover
+## Creating data visualizations through Discover
 
 To create visualizations of the data findings using the **Discover** app, follow these steps:
 
@@ -122,6 +122,6 @@ To create visualizations of the data findings using the **Discover** app, follow
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-flight.png" alt="Data visualization of flight sample data field destination" width="700"/>
 
-## Set alerts
+## Setting alerts
 
 You can set alerts to notify you when your data changes beyond the thresholds you define. To learn more about using **Discover** to create and manage alerts, see [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/).
