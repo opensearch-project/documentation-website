@@ -9,7 +9,7 @@ redirect_from:
 
 # Configuring and using multiple data sources
 
-The multiple data sources feature in OpenSearch Dashboards provides for the capability to ingest, process, and analyze data from a variety of sources. This feature is configured within the **Dashboards Management** > **Data sources** app. 
+You can ingest, process, and analyze data from multiple data sources in OpenSearch Dashboards. You configure the data sources in the **Dashboards Management** > **Data sources** app, as shown in the following image.
 
 A view of the main screen is shown in the following image.
 
