@@ -10,7 +10,7 @@ nav_order: 140
 
 The `grok` processor is used to parse and structure unstructured data using pattern matching. You can use the `grok` processor to extract fields from log messages, web server access logs, application logs, and other text data that follows a consistent format.
 
-## Grok basiscs
+## Grok basics
 
 The `grok` processor uses a set of predefined patterns to match parts of the input text. Each pattern consists of a name and a regular expression. For example, the pattern `%{IP:ip_address}` matches an IP address and assigns it to the field `ip_address`. You can combine multiple patterns to create more complex expressions. For example, the pattern `%{IP:client} %{WORD:method} %{URIPATHPARM:request} %{NUMBER:bytes %NUMBER:duration}` matches a line from a web server access log and extracts the client IP address, the HTTP method, the request URI, the number of bytes sent, and the duration of the request.
 
