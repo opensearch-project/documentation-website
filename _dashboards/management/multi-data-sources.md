@@ -20,7 +20,7 @@ The following tutorial guides you through configuring and using multiple data so
 
 ### Step 1: Modify the YAML file settings
 
-To use the multiple data sources feature, the setting must be enabled. It is disabled by default. To enable multiple data sources:
+To use multiple data sources, you must enable the `data_source.enabled` setting. It is disabled by default. To enable multiple data sources:
 
 1. Open your local copy of the OpenSearch Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) is available on GitHub.
 2. Set `data_source.enabled:` to  `true` and save the YAML file.
