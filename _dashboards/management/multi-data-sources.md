@@ -17,7 +17,7 @@ A view of the main screen is shown in the following image.
 
 ## Getting started
 
-The following tutorial guides you through configuring and using multiple data sources. You'll learn how to enable the `data_source` setting; create credentials, data source connections, and index patterns; and visualize your data findings.
+The following tutorial guides you through configuring and using multiple data sources. 
 
 ### Step 1: Modify the YAML file settings
 
