@@ -76,7 +76,7 @@ You'll see a view similar to the one in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/doc-details.png" alt="Document details interface"  width="700">
 
-### Search the data
+## Search the data
 
 You can use the search toolbar or enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) query using the **DevTools** console to search data. While the search toolbar is best for basic queries, such as field name queries, DQL is best for complex queries, such as term, string, Boolean, date, range, or nested queries. DQL provides suggestions for fields and operators as you type, helping you build structured queries.
 
@@ -86,7 +86,7 @@ To search data, follow these steps:
 2. Select the **Update** button to the right of the search bar.
 3. Enter a more complex query in the DQL search bar, and then select **Update**. For example, enter `FlightDelay:true AND FlightDelayMin >= 60`, which searches the data for flights delayed by 60 minutes or more.
 
-### Filter the data
+## Filter the data
 
 Filters allow you to narrow the results of a query by specifying certain criteria. You can filter by field, value, or range. The **Add filter** pop-up suggests the available fields and operators.
 
