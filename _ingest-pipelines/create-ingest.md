@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Create pipeline
+**Introduced 1.0**
+{: .label .label-purple }
 
 Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires you to define at least one processor that specifies how to change the documents. 
 

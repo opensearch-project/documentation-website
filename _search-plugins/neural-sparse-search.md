@@ -18,7 +18,7 @@ When selecting a model, choose one of the following options:
 - Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
 
 **PREREQUISITE**<br>
-Before using sparse search, you must set up a sparse embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 {: .note}
 
 ## Using sparse search
@@ -83,6 +83,38 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
+To save disk space, you can exclude the embedding vector from the source as follows:
+
+```json
+PUT /my-nlp-index
+{
+  "settings": {
+    "default_pipeline": "nlp-ingest-pipeline-sparse"
+  },
+  "mappings": {
+      "_source": {
+      "excludes": [
+        "passage_embedding"
+      ]
+    },
+    "properties": {
+      "id": {
+        "type": "text"
+      },
+      "passage_embedding": {
+        "type": "rank_features"
+      },
+      "passage_text": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Once the `<token, weight>` pairs are excluded from the source, they cannot be recovered. Before applying this optimization, make sure you don't need the  `<token, weight>` pairs for your application.
+{: .important}
 
 ## Step 3: Ingest documents into the index
 

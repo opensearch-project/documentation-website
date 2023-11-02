@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Update settings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 You can use the update settings API operation to update index-level settings. You can change dynamic index settings at any time, but static settings cannot be changed after index creation. For more information about static and dynamic index settings, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
