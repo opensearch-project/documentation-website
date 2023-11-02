@@ -32,6 +32,7 @@ items:
     url: /downloads.html
   -
     label: About
+    url: '/about.html'
     fragments:
       - about
       - releases

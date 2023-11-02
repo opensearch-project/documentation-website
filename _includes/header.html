@@ -127,7 +127,15 @@
         const childUL = getSubMenu(button);
         const height = childUL?.scrollHeight;
         childUL?.style?.setProperty?.('--expanded-height', `${height}px`);
+        childUL?.classList?.add?.('nested-nav--menu__mobile-hidden-collapsed');
     }
+    function onNestedNavMenuTransitionEnd(e) {
+        const { target } = e;
+        if (!target?.hasAttribute?.('expanded')) {
+          target?.classList.add('nested-nav--menu__mobile-hidden-collapsed');
+        }
+    }
+
     function onToggleButtonClick(e) {
       const visibleClassName = 'opensearch-toggle-button-link__visible';
       const visibleSelector = `.${visibleClassName}`;
@@ -143,8 +151,14 @@
       invisibleLink.classList.add(visibleClassName);
       
       const childUL = getSubMenu(toggle);
-      childUL?.toggleAttribute?.('expanded');
+      const isAlreadyExpanded = childUL?.getAttribute?.('expanded') ?? false;
+      if (childUL.classList.contains('nested-nav--menu__mobile-hidden-collapsed')) {
+        childUL?.classList?.remove?.('nested-nav--menu__mobile-hidden-collapsed');
+      }
+      window.setTimeout(() => childUL?.toggleAttribute?.('expanded'), 60);
     }
+
+    document.querySelector('#top .nested-nav')?.addEventListener?.('transitionend', onNestedNavMenuTransitionEnd);
     const topNavigationToggleButtons = document.querySelectorAll('#top .opensearch-toggle-button--wrapper');
     for (let i = 0; i < topNavigationToggleButtons.length; ++i) {
       const button = topNavigationToggleButtons[i];
@@ -153,4 +167,3 @@
     }
   });
 </script>
-

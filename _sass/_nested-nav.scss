@@ -1,7 +1,8 @@
 $primary-open-sky-t3: #E1F0F9;
 $primary-open-sky-s2: #006D97;
 $primary-open-sky-s1: #0085B8;
-
+$nested-nav-mobile-breakpoint: $header-banner-mobile-breakpoint;
+$nested-nav-desktop-min-width: $header-banner-min-width;
 @mixin header-level3($color: $primary-open-sky-s1) {
   color: $color;
   font-family: 'Open Sans';
@@ -24,7 +25,7 @@ $primary-open-sky-s1: #0085B8;
   border-bottom: 2px solid $color;
 }
 
-@media screen and (max-width: $header-banner-mobile-breakpoint) {
+@media screen and (max-width: $nested-nav-mobile-breakpoint) {
   [role="banner"]#top {
     > .container {
       padding: 0;
@@ -124,12 +125,16 @@ $primary-open-sky-s1: #0085B8;
         &[expanded] {
           height: var(--expanded-height);
           opacity: 1;
+          display: block;
+        }
+        &.nested-nav--menu__mobile-hidden-collapsed {
+          display: none;
         }
       }
     }
   }
 }
-@media screen and (min-width: $header-banner-min-width) {
+@media screen and (min-width: $nested-nav-desktop-min-width) {
   #top {
     z-index: 9;
   }
@@ -142,7 +147,7 @@ $primary-open-sky-s1: #0085B8;
 
       .nested-nav {
         li {
-          font-size: 13px;
+          font-size: 15px;
         }
       }
     }
@@ -257,26 +262,6 @@ $primary-open-sky-s1: #0085B8;
   }
 }
 
-/* This is placed in a media query to prevent the momentary distortion of the page
- * when it is rendered and the browser takes its time to evaluate the @media.
- */
-@media screen and (max-width: $header-banner-min-width) {
-  [role="banner"] .nested-nav {
-    li {
-      ul {
-        margin: 0;
-      }
-
-      a {
-        padding: 0 0 0 20px;
-      }
-    }
-  }
-
-  [role="banner"] [role="navigation"] .nested-nav li:before {
-    display: none;
-  }
-}
 [role="banner"] [role="navigation"] {
   .nested-nav {
     > li.landing-page-redesign--nav--search .search > #search-results {
