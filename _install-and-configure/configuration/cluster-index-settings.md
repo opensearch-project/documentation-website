@@ -14,6 +14,7 @@ The following settings are cluster- and index-related settings.
 OpenSearch supports the following cluster-level routing and shard allocation settings:
 
 - `cluster.routing.allocation.enable` (String): Enables or disables allocation for specific kinds of shards. 
+    
     Valid values are:
      - `all` – Allows shard allocation for all types of shards. 
      - `primaries` – Allows shard allocation for primary shards only. 
@@ -33,6 +34,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 - `cluster.routing.allocation.same_shard.host` (Boolean): When set to `true`, multiple copies of a shard are prevented from being allocated to distinct nodes on the same host. Default is `false`. 
 
 - `cluster.routing.rebalance.enable` (String): Enables or disables rebalancing for specific kinds of shards.
+    
     Valid values are:
      - `all` – Allows shard balancing for all types of shards. 
      - `primaries` – Allows shard balancing for primary shards only. 
@@ -42,6 +44,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
      Default is `all`. 
 
 -  `cluster.routing.allocation.allow_rebalance` (String): Specifies when shard rebalancing is allowed.
+    
     Valid values are:
     -  `always` – Always allow rebalancing. 
     - `indices_primaries_active` – Only allow rebalancing when all primaries in the cluster are allocated. 
@@ -74,6 +77,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 - `cluster.routing.allocation.require.<attribute>` (Enum): Only allocates shards to a node whose `attribute` has all of the included comma-separated values. 
 
 - `cluster.routing.allocation.exclude.<attribute>` (Enum): Does not allocate shards to a node whose `attribute` has any of the included comma-separated values. The cluster allocation settings support the following built-in attributes. 
+    
     Valid values are:
     - `_name` – Match nodes by node name. 
     - `_host_ip` – Match nodes by host IP address. 
@@ -81,10 +85,11 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `_ip` – Match either `_host_ip` or `_publish_ip`. 
     - `_host` – Match nodes by hostname. 
     - `_id` – Match nodes by node ID. 
-    - `_tier` – Match nodes by data tier role. 
-     
+    - `_tier` – Match nodes by data tier role.     
 
-- `cluster.routing.allocation.shard_movement_strategy` (Enum):  Determines the order in which shards are relocated from outgoing to incoming nodes. This setting supports the following strategies: 
+- `cluster.routing.allocation.shard_movement_strategy` (Enum):  Determines the order in which shards are relocated from outgoing to incoming nodes. 
+
+    This setting supports the following strategies: 
     - `PRIMARY_FIRST` – Primary shards are relocated first, before replica shards. This prioritization may help prevent a cluster's health status from going red if the relocating nodes fail during the process. 
     - `REPLICA_FIRST` – Replica shards are relocated first, before primary shards. This prioritization may help prevent a cluster's health status from going red when carrying out shard relocation in a mixed-version, segment-replication-enabled OpenSearch cluster. In this situation, primary shards relocated to OpenSearch nodes of a newer version could try to copy segment files to replica shards on an older version of OpenSearch, which would result in shard failure. Relocating replica shards first may help to avoid this in multi-version clusters. 
     - `NO_PREFERENCE` – The default behavior in which the order of shard relocation has no importance. 
@@ -110,7 +115,8 @@ OpenSearch supports the following the cluster-level shard, block, and task setti
 
 - `cluster.max_shards_per_node` (Integer): Limits the total number of primary and replica shards for the cluster. The limit is calculated as follows: `cluster.max_shards_per_node` multiplied by the number of non-frozen data nodes. Shards for closed indexes do not count toward this limit. Default is `1000`. 
 
-- `cluster.persistent_tasks.allocation.enable` (String): Enables or disables allocation for persistent tasks.       
+- `cluster.persistent_tasks.allocation.enable` (String): Enables or disables allocation for persistent tasks.   
+
     Valid values are: 
     - `all` – Allows persistent tasks to be assigned to nodes. 
     - `none` – No allocations are allowed for persistent tasks. This does not affect persistent tasks already running. 

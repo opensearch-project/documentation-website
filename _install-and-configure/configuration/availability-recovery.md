@@ -5,9 +5,27 @@ parent: Configuring OpenSearch
 nav_order: 50
 ---
 
-# Cluster availability settings
+# Availability and recovery settings
 
-Cluster availability settings include settings for cluster manager task throttling, remote-backed storage, search backpressure, shard indexing backpressure, segment replication, and cross-cluster replication.
+Availability and recovery settings include settings for the following:
+
+- [Snapshots](#snapshot-settings)
+- [Cluster manager task throttling](#cluster-manager-task-throttling-settings)
+- [Remote-backed storage](#remote-backed-storage-settings)
+- [Search backpressure](#search-backpressure-settings)
+- [Shard indexing backpressure](#shard-indexing-backpressure-settings)
+- [Segment replication](#segment-replication-settings)
+- [Cross-cluster replication](#cross-cluster-replication-settings)
+
+## Snapshot settings
+
+OpenSearch supports the following snapshot settings:
+
+- `snapshot.max_concurrent_operations`(Integer): The maximum number of concurrent snapshot operations. Default is `1000`. 
+
+- `slm.health.failed_snapshot_warn_threshold` (String): The number of failed invocations since the last successful snapshot that will indicate a problem as per the health API profile. Default is five repeated failures: `5L`. 
+
+For security-related snapshot settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-settings/).
 
 ## Cluster manager task throttling settings
 

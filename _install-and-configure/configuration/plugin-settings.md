@@ -9,6 +9,18 @@ nav_order: 50
 
 The following settings are related to OpenSearch plugins.
 
+## Alerting settings
+
+For information about alerting settings, see [Alerting settings]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/#alerting-settings).
+
+## Anomaly detection settings
+
+For information about anomaly detection settings, see [Settings]({{site.url}}{{site.baseurl}}/observing-your-data/ad/settings/).
+
+## Machine learning settings
+
+For information about machine learning settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
+
 ## Security analytics settings
 
 The Security Analytics plugin supports the following settings:
@@ -19,20 +31,3 @@ The Security Analytics plugin supports the following settings:
     
     For more information about Alerting plugin workflow integration with Security Analytics, see [Integrated Alerting plugin workflows]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#integrated-alerting-plugin-workflows). 
 
-## Snapshot settings
-
-The following table describes snapshot settings.
-
-| Setting | Data type | Description |
-| :--- | :--- | :--- |
-| `snapshot.max_concurrent_operations` | Integer | The maximum number of concurrent snapshot operations. Default is `1000`. |
-| `slm.health.failed_snapshot_warn_threshold` | String | The number of failed invocations since the last successful snapshot that will indicate a problem as per the health API profile. Default is five repeated failures: `5L`. |
-
-## Machine learning settings
-
-The following table describes machine learning settings.
-
-| Setting | Data type | Description |
-| :--- | :--- | :--- |
-| `breaker.model_inference.limit` | String | The limit for the trained model circuit breaker. Default is `50%` of the JVM heap. |
-|` breaker.model_inference.overhead` | Integer | The constant that all trained model estimations are multiplied by to determine a final estimation. Default is `1`. |

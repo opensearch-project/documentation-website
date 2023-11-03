@@ -68,3 +68,4 @@ cluster.remote_store.repository: my-repo-1
 cluster.remote_store.translog.enabled: true
 cluster.remote_store.translog.repository: my-repo-1
 ```
+{% include copy.html %}
