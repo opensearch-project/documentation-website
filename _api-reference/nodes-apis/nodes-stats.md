@@ -51,7 +51,7 @@ adaptive_selection | Statistics about adaptive replica selection, which selects 
 script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
-resource_usage_stats | Resource usage statistics of nodes, such as CPU and JVM
+resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
 
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
 
@@ -737,7 +737,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
-[resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage stats for the node.
+[resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 
 
 ### `indices`
@@ -1159,8 +1159,8 @@ The `resource_usage_stats` object contains the resource usage statistics. Each e
 Field | Field type | Description
 :--- |:-----------| :---
 timestamp | Integer    | The last refresh time for the resource usage statistics, in milliseconds since the epoch.
-cpu_utilization_percent | Float      | Statistics for the average CPU usage of OpenSearch process in the period configured in the setting `node.resource.tracker.global_cpu_usage.window_duration`.
-memory_utilization_percent | Float      | Statistics for the JVM memory usage on the node in the period configured in the setting `node.resource.tracker.global_jvmmp.window_duration`
+cpu_utilization_percent | Float      | Statistics for the average CPU usage of OpenSearch process within the time period configured in the `node.resource.tracker.global_cpu_usage.window_duration` setting.
+memory_utilization_percent | Float      | The node JVM memory usage statistics within the time period configured in the `node.resource.tracker.global_jvmmp.window_duration` setting.
 
 ## Concurrent segment search
 
