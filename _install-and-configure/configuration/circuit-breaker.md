@@ -67,4 +67,4 @@ The ML Commons plugin supports the following machine learning circuit breaker se
 
 - `breaker.model_inference.limit` (Dynamic): The limit for the trained model circuit breaker. Default is `50%` of the JVM heap. 
 
-- ` breaker.model_inference.overhead`(Dynamic): A constant by which the trained model estimations are multiplied to determine the final estimation. Default is `1`. 
+- `breaker.model_inference.overhead` (Dynamic): A constant by which the trained model estimations are multiplied to determine the final estimation. Default is `1`. 

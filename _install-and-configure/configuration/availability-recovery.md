@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Cluster availability settings
+title: Availability and recovery settings
 parent: Configuring OpenSearch
-nav_order: 50
+nav_order: 70
 ---
 
 # Availability and recovery settings

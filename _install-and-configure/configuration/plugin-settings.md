@@ -9,19 +9,23 @@ nav_order: 50
 
 The following settings are related to OpenSearch plugins.
 
-## Alerting settings
+## Alerting plugin settings
 
-For information about alerting settings, see [Alerting settings]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/#alerting-settings).
+For information about the Alerting plugin settings, see [Alerting settings]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/#alerting-settings).
 
-## Anomaly detection settings
+## Anomaly Detection plugin settings
 
-For information about anomaly detection settings, see [Settings]({{site.url}}{{site.baseurl}}/observing-your-data/ad/settings/).
+For information about the Anomaly Detection plugin settings, see [Settings]({{site.url}}{{site.baseurl}}/observing-your-data/ad/settings/).
 
-## Machine learning settings
+## ML Commons settings
 
 For information about machine learning settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
-## Security analytics settings
+## Security plugin settings
+
+For information about the Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-settings/).
+
+## Security Analytics plugin settings
 
 The Security Analytics plugin supports the following settings:
 

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Security plugin settings
+title: Security settings
 parent: Configuring OpenSearch
 nav_order: 20
 ---
 
-# Security plugin settings
+# Security settings
 
 The Security plugin supports the following settings.
 

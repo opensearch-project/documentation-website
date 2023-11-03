@@ -2,7 +2,7 @@
 layout: default
 title: Search settings
 parent: Configuring OpenSearch
-nav_order: 50
+nav_order: 60
 ---
 
 # Search settings
