@@ -326,12 +326,12 @@ peer_forwarder:
 ```
 
 
-# Pipeline Configurations
+## Pipeline Configurations
 
 Since Data Prepper 2.5, shared pipeline components can be configured under the reserved section `pipeline_configurations` when all pipelines are defined in a single pipeline configuration YAML file. 
-Shared pipeline configurations can include certain components within [Extension Plugins]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#extension-plugins), e.g.
+Shared pipeline configurations can include certain components within [Extension Plugins]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#extension-plugins), as shown in the following example that refers to secrets configurations for an `opensearch` sink:
 
-```
+```json
 pipeline_configurations:
   aws:
     secrets:
@@ -349,12 +349,4 @@ simple-sample-pipeline:
         index: "test-migration"
 ```
 
-The above snippet in `pipelines.yaml` defines [AWS secrets extension plugin]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#aws-extension-plugins) within `pipeline_configurations` and refers to secrets configurations in opensearch sink. 
-Note that when the same component is defined in both `pipelines.yaml` and `data-prepper-config.yaml`, the definition in the `pipelines.yaml` will overwrite the counterpart in `data-prepper-config.yaml`. In the above example, `pipeline_configurations/aws/secrets`
-in `pipelines.yaml` will overwrite `extensions/aws/secrets` if defined in `data-prepper-config.yaml`.
-
-The collection of shared pipeline components are as follows.
-
-## AWS secrets extension
-
-See [AWS secrets extension plugin]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#aws-secrets-extension-plugin) for details.
+When the same component is defined in both `pipelines.yaml` and `data-prepper-config.yaml`, the definition in the `pipelines.yaml` will overwrite the counterpart in `data-prepper-config.yaml`. For more information on shared pipeline components, see [AWS secrets extension plugin]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#aws-secrets-extension-plugin) for details.
