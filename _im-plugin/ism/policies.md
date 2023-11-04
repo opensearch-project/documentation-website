@@ -187,6 +187,7 @@ Allows you to reduce the number of primary shards in your indexes. With this act
         "my-alias": {}
       }
     ],
+    "switch_aliases": true,
     "force_unsafe": false
 }
 ```
@@ -198,6 +199,7 @@ Parameter | Description | Type | Example | Required
 `percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
 `target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | `string` or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
 `aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
+`switch_aliases` | If true, copies aliases from the soure index to the taget index. If there is a name conflict with an alias from the `aliases` field, alias from the `aliases` field is used. | boolean | `true` | No. Default implicit value is `false`, so no aliases are copied by default.
 `force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
 
 If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/). For example,
