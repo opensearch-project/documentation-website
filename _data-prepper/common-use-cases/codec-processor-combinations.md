@@ -3,8 +3,6 @@ layout: default
 title: Codec processor combinations
 parent: Common use cases
 nav_order: 25
-redirect_from: 
-  - /data-prepper/common-use-cases/
 ---
 
 # Codec processor combinations
