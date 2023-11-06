@@ -20,7 +20,7 @@ To use a pretrained model in your OpenSearch cluster:
 1. Select the model you want to upload. For a list of pretrained models, see [supported pretrained models](#supported-pretrained-models).
 2. Upload the model using the [upload API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework#upload-model-to-opensearch). Because a pretrained model originates from the ML Commons model repository, you only need to provide the `name`, `version`, and `model_format` in the upload API request.  
 
-```
+```json
 POST /_plugins/_ml/models/_upload
 {
   "name": "huggingface/sentence-transformers/all-MiniLM-L12-v2",
@@ -31,7 +31,7 @@ POST /_plugins/_ml/models/_upload
 
 Note that for sparse encoding models, you still need to upload the full request body, as shown in the following example: 
 
-```
+```json
 POST /_plugins/_ml/models/_upload
 {
     "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1",
