@@ -151,11 +151,11 @@ sts_role_arn | No | String   | The AWS Security Token Service (AWS STS) role to 
 refresh_interval | No | Duration | The refreshment interval for AWS secrets extension plugin to poll new secret values. Defaults to `PT1H`. See [Automatically refreshing secrets](#automatically-refreshing-secrets) for details.                             
 
 #### Reference secrets
-
+ß
 In `pipelines.yaml`, secret values can be referenced within the pipeline plugins using the following formats:
 
-* plaintext: `${{aws_secrets:<YOUR_SECRET_CONFIG_ID>}}`.
-* JSON (key-value pairs): `${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}`
+* plaintext: `{% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>}}{% endraw %}`.
+* JSON (key-value pairs): `{% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}{% endraw %}`
 
  
 Replace `<YOUR_SECRET_CONFIG_ID>` with the corresponding secret config ID under `/extensions/aws/secrets`. Replace `<YOUR_KEY>` with the desired key in the secret JSON value. The secret value reference string format can be interpreted for the following plugin setting data types:
@@ -194,9 +194,9 @@ After `<YOUR_SECRET_CONFIG_ID>` is configured, you can reference the IDs in your
 ```
 sink:
     - opensearch:
-        hosts: [ "${{aws_secrets:host-secret-config}}" ]
-        username: "${{aws_secrets:credential-secret-config:username}}"
-        password: "${{aws_secrets:credential-secret-config:password}}"
+        hosts: [ {% raw %}"${{aws_secrets:host-secret-config}}"{% endraw %} ]
+        username: {% raw %}"${{aws_secrets:credential-secret-config:username}}"{% endraw %}
+        password: {% raw %}"${{aws_secrets:credential-secret-config:password}}"{% endraw %}
         index: "test-migration"
 ```
 
