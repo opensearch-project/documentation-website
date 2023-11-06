@@ -138,133 +138,123 @@ The total number of old generation garbage collections across the whole cluster 
 
 ## Total ZGC Cycles GC time
 
-The total time spent doing garbage collection by the ZGC garbage collector across the whole cluster as reported by the Node Stats API.
+**Corresponding metrics key**: `node_total_zgc_cycles_gc_count`
 
-    Corresponding metrics key: node_total_zgc_cycles_gc_time
+The total number of garbage collections performed by ZGC across the whole cluster as reported by the node stats API.
 
-Total ZGC Cycles GC count
+## Total ZGC Pauses GC time
 
-    Definition: The total number of garbage collections performed by ZGC across the whole cluster as reported by the node stats API.
+**Corresponding metrics key**: `node_total_zgc_pauses_gc_time`
 
-    Corresponding metrics key: node_total_zgc_cycles_gc_count
+The total time spent in "Stop-The-World" pauses by the ZGC garbage collector across the whole cluster as reported by the Node Stats API.
 
-Total ZGC Pauses GC time
 
-    Definition: The total time spent in Stop-The-World pauses by the ZGC garbage collector across the whole cluster as reported by the node stats API.
+## Total ZGC Pauses GC count
 
-    Corresponding metrics key: node_total_zgc_pauses_gc_time
+**Corresponding metrics key**: `node_total_zgc_pauses_gc_count`
 
-Total ZGC Pauses GC count
+The total number of "Stop-The-World" pauses performed by ZGC across the whole cluster as reported by the Node Stats API.
 
-    Definition: The total number of Stop-The-World pauses performed by ZGC across the whole cluster as reported by the node stats API.
 
-    Corresponding metrics key: node_total_zgc_pauses_gc_count
+## Store size
 
-Store size
+**Corresponding metrics key**: `store_size_in_bytes`
 
-    Definition: The size in bytes of the index (excluding the translog) as reported by the index stats API.
+The size in bytes of the index (excluding the translog) as reported by the Index Stats API.
 
-    Corresponding metrics key: store_size_in_bytes
+## Translog size
 
-Translog size
+**Corresponding metrics key**: `translog_size_in_bytes`
 
-    Definition: The size in bytes of the translog as reported by the index stats API.
+The size in bytes of the translog as reported by the Index Stats API.
 
-    Corresponding metrics key: translog_size_in_bytes
+## Heap used for X
 
-Heap used for X
+**Corresponding metrics keys**: `segments_*_in_bytes`
 
-Where X is one of:
+The number of bytes used for the corresponding item as reported by the Index Stats API. The item could any of the following:
 
-    doc values
+- doc values
+- terms
+- norms
+- points
+- stored fields
 
-    terms
 
-    norms
+## Segment count
 
-    points
+**Corresponding metrics key**: `segments_count`
 
-    stored fields
+The total number of segments as reported by the Index Stats API.
 
-    Definition: Number of bytes used for the corresponding item as reported by the index stats API.
 
-    Corresponding metrics keys: segments_*_in_bytes
+## Total Ingest Pipeline count
 
-Segment count
+**Corresponding metrics key**: `ingest_pipeline_cluster_count`
 
-    Definition: Total number of segments as reported by the index stats API.
+The total number of documents ingested by all nodes within the cluster, over the duration of the race.
 
-    Corresponding metrics key: segments_count
+## Total Ingest Pipeline time
 
-Total Ingest Pipeline count
+**Corresponding metrics key**: `ingest_pipeline_cluster_time`
 
-    Definition: Total number of documents ingested by all nodes within the cluster, over the duration of the race.
+The total time, in milliseconds, spent preprocessing ingest documents by all nodes within the cluster, over the duration of the race.
 
-    Corresponding metrics key: ingest_pipeline_cluster_count
 
-Total Ingest Pipeline time
+## Total Ingest Pipeline failed
 
-    Definition: Total time, in milliseconds, spent preprocessing ingest documents by all nodes within the cluster, over the duration of the race.
+**Corresponding metrics key**: `ingest_pipeline_cluster_failed`
 
-    Corresponding metrics key: ingest_pipeline_cluster_time
+The total number of failed ingest operations by all nodes within the cluster, over the duration of the race.
 
-Total Ingest Pipeline failed
 
-    Definition: Total number of failed ingest operations by all nodes within the cluster, over the duration of the race.
+## Throughput
 
-    Corresponding metrics key: ingest_pipeline_cluster_failed
+**Corresponding metrics key**: `throughput`
 
-Throughput
+ reports the minimum, mean, median and maximum throughput for each task.
 
-Rally reports the minimum, mean, median and maximum throughput for each task.
+The number of operations that OpenSearch can perform within a certain time period,  per second. The report includes the minimum, mean, median and maximum throughput for each task.
 
-    Definition: Number of operations that Elasticsearch can perform within a certain time period, usually per second.
 
-    Corresponding metrics key: throughput
+## Latency
 
-Latency
+**Corresponding metrics key**: `latency`
 
-Rally reports several percentile numbers for each task. Which percentiles are shown depends on how many requests Rally could capture (i.e. Rally will not show a 99.99th percentile if it could only capture five samples because that would be a vanity metric).
+The time period between submission of a request and receiving the complete response. It also includes the wait time the request spends waiting until it is ready to be serviced by OpenSearch. OpenSearch reports several percentile numbers for each task. Which percentiles are shown depends on how many requests OpenSearch can capture during the latency period.
 
-    Definition: Time period between submission of a request and receiving the complete response. It also includes wait time, i.e. the time the request spends waiting until it is ready to be serviced by Elasticsearch.
 
-    Corresponding metrics key: latency
+## Service time
 
-Service time
+**Corresponding metrics key**: `service_time`
 
-Rally reports several percentile numbers for each task. Which percentiles are shown depends on how many requests Rally could capture (i.e. Rally will not show a 99.99th percentile if it could only capture five samples because that would be a vanity metric).
+The time period between sending a request and receiving the corresponding response. This metric can easily be mixed up with latency but does not include waiting time. This is what most load testing tools refer to as “latency” (although it is incorrect). OpenSearch reports several percentile numbers for each task. Which percentiles are shown depends on how many requests OpenSearch can capture during the latency period.
 
-    Definition: Time period between sending a request and receiving the corresponding response. This metric can easily be mixed up with latency but does not include waiting time. This is what most load testing tools refer to as “latency” (although it is incorrect).
 
-    Corresponding metrics key: service_time
 
-Processing time
+## Processing time
 
-Note
+Processing time is only reported if the setting output.processingtime is set to true in the OpenSearch Benchmark configuration file.
+{: note.}
 
-Processing time is only reported if the setting output.processingtime is set to true in the configuration file.
+**Corresponding metrics key**: `processing_time`
 
-Rally reports several percentile numbers for each task. Which percentiles are shown depends on how many requests Rally could capture (i.e. Rally will not show a 99.99th percentile if it could only capture five samples because that would be a vanity metric).
 
-    Definition: Time period between start of request processing and receiving the complete response. Contrary to service time, this metric also includes Rally’s client side processing overhead. Large differences between service time and processing time indicate a high overhead in the client and can thus point to a potential client-side bottleneck which requires investigation.
+The time period between start of request processing and receiving the complete response. Unlike to service time, this metric also includes OpenSearch’s client side processing overhead. Large differences between service time and processing time indicate a high overhead in the client and can thus point to a potential client-side bottleneck which requires investigation.
 
-    Corresponding metrics key: processing_time
 
-Error rate
+## Error rate
 
-    Definition: The ratio of erroneous responses relative to the total number of responses. Any exception thrown by the Python Elasticsearch client is considered erroneous (e.g. HTTP response codes 4xx, 5xx or network errors (network unreachable)). For specific details, check the reference documentation of the Elasticsearch client. Usually any error rate greater than zero is alerting. You should investigate the root cause by inspecting Rally and Elasticsearch logs and rerun the benchmark.
+Corresponding metrics key: `service_time`. Each `service_time` record has a meta.success flag. 
 
-    Corresponding metrics key: service_time. Each service_time record has a meta.success flag. Rally simply counts how often this flag is true and false respectively.
+The ratio of erroneous responses relative to the total number of responses. Any exception thrown by the Python Elasticsearch client is considered erroneous, for example,  HTTP response codes 4xx, 5xx, or network errors (network unreachable). Usually any error rate greater than zero was found by the Alerting plugin. You should investigate the root cause by inspecting OpenSearch and OpenSearch Benchmark logs and rerun the benchmark.
 
-Disk usage
 
-Note
+## Disk usage
 
-The following disk usage summaries are only reported if the disk-usage-stats telemetry device is enabled.
-Per field total disk usage
+**Corresponding metrics keys**: `disk_usage_total`
+**Metric metadata**: `index` and `field`
 
-    Definition: The total number of bytes that a single field uses on disk. Recorded for each field returned by the disk usage API even if the total is 0.
+The total number of bytes that a single field uses on disk. Recorded for each field returned by the disk usage API even if the total is 0.
 
-    Corresponding metrics keys: disk_usage_total
 
-    Metric metadata: index and field

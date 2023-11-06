@@ -15,7 +15,7 @@ This page lists the telemetry devices supported by OpenSearch Benchmark.
 
 ## jfr
 
-The jfr telemetry device enables the [Java Flight Recorder](https://docs.oracle.com/javacomponents/jmc-5-5/jfr-runtime-guide/index.html) on the benchmark candidate. Up to JDK 11, Java flight recorder ships only with Oracle JDK. OpenSearch Benchmark assumes that Oracle JDK is used for benchmarking. If you run benchmarks on JDK 11 or later, [Java flight recorder](https://jdk.java.net/jmc/) is also available on OpenJDK.
+The `jfr` telemetry device enables the [Java Flight Recorder (JFR)](https://docs.oracle.com/javacomponents/jmc-5-5/jfr-runtime-guide/index.html) on the benchmark candidate. Up to JDK 11, JFR ships only with Oracle JDK. OpenSearch Benchmark assumes that Oracle JDK is used for benchmarking. If you run benchmarks on JDK 11 or later, [Java flight recorder](https://jdk.java.net/jmc/) is also available on OpenJDK.
 
 To enable `jfr`, invoke Workload with `opensearch-benchmark workload --workload=pmc --telemetry jfr`. `jfr` will then write a flight recording file which can be opened in Java Mission Control. OpenSearch Benchmark prints the location of the flight recording file on the command line.
 
@@ -32,7 +32,7 @@ The `jit` telemetry device enables JIT compiler logs for the benchmark candidate
 
 ## gc
 
-The `gc` telemetry device enables GC logs for the benchmark candidate. You can use tools like GCViewer to analyze the GC logs.
+The `gc` telemetry device enables garbage collector (GC) logs for the benchmark candidate. You can use tools like GCViewer to analyze the GC logs.
 
 If the runtime JDK is Java 9 or higher, you can specify `gc-log-config` parameter. The GC logging configuration consisting of a list of tags and levels, such as the default value `gc*=info,safepoint=info,age*=trace`. Run `java -Xlog:help` to see the list of available levels and tags. 
 
@@ -131,7 +131,7 @@ This telemetry device supports the `data-stream-stats-sample-interval` parameter
 
 ## ingest-pipeline-stats
 
-The `ingest-pipeline-stats`` telemetry device makes a call at the beginning and end of the benchmark to the Node Stats API and records the deltas in the form of the following documents:
+The `ingest-pipeline-stats` telemetry device makes a call at the beginning and end of the benchmark to the Node Stats API and records the deltas in the form of the following documents:
 
 - Three results documents for each cluster: `ingest_pipeline_cluster_count`, `ingest_pipeline_cluster_time`, `ingest_pipeline_cluster_failed`.
 - One metrics document for each node’s respective stats: `ingest_pipeline_node_count`, `ingest_pipeline_node_time`, `ingest_pipeline_node_failed`.
