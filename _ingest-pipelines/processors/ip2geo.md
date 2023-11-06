@@ -222,7 +222,7 @@ The following response confirms that the pipeline is working as expected:
       "_index":"testindex1",
       "_id":"1",
       "_source":{
-        "my_ip_field":"172.0.0.1",
+        "ip":"172.0.0.1",
         "ip2geo":{
          "continent_name":"North America",
          "region_iso_code":"AL",
