@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # CAT segments
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The cat segments operation lists Lucene segment-level information for each index.

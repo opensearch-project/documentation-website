@@ -5,7 +5,9 @@ parent: Snapshot APIs
 nav_order: 8
 ---
 
-## Get snapshot status
+# Get snapshot status
+**Introduced 1.0**
+{: .label .label-purple }
 
 Returns details about a snapshot’s state during and after snapshot creation.
 
@@ -14,7 +16,7 @@ To learn about snapshot creation, see [Create snapshot]({{site.url}}{{site.baseu
 If you use the Security plugin, you must have the `monitor_snapshot`, `create_snapshot`, or `manage cluster` privileges.
 {: .note}
 
-### Path parameters
+## Path parameters
 
 Path parameters are optional. 
 
@@ -34,7 +36,7 @@ Three request variants provide flexibility:
 Using the API to return state for other than currently running snapshots can be very costly for (1) machine machine resources and (2) processing time if running in the cloud. For each snapshot, each request causes file reads from all a snapshot's shards. 
 {: .warning}
 
-### Request fields
+## Request fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -367,7 +369,7 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 }
 ````
 
-### Response fields
+## Response fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---

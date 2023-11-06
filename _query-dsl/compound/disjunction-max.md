@@ -8,7 +8,7 @@ redirect_from:
   - /query-dsl/query-dsl/compound/disjunction-max/
 ---
 
-# Disjunction max queries
+# Disjunction max query
 
 A disjunction max (`dis_max`) query returns any document that matches one or more query clauses. For documents that match multiple query clauses, the relevance score is set to the highest relevance score from all matching query clauses.
 
@@ -25,6 +25,7 @@ PUT testindex1/_doc/1
   "description": "Top 10 sonnets of England's national poet and the Bard of Avon"
 }
 ```
+{% include copy-curl.html %}
 
 ```json
 PUT testindex1/_doc/2
@@ -33,8 +34,9 @@ PUT testindex1/_doc/2
   "body": "The poems written by various 16-th century poets"
 }
 ```
+{% include copy-curl.html %}
 
-Use a `dis_max` query to search for documents that contain the words "Shakespeare works":
+Use a `dis_max` query to search for documents that contain the words "Shakespeare poems":
 
 ```json
 GET testindex1/_search

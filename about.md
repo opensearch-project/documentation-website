@@ -13,7 +13,7 @@ redirect_from:
 
 # Introduction to OpenSearch
 
-OpenSearch is a distributed search and analytics engine based on [Apache Lucene](https://lucene.apache.org/). After adding your data to OpenSearch, you can perform full-text searches on it with all of the features you might expect: search by field, search multiple indices, boost fields, rank results by score, sort results by field, and aggregate results.
+OpenSearch is a distributed search and analytics engine based on [Apache Lucene](https://lucene.apache.org/). After adding your data to OpenSearch, you can perform full-text searches on it with all of the features you might expect: search by field, search multiple indexes, boost fields, rank results by score, sort results by field, and aggregate results.
 
 Unsurprisingly, people often use search engines like OpenSearch as the backend for a search application---think [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:FAQ/Technical#What_software_is_used_to_run_Wikipedia?) or an online store. It offers excellent performance and can scale up and down as the needs of the application grow or shrink.
 
@@ -29,9 +29,9 @@ You can run OpenSearch locally on a laptop---its system requirements are minimal
 In a single node cluster, such as a laptop, one machine has to do everything: manage the state of the cluster, index and search data, and perform any preprocessing of data prior to indexing it. As a cluster grows, however, you can subdivide responsibilities. Nodes with fast disks and plenty of RAM might be great at indexing and searching data, whereas a node with plenty of CPU power and a tiny disk could manage cluster state. For more information on setting node types, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
 
-## Indices and documents
+## indexes and documents
 
-OpenSearch organizes data into *indices*. Each index is a collection of JSON *documents*. If you have a set of raw encyclopedia articles or log lines that you want to add to OpenSearch, you must first convert them to [JSON](https://www.json.org/). A simple JSON document for a movie might look like this:
+OpenSearch organizes data into *indexes*. Each index is a collection of JSON *documents*. If you have a set of raw encyclopedia articles or log lines that you want to add to OpenSearch, you must first convert them to [JSON](https://www.json.org/). A simple JSON document for a movie might look like this:
 
 ```json
 {
@@ -55,14 +55,14 @@ When you add the document to an index, OpenSearch adds some metadata, such as th
 }
 ```
 
-Indices also contain mappings and settings:
+Indexes also contain mappings and settings:
 
 - A *mapping* is the collection of *fields* that documents in the index have. In this case, those fields are `title` and `release_date`.
 - Settings include data like the index name, creation date, and number of shards.
 
 ## Primary and replica shards
 
-OpenSearch splits indices into *shards* for even distribution across nodes in a cluster. For example, a 400 GB index might be too large for any single node in your cluster to handle, but split into ten shards, each one 40 GB, OpenSearch can distribute the shards across ten nodes and work with each shard individually.
+OpenSearch splits indexes into *shards* for even distribution across nodes in a cluster. For example, a 400 GB index might be too large for any single node in your cluster to handle, but split into ten shards, each one 40 GB, OpenSearch can distribute the shards across ten nodes and work with each shard individually.
 
 By default, OpenSearch creates a *replica* shard for each *primary* shard. If you split your index into ten shards, for example, OpenSearch also creates ten replica shards. These replica shards act as backups in the event of a node failure---OpenSearch distributes replica shards to different nodes than their corresponding primary shards---but they also improve the speed and rate at which the cluster can process search requests. You might specify more than one replica per index for a search-heavy workload.
 
@@ -93,4 +93,4 @@ To delete the document:
 DELETE https://<host>:<port>/<index-name>/_doc/<document-id>
 ```
 
-You can change most OpenSearch settings using the REST API, modify indices, check the health of the cluster, get statistics---almost everything.
+You can change most OpenSearch settings using the REST API, modify indexes, check the health of the cluster, get statistics---almost everything.

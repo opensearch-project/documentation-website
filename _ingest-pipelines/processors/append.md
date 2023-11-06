@@ -8,12 +8,15 @@ redirect_from:
 ---
  
 # Append
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `append` processor is used to add values to a field:
 - If the field is an array, the `append` processor appends the specified values to that array.
 - If the field is a scalar field, the `append` processor converts it to an array and appends the specified values to that array.
 - If the field does not exist, the `append` processor creates an array with the specified values.
 
+### Example
 The following is the syntax for the `append` processor: 
 
 ```json
