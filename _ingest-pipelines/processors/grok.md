@@ -143,23 +143,23 @@ GET testindex1/_doc/1
 
 You can use default patterns, or you can add custom patterns to your pipelines using the `patterns_definitions` parameter. Custom grok patterns can be used in a pipeline to extract structured data from log messages that do not match the built-in grok patterns. This can be useful for parsing log messages from custom applications or for parsing log messages that have been modified in some way. Custom patterns adhere to a straightforward structure: each pattern has a unique name and the corresponding regular expression that defines its matching behavior.
 
-The following is an example of how to include a custom pattern in your configuration. In this example, `MY_CUSTOM_PATTERN` is defined and subsequently used in the `patterns` list, which tells `grok` to look for this pattern in the log message. The pattern is a regular expression that matches any sequence of alphanumeric characters and captures the matched characters into the `my_field`.
+The following is an example of how to include a custom pattern in your configuration. In this example, the issue number is between 3 and 4 digits and is parsed into the `issue_number` field and the status is parsed into the `status` field:
 
 ```json
+PUT _ingest/pipeline/log_line
 {
-   "processors":[
-      {
-         "grok":{
-            "field":"message",
-            "patterns":[
-               "%{MY_CUSTOM_PATTERN:my_field}"
-            ],
-            "pattern_definitions":{
-               "MY_CUSTOM_PATTERN":"([a-zA-Z0-9]+)"
-            }
-         }
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "patterns": ["The issue number %{NUMBER:issue_number} is %{STATUS:status}"],
+        "pattern_definitions" : {
+          "NUMBER" : "\\d{3,4}",
+          "STATUS" : "open|closed"
+        }
       }
-   ]
+    }
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -185,7 +185,7 @@ PUT _ingest/pipeline/log_line
 ```
 {% include copy-curl.html %}
 
-The `grok_match_index` returns 1 match, as shown in the following output:
+When you simulate the pipeline, OpenSearch returns the `_ingest` metadata that includes the `grok_match_index`, as shown in the following output:
 
 ```json
 {
