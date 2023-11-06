@@ -15,6 +15,9 @@ document.addEventListener('click', function(event) {
     else if (target.matches('.feedback-edit')) {
         gtag('event', 'edit_page_click');
     }
+    else if (target.matches('.feedback-forum')) {
+        gtag('event', 'forum_link_click');
+    }
     else if (target.matches('.feedback-button')) {
         sendButton.disabled = false;
     }

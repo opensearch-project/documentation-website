@@ -8,7 +8,7 @@ redirect_from:
   - /query-dsl/query-dsl/compound/boosting/
 ---
 
-# Boosting queries
+# Boosting query
 
 If you're searching for the word "pitcher", your results may relate to either baseball players or containers for liquids. For a search in the context of baseball, you might want to completely exclude results that contain the words "glass" or "water" by using the `must_not` clause. However, if you want to keep those results but downgrade them in relevance, you can do so with `boosting` queries. 
 
