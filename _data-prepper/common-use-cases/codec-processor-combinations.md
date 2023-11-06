@@ -19,7 +19,7 @@ The JSON array is most effective with the following codec processor combination.
 
 | **Compression type** | **Codec** | **Processor** |
 |---|---|---|
-| None /gzip/ Automatic |[JSON](data-prepper/pipelines/configuration/sources/s3/#json-codec) | [parse_json](/pipelines/configuration/processors/parse-json/) | 
+| None /gzip/ Automatic |[JSON]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#json-codec) | [parse_json]({{site.url}}{{site.baseurl}}/pipelines/configuration/processors/parse-json/) | 
 
 ## NDJSON
 
@@ -29,7 +29,7 @@ The NDJSON input type is most effective with the following codec processor combi
 
 | **Compression type** | **Codec** | **Processor** |
 |---|---|---|---|
-| None /gzip/ Automatic | [Newline](/data-prepper/pipelines/configuration/sources/s3/#newline-codec) | [parse_json](data-prepper/pipelines/configuration/processors/parse-json/)  | 
+| None /gzip/ Automatic | [Newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) | [parse_json]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/parse-json/)  | 
 
 ## CSV
 
@@ -39,9 +39,9 @@ The CSV input type is most effective with the following codec processor combinat
 
 | **Compression type** | **Codec** | **Processor** | **Limitations**
 |---|---|---|---|---|
-| None /gzip/ Automatic | [CSV](/data-prepper/pipelines/configuration/sources/s3/#csv-codec) | None | Header is automatically detected and used for index mapping with the CSV codec. |
-| None /gzip/ Automatic | [Newline]((/data-prepper/pipelines/configuration/sources/s3/#newline-codec)) | [CSV](/data-prepper/pipelines/configuration/processors/csv/) | Header is detected if `header_destination` is configured in the `newline` codec. <br>The header can be used in the CSV processor under `column_names_source_key`. |
-| None /gzip/ Automatic | None | [CSV](/data-prepper/pipelines/configuration/processors/csv/) | N/A |
+| None /gzip/ Automatic | [CSV]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#csv-codec) | None | Header is automatically detected and used for index mapping with the CSV codec. |
+| None /gzip/ Automatic | [Newline](({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec)) | [CSV]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) | Header is detected if `header_destination` is configured in the `newline` codec. <br>The header can be used in the CSV processor under `column_names_source_key`. |
+| None /gzip/ Automatic | None | [CSV]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) | N/A |
 
 
 ## Parquet
@@ -50,10 +50,10 @@ The CSV input type is most effective with the following codec processor combinat
 
 | **Compression type** | **Processor** |
 |---|---|
-| None /gzip/ Automatic | [Parquet](data-prepper/pipelines/configuration/sinks/s3/#parquet-codec) |
-| Snappy / Automatic | [S3 Select](/data-prepper/pipelines/configuration/sources/s3/#using-s3_select-with-the-s3-source) |
+| None /gzip/ Automatic | [Parquet]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/s3#parquet-codec) |
+| Snappy / Automatic | [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) |
 
 ## Avro
 
-[Apace Avro] helps streamline streaming data pipelines. It is most efficient when used with the [Avro](/data-prepper/pipelines/configuration/sinks/s3/#avro-codec) inside an `s3` sink.
+[Apace Avro] helps streamline streaming data pipelines. It is most efficient when used with the [Avro]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/s3#avro-codec) inside an `s3` sink.
 
