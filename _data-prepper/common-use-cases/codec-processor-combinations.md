@@ -19,7 +19,7 @@ The JSON array is most effective with the following codec processor combination.
 
 | **Compression type** | **Codec** | **Processor** |
 |---|---|---|
-| None /gzip/ Automatic |[JSON]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#json-codec) | [parse_json]({{site.url}}{{site.baseurl}}/pipelines/configuration/processors/parse-json/) | 
+| None /gzip/ Automatic |[JSON]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#json-codec) | [parse_json]({{site.url}}{{site.baseurl}}data-prepper/pipelines/configuration/processors/parse-json/) | 
 
 ## NDJSON
 
@@ -29,7 +29,7 @@ The NDJSON input type is most effective with the following codec processor combi
 
 | **Compression type** | **Codec** | **Processor** |
 |---|---|---|---|
-| None /gzip/ Automatic | [Newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) | [parse_json]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/parse-json/)  | 
+| None /gzip/ Automatic | [Newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec)  | 
 
 ## CSV
 
@@ -40,7 +40,7 @@ The CSV input type is most effective with the following codec processor combinat
 | **Compression type** | **Codec** | **Processor** | **Limitations**
 |---|---|---|---|---|
 | None /gzip/ Automatic | [CSV]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#csv-codec) | None | Header is automatically detected and used for index mapping with the CSV codec. |
-| None /gzip/ Automatic | [Newline](({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec)) | [CSV]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) | Header is detected if `header_destination` is configured in the `newline` codec. <br>The header can be used in the CSV processor under `column_names_source_key`. |
+| None /gzip/ Automatic | [Newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) | [CSV]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) | Header is detected if `header_destination` is configured in the `newline` codec. <br>The header can be used in the CSV processor under `column_names_source_key`. |
 | None /gzip/ Automatic | None | [CSV]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) | N/A |
 
 
