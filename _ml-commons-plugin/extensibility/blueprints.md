@@ -175,7 +175,7 @@ The remote text embedding model output must be a two-dimensional float array, ea
 
 ## Custom pre- and post-processing functions
 
-You can write your own pre- and post-processing functions specifically for your model format. For example, the following Amazon Bedrock connector definition contains custom pre- and post-processing functions for the Amazon Bedrock Titan model:
+You can write your own pre- and post-processing functions specifically for your model format. For example, the following Amazon Bedrock connector definition contains custom pre- and post-processing functions for the Amazon Bedrock Titan embedding model:
 
 ```json
 POST /_plugins/_ml/connectors/_create
