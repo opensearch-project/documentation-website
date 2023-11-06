@@ -2,6 +2,7 @@
 layout: default
 title: Term-level queries
 has_children: true
+has_toc: false
 nav_order: 20
 ---
 
