@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Delete document
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 If you no longer need a document in your index, you can use the delete document API operation to delete it.

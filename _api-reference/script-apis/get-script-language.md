@@ -5,7 +5,9 @@ parent: Script APIs
 nav_order: 6
 ---
 
-## Get script language
+# Get script language
+**Introduced 1.0**
+{: .label .label-purple }
 
 The get script language API operation retrieves all supported script languages and their contexts.
 
@@ -87,7 +89,7 @@ The `GET _script_language` request returns the available contexts for each langu
 }
 ```
 
-### Response fields
+## Response fields
 
 The request contains the following response fields.
 

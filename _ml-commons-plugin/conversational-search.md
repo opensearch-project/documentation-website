@@ -40,7 +40,6 @@ In the `conversation-meta` index, you can customize the `name` field to make it 
     }
 }
 ```
-{% include copy-curl.html %}
 
 ### `conversation-interactions` index
 
@@ -73,7 +72,6 @@ The `conversation-interactions` index creates a clean interaction abstraction an
     }
 }
 ```
-{% include copy-curl.html %}
 
 ## Working with conversations and interactions
 
@@ -169,7 +167,7 @@ The Memory API responds with the most recent conversation, as indicated in the `
 
 If there are fewer conversations than the number set in `max_results`, the response only returns the number of conversations that exist. Lastly, `next_token` provides an ordered position of the sorted list of conversations. When a conversation is added between subsequent GET conversation calls, one of the listed conversations will be duplicated in the results, for example:
 
-```json
+```plaintext
 GetConversations               -> [BCD]EFGH
 CreateConversation             -> ABCDEFGH
 GetConversations(next_token=3) -> ABC[DEF]GH
@@ -249,73 +247,74 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
 
 1. Use the Connector API to create the HTTP connector:
 
-  ```json
-  POST /_plugins/_ml/connectors/_create
-  {
-    "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
-    "version": 2,
-    "protocol": "http",
-    "parameters": {
-      "endpoint": "[api.openai.com](http://api.openai.com/)",
-      "model": "gpt-3.5-turbo",
-      "temperature": 0
+    ```json
+    POST /_plugins/_ml/connectors/_create
+    {
+      "name": "OpenAI Chat Connector",
+      "description": "The connector to public OpenAI model service for GPT 3.5",
+      "version": 2,
+      "protocol": "http",
+      "parameters": {
+        "endpoint": "[api.openai.com](http://api.openai.com/)",
+        "model": "gpt-3.5-turbo",
+        "temperature": 0
+      },
+      "credential": {
+        "openAI_key": "<your OpenAI key>"
     },
-    "credential": {
-      "openAI_key": "<your OpenAI key>"
-   },
-    "actions": [
-      {
-        "action_type": "predict",
-        "method": "POST",
-        "url": "[https://$](https://%24/){parameters.endpoint}/v1/chat/completions",
-        "headers": {
-          "Authorization": "Bearer ${credential.openAI_key}"
-        },
-        "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": $  {parameters.temperature} }"
-      }
-    ]
-  }
-  ```
+      "actions": [
+        {
+          "action_type": "predict",
+          "method": "POST",
+          "url": "[https://$](https://%24/){parameters.endpoint}/v1/chat/completions",
+          "headers": {
+            "Authorization": "Bearer ${credential.openAI_key}"
+          },
+          "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": $  {parameters.temperature} }"
+        }
+      ]
+    }
+    ```
+    {% include copy-curl.html %}
 
-2. Create a new model group for the connected model. You'll use the `model_group_id` returned by the Register API to register the model:
+1. Create a new model group for the connected model. You'll use the `model_group_id` returned by the Register API to register the model:
 
-  ```json
-   POST /_plugins/_ml/model_group/_register
-   {
-    "name": "public_model_group", 
-    "description": "This is a public model group"
-   }
-  ```
-  {% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/model_group/_register
+    {
+      "name": "public_model_group", 
+      "description": "This is a public model group"
+    }
+    ```
+    {% include copy-curl.html %}
 
-3. Register and deploy the model using the `connector_id` from the Connector API response in Step 1 and the `model_group_id` returned in Step 2:
+1. Register and deploy the model using the `connector_id` from the Connector API response in Step 1 and the `model_group_id` returned in Step 2:
 
-  ```json
-  POST /_plugins/_ml/models/_register
-  {
-	"name": "openAI-gpt-3.5-turbo",
-	"function_name": "remote",
-	"model_group_id": "fp-hSYoBu0R6vVqGMnM1",
-	"description": "test model",
-	"connector_id": "f5-iSYoBu0R6vVqGI3PA"
-  }
-  ``` 
-  {% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/models/_register
+    {
+      "name": "openAI-gpt-3.5-turbo",
+      "function_name": "remote",
+      "model_group_id": "fp-hSYoBu0R6vVqGMnM1",
+      "description": "test model",
+      "connector_id": "f5-iSYoBu0R6vVqGI3PA"
+    }
+    ``` 
+    {% include copy-curl.html %}
 
-4. With the model registered, use the `task_id` returned in the registration response to get the `model_id`. You'll use the `model_id` to deploy the model to OpenSearch:
+1. With the model registered, use the `task_id` returned in the registration response to get the `model_id`. You'll use the `model_id` to deploy the model to OpenSearch:
 
-  ```json
-  GET /_plugins/_ml/tasks/<task_id>
-  ```
-  {% include copy-curl.html %}
+    ```json
+    GET /_plugins/_ml/tasks/<task_id>
+    ```
+    {% include copy-curl.html %}
 
-5. Using the `model_id` from step 4, deploy the model:
+1. Using the `model_id` from step 4, deploy the model:
 
-  ```json
-  POST /_plugins/_ml/models/<model_id>/_deploy
-  ```
-  {% include copy-curl.html %}
+    ```json
+    POST /_plugins/_ml/models/<model_id>/_deploy
+    ```
+    {% include copy-curl.html %}
 
 ### Setting up the pipeline
 
