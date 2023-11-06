@@ -8,13 +8,13 @@ nav_order: 140
 
 # Grok 
 
-The `grok` processor is used to parse and structure unstructured data using pattern matching. You can use the `grok` processor to extract fields from log messages, web server access logs, application logs, and other text data that follows a consistent format.
+The `grok` processor is used to parse and structure unstructured data using pattern matching. You can use the `grok` processor to extract fields from log messages, web server access logs, application logs, and other log data that follows a consistent format.
 
 ## Grok basics
 
 The `grok` processor uses a set of predefined patterns to match parts of the input text. Each pattern consists of a name and a regular expression. For example, the pattern `%{IP:ip_address}` matches an IP address and assigns it to the field `ip_address`. You can combine multiple patterns to create more complex expressions. For example, the pattern `%{IP:client} %{WORD:method} %{URIPATHPARM:request} %{NUMBER:bytes %NUMBER:duration}` matches a line from a web server access log and extracts the client IP address, the HTTP method, the request URI, the number of bytes sent, and the duration of the request.
 
-The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can us the [Grok Debugger](https://grokdebugger.com/) tool to test and debug your grok expressions.
+The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the [Grok Debugger](https://grokdebugger.com/) tool to test and debug your grok expressions.
 
 ## Grok processor syntax
 
@@ -36,9 +36,9 @@ To configure the `grok` processor, you have various options that allow you to de
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field to which the data should be parsed. |
-`patterns`  | Required  | A list of grok expressions used to match and extract named captures. The first expression in the list that matches is returned. | 
-`pattern_definitions`  | Optional  | A dictionary of pattern names and pattern tuples (a pair of a pattern name, which is a string that identifies the pattern, and a pattern, which is the string that specifies the pattern itself) is used to define custom patterns for the current processor. If a pattern matches an existing name, it overrides the pre-existing definition. |
+`field`  | Required  | The name of the field containing the text that should be parsed. |
+`patterns`  | Required  | A list of grok expressions used to match and extract named captures. The first matching expression in the list is returned. | 
+`pattern_definitions`  | Optional  | A dictionary of pattern names and pattern tuples used to define custom patterns for the current processor. If a pattern matches an existing name, it overrides the pre-existing definition. |
 `trace_match` | Optional | When the parameter is set to `true`, the processor adds a field named `_grok_match_index` to the processed document. This field contains the index of the pattern within the `patterns` array that successfully matched the document. This information can be useful for debugging and understanding which pattern was applied to the document. Default is `false`. |
 `description` | Optional | A brief description of the processor. |
 `if` | Optional | A condition for running this processor. |
