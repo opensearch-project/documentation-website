@@ -343,9 +343,9 @@ simple-sample-pipeline:
   ...
   sink:
     - opensearch:
-        hosts: [ "${{aws_secrets:host-secret-config}}" ]
-        username: "${{aws_secrets:credential-secret-config:username}}"
-        password: "${{aws_secrets:credential-secret-config:password}}"
+        hosts: [ {% raw %}"${{aws_secrets:host-secret-config}}"{% endraw %} ]
+        username: {% raw %}"${{aws_secrets:credential-secret-config:username}}"{% endraw %}
+        password: {% raw %}"${{aws_secrets:credential-secret-config:password}}"{% endraw %}
         index: "test-migration"
 ```
 
