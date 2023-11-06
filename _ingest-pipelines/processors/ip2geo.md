@@ -205,7 +205,6 @@ POST _ingest/pipeline/my-pipeline/_simulate
       "_id": "1",
       "_source": {
         "ip": "172.0.0.1",
-        "datasource": "my-datasource"
       }
     }
   ]
