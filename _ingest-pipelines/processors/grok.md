@@ -49,7 +49,7 @@ Parameter | Required | Description |
 
 ## Creating a pipeline
 
-The following steps guide you through creating an [ingest pipeline]({site.url}}{{site.baseurl}}/ingest-pipelines/index/) with the `grok` processor. 
+The following steps guide you through creating an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/index/) with the `grok` processor. 
 
 **Step 1: Create a pipeline.** 
 
