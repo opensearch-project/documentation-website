@@ -780,10 +780,6 @@ main {
     background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
   }
 
-  // @include mq(md) {
-  //   padding-top: calc(4rem + 9px);
-  // }
-
   .side-bar {
     @include sans-serif;
     position: static;
@@ -1622,12 +1618,6 @@ body {
 
   @include mq(md) {
     display: block;
-    // padding: 1px 0;
-    // position: absolute;
-    // left: 0;
-    // right: 0;
-    // z-index: 2;
-    // top: 0;
   }
 
   h1 {
