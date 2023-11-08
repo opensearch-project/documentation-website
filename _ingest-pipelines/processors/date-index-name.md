@@ -25,12 +25,13 @@ The following is the syntax for the `date_index_name` processor:
 
 The following table lists the required and optional parameters for the `date_index_name` processor.
 
-Parameter | Required | Description |
+Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The date or timestamp field in the incoming document. <Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).> |
 `date_rounding`  | Required | The rounded date format within the index name . Valid values are `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute), and `s` (second). |
 `date_formats` | Optional | An array of date formats to parse the date or timestamp field. Default is <yyyy-MM-dd'T'HH:mm:ss.SSSXX>. |
 `index_name_format` | Optional | The date format. Default is <MM-dd-yyyy>. | Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`index_name_prefix` | Optional | 
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
@@ -131,3 +132,28 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+#### Response
+
+You should get the following example response:
+
+```json
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 56,
+  "_seq_no": 55,
+  "_primary_term": 29,
+  "found": true,
+  "_source": {
+    "response_code": "200",
+    "http_method": "POST",
+    "http_version": "HTTP/1.1",
+    "client_ip": "192.168.1.10",
+    "message": """192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] "POST /login HTTP/1.1" 200 3456""",
+    "url": "/login",
+    "response_size": "3456",
+    "timestamp": "03/Nov/2023:15:20:45 +0000"
+  }
+}
+```
