@@ -197,14 +197,32 @@ PUT /_ingest/pipeline/my-pipeline
 To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/my-id/_simulate
+POST _ingest/pipeline/my-pipeline/_simulate
 {
   "docs": [
     {
-      "_index":"my-index",
-      "_id":"my-id",
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "ip": "172.0.0.1",
+      }
+    }
+  ]
+}
+```
+
+#### Response
+
+The following response confirms that the pipeline is working as expected:
+
+```json
+{
+  "docs": [
+    {
+      "_index":"testindex1",
+      "_id":"1",
       "_source":{
-        "my_ip_field":"172.0.0.1",
+        "ip":"172.0.0.1",
         "ip2geo":{
          "continent_name":"North America",
          "region_iso_code":"AL",
