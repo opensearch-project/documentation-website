@@ -135,7 +135,7 @@ GET testindex1/_doc/1
 
 #### Response
 
-You should get the following example response:
+The following shows an example reponse:
 
 ```json
 {
