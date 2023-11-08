@@ -198,7 +198,7 @@ Parameter | Description | Type | Example | Required
 `max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however it cannot be used with `num_new_shards` or `percentage_of_source_shards`
 `percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
 `target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | `string` or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
-`aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
+`aliases` | Aliases to add to the new index. | Object | `myalias` | No, but must be an array of alias objects
 `switch_aliases` | If `true`, copies the aliases from the source index to the target index. If there is a name conflict with an alias from the `aliases` field, the alias from the `aliases` field is used. | Boolean | `true` | No. The default implicit value is `false`, which means no aliases are copied by default.
 `force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
 
