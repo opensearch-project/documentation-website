@@ -199,7 +199,7 @@ Parameter | Description | Type | Example | Required
 `percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
 `target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | String or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
 `aliases` | Aliases to add to the new index. | Object | `myalias` | No. It must be an array of alias objects.
-`switch_aliases` | If `true`, copies the aliases from the source index to the target index. If there is a name conflict with an alias from the `aliases` field, the alias from the `aliases` field is used. | Boolean | `true` | No. The default implicit value is `false`, which means no aliases are copied by default.
+`switch_aliases` | If `true`, copies the aliases from the source index to the target index. If there is a name conflict with an alias from the `aliases` field, the alias in the `aliases` field is used instead of the name. | Boolean | `true` | No. The default implicit value is `false`, which means no aliases are copied by default.
 `force_unsafe` | If true, executes the shrink action even if there are no replicas. | Boolean | `false` | No
 
 If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/). For example,
