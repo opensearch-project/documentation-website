@@ -31,6 +31,7 @@ processorShutdownTimeout | No | Duration | The time given to processors to clear
 sinkShutdownTimeout | No | Duration | The time given to sinks to clear any in-flight data and gracefully shut down. Default is 30s.
 peer_forwarder | No | Object | Peer forwarder configurations. See [Peer forwarder options](#peer-forwarder-options) for more details.
 circuit_breakers | No | [circuit_breakers](#circuit-breakers) | Configures a circuit breaker on incoming data.
+extensions | No | Object | The pipeline extension plugin configurations. See [Extension plugins](#extension-plugins) for more details.
 
 ### Peer forwarder options
 
@@ -100,3 +101,108 @@ usage | Yes | Bytes | Specifies the JVM heap usage at which to trip a circuit br
 reset | No  | Duration | After tripping the circuit breaker, no new checks are made until after this time has passed. This effectively sets the minimum time for a breaker to remain open to allow for clearing memory. Defaults to `1s`.
 check_interval | No | Duration | Specifies the time between checks of the heap size. Defaults to `500ms`.
 
+### Extension plugins
+
+Since Data Prepper 2.5, Data Prepper provides support for user configurable extension plugins. Extension plugins are shared common 
+configurations shared across pipeline plugins, such as [sources, buffers, processors, and sinks]({{site.url}}{{site.baseurl}}/data-prepper/index/#concepts).
+
+### AWS extension plugins
+
+To use the AWS extension plugin, add the following setting to your `data-prepper-config.yaml` under `aws`.
+
+Option | Required | Type | Description
+:--- |:---|:---| :---
+aws | No  | Object | The AWS extension plugins configuration. 
+
+#### AWS secrets extension plugin
+
+The AWS secrets extension plugin configures the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) to be 
+referenced in pipeline plugin configurations, as shown in the following example:
+
+```json
+extensions:
+  aws:
+    secrets:
+      <YOUR_SECRET_CONFIG_ID_1>:
+        secret_id: <YOUR_SECRET_ID_1>
+        region: <YOUR_REGION_1>
+        sts_role_arn: <YOUR_STS_ROLE_ARN_1>
+        refresh_interval: <YOUR_REFRESH_INTERVAL>
+      <YOUR_SECRET_CONFIG_ID_2>:
+        ...
+```
+
+To use the secrets extension plugin, add the following setting to your `pipeline.yaml` under `extensions` > `aws`. 
+
+Option | Required | Type | Description
+:--- |:---|:---| :---
+secrets | No  | Object | The AWS Secrets Manager extension plugin configuration. See [Secrets](#secrets) for more details.
+
+### Secrets
+
+Use the following settings under the `secrets` extension setting.
+
+
+Option | Required | Type | Description
+:--- |:---|:---| :---
+secret_id  | Yes | String | The AWS secret name or ARN.                                                                                                                                                                                              |
+region | No | String   | The AWS region of the secret. Defaults to `us-east-1`.                                                                                                                                                                            
+sts_role_arn | No | String   | The AWS Security Token Service (AWS STS) role to assume for requests to the AWS Secrets Manager. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). 
+refresh_interval | No | Duration | The refreshment interval for AWS secrets extension plugin to poll new secret values. Defaults to `PT1H`. See [Automatically refreshing secrets](#automatically-refreshing-secrets) for details.                             
+
+#### Reference secrets
+
+In `pipelines.yaml`, secret values can be referenced within the pipeline plugins using the following formats:
+
+* plaintext: `${{aws_secrets:<YOUR_SECRET_CONFIG_ID>}}`.
+* JSON (key-value pairs): `${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}`
+
+ 
+Replace `<YOUR_SECRET_CONFIG_ID>` with the corresponding secret config ID under `/extensions/aws/secrets`. Replace `<YOUR_KEY>` with the desired key in the secret JSON value. The secret value reference string format can be interpreted for the following plugin setting data types:
+
+* String
+* Number
+* Long
+* Short
+* Integer
+* Double
+* Float
+* Boolean
+* Character
+
+The following example section of `data-prepper-config.yaml` names two secret config IDs, `host-secret-config` and `credential-secret-config`:
+
+
+```json
+extensions:
+  aws:
+    secrets:
+      host-secret-config:
+        secret_id: <YOUR_SECRET_ID_1>
+        region: <YOUR_REGION_1>
+        sts_role_arn: <YOUR_STS_ROLE_ARN_1>
+        refresh_interval: <YOUR_REFRESH_INTERVAL_1>
+      credential-secret-config:
+        secret_id: <YOUR_SECRET_ID_2>
+        region: <YOUR_REGION_2>
+        sts_role_arn: <YOUR_STS_ROLE_ARN_2>
+        refresh_interval: <YOUR_REFRESH_INTERVAL_2>
+```
+
+After `<YOUR_SECRET_CONFIG_ID>` is configured, you can reference the IDs in your `pipelines.yaml`:
+
+```
+sink:
+    - opensearch:
+        hosts: [ "${{aws_secrets:host-secret-config}}" ]
+        username: "${{aws_secrets:credential-secret-config:username}}"
+        password: "${{aws_secrets:credential-secret-config:password}}"
+        index: "test-migration"
+```
+
+
+#### Automatically refreshing secrets
+
+For each individual secret configuration, the latest secret value is polled on a regular interval to support refreshing secrets in AWS Secrets Manager. The refreshed secret values are utilized by certain pipeline plugins to refresh their components, such as connection and authentication to the backend service. 
+
+For multiple secret configurations, jitter within `60s` will be applied across all configurations during the initial secrets polling.
