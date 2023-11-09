@@ -20,6 +20,12 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
   <artifactId>opensearch-java</artifactId>
   <version>2.6.0</version>
 </dependency>
+
+<dependency>
+  <groupId>org.apache.httpcomponents.client5</groupId>
+  <artifactId>httpclient5</artifactId>
+  <version>5.2.1</version>
+</dependency>
 ```
 {% include copy.html %}
 
