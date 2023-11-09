@@ -194,7 +194,7 @@ Allows you to reduce the number of primary shards in your indexes. With this act
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`num_new_shards` | The maximum number of primary shards in the shrunken index. | Integer | `5` | Yes, however it cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`num_new_shards` | The maximum number of primary shards in the shrunken index. | Integer | `5` | Yes. It, however, cannot be used with `max_shard_size` or `percentage_of_source_shards`.
 `max_shard_size` | The maximum size in bytes of a shard for the target index. | Keyword | `5gb` | Yes, however it cannot be used with `num_new_shards` or `percentage_of_source_shards`
 `percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
 `target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | String or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
