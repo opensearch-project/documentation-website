@@ -298,7 +298,7 @@ The Security plugin supports the following REST layer TLS settings related to X.
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls).
 
-## Transport layer security
+## Transport layer security settings
 
 The Security plugin supports the following transport layer security settings:
 
