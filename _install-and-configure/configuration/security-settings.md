@@ -337,7 +337,7 @@ The Security plugin supports the following transport layer security settings:
 - `plugins.security.ssl.allow_client_initiated_renegotiation`: Enables or disables client renegotiation.
 
 
-### Other configuration settings
+## Other configuration settings
 
 The Security plugin supports the following additional configuration settings:
 
