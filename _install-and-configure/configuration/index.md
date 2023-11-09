@@ -10,31 +10,43 @@ redirect_from:
 
 # Configuring OpenSearch
 
-You can configure dynamic OpenSearch settings through the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). Certain operations are static and require you to modify `opensearch.yml` and restart the cluster.
+There are two types of OpenSearch settings: [dynamic](#dynamic-settings) and [static](#static-settings).
 
-Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. Certain settings, however, require `opensearch.yml`. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+## Dynamic settings
 
-## Specify settings as environment variables
+Dynamic index settings are settings that you can update at any time. You can configure dynamic OpenSearch settings through the Cluster settings API. For details, see [Update cluster settings using the API](#updating-cluster-settings-using-the-api).
+
+Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. 
+{: .tip}
+
+## Static settings
+
+Certain operations are static and require you to modify the `opensearch.yml` [configuration file](#configuration-file) and restart the cluster. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+
+## Specifying settings as environment variables
 
 You can specify environment variables as arguments using `-E` when launching OpenSearch:
 
 ```bash
 ./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
 ```
+{% include copy.html %}
 
-## Update cluster settings using the API
+## Updating cluster settings using the API
 
-The first step in changing a setting is to view the current settings:
+The first step in changing a setting is to view the current settings by sending the following request:
 
-```
+```json
 GET _cluster/settings?include_defaults=true
 ```
+{% include copy-curl.html %}
 
-For a more concise summary of non-default settings:
+For a more concise summary of non-default settings, send the following request:
 
-```
+```json
 GET _cluster/settings
 ```
+{% include copy-curl.html %}
 
 Three categories of setting exist in the cluster settings API: persistent, transient, and default. Persistent settings, well, persist after a cluster restart. After a restart, OpenSearch clears transient settings.
 
@@ -45,7 +57,7 @@ If you specify the same setting in multiple places, OpenSearch uses the followin
 3. Settings from `opensearch.yml`
 4. Default settings
 
-To change a setting, specify the new one as either persistent or transient. This example shows the flat settings form:
+To change a setting, use the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) and specify the new value as either persistent or transient. This example shows the flat settings form:
 
 ```json
 PUT _cluster/settings
@@ -55,6 +67,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 You can also use the expanded form, which lets you copy and paste from the GET response and change existing values:
 
@@ -68,6 +81,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 ---
 
@@ -86,8 +100,6 @@ cluster.name: my-application
 action.auto_create_index: true
 compatibility.override_main_response_version: true
 ```
-
-A standard Docker download stores the `opensearch_dashboards.yml` file in the following location: `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml`.
 
 The demo configuration includes a number of [settings for the Security plugin]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-settings/) that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
 

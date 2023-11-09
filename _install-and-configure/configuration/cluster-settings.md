@@ -2,7 +2,7 @@
 layout: default
 title: Cluster settings
 parent: Configuring OpenSearch
-nav_order: 40
+nav_order: 60
 ---
 
 # Cluster settings
@@ -11,7 +11,7 @@ The following settings are related to the OpenSearch cluster.
 
 ## Cluster-level routing and allocation settings
 
-OpenSearch supports the following cluster-level routing and shard allocation settings:
+OpenSearch supports the following cluster-level routing and shard allocation settings. All settings in this list are dynamic:
 
 - `cluster.routing.allocation.enable` (String): Enables or disables allocation for specific kinds of shards. 
     
@@ -94,17 +94,6 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `REPLICA_FIRST` – Replica shards are relocated first, before primary shards. This prioritization may help prevent a cluster's health status from going red when carrying out shard relocation in a mixed-version, segment-replication-enabled OpenSearch cluster. In this situation, primary shards relocated to OpenSearch nodes of a newer version could try to copy segment files to replica shards on an older version of OpenSearch, which would result in shard failure. Relocating replica shards first may help to avoid this in multi-version clusters. 
     - `NO_PREFERENCE` – The default behavior in which the order of shard relocation has no importance. 
 
-## Cluster-level index settings
-
-OpenSearch supports the following cluster-level index settings:
-
-- `cluster.default.index.refresh_interval` (Time unit): Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and also support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. 
-
-- `cluster.minimum.index.refresh_interval` (Time unit): Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum set, index creation fails. 
-
-- `cluster.indices.close.enable` (Boolean): Enables closing of open indexes in OpenSearch. Default is `true`. 
-
-
 ## Cluster-level shard, block, and task settings
 
 OpenSearch supports the following the cluster-level shard, block, and task settings:
@@ -124,3 +113,7 @@ OpenSearch supports the following the cluster-level shard, block, and task setti
     Default is `all`. 
 
 - `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether or not persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether or not persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. 
+
+## Cluster-level index settings
+
+For information about index-level index settings, see [Cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/index-settings/#cluster-level-index-settings).

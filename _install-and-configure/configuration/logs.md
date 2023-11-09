@@ -2,7 +2,7 @@
 layout: default
 title: Logs
 parent: Configuring OpenSearch
-nav_order: 90
+nav_order: 110
 redirect_from:
   - /opensearch/logs/
   - /monitoring-your-cluster/logs/
@@ -24,7 +24,7 @@ For its application logs, OpenSearch uses [Apache Log4j 2](https://logging.apach
 
 | Setting | Data type | Description |
 | :--- | :--- | :--- |
-| logger.org.opensearch.discovery | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
+| `logger.org.opensearch.discovery` | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
 
 Rather than changing the default log level (`logger.level`), you change the log level for individual OpenSearch modules:
 

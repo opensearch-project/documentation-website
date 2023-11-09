@@ -58,7 +58,7 @@ The GET operation has no request body options. All cluster setting field paramet
 Not all cluster settings can be updated using the cluster settings API. You will receive the error message `"setting [cluster.some.setting], not dynamically updateable"` when trying to configure these settings through the API.
 {: .note }
 
-For a listing of all cluster settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}install-and-configure/configuration/index/).
+For a listing of all cluster settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/index/).
 
 #### Example request
 

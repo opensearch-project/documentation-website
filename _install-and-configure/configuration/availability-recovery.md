@@ -2,7 +2,7 @@
 layout: default
 title: Availability and recovery settings
 parent: Configuring OpenSearch
-nav_order: 70
+nav_order: 90
 ---
 
 # Availability and recovery settings
@@ -21,9 +21,7 @@ Availability and recovery settings include settings for the following:
 
 OpenSearch supports the following snapshot settings:
 
-- `snapshot.max_concurrent_operations`(Integer): The maximum number of concurrent snapshot operations. Default is `1000`. 
-
-- `slm.health.failed_snapshot_warn_threshold` (String): The number of failed invocations since the last successful snapshot that will indicate a problem as per the health API profile. Default is five repeated failures: `5L`. 
+- `snapshot.max_concurrent_operations`(Dynamic, integer): The maximum number of concurrent snapshot operations. Default is `1000`. 
 
 For security-related snapshot settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-settings/).
 
@@ -35,18 +33,17 @@ For information about cluster manager task throttling settings, see [Setting thr
 
 OpenSearch supports the following cluster-level remote-backed storage settings:
 
-- `cluster.remote_store.translog.buffer_interval` (Time unit): The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. 
+- `cluster.remote_store.translog.buffer_interval` (Dynamic, time unit): The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. 
 
-- `remote_store.moving_average_window_size` (Integer): The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. 
+- `remote_store.moving_average_window_size` (Dynamic, integer): The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. 
 
-For more remote-backed storage settings, see [Configuring remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#configuring-remote-backed-storage).
+For more remote-backed storage settings, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/) and [Configuring remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#configuring-remote-backed-storage).
 
 For remote segment backpressure settings, see [Remote segment backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/#remote-segment-backpressure-settings)
 
 ## Search backpressure settings
 
 Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/search-backpressure/#search-backpressure-settings).
-
 
 ## Shard indexing backpressure settings
 

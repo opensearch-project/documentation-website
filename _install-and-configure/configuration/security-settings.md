@@ -2,7 +2,7 @@
 layout: default
 title: Security settings
 parent: Configuring OpenSearch
-nav_order: 20
+nav_order: 40
 ---
 
 # Security settings
@@ -148,7 +148,7 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.cert_alias`: An alias to the certificate used for audit log access.
 
-- `plugins.security.audit.config.pemkey_filepath`: The `/config` relative file path to the Privacy Enhanced Mail(PEM) key used for audit logging.
+- `plugins.security.audit.config.pemkey_filepath`: The `/config` relative file path to the Privacy Enhanced Mail (PEM) key used for audit logging.
 
 - `plugins.security.audit.config.pemkey_content`: The Base64-encoded content of the PEM key used for audit logging. This is an alternative to `...config.pemkey_filepath`.
 
@@ -216,7 +216,7 @@ For more information, see [Enabled ciphers and protocols]({{site.url}}{{site.bas
 
 The Security plugin supports the following transport layer TLS key store and trust store settings:
 
-- `plugins.security.ssl.transport.keystore_type`: The type of the key store file.  Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.keystore_type`: The type of the key store file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
 
 - `plugins.security.ssl.transport.keystore_filepath`: The path to the key store file, which must be under the `config` directory, specified using a relative path. Required.
 
