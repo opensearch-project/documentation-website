@@ -7,7 +7,7 @@ nav_order: 55
 
 # Date index name
 
-The `date_index_name` processor is used to point documents to the correct index based on the date or timestamp field within the document. The processor can be used for purposes such as log retention and index partitioning.
+The `date_index_name` processor is used to point documents to the correct time-based index based on the date or timestamp field within the document. The processor sets the `_index` metadata field to a [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) index name expression. Then the processor fetches the date or timestamp from the `field` field in the document being processed and formats it into a date math index name expression. The date math index name expression is based on the `index_name_prefix` and the `date_rounding`. For example, if the `field` field contains the value `2023-11-10-10T08:31:45Z` and the `date_rounding` field is set to `d`, then the date math index name expression is `my_index-2023-11-10`.
 
 The following is the syntax for the `date_index_name` processor:
 
@@ -27,11 +27,11 @@ The following table lists the required and optional parameters for the `date_ind
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The date or timestamp field in the incoming document. <Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).> |
+`field`  | Required  | The date or timestamp field in the incoming document. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `date_rounding`  | Required | The rounded date format within the index name . Valid values are `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute), and `s` (second). |
 `date_formats` | Optional | An array of date formats to parse the date or timestamp field. Default is <yyyy-MM-dd'T'HH:mm:ss.SSSXX>. |
 `index_name_format` | Optional | The date format. Default is <MM-dd-yyyy>. | Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`index_name_prefix` | Optional | 
+`index_name_prefix` | Optional | The index name prefix to add before the date. Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
