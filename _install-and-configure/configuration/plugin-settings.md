@@ -57,7 +57,31 @@ For information about machine learning settings, see [ML Commons cluster setting
 
 The Security Analytics plugin supports the following settings:
 
-- `plugins.neural_search.hybrid_search_disabled` (Boolean): Disables hybrid search. Default is `false`.
+- `plugins.neural_search.hybrid_search_disabled` (Dynamic, Boolean): Disables hybrid search. Default is `false`.
+
+## Notifications plugin settings
+
+The Notifications plugin supports the following settings. All settings in this list are dynamic:
+
+- `opensearch.notifications.core.allowed_config_types` (List): The allowed configuration types of the Notifications plugin. Use the `GET /_plugins/_notifications/features` API to retrieve the value of this setting. Configuration types include `slack`, `chime`, `microsoft_teams`, `webhook`, `email`, `sns`, `ses_account`, `smtp_account`, and `email_group`.
+
+- `opensearch.notifications.core.email.minimum_header_length` (Integer): The minimum email header length. Used for email message total length validation. Default is `160`.
+
+- `opensearch.notifications.core.email.size_limit` (Integer): The email size limit. Used for email message total length validation. Default is `10000000`.
+
+- `opensearch.notifications.core.http.connection_timeout` (Integer): The internal HTTP client connection timeout. The client is used for webhook-based notification channels. Default is `5000`.
+
+- `opensearch.notifications.core.http.host_deny_list` (List): A list of denied hosts. The HTTP client does not send notifications to webhook URLs in this list.
+
+- `opensearch.notifications.core.http.max_connection_per_route` (Integer): The maximum number of HTTP connections per route of the internal HTTP client. The client is used for webhook-based notification channels. Default is `20`.
+
+- `opensearch.notifications.core.http.max_connections` (Integer): The maximum number of HTTP connections of the internal HTTP client. The client is used for webhook-based notification channels. Default is `60`.
+
+- `opensearch.notifications.core.http.socket_timeout` (Integer): The socket timeout configuration of the internal HTTP client. The client is used for webhook-based notification channels. Default is `50000`.
+
+- `opensearch.notifications.core.tooltip_support` (Boolean): Enables tooltip support for the Notifications plugin. Use the `GET /_plugins/_notifications/features` API to retrieve the value of this setting. Default is `true`.
+
+- `opensearch.notifications.general.filter_by_backend_roles` (Boolean): Enables filtering by backend roles (role-based access control for the notification channels). Default is `false`.
 
 ## Security plugin settings
 
