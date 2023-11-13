@@ -7,7 +7,7 @@ nav_order: 55
 
 # Date index name
 
-The `date_index_name` processor is used to point documents to the correct time-based index based on the date or timestamp field within the document. The processor sets the `_index` metadata field to a [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) index name expression. Then the processor fetches the date or timestamp from the `field` field in the document being processed and formats it into a date math index name expression. The date math index name expression is based on the `index_name_prefix` and the `date_rounding`. For example, if the `field` field contains the value `2023-11-10-10T08:31:45Z`, the `index_name_prefix` field is set to `my_index-`, and the `date_rounding` field is set to `d`, then the date math index name expression is `my_index-2023-11-10`.
+The `date_index_name` processor is used to point documents to the correct time-based index based on the date or timestamp field within the document. The processor sets the `_index` metadata field to a [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) index name expression. Then the processor fetches the date or timestamp from the `field` field in the document being processed and formats it into a date math index name expression. The extracted date, `index_name_prefix` value, and `date_rounding` value are then combined to create the date math index expression. For example, if the `field` field contains the value `2023-10-30T12:43:29.000Z` and `index_name_prefix` is set to `week_index-` and `date_rounding` is set to `w`, then the date math index name expression is `week_index-2023-10-30`. You can use the `date_formats value` field to specify how the date in the date math index expression should be formatted.
 
 The following is the syntax for the `date_index_name` processor:
 
@@ -15,7 +15,7 @@ The following is the syntax for the `date_index_name` processor:
 {
   "date_index_name": {
     "field": "your_date_field or your_timestamp_field",
-    "date_rounding": "your_value"
+    "date_rounding": "rounding_value"
   }
 }
 ```
@@ -58,7 +58,7 @@ PUT /_ingest/pipeline/date-index-name1
         "field": "date_field",
         "index_name_prefix": "week_index-",
         "date_rounding": "w",
-        "date_formats": ["ISO8601"]
+        "date_formats": ["YYYY-MM-DD"]
       }
     }
   ]
@@ -81,7 +81,7 @@ POST _ingest/pipeline/date-index-name1/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "date_field": "2023-10-30T12:43:29.000Z"
+        "date_field": "2023-10-30"
       }
     }
   ]
@@ -98,13 +98,13 @@ The following example response confirms that the pipeline is working as expected
   "docs": [
     {
       "doc": {
-        "_index": "<week_index-{2023-10-30||/w{yyyy-MM-dd|UTC}}>",
+        "_index": "<week_index-{2023-10-01||/w{yyyy-MM-dd|UTC}}>",
         "_id": "1",
         "_source": {
-          "date_field": "2023-10-30T12:43:29.000Z"
+          "date_field": "2023-10-30"
         },
         "_ingest": {
-          "timestamp": "2023-11-10T18:37:08.064668882Z"
+          "timestamp": "2023-11-13T18:23:10.408593092Z"
         }
       }
     }
@@ -119,43 +119,36 @@ The following query ingests a document into an index named `testindex1`:
 ```json
 PUT testindex1/_doc/1?pipeline=date-index-name1
 {
-  "date_field": "2023-10-30T12:43:29.000Z"
+  "date_field": "2023-10-30"
 }
 ```
 {% include copy-curl.html %}
+
+#### Response
+
+The request indexes the document into the index `week_index-2023-10-23` and will continue to index documents into weekly indexes because the pipeline rounds by week.
+
+```json
+{
+  "_index": "week_index-2023-10-30",
+  "_id": "1",
+  "_version": 4,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 3,
+  "_primary_term": 1
+}
+```
 
 **Step 4 (Optional): Retrieve the document.**
 
 To retrieve the document, run the following query:
 
 ```json
-GET testindex1/_doc/1
+GET week_index-2023-10-30/_doc/1
 ```
 {% include copy-curl.html %}
-
-#### Response
-
-The following shows an example reponse:
-
-```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 56,
-  "_seq_no": 55,
-  "_primary_term": 29,
-  "found": true,
-  "_source": {
-    "response_code": "200",
-    "http_method": "POST",
-    "http_version": "HTTP/1.1",
-    "client_ip": "192.168.1.10",
-    "message": """192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] "POST /login HTTP/1.1" 200 3456""",
-    "url": "/login",
-    "response_size": "3456",
-    "timestamp": "03/Nov/2023:15:20:45 +0000"
-  }
-}
-```
-
-The following example uses the date math value to index the document into the 
