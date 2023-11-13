@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Supported Algorithms 
+title: Supported algorithms 
 has_children: false
 nav_order: 80
 ---
