@@ -60,11 +60,3 @@ The regular expression circuit breaker enables or disables regular expressions a
     Default is `limited`.
 
 - `script.painless.regex.limit-factor` (Static, integer): Applied only if `script.painless.regex.enabled` is set to `limited`. Limits the number of characters a regular expression in a Painless script. The character limit is calculated by multiplying the number of characters in the script input by `script.painless.regex.limit-factor`. Default is 6 (thus, if the input has 5 characters, the maximum number of characters in a regular expression is 5 &middot; 6 = 30).
- 
-## Machine learning circuit breaker settings
-
-The ML Commons plugin supports the following machine learning circuit breaker settings:
-
-- `breaker.model_inference.limit` (Dynamic, percentage): The limit for the trained model circuit breaker. Default is `50%` of the JVM heap. 
-
-- `breaker.model_inference.overhead` (Dynamic): A constant by which the trained model estimations are multiplied to determine the final estimation. Default is `1`. 
