@@ -89,13 +89,7 @@ For information about the Security plugin settings, see [Security settings]({{si
 
 ## Security Analytics plugin settings
 
-The Security Analytics plugin supports the following settings:
-
-- `plugins.security_analytics.enable_workflow_usage` (Boolean): Supports Alerting plugin workflow integration with Security Analytics. Determines whether composite monitor workflows are generated for the Alerting plugin after creating a new threat detector in Security Analytics. By default, the setting is `true`. 
-
-    When set to `true`, composite monitor workflows based on an associated threat detector's configuration are enabled. When set to `false`, composite monitor workflows based on an associated threat detector's configuration are disabled. 
-    
-    For more information about Alerting plugin workflow integration with Security Analytics, see [Integrated Alerting plugin workflows]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#integrated-alerting-plugin-workflows). 
+For information about security analytics settings, see [Security Analytics settings]({{site.url}}{{site.baseurl}}/security-analytics/security-analytics-settings/).
 
 ## SQL plugin settings
 
