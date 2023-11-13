@@ -92,3 +92,5 @@ PUT _plugins/_security/api/rolesmapping/anomaly_full_access
 ```
 
 Because they have different backend roles, `alice` and `bob` cannot view each other's detectors or their results.
+
+If users lack backend roles, they can still view each other's anomaly detection results if they possess anomaly_read_access. This is also true for anomaly_full_access, as it includes all the permissions of anomaly_read_access. Administrators should inform users that having anomaly_read_access permits viewing results from any detector in the cluster, potentially including data not directly accessible to them. To limit access to detector results more specifically, administrators should use backend role filters during detector creation. This way, only users with matching backend roles can access results from those specific detectors.
