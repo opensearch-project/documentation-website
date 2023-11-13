@@ -51,13 +51,13 @@ The following query creates a pipeline, named `date-index-name1`, that uses the 
 ```json
 PUT /_ingest/pipeline/date-index-name1
 {
-  "description": "Monthly log indexing pipeline",
+  "description": "Create weekly index pipeline",
   "processors": [
     {
       "date_index_name": {
-        "field": "@timestamp",
-        "date_rounding": "M",
-        "index_name_format": "yyyy-MM",
+        "field": "date_field",
+        "index_name_prefix": "week_index-",
+        "date_rounding": "w",
         "date_formats": ["ISO8601"]
       }
     }
@@ -81,7 +81,7 @@ POST _ingest/pipeline/date-index-name1/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "@timestamp": "2023-10-30T12:43:29.000Z"
+        "date_field": "2023-10-30T12:43:29.000Z"
       }
     }
   ]
@@ -98,13 +98,13 @@ The following example response confirms that the pipeline is working as expected
   "docs": [
     {
       "doc": {
-        "_index": "<{2023-10||/M{yyyy-MM|UTC}}>",
+        "_index": "<week_index-{2023-10-30||/w{yyyy-MM-dd|UTC}}>",
         "_id": "1",
         "_source": {
-          "@timestamp": "2023-10-30T12:43:29.000Z"
+          "date_field": "2023-10-30T12:43:29.000Z"
         },
         "_ingest": {
-          "timestamp": "2023-10-30T18:57:41.674876009Z"
+          "timestamp": "2023-11-10T18:37:08.064668882Z"
         }
       }
     }
@@ -119,7 +119,7 @@ The following query ingests a document into an index named `testindex1`:
 ```json
 PUT testindex1/_doc/1?pipeline=date-index-name1
 {
-  "@timestamp": "2023-10-30T12:43:29.000Z"
+  "date_field": "2023-10-30T12:43:29.000Z"
 }
 ```
 {% include copy-curl.html %}
@@ -157,3 +157,5 @@ The following shows an example reponse:
   }
 }
 ```
+
+The following example uses the date math value to index the document into the 
