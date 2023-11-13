@@ -8,15 +8,18 @@ redirect_from:
  - /security-plugin/access-control/authorization-tokens/
 ---
 
-## On-Behalf-Of Authentication
+## On-Behalf-Of authentication
+
+The Security plugin allows you to configure two types of authentication tokens. The first of these is On-Behalf-Of (OBO) tokens. 
 
 ### 1.0 Usage
-On-behalf-of tokens are a special form of JSON Web Token used for managing authentication requests between a user's client and an extension. These tokens operate "just-in-time," meaning that a token is issued just before it is required for authentication. A token will have a configurable window of validity (with a maximum duration of five minutes) after which it expires and cannot be used.
+On-behalf-of tokens are a special form of JSON Web Token used for managing authentication requests between a user's client and an extension. These tokens operate "just-in-time," meaning that a token is issued immediately before it is required for authentication. A token will have a configurable window of validity (with a maximum duration of five minutes) after which it expires and cannot be used.
 
 On-behalf-of tokens will allow an extension to interact with the OpenSearch cluster using the same privileges as the initiating user (the reason the tokens are  “on-behalf-of”). However, since these tokens do not have any restrictions in place, they also provide services the ability to operate as if they are the original user until token expiration. This implies that this feature can be used more broadly and is not limited to extension related use cases.
 
 ### 2.0 Configuration
 In the security config file, the on-behalf-of configuration is located under the dynamic config section. It contains the signing key for the token signature and the encryption key for the token payload (role information) decryption:
+
 ```
 config:
   dynamic:
@@ -29,7 +32,7 @@ config:
 
 The encoding algorithm is HMAC SHA512 by default for the signing of the JWT. Both the signing key and encryption key are Base64 encoded and stored on the file system of the OpenSearch node. The keys should be the same on all hosts, otherwise it encryption and decryption operations may fail. Deployment of these keys is managed by the cluster operator.
 
-### 3.0 Token Structure
+### 3.0 Token structure
 The payload of an on-behalf-of token must include all standard configurations of a JWT (JSON Web Token), along with encrypted and decrypted roles. Depending on the setting of the "Plugin Backward Compatibility Mode," backend roles should also be incorporated into role claims. It is important to note that the absence of any of these claims will result in a malformed token, failing to meet the required standard for authentication.
 
 The on-behalf-of token contains the following claims:
@@ -40,14 +43,14 @@ The on-behalf-of token contains the following claims:
 * Not-before (`nbf`): The earliest point at which the token can be used.
 	* Given that the on-behalf-of token is designed for just-in-time usage, its `nbf` should align with the `iat` (issued-at) time, indicating the moment when the token was created.
 * Expiry (`exp`): Expiration time
-	* Each on-behalf-of  token incorporates an expiration mechanism, which is verified upon its receipt. Once a token is issued, it cannot be revoked. Instead, the only token is only invalidated upon its expiration. Furthermore, the generation of on-behalf-of tokens by extensions is subject to dynamic settings. This functionality safeguards the system by preventing the issuance of future tokens under certain conditions.
+	* Each on-behalf-of token incorporates an expiration mechanism, which is verified upon its receipt. Once a token is issued, it cannot be revoked. Instead, the only token is only invalidated upon its expiration. Furthermore, the generation of on-behalf-of tokens by extensions is subject to dynamic settings. This functionality safeguards the system by preventing the issuance of future tokens under certain conditions.
 	* The default configuration establishes an expiration time of 300 seconds for on-beahalf-of tokens. Recognizing that different scenarios may necessitate different token durations, we have incorporated the capability for users to personalize this expiration time. At present, the maximum duration that can be assigned to a token is 600 seconds.
-	* In reference to the current design of the on-behalf-of (obo) token, it's accurate to say that token revocation isn't a current concern, given its intended just-in-time use and brief lifespan. However, if future adjustments necessitate an extended lifespan for this token, token revocation will be added. This strategy will be adopted to improve and solidify the security measures associated with on-behalf-of token use.
+	* In reference to the current design of the On-Behalf-Of token, it's accurate to say that token revocation isn't a current concern, given its intended just-in-time use and brief lifespan. However, if future adjustments necessitate an extended lifespan for this token, token revocation will be added. This strategy will be adopted to improve and solidify the security measures associated with on-behalf-of token use.
 * Subject (`sub`): User Identifier
 	* Name of the user with which this on-behalf-of token is associated.
 * Audience (`aud`): Extension’s unique identifier
 	* For the extension use case, the aud field is a reference to the specific extension that represents the target service.
-	* For the REST API use case, the the API parameter “service” will let user to specify the target service(s) using this token, and the default value is set to “self-issued“
+	* For the REST API use case, the API parameter “service” will let user to specify the target service(s) using this token, and the default value is set to “self-issued“
 * Roles: Security Privilege Evaluation
 	* Role Security Mode [[source code](https://github.com/opensearch-project/security/blob/main/src/main/java/org/opensearch/security/authtoken/jwt/JwtVendor.java#L151)], this configuration determines the encryption of the roles claim.
 		* Role Security Mode On (default value) - Roles claim will be encrypted.
@@ -56,9 +59,9 @@ The on-behalf-of token contains the following claims:
 			* Decrypted mapped roles in plain text (`dr`)
 			* Decrypted backend roles (`br`)
 
-The OpenSearch security plugin will be responsible for handling encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third party services.
+The OpenSearch Security plugin will be responsible for handling encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third party services.
 
-### 3.0 API Endpoint
+### 3.0 API endpoint
 There will be an new API endpoint `POST /_plugins/_security/api/generateonbehalfoftoken` on the security plugin that will allow users to create a short-lived self-issued on-behalf-of token to perform certain actions on behalf of a user.
 
 To access this API endpoint, the request body should contain three API parameters:
@@ -110,7 +113,7 @@ curl -XPUT "[https://localhost:9200/_plugins/_security/api/internalusers/admin-e
 }' -u "admin:admin" --insecure
 ```
 
-## Handling on-behalf-of & Service Account Requests
+## Handling On-Behalf-Of and Service Account Requests
 While both on-behalf-of token handling and Service Accounts can be viewed as independent features, the most significant benefits are realized when coupled. Specifically, OpenSearch exposes a client which is used to connect to the OpenSearch cluster and provides Plugins the ability to execute requests. With the introduction of on-behalf-of tokens and Service Accounts the client is now able to be used to handle requests which will make use of both of these new features. Now, when the client executes a request which requires an extension to use an on-behalf-of token, the first step of handling the request is the forwarding of the request to the Security Plugin. In the Security Plugin, the request is authenticated and authorized against the active user. If the active user is permitted, the request returns to OpenSearch’s core code base where a request to create an on-behalf-of for the target extension using the active user’s identity is created. This request to generate the on-behalf-of token is then handled by the `IdentityPlugin` implementation. In the standard scenario this is the Security Plugin, so the request is returned to the Security Plugin’s implementation of the `TokenManager` interface which generates a new on-behalf-of token for the request. After generating the token, the Security Plugin forwards the request with the on-behalf-of token to the extension. At that point, the extension is then able to call OpenSearch’s REST methods with the token. The permissions associated with the token will then be evaluated for the authorization of the request. If the token conveys the permissions required for the operation, the action will be performed and the response will be sent back to the extension. After processing OpenSearch’s response, the extension will forward its own handling of the response to the client. If instead, the on-behalf-of token does not entail the permissions required for execution of the target action, the a forbidden response is returned to the extension.
 
 Extensions acting on their own behalf also make use of the client exposed by OpenSearch. When an extension is first initialized in OpenSearch, the `IdentityPlugin` is triggered to create a new Service Account for it and provide the associated Service Account token. In the default configuration, the Security Plugin is the `IdentityPlugin` and handles these processes. After OpenSearch receives the Service Account token, it forwards that token to the associated extension. After the extension has received its token, requests by the client to make use of the Service Account associated with the extension are operable. In these scenarios, the extension receives the requests from the client, and then forwards the request along with the Service Account token to OpenSearch. OpenSearch further transfers the packages to the Security Plugin where the token is parsed and the request is treated as a traditional request using Basic Authentication in the `InternalAuthenticationBackend`.
