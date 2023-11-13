@@ -2,7 +2,7 @@
 layout: default
 title: Logs
 parent: Configuring OpenSearch
-nav_order: 110
+nav_order: 120
 redirect_from:
   - /opensearch/logs/
   - /monitoring-your-cluster/logs/

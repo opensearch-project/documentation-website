@@ -85,7 +85,7 @@ The Notifications plugin supports the following settings. All settings in this l
 
 ## Security plugin settings
 
-For information about the Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-settings/).
+For information about the Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
 
 ## Security Analytics plugin settings
 
