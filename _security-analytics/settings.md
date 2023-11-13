@@ -39,8 +39,7 @@ The Security Analytics plugin supports the following settings. All settings in t
 
 `plugins.security_analytics.correlation_history_retention_period` (Time value): The amount of time to keep correlation history indexes before automatically deleting them. Default is 60 days.
 
-`plugins.security_analytics.request_timeout` (Time value): The timeout for miscellaneous requests from the plugin.
- Default is 10 seconds.
+`plugins.security_analytics.request_timeout` (Time value): The timeout for all requests the Security Analytics plugin sends to other parts of OpenSearch. Default is 10 seconds.
 
 `plugins.security_analytics.action_throttle_max_value` (Time value): The maximum amount of time you can set for action throttling. Default is 24 hours (this value displays as 1440 minutes in OpenSearch Dashboards).
 
@@ -48,7 +47,7 @@ The Security Analytics plugin supports the following settings. All settings in t
 
 `plugins.security_analytics.enable_workflow_usage` (Boolean): Supports the Alerting plugin workflow integration with Security Analytics. Determines whether composite monitor workflows are generated for the Alerting plugin after creating a new threat detector in Security Analytics. When set to `true`, composite monitor workflows based on an associated threat detector's configuration are enabled. When set to `false`, composite monitor workflows based on an associated threat detector's configuration are disabled. Default is `true`. For more information about Alerting plugin workflow integration with Security Analytics, see [Integrated Alerting plugin workflows]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#integrated-alerting-plugin-workflows). 
 
-`plugins.security_analytics.correlation_time_window` (Time value): A time window in which all of the correlations must have occurred together. Default 5 minutes.
+`plugins.security_analytics.correlation_time_window` (Time value): Security Analytics generates correlations within a time window. This setting specifies the time window within which documents must be indexed into the index in order to be included in the same correlation. Default is 5 minutes.
 
 `plugins.security_analytics.mappings.default_schema` (String): The default mapping schema used for configuring a field mapping for a security analytics detector. Default is `ecs`.
 
