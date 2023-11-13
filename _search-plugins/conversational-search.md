@@ -2,7 +2,9 @@
 layout: default
 title: Conversational search
 has_children: false
-nav_order: 200
+nav_order: 50
+redirect_from:
+  - /ml-commons-plugin/conversational-search/
 ---
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/feedback-conversational-search-and-retrieval-augmented-generation-using-search-pipeline-experimental-release/16073). 

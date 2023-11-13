@@ -2,7 +2,9 @@
 layout: default
 title: Semantic search
 has_children: false
-nav_order: 140
+nav_order: 40
+redirect_from:
+  - /ml-commons-plugin/semantic-search/
 ---
 
 # Semantic search

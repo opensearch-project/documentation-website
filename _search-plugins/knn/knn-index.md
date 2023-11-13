@@ -2,7 +2,7 @@
 layout: default
 title: k-NN index
 nav_order: 5
-parent: k-NN
+parent: k-NN search
 has_children: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: default
-title: k-NN
-nav_order: 50
+title: k-NN search
+nav_order: 20
 has_children: true
 has_toc: false
 redirect_from:

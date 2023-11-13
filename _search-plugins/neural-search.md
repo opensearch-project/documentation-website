@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Neural search
-nav_order: 200
+nav_order: 30
 has_children: true
 has_toc: false
 redirect_from: 

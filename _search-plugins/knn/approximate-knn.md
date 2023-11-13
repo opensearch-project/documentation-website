@@ -2,7 +2,7 @@
 layout: default
 title: Approximate k-NN search
 nav_order: 15
-parent: k-NN
+parent: k-NN search
 has_children: false
 has_math: true
 ---

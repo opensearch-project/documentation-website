@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Settings
-parent: k-NN
+parent: k-NN search
 nav_order: 40
 ---
 

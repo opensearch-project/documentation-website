@@ -2,7 +2,7 @@
 layout: default
 title: API
 nav_order: 30
-parent: k-NN
+parent: k-NN search
 has_children: false
 ---
 
