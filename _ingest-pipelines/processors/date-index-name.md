@@ -14,8 +14,8 @@ The following is the syntax for the `date_index_name` processor:
 ```json
 {
   "date_index_name": {
-    "field": "date_field or timestamp_field",
-    "date_rounding": "M"
+    "field": "your_date_field or your_timestamp_field",
+    "date_rounding": "your_value"
   }
 }
 ```
