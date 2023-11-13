@@ -212,7 +212,6 @@ Set `-Djdk.tls.rejectClientInitiatedRenegotiation=true` to disable secure client
 
 The default insecure SSL password settings have been deprecated. In order to use the secure alternative of these settings users can use their alternative forms. Specifically, users can append the `_secure` suffix to the SSL settings. The resulting secure alternatives are:
 
-
 * plugins.security.ssl.http.pemkey_password_secure
 * plugins.security.ssl.http.keystore_password_secure
 * plugins.security.ssl.http.keystore_keypassword_secure
