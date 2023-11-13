@@ -29,8 +29,8 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The date or timestamp field in the incoming document. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `date_rounding`  | Required | The rounded date format within the index name . Valid values are `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute), and `s` (second). |
-`date_formats` | Optional | An array of date formats to parse the date or timestamp field. Default is <yyyy-MM-dd'T'HH:mm:ss.SSSXX>. |
-`index_name_format` | Optional | The date format. Default is <MM-dd-yyyy>. | Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`date_formats` | Optional | An array of date formats to parse the date or timestamp field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSXX`. |
+`index_name_format` | Optional | The date format. Default is empty value. | Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `index_name_prefix` | Optional | The index name prefix to add before the date. Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
