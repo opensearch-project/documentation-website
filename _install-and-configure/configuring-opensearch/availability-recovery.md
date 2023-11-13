@@ -23,7 +23,7 @@ OpenSearch supports the following snapshot settings:
 
 - `snapshot.max_concurrent_operations`(Dynamic, integer): The maximum number of concurrent snapshot operations. Default is `1000`. 
 
-For security-related snapshot settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-settings/).
+For security-related snapshot settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
 
 ## Cluster manager task throttling settings
 

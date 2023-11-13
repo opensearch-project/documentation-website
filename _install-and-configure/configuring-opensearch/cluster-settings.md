@@ -116,4 +116,4 @@ OpenSearch supports the following the cluster-level shard, block, and task setti
 
 ## Cluster-level index settings
 
-For information about index-level index settings, see [Cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/index-settings/#cluster-level-index-settings).
+For information about index-level index settings, see [Cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#cluster-level-index-settings).

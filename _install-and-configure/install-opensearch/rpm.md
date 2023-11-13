@@ -209,7 +209,7 @@ The following recommended settings will allow you to:
 - Configure your own TLS certificates—no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
 
-If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/) for guidance before proceeding.
+If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
 {:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to mitigate any issues caused by a bad configuration.
@@ -502,7 +502,7 @@ sudo yum update
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

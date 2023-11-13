@@ -4,7 +4,7 @@ title: Configuring OpenSearch
 nav_order: 10
 has_children: true
 redirect_from:
-  - /install-and-configure/configuration/
+  - /install-and-configure/configuring-opensearch/
   - /opensearch/configuration/
 ---
 
@@ -101,7 +101,7 @@ action.auto_create_index: true
 compatibility.override_main_response_version: true
 ```
 
-The demo configuration includes a number of [settings for the Security plugin]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/security-settings/) that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
+The demo configuration includes a number of [settings for the Security plugin]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
 
 ### (Optional) CORS header configuration
 
