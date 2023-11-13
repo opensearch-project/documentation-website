@@ -7,7 +7,7 @@ nav_order: 55
 
 # Date index name
 
-The `date_index_name` processor is used to point documents to the correct time-based index based on the date or timestamp field within the document. The processor sets the `_index` metadata field to a [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) index name expression. Then the processor fetches the date or timestamp from the `field` field in the document being processed and formats it into a date math index name expression. The date math index name expression is based on the `index_name_prefix` and the `date_rounding`. For example, if the `field` field contains the value `2023-11-10-10T08:31:45Z` and the `date_rounding` field is set to `d`, then the date math index name expression is `my_index-2023-11-10`.
+The `date_index_name` processor is used to point documents to the correct time-based index based on the date or timestamp field within the document. The processor sets the `_index` metadata field to a [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) index name expression. Then the processor fetches the date or timestamp from the `field` field in the document being processed and formats it into a date math index name expression. The date math index name expression is based on the `index_name_prefix` and the `date_rounding`. For example, if the `field` field contains the value `2023-11-10-10T08:31:45Z`, the `index_name_prefix` field is set to `my_index-`, and the `date_rounding` field is set to `d`, then the date math index name expression is `my_index-2023-11-10`.
 
 The following is the syntax for the `date_index_name` processor:
 
