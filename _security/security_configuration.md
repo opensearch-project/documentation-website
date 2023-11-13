@@ -216,12 +216,12 @@ For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security
 | `plugins.security.ssl.transport.client.pemkey_password`      | Static | Password for the PEM formatted private key used by client.                                                   |
 | `plugins.security.ssl.transport.keystore_keypassword`        | Static | Provides the password for the key inside the key store.                                                      |
 | `plugins.security.ssl.transport.server.keystore_keypassword` | Static | Provides the password for the key inside the server key store.                                               |
-| `plugins.sercurity.ssl.transport.server.keystore_alias`      | Static | The alias name for the key store of the server.                                                              |
-| `plugins.sercurity.ssl.transport.client.keystore_alias`      | Static | The alias name for the key store of the client.                                                              |
-| `plugins.sercurity.ssl.transport.server.truststore_alias`    | Static | The alias name for the trust store of the server.                                                            |
-| `plugins.sercurity.ssl.transport.client.truststore_alias`    | Static | The alias name for the trust store of the client.                                                            |
+| `plugins.security.ssl.transport.server.keystore_alias`       | Static | The alias name for the key store of the server.                                                              |
+| `plugins.security.ssl.transport.client.keystore_alias`       | Static | The alias name for the key store of the client.                                                              |
+| `plugins.security.ssl.transport.server.truststore_alias`     | Static | The alias name for the trust store of the server.                                                            |
+| `plugins.security.ssl.transport.client.truststore_alias`     | Static | The alias name for the trust store of the client.                                                            |
 | `plugins.security.ssl.client.external_context_id`            | Static | Provides the transport client an ID for an external SSL context it should use.                               |
-| `plugins.secuirty.ssl.transport.principal_extractor_class`   | Static | Passes a class implementing an extractor so a custom part of the certificate is used as the principal.       |
+| `plugins.security.ssl.transport.principal_extractor_class`   | Static | Passes a class implementing an extractor so a custom part of the certificate is used as the principal.       |
 | `plugins.security.ssl.http.crl.file_path`                    | Static | A file path to a certificate revocation list file.                                                           |
 | `plugins.security.ssl.http.crl.validate`                     | Static | Enables CRL validation. Default is `false`, disabled.                                                        |
 | `plugins.security.ssl.http.crl.prefer_crlfile_over_ocsp`     | Static | Default is `false`. CRL certificate entry is preferred over OCSP entry if the certificate contains both.     |
