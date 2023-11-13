@@ -192,17 +192,17 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 
 ## Cohere connector
 
-The following example request creates a standalone Cohere connection:
+The following example request creates a standalone Cohere connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "YOUR CONNECTOR NAME",
-  "description": "YOUR CONNECTOR DESCRIPTION",
-  "version": "YOUR CONNECTOR VERSION",
+  "name": "<YOUR CONNECTOR NAME>",
+  "description": "<YOUR CONNECTOR DESCRIPTION>",
+  "version": "<YOUR CONNECTOR VERSION>",
   "protocol": "http",
   "credential": {
-    "cohere_key": "ADD YOUR Cohere API KEY HERE"
+    "cohere_key": "<YOUR Cohere API KEY HERE>"
   },
   "parameters": {
     "model": "embed-english-v2.0",
@@ -216,13 +216,52 @@ POST /_plugins/_ml/connectors/_create
       "headers": {
         "Authorization": "Bearer ${credential.cohere_key}"
       },
-      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\" }"
+      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\" }", 
+      "pre_process_function": "connector.pre_process.cohere.embedding",
+      "post_process_function": "connector.post_process.cohere.embedding"
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
+## Amazon Bedrock connector
+
+The following example request creates a standalone Amazon Bedrock connector:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name": "Amazon Bedrock Connector: embedding",
+  "description": "The connector to the Bedrock Titan embedding model",
+  "version": 1,
+  "protocol": "aws_sigv4",
+  "parameters": {
+    "region": "<YOUR AWS REGION>",
+    "service_name": "bedrock"
+  },
+  "credential": {
+    "access_key": "<YOUR AWS ACCESS KEY>",
+    "secret_key": "<YOUR AWS SECRET KEY>",
+    "session_token": "<YOUR AWS SECURITY TOKEN>"
+  },
+  "actions": [
+    {
+      "action_type": "predict",
+      "method": "POST",
+      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/amazon.titan-embed-text-v1/invoke",
+      "headers": {
+        "content-type": "application/json",
+        "x-amz-content-sha256": "required"
+      },
+      "request_body": "{ \"inputText\": \"${parameters.inputText}\" }",
+      "pre_process_function": "\n    StringBuilder builder = new StringBuilder();\n    builder.append(\"\\\"\");\n    String first = params.text_docs[0];\n    builder.append(first);\n    builder.append(\"\\\"\");\n    def parameters = \"{\" +\"\\\"inputText\\\":\" + builder + \"}\";\n    return  \"{\" +\"\\\"parameters\\\":\" + parameters + \"}\";",
+      "post_process_function": "\n      def name = \"sentence_embedding\";\n      def dataType = \"FLOAT32\";\n      if (params.embedding == null || params.embedding.length == 0) {\n        return params.message;\n      }\n      def shape = [params.embedding.length];\n      def json = \"{\" +\n                 \"\\\"name\\\":\\\"\" + name + \"\\\",\" +\n                 \"\\\"data_type\\\":\\\"\" + dataType + \"\\\",\" +\n                 \"\\\"shape\\\":\" + shape + \",\" +\n                 \"\\\"data\\\":\" + params.embedding +\n                 \"}\";\n      return json;\n    "
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
 
 ## Next steps
 
