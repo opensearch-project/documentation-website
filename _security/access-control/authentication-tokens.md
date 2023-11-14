@@ -86,7 +86,10 @@ While the conversation about the usage of on-behalf-of (OBO) tokens continues, i
 ## Service Accounts
 
 ### 1.0 Introduction of Service Accounts
-Service Accounts are a new authC/authZ path where extensions can execute requests without assuming the role(s) of the active user. Service Accounts are a special type of principal associated with each extension and have a set of permissions. The permissions assigned to a Service Account grant the associated extension the authorization to execute any of the mapped operations without needing to assume the roles of the active user or stash the user’s role(s) in the ephemeral user context. **Currently, Service Account only permit operations on system indices associated with the mapped extension.**
+Service Accounts are a new authC/authZ path where extensions can execute requests without assuming the role(s) of the active user. Service Accounts are a special type of principal associated with each extension and have a set of permissions. The permissions assigned to a Service Account grant the associated extension the authorization to execute any of the mapped operations without needing to assume the roles of the active user or stash the user’s role(s) in the ephemeral user context. 
+
+Currently, Service Account only permit operations on system indices associated with the mapped extension.
+{: .important}
 
 ### 2.0 Service Account Background
 Before the introduction of Service Accounts, it was not possible for an extension to execute a request without assuming the roles of the active user. Instead, when a request is processed, an ephemeral “Plugin User” was created. The Plugin User then assumed all the permissions of the currently authenticated operator (human user). The result was a Plugin User which acted on the extension’s behalf but had all of the privileges of the operator. In this way, the previous model can be said to have had extensions “impersonate” the operator. This impersonation approach lead to two main issues:
