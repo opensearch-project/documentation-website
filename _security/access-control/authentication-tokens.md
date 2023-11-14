@@ -108,10 +108,6 @@ Similarly, Service Accounts address threat exposure concerns by separating the r
 As suggested by the name, the boolean flag `service` denotes whether a given internal user account is Service Account. If an account is not a Service Account, then any attempts to generate an associated auth token for the account will fail. Similarly, the `enabled` field dictates when a Service Account can be used by an extensions to perform operations. If a Service Account is not `enabled`, attempts to fetch its auth token will be blocked and the Service Account will be unable to execute requests on its own behalf using a previously issued auth token.
 The following is an example of create a service account with ALL PERMISSIONS for your service or extension:
 ```json
-PUT /_plugins/_security/api/internalusers/admin-extension 
-
-{
-    "roles": ["all_access"]
 } 
 
 {
