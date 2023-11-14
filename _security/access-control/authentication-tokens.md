@@ -40,7 +40,7 @@ The on-behalf-of token contains the following claims:
 	* It is essential that the issuer is validated as a part of security control measures. This strategy is forward-thinking, particularly in the context of potential multi-tenant scenarios like OpenSearch Serverless, where differing cryptographic keys could be associated with each issuer. By checking the value of issuer, each on-behalf-of token is restricted to its associated issuer.
 * Issue-at (`iat`): Current time of issuing this token
 	* Used as the reference of the expiration.
-* Not-before (`nbf`): The earliest point at which the token can be used.
+* Not-before (`nbf`): The earliest point at which the token can be used
 	* Given that the on-behalf-of token is designed for just-in-time usage, its `nbf` should align with the `iat` (issued-at) time, indicating the moment when the token was created.
 * Expiry (`exp`): Expiration time
 	* Each on-behalf-of token incorporates an expiration mechanism, which is verified upon its receipt. Once a token is issued, it cannot be revoked. Instead, the only token is only invalidated upon its expiration. Furthermore, the generation of on-behalf-of tokens by extensions is subject to dynamic settings. This functionality safeguards the system by preventing the issuance of future tokens under certain conditions.
