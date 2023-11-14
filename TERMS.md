@@ -6,17 +6,17 @@ This is how we use our terms, but we’re always open to hearing your suggestion
 
 **abort**
 
-Do not use because it has unpleasant associations and is unnecessarily harsh sounding. Use *stop*, *end*, or *cancel* instead.
+Do not use because it has unpleasant associations and is unnecessarily harsh sounding. Use _stop_, _end_, or _cancel_ instead.
 
 **above**
 
 Use only for physical space or screen descriptions, for example, "the outlet above the floor" or "the button above the bar pane."
 
-For orientation within a document use *previous*, *preceding*, or *earlier*.
+For orientation within a document use _previous_, _preceding_, or _earlier_.
 
 **ad hoc**
 
-Avoid. Use *one-time* instead.
+Avoid. Use _one-time_ instead.
 
 **affect**
 
@@ -77,7 +77,7 @@ Do not abbreviate as app server.
 
 **artificial intelligence**
 
-On first mention, use *artificial intelligence (AI)*. Use *AI* thereafter. There is no need to redefine *AI* when either *AI/ML* or *GenAI* has already been defined.
+On first mention, use _artificial intelligence (AI)_. Use _AI_ thereafter. There is no need to redefine _AI_ when either _AI/ML_ or _GenAI_ has already been defined.
 
 **as well as**
 
@@ -95,7 +95,7 @@ Do not use hyphenated auto-scaling as a compound modifier. Instead, use scaling 
 
 **AWS Signature Version 4**
 
-Use on first appearance. On subsequent appearances, *Signature Version 4* may be used. Only use *SigV4* when space is limited.
+Use on first appearance. On subsequent appearances, _Signature Version 4_ may be used. Only use _SigV4_ when space is limited.
 
 ## B
 
@@ -103,21 +103,21 @@ Use on first appearance. On subsequent appearances, *Signature Version 4* may be
 
 Use only for physical space or screen descriptions, such as “the outlet below the vent,” or “the button below the bar pane.”
 
-For orientation within a document, use *following* or *later*.
+For orientation within a document, use _following_ or _later_.
 
 **big data**
 
 **black day**
 
-Do not use. Use *blocked day* instead.
+Do not use. Use _blocked day_ instead.
 
 **blacklist**
 
-Do not use. Use *deny list* instead.
+Do not use. Use _deny list_ instead.
 
 **blackout**
 
-Avoid using. Use *service outage* or *blocked* instead.
+Avoid using. Use _service outage_ or _blocked_ instead.
 
 **BM25**
 
@@ -134,15 +134,15 @@ OpenSearch style:
 
 **bottom**
 
-Use only as a general screen reference, such as “scroll to the bottom of the page.” Don’t use for window, page, or pane references to features or controls. Rather, use *lower* instead. For example, you can use the following wording: “Choose the button on the lower left.”
+Use only as a general screen reference, such as “scroll to the bottom of the page.” Don’t use for window, page, or pane references to features or controls. Rather, use _lower_ instead. For example, you can use the following wording: “Choose the button on the lower left.”
 
 **browse**
 
-Use when referring to scanning information or browsing the web. Don’t use when describing how to navigate to a particular item on our site or a computer. Instead, use *see* or *navigate to*.
+Use when referring to scanning information or browsing the web. Don’t use when describing how to navigate to a particular item on our site or a computer. Instead, use _see_ or _navigate to_.
 
 **build (n., v.)**
 
-Use as a verb to refer to compiling and linking code. Use as a noun only to refer to a compiled version of a program (for example, *Use the current build of Amazon Linux 2*...) in a programming reference.
+Use as a verb to refer to compiling and linking code. Use as a noun only to refer to a compiled version of a program (for example, _Use the current build of Amazon Linux 2_...) in a programming reference.
 
 ## C
 
@@ -211,7 +211,7 @@ Use one of the following date formats:
 
 **demilitarized zone (DMZ)**
 
-Avoid using. Use *perimeter network* or *perimeter zone* instead.
+Avoid using. Use _perimeter network_ or _perimeter zone_ instead.
 
 **deny list**
 
@@ -219,14 +219,14 @@ Use to describe a list of items that aren’t allowed (blocked). Do not use _bla
 
 **disable**
 
-Use *disable* to describe making a feature or command unavailable. For example:
+Use _disable_ to describe making a feature or command unavailable. For example:
 
 - Clear the checkbox to disable automatic monitoring.
 - The feature is disabled by default.
 
-Note that alternatives to *disable*—such as *deactivate*, *turn off*, or *stop*—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
+Note that alternatives to _disable_—such as _deactivate_, _turn off_, or _stop_—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
 
-Do not use *disable* to refer to users.
+Do not use _disable_ to refer to users.
 
 **double-click**
 
@@ -242,9 +242,9 @@ Don’t use. Use _because of_ instead.
 
 **easy, easier, easily**
 
-Avoid the use of *easy*, *easier*, or *easily* if possible when describing or comparing an OpenSearch Project product, feature, or procedure in technical content. Use of these terms is audience dependent. These terms are potentially misleading or inaccurate and might be perceived as condescending by some technical users. Instead, describe what the user can do.
+Avoid the use of _easy_, _easier_, or _easily_ if possible when describing or comparing an OpenSearch Project product, feature, or procedure in technical content. Use of these terms is audience dependent. These terms are potentially misleading or inaccurate and might be perceived as condescending by some technical users. Instead, describe what the user can do.
 
-On documentation landing pages, it’s acceptable to use *easy*, *easier*, or *easily* within the service description only.
+On documentation landing pages, it’s acceptable to use _easy_, _easier_, or _easily_ within the service description only.
 
 **effect**
 
@@ -262,14 +262,14 @@ Use as a singular noun or adjective to refer to the collective concept, and use 
 
 **enable**
 
-Use *enable* to describe making a feature or command available. For example:
+Use _enable_ to describe making a feature or command available. For example:
 
 - Select the checkbox to enable automatic monitoring.
 - The feature is enabled by default.
 
-Note that alternatives to *enable*—such as *activate*, *turn on*, or *start*—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
+Note that alternatives to _enable_—such as _activate_, _turn on_, or _start_—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
 
-Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….”
+Avoid using _enable_ to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….”
 
 **enter**
 
@@ -283,11 +283,11 @@ Generally speaking, etc. and its equivalents (such as and more or and so on) are
 
 **execute**
 
-Replace with a more specific verb. In the sense of carrying out an action, use *run*, *process*, or *apply*. In the sense of initiating an operation, use *start*, *launch*, or *initiate*.
+Replace with a more specific verb. In the sense of carrying out an action, use _run_, _process_, or _apply_. In the sense of initiating an operation, use _start_, _launch_, or _initiate_.
 
-Exception: *Execution* is unavoidable for third-party terms for which no alternative was determined, such as SQL execution plans. *Executable* is also unavoidable.
+Exception: _Execution_ is unavoidable for third-party terms for which no alternative was determined, such as SQL execution plans. _Executable_ is also unavoidable.
 
-## F 
+## F
 
 **fail over (v.), failover (n.)**
 
@@ -301,7 +301,7 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 **GenAI**
 
-On first mention, use *generative artificial intelligence (GenAI)*. Use *GenAI* thereafter. To avoid the overuse of *GenAI*, *AI/ML-powered applications* may also be used.
+On first mention, use _generative artificial intelligence (GenAI)_. Use _GenAI_ thereafter. To avoid the overuse of _GenAI_, _AI/ML-powered applications_ may also be used.
 
 **geodistance**
 
@@ -318,12 +318,12 @@ On first mention, use *generative artificial intelligence (GenAI)*. Use *GenAI* 
 **geospatial**
 
 **geotile**
- 
+
 ## H
 
 **hang**
 
-Do not use. This term is unnecessarily violent for technical documentation. Use *stop responding* instead.
+Do not use. This term is unnecessarily violent for technical documentation. Use _stop responding_ instead.
 
 **hardcode**
 
@@ -345,7 +345,7 @@ Do not use. Use _that_ is or _specifically_ instead.
 
 **if, whether**
 
-Do not use *if* to mean *whether*. It is best to use *whether* in reference to a choice or alternatives ("we're going whether it rains or not") and *if* when establishing a condition ("we will go if it doesn't rain").
+Do not use _if_ to mean _whether_. It is best to use _whether_ in reference to a choice or alternatives ("we're going whether it rains or not") and _if_ when establishing a condition ("we will go if it doesn't rain").
 
 **in, on**
 
@@ -357,11 +357,11 @@ Use _in Windows_ or _in Linux_ in reference to components of the OS or work in t
 
 Run applications and instances _in the cloud_, but extend services to the cloud.
 
-Use *on the forum*. Whatever is on the internet (the various websites, etc.), you are *on* because you cannot be *in* it.
+Use _on the forum_. Whatever is on the internet (the various websites, etc.), you are _on_ because you cannot be _in_ it.
 
 **index, indexes**
 
-A collection of JSON documents. Non-hardcoded references to *indices* should be changed to *indexes*.
+A collection of JSON documents. Non-hardcoded references to _indices_ should be changed to _indexes_.
 
 **Index Management (IM)**
 
@@ -379,7 +379,7 @@ Do not capitalize.
 
 **invalid**
 
-Avoid using. Use *not valid* instead.
+Avoid using. Use _not valid_ instead.
 
 **IP address**
 
@@ -389,7 +389,7 @@ Don’t abbreviate as _IP only_.
 
 **just**
 
-Use *just* in the sense of *just now* (as in "the resources that you just created"). Otherwise, use *only* in all other contexts (to mean "limited to; nothing more than").
+Use _just_ in the sense of _just now_ (as in "the resources that you just created"). Otherwise, use _only_ in all other contexts (to mean "limited to; nothing more than").
 
 ## K
 
@@ -397,9 +397,9 @@ Use *just* in the sense of *just now* (as in "the resources that you just create
 
 **kill**
 
-Do not use. Replace with *stop*, *end*, *clear*, *remove*, or *cancel*.
+Do not use. Replace with _stop_, _end_, _clear_, _remove_, or _cancel_.
 
-Exception: *Kill* is unavoidable when referring to Linux kill commands.
+Exception: _Kill_ is unavoidable when referring to Linux kill commands.
 
 **k-means**
 
@@ -447,7 +447,7 @@ A light-weight, open-source, server-side data processing pipeline that allows yo
 
 **lower left, lower right**
 
-Hyphenate as adjectives. Use instead of *bottom left* and *bottom right*, unless the field name uses *bottom*. For example, "The lower-right corner."
+Hyphenate as adjectives. Use instead of _bottom left_ and _bottom right_, unless the field name uses _bottom_. For example, "The lower-right corner."
 
 **LTS**
 
@@ -457,11 +457,11 @@ Long-Term Support
 
 Apache Lucene™ is a high-performance, full-featured search engine library written entirely in Java. OpenSearch uses a modified version of Lucene as the basis for search operations within OpenSearch.
 
-## M 
+## M
 
 **machine learning**
 
-When *machine learning* is used multiple times in a document, use *machine learning (ML)* on first mention and *ML* thereafter. There is no need to redefine *ML* when *AI/ML* has already been defined. If spelled out, write *machine learning* as two words (no hyphen) in all cases, including when used as an adjective before a noun.
+When _machine learning_ is used multiple times in a document, use _machine learning (ML)_ on first mention and _ML_ thereafter. There is no need to redefine _ML_ when _AI/ML_ has already been defined. If spelled out, write _machine learning_ as two words (no hyphen) in all cases, including when used as an adjective before a noun.
 
 **Machine Learning (ML) Commons**
 
@@ -469,11 +469,11 @@ A new plugin that makes it easy to develop new ML features. It allows engineers 
 
 **master**
 
-Do not use. Use *primary*, *main*, or *leader* instead.
+Do not use. Use _primary_, _main_, or _leader_ instead.
 
 **master account**
 
-Do not use. Use *management account* instead.
+Do not use. Use _management account_ instead.
 
 **may**
 
@@ -487,7 +487,7 @@ _Must_ and _shall_ refer to requirements. If the reader doesn’t follow the ins
 
 _Should_ is used with recommendations. If the reader doesn’t follow the instruction, it might be harder or slower, but it’ll work.
 
-## N 
+## N
 
 **navigate to**
 
@@ -517,7 +517,7 @@ OpenSearch is a community-driven, open-source search and analytics suite derived
 
 **OpenSearch Dashboards**
 
-The default visualization tool for data in OpenSearch. On first appearance, use the full name. *Dashboards* may be used on subsequent appearances.
+The default visualization tool for data in OpenSearch. On first appearance, use the full name. _Dashboards_ may be used on subsequent appearances.
 
 open source (n.), open-source (adj.)
 
@@ -541,7 +541,7 @@ When referencing operating systems in documentation, follow these guidelines:
 
 OK to use with software versions.
 
-## P 
+## P
 
 **Painless**
 
@@ -551,9 +551,9 @@ The default scripting language for OpenSearch, either used inline or stored for 
 
 - Do not use to mean _according to_ (for example, per the agreement).
 - OK to use in meaning of _to_, _in_, _for_, or _by each_ (one per account) where space is limited and in set terms and phrases, such as any of the following:
-     - queries per second (QPS)
-     - bits per second (bps)
-     - megabytes per second (MBps)
+  - queries per second (QPS)
+  - bits per second (bps)
+  - megabytes per second (MBps)
 - Consider writing around _per_ elsewhere. _Per_ can sound stuffy and confusing to some global users.
 
 **percent**
@@ -592,19 +592,19 @@ A Lucene instance that contains data for some or all of an index.
 
 **primitive**
 
-Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*.
+Avoid using _primitive_ (especially plural _primitives_) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with _primitive data type_ or _primitive type_.
 
 **purge**
 
-Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.
+Use only in reference to specific programming methods. Otherwise, use _delete_, _clear_, or _remove_ instead.
 
-## Q 
+## Q
 
 **query**
 
 A call used to request information about your data.
 
-## R 
+## R
 
 **real time (n.) real-time (adj.)**
 
@@ -630,13 +630,13 @@ Formerly known as RedHat Package Manager. An open-source package management syst
 
 A set of conditions, internals, and actions that create notifications.
 
-## S 
+## S
 
 **screenshot**
 
 **segregate**
 
-Avoid using. Use *separate* or *isolate* instead.
+Avoid using. Use _separate_ or _isolate_ instead.
 
 **setting**
 
@@ -658,7 +658,7 @@ A piece of an index that consumes CPU and memory. Operates as a full Lucene inde
 
 **simple, simply**
 
-Don't use. Both *simple* and *simply* are not neutral in tone and might sound condescending to some users. If you mean *only*, use *only* instead.
+Don't use. Both _simple_ and _simply_ are not neutral in tone and might sound condescending to some users. If you mean _only_, use _only_ instead.
 
 **since**
 
@@ -666,7 +666,7 @@ Use only to describe time events. Don’t use in place of because.
 
 **slave**
 
-Do not use. Use *replica*, *secondary*, or *standby* instead.
+Do not use. Use _replica_, _secondary_, or _standby_ instead.
 
 **Snapshot Management (SM)**
 
@@ -706,19 +706,19 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 **trigger**
 
-Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
+Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a _trigger function_ or _time-triggered architecture_. As a verb, use an alternative, such as _initiate_, _invoke_, _launch_, or _start_.
 
 **trust store**
 
 **turn on, turn off**
 
-Use *turn on* and *turn off* in reference to a toggle to describe switching a setting or mode on or off.
+Use _turn on_ and _turn off_ in reference to a toggle to describe switching a setting or mode on or off.
 
-Don't use *choose*, *select*, *clear*, *slide*, *enable*, or *disable* for a toggle.
+Don't use _choose_, _select_, _clear_, _slide_, _enable_, or _disable_ for a toggle.
 
-For making a feature available or unavailable, use *enable*.
+For making a feature available or unavailable, use _enable_.
 
-## U 
+## U
 
 **UltraWarm**
 
@@ -726,7 +726,7 @@ A storage tier that you can use to store and analyze your data with Elasticsearc
 
 **upper left, upper right**
 
-Hyphenate as adjectives. Use instead of *top left* and *top right*, unless the field name uses *top*. For example, "The upper-right corner."
+Hyphenate as adjectives. Use instead of _top left_ and _top right_, unless the field name uses _top_. For example, "The upper-right corner."
 
 **US**
 
@@ -750,7 +750,7 @@ Do not use. Use _compared_ to or _compared with_ instead.
 
 Do not use. Replace with by using, through, or with or a more specific phrase such as by accessing or by choosing.
 
-## W 
+## W
 
 **web**
 
@@ -768,11 +768,11 @@ Only use _while_ to mean “during an interval of time.” Don’t use it to mea
 
 **white day**
 
-Do not use. Use *open day* instead.
+Do not use. Use _open day_ instead.
 
 **whitelist**
 
-Do not use. Use *allow list* instead.
+Do not use. Use _allow list_ instead.
 
 **white space**
 
@@ -782,7 +782,7 @@ _Wish_ and _desire_ are indirect and nuanced versions of _want_. Don’t use the
 
 Do not confuse wants with needs. Use the term that’s appropriate to the situation. _Need_ connotes a requirement or obligation, whereas _want_ indicates that you have an intent but still a choice of valid actions.
 
-## Y 
+## Y
 
 **Yellowdog Updater Modified (YUM)**
 

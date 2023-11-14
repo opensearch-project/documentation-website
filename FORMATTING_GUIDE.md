@@ -1,33 +1,33 @@
 # Formatting Guide
 
-This guide provides an overview of the formatted elements commonly used in the OpenSearch documentation. 
+This guide provides an overview of the formatted elements commonly used in the OpenSearch documentation.
 
-* * *
+---
 
 ### Table of contents
 
-* [Adding pages or sections](#adding-pages-or-sections)
-* [Buttons](#buttons)
-* [Callouts](#callouts)
-* [Collapsible blocks](#collapsible-blocks)
-* [Dashes](#dashes)
-* [Horizontal rule](#horizontal-rule)
-* [Images](#images)
-  * [Images in line with text](#images-in-line-with-text)
-* [Labels](#labels)
-* [Links](#links)
-* [Lists](#lists)
-  * [Unordered lists](#unordered-lists)
-  * [Ordered lists](#ordered-lists)
-  * [Nested lists](#nested-lists) 
-  * [Lists with code snippets or images](#lists-with-code-snippets-or-images)
-* [Math](#math)
-* [Tables](#tables)
-* [Text style](#text-style)
-* [Variables in curly braces](#variables-in-curly-braces)
-* [Videos](#videos)
+- [Adding pages or sections](#adding-pages-or-sections)
+- [Buttons](#buttons)
+- [Callouts](#callouts)
+- [Collapsible blocks](#collapsible-blocks)
+- [Dashes](#dashes)
+- [Horizontal rule](#horizontal-rule)
+- [Images](#images)
+  - [Images in line with text](#images-in-line-with-text)
+- [Labels](#labels)
+- [Links](#links)
+- [Lists](#lists)
+  - [Unordered lists](#unordered-lists)
+  - [Ordered lists](#ordered-lists)
+  - [Nested lists](#nested-lists)
+  - [Lists with code snippets or images](#lists-with-code-snippets-or-images)
+- [Math](#math)
+- [Tables](#tables)
+- [Text style](#text-style)
+- [Variables in curly braces](#variables-in-curly-braces)
+- [Videos](#videos)
 
-* * *
+---
 
 ## Adding pages or sections
 
@@ -46,7 +46,7 @@ grand_parent: Supported field types
 ---
 ```
 
-If you want to reorganize content or add a new page, make sure to set the appropriate `has_children`, `parent`, `grand_parent`, and `nav_order` variables, which define the hierarchy of pages in the left navigation. 
+If you want to reorganize content or add a new page, make sure to set the appropriate `has_children`, `parent`, `grand_parent`, and `nav_order` variables, which define the hierarchy of pages in the left navigation.
 
 When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting additional child pages easier because it does not require you to renumber existing pages.
 
@@ -83,10 +83,10 @@ PUT /sample-index1/_clone/cloned-index1
 
 You can use four levels of callouts:
 
-*  `{: .note}` blue
-*  `{: .tip }` green
-*  `{: .important}` yellow
-*  `{: .warning}` red
+- `{: .note}` blue
+- `{: .tip }` green
+- `{: .important}` yellow
+- `{: .warning}` red
 
 Place a callout directly under the paragraph to which you want to apply the callout style.
 
@@ -115,20 +115,9 @@ To insert a collapsible block, use the `<details>` element as follows:
 
 ````html
 <details open markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
-
-```json
-{
-  "_nodes" : {
-    "total" : 1,
-    "successful" : 1,
-    "failed" : 0
-  }
-}
-```
+  <summary>Response</summary>
+  {: .text-delta} ```json { "_nodes" : { "total" : 1, "successful" : 1, "failed"
+  : 0 } } ```
 </details>
 ````
 
@@ -192,7 +181,7 @@ To send a query to OpenSearch, select the query by placing the cursor anywhere i
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png" alt="Send request">
 ```
 
-Do not place an image next to text or insert artificial line breaks using `<br>`. Otherwise, the text might render as aligned to the bottom of the image, with the image on the right. 
+Do not place an image next to text or insert artificial line breaks using `<br>`. Otherwise, the text might render as aligned to the bottom of the image, with the image on the right.
 
 If the image is under a list item, place it on a new line with a tab. For more examples, see [Lists with code snippets or images](#lists-with-code-snippets-or-images).
 
@@ -208,11 +197,11 @@ Choose the play icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/image
 
 You can use the following labels:
 
-* label-blue 
-* label-green
-* label-purple 
-* label-red 
-* label-yellow 
+- label-blue
+- label-green
+- label-purple
+- label-red
+- label-yellow
 
 Use a purple label to specify the version in which an API was introduced:
 
@@ -284,7 +273,7 @@ Use asterisks or dashes for unordered lists:
 or
 
 ```
-- One 
+- One
 - Two
 ```
 
@@ -297,7 +286,7 @@ Don’t mix and match asterisks and dashes.
 Use all 1s for ordered lists:
 
 ```
-1. One 
+1. One
 1. Two
 ```
 
@@ -325,7 +314,7 @@ Use tabs to nest lists:
         - Grandchild 1
 ```
 
-Markdown automatically adjusts numbered lists so that they use numbers and letters, so always use 1s for nested numbered lists. 
+Markdown automatically adjusts numbered lists so that they use numbers and letters, so always use 1s for nested numbered lists.
 
 ### Lists with code snippets or images
 
@@ -333,14 +322,14 @@ If you need to position an image or a code snippet within a list, use tabs to si
 
 **Example with code snippets**
 
-```
+````
 1. Run the demo batch script.
    There are two ways of running the batch script:
    1. Run the batch script using the Windows UI:
       1. Navigate to the top directory of your OpenSearch installation and open the `opensearch-{{site.opensearch_version}}` folder.
       1. Run the batch script by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
    1. Run the batch script from Command prompt or Powershell:
-      1. Open Command Prompt by entering `cmd`, or Powershell by entering `powershell`, in the search box next to ****Start**** on the taskbar. 
+      1. Open Command Prompt by entering `cmd`, or Powershell by entering `powershell`, in the search box next to ****Start**** on the taskbar.
       1. Change to the top directory of your OpenSearch installation.
          ```bat
          cd \path\to\opensearch-{{site.opensearch_version}}
@@ -349,7 +338,7 @@ If you need to position an image or a code snippet within a list, use tabs to si
          ```bat
          .\opensearch-windows-install.bat
          ```
-```
+````
 
 **Example with images**
 
@@ -380,7 +369,7 @@ And back to Markdown.
 
 ## Tables
 
-Markdown table columns are automatically sized, and there is no need to specify a different number of dashes in the formatting. 
+Markdown table columns are automatically sized, and there is no need to specify a different number of dashes in the formatting.
 
 **Example**
 
@@ -395,7 +384,7 @@ To insert line breaks within tables, use `<br>`:
 ```
 Header 1 | Header 2
 :--- | :---
-Body 1 | Body paragraph 1 <br> Body paragraph 2 
+Body 1 | Body paragraph 1 <br> Body paragraph 2
 ```
 
 To use lists within a table, use `<br>` and `-` :
@@ -405,7 +394,6 @@ Header 1 | Header 2
 :--- | :---
 Body 1 | List:<br>- One<br>- Two
 ```
-
 
 You can also use `&nbsp;` to insert one space, `&ensp;` to insert two spaces, and `&emsp;` to insert four spaces in table cells.
 
@@ -421,8 +409,8 @@ Body 1 | List:<br>&ensp;&#x2022; One<br>&ensp;&#x2022; Two
 
 You can style text in the following ways:
 
-* ```**bold**```
-* ```_italic_``` or ```*italic*```
+- `**bold**`
+- `_italic_` or `*italic*`
 
 For guidance on using code examples and when to use code font, see [Code examples](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#code-examples).
 
@@ -430,11 +418,11 @@ For guidance on using code examples and when to use code font, see [Code example
 
 To correctly display variables that are in curly braces, escape the curly braces with the `{% raw %}{% endraw %}` tags:
 
-````
+```
 "message_template": {
     "source": "the index is {% raw %}{{ctx.index}}{% endraw %}"
 }
-````
+```
 
 The variable `ctx.index` is rendered in double curly braces.
 
