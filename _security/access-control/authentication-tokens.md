@@ -78,6 +78,7 @@ POST /_plugins/_security/api/generateonbehalfoftoken
    "durationSeconds":"180"
 }
 ```
+{% include copy-curl.html %}
 
 ### 4.0 Additional Authorization Restriction ([related discussion](https://github.com/opensearch-project/security/issues/2891))
 
