@@ -35,7 +35,7 @@ Parameter | Required/Optional | Description |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`locale` | `locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
+`locale` | `locale`  | Optional  | The locale to use when parsing the month name and week day of the date. Default is `ENGLISH`. Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
