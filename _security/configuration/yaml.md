@@ -120,7 +120,7 @@ plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opend
 node.max_local_storage_nodes: 3
 ```
 
-For a full list of the Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
+For a full list of `opensearch.yml` Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
 {: .note}
 
 ### Refining your configuration
