@@ -87,6 +87,7 @@ While the conversation about the usage of on-behalf-of (OBO) tokens continues, i
 ## Service Accounts
 
 Service Accounts tokens are the second form of authentication token supported by the Security plugin. 
+
 ### 1.0 Introduction of Service Accounts
 Service Accounts are a new authC/authZ path where extensions can execute requests without assuming the role(s) of the active user. Service Accounts are a special type of principal associated with each extension and have a set of permissions. The permissions assigned to a Service Account grant the associated extension the authorization to execute any of the mapped operations without needing to assume the roles of the active user or stash the user’s role(s) in the ephemeral user context. 
 
