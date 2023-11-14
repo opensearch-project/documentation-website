@@ -15,11 +15,11 @@ For information about alerting settings, see [Alerting settings]({{site.url}}{{s
 
 ## Anomaly Detection plugin settings
 
-For information about anomaly detection settings, see [Settings]({{site.url}}{{site.baseurl}}/observing-your-data/ad/settings/).
+For information about anomaly detection settings, see [Anomaly Detection settings]({{site.url}}{{site.baseurl}}/observing-your-data/ad/settings/).
 
 ## Asynchronous Search plugin settings
 
-For information about asynchronous search settings, see [Settings]({{site.url}}{{site.baseurl}}/search-plugins/async/settings/).
+For information about asynchronous search settings, see [Asynchronous Search settings]({{site.url}}{{site.baseurl}}/search-plugins/async/settings/).
 
 ## Cross-Cluster Replication plugin settings
 
@@ -39,7 +39,7 @@ For information about index state management (ISM) settings, see [ISM settings](
 
 ### Index rollup settings
 
-For information about index rollup settings, see [Settings]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/settings/).
+For information about index rollup settings, see [Index rollup settings]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/settings/).
 
 ## Job Scheduler plugin settings
 

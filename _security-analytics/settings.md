@@ -51,8 +51,7 @@ The Security Analytics plugin supports the following settings. All settings in t
 
 `plugins.security_analytics.mappings.default_schema` (String): The default mapping schema used for configuring a field mapping for a security analytics detector. Default is `ecs`.
 
-`plugins.security_analytics.threatintel.tifjob.update_interval` (Time value): The threat intelligence feature uses a job runner to periodically fetch new feeds. This setting is the rate at which the runner fetches and updates these new feeds.
-Default is 1440 minutes.
+`plugins.security_analytics.threatintel.tifjob.update_interval` (Time value): The threat intelligence feature uses a job runner to periodically fetch new feeds. This setting is the rate at which the runner fetches and updates these new feeds. Default is 1440 minutes.
 
 `plugins.security_analytics.threatintel.tifjob.batch_size` (Integer): The maximum number of documents to ingest in a bulk request during the threat intelligence feed data creation process. Default is 10,000.
 

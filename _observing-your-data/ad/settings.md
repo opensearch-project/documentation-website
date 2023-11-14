@@ -7,9 +7,9 @@ redirect_from:
   - /monitoring-plugins/ad/settings/
 ---
 
-# Settings
+# Anomaly Detection settings
 
-The anomaly detection plugin adds several settings to the standard OpenSearch cluster settings.
+The Anomaly Detection plugin adds several settings to the standard OpenSearch cluster settings.
 The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster.
 You can mark settings as `persistent` or `transient`.
 

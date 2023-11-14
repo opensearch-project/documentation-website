@@ -7,7 +7,9 @@ nav_order: 40
 
 # Security settings
 
-The Security plugin supports the following settings.
+The Security plugin provides a number of YAML configuration files that are used to store the necessary settings that define the way the Security plugin manages users, roles, and activity within the cluster. For a full list of Security plugin configuration files, see [Modifying the YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
+
+The following sections describe security-related settings in `opensearch.yml`.
 
 ## Common settings
 

@@ -28,3 +28,4 @@ The Security plugin has several default users, roles, action groups, permissions
 {: .note }
 
 For a full list of the Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
+{: .note}

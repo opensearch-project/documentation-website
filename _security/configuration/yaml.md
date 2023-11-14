@@ -121,6 +121,7 @@ node.max_local_storage_nodes: 3
 ```
 
 For a full list of the Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
+{: .note}
 
 ### Refining your configuration
 
