@@ -6,6 +6,7 @@ nav_order: 50
 ---
 
 # Nodes reload secure settings
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -22,9 +23,9 @@ POST _nodes/<nodeId>/reload_secure_settings
 
 You can include the following optional path parameter in your request.
 
-Parameter | Type | Description
-:--- | :--- | :---
-nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+| Parameter | Type   | Description                                                                                                                                                                       |
+| :-------- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| nodeId    | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`. |
 
 ## Request fields
 
@@ -43,6 +44,7 @@ The following is an example API request:
 ```
 POST _nodes/reload_secure_settings
 ```
+
 {% include copy-curl.html %}
 
 #### Example response
@@ -51,15 +53,15 @@ The following is an example response:
 
 ```json
 {
-  "_nodes" : {
-    "total" : 1,
-    "successful" : 1,
-    "failed" : 0
+  "_nodes": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
   },
-  "cluster_name" : "opensearch-cluster",
-  "nodes" : {
-    "t7uqHu4SSuWObK3ElkCRfw" : {
-      "name" : "opensearch-node1"
+  "cluster_name": "opensearch-cluster",
+  "nodes": {
+    "t7uqHu4SSuWObK3ElkCRfw": {
+      "name": "opensearch-node1"
     }
   }
 }

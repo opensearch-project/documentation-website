@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 # Document APIs
+
 **Introduced 1.0**
 {: .label .label-purple }
 

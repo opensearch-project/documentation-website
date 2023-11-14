@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 # Script APIs
+
 **Introduced 1.0**
 {: .label .label-purple }
 

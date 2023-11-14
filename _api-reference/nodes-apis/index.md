@@ -6,10 +6,11 @@ nav_order: 50
 ---
 
 # Nodes API
+
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes API makes it possible to retrieve information about individual nodes within your cluster. 
+The nodes API makes it possible to retrieve information about individual nodes within your cluster.
 
 ## Node filters
 
@@ -27,9 +28,9 @@ table th:nth-of-type(3) {
 }
 </style>
 
-Parameter | Type   | Description
-:--- |:-------| :---
-`<node-filters>` | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
+| Parameter        | Type   | Description                                                                                     |
+| :--------------- | :----- | :---------------------------------------------------------------------------------------------- |
+| `<node-filters>` | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes. |
 
 Node filters support several node resolution mechanisms:
 
@@ -52,6 +53,7 @@ To get statistics from the elected cluster manager node only, use the following 
 ```json
 GET /_nodes/_cluster_manager/stats
 ```
+
 {% include copy-curl.html %}
 
 To get statistics from nodes that are data-only nodes, use the following query:
@@ -59,6 +61,7 @@ To get statistics from nodes that are data-only nodes, use the following query:
 ```json
 GET /_nodes/data:true/stats
 ```
+
 {% include copy-curl.html %}
 
 ### Order of resolution mechanisms
@@ -70,11 +73,13 @@ To get statistics from all the nodes except the cluster manager node, use the fo
 ```json
 GET /_nodes/_all,cluster_manager:false/stats
 ```
+
 {% include copy-curl.html %}
 
-However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node: 
+However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node:
 
 ```json
 GET /_nodes/cluster_manager:false,_all/stats
 ```
+
 {% include copy-curl.html %}

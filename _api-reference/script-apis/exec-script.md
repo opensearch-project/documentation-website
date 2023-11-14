@@ -6,6 +6,7 @@ nav_order: 7
 ---
 
 # Execute Painless script
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -20,11 +21,11 @@ POST /_scripts/painless/_execute
 
 ## Request fields
 
-| Field | Description | 
-:--- | :---
-| script | The script to run. Required|
-| context | A context for the script. Optional. Default is `painless_test`. |
-| context_setup | Specifies additional parameters for the context. Optional.| 
+| Field         | Description                                                     |
+| :------------ | :-------------------------------------------------------------- |
+| script        | The script to run. Required                                     |
+| context       | A context for the script. Optional. Default is `painless_test`. |
+| context_setup | Specifies additional parameters for the context. Optional.      |
 
 #### Example request
 
@@ -42,6 +43,7 @@ GET /_scripts/painless/_execute
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 #### Example response
@@ -50,16 +52,15 @@ The response contains the average of two script parameters:
 
 ```json
 {
-  "result" : "90"
+  "result": "90"
 }
 ```
 
 ## Response fields
 
-| Field | Description | 
-:--- | :--- 
-| result | The script result.|
-
+| Field  | Description        |
+| :----- | :----------------- |
+| result | The script result. |
 
 ## Script contexts
 
@@ -75,10 +76,10 @@ The `filter` context runs the script as if the script were inside a script query
 
 You can specify the following parameters for the filter context in the `context_setup`.
 
-Parameter | Description
-:--- | :---
-document | The document that is indexed in memory temporarily and available to the script.
-index | The name of the index that contains a mapping for the document.
+| Parameter | Description                                                                     |
+| :-------- | :------------------------------------------------------------------------------ |
+| document  | The document that is indexed in memory temporarily and available to the script. |
+| index     | The name of the index that contains a mapping for the document.                 |
 
 For example, first create an index with a mapping for a test document:
 
@@ -97,6 +98,7 @@ PUT /testindex1
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 Run a script to determine if a student is eligible to graduate with honors:
@@ -120,13 +122,14 @@ POST /_scripts/painless/_execute
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 The response contains the result:
 
 ```json
 {
-  "result" : true
+  "result": true
 }
 ```
 
@@ -136,11 +139,11 @@ The `score` context runs a script as if the script were in a `script_score` func
 
 You can specify the following parameters for the score context in the `context_setup`.
 
-Parameter | Description
-:--- | :---
-document | The document that is indexed in memory temporarily and available to the script.
-index | The name of the index that contains a mapping for the document.
-query | If the script uses the `_score` parameter, the query can specify to use the `_score` field to compute the score.
+| Parameter | Description                                                                                                      |
+| :-------- | :--------------------------------------------------------------------------------------------------------------- |
+| document  | The document that is indexed in memory temporarily and available to the script.                                  |
+| index     | The name of the index that contains a mapping for the document.                                                  |
+| query     | If the script uses the `_score` parameter, the query can specify to use the `_score` field to compute the score. |
 
 For example, first create an index with a mapping for a test document:
 
@@ -156,6 +159,7 @@ PUT /testindex1
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 Run a script that converts a GPA on a 4.0 scale into a different scale that is provided as a parameter:
@@ -178,12 +182,13 @@ POST /_scripts/painless/_execute
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 The response contains the result:
 
 ```json
 {
-  "result" : 4.375
+  "result": 4.375
 }
 ```

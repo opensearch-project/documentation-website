@@ -6,6 +6,7 @@ nav_order: 30
 ---
 
 # Dangling indexes API
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -35,19 +36,19 @@ DELETE /_dangling/<index-uuid>
 
 Path parameters are required.
 
-Path parameter | Description
-:--- | :---
-index-uuid | UUID of index.
+| Path parameter | Description    |
+| :------------- | :------------- |
+| index-uuid     | UUID of index. |
 
 ## Query parameters
 
 Query parameters are optional.
 
-Query parameter | Data type | Description
-:--- | :--- | :---
-accept_data_loss | Boolean | Must be set to `true` for an `import` or `delete` because OpenSearch is unaware of where the dangling index data came from.
-timeout | Time units | The amount of time to wait for a response. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
-cluster_manager_timeout | Time units | The amount of time to wait for a connection to the cluster manager. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
+| Query parameter         | Data type  | Description                                                                                                                                                               |
+| :---------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| accept_data_loss        | Boolean    | Must be set to `true` for an `import` or `delete` because OpenSearch is unaware of where the dangling index data came from.                                               |
+| timeout                 | Time units | The amount of time to wait for a response. If no response is received in the defined time period, an error is returned. Default is `30` seconds.                          |
+| cluster_manager_timeout | Time units | The amount of time to wait for a connection to the cluster manager. If no response is received in the defined time period, an error is returned. Default is `30` seconds. |
 
 ## Examples
 
@@ -55,27 +56,29 @@ The following are example requests and a example response.
 
 #### Sample list
 
-````bash
+```bash
 GET /_dangling
-````
+```
+
 {% include copy-curl.html %}
 
 #### Sample import
 
-````bash
+```bash
 POST /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
-````
+```
+
 {% include copy-curl.html %}
- 
+
 #### Sample delete
 
-````bash
+```bash
 DELETE /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
-````
+```
 
 #### Example response body
 
-````json
+```json
 {
     "_nodes": {
         "total": 1,
@@ -85,4 +88,4 @@ DELETE /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
     "cluster_name": "opensearch-cluster",
     "dangling_indices": [msdjernajxAT23RT-BupMB]
 }
-````
+```

@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 # Clone index
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -29,6 +30,7 @@ PUT /sample-index1/_clone/cloned-index1
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 ## Path and HTTP methods
@@ -52,15 +54,15 @@ OpenSearch indexes have the following naming restrictions:
 
 Your request must include the source and target indexes. All other clone index parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-&lt;source-index&gt; | String | The source index to clone.
-&lt;target-index&gt; | String | The index to create and add cloned data to.
-wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for the request to return. Default is `30s`.
-wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
-task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.
+| Parameter               | Type    | Description                                                                                                                                                                                                                                                                                                                                                   |
+| :---------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| &lt;source-index&gt;    | String  | The source index to clone.                                                                                                                                                                                                                                                                                                                                    |
+| &lt;target-index&gt;    | String  | The index to create and add cloned data to.                                                                                                                                                                                                                                                                                                                   |
+| wait_for_active_shards  | String  | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. |
+| cluster_manager_timeout | Time    | How long to wait for a connection to the cluster manager node. Default is `30s`.                                                                                                                                                                                                                                                                              |
+| timeout                 | Time    | How long to wait for the request to return. Default is `30s`.                                                                                                                                                                                                                                                                                                 |
+| wait_for_completion     | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.                                                                                         |
+| task_execution_timeout  | Time    | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.                                                                                                                                                                                                                                                 |
 
 ## Request body
 
@@ -70,8 +72,8 @@ The clone index API operation creates a new target index, so you can specify any
 
 ```json
 {
-    "acknowledged": true,
-    "shards_acknowledged": true,
-    "index": "cloned-index1"
+  "acknowledged": true,
+  "shards_acknowledged": true,
+  "index": "cloned-index1"
 }
 ```

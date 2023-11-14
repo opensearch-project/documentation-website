@@ -5,7 +5,8 @@ parent: Index APIs
 nav_order: 72
 ---
 
-# Index Stats 
+# Index Stats
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -26,60 +27,61 @@ GET /<index_ids>/_stats/<metric>
 
 The following table lists the available path parameters. All path parameters are optional.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `<index_ids>` | String | A comma-separated list of indexes, data streams, or index aliases used to filter results. Supports wildcard expressions. Defaults to `_all` (`*`).
-`<metric>` | String | A comma-separated list of metric groups that will be included in the response. For valid values, see [Metrics](#metrics). Defaults to all metrics. |
+| Parameter     | Data type | Description                                                                                                                                        |
+| :------------ | :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<index_ids>` | String    | A comma-separated list of indexes, data streams, or index aliases used to filter results. Supports wildcard expressions. Defaults to `_all` (`*`). |
+| `<metric>`    | String    | A comma-separated list of metric groups that will be included in the response. For valid values, see [Metrics](#metrics). Defaults to all metrics. |
 
 ### Metrics
 
 The following table lists all available metric groups.
 
-Metric | Description
-:--- |:----
-`_all` | Return all statistics. 
-`completion` | Completion suggester statistics. 
-`docs` | Returns the number of documents and the number of deleted documents that have not yet been merged. Index refresh operations can affect this statistic. 
-`fielddata` | Field data statistics. 
-`flush` | Flush statistics. 
-`get` | Get statistics, including missing stats. 
-`indexing` | Indexing statistics. 
-`merge` | Merge statistics. 
-`query_cache` | Query cache statistics. 
-`refresh` | Refresh statistics. 
-`request_cache` | Shard request cache statistics. 
-`search` | Search statistics, including suggest operation statistics. Search operations can be associated with one or more groups. You can include statistics for custom groups by providing a `groups` parameter, which accepts a comma-separated list of group names. To return statistics for all groups, use `_all`. 
-`segments` | Statistics about memory use of all open segments. If the `include_segment_file_sizes` parameter is `true`, this metric includes the aggregated disk usage of each Lucene index file.
-`store` | Size of the index in byte units. 
-`translog` | Translog statistics. 
-`warmer` | Warmer statistics. 
+| Metric          | Description                                                                                                                                                                                                                                                                                                   |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `_all`          | Return all statistics.                                                                                                                                                                                                                                                                                        |
+| `completion`    | Completion suggester statistics.                                                                                                                                                                                                                                                                              |
+| `docs`          | Returns the number of documents and the number of deleted documents that have not yet been merged. Index refresh operations can affect this statistic.                                                                                                                                                        |
+| `fielddata`     | Field data statistics.                                                                                                                                                                                                                                                                                        |
+| `flush`         | Flush statistics.                                                                                                                                                                                                                                                                                             |
+| `get`           | Get statistics, including missing stats.                                                                                                                                                                                                                                                                      |
+| `indexing`      | Indexing statistics.                                                                                                                                                                                                                                                                                          |
+| `merge`         | Merge statistics.                                                                                                                                                                                                                                                                                             |
+| `query_cache`   | Query cache statistics.                                                                                                                                                                                                                                                                                       |
+| `refresh`       | Refresh statistics.                                                                                                                                                                                                                                                                                           |
+| `request_cache` | Shard request cache statistics.                                                                                                                                                                                                                                                                               |
+| `search`        | Search statistics, including suggest operation statistics. Search operations can be associated with one or more groups. You can include statistics for custom groups by providing a `groups` parameter, which accepts a comma-separated list of group names. To return statistics for all groups, use `_all`. |
+| `segments`      | Statistics about memory use of all open segments. If the `include_segment_file_sizes` parameter is `true`, this metric includes the aggregated disk usage of each Lucene index file.                                                                                                                          |
+| `store`         | Size of the index in byte units.                                                                                                                                                                                                                                                                              |
+| `translog`      | Translog statistics.                                                                                                                                                                                                                                                                                          |
+| `warmer`        | Warmer statistics.                                                                                                                                                                                                                                                                                            |
 
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Data type | Description 
-:--- | :--- | :--- 
-`expand_wildcards` | String | Specifies the type of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes. <br> - `open`: Expand to open indexes. <br> - `closed`: Expand to closed indexes. <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both. <br> - `none`: Do not accept wildcard expressions. <br> Default is `open`.
-`fields` | String | A comma-separated list or a wildcard expression specifying fields to include in the statistics. Specifies the default field list if neither `completion_fields` nor `fielddata_fields` is provided.
-`completion_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `completion` statistics.
-`fielddata_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `fielddata` statistics.
-`forbid_closed_indices` | Boolean | Specifies not to collect statistics for closed indexes. Default is `true`.
-`groups` | String | A comma-separated list of search groups to include in the `search` statistics.
-`level` | String | Specifies the level used to aggregate statistics. Valid values are: <br> - `cluster`: Cluster-level statistics. <br> - `indices`: Index-level statistics. <br> - `shards`: Shard-level statistics. <br> Default is `indices`.
-`include_segment_file_sizes` | Boolean | Specifies whether to report the aggregated disk usage of each Lucene index file. Only applies to `segments` statistics. Default is `false`.
-`include_unloaded_segments` | Boolean | Specifies whether to include information from segments that are not loaded into memory. Default is `false`.
+| Parameter                    | Data type | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| :--------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expand_wildcards`           | String    | Specifies the type of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes. <br> - `open`: Expand to open indexes. <br> - `closed`: Expand to closed indexes. <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both. <br> - `none`: Do not accept wildcard expressions. <br> Default is `open`. |
+| `fields`                     | String    | A comma-separated list or a wildcard expression specifying fields to include in the statistics. Specifies the default field list if neither `completion_fields` nor `fielddata_fields` is provided.                                                                                                                                                                                                                                                                             |
+| `completion_fields`          | String    | A comma-separated list or wildcard expression specifying fields to include in field-level `completion` statistics.                                                                                                                                                                                                                                                                                                                                                              |
+| `fielddata_fields`           | String    | A comma-separated list or wildcard expression specifying fields to include in field-level `fielddata` statistics.                                                                                                                                                                                                                                                                                                                                                               |
+| `forbid_closed_indices`      | Boolean   | Specifies not to collect statistics for closed indexes. Default is `true`.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `groups`                     | String    | A comma-separated list of search groups to include in the `search` statistics.                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `level`                      | String    | Specifies the level used to aggregate statistics. Valid values are: <br> - `cluster`: Cluster-level statistics. <br> - `indices`: Index-level statistics. <br> - `shards`: Shard-level statistics. <br> Default is `indices`.                                                                                                                                                                                                                                                   |
+| `include_segment_file_sizes` | Boolean   | Specifies whether to report the aggregated disk usage of each Lucene index file. Only applies to `segments` statistics. Default is `false`.                                                                                                                                                                                                                                                                                                                                     |
+| `include_unloaded_segments`  | Boolean   | Specifies whether to include information from segments that are not loaded into memory. Default is `false`.                                                                                                                                                                                                                                                                                                                                                                     |
 
 #### Example request: One index
 
 ```json
 GET /testindex/_stats
 ```
+
 {% include copy-curl.html %}
 
 #### Example response
 
-By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards. The following is an example Index Stats API response: 
+By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards. The following is an example Index Stats API response:
 
 <details closed markdown="block">
   <summary>
@@ -201,27 +203,27 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         "version_map_memory_in_bytes": 0,
         "fixed_bit_set_memory_in_bytes": 0,
         "max_unsafe_auto_id_timestamp": -1,
-        "remote_store" : {
-          "upload" : {
-            "total_upload_size" : {
-              "started_bytes" : 152419,
-              "succeeded_bytes" : 152419,
-              "failed_bytes" : 0
+        "remote_store": {
+          "upload": {
+            "total_upload_size": {
+              "started_bytes": 152419,
+              "succeeded_bytes": 152419,
+              "failed_bytes": 0
             },
-            "refresh_size_lag" : {
-              "total_bytes" : 0,
-              "max_bytes" : 0
+            "refresh_size_lag": {
+              "total_bytes": 0,
+              "max_bytes": 0
             },
-            "max_refresh_time_lag_in_millis" : 0,
-            "total_time_spent_in_millis" : 516
+            "max_refresh_time_lag_in_millis": 0,
+            "total_time_spent_in_millis": 516
           },
-          "download" : {
-            "total_download_size" : {
-              "started_bytes" : 0,
-              "succeeded_bytes" : 0,
-              "failed_bytes" : 0
+          "download": {
+            "total_download_size": {
+              "started_bytes": 0,
+              "succeeded_bytes": 0,
+              "failed_bytes": 0
             },
-            "total_time_spent_in_millis" : 0
+            "total_time_spent_in_millis": 0
           }
         },
         "file_sizes": {}
@@ -232,17 +234,17 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         "uncommitted_operations": 0,
         "uncommitted_size_in_bytes": 55,
         "earliest_last_modified_age": 142622215,
-        "remote_store" : {
-          "upload" : {
-            "total_uploads" : {
-              "started" : 57,
-              "failed" : 0,
-              "succeeded" : 57
+        "remote_store": {
+          "upload": {
+            "total_uploads": {
+              "started": 57,
+              "failed": 0,
+              "succeeded": 57
             },
-            "total_upload_size" : {
-              "started_bytes" : 16830,
-              "failed_bytes" : 0,
-              "succeeded_bytes" : 16830
+            "total_upload_size": {
+              "started_bytes": 16830,
+              "failed_bytes": 0,
+              "succeeded_bytes": 16830
             }
           }
         }
@@ -365,27 +367,27 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         "version_map_memory_in_bytes": 0,
         "fixed_bit_set_memory_in_bytes": 0,
         "max_unsafe_auto_id_timestamp": -1,
-        "remote_store" : {
-          "upload" : {
-            "total_upload_size" : {
-              "started_bytes" : 152419,
-              "succeeded_bytes" : 152419,
-              "failed_bytes" : 0
+        "remote_store": {
+          "upload": {
+            "total_upload_size": {
+              "started_bytes": 152419,
+              "succeeded_bytes": 152419,
+              "failed_bytes": 0
             },
-            "refresh_size_lag" : {
-              "total_bytes" : 0,
-              "max_bytes" : 0
+            "refresh_size_lag": {
+              "total_bytes": 0,
+              "max_bytes": 0
             },
-            "max_refresh_time_lag_in_millis" : 0,
-            "total_time_spent_in_millis" : 516
+            "max_refresh_time_lag_in_millis": 0,
+            "total_time_spent_in_millis": 516
           },
-          "download" : {
-            "total_download_size" : {
-              "started_bytes" : 0,
-              "succeeded_bytes" : 0,
-              "failed_bytes" : 0
+          "download": {
+            "total_download_size": {
+              "started_bytes": 0,
+              "succeeded_bytes": 0,
+              "failed_bytes": 0
             },
-            "total_time_spent_in_millis" : 0
+            "total_time_spent_in_millis": 0
           }
         },
         "file_sizes": {}
@@ -396,17 +398,17 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         "uncommitted_operations": 0,
         "uncommitted_size_in_bytes": 55,
         "earliest_last_modified_age": 142622215,
-        "remote_store" : {
-          "upload" : {
-            "total_uploads" : {
-              "started" : 57,
-              "failed" : 0,
-              "succeeded" : 57
+        "remote_store": {
+          "upload": {
+            "total_uploads": {
+              "started": 57,
+              "failed": 0,
+              "succeeded": 57
             },
-            "total_upload_size" : {
-              "started_bytes" : 16830,
-              "failed_bytes" : 0,
-              "succeeded_bytes" : 16830
+            "total_upload_size": {
+              "started_bytes": 16830,
+              "failed_bytes": 0,
+              "succeeded_bytes": 16830
             }
           }
         }
@@ -533,27 +535,27 @@ By default, the returned statistics are aggregated in the `primaries` and `total
           "version_map_memory_in_bytes": 0,
           "fixed_bit_set_memory_in_bytes": 0,
           "max_unsafe_auto_id_timestamp": -1,
-          "remote_store" : {
-            "upload" : {
-              "total_upload_size" : {
-                "started_bytes" : 152419,
-                "succeeded_bytes" : 152419,
-                "failed_bytes" : 0
+          "remote_store": {
+            "upload": {
+              "total_upload_size": {
+                "started_bytes": 152419,
+                "succeeded_bytes": 152419,
+                "failed_bytes": 0
               },
-              "refresh_size_lag" : {
-                "total_bytes" : 0,
-                "max_bytes" : 0
+              "refresh_size_lag": {
+                "total_bytes": 0,
+                "max_bytes": 0
               },
-              "max_refresh_time_lag_in_millis" : 0,
-              "total_time_spent_in_millis" : 516
+              "max_refresh_time_lag_in_millis": 0,
+              "total_time_spent_in_millis": 516
             },
-            "download" : {
-              "total_download_size" : {
-                "started_bytes" : 0,
-                "succeeded_bytes" : 0,
-                "failed_bytes" : 0
+            "download": {
+              "total_download_size": {
+                "started_bytes": 0,
+                "succeeded_bytes": 0,
+                "failed_bytes": 0
               },
-              "total_time_spent_in_millis" : 0
+              "total_time_spent_in_millis": 0
             }
           },
           "file_sizes": {}
@@ -564,17 +566,17 @@ By default, the returned statistics are aggregated in the `primaries` and `total
           "uncommitted_operations": 0,
           "uncommitted_size_in_bytes": 55,
           "earliest_last_modified_age": 142622215,
-          "remote_store" : {
-            "upload" : {
-              "total_uploads" : {
-                "started" : 57,
-                "failed" : 0,
-                "succeeded" : 57
+          "remote_store": {
+            "upload": {
+              "total_uploads": {
+                "started": 57,
+                "failed": 0,
+                "succeeded": 57
               },
-              "total_upload_size" : {
-                "started_bytes" : 16830,
-                "failed_bytes" : 0,
-                "succeeded_bytes" : 16830
+              "total_upload_size": {
+                "started_bytes": 16830,
+                "failed_bytes": 0,
+                "succeeded_bytes": 16830
               }
             }
           }
@@ -697,27 +699,27 @@ By default, the returned statistics are aggregated in the `primaries` and `total
           "version_map_memory_in_bytes": 0,
           "fixed_bit_set_memory_in_bytes": 0,
           "max_unsafe_auto_id_timestamp": -1,
-          "remote_store" : {
-            "upload" : {
-              "total_upload_size" : {
-                "started_bytes" : 152419,
-                "succeeded_bytes" : 152419,
-                "failed_bytes" : 0
+          "remote_store": {
+            "upload": {
+              "total_upload_size": {
+                "started_bytes": 152419,
+                "succeeded_bytes": 152419,
+                "failed_bytes": 0
               },
-              "refresh_size_lag" : {
-                "total_bytes" : 0,
-                "max_bytes" : 0
+              "refresh_size_lag": {
+                "total_bytes": 0,
+                "max_bytes": 0
               },
-              "max_refresh_time_lag_in_millis" : 0,
-              "total_time_spent_in_millis" : 516
+              "max_refresh_time_lag_in_millis": 0,
+              "total_time_spent_in_millis": 516
             },
-            "download" : {
-              "total_download_size" : {
-                "started_bytes" : 0,
-                "succeeded_bytes" : 0,
-                "failed_bytes" : 0
+            "download": {
+              "total_download_size": {
+                "started_bytes": 0,
+                "succeeded_bytes": 0,
+                "failed_bytes": 0
               },
-              "total_time_spent_in_millis" : 0
+              "total_time_spent_in_millis": 0
             }
           },
           "file_sizes": {}
@@ -728,17 +730,17 @@ By default, the returned statistics are aggregated in the `primaries` and `total
           "uncommitted_operations": 0,
           "uncommitted_size_in_bytes": 55,
           "earliest_last_modified_age": 142622215,
-          "remote_store" : {
-            "upload" : {
-              "total_uploads" : {
-                "started" : 57,
-                "failed" : 0,
-                "succeeded" : 57
+          "remote_store": {
+            "upload": {
+              "total_uploads": {
+                "started": 57,
+                "failed": 0,
+                "succeeded": 57
               },
-              "total_upload_size" : {
-                "started_bytes" : 16830,
-                "failed_bytes" : 0,
-                "succeeded_bytes" : 16830
+              "total_upload_size": {
+                "started_bytes": 16830,
+                "failed_bytes": 0,
+                "succeeded_bytes": 16830
               }
             }
           }
@@ -759,6 +761,7 @@ By default, the returned statistics are aggregated in the `primaries` and `total
   }
 }
 ```
+
 </details>
 
 #### Example request: Comma-separated list of indexes
@@ -766,6 +769,7 @@ By default, the returned statistics are aggregated in the `primaries` and `total
 ```json
 GET /testindex1,testindex2/_stats
 ```
+
 {% include copy-curl.html %}
 
 #### Example request: Wildcard expression
@@ -773,6 +777,7 @@ GET /testindex1,testindex2/_stats
 ```json
 GET /testindex*/_stats
 ```
+
 {% include copy-curl.html %}
 
 #### Example request: Specific stats
@@ -780,6 +785,7 @@ GET /testindex*/_stats
 ```json
 GET /testindex/_stats/refresh,flush
 ```
+
 {% include copy-curl.html %}
 
 #### Example request: Expand wildcards
@@ -787,6 +793,7 @@ GET /testindex/_stats/refresh,flush
 ```json
 GET /testindex*/_stats?expand_wildcards=open,hidden
 ```
+
 {% include copy-curl.html %}
 
 #### Example request: Shard-level statistics
@@ -794,6 +801,7 @@ GET /testindex*/_stats?expand_wildcards=open,hidden
 ```json
 GET /testindex/_stats?level=shards
 ```
+
 {% include copy-curl.html %}
 
 ## Concurrent segment search
@@ -802,9 +810,9 @@ Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.base
 
 The following table provides information about the added response fields.
 
-|Response field	| Description	|
-|:---	|:---	| 
-|`search.concurrent_avg_slice_count`	|The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	|
-|`search.concurrent_query_total`	|The total number of query operations that use concurrent segment search.	|
-|`search.concurrent_query_time_in_millis`	|The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	|
-|`search.concurrent_query_current`	|The number of currently running query operations that use concurrent segment search.	|
+| Response field                           | Description                                                                                                                                          |
+| :--------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `search.concurrent_avg_slice_count`      | The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests. |
+| `search.concurrent_query_total`          | The total number of query operations that use concurrent segment search.                                                                             |
+| `search.concurrent_query_time_in_millis` | The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.                                          |
+| `search.concurrent_query_current`        | The number of currently running query operations that use concurrent segment search.                                                                 |

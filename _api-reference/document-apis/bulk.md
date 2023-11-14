@@ -4,15 +4,15 @@ title: Bulk
 parent: Document APIs
 nav_order: 20
 redirect_from:
- - /opensearch/rest-api/document-apis/bulk/
+  - /opensearch/rest-api/document-apis/bulk/
 ---
 
 # Bulk
+
 **Introduced 1.0**
 {: .label .label-purple }
 
 The bulk operation lets you add, update, or delete multiple documents in a single request. Compared to individual OpenSearch indexing requests, the bulk operation has significant performance benefits. Whenever practical, we recommend batching indexing operations into bulk requests.
-
 
 Beginning in OpenSearch 2.9, when indexing documents using the bulk operation, the document `_id` must be 512 bytes or less in size.
 {: .note}
@@ -30,8 +30,8 @@ POST _bulk
 { "doc" : { "title": "World War Z" } }
 
 ```
-{% include copy-curl.html %}
 
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -45,24 +45,22 @@ Specifying the index in the path means you don't need to include it in the [requ
 OpenSearch also accepts PUT requests to the `_bulk` path, but we highly recommend using POST. The accepted usage of PUT---adding or replacing a single resource at a given path---doesn't make sense for bulk requests.
 {: .note }
 
-
 ## URL parameters
 
 All bulk URL parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-pipeline | String | The pipeline ID for preprocessing documents.
-refresh | Enum | Whether to refresh the affected shards after performing the indexing operations. Default is `false`. `true` makes the changes show up in search results immediately, but hurts cluster performance. `wait_for` waits for a refresh. Requests take longer to return, but cluster performance doesn't suffer.
-require_alias | Boolean | Set to `true` to require that all actions target an index alias rather than an index. Default is `false`.
-routing | String | Routes the request to the specified shard.
-timeout | Time | How long to wait for the request to return. Default `1m`.
-type | String | (Deprecated) The default document type for documents that don't specify a type. Default is `_doc`. We highly recommend ignoring this parameter and using a type of `_doc` for all indexes.
-wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the bulk request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
-{% comment %}_source | List | asdf
-_source_excludes | list | asdf
-_source_includes | list | asdf{% endcomment %}
-
+| Parameter              | Type    | Description                                                                                                                                                                                                                                                                                                                                                                  |
+| :--------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| pipeline               | String  | The pipeline ID for preprocessing documents.                                                                                                                                                                                                                                                                                                                                 |
+| refresh                | Enum    | Whether to refresh the affected shards after performing the indexing operations. Default is `false`. `true` makes the changes show up in search results immediately, but hurts cluster performance. `wait_for` waits for a refresh. Requests take longer to return, but cluster performance doesn't suffer.                                                                  |
+| require_alias          | Boolean | Set to `true` to require that all actions target an index alias rather than an index. Default is `false`.                                                                                                                                                                                                                                                                    |
+| routing                | String  | Routes the request to the specified shard.                                                                                                                                                                                                                                                                                                                                   |
+| timeout                | Time    | How long to wait for the request to return. Default `1m`.                                                                                                                                                                                                                                                                                                                    |
+| type                   | String  | (Deprecated) The default document type for documents that don't specify a type. Default is `_doc`. We highly recommend ignoring this parameter and using a type of `_doc` for all indexes.                                                                                                                                                                                   |
+| wait_for_active_shards | String  | Specifies the number of active shards that must be available before OpenSearch processes the bulk request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed. |
+| {% comment %}\_source  | List    | asdf                                                                                                                                                                                                                                                                                                                                                                         |
+| \_source_excludes      | list    | asdf                                                                                                                                                                                                                                                                                                                                                                         |
+| \_source_includes      | list    | asdf{% endcomment %}                                                                                                                                                                                                                                                                                                                                                         |
 
 ## Request body
 
@@ -118,12 +116,14 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   It can also include a script or upsert for more complex document updates.
 
   - Script
+
   ```json
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
   ```
 
   - Upsert
+
   ```json
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }

@@ -6,6 +6,7 @@ nav_order: 6
 ---
 
 # Get script language
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -16,6 +17,7 @@ The get script language API operation retrieves all supported script languages a
 ```json
 GET _script_language
 ```
+
 {% include copy-curl.html %}
 
 #### Example response
@@ -24,14 +26,11 @@ The `GET _script_language` request returns the available contexts for each langu
 
 ```json
 {
-  "types_allowed" : [
-    "inline",
-    "stored"
-  ],
-  "language_contexts" : [
+  "types_allowed": ["inline", "stored"],
+  "language_contexts": [
     {
-      "language" : "expression",
-      "contexts" : [
+      "language": "expression",
+      "contexts": [
         "aggregation_selector",
         "aggs",
         "bucket_aggregation",
@@ -43,21 +42,16 @@ The `GET _script_language` request returns the available contexts for each langu
       ]
     },
     {
-      "language" : "mustache",
-      "contexts" : [
-        "template"
-      ]
+      "language": "mustache",
+      "contexts": ["template"]
     },
     {
-      "language" : "opensearch_query_expression",
-      "contexts" : [
-        "aggs",
-        "filter"
-      ]
+      "language": "opensearch_query_expression",
+      "contexts": ["aggs", "filter"]
     },
     {
-      "language" : "painless",
-      "contexts" : [
+      "language": "painless",
+      "contexts": [
         "aggregation_selector",
         "aggs",
         "aggs_combine",
@@ -93,9 +87,9 @@ The `GET _script_language` request returns the available contexts for each langu
 
 The request contains the following response fields.
 
-Field | Data type | Description | 
-:--- | :--- | :---
-types_allowed | List of strings | The types of scripts that are enabled, determined by the `script.allowed_types` setting. May contain `inline` and/or `stored`.
-language_contexts | List of objects | A list of objects, each of which maps a supported language to its available contexts.
-language_contexts.language | String | The name of the registered scripting language.
-language_contexts.contexts | List of strings | A list of all contexts for the language, determined by the `script.allowed_contexts` setting.
+| Field                      | Data type       | Description                                                                                                                    |
+| :------------------------- | :-------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| types_allowed              | List of strings | The types of scripts that are enabled, determined by the `script.allowed_types` setting. May contain `inline` and/or `stored`. |
+| language_contexts          | List of objects | A list of objects, each of which maps a supported language to its available contexts.                                          |
+| language_contexts.language | String          | The name of the registered scripting language.                                                                                 |
+| language_contexts.contexts | List of strings | A list of all contexts for the language, determined by the `script.allowed_contexts` setting.                                  |
