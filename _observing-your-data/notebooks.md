@@ -120,7 +120,7 @@ You can use notebooks to create PNG and PDF reports:
 
    Reports generate asynchronously in the background and might take a few minutes, depending on the size of the report. A notification appears when your report is ready to download.
 
-1. To create a schedule-based report, choose **Create report definition**. For steps to create a report definition, see [Create reports using a definition]({{site.url}}{{site.baseurl}}/dashboards/reporting#creating-reports-using-a-definition).
+1. To create a schedule-based report, choose **Create report definition**. For steps to create a report definition, see [Create reports using a definition]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/).
 1. To see all your reports, choose **View all reports**.
 
 ![Report notebooks]({{site.url}}{{site.baseurl}}/images/report_notebooks.gif)

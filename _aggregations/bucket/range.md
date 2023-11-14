@@ -42,6 +42,7 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 The response includes the `from` key values and excludes the `to` key values:

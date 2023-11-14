@@ -29,6 +29,7 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 Because the default value for the `min_doc_count` parameter is 1, the `missing` parameter doesn't return any buckets in its response. Set `min_doc_count` parameter to 0 to see the "N/A" bucket in the response:

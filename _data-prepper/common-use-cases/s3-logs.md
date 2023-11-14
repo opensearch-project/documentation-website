@@ -9,7 +9,6 @@ nav_order: 20
 
 Data Prepper allows you to load logs from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3), including traditional logs, JSON documents, and CSV logs.
 
-
 ## Architecture
 
 Data Prepper can read objects from S3 buckets using an [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) (Amazon SQS) queue and [Amazon S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html).
@@ -28,7 +27,6 @@ The flow of data is as follows.
 4. Data Prepper downloads the content from the S3 object.
 5. Data Prepper sends a document to OpenSearch for the content in the S3 object.
 
-
 ## Pipeline overview
 
 Data Prepper supports reading data from S3 using the [`s3` source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/).
@@ -39,17 +37,16 @@ The following diagram shows a conceptual outline of a Data Prepper pipeline read
 
 ## Prerequisites
 
-Before Data Prepper can read log data from S3, you need the following prerequisites: 
+Before Data Prepper can read log data from S3, you need the following prerequisites:
 
 - An S3 bucket.
 - A log producer that writes logs to S3. The exact log producer will vary depending on your specific use case, but could include writing logs to S3 or a service such as Amazon CloudWatch.
-
 
 ## Getting started
 
 Use the following steps to begin loading logs from S3 with Data Prepper.
 
-1. Create an [SQS standard queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/step-create-queue.html) for your S3 event notifications. 
+1. Create an [SQS standard queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/step-create-queue.html) for your S3 event notifications.
 2. Configure [bucket notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ways-to-add-notification-config-to-bucket.html) for SQS. Use the `s3:ObjectCreated:*` event type.
 3. Grant [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) permissions to Data Prepper for accessing SQS and S3.
 4. (Recommended) Create an [SQS dead-letter queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) (DLQ).
@@ -110,7 +107,7 @@ To use an SQS dead-letter queue, perform the following steps:
 
 ## Pipeline design
 
-Create a pipeline to read logs from S3, starting with an [`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) source plugin. Use the following example for guidance. 
+Create a pipeline to read logs from S3, starting with an [`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) source plugin. Use the following example for guidance.
 
 ```yaml
 s3-log-pipeline:
@@ -128,9 +125,9 @@ s3-log-pipeline:
 
 Configure the following options according to your use case:
 
-* `queue_url`: This the SQS queue URL and is always unique to your pipeline.
-* `codec`: The codec determines how to parse the incoming data.
-* `visibility_timeout`: Configure this value to be large enough for Data Prepper to process 10 S3 objects. However, if you make this value too large, messages that fail to process will take at least as long as the specified value before Data Prepper retries.
+- `queue_url`: This the SQS queue URL and is always unique to your pipeline.
+- `codec`: The codec determines how to parse the incoming data.
+- `visibility_timeout`: Configure this value to be large enough for Data Prepper to process 10 S3 objects. However, if you make this value too large, messages that fail to process will take at least as long as the specified value before Data Prepper retries.
 
 The default values for each option work for the majority of use cases. For all available options for the S3 source, see [`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/).
 
@@ -176,5 +173,3 @@ If you have multiple pipelines, you must create multiple SQS queues for each pip
 To meet the scale of logs produced by S3, some users require multiple SQS queues for their logs. You can use [Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) (Amazon SNS) to route event notifications from S3 to an SQS [fanout pattern](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html). Using SNS, all S3 event notifications are sent directly to a single SNS topic, where you can subscribe to multiple SQS queues.
 
 To make sure that Data Prepper can directly parse the event from the SNS topic, configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS to SQS subscription. Setting this option will not affect other SQS queues that are subscribed to that SNS topic.
-
-

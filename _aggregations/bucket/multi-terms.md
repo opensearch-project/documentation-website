@@ -47,6 +47,7 @@ GET sample-index100/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 #### Example response

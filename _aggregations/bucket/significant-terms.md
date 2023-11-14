@@ -35,6 +35,7 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 #### Example response
@@ -67,4 +68,3 @@ GET opensearch_dashboards_sample_data_logs/_search
 If the `significant_terms` aggregation doesn't return any result, you might have not filtered the results with a query. Alternatively, the distribution of terms in the foreground set might be the same as the background set, implying that there isn't anything unusual in the foreground set.
 
 The default source of statistical information for background term frequencies is the entire index. You can narrow this scope with a background filter for more focus
-
