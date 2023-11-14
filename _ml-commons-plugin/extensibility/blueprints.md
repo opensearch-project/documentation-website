@@ -49,7 +49,7 @@ You can find blueprints for each connector in the [ML Commons repository](https:
 
 ## Configuration options
 
-The following configuration options are **required** in order to build a connector blueprint. These settings can be used for both external and local connectors.
+The following configuration options are **required** in order to build a connector blueprint. These settings can be used for both standalone and internal connectors.
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
