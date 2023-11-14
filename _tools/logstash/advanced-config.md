@@ -4,7 +4,7 @@ title: Advanced configurations
 parent: Logstash
 nav_order: 230
 redirect_from:
- - /clients/logstash/advanced-config/
+  - /clients/logstash/advanced-config/
 ---
 
 # Advanced configurations
@@ -15,7 +15,6 @@ This section describes how to set up advanced configuration options, like refere
 
 To get access to a field, use the `- field` syntax.
 You can also surround the field name by square brackets `- [field]` which makes it more explicit that you're referring to a field.
-
 
 For example, if you have the following event:
 
@@ -42,32 +41,31 @@ For example, you can make the file name dynamic and contain the type of the proc
 
 Let's add a `type` option and specify a value of `access`.
 
-
 ```yml
 input {
-  file {
-    path => ""
-  start_position => "beginning"
-  type => "access"
-  }
-  http {
-    type => "access"
-  }
+file {
+path => ""
+start_position => "beginning"
+type => "access"
+}
+http {
+type => "access"
+}
 }
 
 filter {
-  mutate {
-    remove_field => {"host"}
-  }
+mutate {
+remove_field => {"host"}
+}
 }
 
 output {
-  stdout {
-    codec => rubydebug
-  }
+stdout {
+codec => rubydebug
+}
 file {
-  path => "%{[type]}.log"
-  }
+path => "%{[type]}.log"
+}
 }
 ```
 
@@ -83,11 +81,11 @@ Syntax:
 
 ```yml
 if EXPR {
-  ...
+...
 } else if EXPR {
-  ...
+...
 } else {
-  ...
+...
 }
 ```
 
@@ -96,11 +94,11 @@ For example, you can check if an event type is set to `access` or `error` and pe
 
 ```yml
 if [type] == "access" {
-...
+---
 } else if [type] == "error" {
 file { .. }
 } else {
-...
+---
 }
 ```
 
@@ -108,7 +106,7 @@ You can compare a field value to some arbitrary value:
 
 ```yml
 if [headers][content_length] >= 1000 {
-...
+---
 }
 ```
 
@@ -116,7 +114,7 @@ You can regex:
 
 ```yml
 if [some_field =~ /[0-9]+/ {
-  //some field only contains digits
+//some field only contains digits
 }
 ```
 
@@ -124,7 +122,7 @@ You can use arrays:
 
 ```yml
 if [some_field] in ["one", "two", "three"] {
-  some field is either "one", "two", or "three"
+some field is either "one", "two", or "three"
 }
 ```
 
@@ -132,10 +130,9 @@ You can use Boolean operators:
 
 ```yml
 if [type] == "access" or [type] == "error" {
-  ...
+...
 }
 ```
-
 
 ## Formatting dates
 
@@ -146,7 +143,7 @@ To format the date, add a plus sign in curly brackets followed by the date forma
 
 ```yml
 file {
-  path => "%{[type]}_%{+yyyy_MM_dd}.log"
+path => "%{[type]}_%{+yyyy_MM_dd}.log"
 }
 ```
 
@@ -171,7 +168,7 @@ Add the `date` plugin at the bottom of the `filter` block:
 
 ```yml
 date {
-  match => [ "timestamp", "dd/MMM/yyyy:HH:mm:ss Z" ]
+match => [ "timestamp", "dd/MMM/yyyy:HH:mm:ss Z" ]
 }
 ```
 
@@ -188,8 +185,8 @@ After you have set the @timestamp field to a new value, you don't really need th
 
 ```yml
 date {
-  match => [ "timestamp", "dd/MMM/yyyy:HH:mm:ss Z" ]
-  remove_field => [ "timestamp" ]
+match => [ "timestamp", "dd/MMM/yyyy:HH:mm:ss Z" ]
+remove_field => [ "timestamp" ]
 }
 ```
 
@@ -209,8 +206,8 @@ Since that can get pretty confusing, we can add an option named `target` with a 
 
 ```yml
 useragent {
-  source => "agent"
-  target => "ua"
+source => "agent"
+target => "ua"
 }
 ```
 
@@ -231,7 +228,7 @@ The value of the `source` option is the name of the field containing the IP addr
 
 ```yml
 geoip {
-  source => "clientip"
+source => "clientip"
 }
 ```
 

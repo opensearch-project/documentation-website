@@ -44,7 +44,7 @@ host.keyword:*
 
 ## Searching with Boolean queries
 
-To mix and match or combine multiple queries for more refined results, you can use the Boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same, for example: 
+To mix and match or combine multiple queries for more refined results, you can use the Boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same, for example:
 
 ```
 host.keyword:www.example.com and response.keyword:200
@@ -76,7 +76,7 @@ Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearc
 
 ```json
 {
- "superheroes":[
+  "superheroes": [
     {
       "hero-name": "Superman",
       "real-identity": "Clark Kent",
@@ -100,6 +100,7 @@ Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearc
   ]
 }
 ```
+
 {% include copy.html %}
 
 To retrieve documents that match a specific field using DQL, specify the field, for example:
@@ -107,6 +108,7 @@ To retrieve documents that match a specific field using DQL, specify the field, 
 ```
 superheroes: {hero-name: Superman}
 ```
+
 {% include copy.html %}
 
 To retrieve documents that match multiple fields, specify all the fields, for example:
@@ -114,6 +116,7 @@ To retrieve documents that match multiple fields, specify all the fields, for ex
 ```
 superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}
 ```
+
 {% include copy.html %}
 
 You can combine multiple Boolean and range queries to create a more refined query, for example:
@@ -121,42 +124,44 @@ You can combine multiple Boolean and range queries to create a more refined quer
 ```
 superheroes: {hero-name: Superman and age < 50}
 ```
+
 {% include copy.html %}
 
-## Querying doubly nested objects 
+## Querying doubly nested objects
 
 If a document has doubly nested objects (objects nested inside other objects), retrieve a field value by specifying the full path to the field. In the following example document, the `superheroes` object is nested inside the `justice-league` object:
 
 ```json
 {
-"justice-league": [
-{
-"superheroes":[
-{
-"hero-name": "Superman",
-"real-identity": "Clark Kent",
-"age": 28
-},
-{
-"hero-name": "Batman",
-"real-identity": "Bruce Wayne",
-"age": 26
-},
-{
-"hero-name": "Flash",
-"real-identity": "Barry Allen",
-"age": 28
-},
-{
-"hero-name": "Robin",
-"real-identity": "Dick Grayson",
-"age": 15
-}
-]
-}
-]
+  "justice-league": [
+    {
+      "superheroes": [
+        {
+          "hero-name": "Superman",
+          "real-identity": "Clark Kent",
+          "age": 28
+        },
+        {
+          "hero-name": "Batman",
+          "real-identity": "Bruce Wayne",
+          "age": 26
+        },
+        {
+          "hero-name": "Flash",
+          "real-identity": "Barry Allen",
+          "age": 28
+        },
+        {
+          "hero-name": "Robin",
+          "real-identity": "Dick Grayson",
+          "age": 15
+        }
+      ]
+    }
+  ]
 }
 ```
+
 {% include copy.html %}
 
 The following image shows the query result using the example notation `justice-league.superheroes: {hero-name:Superman}`.

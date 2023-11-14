@@ -5,7 +5,7 @@ parent: Snapshots
 nav_order: 20
 has_children: false
 grand_parent: Availability and recovery
-redirect_from: 
+redirect_from:
   - /opensearch/snapshots/snapshot-management/
 ---
 
@@ -27,7 +27,6 @@ An SM schedule is a custom [cron]({{site.url}}{{site.baseurl}}/monitoring-plugin
 
 An SM configuration includes the indexes and repository for the snapshots and supports all parameters you can define when [creating a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) using the API. Additionally, you can specify the format and time zone for the date used in the snapshot's name.
 
-
 ## Performance
 
 One snapshot can contain as many indexes as there are in the cluster. We expect at most dozens of SM policies in one cluster, but a snapshot repository can safely scale to thousands of snapshots. However, to manage its metadata, a large repository requires more memory on the cluster manager node.
@@ -40,7 +39,6 @@ An SM policy does not support concurrent snapshot operations, since too many suc
 
 We don't recommend creating several SM policies with the same schedule and overlapping indexes in one cluster because it leads to concurrent snapshot creation on the same indexes and hinders performance.
 {: .warning }
-
 
 We don't recommend setting up the same repository for multiple SM policies with same schedule in different clusters, since it may cause a sudden spike of burden in this repository.
 {: .warning }
@@ -55,27 +53,26 @@ The Security plugin has two built-in roles for Snapshot Management actions: `sna
 
 The following table lists the required permissions for each Snapshot Management API.
 
-Function | API | Permission
-:--- | :--- | :---
-Get policy | GET _plugins/_sm/policies<br>GET _plugins/_sm/policies/`policy_name` | cluster:admin/opensearch/snapshot_management/policy/get<br>cluster:admin/opensearch/snapshot_management/policy/search
-Create/update policy | POST _plugins/_sm/policies/`policy_name`<br> PUT _plugins/_sm/policies/`policy_name`?if_seq_no=1&if_primary_term=1 | cluster:admin/opensearch/snapshot_management/policy/write
-Delete policy | DELETE  _plugins/_sm/policies/`policy_name` | cluster:admin/opensearch/snapshot_management/policy/delete
-Explain | GET _plugins/_sm/policies/`policy_names`/_explain | cluster:admin/opensearch/snapshot_management/policy/explain
-Start | POST  _plugins/_sm/policies/`policy_name`/_start | cluster:admin/opensearch/snapshot_management/policy/start
-Stop| POST  _plugins/_sm/policies/`policy_name`/_stop | cluster:admin/opensearch/snapshot_management/policy/stop
-
+| Function             | API                                                                                                                    | Permission                                                                                                            |
+| :------------------- | :--------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| Get policy           | GET \_plugins/\_sm/policies<br>GET \_plugins/\_sm/policies/`policy_name`                                               | cluster:admin/opensearch/snapshot_management/policy/get<br>cluster:admin/opensearch/snapshot_management/policy/search |
+| Create/update policy | POST \_plugins/\_sm/policies/`policy_name`<br> PUT \_plugins/\_sm/policies/`policy_name`?if_seq_no=1&if_primary_term=1 | cluster:admin/opensearch/snapshot_management/policy/write                                                             |
+| Delete policy        | DELETE \_plugins/\_sm/policies/`policy_name`                                                                           | cluster:admin/opensearch/snapshot_management/policy/delete                                                            |
+| Explain              | GET \_plugins/\_sm/policies/`policy_names`/\_explain                                                                   | cluster:admin/opensearch/snapshot_management/policy/explain                                                           |
+| Start                | POST \_plugins/\_sm/policies/`policy_name`/\_start                                                                     | cluster:admin/opensearch/snapshot_management/policy/start                                                             |
+| Stop                 | POST \_plugins/\_sm/policies/`policy_name`/\_stop                                                                      | cluster:admin/opensearch/snapshot_management/policy/stop                                                              |
 
 ## API
 
 The following table lists all [Snapshot Management API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api) functions.
 
-Function | API | Description
-:--- | :--- | :---
-[Create policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#create-or-update-a-policy) | POST _plugins/_sm/policies/`policy_name` | Creates an SM policy.
-[Update policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#create-or-update-a-policy) | PUT _plugins/_sm/policies/`policy_name`?if_seq_no=`sequence_number`&if_primary_term=`primary_term` | Modifies the `policy_name` policy.
-[Get all policies]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#get-policies) | GET _plugins/_sm/policies | Returns all SM policies.
-[Get the policy `policy_name`]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#get-policies) | GET _plugins/_sm/policies/`policy_name` | Returns the `policy_name` SM policy.
-[Delete policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#delete-a-policy) | DELETE  _plugins/_sm/policies/`policy_name` | Deletes the `policy_name` policy.
-[Explain]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain) | GET _plugins/_sm/policies/`policy_names`/_explain | Provides the enabled/disabled status and the metadata for all policies specified by `policy_names`.
-[Start policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#start-a-policy) | POST  _plugins/_sm/policies/`policy_name`/_start | Starts the `policy_name` policy.
-[Stop policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#stop-a-policy)| POST  _plugins/_sm/policies/`policy_name`/_stop | Stops the `policy_name` policy.
+| Function                                                                                              | API                                                                                                  | Description                                                                                         |
+| :---------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
+| [Create policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#create-or-update-a-policy)   | POST \_plugins/\_sm/policies/`policy_name`                                                           | Creates an SM policy.                                                                               |
+| [Update policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#create-or-update-a-policy)   | PUT \_plugins/\_sm/policies/`policy_name`?if_seq_no=`sequence_number`&if_primary_term=`primary_term` | Modifies the `policy_name` policy.                                                                  |
+| [Get all policies]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#get-policies)             | GET \_plugins/\_sm/policies                                                                          | Returns all SM policies.                                                                            |
+| [Get the policy `policy_name`]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#get-policies) | GET \_plugins/\_sm/policies/`policy_name`                                                            | Returns the `policy_name` SM policy.                                                                |
+| [Delete policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#delete-a-policy)             | DELETE \_plugins/\_sm/policies/`policy_name`                                                         | Deletes the `policy_name` policy.                                                                   |
+| [Explain]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain)                           | GET \_plugins/\_sm/policies/`policy_names`/\_explain                                                 | Provides the enabled/disabled status and the metadata for all policies specified by `policy_names`. |
+| [Start policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#start-a-policy)               | POST \_plugins/\_sm/policies/`policy_name`/\_start                                                   | Starts the `policy_name` policy.                                                                    |
+| [Stop policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#stop-a-policy)                 | POST \_plugins/\_sm/policies/`policy_name`/\_stop                                                    | Stops the `policy_name` policy.                                                                     |

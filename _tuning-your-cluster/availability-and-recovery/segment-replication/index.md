@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Segment replication 
+title: Segment replication
 nav_order: 70
 has_children: true
 parent: Availability and recovery
@@ -48,20 +48,21 @@ PUT /my-index1
 {
   "settings": {
     "index": {
-      "replication.type": "SEGMENT" 
+      "replication.type": "SEGMENT"
     }
   }
 }
 ```
+
 {% include copy-curl.html %}
 
-If you're using remote-backed storage, add the `remote_store` property to the index request body. 
+If you're using remote-backed storage, add the `remote_store` property to the index request body.
 
 When using node-to-node replication, the primary shard consumes more network bandwidth because it pushes segment files to all the replica shards. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 For the best performance, it is recommended that you enable the following settings:
 
-1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) 
+1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/)
 2. Balanced primary shard allocation, using the following command:
 
 ```json
@@ -73,6 +74,7 @@ PUT /_cluster/settings
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 ### Setting the replication type for a cluster
@@ -80,11 +82,10 @@ PUT /_cluster/settings
 You can set the default replication type for newly created cluster indexes in the `opensearch.yml` file as follows:
 
 ```yaml
-cluster.indices.replication.strategy: 'SEGMENT'
+cluster.indices.replication.strategy: "SEGMENT"
 ```
+
 {% include copy.html %}
-
-
 
 ### Creating an index with document replication
 
@@ -95,11 +96,12 @@ PUT /my-index1
 {
   "settings": {
     "index": {
-      "replication.type": "DOCUMENT" 
+      "replication.type": "DOCUMENT"
     }
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 ## Considerations
@@ -109,15 +111,15 @@ When using segment replication, consider the following:
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
 1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Segment replication leads to increased network congestion on primary shards using node-to-node replication because replica shards fetch updates from the primary shard. With remote-backed storage, the primary shard can upload segments to, and the replicas can fetch updates from, the remote-backed storage. This helps offload responsibilities from the primary shard to the remote-backed storage.
-1. Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for` or `true`. If you set the `refresh` query parameter to `wait_for` or `true` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If real-time reads are needed, consider using the [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations. 
-1. As of OpenSearch 2.10, system indexes support segment replication. 
+1. Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for` or `true`. If you set the `refresh` query parameter to `wait_for` or `true` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If real-time reads are needed, consider using the [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations.
+1. As of OpenSearch 2.10, system indexes support segment replication.
 1. Get, MultiGet, TermVector, and MultiTermVector requests serve strong reads by routing requests to the primary shards. Routing more requests to the primary shards may degrade performance as compared to distributing requests across primary and replica shards. To improve performance in read-heavy clusters, we recommend setting the `realtime` parameter in these requests to `false`. For more information, see [Issue #8700](https://github.com/opensearch-project/OpenSearch/issues/8700).
 
 ## Benchmarks
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
-The following benchmarks were collected with [OpenSearch-benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
+The following benchmarks were collected with [OpenSearch-benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.
 
 The benchmarks demonstrate the effect of the following configurations on segment replication:
 
@@ -125,7 +127,7 @@ The benchmarks demonstrate the effect of the following configurations on segment
 - [The number of primary shards](#increasing-the-number-of-primary-shards)
 - [The number of replicas](#increasing-the-number-of-replicas)
 
-Your results may vary based on the cluster topology, hardware used, shard count, and merge settings. 
+Your results may vary based on the cluster topology, hardware used, shard count, and merge settings.
 {: .note }
 
 ### Increasing the workload size
@@ -200,13 +202,14 @@ The following table lists benchmarking results for the `nyc_taxi` dataset with t
     </tr>
 </table>
 
-As the size of the workload increases, the benefits of segment replication are amplified because the replicas are not required to index the larger dataset. In general, segment replication leads to higher throughput at lower resource costs than document replication in all cluster configurations, not accounting for replication lag. 
+As the size of the workload increases, the benefits of segment replication are amplified because the replicas are not required to index the larger dataset. In general, segment replication leads to higher throughput at lower resource costs than document replication in all cluster configurations, not accounting for replication lag.
 
 ### Increasing the number of primary shards
 
 The following table lists benchmarking results for the `nyc_taxi` dataset for 40 and 100 primary shards.
 
 {::nomarkdown}
+
 <table>
     <th colspan="2"></th>
     <th colspan="3">40 primary shards, 1 replica</th>
@@ -262,13 +265,14 @@ The following table lists benchmarking results for the `nyc_taxi` dataset for 40
 </table>
 {:/}
 
-As the number of primary shards increases, the benefits of segment replication over document replication decrease. While segment replication is still beneficial with a larger number of primary shards, the difference in performance becomes less pronounced because there are more primary shards per node that must copy segment files across the cluster. 
+As the number of primary shards increases, the benefits of segment replication over document replication decrease. While segment replication is still beneficial with a larger number of primary shards, the difference in performance becomes less pronounced because there are more primary shards per node that must copy segment files across the cluster.
 
 ### Increasing the number of replicas
 
 The following table lists benchmarking results for the `stackoverflow` dataset for 1 and 9 replicas.
 
 {::nomarkdown}
+
 <table>
     <th colspan="2"  ></th>
     <th colspan="3"  >10 primary shards, 1 replica</th>
@@ -389,7 +393,7 @@ The following table lists benchmarking results for the `stackoverflow` dataset f
 </table>
 {:/}
 
-As the number of replicas increases, the amount of time required for primary shards to keep replicas up to date (known as the _replication lag_) also increases. This is because segment replication copies the segment files directly from primary shards to replicas. 
+As the number of replicas increases, the amount of time required for primary shards to keep replicas up to date (known as the _replication lag_) also increases. This is because segment replication copies the segment files directly from primary shards to replicas.
 
 The benchmarking results show a non-zero error rate as the number of replicas increases. The error rate indicates that the [segment replication backpressure]({{site.urs}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) mechanism is initiated when replicas cannot keep up with the primary shard. However, the error rate is offset by the significant CPU and memory gains that segment replication provides.
 

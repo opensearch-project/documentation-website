@@ -8,13 +8,12 @@ nav_order: 30
 
 This page includes troubleshooting steps for using OpenID Connect with the Security plugin.
 
-
 ---
 
 #### Table of contents
-- TOC
-{:toc}
 
+- TOC
+  {:toc}
 
 ---
 
@@ -28,7 +27,6 @@ logger.securityjwt.level = trace
 ```
 
 This setting prints a lot of helpful information to your log file. If this information isn't sufficient, you can also set the log level to `trace`.
-
 
 ## "Failed when trying to obtain the endpoints from your IdP"
 
@@ -64,16 +62,13 @@ plugins.security.openid.client_id: "..."
 plugins.security.openid.client_secret: "..."
 ```
 
-
 ## "Authentication failed. Please provide a new token."
 
 This error has several potential root causes.
 
-
 ### Leftover cookies or cached credentials
 
 Please delete all cached browser data, or try again in a private browser window.
-
 
 ### Wrong client secret
 
@@ -82,7 +77,6 @@ To trade the access token for an identity token, most IdPs require you to provid
 ```
 plugins.security.openid.client_secret: "..."
 ```
-
 
 ### "Failed to get subject from JWT claims"
 

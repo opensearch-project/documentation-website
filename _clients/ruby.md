@@ -18,6 +18,7 @@ To install the Ruby gem for the Ruby client, run the following command:
 ```bash
 gem install opensearch-ruby
 ```
+
 {% include copy.html %}
 
 To use the client, import it as a module:
@@ -25,6 +26,7 @@ To use the client, import it as a module:
 ```ruby
 require 'opensearch'
 ```
+
 {% include copy.html %}
 
 ## Connecting to OpenSearch
@@ -34,6 +36,7 @@ To connect to the default OpenSearch host, create a client object, passing the d
 ```ruby
 client = OpenSearch::Client.new(host: 'http://localhost:9200')
 ```
+
 {% include copy.html %}
 
 The following example creates a client object with a custom URL and the `log` option set to `true`. It sets the `retry_on_failure` parameter to retry a failed request five times rather than the default three times. Finally, it increases the timeout by setting the `request_timeout` parameter to 120 seconds. It then returns the basic cluster health information:
@@ -48,6 +51,7 @@ client = OpenSearch::Client.new(
 
 client.cluster.health
 ```
+
 {% include copy.html %}
 
 The output is as follows:
@@ -101,8 +105,8 @@ client = OpenSearch::Aws::Sigv4Client.new({
 # create an index and document
 index = 'prime'
 client.indices.create(index: index)
-client.index(index: index, id: '1', body: { name: 'Amazon Echo', 
-                                            msrp: '5999', 
+client.index(index: index, id: '1', body: { name: 'Amazon Echo',
+                                            msrp: '5999',
                                             year: 2011 })
 
 # search for the document
@@ -114,6 +118,7 @@ client.delete(index: index, id: '1')
 # delete the index
 client.indices.delete(index: index)
 ```
+
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
@@ -141,8 +146,8 @@ client = OpenSearch::Aws::Sigv4Client.new({
 # create an index and document
 index = 'prime'
 client.indices.create(index: index)
-client.index(index: index, id: '1', body: { name: 'Amazon Echo', 
-                                            msrp: '5999', 
+client.index(index: index, id: '1', body: { name: 'Amazon Echo',
+                                            msrp: '5999',
                                             year: 2011 })
 
 # search for the document
@@ -154,10 +159,10 @@ client.delete(index: index, id: '1')
 # delete the index
 client.indices.delete(index: index)
 ```
+
 {% include copy.html %}
 
-
-## Creating an index 
+## Creating an index
 
 You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. Alternatively, you can create an index explicitly to specify settings like the number of primary and replica shards. To create an index with non-default settings, create an index body hash with those settings:
 
@@ -166,16 +171,17 @@ index_body = {
     'settings': {
         'index': {
         'number_of_shards': 1,
-        'number_of_replicas': 2 
+        'number_of_replicas': 2
         }
     }
-} 
+}
 
 client.indices.create(
     index: 'students',
     body: index_body
 )
 ```
+
 {% include copy.html %}
 
 ## Mappings
@@ -184,15 +190,16 @@ OpenSearch uses dynamic mapping to infer field types of the documents that are i
 
 ```ruby
 client.indices.put_mapping(
-    index: 'students', 
+    index: 'students',
     body: {
         properties: {
             first_name: { type: 'keyword' },
             last_name: { type: 'keyword' }
-        }  
+        }
     }
 )
 ```
+
 {% include copy.html %}
 
 By default, string fields are mapped as `text`, but in the mapping above, the `first_name` and `last_name` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
@@ -202,13 +209,14 @@ You can verify the index's mappings using the `get_mapping` method:
 ```ruby
 response = client.indices.get_mapping(index: 'students')
 ```
+
 {% include copy.html %}
 
 If you know the mapping of your documents in advance and want to avoid mapping errors (for example, misspellings of a field name), you can set the `dynamic` parameter to `strict`:
 
 ```ruby
 client.indices.put_mapping(
-    index: 'students', 
+    index: 'students',
     body: {
         dynamic: 'strict',
         properties: {
@@ -216,10 +224,11 @@ client.indices.put_mapping(
             last_name: { type: 'keyword' },
             gpa: { type: 'float'},
             grad_year: { type: 'integer'}
-        }  
+        }
     }
 )
 ```
+
 {% include copy.html %}
 
 With strict mapping, you can index a document with a missing field, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `grad_yea` field fails:
@@ -231,7 +240,7 @@ document = {
     gpa: 3.93,
     grad_yea: 2021
 }
-  
+
 client.index(
     index: 'students',
     body: document,
@@ -239,6 +248,7 @@ client.index(
     refresh: true
 )
 ```
+
 {% include copy.html %}
 
 OpenSearch returns a mapping error:
@@ -258,7 +268,7 @@ document = {
     gpa: 3.93,
     grad_year: 2021
 }
-  
+
 client.index(
     index: 'students',
     body: document,
@@ -266,6 +276,7 @@ client.index(
     refresh: true
 )
 ```
+
 {% include copy.html %}
 
 ## Updating a document
@@ -273,11 +284,12 @@ client.index(
 To update a document, use the `update` method:
 
 ```ruby
-client.update(index: 'students', 
-              id: 100, 
-              body: { doc: { gpa: 3.25 } }, 
+client.update(index: 'students',
+              id: 100,
+              body: { doc: { gpa: 3.25 } },
               refresh: true)
 ```
+
 {% include copy.html %}
 
 ## Deleting a document
@@ -291,6 +303,7 @@ client.delete(
     refresh: true
 )
 ```
+
 {% include copy.html %}
 
 ## Bulk operations
@@ -308,6 +321,7 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
+
 {% include copy.html %}
 
 You can delete multiple documents as follows:
@@ -320,6 +334,7 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
+
 {% include copy.html %}
 
 You can perform different operations when using `bulk` as follows:
@@ -337,13 +352,14 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
+
 {% include copy.html %}
 
 In the above example, you pass the data and the header together and you denote the data with the `data:` key.
 
 ## Searching for a document
 
-To search for a document, use the `search` method. The following example searches for a student whose first or last name is "James." It uses a `multi_match` query to search for two fields (`first_name` and `last_name`), and it is boosting the `last_name` field in relevance with a caret notation (`last_name^2`). 
+To search for a document, use the `search` method. The following example searches for a student whose first or last name is "James." It uses a `multi_match` query to search for two fields (`first_name` and `last_name`), and it is boosting the `last_name` field in relevance with a caret notation (`last_name^2`).
 
 ```ruby
 q = 'James'
@@ -362,6 +378,7 @@ response = client.search(
   index: 'students'
 )
 ```
+
 {% include copy.html %}
 
 If you omit the request body in the `search` method, your query becomes a `match_all` query and returns all documents in the index:
@@ -369,6 +386,7 @@ If you omit the request body in the `search` method, your query becomes a `match
 ```ruby
 client.search(index: 'students')
 ```
+
 {% include copy.html %}
 
 ## Boolean query
@@ -382,7 +400,7 @@ query = {
         'filter': {
             'term': {
                 'grad_year': 2022
-                
+
             }
         }
         }
@@ -391,11 +409,12 @@ query = {
         'last_name': {
             'order': 'asc'
         }
-    }       
+    }
 }
 
 response = client.search(index: 'students', from: 0, size: 10, body: query)
 ```
+
 {% include copy.html %}
 
 ## Multi-search
@@ -411,6 +430,7 @@ actions = [
 ]
 response = client.msearch(index: 'students', body: actions)
 ```
+
 {% include copy.html %}
 
 ## Scroll
@@ -426,9 +446,10 @@ while response['hits']['hits'].size.positive?
     response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
 end
 ```
+
 {% include copy.html %}
 
-First, you issue a search query, specifying the `scroll` and `size` parameters. The `scroll` parameter tells OpenSearch how long to keep the search context. In this case, it is set to two minutes. The `size` parameter specifies how many documents you want to return in each request. 
+First, you issue a search query, specifying the `scroll` and `size` parameters. The `scroll` parameter tells OpenSearch how long to keep the search context. In this case, it is set to two minutes. The `size` parameter specifies how many documents you want to return in each request.
 
 The response to the initial search query contains a `_scroll_id` that you can use to get the next set of documents. To do this, you use the `scroll` method, again specifying the `scroll` parameter and passing the `_scroll_id` in the body. You don't need to specify the query or index to the `scroll` method. The `scroll` method returns the next set of documents and the `_scroll_id`. It's important to use the latest `_scroll_id` when requesting the next batch of documents because `_scroll_id` can change between requests.
 
@@ -439,6 +460,7 @@ You can delete the index using the `delete` method:
 ```ruby
 response = client.indices.delete(index: index_name)
 ```
+
 {% include copy.html %}
 
 ## Sample program
@@ -456,10 +478,10 @@ index_body = {
     'settings': {
       'index': {
         'number_of_shards': 1,
-        'number_of_replicas': 2 
+        'number_of_replicas': 2
       }
     }
-  } 
+  }
 
 client.indices.create(
     index: index_name,
@@ -468,12 +490,12 @@ client.indices.create(
 
 # Create a mapping
 client.indices.put_mapping(
-    index: index_name, 
+    index: index_name,
     body: {
         properties: {
             first_name: { type: 'keyword' },
             last_name: { type: 'keyword' }
-        }  
+        }
     }
 )
 
@@ -491,17 +513,17 @@ document = {
     grad_year: 2021
 }
 id = 100
-  
+
 client.index(
     index: index_name,
     body: document,
     id: id,
     refresh: true
 )
-  
+
 response = client.search(index: index_name)
 puts MultiJson.dump(response, pretty: "true")
-  
+
 # Update a document
 puts 'Updating a document:'
 client.update(index: index_name, id: id, body: { doc: { gpa: 3.25 } }, refresh: true)
@@ -607,7 +629,7 @@ query = {
         'filter': {
             'term': {
                 'grad_year': 2022
-                
+
             }
         }
         }
@@ -616,7 +638,7 @@ query = {
         'last_name': {
             'order': 'asc'
         }
-    }       
+    }
 }
 
 response = client.search(index: index_name, from: 0, size: 10, body: query)
@@ -630,6 +652,7 @@ response = client.indices.delete(index: index_name)
 
 puts MultiJson.dump(response, pretty: "true")
 ```
+
 {% include copy.html %}
 
 # Ruby AWS Sigv4 Client
@@ -653,4 +676,5 @@ client.transport.reload_connections!
 
 client.search q: 'test'
 ```
+
 {% include copy.html %}

@@ -6,6 +6,7 @@ nav_order: 50
 ---
 
 # Component templates
+
 Introduced 2.7
 {: .label .label-purple }
 
@@ -27,8 +28,8 @@ This tutorial is intended for admin users who [manage OpenSearch clusters]({{sit
 
 It's helpful to understand the following terms before starting this tutorial:
 
-- *Component template* refers to a reusable building block with settings, mappings, and aliases that can be attached to an index template.
-- *Index template* refers to a predefined structure used to organize and store data in a database or search index.
+- _Component template_ refers to a reusable building block with settings, mappings, and aliases that can be attached to an index template.
+- _Index template_ refers to a predefined structure used to organize and store data in a database or search index.
 
 ## Creating component templates using the Index Management UI
 
@@ -38,10 +39,10 @@ To create template components using the UI, follow these steps:
 
 1. On the OpenSearch Dashboards main page, select **Index Management** in the navigation menu.
 1. In the Index Management window, select **Templates** > **Component templates**.
-1. Select **Create** and then define the component template settings. 
+1. Select **Create** and then define the component template settings.
 1. To configure aliases, settings, and mappings, toggle **Use configuration**, as shown in the following image.
 
-    ![Component template use configuration]({{site.url}}{{site.baseurl}}/images/admin-ui-index/component_use_config.png)
+   ![Component template use configuration]({{site.url}}{{site.baseurl}}/images/admin-ui-index/component_use_config.png)
 
 1. Enter details in the aliases, settings, and mappings fields.
 1. Select **Create component template**.
@@ -51,14 +52,14 @@ When you create component templates, those templates apply only to new index tem
 
 ## Associating component templates with index templates
 
-To associate a component template with an index template, follow these steps:  
+To associate a component template with an index template, follow these steps:
 
 1. In the **Index Management** navigation menu, select **Templates**.
 1. In the Templates window, select **Create template**.
 1. Select **Component template** as the method for defining your template.
 1. In the **Component template** pane, select **Associate component template**, as shown in the following image.
 
-    ![Component template associate configuration]({{site.url}}{{site.baseurl}}/images/admin-ui-index/associate_component.png)
+   ![Component template associate configuration]({{site.url}}{{site.baseurl}}/images/admin-ui-index/associate_component.png)
 
 1. In the **Associate component template** pop-up window, select the component templates that you want to associate with your index template.
 1. Select **Associate**.

@@ -6,6 +6,7 @@ nav_order: 40
 ---
 
 # Advanced settings
+
 Updated 2.10
 {: .label .label-purple }
 
@@ -13,7 +14,7 @@ Use the **Advanced settings** page to modify settings that govern OpenSearch Das
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/advanced-settings-ui.png" alt="Advanced settings interface" width="700"/>
 
-To access **Advanced settings**, go to **Dashboards Management** and select **Advanced settings**. The page is divided into several sections, each containing a set of related settings. You can modify these settings by editing their fields. Once you've made the changes, select **Save** to apply them.  
+To access **Advanced settings**, go to **Dashboards Management** and select **Advanced settings**. The page is divided into several sections, each containing a set of related settings. You can modify these settings by editing their fields. Once you've made the changes, select **Save** to apply them.
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Certain settings require you to modify [the `opensearch_dashboards.yml` file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) and restart OpenSearch Dashboards.
 {: .note}

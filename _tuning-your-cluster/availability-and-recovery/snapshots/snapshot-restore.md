@@ -5,7 +5,7 @@ parent: Snapshots
 nav_order: 10
 has_children: false
 grand_parent: Availability and recovery
-redirect_from: 
+redirect_from:
   - /opensearch/snapshots/snapshot-restore/
   - /opensearch/snapshot-restore/
   - /availability-and-recovery/snapshots/snapshot-restore/
@@ -39,7 +39,6 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon Simple Storage Service (Amazon S3), Hadoop Distributed File System (HDFS), or Azure Storage.
 
-
 ### Shared file system
 
 1. To use a shared file system as a snapshot repository, add it to `opensearch.yml`:
@@ -66,7 +65,8 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
      }
    }
    ```
-  {% include copy-curl.html %}
+
+   {% include copy-curl.html %}
 
 You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
@@ -144,7 +144,7 @@ You will most likely not need to specify any parameters except for `location`. F
    ```
 
    If you don't want to configure AWS access and secret keys, modify the following `opensearch.yml` setting. Make sure the file is accessible by the `repository-s3` plugin:
-   
+
    ```yml
    s3.client.default.identity_token_file: /usr/share/opensearch/plugins/repository-s3/token
    ```
@@ -168,23 +168,21 @@ You will most likely not need to specify any parameters except for `location`. F
    ```
    POST /_nodes/reload_secure_settings
    ```
-  {% include copy-curl.html %}
+
+   {% include copy-curl.html %}
 
 1. Create an S3 bucket if you don't already have one. To take snapshots, you need permissions to access the bucket. The following IAM policy is an example of those permissions:
 
    ```json
    {
-	   "Version": "2012-10-17",
-	   "Statement": [{
-		   "Action": [
-			   "s3:*"
-		   ],
-		   "Effect": "Allow",
-		   "Resource": [
-			   "arn:aws:s3:::your-bucket",
-			   "arn:aws:s3:::your-bucket/*"
-		   ]
-	   }]
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Action": ["s3:*"],
+         "Effect": "Allow",
+         "Resource": ["arn:aws:s3:::your-bucket", "arn:aws:s3:::your-bucket/*"]
+       }
+     ]
    }
    ```
 
@@ -200,6 +198,7 @@ You will most likely not need to specify any parameters except for `location`. F
      }
    }
    ```
+
    {% include copy-curl.html %}
 
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
@@ -216,6 +215,7 @@ The following snapshot includes all indexes and the cluster state:
 ```json
 PUT /_snapshot/my-repository/1
 ```
+
 {% include copy-curl.html %}
 
 You can also add a request body to include or exclude certain indexes or specify other settings:
@@ -229,14 +229,15 @@ PUT /_snapshot/my-repository/2
   "partial": false
 }
 ```
+
 {% include copy-curl.html %}
 
-Request fields | Description
-:--- | :---
-`indices` | The indexes you want to include in the snapshot. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
-`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is `false`.
-`include_global_state` | Whether to include cluster state in the snapshot. Default is `true`.
-`partial` | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to store.
+| Request fields         | Description                                                                                                                                                                                                                |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `indices`              | The indexes you want to include in the snapshot. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes. |
+| `ignore_unavailable`   | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is `false`.                                                                                                 |
+| `include_global_state` | Whether to include cluster state in the snapshot. Default is `true`.                                                                                                                                                       |
+| `partial`              | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to store.                                                                                              |
 
 If you request the snapshot immediately after taking it, you might see something like this:
 
@@ -258,6 +259,7 @@ GET /_snapshot/my-repository/2
   }]
 }
 ```
+
 {% include copy-curl.html %}
 
 Note that the snapshot is still in progress. If you want to wait for the snapshot to finish before continuing, add the `wait_for_completion` parameter to your request. Snapshots can take a while to complete, so consider whether or not this option fits your use case:
@@ -265,25 +267,26 @@ Note that the snapshot is still in progress. If you want to wait for the snapsho
 ```
 PUT _snapshot/my-repository/3?wait_for_completion=true
 ```
+
 {% include copy-curl.html %}
 
 Snapshots have the following states:
 
-State | Description
-:--- | :---
-SUCCESS | The snapshot successfully stored all shards.
-IN_PROGRESS | The snapshot is currently running.
-PARTIAL | At least one shard failed to store successfully. Can only occur if you set `partial` to `true` when taking the snapshot.
-FAILED | The snapshot encountered an error and stored no data.
-INCOMPATIBLE | The snapshot is incompatible with the version of OpenSearch running on this cluster. See [Conflicts and compatibility](#conflicts-and-compatibility).
+| State        | Description                                                                                                                                           |
+| :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SUCCESS      | The snapshot successfully stored all shards.                                                                                                          |
+| IN_PROGRESS  | The snapshot is currently running.                                                                                                                    |
+| PARTIAL      | At least one shard failed to store successfully. Can only occur if you set `partial` to `true` when taking the snapshot.                              |
+| FAILED       | The snapshot encountered an error and stored no data.                                                                                                 |
+| INCOMPATIBLE | The snapshot is incompatible with the version of OpenSearch running on this cluster. See [Conflicts and compatibility](#conflicts-and-compatibility). |
 
 You can't take a snapshot if one is currently in progress. To check the status:
 
 ```
 GET /_snapshot/_status
 ```
-{% include copy-curl.html %}
 
+{% include copy-curl.html %}
 
 ## Restore snapshots
 
@@ -292,6 +295,7 @@ The first step in restoring a snapshot is retrieving existing snapshots. To see 
 ```
 GET /_snapshot/_all
 ```
+
 {% include copy-curl.html %}
 
 To see all snapshots in a repository:
@@ -299,6 +303,7 @@ To see all snapshots in a repository:
 ```
 GET /_snapshot/my-repository/_all
 ```
+
 {% include copy-curl.html %}
 
 Then restore a snapshot:
@@ -306,6 +311,7 @@ Then restore a snapshot:
 ```
 POST /_snapshot/my-repository/2/_restore
 ```
+
 {% include copy-curl.html %}
 
 Just like when taking a snapshot, you can add a request body to include or exclude certain indexes or specify some other settings:
@@ -328,20 +334,21 @@ POST /_snapshot/my-repository/2/_restore
   ]
 }
 ```
+
 {% include copy-curl.html %}
 
-Request parameters | Description
-:--- | :---
-`indices` | The indexes you want to restore. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
-`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.
-`include_global_state` | Whether to restore the cluster state. Default is false.
-`include_aliases` | Whether to restore aliases alongside their associated indexes. Default is true.
-`partial` | Whether to allow the restoration of partial snapshots. Default is false.
-`rename_pattern` | If you want to rename indexes as you restore them, use this option to specify a regular expression that matches all indexes you want to restore. Use capture groups (`()`) to reuse portions of the index name.
-`rename_replacement` | If you want to rename indexes as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, and so on.
-`index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) applied during the restore operation, specify them here. You cannot change `index.number_of_shards`.
-`ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults applied during restore. You cannot ignore `index.number_of_shards`, `index.number_of_replicas`, or `index.auto_expand_replicas`.
-`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
+| Request parameters      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `indices`               | The indexes you want to restore. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.                                                                                                                                                                                                                                                                                                                                                                                              |
+| `ignore_unavailable`    | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `include_global_state`  | Whether to restore the cluster state. Default is false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `include_aliases`       | Whether to restore aliases alongside their associated indexes. Default is true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `partial`               | Whether to allow the restoration of partial snapshots. Default is false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `rename_pattern`        | If you want to rename indexes as you restore them, use this option to specify a regular expression that matches all indexes you want to restore. Use capture groups (`()`) to reuse portions of the index name.                                                                                                                                                                                                                                                                                                                                                                                         |
+| `rename_replacement`    | If you want to rename indexes as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, and so on.                                                                                                                                                                                                                                                                                                                                                                           |
+| `index_settings`        | If you want to change [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) applied during the restore operation, specify them here. You cannot change `index.number_of_shards`.                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults applied during restore. You cannot ignore `index.number_of_shards`, `index.number_of_replicas`, or `index.auto_expand_replicas`.                                                                                                                                                                                                                                                                                                               |
+| `storage_type`          | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`. |
 
 ### Conflicts and compatibility
 
@@ -373,6 +380,7 @@ POST /_snapshot/my-repository/3/_restore
   "include_global_state": false
 }
 ```
+
 {% include copy-curl.html %}
 
 The `.opendistro_security` index contains sensitive data, so we recommend excluding it when you take a snapshot. If you do need to restore the index from a snapshot, you must include an admin certificate in the request:
@@ -380,6 +388,7 @@ The `.opendistro_security` index contains sensitive data, so we recommend exclud
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/3/_restore?pretty'
 ```
+
 {% include copy-curl.html %}
 
 We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your Security plugin configuration.

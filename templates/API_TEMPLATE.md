@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Example API 
-parent: 
-nav_order: 
+title: Example API
+parent:
+nav_order:
 ---
 
-# Example API 
+# Example API
+
 Introduced 1.0
 {: .label .label-purple }
 
@@ -22,27 +23,27 @@ POST /_example/endpoint/<path_parameter>
 
 The following table lists the available path parameters. All path parameters are optional.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `path_parameter` | Type | Example path parameter description. Default is ... |
+| Parameter        | Data type | Description                                        |
+| :--------------- | :-------- | :------------------------------------------------- |
+| `path_parameter` | Type      | Example path parameter description. Default is ... |
 
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `query_parameter` | String | Example query parameter description. Default is ... |
+| Parameter         | Data type | Description                                         |
+| :---------------- | :-------- | :-------------------------------------------------- |
+| `query_parameter` | String    | Example query parameter description. Default is ... |
 
 ## Request fields
 
 The following table lists the available request fields.
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `example_object` | Object | Example object description. |
-| `example_object.required_request_field` | Type | Required request field description. Required. |
-| `example_object.optional_request_field` | Type | Optional request field description. Optional. Default is ... |
+| Field                                   | Data type | Description                                                  |
+| :-------------------------------------- | :-------- | :----------------------------------------------------------- |
+| `example_object`                        | Object    | Example object description.                                  |
+| `example_object.required_request_field` | Type      | Required request field description. Required.                |
+| `example_object.optional_request_field` | Type      | Optional request field description. Optional. Default is ... |
 
 #### Example request
 
@@ -55,6 +56,7 @@ POST /_example/endpoint/
     }
 }
 ```
+
 {% include copy-curl.html %}
 
 #### Example response
@@ -67,22 +69,23 @@ POST /_example/endpoint/
 
 ```json
 {
-  "_nodes" : {
-    "total" : 1,
-    "successful" : 1,
-    "failed" : 0
+  "_nodes": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
   }
 }
 ```
+
 </details>
 
 ## Response fields
 
 The following table lists all response fields.
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `response_field` | Type | Response field description. |
+| Field            | Data type | Description                 |
+| :--------------- | :-------- | :-------------------------- |
+| `response_field` | Type      | Response field description. |
 
 ## Required permissions
 

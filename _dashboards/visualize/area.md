@@ -35,18 +35,18 @@ Continuing with the area chart created in the preceding steps, you'll create a v
 
 1. Add a **Metrics** aggregation.
    1. Under **Metrics**, select the **Aggregation** dropdown list and choose **Average** and then select the **Field** dropdown list and choose **FlightDelayMin**.
-   1. Under **Metrics**, select **Add** to add another Y-axis aggregation. 
+   1. Under **Metrics**, select **Add** to add another Y-axis aggregation.
    1. Select the **Aggregation** dropdown list and choose **Max** and then select the **Field** dropdown list and choose **FlightDelayMin**.
 1. Add a **Buckets** aggregation.
    1. Select **Add** to open the **Add Bucket** window and then select **X-axis**.
-   2. From the **Aggregation** dropdown list, select **Date Histogram**. 
-   3. From the **Field** dropdown list, select **timestamp**. 
-   4. Select **Update**. 
-2. Add a sub-aggregation.
+   2. From the **Aggregation** dropdown list, select **Date Histogram**.
+   3. From the **Field** dropdown list, select **timestamp**.
+   4. Select **Update**.
+1. Add a sub-aggregation.
    1. Select **Add** to open the **Add Sub-Buckets** window and then select **Split series**.
    2. From the **Sub aggregation** dropdown list, select **Terms**.
    3. From the **Field** dropdown list, select **FlightDelay**.
-   4. Select **Update** to reflect these parameters in the graph.  
+   4. Select **Update** to reflect these parameters in the graph.
 
 You've now created the following aggregation-based area chart.
 

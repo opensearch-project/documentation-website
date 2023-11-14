@@ -14,12 +14,13 @@ With cross-cluster replication, you index data to a leader index, and OpenSearch
 ## Prerequisites
 
 Cross-cluster replication has the following prerequisites:
+
 - Both the leader and follower cluster must have the replication plugin installed.
 - If you've overridden `node.roles` in `opensearch.yml` on the follower cluster, make sure it also includes the `remote_cluster_client` role:
 
-   ```yaml
-   node.roles: [<other_roles>, remote_cluster_client]
-   ```
+  ```yaml
+  node.roles: [<other_roles>, remote_cluster_client]
+  ```
 
 ## Permissions
 
@@ -31,34 +32,35 @@ In addition, verify and add the distinguished names (DNs) of each follower clust
 
 First, get the node's DN from each follower cluster:
 
-  ```bash
+```bash
 curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_opendistro/_security/api/ssl/certs?pretty'
 
 {
-   "transport_certificates_list": [
-      {
-         "issuer_dn" : "CN=Test,OU=Server CA 1B,O=Test,C=US",
-         "subject_dn" : "CN=follower.test.com", # To be added under leader's nodes_dn configuration
-         "not_before" : "2021-11-12T00:00:00Z",
-         "not_after" : "2022-12-11T23:59:59Z"
-      }
-   ]
+ "transport_certificates_list": [
+    {
+       "issuer_dn" : "CN=Test,OU=Server CA 1B,O=Test,C=US",
+       "subject_dn" : "CN=follower.test.com", # To be added under leader's nodes_dn configuration
+       "not_before" : "2021-11-12T00:00:00Z",
+       "not_after" : "2022-12-11T23:59:59Z"
+    }
+ ]
 }
-  ```
+```
 
 Then verify that it's part of the leader cluster configuration in `opensearch.yml`. Otherwise, add it under the following setting:
 
-  ```yaml
+```yaml
 plugins.security.nodes_dn:
   - "CN=*.leader.com, OU=SSL, O=Test, L=Test, C=DE" # Already part of the configuration
   - "CN=follower.test.com" # From the above response from follower
-  ```
+```
+
 ## Example setup
 
 To start two single-node clusters on the same network, save this sample file as `docker-compose.yml` and run `docker-compose up`:
 
 ```yml
-version: '3'
+version: "3"
 services:
   replication-node1:
     image: opensearchproject/opensearch:{{site.opensearch_version}}
@@ -143,7 +145,7 @@ docker inspect --format='{% raw %}{{range .NetworkSettings.Networks}}{{.IPAddres
 
 ## Set up a cross-cluster connection
 
-Cross-cluster replication follows a "pull" model, so most changes occur on the follower cluster, not the leader cluster. 
+Cross-cluster replication follows a "pull" model, so most changes occur on the follower cluster, not the leader cluster.
 
 On the follower cluster, add the IP address (with port 9300) for each seed node. Because this is a single-node cluster, you only have one seed node. Provide a descriptive name for the connection, which you'll use in the request to start replication:
 
@@ -187,7 +189,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 If the Security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
-This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a follower index from scratch -- you can't convert an existing index to a follower index. 
+This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a follower index from scratch -- you can't convert an existing index to a follower index.
 
 ## Confirm replication
 
@@ -210,7 +212,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 }
 ```
 
-Possible statuses are `SYNCING`, `BOOTSTRAPPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. 
+Possible statuses are `SYNCING`, `BOOTSTRAPPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`.
 
 The leader and follower checkpoint values begin as negative numbers and reflect the shard count (-1 for one shard, -5 for five shards, and so on). The values increment with each change and illustrate how many updates the follower is behind the leader. If the indexes are fully synced, the values are the same.
 
@@ -278,7 +280,7 @@ When you no longer need to replicate an index, terminate replication from the fo
 curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_stop?pretty' -d '{}'
 ```
 
-When you stop replication, the follower index un-follows the leader and becomes a standard index that you can write to. You can't restart replication after stopping it. 
+When you stop replication, the follower index un-follows the leader and becomes a standard index that you can write to. You can't restart replication after stopping it.
 
 Get the status to confirm that the index is no longer being replicated:
 
@@ -291,5 +293,3 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 ```
 
 You can further confirm that replication is stopped by making modifications to the leader index and confirming they don't show up on the follower index.
-
-

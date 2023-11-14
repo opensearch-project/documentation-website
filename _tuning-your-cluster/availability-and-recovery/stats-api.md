@@ -5,7 +5,7 @@ parent: Shard indexing backpressure
 nav_order: 2
 grand_parent: Availability and recovery
 has_children: false
-redirect_from: 
+redirect_from:
   - /opensearch/stats-api/
 ---
 
@@ -14,6 +14,7 @@ redirect_from:
 Use the stats operation to monitor shard indexing backpressure.
 
 ## Stats
+
 Introduced 1.2
 {: .label .label-purple }
 
@@ -44,12 +45,7 @@ If `enforced` is `true`:
       "transport_address": "127.0.0.1:9300",
       "host": "127.0.0.1",
       "ip": "127.0.0.1:9300",
-      "roles": [
-        "data",
-        "ingest",
-        "cluster_manager",
-        "remote_cluster_client"
-      ],
+      "roles": ["data", "ingest", "cluster_manager", "remote_cluster_client"],
       "attributes": {
         "testattr": "test"
       },
@@ -125,7 +121,7 @@ If `enforced` is `true`:
           "throughput_degradation_limits": 0
         },
         "enabled": true,
-        "enforced" : true
+        "enforced": true
       }
     }
   }
@@ -151,12 +147,7 @@ If `enforced` is `false`:
       "transport_address": "127.0.0.1:9300",
       "host": "127.0.0.1",
       "ip": "127.0.0.1:9300",
-      "roles": [
-        "data",
-        "ingest",
-        "cluster_manager",
-        "remote_cluster_client"
-      ],
+      "roles": ["data", "ingest", "cluster_manager", "remote_cluster_client"],
       "attributes": {
         "testattr": "test"
       },
@@ -232,7 +223,7 @@ If `enforced` is `false`:
           "throughput_degradation_limits": 0
         },
         "enabled": true,
-        "enforced" : false
+        "enforced": false
       }
     }
   }
@@ -264,12 +255,7 @@ GET _nodes/_local/stats/shard_indexing_pressure?include_all
       "transport_address": "127.0.0.1:9300",
       "host": "127.0.0.1",
       "ip": "127.0.0.1:9300",
-      "roles": [
-        "data",
-        "ingest",
-        "cluster_manager",
-        "remote_cluster_client"
-      ],
+      "roles": ["data", "ingest", "cluster_manager", "remote_cluster_client"],
       "attributes": {
         "testattr": "test"
       },
@@ -379,12 +365,7 @@ If `enforced` is `true`:
       "transport_address": "127.0.0.1:9300",
       "host": "127.0.0.1",
       "ip": "127.0.0.1:9300",
-      "roles": [
-        "data",
-        "ingest",
-        "cluster_manager",
-        "remote_cluster_client"
-      ],
+      "roles": ["data", "ingest", "cluster_manager", "remote_cluster_client"],
       "attributes": {
         "testattr": "test"
       },
@@ -422,12 +403,7 @@ If `enforced` is `false`:
       "transport_address": "127.0.0.1:9300",
       "host": "127.0.0.1",
       "ip": "127.0.0.1:9300",
-      "roles": [
-        "data",
-        "ingest",
-        "cluster_manager",
-        "remote_cluster_client"
-      ],
+      "roles": ["data", "ingest", "cluster_manager", "remote_cluster_client"],
       "attributes": {
         "testattr": "test"
       },
@@ -439,7 +415,7 @@ If `enforced` is `false`:
           "throughput_degradation_limits": 0
         },
         "enabled": true,
-        "enforced" : false
+        "enforced": false
       }
     }
   }
@@ -471,12 +447,7 @@ GET _nodes/stats/shard_indexing_pressure
       "transport_address": "127.0.0.1:9300",
       "host": "127.0.0.1",
       "ip": "127.0.0.1:9300",
-      "roles": [
-        "data",
-        "ingest",
-        "cluster_manager",
-        "remote_cluster_client"
-      ],
+      "roles": ["data", "ingest", "cluster_manager", "remote_cluster_client"],
       "attributes": {
         "testattr": "test"
       },

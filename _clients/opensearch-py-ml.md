@@ -12,7 +12,7 @@ nav_order: 11
 - Upload NLP [SentenceTransformer](https://www.sbert.net/) models into OpenSearch using the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/).
 - Train and tune SentenceTransformer models with synthetic queries.
 
-## Prerequisites 
+## Prerequisites
 
 To use `opensearch-py-ml`, install the [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level#setup). The Python client allows OpenSearch to use the Python syntax required to run DataFrames in `opensearch-py-ml`.
 
@@ -23,6 +23,7 @@ To add the client to your project, install it using [pip](https://pip.pypa.io/):
 ```bash
 pip install opensearch-py-ml
 ```
+
 {% include copy.html %}
 
 Then import the client into OpenSearch like any other module:
@@ -31,6 +32,7 @@ Then import the client into OpenSearch like any other module:
 from opensearchpy import OpenSearch
 import opensearch_py_ml as oml
 ```
+
 {% include copy.html %}
 
 ## API reference

@@ -4,7 +4,7 @@ title: Ship events to OpenSearch
 parent: Logstash
 nav_order: 220
 redirect_from:
- - /clients/logstash/ship-to-opensearch/
+  - /clients/logstash/ship-to-opensearch/
 ---
 
 # Ship events to OpenSearch
@@ -20,36 +20,35 @@ To run the OpenSearch output plugin, add the following configuration in your `pi
 
 ```yml
 output {
-  opensearch {
+opensearch {
+hosts       => "https://localhost:9200"
+user        => "admin"
+password    => "admin"
+index       => "logstash-logs-%{+YYYY.MM.dd}"
+ssl_certificate_verification => false
+}
+}
+```
+
+## Sample walkthrough
+
+1. Open the `config/pipeline.conf` file and add in the following configuration:
+
+    ```yml
+    input {
+    stdin {
+    codec => json
+    }
+    }
+
+    output {
+    opensearch {
     hosts       => "https://localhost:9200"
     user        => "admin"
     password    => "admin"
     index       => "logstash-logs-%{+YYYY.MM.dd}"
     ssl_certificate_verification => false
-  }
-}
-```
-
-
-## Sample walkthrough
-
-1.  Open the `config/pipeline.conf` file and add in the following configuration:
-
-    ```yml
-    input {
-      stdin {
-        codec => json
-      }
     }
-
-    output {
-      opensearch {
-        hosts       => "https://localhost:9200"
-        user        => "admin"
-        password    => "admin"
-        index       => "logstash-logs-%{+YYYY.MM.dd}"
-        ssl_certificate_verification => false
-      }
     }
     ```
 
@@ -66,7 +65,7 @@ output {
 3. Add a JSON object in the terminal:
 
     ```json
-    { "amount": 10, "quantity": 2}
+    { "amount": 10, "quantity": 2 }
     ```
 
 4. Start OpenSearch Dashboards and choose **Dev Tools**:
@@ -87,18 +86,19 @@ In addition to the existing authentication mechanisms, if we want to add new aut
 Example Configuration for basic authentication:
 
 ```yml
-output {    
-    opensearch {        
-          hosts  => ["https://hostname:port"]     
-          auth_type => {            
-              type => 'basic'           
-              user => 'admin'           
-              password => 'admin'           
-          }             
-          index => "logstash-logs-%{+YYYY.MM.dd}"       
-   }            
-}               
+output {
+opensearch {
+hosts  => ["https://hostname:port"]
+auth_type => {
+type => 'basic'
+user => 'admin'
+password => 'admin'
+}
+index => "logstash-logs-%{+YYYY.MM.dd}"
+}
+}
 ```
+
 ### Parameters inside auth_type
 
 - type (string) - We should specify the type of authentication
@@ -112,18 +112,18 @@ To run the Logstash Output Opensearch plugin using aws_iam authentication, simpl
 Example Configuration:
 
 ```yml
-output {        
-   opensearch {     
-          hosts => ["https://hostname:port"]              
-          auth_type => {    
-              type => 'aws_iam'     
-              aws_access_key_id => 'ACCESS_KEY'     
-              aws_secret_access_key => 'SECRET_KEY'     
-              region => 'us-west-2'    
-              service_name => 'es'     
-          }         
-          index  => "logstash-logs-%{+YYYY.MM.dd}"      
-   }            
+output {
+opensearch {
+hosts => ["https://hostname:port"]
+auth_type => {
+type => 'aws_iam'
+aws_access_key_id => 'ACCESS_KEY'
+aws_secret_access_key => 'SECRET_KEY'
+region => 'us-west-2'
+service_name => 'es'
+}
+index  => "logstash-logs-%{+YYYY.MM.dd}"
+}
 }
 ```
 
@@ -131,24 +131,25 @@ output {
 
 - hosts (array of string) - AmazonOpensearchService domain endpoint : port number
 - auth_type (Json object) - Which holds other parameters required for authentication
-    - type (string) - "aws_iam"
-    - aws_access_key_id (string) - AWS access key
-    - aws_secret_access_key (string) - AWS secret access key
-    - region (string, :default => "us-east-1") - region in which the domain is located
-    - if we want to pass other optional parameters like profile, session_token,etc. They needs to be added in auth_type
+  - type (string) - "aws_iam"
+  - aws_access_key_id (string) - AWS access key
+  - aws_secret_access_key (string) - AWS secret access key
+  - region (string, :default => "us-east-1") - region in which the domain is located
+  - if we want to pass other optional parameters like profile, session_token,etc. They needs to be added in auth_type
 - port (string) - AmazonOpensearchService listens on port 443 for HTTPS
 - protocol (string) - The protocol used to connect to AmazonOpensearchService is 'https'
 
 ### Optional Parameters
+
 - The credential resolution logic can be described as follows:
-    - User passed aws_access_key_id and aws_secret_access_key in configuration
-    - Environment variables - AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY (RECOMMENDED since they are recognized by all the AWS SDKs and CLI except for .NET), or AWS_ACCESS_KEY and AWS_SECRET_KEY (only recognized by Java SDK)
-    - Credential profiles file at the default location (~/.aws/credentials) shared by all AWS SDKs and the AWS CLI
-    - Instance profile credentials delivered through the Amazon EC2 metadata service
+  - User passed aws_access_key_id and aws_secret_access_key in configuration
+  - Environment variables - AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY (RECOMMENDED since they are recognized by all the AWS SDKs and CLI except for .NET), or AWS_ACCESS_KEY and AWS_SECRET_KEY (only recognized by Java SDK)
+  - Credential profiles file at the default location (~/.aws/credentials) shared by all AWS SDKs and the AWS CLI
+  - Instance profile credentials delivered through the Amazon EC2 metadata service
 - template (path) - You can set the path to your own template here. If no template is specified, the plugin uses the default template.
 - template_name (string, default => "logstash") - Defines how the template is named inside Opensearch
 - service_name (string, default => "es") - Defines the service name to be used for `aws_iam` authentication.
-- legacy_template (boolean, default => true) - Selects the OpenSearch template API. When `true`, uses legacy templates via the _template API. When `false`, uses composable templates via the _index_template API.
+- legacy_template (boolean, default => true) - Selects the OpenSearch template API. When `true`, uses legacy templates via the \_template API. When `false`, uses composable templates via the \_index_template API.
 - default_server_major_version (number) - The OpenSearch server major version to use when it's not available from the OpenSearch root URL. If not set, the plugin throws an exception when the version can't be fetched.
 
 ## Data streams
@@ -161,16 +162,16 @@ To know more about data streams, refer to this [documentation](https://opensearc
 We can ingest data into a data stream through logstash. We need to create the data stream and specify the name of data stream and the `op_type` of `create` in the output configuration. The sample configuration is shown below:
 
 ```yml
-output {    
-    opensearch {        
-          hosts  => ["https://hostname:port"]     
-          auth_type => {            
-              type => 'basic'           
-              user => 'admin'           
-              password => 'admin'           
-          }
-          index => "my-data-stream"
-          action => "create"
-   }            
-}               
+output {
+opensearch {
+hosts  => ["https://hostname:port"]
+auth_type => {
+type => 'basic'
+user => 'admin'
+password => 'admin'
+}
+index => "my-data-stream"
+action => "create"
+}
+}
 ```

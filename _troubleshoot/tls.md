@@ -8,21 +8,18 @@ nav_order: 15
 
 This page includes troubleshooting steps for configuring TLS certificates with the Security plugin.
 
-
 ---
 
 #### Table of contents
-- TOC
-{:toc}
 
+- TOC
+  {:toc}
 
 ---
-
 
 ## Validate YAML
 
 `opensearch.yml` and the files in `config/opensearch-security/` are in the YAML format. A linter like [YAML Validator](https://codebeautify.org/yaml-validator) can help verify that you don't have any formatting errors.
-
 
 ## View contents of PEM certificates
 
@@ -39,7 +36,6 @@ For more complete information on a certificate:
 ```bash
 openssl x509 -in node1.pem -text -noout
 ```
-
 
 ### Check for special characters and whitespace in DNs
 
@@ -68,7 +64,6 @@ plugins.security.nodes_dn:
   - 'CN=node-0.example.com,OU=SSL,O=My\, Test,L=Test,C=DE'
 ```
 
-
 ### Check certificate IP addresses
 
 Sometimes the IP address in your certificate is not the one communicating with the cluster. This problem can occur if your node has multiple interfaces or is running on a dual stack network (IPv6 and IPv4).
@@ -92,7 +87,6 @@ IPAddress: 2001:db8:0:1:1.2.3.4
 ```
 
 In this example, the node tries to join the cluster with the IPv4 address of `10.0.0.42`, but the certificate contains the IPv6 address of `2001:db8:0:1:1.2.3.4`.
-
 
 ### Validate certificate chain
 
@@ -123,11 +117,9 @@ From the entries, you can see that the root certificate signed the intermediate 
 
 Generally, the keystore contains client or node certificate and all intermediate certificates, and the truststore contains the root certificate.
 
-
 ### Check the configured alias
 
 If you have multiple entries in the keystore and you are using aliases to refer to them, make sure that the configured alias in `opensearch.yml` matches the one in the keystore. If there is only one entry in the keystore, you do not need to configure an alias.
-
 
 ## View contents of your keystore and truststore
 
@@ -138,7 +130,6 @@ keytool -list -v -keystore keystore.jks
 ```
 
 `keytool` prompts for the password of the keystore and lists all entries. For example, you can use this output to check for the correctness of the SAN and EKU settings.
-
 
 ## Check SAN hostnames and IP addresses
 
@@ -159,7 +150,6 @@ SubjectAlternativeName [
 ]
 ```
 
-
 ## Check OID for node certificates
 
 If you are using OIDs to denote valid node certificates, check that the `SAN` extension for your node certificate contains the correct `OIDName`:
@@ -177,7 +167,6 @@ SubjectAlternativeName [
 ]
 ```
 
-
 ## Check EKU field for node certificates
 
 Node certificates need to have both `serverAuth` and `clientAuth` set in the extended key usage field:
@@ -190,7 +179,6 @@ ExtendedKeyUsages [
 ]
 ```
 
-
 ## TLS versions
 
 The Security plugin disables TLS version 1.0 by default; it is outdated, insecure, and vulnerable. If you need to use `TLSv1` and accept the risks, you can enable it in `opensearch.yml`:
@@ -202,10 +190,9 @@ plugins.security.ssl.http.enabled_protocols:
   - "TLSv1.2"
 ```
 
-
 ## Supported ciphers
 
-TLS relies on the server and client negotiating a common cipher suite. Depending on your system, the available ciphers will vary. They depend on the JDK or OpenSSL version you're using, and  whether or not the `JCE Unlimited Strength Jurisdiction Policy Files` are installed.
+TLS relies on the server and client negotiating a common cipher suite. Depending on your system, the available ciphers will vary. They depend on the JDK or OpenSSL version you're using, and whether or not the `JCE Unlimited Strength Jurisdiction Policy Files` are installed.
 
 For legal reasons, the JDK does not include strong ciphers like AES256. In order to use strong ciphers you need to download and install the [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html). If you don't have them installed, you might see an error message on startup:
 

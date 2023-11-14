@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 # Indexes
+
 Introduced 2.5
 {: .label .label-purple }
 
@@ -32,7 +33,7 @@ To attach policies to indexes, perform the following steps:
 2. Select the index or indexes to which you want to attach your policy.
 3. Choose the **Apply policy** button.
 4. From the **Policy ID** menu, select the policy that you created.
-    View the preview of your policy.
+   View the preview of your policy.
 5. (Optional): Specify a rollover alias if your policy includes a rollover operation. Make sure that the alias already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
 6. Choose the **Apply** button.
 
@@ -62,7 +63,7 @@ The following are the three index health statuses:
 
 ### Creating an index
 
-While you can [create an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) by using a document as a base, you can also create an empty index for later use. 
+While you can [create an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) by using a document as a base, you can also create an empty index for later use.
 
 To create an index, select the **Create Index** button located under the **Indices** section of **Index Management**. Then define the index by setting the following parameters:
 
@@ -127,31 +128,31 @@ To split an index, select the index you want to split from the **Indices** list 
 
 ### Refreshing an index
 
-Refreshing an index makes new updates to the index visible to search operations. 
+Refreshing an index makes new updates to the index visible to search operations.
 
-The refresh operation can be applied only to open indexes. 
+The refresh operation can be applied only to open indexes.
 
 To refresh all indexes, select **Refresh** from the **Actions** dropdown list.
 
-To refresh a particular index, select the index from the **Indices** list under **Index Management**. Then select **Refresh** from the **Actions** dropdown list. 
+To refresh a particular index, select the index from the **Indices** list under **Index Management**. Then select **Refresh** from the **Actions** dropdown list.
 
 ### Flushing an index
 
-The flush operation performs a Lucene commit, writing segments to disk and starting a new translog. 
+The flush operation performs a Lucene commit, writing segments to disk and starting a new translog.
 
-The flush operation can be applied only to open indexes. 
+The flush operation can be applied only to open indexes.
 
 To flush all indexes, select **Flush** from the **Actions** dropdown list.
 
-To flush a particular index, select the index from the **Indices** list under **Index Management**. Then select **Flush** from the **Actions** dropdown list. 
+To flush a particular index, select the index from the **Indices** list under **Index Management**. Then select **Flush** from the **Actions** dropdown list.
 
 ### Clearing an index cache
 
-The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes. 
+The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes.
 
 To clear all index caches, select **Clear cache** from the **Actions** dropdown list.
 
-To clear a particular index cache, select the index from the **Indices** list under **Index Management**. Then select **Clear cache** from the **Actions** dropdown list. 
+To clear a particular index cache, select the index from the **Indices** list under **Index Management**. Then select **Clear cache** from the **Actions** dropdown list.
 
 ### Deleting an index
 
@@ -227,25 +228,25 @@ To delete an alias, perform the following steps:
 
 ### Refreshing an alias
 
-Refreshing an alias makes new updates to the index visible to search operations. 
+Refreshing an alias makes new updates to the index visible to search operations.
 
 The refresh operation can be applied only to open indexes associated with the specified aliases.
 
-To refresh a particular alias, select the alias from the **Aliases** list under **Index Management**. Then select **Refresh** from the **Actions** dropdown list. 
+To refresh a particular alias, select the alias from the **Aliases** list under **Index Management**. Then select **Refresh** from the **Actions** dropdown list.
 
 ### Flushing an alias
 
-The flush operation performs a Lucene commit, writing segments to disk and starting a new translog. 
+The flush operation performs a Lucene commit, writing segments to disk and starting a new translog.
 
 The flush operation can be applied only to open indexes associated with the specified aliases.
 
-To flush an alias, select the alias from the **Aliases** list under **Index Management**. Then select **Flush** from the **Actions** dropdown list. 
+To flush an alias, select the alias from the **Aliases** list under **Index Management**. Then select **Flush** from the **Actions** dropdown list.
 
 ### Clearing an alias cache
 
 The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes associated with the specified aliases.
 
-To clear an alias cache, select the alias from the **Aliases** list under **Index Management**. Then select **Clear cache** from the **Actions** dropdown list. 
+To clear an alias cache, select the alias from the **Aliases** list under **Index Management**. Then select **Clear cache** from the **Actions** dropdown list.
 
 ## Rollup jobs
 
@@ -286,7 +287,7 @@ To create a transform job, perform the following steps:
 
 You can also enable and disable rollup jobs by choosing the corresponding buttons on the **Transform Jobs** page.
 
-## Long-running operation status check 
+## Long-running operation status check
 
 Certain index operations take additional time to complete (usually more than 30 seconds, but up to tens of minutes or hours). This is tracked in the index status column on the **Indices** page.
 
@@ -294,9 +295,8 @@ You can check the status of the reindex, shrink, and split operations because th
 
 ## Security integration
 
-  Permission control is managed with existing [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) or action groups that are enforced at the API level. There is currently no UI-level permission control. Users with permission to access the ISM plugin are able to view new pages. They can also make changes if they have permission to run the related APIs.
+Permission control is managed with existing [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) or action groups that are enforced at the API level. There is currently no UI-level permission control. Users with permission to access the ISM plugin are able to view new pages. They can also make changes if they have permission to run the related APIs.
 
 ## Error handling
 
 Similar to API calls, if the operation fails immediately, you will be notified with an error message. However, if it is a long-running operation, you will be notified of the failure at the time of failure, or you can check the index status on the **Indices** page.
- 

@@ -14,7 +14,7 @@ redirect_from:
 
 The Open Geospatial Consortium (OGC) Web Map Service (WMS) specification is an international specification for requesting dynamic maps on the web. OpenSearch Dashboards includes default map tiles. For specialized maps, you can configure a WMS on OpenSearch Dashboards following these steps:
 
-1. Log in to OpenSearch Dashboards at `https://<host>:<port>`. For example, you can connect to OpenSearch Dashboards by connecting to [https://localhost:5601](https://localhost:5601). The default username and password are `admin`. 
+1. Log in to OpenSearch Dashboards at `https://<host>:<port>`. For example, you can connect to OpenSearch Dashboards by connecting to [https://localhost:5601](https://localhost:5601). The default username and password are `admin`.
 2. Choose **Management** > **Advanced Settings**.
 3. Locate `visualization:tileMap:WMSdefaults`.
 4. Change `enabled` to `true` and add the URL of a valid WMS server, as shown in the following example:

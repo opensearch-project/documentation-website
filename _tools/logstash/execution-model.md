@@ -4,7 +4,7 @@ title: Logstash execution model
 parent: Logstash
 nav_order: 210
 redirect_from:
- - /clients/logstash/execution-model/
+  - /clients/logstash/execution-model/
 ---
 
 # Logstash execution model

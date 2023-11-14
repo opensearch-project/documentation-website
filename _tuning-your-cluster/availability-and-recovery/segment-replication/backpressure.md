@@ -17,12 +17,12 @@ Replica shards are also monitored to determine whether the shards are stuck or l
 
 Segment replication backpressure is disabled by default. To enable it, set `segrep.pressure.enabled` to `true`. You can update the following dynamic cluster settings using the [cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) API endpoint.
 
-Field | Data type | Description
-:--- | :--- | :---
-`segrep.pressure.enabled `| Boolean | Enables the segment replication backpressure mechanism. Default is `false`.
-`segrep.pressure.time.limit` | Time unit | The maximum amount of time that a replica shard can take to copy from the primary shard. Once `segrep.pressure.time.limit` is breached along with `segrep.pressure.checkpoint.limit`, the segment replication backpressure mechanism is initiated. Default is `5 minutes`.
-`segrep.pressure.checkpoint.limit` | Integer | The maximum number of indexing checkpoints that a replica shard can fall behind when copying from primary. Once `segrep.pressure.checkpoint.limit` is breached along with `segrep.pressure.time.limit`, the segment replication backpressure mechanism is initiated. Default is `4` checkpoints.
-`segrep.pressure.replica.stale.limit `| Floating point | The maximum number of stale replica shards that can exist in a replication group. Once `segrep.pressure.replica.stale.limit` is breached, the segment replication backpressure mechanism is initiated. Default is `.5`, which is 50% of a replication group.
+| Field                                  | Data type      | Description                                                                                                                                                                                                                                                                                      |
+| :------------------------------------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `segrep.pressure.enabled `             | Boolean        | Enables the segment replication backpressure mechanism. Default is `false`.                                                                                                                                                                                                                      |
+| `segrep.pressure.time.limit`           | Time unit      | The maximum amount of time that a replica shard can take to copy from the primary shard. Once `segrep.pressure.time.limit` is breached along with `segrep.pressure.checkpoint.limit`, the segment replication backpressure mechanism is initiated. Default is `5 minutes`.                       |
+| `segrep.pressure.checkpoint.limit`     | Integer        | The maximum number of indexing checkpoints that a replica shard can fall behind when copying from primary. Once `segrep.pressure.checkpoint.limit` is breached along with `segrep.pressure.time.limit`, the segment replication backpressure mechanism is initiated. Default is `4` checkpoints. |
+| `segrep.pressure.replica.stale.limit ` | Floating point | The maximum number of stale replica shards that can exist in a replication group. Once `segrep.pressure.replica.stale.limit` is breached, the segment replication backpressure mechanism is initiated. Default is `.5`, which is 50% of a replication group.                                     |
 
 ## Path and HTTP methods
 
@@ -31,6 +31,7 @@ You can use the segment replication API endpoint to retrieve segment replication
 ```bash
 GET _cat/segment_replication
 ```
+
 {% include copy-curl.html %}
 
 #### Example response

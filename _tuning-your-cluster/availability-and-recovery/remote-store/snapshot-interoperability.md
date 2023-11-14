@@ -25,9 +25,10 @@ PUT /_snapshot/snap_repo
         }
     }
 ```
+
 {% include copy-curl.html %}
 
-Once enabled, all requests using the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) will remain the same for all snapshots. After the setting is enabled, we recommend not disabling the setting. Doing so could affect data durability. 
+Once enabled, all requests using the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) will remain the same for all snapshots. After the setting is enabled, we recommend not disabling the setting. Doing so could affect data durability.
 
 ## Considerations
 

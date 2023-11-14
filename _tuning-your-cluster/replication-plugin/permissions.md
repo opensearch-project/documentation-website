@@ -21,7 +21,7 @@ Enable node-to-node encryption on both the leader and the follower cluster to en
 
 ## Basic permissions
 
-In order for non-admin users to perform replication activities, they must be mapped to the appropriate permissions.  
+In order for non-admin users to perform replication activities, they must be mapped to the appropriate permissions.
 
 The Security plugin has two built-in roles that cover most replication use cases: `cross_cluster_replication_leader_full_access`, which provides replication permissions on the leader cluster, and `cross_cluster_replication_follower_full_access`, which provides replication permissions on the follower cluster. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 

@@ -27,6 +27,7 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
   <version>5.2.1</version>
 </dependency>
 ```
+
 {% include copy.html %}
 
 If you're using Gradle, add the following dependencies to your project:
@@ -36,6 +37,7 @@ dependencies {
   implementation 'org.opensearch.client:opensearch-java:2.6.0'
 }
 ```
+
 {% include copy.html %}
 
 You can now start your OpenSearch cluster.
@@ -57,6 +59,7 @@ Alternatively, you can create a Java client by using the `RestClient`-based tran
   <version>2.6.0</version>
 </dependency>
 ```
+
 {% include copy.html %}
 
 If you're using Gradle, add the following dependencies to your project"
@@ -67,6 +70,7 @@ dependencies {
   implementation 'org.opensearch.client:opensearch-java:2.6.0'
 }
 ```
+
 {% include copy.html %}
 
 You can now start your OpenSearch cluster.
@@ -80,6 +84,7 @@ If you're using certificates from a trusted Certificate Authority (CA), you don'
 ```bash
 keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
 ```
+
 {% include copy.html %}
 
 You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample code below on how to do so).
@@ -124,6 +129,7 @@ static class IndexData {
   }
 }
 ```
+
 {% include copy.html %}
 
 ## Initializing the client with SSL and TLS enabled using Apache HttpClient 5 Transport
@@ -131,7 +137,6 @@ static class IndexData {
 This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
 
 The following sample code initializes a client with SSL and TLS enabled:
-
 
 ```java
 import javax.net.ssl.SSLContext;
@@ -240,6 +245,7 @@ public class OpenSearchClientExample {
   }
 }
 ```
+
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Service
@@ -264,6 +270,7 @@ System.out.println(info.version().distribution() + ": " + info.version().number(
 
 httpClient.close();
 ```
+
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
@@ -288,10 +295,10 @@ System.out.println(info.version().distribution() + ": " + info.version().number(
 
 httpClient.close();
 ```
+
 {% include copy.html %}
 
-
-## Creating an index 
+## Creating an index
 
 You can create an index with non-default settings using the following code:
 
@@ -304,6 +311,7 @@ IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-
 PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
 client.indices().putSettings(PutIndicesSettingsRequest);
 ```
+
 {% include copy.html %}
 
 ## Indexing data
@@ -315,6 +323,7 @@ IndexData indexData = new IndexData("first_name", "Bruce");
 IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
 client.index(indexRequest);
 ```
+
 {% include copy.html %}
 
 ## Searching for documents
@@ -327,6 +336,7 @@ for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
   System.out.println(searchResponse.hits().hits().get(i).source());
 }
 ```
+
 {% include copy.html %}
 
 ## Deleting a document
@@ -336,6 +346,7 @@ The following sample code deletes a document whose ID is 1:
 ```java
 client.delete(b -> b.index(index).id("1"));
 ```
+
 {% include copy.html %}
 
 ### Deleting an index
@@ -346,6 +357,7 @@ The following sample code deletes an index:
 DeleteIndexRequest deleteIndexRequest = new DeleteRequest.Builder().index(index).build();
 DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
 ```
+
 {% include copy.html %}
 
 ## Sample program
@@ -438,4 +450,5 @@ public class OpenSearchClientExample {
   }
 }
 ```
+
 {% include copy.html %}

@@ -39,7 +39,7 @@ Download the tiles set from the OpenSearch maps service. Two planet tiles sets a
 - Zoom level 10 (https://maps.opensearch.org/offline/planet-osm-default-z0-z10.tar.gz)
 
 The planet tiles set for zoom level 10 (2 GB compressed/6.8 GB uncompressed) is approximately 10 times larger than the set for zoom level 8 (225 MB compressed/519 MB uncompressed).
-{: .note} 
+{: .note}
 
 ```
 docker run \
@@ -75,14 +75,14 @@ docker run \
     opensearch/opensearch-maps-server \
     run
 ```
-To access the tiles set, open the URLs in a browser on the host or use the `curl` command `curl http://localhost:8080/manifest.json`. 
 
+To access the tiles set, open the URLs in a browser on the host or use the `curl` command `curl http://localhost:8080/manifest.json`.
 
 Confirm the server is running by opening each of the following links in a browser on your host or with a `curl` command (for example, `curl http://localhost:8080/manifest.json`).
 
-* Map manifest URL: `http://localhost:8080/manifest.json`
-* Map tiles URL: `http://localhost:8080/tiles/data/{z}/{x}/{y}.png`
-* Map tiles demo URL: `http://localhost:8080/`
+- Map manifest URL: `http://localhost:8080/manifest.json`
+- Map tiles URL: `http://localhost:8080/tiles/data/{z}/{x}/{y}.png`
+- Map tiles demo URL: `http://localhost:8080/`
 
 ## Using the self-host maps server with OpenSearch Dashboards
 
@@ -96,8 +96,8 @@ Configure the manifest URL in `opensearch_dashboards.yml`:
 
 ### Option 2: Configure Default WMS properties in OpenSearch Dashboards
 
-1. On the OpenSearch Dashboards console, select **Dashboards Management** > **Advanced Settings**. 
-2. Locate `visualization:tileMap:WMSdefaults` under **Default WMS properties**. 
+1. On the OpenSearch Dashboards console, select **Dashboards Management** > **Advanced Settings**.
+2. Locate `visualization:tileMap:WMSdefaults` under **Default WMS properties**.
 3. Change `"enabled": false` to `"enabled": true` and add the URL for the valid map server.
 
 ## Licenses
@@ -106,5 +106,5 @@ Tiles are generated per [Terms of Use for Natural Earth vector map data](https:/
 
 ## Related articles
 
-* [Configuring a Web Map Service (WMS)]({{site.url}}{{site.baseurl}}/dashboards/visualize/maptiles/)
-* [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/)
+- [Configuring a Web Map Service (WMS)]({{site.url}}{{site.baseurl}}/dashboards/visualize/maptiles/)
+- [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/)

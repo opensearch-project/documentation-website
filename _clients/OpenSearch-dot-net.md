@@ -30,11 +30,13 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
+
 {% include copy.html %}
 
 ## Installing the Opensearch.Net client
 
-To install Opensearch.Net, download the [Opensearch.Net NuGet package](https://www.nuget.org/packages/OpenSearch.Net) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
+To install Opensearch.Net, download the [Opensearch.Net NuGet package](https://www.nuget.org/packages/OpenSearch.Net) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below:
+
 - In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
 - Search for the OpenSearch.Net NuGet package, and select **Install**.
 
@@ -48,15 +50,17 @@ Alternatively, you can add OpenSearch.Net to your .csproj file:
   </ItemGroup>
 </Project>
 ```
+
 {% include copy.html %}
 
 ## Connecting to OpenSearch
 
-Use the default constructor when creating an OpenSearchLowLevelClient object to connect to the default OpenSearch host (`http://localhost:9200`). 
+Use the default constructor when creating an OpenSearchLowLevelClient object to connect to the default OpenSearch host (`http://localhost:9200`).
 
 ```cs
 var client  = new OpenSearchLowLevelClient();
 ```
+
 {% include copy.html %}
 
 To connect to your OpenSearch cluster through a single node with a known address, create a ConnectionConfiguration object with that address and pass it to the OpenSearch.Net constructor:
@@ -66,6 +70,7 @@ var nodeAddress = new Uri("http://myserver:9200");
 var config = new ConnectionConfiguration(nodeAddress);
 var client = new OpenSearchLowLevelClient(config);
 ```
+
 {% include copy.html %}
 
 You can also use a [connection pool]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) to manage the nodes in the cluster. Additionally, you can set up a connection configuration to have OpenSearch return the response as formatted JSON.
@@ -76,9 +81,10 @@ var connectionPool = new SingleNodeConnectionPool(uri);
 var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
+
 {% include copy.html %}
 
-To connect to your OpenSearch cluster using multiple nodes, create a connection pool with their addresses. In this example, a [`SniffingConnectionPool`]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) is used because it keeps track of nodes being removed or added to the cluster, so it works best for clusters that scale automatically. 
+To connect to your OpenSearch cluster using multiple nodes, create a connection pool with their addresses. In this example, a [`SniffingConnectionPool`]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) is used because it keeps track of nodes being removed or added to the cluster, so it works best for clusters that scale automatically.
 
 ```cs
 var uris = new[]
@@ -91,6 +97,7 @@ var connectionPool = new SniffingConnectionPool(uris);
 var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
+
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Service
@@ -117,6 +124,7 @@ namespace Application
     }
 }
 ```
+
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
@@ -143,16 +151,17 @@ namespace Application
     }
 }
 ```
-{% include copy.html %}
 
+{% include copy.html %}
 
 ## Using ConnectionSettings
 
 `ConnectionConfiguration` is used to pass configuration options to the OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options.
 The following example uses `ConnectionSettings` to:
+
 - Set the default index name for requests that don't specify the index name.
 - Enable gzip-compressed requests and responses.
-- Signal to OpenSearch to return formatted JSON. 
+- Signal to OpenSearch to return formatted JSON.
 - Make field names lowercase.
 
 ```cs
@@ -166,6 +175,7 @@ var settings = new ConnectionSettings(connectionPool)
 
 var client = new OpenSearchLowLevelClient(settings);
 ```
+
 {% include copy.html %}
 
 ## Indexing one document
@@ -173,36 +183,39 @@ var client = new OpenSearchLowLevelClient(settings);
 To index a document, you first need to create an instance of the Student class:
 
 ```cs
-var student = new Student { 
-    Id = 100, 
-    FirstName = "Paulo", 
-    LastName = "Santos", 
-    Gpa = 3.93, 
-    GradYear = 2021 
+var student = new Student {
+    Id = 100,
+    FirstName = "Paulo",
+    LastName = "Santos",
+    Gpa = 3.93,
+    GradYear = 2021
 };
 ```
+
 {% include copy.html %}
 
 Alternatively, you can create an instance of Student using an anonymous type:
 
 ```cs
-var student = new { 
-    Id = 100, 
-    FirstName = "Paulo", 
-    LastName = "Santos", 
-    Gpa = 3.93, 
-    GradYear = 2021 
+var student = new {
+    Id = 100,
+    FirstName = "Paulo",
+    LastName = "Santos",
+    Gpa = 3.93,
+    GradYear = 2021
 };
 ```
+
 {% include copy.html %}
 
 Next, upload this Student into the `students` index using the `Index` method:
 
 ```cs
-var response = client.Index<StringResponse>("students", "100", 
+var response = client.Index<StringResponse>("students", "100",
                                 PostData.Serializable(student));
 Console.WriteLine(response.Body);
 ```
+
 {% include copy.html %}
 
 The generic type parameter of the `Index` method specifies the response body type. In the example above, the response is a string.
@@ -215,26 +228,27 @@ To index many documents, use the Bulk API to bundle many operations into one req
 var studentArray = new object[]
 {
     new {index = new { _index = "students", _type = "_doc", _id = "200"}},
-    new {   Id = 200, 
-            FirstName = "Shirley", 
-            LastName = "Rodriguez", 
-            Gpa = 3.91, 
+    new {   Id = 200,
+            FirstName = "Shirley",
+            LastName = "Rodriguez",
+            Gpa = 3.91,
             GradYear = 2019
     },
     new {index = new { _index = "students", _type = "_doc", _id = "300"}},
-    new {   Id = 300, 
-            FirstName = "Nikki", 
-            LastName = "Wolf", 
-            Gpa = 3.87, 
+    new {   Id = 300,
+            FirstName = "Nikki",
+            LastName = "Wolf",
+            Gpa = 3.87,
             GradYear = 2020
     }
 };
 
 var manyResponse = client.Bulk<StringResponse>(PostData.MultiJson(studentArray));
 ```
+
 {% include copy.html %}
 
-You can send the request body as an anonymous object, string, byte array, or stream in APIs that take a body. For APIs that take multiline JSON, you can send the body as a list of bytes or a list of objects, like in the example above. The `PostData` class has static methods to send the body in all of these forms. 
+You can send the request body as an anonymous object, string, byte array, or stream in APIs that take a body. For APIs that take multiline JSON, you can send the body as a list of bytes or a list of objects, like in the example above. The `PostData` class has static methods to send the body in all of these forms.
 
 ## Searching for a document
 
@@ -258,10 +272,11 @@ var searchResponseLow = client.Search<StringResponse>("students",
                 }
             }
         }
-    })); 
+    }));
 
 Console.WriteLine(searchResponseLow.Body);
 ```
+
 {% include copy.html %}
 
 Alternatively, you can use strings to construct the request. When using strings, you have to escape the `"` character:
@@ -283,6 +298,7 @@ var searchResponse = client.Search<StringResponse>("students",
 
 Console.WriteLine(searchResponse.Body);
 ```
+
 {% include copy.html %}
 
 ## Using OpenSearch.Net methods asynchronously
@@ -291,13 +307,14 @@ For applications that require asynchronous code, all method calls in OpenSearch.
 
 ```cs
 // synchronous method
-var response = client.Index<StringResponse>("students", "100", 
+var response = client.Index<StringResponse>("students", "100",
                                 PostData.Serializable(student));
 
 // asynchronous method
-var response = client.IndexAsync<StringResponse>("students", "100", 
+var response = client.IndexAsync<StringResponse>("students", "100",
                                     PostData.Serializable(student));
 ```
+
 {% include copy.html %}
 
 ## Handling exceptions
@@ -321,31 +338,32 @@ var searchResponse = client.Search<StringResponse>("students1",
 
 Console.WriteLine(searchResponse.Body);
 ```
+
 {% include copy.html %}
 
 The response contains an error status code 404, which is one of the expected error codes for search requests, so no exception is thrown. You can see the status code in the `status` field:
 
 ```json
 {
-  "error" : {
-    "root_cause" : [
+  "error": {
+    "root_cause": [
       {
-        "type" : "index_not_found_exception",
-        "reason" : "no such index [students1]",
-        "index" : "students1",
-        "resource.id" : "students1",
-        "resource.type" : "index_or_alias",
-        "index_uuid" : "_na_"
+        "type": "index_not_found_exception",
+        "reason": "no such index [students1]",
+        "index": "students1",
+        "resource.id": "students1",
+        "resource.type": "index_or_alias",
+        "index_uuid": "_na_"
       }
     ],
-    "type" : "index_not_found_exception",
-    "reason" : "no such index [students1]",
-    "index" : "students1",
-    "resource.id" : "students1",
-    "resource.type" : "index_or_alias",
-    "index_uuid" : "_na_"
+    "type": "index_not_found_exception",
+    "reason": "no such index [students1]",
+    "index": "students1",
+    "resource.id": "students1",
+    "resource.type": "index_or_alias",
+    "index_uuid": "_na_"
   },
-  "status" : 404
+  "status": 404
 }
 ```
 
@@ -358,6 +376,7 @@ var settings = new ConnectionConfiguration(connectionPool)
                         .PrettyJson().ThrowExceptions();
 var client = new OpenSearchLowLevelClient(settings);
 ```
+
 {% include copy.html %}
 
 You can use the following properties of the response object to determine response success:
@@ -372,7 +391,7 @@ Console.WriteLine("Original Exception: " + searchResponse.OriginalException);
 - `SuccessOrKnownError` returns true if the response is successful or the response code is in the 400–501 or 505–599 ranges. If SuccessOrKnownError is true, the request is not retried.
 - `OriginalException` holds the original exception for the unsuccessful responses.
 
-## Sample program 
+## Sample program
 
 The following program creates an index, indexes data, and searches for documents.
 
@@ -395,13 +414,13 @@ internal class Program
 
 
         Console.WriteLine("Indexing one student......");
-        var student = new Student { 
-            Id = 100, 
-            FirstName = "Paulo", 
-            LastName = "Santos", 
-            Gpa = 3.93, 
+        var student = new Student {
+            Id = 100,
+            FirstName = "Paulo",
+            LastName = "Santos",
+            Gpa = 3.93,
             GradYear = 2021 };v
-        var response = client.Index<StringResponse>("students", "100",  
+        var response = client.Index<StringResponse>("students", "100",
                                         PostData.Serializable(student));
         Console.WriteLine(response.Body);
 
@@ -410,17 +429,17 @@ internal class Program
         {
             new { index = new { _index = "students", _type = "_doc", _id = "200"}},
             new {
-                Id = 200, 
-                FirstName = "Shirley", 
-                LastName = "Rodriguez", 
-                Gpa = 3.91, 
+                Id = 200,
+                FirstName = "Shirley",
+                LastName = "Rodriguez",
+                Gpa = 3.91,
                 GradYear = 2019},
             new { index = new { _index = "students", _type = "_doc", _id = "300"}},
             new {
-                Id = 300, 
-                FirstName = "Nikki", 
-                LastName = "Wolf", 
-                Gpa = 3.87, 
+                Id = 300,
+                FirstName = "Nikki",
+                LastName = "Wolf",
+                Gpa = 3.87,
                 GradYear = 2020}
         };
 
@@ -471,4 +490,5 @@ internal class Program
     }
 }
 ```
+
 {% include copy.html %}

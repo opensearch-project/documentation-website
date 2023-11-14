@@ -10,16 +10,17 @@ parent: .NET clients
 
 OpenSearch.Client is a high-level .NET client. It provides strongly typed requests and responses as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OpenSearch.Client also exposes the OpenSearch.Net low-level client if you need it. For the client's complete API documentation, see the [OpenSearch.Client API documentation](https://opensearch-project.github.io/opensearch-net/api/OpenSearch.Client.html).
 
-
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-net repo](https://github.com/opensearch-project/opensearch-net).
 
 ## Installing OpenSearch.Client
 
-To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](https://www.nuget.org/packages/OpenSearch.Client/) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
+To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](https://www.nuget.org/packages/OpenSearch.Client/) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below:
+
 - In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
 - Search for the OpenSearch.Client NuGet package, and select **Install**.
 
 Alternatively, you can add OpenSearch.Client to your .csproj file:
+
 ```xml
 <Project>
   ...
@@ -28,6 +29,7 @@ Alternatively, you can add OpenSearch.Client to your .csproj file:
   </ItemGroup>
 </Project>
 ```
+
 {% include copy.html %}
 
 ## Example
@@ -44,6 +46,7 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
+
 {% include copy.html %}
 
 By default, OpenSearch.Client uses camel case to convert property names to field names.
@@ -51,11 +54,12 @@ By default, OpenSearch.Client uses camel case to convert property names to field
 
 ## Connecting to OpenSearch
 
-Use the default constructor when creating an OpenSearchClient object to connect to the default OpenSearch host (`http://localhost:9200`). 
+Use the default constructor when creating an OpenSearchClient object to connect to the default OpenSearch host (`http://localhost:9200`).
 
 ```cs
 var client  = new OpenSearchClient();
 ```
+
 {% include copy.html %}
 
 To connect to your OpenSearch cluster through a single node with a known address, specify this address when creating an instance of OpenSearch.Client:
@@ -64,6 +68,7 @@ To connect to your OpenSearch cluster through a single node with a known address
 var nodeAddress = new Uri("http://myserver:9200");
 var client = new OpenSearchClient(nodeAddress);
 ```
+
 {% include copy.html %}
 
 You can also connect to OpenSearch through multiple nodes. Connecting to your OpenSearch cluster with a node pool provides advantages like load balancing and cluster failover support. To connect to your OpenSearch cluster using multiple nodes, specify their addresses and create a `ConnectionSettings` object for the OpenSearch.Client instance:
@@ -80,6 +85,7 @@ var pool = new StaticConnectionPool(nodes);
 var settings = new ConnectionSettings(pool);
 var client = new OpenSearchClient(settings);
 ```
+
 {% include copy.html %}
 
 ## Using ConnectionSettings
@@ -92,6 +98,7 @@ var node = new Uri("http://myserver:9200");
 var config = new ConnectionSettings(node).DefaultIndex("students");
 var client = new OpenSearchClient(config);
 ```
+
 {% include copy.html %}
 
 ## Indexing one document
@@ -101,6 +108,7 @@ Create one instance of Student:
 ```cs
 var student = new Student { Id = 100, FirstName = "Paulo", LastName = "Santos", Gpa = 3.93, GradYear = 2021 };
 ```
+
 {% include copy.html %}
 
 To index one document, you can use either fluent lambda syntax or object initializer syntax.
@@ -110,6 +118,7 @@ Index this Student into the `students` index using fluent lambda syntax:
 ```cs
 var response = client.Index(student, i => i.Index("students"));
 ```
+
 {% include copy.html %}
 
 Index this Student into the `students` index using object initializer syntax:
@@ -117,11 +126,12 @@ Index this Student into the `students` index using object initializer syntax:
 ```cs
 var response = client.Index(new IndexRequest<Student>(student, "students"));
 ```
+
 {% include copy.html %}
 
 ## Indexing many documents
 
-You can index many documents from a collection at the same time by using the OpenSearch.Client's `IndexMany` method: 
+You can index many documents from a collection at the same time by using the OpenSearch.Client's `IndexMany` method:
 
 ```cs
 var studentArray = new Student[]
@@ -132,6 +142,7 @@ var studentArray = new Student[]
 
 var manyResponse = client.IndexMany(studentArray, "students");
 ```
+
 {% include copy.html %}
 
 ## Searching for a document
@@ -174,6 +185,7 @@ var searchResponse = client.Search<Student>(s => s
                                         .Field(fld => fld.LastName)
                                         .Query("Santos"))));
 ```
+
 {% include copy.html %}
 
 You can print out the results by accessing the documents in the response:
@@ -187,6 +199,7 @@ if (searchResponse.IsValid)
     }
 }
 ```
+
 {% include copy.html %}
 
 The response contains one document, which corresponds to the correct student:
@@ -236,6 +249,7 @@ if (searchResponseLow.IsValid)
     }
 }
 ```
+
 {% include copy.html %}
 
 ## Sample program
@@ -253,12 +267,12 @@ internal class Program
     private static IOpenSearchClient osClient = new OpenSearchClient();
 
     public static void Main(string[] args)
-    {       
+    {
         Console.WriteLine("Indexing one student......");
-        var student = new Student { Id = 100, 
-                                    FirstName = "Paulo", 
-                                    LastName = "Santos", 
-                                    Gpa = 3.93, 
+        var student = new Student { Id = 100,
+                                    FirstName = "Paulo",
+                                    LastName = "Santos",
+                                    Gpa = 3.93,
                                     GradYear = 2021 };
         var response =  osClient.Index(student, i => i.Index("students"));
         Console.WriteLine(response.IsValid ? "Response received" : "Error");
@@ -272,15 +286,15 @@ internal class Program
         Console.WriteLine("Indexing an array of Student objects......");
         var studentArray = new Student[]
         {
-            new() { Id = 200, 
-                    FirstName = "Shirley", 
-                    LastName = "Rodriguez", 
-                    Gpa = 3.91, 
+            new() { Id = 200,
+                    FirstName = "Shirley",
+                    LastName = "Rodriguez",
+                    Gpa = 3.91,
                     GradYear = 2019},
-            new() { Id = 300, 
-                    FirstName = "Nikki", 
-                    LastName = "Wolf", 
-                    Gpa = 3.87, 
+            new() { Id = 300,
+                    FirstName = "Nikki",
+                    LastName = "Wolf",
+                    Gpa = 3.87,
                     GradYear = 2020}
         };
         var manyResponse = osClient.IndexMany(studentArray, "students");
@@ -304,10 +318,10 @@ internal class Program
         var searchResponse = osClient.Search<Student>(s => s
                                 .Index("students")
                                 .Query(q => q
-                        						.Bool(b => b
-                        							.Must(m => m.Exists(fld => fld.LastName))
-                        							.MustNot(m => m.Term(t => t.Verbatim().Field(fld => fld.LastName).Value(string.Empty)))
-                        						)));
+                              .Bool(b => b
+                               .Must(m => m.Exists(fld => fld.LastName))
+                               .MustNot(m => m.Term(t => t.Verbatim().Field(fld => fld.LastName).Value(string.Empty)))
+                              )));
 
         PrintResponse(searchResponse);
     }
@@ -354,4 +368,5 @@ internal class Program
     }
 }
 ```
+
 {% include copy.html %}

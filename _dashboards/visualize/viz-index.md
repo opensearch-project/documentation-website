@@ -21,21 +21,21 @@ Area charts depict changes over time, and they are commonly used to show trends.
 
 ### Bar charts
 
-Bar charts (vertical or horizontal) compare categorical data and depict changes of a variable over a period of time. 
+Bar charts (vertical or horizontal) compare categorical data and depict changes of a variable over a period of time.
 
-Vertical bar chart             |  Horizontal bar chart
-:-------------------------:|:-------------------------:
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-chart-1.png" width="300" height="300" alt="Example vertical bar chart in OpenSearch Dashboards">  |  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-horizontal-1.png" width="300" height="300" alt="Example horizontal bar chart in OpenSearch Dashboards">
+|                                                                      Vertical bar chart                                                                       |                                                                         Horizontal bar chart                                                                         |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-chart-1.png" width="300" height="300" alt="Example vertical bar chart in OpenSearch Dashboards"> | <img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-horizontal-1.png" width="300" height="300" alt="Example horizontal bar chart in OpenSearch Dashboards"> |
 
 ### Controls
 
-Controls is a panel, instead of a visualization type, added to a dashboard to filter data. Controls gives users the capability to add interactive inputs to a dashboard. You can create two types of controls in Dashboards: **Options list** and **Range slider**. **Options list** is a dropdown options list that allows filtering of data by a terms aggregation, such as `machine.os.keyword`. **Range slider** allows filtering within specified value ranges, such as `hour_of_day`.  
+Controls is a panel, instead of a visualization type, added to a dashboard to filter data. Controls gives users the capability to add interactive inputs to a dashboard. You can create two types of controls in Dashboards: **Options list** and **Range slider**. **Options list** is a dropdown options list that allows filtering of data by a terms aggregation, such as `machine.os.keyword`. **Range slider** allows filtering within specified value ranges, such as `hour_of_day`.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/controls-1.png" width="600" height="600" alt="Example visualization using controls to filter data in OpenSearch Dashboards">
 
 ### Data tables
 
-Data tables, or tables, show your raw data in tabular form. 
+Data tables, or tables, show your raw data in tabular form.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-table-1.png" width="600" height="600" alt="Example data table in OpenSearch Dashboards">
 
@@ -47,19 +47,19 @@ Gantt charts show the start, end, and duration of unique events in a sequence. G
 
 ### Gauge charts
 
-Gauge charts look similar to an analog speedometer that reads left to right from zero. They display how much there is of the thing you are measuring, and this measurement can exist alone or in relation to another measurement, such as tracking performance against benchmarks or goals. 
+Gauge charts look similar to an analog speedometer that reads left to right from zero. They display how much there is of the thing you are measuring, and this measurement can exist alone or in relation to another measurement, such as tracking performance against benchmarks or goals.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/gauge-1.png" width="400" height="400" alt="Example gauge chart in OpenSearch Dashboards">
 
 ### Heat maps
 
-A heat map is a view of a histogram (a graphical representation of the distribution of numerical data) over time. Instead of using bar height as a representation of frequency, as with a histogram, heat maps display data in a tabular form using colors to differentiate where values fall in a range. 
+A heat map is a view of a histogram (a graphical representation of the distribution of numerical data) over time. Instead of using bar height as a representation of frequency, as with a histogram, heat maps display data in a tabular form using colors to differentiate where values fall in a range.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/heat-map-1.png" width="600" height="600" alt="Example heat map in OpenSearch Dashboards">
 
 ### Line charts
 
-Line charts compare changes in measured values over a period of time, such as gross sales by month or gross sales and net sales by month. 
+Line charts compare changes in measured values over a period of time, such as gross sales by month or gross sales and net sales by month.
 
 <img src="{{site.url}}{{site.baseurl}}/images/line-1.png" width="600" height="600" alt="Example line graph in OpenSearch Dashboards">
 
@@ -81,37 +81,37 @@ Region maps show patterns and trends across geographic locations. A region map i
 
 ### Markdown
 
-Markdown is a the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization. 
+Markdown is a the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/markdown.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
 
 ### Metric values
 
-Metric values, or number charts, compare values in different measures. For example, you can create a metrics visualization to compare two values, such as actual sales compared to sales goals. 
+Metric values, or number charts, compare values in different measures. For example, you can create a metrics visualization to compare two values, such as actual sales compared to sales goals.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/metric-chart-1.png" width="400" height="400" alt="Example metric chart in OpenSearch Dashboards">
 
 ### Pie charts
 
-Pie charts compare values for items in a dimension, such as a percentage of a total amount. 
+Pie charts compare values for items in a dimension, such as a percentage of a total amount.
 
 <img src="{{site.url}}{{site.baseurl}}/images/pie-1.png" width="600" height="600" alt="Example pie chart in OpenSearch Dashboards">
 
 ### TSVB
 
-The time-series visual builder (TSVB) is a data visualization tool in Dashboards used to create detailed time-series visualizations. For example, you can use TSVB to build visualizations that show data over time, such as flights by status over time or flight delays by delay type over time. Currently, TSVB can be used to create the following Dashboards visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table. 
+The time-series visual builder (TSVB) is a data visualization tool in Dashboards used to create detailed time-series visualizations. For example, you can use TSVB to build visualizations that show data over time, such as flights by status over time or flight delays by delay type over time. Currently, TSVB can be used to create the following Dashboards visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/TSVB-1.png" width="600" height="600" alt="Example TSVB in OpenSearch Dashboards">
 
 ### Tag cloud
 
-Tag (or word) clouds are a way to display how often a word is used in relation to other words in a dataset. The best use for this type of visual is to show word or phrase frequency. 
+Tag (or word) clouds are a way to display how often a word is used in relation to other words in a dataset. The best use for this type of visual is to show word or phrase frequency.
 
 <img src="{{site.url}}{{site.baseurl}}/images/word-cloud-1.png" width="600" height="600" alt="Example Tag cloud in OpenSearch Dashboards">
 
 ### Timeline
 
-Timeline is a data visualization tool in Dashboards that you can use to create time-series visualizations. Currently, Timeline can be used to create the following Dashboards visualization types: Area and Line. 
+Timeline is a data visualization tool in Dashboards that you can use to create time-series visualizations. Currently, Timeline can be used to create the following Dashboards visualization types: Area and Line.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/timeline-1.png" width="600" height="600" alt="Example Timeline in OpenSearch Dashboards">
 

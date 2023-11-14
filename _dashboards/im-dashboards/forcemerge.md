@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 # Force merge
+
 Introduced 2.6
 {: .label .label-purple }
 
@@ -23,13 +24,13 @@ To perform a force merge operation on two or more indexes, perform the following
 
 1. Choose **Actions**, and then choose **Force merge**, as shown in the following image.
 
-    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge1.png)
+   ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge1.png)
 
 1. Under **Configure source index**, specify the indexes you want to force merge.
 
 1. Optionally, under **Advanced settings** you can to choose to **Flush indices** or **Only expunge delete** and then specify the **Max number of segments** to merge to as shown in the following image.
 
-    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
+   ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
 
 ## Force merging data streams
 
@@ -45,4 +46,4 @@ To perform a force merge operation on two or more indexes, perform the following
 
 1. Optionally, under **Advanced settings** you can to choose to **Flush indices** or **Only expunge delete** and then specify the **Max number of segments** to merge to as shown in the following image.
 
-    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
+   ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)

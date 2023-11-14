@@ -4,7 +4,7 @@ title: Common filter plugins
 parent: Logstash
 nav_order: 220
 redirect_from:
- - /clients/logstash/common-filters/
+  - /clients/logstash/common-filters/
 ---
 
 # Common filter plugins
@@ -19,22 +19,22 @@ To convert the `quantity` field from a `string` type to an `integer` type:
 
 ```yml
 input {
-  http {
-    host => "127.0.0.1"
-    port => 8080
-  }
+http {
+host => "127.0.0.1"
+port => 8080
+}
 }
 
 filter {
-  mutate {
-   convert => {"quantity" => "integer"}
-  }
+mutate {
+convert => {"quantity" => "integer"}
+}
 }
 
 output {
-  file {
-    path => "output.txt"
-  }
+file {
+path => "output.txt"
+}
 }
 ```
 
@@ -70,33 +70,33 @@ Other data types you can convert to are `float`, `string`, and `boolean` values.
 
 Logstash supports a few common options for all filter plugins:
 
-Option | Description
-:--- | :---
-`add_field` | Adds one or more fields to the event.
-`remove_field` | Removes one or more events from the field.
-`add_tag` | Adds one or more tags to the event. You can use tags to perform conditional processing on events depending on which tags they contain.
-`remove_tag` | Removes one or more tags from the event.
+| Option         | Description                                                                                                                            |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| `add_field`    | Adds one or more fields to the event.                                                                                                  |
+| `remove_field` | Removes one or more events from the field.                                                                                             |
+| `add_tag`      | Adds one or more tags to the event. You can use tags to perform conditional processing on events depending on which tags they contain. |
+| `remove_tag`   | Removes one or more tags from the event.                                                                                               |
 
 For example, you can remove the `host` field from the event:
 
 ```yml
 input {
-  http {
-    host => "127.0.0.1"
-    port => 8080
-  }
+http {
+host => "127.0.0.1"
+port => 8080
+}
 }
 
 filter {
-  mutate {
-    remove_field => {"host"}
-  }
+mutate {
+remove_field => {"host"}
+}
 }
 
 output {
-  file {
-    path => "output.txt"
-  }
+file {
+path => "output.txt"
+}
 }
 ```
 

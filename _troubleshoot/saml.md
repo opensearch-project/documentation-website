@@ -8,13 +8,12 @@ nav_order: 20
 
 This page includes troubleshooting steps for using SAML for OpenSearch Dashboards authentication.
 
-
 ---
 
 #### Table of contents
-- TOC
-{:toc}
 
+- TOC
+  {:toc}
 
 ---
 
@@ -34,7 +33,6 @@ saml:
         entity_id: opensearch-dashboards-saml
 ```
 
-
 ## Check the SAML assertion consumer service URL
 
 After a successful login, your IdP sends a SAML response using HTTP POST to the OpenSearch Dashboards "assertion consumer service URL" (ACS).
@@ -53,16 +51,13 @@ OpenSearch Dashboards also requires you to add this endpoint to the allow list. 
 server.xsrf.allowlist: [/_opendistro/_security/saml/acs]
 ```
 
-
 ## Sign all documents
 
 Some IdPs do not sign the SAML documents by default. Make sure the IdP signs all documents.
 
-
 #### Keycloak
 
 ![Keycloak UI]({{site.url}}{{site.baseurl}}/images/saml-keycloak-sign-documents.png)
-
 
 ## Role settings
 
@@ -78,7 +73,6 @@ saml:
       ...
       roles_key: Role
 ```
-
 
 ## Inspect the SAML response
 
@@ -98,7 +92,6 @@ Another way of inspecting the SAML response is to monitor network traffic while 
 ```
 
 Inspect the payload of this POST request, and use a tool like [base64decode.org](https://www.base64decode.org/) to decode it.
-
 
 ## Check role mapping
 
@@ -129,7 +122,6 @@ saml:
       ...
       roles_key: Role
 ```
-
 
 ## Inspect the JWT token
 

@@ -34,8 +34,8 @@ Before increasing `index.translog.flush_threshold_size`, call the following API 
 ```json
 curl -XPOST "os-endpoint/index-name/_stats/flush?pretty"
 ```
-{% include copy.html %}
 
+{% include copy.html %}
 
 Replace the `os-endpoint` and `index-name` with your endpoint and index name.
 
@@ -43,10 +43,10 @@ In the output, note the number of flushes and the total time. The following exam
 
 ```json
 {
-     "flush": {
-          "total": 124,
-          "total_time_in_millis": 17690
-     }
+  "flush": {
+    "total": 124,
+    "total_time_in_millis": 17690
+  }
 }
 ```
 
@@ -55,6 +55,7 @@ To increase the flush threshold size, call the following API operation:
 ```json
 curl -XPUT "os-endpoint/index-name/_settings?pretty" -d "{"index":{"translog.flush_threshold_size" : "1024MB"}}"
 ```
+
 {% include copy.html %}
 
 In this example, the flush threshold size is set to 1024 MB, which is ideal for instances that have more than 32 GB of memory.
@@ -67,6 +68,7 @@ Run the stats API operation again to see whether the flush activity changed:
 ```json
 curl -XGET "os-endpoint/index-name/_stats/flush?pretty"
 ```
+
 {% include copy.html %}
 
 It's a best practice to increase the `index.translog.flush_threshold_size` only for the current index. After you confirm the outcome, apply the changes to the index template.
@@ -101,9 +103,9 @@ default value.
 
 To ensure that the shards are distributed evenly across the data nodes of the index into which you're ingesting, use the following formula to confirm that the shards are evenly distributed:
 
-Number of shards for index = k * (Number of data nodes), where k is the number of shards per node
+Number of shards for index = k \* (Number of data nodes), where k is the number of shards per node
 
-For example, if there are 24 shards in the index, and there are 8 data nodes, then OpenSearch assigns 3 shards to each node. 
+For example, if there are 24 shards in the index, and there are 8 data nodes, then OpenSearch assigns 3 shards to each node.
 
 ## Setting replica count to zero
 
@@ -114,7 +116,7 @@ If a node fails while replicas are disabled, you might lose data. Disable the re
 
 ## Experiment to find the optimal bulk request size
 
-Start with a bulk request size of 5 MiB to 15 MiB. Then slowly increase the request size until the indexing performance stops improving. 
+Start with a bulk request size of 5 MiB to 15 MiB. Then slowly increase the request size until the indexing performance stops improving.
 
 ## Use an instance type that has SSD instance store volumes (such as I3)
 
@@ -133,6 +135,7 @@ curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-it
 { "update" : {"_id" : "1", "_index" : "test2"} }
 { "doc" : {"user" : "example"} }
 ```
+
 {% include copy.html %}
 
 ## Compression codecs

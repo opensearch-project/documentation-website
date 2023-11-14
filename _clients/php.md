@@ -17,6 +17,7 @@ To add the client to your project, install it using [composer](https://getcompos
 ```bash
 composer require opensearch-project/opensearch-php
 ```
+
 {% include copy.html %}
 
 To install a specific major version of the client, run the following command:
@@ -24,6 +25,7 @@ To install a specific major version of the client, run the following command:
 ```bash
 composer require opensearch-project/opensearch-php:<version>
 ```
+
 {% include copy.html %}
 
 Then require the autload file from composer in your code:
@@ -31,11 +33,12 @@ Then require the autload file from composer in your code:
 ```php
 require __DIR__ . '/vendor/autoload.php';
 ```
+
 {% include copy.html %}
 
 ## Connecting to OpenSearch
 
-To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
+To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:
 
 ```php
 $client = (new \OpenSearch\ClientBuilder())
@@ -44,7 +47,8 @@ $client = (new \OpenSearch\ClientBuilder())
     ->setSSLVerification(false) // For testing only. Use certificate for validation
     ->build();
 ```
-{% include copy.html %} 
+
+{% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Service
 
@@ -55,19 +59,20 @@ $client = (new \OpenSearch\ClientBuilder())
     ->setSigV4Region('us-east-2')
 
     ->setSigV4Service('es')
-    
+
     // Default credential provider.
     ->setSigV4CredentialProvider(true)
-    
+
     // Using a custom access key and secret
     ->setSigV4CredentialProvider([
       'key' => 'awskeyid',
       'secret' => 'awssecretkey',
     ])
-    
+
     ->build();
 ```
-{% include copy.html %} 
+
+{% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
 
@@ -78,20 +83,20 @@ $client = (new \OpenSearch\ClientBuilder())
     ->setSigV4Region('us-east-2')
 
     ->setSigV4Service('aoss')
-    
+
     // Default credential provider.
     ->setSigV4CredentialProvider(true)
-    
+
     // Using a custom access key and secret
     ->setSigV4CredentialProvider([
       'key' => 'awskeyid',
       'secret' => 'awssecretkey',
     ])
-    
+
     ->build();
 ```
-{% include copy.html %} 
 
+{% include copy.html %}
 
 ## Creating an index
 
@@ -112,6 +117,7 @@ $client->indices()->create([
     ]
 ]);
 ```
+
 {% include copy.html %}
 
 ## Indexing a document
@@ -129,6 +135,7 @@ $client->create([
     ]
 ]);
 ```
+
 {% include copy.html %}
 
 ## Searching for documents
@@ -151,6 +158,7 @@ var_dump(
     ])
 );
 ```
+
 {% include copy.html %}
 
 ## Deleting a document
@@ -163,6 +171,7 @@ $client->delete([
     'id' => 1,
 ]);
 ```
+
 {% include copy.html %}
 
 ## Deleting an index
@@ -174,6 +183,7 @@ $client->indices()->delete([
     'index' => $indexName
 ]);
 ```
+
 {% include copy.html %}
 
 ## Sample program
@@ -248,4 +258,5 @@ $client->indices()->delete([
 
 ?>
 ```
+
 {% include copy.html %}

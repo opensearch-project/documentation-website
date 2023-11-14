@@ -25,7 +25,6 @@ opensearch-cli ad stop ecommerce-count-quantity --profile staging
 opensearch-cli ad delete ecommerce-count-quantity --profile staging
 ```
 
-
 ## Install
 
 1. [Download](https://opensearch.org/downloads.html){:target='\_blank'} and extract the appropriate installation package for your computer.
@@ -48,7 +47,6 @@ opensearch-cli ad delete ecommerce-count-quantity --profile staging
    opensearch-cli --version
    ```
 
-
 ## Profiles
 
 Profiles let you easily switch between different clusters and user credentials. To get started, run `opensearch-cli profile create` with the `--auth-type`, `--endpoint`, and `--name` options:
@@ -61,17 +59,16 @@ Alternatively, save a configuration file to `~/.opensearch-cli/config.yaml`:
 
 ```yaml
 profiles:
-    - name: docker-local
-      endpoint: https://localhost:9200
-      user: admin
-      password: foobar
-    - name: aws
-      endpoint: https://some-cluster.us-east-1.es.amazonaws.com
-      aws_iam:
-        profile: ""
-        service: es
+  - name: docker-local
+    endpoint: https://localhost:9200
+    user: admin
+    password: foobar
+  - name: aws
+    endpoint: https://some-cluster.us-east-1.es.amazonaws.com
+    aws_iam:
+      profile: ""
+      service: es
 ```
-
 
 ## Usage
 

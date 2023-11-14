@@ -11,6 +11,7 @@ redirect_from:
 # Cross-cluster replication
 
 The cross-cluster replication plugin lets you replicate indexes, mappings, and metadata from one OpenSearch cluster to another. Cross-cluster replication has the following benefits:
+
 - By replicating your indexes, you ensure that you can continue to handle search requests if there's an outage.
 - Replicating data across geographically distant data centers minimizes the distance between the data and the application server. This reduces expensive latencies.
 - You can replicate data from multiple smaller clusters to a centralized reporting cluster, which is useful when it's inefficient to query across a large network.

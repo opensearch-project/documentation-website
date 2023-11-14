@@ -2,7 +2,7 @@
 layout: default
 title: Low-level Python client
 nav_order: 10
-redirect_from: 
+redirect_from:
   - /clients/python/
 ---
 
@@ -19,6 +19,7 @@ To add the client to your project, install it using [pip](https://pip.pypa.io/):
 ```bash
 pip install opensearch-py
 ```
+
 {% include copy.html %}
 
 After installing the client, you can import it like any other module:
@@ -26,6 +27,7 @@ After installing the client, you can import it like any other module:
 ```python
 from opensearchpy import OpenSearch
 ```
+
 {% include copy.html %}
 
 ## Connecting to OpenSearch
@@ -50,6 +52,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
+
 {% include copy.html %}
 
 If you have your own client certificates, specify them in the `client_cert_path` and `client_key_path` parameters:
@@ -78,6 +81,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
+
 {% include copy.html %}
 
 If you are not using the Security plugin, create a client object with SSL disabled:
@@ -96,6 +100,7 @@ client = OpenSearch(
     ssl_show_warn = False
 )
 ```
+
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Service
@@ -121,6 +126,7 @@ client = OpenSearch(
     pool_maxsize = 20
 )
 ```
+
 {% include copy.html %}
 
 ## Connecting to Amazon OpenSearch Serverless
@@ -146,8 +152,8 @@ client = OpenSearch(
     pool_maxsize = 20
 )
 ```
-{% include copy.html %}
 
+{% include copy.html %}
 
 ## Creating an index
 
@@ -165,6 +171,7 @@ index_body = {
 
 response = client.indices.create(index_name, body=index_body)
 ```
+
 {% include copy.html %}
 
 ## Indexing a document
@@ -185,6 +192,7 @@ response = client.index(
     refresh = True
 )
 ```
+
 {% include copy.html %}
 
 ## Performing bulk operations
@@ -196,6 +204,7 @@ movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" 
 
 client.bulk(movies)
 ```
+
 {% include copy.html %}
 
 ## Searching for documents
@@ -219,6 +228,7 @@ response = client.search(
     index = 'python-test-index'
 )
 ```
+
 {% include copy.html %}
 
 ## Deleting a document
@@ -231,6 +241,7 @@ response = client.delete(
     id = '1'
 )
 ```
+
 {% include copy.html %}
 
 ## Deleting an index
@@ -242,6 +253,7 @@ response = client.indices.delete(
     index = 'python-test-index'
 )
 ```
+
 {% include copy.html %}
 
 ## Sample program
@@ -348,4 +360,5 @@ response = client.indices.delete(
 print('\nDeleting index:')
 print(response)
 ```
+
 {% include copy.html %}
