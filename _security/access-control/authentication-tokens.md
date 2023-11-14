@@ -108,7 +108,6 @@ Similarly, Service Accounts address threat exposure concerns by separating the r
 As suggested by the name, the boolean flag `service` denotes whether a given internal user account is Service Account. If an account is not a Service Account, then any attempts to generate an associated auth token for the account will fail. Similarly, the `enabled` field dictates when a Service Account can be used by an extensions to perform operations. If a Service Account is not `enabled`, attempts to fetch its auth token will be blocked and the Service Account will be unable to execute requests on its own behalf using a previously issued auth token.
 The following is an example of create a service account with ALL PERMISSIONS for your service or extension:
 ```json
-
 PUT /_plugins/_security/api/internalusers/admin_service
 {
  "opendistro_security_roles": ["all_access"],
@@ -117,6 +116,8 @@ PUT /_plugins/_security/api/internalusers/admin_service
   "enabled": "true",
   "service": "true"
  }
+ ```
+{% include copy-curl.html %}
  
 ## Handling On-Behalf-Of and Service Account Requests
 While both on-behalf-of token handling and Service Accounts can be viewed as independent features, the most significant benefits are realized when coupled. Specifically, OpenSearch exposes a client which is used to connect to the OpenSearch cluster and provides Plugins the ability to execute requests. With the introduction of on-behalf-of tokens and Service Accounts the client is now able to be used to handle requests which will make use of both of these new features. Now, when the client executes a request which requires an extension to use an on-behalf-of token, the first step of handling the request is the forwarding of the request to the Security Plugin. In the Security Plugin, the request is authenticated and authorized against the active user. If the active user is permitted, the request returns to OpenSearch’s core code base where a request to create an on-behalf-of for the target extension using the active user’s identity is created. This request to generate the on-behalf-of token is then handled by the _`IdentityPlugin`_ implementation. In the standard scenario this is the Security Plugin, so the request is returned to the Security Plugin’s implementation of the `TokenManager` interface which generates a new on-behalf-of token for the request. After generating the token, the Security Plugin forwards the request with the on-behalf-of token to the extension. At that point, the extension is then able to call OpenSearch’s REST methods with the token. The permissions associated with the token will then be evaluated for the authorization of the request. If the token conveys the permissions required for the operation, the action will be performed and the response will be sent back to the extension. After processing OpenSearch’s response, the extension will forward its own handling of the response to the client. If instead, the on-behalf-of token does not entail the permissions required for execution of the target action, the a forbidden response is returned to the extension.
