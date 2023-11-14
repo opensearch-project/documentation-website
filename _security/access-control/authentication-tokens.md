@@ -10,7 +10,7 @@ redirect_from:
 
 ## On-Behalf-Of authentication
 
-The Security plugin allows you to configure two types of authentication tokens. The first of these is On-Behalf-Of (OBO) tokens. 
+The Security plugin allows you to configure two types of authentication tokens: On-Behalf-Of (OBO) tokens and Service Account tokens. 
 
 ### 1.0 Usage
 On-behalf-of tokens are a special form of JSON Web Token used for managing authentication requests between a user's client and an extension. These tokens operate "just-in-time," meaning that a token is issued immediately before it is required for authentication. A token will have a configurable window of validity (with a maximum duration of five minutes) after which it expires and cannot be used.
