@@ -13,11 +13,13 @@ redirect_from:
 The Security plugin allows you to configure two types of authentication tokens: On-Behalf-Of (OBO) tokens and Service Account tokens. 
 
 ### 1.0 Usage
+
 On-behalf-of tokens are a special form of JSON Web Token used for managing authentication requests between a user's client and an extension. These tokens operate "just-in-time," meaning that a token is issued immediately before it is required for authentication. A token will have a configurable window of validity (with a maximum duration of five minutes) after which it expires and cannot be used.
 
 With on-behalf-of tokens, an extension can interact with the OpenSearch cluster using the same privileges as the initiating user (the reason the tokens are  “on-behalf-of”). However, since these tokens do not have any restrictions in place, they also provide services the ability to operate as if they are the original user until token expiration. This implies that this feature can be used more broadly and is not limited to extension-related use cases.
 
 ### 2.0 Configuration
+
 In the security config file, the on-behalf-of configuration is located under the dynamic config section. It contains the signing key for the token signature and the encryption key for the token payload (role information) decryption:
 
 ```
@@ -33,6 +35,7 @@ config:
 The default encoding algorithm for the signing of the JWT (JSON Web Token) is HMAC SHA512. Both the signing key and encryption key are Base64 encoded and stored on the file system of the OpenSearch node. The keys should be the same on all hosts, otherwise encryption and decryption operations may fail. Deployment of these keys is managed by the cluster operator.
 
 ### 3.0 Token structure
+
 The payload of an on-behalf-of token must include all standard configurations of a JWT, along with encrypted and decrypted roles. Depending on the setting of the "Plugin Backward Compatibility Mode," backend roles should also be incorporated into role claims. It is important to note that the absence of any of these claims will result in a malformed token, failing to meet the required standard for authentication.
 
 The on-behalf-of token contains the following claims:
@@ -62,6 +65,7 @@ The on-behalf-of token contains the following claims:
 The OpenSearch Security plugin is responsible for handling encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third-party services.
 
 ### 3.0 API endpoint
+
 You can access the `POST /_plugins/_security/api/generateonbehalfoftoken` API endpoint on the security plugin in order to create a short-lived self-issued on-behalf-of token to perform certain actions on behalf of a user.
 
 To access this API endpoint, the request body should contain three API parameters:
@@ -89,22 +93,26 @@ While the conversation about the usage of on-behalf-of (OBO) tokens continues, i
 Service Accounts tokens are the second form of authentication token supported by the Security plugin. 
 
 ### 1.0 Introduction of Service Accounts
+
 Service Accounts are a new authC/authZ path where extensions can execute requests without assuming the role(s) of the active user. Service Accounts are a special type of principal associated with each extension and have a set of permissions. The permissions assigned to a Service Account grant the associated extension the authorization to execute any of the mapped operations without needing to assume the roles of the active user or stash the user’s role(s) in the ephemeral user context. 
 
 Currently, Service Account only permit operations on system indices associated with the mapped extension.
 {: .important}
 
 ### 2.0 Service Account Background
+
 Before the introduction of Service Accounts, it was not possible for an extension to execute a request without assuming the roles of the active user. Instead, when a request is processed, an ephemeral “Plugin User” was created. The Plugin User then assumed all the permissions of the currently authenticated operator (human user). The result was a Plugin User which acted on the extension’s behalf but had all of the privileges of the operator. In this way, the previous model can be said to have had extensions “impersonate” the operator. This impersonation approach lead to two main issues:
 * Impersonation compromises referential integrity, meaning it is difficult for auditors to identify which requests were executed by an extension or by an operator. A system with referential integrity maintains a transactional record in its audit log. The record provides a clear history of actions taken by various subjects at specific times. When extensions impersonate users for both requests they make on behalf of the operator, and requests they execute on their own, the audit log lacks referential integrity.
 * Impersonation also makes it impossible to restrict an extension’s permissions beyond those of the user it impersonates. When an extension assumes the roles of the active subject, it copies all of the roles. This includes even those permissions which are uneccessary for executing its intended actions. This practice not only deviates from the principal of least-privileges, but also increases the threat surface area. With each additional permission granted to the Plugin User, the potential impact a misconfigured or malicious extension may have grows.
 
 ### 3.0 Service Account Benefit
+
 Service Accounts address the issues listed in 2.0 by defining a separate state in which autonomously executing extensions run. Service Accounts maintain referential integrity by introducing a distinct state in which extensions run when executing requests on their own behalf. Audit logging can then record when an extension executes on its own—it will make authC/authZ calls against the Service Account—or whether it is executing an action on behalf of the operator and therefore making use of the on-behalf-of tokens.
 
 Similarly, Service Accounts address threat exposure concerns by separating the roles an extension assumes from those of the operator or a generic hard-coded user (such as those in the `internal_users.yml` file). Service Accounts will not assume the roles of the operator, but instead have their own privileges listed in the Service Account. The roles associated with a Service Account can therefore, be as a restrictive as possible in alignment with the principle of least-privileges. In order to avoid providing extensions overly-permissive service accounts, extension authors should have a strong understanding of what types of operations their extensions hopes to execute.
 
 ### 4.0 API Endpoint
+
 As suggested by the name, the boolean flag `service` denotes whether a given internal user account is Service Account. If an account is not a Service Account, then any attempts to generate an associated auth token for the account will fail. Similarly, the `enabled` field dictates when a Service Account can be used by an extensions to perform operations. If a Service Account is not `enabled`, attempts to fetch its auth token will be blocked and the Service Account will be unable to execute requests on its own behalf using a previously issued auth token.
 The following is an example of create a service account with ALL PERMISSIONS for your service or extension:
 ```json
