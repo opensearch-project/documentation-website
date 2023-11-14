@@ -234,7 +234,7 @@ The time period between sending a request and receiving the corresponding respon
 
 ## Processing time
 
-Processing time is only reported if the setting output.processingtime is set to true in the OpenSearch Benchmark configuration file.
+Processing time is only reported if the setting `output.processingtime` is set to true in the OpenSearch Benchmark configuration file.
 {: note.}
 
 **Corresponding metrics key**: `processing_time`
@@ -247,7 +247,7 @@ The time period between start of request processing and receiving the complete r
 
 Corresponding metrics key: `service_time`. Each `service_time` record has a meta.success flag. 
 
-The ratio of erroneous responses relative to the total number of responses. Any exception thrown by the Python Elasticsearch client is considered erroneous, for example,  HTTP response codes 4xx, 5xx, or network errors (network unreachable). Usually any error rate greater than zero was found by the Alerting plugin. You should investigate the root cause by inspecting OpenSearch and OpenSearch Benchmark logs and rerun the benchmark.
+The ratio of erroneous responses relative to the total number of responses. Any exception thrown by the Python OpenSearch client is considered erroneous, for example, HTTP response codes 4xx, 5xx, or network errors (network unreachable). Usually any error rate greater than zero was found by the Alerting plugin. You should investigate the root cause by inspecting OpenSearch and OpenSearch Benchmark logs and rerun the benchmark.
 
 
 ## Disk usage

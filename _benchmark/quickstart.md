@@ -142,8 +142,8 @@ When the `execute_test` command runs, all tasks and operations in the `percolato
 
 After an OpenSearch Benchmark test runs, take the following steps to ensure that you're test has run properly:
 
-- Take a look at your OpenSearch or OpenSearch Dashboards index that you ran the Becnhmark against. Make note of the number of documents inside the index.
-- In the results returned by OpenSearch Benchmark, look for the "Segment Count" row and see if the number of segments matches your total number of documents.
+- Take a look at your OpenSearch or OpenSearch Dashboards index that you ran the Benchmark against. Make note of the number of documents inside the index.
+- In the results returned by OpenSearch Benchmark, compare the `workload.json` file for your specific workload and verify that the document count matches the number of documents. For example, based on the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/percolator/workload.json#L19) `workload.json` file, you should expect to see 2000000 documents in your cluster.
 
 ### Understanding the results
 
