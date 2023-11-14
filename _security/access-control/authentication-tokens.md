@@ -71,7 +71,7 @@ To access this API endpoint, the request body should contain three API parameter
 * `durationSeconds` (optional): This parameter allows users to customize the token's expiration time according to its anticipated usage. However, the maximum duration is capped at 600 seconds to maintain security. If not specified, the default duration is set to 300 seconds.
 The following is an example of requesting an on-behalf-of token with lifespan of 3 mins as user '“admin” for testing purpose:
 ```json
-curl -XPOST https://localhost:9200/_plugins/_security/api/generateonbehalfoftoken -u 'admin:admin' -H 'Content-Type: application/json' --data
+POST /_plugins/_security/api/generateonbehalfoftoken
 '{ 
    "description":"Testing",
    "service":"Testing Service",
