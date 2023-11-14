@@ -60,14 +60,14 @@ log-pipeline:
         match:
           # This will match logs with a "log" key against the COMMONAPACHELOG pattern (ex: { "log": "actual apache log..." } )
           # You should change this to match what your logs look like. See the grok documenation to get started.
-          log: [ "%{COMMONAPACHELOG}" ]
+          log: ["%{COMMONAPACHELOG}"]
   sink:
     - opensearch:
-        hosts: [ "https://localhost:9200" ]
+        hosts: ["https://localhost:9200"]
         # Change to your credentials
         username: "admin"
         password: "admin"
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -83,12 +83,12 @@ This pipeline configuration is an example of Apache log ingestion. Don't forget 
 
 The following are the main changes you need to make:
 
-* `hosts` – Set to your hosts.
-* `index` – Change this to the OpenSearch index to which you want to send logs.
-* `username` – Provide your OpenSearch username.
-* `password` – Provide your OpenSearch password.
-* `aws_sigv4` – If you use Amazon OpenSearch Service with AWS signing, set this to true. It will sign requests with the default AWS credentials provider.
-* `aws_region` – If you use Amazon OpenSearch Service with AWS signing, set this value to the AWS Region in which your cluster is hosted.
+- `hosts` – Set to your hosts.
+- `index` – Change this to the OpenSearch index to which you want to send logs.
+- `username` – Provide your OpenSearch username.
+- `password` – Provide your OpenSearch password.
+- `aws_sigv4` – If you use Amazon OpenSearch Service with AWS signing, set this to true. It will sign requests with the default AWS credentials provider.
+- `aws_region` – If you use Amazon OpenSearch Service with AWS signing, set this value to the AWS Region in which your cluster is hosted.
 
 ## Fluent Bit
 
@@ -147,6 +147,6 @@ The following is an example `fluent-bit.conf` file with SSL and basic authentica
 
 See the [Data Prepper Log Ingestion Demo Guide](https://github.com/opensearch-project/data-prepper/blob/main/examples/log-ingestion/README.md) for a specific example of Apache log ingestion from `FluentBit -> Data Prepper -> OpenSearch` running through Docker.
 
-In the future, Data Prepper will offer additional sources and processors that will make more complex log analytics pipelines available. Check out the [Data Prepper Project Roadmap](https://github.com/opensearch-project/data-prepper/projects/1) to see what is coming.  
+In the future, Data Prepper will offer additional sources and processors that will make more complex log analytics pipelines available. Check out the [Data Prepper Project Roadmap](https://github.com/opensearch-project/data-prepper/projects/1) to see what is coming.
 
 If there is a specific source, processor, or sink that you would like to include in your log analytics workflow and is not currently on the roadmap, please bring it to our attention by creating a GitHub issue. Additionally, if you are interested in contributing to Data Prepper, see our [Contributing Guidelines](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md) as well as our [developer guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md) and [plugin development guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/plugin_development.md).

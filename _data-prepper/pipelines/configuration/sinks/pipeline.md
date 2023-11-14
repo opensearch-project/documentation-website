@@ -1,6 +1,6 @@
 ---
 layout: default
-title: pipeline 
+title: pipeline
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 55
@@ -14,9 +14,9 @@ Use the `pipeline` sink to write to another pipeline.
 
 The `pipeline` sink supports the following configuration options.
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-name | Yes | String | Name of the pipeline to write to.
+| Option | Required | Type   | Description                       |
+| :----- | :------- | :----- | :-------------------------------- |
+| name   | Yes      | String | Name of the pipeline to write to. |
 
 ## Usage
 

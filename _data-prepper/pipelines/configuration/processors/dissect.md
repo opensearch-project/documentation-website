@@ -8,7 +8,7 @@ nav_order: 52
 
 # dissect
 
-The `dissect` processor extracts values from an event and maps them to individual fields based on user-defined `dissect` patterns. The processor is well suited for field extraction from log messages with a known structure. 
+The `dissect` processor extracts values from an event and maps them to individual fields based on user-defined `dissect` patterns. The processor is well suited for field extraction from log messages with a known structure.
 
 ## Basic usage
 
@@ -53,11 +53,11 @@ After running the pipeline, you should receive the following standard output:
 
 You can configure the `dissect` processor with the following options.
 
-| Option | Required | Type | Description |
-| :--- | :--- | :--- | :--- |
-| `map` | Yes | Map | Defines the `dissect` patterns for specific keys. For details on how to define fields in the `dissect` pattern, see [Field notations](#field-notations). |
-| `target_types` | No | Map | Specifies the data types for extract fields. Valid options are `integer`, `double`, `string`, and `boolean`. By default, all fields are of the `string` type. |
-| `dissect_when` | No | String | Specifies a condition for performing the `dissect` operation using a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). If specified, the `dissect` operation will only run when the expression evaluates to true. |
+| Option         | Required | Type   | Description                                                                                                                                                                                                                                                        |
+| :------------- | :------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `map`          | Yes      | Map    | Defines the `dissect` patterns for specific keys. For details on how to define fields in the `dissect` pattern, see [Field notations](#field-notations).                                                                                                           |
+| `target_types` | No       | Map    | Specifies the data types for extract fields. Valid options are `integer`, `double`, `string`, and `boolean`. By default, all fields are of the `string` type.                                                                                                      |
+| `dissect_when` | No       | String | Specifies a condition for performing the `dissect` operation using a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). If specified, the `dissect` operation will only run when the expression evaluates to true. |
 
 ### Field notations
 
@@ -73,15 +73,15 @@ A field that will not be included in the event. The format is `%{}` or `%{?field
 
 #### Append field
 
-A field that will be combined with other fields. To append multiple values and include the final value in the field, use `+` before the field name in the `dissect` pattern. The format is `%{+field_name}`. 
+A field that will be combined with other fields. To append multiple values and include the final value in the field, use `+` before the field name in the `dissect` pattern. The format is `%{+field_name}`.
 
 For example, with the pattern `%{+field_name}, %{+field_name}`, log message `"foo, bar"` will parse into `{"field_name": "foobar"}`.
 
-You can also define the order of the concatenation with the help of the suffix `/<integer>`. 
+You can also define the order of the concatenation with the help of the suffix `/<integer>`.
 
 For example, with a pattern `"%{+field_name/2}, %{+field_name/1}"`, log message `"foo, bar"` will parse into `{"field_name": "barfoo"}`.
 
-If the order is not mentioned, the append operation will occur in the order of the fields specified in the `dissect` pattern. 
+If the order is not mentioned, the append operation will occur in the order of the fields specified in the `dissect` pattern.
 
 #### Indirect field
 

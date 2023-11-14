@@ -17,16 +17,16 @@ curl -X POST http://localhost:4900/shutdown
 
 The following table lists the available APIs.
 
-| Name | Description |
-| --- | --- | 
-| ```GET /list```<br>```POST /list``` | Returns a list of running pipelines. |
-| ```POST /shutdown``` | Starts a graceful shutdown of Data Prepper. |
-| ```GET /metrics/prometheus```<br>```POST /metrics/prometheus``` | Returns a scrape of Data Prepper metrics in Prometheus text format. This API is available as a `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml` and contains `Prometheus` as part of the registry.
-| ```GET /metrics/sys```<br>```POST /metrics/sys``` | Returns JVM metrics in Prometheus text format. This API is available as a `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml` and contains `Prometheus` as part of the registry.
+| Name                                                    | Description                                                                                                                                                                                                                                       |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /list`<br>`POST /list`                             | Returns a list of running pipelines.                                                                                                                                                                                                              |
+| `POST /shutdown`                                        | Starts a graceful shutdown of Data Prepper.                                                                                                                                                                                                       |
+| `GET /metrics/prometheus`<br>`POST /metrics/prometheus` | Returns a scrape of Data Prepper metrics in Prometheus text format. This API is available as a `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml` and contains `Prometheus` as part of the registry. |
+| `GET /metrics/sys`<br>`POST /metrics/sys`               | Returns JVM metrics in Prometheus text format. This API is available as a `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml` and contains `Prometheus` as part of the registry.                      |
 
 ## Configuring the server
 
-You can configure your Data Prepper core APIs through the `data-prepper-config.yaml` file. 
+You can configure your Data Prepper core APIs through the `data-prepper-config.yaml` file.
 
 ### SSL/TLS connection
 
@@ -47,9 +47,8 @@ privateKeyPassword: "secret"
 
 For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to the request to quickly test core APIs with SSL. Use the following `shutdown` request to test core APIs with SSL:
 
-
 ```
-curl -k -X POST https://localhost:4900/shutdown 
+curl -k -X POST https://localhost:4900/shutdown
 ```
 
 ### Authentication
@@ -83,4 +82,4 @@ processorShutdownTimeout: "PT15M"
 sinkShutdownTimeout: 30s
 ```
 
-The values for these parameters are parsed into a `Duration` object through the [Data Prepper Duration Deserializer](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-core/src/main/java/org/opensearch/dataprepper/parser/DataPrepperDurationDeserializer.java). 
+The values for these parameters are parsed into a `Duration` object through the [Data Prepper Duration Deserializer](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-core/src/main/java/org/opensearch/dataprepper/parser/DataPrepperDurationDeserializer.java).

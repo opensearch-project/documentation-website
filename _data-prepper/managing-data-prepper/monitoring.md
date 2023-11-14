@@ -4,7 +4,7 @@ title: Monitoring
 parent: Managing Data Prepper
 nav_order: 25
 ---
- 
+
 # Monitoring Data Prepper with metrics
 
 You can monitor Data Prepper with metrics using [Micrometer](https://micrometer.io/). There are two types of metrics: JVM/system metrics and plugin metrics. [Prometheus](https://prometheus.io/) is used as the default metrics backend.
@@ -23,32 +23,31 @@ By default, metrics are served from the **/metrics/sys** endpoint on the Data Pr
 
 ## Plugin metrics
 
-Plugins report their own metrics. Data Prepper uses a naming convention to help with consistency in the metrics. Plugin metrics do not use dimensions. 
-
+Plugins report their own metrics. Data Prepper uses a naming convention to help with consistency in the metrics. Plugin metrics do not use dimensions.
 
 1. AbstractBuffer
-    - Counter
-        - `recordsWritten`: The number of records written into a buffer
-        - `recordsRead`: The number of records read from a buffer
-        - `recordsProcessed`: The number of records read from a buffer and marked as processed
-        - `writeTimeouts`: The count of write timeouts in a buffer
-    - Gaugefir 
-        - `recordsInBuffer`: The number of records in a buffer
-        - `recordsInFlight`: The number of records read from a buffer and being processed by data-prepper downstreams (for example, processor, sink)
-    - Timer
-        - `readTimeElapsed`: The time elapsed while reading from a buffer
-        - `checkpointTimeElapsed`: The time elapsed while checkpointing
+   - Counter
+     - `recordsWritten`: The number of records written into a buffer
+     - `recordsRead`: The number of records read from a buffer
+     - `recordsProcessed`: The number of records read from a buffer and marked as processed
+     - `writeTimeouts`: The count of write timeouts in a buffer
+   - Gaugefir
+     - `recordsInBuffer`: The number of records in a buffer
+     - `recordsInFlight`: The number of records read from a buffer and being processed by data-prepper downstreams (for example, processor, sink)
+   - Timer
+     - `readTimeElapsed`: The time elapsed while reading from a buffer
+     - `checkpointTimeElapsed`: The time elapsed while checkpointing
 2. AbstractProcessor
-    - Counter
-        - `recordsIn`: The number of records ingressed into a processor
-        - `recordsOut`: The number of records egressed from a processor
-    - Timer
-        - `timeElapsed`: The time elapsed during initiation of a processor
+   - Counter
+     - `recordsIn`: The number of records ingressed into a processor
+     - `recordsOut`: The number of records egressed from a processor
+   - Timer
+     - `timeElapsed`: The time elapsed during initiation of a processor
 3. AbstractSink
-    - Counter
-        - `recordsIn`: The number of records ingressed into a sink
-    - Timer
-        - `timeElapsed`: The time elapsed during execution of a sink 
+   - Counter
+     - `recordsIn`: The number of records ingressed into a sink
+   - Timer
+     - `timeElapsed`: The time elapsed during execution of a sink
 
 ### Naming
 

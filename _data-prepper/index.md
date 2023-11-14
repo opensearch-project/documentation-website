@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Data Prepper 
+title: Data Prepper
 nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
-redirect_from: 
+redirect_from:
   - /clients/data-prepper/index/
   - /data-prepper/
   - /monitoring-plugins/trace/data-prepper/
@@ -19,20 +19,20 @@ Data Prepper lets users build custom pipelines to improve the operational view o
 
 ## Concepts
 
-Data Prepper includes one or more **pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
+Data Prepper includes one or more **pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following:
 
 - One [source](#source)
 - One or more [sinks](#sink)
 - (Optional) One [buffer](#buffer)
 - (Optional) One or more [processors](#processor)
 
-A single instance of Data Prepper can have one or more pipelines. 
+A single instance of Data Prepper can have one or more pipelines.
 
-Each pipeline definition contains two required components: **source** and **sink**. If buffers and processors are missing from the Data Prepper pipeline, Data Prepper uses the default buffer and a no-op processor. 
+Each pipeline definition contains two required components: **source** and **sink**. If buffers and processors are missing from the Data Prepper pipeline, Data Prepper uses the default buffer and a no-op processor.
 
-### Source 
+### Source
 
-Source is the input component that defines the mechanism through which a Data Prepper pipeline will consume events. A pipeline can have only one source. The source can consume events either by receiving the events over HTTP or HTTPS or by reading from external endpoints like OTeL Collector for traces and metrics and Amazon Simple Storage Service (Amazon S3). Sources have their own configuration options based on the format of the events (such as string, JSON, Amazon CloudWatch logs, or open telemetry trace). The source component consumes events and writes them to the buffer component. 
+Source is the input component that defines the mechanism through which a Data Prepper pipeline will consume events. A pipeline can have only one source. The source can consume events either by receiving the events over HTTP or HTTPS or by reading from external endpoints like OTeL Collector for traces and metrics and Amazon Simple Storage Service (Amazon S3). Sources have their own configuration options based on the format of the events (such as string, JSON, Amazon CloudWatch logs, or open telemetry trace). The source component consumes events and writes them to the buffer component.
 
 ### Buffer
 
@@ -58,7 +58,7 @@ This pipeline configuration reads from the file source and writes to another fil
 sample-pipeline:
   source:
     file:
-        path: <path/to/input-file>
+      path: <path/to/input-file>
   sink:
     - file:
         path: <path/to/output-file>
@@ -74,17 +74,17 @@ sample-pipeline:
   delay: 100 # in milliseconds, how often the workers should run
   source:
     file:
-        path: <path/to/input-file>
+      path: <path/to/input-file>
   buffer:
     bounded_blocking:
       buffer_size: 1024 # max number of events the buffer will accept
       batch_size: 256 # max number of events the buffer will drain for each read
   processor:
     - string_converter:
-       upper_case: true
+        upper_case: true
   sink:
     - file:
-       path: <path/to/output-file>
+        path: <path/to/output-file>
 ```
 
 ## Next steps
@@ -92,4 +92,3 @@ sample-pipeline:
 To get started building your own custom pipelines with Data Prepper, see [Getting started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).
 
 <!---Delete this comment.--->
-

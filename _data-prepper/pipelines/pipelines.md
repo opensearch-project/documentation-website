@@ -10,7 +10,7 @@ redirect_from:
 
 # Pipelines
 
-The following image illustrates how a pipeline works. 
+The following image illustrates how a pipeline works.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline">{: .img-fluid}
 
@@ -52,14 +52,13 @@ Starting from Data Prepper 2.0, you can define pipelines across multiple configu
 
 Data Prepper ensures the durability and reliability of data written from sources and delivered to sinks through end-to-end (E2E) acknowledgments. An E2E acknowledgment begins at the source, which monitors a batch of events set inside pipelines and waits for a positive acknowledgment when those events are successfully pushed to sinks. When a pipeline contains multiple sinks, including sinks set as additional Data Prepper pipelines, the E2E acknowledgment sends when events are received by the final sink in a pipeline chain.
 
-Alternatively, the source sends a negative acknowledgment when an event cannot be delivered to a sink for any reason. 
+Alternatively, the source sends a negative acknowledgment when an event cannot be delivered to a sink for any reason.
 
 When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgment. In the case of a failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
 
-
 ## Conditional routing
 
-Pipelines also support **conditional routing**  which allows you to route events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept events that match at least one of the routing conditions. 
+Pipelines also support **conditional routing** which allows you to route events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept events that match at least one of the routing conditions.
 
 In the following example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper only routes events that satisfy the condition to the first OpenSearch sink. By default, Data Prepper routes all events to a sink which does not define a route. In the example, all events route into the third OpenSearch sink.
 
@@ -73,18 +72,17 @@ conditional-routing-sample-pipeline:
     - http-logs: '/log_type == "apache"'
   sink:
     - opensearch:
-        hosts: [ "https://opensearch:9200" ]
+        hosts: ["https://opensearch:9200"]
         index: application_logs
         routes: [application-logs]
     - opensearch:
-        hosts: [ "https://opensearch:9200" ]
+        hosts: ["https://opensearch:9200"]
         index: http_logs
         routes: [http-logs]
     - opensearch:
-        hosts: [ "https://opensearch:9200" ]
+        hosts: ["https://opensearch:9200"]
         index: all_logs
 ```
-
 
 ## Examples
 
@@ -101,7 +99,6 @@ The Data Prepper repository has several [sample applications](https://github.com
 
 The following example `pipeline.yaml` file with SSL and basic authentication enabled for the `http-source` demonstrates how to use the HTTP Source and Grok Prepper plugins to process unstructured log data:
 
-
 ```yaml
 log-pipeline:
   source:
@@ -117,14 +114,14 @@ log-pipeline:
         match:
           # This will match logs with a "log" key against the COMMONAPACHELOG pattern (ex: { "log": "actual apache log..." } )
           # You should change this to match what your logs look like. See the grok documenation to get started.
-          log: [ "%{COMMONAPACHELOG}" ]
+          log: ["%{COMMONAPACHELOG}"]
   sink:
     - opensearch:
-        hosts: [ "https://localhost:9200" ]
+        hosts: ["https://localhost:9200"]
         # Change to your credentials
         username: "admin"
         password: "admin"
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -143,7 +140,7 @@ This example uses weak security. We strongly recommend securing all plugins whic
 
 The following example demonstrates how to build a pipeline that supports the [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
-Starting from Data Prepper 2.0, Data Prepper no longer supports `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. 
+Starting from Data Prepper 2.0, Data Prepper no longer supports `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution.
 Instead, users should use `otel_trace_raw`.
 
 ```yml
@@ -205,10 +202,10 @@ To maintain similar ingestion throughput and latency, scale the `buffer_size` an
 
 Data Prepper supports metrics ingestion using OTel. It currently supports the following metric types:
 
-* Gauge
-* Sum
-* Summary
-* Histogram
+- Gauge
+- Sum
+- Summary
+- Histogram
 
 Other types are not supported. Data Prepper drops all other types, including Exponential Histogram and Summary. Additionally, Data Prepper does not support Scope instrumentation.
 
@@ -248,21 +245,29 @@ log-pipeline:
   processor:
     - grok:
         match:
-          message: ["%{DATA:type} %{TIMESTAMP_ISO8601:time} %{DATA:elb} %{DATA:client} %{DATA:target} %{BASE10NUM:request_processing_time} %{DATA:target_processing_time} %{BASE10NUM:response_processing_time} %{BASE10NUM:elb_status_code} %{DATA:target_status_code} %{BASE10NUM:received_bytes} %{BASE10NUM:sent_bytes} \"%{DATA:request}\" \"%{DATA:user_agent}\" %{DATA:ssl_cipher} %{DATA:ssl_protocol} %{DATA:target_group_arn} \"%{DATA:trace_id}\" \"%{DATA:domain_name}\" \"%{DATA:chosen_cert_arn}\" %{DATA:matched_rule_priority} %{TIMESTAMP_ISO8601:request_creation_time} \"%{DATA:actions_executed}\" \"%{DATA:redirect_url}\" \"%{DATA:error_reason}\" \"%{DATA:target_list}\" \"%{DATA:target_status_code_list}\" \"%{DATA:classification}\" \"%{DATA:classification_reason}"]
+          message:
+            [
+              '%{DATA:type} %{TIMESTAMP_ISO8601:time} %{DATA:elb} %{DATA:client} %{DATA:target} %{BASE10NUM:request_processing_time} %{DATA:target_processing_time} %{BASE10NUM:response_processing_time} %{BASE10NUM:elb_status_code} %{DATA:target_status_code} %{BASE10NUM:received_bytes} %{BASE10NUM:sent_bytes} "%{DATA:request}" "%{DATA:user_agent}" %{DATA:ssl_cipher} %{DATA:ssl_protocol} %{DATA:target_group_arn} "%{DATA:trace_id}" "%{DATA:domain_name}" "%{DATA:chosen_cert_arn}" %{DATA:matched_rule_priority} %{TIMESTAMP_ISO8601:request_creation_time} "%{DATA:actions_executed}" "%{DATA:redirect_url}" "%{DATA:error_reason}" "%{DATA:target_list}" "%{DATA:target_status_code_list}" "%{DATA:classification}" "%{DATA:classification_reason}',
+            ]
     - grok:
         match:
-          request: ["(%{NOTSPACE:http_method})? (%{NOTSPACE:http_uri})? (%{NOTSPACE:http_version})?"]
+          request:
+            [
+              "(%{NOTSPACE:http_method})? (%{NOTSPACE:http_uri})? (%{NOTSPACE:http_version})?",
+            ]
     - grok:
         match:
-          http_uri: ["(%{WORD:protocol})?(://)?(%{IPORHOST:domain})?(:)?(%{INT:http_port})?(%{GREEDYDATA:request_uri})?"]
+          http_uri:
+            [
+              "(%{WORD:protocol})?(://)?(%{IPORHOST:domain})?(:)?(%{INT:http_port})?(%{GREEDYDATA:request_uri})?",
+            ]
     - date:
         from_time_received: true
         destination: "@timestamp"
 
-
   sink:
     - opensearch:
-        hosts: [ "https://localhost:9200" ]
+        hosts: ["https://localhost:9200"]
         username: "admin"
         password: "admin"
         index: alb_logs
@@ -308,7 +313,7 @@ docker run --name data-prepper \
 
 ## Configure peer forwarder
 
-Data Prepper provides an HTTP service to forward events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
+Data Prepper provides an HTTP service to forward events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option.
 
 Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. Peer discovery can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encryption, and mTLS for mutual authentication in a peer forwarding service.
 
@@ -325,10 +330,9 @@ peer_forwarder:
     mutual_tls:
 ```
 
-
 ## Pipeline Configurations
 
-Since Data Prepper 2.5, shared pipeline components can be configured under the reserved section `pipeline_configurations` when all pipelines are defined in a single pipeline configuration YAML file. 
+Since Data Prepper 2.5, shared pipeline components can be configured under the reserved section `pipeline_configurations` when all pipelines are defined in a single pipeline configuration YAML file.
 Shared pipeline configurations can include certain components within [Extension Plugins]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#extension-plugins), as shown in the following example that refers to secrets configurations for an `opensearch` sink:
 
 ```json

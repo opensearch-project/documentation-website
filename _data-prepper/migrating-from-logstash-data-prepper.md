@@ -2,7 +2,7 @@
 layout: default
 title: Migrating from Logstash
 nav_order: 25
-redirect_from: 
+redirect_from:
   - /data-prepper/configure-logstash-data-prepper/
 ---
 
@@ -17,14 +17,16 @@ Alternatively, if you have a Logstash configuration `logstash.conf` to configure
 ## Supported plugins
 
 As of the Data Prepper 1.2 release, the following plugins from the Logstash configuration are supported:
-* HTTP Input plugin
-* Grok Filter plugin
-* Elasticsearch Output plugin
-* Amazon Elasticsearch Output plugin
+
+- HTTP Input plugin
+- Grok Filter plugin
+- Elasticsearch Output plugin
+- Amazon Elasticsearch Output plugin
 
 ## Limitations
-* Apart from the supported plugins, all other plugins from the Logstash configuration will throw an `Exception` and fail to run.
-* Conditionals in the Logstash configuration are not supported as of the Data Prepper 1.2 release.
+
+- Apart from the supported plugins, all other plugins from the Logstash configuration will throw an `Exception` and fail to run.
+- Conditionals in the Logstash configuration are not supported as of the Data Prepper 1.2 release.
 
 ## Running Data Prepper with a Logstash configuration
 
@@ -38,7 +40,6 @@ docker run --name data-prepper -p 4900:4900 -v ${PWD}/logstash.conf:/usr/share/d
 
 The `logstash.conf` file is converted to `logstash.yaml` by mapping the plugins and attributes in the Logstash configuration to the corresponding plugins and attributes in Data Prepper.
 You can find the converted `logstash.yaml` file in the same directory where you stored `logstash.conf`.
-
 
 The following output in your terminal indicates that Data Prepper is running correctly:
 

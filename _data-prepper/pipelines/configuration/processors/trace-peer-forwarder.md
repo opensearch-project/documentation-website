@@ -16,7 +16,7 @@ You should use `trace_peer_forwarder` for Trace Analytics pipelines when you hav
 
 To get started with `trace_peer_forwarder`, first configure [peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). Then create a `pipeline.yaml` file and specify `trace peer forwarder` as the processor. You can configure `peer forwarder` in your `data-prepper-config.yaml` file. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
-See the following example `pipeline.yaml` file: 
+See the following example `pipeline.yaml` file:
 
 ```yaml
 otel-trace-pipeline:
@@ -49,4 +49,4 @@ service-map-pipeline:
     - opensearch:
 ```
 
-In the preceding `pipeline.yaml` file, events are forwarded in the `otel-trace-pipeline` to the target peer, and no forwarding is performed in `raw-pipeline` or `service-map-pipeline`. This process helps improve network performance by forwarding events (as HTTP requests) once instead of twice. 
+In the preceding `pipeline.yaml` file, events are forwarded in the `otel-trace-pipeline` to the target peer, and no forwarding is performed in `raw-pipeline` or `service-map-pipeline`. This process helps improve network performance by forwarding events (as HTTP requests) once instead of twice.

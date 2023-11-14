@@ -14,12 +14,12 @@ The `rename_keys` processor renames keys in an event.
 
 You can configure the `rename_keys` processor with the following options.
 
-| Option | Required | Description |
-| :--- | :--- | :--- |
-| `entries` | Yes | A list of event entries to rename. |
-| `from_key` | Yes | The key of the entry to be renamed. |
-| `to_key` | Yes | The new key of the entry. |
-| `overwrite_if_to_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
+| Option                       | Required | Description                                                                                                               |
+| :--------------------------- | :------- | :------------------------------------------------------------------------------------------------------------------------ |
+| `entries`                    | Yes      | A list of event entries to rename.                                                                                        |
+| `from_key`                   | Yes      | The key of the entry to be renamed.                                                                                       |
+| `to_key`                     | Yes      | The new key of the entry.                                                                                                 |
+| `overwrite_if_to_key_exists` | No       | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
 
 ## Usage
 
@@ -35,32 +35,30 @@ pipeline:
   processor:
     - rename_keys:
         entries:
-        - from_key: "message"
-          to_key: "newMessage"
-          overwrite_if_to_key_exists: true
+          - from_key: "message"
+            to_key: "newMessage"
+            overwrite_if_to_key_exists: true
   sink:
     - stdout:
 ```
-{% include copy.html %}
 
+{% include copy.html %}
 
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 For example, before you run the `rename_keys` processor, if the `logs_json.log` file contains the following event record:
 
 ```json
-{"message": "hello"}
+{ "message": "hello" }
 ```
 
 When you run the `rename_keys` processor, it parses the message into the following "newMessage" output:
 
 ```json
-{"newMessage": "hello"}
+{ "newMessage": "hello" }
 ```
 
 > If `newMessage` already exists, its existing value is overwritten with `value`.
-
-
 
 ## Special considerations
 
@@ -76,10 +74,10 @@ pipeline:
   processor:
     - rename_keys:
         entries:
-        - from_key: "message"
-          to_key: "message2"
-        - from_key: "message2"
-          to_key: "message3"
+          - from_key: "message"
+            to_key: "message2"
+          - from_key: "message2"
+            to_key: "message3"
   sink:
     - stdout:
 ```
@@ -87,12 +85,13 @@ pipeline:
 Add the following contents to the `logs_json.log` file:
 
 ```json
-{"message": "hello"}
+{ "message": "hello" }
 ```
+
 {% include copy.html %}
 
 After the `rename_keys` processor runs, the following output appears:
 
 ```json
-{"message3": "hello"}
+{ "message3": "hello" }
 ```

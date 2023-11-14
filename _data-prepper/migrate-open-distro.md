@@ -6,7 +6,7 @@ nav_order: 30
 
 # Migrating from Open Distro
 
-Existing users can migrate from the Open Distro Data Prepper to OpenSearch Data Prepper. Beginning with Data Prepper version 1.1, there is only one distribution of OpenSearch Data Prepper. 
+Existing users can migrate from the Open Distro Data Prepper to OpenSearch Data Prepper. Beginning with Data Prepper version 1.1, there is only one distribution of OpenSearch Data Prepper.
 
 ## Change your pipeline configuration
 
