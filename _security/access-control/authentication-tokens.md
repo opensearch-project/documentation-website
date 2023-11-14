@@ -62,7 +62,7 @@ The on-behalf-of token contains the following claims:
 The OpenSearch Security plugin is responsible for handling encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third-party services.
 
 ### 3.0 API endpoint
-There will be an new API endpoint `POST /_plugins/_security/api/generateonbehalfoftoken` on the security plugin that will allow users to create a short-lived self-issued on-behalf-of token to perform certain actions on behalf of a user.
+You can access the `POST /_plugins/_security/api/generateonbehalfoftoken` API endpoint on the security plugin in order to create a short-lived self-issued on-behalf-of token to perform certain actions on behalf of a user.
 
 To access this API endpoint, the request body should contain three API parameters:
 
