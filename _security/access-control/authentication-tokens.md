@@ -66,7 +66,7 @@ You can access the `POST /_plugins/_security/api/generateonbehalfoftoken` API en
 
 To access this API endpoint, the request body should contain three API parameters:
 
-* description: This allows the use to articulate the purpose for requesting this token, providing clarity and transparency.
+* `description`: This parameter allows the user to articulate the purpose for requesting this token, providing clarity and transparency.
 * service (optional): This parameter is directed to the audience claim of the on-behalf-of token. It offers users the opportunity to designate the target service for which they intend to use the token. Although this is an optional parameter, if not specified, the default value is set to "self-issued".
 * durationSeconds (optional): This parameter allows users to customize the token's expiration time according to its anticipated usage. However, the maximum duration is capped at 600 seconds to maintain security. If not specified, the default duration is set to 300 seconds.
 * Here is an example of requesting an on-behalf-of token with lifespan of 3 mins as user '“admin” for testing purpose:
