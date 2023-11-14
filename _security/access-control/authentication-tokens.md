@@ -59,7 +59,7 @@ The on-behalf-of token contains the following claims:
 			* Decrypted mapped roles in plain text (`dr`)
 			* Decrypted backend roles (`br`)
 
-The OpenSearch Security plugin will be responsible for handling encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third party services.
+The OpenSearch Security plugin is responsible for handling encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third-party services.
 
 ### 3.0 API endpoint
 There will be an new API endpoint `POST /_plugins/_security/api/generateonbehalfoftoken` on the security plugin that will allow users to create a short-lived self-issued on-behalf-of token to perform certain actions on behalf of a user.
