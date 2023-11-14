@@ -126,7 +126,7 @@ PUT testindex1/_doc/1?pipeline=date-index-name1
 
 #### Response
 
-The request indexes the document into the index `week_index-2023-10-23` and will continue to index documents into weekly indexes because the pipeline rounds by week.
+The request indexes the document into the index `week_index-2023-10-23` and will index all documents with a timestamp within that week into the same index because the pipeline rounds by week.
 
 ```json
 {
