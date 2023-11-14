@@ -116,7 +116,6 @@ The following is an example of create a service account with ALL PERMISSIONS for
   "enabled": "true",
   "service": "true"
  }
-}' -u "admin:admin" --insecure
 ```
 
 ## Handling On-Behalf-Of and Service Account Requests
