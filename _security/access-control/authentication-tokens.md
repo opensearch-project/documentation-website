@@ -30,7 +30,7 @@ config:
 ...
 ```
 
-The encoding algorithm is HMAC SHA512 by default for the signing of the JWT. Both the signing key and encryption key are Base64 encoded and stored on the file system of the OpenSearch node. The keys should be the same on all hosts, otherwise it encryption and decryption operations may fail. Deployment of these keys is managed by the cluster operator.
+The default encoding algorithm for the signing of the JWT (JSON Web Token) is HMAC SHA512. Both the signing key and encryption key are Base64 encoded and stored on the file system of the OpenSearch node. The keys should be the same on all hosts, otherwise encryption and decryption operations may fail. Deployment of these keys is managed by the cluster operator.
 
 ### 3.0 Token structure
 The payload of an on-behalf-of token must include all standard configurations of a JWT (JSON Web Token), along with encrypted and decrypted roles. Depending on the setting of the "Plugin Backward Compatibility Mode," backend roles should also be incorporated into role claims. It is important to note that the absence of any of these claims will result in a malformed token, failing to meet the required standard for authentication.
