@@ -11,7 +11,7 @@ The following are settings related to discovery and local gateway.
 
 ## Discovery settings
 
-The discovery process is used when a cluster is formed. It consists of discovering nodes, electing a cluster manager node, and publishing cluster state when the state is updated. OpenSearch supports the following discovery settings:
+The discovery process is used when a cluster is formed. It consists of discovering nodes and electing a cluster manager node. OpenSearch supports the following discovery settings:
 
 - `discovery.seed_hosts` (Static, list): The list of hosts that perform discovery when a node is started. The default list of hosts is `["127.0.0.1", "[::1]"]`.
 

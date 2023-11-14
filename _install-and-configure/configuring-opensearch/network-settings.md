@@ -7,6 +7,8 @@ nav_order: 20
 
 # Network settings
 
+OpenSearch uses HTTP settings to configure communication with external clients through the REST API and transport settings for internal node-to-node communication within OpenSearch.
+
 OpenSearch supports the following common network settings:
 
 - `network.host` (Static, list): Binds an OpenSearch node to an address. Use `0.0.0.0` to include all available network interfaces, or specify an IP address assigned to a specific interface. The `network.host` setting is a combination of `network.bind_host` and `network.publish_host` if they are the same value. An alternative to `network.host` is to configure `network.bind_host` and `network.publish_host` separately as needed. See [Advanced network settings](#advanced-network-settings).
@@ -25,7 +27,7 @@ OpenSearch supports the following advanced network settings:
 
 ## Advanced HTTP settings
 
-OpenSearch supports the following advanced network settings:
+OpenSearch supports the following advanced network settings for HTTP communication:
 
 - `http.host` (Static, list): Sets the address of an OpenSearch node for HTTP communication. The `http.host` setting is a combination of `http.bind_host` and `http.publish_host` if they are the same value. An alternative to `http.host` is to configure `http.bind_host` and `http.publish_host` separately as needed. 
 
@@ -35,7 +37,7 @@ OpenSearch supports the following advanced network settings:
 
 ## Advanced transport settings
 
-OpenSearch supports the following advanced network settings:
+OpenSearch supports the following advanced network settings for transport communication:
 
 - `transport.host` (Static, list): Sets the address of an OpenSearch node for transport communication. The `transport.host` setting is a combination of `transport.bind_host` and `transport.publish_host` if they are the same value. An alternative to `transport.host` is to configure `transport.bind_host` and `transport.publish_host` separately as needed. 
 
