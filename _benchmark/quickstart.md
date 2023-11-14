@@ -6,7 +6,7 @@ nav_order: 2
 
 # OpenSearch Benchmark quickstart
 
-This tutorial outlines how to quickly install OpenSearch Benchmark and run your first OpenSearch Benchmark workload. 
+This tutorial outlines how to quickly install OpenSearch Benchmark and run your first OpenSearch Benchmark workload.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ If you don't already have an active OpenSearch cluster, you can launch a new Ope
 OpenSearch Benchmark has not been tested with the Window's distribution of OpenSearch.
 {: .note}
 
-After installation, you can verify OpenSearch is running by going to `localhost:9200`. If you're running your cluster with the Security plugin enabled, OpenSearch will expect SSL connections with the username "admin" and password "admin".  However, since the localhost address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled using the `-k` option.
+After installation, you can verify OpenSearch is running by going to `localhost:9200`. If you're running your cluster with the Security plugin enabled, OpenSearch will expect SSL connections with the username "admin" and password "admin". However, since the localhost address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled using the `-k` option.
 
 Use the following command to verify OpenSearch is running with SSL certificate checks disabled:
 
@@ -64,6 +64,7 @@ To install OpenSearch Benchmark from PyPi, enter the following `pip` command:
 ```bash
 pip3 install opensearch-benchmark
 ```
+
 {% include copy.html %}
 
 After the installation completes, verify that OpenSearch Benchmark is running by entering the following command:
@@ -111,7 +112,6 @@ Find out more about Benchmark at https://opensearch.org/docs
 
 You can now run your first benchmark. The following benchmark uses the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload.
 
-
 ### Understanding workload command flags
 
 Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) command with the following command flags:
@@ -119,21 +119,24 @@ Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/bench
 For additional `execute_test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
 {: .tip}
 
-* `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
-- `workload=percolator`: The name of workload used by OpenSearch Benchmark.
-* `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that will be benchmarked. Enter the endpoint of your OpenSearch cluster here.
-* `--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`: The username and password for your OpenSearch cluster.
-* `--test-mode`: Allows a user to run the workload without running it for the entire duration. When this flag is present, Benchmark runs the first thousand operations of each task in the workload. This is only meant for sanity checks---the metrics produced are meaningless.
+- `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
+
+* `workload=percolator`: The name of workload used by OpenSearch Benchmark.
+
+- `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that will be benchmarked. Enter the endpoint of your OpenSearch cluster here.
+- `--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`: The username and password for your OpenSearch cluster.
+- `--test-mode`: Allows a user to run the workload without running it for the entire duration. When this flag is present, Benchmark runs the first thousand operations of each task in the workload. This is only meant for sanity checks---the metrics produced are meaningless.
 
 The `--distribution-version`, which indicates which OpenSearch version Benchmark will use when provisioning. When run, the `execute-test` command will parse the correct distribution version when it connects to the OpenSearch cluster.
 
 ### Running the workload
 
-To run the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload with OpenSearch Benchmark, use the following `execute-test` command: 
+To run the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload with OpenSearch Benchmark, use the following `execute-test` command:
 
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
+
 {% include copy.html %}
 
 When the `execute_test` command runs, all tasks and operations in the `percolator` workload run sequentially.
@@ -241,29 +244,29 @@ Benchmark returns the following response once the benchmark completes:
 --------------------------------
 ```
 
-Each task run by the `percolator` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information: 
+Each task run by the `percolator` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information:
 
-* **Throughput:** The number of successful OpenSearch operations per second. 
-* **Latency:** The amount of time, including wait time, taken for the request and the response to be sent and received by Benchmark.
-* **Service Time:** The amount of time, excluding wait time, taken for the request and the response to be sent and received by Benchmark.
-* **Error Rate:** The percentage of operations run during the task that were not successful or returned a 200 error code.
-
+- **Throughput:** The number of successful OpenSearch operations per second.
+- **Latency:** The amount of time, including wait time, taken for the request and the response to be sent and received by Benchmark.
+- **Service Time:** The amount of time, excluding wait time, taken for the request and the response to be sent and received by Benchmark.
+- **Error Rate:** The percentage of operations run during the task that were not successful or returned a 200 error code.
 
 ## Running OpenSearch Benchmark on your own cluster
 
 Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `execute-test` command, replacing the following settings.
- 
-  * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
-  * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
-  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up.
-  * If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
-  * Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
+
+- Replace `https://localhost:9200` with your target cluster endpoint. This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
+- If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
+- Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster. This directive is needed only for clusters where SSL certificates are not set up.
+- If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
+- Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
 
 You can copy the following command template to use in your own terminal:
 
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
 ```
+
 {% include copy.html %}
 
 ## Next steps

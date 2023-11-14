@@ -7,6 +7,7 @@ nav_order: 4
 ---
 
 # Verify snapshot repository
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -19,26 +20,26 @@ If you use the Security plugin, you must have the `manage cluster` privilege.
 
 ## Path parameters
 
-Path parameters are optional. 
+Path parameters are optional.
 
-| Parameter | Data type | Description | 
-:--- | :--- | :---
-| repository | String | Name of repository to verify. |
+| Parameter  | Data type | Description                   |
+| :--------- | :-------- | :---------------------------- |
+| repository | String    | Name of repository to verify. |
 
 ## Query parameters
 
-| Parameter | Data type | Description | 
-:--- | :--- | :---
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the master node. Optional, defaults to `30s`. |
-| timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to `30s`. |
+| Parameter               | Data type | Description                                                                                                                                                   |
+| :---------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| cluster_manager_timeout | Time      | Amount of time to wait for a connection to the master node. Optional, defaults to `30s`.                                                                      |
+| timeout                 | Time      | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to `30s`. |
 
 #### Example request
 
 The following request verifies that the my-opensearch-repo is functional:
 
-````json
+```json
 POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s
-````
+```
 
 #### Example response
 
@@ -46,19 +47,19 @@ The example that follows corresponds to the request above in the [Example reques
 
 The `POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s` request returns the following fields:
 
-````json
+```json
 {
-  "nodes" : {
-    "by1kztwTRoeCyg4iGU5Y8A" : {
-      "name" : "opensearch-node1"
+  "nodes": {
+    "by1kztwTRoeCyg4iGU5Y8A": {
+      "name": "opensearch-node1"
     }
   }
 }
-````
+```
 
 In the preceding sample, one node is connected to the snapshot repository. If more were connected, you would see them in the response. Example:
 
-````json
+```json
 {
   "nodes" : {
     "lcfL6jv2jo6sMEtp4idMvg" : {
@@ -68,10 +69,10 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
       "name" : "node-2"
   }
 }
-````
+```
 
 ## Response fields
 
-| Field | Data type | Description | 
-:--- | :--- | :---
-| nodes | Object | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |
+| Field | Data type | Description                                                                                                                                                                           |
+| :---- | :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| nodes | Object    | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |

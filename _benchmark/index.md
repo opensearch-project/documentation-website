@@ -28,7 +28,3 @@ The OpenSearch Benchmark documentation is split into five sections:
 - [Tutorials]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/): Use step-by-step guides for more advanced benchmarking configurations and functionality.
 - [Commands]({{site.url}}{{site.baseurl}}/benchmark/commands/index/): A detailed reference of commands and command options supported by OpenSearch.
 - [Workloads]({{site.url}}{{site.baseurl}}/benchmark/workloads/index/): A detailed reference of options available for both default and custom workloads.
-
-
-
-

@@ -16,8 +16,7 @@ A workload is a specification of one or more benchmarking scenarios. A workload 
 
 This section provides a list of options and examples you can use when customizing or using a workload.
 
-For more information about what comprises a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts#anatomy-of-a-workload). 
-
+For more information about what comprises a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts#anatomy-of-a-workload).
 
 ## Workload examples
 
@@ -107,5 +106,5 @@ The following workload runs a benchmark with a single task: a `match_all` query.
 
 ## Next steps
 
-- For more information about configuring OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/). 
-- For a list of prepackaged workloads for OpenSearch Benchmark, see the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository. 
+- For more information about configuring OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
+- For a list of prepackaged workloads for OpenSearch Benchmark, see the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository.

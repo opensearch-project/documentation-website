@@ -2,11 +2,12 @@
 layout: default
 title: Multi-search
 nav_order: 45
-redirect_from: 
- - /opensearch/rest-api/multi-search/
+redirect_from:
+  - /opensearch/rest-api/multi-search/
 ---
 
 # Multi-search
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -22,8 +23,8 @@ GET _msearch
 { "query": { "match_all": {} } }
 
 ```
-{% include copy-curl.html %}
 
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -33,7 +34,6 @@ GET <indices>/_msearch
 POST _msearch
 POST <indices>/_msearch
 ```
-
 
 ## Request body
 
@@ -52,41 +52,38 @@ Query\n
 
 Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
 
-
 ## URL parameters and metadata options
 
 All multi-search URL parameters are optional. Some can also be applied per-search as part of each metadata line.
 
-Parameter | Type | Description | Supported in metadata line
-:--- | :--- | :---
-allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`. | Yes
-cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is:<br> 1. Child-level parameter<br> 2. Parent-level parameter<br> 3. [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings).<br>Default is -1. | Yes
-css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
-ignore_unavailable | Boolean | If an index from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
-max_concurrent_searches | Integer | The maximum number of concurrent searches. The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster. | No
-max_concurrent_shard_requests | Integer | Maximum number of concurrent shard requests that each search executes per node. Default is 5. Higher values can improve performance, but risk overloading the cluster. | No
-pre_filter_shard_size | Integer | Default is 128. | No
-rest_total_hits_as_int | String | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`. | No
-search_type | String | Affects relevance score. Valid options are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using term and document frequencies for the shard (faster, less accurate), whereas `dfs_query_then_fetch` uses term and document frequencies across all shards (slower, more accurate). Default is `query_then_fetch`. | Yes
-typed_keys | Boolean | Whether to prefix aggregation names with their internal types in the response. Default is `false`. | No
+| Parameter                     | Type    | Description                                                                                                                                                                                                                                                                                                                                          | Supported in metadata line |
+| :---------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| allow_no_indices              | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`.                                                                                                                                                                                                                                                                         | Yes                        |
+| cancel_after_time_interval    | Time    | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is:<br> 1. Child-level parameter<br> 2. Parent-level parameter<br> 3. [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings).<br>Default is -1.                                         | Yes                        |
+| css_minimize_roundtrips       | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`.                                                                                                                                                 | No                         |
+| expand_wildcards              | Enum    | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.                                                                                                                                                                        | Yes                        |
+| ignore_unavailable            | Boolean | If an index from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`.                                                                                                                                                                                                                                | Yes                        |
+| max_concurrent_searches       | Integer | The maximum number of concurrent searches. The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster.                                                                                                                                                              | No                         |
+| max_concurrent_shard_requests | Integer | Maximum number of concurrent shard requests that each search executes per node. Default is 5. Higher values can improve performance, but risk overloading the cluster.                                                                                                                                                                               | No                         |
+| pre_filter_shard_size         | Integer | Default is 128.                                                                                                                                                                                                                                                                                                                                      | No                         |
+| rest_total_hits_as_int        | String  | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`.                                                                                                                                                                                                                                     | No                         |
+| search_type                   | String  | Affects relevance score. Valid options are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using term and document frequencies for the shard (faster, less accurate), whereas `dfs_query_then_fetch` uses term and document frequencies across all shards (slower, more accurate). Default is `query_then_fetch`. | Yes                        |
+| typed_keys                    | Boolean | Whether to prefix aggregation names with their internal types in the response. Default is `false`.                                                                                                                                                                                                                                                   | No                         |
 
 {% comment %}Regarding `pre_filter_shard_size`: The description from the REST API specification is unintelligible---to me, anyway. I wasn't able to learn anything from reading the source code, either, so I've included the default value and nothing else in the table above. - aetter
 
 From the REST API specification: A threshold that enforces a pre-filter round trip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.{% endcomment %}
 
-
 ## Metadata-only options
 
 Some options can't be applied as URL parameters to the entire request. Instead, you can apply them per-search as part of each metadata line. All are optional.
 
-Option | Type | Description
-:--- | :--- | :---
-index | String, string array | If you don't specify an index or multiple indexes as part of the URL (or want to override the URL value for an individual search), you can include it here. Examples include `"logs-*"` and `["my-store", "sample_data_ecommerce"]`.
-preference | String | The nodes or shards that you'd like to perform the search. This setting can be useful for testing, but in most situations, the default behavior provides the best search latencies. Options include `_local`, `_only_local`, `_prefer_nodes`, `_only_nodes`, and `_shards`. These last three options accept a list of nodes or shards. Examples include `"_only_nodes:data-node1,data-node2"` and `"_shards:0,1`.
-request_cache | Boolean | Whether to cache results, which can improve latency for repeat searches. Default is to use the `index.requests.cache.enable` setting for the index (which defaults to `true` for new indexes).
-routing | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.
-
+| Option        | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                       |
+| :------------ | :------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| index         | String, string array | If you don't specify an index or multiple indexes as part of the URL (or want to override the URL value for an individual search), you can include it here. Examples include `"logs-*"` and `["my-store", "sample_data_ecommerce"]`.                                                                                                                                                                              |
+| preference    | String               | The nodes or shards that you'd like to perform the search. This setting can be useful for testing, but in most situations, the default behavior provides the best search latencies. Options include `_local`, `_only_local`, `_prefer_nodes`, `_only_nodes`, and `_shards`. These last three options accept a list of nodes or shards. Examples include `"_only_nodes:data-node1,data-node2"` and `"_shards:0,1`. |
+| request_cache | Boolean              | Whether to cache results, which can improve latency for repeat searches. Default is to use the `index.requests.cache.enable` setting for the index (which defaults to `true` for new indexes).                                                                                                                                                                                                                    |
+| routing       | String               | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.                                                                                                                                                                                                                                                                                                                          |
 
 ## Response
 

@@ -10,7 +10,6 @@ redirect_from: /benchmark/installing-benchmark/
 
 You can install OpenSearch Benchmark directly on a host running Linux or macOS, or you can run OpenSearch Benchmark in a Docker container on any compatible host. This page provides general considerations for your OpenSearch Benchmark host as well as instructions for installing OpenSearch Benchmark.
 
-
 ## Choosing appropriate hardware
 
 OpenSearch Benchmark can be used to provision OpenSearch nodes for testing. If you intend to use OpenSearch Benchmark to provision nodes in your environment, then install OpenSearch Benchmark directly on each host in the cluster. Additionally, you must configure each host in the cluster for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for guidance on important host settings.
@@ -23,19 +22,19 @@ When you select a host, you should also think about which workloads you want to 
 If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size.
 
 | Workload name | Document count | Compressed size | Uncompressed size |
-| :----: | :----: | :----: | :----: |
-| eventdata | 20,000,000 | 756.0 MB | 15.3 GB |
-| geonames | 11,396,503 | 252.9 MB | 3.3 GB |
-| geopoint | 60,844,404 | 482.1 MB | 2.3 GB |
-| geopointshape | 60,844,404 | 470.8 MB | 2.6 GB |
-| geoshape | 60,523,283 | 13.4 GB | 45.4 GB |
-| http_logs | 247,249,096 | 1.2 GB | 31.1 GB |
-| nested | 11,203,029 | 663.3 MB | 3.4 GB |
-| noaa | 33,659,481 | 949.4 MB | 9.0 GB |
-| nyc_taxis | 165,346,692 | 4.5 GB | 74.3 GB |
-| percolator | 2,000,000 | 121.1 kB | 104.9 MB |
-| pmc | 574,199 | 5.5 GB | 21.7 GB |
-| so | 36,062,278 | 8.9 GB | 33.1 GB |
+| :-----------: | :------------: | :-------------: | :---------------: |
+|   eventdata   |   20,000,000   |    756.0 MB     |      15.3 GB      |
+|   geonames    |   11,396,503   |    252.9 MB     |      3.3 GB       |
+|   geopoint    |   60,844,404   |    482.1 MB     |      2.3 GB       |
+| geopointshape |   60,844,404   |    470.8 MB     |      2.6 GB       |
+|   geoshape    |   60,523,283   |     13.4 GB     |      45.4 GB      |
+|   http_logs   |  247,249,096   |     1.2 GB      |      31.1 GB      |
+|    nested     |   11,203,029   |    663.3 MB     |      3.4 GB       |
+|     noaa      |   33,659,481   |    949.4 MB     |      9.0 GB       |
+|   nyc_taxis   |  165,346,692   |     4.5 GB      |      74.3 GB      |
+|  percolator   |   2,000,000    |    121.1 kB     |     104.9 MB      |
+|      pmc      |    574,199     |     5.5 GB      |      21.7 GB      |
+|      so       |   36,062,278   |     8.9 GB      |      33.1 GB      |
 
 Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform read and write operations significantly faster than traditional spinning-disk hard drives. Spinning-disk hard drives can introduce performance bottlenecks, which can make benchmark results unreliable and inconsistent.
 {: .tip}
@@ -45,9 +44,9 @@ Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage 
 If you want to run OpenSearch Benchmark in a Docker container, see [Installing with Docker](#installing-with-docker). The OpenSearch Benchmark Docker image includes all of the required software, so there are no additional steps required.
 {: .important}
 
-To install OpenSearch Benchmark directly on a UNIX host, such as Linux or macOS, make sure you have **Python 3.8 or later** installed. 
+To install OpenSearch Benchmark directly on a UNIX host, such as Linux or macOS, make sure you have **Python 3.8 or later** installed.
 
-If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. 
+If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation.
 
 ### Checking software dependencies
 
@@ -61,6 +60,7 @@ Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Pytho
   ```bash
   python3 --version
   ```
+
   {% include copy.html %}
 
 - Check that `pip` is installed and functional:
@@ -68,13 +68,15 @@ Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Pytho
   ```bash
   pip --version
   ```
+
   {% include copy.html %}
 
-- _Optional_: Check that your installed version of `git` is **Git 1.9 or later** using the following command. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git. 
+- _Optional_: Check that your installed version of `git` is **Git 1.9 or later** using the following command. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git.
 
   ```bash
   git --version
   ```
+
   {% include copy.html %}
 
 ### Completing the installation
@@ -84,6 +86,7 @@ After the required software is installed, you can install OpenSearch Benchmark u
 ```bash
 pip install opensearch-benchmark
 ```
+
 {% include copy.html %}
 
 After the installation completes, you can use the following command to display help information:
@@ -91,15 +94,14 @@ After the installation completes, you can use the following command to display h
 ```bash
 opensearch-benchmark -h
 ```
-{% include copy.html %}
 
+{% include copy.html %}
 
 Now that OpenSearch Benchmark is installed on your host, you can learn about [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 
 ## Installing with Docker
 
 You can find the official Docker images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
-
 
 ### Docker limitations
 
@@ -115,6 +117,7 @@ To pull the image from Docker Hub, run the following command:
 ```bash
 docker pull opensearchproject/opensearch-benchmark:latest
 ```
+
 {% include copy.html %}
 
 To pull the image from Amazon Elastic Container Registry (Amazon ECR):
@@ -122,6 +125,7 @@ To pull the image from Amazon Elastic Container Registry (Amazon ECR):
 ```bash
 docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```
+
 {% include copy.html %}
 
 ### Running Benchmark with Docker
@@ -133,8 +137,8 @@ For example, the following command prints the help text for OpenSearch Benchmark
 ```bash
 docker run opensearchproject/opensearch-benchmark -h
 ```
-{% include copy.html %}
 
+{% include copy.html %}
 
 ### Establishing volume persistence in a Docker container
 
@@ -147,6 +151,7 @@ The following example command creates a volume in a user's home directory, mount
 ```bash
 docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
+
 {% include copy.html %}
 
 See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) to learn more about the files and subdirectories located in `/opensearch-benchmark/.benchmark`.
@@ -164,11 +169,11 @@ If you plan on having Benchmark provision a cluster, you'll need to inform Bench
 
 2. Set your corresponding JDK version environment variable by entering the path from the previous step. Enter `export JAVA17_HOME=<Java Path>`.
 
-3. Run the `execute-test` command and indicate the distribution version of OpenSearch you want to use: 
+3. Run the `execute-test` command and indicate the distribution version of OpenSearch you want to use:
 
-  ```bash
-  opensearch-benchmark execute-test --distribution-version=2.3.0 --workload=geonames --test-mode 
-  ```
+```bash
+opensearch-benchmark execute-test --distribution-version=2.3.0 --workload=geonames --test-mode
+```
 
 ## Directory structure
 
@@ -195,14 +200,13 @@ After running OpenSearch Benchmark for the first time, you can search through al
 │   └── benchmark.log
 ```
 
-* `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
-* `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
-* `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
-* `test_executions`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
-* `workloads`: Contains all files related to workloads, except for the data corpora.
-* `logging.json`: Contains all of the configuration options related to how logging is performed within OpenSearch Benchmark.
-* `logs`: Contains all the logs from OpenSearch Benchmark runs. This can be helpful when you've encountered errors during runs.
-
+- `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
+- `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
+- `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
+- `test_executions`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
+- `workloads`: Contains all files related to workloads, except for the data corpora.
+- `logging.json`: Contains all of the configuration options related to how logging is performed within OpenSearch Benchmark.
+- `logs`: Contains all the logs from OpenSearch Benchmark runs. This can be helpful when you've encountered errors during runs.
 
 ## Next steps
 

@@ -9,12 +9,11 @@ redirect_from: /benchmark/commands/compare/
 
 # compare
 
-The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision. 
+The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision.
 
 ## Usage
 
-You can compare two different workload tests using their `TestExecution IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test_executions`. You should receive an output similar to the following: 
-
+You can compare two different workload tests using their `TestExecution IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test_executions`. You should receive an output similar to the following:
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -32,11 +31,11 @@ TestExecution ID                      TestExecution Timestamp    Workload    Wor
 729291a0-ee87-44e5-9b75-cc6d50c89702  20230524T181718Z           geonames                           append-no-conflicts  4gheap                                  30260cf
 f91c33d0-ec93-48e1-975e-37476a5c9fe5  20230524T170134Z           geonames                           append-no-conflicts  4gheap                                  30260cf
 d942b7f9-6506-451d-9dcf-ef502ab3e574  20230524T144827Z           geonames                           append-no-conflicts  4gheap                                  30260cf
-a33845cc-c2e5-4488-a2db-b0670741ff9b  20230523T213145Z           geonames                           append-no-conflicts  
+a33845cc-c2e5-4488-a2db-b0670741ff9b  20230523T213145Z           geonames                           append-no-conflicts
 
 ```
 
-Then, use `compare` to call a `--baseline` test and a  `--contender` test for comparison.
+Then, use `compare` to call a `--baseline` test and a `--contender` test for comparison.
 
 ```
 opensearch-benchmark compare --baseline=417ed42-6671-9i79-11a1-e367636068ce --contender=beb154e4-0a05-4f45-ad9f-e34f9a9e51f7
@@ -54,7 +53,7 @@ You should receive the following response comparing the final benchmark metrics 
 
 Comparing baseline
   TestExecution ID: 729291a0-ee87-44e5-9b75-cc6d50c89702
-  TestExecution timestamp: 2023-05-24 18:17:18 
+  TestExecution timestamp: 2023-05-24 18:17:18
 
 with contender
   TestExecution ID: a33845cc-c2e5-4488-a2db-b0670741ff9b
@@ -122,13 +121,11 @@ Query latency country_agg_cached (100.0 percentile) [ms]     3.42547      2.8681
 
 ## Options
 
-You can use the following options to customize the results of your test comparison: 
+You can use the following options to customize the results of your test comparison:
 
-- `--baseline`: The baseline TestExecution ID used to compare the contender TestExecution.  
-- `--contender`: The TestExecution ID for the contender being compared to the baseline. 
+- `--baseline`: The baseline TestExecution ID used to compare the contender TestExecution.
+- `--contender`: The TestExecution ID for the contender being compared to the baseline.
 - `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
 - `--results-number-align`: Defines the column number alignment for when the `compare` command outputs results. Default is `right`.
-- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path. 
-- `--show-in-results`: Determines whether or not to include the comparison in the results file. 
-
-
+- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path.
+- `--show-in-results`: Determines whether or not to include the comparison in the results file.

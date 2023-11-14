@@ -87,20 +87,20 @@ By default, OpenSearch Benchmark does not contain a reference to generate querie
 
 ```json
 {
-      "operation": {
-        "name": "query-match-all",
-        "operation-type": "search",
-        "body": {
-          "query": {
-            "match_all": {}
-          }
-        }
-      },
-      "clients": 8,
-      "warmup-iterations": 1000,
-      "iterations": 1000,
-      "target-throughput": 100
+  "operation": {
+    "name": "query-match-all",
+    "operation-type": "search",
+    "body": {
+      "query": {
+        "match_all": {}
+      }
     }
+  },
+  "clients": 8,
+  "warmup-iterations": 1000,
+  "iterations": 1000,
+  "target-throughput": 100
+}
 ```
 
 ### Creating a workload without an existing cluster
@@ -112,50 +112,55 @@ To build a workload with source files, create a directory for your workload and 
 1. Build a `<index>-documents.json` file that contains rows of documents that comprise the document corpora of the workload and houses all data to be ingested and queried into the cluster. The following example shows the first few rows of a `movies-documents.json` file that contains rows of documents about famous movies:
 
    ```json
-  # First few rows of movies-documents.json
-  {"title": "Back to the Future", "director": "Robert Zemeckis", "revenue": "$212,259,762 USD", "rating": "8.5 out of 10",  "image_url": "https://imdb.com/images/32"}
-  {"title": "Avengers: Endgame", "director": "Anthony and Joe Russo", "revenue": "$2,800,000,000 USD", "rating": "8.4 out   of 10", "image_url": "https://imdb.com/images/2"}
-  {"title": "The Grand Budapest Hotel", "director": "Wes Anderson", "revenue": "$173,000,000 USD", "rating": "8.1 out of 10", "image_url": "https://imdb.com/images/65"}
-  {"title": "The Godfather: Part II", "director": "Francis Ford Coppola", "revenue": "$48,000,000 USD", "rating": "9 out of 10", "image_url": "https://imdb.com/images/7"}
+
    ```
+
+# First few rows of movies-documents.json
+
+{"title": "Back to the Future", "director": "Robert Zemeckis", "revenue": "$212,259,762 USD", "rating": "8.5 out of 10", "image_url": "https://imdb.com/images/32"}
+{"title": "Avengers: Endgame", "director": "Anthony and Joe Russo", "revenue": "$2,800,000,000 USD", "rating": "8.4 out of 10", "image_url": "https://imdb.com/images/2"}
+{"title": "The Grand Budapest Hotel", "director": "Wes Anderson", "revenue": "$173,000,000 USD", "rating": "8.1 out of 10", "image_url": "https://imdb.com/images/65"}
+{"title": "The Godfather: Part II", "director": "Francis Ford Coppola", "revenue": "$48,000,000 USD", "rating": "9 out of 10", "image_url": "https://imdb.com/images/7"}
+
+````
 
 2. In the same directory, build a `index.json` file. The workload uses this file as a reference for data mappings and index settings for the documents contained in `<index>-documents.json`. The following example creates mappings and settings specific to the `movie-documents.json` data from the previous step:
 
-    ```json
-    {
-    "settings": {
-        "index.number_of_replicas": 0
-    },
-    "mappings": {
-        "dynamic": "strict",
-        "properties": {
-        "title": {
-            "type": "text"
-        },
-        "director": {
-            "type": "text"
-        },
-        "revenue": {
-            "type": "text"
-        },
-        "rating": {
-            "type": "text"
-        },
-        "image_url": {
-            "type": "text"
-        }
-        }
-    }
-    }
-    ```
+ ```json
+ {
+ "settings": {
+     "index.number_of_replicas": 0
+ },
+ "mappings": {
+     "dynamic": "strict",
+     "properties": {
+     "title": {
+         "type": "text"
+     },
+     "director": {
+         "type": "text"
+     },
+     "revenue": {
+         "type": "text"
+     },
+     "rating": {
+         "type": "text"
+     },
+     "image_url": {
+         "type": "text"
+     }
+     }
+ }
+ }
+ ```
 
 3. Next, build a `workload.json` file that provides a high-level overview of your workload and determines how your workload runs benchmark tests. The `workload.json` file contains the following sections:
 
-   - `indices`: Defines the name of the index to be created in your OpenSearch cluster using the mappings from the workload's `index.json` file created in the previous step.
-   - `corpora`: Defines the corpora and the source file, including the:
-      - `document-count`: The number of documents in `<index>-documents.json`. To get an accurate number of documents, run `wc -l <index>-documents.json`.
-      - `uncompressed-bytes`: The number of bytes inside the index. To get an accurate number of bytes, run `stat -f %z <index>-documents.json` on macOS or `stat -c %s <index>-documents.json` on GNU/Linux. Alternatively, run `ls -lrt | grep <index>-documents.json`.
-   - `schedule`: Defines the sequence of operations and available test procedures for the workload.
+- `indices`: Defines the name of the index to be created in your OpenSearch cluster using the mappings from the workload's `index.json` file created in the previous step.
+- `corpora`: Defines the corpora and the source file, including the:
+   - `document-count`: The number of documents in `<index>-documents.json`. To get an accurate number of documents, run `wc -l <index>-documents.json`.
+   - `uncompressed-bytes`: The number of bytes inside the index. To get an accurate number of bytes, run `stat -f %z <index>-documents.json` on macOS or `stat -c %s <index>-documents.json` on GNU/Linux. Alternatively, run `ls -lrt | grep <index>-documents.json`.
+- `schedule`: Defines the sequence of operations and available test procedures for the workload.
 
 The following example `workload.json` file provides the entry point for the `movies` workload. The `indices` section creates an index called `movies`. The corpora section refers to the source file created in step one, `movie-documents.json`, and provides the document count and the amount of uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including:
 
@@ -165,94 +170,96 @@ The following example `workload.json` file provides the entry point for the `mov
 - Ingesting the data corpora from `workload.json` into the cluster.
 - Querying the results.
 
-    ```json
-    {
-    "version": 2,
-    "description": "Tutorial benchmark for OpenSearch Benchmark",
-    "indices": [
-        {
-        "name": "movies",
-        "body": "index.json"
-        }
-    ],
-    "corpora": [
-        {
-        "name": "movies",
-        "documents": [
-            {
-            "source-file": "movies-documents.json",
-            "document-count": 11658903, # Fetch document count from command line
-            "uncompressed-bytes": 1544799789 # Fetch uncompressed bytes from command line
-            }
-        ]
-        }
-    ],
-    "schedule": [
-        {
-        "operation": {
-            "operation-type": "delete-index"
-        }
-        },
-        {
-        "operation": {
-            "operation-type": "create-index"
-        }
-        },
-        {
-        "operation": {
-            "operation-type": "cluster-health",
-            "request-params": {
-            "wait_for_status": "green"
-            },
-            "retry-until-success": true
-        }
-        },
-        {
-        "operation": {
-            "operation-type": "bulk",
-            "bulk-size": 5000
-        },
-        "warmup-time-period": 120,
-        "clients": 8
-        },
-        {
-        "operation": {
-            "operation-type": "force-merge"
-        }
-        },
-        {
-        "operation": {
-            "name": "query-match-all",
-            "operation-type": "search",
-            "body": {
-            "query": {
-                "match_all": {}
-            }
-            }
-        },
-        "clients": 8,
-        "warmup-iterations": 1000,
-        "iterations": 1000,
-        "target-throughput": 100
-        }
-    ]
-    }
-    ```
+ ```json
+ {
+ "version": 2,
+ "description": "Tutorial benchmark for OpenSearch Benchmark",
+ "indices": [
+     {
+     "name": "movies",
+     "body": "index.json"
+     }
+ ],
+ "corpora": [
+     {
+     "name": "movies",
+     "documents": [
+         {
+         "source-file": "movies-documents.json",
+         "document-count": 11658903, # Fetch document count from command line
+         "uncompressed-bytes": 1544799789 # Fetch uncompressed bytes from command line
+         }
+     ]
+     }
+ ],
+ "schedule": [
+     {
+     "operation": {
+         "operation-type": "delete-index"
+     }
+     },
+     {
+     "operation": {
+         "operation-type": "create-index"
+     }
+     },
+     {
+     "operation": {
+         "operation-type": "cluster-health",
+         "request-params": {
+         "wait_for_status": "green"
+         },
+         "retry-until-success": true
+     }
+     },
+     {
+     "operation": {
+         "operation-type": "bulk",
+         "bulk-size": 5000
+     },
+     "warmup-time-period": 120,
+     "clients": 8
+     },
+     {
+     "operation": {
+         "operation-type": "force-merge"
+     }
+     },
+     {
+     "operation": {
+         "name": "query-match-all",
+         "operation-type": "search",
+         "body": {
+         "query": {
+             "match_all": {}
+         }
+         }
+     },
+     "clients": 8,
+     "warmup-iterations": 1000,
+     "iterations": 1000,
+     "target-throughput": 100
+     }
+ ]
+ }
+ ```
 
 The corpora section refers to the source file created in step one, `movie-documents.json`, and provides the document count and the amount of uncompressed bytes. Lastly, the schedule section defines a few operations the workload performs when invoked, including:
 
 - Deleting any current index named `movies`.
 - Creating an index named `movies` based on data from `movie-documents.json` and the mappings from `index.json`.
-   - Verifying that the cluster is in good health and can ingest the new index.
-   - Ingesting the data corpora from `workload.json` into the cluster.
-   - Querying the results.
+- Verifying that the cluster is in good health and can ingest the new index.
+- Ingesting the data corpora from `workload.json` into the cluster.
+- Querying the results.
 
 
 
 For all the workload files created, verify that the workload is functional by running a test. To verify the workload, run the following command, replacing `--workload-path` with a path to your workload directory:
 
-```
+````
+
 opensearch-benchmark list workloads --workload-path=</path/to/workload/>
+
 ```
 
 ## Invoking your custom workload
@@ -260,11 +267,13 @@ opensearch-benchmark list workloads --workload-path=</path/to/workload/>
 Use the `opensearch-benchmark execute-test` command to invoke your new workload and run a benchmark test against your OpenSearch cluster, as shown in the following example. Replace `--workload-path` with the path to your custom workload, `--target-host` with the `host:port` pairs for your cluster, and `--client-options` with any authorization options required to access the cluster.
 
 ```
+
 opensearch-benchmark execute_test \
 --pipeline="benchmark-only" \
 --workload-path="<PATH OUTPUTTED IN THE OUTPUT OF THE CREATE-WORKLOAD COMMAND>" \
 --target-host="<CLUSTER ENDPOINT>" \
 --client-options="basic_auth_user:'<USERNAME>',basic_auth_password:'<PASSWORD>'"
+
 ```
 
 Results from the test appear in the directory set by `--output-path` option in `workloads.json`.
@@ -280,19 +289,23 @@ If you want run the test in test mode to make sure your workload operates as int
 To use test mode, create a `<index>-documents-1k.json` file that contains the first 1000 documents from `<index>-documents.json` using the following command:
 
 ```
+
 head -n 1000 <index>-documents.json > <index>-documents-1k.json
+
 ```
 
 Then, run `opensearch-benchmark execute-test` with the option `--test-mode`. Test mode runs a quick version of the workload test.
 
 ```
+
 opensearch-benchmark execute_test \
---pipeline="benchmark-only"  \
+--pipeline="benchmark-only" \
 --workload-path="<PATH OUTPUTTED IN THE OUTPUT OF THE CREATE-WORKLOAD COMMAND>" \
 --target-host="<CLUSTER ENDPOINT>" \
 --client-options"basic_auth_user:'<USERNAME>',basic_auth_password:'<PASSWORD>'" \
 --test-mode
-```
+
+````
 
 ### Adding variance to test procedures
 
@@ -362,7 +375,7 @@ To add variance to your workload operations, go to your `workload.json` file and
     }
   ]
 }
-```
+````
 
 ### Separate operations and test procedures
 
@@ -372,15 +385,15 @@ If you want to make your `workload.json` file more readable, you can separate yo
 2. Add all operations to a file named `operations.json`.
 3. Reference the new files in `workloads.json` by adding the following syntax, replacing `parts` with the relative path to each file, as shown in the following example:
 
-    ```json
-    "operations": [
-        {% raw %}{{ benchmark.collect(parts="operations/*.json") }}{% endraw %}
-    ]
-    # Reference test procedure files in workload.json
-    "test_procedures": [
-        {% raw %}{{ benchmark.collect(parts="test_procedures/*.json") }}{% endraw %}
-    ]
-    ```
+   ```json
+   "operations": [
+       {% raw %}{{ benchmark.collect(parts="operations/*.json") }}{% endraw %}
+   ]
+   # Reference test procedure files in workload.json
+   "test_procedures": [
+       {% raw %}{{ benchmark.collect(parts="test_procedures/*.json") }}{% endraw %}
+   ]
+   ```
 
 ## Next steps
 

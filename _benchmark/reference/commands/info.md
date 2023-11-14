@@ -9,17 +9,17 @@ redirect_from: /benchmark/commands/info/
 
 # info
 
-The `info` command prints details about an OpenSearch Benchmark component. 
+The `info` command prints details about an OpenSearch Benchmark component.
 
 ## Usage
 
-The following example returns information about a workload named `nyc_taxis`: 
+The following example returns information about a workload named `nyc_taxis`:
 
 ```
 opensearch-benchmark info --workload=nyc_taxis
 ```
 
-OpenSearch Benchmark returns information about the workload, as shown in the following example response: 
+OpenSearch Benchmark returns information about the workload, as shown in the following example response:
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -42,11 +42,11 @@ TestProcedure [searchable-snapshot]
 
 Measuring performance for Searchable Snapshot feature. Based on the default test procedure 'append-no-conflicts'.
 
-Schedule: 
+Schedule:
 ----------
 
 1. delete-index
-2. create-index 
+2. create-index
 3. check-cluster-health
 4. index (8 clients)
 5. refresh-after-index
@@ -59,17 +59,17 @@ Schedule:
 12. wait-for-snapshot-creation
 13. delete-local-index
 14. restore-snapshot
-15. default 
+15. default
 16. range
 17. distance_amount_agg
 18. autohisto_agg
 19. date_histogram_agg
 
 ====================================================
-TestProcedure [append-no-conflicts] (run by default) 
+TestProcedure [append-no-conflicts] (run by default)
 ====================================================
 
-Indexes the entire document corpus using a setup that will lead to a larger indexing throughput than the default settings and produce a smaller index (higher compression rate). Document IDs are unique, so all index operations are append only. After that, a couple of queries are run. 
+Indexes the entire document corpus using a setup that will lead to a larger indexing throughput than the default settings and produce a smaller index (higher compression rate). Document IDs are unique, so all index operations are append only. After that, a couple of queries are run.
 
 Schedule:
 ----------
@@ -148,13 +148,12 @@ Schedule:
 
 ## Options
 
-You can use the following options with the `info` command: 
-
+You can use the following options with the `info` command:
 
 - `--workload-repository`: Defines the repository from where OpenSearch Benchmark loads workloads.
-- `--workload-path`: Defines the path to a downloaded or custom workload. 
+- `--workload-path`: Defines the path to a downloaded or custom workload.
 - `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use.
-- `--workload`: Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`. 
+- `--workload`: Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`.
 - `--test-procedure`: Defines a test procedure to use. You can find a list of test procedures using `opensearch-benchmark list test_procedures`.
 - `--include-tasks`: Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
-- `--exclude-tasks`: Defines a comma-separated list of test procedure tasks not to run. 
+- `--exclude-tasks`: Defines a comma-separated list of test procedure tasks not to run.

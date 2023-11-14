@@ -11,13 +11,12 @@ redirect_from: /benchmark/commands/list/
 
 The `list` command lists the following elements used by OpenSearch Benchmark:
 
-- `telemetry`: Telemetry devices  
-- `workloads`: Workloads 
+- `telemetry`: Telemetry devices
+- `workloads`: Workloads
 - `pipelines`: Pipelines
-- `test_executions`: Single run of a workload 
+- `test_executions`: Single run of a workload
 - `provision_config_instances`: Provisioned configuration instances
-- `opensearch-plugins`: OpenSearch plugins 
-
+- `opensearch-plugins`: OpenSearch plugins
 
 ## Usage
 
@@ -27,7 +26,7 @@ The following example lists any workload test runs and detailed information abou
 `opensearch-benchmark list test_executions
 ```
 
-OpenSearch Benchmark returns information about each test. 
+OpenSearch Benchmark returns information about each test.
 
 ```
 benchmark list test_executions
@@ -62,11 +61,9 @@ ba643ed3-0db5-452e-a680-2b0dc0350cf2  20230522T224450Z           geonames       
 
 ## Options
 
-You can use the following options with the `test` command: 
+You can use the following options with the `test` command:
 
-- `--limit`: Limits the number of search results for recent test runs. Default is `10`. 
+- `--limit`: Limits the number of search results for recent test runs. Default is `10`.
 - `--workload-repository`: Defines the repository from where OpenSearch Benchmark loads workloads.
 - `--workload-path`: Defines the path to a downloaded or custom workload.
-- `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use. 
-
-
+- `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use.

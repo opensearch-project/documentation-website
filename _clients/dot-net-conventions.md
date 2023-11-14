@@ -18,9 +18,9 @@ As a rule, you should set up your OpenSearch.Client as a singleton. OpenSearch.C
 
 The following are the types of exceptions that may be thrown by .NET clients:
 
-- `OpenSearchClientException` is a known exception that occurs either in the request pipeline (for example, timeout reached) or in OpenSearch (for example, malformed query). If it is an OpenSearch exception, the `ServerError` response property contains the error that OpenSearch returns. 
+- `OpenSearchClientException` is a known exception that occurs either in the request pipeline (for example, timeout reached) or in OpenSearch (for example, malformed query). If it is an OpenSearch exception, the `ServerError` response property contains the error that OpenSearch returns.
 - `UnexpectedOpenSearchClientException` is an unknown exception (for example, an error during deserialization) and is a subclass of OpenSearchClientException.
-- System exceptions are thrown when the API is not used properly. 
+- System exceptions are thrown when the API is not used properly.
 
 ## Nodes
 
@@ -30,9 +30,10 @@ To create a node, pass a `Uri` object into its constructor:
 var uri = new Uri("http://example.org/opensearch");
 var node = new Node(uri);
 ```
+
 {% include copy.html %}
 
-When first created, a node is master eligible, and its `HoldsData` property is set to true. 
+When first created, a node is master eligible, and its `HoldsData` property is set to true.
 The `AbsolutePath` property of the node created above is `"/opensearch/"`: A trailing forward slash is appended so that the paths can be easily combined. If not specified, the default `Port` is 80.
 
 Nodes are considered equal if they have the same endpoint. Metadata is not taken into account when checking nodes for equality.
@@ -46,7 +47,7 @@ The following are connection pool types.
 
 - **SingleNodeConnectionPool**
 
-`SingleNodeConnectionPool` is the default connection pool that is used if no connection pool is passed to the `ConnectionSettings` constructor. Use `SingleNodeConnectionPool` if you have only one node in the cluster or if your cluster has a load balancer as an entry point. `SingleNodeConnectionPool` does not support sniffing or pinging and does not mark nodes as dead or alive. 
+`SingleNodeConnectionPool` is the default connection pool that is used if no connection pool is passed to the `ConnectionSettings` constructor. Use `SingleNodeConnectionPool` if you have only one node in the cluster or if your cluster has a load balancer as an entry point. `SingleNodeConnectionPool` does not support sniffing or pinging and does not mark nodes as dead or alive.
 
 - **CloudConnectionPool**
 
@@ -70,22 +71,24 @@ The following are connection pool types.
 
 ## Retries
 
-If a request does not succeed, it is automatically retried. By default, the number of retries is the number of nodes known to OpenSearch.Client in your cluster. The number of retries is also limited by the timeout parameter, so OpenSearch.Client retries requests as many times as possible within the timeout period. 
+If a request does not succeed, it is automatically retried. By default, the number of retries is the number of nodes known to OpenSearch.Client in your cluster. The number of retries is also limited by the timeout parameter, so OpenSearch.Client retries requests as many times as possible within the timeout period.
 
 To set the maximum number of retries, specify the number in the `MaximumRetries` property on the `ConnectionSettings` object.
 
 ```cs
 var settings = new ConnectionSettings(connectionPool).MaximumRetries(5);
 ```
+
 {% include copy.html %}
 
-You can also set a `RequestTimeout` that specifies a timeout for a single request and a `MaxRetryTimeout` that specifies the time limit for all retry attempts. In the example below, `RequestTimeout` is set to 4 seconds, and `MaxRetryTimeout` is set to 12 seconds, so the maximum number of attempts for a query is 3. 
+You can also set a `RequestTimeout` that specifies a timeout for a single request and a `MaxRetryTimeout` that specifies the time limit for all retry attempts. In the example below, `RequestTimeout` is set to 4 seconds, and `MaxRetryTimeout` is set to 12 seconds, so the maximum number of attempts for a query is 3.
 
 ```cs
 var settings = new ConnectionSettings(connectionPool)
             .RequestTimeout(TimeSpan.FromSeconds(4))
             .MaxRetryTimeout(TimeSpan.FromSeconds(12));
 ```
+
 {% include copy.html %}
 
 ## Failover

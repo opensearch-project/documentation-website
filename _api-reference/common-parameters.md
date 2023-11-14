@@ -7,6 +7,7 @@ redirect_from:
 ---
 
 # Common REST parameters
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -14,7 +15,7 @@ OpenSearch supports the following parameters for all REST operations:
 
 ## Human-readable output
 
-To convert output units to human-readable values (for example, `1h` for 1 hour and `1kb` for 1,024 bytes), add `?human=true` to the request URL.  
+To convert output units to human-readable values (for example, `1h` for 1 hour and `1kb` for 1,024 bytes), add `?human=true` to the request URL.
 
 #### Example request
 
@@ -27,7 +28,7 @@ GET <index_name>/_search?human=true
 
 ## Pretty result
 
-To get back JSON responses in a readable format, add `?pretty=true` to the request URL.  
+To get back JSON responses in a readable format, add `?pretty=true` to the request URL.
 
 #### Example request
 
@@ -40,7 +41,7 @@ GET <index_name>/_search?pretty=true
 
 ## Content type
 
-To specify the type of content in the request body, use the `Content-Type` key name in the request header. Most operations support JSON, YAML, and CBOR formats.  
+To specify the type of content in the request body, use the `Content-Type` key name in the request header. Most operations support JSON, YAML, and CBOR formats.
 
 #### Example request
 
@@ -53,8 +54,7 @@ curl -H "Content-type: application/json" -XGET localhost:9200/_scripts/<template
 
 ## Request body in query string
 
-If the client library does not accept a request body for non-POST requests, use the `source` query string parameter to pass the request body. Also, specify the `source_content_type` parameter with a supported media type such as `application/json`.  
-
+If the client library does not accept a request body for non-POST requests, use the `source` query string parameter to pass the request body. Also, specify the `source_content_type` parameter with a supported media type such as `application/json`.
 
 #### Example request
 
@@ -67,7 +67,7 @@ GET shakespeare/search?source={"query":{"exists":{"field":"speaker"}}}&source_co
 
 ## Stack traces
 
-To include the error stack trace in the response when an exception is raised, add `error_trace=true` to the request URL.  
+To include the error stack trace in the response when an exception is raised, add `error_trace=true` to the request URL.
 
 #### Example request
 
@@ -80,7 +80,7 @@ GET <index_name>/_search?error_trace=true
 
 ## Filtered responses
 
-To reduce the response size use the `filter_path` parameter to filter the fields that are returned. This parameter takes a comma-separated list of filters. It supports using wildcards to match any field or part of a field's name. You can also exclude fields with `-`.  
+To reduce the response size use the `filter_path` parameter to filter the fields that are returned. This parameter takes a comma-separated list of filters. It supports using wildcards to match any field or part of a field's name. You can also exclude fields with `-`.
 
 #### Example request
 

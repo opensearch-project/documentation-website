@@ -5,6 +5,7 @@ nav_order: 55
 ---
 
 # Profile
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -31,6 +32,7 @@ GET /testindex/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 To turn on human-readable format, include the `?human=true` query parameter in the request:
@@ -44,6 +46,7 @@ GET /testindex/_search?human=true
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 The response contains an additional `time` field with human-readable units, for example:
@@ -211,62 +214,63 @@ The response contains profiling information:
   }
 }
 ```
+
 </details>
 
 ## Response fields
 
 The response includes the following fields.
 
-Field | Data type | Description
-:--- | :--- | :---
-`profile` | Object | Contains profiling information.
-`profile.shards` | Array of objects | A search request can be executed against one or more shards in the index, and a search may involve one or more indexes. Thus, the `profile.shards` array contains profiling information for each shard that was involved in the search.
-`profile.shards.id` | String | The shard ID of the shard in the `[node-ID][index-name][shard-ID]` format.
-`profile.shards.searches` | Array of objects | A search represents a query executed against the underlying Lucene index. Most search requests execute a single search against a Lucene index, but some search requests can execute more than one search. For example, including a global aggregation results in a secondary `match_all` query for the global context. The `profile.shards` array contains profiling information about each search execution.
-[`profile.shards.searches.query`](#the-query-array) | Array of objects | Profiling information about the query execution.
-`profile.shards.searches.rewrite_time` | Integer | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing a query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds.
-[`profile.shards.searches.collector`](#the-collector-array) | Array of objects | Profiling information about the Lucene collectors that ran the search.
-[`profile.shards.aggregations`](#aggregations) | Array of objects | Profiling information about the aggregation execution.
+| Field                                                       | Data type        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| :---------------------------------------------------------- | :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `profile`                                                   | Object           | Contains profiling information.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `profile.shards`                                            | Array of objects | A search request can be executed against one or more shards in the index, and a search may involve one or more indexes. Thus, the `profile.shards` array contains profiling information for each shard that was involved in the search.                                                                                                                                                                                                                                        |
+| `profile.shards.id`                                         | String           | The shard ID of the shard in the `[node-ID][index-name][shard-ID]` format.                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `profile.shards.searches`                                   | Array of objects | A search represents a query executed against the underlying Lucene index. Most search requests execute a single search against a Lucene index, but some search requests can execute more than one search. For example, including a global aggregation results in a secondary `match_all` query for the global context. The `profile.shards` array contains profiling information about each search execution.                                                                  |
+| [`profile.shards.searches.query`](#the-query-array)         | Array of objects | Profiling information about the query execution.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `profile.shards.searches.rewrite_time`                      | Integer          | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing a query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds. |
+| [`profile.shards.searches.collector`](#the-collector-array) | Array of objects | Profiling information about the Lucene collectors that ran the search.                                                                                                                                                                                                                                                                                                                                                                                                         |
+| [`profile.shards.aggregations`](#aggregations)              | Array of objects | Profiling information about the aggregation execution.                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 ### The `query` array
 
 The `query` array contains objects with the following fields.
 
-Field | Data type | Description
-:--- | :--- | :---
-`type` | String | The Lucene query type into which the search query was rewritten. Corresponds to the Lucene class name (which often has the same name in OpenSearch).
-`description` | String | Contains a Lucene explanation of the query. Helps differentiate queries with the same type.
-`time_in_nanos` | Long | The amount of time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of the execution times of all the child queries.
-[`breakdown`](#the-breakdown-object) | Object | Contains timing statistics about low-level Lucene execution.
-`children` | Array of objects | If a query has subqueries (children), this field contains information about the subqueries.
+| Field                                | Data type        | Description                                                                                                                                             |
+| :----------------------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`                               | String           | The Lucene query type into which the search query was rewritten. Corresponds to the Lucene class name (which often has the same name in OpenSearch).    |
+| `description`                        | String           | Contains a Lucene explanation of the query. Helps differentiate queries with the same type.                                                             |
+| `time_in_nanos`                      | Long             | The amount of time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of the execution times of all the child queries. |
+| [`breakdown`](#the-breakdown-object) | Object           | Contains timing statistics about low-level Lucene execution.                                                                                            |
+| `children`                           | Array of objects | If a query has subqueries (children), this field contains information about the subqueries.                                                             |
 
 ### The `breakdown` object
 
 The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object comprises the following fields. All fields contain integer values.
 
-Field | Description
-:--- | :--- 
-`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple `IndexSearcher` objects. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a `Weight` object, which keeps the temporary context (state) associated with the `<IndexSearcher, Query>` tuple. The `create_weight` field contains the amount of time spent creating the `Weight` object.
-`build_scorer` | A `Scorer` iterates over matching documents and generates a score for each document. The `build_scorer` field contains the amount of time spent generating the `Scorer` object. This does not include the time spent scoring the documents. The `Scorer` initialization time depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the amount of time associated with caching, if caching is applicable and enabled for the query.
-`next_doc` | The `next_doc` Lucene method returns the document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the amount of time required to determine the next matching document, which varies depending on the query type.  
-`advance` | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.
-`match` | For some queries, document matching is performed in two steps. First, the document is matched approximately. Second, those documents that are approximately matched are examined through a more comprehensive process. For example, a phrase query first checks whether a document contains all terms in the phrase. Next, it verifies that the terms are in order (which is a more expensive process). The `match` field is non-zero only for those queries that use the two-step verification process. 
-`score` | Contains the time taken for a `Scorer` to score a particular document.
-`shallow_advance` | Contains the amount of time required to execute the `advanceShallow` Lucene method.
-`compute_max_score` | Contains the amount of time required to execute the `getMaxScore` Lucene method.
-`set_min_competitive_score` | Contains the amount of time required to execute the `setMinCompetitiveScore` Lucene method.
-`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
+| Field                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `create_weight`             | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple `IndexSearcher` objects. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a `Weight` object, which keeps the temporary context (state) associated with the `<IndexSearcher, Query>` tuple. The `create_weight` field contains the amount of time spent creating the `Weight` object. |
+| `build_scorer`              | A `Scorer` iterates over matching documents and generates a score for each document. The `build_scorer` field contains the amount of time spent generating the `Scorer` object. This does not include the time spent scoring the documents. The `Scorer` initialization time depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the amount of time associated with caching, if caching is applicable and enabled for the query.                                 |
+| `next_doc`                  | The `next_doc` Lucene method returns the document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the amount of time required to determine the next matching document, which varies depending on the query type.                                                                                                       |
+| `advance`                   | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.                                                                                                                                                             |
+| `match`                     | For some queries, document matching is performed in two steps. First, the document is matched approximately. Second, those documents that are approximately matched are examined through a more comprehensive process. For example, a phrase query first checks whether a document contains all terms in the phrase. Next, it verifies that the terms are in order (which is a more expensive process). The `match` field is non-zero only for those queries that use the two-step verification process.                  |
+| `score`                     | Contains the time taken for a `Scorer` to score a particular document.                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `shallow_advance`           | Contains the amount of time required to execute the `advanceShallow` Lucene method.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `compute_max_score`         | Contains the amount of time required to execute the `getMaxScore` Lucene method.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `set_min_competitive_score` | Contains the amount of time required to execute the `setMinCompetitiveScore` Lucene method.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `<method>_count`            | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.                                                                                                                                                                          |
 
 ### The `collector` array
 
-The `collector` array contains information about Lucene Collectors. A Collector is responsible for coordinating document traversal and scoring and collecting matching documents. Using Collectors, individual queries can record aggregation results and execute global queries or post-query filters. 
+The `collector` array contains information about Lucene Collectors. A Collector is responsible for coordinating document traversal and scoring and collecting matching documents. Using Collectors, individual queries can record aggregation results and execute global queries or post-query filters.
 
-Field | Description
-:--- | :--- 
-`name` | The collector name. In the [example response](#example-response), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector.
-`reason` | Contains a description of the collector. For possible field values, see [Collector reasons](#collector-reasons).
-`time_in_nanos` | A wall-clock time, including timing for all children.
-`children` | If a collector has subcollectors (children), this field contains information about the subcollectors.
+| Field           | Description                                                                                                                                                             |
+| :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`          | The collector name. In the [example response](#example-response), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector. |
+| `reason`        | Contains a description of the collector. For possible field values, see [Collector reasons](#collector-reasons).                                                        |
+| `time_in_nanos` | A wall-clock time, including timing for all children.                                                                                                                   |
+| `children`      | If a collector has subcollectors (children), this field contains information about the subcollectors.                                                                   |
 
 Collector times are calculated, combined, and normalized independently, so they are independent of query times.
 {: .note}
@@ -275,16 +279,16 @@ Collector times are calculated, combined, and normalized independently, so they 
 
 The following table describes all available collector reasons.
 
-Reason | Description
-:--- | :--- 
-`search_sorted` | A collector that scores and sorts documents. Present in most simple searches.
-`search_count` | A collector that counts the number of matching documents but does not fetch the source. Present when `size: 0` is specified.
-`search_terminate_after_count` | A collector that searches for matching documents and terminates the search when it finds a specified number of documents. Present when the `terminate_after_count` query parameter is specified.
-`search_min_score` | A collector that returns matching documents that have a score greater than a minimum score. Present when the `min_score` parameter is specified.
-`search_multi` | A wrapper collector for other collectors. Present when search, aggregations, global aggregations, and post filters are combined in a single search.
-`search_timeout` | A collector that stops running after a specified period of time. Present when a `timeout` parameter is specified.
-`aggregation` | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect documents for all aggregations.
-`global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope, so in order to collect the entire dataset, a `match_all` query must be run.
+| Reason                         | Description                                                                                                                                                                                      |
+| :----------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `search_sorted`                | A collector that scores and sorts documents. Present in most simple searches.                                                                                                                    |
+| `search_count`                 | A collector that counts the number of matching documents but does not fetch the source. Present when `size: 0` is specified.                                                                     |
+| `search_terminate_after_count` | A collector that searches for matching documents and terminates the search when it finds a specified number of documents. Present when the `terminate_after_count` query parameter is specified. |
+| `search_min_score`             | A collector that returns matching documents that have a score greater than a minimum score. Present when the `min_score` parameter is specified.                                                 |
+| `search_multi`                 | A wrapper collector for other collectors. Present when search, aggregations, global aggregations, and post filters are combined in a single search.                                              |
+| `search_timeout`               | A collector that stops running after a specified period of time. Present when a `timeout` parameter is specified.                                                                                |
+| `aggregation`                  | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect documents for all aggregations.                          |
+| `global_aggregation`           | A collector that is run against the global query scope. Global scope is different from a specified query scope, so in order to collect the entire dataset, a `match_all` query must be run.      |
 
 ## Aggregations
 
@@ -302,8 +306,8 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
   },
   "aggs": {
     "all_products": {
-      "global": {}, 
-      "aggs": {     
+      "global": {},
+      "aggs": {
       "avg_price": { "avg": { "field": "taxful_total_price" } }
       }
     },
@@ -311,6 +315,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 #### Example response: Global aggregation
@@ -566,6 +571,7 @@ The response contains profiling information:
   }
 }
 ```
+
 </details>
 
 #### Example request: Non-global aggregation
@@ -583,6 +589,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 #### Example response: Non-global aggregation
@@ -728,34 +735,35 @@ The response contains profiling information:
   }
 }
 ```
+
 </details>
 
 ### Response fields
 
 The `aggregations` array contains aggregation objects with the following fields.
 
-Field | Data type | Description
-:--- | :--- | :---
-`type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with an `AvgAggregator` child.
-`description` | String | Contains a Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
-`time_in_nanos` | Long | The amount of time taken to execute the aggregation, in nanoseconds. In a parent aggregation, the time is inclusive of the execution times of all the child aggregations.
-[`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
-`children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
-`debug` | Object | Some aggregations return a `debug` object that describes the details of the underlying execution.
+| Field                                  | Data type        | Description                                                                                                                                                                                                                                                                                      |
+| :------------------------------------- | :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                 | String           | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with an `AvgAggregator` child. |
+| `description`                          | String           | Contains a Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.                                                                                                                                                                                           |
+| `time_in_nanos`                        | Long             | The amount of time taken to execute the aggregation, in nanoseconds. In a parent aggregation, the time is inclusive of the execution times of all the child aggregations.                                                                                                                        |
+| [`breakdown`](#the-breakdown-object-1) | Object           | Contains timing statistics about low-level Lucene execution.                                                                                                                                                                                                                                     |
+| `children`                             | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.                                                                                                                                                                                     |
+| `debug`                                | Object           | Some aggregations return a `debug` object that describes the details of the underlying execution.                                                                                                                                                                                                |
 
 ### The `breakdown` object
 
 The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
 
-Field | Description
-:--- | :--- 
-`initialize` | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation.
-`build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context.
-`collect`| Contains the time spent collecting the documents into buckets.
-`post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method.
-`build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation.
-`reduce`| Contains the time spent in the `reduce` phase.
-`<method>_count` | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. 
+| Field                  | Description                                                                                                                                                            |
+| :--------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `initialize`           | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation.                                      |
+| `build_leaf_collector` | Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context.                        |
+| `collect`              | Contains the time spent collecting the documents into buckets.                                                                                                         |
+| `post_collection`      | Contains the time spent running the aggregation’s `postCollection()` callback method.                                                                                  |
+| `build_aggregation`    | Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation.                                          |
+| `reduce`               | Contains the time spent in the `reduce` phase.                                                                                                                         |
+| `<method>_count`       | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. |
 
 ## Concurrent segment search
 
@@ -763,7 +771,7 @@ Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.base
 
 A slice is the unit of work that can be executed by a thread. Each query can be partitioned into multiple slices, with each slice containing one or more segments. All the slices can be executed either in parallel or in some order depending on the available threads in the pool.
 
-In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
+In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices.
 
 #### Example response
 
@@ -926,6 +934,7 @@ The following is an example response for a concurrent search with three segment 
   }
 }
 ```
+
 </details>
 
 ### Modified or added response fields
@@ -934,36 +943,36 @@ The following sections contain definitions of all modified or added response fie
 
 #### The `query` array
 
-|Field	|Description	|
-|:---	|:---	|
-|`time_in_nanos`	|For concurrent segment search, `time_in_nanos` is the cumulative amount of time taken to run all methods across all slices, in nanoseconds. This is not equivalent to the actual amount of time the query took to run because it does not take into account that multiple slices can run the methods in parallel.	|
-|`breakdown.<method>`	|For concurrent segment search, this field contains the total amount of time taken by all segments to run a method.	|
-|`breakdown.<method>_count`	|For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all segments.	|
+| Field                      | Description                                                                                                                                                                                                                                                                                                       |
+| :------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `time_in_nanos`            | For concurrent segment search, `time_in_nanos` is the cumulative amount of time taken to run all methods across all slices, in nanoseconds. This is not equivalent to the actual amount of time the query took to run because it does not take into account that multiple slices can run the methods in parallel. |
+| `breakdown.<method>`       | For concurrent segment search, this field contains the total amount of time taken by all segments to run a method.                                                                                                                                                                                                |
+| `breakdown.<method>_count` | For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all segments.                                                                                                                                          |
 
 #### The `collector` array
 
-|Field	|Description	|
-|:---	|:---	|
-|`time_in_nanos`	|The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).	|
-|`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice, in nanoseconds.	|
-|`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice, in nanoseconds.	|
-|`avg_slice_time_in_nanos`	|The average amount of time taken by any slice, in nanoseconds.	|
-|`slice_count`	|The total slice count for this query.	|
-|`reduce_time_in_nanos`	|The amount of time taken to reduce results for all slice collectors, in nanoseconds.	|
+| Field                     | Description                                                                                                                                                                                              |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `time_in_nanos`           | The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`). |
+| `max_slice_time_in_nanos` | The maximum amount of time taken by any slice, in nanoseconds.                                                                                                                                           |
+| `min_slice_time_in_nanos` | The minimum amount of time taken by any slice, in nanoseconds.                                                                                                                                           |
+| `avg_slice_time_in_nanos` | The average amount of time taken by any slice, in nanoseconds.                                                                                                                                           |
+| `slice_count`             | The total slice count for this query.                                                                                                                                                                    |
+| `reduce_time_in_nanos`    | The amount of time taken to reduce results for all slice collectors, in nanoseconds.                                                                                                                     |
 
 #### The `aggregations` array
 
-|Field	|Description	|
-|:---	|:---	|
-|`time_in_nanos`	|The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).	|
-|`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`avg_slice_time_in_nanos`	|The average amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`<method>`	|The total elapsed time across all slices (`max(slice_end_time) - min(slice_start_time)`). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	|
-|`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method.	|
-|`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method.	|
-|`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method.	|
-|`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices.	|
-|`max_<method>_count`	|The maximum number of invocations of a `<method>` on any slice.	|
-|`min_<method>_count`	|The minimum number of invocations of a `<method>` on any slice.	|
-|`avg_<method>_count`	|The average number of invocations of a `<method>` on any slice.	|
+| Field                     | Description                                                                                                                                                                                                      |
+| :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `time_in_nanos`           | The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).       |
+| `max_slice_time_in_nanos` | The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.                                                                                                                             |
+| `min_slice_time_in_nanos` | The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.                                                                                                                             |
+| `avg_slice_time_in_nanos` | The average amount of time taken by any slice to run an aggregation, in nanoseconds.                                                                                                                             |
+| `<method>`                | The total elapsed time across all slices (`max(slice_end_time) - min(slice_start_time)`). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices. |
+| `max_<method>`            | The maximum amount of time taken by any slice to run an aggregation method.                                                                                                                                      |
+| `min_<method>`            | The minimum amount of time taken by any slice to run an aggregation method.                                                                                                                                      |
+| `avg_<method>`            | The average amount of time taken by any slice to run an aggregation method.                                                                                                                                      |
+| `<method>_count`          | The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices.                |
+| `max_<method>_count`      | The maximum number of invocations of a `<method>` on any slice.                                                                                                                                                  |
+| `min_<method>_count`      | The minimum number of invocations of a `<method>` on any slice.                                                                                                                                                  |
+| `avg_<method>_count`      | The average number of invocations of a `<method>` on any slice.                                                                                                                                                  |

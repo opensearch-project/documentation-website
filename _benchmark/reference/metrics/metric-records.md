@@ -45,12 +45,8 @@ OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indexes. A new 
     "operation-type": "bulk"
   },
   "fields": {
-    "@timestamp": [
-      "2023-08-10T21:27:22.821Z"
-    ],
-    "test-execution-timestamp": [
-      "2023-08-10T21:27:11.000Z"
-    ]
+    "@timestamp": ["2023-08-10T21:27:22.821Z"],
+    "test-execution-timestamp": ["2023-08-10T21:27:11.000Z"]
   },
   "highlight": {
     "workload": [
@@ -60,9 +56,7 @@ OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indexes. A new 
       "@opensearch-dashboards-highlighted-field@geonames@/opensearch-dashboards-highlighted-field@"
     ]
   },
-  "sort": [
-    1691702831000
-  ]
+  "sort": [1691702831000]
 }
 ```
 
@@ -74,7 +68,7 @@ The timestamp of when the sample was taken since the epoch, in milliseconds. For
 
 ## relative-time-ms
 
-The relative time since the start of the benchmark, in milliseconds. This is useful for comparing time-series graphs across multiple tests. For example, you can compare the indexing throughput over time across multiple tests. 
+The relative time since the start of the benchmark, in milliseconds. This is useful for comparing time-series graphs across multiple tests. For example, you can compare the indexing throughput over time across multiple tests.
 
 ## test-execution-id
 
@@ -108,8 +102,8 @@ The meta information for each metric record, including the following:
 - OS info: The name and version of the operating system.
 - Hostname.
 - Node name: A unique name given to each node when OpenSearch Benchmark provisions the cluster.
-- Source revision: The Git hash of the version of OpenSearch that is benchmarked. 
-- Distribution version: The distribution version of OpenSearch that is benchmarked. 
+- Source revision: The Git hash of the version of OpenSearch that is benchmarked.
+- Distribution version: The distribution version of OpenSearch that is benchmarked.
 - Custom tags: You can define custom tags by using the command line flag `--user-tags`. The tags are prefixed by `tag_` in order to avoid accidental clashes with OpenSearch Benchmark internal tags.
 - Operation specific: An optional substructure of the operation. For bulk requests, this may be the number of documents; for searches, the number of hits.
 

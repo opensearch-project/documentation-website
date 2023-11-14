@@ -10,6 +10,7 @@ redirect_from:
 ---
 
 # REST API reference
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -18,12 +19,12 @@ You can use REST APIs for most operations in OpenSearch. In this reference, we p
 This reference includes the REST APIs supported by OpenSearch. If a REST API is missing, please provide feedback or submit a pull request in GitHub.
 {: .tip }
 
-## Related articles 
+## Related articles
 
 - [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)
 - [Access control API]({{site.url}}{{site.baseurl}}/security/access-control/api/)
 - [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/)
-- [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/) 
+- [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/)
 - [CAT APIs]({{site.url}}{{site.baseurl}}/api-reference/cat/index/)
 - [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/)
 - [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
@@ -37,7 +38,7 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [ISM error prevention API]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/api/)
 - [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
 - [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/)
-- [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/) 
+- [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/)
 - [Multi-search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)
 - [Nodes APIs]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/)
 - [Notifications API]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/api/)
@@ -59,6 +60,3 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
 - [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
 - [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
-
-
-
