@@ -290,10 +290,10 @@ The basic syntax is:
 {
   "bucket_script": {
     "buckets_path": {
-    "my_var1": "the_sum",
-    "my_var2": "the_value_count"
-  },
- "script": "params.my_var1 / params.my_var2"
+      "my_var1": "the_sum",
+      "my_var2": "the_value_count"
+    },
+    "script": "params.my_var1 / params.my_var2"
   }
 }
 ```
@@ -401,10 +401,10 @@ The basic syntax is:
 {
   "bucket_selector": {
     "buckets_path": {
-    "my_var1": "the_sum",
-    "my_var2": "the_value_count"
-  },
-  "script": "params.my_var1 / params.my_var2"
+      "my_var1": "the_sum",
+      "my_var2": "the_value_count"
+    },
+    "script": "params.my_var1 / params.my_var2"
   }
 }
 ```
@@ -489,13 +489,13 @@ Syntax
 {
   "bucket_sort": {
     "sort": [
-    {"sort_field_1": {"order": "asc"}},
-    {"sort_field_2": {"order": "desc"}},
-    "sort_field_3"
+      { "sort_field_1": { "order": "asc" } },
+      { "sort_field_2": { "order": "desc" } },
+      "sort_field_3"
     ],
- "from":1,
- "size":3
- }
+    "from": 1,
+    "size": 3
+  }
 }
 ```
 
@@ -522,7 +522,7 @@ GET opensearch_dashboards_sample_data_logs/_search
             "sort": [
               { "total_bytes": { "order": "desc" } }
             ],
-            "size": 3                                
+            "size": 3
           }
         }
       }
@@ -850,14 +850,14 @@ GET opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
   "aggs": {
-    "my_date_histogram": {                                
+    "my_date_histogram": {
       "date_histogram": {
         "field": "@timestamp",
         "calendar_interval": "month"
       },
       "aggs": {
         "sum_of_bytes": {
-          "sum": { "field": "bytes" }                 
+          "sum": { "field": "bytes" }
         },
         "moving_avg_of_sum_of_bytes": {
           "moving_avg": { "buckets_path": "sum_of_bytes" }
@@ -870,7 +870,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 #### Example response
 
-```json  
+```json
 ...
 "aggregations" : {
   "my_date_histogram" : {
@@ -1061,7 +1061,6 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-
 #### Example response
 
 ```json
@@ -1182,8 +1181,6 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-
-
 ## serial_diff
 
 The `serial_diff` aggregation is a parent pipeline aggregation that computes a series of value differences between a time lag of the buckets from previous aggregations.
@@ -1199,7 +1196,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 {
    "size": 0,
    "aggs": {
-      "my_date_histogram": {                  
+      "my_date_histogram": {
          "date_histogram": {
             "field": "@timestamp",
             "calendar_interval": "month"
@@ -1207,11 +1204,11 @@ GET opensearch_dashboards_sample_data_logs/_search
          "aggs": {
             "the_sum": {
                "sum": {
-                  "field": "bytes"     
+                  "field": "bytes"
                }
             },
             "thirtieth_difference": {
-               "serial_diff": {                
+               "serial_diff": {
                   "buckets_path": "the_sum",
                   "lag" : 30
                }

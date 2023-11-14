@@ -6,10 +6,11 @@ parent: CAT API
 nav_order: 20
 has_children: false
 redirect_from:
-- /opensearch/rest-api/cat/cat-health/
+  - /opensearch/rest-api/cat/cat-health/
 ---
 
 # CAT health
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -20,6 +21,7 @@ The CAT health operation lists the status of the cluster, how long the cluster h
 ```json
 GET _cat/health?v
 ```
+
 {% include copy-curl.html %}
 
 ## Path and HTTP methods
@@ -27,16 +29,17 @@ GET _cat/health?v
 ```
 GET _cat/health?v
 ```
+
 {% include copy-curl.html %}
 
 ## URL parameters
 
 All CAT health URL parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-ts | Boolean | If true, returns HH:MM:SS and Unix epoch timestamps. Default is true.
+| Parameter | Type    | Description                                                                                                                                         |
+| :-------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| time      | Time    | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/). |
+| ts        | Boolean | If true, returns HH:MM:SS and Unix epoch timestamps. Default is true.                                                                               |
 
 ## Response
 

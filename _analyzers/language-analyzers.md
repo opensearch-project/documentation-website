@@ -26,10 +26,10 @@ PUT my-index
 {
   "mappings": {
     "properties": {
-      "text": { 
+      "text": {
         "type": "text",
         "fields": {
-          "french": { 
+          "french": {
             "type": "text",
             "analyzer": "french"
           }

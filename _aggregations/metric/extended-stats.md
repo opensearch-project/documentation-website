@@ -12,6 +12,7 @@ redirect_from:
 
 The `extended_stats` aggregation is an extended version of the [`stats`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/stats/) aggregation. Apart from including basic stats, `extended_stats` also returns stats such as `sum_of_squares`, `variance`, and `std_deviation`.
 The following example returns extended stats for `taxful_total_price`:
+
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
 {
@@ -25,6 +26,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 #### Example response

@@ -8,15 +8,15 @@ nav_order: 1
 
 # Terminology
 
-The following sections provide descriptions of important text analysis terms. 
+The following sections provide descriptions of important text analysis terms.
 
 ## Analyzers
 
-Analyzers tell OpenSearch how to index and search text. An analyzer is composed of three components: a tokenizer, zero or more token filters, and zero or more character filters. 
+Analyzers tell OpenSearch how to index and search text. An analyzer is composed of three components: a tokenizer, zero or more token filters, and zero or more character filters.
 
-OpenSearch provides *built-in* analyzers. For example, the `standard` built-in analyzer converts text to lowercase and breaks text into tokens based on word boundaries such as carriage returns and white space. The `standard` analyzer is also called the *default* analyzer and is used when no analyzer is specified in the text analysis request.
+OpenSearch provides _built-in_ analyzers. For example, the `standard` built-in analyzer converts text to lowercase and breaks text into tokens based on word boundaries such as carriage returns and white space. The `standard` analyzer is also called the _default_ analyzer and is used when no analyzer is specified in the text analysis request.
 
-If needed, you can combine tokenizers, token filters, and character filters to create a *custom* analyzer.
+If needed, you can combine tokenizers, token filters, and character filters to create a _custom_ analyzer.
 
 #### Tokenizers
 
@@ -24,11 +24,11 @@ Tokenizers break unstructured text into tokens and maintain metadata about token
 
 #### Character filters
 
-Character filters examine text and perform translations, such as changing, removing, and adding characters. 
+Character filters examine text and perform translations, such as changing, removing, and adding characters.
 
 #### Token filters
 
-Token filters modify tokens, performing operations such as converting a token's characters to uppercase and adding or removing tokens. 
+Token filters modify tokens, performing operations such as converting a token's characters to uppercase and adding or removing tokens.
 
 ## Normalizers
 

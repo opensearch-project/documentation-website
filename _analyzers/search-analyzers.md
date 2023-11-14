@@ -40,6 +40,7 @@ GET shakespeare/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 Valid values for [built-in analyzers]({{site.url}}{{site.baseurl}}/analyzers/index#built-in-analyzers) are `standard`, `simple`, `whitespace`, `stop`, `keyword`, `pattern`, `fingerprint`, or any supported [language analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/).
@@ -64,6 +65,7 @@ PUT testindex
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 ## Specifying the default search analyzer for an index
@@ -90,4 +92,5 @@ PUT testindex
 }
 
 ```
+
 {% include copy-curl.html %}

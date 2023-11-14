@@ -64,6 +64,7 @@ PUT national_parks
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 Next, index some documents into the `national_parks` index:
@@ -76,6 +77,7 @@ PUT national_parks/_doc/1
   {"type": "envelope","coordinates": [ [-111.15, 45.12], [-109.83, 44.12] ]}
 }
 ```
+
 {% include copy-curl.html %}
 
 ```json
@@ -86,6 +88,7 @@ PUT national_parks/_doc/2
   {"type": "envelope","coordinates": [ [-120.23, 38.16], [-119.05, 37.45] ]}
 }
 ```
+
 {% include copy-curl.html %}
 
 ```json
@@ -96,6 +99,7 @@ PUT national_parks/_doc/3
   {"type": "envelope","coordinates": [ [-117.34, 37.01], [-116.38, 36.25] ]}
 }
 ```
+
 {% include copy-curl.html %}
 
 You can run a `geo_bounds` aggregation on the `location` field as follows:
@@ -113,6 +117,7 @@ GET national_parks/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 The optional `wrap_longitude` parameter specifies whether the bounding box returned by the aggregation can overlap the international date line (180&deg; meridian). If `wrap_longitude` is set to `true`, the bounding box can overlap the international date line and return a `bounds` object in which the lower-left longitude is greater than the upper-right longitude. The default value for `wrap_longitude` is `true`.
@@ -223,6 +228,7 @@ The response contains the geo-bounding box that encloses all shapes in the `loca
   }
 }
 ```
+
 </details>
 
 Currently, OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).

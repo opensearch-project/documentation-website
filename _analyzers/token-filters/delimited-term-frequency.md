@@ -7,7 +7,7 @@ nav_order: 100
 
 # Delimited term frequency token filter
 
-The `delimited_term_freq` token filter separates a token stream into tokens with corresponding term frequencies, based on a provided delimiter. A token consists of all characters before the delimiter, and a term frequency is the integer after the delimiter. For example, if the delimiter is `|`, then for the string `foo|5`, `foo` is the token and `5` is its term frequency. If there is no delimiter, the token filter does not modify the term frequency. 
+The `delimited_term_freq` token filter separates a token stream into tokens with corresponding term frequencies, based on a provided delimiter. A token consists of all characters before the delimiter, and a term frequency is the integer after the delimiter. For example, if the delimiter is `|`, then for the string `foo|5`, `foo` is the token and `5` is its term frequency. If there is no delimiter, the token filter does not modify the term frequency.
 
 You can either use a preconfigured `delimited_term_freq` token filter or create a custom one.
 
@@ -25,6 +25,7 @@ POST /_analyze
   "explain": true
 }
 ```
+
 {% include copy-curl.html %}
 
 The `attributes` array specifies that you want to filter the output of the `explain` parameter to return only `termFrequency`. The response contains both the original token and the parsed output of the token filter that includes the term frequency:
@@ -85,6 +86,7 @@ PUT /testindex
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 Then analyze text with the custom token filter you created:
@@ -99,6 +101,7 @@ POST /testindex/_analyze
   "explain": true
 }
 ```
+
 {% include copy-curl.html %}
 
 The response contains both the original token and the parsed version with the term frequency:
@@ -185,6 +188,7 @@ PUT /test
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 The `test` index uses a keyword tokenizer, a delimited term frequency token filter (where the delimiter is `^`), and a custom analyzer that includes a keyword tokenizer and a delimited term frequency token filter. The mappings specify that the field `f1` is a keyword field and the field `f2` is a text field. The field `f2` uses the custom analyzer defined in the settings for text analysis. Additionally, specifying `index_options` signals to OpenSearch to add the term frequencies to the inverted index. You'll use the term frequencies to give documents with repeated terms a higher score.
@@ -198,6 +202,7 @@ POST /_bulk?refresh=true
 {"index": {"_index": "test", "_id": "doc2"}}
 {"f2": "v2|100"}
 ```
+
 {% include copy-curl.html %}
 
 The following query searches for all documents in the index and calculates document scores as the term frequency of the term `v1` in the field `f2`:
@@ -223,6 +228,7 @@ GET /test/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 In the response, document 1 has a score of 30 because the term frequency of the term `v1` in the field `f2` is 30. Document 2 has a score of 0 because the term `v1` does not appear in `f2`:
@@ -270,6 +276,6 @@ In the response, document 1 has a score of 30 because the term frequency of the 
 
 The following table lists all parameters that the `delimited_term_freq` supports.
 
-Parameter | Required/Optional | Description
-:--- | :--- | :---
-`delimiter` | Optional | The delimiter used to separate tokens from term frequencies. Must be a single non-null character. Default is `|`.
+| Parameter   | Required/Optional | Description                                                                                                    |
+| :---------- | :---------------- | :------------------------------------------------------------------------------------------------------------- | --- |
+| `delimiter` | Optional          | The delimiter used to separate tokens from term frequencies. Must be a single non-null character. Default is ` | `.  |

@@ -14,10 +14,10 @@ The `scripted_metric` metric is a multi-value metric aggregation that returns me
 
 A script has four stages: the initial stage, the map stage, the combine stage, and the reduce stage.
 
-* `init_script`: (OPTIONAL) Sets the initial state and executes before any collection of documents.
-* `map_script`: Checks the value of the `type` field and executes the aggregation on the collected documents.
-* `combine_script`: Aggregates the state returned from every shard. The aggregated value is returned to the coordinating node.
-* `reduce_script`: Provides access to the variable states; this variable combines the results from the `combine_script` on each shard into an array.
+- `init_script`: (OPTIONAL) Sets the initial state and executes before any collection of documents.
+- `map_script`: Checks the value of the `type` field and executes the aggregation on the collected documents.
+- `combine_script`: Aggregates the state returned from every shard. The aggregated value is returned to the coordinating node.
+- `reduce_script`: Provides access to the variable states; this variable combines the results from the `combine_script` on each shard into an array.
 
 The following example aggregates the different HTTP response types in web log data:
 
@@ -54,6 +54,7 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 #### Example response

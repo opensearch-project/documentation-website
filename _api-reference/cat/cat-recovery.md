@@ -6,10 +6,11 @@ parent: CAT API
 nav_order: 50
 has_children: false
 redirect_from:
-- /opensearch/rest-api/cat/cat-recovery/
+  - /opensearch/rest-api/cat/cat-recovery/
 ---
 
 # CAT recovery
+
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -20,6 +21,7 @@ The CAT recovery operation lists all completed and ongoing index and shard recov
 ```
 GET _cat/recovery?v
 ```
+
 {% include copy-curl.html %}
 
 To see only the recoveries of a specific index, add the index name after your query.
@@ -27,6 +29,7 @@ To see only the recoveries of a specific index, add the index name after your qu
 ```
 GET _cat/recovery/<index>?v
 ```
+
 {% include copy-curl.html %}
 
 If you want to get information for more than one index, separate the indexes with commas:
@@ -34,6 +37,7 @@ If you want to get information for more than one index, separate the indexes wit
 ```json
 GET _cat/recovery/index1,index2,index3
 ```
+
 {% include copy-curl.html %}
 
 ## Path and HTTP methods
@@ -48,12 +52,12 @@ All CAT recovery URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
-Parameter | Type | Description
-:--- | :--- | :---
-active_only | Boolean | Whether to only include ongoing shard recoveries. Default is false.
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-detailed | Boolean | Whether to include detailed information about shard recoveries. Default is false.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+| Parameter   | Type      | Description                                                                                                                                                |
+| :---------- | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| active_only | Boolean   | Whether to only include ongoing shard recoveries. Default is false.                                                                                        |
+| bytes       | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/). |
+| detailed    | Boolean   | Whether to include detailed information about shard recoveries. Default is false.                                                                          |
+| time        | Time      | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).        |
 
 ## Response
 

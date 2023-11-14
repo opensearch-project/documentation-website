@@ -9,6 +9,7 @@ redirect_from:
 ---
 
 # CAT API
+
 **Introduced 1.0**
 {: .label .label-purple }
 You can get essential statistics about your cluster in an easy-to-understand, tabular format using the compact and aligned text (CAT) API. The CAT API is a human-readable interface that returns plain text instead of traditional JSON.
@@ -22,19 +23,20 @@ To see the available operations in the CAT API, use the following command:
 ```
 GET _cat
 ```
+
 {% include copy-curl.html %}
 
 ## Optional query parameters
 
 You can use the following query parameters with any CAT API to filter your results.
 
-Parameter | Description
-:--- | :--- |
-`v` |  Provides verbose output by adding headers to the columns. It also adds some formatting to help align each of the columns together. All examples in this section include the `v` parameter.
-`help` | Lists the default and other available headers for a given operation.
-`h`  |  Limits the output to specific headers.
-`format` |  Returns the result in JSON, YAML, or CBOR formats.
-`sort` | Sorts the output by the specified columns.
+| Parameter | Description                                                                                                                                                                                |
+| :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `v`       | Provides verbose output by adding headers to the columns. It also adds some formatting to help align each of the columns together. All examples in this section include the `v` parameter. |
+| `help`    | Lists the default and other available headers for a given operation.                                                                                                                       |
+| `h`       | Limits the output to specific headers.                                                                                                                                                     |
+| `format`  | Returns the result in JSON, YAML, or CBOR formats.                                                                                                                                         |
+| `sort`    | Sorts the output by the specified columns.                                                                                                                                                 |
 
 ### Query parameter usage examples
 
@@ -47,15 +49,17 @@ To query aliases and get verbose output that includes all column headings in the
 ```json
 GET _cat/aliases?v
 ```
+
 {% include copy-curl.html %}
 
-The response provides more details, such as names of each column in the response. 
+The response provides more details, such as names of each column in the response.
 
 ```
 alias index filter routing.index routing.search is_write_index
 .kibana .kibana_1 - - - -
 sample-alias1 sample-index-1 - - - -
 ```
+
 Without the verbose parameter, `v`, the response simply returns the alias names:
 
 ```

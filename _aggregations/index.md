@@ -94,25 +94,25 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 ```json
 {
-  "took" : 1,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
   },
-  "hits" : {
-    "total" : {
-      "value" : 4675,
-      "relation" : "eq"
+  "hits": {
+    "total": {
+      "value": 4675,
+      "relation": "eq"
     },
-    "max_score" : null,
-    "hits" : [ ]
+    "max_score": null,
+    "hits": []
   },
-  "aggregations" : {
-    "avg_taxful_total_price" : {
-      "value" : 75.05542864304813
+  "aggregations": {
+    "avg_taxful_total_price": {
+      "value": 75.05542864304813
     }
   }
 }

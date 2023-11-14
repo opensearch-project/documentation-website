@@ -16,7 +16,7 @@ To determine which analyzer to use for a field when a document is indexed, OpenS
 1. The `analysis.analyzer.default` index setting
 1. The `standard` analyzer (default)
 
-When specifying an index analyzer, keep in mind that in most cases, specifying an analyzer for each `text` field in an index works best. Analyzing both the text field (at indexing time) and the query string (at query time) with the same analyzer ensures that the search uses the same terms as those that are stored in the index. 
+When specifying an index analyzer, keep in mind that in most cases, specifying an analyzer for each `text` field in an index works best. Analyzing both the text field (at indexing time) and the query string (at query time) with the same analyzer ensures that the search uses the same terms as those that are stored in the index.
 {: .important }
 
 For information about verifying which analyzer is associated with which field, see [Verifying analyzer settings]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings).
@@ -38,6 +38,7 @@ PUT testindex
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 ## Specifying a default index analyzer for an index
@@ -58,8 +59,8 @@ PUT testindex
   }
 }
 ```
+
 {% include copy-curl.html %}
 
 If you don't specify a default analyzer, the `standard` analyzer is used.
 {: .note}
-
