@@ -72,7 +72,7 @@ To access this API endpoint, the request body should contain three API parameter
 The following is an example of requesting an on-behalf-of token with lifespan of 3 mins as user '“admin” for testing purpose:
 ```json
 POST /_plugins/_security/api/generateonbehalfoftoken
-'{ 
+{ 
    "description":"Testing",
    "service":"Testing Service",
    "durationSeconds":"180"
