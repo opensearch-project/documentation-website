@@ -41,7 +41,7 @@ The Security Analytics plugin supports the following settings. All settings in t
 
 `plugins.security_analytics.request_timeout` (Time value): The timeout for all requests the Security Analytics plugin sends to other parts of OpenSearch. Default is 10 seconds.
 
-`plugins.security_analytics.action_throttle_max_value` (Time value): The maximum amount of time you can set for action throttling. Default is 24 hours (this value displays as 1440 minutes in OpenSearch Dashboards).
+`plugins.security_analytics.action_throttle_max_value` (Time value): The maximum amount of time you can set for action throttling. Default is 24 hours. (This value displays as 1440 minutes in OpenSearch Dashboards.)
 
 `plugins.security_analytics.filter_by_backend_roles` (Boolean): When set to `true`, restricts access to detectors, alerts, findings, and custom log types by backend role when enabled. Default is `false`.
 

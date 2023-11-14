@@ -15,7 +15,7 @@ OpenSearch supports the following system settings:
 
 - `node.name` (Static, string): A descriptive name for the node.
 
-- `node.roles` (Static, list): Defines one or more roles for an OpenSearch node. Valid values are `cluster_manager`, `data`, `ingest`, `search`, `ml`, `remote_cluster_client`,`coordinating_only`. 
+- `node.roles` (Static, list): Defines one or more roles for an OpenSearch node. Valid values are `cluster_manager`, `data`, `ingest`, `search`, `ml`, `remote_cluster_client`, and `coordinating_only`. 
 
 - `path.data` (Static, string): A path to the directory where your data is stored. Separate multiple locations with commas. 
 

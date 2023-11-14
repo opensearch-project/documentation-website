@@ -20,7 +20,7 @@ Logs are available as `.log` (plain text) and `.json` files. Permissions for the
 
 ## Application logs
 
-For its application logs, OpenSearch uses [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) and its built-in log levels (from least to most severe). The following table describes logging settings.
+For its application logs, OpenSearch uses [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) and its built-in log levels (from least to most severe). The following table describes the logging settings.
 
 | Setting | Data type | Description |
 | :--- | :--- | :--- |

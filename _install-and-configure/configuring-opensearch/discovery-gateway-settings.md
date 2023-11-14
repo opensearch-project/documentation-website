@@ -23,7 +23,7 @@ The discovery process is used when a cluster is formed. It consists of discoveri
 
 ## Gateway settings
 
-The local gateway stores cluster state and shard data which is used when a cluster is restarted. OpenSearch supports the following local gateway settings:
+The local gateway stores cluster state and shard data that is used when a cluster is restarted. OpenSearch supports the following local gateway settings:
 
 - `gateway.recover_after_nodes` (Static, integer): After a full cluster restart, the number of nodes that must join the cluster before recovery can begin.
 

@@ -14,7 +14,7 @@ There are two types of OpenSearch settings: [dynamic](#dynamic-settings) and [st
 
 ## Dynamic settings
 
-Dynamic index settings are settings that you can update at any time. You can configure dynamic OpenSearch settings through the Cluster settings API. For details, see [Update cluster settings using the API](#updating-cluster-settings-using-the-api).
+Dynamic index settings are settings that you can update at any time. You can configure dynamic OpenSearch settings through the Cluster Settings API. For details, see [Update cluster settings using the API](#updating-cluster-settings-using-the-api).
 
 Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. 
 {: .tip}
@@ -57,7 +57,7 @@ If you specify the same setting in multiple places, OpenSearch uses the followin
 3. Settings from `opensearch.yml`
 4. Default settings
 
-To change a setting, use the [Cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) and specify the new value as either persistent or transient. This example shows the flat settings form:
+To change a setting, use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) and specify the new value as either persistent or transient. This example shows the flat settings form:
 
 ```json
 PUT _cluster/settings
@@ -105,7 +105,7 @@ The demo configuration includes a number of [settings for the Security plugin]({
 
 ### (Optional) CORS header configuration
 
-If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file (note that the "-" must be the first character in each line).
+If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so that your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file (note that the "-" must be the first character in each line).
 ```yml
 - http.host:0.0.0.0
 - http.port:9200

@@ -23,7 +23,7 @@ OpenSearch supports the following advanced network settings:
 
 - `network.bind_host` (Static, list): Binds an OpenSearch node to an address or addresses for incoming connections. Default is the value in `network.host`. 
 
-- `network.publish_host` (Static, list): Specifies an address or addresses which an OpenSearch node publishes to other nodes in the cluster so they can connect to it.
+- `network.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes in the cluster so that they can connect to it.
 
 ## Advanced HTTP settings
 
@@ -33,7 +33,7 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 
 - `http.bind_host` (Static, list): Specifies an address or addresses to which an OpenSearch node binds to listen for incoming HTTP connections. 
 
-- `http.publish_host` (Static, list): Specifies an address or addresses which an OpenSearch node publishes to other nodes for HTTP communication.
+- `http.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes for HTTP communication.
 
 ## Advanced transport settings
 
@@ -43,4 +43,4 @@ OpenSearch supports the following advanced network settings for transport commun
 
 - `transport.bind_host` (Static, list): Specifies an address or addresses to which an OpenSearch node binds to listen for incoming transport connections. 
 
-- `transport.publish_host` (Static, list): Specifies an address or addresses which an OpenSearch node publishes to other nodes for transport communication.
+- `transport.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes for transport communication.

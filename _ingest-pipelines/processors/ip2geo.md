@@ -26,10 +26,10 @@ The IP2Geo data source and `ip2geo` processor node settings are listed in the fo
 
 | Key | Description | Default |
 |--------------------|-------------|---------|
-| `plugins.geospatial.ip2geo.datasource.endpoint` | Default endpoint for creating the data source API. | Defaults to `https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json`. |
-| `plugins.geospatial.ip2geo.datasource.update_interval_in_days` | Default update interval for creating the data source API. | Defaults to 3. |
-| `plugins.geospatial.ip2geo.datasource.batch_size` | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Defaults to 10,000. |
-| `plugins.geospatial.ip2geo.processor.cache_size` | Maximum number of results that can be cached. There is only one cache used for all IP2Geo processors in each node | Defaults to 1,000. |
+| `plugins.geospatial.ip2geo.datasource.endpoint` | Default endpoint for creating the data source API. | Default is `https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json`. |
+| `plugins.geospatial.ip2geo.datasource.update_interval_in_days` | Default update interval for creating the data source API. | Default is 3. |
+| `plugins.geospatial.ip2geo.datasource.batch_size` | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Default is 10,000. |
+| `plugins.geospatial.ip2geo.processor.cache_size` | Maximum number of results that can be cached. Only one cache is used for all IP2Geo processors in each node. | Default is 1,000. |
 | `plugins.geospatial.ip2geo.timeout` | The amount of time to wait for a response from the endpoint and the cluster. | Defaults to 30 seconds. |
 
 ## Creating the IP2Geo data source

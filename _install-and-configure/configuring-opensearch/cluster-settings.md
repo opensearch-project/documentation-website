@@ -64,11 +64,11 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.allocation.disk.threshold_enabled` (Boolean): When set to `false`, disables the disk allocation decider. This will also remove any existing `index.blocks.read_only_allow_delete index blocks` when disabled. Default is `true`. 
 
-- `cluster.routing.allocation.disk.watermark.low` (String): Controls the low watermark for disk usage. When set to a percentage, OpenSearch will not allocate shards to nodes with that percentage of disk used. This can also be entered as ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. This setting does not affect the primary shards of newly-created indexes, but will prevent their replicas from being allocated. Default is `85%`. 
+- `cluster.routing.allocation.disk.watermark.low` (String): Controls the low watermark for disk usage. When set to a percentage, OpenSearch will not allocate shards to nodes with that percentage of disk used. This can also be entered as ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. This setting does not affect the primary shards of newly created indexes, but will prevent their replicas from being allocated. Default is `85%`. 
 
 - `cluster.routing.allocation.disk.watermark.high` (String): Controls the high watermark. OpenSearch will attempt to relocate shards away from a node whose disk usage is above the percentage defined. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. This setting affects the allocation of all shards. Default is `90%`. 
 
-- `cluster.routing.allocation.disk.watermark.flood_stage` (String): Controls the flood stage watermark. This is a last resort to prevent nodes from running out of disk space. OpenSearch enforces a read-only index block (`index.blocks.read_only_allow_delete`) on every index that has one or more shards allocated on the node, and that has at least one disk exceeding the flood stage. The index block is released once the disk utilization falls below the high watermark. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. Default is `95%`. 
+- `cluster.routing.allocation.disk.watermark.flood_stage` (String): Controls the flood stage watermark. This is a last resort to prevent nodes from running out of disk space. OpenSearch enforces a read-only index block (`index.blocks.read_only_allow_delete`) on every index that has one or more shards allocated on the node and that has at least one disk exceeding the flood stage. The index block is released once the disk utilization falls below the high watermark. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. Default is `95%`. 
 
 - `cluster.info.update.interval` (Time unit): Sets how often OpenSearch should check disk usage for each node in the cluster. Default is `30s`. 
 
@@ -96,11 +96,11 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 ## Cluster-level shard, block, and task settings
 
-OpenSearch supports the following the cluster-level shard, block, and task settings:
+OpenSearch supports the following cluster-level shard, block, and task settings:
 
 - `cluster.blocks.read_only` (Boolean): Sets the entire cluster to read-only. Default is `false`. 
 
-- `cluster.blocks.read_only_allow_delete` (Boolean): Similar to `cluster.blocks.read_only` but allows you to delete indexes. 
+- `cluster.blocks.read_only_allow_delete` (Boolean): Similar to `cluster.blocks.read_only`, but allows you to delete indexes. 
 
 - `cluster.max_shards_per_node` (Integer): Limits the total number of primary and replica shards for the cluster. The limit is calculated as follows: `cluster.max_shards_per_node` multiplied by the number of non-frozen data nodes. Shards for closed indexes do not count toward this limit. Default is `1000`. 
 
@@ -112,7 +112,7 @@ OpenSearch supports the following the cluster-level shard, block, and task setti
 
     Default is `all`. 
 
-- `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether or not persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether or not persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. 
+- `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. 
 
 ## Cluster-level index settings
 
