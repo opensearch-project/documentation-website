@@ -76,7 +76,7 @@ curl -XPOST https://localhost:9200/_plugins/_security/api/generateonbehalfoftoke
    "description":"Testing",
    "service":"Testing Service",
    "durationSeconds":"180"
-}'
+}
 ```
 
 ### 4.0 Additional Authorization Restriction ([related discussion](https://github.com/opensearch-project/security/issues/2891))
