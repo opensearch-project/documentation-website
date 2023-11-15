@@ -123,7 +123,7 @@ Your results may vary based on your cluster topology, hardware, shard count, and
 
 For these benchmarks, we used the following cluster, shard, and test configuration:
 
-* Node types: Three nodes---one data, one ingest, and one cluster manager node
+* Nodes: Three nodes, each using the data, ingest, and cluster manager roles
 * Node instance: Amazon EC2 r6g.xlarge
 * OpenSearch Benchmark host: Single Amazon EC2 m5.2xlarge instance
 * Shard configuration: Three shards with one replica
@@ -133,33 +133,33 @@ For these benchmarks, we used the following cluster, shard, and test configurati
 
 The following table lists the benchmarking results for the `so` workload with a remote translog buffer interval of 250 ms.
 
-|	|	|8 bulk indexing clients (Default)	|16 bulk indexing clients	|24 bulk indexing clients	|
-|---	|---	|---	|---	|---	|
-|	|	| Document replication	| Remote enabled	|Percent difference	| Document replication	| Remote enabled	| Percent difference	|Document replication	| Remote enabled	| Percent difference	|
-|Indexing throughput	|Mean	|29582.5	|40667.4	|37.47	|31154.9	|47862.3	|53.63	|31777.2	|51123.2	|60.88	|
-|P50	|28915.4	|40343.4	|39.52	|30406.4	|47472.5	|56.13	|30852.1	|50547.2	|63.84	|
+|	|	| 8 bulk indexing clients (Default)	| | | 16 bulk indexing clients	| | | 24 bulk indexing clients	| | |
+|---	|---	|---	|---	|---	| --- | --- | --- | --- | --- | --- |
+|	|	| Document replication	| Remote enabled	| Percent difference	| Document replication	| Remote enabled	| Percent difference	| Document replication	| Remote enabled	| Percent difference	|
+|Indexing throughput	|Mean	|29582.5	| 40667.4	|37.47	|31154.9	|47862.3	|53.63	|31777.2	|51123.2	|60.88	|
+|Indexing throughput	|P50	|28915.4	|40343.4	|39.52	|30406.4	|47472.5	|56.13	|30852.1	|50547.2	|63.84	|
 |Indexing latency	|P90	|1716.34	|1469.5	|-14.38	|3709.77	|2799.82	|-24.53	|5768.68	|3794.13	|-34.23	|
 
 ### HTTP logs
 
 The following table lists the benchmarking results for the `http_logs` workload with a remote translog buffer interval of 200 ms.
 
-|	|	|8 bulk indexing clients (Default)	|16 bulk indexing clients	|24 bulk indexing clients	|
-|---	|---	|---	|---	|---	|
+|	|	| 8 bulk indexing clients (Default)	| | | 16 bulk indexing clients	| | | 24 bulk indexing clients	| | |
+|---	|---	|---	|---	|---	| --- | --- | --- | --- | --- | --- |
 |	|	| Document replication	| Remote enabled	|Percent difference	| Document replication	| Remote enabled	| Percent difference	|Document replication	| Remote enabled	| Percent difference	|
 |Indexing throughput	|Mean	|149062	|82198.7	|-44.86	|134696	|148749	|10.43	|133050	|197239	|48.24	|
-|P50	|148123	|81656.1	|-44.87	|133591	|148859	|11.43	|132872	|197455	|48.61	|
+|Indexing throughput	|P50	|148123	|81656.1	|-44.87	|133591	|148859	|11.43	|132872	|197455	|48.61	|
 |Indexing latency	|P90	|327.011	|610.036	|86.55	|751.705	|669.073	|-10.99	|1145.19	|817.185	|-28.64	|
 
 ### NYC taxis
 
 The following table lists the benchmarking results for the `http_logs` workload with a remote translog buffer interval of 250 ms.
 
-|	|	|8 bulk indexing clients (Default)	|16 bulk indexing clients	|24 bulk indexing clients	|
-|---	|---	|---	|---	|---	|
+|	|	| 8 bulk indexing clients (Default)	| | | 16 bulk indexing clients	| | | 24 bulk indexing clients	| | |
+|---	|---	|---	|---	|---	| --- | --- | --- | --- | --- | --- |
 |	|	| Document replication	| Remote enabled	|Percent difference	| Document replication	| Remote enabled	| Percent difference	|Document replication	| Remote enabled	| Percent difference	|
 |Indexing throughput	|Mean	|93383.9	|94186.1	|0.86	|91624.8	|125770	|37.27	|93627.7	|132006	|40.99	|
-|P50	|91645.1	|93906.7	|2.47	|89659.8	|125443	|39.91	|91120.3	|132166	|45.05	|
+|Indexing throughput	|P50	|91645.1	|93906.7	|2.47	|89659.8	|125443	|39.91	|91120.3	|132166	|45.05	|
 |Indexing latency	|P90	|995.217	|1014.01	|1.89	|2236.33	|1750.06	|-21.74	|3353.45	|2472	|-26.28	|
 
 As shown by the results, there are consistent gains in cases where the indexing latency is more than the average remote upload time. When you increase the number of bulk indexing clients, a remote-enabled configuration provides indexing throughput gains of up to 60--65%. For more detailed results, see [Issue #9790](https://github.com/opensearch-project/OpenSearch/issues/9790).

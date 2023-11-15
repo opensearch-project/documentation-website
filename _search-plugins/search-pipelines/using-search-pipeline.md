@@ -17,7 +17,7 @@ You can use a search pipeline in the following ways:
 
 ## Specifying an existing search pipeline for a request
 
-After you [create a search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index#creating-a-search-pipeline), you can use the pipeline with a query by specifying the pipeline name in the `search_pipeline` query parameter:
+After you [create a search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/), you can use the pipeline with a query by specifying the pipeline name in the `search_pipeline` query parameter:
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
@@ -38,7 +38,7 @@ POST /my-index/_search
       "text_field" : "some search text"
     }
   },
-  "pipeline" : {
+  "search_pipeline" : {
     "request_processors": [
       {
         "filter_query" : {

@@ -1,114 +1,83 @@
 ---
 layout: default
-title: Multiple data sources
-parent: Dashboards Management
-nav_order: 20
+title: Configuring and using multiple data sources
+parent: Data sources
+nav_order: 10
 redirect_from: 
   - /dashboards/discover/multi-data-sources/
 ---
 
-# Multiple data sources
+# Configuring and using multiple data sources
 
-Use OpenSearch Dashboards to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard. 
+You can ingest, process, and analyze data from multiple data sources in OpenSearch Dashboards. You configure the data sources in the **Dashboards Management** > **Data sources** app, as shown in the following image.
 
-Learn how to enable the `data_source` setting in Dashboards; add credentials, data source connections, and index patterns; and combine visualizations in a single dashboard in this tutorial.
 
-## Modifying the YAML file settings for multiple data sources
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-management.png" alt="Dashboards Management Data sources main screen" width="700">
 
-This tutorial uses a preconfigured data source and index pattern for which you aren’t required to configure settings. However, you have to enable the multiple data sources feature because it is disabled by default.
+## Getting started
 
-To enable multiple data sources:
+The following tutorial guides you through configuring and using multiple data sources. 
 
-1. Navigate to your Dashboards home directory, for example, in Docker, `/usr/share/opensearch-dashboards`.
-2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) is available on GitHub.
-3. Set `data_source.enabled:` to  `true` and save the YAML file.
-4. Restart the Dashboards container.
-5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Dashboards Management** console. **Data Sources** appears in the sidebar, as shown in the following image.
+### Step 1: Modify the YAML file settings
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-mgmt.png" alt="Data sources sidebar on the Dashboards Management interface" width="40%">
+To use multiple data sources, you must enable the `data_source.enabled` setting. It is disabled by default. To enable multiple data sources:
 
-## Creating a data source connection
+1. Open your local copy of the OpenSearch Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) is available on GitHub.
+2. Set `data_source.enabled:` to  `true` and save the YAML file.
+3. Restart the OpenSearch Dashboards container.
+4. Verify that the configuration settings were configured properly by connecting to OpenSearch Dashboards and viewing the **Dashboards Management** navigation menu. **Data sources** appears in the sidebar. You'll see a view similar to the following image.
 
-A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections.
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt="Data sources in sidebar within Dashboards Management" width="700">
+
+### Step 2: Create a new data source connection
+
+A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source.
 
 To create a new data source connection:
 
-1. Go to [`http://localhost:5601`](http://localhost:5601/) and log in with the username `admin` and password `admin`. If you’re running the Security plugin, go to [`https://localhost:5601`](https://localhost:5601/).
-2. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**.
-3. Add information to each field to configure **Connection Details** and **Authentication Method**. 
+1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**.
+2. Add the required information to each field to configure **Connection Details** and **Authentication Method**. 
    
-   Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
+    - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
 
-   Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
-    - **No authentication**: No authentication is used to connect to the data source.
-    - **Username & Password**: A basic username and password are used to connect to the data source.
-    - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key.
-
-      For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. For an example setup, see the following image.
-
-      <img src="{{site.url}}{{site.baseurl}}/images/dashboards/SigV4-setup.png" alt="AWS Signature Version 4 auth type setup" width="40%">
+    - Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
+      - **No authentication**: No authentication is used to connect to the data source.
+      - **Username & Password**: A basic username and password are used to connect to the data source.
+      - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key.
+            - For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. 
       
       For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more information about AWS Signature Version 4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
-      {: .note }
+      {: .note}
 
-    After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
+    - After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
 
-4. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
+3. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
-5. Delete the data source connection by selecting the check box to the left of the title and then choosing **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported.
+4. Edit or update a data source connection.
 
-### Editing and updating a data source connection
+    - To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
 
-To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
+    - To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
 
-To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
+        - When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
 
-When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
+        - When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
-When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
+5. Delete the data source connection by selecting the check box to the left of the title and then choosing **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported. Alternatively, select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}).
 
-To delete the data source connection, select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}).
+An example data source connection screen is shown in the following image.
 
-## Creating an index pattern
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-connection.png" alt="Data source connection screen" width="700">
 
-Use index patterns to access the OpenSearch data that you want to explore. Learn how to load your own data and create an index pattern in the following steps. This tutorial uses the preconfigured index pattern `opensearch_dashboards_sample_data_ecommerce Default`.
+### Selecting multiple data sources through the Dev Tools console
 
-1. In the Dashboards console, select **Index Patterns** and then **Create index pattern**.
-2. Select **Use external data source connection**.
-3. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**.
-1. In the Dashboards console, choose **Index Patterns** and then **Create index pattern**.
-2. Choose **Use external data source connection**.
-3. Start typing in the **Search data sources** field to search for the data source you created earlier, select the data source, and then select **Next step**.
-4. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
-5. Choose an option for the **Time field** and then select **Create index pattern**.
+Alternatively, you can select multiple data sources through the [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) console. This option provides for working with a broader range of data and gaining deeper insight into your code and applications. 
 
-## Searching data
-
-Before you start searching for data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can choose the time filter to change the time range or select a specific time range in the histogram.
-
-### Setting the time filter
-
-To set the time filter:
-
-1. In the Dashboards console, select **Discover** and confirm that the index pattern being used is `opensearch_dashboards_sample_data_ecommerce`.
-2. Select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/}) to change the time field. The default time period is **Last 15 minutes**.
-3. Change the time field to a particular time period, for example, **Last 7 days**, and then select **Refresh**.
-4. Change start or end times by selecting the start or end time in the search bar.
-5. In the pop-up window, choose **Absolute**, **Relative**, or **Now** and then specify the date.
-
-### Selecting a time range from the histogram
-
-To select a time range for the histogram, choose from the following options:
-
-* Select the bar that represents the time range you want to zoom in on.
-* Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart (the cursor changes to a plus sign when you hover over a valid start point).
-* Select the dropdown and then select an interval.
-
-## Selecting multiple data sources in the Dev Tools console
-
-Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insight into your code and applications. Watch the video to see it in action, and then try it out in the following steps.
+Watch the following 10-second video to see it in action.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
+
+To select a data source through the Dev Tools console, follow these steps:
 
 1. Locate your copy of `opensearch_dashboards.yml` and open it in the editor of your choice. 
 2. Set `data_source.enabled` to `true`.
@@ -118,37 +87,23 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
     ```json
     GET /_cat/indices
     ```
+    {% include copy-curl.html %}
 
 5. From the **DataSource** dropdown menu, select a data source and then query the source.
 6. Repeat the preceding steps for each data source you want to select.
 
-## Creating data visualizations for a dashboard
+## Next steps 
 
-To create data visualizations for a dashboard, follow these steps:
+Once you've configured your multiple data sources, you can start exploring that data. See the following resources to learn more:
 
-1. In the Dashboards console, choose **Visualize** > **Create visualization**.
-2. Select the visualization type. For this tutorial, choose **Line**.
-3. Select a source. For this tutorial, choose the index pattern `opensearch_dashboards_sample_data_ecommerce`.
-4. Under **Buckets**, choose **Add** > **X-axis**.
-5. In the **Aggregation** field, choose **Date Histogram** > **Update**.
-6. Choose **Save** and add the file name.
-
-## Connecting visualizations in a single dashboard
-
-To connect your visualizations in a single dashboard, follow these steps: 
-
-1. In the Dashboards console, choose **Dashboard** > **Create dashboard**. 
-2. Choose **Add an existing** and then select the data you want to add.
-3. Choose **Save** and add the dashboard name in the **Title field**. This tutorial uses preconfigured dashboards, so you won’t be able to save your dashboard.
-4. Click on the white space left of **Add panels** to view the visualizations in a single dashboard.
-
-Your dashboard might look like the one in the following image.
-
-<img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=700 alt="Example dashboard using data visualizations from many data sources">
+- Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
+- Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
+- Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
+- Learn about the [Integrations tool]({{site.url}}{{site.baseurl}}/integrations/index/), which gives you the flexibility to use various data ingestion methods and connect data from the Dashboards UI.
 
 ## Limitations
 
-This feature has the following limitations:
+This feature has some limitations:
 
 * The multiple data sources feature is supported for index-pattern-based visualizations only.
 * The visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.

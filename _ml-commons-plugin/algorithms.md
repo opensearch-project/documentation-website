@@ -2,10 +2,10 @@
 layout: default
 title: Supported Algorithms 
 has_children: false
-nav_order: 100
+nav_order: 30
 ---
 
-# Supported Algorithms
+# Supported algorithms
 
 ML Commons supports various algorithms to help train and predict machine learning (ML) models or test data-driven predictions without a model. This page outlines the algorithms supported by the ML Commons plugin and the API operations they support.
 
@@ -434,11 +434,11 @@ A classification algorithm, logistic regression models the probability of a disc
 
 ### Example: Train/Predict with Iris data
 
-The following example creates an index in OpenSearch with the [Iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), then trains the data using logistic regression. Lastly, it uses the trained model to predict Iris types separated by row.
+The following example creates an index in OpenSearch with the [Iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set), then trains the data using logistic regression. Lastly, it uses the trained model to predict Iris types separated by row.
 
 #### Create an Iris index
 
-Before using this request, make sure that you have downloaded [Iris data](https://archive.ics.uci.edu/ml/datasets/iris).
+Before using this request, make sure that you have downloaded [Iris data](https://archive.ics.uci.edu/dataset/53/iris).
 
 ```bash
 PUT /iris_data

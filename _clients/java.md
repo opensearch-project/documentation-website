@@ -20,6 +20,12 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
   <artifactId>opensearch-java</artifactId>
   <version>2.6.0</version>
 </dependency>
+
+<dependency>
+  <groupId>org.apache.httpcomponents.client5</groupId>
+  <artifactId>httpclient5</artifactId>
+  <version>5.2.1</version>
+</dependency>
 ```
 {% include copy.html %}
 
@@ -295,9 +301,8 @@ CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(i
 client.indices().create(createIndexRequest);
 
 IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
-IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexSettings).build();
-PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
-client.indices().putSettings(putSettingsRequest);
+PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
+client.indices().putSettings(putIndicesSettingsRequest);
 ```
 {% include copy.html %}
 
