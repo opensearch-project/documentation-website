@@ -5,6 +5,8 @@ nav_order: 55
 ---
 
 # Profile
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Profile API provides timing information about the execution of individual components of a search request. Using the Profile API, you can debug slow requests and understand how to improve their performance. The Profile API does not measure the following:
 

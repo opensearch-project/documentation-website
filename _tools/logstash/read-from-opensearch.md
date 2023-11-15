@@ -27,7 +27,7 @@ input {
     user        => "admin"
     password    => "admin"
     index       => "logstash-logs-%{+YYYY.MM.dd}"
-    query       => "{ "query": { "match_all": {}} }"
+    query       => '{ "query": { "match_all": {}} }'
   }
 }
 

@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # CAT nodeattrs
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT nodeattrs operation lists the attributes of custom nodes.
