@@ -309,7 +309,7 @@ client.indices().create(createIndexRequest);
 
 IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
 PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
-client.indices().putSettings(PutIndicesSettingsRequest);
+client.indices().putSettings(putIndicesSettingsRequest);
 ```
 
 {% include copy.html %}
