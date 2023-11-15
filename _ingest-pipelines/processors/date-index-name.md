@@ -30,12 +30,12 @@ Parameter | Required/Optional | Description |
 `field`  | Required  | The date or timestamp field in the incoming document. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `date_rounding`  | Required | The rounded date format within the index name . Valid values are `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute), and `s` (second). |
 `date_formats` | Optional | An array of date formats used to parse the date or timestamp field. Valid options include a java time pattern or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSXX`. |
-`index_name_format` | Optional | The date format. Default is `yyyy-MM-dd`. Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`index_name_prefix` | Optional | The index name prefix to append before the date. Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
+`index_name_format` | Optional | The date format. Default is `yyyy-MM-dd`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`index_name_prefix` | Optional | The index name prefix to append before the date. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`locale` | `locale`  | Optional  | The locale to use when parsing the month name and week day of the date. Default is `ENGLISH`. Supports [template snippets]({site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
+`locale` | `locale`  | Optional  | The locale to use when parsing the month name and week day of the date. Default is `ENGLISH`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. |
