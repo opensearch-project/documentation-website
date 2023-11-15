@@ -274,6 +274,7 @@ Parameter | Description | Type | Example | Required
 `min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
 `min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
 `min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See **Important** note above. | `string` | `5d` or `7h` | No
+`copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | `boolean` | `true` or `false` | No
 
 ```json
 {
