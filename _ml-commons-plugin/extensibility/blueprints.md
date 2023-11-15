@@ -7,6 +7,8 @@ parent: Connecting to remote models
 ---
 
 # Connector blueprints
+**Introduced 2.9**
+{: .label .label-purple }
 
 All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
 

@@ -6,6 +6,8 @@ nav_order: 20
 ---
 
 # Model access control
+**Introduced 2.9**
+{: .label .label-purple }
 
 You can use the Security plugin with ML Commons to manage access to specific models for non-admin users. For example, one department in an organization might want to restrict users in other departments from accessing their models.
 

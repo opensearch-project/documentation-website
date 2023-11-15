@@ -7,7 +7,7 @@ nav_order: 10
 
 # ML Commons cluster settings
 
-To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file.
+To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your `opensearch.yml` file.
 
 ## ML node
 
@@ -19,7 +19,11 @@ node.roles: [ ml ]
 
 ## Run tasks and models on ML nodes only
 
-If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. We recommend that you do not set this value to "false" on production clusters. 
+If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. 
+
+We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on production clusters. 
+{: .tip}
+
 
 ### Setting
 
