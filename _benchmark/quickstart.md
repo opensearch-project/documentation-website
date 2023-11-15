@@ -255,7 +255,7 @@ Each task run by the `percolator` workload represents a specific OpenSearch API 
 * **Service Time:** The amount of time, excluding wait time, taken for the request and the response to be sent and received by Benchmark.
 * **Error Rate:** The percentage of operations run during the task that were not successful or returned a 200 error code.
 
-For more details how the summary report is generated, see [Summary report]({{site.url}}{{site.baseurl}}/benchmark/metrics/summary-report/)
+For more details how the summary report is generated, see [Summary report]({{site.url}}{{site.baseurl}}/benchmark/reference/summary-report/)
 
 
 ## Running OpenSearch Benchmark on your own cluster

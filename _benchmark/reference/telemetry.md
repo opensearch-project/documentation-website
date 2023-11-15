@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Telemetry devices
-nav_order: 40
+nav_order: 45
 has_children: true
 ---
 
@@ -23,7 +23,7 @@ The `jfr` devices supports the following parameters:
 
 
 - `recording-template`: The name of a custom flight recording template. It is up to you to correctly install these recording templates on each target machine. If none is specified, the default recording template of Java flight recorder is used.
-- `jfr-delay`: (Optional) The length of time to wait before starting to record  
+- `jfr-delay`: (Optional) The length of time to wait before starting to record.  
 - `jfr-duration`: (Optional) The length of time to record. 
 
 ## jit
@@ -58,17 +58,17 @@ The `node-stats` telemetry device regularly calls the cluster [Node Stats API]({
 The `node-stats` device supports the following parameters:
 
 - `node-stats-sample-interval`: A positive number greater than zero denoting the sampling interval in seconds. Default is `1`.
-- `node-stats-include-indices`: A boolean indicating whether index stats should be included. Default is `false`.
+- `node-stats-include-indices`: A Boolean indicating whether index stats should be included. Default is `false`.
 - `node-stats-include-indices-metrics`: A comma-separated string specifying the Index stats metrics to include. This is useful, for example, to restrict the collected Index stats metrics. Specifying this parameter implicitly enables collection of Index stats, so you don’t also need to specify `node-stats-include-indices: true.`  For example,     `--telemetry-params="node-stats-include-indices-metrics:'docs'"` will collect the docs metrics from the Index stats. If you want to use multiple fields, pass a JSON file to `telemetry-params`.  Default is `docs,store,indexing,search,merges,query_cache,fielddata,segments,translog,request_cache`.
-- `node-stats-include-thread-pools`: A boolean indicating whether thread pool stats should be included. Default is `true`.
-- `node-stats-include-buffer-pools`: A boolean indicating whether buffer pool stats should be included. Default is `true`.
-- `node-stats-include-breakers`: A boolean indicating whether circuit breaker stats should be included. Default is `true`.
-- `node-stats-include-gc`: A boolean indicating whether JVM gc stats should be included. Default is `true`.
-- `node-stats-include-mem`: A boolean indicating whether both JVM heap, and OS mem stats should be included. Default is `true`.
-- `node-stats-include-cgroup`: A boolean to include operating system cgroup stats. Memory stats are omitted since OpenSearch outputs them as string values. Use the `os_mem_*` fields instead. Default is `true`.
-- `node-stats-include-network`: A boolean indicating whether network-related stats should be included. Default is `true`.
-- `node-stats-include-process`: A boolean indicating whether process cpu stats should be included. Default is `true`.
-- `node-stats-include-indexing-pressure`:  A boolean indicating whether indexing presser stats should be included. Default is `true`.
+- `node-stats-include-thread-pools`: A Boolean indicating whether thread pool stats should be included. Default is `true`.
+- `node-stats-include-buffer-pools`: A Boolean indicating whether buffer pool stats should be included. Default is `true`.
+- `node-stats-include-breakers`: A Boolean indicating whether circuit breaker stats should be included. Default is `true`.
+- `node-stats-include-gc`: A Boolean indicating whether JVM gc stats should be included. Default is `true`.
+- `node-stats-include-mem`: A Boolean indicating whether both JVM heap, and OS mem stats should be included. Default is `true`.
+- `node-stats-include-cgroup`: A Boolean to include operating system cgroup stats. Memory stats are omitted since OpenSearch outputs them as string values. Use the `os_mem_*` fields instead. Default is `true`.
+- `node-stats-include-network`: A Boolean indicating whether network-related stats should be included. Default is `true`.
+- `node-stats-include-process`: A Boolean indicating whether process cpu stats should be included. Default is `true`.
+- `node-stats-include-indexing-pressure`:  A Boolean indicating whether indexing presser stats should be included. Default is `true`.
 
 ## recovery-stats
 
@@ -76,14 +76,14 @@ The `recovery-stats` telemetry device regularly calls the [CAT Recovery API]({{s
 
 This telemetry device supports the following parameters:
 
-- `searchable-snapshots-stats-indices` A string with the index/index pattern, or list of index patterns that searchable snapshots stats should additionally be collected from. If unset, only cluster level stats will be collected. Default is `None`.
+- `searchable-snapshots-stats-indices` A string with the index pattern, or list of index patterns that searchable snapshots stats should additionally be collected from. If unset, only cluster level stats will be collected. Default is `None`.
 - `searchable-snapshots-stats-sample-interval`: A positive number greater than zero denoting the sampling interval in seconds. Default is `1`.
 
 ## shard-stats
 
-The `shard-stats` telemetry device regularly calls the cluster the [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) using a `level=shard` cluster parameter and records one metrics document per shard.
+The `shard-stats` telemetry device regularly calls the cluster [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) using a `level=shard` cluster parameter and records one metrics document per shard.
 
-This devices supports the `shard-stats-sample-interval` parameter, which defines the sampling interval in seconds. Default is `60`.
+This device supports the `shard-stats-sample-interval` parameter, which defines the sampling interval in seconds. Default is `60`.
 
 ## data-stream-stats
 
