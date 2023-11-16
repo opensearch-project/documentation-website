@@ -40,7 +40,7 @@ The default encoding algorithm for signing the JWT is HMAC SHA512. Both the sign
 
 ### 3.0 Token structure
 
-The payload of an on-behalf-of token must include all standard configurations of a JWT, along with encrypted and decrypted roles. Depending on the setting of the "Plugin Backward Compatibility Mode," backend roles should also be incorporated into role claims. It is important to note that the absence of any of these claims will result in a malformed token, failing to meet the required standard for authentication.
+The payload of an OBO token must include all standard configurations of a JWT, along with encrypted and decrypted roles. Depending on the Plugin Backward Compatibility Mode setting, backend roles should also be incorporated into role claims. The absence of any of these claims results in a malformed token and fails to meet the required standard for authentication.
 
 The OBO token contains the following claims:
 * Issuer (`iss`): OpenSearch Cluster Identifier
