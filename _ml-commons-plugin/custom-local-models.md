@@ -208,7 +208,9 @@ When the operation is complete, the state changes to `COMPLETED`:
 ```
 ## Step 4 (Optional): Test the model
 
-Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) to test the model:
+Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) to test the model.
+
+For a text embedding model, send the following request:
 
 ```json
 POST /_plugins/_ml/_predict/text_embedding/cleMb4kBJ1eYAeTMFFg4
@@ -218,6 +220,7 @@ POST /_plugins/_ml/_predict/text_embedding/cleMb4kBJ1eYAeTMFFg4
   "target_response": ["sentence_embedding"]
 }
 ```
+{% include copy-curl.html %}
 
 The response contains text embeddings for the provided sentence:
 
@@ -242,6 +245,41 @@ The response contains text embeddings for the provided sentence:
       ]
     }
   ]
+}
+```
+
+For a sparse encoding model, send the following request:
+
+```json
+POST /_plugins/_ml/_predict/sparse_encoding/cleMb4kBJ1eYAeTMFFg4
+{
+  "text_docs":[ "today is sunny"]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the tokens and weights:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "output",
+          "dataAsMap": {
+            "response": [
+              {
+                "saturday": 0.48336542,
+                "week": 0.1034762,
+                "mood": 0.09698499,
+                "sunshine": 0.5738209,
+                "bright": 0.1756877,
+                ...
+              }
+          }
+        }
+    }
 }
 ```
 
