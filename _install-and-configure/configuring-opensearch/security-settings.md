@@ -15,19 +15,19 @@ The following sections describe security-related settings in `opensearch.yml`. T
 
 The Security plugin supports the following common settings:
 
--  `plugins.security.nodes_dn` (Static): Specifies a list of distinguished names (DNs) which denote the other nodes in the cluster. This setting supports wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`.
+-  `plugins.security.nodes_dn` (Static): Specifies a list of distinguished names (DNs) that denote the other nodes in the cluster. This setting supports wildcards and regular expressions. The list of DNs are also read from the security index **in addition** to the YAML configuration when `plugins.security.nodes_dn_dynamic_config_enabled` is `true`.
 
-- `plugins.security.nodes_dn_dynamic_config_enabled` (Static): Relevant for `cross_cluster` use cases where there is a need to manage the whitelisted `nodes_dn` without having to restart the nodes every time a new `cross_cluster` remote is configured.
+- `plugins.security.nodes_dn_dynamic_config_enabled` (Static): Relevant for `cross_cluster` use cases where there is a need to manage the  allow listed `nodes_dn` without having to restart the nodes every time a new `cross_cluster` remote is configured.
   Setting `nodes_dn_dynamic_config_enabled` to `true` enables **super-admin callable** Distinguished Names APIs, which provide means to update or retrieve `nodes_dn` dynamically. This setting only has effect if `plugins.security.cert.intercluster_request_evaluator_class` is not set. Default is `false`.
 
-- `plugins.security.authcz.admin_dn` (Static): Defines the distinguished names (DNs) of certificates to which admin privileges should be assigned.Required.
+- `plugins.security.authcz.admin_dn` (Static): Defines the DNs of certificates to which admin privileges should be assigned. Required.
 
 - `plugins.security.roles_mapping_resolution` (Static): Defines how backend roles are mapped to Security roles.
         
     Valid values are:
-    - `MAPPING_ONLY`(Default) - mappings must be configured explicitly in `roles_mapping.yml`.
-    - `BACKENDROLES_ONLY` - backend roles are mapped to Security roles directly. Settings in `roles_mapping.yml` have no effect.
-    - `BOTH` - backend roles are mapped to Security roles both directly and through `roles_mapping.yml`.
+    - `MAPPING_ONLY`(Default): Mappings must be configured explicitly in `roles_mapping.yml`.
+    - `BACKENDROLES_ONLY`: Backend roles are mapped to security roles directly. Settings in `roles_mapping.yml` have no effect.
+    - `BOTH`: Backend roles are mapped to security roles both directly and through `roles_mapping.yml`.
 
 - `plugins.security.dls.mode` (Static): Sets the document-level security (DLS) evaluation mode. Default is `adaptive`. See [How to set the DLS evaluation mode]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/#how-to-set-the-dls-evaluation-mode-in-opensearchyml).
 
@@ -41,7 +41,7 @@ The Security plugin supports the following REST management API settings:
 
 - `plugins.security.restapi.roles_enabled` (Static): Enables role-based access to the REST management API for listed roles. Roles are separated by a comma. Default is an empty list (no role is allowed to access the REST management API). See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
 
-- `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` (Static): Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include: `ACTIONGROUPS`, `CACHE`, `CONFIG`, `ROLES`, `ROLESMAPPING`, `INTERNALUSERS`, `SYSTEMINFO`, `PERMISSIONSINFO`, `LICENSE`. See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
+- `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` (Static): Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include `ACTIONGROUPS`, `CACHE`, `CONFIG`, `ROLES`, `ROLESMAPPING`, `INTERNALUSERS`, `SYSTEMINFO`, `PERMISSIONSINFO`, and `LICENSE`. See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
 
 - `plugins.security.restapi.password_validation_regex` (Static): Specifies a regular expression to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
@@ -49,7 +49,7 @@ The Security plugin supports the following REST management API settings:
 
 - `plugins.security.restapi.password_min_length` (Static): Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
-- `plugins.security.restapi.password_score_based_validation_strength` (Static): Sets a threshold to determine whether the password is strong or weak. Valid values are `fair`, `good`, `strong`, `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`.
+- `plugins.security.restapi.password_score_based_validation_strength` (Static): Sets a threshold to determine whether the password is strong or weak. Valid values are `fair`, `good`, `strong`, and `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`.
 
 - `plugins.security.unsupported.restapi.allow_securityconfig_modification` (Static): Enables the use of the PUT and PATCH methods for the configuration APIs.
 
@@ -57,7 +57,7 @@ The Security plugin supports the following REST management API settings:
 
 The Security plugin supports the following advanced settings:
 
-- `plugins.security.authcz.impersonation_dn` (Static): Enables transport layer impersonation. This allows distinguished names (DNs) to impersonate as other users. See [User impersonation]({{site.url}}{{site.baseurl}}/security/access-control/impersonation/).
+- `plugins.security.authcz.impersonation_dn` (Static): Enables transport layer impersonation. This allows DNs to impersonate as other users. See [User impersonation]({{site.url}}{{site.baseurl}}/security/access-control/impersonation/).
 
 - `plugins.security.authcz.rest_impersonation_user` (Static): Enables REST layer impersonation. This allows users to impersonate as other users. See [User impersonation]({{site.url}}{{site.baseurl}}/security/access-control/impersonation/).
 
@@ -75,7 +75,7 @@ The Security plugin supports the following advanced settings:
 
 ## Expert-level settings
 
-An expert-level setting should only be configured and deployed by an admin who understands the feature completely. Misunderstandings of a feature can lead to security risks or cause the Security plugin to not operate properly and potential data loss.
+An expert-level setting should only be configured and deployed by an admin who understands the feature completely. Misunderstandings of a feature can lead to security risks, cause the Security plugin to not operate properly, or cause data loss.
 {: .warning}
 
 The Security plugin supports the following expert-level settings:
@@ -84,7 +84,7 @@ The Security plugin supports the following expert-level settings:
 
 - `plugins.security.cert.oid` (Static): Defines the Object Identifier (OID) of server node certificates.
 
-- `plugins.security.cert.intercluster_request_evaluator_class` (Static): Specifies the implementation of `org.opensearch.security.transport.InterClusterRequestEvaluator` that is used to evaluate inter-cluster requests. Instances of `org.opensearch.security.transport.InterClusterRequestEvaluator` must implement a single-argument constructor that takes an `org.opensearch.common.settings.Settings` object.
+- `plugins.security.cert.intercluster_request_evaluator_class` (Static): Specifies the implementation of `org.opensearch.security.transport.InterClusterRequestEvaluator` that is used to evaluate intercluster requests. Instances of `org.opensearch.security.transport.InterClusterRequestEvaluator` must implement a single-argument constructor that takes an `org.opensearch.common.settings.Settings` object.
 
 - `plugins.security.enable_snapshot_restore_privilege` (Static): When set to `false`, this setting disables snapshot restore for regular users. In this case, only snapshot restore requests signed by an admin TLS certificate are accepted. When set to `true` (default), regular users can restore snapshots if they have the `cluster:admin/snapshot/restore`, `indices:admin/create`, and `indices:data/write/index` privileges.
 
@@ -97,10 +97,10 @@ The Security plugin supports the following expert-level settings:
 
 - `plugins.security.disabled` (Static): Disables OpenSearch Security.
 
-  This can expose your configuration (including passwords) to the public.
+  Disabling this plugin can expose your configuration (including passwords) to the public.
   {:warning}
 
-- `plugins.security.protected_indices.enabled` (Static): If set to `true`, enables protected indexes. Protected indexes are even more secure than regular indexes. These indexes require a role to access like any other traditional index, but they also require an additional role to be visible. This setting is used in conjunction with the `plugins.security.protected_indices.roles` and `plugins.security.protected_indices.indices` settings.
+- `plugins.security.protected_indices.enabled` (Static): If set to `true`, enables protected indexes. Protected indexes are even more secure than regular indexes. These indexes require a role to access like any other traditional index and require an additional role to be visible. This setting is used in conjunction with the `plugins.security.protected_indices.roles` and `plugins.security.protected_indices.indices` settings.
 
 - `plugins.security.protected_indices.roles` (Static): Specifies a list of roles to which a user must be mapped to access protected indexes.
 
@@ -114,7 +114,7 @@ The Security plugin supports the following expert-level settings:
 
 - `plugins.security.cert.intercluster_request_evaluator_class` (Static): A class to be used for evaluating intercluster communication.
 
-- `plugins.security.enable_snapshot_restore_privilege` (Static): Enables granting the snapshot restore privilege. Optional Default is `true`.
+- `plugins.security.enable_snapshot_restore_privilege` (Static): Enables granting the snapshot restore privilege. Optional. Default is `true`.
 
 - `plugins.security.check_snapshot_restore_write_privileges` (Static): Enforces write privilege evaluation when creating snapshots. Default is `true`.
 
@@ -126,7 +126,7 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.enable_transport` (Dynamic): Enables or disables transport-level request logging. Default is `false` (disable).
 
-- `plugins.security.audit.resolve_bulk_requests` (Dynamic): Enable or disable bulk request logging. When enabled, all subrequests in bulk requests are also logged. The default is `false` (disabled).
+- `plugins.security.audit.resolve_bulk_requests` (Dynamic): Enable or disable bulk request logging. When enabled, all subrequests in bulk requests are also logged. Default is `false` (disabled).
 
 - `plugins.security.audit.config.disabled_categories` (Dynamic): Disables the specified event categories.
 
@@ -142,7 +142,7 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.http_endpoints` (Static): A list of endpoints for `localhost`.
 
-- `plugins.security.audit.config.index` (Static): The audit log index. The default is `auditlog6`. The index can be static or an index that includes a date so that it rotates on a daily basis. For example: `"'auditlog6-'YYYY.MM.dd"`. In both cases, make sure you secure the index properly.
+- `plugins.security.audit.config.index` (Static): The audit log index. The default is `auditlog6`. The index can be static or an index that includes a date so that it rotates on a daily basis, for example, `"'auditlog6-'YYYY.MM.dd"`. In either case, make sure to secure the index properly.
 
 - `plugins.security.audit.config.type` (Static): Specify the audit log type as `auditlog`.
 
@@ -160,31 +160,31 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.config.pemkey_filepath` (Static): The `/config` relative file path to the Privacy Enhanced Mail (PEM) key used for audit logging.
 
-- `plugins.security.audit.config.pemkey_content` (Static): The Base64-encoded content of the PEM key used for audit logging. This is an alternative to `...config.pemkey_filepath`.
+- `plugins.security.audit.config.pemkey_content` (Static): The base64-encoded content of the PEM key used for audit logging. This is an alternative to `...config.pemkey_filepath`.
 
 - `plugins.security.audit.config.pemkey_password` (Static): Password for the PEM-formatted private key used by the client.
 
 - `plugins.security.audit.config.pemcert_filepath` (Static): The `/config` relative file path to the PEM certificate used for audit logging.
 
-- `plugins.security.audit.config.pemcert_content` (Static): The Base64-encoded content of the PEM certificate used for audit logging. This is an alternative to specifying the file path with `...config.pemcert_filepath`.
+- `plugins.security.audit.config.pemcert_content` (Static): The base64-encoded content of the PEM certificate used for audit logging. This is an alternative to specifying the file path with `...config.pemcert_filepath`.
 
 - `plugins.security.audit.config.pemtrustedcas_filepath` (Static): The `/config` relative filepath to trusted root certificate authority.
 
-- `plugins.security.audit.config.pemtrustedcas_content` (Static): The Base64-encoded content of the of the root certificate authority. This is an alternative to `...config.pemtrustedcas_filepath`.
+- `plugins.security.audit.config.pemtrustedcas_content` (Static): The base64-encoded content of the root certificate authority. This is an alternative to `...config.pemtrustedcas_filepath`.
 
 - `plugins.security.audit.config.webhook.url` (Static): The webhook URL.
 
-- `plugins.security.audit.config.webhook.format` (Static): The format used for the webhook. Valid values are `URL_PARAMETER_GET`, `URL_PARAMETER_POST`, `TEXT`, `JSON`, `SLACK`.
+- `plugins.security.audit.config.webhook.format` (Static): The format used for the webhook. Valid values are `URL_PARAMETER_GET`, `URL_PARAMETER_POST`, `TEXT`, `JSON`, and `SLACK`.
 
 - `plugins.security.audit.config.webhook.ssl.verify` (Static): Enables or disables verification of any SSL/TLS certificates sent with any webhook request. Default is `true` (enabled).
 
 - `plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath` (Static): The `/config` relative file path to trusted certificate authority against which webhook requests are verified.
 
-- `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` (Static): The Base64-encoded content of the certificate authority used to verify webhook requests. This is an alternative to `...config.pemtrustedcas_filepath`.
+- `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` (Static): The base64-encoded content of the certificate authority used to verify webhook requests. This is an alternative to `...config.pemtrustedcas_filepath`.
 
 - `plugins.security.audit.config.log4j.logger_name` (Static): A custom name for the Log4j logger.
 
-- `plugins.security.audit.config.log4j.level` (Static): Provide a default log level for the Log4j logger. Valid values are `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`, and `ALL`. Default is `INFO`. 
+- `plugins.security.audit.config.log4j.level` (Static): Provides a default log level for the Log4j logger. Valid values are `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`, and `ALL`. Default is `INFO`. 
 
 - `opendistro_security.audit.config.disabled_rest_categories` (Dynamic): A list of REST categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
 
@@ -234,7 +234,7 @@ The Security plugin supports the following transport layer TLS key store and tru
 
 - `plugins.security.ssl.transport.keystore_password` (Static): The key store password. Default is `changeit`.
 
-- `plugins.security.ssl.transport.truststore_type` (Static): The type of the trust store file. Optional. Valid values are `JKS` or `PKCS12/PFX` Default is `JKS`.
+- `plugins.security.ssl.transport.truststore_type` (Static): The type of the trust store file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
 
 - `plugins.security.ssl.transport.truststore_filepath` (Static): The path to the trust store file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -250,7 +250,7 @@ The Security plugin supports the following REST layer TLS key store and trust st
 
 - `plugins.security.ssl.http.enabled` (Static): Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 
-- `plugins.security.ssl.http.keystore_type` (Static): The type of the key store file. Optional. Valid values are `JKS` or `PKCS12/PFX` Default is `JKS`.
+- `plugins.security.ssl.http.keystore_type` (Static): The type of the key store file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
 
 - `plugins.security.ssl.http.keystore_filepath` (Static): The path to the key store file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -258,7 +258,7 @@ The Security plugin supports the following REST layer TLS key store and trust st
 
 - `plugins.security.ssl.http.keystore_password`: The key store password. Default is `changeit`.
 
-- `plugins.security.ssl.http.truststore_type`: The type of the trust store file. Optional. Valid values are `JKS` or `PKCS12/PFX` Default is `JKS`.
+- `plugins.security.ssl.http.truststore_type`: The type of the trust store file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
 
 - `plugins.security.ssl.http.truststore_filepath`: The path to the trust store file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -288,7 +288,7 @@ The Security plugin supports the following transport layer TLS settings related 
 
 - `plugins.security.ssl.transport.pemcert_filepath` (Static): The path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
-- `plugins.security.ssl.transport.pemtrustedcas_filepath` (Static): The path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+- `plugins.security.ssl.transport.pemtrustedcas_filepath` (Static): The path to the root certificate authorities (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#transport-layer-tls).
 
@@ -304,7 +304,7 @@ The Security plugin supports the following REST layer TLS settings related to X.
 
 - `plugins.security.ssl.http.pemcert_filepath` (Static): The path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
--  `plugins.security.ssl.http.pemtrustedcas_filepath`: The path to the root CAs (PEM format), which must be under the config directory, specified using a relative path. Required.
+-  `plugins.security.ssl.http.pemtrustedcas_filepath`: The path to the root certificate authorities (PEM format), which must be under the config directory, specified using a relative path. Required.
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls).
 
