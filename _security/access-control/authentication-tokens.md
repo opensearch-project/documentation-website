@@ -20,7 +20,7 @@ An extension can use an OBO token to interact with an OpenSearch cluster, using 
 
 ### 2.0 Configuration
 
-In the security config file, the on-behalf-of configuration is located under the dynamic config section. It contains the signing key for the token signature and the encryption key for the token payload (role information) decryption:
+In the security configuration file, the OBO configuration is located under the dynamic configuration section. It contains the signing key for the token signature and the encryption key for the token payload (role information) decryption:
 
 ```
 config:
