@@ -10,10 +10,10 @@ nav_order: 30
 
 To retrieve information about a model, you can:
 
-- [Get a model by ID](#get-model-by-id)
+- [Get a model by ID](#get-a-model-by-id)
 - [Search for a model](#search-for-a-model)
 
-## Get model by ID
+## Get a model by ID
 
 You can retrieve model information using the `model_id`.
 
