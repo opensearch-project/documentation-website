@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Logs
-nav_order: 60
+parent: Configuring OpenSearch
+nav_order: 120
 redirect_from:
   - /opensearch/logs/
+  - /monitoring-your-cluster/logs/
 ---
 
 # Logs
@@ -18,7 +20,11 @@ Logs are available as `.log` (plain text) and `.json` files. Permissions for the
 
 ## Application logs
 
-For its application logs, OpenSearch uses [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) and its built-in log levels (from least to most severe) of TRACE, DEBUG, INFO, WARN, ERROR, and FATAL. The default OpenSearch log level is INFO.
+For its application logs, OpenSearch uses [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) and its built-in log levels (from least to most severe). The following table describes the logging settings.
+
+| Setting | Data type | Description |
+| :--- | :--- | :--- |
+| `logger.org.opensearch.discovery` | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
 
 Rather than changing the default log level (`logger.level`), you change the log level for individual OpenSearch modules:
 
@@ -30,6 +36,7 @@ PUT /_cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 The easiest way to identify modules is not from the logs, which abbreviate the path (for example, `o.o.i.r`), but from the [OpenSearch source code](https://github.com/opensearch-project/opensearch/tree/master/server/src/main/java/org/opensearch).
 {: .tip }
@@ -61,6 +68,7 @@ There are other ways to change log levels:
    ```yml
    logger.org.opensearch.index.reindex: debug
    ```
+   {% include copy.html %}
 
    Modifying `opensearch.yml` makes the most sense if you want to reuse your logging configuration across multiple clusters or debug startup issues with a single node.
 
@@ -72,6 +80,7 @@ There are other ways to change log levels:
    # Set the log level for that ID
    logger.reindex.level = debug
    ```
+   {% include copy.html %}
 
    This approach is extremely flexible but requires familiarity with the [Log4j 2 property file syntax](https://logging.apache.org/log4j/2.x/manual/configuration.html#Properties). In general, the other options offer a simpler configuration experience.
 
@@ -95,7 +104,6 @@ These logs rely on thresholds to define what qualifies as a "slow" search or "sl
 
 ```json
 GET <some-index>/_settings?include_defaults=true
-
 {
   "indexing": {
     "slowlog": {
@@ -133,6 +141,7 @@ GET <some-index>/_settings?include_defaults=true
   }
 }
 ```
+{% include copy-curl.html %}
 
 To enable these logs, increase one or more thresholds:
 
@@ -155,6 +164,7 @@ PUT <some-index>/_settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 In this example, OpenSearch logs indexing operations that take 15 seconds or longer at the WARN level and operations that take between 10 and 14.*x* seconds at the INFO level. If you set a threshold to 0 seconds, OpenSearch logs all operations, which can be useful for testing whether slow logs are indeed enabled.
 
@@ -176,7 +186,7 @@ OpenSearch can log CPU time and memory utilization for the top N memory-expensiv
 
 Task logging is enabled dynamically through the cluster settings API:
 
-```bash
+```json
 PUT _cluster/settings
 {
   "persistent" : {
@@ -184,6 +194,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 Enabling task resource consumers can have an impact on search latency.
 {:.tip}
@@ -192,13 +203,14 @@ Once enabled, logs will be written to `logs/opensearch_task_detailslog.json` and
 
 To configure the logging interval and the number of search tasks logged, add the following lines to `opensearch.yml`:
 
-```bash
+```yaml
 # Number of expensive search tasks to log
 cluster.task.consumers.top_n.size:100
 
 # Logging interval
 cluster.task.consumers.top_n.frequency:30s
 ```
+{% include copy.html %}
 
 ## Deprecation logs
 

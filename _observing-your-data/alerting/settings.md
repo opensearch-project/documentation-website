@@ -32,7 +32,7 @@ GET _cat/indices?expand_wildcards=open,hidden
 
 We don't recommend changing these settings; the defaults should work well for most use cases.
 
-All settings are available using the OpenSearch `_cluster/settings` API. None require a restart, and all can be marked `persistent` or `transient`.
+All settings are available using the OpenSearch `_cluster/settings` API. None require a restart, and all can be marked `persistent` or `transient`. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 Setting | Default | Description
 :--- | :--- | :---
