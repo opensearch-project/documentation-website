@@ -653,7 +653,7 @@ PUT /books2
 ````
 {% include copy-curl.html %}
 
-The preceding request is an index API rather than an analyze API. See [DYNAMIC INDEX SETTINGS]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/#dynamic-index-settings) for additional details.
+The preceding request is an index API rather than an analyze API. See [Dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) for additional details.
 {: .note}
 
 ### Response fields
