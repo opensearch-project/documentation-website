@@ -131,6 +131,7 @@ PUT /_plugins/_security/api/internalusers/admin_service
   "service": "true"
  }
  ```
+
 {% include copy-curl.html %}
  
 ## Handling OBO and Service Accounts requests
