@@ -16,7 +16,7 @@ The Security plugin allows you to configure two types of authentication tokens: 
 
 On-Behalf-Of tokens are a special form of JSON Web Token (JWT) used for managing authentication requests between a user's client and an extension. These tokens operate "just-in-time," meaning that a token is issued immediately before it is required for authentication. A token will have a configurable window of validity (with a maximum duration of five minutes), after which it expires and cannot be used.
 
-With on-behalf-of tokens, an extension can interact with the OpenSearch cluster using the same privileges as the initiating user (the reason the tokens are  “on-behalf-of”). However, since these tokens do not have any restrictions in place, they also provide services the ability to operate as if they are the original user until token expiration. This implies that this feature can be used more broadly and is not limited to extension-related use cases.
+An extension can use an OBO token to interact with an OpenSearch cluster, using the same privileges as the user it represents. This is why these tokens are called "on-behalf-of." Since these tokens are not restricted, they enable services to function as though they are the original user until the token expires. This implies that the feature's applicability extends beyond just extension-related uses cases, allowing for a wider range of uses.
 
 ### 2.0 Configuration
 
