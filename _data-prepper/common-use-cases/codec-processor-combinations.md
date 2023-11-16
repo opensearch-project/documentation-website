@@ -43,13 +43,11 @@ The [newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/
 
 ## Parquet
 
-[Apache Parquet](https://parquet.apache.org/docs/overview/) is columnar storage format built for Hadoop. It is most efficient without the use of a codec, however positive results can be achieved when paired with the following processors depending on the compression type.
+[Apache Parquet](https://parquet.apache.org/docs/overview/) is a columnar storage format built for Hadoop. It is most efficient without the use of a codec, however positive results can be achieved when configured with [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source).
 
 
-- [Parquet]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/s3#parquet-codec) |
-- [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) |
 
 ## Avro
 
-[Apace Avro] helps streamline streaming data pipelines. It is most efficient when used with the [Avro]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/s3#avro-codec) inside an `s3` sink.
+[Apache Avro] helps streamline streaming data pipelines. It is most efficient when used with the [`avro`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/s3#avro-codec) codec inside an `s3` sink.
 
