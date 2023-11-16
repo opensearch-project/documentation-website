@@ -29,7 +29,7 @@ Parameter | Type   | Description | Default value
 
 * [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/)
-* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict)
+* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/)
 
 ### Example
 
@@ -193,7 +193,7 @@ Parameter | Type   | Description | Default value
 
 * [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/)
-* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict)
+* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/)
 
 ### Limitations
 
@@ -214,7 +214,7 @@ RCF Summarize is a clustering algorithm based on the Clustering Using Representa
 
 * [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/)
-* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict)
+* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/)
 
 ### Example: Train and predict
 
