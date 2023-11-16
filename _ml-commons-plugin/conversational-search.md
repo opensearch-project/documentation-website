@@ -252,11 +252,12 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
 	{
 	    "name": "OpenAI Chat Connector",
 	    "description": "The connector to public OpenAI model service for GPT 3.5",
-	    "version": 1,
+	    "version": 2,
 	    "protocol": "http",
 	    "parameters": {
 	        "endpoint": "api.openai.com",
-	        "model": "gpt-3.5-turbo"
+	        "model": "gpt-3.5-turbo",
+		"temperature": 0
 	    },
 	    "credential": {
 	        "openAI_key": "<your OpenAI key>"
