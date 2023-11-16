@@ -42,7 +42,7 @@ The default encoding algorithm for signing the JWT is HMAC SHA512. Both the sign
 
 The payload of an on-behalf-of token must include all standard configurations of a JWT, along with encrypted and decrypted roles. Depending on the setting of the "Plugin Backward Compatibility Mode," backend roles should also be incorporated into role claims. It is important to note that the absence of any of these claims will result in a malformed token, failing to meet the required standard for authentication.
 
-The on-behalf-of token contains the following claims:
+The OBO token contains the following claims:
 * Issuer (`iss`): OpenSearch Cluster Identifier
 	* It is essential that the issuer is validated as a part of security control measures. This strategy is forward-thinking, particularly in the context of potential multi-tenant scenarios like OpenSearch Serverless, where differing cryptographic keys could be associated with each issuer. By checking the value of issuer, each on-behalf-of token is restricted to its associated issuer.
 * Issue-at (`iat`): Current time of issuing this token
