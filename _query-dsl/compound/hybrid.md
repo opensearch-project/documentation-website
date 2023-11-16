@@ -12,7 +12,7 @@ You can use a hybrid query to combine relevance scores from multiple queries int
 
 ## Example
 
-Before using a `hybrid` query, you must configure a search pipeline with a [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) (see [this example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor#example)).
+Before using a `hybrid` query, you must configure a search pipeline with a [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) (see [this example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor#example)).
 
 To try out the example, follow the [Semantic search tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
 
