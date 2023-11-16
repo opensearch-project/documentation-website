@@ -46,7 +46,7 @@ The following table lists all supported search request processors.
 
 Processor | Description | Earliest available version
 :--- | :--- | :---
-[`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | Intercepts the query phase results and normalizes and combines the document scores before passing the documents to the fetch phase. | 2.10
+[`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) | Intercepts the query phase results and normalizes and combines the document scores before passing the documents to the fetch phase. | 2.10
 
 ## Viewing available processor types
 
