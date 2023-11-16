@@ -8,9 +8,13 @@ redirect_from:
  - /security-plugin/access-control/authorization-tokens/
 ---
 
+Authorization tokens
+
+The Security plugin allows you to configure two types of authentication tokens: On-Behalf-Of (OBO) tokens and Service Account tokens.
+
 ## On-Behalf-Of authentication
 
-The Security plugin allows you to configure two types of authentication tokens: On-Behalf-Of (OBO) tokens and Service Account tokens. 
+The following sections describe the use, configuration, structure, and endpoint for OBO tokens.
 
 ### 1.0 Usage
 
@@ -20,7 +24,7 @@ An extension can use an OBO token to interact with an OpenSearch cluster, using 
 
 ### 2.0 Configuration
 
-In the security configuration file, the OBO configuration is located under the dynamic configuration section. It contains the signing key for the token signature and the encryption key for the token payload (role information) decryption:
+In the [security `config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located under the dynamic configuration section. It contains the signing key for the token signature and the encryption key for the token payload (role information) decryption:
 
 ```
 config:
