@@ -9,6 +9,8 @@ nav_order: 60
 
 The following settings are related to the OpenSearch cluster.
 
+To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+
 ## Cluster-level routing and allocation settings
 
 OpenSearch supports the following cluster-level routing and shard allocation settings. All settings in this list are dynamic:

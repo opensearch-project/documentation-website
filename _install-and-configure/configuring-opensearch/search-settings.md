@@ -38,3 +38,5 @@ OpenSearch supports the following search settings:
 ## Point in Time settings
 
 For information about PIT settings, see [PIT settings]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time-api/#pit-settings).
+
+To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).

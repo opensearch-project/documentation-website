@@ -10,7 +10,8 @@ redirect_from:
 # Anomaly Detection settings
 
 The Anomaly Detection plugin adds several settings to the standard OpenSearch cluster settings.
-The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster.
+The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+
 You can mark settings as `persistent` or `transient`.
 
 For example, to update the retention period of the result index:

@@ -25,10 +25,6 @@ For information about asynchronous search settings, see [Asynchronous Search set
 
 For information about cross-cluster replication settings, see [Replication settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/settings/).
 
-## Custom Codecs plugin settings
-
-For information about settings related to custom codecs, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/).
-
 ## Geospatial plugin settings
 
 For information about the Geospatial plugin's IP2Geo processor settings, see [Cluster settings]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ip2geo/#cluster-settings).

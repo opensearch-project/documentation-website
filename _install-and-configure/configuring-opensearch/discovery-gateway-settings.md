@@ -9,6 +9,8 @@ nav_order: 30
 
 The following are settings related to discovery and local gateway.
 
+To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+
 ## Discovery settings
 
 The discovery process is used when a cluster is formed. It consists of discovering nodes and electing a cluster manager node. OpenSearch supports the following discovery settings:

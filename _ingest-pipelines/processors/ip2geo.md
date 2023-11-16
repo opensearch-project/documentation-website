@@ -22,7 +22,7 @@ To get started with the `ip2geo` processor, the `opensearch-geospatial` plugin m
 
 ## Cluster settings
 
-The IP2Geo data source and `ip2geo` processor node settings are listed in the following table.
+The IP2Geo data source and `ip2geo` processor node settings are listed in the following table. All settings in this table are dynamic. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 | Key | Description | Default |
 |--------------------|-------------|---------|

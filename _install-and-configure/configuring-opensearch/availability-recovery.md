@@ -17,6 +17,8 @@ Availability and recovery settings include settings for the following:
 - [Segment replication](#segment-replication-settings)
 - [Cross-cluster replication](#cross-cluster-replication-settings)
 
+To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+
 ## Snapshot settings
 
 OpenSearch supports the following snapshot settings:

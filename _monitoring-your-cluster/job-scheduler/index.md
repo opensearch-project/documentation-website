@@ -133,7 +133,7 @@ For more information, see the Job Scheduler [sample extension](https://github.co
 
 ## Job Scheduler cluster settings
 
-The Job Scheduler plugin supports the following cluster settings. All settings are dynamic.
+The Job Scheduler plugin supports the following cluster settings. All settings are dynamic. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 | Setting | Data type | Description |
 :--- | :--- | :---

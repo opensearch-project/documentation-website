@@ -7,7 +7,7 @@ nav_order: 10
 
 # Configuration and system settings
 
-For an overview of creating an OpenSearch cluster and examples of configuration settings, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index/).
+For an overview of creating an OpenSearch cluster and examples of configuration settings, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index/). To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 OpenSearch supports the following system settings:
 

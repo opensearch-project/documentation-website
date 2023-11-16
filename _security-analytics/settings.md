@@ -57,3 +57,4 @@ The Security Analytics plugin supports the following settings. All settings in t
 
 `plugins.security_analytics.threat_intel_timeout` (Time value): The timeout value for creating and deleting threat intelligence feed data. Default is 30 seconds.
 
+To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
