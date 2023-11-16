@@ -138,7 +138,7 @@ The `request_body` template must be `${parameters.input}`.
 
 The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
 
-The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) provides parameters in the following format:
+The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) provides parameters in the following format:
 
 ```json
 {

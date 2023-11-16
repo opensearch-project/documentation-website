@@ -116,7 +116,7 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#searching-for-a-task):
+To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#get-a-task-by-id):
 
 ```bash
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
@@ -188,7 +188,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 
 ## Step 4 (Optional): Test the model
 
-Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) to test the model.
+Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model.
 
 For a text embedding model, send the following request:
 
