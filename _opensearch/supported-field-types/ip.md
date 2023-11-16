@@ -108,7 +108,7 @@ The following table lists the parameters accepted by ip field types. All paramet
 Parameter | Description 
 :--- | :--- 
 `boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
+`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`.
 `index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
