@@ -338,7 +338,7 @@ To include OpenID Connect with other authentication types in the Dashboards sign
 
 ### Additional Parameters
 
-Some identity providers (IdP) may require custom parameters for the authentication process. The opensearch_dashboards.yml configuration file can be enhanced to include custom parameters under the opensearch_security.openid.additional_parameters namespace. These additional parameters are included in the GET request sent to the identity provider. This feature allows for greater flexibility and customization when communicating with various IdPs.
+Some identity providers require custom parameters to complete the authentication process. You can add custom parameters `opensearch_dashboards.yml` configuration file  under the `opensearch_security.openid.additional_parameters` namespace. You can find these additional parameters by making a GET request to your identity provider. This feature allows for greater flexibility and customization when communicating with various identity providers.
 
 You can add any number of custom parameters. For example:
 
