@@ -23,14 +23,11 @@ Unlike a JSON array, [NDJSON](https://www.npmjs.com/package/ndjson) allows for e
 
 The NDJSON input type is parsed using the [newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) codec, which parses each single line as a single log event. The [parse_json]({{site.url}}{{site.baseurl}}data-prepper/pipelines/configuration/processors/parse-json/) processor then outputs each line as a single event.
 
-
-
 ## CSV
 
 The CSV data type inputs data as a table. It can used without a codec or processor, but it does require one or the other, for example, either just the `csv` processor or the `csv` codec.
 
 The CSV input type is most effective when used with the following codec processor combinations.
-
 
 ### `csv` codec
 
@@ -38,14 +35,11 @@ When the [`csv` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/confi
 
 ### `newline` codec 
 
-The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) parses each row as a single log event. The codec will only detect a header when `header_destination` is configured. The processor then [csv]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) outputs the event into columns. The header detected in `header_destination` from the `newline` codec can be used in the `csv` processor under `column_names_source_key.`
-
+The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) parses each row as a single log event. The codec will only detect a header when `header_destination` is configured. The [csv]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) processor then outputs the event into columns. The header detected in `header_destination` from the `newline` codec can be used in the `csv` processor under `column_names_source_key.`
 
 ## Parquet
 
 [Apache Parquet](https://parquet.apache.org/docs/overview/) is a columnar storage format built for Hadoop. It is most efficient without the use of a codec. Positive results, however, can be achieved when it's configured with [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source).
-
-
 
 ## Avro
 
