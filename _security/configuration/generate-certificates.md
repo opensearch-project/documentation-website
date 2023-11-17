@@ -207,10 +207,12 @@ Then copy and paste the output into `opensearch.yml`.
 This process generates many files, but these are the ones you need to add to each node:
 
 - `root-ca.pem`
-- `admin.pem`
-- `admin-key.pem`
+- (Optional) `admin.pem`
+- (Optional) `admin-key.pem`
 - (Optional) `node1.pem`
 - (Optional) `node1-key.pem`
+
+For most users, the `admin.pem` and `admin-key.pem` files only need to be added to nodes you plan to run the `securityadmin` script or reload certificates from. After configuring your certificates and starting OpenSearch, you can run `securityadmin.sh` to initialize the Security plugin. For information about how to use this script, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/). If you intend to run the `securityadmin` script directly from a node, it will need to have a copy of `admin.pem` and `admin-key.pem` on it.
 
 On one node, the security configuration portion of `opensearch.yml` might look like this:
 
@@ -231,12 +233,6 @@ plugins.security.nodes_dn:
 ```
 
 For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/configuration/client-auth/).
-
-
-## Run securityadmin.sh
-
-After configuring your certificates and starting OpenSearch, run `securityadmin.sh` to initialize the Security plugin. For information about how to use this script, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
-
 
 ## OpenSearch Dashboards
 
