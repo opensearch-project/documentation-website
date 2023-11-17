@@ -32,11 +32,11 @@ The CSV data type inputs data as a table. It can used without a codec or process
 The CSV input type is most effective when used with the following codec processor combinations.
 
 
-### csv codec
+### `csv` codec
 
 When the [`csv` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#csv-codec) is used without a processor, it automatically detects headers from the CSV and uses them for index mapping.
 
-### Newline codec 
+### `newline` codec 
 
 The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) parses each row as a single log event. The codec will only detect a header when `header_destination` is configured. The processor then [csv]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) outputs the event into columns. The header detected in `header_destination` from the `newline` codec can be used in the `csv` processor under `column_names_source_key.`
 
