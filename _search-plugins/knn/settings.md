@@ -7,7 +7,7 @@ nav_order: 40
 
 # k-NN settings
 
-The k-NN plugin adds several new cluster settings.
+The k-NN plugin adds several new cluster settings. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Cluster settings
 

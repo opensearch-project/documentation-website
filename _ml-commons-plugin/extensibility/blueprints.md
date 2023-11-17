@@ -7,6 +7,8 @@ parent: Connecting to remote models
 ---
 
 # Connector blueprints
+**Introduced 2.9**
+{: .label .label-purple }
 
 All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
 
@@ -49,7 +51,7 @@ You can find blueprints for each connector in the [ML Commons repository](https:
 
 ## Configuration options
 
-The following configuration options are **required** in order to build a connector blueprint. These settings can be used for both external and local connectors.
+The following configuration options are **required** in order to build a connector blueprint. These settings can be used for both standalone and internal connectors.
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
@@ -136,7 +138,7 @@ The `request_body` template must be `${parameters.input}`.
 
 The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
 
-The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) provides parameters in the following format:
+The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) provides parameters in the following format:
 
 ```json
 {
