@@ -212,7 +212,7 @@ This process generates many files, but these are the ones you need to add to eac
 - (Optional) `node1.pem`
 - (Optional) `node1-key.pem`
 
-For most users, the `admin.pem` and `admin-key.pem` files only need to be added to nodes you plan to run the `securityadmin` script or reload certificates from. After configuring your certificates and starting OpenSearch, you can run `securityadmin.sh` to initialize the Security plugin. For information about how to use this script, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/). If you intend to run the `securityadmin` script directly from a node, it will need to have a copy of `admin.pem` and `admin-key.pem` on it.
+For most users, the `admin.pem` and `admin-key.pem` files only need to be added to nodes you plan to run the `securityadmin` script or reload certificates from. For information about how to use the `securityadmin` script, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/). If you intend to run the `securityadmin` script directly from a node, it will need to have a copy of `admin.pem` and `admin-key.pem` on it.
 
 On one node, the security configuration portion of `opensearch.yml` might look like this:
 
