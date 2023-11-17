@@ -6,12 +6,12 @@ has_children: false
 parent: Neural search
 ---
 
-# Text search
+# Neural text search
 
 Use text search for text data. In neural search, text search is facilitated by text embedding models. Text search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
 
 **PREREQUISITE**<br>
-Before using text search, you must set up a text embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using text search, you must set up a text embedding model. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/).
 {: .note}
 
 ## Using text search

@@ -6,7 +6,7 @@ has_children: false
 parent: Neural search
 ---
 
-# Sparse search
+# Neural sparse search
 Introduced 2.11
 {: .label .label-purple }
 
@@ -18,7 +18,7 @@ When selecting a model, choose one of the following options:
 - Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
 
 **PREREQUISITE**<br>
-Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/).
 {: .note}
 
 ## Using sparse search
