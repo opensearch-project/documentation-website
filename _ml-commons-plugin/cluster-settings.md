@@ -19,7 +19,7 @@ node.roles: [ ml ]
 
 ## Run tasks and models on ML nodes only
 
-If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. 
+If `true`, ML Commons tasks and models run ML tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. 
 
 We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on production clusters. 
 {: .tip}

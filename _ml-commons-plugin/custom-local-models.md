@@ -206,6 +206,7 @@ When the operation is complete, the state changes to `COMPLETED`:
   "is_async": true
 }
 ```
+
 ## Step 4 (Optional): Test the model
 
 Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model.

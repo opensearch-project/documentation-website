@@ -100,7 +100,6 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-
 ## Register a custom model 
 
 To use a custom model locally within the OpenSearch cluster, you need to provide a URL and a config object for that model. For more information, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
@@ -127,7 +126,7 @@ Field | Data type | Required/Optional | Description
 | :--- | :--- | :--- 
 | `model_type` | String | The model type, such as `bert`. For a Hugging Face model, the model type is specified in `config.json`. For an example, see the [`all-MiniLM-L6-v2` Hugging Face model `config.json`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/blob/main/config.json#L15). Required. |
 | `embedding_dimension` | Integer | The dimension of the model-generated dense vector. For a Hugging Face model, the dimension is specified in the model card. For example, in the [`all-MiniLM-L6-v2` Hugging Face model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), the statement `384 dimensional dense vector space` specifies 384 as the embedding dimension. Required. |
-| `framework_type` | String  | The framework the model is using. Currently, we support `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Hugging Face model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. Required. |
+| `framework_type` | String  | The framework the model is using. Currently, OpenSearch supports `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Hugging Face model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. Required. |
 | `all_config` | String | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Hugging Face model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. Optional. |
 
 You can further customize a pretrained sentence transformer model's post-processing logic with the following optional fields in the `model_config` object.
@@ -174,7 +173,7 @@ Field | Data type | Required/Optional | Description
 `name`| String | Required | The model name. |
 `function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
 `connector_id` | Optional | Required | The connector ID of a standalone connector to a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#standalone-connector). You must provide either `connector_id` or `connector`.
-`connector` | Object | Required | Contains specifications for an internal connector to a model is hosted on a third-party platform. For more information, see [Internal connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#internal-connector). You must provide either `connector_id` or `connector`.
+`connector` | Object | Required | Contains specifications for an internal connector to a model that is hosted on a third-party platform. For more information, see [Internal connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#internal-connector). You must provide either `connector_id` or `connector`.
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
 
