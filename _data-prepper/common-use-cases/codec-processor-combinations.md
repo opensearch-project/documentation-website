@@ -38,7 +38,7 @@ When the [`csv` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/confi
 
 ### Newline codec 
 
-The [newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) codec parses each row as a single log event. However, the codec will only detect a header when `header_destination` is configured. Then, the [csv]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) processor outputs the event into columns. The header detected in `header_destination` from the newline codec can be used in the `csv` processor under `column_names_source_key.`
+The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) parses each row as a single log event. The codec will only detect a header when `header_destination` is configured. The processor then [csv]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/) outputs the event into columns. The header detected in `header_destination` from the `newline` codec can be used in the `csv` processor under `column_names_source_key.`
 
 
 ## Parquet
