@@ -5,6 +5,8 @@ has_children: false
 has_toc: false
 nav_order: 61
 parent: Connecting to remote models 
+redirect_from: 
+  - /ml-commons-plugin/extensibility/connectors/
 ---
 
 # Creating connectors for third-party ML platforms

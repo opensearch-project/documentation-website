@@ -4,6 +4,8 @@ title: Connector blueprints
 has_children: false
 nav_order: 65
 parent: Connecting to remote models 
+redirect_from: 
+  - /ml-commons-plugin/extensibility/blueprints/
 ---
 
 # Connector blueprints

@@ -2,7 +2,7 @@
 layout: default
 title: Supported Algorithms 
 has_children: false
-nav_order: 30
+nav_order: 80
 ---
 
 # Supported algorithms

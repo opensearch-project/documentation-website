@@ -1,15 +1,15 @@
 ---
 layout: default
-title: About ML Commons
+title: Integrate ML models
 nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
 ---
 
-# Machine learning
+# Integrate ML models
 
-OpenSearch machine learning offers support for machine learning (ML) models that you can use in conjunction with k-NN search to retrieve semantically similar documents. This semantic search capability improves search relevance for your applications.
+OpenSearch offers support for machine learning (ML) models that you can use in conjunction with k-NN search to retrieve semantically similar documents. This semantic search capability improves search relevance for your applications.
 
 Before you get started with machine learning, you'll need to [set up]({{site.url}}{{site.baseurl}}/quickstart/) and [secure]({{site.url}}{{site.baseurl}}/security/index/) your cluster. 
 {: .tip}
@@ -18,33 +18,32 @@ Before you get started with machine learning, you'll need to [set up]({{site.url
 
 To integrate an ML model into your workflow, choose one of the following options:
 
-1. **Use one of the OpenSearch-provided pretrained models**: This option requires minimal setup and saves you time and effort of training a custom model.
+1. **Local model**: Upload a model to the OpenSearch cluster and use it locally. This option allows you to serve the model in your OpenSearch cluster but may require significant system resources.
 
-    For information about using a pretrained model provided by OpenSearch and a list of supported models, see [Pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/). 
+    1. **Pretrained model provided by OpenSearch**: This option requires minimal setup and saves you time and effort of training a custom model.
 
-1. **Use a custom model**: This option offers customization to your specific use case.
+        For information about using a pretrained model provided by OpenSearch and a list of supported models, see [Pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/). 
 
-    1. **Upload your model to the OpenSearch cluster**: This option is easier to use but may require significant system resources.
-        For information about uploading your model, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
-    1. **Connect to a model hosted on a third-party platform**: This option requires more setup but allows to use models that are already hosted on a service other than OpenSearch.     
-      
-        To connect to an externally hosted model, you need to set up a connector:  
+    1. **Custom model**: This option offers customization to your specific use case.
 
-        - For a walkthrough with detailed steps, see [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/).
-        - For more information about supported connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
-        - For information about creating your own connector, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+        For information about uploading your model, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+
+1. **Remote model**: Connect to a model hosted on a third-party platform. This option requires more setup but allows to use models that are already hosted on a service other than OpenSearch.     
+    
+    To connect to an externally hosted model, you need to set up a connector:  
+
+    - For a walkthrough with detailed steps, see [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/).
+    - For more information about supported connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+    - For information about creating your own connector, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
 
 
-## ML workflow
+## ML model-powered search
 
-Before you start, ensure that you've appropriately set the cluster settings described in [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/). 
-{: .tip}
+Regardless of what option you chose for the model, the following common steps apply to setting up:
 
-Regardless of what option you chose for the model, the ML workflow consists of the following common steps:
-
+1. **Configure ML Commons cluster settings**. To learn more, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/). 
 1. **Set up an ML model**.
-    1. Set up model access control. To learn more, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
-      
+    1. Set up model access control. To learn more, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).    
       1. Register a model group.
       1. Register the model to the model group.
     1. Deploy the model.
@@ -53,13 +52,15 @@ Regardless of what option you chose for the model, the ML workflow consists of t
     1. Create an index (create a k-NN index for vector search).
     1. Ingest documents into the index.
 1. **Use the model**.
+    1. (Optional) Test the model by calling the Predict API.
+    1. Search using a model.
 
 ## Using a model
 
 You can use an ML model in one of the following ways:
 
 - [Make predictions](#making-predictions)
-- [Using a model for search](#using-a-model-for-search)
+- [Use a model for search](#using-a-model-for-search)
 
 ### Making predictions
 

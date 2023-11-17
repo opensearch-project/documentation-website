@@ -158,7 +158,7 @@ just_the_docs:
       name: Search 
       nav_fold: true
     ml-commons-plugin:
-      name: Machine learning
+      name: Integrate ML models
       nav_fold: true
     monitoring-your-cluster:
       name: Monitoring your cluster

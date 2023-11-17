@@ -4,6 +4,8 @@ title: Connecting to remote models
 has_children: true
 has_toc: false
 nav_order: 60
+redirect_from: 
+  - /ml-commons-plugin/extensibility/index/
 ---
 
 # Connecting to remote models
@@ -331,4 +333,5 @@ To learn how to set up a vector index and use multimodal embedding models for se
 
 - For more information about connectors, including connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
 - For more information about connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+- For more information about managing ML models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 - For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
