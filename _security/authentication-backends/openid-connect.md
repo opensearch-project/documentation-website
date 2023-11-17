@@ -347,7 +347,6 @@ opensearch_security.openid.additional_parameters.foo: "bar"
 opensearch_security.openid.additional_parameters.acr_values: "1"
 ```
 
-In this example, two custom parameters, foo and acr_values, are added with values bar and 1, respectively. These parameters are appended to the GET request sent to the IdP.
 
 
 #### Session management with additional cookies
