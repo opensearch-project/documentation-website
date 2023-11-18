@@ -8,6 +8,8 @@ parent: Connecting to remote models
 ---
 
 # Creating connectors for third-party ML platforms
+**Introduced 2.9**
+{: .label .label-purple }
 
 Connectors facilitate access to remote models hosted on third-party platforms. 
 
@@ -265,5 +267,5 @@ POST /_plugins/_ml/connectors/_create
 
 ## Next steps
 
-- To learn more about using models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about using models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 - To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
