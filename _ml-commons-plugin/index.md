@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Integrate ML models
+title: Integrating ML models
 nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
 ---
 
-# Integrate ML models
+# Integrating ML models
 
 OpenSearch offers support for machine learning (ML) models that you can use in conjunction with k-NN search to retrieve semantically similar documents. This semantic search capability improves search relevance for your applications.
 
@@ -16,7 +16,7 @@ Before you get started with machine learning, you'll need to [set up]({{site.url
 
 ## Choosing a model
 
-To integrate an ML model into your workflow, choose one of the following options:
+To integrate an ML model into your search workflow, choose one of the following options:
 
 1. **Local model**: Upload a model to the OpenSearch cluster and use it locally. This option allows you to serve the model in your OpenSearch cluster but may require significant system resources.
 
@@ -39,7 +39,7 @@ To integrate an ML model into your workflow, choose one of the following options
 
 ## ML model-powered search
 
-Regardless of what option you chose for the model, the following common steps apply to setting up:
+Regardless of what option you chose for the model, the following common steps apply to setting up ML model-powered search:
 
 1. **Configure ML Commons cluster settings**. To learn more, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/). 
 1. **Set up an ML model**.
