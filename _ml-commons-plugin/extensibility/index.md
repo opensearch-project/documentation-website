@@ -7,6 +7,8 @@ nav_order: 60
 ---
 
 # Connecting to remote models
+**Introduced 2.9**
+{: .label .label-purple }
 
 Machine learning (ML) extensibility enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. These integrations provide system administrators and data scientists the ability to run ML workloads outside of their OpenSearch cluster. 
 
@@ -187,7 +189,7 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#searching-for-a-task):
+To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#get-a-task-by-id):
 
 ```bash
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
@@ -210,6 +212,8 @@ When the operation is complete, the state changes to `COMPLETED`:
   "is_async": false
 }
 ```
+
+Take note of the returned `model_id` because you’ll need it to deploy the model.
 
 ## Step 4: Deploy the remote model
 
@@ -253,9 +257,9 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-## Step 5: Make predictions 
+## Step 5 (Optional): Test the remote model
 
-Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) to make predictions:
+Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model:
 
 ```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
@@ -315,12 +319,16 @@ The response contains the inference results provided by the OpenAI model:
 }
 ```
 
+## Step 6: Use the model for search
+
+To learn how to set up a vector index and use text embedding models for search, see [Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/).
+
+To learn how to set up a vector index and use sparse encoding models for search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+
+To learn how to set up a vector index and use multimodal embedding models for search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+
 ## Next steps
 
 - For more information about connectors, including connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
 - For more information about connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-- For more information about managing ML models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 - For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
-
-
-
