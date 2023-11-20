@@ -170,7 +170,7 @@ public class OpenSearchClientExample {
     final ApacheHttpClient5TransportBuilder builder = ApacheHttpClient5TransportBuilder.builder(host);
     builder.setHttpClientConfigCallback(httpClientBuilder -> {
       final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
-        .setSslContext(sslcontext)
+        .setSslContext(SSLContextBuilder.create().build())
         // See https://issues.apache.org/jira/browse/HTTPCLIENT-2219
         .setTlsDetailsFactory(new Factory<SSLEngine, TlsDetails>() {
           @Override
@@ -190,7 +190,7 @@ public class OpenSearchClientExample {
         .setConnectionManager(connectionManager);
     });
 
-    final OpenSearchTransport transport = builder.build();
+    final OpenSearchTransport transport = ApacheHttpClient5TransportBuilder.builder(host).build();
     OpenSearchClient client = new OpenSearchClient(transport);
   }
 }
@@ -253,7 +253,7 @@ OpenSearchClient client = new OpenSearchClient(
     new AwsSdk2Transport(
         httpClient,
         "search-...us-west-2.es.amazonaws.com", // OpenSearch endpoint, without https://
-        "es",
+        "es"
         Region.US_WEST_2, // signing service region
         AwsSdk2TransportOptions.builder().build()
     )
