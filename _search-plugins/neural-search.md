@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Neural search
-nav_order: 30
+nav_order: 25
 has_children: false
 has_toc: false
 redirect_from: 
@@ -16,7 +16,18 @@ Before you ingest documents into an index, documents are passed through a machin
 
 ## Prerequisite
 
-Before using neural search, you must set up an ML model. You can either use a pretrained model provided by OpenSearch, upload your own model to OpenSearch, or connect to a foundation model hosted on an external platform. For more information about ML models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/). For a step-by-step tutorial, see [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+Before using neural search, you must set up an ML model. When selecting a model, you have the following options:
+
+- Use a pretrained model provided by OpenSearch. For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
+
+- Upload your own model to OpenSearch. For more information, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
+
+- Connect to a foundation model hosted on an external platform. For more information, see [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
+
+
+## Tutorial
+
+For a step-by-step tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
 
 ## Set up neural search
 
@@ -24,7 +35,7 @@ Once you set up an ML model, choose one of the following search methods to learn
 
 ### Semantic search
 
-Neural text search uses dense retrieval based on text embedding models to search text data. For detailed setup steps, see [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/). 
+Semantic search uses dense retrieval based on text embedding models to search text data. For detailed setup steps, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). 
 
 ### Hybrid search
 

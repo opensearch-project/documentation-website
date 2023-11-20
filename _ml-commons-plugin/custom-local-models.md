@@ -286,8 +286,4 @@ The response contains the tokens and weights:
 
 ## Step 5: Use the model for search
 
-To learn how to set up a vector index and use text embedding models for search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/semantic-search/).
-
-To learn how to set up a vector index and use sparse encoding models for search, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/sparse-search/).
-
-To learn how to set up a vector index and use multimodal embedding models for search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).

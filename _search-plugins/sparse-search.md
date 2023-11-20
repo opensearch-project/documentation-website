@@ -1,12 +1,12 @@
 ---
 layout: default
 title: Sparse search
-parent: Search methods
-grand_parent: Search
+parent: Search
 nav_order: 50
 has_children: false
 redirect_from:
   - /search-plugins/neural-sparse-search/
+  - /search-plugins/search-methods/sparse-search/
 ---
 
 # Sparse search
@@ -21,7 +21,7 @@ When selecting a model, choose one of the following options:
 - Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
 
 **PREREQUISITE**<br>
-Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/).
+Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/#choosing-a-model).
 {: .note}
 
 ## Using sparse search

@@ -55,6 +55,10 @@ Regardless of what option you chose for the model, the following common steps ap
     1. (Optional) Test the model by calling the Predict API.
     1. Search using a model.
 
+### Tutorial
+
+For a step-by-step tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+
 ## Using a model
 
 You can use an ML model in one of the following ways:
@@ -70,4 +74,4 @@ If you don't want to use a model, you can use the [Train and Predict API]({{site
 
 ### Using a model for search
 
-OpenSearch supports multiple search methods that integrate with machine learning. For more information, see [Search methods]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/index/).
+OpenSearch supports multiple search methods that integrate with machine learning. For more information, see [Search methods]({{site.url}}{{site.baseurl}}/search-plugins/index/#search-methods).

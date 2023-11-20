@@ -1,12 +1,11 @@
 ---
 layout: default
 title: Conversational search
-parent: Search methods
-grand_parent: Search
 has_children: false
 nav_order: 70
 redirect_from:
   - /ml-commons-plugin/conversational-search/
+  - /search-plugins/search-methods/conversational-search/
 ---
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/feedback-conversational-search-and-retrieval-augmented-generation-using-search-pipeline-experimental-release/16073). 
