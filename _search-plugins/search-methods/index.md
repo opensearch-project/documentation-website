@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Search methods
+has_children: true
 nav_order: 10
 redirect_from:
   - /opensearch/search-template/
@@ -12,7 +13,7 @@ OpenSearch supports the following search methods:
 
 - **Traditional search**
 
-    - [Keyword (BM25) search]({{site.url}}{{site.baseurl}}/search-plugins/keyword-search/): Takes into account only keywords.
+    - [Keyword (BM25) search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/keyword-search/): Takes into account only keywords.
 
 - **Vector search**
 
@@ -20,15 +21,15 @@ OpenSearch supports the following search methods:
 
     - [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/): Facilitates vector search at ingestion time and at search time.
 
-        - [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/): Uses dense retrieval based on text embedding models to search text data. 
-        - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/): Uses vision-language embedding models to search text and image data. 
-        - [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
+        - [Text search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/semantic-search/): Uses dense retrieval based on text embedding models to search text data. 
+        - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/multimodal-search/): Uses vision-language embedding models to search text and image data. 
+        - [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
 
-    - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): Takes into account the meaning of the words in the search context.
+    - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/semantic-search/): Takes into account the meaning of the words in the search context.
 
-    - [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/): Combines traditional search and vector search to improve search relevance.
+    - [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/hybrid-search/): Combines traditional search and vector search to improve search relevance.
 
-    - [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/): Implements a retrieval-augmented generative search. 
+    - [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/conversational-search/): Implements a retrieval-augmented generative search. 
 
 ## Terminology
 

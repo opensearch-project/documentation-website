@@ -1,9 +1,12 @@
 ---
 layout: default
 title: Multimodal search
-nav_order: 20
+parent: Search methods
+grand_parent: Search
+nav_order: 40
 has_children: false
-parent: Neural search
+redirect_from:
+  - /search-plugins/neural-multimodal-search/
 ---
 
 # Multimodal search

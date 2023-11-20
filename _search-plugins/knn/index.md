@@ -1,6 +1,7 @@
 ---
 layout: default
 title: k-NN search
+parent: Search methods
 nav_order: 20
 has_children: true
 has_toc: false

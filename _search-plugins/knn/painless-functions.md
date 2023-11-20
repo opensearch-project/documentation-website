@@ -3,6 +3,7 @@ layout: default
 title: k-NN Painless extensions
 nav_order: 25
 parent: k-NN search
+grand_parent: Search methods
 has_children: false
 has_math: true
 ---

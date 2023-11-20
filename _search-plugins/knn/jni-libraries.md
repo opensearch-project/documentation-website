@@ -3,6 +3,7 @@ layout: default
 title: JNI libraries
 nav_order: 35
 parent: k-NN search
+grand_parent: Search methods
 has_children: false
 redirect_from:
  - /search-plugins/knn/jni-library/

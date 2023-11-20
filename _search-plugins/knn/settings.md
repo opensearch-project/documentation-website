@@ -2,6 +2,7 @@
 layout: default
 title: Settings
 parent: k-NN search
+grand_parent: Search methods
 nav_order: 40
 ---
 

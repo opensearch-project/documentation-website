@@ -2,7 +2,7 @@
 layout: default
 title: Neural search
 nav_order: 30
-has_children: true
+has_children: false
 has_toc: false
 redirect_from: 
   - /neural-search-plugin/index/
@@ -20,16 +20,24 @@ Before using neural search, you must set up an ML model. You can either use a pr
 
 ## Set up neural search
 
-Once you set up an ML model, choose one of the following neural search types to learn how to use your model for neural search.
+Once you set up an ML model, choose one of the following search methods to learn how to use your model for neural search.
 
-### Neural text search
+### Semantic search
 
 Neural text search uses dense retrieval based on text embedding models to search text data. For detailed setup steps, see [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/). 
 
+### Hybrid search
+
+Hybrid search combines keyword and neural search to improve search relevance. For detailed setup steps, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/hybrid-search/).
+
 ### Multimodal search
 
-Multimodal search uses multimodal embedding models to search text and image data. For detailed setup steps, see  [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/).
+Multimodal search uses neural search with multimodal embedding models to search text and image data. For detailed setup steps, see  [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/multimodal-search/).
 
-### Neural sparse search
+### Sparse search
 
-Neural sparse search uses sparse retrieval based on sparse embedding models to search text data. For detailed setup steps, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+Sparse search uses neural search with sparse retrieval based on sparse embedding models to search text data. For detailed setup steps, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+
+### Conversational search
+
+Conversational search lets you ask questions in natural language, receive a text response, and follow up the text response with additional clarifying questions. For detailed setup steps, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/conversational-search/).

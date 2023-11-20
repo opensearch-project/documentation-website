@@ -3,6 +3,7 @@ layout: default
 title: k-NN index
 nav_order: 5
 parent: k-NN search
+grand_parent: Search methods
 has_children: false
 ---
 
