@@ -55,11 +55,11 @@ Make sure you have direct SSH access into the root user of the target node.
 1. Run the Ansible playbook with root privileges:
 
    ```bash
-   ansible-playbook -i inventories/opensearch/hosts opensearch.yml --extra-vars "admin_password=Test@123 kibanaserver_password=Test@6789"
+   ansible-playbook -i inventories/opensearch/hosts opensearch.yml --extra-vars "admin_password=Test@123 kibanaserver_password=Test@6789 logstash_password=Test@456"
    ```
    {% include copy.html %}
 
-   You can set the passwords for reserved users (`admin` and `kibanaserver`) using the `admin_password` and `kibanaserver_password` variables.
+   You can set the passwords for reserved users (`admin`, `kibanaserver`, and `logstash`) using the `admin_password`, `kibanaserver_password`, and `logstash_password` variables.
 
 2. After the deployment process is complete, you can access OpenSearch and OpenSearch Dashboards with the username `admin` and the password that you set for the `admin_password` variable.
 
