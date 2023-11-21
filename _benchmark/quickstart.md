@@ -138,9 +138,16 @@ opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolato
 
 When the `execute_test` command runs, all tasks and operations in the `percolator` workload run sequentially.
 
+### Validating the test
+
+After an OpenSearch Benchmark test runs, take the following steps to verify that it has run properly:
+
+- Note the number of documents in the OpenSearch or OpenSearch Dashboards index that you plan to run the benchmark against.
+- In the results returned by OpenSearch Benchmark, compare the `workload.json` file for your specific workload and verify that the document count matches the number of documents. For example, based on the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/percolator/workload.json#L19) `workload.json` file, you should expect to see `2000000` documents in your cluster.
+
 ### Understanding the results
 
-Benchmark returns the following response once the benchmark completes:
+OpenSearch Benchmark returns the following response once the benchmark completes:
 
 ```bash
 ------------------------------------------------------
@@ -247,6 +254,8 @@ Each task run by the `percolator` workload represents a specific OpenSearch API 
 * **Latency:** The amount of time, including wait time, taken for the request and the response to be sent and received by Benchmark.
 * **Service Time:** The amount of time, excluding wait time, taken for the request and the response to be sent and received by Benchmark.
 * **Error Rate:** The percentage of operations run during the task that were not successful or returned a 200 error code.
+
+For more details about how the summary report is generated, see [Summary report]({{site.url}}{{site.baseurl}}/benchmark/reference/summary-report/).
 
 
 ## Running OpenSearch Benchmark on your own cluster
