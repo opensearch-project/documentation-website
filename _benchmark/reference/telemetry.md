@@ -7,9 +7,9 @@ has_children: true
 
 # Telemetry devices
 
-Telemetry devices give you additional insights on benchmark results. To see a list of telemetry devices available, use `opensearch-benchmark list telemetry`. 
+Telemetry devices give you additional insights on benchmark results. To view a list of  the available telemetry devices, use the command `opensearch-benchmark list telemetry`. 
 
-All telemetry devices with a `-stats` can be used with clusters not provisioned by OpenSearch Benchmark. These devices are referred to as **Runtime level telemetry devices**. Alternatively, **Setup level telemetry devices** encompass devices that can only be used when OpenSearch Benchmark provisions a cluster. 
+All telemetry devices with a `--stats` can be used with clusters not provisioned by OpenSearch Benchmark. These devices are referred to as **Runtime level telemetry devices**. Alternatively, **Setup level telemetry devices** encompass devices that can only be used when OpenSearch Benchmark provisions a cluster. 
 
 This page lists the telemetry devices supported by OpenSearch Benchmark.
 
@@ -23,8 +23,8 @@ The `jfr` devices support the following parameters:
 
 
 - `recording-template`: The name of a custom flight recording template. It is your responsibility to correctly install these recording templates on each target machine. If none is specified, the default recording JFR template is used.
-- `jfr-delay`: (Optional) The length of time to wait before starting to record.  
-- `jfr-duration`: (Optional) The length of time to record. 
+- `jfr-delay`: The length of time to wait before starting to record. Optional.
+- `jfr-duration`:  The length of time to record. Optional.
 
 ## jit
 
@@ -133,10 +133,10 @@ This telemetry device supports the `data-stream-stats-sample-interval` parameter
 
 The `ingest-pipeline-stats` telemetry device makes a call at the beginning and end of the benchmark to the Node Stats API and records the deltas in the form of the following documents:
 
-- Three results documents for each cluster: `ingest_pipeline_cluster_count`, `ingest_pipeline_cluster_time`, `ingest_pipeline_cluster_failed`.
-- One metrics document for each node’s respective stats: `ingest_pipeline_node_count`, `ingest_pipeline_node_time`, `ingest_pipeline_node_failed`.
-- One metrics document for each pipeline’s respective stats: `ingest_pipeline_pipeline_count`, `ingest_pipeline_pipeline_time`, `ingest_pipeline_pipeline_failed`.
-- One metrics document for each pipeline processor’s respective stats: `ingest_pipeline_processor_count`, `ingest_pipeline_processor_time`, `ingest_pipeline_processor_failed`.
+- Three results documents for each cluster: `ingest_pipeline_cluster_count`, `ingest_pipeline_cluster_time`, `ingest_pipeline_cluster_failed`
+- One metrics document for each node’s respective stats: `ingest_pipeline_node_count`, `ingest_pipeline_node_time`, `ingest_pipeline_node_failed`
+- One metrics document for each pipeline’s respective stats: `ingest_pipeline_pipeline_count`, `ingest_pipeline_pipeline_time`, `ingest_pipeline_pipeline_failed`
+- One metrics document for each pipeline processor’s respective stats: `ingest_pipeline_processor_count`, `ingest_pipeline_processor_time`, `ingest_pipeline_processor_failed`
 
 
 The following example shows each document record given a single cluster, single node, and single pipeline:

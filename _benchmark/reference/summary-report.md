@@ -149,7 +149,7 @@ The total number of garbage collections performed by the Z garbage collector (ZG
 The total time spent in stop-the-world pauses by the ZGC across the whole cluster as reported by the Node Stats API.
 
 
-## Total ZGC Pauses GC count
+## Total ZGC pauses GC count
 
 **Corresponding metrics key**: `node_total_zgc_pauses_gc_count`
 
