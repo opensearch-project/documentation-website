@@ -17,7 +17,7 @@ The following tutorial will use the following three-node architecture, each gene
 - **Node 1**: Node 1 acts as the _coordinator node_ which will enable distribution and communication between the other two nodes.
 - **Node 2** and **Node 3**: The remaining nodes in the cluster are used to generate load for the benchmark test.
 
-OpenSearch Benchmark must be installed on all nodes. For instructions on installing Benchmark, see [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/).
+OpenSearch Benchmark must be installed on all nodes. For instructions on installing Benchmark, see [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/user-guide/installing-benchmark/).
 
 Make note of each nodes IP addresses. This tutorial uses the following IP addresses for each node:
 
