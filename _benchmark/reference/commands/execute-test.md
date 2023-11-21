@@ -151,7 +151,7 @@ The following options determine which workload is used to run the test:
 The following options define what test procedures the test uses and which operations are contained inside the procedure: 
 
 - `--test-execution-id`: Defines a unique ID for this test run.
-- `--test-procedure`: Defines a test procedure to use for each for your workload. You can find a list of test procedures supported by the workload by specifying the workload in the `info` command, for example, `opensearch-benchmark info --workload=<workload_name>`. If you would like to look up information on a specific test procedure, use `opensearch-benchmark info --workload=<workload_name> --test-procedure=<test-procedure>`.
+Defines the test procedures to use with each workload. You can find a list of test procedures that the workload supports by specifying the workload in the `info` command, for example, `opensearch-benchmark info --workload=<workload_name>`. To look up information on a specific test procedure, use the command `opensearch-benchmark info --workload=<workload_name> --test-procedure=<test-procedure>`.
 - `--include-tasks`: Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
 - `--exclude-tasks`: Defines a comma-separated list of test procedure tasks not to run.
 - `--enable-assertions`: Enables assertion checks for tasks. Default is `false`. 

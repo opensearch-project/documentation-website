@@ -142,7 +142,7 @@ The total number of old gen GCs across the whole cluster as reported by the Node
 
 The total number of garbage collections performed by the Z garbage collector (ZGC) across the whole cluster as reported by the Node Stats API.
 
-## Total ZGC Pauses GC time
+## Total ZGC pauses GC time
 
 **Corresponding metrics key**: `node_total_zgc_pauses_gc_time`
 
@@ -255,6 +255,6 @@ The ratio of erroneous responses relative to the total number of responses. Any 
 **Corresponding metrics keys**: `disk_usage_total`
 **Metric metadata**: `index` and `field`
 
-The total number of bytes that a single field uses on disk. Recorded for each field returned by the disk usage API even if the total is 0.
+The total number of bytes that a single field uses on disk. Recorded for each field returned by the Disk Usage API even if the total is `0`.
 
 
