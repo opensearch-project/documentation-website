@@ -250,29 +250,29 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
     ```json
     POST /_plugins/_ml/connectors/_create
     {
-      "name": "OpenAI Chat Connector",
-      "description": "The connector to public OpenAI model service for GPT 3.5",
-      "version": 2,
-      "protocol": "http",
-      "parameters": {
-        "endpoint": "[api.openai.com](http://api.openai.com/)",
-        "model": "gpt-3.5-turbo",
-        "temperature": 0
-      },
-      "credential": {
-        "openAI_key": "<your OpenAI key>"
-    },
-      "actions": [
-        {
-          "action_type": "predict",
-          "method": "POST",
-          "url": "[https://$](https://%24/){parameters.endpoint}/v1/chat/completions",
-          "headers": {
-            "Authorization": "Bearer ${credential.openAI_key}"
-          },
-          "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": $  {parameters.temperature} }"
-        }
-      ]
+        "name": "OpenAI Chat Connector",
+        "description": "The connector to public OpenAI model service for GPT 3.5",
+        "version": 2,
+        "protocol": "http",
+        "parameters": {
+            "endpoint": "api.openai.com",
+            "model": "gpt-3.5-turbo",
+      "temperature": 0
+        },
+        "credential": {
+            "openAI_key": "<your OpenAI key>"
+        },
+        "actions": [
+            {
+                "action_type": "predict",
+                "method": "POST",
+                "url": "https://${parameters.endpoint}/v1/chat/completions",
+                "headers": {
+                    "Authorization": "Bearer ${credential.openAI_key}"
+                },
+                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": ${parameters.temperature} }"
+            }
+        ]
     }
     ```
     {% include copy-curl.html %}
@@ -280,7 +280,7 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
 1. Create a new model group for the connected model. You'll use the `model_group_id` returned by the Register API to register the model:
 
     ```json
-    POST /_plugins/_ml/model_group/_register
+    POST /_plugins/_ml/model_groups/_register
     {
       "name": "public_model_group", 
       "description": "This is a public model group"
@@ -407,5 +407,5 @@ If your LLM includes a set token limit, set the `size` field in your OpenSearch 
 ## Next steps
 
 - To learn more about connecting to models on external platforms, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
-- To learn more about using custom models within your OpenSearch cluster, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about using custom models within your OpenSearch cluster, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
