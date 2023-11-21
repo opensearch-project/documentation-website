@@ -48,13 +48,13 @@ The following commands enable **Node 2** and **Node 3** to listen to the coordin
 **Node 2**
 
 ```
-opensearch-benchmarkd start —node-ip=198.52.100.0 —coordinator-ip=192.0.1.0
+opensearch-benchmarkd start --node-ip=198.52.100.0 --coordinator-ip=192.0.1.0
 ```
 
 **Node 3**
 
 ```
-opensearch-benchmarkd start —node-ip=198.53.100.0 —coordinator-ip=192.0.1.0
+opensearch-benchmarkd start --node-ip=198.53.100.0 --coordinator-ip=192.0.1.0
 ```
 
 With OpenSearch Benchmark running on all three nodes and the worker nodes set to listen to the coordinator node, you can now run the Benchmark test.
