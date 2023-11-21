@@ -39,13 +39,13 @@ The minimum, median, and maximum cumulative time used that indexing has been thr
 
 **Corresponding metrics key:** `merges_total_time`
 
-The cumulative runtime of merges of primary shards, as reported by the index stats API. Note that this is not wall clock time.
+The cumulative runtime of merges of primary shards, as reported by the index stats API. Note that this is not wall-clock time.
 
 ## Cumulative merge count of primary shards
 
 **Corresponding metrics key:** `merges_total_count`
 
-The cumulative number of merges of primary shards, as reported by index stats API under `_all/primaries`.
+The cumulative number of merges of primary shards, as reported by the Index Stats API under `_all/primaries`.
 
 
 ## Cumulative merge time across primary shards
@@ -214,7 +214,7 @@ The total number of failed ingest operations by all nodes within the cluster ove
 
 Reports the minimum, mean, median, and maximum throughput for each task.
 
-The number of operations that OpenSearch can perform within a certain time period  per second. The report includes the minimum, mean, median, and maximum throughput for each task.
+The number of operations that OpenSearch can perform within a certain time period per second. The report includes the minimum, mean, median, and maximum throughput for each task.
 
 
 ## Latency
@@ -228,7 +228,7 @@ The time period between submission of a request and receiving the complete respo
 
 **Corresponding metrics key**: `service_time`
 
-The time period between sending a request and receiving the corresponding response. It does not include waiting time. While many load testing tools refer to this metic as _latency_, it is not the same. OpenSearch reports several percentile numbers for each task. Which percentiles are shown depends on how many requests OpenSearch can capture during the latency period.
+The time period between sending a request and receiving the corresponding response. It does not include waiting time. While many load testing tools refer to this metric as _latency_, it is not the same. OpenSearch reports several percentile numbers for each task. Which percentiles are shown depends on how many requests OpenSearch can capture during the latency period.
 
 
 
@@ -240,14 +240,14 @@ Processing time is only reported if the setting `output.processingtime` is set t
 **Corresponding metrics key**: `processing_time`
 
 
-The time period between start of request processing and receiving the complete response. Unlike `service_time`, this metric includes OpenSearch’s client-side processing overhead. Large differences between `service_time` and `processing_time` indicate a high overhead in the client and thus can point to a potential client-side bottleneck that requires investigation.
+The time period between start of request processing and retrieval of the complete response. Unlike `service_time`, this metric includes OpenSearch’s client-side processing overhead. The larger the difference between `service_time` and `processing_time`, the higher the overhead in the client. Depending on your processing goals, this can point to a potential client-side bottleneck that requires investigation.
 
 
 ## Error rate
 
 Corresponding metrics key: `service_time`. Each `service_time` record has a `meta.success` flag. 
 
-The ratio of erroneous responses relative to the total number of responses. Any exception thrown by the Python OpenSearch client is considered erroneous, for example, HTTP response codes 4xx, 5xx, or network errors (network unreachable).  You can investigate the root cause by inspecting OpenSearch and OpenSearch Benchmark logs and rerunning the benchmark.
+The ratio of erroneous responses relative to the total number of responses. Any exception thrown by the Python OpenSearch client is considered erroneous, for example, HTTP response codes 4xx, 5xx, or network errors (network unreachable). You can investigate the root cause by inspecting OpenSearch and OpenSearch Benchmark logs and rerunning the benchmark.
 
 
 ## Disk usage

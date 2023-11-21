@@ -7,7 +7,7 @@ has_children: true
 
 # Telemetry devices
 
-Telemetry devices give you additional insights on benchmark results. To view a list of  the available telemetry devices, use the command `opensearch-benchmark list telemetry`. 
+Telemetry devices give you additional insights on benchmark results. To view a list of the available telemetry devices, use the command `opensearch-benchmark list telemetry`. 
 
 All telemetry devices with a `--stats` can be used with clusters not provisioned by OpenSearch Benchmark. These devices are referred to as **Runtime level telemetry devices**. Alternatively, **Setup level telemetry devices** encompass devices that can only be used when OpenSearch Benchmark provisions a cluster. 
 

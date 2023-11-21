@@ -30,7 +30,7 @@ If you already have an OpenSearch cluster with indexed data, use the following s
 
 ### Prerequisites
 
-Before creating a custom OSB workload, make sure you have the following prerequisites:
+Before creating a custom OSB workload, make sure you have the following prerequisites in place:
 
 - An OpenSearch cluster with an index that contains 1000 or more documents. If your cluster's index does not contain at least 1000 documents, the workload can still run tests, however, you cannot run workloads using `--test-mode`.
 - You must have the correct permissions to access your OpenSearch cluster. For more information about cluster permissions, see [Permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/).
