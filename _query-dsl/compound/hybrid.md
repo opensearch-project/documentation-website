@@ -16,7 +16,7 @@ Before using a `hybrid` query, you must set up a machine learning (ML) model, in
 
 To learn how to set up an ML model, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/#choosing-a-model).
 
-Once you set up an ML model, learn how to use `hybrid` query by following the steps in [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
+Once you set up an ML model, learn how to use the `hybrid` query by following the steps in [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
 
 For a comprehensive example, follow the [Neural search tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
 
