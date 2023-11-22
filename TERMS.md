@@ -299,9 +299,9 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 ## G
 
-**GenAI**
+**generative AI**
 
-On first mention, use *generative artificial intelligence (GenAI)*. Use *GenAI* thereafter. To avoid the overuse of *GenAI*, *AI/ML-powered applications* may also be used.
+On first mention, use *generative artificial intelligence (generative AI)*. Use *generative AI* thereafter. To avoid the overuse of *generative AI*, *AI/ML-powered applications* may also be used.
 
 **geodistance**
 
