@@ -15,11 +15,11 @@ To retrieve information about a connector, you can:
 - [Get a connector by ID](#get-a-connector-by-id)
 - [Search for a connector](#search-for-a-connector)
 
-# Get a connector by ID
+## Get a connector by ID
 
 This API retrieves a connector by its ID.
 
-## Path and HTTP methods
+### Path and HTTP methods
 
 ```json
 GET /_plugins/_ml/connectors/<connector_id>
@@ -67,7 +67,7 @@ GET /_plugins/_ml/connectors/N8AE1osB0jLkkocYjz7D
 
 This API searches for matching connectors using a query.
 
-## Path and HTTP methods
+### Path and HTTP methods
 
 ```json
 POST /_plugins/_ml/connectors/_search
