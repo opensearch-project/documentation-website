@@ -21,7 +21,7 @@ OpenSearch supports the following search methods:
 
 - **Vector search**
 
-    - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for k nearest neighbors to a search term across an index of vectors.
+    - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for k-nearest neighbors to a search term across an index of vectors.
 
     - [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/): Facilitates vector search at ingestion time and at search time. Neural search lets you integrate machine learning (ML) language models in your search. It serves as a basis for other vector search methods that are built on top of it. 
 
@@ -34,7 +34,6 @@ OpenSearch supports the following search methods:
     - [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/): Built on top of neural search. Combines traditional search and vector search to improve search relevance.
 
     - [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/): Built on top of neural search. Implements a retrieval-augmented generative search. 
-
 
 ## Query languages
 

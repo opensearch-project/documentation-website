@@ -28,14 +28,13 @@ To integrate an ML model into your search workflow, choose one of the following 
 
         For information about uploading your model, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
-1. **Remote model**: Connect to a model hosted on a third-party platform. This option requires more setup but allows to use models that are already hosted on a service other than OpenSearch.     
+1. **Remote model**: Connect to a model hosted on a third-party platform. This option requires more setup but allows using models that are already hosted on a service other than OpenSearch.     
     
     To connect to an externally hosted model, you need to set up a connector:  
 
     - For a walkthrough with detailed steps, see [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/).
     - For more information about supported connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
     - For information about creating your own connector, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-
 
 ## ML model-powered search
 
