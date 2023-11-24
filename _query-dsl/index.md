@@ -108,5 +108,5 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To track expensive queries, enable [Shard slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#shard-slow-logs).
+To track expensive queries, enable [shard slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#shard-slow-logs).
 {: .tip}
