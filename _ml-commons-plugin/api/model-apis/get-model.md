@@ -19,7 +19,7 @@ You can retrieve model information using the `model_id`.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
-## Path and HTTP methods
+### Path and HTTP methods
 
 ```json
 GET /_plugins/_ml/models/<model-id>
