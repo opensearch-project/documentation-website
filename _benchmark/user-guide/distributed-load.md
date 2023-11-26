@@ -8,16 +8,16 @@ parent: User guide
 # Running distributed load generation 
 
 
-By default, OpenSearch Benchmark runs loads on the same machine where the benchmark started. However, you can generate additional benchmarking testing loads, particularly on large clusters with multiple machines, you can use multiple load drivers. This page details how to distribute benchmark loads across multiple machines in a single cluster.
+OpenSearch Benchmark loads always run on the same machine where the benchmark was started. However, you can use multiple load drivers to generate additional benchmarking testing loads, particularly for large clusters on multiple machines. This tutorial describes how to distribute benchmark loads across multiple machines in a single cluster.
 
 ## System architecture 
 
-The following tutorial will use the following three-node architecture, each generated in [Amazon EC2](https://docs.aws.amazon.com/ec2/?nc2=h_ql_doc_ec2):
+The following sample tutorial uses a three-node architecture, each generated in [Amazon EC2](https://docs.aws.amazon.com/ec2/?nc2=h_ql_doc_ec2):
 
-- **Node 1**: Node 1 acts as the _coordinator node_ which will enable distribution and communication between the other two nodes.
-- **Node 2** and **Node 3**: The remaining nodes in the cluster are used to generate load for the benchmark test.
+- **Node 1**: Node 1 acts as the _coordinator node_ which enables distribution and communication between the other two nodes.
+- **Node 2** and **Node 3**: The remaining nodes in the cluster are used to generate the load for the benchmark test.
 
-OpenSearch Benchmark must be installed on all nodes. For instructions on installing Benchmark, see [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/user-guide/installing-benchmark/).
+OpenSearch Benchmark must be installed on all nodes. For installation instructions, see [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/user-guide/installing-benchmark/).
 
 Make note of each nodes IP addresses. This tutorial uses the following IP addresses for each node:
 
@@ -30,12 +30,12 @@ Make note of each nodes IP addresses. This tutorial uses the following IP addres
 Make sure to enable each node to communicate with each other. In the AWS Console:
 
 1. Go to the EC2 host for the node.
-2. Select **Security**, then the security group associated with the node. 
+2. Select **Security**, and then select the security group associated with the node. 
 3. Use **Add inbound rules** to open traffic to the node, based on the Port Range and traffic type of your cluster.
 
 ## Step 2: Running daemon processes on each node
 
-Now, start OpenSearch Benchmark on each node, using the `--node-ip` to initialize OpenSearch Benchmark on the node itself, then `--coordinator-ip` to connect each node to the Coordinator node.
+Start OpenSearch Benchmark on each node using the `--node-ip` to initialize OpenSearch Benchmark on the node itself, and then `--coordinator-ip` to connect each node to the Coordinator node.
 
 For **Node 1**, the following command identifies the node as coordinator:
 
