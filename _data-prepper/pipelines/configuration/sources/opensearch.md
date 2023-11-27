@@ -75,7 +75,6 @@ The `opensearch` source can be configured for an an Amazon OpenSearch Service do
 ```yaml
     - opensearch:
         hosts: [ 'https://1234567890abcdefghijkl.us-west-2.aoss.amazonaws.com' ]
-        index: my-target-index
         aws:
           sts_role_arn: 'arn:aws:iam::123456789012:role/my-domain-role'
           region: 'us-west-2'
