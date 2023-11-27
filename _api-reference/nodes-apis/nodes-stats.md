@@ -1080,6 +1080,7 @@ cluster_state_stats.remote_upload.success_count | Integer | The total number of 
 cluster_state_stats.remote_upload.failed_count | Integer | The total number of failed cluster state updates on remote.
 cluster_state_stats.remote_upload.total_time_in_millis | Integer | The total amount of time for all cluster state updates on remote, in milliseconds.
 cluster_state_stats.remote_upload.cleanup_attempt_failed_count | Integer | The total number of failures encountered while trying to cleanup older cluster states from remote.
+
 ### `ingest`
 
 The `ingest` object contains the ingest statistics and has the following properties.
