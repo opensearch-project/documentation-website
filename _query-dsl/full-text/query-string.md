@@ -39,7 +39,7 @@ You can use query string syntax in the following cases:
     ```
     {% include copy-curl.html %}
 
-1. In the Discover app of OpenSearch Dashboards, if you turn off DQL, as shown in the following image.
+1. In the Discover or Dashboard app of OpenSearch Dashboards, if you turn off DQL, as shown in the following image.
   ![Using query string syntax in OpenSearch Dashboards Discover]({{site.url}}{{site.baseurl}}/images/discover-lucene-syntax.png)
   For more information, see [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
 

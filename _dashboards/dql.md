@@ -1,19 +1,19 @@
 ---
 layout: default
-title: DQL
+title: Dashboards Query Language (DQL)
 nav_order: 130
 redirect_from:
   - /dashboards/dql/
   - /dashboards/discover/dql/
 ---
 
-# DQL
+# Dashboards Query Language (DQL)
 
 Dashboards Query Language (DQL) is a simple text-based query language for filtering data in OpenSearch Dashboards. Similar to [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/), DQL uses an HTTP request body. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` in the search field, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png" alt="Search term using DQL toolbar in Dashboard" width="500">
 
-Before you can search data in Dashboards, you must index it. In OpenSearch, the basic unit of data is a JSON document. Within an index, OpenSearch identifies each document using a unique ID. To learn more about indexing in OpenSearch, see [Index data]({{site.url}}{{site.baseurl}}/opensearch/index-data).
+Before you can search data in Dashboards, you must index it. In OpenSearch, the basic unit of data is a JSON document. Within an index, OpenSearch identifies each document using a unique ID. To learn more about indexing in OpenSearch, see [Index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/).
 {: .note purple}
 
 ## Searching with terms queries
@@ -36,7 +36,7 @@ DQL supports leading and trailing wildcards, so you can search for any terms tha
 host.keyword:*.example.com/*
 ```
 
-To check whether a field exists or has any data, use a wildcard to see whether Dashboards returns any results,for example:
+To check whether a field exists or has any data, use a wildcard to see whether Dashboards returns any results, for example:
 
 ```
 host.keyword:*
