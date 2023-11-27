@@ -78,7 +78,7 @@ number_of_replicas | No | Integer | The number of replica shards each primary sh
 distribution_version | No | String | Indicates whether the sink backend version is Elasticsearch 6 or later. `es6` represents Elasticsearch 6. `default` represents the latest compatible backend version, such as Elasticsearch 7.x, OpenSearch 1.x, or OpenSearch 2.x. Default is `default`.
 enable_request_compression | No | Boolean | Whether to enable compression when sending requests to OpenSearch. When `distribution_version` is set to `es6`, default is `false`. For all other distribution versions, default is `true`. 
 serverless | No | Boolean | Determines whether the OpenSearch Backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
-serverless_options | No | Object | The network configuration options when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
+serverless_options | No | Object | The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
 
 ### Serverless options
 
@@ -88,7 +88,7 @@ Option | Required | Type | Description
 :--- | :--- | :---| :---
 network_policy_name | Yes | String | The name of the network policy to create.
 collection_name | Yes | String | The name of the Amazon OpenSearch Service collection to configure.
-vpce_id | Yes | String | The VPC endpoint the source connects to.
+vpce_id | Yes | String | The virtual private cloud (VPC) endpoint to which the source connects.
 
 ### Configure max_retries
 
