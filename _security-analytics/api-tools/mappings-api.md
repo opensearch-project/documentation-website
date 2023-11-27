@@ -113,6 +113,9 @@ POST /_plugins/_security_analytics/mappings
 
 ```json
 GET /_plugins/_security_analytics/mappings
+{
+   "index_name": "windows"
+}
 ```
 
 #### Example response
