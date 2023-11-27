@@ -45,26 +45,33 @@ The following settings are shared between the `dynamodb` source.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`coordinator` | Yes | JSON Array | Stores coordination settings based on the existing coordination store template. 
-`aws` | Yes | JSON Array | The [AWS]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/#aws) authentication settings.
+`aws` | Yes | AWS | The AWS configuration. See [aws](#aws) for more information.
+`acknowledgments` | No | Boolean  | When `true`, enables `s3` sources to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
+`tables` | Yes | Object | The configuration for the DynamoDB table. See [tables](#tables) for more information.
 
-### Export options
+### aws
 
-The following settings set the export options for the `dynamodb` source.
+Use the following options in the AWS configuration:
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`region` | No | String | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
+`sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon SQS and Amazon S3. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+`aws_sts_header_overrides` | No | Map | A map of header overrides that the IAM role assumes for the sink plugin.
+
+
+### tables
+
+Use the following options with the `tables` configuration.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `s3_bucket` | Yes | String | The destination bucket that stores the exported data files.
 `s3_prefix` | No | String | The custom prefix for the S3 bucket.
 `s3_sse_kms_key_id` | No | String |  An AWS KMS Customer Managed Key (CMK) that encrypts the export data files. The `key_id` is the ARN of the KMS key, for example, `arn:aws:kms:us-west-2:123456789012:key/0a4bc22f-bb96-4ad4-80ca-63b12b3ec147`.
+`s3_region` | No | String | The region for the S3 bucket.
+`start_position` | No | String | The start position from when the source reads events from the stream when the DynamoDB stream option is enabled on the table `LATEST` starts reading event about the most recent stream record. 
 
-### Stream options
-
-Use the following stream option when the DynamoDB stream option is enabled on the DynamoDB table.
-
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-`start_position` | No | String | The start position from when the source reads events from the stream. `LATEST` starts reading event about the most recent stream record. 
 
 
 
