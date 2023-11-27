@@ -1,52 +1,280 @@
 {% assign url_parts = page.url | split: "/" %}
+{% if url_parts.size > 0 %}
+  
+  {% assign last_url_part = url_parts | last %}
+
+  {% comment %} Does the URL contain a filename, and is it an index.html or not? {% endcomment %}
+  {% if last_url_part contains ".html" %}
+    {% assign url_has_filename = true %}
+    {% if last_url_part == 'index.html' %}
+      {% assign url_filename_is_index = true %}
+    {% else %}
+      {% assign url_filename_is_index = false %}
+    {% endif %}
+  {% else %}
+    {% assign url_has_filename = false %}
+  {% endif %}
+
+  {% comment %} 
+    OpenSearchCon URLs require some special consideration, because it's a specialization
+    of the /events URL which is itself a child of Community; te OpenSearchCon menu is NOT
+    a child of Community.
+  {% endcomment %}
+  {% if page.url contains "opensearchcon" %}
+    {% assign is_conference_page = true %}
+  {% else %}
+    {% assign is_conference_page = false %}
+  {% endif %}
+
+  {% if is_conference_page %}
+    {% comment %}
+      If the page is a confernce page and it has a filename then its the penultimate
+      path component that has the child menu item of the OpenSearchCon that needs
+      to be marked as in-category. If there's no filename then reference the ultimate
+      path component.
+      Unless the filename is opensearchcon2023-cfp, because it's a one off that is not
+      within the /events/opensearchcon/... structure.
+    {% endcomment %}
+    {% if url_has_filename %}
+      {% unless page.url contains 'opensearchcon2023-cfp' %}
+        {% assign url_fragment_index = url_parts | size | minus: 2 %}
+        {% assign url_fragment = url_parts[url_fragment_index] %}
+      {% else %}
+        {% assign url_fragment = 'opensearchcon2023-cfp' %}
+      {% endunless %}
+    {% else %}
+      {% assign url_fragment = last_url_part %}
+    {% endif %}
+  {% else %}
+    {% comment %}
+      If the page is NOT a conference page, the URL has a filename, and the filename
+      is NOT index.html then refer to the filename without the .html extension.
+      If the filename is index.html then refer to the penultimate path component.
+      If there is not filename then refer to the ultimate path component.
+    {% endcomment %}
+    {% if url_has_filename %}
+      {% unless url_filename_is_index %}
+        {% assign url_fragment = last_url_part | replace: '.html', '' %}
+      {% else %}
+        {% assign url_fragment_index = url_parts | size |  minus: 2 %}
+        {% assign url_fragment = url_parts[url_fragment_index] %}
+      {% endunless %}
+    {% else %}
+      {% assign url_fragment = last_url_part %}
+    {% endif %}
+  {% endif %}
+{% else %}
+  {% assign url_fragment = '' %}
+{% endif %}
 {% if page.alert %}
 <div role="banner" class="banner-alert">
   <div class="container">
-    {{page.alert | markdownify}}
+    {{ page.alert | markdownify }}
   </div>
 </div>
 {% endif %}
 {% if site.data.alert.message %}
 <div role="banner" class="banner-alert">
   <div class="container">
-    {{site.data.alert.message | markdownify}}
+  {{site.data.alert.message | markdownify}}
   </div>
 </div>
 {% endif %}
-<div id="remote-header-insertion-point"></div>
+<div role="banner" id="top">
+  <div class="navigation-container">
+    <a class="navigation-container--logo" href="{{ '/' | relative_url }}">
+      OpenSearch
+      <svg width="200" height="39" viewBox="0 0 200 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_723_1352)">
+          <path d="M33.1921 14.2473C32.5203 14.2473 31.9757 14.7919 31.9757 15.4638C31.9757 25.4739 23.861 33.5886 13.8509 33.5886C13.179 33.5886 12.6344 34.1332 12.6344 34.8051C12.6344 35.4769 13.179 36.0215 13.8509 36.0215C25.2046 36.0215 34.4086 26.8175 34.4086 15.4638C34.4086 14.7919 33.864 14.2473 33.1921 14.2473Z" fill="#005EB8"/>
+          <path d="M25.8502 22.0429C27.02 20.1346 28.1514 17.5901 27.9288 14.0279C27.4677 6.64898 20.7844 1.05116 14.4735 1.65781C12.0029 1.8953 9.46604 3.90914 9.69142 7.51629C9.78938 9.08382 10.5566 10.009 11.8035 10.7203C12.9902 11.3973 14.515 11.8262 16.2435 12.3123C18.3313 12.8996 20.7532 13.5592 22.6146 14.9309C24.8455 16.5749 26.3705 18.4807 25.8502 22.0429Z" fill="#003B5C"/>
+          <path d="M2.10678 9.13989C0.936968 11.0482 -0.194358 13.5927 0.0282221 17.1549C0.489286 24.5338 7.17263 30.1316 13.4835 29.525C15.9541 29.2875 18.491 27.2737 18.2656 23.6665C18.1676 22.099 17.4004 21.1738 16.1535 20.4625C14.9668 19.7855 13.442 19.3566 11.7135 18.8705C9.6257 18.2832 7.20382 17.6236 5.34245 16.2519C3.11154 14.6079 1.58652 12.7021 2.10678 9.13989Z" fill="#005EB8"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M194.892 16.6666V29.0322H199.731V15.5914C199.731 13.1143 199.247 11.243 198.279 9.97369C197.311 8.69203 195.851 8.0645 193.952 8.0645C191.891 8.0645 190.24 9.26923 189.247 11.2903H188.979C189.052 10.2468 189.118 9.64901 189.167 9.21251C189.217 8.76235 189.247 8.48369 189.247 8.0645V0.268799H184.409V29.0322H189.516V19.086C189.516 16.8554 189.591 15.2051 190.05 14.022C190.509 12.8266 191.31 12.2289 192.452 12.2289C193.978 12.2289 194.892 13.6473 194.892 16.6666ZM124.652 27.5424C125.959 26.1907 126.613 24.2439 126.613 21.7018C126.613 20.1144 126.255 18.7008 125.538 17.4607C124.834 16.2207 123.583 15.0055 121.785 13.815C120.453 12.947 119.516 12.1719 118.975 11.4899C118.447 10.8079 118.183 10.008 118.183 9.09041C118.183 8.16036 118.403 7.42875 118.844 6.89552C119.296 6.34987 119.937 6.07708 120.767 6.07708C121.522 6.07708 122.225 6.21348 122.879 6.48627C123.545 6.75912 124.18 7.06912 124.784 7.41633L126.481 3.36136C124.532 2.19571 122.502 1.61288 120.39 1.61288C118.177 1.61288 116.411 2.29491 115.091 3.65897C113.783 5.02303 113.13 6.87074 113.13 9.20203C113.13 10.4172 113.293 11.4837 113.62 12.4013C113.959 13.319 114.431 14.1498 115.034 14.8939C115.65 15.6255 116.549 16.3943 117.731 17.2004C119.089 18.118 120.063 18.955 120.654 19.7114C121.245 20.4555 121.54 21.2801 121.54 22.1854C121.54 23.103 121.289 23.8284 120.786 24.3616C120.296 24.8949 119.56 25.1615 118.58 25.1615C116.857 25.1615 114.965 24.498 112.903 23.1712V28.1748C114.588 29.1049 116.631 29.5699 119.032 29.5699C121.483 29.5699 123.357 28.8941 124.652 27.5424ZM129.932 26.8142C131.441 28.6513 133.498 29.5699 136.103 29.5699C138.335 29.5699 140.248 29.092 141.844 28.1362V24.0585C140.149 25.064 138.491 25.5667 136.87 25.5667C135.598 25.5667 134.601 25.1198 133.878 24.2261C133.155 23.32 132.833 22.0108 132.796 20.1613H142.742V17.4486C142.742 14.482 142.088 12.1794 140.778 10.5409C139.469 8.88998 137.681 8.0645 135.411 8.0645C132.98 8.0645 131.085 9.02649 129.726 10.9505C128.368 12.8745 127.688 15.5495 127.688 18.9755C127.688 22.3518 128.436 24.9647 129.932 26.8142ZM133.616 13.0172C134.077 12.2601 134.663 11.8815 135.374 11.8815C136.134 11.8815 136.733 12.2725 137.169 13.0545C137.605 13.8365 137.878 15.1523 137.903 16.6666H132.796C132.87 15.0902 133.155 13.762 133.616 13.0172ZM154.839 29.0322L154.032 26.3441H153.763C153.023 27.5584 152.309 28.4236 151.518 28.8821C150.727 29.3406 149.728 29.5699 148.523 29.5699C146.977 29.5699 145.759 28.9999 144.867 27.8599C143.988 26.7198 143.548 25.1337 143.548 23.1015C143.548 20.9206 144.151 19.3035 145.357 18.2503C146.575 17.1846 148.39 16.596 150.802 16.4845L153.59 16.373V14.886C153.59 12.9529 152.742 11.9864 151.047 11.9864C149.791 11.9864 148.346 12.4697 146.713 13.4362L144.98 10.0162C147.066 8.71504 149.298 8.0645 151.747 8.0645C153.97 8.0645 155.695 8.69649 156.85 9.96041C158.018 11.2119 158.602 12.9901 158.602 15.2949V29.0322H154.839ZM150.576 25.7037C151.493 25.7037 152.222 25.301 152.761 24.4956C153.314 23.6777 153.59 22.5935 153.59 21.2428V19.4956L152.046 19.57C150.903 19.6319 150.061 19.9541 149.521 20.5365C148.994 21.1189 148.73 21.9863 148.73 23.1387C148.73 24.8487 149.345 25.7037 150.576 25.7037ZM170.968 8.46772C170.392 8.28224 169.536 8.0645 168.937 8.0645C168.092 8.0645 167.351 8.34267 166.715 8.89907C166.078 9.45547 165.592 9.99208 165.054 11.2903H164.785L163.979 8.60213H160.215V29.0322H165.303V18.2796C165.303 16.4744 165.417 15.3098 166.054 14.3701C166.69 13.4181 167.602 12.9421 168.789 12.9421C169.34 12.9421 169.819 13.0484 170.161 13.172L170.968 8.46772ZM178.495 29.5699C176.045 29.5699 174.169 28.7516 172.889 26.9517C171.608 25.1518 170.968 22.5079 170.968 19.0199C170.968 15.3705 171.571 12.6458 172.777 10.846C173.997 9.04606 175.816 8.0645 178.352 8.0645C179.115 8.0645 179.974 8.25783 180.811 8.48127C181.648 8.70471 182.668 8.98654 183.333 9.40858L181.661 13.3037C180.639 12.6955 179.734 12.3914 178.946 12.3914C177.899 12.3914 177.142 12.9437 176.674 14.0485C176.219 15.1408 175.991 16.7855 175.991 18.9826C175.991 21.13 176.219 22.7375 176.674 23.805C177.13 24.8601 177.875 25.3877 178.909 25.3877C180.14 25.3877 181.427 24.9532 182.769 24.0843V28.4413C181.476 29.2481 180.058 29.5699 178.495 29.5699Z" fill="#003B5C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M57.9446 25.9475C59.6376 23.5326 60.4839 20.0774 60.4839 15.582C60.4839 11.0866 59.6436 7.63763 57.9635 5.23513C56.2828 2.82024 53.8678 1.61279 50.7187 1.61279C47.5322 1.61279 45.0924 2.81405 43.3995 5.21655C41.7067 7.60666 40.8602 11.0495 40.8602 15.5448C40.8602 20.0774 41.7067 23.5511 43.3995 25.966C45.0924 28.3685 47.5197 29.5698 50.6814 29.5698C53.8307 29.5698 56.2516 28.3624 57.9446 25.9475ZM47.2272 22.6595C46.443 21.0371 46.0509 18.678 46.0509 15.582C46.0509 12.4736 46.443 10.1145 47.2272 8.50451C48.0114 6.8822 49.1752 6.07107 50.7187 6.07107C53.7559 6.07107 55.2747 9.24134 55.2747 15.582C55.2747 21.9226 53.7435 25.093 50.6814 25.093C49.1628 25.093 48.0114 24.2818 47.2272 22.6595ZM68.9172 29.031C69.607 29.4293 70.3495 29.5698 71.2366 29.5698C73.1344 29.5698 74.6774 28.6701 75.7742 26.7532C76.871 24.8365 77.4194 22.1915 77.4194 18.8184C77.4194 15.3955 76.8893 12.7506 75.8296 10.8836C74.7699 9.00414 73.3038 8.06441 71.4307 8.06441C69.4839 8.06441 67.9581 9.22403 66.9355 11.2902H66.6667L65.8602 8.60204H62.0968V38.4408H66.9355V29.5698C66.9355 29.2213 66.864 28.0367 66.6667 26.344H66.9355C67.3387 27.5537 68.2393 28.6203 68.9172 29.031ZM67.6785 13.6468C68.1102 12.7382 68.8059 12.2839 69.7672 12.2839C70.6667 12.2839 71.3258 12.8191 71.7452 13.8895C72.1764 14.9599 72.392 16.578 72.392 18.7438C72.392 23.1499 71.5296 25.353 69.8043 25.353C68.8059 25.353 68.0914 24.8302 67.6602 23.7847C67.229 22.7391 67.0135 21.0713 67.0135 18.7811V18.1276C67.0382 16.0366 67.2597 14.543 67.6785 13.6468ZM86.9097 29.5698C84.3043 29.5698 82.2473 28.6512 80.7387 26.8141C79.2425 24.9646 78.4946 22.3517 78.4946 18.9754C78.4946 15.5494 79.1742 12.8744 80.5328 10.9504C81.892 9.0264 83.7866 8.06441 86.2178 8.06441C88.4871 8.06441 90.2758 8.88989 91.585 10.5408C92.8941 12.1793 93.5484 14.4819 93.5484 17.4485V20.1612H83.6022C83.6398 22.0107 83.9613 23.3199 84.6844 24.226C85.4075 25.1197 86.4049 25.5666 87.6764 25.5666C89.2973 25.5666 90.9554 25.0639 92.6506 24.0584V28.1361C91.0549 29.0919 89.1414 29.5698 86.9097 29.5698ZM86.1807 11.8814C85.4699 11.8814 84.8839 12.26 84.4226 13.0171C83.9613 13.7619 83.6769 15.0901 83.6022 16.6666H88.7097C88.685 15.1522 88.4118 13.8364 87.9758 13.0544C87.5393 12.2724 86.9409 11.8814 86.1807 11.8814ZM105.645 16.6666V29.0321H110.484V15.6983C110.484 13.2036 110.012 11.3076 109.069 10.0103C108.138 8.71306 106.729 8.06441 104.842 8.06441C103.726 8.06441 102.751 8.33881 101.919 8.88769C101.088 9.42403 100.447 10.3297 100 11.2902H99.7312L99.0592 8.60204H95.1613V29.0321H100.269V19.2203C100.269 16.6882 100.362 14.9624 100.859 13.9021C101.355 12.8294 102.137 12.293 103.204 12.293C104.011 12.293 104.595 12.6797 104.954 13.4531C105.315 14.2264 105.645 15.1573 105.645 16.6666Z" fill="#005EB8"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_723_1352">
+            <rect width="200" height="38.7097" fill="white"/>
+          </clipPath>
+        </defs>
+      </svg>       
+    </a>
+    <div class="menu-button">
+      <i class="icon icon-reorder"></i>
+      <i class="icon icon-close"></i>
+      <span>Menu</span>
+    </div>
+    <div role="navigation" class="navigation-container--nested-nav-wrapper nav-menu-on">
+      <ul class="navigation-container--nested-nav-wrapper--nested-nav">
+        {% for nav_item in site.data.top_nav.items %}
+          <li>
+            {%- unless nav_item.children -%}
+              {%- assign nested_nav_item_wrapper_classname = "nested-nav--top-menu-item--wrapper__without-children" -%}
+            {%- else -%}
+              {%- assign nested_nav_item_wrapper_classname = "nested-nav-top-menu-item--wrapper__has_children" -%}
+            {%- endunless -%}
+            <div class="nested-nav--top-menu-item-wrapper {{nested_nav_item_wrapper_classname}}">
+              <div class="nested-nav--top-menu-item-wrapper--link">
+                <a {% if nav_item.url %} href="{{ nav_item.url }}" {% else %} href="#" {% endif %}
+                  {% if nav_item.fragments contains url_fragment or nav_item.fragment == url_fragment %} class="in-category" {% endif %}
+                >{{ nav_item.label }}</a>
+              </div>
+              {%- if nav_item.children -%}
+                <div class="nested-nav--top-menu-item-wrapper--toggle">
+                  <div class="opensearch-toggle-button--wrapper">
+                      <a href="#" class="opensearch-toggle-button-link opensearch-toggle-button-link--untoggled opensearch-toggle-button-link__visible">
+                        <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect y="14" width="30" height="3" fill="#0085B8"/>
+                          <rect x="13.5" y="30.5" width="30" height="3" transform="rotate(-90 13.5 30.5)" fill="#0085B8"/>
+                        </svg>
+                      </a>
+                      <a href="#" class="opensearch-toggle-button-link opensearch-toggle-button-link--toggled opensearch-toggle-button-link__invisible">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect y="13.5" width="30" height="3" fill="#0085B8"/>
+                        </svg>
+                      </a>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+            {% if nav_item.children %}
+              <ul>
+                {% for nav_child in nav_item.children %}
+                  {%- if nav_child.url contains '://' -%}
+                    {%- assign child_url_fragment = '#' -%}
+                  {%- else -%}
+                    {%- assign child_url_parts = nav_child.url | split: "/" -%}
+                    {% assign last_child_url_part = child_url_parts | last %}
+                    {% if last_child_url_part contains ".html" %}
+                      {% assign child_url_has_filename = true %}
+                    {% else %}
+                      {% assign child_url_has_filename = false %}
+                    {% endif %}
+                    {% if last_child_url_part == 'index.html' %}
+                      {% assign child_url_filename_is_index = true %}
+                    {% else %}
+                      {% assign child_url_filename_is_index = false %}
+                    {% endif %}
+                    {% if is_conference_page %}
+                      {% if child_url_has_filename %}
+                        {% assign child_url_fragment_index = child_url_parts | size | minus: 2 %}
+                        {% assign child_url_fragment = child_url_parts[child_url_fragment_index] %}
+                      {% else %}
+                        {% assign child_url_fragment = last_child_url_part %}
+                      {% endif %}
+                    {% else %}
+                      {% if child_url_has_filename %}
+                        {% unless child_url_filename_is_index %}
+                          {% assign child_url_fragment = last_child_url_part | replace: ".html", "" %}
+                        {% else %}
+                          {% assign child_url_fragment_index = child_url_parts | size | minus: 2 %}
+                          {% assign child_url_fragment = child_url_parts[child_url_fragment_index] %}
+                        {% endunless %}
+                      {% else %}
+                        {% assign child_url_fragment = last_child_url_part %}
+                      {% endif %}
+                    {% endif %}
+                  {%- endif -%}
+                  <li>
+                    <a href="{{ nav_child.url }}"
+                      {% if page.url == nav_child.url -%}
+                        class="in-category"
+                      {%- elsif child_url_fragment == url_fragment -%}
+                        class="in-category"
+                      {%- endif %}
+                    >{{ nav_child.label }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+        <li class="banner--navigation--search">
+          <div class="banner--navigation--search--field-with-results">
+            <div class="banner--navigation--search--field-with-results--field">
+              <div class="banner--navigation--search--field-with-results--field--wrapper">
+                <div class="banner--navigation--search--field-with-results--field--wrapper--search-component">
+                  <div class="banner--navigation--search--field-with-results--field--wrapper--search-component--input-wrap">
+                    <input type="text" id="search-input" class="banner--navigation--search--field-with-results--field--wrapper--search-component--search-input"
+                      placeholder="Search for anything" aria-label="Search {{ site.title }}"
+                      data-docs-version="latest" autocomplete="off"
+                    >
+                    <div class="banner--navigation--search--field-with-results--field--wrapper--search-component--search-spinner"><i></i></div>
+                    <label for="search-input" class="banner--navigation--search--field-with-results--field--wrapper--search-component--search-label">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="banner--navigation--search--field-with-results--field--wrapper--search-component--search-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                      </svg>
+                    </label>
+                  </div>
+                  <div id="search-results" class="banner--navigation--search--field-with-results--field--wrapper--search-component--search-results">
+                    <div class="banner--navigation--search--field-with-results--field--wrapper--search-component--search-results-wrapper"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="banner--navigation--search--overlay"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('content loaded');
-    const headerUrl = 'http://localhost:4000/header_fragment.html';
-    const insertionId = 'remote-header-insertion-point';
-    const headers = {
-      Accept: 'text/html',
-    };
-    const method = 'GET';
-    const options = {
-      method,
-      headers,
-    };
-    console.log(`Header URL: ${headerUrl}`);
-    console.log(`Insertion ID: ${insertionId}`);
-    fetch(headerUrl, options).then(response => {
-      if (response.ok) {
-        console.log('Response is OK');
-        return response.body;
-      } else {
-        console.log('Response is NOT OK');
-        return 'MALDITA SEA';
-      }
-    }).then(body => {
-      if (body) {
-        return new Response(body, { headers: { "Content-Type": "text/html" } }).text();
-      }
-    }).then(response => {
-      const div = document.createElement('div');
-      div.innerHTML = response;
-      document.getElementById(insertionId).append(div);
-    }).catch(error => {
-      console.error(JSON.stringify(error));
+    const menu = document.querySelector('#top .nav-menu-on');
+    const button = document.querySelector('#top .menu-button');
+    button.addEventListener('click', () => {
+        menu.classList.toggle('active');
+        button.classList.toggle('active');
     });
-  });  
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    function getSubMenu(button) {
+        const parentLI = button.closest('li');
+        const childUL = parentLI.querySelector('ul');
+        return childUL;
+    }
+    function initializeCustomMenuHeights(button) {
+        const childUL = getSubMenu(button);
+        const height = childUL?.scrollHeight;
+        childUL?.style?.setProperty?.('--expanded-height', `${height}px`);
+        childUL?.classList?.add?.('nested-nav--menu__mobile-hidden-collapsed');
+    }
+    function onNestedNavMenuTransitionEnd(e) {
+        const { target } = e;
+        if (!target?.hasAttribute?.('expanded')) {
+            target?.classList.add('nested-nav--menu__mobile-hidden-collapsed');
+        }
+    }
+
+    function onToggleButtonClick(e) {
+        const visibleClassName = 'opensearch-toggle-button-link__visible';
+        const visibleSelector = `.${visibleClassName}`;
+        const invisibleClassName = 'opensearch-toggle-button-link__invisible';
+        const invisibleSelector = `.${invisibleClassName}`;
+
+        const toggle = e.currentTarget;
+        const visibleLink = toggle.querySelector(visibleSelector);
+        const invisibleLink = toggle.querySelector(invisibleSelector);
+        visibleLink.classList.remove(visibleClassName);
+        visibleLink.classList.add(invisibleClassName);
+        invisibleLink.classList.remove(invisibleClassName);
+        invisibleLink.classList.add(visibleClassName);
+
+        const childUL = getSubMenu(toggle);
+        const isAlreadyExpanded = childUL?.getAttribute?.('expanded') ?? false;
+        if (childUL.classList.contains('nested-nav--menu__mobile-hidden-collapsed')) {
+            childUL?.classList?.remove?.('nested-nav--menu__mobile-hidden-collapsed');
+        }
+        window.setTimeout(() => childUL?.toggleAttribute?.('expanded'), 60);
+    }
+
+    document.querySelector('#top .navigation-container--nested-nav-wrapper--nested-nav')?.addEventListener?.('transitionend', onNestedNavMenuTransitionEnd);
+    const topNavigationToggleButtons = document.querySelectorAll('#top .opensearch-toggle-button--wrapper');
+    for (let i = 0; i < topNavigationToggleButtons.length; ++i) {
+        const button = topNavigationToggleButtons[i];
+        initializeCustomMenuHeights(button);
+        button.addEventListener('click', onToggleButtonClick);
+    }
+  });
 </script>

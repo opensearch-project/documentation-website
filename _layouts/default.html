@@ -124,32 +124,6 @@ layout: table_wrappers
         {% endif %}
         </nav>
     </div>
-    <div class="copy-banner">
-      <div class="container">
-        <h1><a href="/docs/latest/">Documentation</a></h1>
-        {% if site.search_enabled != false or site.use_custom_search == true %}
-        <div class="search">
-          <div class="search-input-wrap">
-            {% assign docs_version = site.data.versions.current %}
-            {% if site.baseurl == '/docs/latest' %}
-              {% assign docs_version = "latest" %}
-            {% endif %}
-            <input type="text" id="search-input" class="search-input"
-              placeholder="Search..." aria-label="Search {{ site.title }}"
-              data-docs-version="{{ docs_version }}" autocomplete="off">
-            <div class="search-spinner"><i></i></div>
-            <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
-          </div>
-          {% if site.search_enabled != false %}
-          <div id="search-results" class="search-results"></div>
-          {% elsif site.use_custom_search == true %}
-          <div id="search-results" class="search-results custom-search-results"></div>
-          {% endif %}
-        </div>
-        {% endif %}
-      </div>
-      <div class="search-overlay"></div>
-    </div>
     <div class="main">
       <div id="main-content-wrap" class="main-content-wrap">
         {% unless page.url == "/" %}
