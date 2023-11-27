@@ -70,7 +70,7 @@ opensearch-source-pipeline:
 
 ## Amazon OpenSearch Serverless
 
-The `opensearch` source can be configured for an an Amazon OpenSearch Service domain by setting the `serverless` option to `true`, as shown in the following example:
+The `opensearch` source can be configured with Amazon OpenSearch Serverless by setting the `serverless` option to `true`, as shown in the following example:
 
 ```yaml
     - opensearch:
