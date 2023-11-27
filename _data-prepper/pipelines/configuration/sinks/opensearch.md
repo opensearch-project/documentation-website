@@ -31,9 +31,9 @@ pipeline:
       bulk_size: 4
 ```
 
-To configure an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) sink, specify the domain endpoint as the `hosts` option and set `serverless` to `true`:
+To configure an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) sink, specify the domain endpoint as the `hosts` option, as shown in the following example:
 
-```json
+```yaml
 pipeline:
   ...
   sink:
@@ -44,7 +44,6 @@ pipeline:
       insecure: false
       index_type: trace-analytics-service-map
       bulk_size: 4
-      serverless: `true`
 ```
 
 ## Configuration options

@@ -55,7 +55,7 @@ opensearch-source-pipeline:
 
 ## Amazon OpenSearch Service
 
-The `opensearch` source can be configured for an Amazon OpenSearch Service domain by setting the `serverless` option to `true`, as shown in the following example:
+The `opensearch` source can be configured for an an Amazon OpenSearch Service domain by passing an `sts_role_arn` with access to the domain, as shown in the following example:
 
 ```yaml
 opensearch-source-pipeline:
@@ -65,8 +65,21 @@ opensearch-source-pipeline:
       aws:
         region: "us-east-1"
         sts_role_arn: "arn:aws:iam::123456789012:role/my-domain-role"
-        severkess: true
   ...
+```
+
+## Amazon OpenSearch Service Serverless
+
+The `opensearch` source can be configured for an an Amazon OpenSearch Service domain by setting the `serverless` option to `true`, as shown in the following example:
+
+```yaml
+    - opensearch:
+        hosts: [ 'https://1234567890abcdefghijkl.us-west-2.aoss.amazonaws.com' ]
+        index: my-target-index
+        aws:
+          sts_role_arn: 'arn:aws:iam::123456789012:role/my-domain-role'
+          region: 'us-west-2'
+          serverless: true
 ```
 
 
