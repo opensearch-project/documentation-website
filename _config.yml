@@ -5,8 +5,8 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.11.1'
-opensearch_dashboards_version: '2.11.1'
+opensearch_version: '2.11.0'
+opensearch_dashboards_version: '2.11.0'
 opensearch_major_minor_version: '2.11'
 lucene_version: '9_7_0'
 
