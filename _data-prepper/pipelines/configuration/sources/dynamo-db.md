@@ -8,7 +8,7 @@ nav_order: 3
 
 # dynamodb
 
-The `dynamodb` source enables change data capture (CDC) which streams [DynamoDB](https://aws.amazon.com/dynamodb/) table events such as `create`, `update`, or `delete` to Data Prepper events in near real-time.
+The `dynamodb` source enables change data capture (CDC) on [DynamoDB](https://aws.amazon.com/dynamodb/) tables. It can receive table events such as `create`, `update`, or `delete` via DynamoDB streams and supports initial snapshots using [point-in-time recovery (PITR)](https://aws.amazon.com/dynamodb/pitr/).
 
 The source includes two ingestion options to stream DynamoDB events:
 
@@ -17,7 +17,7 @@ The source includes two ingestion options to stream DynamoDB events:
 
 ## Usage
 
-The following example pipeline specifies DynamoDB as a source. It ingests data from a DyanmoDB table, named `table-a` through a PITR snapshot. It also indicates the `start_position`, which tells the pipeline how to read events DynamoDB stream. The sink wi
+The following example pipeline specifies DynamoDB as a source. It ingests data from a DyanmoDB table, named `table-a` through a PITR snapshot. It also indicates the `start_position`, which tells the pipeline how to read events DynamoDB stream. 
 
 ```json
 version: "2"
@@ -40,7 +40,6 @@ cdc-pipeline:
 
 The following tables describe the configuration options for the `dynamodb` source.
 
-### Shared options
 
 The following settings are shared between the `dynamodb` source and your data stores.
 
@@ -65,7 +64,7 @@ Use the following stream option when the DynamoDB stream option is enabled on th
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`start_position` | No | String | The start position from when the source reads events from the stream. `LATEST` starts reading event about the most recent stream record. `TRIM_HORIZON` starts reading at the last untrimmed record, which is usually the oldest record still stored in the shard. When exporting to an S3 bucket, this value is ignored and set to `LATEST`.
+`start_position` | No | String | The start position from when the source reads events from the stream. `LATEST` starts reading event about the most recent stream record. 
 
 
 
