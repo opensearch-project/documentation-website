@@ -244,7 +244,7 @@ PUT /_cluster/settings
 
 ### Connecting the model
 
-RAG requires an LLM in order to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+RAG requires an LLM in order to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}ml-commons-plugin/remote-models/connectors/).
 
 Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 model:
 
@@ -409,6 +409,6 @@ If your LLM includes a set token limit, set the `size` field in your OpenSearch 
 
 ## Next steps
 
-- To learn more about connecting to models on external platforms, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+- To learn more about connecting to models on external platforms, see [Connectors]({{site.url}}{{site.baseurl}}ml-commons-plugin/remote-models/connectors/).
 - To learn more about using custom models within your OpenSearch cluster, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 

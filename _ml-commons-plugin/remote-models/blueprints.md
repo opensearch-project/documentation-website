@@ -6,7 +6,7 @@ nav_order: 65
 parent: Connecting to remote models 
 grand_parent: Integrating ML models
 redirect_from: 
-  - /ml-commons-plugin/extensibility/blueprints/
+  - ml-commons-plugin/remote-models/blueprints/
 ---
 
 # Connector blueprints
