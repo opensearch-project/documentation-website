@@ -801,231 +801,6 @@ main {
   }
 }
 
-
-[role="contentinfo"] {
-  // Global Footer at bottom of page
-  @include clearfix;
-  @include sans-serif;
-  position: relative;
-  background: $attention;
-  clear: both;
-  margin-top: 0px;
-
-  & * {
-    box-sizing: content-box;
-  }
-
-  .container {
-    overflow: hidden;
-  }
-
-  .subfooter {
-    @include clearfix;
-    padding: 0 10px;
-
-    @include mq(md) {
-      padding: 0;
-    }
-
-    .col {
-      &:first-child {
-        h2 {
-          border-top: 0;
-        }
-      }
-      @include mq(md) {
-        float: left;
-        margin-bottom: -999px;
-        padding: 0 3% 999px 0;
-        width: 23%;
-      }
-
-      &:first-child {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      &.last-child {
-        margin-right: 0;
-        padding-right: 0;
-      }
-    }
-
-  }
-
-  h2 {
-    @include heading-sans-serif;
-    @include font-size(16, true);
-    border-top: 1px solid $line;
-    color: $background-lightest;
-    font-weight: 700;
-    margin: 20px 0 .83em 0;
-    padding: 30px 0 10px;
-    line-height: 1.6;
-
-    @include mq(md) {
-      border: none;
-      margin-top: 0;
-    }
-  }
-
-  ul {
-    @include font-size(14);
-    font-weight: 400;
-    list-style: none;
-    margin: 15px 0 0 0;
-    padding: 0 0 30px;
-
-    li {
-      margin: 10px 0 0;
-      padding: 0;
-    }
-
-    a {
-      color: $white;
-      text-decoration: none;
-      background: none;
-
-      &:hover,
-      &:active,
-      &:focus {
-        text-decoration: underline;
-        background: none;
-      }
-    }
-  }
-
-  .footer {
-    background: $accent-dark;
-    margin-top: 20px;
-    padding: 10px 0 30px;
-    color: $white;
-    a {
-      color: $accent-light;
-      background: none;
-      text-decoration: underline;
-
-      &:hover,
-      &:active,
-      &:focus {
-        text-decoration: underline;
-        background: none;
-      }
-    }
-    svg {
-      float: left;
-      height: 50px;
-      padding-top: 40px;
-      padding-right: 30px;
-      color: $accent-light;
-    }
-    .copyright {
-      float: left;
-      @include font-size(12);
-      margin: 20px 0 0 10px;
-      @include mq(md) {
-        max-width: 80%;
-        padding-top: 30px;
-        margin: 0;
-      }
-    }
-    .logo {
-      margin-right: 0;
-      margin-top: 28px;
-      .mdzr-svg & {
-        background-position: left center;
-        margin-right: 0;
-        margin-top: 20px;
-      }
-    }
-  }
-
-  .logo {
-    @include font-size(40);
-    @include sans-serif;
-    color: $accent-dark;
-    display: block;
-    font-weight: 700;
-    height: 50px;
-    margin: 10px;
-    overflow: hidden;
-    text-decoration: none;
-    text-indent: 100%;
-    width: 142px;
-    @include mq(md) {
-      float: left;
-      margin: 20px 90px 0 0;
-    }
-  }
-
-  .thanks {
-    @include font-size(12);
-    color: $attention-dark;
-    margin: 0;
-    padding: 0;
-    @include mq(md) {
-      border: none;
-    }
-
-    li {
-      @include clearfix;
-      margin: 0;
-      padding: 17px 10px 11px;
-      display: block;
-      clear: both;
-      @include mq(md) {
-        background: none;
-        float: left;
-        clear: none;
-        padding: 0 3% 0 0;
-        width: 30%;
-
-        &.design {
-
-          span.ampersand, a {
-            display: inline-block;
-            vertical-align: top;
-            &.threespot {
-              clear: both;
-            }
-
-            &.ampersand {
-              position: relative;
-              top: 6px;
-              margin: 0 6px;
-              line-height: 36px;
-            }
-          }
-        }
-      }
-
-      span.ampersand {
-        line-height: 24px;
-      }
-    }
-
-    span {
-      display: block;
-      height: 24px;
-      line-height: 36px;
-      padding-right: 12px;
-      white-space: nowrap;
-    }
-
-    a {
-      display: block;
-      height: 33px;
-      overflow: hidden;
-      text-indent: -200px;
-      width: 94px;
-
-      @include mq(md) {
-        clear: both;
-        margin-top: 5px;
-      }
-    }
-  }
-}
-
 .visuallyhidden {
   @include visuallyhidden;
 }
@@ -1225,11 +1000,31 @@ version-selector {
   --link-color: #{$blue-300};
 }
 
+body {
+  padding-bottom: 0;
+}
+
 #top { 
   a:not([class]) {
     background-image: none;
   }
 }
+.bottom-contentinfo--wrapper {
+  box-sizing: content-box;
+  & * {
+    box-sizing: content-box;
+  }
+  a:not([class]) {
+    background-image: none;
+  }
+  svg {
+    box-sizing: content-box;
+  }
+  h4 {
+    font-size: 15px !important;
+  }
+}
 
 @import "../font-awesome.scss";
 @import "../_navigation-header.scss";
+@import "../footer.scss";
