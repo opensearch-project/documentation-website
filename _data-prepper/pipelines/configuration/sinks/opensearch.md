@@ -87,7 +87,7 @@ The following options can be used in the `serverless_options` object.
 Option | Required | Type | Description
 :--- | :--- | :---| :---
 network_policy_name | Yes | String | The name of the network policy to create.
-collection_name | Yes | String | The name of the Amazon OpenSearch Service collection to configure.
+collection_name | Yes | String | The name of the Amazon OpenSearch Serverless collection to configure.
 vpce_id | Yes | String | The virtual private cloud (VPC) endpoint to which the source connects.
 
 ### Configure max_retries
