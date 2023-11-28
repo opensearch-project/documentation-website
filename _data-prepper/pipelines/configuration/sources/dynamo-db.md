@@ -66,12 +66,23 @@ Option | Required | Type | Description
 
 Use the following options with the `tables` configuration.
 
+#### Export options
+
+The following options let you customize where to export DynamoDB events.
+
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `s3_bucket` | Yes | String | The destination bucket that stores the exported data files.
 `s3_prefix` | No | String | The custom prefix for the S3 bucket.
 `s3_sse_kms_key_id` | No | String |  An AWS KMS Customer Managed Key (CMK) that encrypts the export data files. The `key_id` is the ARN of the KMS key, for example, `arn:aws:kms:us-west-2:123456789012:key/0a4bc22f-bb96-4ad4-80ca-63b12b3ec147`.
 `s3_region` | No | String | The region for the S3 bucket.
+
+#### Source option
+
+The following option lets you customize how the pipeline reads events from the DynamoDB table.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
 `start_position` | No | String | The start position from when the source reads events from the stream when the DynamoDB stream option is enabled on the table `LATEST` starts reading event about the most recent stream record. 
 
 
