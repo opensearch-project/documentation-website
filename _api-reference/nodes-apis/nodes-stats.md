@@ -1071,14 +1071,14 @@ published_cluster_states.full_states | Integer | The number of published cluster
 published_cluster_states.incompatible_diffs | Integer | The number of incompatible differences between published cluster states.
 published_cluster_states.compatible_diffs | Integer | The number of compatible differences between published cluster states.
 cluster_state_stats | Object | Cluster state updates statistics published by active leader.
-cluster_state_stats.overall | Object | Cluster state update statistics including local and all remote state uploads done by the node.
+cluster_state_stats.overall | Object | Overall cluster state updates statistics.
 cluster_state_stats.overall.update_count | Integer | The total number of successful cluster state updates.
 cluster_state_stats.overall.total_time_in_millis | Integer | The total amount of time for all cluster state updates, in milliseconds.
 cluster_state_stats.overall.failed_count | Integer | The total number of failed cluster state updates.
 cluster_state_stats.remote_upload | Object | Cluster state update statistics for remote upload.
-cluster_state_stats.remote_upload.success_count | Integer | The total number of successful cluster state updates on remote.
-cluster_state_stats.remote_upload.failed_count | Integer | The total number of failed cluster state updates on remote.
-cluster_state_stats.remote_upload.total_time_in_millis | Integer | The total amount of time for all cluster state updates on remote, in milliseconds.
+cluster_state_stats.remote_upload.success_count | Integer | The total number of successful cluster state updates uploaded on remote.
+cluster_state_stats.remote_upload.failed_count | Integer | The total number of cluster state updates failed to upload to remote.
+cluster_state_stats.remote_upload.total_time_in_millis | Integer | The total amount of time taken for all cluster state updates upload on remote, in milliseconds.
 cluster_state_stats.remote_upload.cleanup_attempt_failed_count | Integer | The total number of failures encountered while trying to cleanup older cluster states from remote.
 
 ### `ingest`
