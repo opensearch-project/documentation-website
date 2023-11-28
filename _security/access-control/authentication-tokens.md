@@ -78,6 +78,7 @@ To access this API endpoint, the request body should contain three API parameter
 * `service` (optional): This parameter is directed to the audience claim of the OBO token. It offers users the opportunity to designate the target service for which they intend to use the token. Although this is an optional parameter, if not specified, the default value is set to `self-issued`.
 * `durationSeconds` (optional): This parameter allows users to customize the token's expiration time according to its anticipated usage. The maximum duration is capped at 600 seconds to maintain security. If not specified, the default duration is set to 300 seconds.
 The following is an example of requesting an OBO token with a lifespan of 3 mins for the user “admin” for testing purposes:
+
 ```json
 POST /_plugins/_security/api/generateonbehalfoftoken
 { 
