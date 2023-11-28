@@ -69,8 +69,8 @@ Use the following options with the `tables` configuration.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `table_arn` | Yes | String | The ARN of the source DynamoDB table.
-`export` | No | Export | Determines how to export DynamoDB events. For more information, see [export](#export).
-`stream` | No | Stream | Determines how to the pipeline reads data from the DynamoDB table. For more information, see [stream](#stream).
+`export` | No | Export | Determines how to export DynamoDB events. For more information, see [export](#export-options).
+`stream` | No | Stream | Determines how to the pipeline reads data from the DynamoDB table. For more information, see [stream](#stream-option).
 
 #### Export options
 
