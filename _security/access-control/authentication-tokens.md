@@ -88,7 +88,7 @@ POST /_plugins/_security/api/generateonbehalfoftoken
 ```
 {% include copy-curl.html %}
 
-### Additional authorization restriction ([related discussion](https://github.com/opensearch-project/security/issues/2891))
+### Additional authorization restriction 
 
 While the conversation about the usage of OBO tokens continues, it is critical to manage certain edge cases. Even though an OBO token can act as a valid Bearer authorization header for any API access, certain limitations are needed. For instance, using an OBO token to access the API endpoint to issue another OBO token should be forbidden. Similarly, using an OBO token to access the reset password API in order to modify a user's authentication information should be disallowed. These preventive measures are necessary to uphold the system's integrity and security.
 
