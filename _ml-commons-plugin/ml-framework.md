@@ -15,7 +15,7 @@ To integrate machine learning (ML) models into your OpenSearch cluster, you can 
 
 - **Pretrained models provided by OpenSearch**: To learn more, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/). For a list of supported models, see [Supported pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models). 
 
-- **Custom models** such as PyTorch deep learning models: To learn more, see [Custom models](http://localhost:4000/docs/latest/ml-commons-plugin/custom-local-models/).
+- **Custom models** such as PyTorch deep learning models: To learn more, see [Custom models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
 
 ## GPU acceleration
 

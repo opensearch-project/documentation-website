@@ -68,6 +68,20 @@ opensearch-source-pipeline:
   ...
 ```
 
+## Amazon OpenSearch Serverless
+
+The `opensearch` source can be configured with Amazon OpenSearch Serverless by setting the `serverless` option to `true`, as shown in the following example:
+
+```yaml
+    - opensearch:
+        hosts: [ 'https://1234567890abcdefghijkl.us-west-2.aoss.amazonaws.com' ]
+        aws:
+          sts_role_arn: 'arn:aws:iam::123456789012:role/my-domain-role'
+          region: 'us-west-2'
+          serverless: true
+```
+
+
 ## Using metadata
 
 When the `opensource` source constructs Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
@@ -106,6 +120,18 @@ Option | Required | Type    | Description
 `indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [indexes](#indices).
 `scheduling` | No | Object | The scheduling configuration. For more information, see [Scheduling](#scheduling).
 `search_options` | No | Object | A list of search options performed by the source. For more information, see [Search options](#search_options).
+`serverless` | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` source is an Amazon OpenSearch Serverless collection. Default is `false`.
+`serverless_options` | No | Object | The network configuration options available when the backend of the `opensearch` source is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
+
+### Serverless options
+
+The following options can be used in the `serverless_options` object.
+
+Option | Required | Type | Description
+:--- | :--- | :---| :---
+`network_policy_name` | Yes | String | The name of the network policy to create.
+`collection_name` | Yes | String | The name of the Amazon OpenSearch Serverless collection to configure.
+`vpce_id` | Yes | String | The virtual private cloud (VPC) endpoint to which the source connects.
 
 ### Scheduling
 
