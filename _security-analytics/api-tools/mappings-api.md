@@ -109,13 +109,16 @@ POST /_plugins/_security_analytics/mappings
 ---
 ## Get Mappings
 
+### Path options
+
+Field | Type | Description
+:--- | :--- |:--- 
+`index_name` | String | The name of the index used for log ingestion. Required.
+
 #### Example request
 
 ```json
-GET /_plugins/_security_analytics/mappings
-{
-   "index_name": "windows"
-}
+GET /_plugins/_security_analytics/mappings?index_name=windows
 ```
 
 #### Example response
