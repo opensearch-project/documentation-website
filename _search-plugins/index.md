@@ -19,21 +19,23 @@ OpenSearch supports the following search methods:
 
     - [Keyword (BM25) search]({{site.url}}{{site.baseurl}}/search-plugins/keyword-search/): Searches the document corpus for words that appear in the query.
 
-- **Vector search**
+- **Machine learning-powered search**
 
-    - [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/): Facilitates vector search at ingestion time and at search time. Neural search lets you integrate machine learning (ML) models in your search. It serves as a basis for other vector search methods that are built on top of it. 
+    - **Vector search**
 
-    - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): Built on top of neural search. Takes into account the meaning of the words in the search context. Uses dense retrieval based on text embedding models to search text data. 
+        - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for k-nearest neighbors to a search term across an index of vectors.
 
-    - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/): Built on top of neural search. Uses multimodal embedding models to search text and image data. 
+    - **Neural search**: [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/): Facilitates generating vector embeddings at ingestion time and searching them at search time. Neural search lets you integrate machine learning (ML) models in your search and serves as a framework for implementing other search methods. The following search methods are built on top of neural search:
 
-    - [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/): Built on top of neural search. Uses sparse retrieval based on sparse embedding models to search text data.
+        - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): Takes into account the meaning of the words in the search context. Uses dense retrieval based on text embedding models to search text data. 
 
-    - [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/): Built on top of neural search. Combines traditional search and vector search to improve search relevance.
+        - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/): Uses multimodal embedding models to search text and image data. 
 
-    - [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/): Built on top of neural search. Implements a retrieval-augmented generative search. 
+        - [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
 
-    - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for k-nearest neighbors to a search term across an index of vectors.
+        - [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/): Combines traditional search and vector search to improve search relevance.
+
+        - [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/): Implements a retrieval-augmented generative search. 
 
 ## Query languages
 
