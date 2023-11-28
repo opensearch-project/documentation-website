@@ -8,7 +8,7 @@ nav_order: 3
 
 # dynamodb
 
-The `dynamodb` source enables change data capture (CDC) on [DynamoDB](https://aws.amazon.com/dynamodb/) tables. It can receive table events such as `create`, `update`, or `delete` via DynamoDB streams and supports initial snapshots using [point-in-time recovery (PITR)](https://aws.amazon.com/dynamodb/pitr/).
+The `dynamodb` source enables change data capture (CDC) on [DynamoDB](https://aws.amazon.com/dynamodb/) tables. It can receive table events such as `create`, `update`, or `delete` using DynamoDB streams and supports initial snapshots using [point-in-time recovery (PITR)](https://aws.amazon.com/dynamodb/pitr/).
 
 The source includes two ingestion options to stream DynamoDB events:
 
