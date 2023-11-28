@@ -410,5 +410,5 @@ If your LLM includes a set token limit, set the `size` field in your OpenSearch 
 ## Next steps
 
 - To learn more about connecting to models on external platforms, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
-- To learn more about using custom models within your OpenSearch cluster, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about using custom models within your OpenSearch cluster, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 

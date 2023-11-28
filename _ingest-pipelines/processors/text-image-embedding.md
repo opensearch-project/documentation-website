@@ -37,7 +37,7 @@ The following table lists the required and optional parameters for the `text_ima
 
 | Name  | Data type | Required  | Description  |
 |:---|:---|:---|:---|
-`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
+`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
 `embedding` | String | Required | The name of the vector field in which to store the generated embeddings. A single embedding is generated for both `text` and `image` fields.
 `field_map` | Object | Required | Contains key-value pairs that specify the fields from which to generate embeddings.
 `field_map.text` | String | Optional | The name of the field from which to obtain text for generating vector embeddings. You must specify at least one `text` or `image`.
@@ -47,7 +47,7 @@ The following table lists the required and optional parameters for the `text_ima
 
 ## Using the processor
 
-Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/). 
+Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). 
 
 **Step 1: Create a pipeline.** 
 

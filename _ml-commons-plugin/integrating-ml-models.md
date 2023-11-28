@@ -24,7 +24,7 @@ To integrate an ML model into your search workflow, choose one of the following 
 
     1. **Custom model**: This option offers customization to your specific use case.
 
-        For information about uploading your model, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+        For information about uploading your model, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 
 1. **Remote model**: Connect to a model hosted on a third-party platform. This option requires more setup but allows using models that are already hosted on a service other than OpenSearch.     
     

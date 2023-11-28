@@ -347,7 +347,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 
 ### Step 1(d): Deploy the model
 

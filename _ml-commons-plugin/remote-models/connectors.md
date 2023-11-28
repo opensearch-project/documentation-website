@@ -80,7 +80,7 @@ To create a connector for a specific model, provide all of the parameters descri
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-GPT-3.5 model with an inline connector",
+    "name": "openAI-GPT-3.5 model with a connector",
     "function_name": "remote",
     "model_group_id": "lEFGL4kB4ubqQRzegPo2",
     "description": "test model",
@@ -116,8 +116,7 @@ POST /_plugins/_ml/models/_register
 
 ## OpenAI chat connector
 
-The following example creates a standalone OpenAI chat connector. The same options can be used for an inline connector under the `connector` parameter:
-
+The following example creates a standalone OpenAI chat connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -152,7 +151,7 @@ After creating the connector, you can retrieve the `task_id` and `connector_id` 
 
 ## Amazon SageMaker connector
 
-The following example creates a standalone Amazon SageMaker connector. The same options can be used for an inline connector under the `connector` parameter:
+The following example creates a standalone Amazon SageMaker connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -270,5 +269,5 @@ POST /_plugins/_ml/connectors/_create
 
 ## Next steps
 
-- To learn more about using models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about using models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 - To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
