@@ -4,9 +4,9 @@
         // Search field behaviors
         //
         const elInput = document.getElementById('search-input');
-        const elResults = document.getElementById('search-results')?.querySelector?.('.banner--navigation--search--field-with-results--field--wrapper--search-component--search-results-wrapper') ?? null;
-        const elOverlay = document.querySelector('.banner--navigation--search--overlay');
-        const elSpinner = document.querySelector('.banner--navigation--search--field-with-results--field--wrapper--search-component--search-spinner');
+        const elResults = document.getElementById('search-results')?.querySelector?.('.top-banner-search--field-with-results--field--wrapper--search-component--search-results-wrapper') ?? null;
+        const elOverlay = document.querySelector('.top-banner-search--overlay');
+        const elSpinner = document.querySelector('.top-banner-search--field-with-results--field--wrapper--search-component--search-spinner');
         if (!elInput || !elResults || !elOverlay) return;
         
         const CLASSNAME_SPINNING = 'spinning';
@@ -58,12 +58,12 @@
         elResults.addEventListener('pointerenter', e => {
             cancelAnimationFrame(animationFrame);
             animationFrame = requestAnimationFrame(() => {
-                highlightResult(e.target?.closest('.banner--navigation--search--field-with-results--field--wrapper--search-component--search-results--result'));
+                highlightResult(e.target?.closest('.top-banner-search--field-with-results--field--wrapper--search-component--search-results--result'));
             });
         }, true);
 
         elResults.addEventListener('focus', e => {
-            highlightResult(e.target?.closest('.banner--navigation--search--field-with-results--field--wrapper--search-component--search-results--result'));
+            highlightResult(e.target?.closest('.top-banner-search--field-with-results--field--wrapper--search-component--search-results--result'));
         }, true);
 
         const debounceInput = () => {
@@ -107,7 +107,7 @@
                 const startTime = Date.now();
                 const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${docsVersion}`, { signal: controller.signal });
                 const data = await response.json();
-                const searchResultClassName = 'banner--navigation--search--field-with-results--field--wrapper--search-component--search-results--result';
+                const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
                 recordEvent('view_search_results', {
                     search_term: query,
                     docs_version: docsVersion,
@@ -189,10 +189,10 @@
 
         const handlePointerDown = e => {
             const matchSelectors = [
-                '.banner--navigation--search--field-with-results--field--wrapper--search-component--input-wrap',
-                '.banner--navigation--search--field-with-results--field--wrapper--search-component--input-wrap *',
-                '.banner--navigation--search--field-with-results--field--wrapper--search-component--search-results',
-                '.banner--navigation--search--field-with-results--field--wrapper--search-component--search-results *',
+                '.top-banner-search--field-with-results--field--wrapper--search-component--input-wrap',
+                '.top-banner-search--field-with-results--field--wrapper--search-component--input-wrap *',
+                '.top-banner-search--field-with-results--field--wrapper--search-component--search-results',
+                '.top-banner-search--field-with-results--field--wrapper--search-component--search-results *',
             ].join(', ');
             if (e.target.matches(matchSelectors)) return;
 
@@ -203,7 +203,7 @@
         };
 
         const highlightResult = node => {
-            const searchResultClassName = 'banner--navigation--search--field-with-results--field--wrapper--search-component--search-results--result';
+            const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
             if (!node || !_showingResults || node.classList.contains(CLASSNAME_HIGHLIGHTED)) return;
 
             elResults.querySelectorAll(`.${searchResultClassName}.highlighted`).forEach(el => {
@@ -214,7 +214,7 @@
         };
 
         const highlightNextResult = (down = true) => {
-            const searchResultClassName = 'banner--navigation--search--field-with-results--field--wrapper--search-component--search-results--result';
+            const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
             const highlighted = elResults.querySelector(`.${searchResultClassName}.highlighted`);
             let nextResult;
             if (highlighted) {
@@ -248,7 +248,7 @@
         };
 
         const navToHighlightedResult = () => {
-            const searchResultClassName = 'banner--navigation--search--field-with-results--field--wrapper--search-component--search-results--result';
+            const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
             elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`)?.click?.();
         };
 

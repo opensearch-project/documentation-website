@@ -381,7 +381,7 @@ $max-container: 1440px;
                         }
                     }
                 }
-                > li.banner--navigation--search {
+                > li.top-banner-search {
                     display: inline-flex;
                     align-items: flex-start;
                     @media screen and (max-width: $header-banner-mobile-breakpoint) {
@@ -391,7 +391,7 @@ $max-container: 1440px;
                         height: 60px;
                         box-sizing: content-box;
                     }
-                    > .banner--navigation--search--field-with-results {
+                    > .top-banner-search--field-with-results {
                         display: inline-flex;
                         align-items: flex-start;
                         min-width: 200px;
@@ -406,16 +406,16 @@ $max-container: 1440px;
                             position: relative;
                             z-index: 11;
                         }
-                        > .banner--navigation--search--field-with-results--field {
+                        > .top-banner-search--field-with-results--field {
                             flex-basis: 100%;
                             flex-grow: 1;
                             flex-shrink: 1;
-                            > .banner--navigation--search--field-with-results--field--wrapper {
+                            > .top-banner-search--field-with-results--field--wrapper {
                                 position: relative;
-                                > .banner--navigation--search--field-with-results--field--wrapper--search-component {
+                                > .top-banner-search--field-with-results--field--wrapper--search-component {
                                     position: relative;
                                     z-index: 2;
-                                    > .banner--navigation--search--field-with-results--field--wrapper--search-component--input-wrap {
+                                    > .top-banner-search--field-with-results--field--wrapper--search-component--input-wrap {
                                         position: relative;
                                         z-index: 1;
                                         transition: height linear 200ms;
@@ -426,7 +426,7 @@ $max-container: 1440px;
                                             box-shadow: none;
                                             transition: width ease 400ms;
                                         }
-                                        >.banner--navigation--search--field-with-results--field--wrapper--search-component--search-input {
+                                        >.top-banner-search--field-with-results--field--wrapper--search-component--search-input {
                                             padding-left: 9.6px;
                                             padding-right: 6px;
                                             transition: padding-right linear 200ms;
@@ -456,11 +456,11 @@ $max-container: 1440px;
                                             &:focus {
                                                 outline: 0;
                                             }
-                                            &:focus + .banner--navigation--search--field-with-results--field--wrapper--search-component--search-label .banner--navigation--search--field-with-results--field--wrapper--search-component--search-icon {
+                                            &:focus + .top-banner-search--field-with-results--field--wrapper--search-component--search-label .top-banner-search--field-with-results--field--wrapper--search-component--search-icon {
                                                 color: #0055A6;
                                             }
                                         }
-                                        > .banner--navigation--search--field-with-results--field--wrapper--search-component--search-spinner {
+                                        > .top-banner-search--field-with-results--field--wrapper--search-component--search-spinner {
                                             display: none; 
                                             font-weight: 700; 
                                             outline: 0; 
@@ -471,9 +471,9 @@ $max-container: 1440px;
                                             right: 0;
                                             left: auto;
 
-                                            &.banner--navigation--search--field-with-results--field--wrapper--search-component--search-spinner__spinning {
+                                            &.top-banner-search--field-with-results--field--wrapper--search-component--search-spinner__spinning {
                                                 display: flex;
-                                                & ~ .banner--navigation--search--field-with-results--field--wrapper--search-component--search-label {
+                                                & ~ .top-banner-search--field-with-results--field--wrapper--search-component--search-label {
                                                     display: none;
                                                 }
                                             }
@@ -504,7 +504,7 @@ $max-container: 1440px;
                                                 }
                                             }
                                         }
-                                        > .banner--navigation--search--field-with-results--field--wrapper--search-component--search-label {
+                                        > .top-banner-search--field-with-results--field--wrapper--search-component--search-label {
                                             position: absolute;
                                             display: flex;
                                             height: 100%;
@@ -522,7 +522,7 @@ $max-container: 1440px;
                                                 height: 26px;
                                                 top: 17px;
                                             }
-                                            > .banner--navigation--search--field-with-results--field--wrapper--search-component--search-icon {
+                                            > .top-banner-search--field-with-results--field--wrapper--search-component--search-icon {
                                                 width: 19.2px;
                                                 height: 19.2px;
                                                 align-self: center;
@@ -530,7 +530,7 @@ $max-container: 1440px;
                                             }
                                         }
                                     }
-                                    > #search-results.banner--navigation--search--field-with-results--field--wrapper--search-component--search-results {
+                                    > #search-results.top-banner-search--field-with-results--field--wrapper--search-component--search-results {
                                         position: absolute;
                                         left: 0;
                                         display: none;
@@ -554,12 +554,12 @@ $max-container: 1440px;
                                             padding-top: 10px;
                                             box-sizing: border-box;
                                         }
-                                        > .banner--navigation--search--field-with-results--field--wrapper--search-component--search-results-wrapper {
+                                        > .top-banner-search--field-with-results--field--wrapper--search-component--search-results-wrapper {
                                             @include clearfix;
                                             display: block;
                                             width: 100%;
                                             height: auto;
-                                            > .banner--navigation--search--field-with-results--field--wrapper--search-component--search-results--result {
+                                            > .top-banner-search--field-with-results--field--wrapper--search-component--search-results--result {
                                                 padding: 0 16px;
                                                 box-sizing: border-box;
                                                 margin-top: 0;
@@ -609,7 +609,7 @@ $max-container: 1440px;
                             }
                         }
                     }
-                    > .banner--navigation--search--overlay {
+                    > .top-banner-search--overlay {
                         position: fixed;
                         top: 0;
                         left: 0;
@@ -642,12 +642,12 @@ $max-container: 1440px;
         > .navigation-container {
             > .navigation-container--nested-nav-wrapper {
                 > .navigation-container--nested-nav-wrapper--nested-nav {
-                    > li.banner--navigation--search {
-                        > .banner--navigation--search--field-with-results {
-                            > .banner--navigation--search--field-with-results--field {
-                                > .banner--navigation--search--field-with-results--field--wrapper {
-                                    > .banner--navigation--search--field-with-results--field--wrapper--search-component {
-                                        > #search-results.banner--navigation--search--field-with-results--field--wrapper--search-component--search-results {
+                    > li.top-banner-search {
+                        > .top-banner-search--field-with-results {
+                            > .top-banner-search--field-with-results--field {
+                                > .top-banner-search--field-with-results--field--wrapper {
+                                    > .top-banner-search--field-with-results--field--wrapper--search-component {
+                                        > #search-results.top-banner-search--field-with-results--field--wrapper--search-component--search-results {
                                             display: block;
                                         }
                                         @media screen and (max-width: $header-banner-mobile-breakpoint) {
@@ -669,7 +669,7 @@ $max-container: 1440px;
     }
 }
 
-.banner--navigation--search--overlay {
+.top-banner-search--overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -686,7 +686,7 @@ $max-container: 1440px;
 }
 
 @media screen and (max-width: 1018px) {
-    .search-active .banner--navigation--search--field-with-results--field--wrapper--search-component {
+    .search-active .top-banner-search--field-with-results--field--wrapper--search-component {
         position: fixed;
         top: 0;
         left: 0;
@@ -696,26 +696,26 @@ $max-container: 1440px;
     }
 }
 
-.search-active .banner--navigation--search--field-with-results--field--wrapper--search-component--input-wrap {
+.search-active .top-banner-search--field-with-results--field--wrapper--search-component--input-wrap {
     height: 64px;
     border-radius: 0;
 }
 
 @media (min-width: $header-banner-min-width) {
-    .search-active .banner--navigation--search--field-with-results--field--wrapper--search-component--input-wrap {
+    .search-active .top-banner-search--field-with-results--field--wrapper--search-component--input-wrap {
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
     }
 }
 
-.search-active .banner--navigation--search--field-with-results--field--wrapper--search-component--search-input {
+.search-active .top-banner-search--field-with-results--field--wrapper--search-component--search-input {
     background-color: #fff;
 }
 
-.search-active .banner--navigation--search--field-with-results--field--wrapper--search-component--search-results {
+.search-active .top-banner-search--field-with-results--field--wrapper--search-component--search-results {
     display: block;
 }
 
-.search-active .banner--navigation--search--overlay {
+.search-active .top-banner-search--overlay {
     width: 100%;
     height: 100%;
     opacity: 1;
@@ -745,7 +745,7 @@ $max-container: 1440px;
 }
 
 @media (min-width: $header-banner-min-width) {
-    .search-active .banner--navigation--search--field-with-results--field--wrapper--search-component--search-results {
+    .search-active .top-banner-search--field-with-results--field--wrapper--search-component--search-results {
         right: 0;
         left: auto;
         max-height: calc(100vh - 200% - 60px) !important;
