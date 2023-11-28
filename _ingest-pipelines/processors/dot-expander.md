@@ -147,3 +147,169 @@ The following response confirms the document was indexed:
   }
 }
 ```
+
+## Nested fields
+
+The processor consolidates the `user.address.city` and `user.address.state` fields by merging with an existing `address`, `city`, and `state` field nested under `user`. If the field is a scalar value, then it will turn that into an array field. Take for example the following document:
+
+```json
+{
+    "user": {
+        "address": {
+            "city": "Denver",
+            "state": "CO"
+        }
+    }
+}
+```
+
+The `dot_expander` processor transforms the individual fields into arrays as follows:
+
+```json
+{
+    "user": {
+        "address": {
+            "city": ["Denver"],
+            "state": ["CO"]
+        }
+    }
+}
+```
+
+If you set the `override` parameter to `true`, the value of the expanded field overrides the value of the nested object. Take for example the following configuration:
+
+```json
+{
+    "dot_expander": {
+        "field": "user.address.city",
+        "override": true
+    }
+}
+```
+
+The result is the following document, in which the expanded field `user.address.city` overrides the value of the nested object `user.address`:
+
+```json
+{
+    "user": {
+        "address": {
+            "city": "Denver",
+            "state": "CO"
+        }
+    }
+}
+```
+
+If the field value is set to a wildcard `*`, the processor expands all top-level dotted field names, for example:  
+
+```json
+{
+    "dot_expander": {
+        "field": "*"
+    }
+}
+```
+
+Take for example the following:
+
+```json
+{
+    "user.address.city": "Denver",
+    "user.address.state": "CO"
+}
+```
+
+The `dot_expander` processor transforms that document into the following:
+
+```json
+{
+    "user": {
+        "address": {
+            "city": "Denver"
+        }
+    },
+    "user": {
+        "address": {
+            "state": "CO"
+        }
+    }
+}
+```
+
+If the field is nested within a structure without dots, use the `path` parameter to navigate the non-dotted structure, for example:
+
+```json
+{
+    "dot_expander": {
+        "path": "user.address",
+        "field": "*"
+    }
+}
+```
+
+Take for example the following document: 
+
+```json
+{
+    "user": {
+        "address": {
+            "city.one": "Denver",
+            "city.two": "Houston",
+            "state.one": "CO",
+            "state.two": "TX"
+        }
+    }
+}
+```
+
+The `dot_expander` processor transforms the document into:
+
+```json
+{
+    "user": {
+        "address": {
+            "city": {
+                "one": "Denver",
+                "two": "Houston"
+            },
+            "state": {
+                "one": "CO",
+                "two": "TX"
+            }
+        } 
+    }
+}
+```
+
+To ensure proper expansion of the `user.address.city` and `user.address.state` fields and handle conflicts with pre-existing fields, use a similar configuration as the following document: 
+
+```json
+{
+    "user": {
+        "address": {
+            "city": "Denver",
+            "state": "CO"
+        }
+    }
+}
+```
+
+To ensure the correct expansion of the `city` and `state` fields, the following pipeline uses the `rename` processor to prevent conflicts and allow for proper handling of scalar fields during expansion.
+
+```json
+{
+    "processors": [
+      {
+        "rename": {
+            "field": "user.address",
+            "target_field": "user.address.original"
+        }
+      },
+      {
+        "dot_expander": {
+            "field": "user.address.original"
+        }
+      }  
+    ]
+}
+```
