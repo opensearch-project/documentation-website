@@ -112,7 +112,7 @@ For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/trans
 
 #### Advanced: Using a different model
 
-Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For information about choosing a model, see [Further reading](#further-reading). For instructions on how to set up a custom model, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For information about choosing a model, see [Further reading](#further-reading). For instructions on how to set up a custom model, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 Take note of the dimensionality of the model because you'll need it when you set up a k-NN index.
 {: .important}
@@ -332,7 +332,7 @@ POST /_plugins/_ml/models/_register
 }
 ```
 
-For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
 
 ### Step 1(d): Deploy the model
 
@@ -421,7 +421,7 @@ The response shows the model state as `DEPLOYED`:
 }
 ```
 
-You can also receive statistics for all deployed models in your cluster by sending a [Models Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#profile) request:
+You can also receive statistics for all deployed models in your cluster by sending a [Models Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/) request:
 
 ```json
 GET /_plugins/_ml/profile/models
@@ -823,11 +823,11 @@ This time, the response not only contains all five documents, but the document o
 
 ### Search using a hybrid search
 
-Hybrid search combines keyword and neural search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization_processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
+Hybrid search combines keyword and neural search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results at an intermediate stage and applies the [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) to them. The `normalization-processor` normalizes and combines the document scores from multiple query clauses, rescoring the documents according to the chosen normalization and combination techniques. 
 
 #### Step 1: Configure a search pipeline
 
-To configure a search pipeline with a `normalization_processor`, use the following request. The normalization technique in the processor is set to `min_max`, and the combination technique is set to `arithmetic_mean`. The `weights` array specifies the weights assigned to each query clause as decimal percentages:
+To configure a search pipeline with a `normalization-processor`, use the following request. The normalization technique in the processor is set to `min_max`, and the combination technique is set to `arithmetic_mean`. The `weights` array specifies the weights assigned to each query clause as decimal percentages:
 
 ```json
 PUT /_search/pipeline/nlp-search-pipeline
@@ -979,7 +979,7 @@ PUT /my-nlp-index/_settings
 ```
 {% include copy-curl.html %}
 
-You can now experiment with different weights, normalization techniques, and combination techniques. For more information, see the [`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) documentation.
+You can now experiment with different weights, normalization techniques, and combination techniques. For more information, see the [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) documentation.
 
 #### Advanced
 
