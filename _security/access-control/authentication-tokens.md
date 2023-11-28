@@ -8,7 +8,7 @@ redirect_from:
  - /security-plugin/access-control/authorization-tokens/
 ---
 
-Authorization tokens
+# Authorization tokens
 
 The Security plugin allows you to configure two types of authentication tokens: On-Behalf-Of (OBO) tokens and Service Account tokens.
 
