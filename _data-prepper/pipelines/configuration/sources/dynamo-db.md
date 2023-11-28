@@ -66,6 +66,12 @@ Option | Required | Type | Description
 
 Use the following options with the `tables` configuration.
 
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`table_arn` | Yes | String | The ARN of the source DynamoDB table.
+`export` | No | Export | Determines how to export DynamoDB events. For more information, see [export](#export).
+`stream` | No | Stream | Determines how to the pipeline reads data from the DynamoDB table. For more information, see [stream](#stream).
+
 #### Export options
 
 The following options let you customize where to export DynamoDB events.
@@ -77,7 +83,7 @@ Option | Required | Type | Description
 `s3_sse_kms_key_id` | No | String |  An AWS KMS Customer Managed Key (CMK) that encrypts the export data files. The `key_id` is the ARN of the KMS key, for example, `arn:aws:kms:us-west-2:123456789012:key/0a4bc22f-bb96-4ad4-80ca-63b12b3ec147`.
 `s3_region` | No | String | The region for the S3 bucket.
 
-#### Stream options
+#### Stream option
 
 The following option lets you customize how the pipeline reads events from the DynamoDB table.
 
