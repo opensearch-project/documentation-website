@@ -19,7 +19,7 @@ The source includes two ingestion options to stream DynamoDB events:
 
 The following example pipeline specifies DynamoDB as a source. It ingests data from a DyanmoDB table, named `table-a` through a PITR snapshot. It also indicates the `start_position`, which tells the pipeline how to read events DynamoDB stream. 
 
-```json
+```yaml
 version: "2"
 cdc-pipeline:
   source:
@@ -28,12 +28,12 @@ cdc-pipeline:
         - table_arn: "arn:aws:dynamodb:us-west-2:123456789012:table/table-a"
           export:
             s3_bucket: "test-bucket"
-            s3_prefix: "xxx/"
+            s3_prefix: "myprefix"
           stream:
             start_position: "LATEST" # Read latest data from streams (Default)
       aws:
         region: "us-west-2"
-        sts_role_arn: "role-arn"
+        sts_role_arn: "arn:aws:iam::123456789012:role/my-iam-role"
 ```
 
 ## Configuration options
@@ -48,8 +48,8 @@ Option | Required | Type | Description
 `aws` | Yes | AWS | The AWS configuration. See [aws](#aws) for more information.
 `acknowledgments` | No | Boolean  | When `true`, enables `s3` sources to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
 `shared_acknowledgement_timeout` | No | Duration | The time before the data read from a DynamoDB stream expires when used with acknowledgements. Default is 10 minutes.
-`s3_data_file_acknowledgment_timeout` | No | Duration | The time before the data read from a DynamoDB export expires when used with acknowledgments. Default is 10 minutes.
-`tables` | Yes | Object | The configuration for the DynamoDB table. See [tables](#tables) for more information.
+`s3_data_file_acknowledgment_timeout` | No | Duration | The time before the data read from a DynamoDB export expires when used with acknowledgments. Default is 5 minutes.
+`tables` | Yes | List | The configuration for the DynamoDB table. See [tables](#tables) for more information.
 
 ### aws
 
