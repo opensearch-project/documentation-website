@@ -3,69 +3,7 @@ $footer-2-column-max: 834px;
 $footer-2-column-min: 701px;
 $footer-1-column-max:700px;
 
-$primary-deep-blue-sea-s3: #001E30;
-$primary-open-sky-t1: #4FB3E3;
-$primary-pacific-sky-t3: #F4F8FB;
-$primary-open-sky-t2: #9BCFED;
-$primary-open-sky: #00A3E0;
-
-@mixin gradient-deep-blue-sea {
-    background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
-}
-
-@mixin page-element-padding() {
-    @media screen and (min-width: 1200px) {
-        padding: 40px 80px;
-    }
-    @media screen and (min-width:960px) and (max-width: 1199px) {
-        padding: 30px 40px;
-    }
-    @media screen and (min-width: 739px) and (max-width: 959px) {
-        padding: 30px 20px;
-    }
-    @media screen and (min-width: 431px) and (max-width: 739px) {
-        padding: 30px 10px;
-    }
-    @media screen and (max-width: 430px) {
-        padding: 30px 5px;
-    }
-    box-sizing: border-box;
-    width: 100%;
-}
-
-@mixin header-level4($color: $primary-open-sky-s3) {
-    color: $color;
-    font-family: 'Open Sans';
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-    letter-spacing: 4.5px;
-    text-transform: uppercase;
-}
-
-
-@mixin body-text($color: #000) {
-    color: $color;
-    font-family: 'Open Sans';
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 48px;
-}
-
-
-@mixin header-level5($color: $primary-open-sky-s3) {
-    color: $color;
-    font-family: 'Open Sans';
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px; 
-}
-
 .bottom-contentinfo--wrapper {
-    // Global Footer at bottom of page
     @include clearfix;
     @include sans-serif;
     position: relative;

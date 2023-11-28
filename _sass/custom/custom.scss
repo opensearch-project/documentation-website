@@ -1025,6 +1025,69 @@ body {
   }
 }
 
+$light-theme-navigation-background: rgba(0, 163, 224, 0.05);
+$primary-deep-blue-sea-s3: #001E30;
+$primary-deep-blue-sea-t1: #2C5E7A;
+$primary-open-sky: #00A3E0;
+$primary-open-sky-s3: #003551;
+$primary-open-sky-s2: #006D97;
+$primary-open-sky-t1: #4FB3E3;
+$primary-open-sky-t2: #9BCFED;
+$primary-open-sky-t3: #E1F0F9;
+$primary-pacific-sky-t2: #DCEBF4;
+$primary-pacific-sky-t3: #F4F8FB;
+
+@mixin body-text($color: #000) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px;
+}
+
+@mixin gradient-deep-blue-sea {
+  background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
+}
+
+@mixin header-level3($color: $primary-open-sky-s1) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 21px;
+  font-style: normal;
+  line-height: 36px;
+  font-weight: 700;
+}
+
+@mixin header-level4($color: $primary-open-sky-s3) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 4.5px;
+  text-transform: uppercase;
+}
+
+@mixin header-level5($color: $primary-open-sky-s3) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; 
+}
+
+@mixin header-level6($color: $primary-open-sky-s2) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+}
+
 @import "../font-awesome.scss";
 @import "../_navigation-header.scss";
 @import "../footer.scss";

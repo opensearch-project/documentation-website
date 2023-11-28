@@ -4,42 +4,6 @@ $header-logo-max-left: 80px;
 $header-navigation-max-right: 40px;
 $max-container: 1440px;
 
-$light-theme-navigation-background: rgba(0, 163, 224, 0.05);
-$primary-deep-blue-sea-t1: #2C5E7A;
-$primary-open-sky-s3: #003551;
-$primary-open-sky-s2: #006D97;
-$primary-open-sky-t3: #E1F0F9;
-$primary-pacific-sky-t2: #DCEBF4;
-
-@mixin header-level3($color: $primary-open-sky-s1) {
-    color: $color;
-    font-family: 'Open Sans';
-    font-size: 21px;
-    font-style: normal;
-    line-height: 36px;
-    font-weight: 700;
-}
-
-
-@mixin header-level6($color: $primary-open-sky-s2) {
-    color: $color;
-    font-family: 'Open Sans';
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-}
-
-
-@mixin body-text($color: #000) {
-    color: $color;
-    font-family: 'Open Sans';
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 48px;
-}
-
 #top {
     @include clearfix;
     background: $light-theme-navigation-background;
