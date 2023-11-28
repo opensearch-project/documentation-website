@@ -92,6 +92,8 @@ POST /_plugins/_security/api/generateonbehalfoftoken
 
 While the conversation about the usage of OBO tokens continues, it is critical to manage certain edge cases. Even though an OBO token can act as a valid Bearer authorization header for any API access, certain limitations are needed. For instance, using an OBO token to access the API endpoint to issue another OBO token should be forbidden. Similarly, using an OBO token to access the reset password API in order to modify a user's authentication information should be disallowed. These preventive measures are necessary to uphold the system's integrity and security.
 
+For more information, see the [related discussion](https://github.com/opensearch-project/security/issues/2891).
+
 ## Service Accounts
 
 Service Accounts tokens are the second form of authentication token supported by the Security plugin. 
