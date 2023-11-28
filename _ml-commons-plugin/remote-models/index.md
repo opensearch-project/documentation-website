@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Connecting to remote models 
+parent: Integrating ML models
 has_children: true
 has_toc: false
 nav_order: 60
@@ -12,12 +13,12 @@ redirect_from:
 **Introduced 2.9**
 {: .label .label-purple }
 
-Machine learning (ML) extensibility enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. These integrations provide system administrators and data scientists the ability to run ML workloads outside of their OpenSearch cluster. 
+Machine learning (ML) remote-models enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. These integrations provide system administrators and data scientists the ability to run ML workloads outside of their OpenSearch cluster. 
 
-To get started with ML extensibility, choose from the following options:
+To get started with ML remote-models, choose from the following options:
 
-- If you're an ML developer wanting to integrate with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+- If you're an ML developer wanting to integrate with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 ## Prerequisites
 
@@ -125,7 +126,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 2: Create a connector
 
-You can create a standalone connector or an internal connector as part of a specific model. For more information about connectors and connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+You can create a standalone connector that can be reused for multiple models. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information about connectors and connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
 
@@ -327,7 +328,7 @@ To learn how to use the model for vector search, see [Set up neural search]({{si
 
 ## Next steps
 
-- For more information about connectors, including connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
-- For more information about connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+- For more information about connectors, including connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+- For more information about connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 - For more information about managing ML models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 - For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)

@@ -8,7 +8,7 @@ nav_order: 30
 
 # Delete a connector
 
-Deletes a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+Deletes a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 ## Path and HTTP methods
 

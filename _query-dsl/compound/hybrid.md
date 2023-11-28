@@ -14,7 +14,7 @@ You can use a hybrid query to combine relevance scores from multiple queries int
 
 Before using a `hybrid` query, you must set up a machine learning (ML) model, ingest documents, and configure a search pipeline with a [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/).
 
-To learn how to set up an ML model, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/#choosing-a-model).
+To learn how to set up an ML model, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 
 Once you set up an ML model, learn how to use the `hybrid` query by following the steps in [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
 

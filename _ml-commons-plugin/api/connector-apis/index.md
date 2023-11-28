@@ -14,4 +14,4 @@ ML Commons supports the following connector APIs:
 - [Search for a connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/get-connector/)
 - [Delete connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/delete-connector/)
 
-For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).

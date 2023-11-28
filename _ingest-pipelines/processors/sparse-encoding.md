@@ -12,7 +12,7 @@ redirect_from:
 The `sparse_encoding` processor is used to generate a sparse vector/token and weights from text fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) using sparse retrieval. 
 
 **PREREQUISITE**<br>
-Before using the `sparse_encoding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/#choosing-a-model).
+Before using the `sparse_encoding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
 The following is the syntax for the `sparse_encoding` processor: 
@@ -146,5 +146,5 @@ The response confirms that in addition to the `passage_text` field, the processo
 
 - To learn how to use the `neural_sparse` query for a sparse search, see [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/).
 - To learn more about sparse search, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/).
-- To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/#choosing-a-model).
+- To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 - For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).

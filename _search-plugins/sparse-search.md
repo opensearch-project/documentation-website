@@ -21,7 +21,7 @@ When selecting a model, choose one of the following options:
 - Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
 
 **PREREQUISITE**<br>
-Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/#choosing-a-model).
+Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
 ## Using sparse search

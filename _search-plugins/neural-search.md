@@ -29,7 +29,7 @@ Before using neural search, you must set up an ML model. When selecting a model,
 
 For a step-by-step tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
 
-## Set up neural search
+## Using an ML model for neural search
 
 Once you set up an ML model, choose one of the following search methods to learn how to use your model for neural search.
 

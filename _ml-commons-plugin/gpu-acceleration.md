@@ -2,6 +2,7 @@
 layout: default
 title: GPU acceleration
 parent: Using ML models within OpenSearch
+grand_parent: Integrating ML models
 nav_order: 150
 ---
 

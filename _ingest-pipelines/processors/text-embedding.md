@@ -12,7 +12,7 @@ redirect_from:
 The `text_embedding` processor is used to generate vector embeddings from text fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
 
 **PREREQUISITE**<br>
-Before using the `text_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/#choosing-a-model).
+Before using the `text_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
 The following is the syntax for the `text_embedding` processor: 
@@ -125,5 +125,5 @@ The response confirms that in addition to the `passage_text` field, the processo
 
 - To learn how to use the `neural` query for text search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
 - To learn more about neural text search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
-To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/#choosing-a-model).
+To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 - For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
