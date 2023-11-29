@@ -12,8 +12,8 @@ The `dynamodb` source enables change data capture (CDC) on [Amazon DynamoDB](htt
 
 The source includes two ingestion options to stream DynamoDB events:
 
-1. _Full Initial Snapshot_ using [PITR](https://aws.amazon.com/dynamodb/pitr/) gets an initial snapshot of the current state of the DynamoDB table. This requires the PITR Snapshots and DyanmoDB option enabled on your DynamoDB table.
-2.  Stream events from DynamoDB streams without full initial snapshots. This is useful if you already have a snapshot mechanism within your pipelines. This requires that DynamoDB stream is enabled on the DynamoDB table.
+1. A _full initial snapshot_ using [PITR](https://aws.amazon.com/dynamodb/pitr/) gets an initial snapshot of the current state of the DynamoDB table. This requires the PITR Snapshots and DyanmoDB option enabled on your DynamoDB table.
+2.  Stream events from DynamoDB streams without full initial snapshots. This is useful if you already have a snapshot mechanism within your pipelines. This requires that the DynamoDB stream option is enabled on the DynamoDB table.
 
 ## Usage
 
@@ -39,8 +39,6 @@ cdc-pipeline:
 ## Configuration options
 
 The following tables describe the configuration options for the `dynamodb` source.
-
-
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
