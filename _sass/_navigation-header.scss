@@ -12,6 +12,10 @@ $max-container: 1440px;
     padding: 10px 0 6px;
     position: relative;
     z-index: 0;
+    box-sizing: content-box;
+    & * {
+        box-sizing: content-box;
+    }
     @media screen and (min-width: $header-banner-min-width) {
         z-index: 9;
         overflow: visible;
@@ -20,6 +24,7 @@ $max-container: 1440px;
     > .navigation-container {
         max-width: 1440px;
         position: relative;
+        box-sizing: content-box;
         @media screen and (min-width: 740px) and (max-width: 1045px) {
             padding: 0 20px;
         }
@@ -46,9 +51,8 @@ $max-container: 1440px;
             text-decoration: none;
             text-indent: 100%;
             position: relative;
-            // Note: The SCSS dependency in Just The Docs is too old to handle the correct case of "min".
-            // If I change the case to "Min" it can deal with it. That's why it's spelled that way here.
-            left: Min(80px, calc(100% - $header-banner-min-width));
+            left: min(80px, calc(100% - $header-banner-min-width));
+            box-sizing: content-box;
             @media screen and (max-width: 1339px) {
                 left: 0;
             }
@@ -133,18 +137,6 @@ $max-container: 1440px;
                     }
                 }
             }
-            > li {
-                color: $primary-open-sky-s3;
-                font-size: 15px;
-                font-weight: 700;
-                line-height: 16px;
-                margin: 0 10px;
-                text-align: left;
-                text-transform: none;
-                @media screen and (min-width: $header-banner-min-width) {
-                    margin: 0;
-                }
-            }
             > .navigation-container--nested-nav-wrapper--nested-nav {
                 padding: 0;
                 margin: 0;
@@ -166,6 +158,9 @@ $max-container: 1440px;
                     @media screen and (min-width: $header-banner-min-width) {
                         position: relative;
                         float: left;
+                        margin-top: 0;
+                        margin-left: 0;
+                        margin-bottom: 0;
                         margin-right: 5px;
                         &:hover {
                             > ul {
@@ -177,11 +172,11 @@ $max-container: 1440px;
                             }
                         }
                     }
-                    @media screen and (min-width: 1150px) and (max-width: 1249px) {
-                        margin-right: 10px;
+                    @media screen and (min-width: 1150px) and (max-width: 1369px) {
+                        margin-right: 15px;
                     }
-                    @media screen and (min-width: 1250px) {
-                        margin-right: 20px;
+                    @media screen and (min-width: 1370px) {
+                        margin-right: 30px;
                     }
                     > .nested-nav--top-menu-item-wrapper {
                         display: block;
