@@ -116,7 +116,7 @@ POST /_plugins/_ml/models/_register
 
 ## OpenAI chat connector
 
-The following example creates a standalone OpenAI chat connector:
+The following example shows how to create a standalone OpenAI chat connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -151,7 +151,7 @@ After creating the connector, you can retrieve the `task_id` and `connector_id` 
 
 ## Amazon SageMaker connector
 
-The following example creates a standalone Amazon SageMaker connector:
+The following example shows how to create a standalone Amazon SageMaker connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create

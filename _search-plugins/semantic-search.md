@@ -10,7 +10,7 @@ redirect_from:
 
 # Semantic search
 
-Semantic searches text data considering the context and intent of a query. In OpenSearch, semantic search is facilitated by neural search with text embedding models. Semantic search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
+Semantic search considers the context and intent of a query. In OpenSearch, semantic search is facilitated by neural search with text embedding models. Semantic search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
 
 **PREREQUISITE**<br>
 Before using semantic search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).

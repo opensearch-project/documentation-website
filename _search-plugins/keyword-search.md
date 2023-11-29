@@ -9,11 +9,11 @@ redirect_from:
 
 # Keyword search
 
-By default, OpenSearch calculates document scores using the [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) algorithm. BM25 is a keyword-based algorithm that performs lexical search for words in the documents that appear in the query. 
+By default, OpenSearch calculates document scores using the [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) algorithm. BM25 is a keyword-based algorithm that performs lexical search for words that appear in the query. 
 
 When determining a document's relevance, BM25 considers [term frequency/inverse document frequency (TF/IDF)](https://en.wikipedia.org/wiki/Tf%E2%80%93idf):
 
-- _Term frequency_ stipulates that the more frequently the search term appears in a document, the more relevant the document is. 
+- _Term frequency_ stipulates that documents in which the search term appears more frequently are more relevant. 
 
 - _Inverse document frequency_ gives less weight to the words that commonly appear in all documents in the corpus (for example, articles like "the"). 
 
@@ -173,11 +173,11 @@ PUT /testindex
 Parameter | Data type | Description
 `k1` | Float | Determines non-linear term frequency normalization (saturation) properties. The default value is `1.2`.
 `b` | Float | Determines the degree to which document length normalizes TF values. The default value is `0.75`.
-`discount_overlaps` | Boolean | Determines whether overlap tokens (tokens with zero position increment) are ignored when computing the norm. Default is `true` (overlap tokens do not count when computing norms). 
+`discount_overlaps` | Boolean | Determines whether overlap tokens (tokens with zero position increment) are ignored when computing the norm. Default is `true` (overlap tokens do not count when computing the norm). 
 
 ---
 
 ## Next steps
 
 - Learn about [query and filter context]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/).
-- Find out about the [query types]({{site.url}}{{site.baseurl}}/query-dsl/index/) OpenSearch supports.
+- Learn about the [query types]({{site.url}}{{site.baseurl}}/query-dsl/index/) OpenSearch supports.

@@ -24,14 +24,14 @@ To use hybrid search, follow these steps:
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
-1. [Configure a search pipeline](#step-4-configure-a-search-pipeline)
+1. [Configure a search pipeline](#step-4-configure-a-search-pipeline).
 1. [Search the index using hybrid search](#step-5-search-the-index-using-hybrid-search).
 
 ## Step 1: Create an ingest pipeline
 
 To generate vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`text_embedding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-embedding/), which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields in which to store the embeddings.
 
-The following example request creates an ingest pipeline where the text from `passage_text` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
+The following example request creates an ingest pipeline that converts the text from `passage_text` to text embeddings and stores the embeddings in `passage_embedding`:
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -88,7 +88,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-For more information about creating a k-NN index and its supported methods, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+For more information about creating a k-NN index and using supported methods, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 
 ## Step 3: Ingest documents into the index
 

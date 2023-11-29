@@ -35,20 +35,20 @@ Once you set up an ML model, choose one of the following search methods to learn
 
 ### Semantic search
 
-Semantic search uses dense retrieval based on text embedding models to search text data. For detailed setup steps, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). 
+Semantic search uses dense retrieval based on text embedding models to search text data. For detailed setup instructions, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/). 
 
 ### Hybrid search
 
-Hybrid search combines keyword and neural search to improve search relevance. For detailed setup steps, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/hybrid-search/).
+Hybrid search combines keyword and neural search to improve search relevance. For detailed setup instructions, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/hybrid-search/).
 
 ### Multimodal search
 
-Multimodal search uses neural search with multimodal embedding models to search text and image data. For detailed setup steps, see  [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/multimodal-search/).
+Multimodal search uses neural search with multimodal embedding models to search text and image data. For detailed setup instructions, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/multimodal-search/).
 
 ### Sparse search
 
-Sparse search uses neural search with sparse retrieval based on sparse embedding models to search text data. For detailed setup steps, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+Sparse search uses neural search with sparse retrieval based on sparse embedding models to search text data. For detailed setup instructions, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 
 ### Conversational search
 
-Conversational search lets you ask questions in natural language, receive a text response, and follow up the text response with additional clarifying questions. For detailed setup steps, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/conversational-search/).
+With conversational search, you can ask questions in natural language, receive a text response, and ask additional clarifying questions. For detailed setup instructions, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/conversational-search/).

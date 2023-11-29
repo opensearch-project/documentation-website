@@ -19,15 +19,15 @@ OpenSearch supports the following search methods:
 
     - [Keyword (BM25) search]({{site.url}}{{site.baseurl}}/search-plugins/keyword-search/): Searches the document corpus for words that appear in the query.
 
-- **Machine learning-powered search**
+- **Machine learning (ML)-powered search**
 
     - **Vector search**
 
         - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for k-nearest neighbors to a search term across an index of vectors.
 
-    - **Neural search**: [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/): Facilitates generating vector embeddings at ingestion time and searching them at search time. Neural search lets you integrate machine learning (ML) models in your search and serves as a framework for implementing other search methods. The following search methods are built on top of neural search:
+    - **Neural search**: [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) facilitates generating vector embeddings at ingestion time and searching them at search time. Neural search lets you integrate ML models into your search and serves as a framework for implementing other search methods. The following search methods are built on top of neural search:
 
-        - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): Takes into account the meaning of the words in the search context. Uses dense retrieval based on text embedding models to search text data. 
+        - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): Considers the meaning of the words in the search context. Uses dense retrieval based on text embedding models to search text data. 
 
         - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/): Uses multimodal embedding models to search text and image data. 
 
@@ -41,9 +41,9 @@ OpenSearch supports the following search methods:
 
 In OpenSearch, you can use the following query languages to search your data:
 
-- [Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/): The primary query language in OpenSearch that supports creating complex, fully customizable queries.
+- [Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/): The primary OpenSearch query language that supports creating complex, fully customizable queries.
 
-- [Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A scaled down query language that you can use in a query parameter of a search request or in OpenSearch Dashboards.
+- [Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A scaled-down query language that you can use in a query parameter of a search request or in OpenSearch Dashboards.
 
 - [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/): A traditional query language that bridges the gap between traditional relational database concepts and the flexibility of OpenSearch’s document-oriented data storage.
 
@@ -63,7 +63,7 @@ OpenSearch offers several ways to improve search performance:
 
 OpenSearch provides the following search relevance features:
 
-- [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/): A search comparison tool in OpenSearch Dashboards that lets you compare results from two queries side by side. 
+- [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/): A search comparison tool in OpenSearch Dashboards that you can use to compare results from two queries side by side. 
 
 - [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/): Offers query rewriting capability.
 
