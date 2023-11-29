@@ -39,11 +39,11 @@ Semantic search uses dense retrieval based on text embedding models to search te
 
 ### Hybrid search
 
-Hybrid search combines keyword and neural search to improve search relevance. For detailed setup instructions, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/hybrid-search/).
+Hybrid search combines keyword and neural search to improve search relevance. For detailed setup instructions, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
 ### Multimodal search
 
-Multimodal search uses neural search with multimodal embedding models to search text and image data. For detailed setup instructions, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/multimodal-search/).
+Multimodal search uses neural search with multimodal embedding models to search text and image data. For detailed setup instructions, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
 
 ### Sparse search
 
@@ -51,4 +51,4 @@ Sparse search uses neural search with sparse retrieval based on sparse embedding
 
 ### Conversational search
 
-With conversational search, you can ask questions in natural language, receive a text response, and ask additional clarifying questions. For detailed setup instructions, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/conversational-search/).
+With conversational search, you can ask questions in natural language, receive a text response, and ask additional clarifying questions. For detailed setup instructions, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
