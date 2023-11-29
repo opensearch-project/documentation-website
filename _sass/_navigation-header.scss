@@ -137,18 +137,6 @@ $max-container: 1440px;
                     }
                 }
             }
-            > li {
-                color: $primary-open-sky-s3;
-                font-size: 15px;
-                font-weight: 700;
-                line-height: 16px;
-                margin: 0 10px;
-                text-align: left;
-                text-transform: none;
-                @media screen and (min-width: $header-banner-min-width) {
-                    margin: 0;
-                }
-            }
             > .navigation-container--nested-nav-wrapper--nested-nav {
                 padding: 0;
                 margin: 0;
@@ -170,6 +158,9 @@ $max-container: 1440px;
                     @media screen and (min-width: $header-banner-min-width) {
                         position: relative;
                         float: left;
+                        margin-top: 0;
+                        margin-left: 0;
+                        margin-bottom: 0;
                         margin-right: 5px;
                         &:hover {
                             > ul {
