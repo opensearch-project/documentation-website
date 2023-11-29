@@ -13,11 +13,11 @@ The `dynamodb` source enables change data capture (CDC) on [DynamoDB](https://aw
 The source includes two ingestion options to stream DynamoDB events:
 
 1. _Full Initial Snapshot_ using [point-in-time recovery (PITR)](https://aws.amazon.com/dynamodb/pitr/) gets an initial snapshot of the current state of the DynamoDB table. This requires the PITR Snapshots and DyanmoDB option enabled on your DynamoDB table.
-2.  Stream events from DynamoDB streams without full initial snapshots. This is useful for users who already have a mechanism for snapshots within their pipelines. This requires that DynamoDB stream is enabled on the DynamoDB table.
+2.  Stream events from DynamoDB streams without full initial snapshots. This is useful if you already have a mechanism for snapshots within your pipelines. This requires that DynamoDB stream is enabled on the DynamoDB table.
 
 ## Usage
 
-The following example pipeline specifies DynamoDB as a source. It ingests data from a DyanmoDB table, named `table-a` through a PITR snapshot. It also indicates the `start_position`, which tells the pipeline how to read events DynamoDB stream. 
+The following example pipeline specifies DynamoDB as a source. It ingests data from a DyanmoDB table named `table-a` through a PITR snapshot. It also indicates the `start_position`, which tells the pipeline how to read DynamoDB stream events:
 
 ```yaml
 version: "2"
@@ -53,7 +53,7 @@ Option | Required | Type | Description
 
 ### aws
 
-Use the following options in the AWS configuration:
+Use the following options in the AWS configuration.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -89,7 +89,7 @@ The following option lets you customize how the pipeline reads events from the D
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`start_position` | No | String | The start position from when the source reads events from the stream when the DynamoDB stream option is enabled on the table `LATEST` starts reading event about the most recent stream record. 
+`start_position` | No | String | The start position from when the source reads events from the stream when the DynamoDB stream option is enabled. `LATEST` starts reading events from the most recent stream record. 
 
 
 
