@@ -21,7 +21,7 @@ For example, you can see how results change when you apply one of the following 
 
 ## Prerequisites
 
-Before you get started, you must index data in OpenSearch. To learn how to create a new index, see [Index data]({{site.url}}{{site.baseurl}}/opensearch/index-data). 
+Before you get started, you must index data in OpenSearch. To learn how to create a new index, see [Index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/). 
 
 Alternatively, you can add sample data in OpenSearch Dashboards using the following steps:
 
@@ -38,7 +38,7 @@ To compare search results in OpenSearch Dashboards, perform the following steps.
 
 **Step 2:** Enter the search text in the search bar.
 
-**Step 3:** Select an index for **Query 1** and enter a query (request body only) in [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl). The `GET` HTTP method and the `_search` endpoint are implicit. Use the `%SearchText%` variable to refer to the text in the search bar.
+**Step 3:** Select an index for **Query 1** and enter a query (request body only) in [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). The `GET` HTTP method and the `_search` endpoint are implicit. Use the `%SearchText%` variable to refer to the text in the search bar.
 
 The following is an example query:
 
@@ -55,7 +55,7 @@ The following is an example query:
 
 **Step 4:** Select an index for **Query 2** and enter a query (request body only).
 
-The following example query boosts the `title` field in search results:
+The following example query boosts the `title` field in the search results:
 
 ```json
 {
@@ -68,7 +68,7 @@ The following example query boosts the `title` field in search results:
 }
 ```
 
-**Step 5:** Select **Search** and compare the results in **Result 1** and **Result 2**.
+**Step 5:** Select **Search** and compare **Result 1** and **Result 2**.
 
 The following example screen shows a search for the word "cup" in the `description` and `item_name` fields with and without boosting the `item_name`.
 
@@ -102,7 +102,7 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 
 One use case for Compare Search Results is the comparison of raw OpenSearch results with the same results processed by a reranking application. OpenSearch currently integrates with the following two rerankers:
 
-- [Amazon Kendra Intelligent Ranking for OpenSearch](#reranking-results-with-kendra-intelligent-ranking-for-opensearch)
+- [Amazon Kendra Intelligent Ranking for OpenSearch](#reranking-results-with-amazon-kendra-intelligent-ranking-for-opensearch)
 - [Amazon Personalize Search Ranking](#personalizing-search-results-with-amazon-personalize-search-ranking)
 
 ### Reranking results with Amazon Kendra Intelligent Ranking for OpenSearch

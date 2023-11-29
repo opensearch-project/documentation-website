@@ -116,7 +116,7 @@ Before the document is ingested into the index, the ingest pipeline runs the `te
 
 ## Step 4: Configure a search pipeline
 
-To configure a search pipeline with a [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/), use the following request. The normalization technique in the processor is set to `min_max`, and the combination technique is set to `arithmetic_mean`. The weights array specifies the weights assigned to each query clause as decimal percentages:
+To configure a search pipeline with a [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/), use the following request. The normalization technique in the processor is set to `min_max`, and the combination technique is set to `arithmetic_mean`. The `weights` array specifies the weights assigned to each query clause as decimal percentages:
 
 ```json
 PUT /_search/pipeline/nlp-search-pipeline
@@ -146,7 +146,7 @@ PUT /_search/pipeline/nlp-search-pipeline
 
 ## Step 5: Search the index using hybrid search
 
-To perform hybrid search on your index, use the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) that combines the results of keyword and semantic search.
+To perform hybrid search on your index, use the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/), which combines the results of keyword and semantic search.
 
 The following example request combines two query clauses---a neural query and a `match` query. It specifies the search pipeline created in the previous step as a query parameter:
 

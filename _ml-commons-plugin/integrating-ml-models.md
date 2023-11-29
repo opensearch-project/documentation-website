@@ -53,4 +53,4 @@ If you don't want to use a model, you can use the [Train and Predict API]({{site
 
 ### Using a model for search
 
-OpenSearch supports multiple search methods that integrate with ML. For more information, see [Search methods]({{site.url}}{{site.baseurl}}/search-plugins/index/#search-methods).
+OpenSearch supports multiple search methods that integrate with ML models. For more information, see [Search methods]({{site.url}}{{site.baseurl}}/search-plugins/index/#search-methods).

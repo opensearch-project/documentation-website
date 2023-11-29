@@ -31,7 +31,7 @@ For a step-by-step tutorial, see [Neural search tutorial]({{site.url}}{{site.bas
 
 ## Using an ML model for neural search
 
-Once you set up an ML model, choose one of the following search methods to learn how to use your model for neural search.
+Once you set up an ML model, choose one of the following search methods to use your model for neural search.
 
 ### Semantic search
 

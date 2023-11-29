@@ -23,7 +23,7 @@ Administrators of ML clusters can use OpenSearch Dashboards to review and manage
 
 ## Support for algorithms
 
-ML Commons supports various algorithms that you can use to train and predict ML models or test data-driven predictions without a model. For more information, see [Supported algorithms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/).
+ML Commons supports various algorithms to help train ML models and make predictions or test data-driven predictions without a model. For more information, see [Supported algorithms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/).
 
 ## ML Commons API
 

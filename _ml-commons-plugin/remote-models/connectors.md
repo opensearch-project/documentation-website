@@ -20,7 +20,7 @@ You can provision connectors in two ways:
 
 1. [Create a standalone connector](#creating-a-standalone-connector): A standalone connector can be reused and shared by multiple remote models but requires access to both the model and connector in OpenSearch and the third-party platform, such as OpenAI or Amazon SageMaker, that the connector is accessing. Standalone connectors are saved in a connector index.
 
-2. [Create a connector for a specific remote model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the remote model in which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
+2. [Create a connector for a specific remote model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the remote model for which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
 
 ## Supported connectors
 

@@ -17,7 +17,7 @@ Machine learning (ML) remote models enable ML developers to create integrations 
 
 To get started with ML remote models, choose from the following options:
 
-- If you're an ML developer wanting to integrate with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- If you're an ML developer wanting to create integrations with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 - If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 ## Prerequisites

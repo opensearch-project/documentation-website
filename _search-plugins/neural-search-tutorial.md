@@ -28,7 +28,7 @@ It's helpful to understand the following terms before starting this tutorial:
 
   ![Neural search at search time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-query.png)
 
-- _Semantic search_: Employs neural search in order to determine the intention of the user's query in the search context and improve search relevance. 
+- _Semantic search_: Employs neural search in order to determine the intention of the user's query in the search context, thereby improving search relevance.
 
 - _Hybrid search_: Combines semantic and keyword search to improve search relevance. 
 

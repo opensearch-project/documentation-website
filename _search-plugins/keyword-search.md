@@ -124,7 +124,7 @@ Algorithm | Description
 
 ## Specifying similarity
 
-You can specify the similarity algorithm in the `similarity` parameter when configuring mappings on a field level.
+You can specify the similarity algorithm in the `similarity` parameter when configuring mappings at the field level.
 
 For example, the following query specifies the `boolean` similarity for the `boolean_field`. The `bm25_field` is assigned the default `BM25` similarity:
 
@@ -148,7 +148,7 @@ PUT /testindex
 
 ## Configuring BM25 similarity 
 
-You can configure BM25 similarity parameters on the index level as follows:
+You can configure BM25 similarity parameters at the index level as follows:
 
 ```json
 PUT /testindex
