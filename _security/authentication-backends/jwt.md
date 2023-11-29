@@ -108,7 +108,7 @@ jwt_auth_domain:
       roles_key: null
       jwt_clock_skew_tolerance_seconds: 20
   authentication_backend:
-I    type: noop
+    type: noop
 ```
 
 The following table lists the configuration parameters.

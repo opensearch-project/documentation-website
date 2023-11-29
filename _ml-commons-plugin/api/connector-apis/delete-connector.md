@@ -22,3 +22,21 @@ DELETE /_plugins/_ml/connectors/<connector_id>
 DELETE /_plugins/_ml/connectors/KsAo1YsB0jLkkocY6j4U
 ```
 {% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "_index" : ".plugins-ml-connector",
+  "_id" : "KsAo1YsB0jLkkocY6j4U",
+  "_version" : 1,
+  "result" : "deleted",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 2,
+    "failed" : 0
+  },
+  "_seq_no" : 27,
+  "_primary_term" : 18
+}
+```
