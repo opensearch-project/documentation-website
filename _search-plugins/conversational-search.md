@@ -2,7 +2,10 @@
 layout: default
 title: Conversational search
 has_children: false
-nav_order: 200
+nav_order: 70
+redirect_from:
+  - /ml-commons-plugin/conversational-search/
+  - /search-plugins/search-methods/conversational-search/
 ---
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/feedback-conversational-search-and-retrieval-augmented-generation-using-search-pipeline-experimental-release/16073). 
@@ -241,7 +244,7 @@ PUT /_cluster/settings
 
 ### Connecting the model
 
-RAG requires an LLM in order to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+RAG requires an LLM in order to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}ml-commons-plugin/remote-models/connectors/).
 
 Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 model:
 
@@ -406,6 +409,6 @@ If your LLM includes a set token limit, set the `size` field in your OpenSearch 
 
 ## Next steps
 
-- To learn more about connecting to models on external platforms, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
-- To learn more about using custom models within your OpenSearch cluster, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about connecting to models on external platforms, see [Connectors]({{site.url}}{{site.baseurl}}ml-commons-plugin/remote-models/connectors/).
+- To learn more about using custom models within your OpenSearch cluster, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 
