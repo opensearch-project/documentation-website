@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Using ML models within OpenSearch
+parent: Integrating ML models
 has_children: true
 nav_order: 50
 redirect_from:
    - /ml-commons-plugin/model-serving-framework/
+   - /ml-commons-plugin/using-ml-models/
 ---
 
 # Using ML models within OpenSearch

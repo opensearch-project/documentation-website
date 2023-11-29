@@ -12,7 +12,7 @@ redirect_from:
 The `text_embedding` processor is used to generate vector embeddings from text fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
 
 **PREREQUISITE**<br>
-Before using the `text_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+Before using the `text_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
 The following is the syntax for the `text_embedding` processor: 
@@ -35,7 +35,7 @@ The following table lists the required and optional parameters for the `text_emb
 
 | Name  | Data type | Required  | Description  |
 |:---|:---|:---|:---|
-`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
 `field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a vector field.
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating text embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated text embeddings.
@@ -44,7 +44,7 @@ The following table lists the required and optional parameters for the `text_emb
 
 ## Using the processor
 
-Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/). 
+Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). 
 
 **Step 1: Create a pipeline.** 
 
@@ -124,6 +124,6 @@ The response confirms that in addition to the `passage_text` field, the processo
 ## Next steps
 
 - To learn how to use the `neural` query for text search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
-- To learn more about neural text search, see [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/).
-- To learn more about using models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
-- For a semantic search tutorial, see [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+- To learn more about neural text search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
+To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
+- For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
