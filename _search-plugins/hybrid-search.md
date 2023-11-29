@@ -3,8 +3,6 @@ layout: default
 title: Hybrid search
 has_children: false
 nav_order: 40
-redirect_from:
-  - /search-plugins/search-methods/hybrid-search/
 ---
 
 # Hybrid search
