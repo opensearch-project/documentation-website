@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 nav_order: 60
 redirect_from: 
-  - ml-commons-plugin/remote-models/index/
+  - ml-commons-plugin/extensibility/index/
 ---
 
 # Connecting to remote models
