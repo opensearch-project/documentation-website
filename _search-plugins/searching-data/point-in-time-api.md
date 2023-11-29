@@ -4,8 +4,10 @@ title: Point in Time API
 nav_order: 59
 has_children: false
 parent: Point in Time
+grand_parent: Searching data
 redirect_from:
   - /opensearch/point-in-time-api/
+  - /search-plugins/point-in-time-api/
 ---
 
 # Point in Time API

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Concurrent segment search
+parent: Improving search performance
 nav_order: 53
 ---
 
