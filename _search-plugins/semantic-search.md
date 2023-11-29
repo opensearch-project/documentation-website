@@ -5,7 +5,6 @@ nav_order: 35
 has_children: false
 redirect_from:
   - /search-plugins/neural-text-search/
-  - /search-plugins/search-methods/semantic-search/
 ---
 
 # Semantic search

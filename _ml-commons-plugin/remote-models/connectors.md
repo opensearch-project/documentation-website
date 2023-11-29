@@ -7,7 +7,7 @@ nav_order: 61
 parent: Connecting to remote models 
 grand_parent: Integrating ML models
 redirect_from: 
-  - ml-commons-plugin/remote-models/connectors/
+  - ml-commons-plugin/extensibility/connectors/
 ---
 
 # Creating connectors for third-party ML platforms
