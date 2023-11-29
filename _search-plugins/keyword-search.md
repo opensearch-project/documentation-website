@@ -3,8 +3,6 @@ layout: default
 title: Keyword search
 has_children: false
 nav_order: 10
-redirect_from:
-  - /search-plugins/search-methods/keyword-search/
 ---
 
 # Keyword search

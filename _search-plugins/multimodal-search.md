@@ -5,7 +5,6 @@ nav_order: 60
 has_children: false
 redirect_from:
   - /search-plugins/neural-multimodal-search/
-  - /search-plugins/search-methods/multimodal-search/
 ---
 
 # Multimodal search
