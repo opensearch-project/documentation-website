@@ -5,6 +5,9 @@ has_children: false
 has_toc: false
 nav_order: 61
 parent: Connecting to remote models 
+grand_parent: Integrating ML models
+redirect_from: 
+  - ml-commons-plugin/remote-models/connectors/
 ---
 
 # Creating connectors for third-party ML platforms
@@ -15,9 +18,9 @@ Connectors facilitate access to remote models hosted on third-party platforms.
 
 You can provision connectors in two ways:
 
-1. Create a [standalone connector](#standalone-connector): A standalone connector can be reused and shared by multiple remote models but requires access to both the model and connector in OpenSearch and the third-party platform, such as OpenAI or Amazon SageMaker, that the connector is accessing. Standalone connectors are saved in a connector index.
+1. [Create a standalone connector](#creating-a-standalone-connector): A standalone connector can be reused and shared by multiple remote models but requires access to both the model and connector in OpenSearch and the third-party platform, such as OpenAI or Amazon SageMaker, that the connector is accessing. Standalone connectors are saved in a connector index.
 
-2. Create a remote model with an [internal connector](#internal-connector): An internal connector can only be used with the remote model in which it was created. To access an internal connector, you only need access to the model itself because the connection is established inside the model. Internal connectors are saved in the model index.
+2. [Create a connector for a specific remote model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the remote model for which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
 
 ## Supported connectors
 
@@ -32,14 +35,14 @@ All connectors consist of a JSON blueprint created by machine learning (ML) deve
 
 You can find blueprints for each connector in the [ML Commons repository](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
 
-For more information about blueprint parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+For more information about blueprint parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 
-Admins are only required to enter their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+Admins are only required to enter their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 {: .note}
 
-## Standalone connector
+## Creating a standalone connector
 
-To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/):
+Standalone connectors can be used by multiple models. To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/):
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -70,14 +73,14 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Internal connector
+## Creating a connector for a specific model
 
-To create an internal connector, provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) within the `connector` object of a request to the `models/_register` endpoint:
+To create a connector for a specific model, provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) within the `connector` object of a request to the `models/_register` endpoint:
 
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-GPT-3.5: internal connector",
+    "name": "openAI-GPT-3.5 model with a connector",
     "function_name": "remote",
     "model_group_id": "lEFGL4kB4ubqQRzegPo2",
     "description": "test model",
@@ -113,8 +116,7 @@ POST /_plugins/_ml/models/_register
 
 ## OpenAI chat connector
 
-The following example creates a standalone OpenAI chat connector. The same options can be used for an internal connector under the `connector` parameter:
-
+The following example shows how to create a standalone OpenAI chat connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -149,7 +151,7 @@ After creating the connector, you can retrieve the `task_id` and `connector_id` 
 
 ## Amazon SageMaker connector
 
-The following example creates a standalone Amazon SageMaker connector. The same options can be used for an internal connector under the `connector` parameter:
+The following example shows how to create a standalone Amazon SageMaker connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -267,5 +269,5 @@ POST /_plugins/_ml/connectors/_create
 
 ## Next steps
 
-- To learn more about using models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- To learn more about using models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 - To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).

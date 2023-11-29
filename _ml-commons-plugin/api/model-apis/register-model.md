@@ -162,7 +162,7 @@ POST /_plugins/_ml/models/_register
 
 ## Register a model hosted on a third-party platform
 
-To register a model hosted on a third-party platform, you can either first create a standalone connector and provide the ID of that connector or specify an internal connector for the model. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+To register a model hosted on a third-party platform, you can either first create a standalone connector and provide the ID of that connector or specify an internal connector for the model. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 ### Request fields
 
@@ -172,8 +172,8 @@ Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `name`| String | Required | The model name. |
 `function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
-`connector_id` | Optional | Required | The connector ID of a standalone connector to a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#standalone-connector). You must provide either `connector_id` or `connector`.
-`connector` | Object | Required | Contains specifications for an internal connector to a model that is hosted on a third-party platform. For more information, see [Internal connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#internal-connector). You must provide either `connector_id` or `connector`.
+`connector_id` | Optional | Required | The connector ID of a standalone connector for a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-standalone-connector). You must provide either `connector_id` or `connector`.
+`connector` | Object | Required | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). You must provide either `connector_id` or `connector`.
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
 
@@ -191,7 +191,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: Remote model with an internal connector
+#### Example request: Remote model with a connector specified as part of the model
 
 ```json
 POST /_plugins/_ml/models/_register
