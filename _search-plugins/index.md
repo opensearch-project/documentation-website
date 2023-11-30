@@ -31,7 +31,7 @@ OpenSearch supports the following search methods:
 
         - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/): Uses multimodal embedding models to search text and image data. 
 
-        - [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
+        - [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
 
         - [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/): Combines traditional search and vector search to improve search relevance.
 

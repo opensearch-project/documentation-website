@@ -268,7 +268,7 @@ The response contains the tokens and weights:
 
 To learn how to set up a vector index and use text embedding models for search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
 
-To learn how to set up a vector index and use sparse encoding models for search, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/).
+To learn how to set up a vector index and use sparse encoding models for search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 
 
 ## Supported pretrained models
