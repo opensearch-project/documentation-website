@@ -2,6 +2,7 @@
 layout: default
 title: Pretrained models
 parent: Using ML models within OpenSearch
+grand_parent: Integrating ML models
 nav_order: 120
 ---
 
@@ -265,7 +266,7 @@ The response contains the tokens and weights:
 
 ## Step 5: Use the model for search
 
-To learn how to set up a vector index and use text embedding models for search, see [Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/).
+To learn how to set up a vector index and use text embedding models for search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
 
 To learn how to set up a vector index and use sparse encoding models for search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 

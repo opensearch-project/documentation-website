@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Model access control
+parent: Integrating ML models
 has_children: false
 nav_order: 20
 ---
