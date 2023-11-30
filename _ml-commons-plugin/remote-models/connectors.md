@@ -4,7 +4,7 @@ title: Connectors
 has_children: false
 has_toc: false
 nav_order: 61
-parent: Connecting to remote models 
+parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
 redirect_from: 
   - ml-commons-plugin/remote-models/connectors/
@@ -14,31 +14,30 @@ redirect_from:
 **Introduced 2.9**
 {: .label .label-purple }
 
-Connectors facilitate access to remote models hosted on third-party platforms. 
+Connectors facilitate access to models hosted on third-party machine learning (ML) platforms. 
 
-You can provision connectors in two ways:
-
-1. [Create a standalone connector](#creating-a-standalone-connector): A standalone connector can be reused and shared by multiple remote models but requires access to both the model and connector in OpenSearch and the third-party platform, such as OpenAI or Amazon SageMaker, that the connector is accessing. Standalone connectors are saved in a connector index.
-
-2. [Create a connector for a specific remote model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the remote model for which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
-
-## Supported connectors
-
-As of OpenSearch 2.9, connectors have been tested for the following ML services, though it is possible to create connectors for other platforms not listed here:
+OpenSearch provides connectors for several platforms, for example:
 
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
 - [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
 - The [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/) model can drive semantic search and retrieval-augmented generation in OpenSearch.
 
-All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
+## Supported connectors
 
-You can find blueprints for each connector in the [ML Commons repository](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
+This page contains examples of connectors to popular ML platforms. For a list of all connectors provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#supported-connectors).
 
-For more information about blueprint parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+ML developers can create connectors to other platforms by defining the connector's JSON blueprint, including all parameters except credentials. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 
-Admins are only required to enter their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
-{: .note}
+## Creating a connector
+
+Data scientists and administrators can create connectors to externally hosted models by providing the connector blueprint. They are only required to enter their `credential` settings, such as `"openAI_key"`, for the service to which they are connecting. 
+
+You can provision connectors in two ways:
+
+1. [Create a standalone connector](#creating-a-standalone-connector): A standalone connector can be reused and shared by multiple models but requires access to both the model and connector in OpenSearch and the third-party platform, such as OpenAI or Amazon SageMaker, that the connector is accessing. Standalone connectors are saved in a connector index.
+
+2. [Create a connector for a specific externally hosted model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the model for which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
 
 ## Creating a standalone connector
 
@@ -116,7 +115,7 @@ POST /_plugins/_ml/models/_register
 
 ## OpenAI chat connector
 
-The following example shows how to create a standalone OpenAI chat connector:
+Use the following request to create a standalone OpenAI chat connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -151,7 +150,7 @@ After creating the connector, you can retrieve the `task_id` and `connector_id` 
 
 ## Amazon SageMaker connector
 
-The following example shows how to create a standalone Amazon SageMaker connector:
+Use the following request to create a standalone Amazon SageMaker connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -196,7 +195,7 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 
 ## Cohere connector
 
-The following example request creates a standalone Cohere connector:
+Use the following request to create a standalone Cohere connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -231,7 +230,7 @@ POST /_plugins/_ml/connectors/_create
 
 ## Amazon Bedrock connector
 
-The following example request creates a standalone Amazon Bedrock connector:
+Use the following request to create a standalone Amazon Bedrock connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
