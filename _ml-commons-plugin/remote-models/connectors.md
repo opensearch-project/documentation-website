@@ -21,17 +21,32 @@ OpenSearch provides connectors for several platforms, for example:
 - [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
 - [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
 - [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
-- The [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/) model can drive semantic search and retrieval-augmented generation in OpenSearch.
+- [Amazon Bedrock](https://aws.amazon.com/bedrock/) supports models like [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/), which can drive semantic search and retrieval-augmented generation in OpenSearch.
+
+## Connector blueprints
+
+A _connector blueprint_ defines the set of parameters (the request body) you need to provide when sending an API request to create a specific connector. Connector blueprints may differ based on the platform and the model that you are accessing.
+
+OpenSearch provides connector blueprints for several ML platforms and models. For a full list of connector blueprints provided by OpenSearch, see [Supported connectors](#supported-connectors). 
+
+As an ML developer, you can also create connector blueprints for other platforms and models. Data scientists and administrators can then use the blueprint to create connectors. They are only required to enter their `credential` settings, such as `openAI_key`, for the service to which they are connecting. For information about creating connector blueprints, including descriptions of all parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 
 ## Supported connectors
 
-This page contains examples of connectors to popular ML platforms. For a list of all connectors provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#supported-connectors).
+The following table lists all connector blueprints provided by OpenSearch. Follow the links for each connector blueprint for an example request to create the connector, including all parameters, and an example Predict API request.
 
-ML developers can create connectors to other platforms by defining the connector's JSON blueprint, including all parameters except credentials. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+Platform | Model | Connector blueprint
+:--- | :--- | :---
+[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [A21 Labs Jurassic-2 Mid](https://aws.amazon.com/bedrock/jurassic/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
+[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [Anthropic Claude v2](https://aws.amazon.com/bedrock/claude/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md)
+[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [Titan Text Embeddings](https://aws.amazon.com/bedrock/titan/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md)
+[Amazon SageMaker](https://aws.amazon.com/sagemaker/) | Text embedding models | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md)
+[Cohere](https://cohere.com/) | Text embedding models (for example, `embed-english-v2.0`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md)
+[OpenAI](https://openai.com/) | Chat models (for example, `gpt-3.5-turbo`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md)
+[OpenAI](https://openai.com/) | Completion models (for example, `text-davinci-003`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_completion_blueprint.md)
+[OpenAI](https://openai.com/) | Text embedding models (for example, `text-embedding-ada-002`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/openai_connector_embedding_blueprint.md)
 
 ## Creating a connector
-
-Data scientists and administrators can create connectors to externally hosted models by providing the connector blueprint. They are only required to enter their `credential` settings, such as `"openAI_key"`, for the service to which they are connecting. 
 
 You can provision connectors in two ways:
 
@@ -113,9 +128,13 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-## OpenAI chat connector
+## Connector examples
 
-Use the following request to create a standalone OpenAI chat connector:
+The following sections contain examples of connectors for popular ML platforms. For a full list of supported connectors, see [Supported connectors](#supported-connectors).
+
+### OpenAI chat connector
+
+The following is an example request to create a standalone OpenAI chat connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -144,13 +163,11 @@ POST /_plugins/_ml/connectors/_create
     ]
 }
 ```
+{% include copy-curl.html %}
 
-After creating the connector, you can retrieve the `task_id` and `connector_id` to register and deploy the model and then use the Predict API, similarly to a standalone connector.
+### Amazon SageMaker connector
 
-
-## Amazon SageMaker connector
-
-Use the following request to create a standalone Amazon SageMaker connector:
+The following is an example request to create a standalone Amazon SageMaker connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -181,6 +198,7 @@ POST /_plugins/_ml/connectors/_create
     ]
 }
 ```
+{% include copy-curl.html %}
 
 The `credential` parameter contains the following options reserved for `aws_sigv4` authentication:
 
@@ -193,9 +211,9 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 - `region`: The AWS Region in which the AWS instance is located.
 - `service_name`: The name of the AWS service for the connector.
 
-## Cohere connector
+### Cohere connector
 
-Use the following request to create a standalone Cohere connector:
+The following is an example request to create a standalone Cohere connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -228,9 +246,9 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Amazon Bedrock connector
+### Amazon Bedrock connector
 
-Use the following request to create a standalone Amazon Bedrock connector:
+The following is an example request to create a standalone Amazon Bedrock connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create

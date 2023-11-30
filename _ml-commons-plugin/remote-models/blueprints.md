@@ -13,12 +13,11 @@ redirect_from:
 **Introduced 2.9**
 {: .label .label-purple }
 
-Every [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) is specified by a JSON blueprint. OpenSearch provides connectors for several machine learning (ML) platforms. For all connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#supported-connectors).
+Every [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) is specified by a _connector blueprint_. The blueprint defines all parameters you need to provide when creating a connector.
 
 For example, the following blueprint is a specification for an Amazon SageMaker connector:
 
 ```json
-POST /_plugins/_ml/connectors/_create
 {
   "name": "<YOUR CONNECTOR NAME>",
   "description": "<YOUR CONNECTOR DESCRIPTION>",
@@ -48,11 +47,15 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %} 
 
+## OpenSearch-provided connector blueprints
+
+OpenSearch provides connector blueprints for several machine learning (ML) platforms and models. For a list of all connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#supported-connectors).
+
 As an ML developer, you can build connector blueprints for other platforms. Using those blueprints, administrators and data scientists can create connectors for models hosted on those platforms. 
 
-## Configuration options
+## Configuration parameters
 
-The following configuration options are **required** in order to build a connector blueprint. 
+The following configuration parameters are **required** in order to build a connector blueprint. 
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
