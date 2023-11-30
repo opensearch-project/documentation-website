@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Performance tuning
-parent: k-NN
+parent: k-NN search
+grand_parent: Search methods
 nav_order: 45
 ---
 
