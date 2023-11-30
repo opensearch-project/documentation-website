@@ -8,7 +8,7 @@ nav_order: 10
 
 # Create a connector
 
-Creates a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+Creates a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 ## Path and HTTP methods
 
@@ -18,7 +18,7 @@ POST /_plugins/_ml/connectors/_create
 
 #### Example request
 
-To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/):
+To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/):
 
 ```json
 POST /_plugins/_ml/connectors/_create
