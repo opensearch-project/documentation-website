@@ -35,7 +35,7 @@ The following table lists the required and optional parameters for the `sparse_e
 
 | Name  | Data type | Required  | Description  |
 |:---|:---|:---|:---|
-`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/).
+`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 `field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a `rank_features` field.
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating vector embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated vector embeddings.
@@ -145,6 +145,6 @@ The response confirms that in addition to the `passage_text` field, the processo
 ## Next steps
 
 - To learn how to use the `neural_sparse` query for a sparse search, see [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/).
-- To learn more about sparse search, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/sparse-search/).
+- To learn more about sparse search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 - To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 - For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
