@@ -5,7 +5,7 @@ nav_order: 10
 parent: User guide
 ---
 
-# Running distributed load generation 
+# Running distributed loads 
 
 
 OpenSearch Benchmark loads always run on the same machine where the benchmark was started. However, you can use multiple load drivers to generate additional benchmarking testing loads, particularly for large clusters on multiple machines. This tutorial describes how to distribute benchmark loads across multiple machines in a single cluster.
@@ -57,7 +57,7 @@ opensearch-benchmarkd start --node-ip=198.52.100.0 --coordinator-ip=192.0.1.0
 opensearch-benchmarkd start --node-ip=198.53.100.0 --coordinator-ip=192.0.1.0
 ```
 
-With OpenSearch Benchmark running on all three nodes and the worker nodes set to listen to the coordinator node, you can now run the Benchmark test.
+With OpenSearch Benchmark running on all three nodes and the worker nodes set to listen to the coordinator node, you can now run the benchmark test.
 
 ## Step 3: Running the benchmark test
 
