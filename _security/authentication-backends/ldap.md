@@ -162,7 +162,7 @@ If your server uses a certificate signed by a different CA, import this CA into 
 
 You can also use a separate root CA in PEM format.
 
-When configuring a separate root CA for LDAP, make sure to include the setting in all instances of the ldap `config:` including instances in the `authc` and `authz` portions of the configuration.
+When configuring a separate root CA for LDAP, make sure to include the setting in all instances of the LDAP `config:` settings, including in both the `authc` and `authz` options of the configuration.
 {: .note}
 
 To configure a separate root CA, use one of the following configuration options:
