@@ -286,7 +286,8 @@ img {
   position: fixed;
   bottom: 30px;
   right: 16px;
-  z-index: 1;
+  z-index: 999;
+
   svg {
     transform: rotate(-90deg);
   }
@@ -501,6 +502,8 @@ p.label {
 }
 
 .main {
+  flex-grow: 1;
+
   @include mq(lg) {
     max-width: calc(100% - #{$nav-width + $top-button-margin});
   }
@@ -512,8 +515,11 @@ p.label {
 
 // Adds TOC to right hand side in xl layout
 .main-content-wrap {
-  max-width: 100%;
-  min-width: 0;
+  width: 100%;
+
+  @include mq(xl) {
+    width: calc(100% - #{$toc-width});
+  }
 }
 
 .toc-wrap {
@@ -561,8 +567,8 @@ p.label {
   list-style-type: none;
   background-color: $sidebar-color;
   padding: $sp-6 $sp-4;
-  margin-left: $sp-6;
-  margin-right: $sp-6;
+  margin-left: $sp-4;
+  margin-right: $sp-8;
   margin-bottom: 0;
   overflow: auto;
 }
@@ -577,8 +583,8 @@ p.label {
   width: calc(#{$toc-width} - 4rem);
   text-align: center;
   margin-top: 3rem;
-  margin-left: $sp-6;
-  margin-right: $sp-6;
+  margin-left: $sp-4;
+  margin-right: $sp-8;
   padding-left: 1rem;
   padding-right: 1rem;
   display: block;

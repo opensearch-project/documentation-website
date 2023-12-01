@@ -38,7 +38,7 @@ POST /my-index/_search
       "text_field" : "some search text"
     }
   },
-  "pipeline" : {
+  "search_pipeline" : {
     "request_processors": [
       {
         "filter_query" : {

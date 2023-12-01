@@ -65,13 +65,13 @@ For the best performance, it is recommended that you enable the following settin
 2. Balanced primary shard allocation, using the following command:
 
 ```json
-curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json' -d'
-  {
-    "persistent": {
+PUT /_cluster/settings
+{
+  "persistent": {
     "cluster.routing.allocation.balance.prefer_primary": true,
     "segrep.pressure.enabled": true
-   }
   }
+}
 ```
 {% include copy-curl.html %}
 
