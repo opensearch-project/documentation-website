@@ -1,15 +1,17 @@
 ---
 layout: default
-title: Semantic search
+title: Neural search tutorial
 has_children: false
-nav_order: 140
+nav_order: 30
+redirect_from:
+  - /ml-commons-plugin/semantic-search/
 ---
 
-# Semantic search
+# Neural search tutorial
 
 By default, OpenSearch calculates document scores using the [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) algorithm. BM25 is a keyword-based algorithm that performs well on queries containing keywords but fails to capture the semantic meaning of the query terms. Semantic search, unlike keyword-based search, takes into account the meaning of the query in the search context. Thus, semantic search performs well when a query requires natural language understanding. 
 
-In this tutorial, you'll learn how to:
+In this tutorial, you'll learn how to use neural search to:
 
 - Implement semantic search in OpenSearch.
 - Implement hybrid search by combining semantic and keyword search to improve search relevance. 
@@ -18,7 +20,6 @@ In this tutorial, you'll learn how to:
 
 It's helpful to understand the following terms before starting this tutorial:
 
-- _Semantic search_: Employs neural search in order to determine the intention of the user's query in the search context and improve search relevance. 
 - _Neural search_: Facilitates vector search at ingestion time and at search time:
   - At ingestion time, neural search uses language models to generate vector embeddings from the text fields in the document. The documents containing both the original text field and the vector embedding of the field are then indexed in a k-NN index, as shown in the following diagram. 
 
@@ -26,6 +27,9 @@ It's helpful to understand the following terms before starting this tutorial:
   - At search time, when you then use a _neural query_, the query text is passed through a language model, and the resulting vector embeddings are compared with the document text vector embeddings to find the most relevant results, as shown in the following diagram.
 
   ![Neural search at search time diagram]({{site.url}}{{site.baseurl}}/images/neural-search-query.png)
+
+- _Semantic search_: Employs neural search in order to determine the intention of the user's query in the search context, thereby improving search relevance.
+
 - _Hybrid search_: Combines semantic and keyword search to improve search relevance. 
 
 ## OpenSearch components for semantic search
@@ -65,9 +69,9 @@ PUT _cluster/settings
 
 #### Advanced
 
-For a more advanced setup, note the following requirements:
+For a [custom local model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/) setup, note the following requirements:
 
-- To register a custom model, you need to specify an additional `"allow_registering_model_via_url": "true"` cluster setting. 
+- To register a custom local model, you need to specify an additional `"allow_registering_model_via_url": "true"` cluster setting. 
 - In production, it's best practice to separate the workloads by having dedicated ML nodes. On clusters with dedicated ML nodes, specify `"only_run_on_ml_node": "true"` for improved performance. 
 
 For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
@@ -110,12 +114,20 @@ For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/trans
 - The model version is `1.0.1`.
 - The number of dimensions for this model is `768`.
 
-#### Advanced: Using a different model
-
-Alternatively, you can choose to use one of the [pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) or your own custom model. For information about choosing a model, see [Further reading](#further-reading). For instructions on how to set up a custom model, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
-
 Take note of the dimensionality of the model because you'll need it when you set up a k-NN index.
 {: .important}
+
+#### Advanced: Using a different model
+
+Alternatively, you can choose one of the following options for your model:
+
+- Use any other pretrained model provided by OpenSearch. For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
+
+- Upload your own model to OpenSearch. For more information, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
+
+- Connect to a foundation model hosted on an external platform. For more information, see [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
+
+For information about choosing a model, see [Further reading](#further-reading). 
 
 ### Step 1(b): Register a model group
 
@@ -314,25 +326,28 @@ To register a custom model, you must provide a model configuration in the regist
 ```json
 POST /_plugins/_ml/models/_register
 {
-  "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "version": "1.0.1",
+	"name": "sentence-transformers/msmarco-distilbert-base-tas-b",
+	"version": "1.0.1",
+	"description": "This is a port of the DistilBert TAS-B Model to sentence-transformers model: It maps sentences & paragraphs to a 768 dimensional dense vector space and is optimized for the task of semantic search.",
+	"model_task_type": "TEXT_EMBEDDING",
+	"model_format": "ONNX",
+	"model_content_size_in_bytes": 266291330,
+	"model_content_hash_value": "a3c916f24239fbe32c43be6b24043123d49cd2c41b312fc2b29f2fc65e3c424c",
+	"model_config": {
+		"model_type": "distilbert",
+		"embedding_dimension": 768,
+		"framework_type": "huggingface_transformers",
+		"pooling_mode": "CLS",
+		"normalize_result": false,
+		"all_config": "{\"_name_or_path\":\"old_models/msmarco-distilbert-base-tas-b/0_Transformer\",\"activation\":\"gelu\",\"architectures\":[\"DistilBertModel\"],\"attention_dropout\":0.1,\"dim\":768,\"dropout\":0.1,\"hidden_dim\":3072,\"initializer_range\":0.02,\"max_position_embeddings\":512,\"model_type\":\"distilbert\",\"n_heads\":12,\"n_layers\":6,\"pad_token_id\":0,\"qa_dropout\":0.1,\"seq_classif_dropout\":0.2,\"sinusoidal_pos_embds\":false,\"tie_weights_\":true,\"transformers_version\":\"4.7.0\",\"vocab_size\":30522}"
+	},
+	"created_time": 1676074079195,
   "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
-  "description": "This is a port of the DistilBert TAS-B Model to sentence-transformers model: It maps sentences & paragraphs to a 768 dimensional dense vector space and is optimized for the task of semantic search.",
-  "model_task_type": "TEXT_EMBEDDING",
-  "model_format": "TORCH_SCRIPT",
-  "model_content_size_in_bytes": 266352827,
-  "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
-  "model_config": {
-    "model_type": "distilbert",
-    "embedding_dimension": 768,
-    "framework_type": "sentence_transformers",
-    "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}"""
-  },
-  "created_time": 1676073973126
+	"url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/msmarco-distilbert-base-tas-b/1.0.1/onnx/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.1-onnx.zip"
 }
 ```
 
-For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 
 ### Step 1(d): Deploy the model
 

@@ -1,11 +1,13 @@
 ---
 layout: default
 title: Point in Time
-nav_order: 58
+parent: Searching data
+nav_order: 20
 has_children: true
 has_toc: false
 redirect_from:
   - /opensearch/point-in-time/
+  - /search-plugins/point-in-time/
 ---
 
 # Point in Time
