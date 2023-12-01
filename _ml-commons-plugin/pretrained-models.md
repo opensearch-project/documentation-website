@@ -187,6 +187,9 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
+If a cluster or node is restarted, then you need to redeploy the model. To learn how to set up automatic redeployment, see [Enable auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#enable-auto-redeploy).
+{: .tip} 
+
 ## Step 4 (Optional): Test the model
 
 Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model.
