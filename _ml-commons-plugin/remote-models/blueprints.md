@@ -92,7 +92,7 @@ OpenSearch provides the following pre- and post-processing functions:
 
 - OpenAI: `connector.pre_process.openai.embedding` and `connector.post_process.openai.embedding`
 - Cohere: `connector.pre_process.cohere.embedding` and `connector.post_process.cohere.embedding`
-- [Amazon SageMaker default functions for neural search](#amazon-sagemaker-default-pre--and-post-processing-functions): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
+- [Amazon SageMaker default functions for neural search](#amazon-sagemaker-default-pre--and-post-processing-functions-for-neural-search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
 
 ### Amazon SageMaker default pre- and post-processing functions for neural search
 
