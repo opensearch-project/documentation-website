@@ -134,6 +134,6 @@ The response confirms that in addition to the `image_description` and `image_bin
 ## Next steps
 
 - To learn how to use the `neural` query for a multimodal search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
-- To learn more about multimodal neural search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/search-methods/multimodal-search/).
+- To learn more about multimodal neural search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
 To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 - For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
