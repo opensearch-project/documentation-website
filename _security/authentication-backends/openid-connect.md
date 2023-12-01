@@ -305,7 +305,7 @@ Name | Description
 `opensearch_security.openid.root_ca` | Path to the root CAs (PEM format) that your IdP's certificate can match or chain to. Optional.
 `opensearch_security.openid.certificate` | Cert chains (PEM format) to be used for mTLS when obtaining endpoints from your IdP. Optional.
 `opensearch_security.openid.private_key` | Private keys (PEM format) to be used for mTLS when obtaining endpoints from your IdP. Optional.
-`opensearch_security.openid.passphrase` | Passphrase used for a single `private_key` and/or a `pfx`. Optional.
+`opensearch_security.openid.passphrase` | Passphrase used for a single `private_key` or a `pfx`. Optional.
 `opensearch_security.openid.pfx` | PFX or PKCS12 encoded private key and certificate chain to be used for mTLS when obtaining endpoints from your IdP. Alternative to `certifiate` and `private_key`. Optional.
 `opensearch_security.openid.verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Optional. Default is `true`.
 
