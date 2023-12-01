@@ -215,6 +215,14 @@ $max-container: 1440px;
                                 box-sizing: content-box;
                             }
                             > a {
+                                &.in-category,
+                                &:hover {
+                                    color: $primary-open-sky-s2;
+                                    text-decoration: underline;
+                                    text-decoration-color: $primary-open-sky-s2;
+                                    text-decoration-thickness: 2px;
+                                    text-underline-offset: 6px;
+                                }
                                 @media screen and (max-width: $header-banner-mobile-breakpoint) {
                                     @include header-level3($primary-open-sky-t3);
                                     padding-left: 10px;
@@ -621,14 +629,6 @@ $max-container: 1440px;
                         }
                     }
                 }
-            }
-            .navigation-container--nested-nav-wrapper--nested-nav a.in-category,
-            .navigation-container--nested-nav-wrapper--nested-nav a:hover {
-                color: $primary-open-sky-s2;
-                text-decoration: underline;
-                text-decoration-color: $primary-open-sky-s2;
-                text-decoration-thickness: 2px;
-                text-underline-offset: 6px;
             }
         }
     }
