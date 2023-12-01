@@ -135,13 +135,19 @@ network.bind_host: <IP address of the node>
 
 Make sure to configure these settings on all of your nodes.
 
-## Step 4: Configure discovery hosts for a cluster
+## Step 4: Configure discovery hosts and initial cluster manager nodes for a cluster
 
-Now that you've configured the network hosts, you need to configure the discovery hosts.
+Now that you've configured the network hosts, you need to configure the discovery hosts and specify the cluster manager nodes for the initial cluster election. 
+
+For example, the setting looks like the following:
+
+```yml
+cluster.initial_cluster_manager_nodes: ["opensearch-cluster_manager"]
+```
 
 Zen Discovery is the built-in, default mechanism that uses [unicast](https://en.wikipedia.org/wiki/Unicast) to find other nodes in the cluster.
 
-You can generally just add all of your cluster-manager-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other cluster-manager-eligible nodes, determines which one is the cluster manager, and asks to join the cluster.
+You can generally add all of your cluster-manager-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other cluster-manager-eligible nodes, determines which one is the cluster manager, and asks to join the cluster.
 
 For example, for `opensearch-cluster_manager` the line looks something like this:
 
