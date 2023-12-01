@@ -74,5 +74,5 @@ The response contains the model ID of the model version:
 }
 ```
 
-If a cluster or node is restarted, the model needs to be redeployed. To learn how to set up automatic redeployment, see [Enable auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#enable-auto-redeploy).
+If a cluster or node is restarted, you need to redeploy the model. To learn how to set up automatic redeployment, see [Enable auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#enable-auto-redeploy).
 {: .tip} 
