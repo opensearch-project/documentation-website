@@ -6,5 +6,6 @@ match: $sentence
 threshold: 1
 indicators:
   - ":"
+  - "."
 exceptions:
   - k    # ignores lowercase k-NN
