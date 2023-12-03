@@ -12,7 +12,7 @@ The `substitute_string` processor matches a key's value against a regular expres
 
 ## Configuration
 
-The following table describes the options you can use to configure the `substitue_string` processor.
+The following table describes the options you can use to configure the `substitute_string` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
