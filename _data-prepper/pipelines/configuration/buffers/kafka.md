@@ -8,17 +8,19 @@ nav_order: 80
 
 # kafka
 
-## Overview
+The `kafka` buffer buffers data into an Apache Kafka topic. It uses the Kafka topic to persist data while the data is in-transit.
 
-The `kafka` buffer buffers data in an Apache Kafka topic. It uses the Kafka topic to persist data while in-flight.
+`Bounded blocking` is the default buffer and is memory-based. 
 
-`Bounded blocking` is the default buffer and is memory based. The following table describes the `Bounded blocking` parameters.
+## Configuration options
+
+Use the following configuration options with the `kafka` buffer.
 
 Option | Required | Type | Description
 --- | --- | --- | ---
-`bootstrap_servers` | Yes | String List | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address and optionally port number for each broker. When using [Amazon MSK](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from MSK using the MSK Amazon Resource Name (ARN) provided in the configuration.
-`topics` | Yes | List | A list of [topics](#topic) to use. You must supply exactly one topic.
-`authentication` | No | [Authentication](#authentication) | Set the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
+`bootstrap_servers` | Yes | String list | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or the port number for each broker. When using [Amazon MSK](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from MSK using the MSK Amazon Resource Name (ARN) provided in the configuration.
+`topics` | Yes | List | A list of [topics](#topic) to use. You must supply one topic per buffer.
+`authentication` | No | [Authentication](#authentication) | Sets the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
 `encryption` | No | [Encryption](#encryption) | The encryption configuration for encryption-in-transit. For more information, see [Encryption](#encryption).
 `aws` | No | [AWS](#aws) | The AWS configuration. For more information, see [aws](#aws).
 
@@ -33,12 +35,12 @@ Option | Required | Type | Description
 `name` | Yes | String | The name of the Kafka topic.
 `group_id` | Yes | String | Sets Kafka's `group.id` option.
 `workers` | No | Integer | The number of multithreaded consumers associated with each topic. Default is `2`. The maximum value is `200`.
-`encryption_key` | No | String | An AES encryption key for encrypting and decrypting data within Data Prepper before sending to Kafka and after reading from Kafka. This value must be plain text, or encrypted using KMS.
+`encryption_key` | No | String | An AES encryption key for encrypting and decrypting data within Data Prepper before sending to Kafka. This value must be plain text or encrypted using KMS.
 `kms` | No | KMS | When configured, use an Amazon KMS key to encrypt data. See [kms](#kms) for more information.
-`auto_commit` | No | Boolean | When `false`, the consumer's offset will not be periodically committed to Kafka in the background. Default is `false`.
-`commit_interval` | No | Integer | When `auto_commit` is set to `true`, sets how frequently, in seconds, the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
+`auto_commit` | No | Boolean | When `false`, the consumer offset will not be periodically committed to Kafka in the background. Default is `false`.
+`commit_interval` | No | Integer | When `auto_commit` is set to `true`, sets the frequency, in seconds, the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
 `session_timeout` | No | Integer | The amount of time during which the source detects client failures when using Kafka's group management features, which can be used to balance the data stream. Default is `45s`.
-`auto_offset_reset` | No | String | Automatically resets the offset to an earlier or the latest offset through Kafka's `auto.offset.reset` option. Default is `latest`.
+`auto_offset_reset` | No | String | Automatically resets the offset to the earliest or the latest offset through Kafka's `auto.offset.reset` option. Default is `latest`.
 `thread_waiting_time` | No | Integer | The amount of time that threads wait for the preceding thread to complete its task and to signal the next thread. The Kafka consumer API poll timeout value is set to half of this setting. Default is `5s`.
 `max_partition_fetch_bytes` | No | Integer | Sets the maximum limit in megabytes for max data returns from each partition through Kafka's `max.partition.fetch.bytes` setting. Default is `1mb`.
 `heart_beat_interval` | No | Integer | The expected amount of time between heartbeats to the consumer coordinator when using Kafka's group management facilities through Kafka's `heartbeat.interval.ms` setting. Default is `5s`.
@@ -52,7 +54,7 @@ Option | Required | Type | Description
 
 ### kms
 
-When used, the KMS key can decrypt the `encryption_key` so that it is not stored in plain-text.
+When using KMS, the KMS key can decrypt the `encryption_key` so that it is not stored in plain-text. To configure KMS with the `kafka` buffer, use the following options.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -75,13 +77,10 @@ Option | Type | Description
 
 Use one of the following options when configuring SASL authentication.
 
-
 Option | Type | Description
 :--- | :--- | :---
 `plaintext` | JSON object | The [PLAINTEXT](#sasl-plaintext) authentication configuration.
 `aws_msk_iam` | String | The Amazon MSK AWS Identity and Access Management (IAM) configuration. If set to `role`, the `sts_role_arm` set in the `aws` configuration is used. Default is `default`.
-
-
 
 #### SASL PLAINTEXT
 
