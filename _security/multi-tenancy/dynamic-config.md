@@ -10,7 +10,7 @@ nav_order: 147
 
 Multi-tenancy includes dynamic configuration options in OpenSearch Dashboards so you can manage common settings for tenancy without having to make changes to the configuration YAML files on each node and then restart the cluster. You can take advantage of this functionality by using the Dashboards interface or the REST API. The following list includes descriptions of the options currently covered by dynamic configuration:
 
-- **Disable or enable multi-tenancy** - Administrators can disable and enable multi-tenancy dynamically. Disabling multi-tenancy does not pose a risk of data loss. If and when an administrator chooses to reenable tenancy, all previously saved objects are preserved and made available. The default is `multitenancy_enabled : true`.
+- **Disable or enable multi-tenancy** - Administrators can disable and enable multi-tenancy dynamically. Disabling multi-tenancy does not pose a risk of data loss. If and when an administrator chooses to reenable tenancy, all previously saved objects are preserved and made available. The default is `multitenancy_enabled: true`.
   
   This setting does not have an impact on the global tenant, which always remains enabled.
   {: .note }
