@@ -82,7 +82,7 @@ When access control is enabled, you can install the [Security plugin]({{site.url
 
 ### Node settings
 
-Models based on external connectors consume fewer resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`:
+Externally hosted models that are deployed using connectors consume fewer resources. Therefore, you can deploy such models model on data nodes. To make sure that your model connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`:
 
 ```json
 PUT /_cluster/settings

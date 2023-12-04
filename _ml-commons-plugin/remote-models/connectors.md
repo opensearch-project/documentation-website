@@ -33,7 +33,7 @@ As an ML developer, you can also create connector blueprints for other platforms
 
 ## Supported connectors
 
-The following table lists all connector blueprints provided by OpenSearch. Follow the links for each connector blueprint for an example request to create the connector, including all parameters, and an example Predict API request.
+The following table lists all connector blueprints provided by OpenSearch. Follow the links to each connector blueprint for an example request that you can use to create the connector, including all parameters, and an example Predict API request.
 
 Platform | Model | Connector blueprint
 :--- | :--- | :---
@@ -134,7 +134,7 @@ The following sections contain examples of connectors for popular ML platforms. 
 
 ### OpenAI chat connector
 
-The following is an example request to create a standalone OpenAI chat connector:
+You can use the following example request to create a standalone OpenAI chat connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -167,7 +167,7 @@ POST /_plugins/_ml/connectors/_create
 
 ### Amazon SageMaker connector
 
-The following is an example request to create a standalone Amazon SageMaker connector:
+You can use the following example request to create a standalone Amazon SageMaker connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -213,7 +213,7 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 
 ### Cohere connector
 
-The following is an example request to create a standalone Cohere connector:
+You can use the following example request to create a standalone Cohere connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -248,7 +248,7 @@ POST /_plugins/_ml/connectors/_create
 
 ### Amazon Bedrock connector
 
-The following is an example request to create a standalone Amazon Bedrock connector:
+You can use the following example request to create a standalone Amazon Bedrock connector:
 
 ```json
 POST /_plugins/_ml/connectors/_create

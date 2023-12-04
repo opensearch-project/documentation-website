@@ -13,7 +13,7 @@ redirect_from:
 **Introduced 2.9**
 {: .label .label-purple }
 
-Every [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) is specified by a _connector blueprint_. The blueprint defines all parameters you need to provide when creating a connector.
+Every [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) is specified by a _connector blueprint_. The blueprint defines all the parameters you need to provide when creating a connector.
 
 For example, the following blueprint is a specification for an Amazon SageMaker connector:
 
