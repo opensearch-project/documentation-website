@@ -93,11 +93,13 @@ OpenSearch provides the following pre- and post-processing functions:
 
 - OpenAI: `connector.pre_process.openai.embedding` and `connector.post_process.openai.embedding`
 - Cohere: `connector.pre_process.cohere.embedding` and `connector.post_process.cohere.embedding`
-- [Default](#default-pre--and-post-processing-functions) (for neural search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
+- [Amazon SageMaker default functions for neural search](#amazon-sagemaker-default-pre--and-post-processing-functions-for-neural-search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
 
-### Default pre- and post-processing functions
+### Amazon SageMaker default pre- and post-processing functions for neural search
 
 When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a model hosted on an external platform, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
+
+For the default functions to be applied, the model input and output must be in the format described in the following sections.
 
 #### Example request
 
