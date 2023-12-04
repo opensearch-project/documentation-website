@@ -3,7 +3,7 @@ layout: default
 title: Connector blueprints
 has_children: false
 nav_order: 65
-parent: Connecting to remote models 
+parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
 redirect_from: 
   - ml-commons-plugin/extensibility/blueprints/
@@ -13,12 +13,11 @@ redirect_from:
 **Introduced 2.9**
 {: .label .label-purple }
 
-All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
+Every [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) is specified by a _connector blueprint_. The blueprint defines all the parameters you need to provide when creating a connector.
 
-The following example shows a blueprint of an Amazon SageMaker connector:
+For example, the following blueprint is a specification for an Amazon SageMaker connector:
 
 ```json
-POST /_plugins/_ml/connectors/_create
 {
   "name": "<YOUR CONNECTOR NAME>",
   "description": "<YOUR CONNECTOR DESCRIPTION>",
@@ -46,15 +45,17 @@ POST /_plugins/_ml/connectors/_create
   ]
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html %} 
 
-## Example blueprints
+## OpenSearch-provided connector blueprints
 
-You can find blueprints for each connector in the [ML Commons repository](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
+OpenSearch provides connector blueprints for several machine learning (ML) platforms and models. For a list of all connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#supported-connectors).
 
-## Configuration options
+As an ML developer, you can build connector blueprints for other platforms. Using those blueprints, administrators and data scientists can create connectors for models hosted on those platforms. 
 
-The following configuration options are **required** in order to build a connector blueprint. These settings can be used for both standalone and internal connectors.
+## Configuration parameters
+
+The following configuration parameters are **required** in order to build a connector blueprint. 
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
@@ -85,8 +86,8 @@ The `action` parameter supports the following options.
 
 Call the built-in pre- and post-processing functions instead of writing a custom Painless script when connecting to the following text embedding models or your own text embedding models deployed on a remote server (for example, Amazon SageMaker):
 
-- [OpenAI remote models](https://platform.openai.com/docs/api-reference/embeddings)
-- [Cohere remote models](https://docs.cohere.com/reference/embed)
+- [OpenAI models](https://platform.openai.com/docs/api-reference/embeddings)
+- [Cohere models](https://docs.cohere.com/reference/embed)
 
 OpenSearch provides the following pre- and post-processing functions:
 
@@ -96,7 +97,7 @@ OpenSearch provides the following pre- and post-processing functions:
 
 ### Amazon SageMaker default pre- and post-processing functions for neural search
 
-When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a remote model, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
+When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a model hosted on an external platform, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
 
 For the default functions to be applied, the model input and output must be in the format described in the following sections.
 
@@ -218,6 +219,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Next step
+## Next steps
 
-For examples of creating various connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+- To learn more about connecting to external models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
+- For connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
