@@ -12,7 +12,7 @@ OpenSearch Benchmark loads always run on the same machine on which the benchmark
 
 ## System architecture 
 
-The following sample tutorial uses a three-node architecture, each generated in [Amazon EC2](https://docs.aws.amazon.com/ec2/?nc2=h_ql_doc_ec2):
+The following tutorial uses a three-node architecture; each node is generated in [Amazon Elastic Compute Cloud (Amazon EC2)](https://docs.aws.amazon.com/ec2/?nc2=h_ql_doc_ec2):
 
 - **Node 1**: Node 1 acts as the _coordinator node_ and enables distribution and communication between the other two nodes.
 - **Node 2** and **Node 3**: The remaining nodes in the cluster are used to generate the load for the benchmark test.
