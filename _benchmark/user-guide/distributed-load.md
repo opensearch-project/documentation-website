@@ -21,9 +21,9 @@ OpenSearch Benchmark must be installed on all nodes. For installation instructio
 
 Make note of each node's IP address. This tutorial uses the following IP addresses:
 
-**Node 1 -- Coordinator node**: 192.0.1.0
-**Node 2 -- Worker node**: 198.52.100.0
-**Node 3 -- Worker node**: 198.53.100.0
+- **Node 1 -- Coordinator node**: 192.0.1.0
+- **Node 2 -- Worker node**: 198.52.100.0
+- **Node 3 -- Worker node**: 198.53.100.0
 
 ## Step 1: Enable node communication
 
