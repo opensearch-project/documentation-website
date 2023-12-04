@@ -25,8 +25,6 @@ Use the Alerting API to programmatically create, update, and manage monitors and
 ---
 
 ## Create a query-level monitor
-Introduced 1.0
-{: .label .label-purple }
 
 Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Creating monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
@@ -256,7 +254,7 @@ To learn more about using backend roles to limit access, see [(Advanced) Limit a
 }
 ```
 
-If you want to specify a timezone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a timezone name in the `schedule` section of your request.
+If you want to specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a time zone name in the `schedule` section of your request.
 
 The following example creates a monitor that runs at 12:10 PM Pacific Time on the 1st day of every month.
 
@@ -324,7 +322,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
 }
 ```
 
-For a full list of time zone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
+For a full list of time zone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The Alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
 
 ---
 
@@ -731,10 +729,8 @@ If you run a document-level query while the index is getting reindexed, the API 
 {: .tip}
 
 ## Update monitor
-Introduced 1.0
-{: .label .label-purple }
 
-When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -909,8 +905,6 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 ---
 
 ## Get monitor
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -983,8 +977,6 @@ GET _plugins/_alerting/monitors/<monitor_id>
 ---
 
 ## Monitor stats
-Introduced 1.0
-{: .label .label-purple }
 
 Returns statistics about the alerting feature. Use `_plugins/_alerting/stats` to find node IDs and metrics. Then you can drill down using those values.
 
@@ -1174,8 +1166,6 @@ GET _plugins/_alerting/<node-id>/stats/<metric>
 ---
 
 ## Delete monitor
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1206,8 +1196,6 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ---
 
 ## Search monitors
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1305,8 +1293,6 @@ GET _plugins/_alerting/monitors/_search
 ---
 
 ## Run monitor
-Introduced 1.0
-{: .label .label-purple }
 
 You can add the optional `?dryrun=true` parameter to the URL to show the results of a run without actions sending any message.
 
@@ -1339,8 +1325,6 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 ---
 
 ## Get alerts
-Introduced 1.0
-{: .label .label-purple }
 
 Returns an array of all alerts.
 
@@ -1350,15 +1334,16 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description
 | :--- | :--- | :---
-| `sortString` | String | Determines how to sort the results. Defaults to `monitor_name.keyword`.
-| `sortOrder` | String | Determines the order of the results. Options are `asc` or `desc`. Defaults to `asc`.
-| `missing` | String | Optional.
-| `size` | String | Determines the size of the request to be returned. Defaults to `20`.
-| `startIndex` | String | The index to start from. Used for paginating results. Defaults to `0`.
-| `searchString` | String | A search string used to look for a specific alert. Defaults to an empty string.
-| `severityLevel` | String | The severity level to filter for. Defaults to `ALL`.
-| `alertState` | String | The alert state to filter for. Defaults to `ALL`.
+| `sortString` | String | Defines how to sort the results. Default is `monitor_name.keyword`.
+| `sortOrder` | String | Defines the results order. Options are `asc` or `desc`. Default is `asc`.
+| `missing` | String | Specifies whether to include missing data in the response.
+| `size` | String | Defines the size of the request to be returned. Default is `20`.
+| `startIndex` | String | Defines the index to start from. Used for paginating results. Default is `0`.
+| `searchString` | String | Defines the search string to use for searching a specific alert. Default is an empty string.
+| `severityLevel` | String | Defines the severity level to filter for. Default is `ALL`.
+| `alertState` | String | Defines the alert state to filter for. Default is `ALL`.
 | `monitorId` | String | Filters by monitor ID.
+| `workflowIds` | String | Allows for fetching of chained alerts and monitoring of them in a dashboard. Available in OpenSearch 2.9 or later.
 
 #### Request
 
@@ -1425,8 +1410,6 @@ GET _plugins/_alerting/monitors/alerts
 ---
 
 ## Acknowledge alert
-Introduced 1.0
-{: .label .label-purple }
 
 [After getting your alerts](#get-alerts), you can acknowledge any number of active alerts in one call. If the alert is already in an ERROR, COMPLETED, or ACKNOWLEDGED state, it appears in the `failed` array.
 
@@ -1454,8 +1437,6 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 ---
 
 ## Create destination
-Introduced 1.0
-{: .label .label-purple }
 
 #### Requests
 
@@ -1532,10 +1513,8 @@ POST _plugins/_alerting/destinations
 ---
 
 ## Update destination
-Introduced 1.0
-{: .label .label-purple }
 
-When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -1582,8 +1561,6 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 ---
 
 ## Get destination
-Introduced 1.0
-{: .label .label-purple }
 
 Retrieve one destination.
 
@@ -1629,8 +1606,6 @@ GET _plugins/_alerting/destinations/<destination-id>
 ---
 
 ## Get destinations
-Introduced 1.0
-{: .label .label-purple }
 
 Retrieve all destinations.
 
@@ -1676,8 +1651,6 @@ GET _plugins/_alerting/destinations
 ---
 
 ## Delete destination
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1707,8 +1680,6 @@ DELETE _plugins/_alerting/destinations/<destination-id>
 ---
 
 ## Create email account
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```json
@@ -1741,10 +1712,8 @@ POST _plugins/_alerting/destinations/email_accounts
 ```
 
 ## Update email account
-Introduced 1.0
-{: .label .label-purple }
 
-When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 ```json
@@ -1785,8 +1754,6 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
 ```
 
 ## Get email account
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```json
@@ -1818,8 +1785,6 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 
 ## Delete email account
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```
@@ -1846,8 +1811,6 @@ DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 
 ## Search email account
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1914,8 +1877,6 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 ---
 
 ## Create email group
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
@@ -1950,10 +1911,8 @@ POST _plugins/_alerting/destinations/email_groups
 ```
 
 ## Update email group
-Introduced 1.0
-{: .label .label-purple }
 
-When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -1995,8 +1954,6 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
 ```
 
 ## Get email group
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```json
@@ -2029,8 +1986,6 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 
 ## Delete email group
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 ```
@@ -2057,8 +2012,6 @@ DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 
 ## Search email group
-Introduced 1.0
-{: .label .label-purple }
 
 #### Request
 
