@@ -35,7 +35,7 @@ Make sure to enable communication for each node. In the AWS Management Console:
 
 ## Step 2: Run daemon processes on each node
 
-Start OpenSearch Benchmark on each node, using the `--node-ip` to initialize OpenSearch Benchmark on the node itself and then `--coordinator-ip` to connect each node to the coordinator node.
+Start OpenSearch Benchmark on each node, using `--node-ip` to initialize OpenSearch Benchmark on the node itself and then `--coordinator-ip` to connect each node to the coordinator node.
 
 For **Node 1**, the following command identifies the node as the coordinator node:
 
@@ -43,7 +43,7 @@ For **Node 1**, the following command identifies the node as the coordinator nod
 opensearch-benchmarkd start --node-ip=192.0.1.0 --coordinator-ip=192.0.1.0
 ```
 
-The following commands enable **Node 2** and **Node 3** to listen to the coordinator node for load generation instructions:
+The following commands enable **Node 2** and **Node 3** to listen to the coordinator node for load generation instructions.
 
 **Node 2**
 
