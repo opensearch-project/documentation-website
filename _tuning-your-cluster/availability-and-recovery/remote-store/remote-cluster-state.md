@@ -11,20 +11,25 @@ grand_parent: Availability and recovery
 Introduced 2.10
 {: .label .label-purple }
 
-Remote Cluster State protects against any cluster state metadata loss resulting due to quorum loss (permanently losing majority of cluster manager nodes) in the cluster.
+The _Remote Cluster State_ functionality for remote-backed storage, protects against any cluster state metadata loss resulting due to quorum loss, permanently losing the majority of cluster manager nodes, inside the cluster.
 
-Cluster State is an internal data structure which contains the metadata of the cluster along with other information. 
-The metadata includes details about index metadata like settings, mappings, active copies of the shards, cluster level settings, aliases, templates and data streams. 
-This metadata is managed by the elected cluster manager node and is essential for proper functioning of the cluster. When the cluster loses majority of the cluster manager nodes permanently, lets say 2 out of 3 cluster manager nodes are lost, then the cluster can experience data loss as there are no guarantees that latest cluster state metadata is present in the surviving nodes. Today, cluster durability is the function of the cluster manager node storage. And, persisting the state to remote provides better durability guarantees.
+_Cluster State_ is an internal data structure which contains the metadata of the cluster, including: 
+- Index settings 
+- Index mappings 
+- Active copies of shards in the cluster 
+- Cluster level settings
+- Data streams
+- Templates
+Cluster durability is the function of the cluster manager node's storage. The cluster state metadata is managed by the elected cluster manager node and is essential for the cluster to properly function. When the cluster loses the majority of the cluster manager nodes permanently, then the cluster can experience data loss because the latest cluster state metadata might not be present in the surviving cluster manager nodes. Persisting the state of all the cluster manager nodes in the cluster to remote back-storage provides better durability.
 
-When remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster. Note that, currently only index metadata will be persisted to remote store in OpenSearch 2.10.
-Any time, the new cluster manager nodes are launched after disaster recovery, they will bootstrap using the latest index metadata stored in the remote repository automatically. Consequently, the data of the indexes will also be restored when remote store is enabled.
+When the remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster. As of OpenSearch 2.10 currently only index metadata will persist to remote-backed storage.
+Any time new cluster manager nodes are launched after disaster recovery, the nodes will bootstrap using the latest index metadata stored in the remote repository automatically. Consequently, the data of the indexes will also be restored when the remote store is enabled.
 
-## Configuring remote cluster state
+## Configuring the remote cluster state
 
-Remote cluster state settings are cluster level settings and can be enabled while bootstrapping the cluster. Once the remote cluster state is enabled, it can be disabled by updating the settings and performing a rolling restart of all the nodes.
+Remote cluster state settings can be enabled while bootstrapping the cluster. After the remote cluster state is enabled, it can be disabled by updating the settings and performing a rolling restart of all the nodes.
 
-To enable remote cluster state for a given cluster, provide the remote cluster state enabled setting and repository settings in `opensearch.yml` as show in the following example:
+To enable remote cluster state for a given cluster, add the following cluster-level and repository settings to the cluster's `opensearch.yml`:
 
 ```yml
 # Enable Remote cluster state cluster setting
@@ -41,6 +46,7 @@ node.attr.remote_store.repository.my-remote-state-repo.settings.region: <Bucket 
 
 ## Limitations
 
-- Currently, only index metadata is supported for upload and restore from remote store.
+The remote cluster state feature has the following limitations:
+- As of OpenSearch 2.10, only index metadata can uploaded and restored from remote-backed storage.
 - Unsafe bootstrap script cannot be run when remote cluster state is enabled. In case a majority of cluster-manager nodes are lost and the cluster goes down, the user needs to replace any remaining cluster-manager nodes and seed the nodes again for bootstrapping a new cluster.
-- Remote cluster state cannot be enabled without remote store being configured
+- The remote cluster state cannot be enabled without first configuring remote-backed storage.

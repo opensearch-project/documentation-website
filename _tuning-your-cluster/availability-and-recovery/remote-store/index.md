@@ -52,7 +52,7 @@ node.attr.remote_store.repository.my-repo-2.settings.region: us-east-1
 ```
 {% include copy-curl.html %}
 
-Refer [Remote Cluster State]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-cluster-state/) for configuring settings for remote cluster state. This is required to persist the cluster metadata to remote store.
+For more information on configuring settings for the remote cluster state, see [Remote Cluster State]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-cluster-state/). This is required in order for cluster metadata to persist on the remote store.
 
 You do not have to use three different remote store repositories for segment, translog, and state. All three stores can share the same repository. 
 
