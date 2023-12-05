@@ -361,7 +361,9 @@ Use *on the forum*. Whatever is on the internet (the various websites, etc.), yo
 
 **index, indexes**
 
-A collection of JSON documents. Non-hardcoded references to *indices* should be changed to *indexes*.
+In technical documentation and the UI, use *indexes* as the plural form of *index*. Use *indices* only in the context of mathematical expressions. Variable and setting names should not be changed.
+
+In blog posts, use the plural *indexes* unless there is a domain-specific reason (for example, a mathematical or financial context) to use *indices*.
 
 **Index Management (IM)**
 
