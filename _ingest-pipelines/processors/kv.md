@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/lowercase/
 ---
 
-# KV
+# KV processor
 
 The `kv` processor automatically extracts specific event fields or messages that are `key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data such as user behavior analytics, performance optimizations, or security investigations. 
 
