@@ -7,9 +7,9 @@ redirect_from:
    - /api-reference/ingest-apis/processors/text-image-embedding/
 ---
 
-# Text/image embedding
+# Text/image embedding processor
 
-The `text_image_embedding` processor is used to generate combined vector embeddings from text and image fields for [multimodal neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/). 
+The `text_image_embedding` processor is used to generate combined vector embeddings from text and image fields for [multimodal neural search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/). 
 
 **PREREQUISITE**<br>
 Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -131,9 +131,11 @@ The response confirms that in addition to the `image_description` and `image_bin
 }
 ```
 
+Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/#step-3-ingest-documents-into-the-index) of [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
+
 ## Next steps
 
 - To learn how to use the `neural` query for a multimodal search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
-- To learn more about multimodal neural search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
-To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
+- To learn more about multimodal search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
+- To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 - For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
