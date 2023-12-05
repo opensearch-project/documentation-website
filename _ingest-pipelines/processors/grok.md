@@ -6,7 +6,7 @@ grand_parent: Ingest pipelines
 nav_order: 140
 ---
 
-# Grok 
+# Grok processor 
 
 The `grok` processor is used to parse and structure unstructured data using pattern matching. You can use the `grok` processor to extract fields from log messages, web server access logs, application logs, and other log data that follows a consistent format.
 

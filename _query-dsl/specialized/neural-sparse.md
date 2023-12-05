@@ -10,7 +10,7 @@ nav_order: 55
 Introduced 2.11
 {: .label .label-purple }
 
-Use the `neural_sparse` query for vector field search in [sparse neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). 
+Use the `neural_sparse` query for vector field search in [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/). 
 
 ## Request fields
 
