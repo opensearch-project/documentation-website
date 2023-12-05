@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/csv/
 ---
 
-# CSV
+# CSV processor
 **Introduced 1.0**
 {: .label .label-purple }
 
