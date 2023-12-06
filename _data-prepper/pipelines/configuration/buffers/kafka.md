@@ -10,11 +10,34 @@ nav_order: 80
 
 The `kafka` buffer buffers data into an Apache Kafka topic. It uses the Kafka topic to persist data while the data is in-transit.
 
-`Bounded blocking` is the default buffer and is memory-based. 
+The following example shows how to run the Kafka buffer in an HTTP pipeline.
+It runs against a locally running Kafka cluster.
+
+```
+kafka-buffer-pipeline:
+  source:
+    http:
+  buffer:
+    kafka:
+      bootstrap_servers: ["localhost:9092"]
+      encryption:
+        type: none
+      topics:
+        - name: my-buffer-topic
+          group_id: data-prepper
+          create_topic: true
+  processor:
+    - grok:
+        match:
+          message: [ "%{COMMONAPACHELOG}" ]
+  sink:
+    - stdout:
+```
 
 ## Configuration options
 
 Use the following configuration options with the `kafka` buffer.
+
 
 Option | Required | Type | Description
 --- | --- | --- | ---
