@@ -172,6 +172,12 @@ $max-container: 1440px;
                             }
                         }
                     }
+                    @media screen and (min-width: 1040px) and (max-width: 1102px) {
+                        margin-right: 0.9vw;
+                    }
+                    @media screen and (min-width: 1103px) and (max-width: 1149px) {
+                        margin-right: 1vw;
+                    }
                     @media screen and (min-width: 1150px) and (max-width: 1369px) {
                         margin-right: 15px;
                     }
