@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remote Cluster State
+title: Remote cluster state
 nav_order: 5
 parent: Remote-backed storage
 grand_parent: Availability and recovery
