@@ -20,6 +20,7 @@ _Cluster state_ is an internal data structure that contains the metadata of the 
 - Cluster-level settings
 - Data streams
 - Templates
+
 The cluster state metadata is managed by the elected cluster manager node and is essential for the cluster to properly function. When the cluster loses the majority of the cluster manager nodes permanently, then the cluster may experience data loss because the latest cluster state metadata might not be present in the surviving cluster manager nodes. Persisting the state of all the cluster manager nodes in the cluster to remote-backed storage provides better durability.
 
 When the remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster. As of OpenSearch 2.10, only index metadata will persist to remote-backed storage.
