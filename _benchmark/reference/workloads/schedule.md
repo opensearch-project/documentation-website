@@ -155,14 +155,19 @@ The `parallel` element supports all `schedule` parameters, in addition to the fo
 
 ## Iteration-based options
 
-Iteration-based options allow you to warmup clients before the workload outputs benchmark data. It can also define the number of iterative runs when tasks are run in [parallel](#parallel-tasks).
+Iteration-based options determine the number of times an operation should fun. It can also define the number of iterative runs when tasks are run in [parallel](#parallel-tasks). To configure an iteration-based schedule, use the following options.
 
+
+Parameter | Required | Type | Description
+:--- | :--- | :--- | :---
 `iterations` | No | Integer | Defines a default value for all tasks of the parallel element. Default is `1`.
 `warmup-iterations` | No | Integer | Number of iterations that each client should execute to warmup the benchmark candidate. Warmup iterations will not show up in the measurement results. Default is `0`.
 
 ## Time-based options
 
-Use the following time-based options with batch-style operations which may require an additional warmup period, including batch style operations.
+Time-based options determines the duration of time, in seconds, that operations should run for. This is ideal with batch-style operations which may require an additional warmup period, including batch style operations. 
+
+To configure a time-based schedule, use the following options.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
