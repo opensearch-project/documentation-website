@@ -143,7 +143,7 @@ Field | Description
 _index | The name of the index.
 _id | The document's ID.
 _version | The document's version.
-_result | The result of the update operation.
+result | The result of the update operation.
 _shards | Detailed information about the cluster's shards.
 total | The total number of shards.
 successful | The number of shards OpenSearch successfully updated the document in.
