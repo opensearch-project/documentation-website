@@ -59,7 +59,7 @@ Option | Required | Type | Description
 `group_id` | Yes | String | Sets Kafka's `group.id` option.
 `workers` | No | Integer | The number of multithreaded consumers associated with each topic. Default is `2`. The maximum value is `200`.
 `encryption_key` | No | String | An AES encryption key for encrypting and decrypting data within Data Prepper before sending to Kafka. This value must be plain text or encrypted using KMS.
-`kms` | No | KMS | When configured, use an Amazon KMS key to encrypt data. See [kms](#kms) for more information.
+`kms` | No | KMS key | When configured, use an Amazon KMS key to encrypt data. See [`kms`](#kms) for more information.
 `auto_commit` | No | Boolean | When `false`, the consumer offset will not be periodically committed to Kafka in the background. Default is `false`.
 `commit_interval` | No | Integer | When `auto_commit` is set to `true`, sets the frequency, in seconds, the consumer offsets are auto-committed to Kafka through Kafka's `auto.commit.interval.ms` option. Default is `5s`.
 `session_timeout` | No | Integer | The amount of time during which the source detects client failures when using Kafka's group management features, which can be used to balance the data stream. Default is `45s`.
