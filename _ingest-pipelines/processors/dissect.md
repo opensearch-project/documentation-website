@@ -225,42 +225,49 @@ The output is:
 
 `value1, value2`
 
-### Append with order modifier (`+` and `/n`)
+### Append with order modifier (`+` and `/`)
 
-The append with order modifier combines the values of two or more keys into a single output value, adhering to the a specific order defines by a newline character `/n`. You have the flexibility to customize the separator that separates the appended values. the append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
-
-#### Example
-
-The following pattern extracts the values of `key1` and `key2` fields and appends them together, with a newline character as the separator:
-
-`%{key1} %key2} /n`
-
-The output is:
-
-```bash
-value1
-value2
-```
-
-You can also specify an alternative separator using the `append_separator` parameter. For example, the following pattern uses a comma as the separator: 
-
-`%{key1} %key2}, append_separator => "," /n`
-
-The outout is:
-
-```bash
-value1, value2
-```
-
-### Named skip key (`?`)
-
-The named skip key modifier excludes specific matches from the final output by using an empty key, `{%}`, within the pattern. The named skip key modifier is useful for excluding irrelevant or unnecessary fields from the output, focusing on specific information, or streamlining the output for further processing ot analysis. 
+The append with order modifier combines the values of two or more keys into a single output value based on the order specified after the `/`. You have the flexibility to customize the separator that separates the appended values. The append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
 
 #### Example
 
-The following pattern excludes a field (in this case, `ignore`) from the output. You can assign a descriptive name to the empty key, for example, `%{ignore}`, to clarify that the corresponding value should be excluded from the final result.
+The `append_separator` parameter must be defined in the processor configuration, outside of the pattern. It is only relevant with the `+` modifier. See the following example pipeline:
 
-`%firstName} %{lastName} %{ignore}`
+```json
+PUT /_ingest/pipeline/dissect-test
+{
+  "description": "Pipeline that dissects web server logs",
+  "processors": [
+    {
+      "dissect": {
+        "field": "message",
+        "pattern": "%{a} %{+a} %{+a}",
+        "append_separator":  ","
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+If you ingest the following example document, you'll get the response `"a":"apple,banana,coconut"`:
+
+```json
+{
+  "message": "apple banana coconut"
+}
+```
+{% include copy-curl.html %}
+
+### Named skip key
+
+The named skip key modifier excludes specific matches from the final output by using an empty key `{}` or `?` modifier within the pattern. For example, the following patterns are equivalent: `%{firstName} %{lastName} %{?ignore}` and `%{firstName} %{lastName} %{}`. The named skip key modifier is useful for excluding irrelevant or unnecessary fields from the output, focusing on specific information, or streamlining the output for further processing or analysis. 
+
+#### Example
+
+The following pattern excludes a field (in this case, `ignore`) from the output. You can assign a descriptive name to the empty key, for example, `%{?ignore}`, to clarify that the corresponding value should be excluded from the final result.
+
+`%{firstName} %{lastName} %{?ignore}`
 
 ### Reference keys (`*` and `&`)
 
