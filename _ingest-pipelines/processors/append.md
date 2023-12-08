@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/append/
 ---
  
-# Append
+# Append processor
 **Introduced 1.0**
 {: .label .label-purple }
 

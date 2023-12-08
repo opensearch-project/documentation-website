@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 55
 ---
 
-# Date index name
+# Date index name processor
 
 The `date_index_name` processor is used to point documents to the correct time-based index based on the date or timestamp field within the document. The processor sets the `_index` metadata field to a [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) index name expression. Then the processor fetches the date or timestamp from the `field` field in the document being processed and formats it into a date math index name expression. The extracted date, `index_name_prefix` value, and `date_rounding` value are then combined to create the date math index expression. For example, if the `field` field contains the value `2023-10-30T12:43:29.000Z` and `index_name_prefix` is set to `week_index-` and `date_rounding` is set to `w`, then the date math index name expression is `week_index-2023-10-30`. You can use the `date_formats` field to specify how the date in the date math index expression should be formatted.
 

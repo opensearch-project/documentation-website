@@ -14,7 +14,7 @@ redirect_from:
 ML Commons supports the following API types:
 
 - [Model APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/)
-- [Model group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api//model-group-apis/index/)
+- [Model group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/)
 - [Connector APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/index/)
 - [Tasks APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/index/)
 - [Train and Predict APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/index/)

@@ -7,9 +7,9 @@ redirect_from:
    - /api-reference/ingest-apis/processors/sparse-encoding/
 ---
 
-# Sparse encoding
+# Sparse encoding processor
 
-The `sparse_encoding` processor is used to generate a sparse vector/token and weights from text fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) using sparse retrieval. 
+The `sparse_encoding` processor is used to generate a sparse vector/token and weights from text fields for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/) using sparse retrieval. 
 
 **PREREQUISITE**<br>
 Before using the `sparse_encoding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -139,6 +139,8 @@ The response confirms that in addition to the `passage_text` field, the processo
   ]
 }
 ```
+
+Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-3-ingest-documents-into-the-index) of [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 
 ---
 
