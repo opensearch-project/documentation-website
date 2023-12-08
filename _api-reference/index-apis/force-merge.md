@@ -26,13 +26,13 @@ In addition to periodic merging, you can force a segment merge using the Force M
 Use the Force Merge API on an index only after all write requests to the index are completed. Force merge can produce very large segments. If write requests are still sent to the index, then the merge policy does not merge these segments until they primarily consist of deleted documents. This can increase disk space usage and lead to performance degradation.
 {: .warning}
 
-When you call the Force Merge API, the call is blocked until merge completion. If during this time the connection is lost, the force merge operation continues on the background. New force merge requests to the same index will block until the currently running merge operation is complete.
+When you call the Force Merge API, the call is blocked until merge completion. If during this time the connection is lost, the force merge operation continues in the background. New force merge requests to the same index will be blocked until the currently running merge operation is complete.
 
 ## Force merging multiple indexes
 
-To force merge multiple indexes, you can call the force merge API on the following index combinations:
+To force merge multiple indexes, you can call the Force Merge API on the following index combinations:
 
-- multiple indexes
+- Multiple indexes
 - One or more data streams containing multiple backing indexes
 - One or more index aliases pointing to multiple indexes
 - All data streams and indexes in a cluster
