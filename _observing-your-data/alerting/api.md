@@ -1343,7 +1343,7 @@ The following table lists the available path parameters. All path parameters are
 | `severityLevel` | String | Defines the severity level to filter for. Default is `ALL`.
 | `alertState` | String | Defines the alert state to filter for. Default is `ALL`.
 | `monitorId` | String | Filters by monitor ID.
-| `workflowIds` | String | Allows for fetching of chained alerts and monitoring of them in a dashboard. Available in OpenSearch 2.9 or later.
+| `workflowIds` | String | Allows for monitoring the status of multiple chained alerts within a single dashboard. Available in OpenSearch 2.9 or later.
 
 #### Request
 
