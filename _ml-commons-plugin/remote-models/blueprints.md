@@ -3,17 +3,21 @@ layout: default
 title: Connector blueprints
 has_children: false
 nav_order: 65
-parent: Connecting to remote models 
+parent: Connecting to externally hosted models 
+grand_parent: Integrating ML models
+redirect_from: 
+  - ml-commons-plugin/extensibility/blueprints/
 ---
 
 # Connector blueprints
+**Introduced 2.9**
+{: .label .label-purple }
 
-All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
+Every [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) is specified by a _connector blueprint_. The blueprint defines all the parameters you need to provide when creating a connector.
 
-The following example shows a blueprint of an Amazon SageMaker connector:
+For example, the following blueprint is a specification for an Amazon SageMaker connector:
 
 ```json
-POST /_plugins/_ml/connectors/_create
 {
   "name": "<YOUR CONNECTOR NAME>",
   "description": "<YOUR CONNECTOR DESCRIPTION>",
@@ -41,15 +45,17 @@ POST /_plugins/_ml/connectors/_create
   ]
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html %} 
 
-## Example blueprints
+## OpenSearch-provided connector blueprints
 
-You can find blueprints for each connector in the [ML Commons repository](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
+OpenSearch provides connector blueprints for several machine learning (ML) platforms and models. For a list of all connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#supported-connectors).
 
-## Configuration options
+As an ML developer, you can build connector blueprints for other platforms. Using those blueprints, administrators and data scientists can create connectors for models hosted on those platforms. 
 
-The following configuration options are **required** in order to build a connector blueprint. These settings can be used for both standalone and internal connectors.
+## Configuration parameters
+
+The following configuration parameters are **required** in order to build a connector blueprint. 
 
 | Field | Data type | Description |
 | :---  | :--- | :--- |
@@ -59,7 +65,7 @@ The following configuration options are **required** in order to build a connect
 | `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
 | `parameters` | JSON object | The default connector parameters, including `endpoint` and `model`. Any parameters indicated in this field can be overridden by parameters specified in a predict request. |
 | `credential` | JSON object | Defines any credential variables required in order to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
-| `actions` | JSON array | Define what actions can run within the connector. If you're an administrator making a connection, add the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) for your desired connection. |
+| `actions` | JSON array | Defines what actions can run within the connector. If you're an administrator creating a connection, add the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) for your desired connection. |
 | `backend_roles` | JSON array | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users). |
 | `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups). |
 | `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`. |
@@ -70,7 +76,7 @@ The `action` parameter supports the following options.
 | :---  | :--- | :--- |
 | `action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
 | `method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
-| `url` | String | Required. Sets the connection endpoint at which the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index#adding-trusted-endpoints). |
+| `url` | String | Required. Sets the connection endpoint at which the action occurs. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints). |
 | `headers` | JSON object | Sets the headers used inside the request or response body. Default is `ContentType: application/json`. If your third-party ML tool requires access control, define the required `credential` parameters in the `headers` parameter. |
 | `request_body` | String | Required. Sets the parameters contained inside the request body of the action. The parameters must include `\"inputText\`, which specifies how users of the connector should construct the request payload for the `action_type`. |
 | `pre_process_function` | String |  Optional. A built-in or custom Painless script used to preprocess the input data. OpenSearch provides the following built-in preprocess functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere](https://cohere.com/) embedding models<br> - `connector.pre_process.openai.embedding` for [OpenAI](https://openai.com/) embedding models <br> - `connector.pre_process.default.embedding`, which you can use to preprocess documents in neural search requests so that they are in the format that ML Commons can process with the default preprocessor (OpenSearch 2.11 or later). For more information, see [built-in functions](#built-in-pre--and-post-processing-functions).  |
@@ -80,18 +86,20 @@ The `action` parameter supports the following options.
 
 Call the built-in pre- and post-processing functions instead of writing a custom Painless script when connecting to the following text embedding models or your own text embedding models deployed on a remote server (for example, Amazon SageMaker):
 
-- [OpenAI remote models](https://platform.openai.com/docs/api-reference/embeddings)
-- [Cohere remote models](https://docs.cohere.com/reference/embed)
+- [OpenAI models](https://platform.openai.com/docs/api-reference/embeddings)
+- [Cohere models](https://docs.cohere.com/reference/embed)
 
 OpenSearch provides the following pre- and post-processing functions:
 
 - OpenAI: `connector.pre_process.openai.embedding` and `connector.post_process.openai.embedding`
 - Cohere: `connector.pre_process.cohere.embedding` and `connector.post_process.cohere.embedding`
-- [Default](#default-pre--and-post-processing-functions) (for neural search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
+- [Amazon SageMaker default functions for neural search](#amazon-sagemaker-default-pre--and-post-processing-functions-for-neural-search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
 
-### Default pre- and post-processing functions
+### Amazon SageMaker default pre- and post-processing functions for neural search
 
-When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a remote model, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
+When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a model hosted on an external platform, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
+
+For the default functions to be applied, the model input and output must be in the format described in the following sections.
 
 #### Example request
 
@@ -136,7 +144,7 @@ The `request_body` template must be `${parameters.input}`.
 
 The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
 
-The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) provides parameters in the following format:
+The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) provides parameters in the following format:
 
 ```json
 {
@@ -211,6 +219,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Next step
+## Next steps
 
-For examples of creating various connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+- To learn more about connecting to external models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
+- For connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).

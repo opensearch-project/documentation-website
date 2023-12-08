@@ -1,22 +1,23 @@
 ---
 layout: default
-title: Text search
-nav_order: 10
+title: Semantic search
+nav_order: 35
 has_children: false
-parent: Neural search
+redirect_from:
+  - /search-plugins/neural-text-search/
 ---
 
-# Text search
+# Semantic search
 
-Use text search for text data. In neural search, text search is facilitated by text embedding models. Text search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
+Semantic search considers the context and intent of a query. In OpenSearch, semantic search is facilitated by neural search with text embedding models. Semantic search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
 
 **PREREQUISITE**<br>
-Before using text search, you must set up a text embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using semantic search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
-## Using text search
+## Using semantic search
 
-To use text search, follow these steps:
+To use semantic search, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).

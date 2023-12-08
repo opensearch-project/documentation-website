@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Multimodal search
-nav_order: 20
+nav_order: 40
 has_children: false
-parent: Neural search
+redirect_from:
+  - /search-plugins/neural-multimodal-search/
 ---
 
 # Multimodal search
@@ -13,7 +14,7 @@ Introduced 2.11
 Use multimodal search to search text and image data. In neural search, text search is facilitated by multimodal embedding models. 
 
 **PREREQUISITE**<br>
-Before using text search, you must set up a multimodal embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using text search, you must set up a multimodal embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
 ## Using multimodal search

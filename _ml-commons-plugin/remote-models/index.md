@@ -1,19 +1,24 @@
 ---
 layout: default
-title: Connecting to remote models 
+title: Connecting to externally hosted models 
+parent: Integrating ML models
 has_children: true
 has_toc: false
 nav_order: 60
+redirect_from: 
+  - ml-commons-plugin/extensibility/index/
 ---
 
-# Connecting to remote models
+# Connecting to externally hosted models
+**Introduced 2.9**
+{: .label .label-purple }
 
-Machine learning (ML) extensibility enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. These integrations provide system administrators and data scientists the ability to run ML workloads outside of their OpenSearch cluster. 
+Integrations with machine learning (ML) models hosted on third-party platforms allow system administrators and data scientists to run ML workloads outside of their OpenSearch cluster. Connecting to externally hosted models enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. 
 
-To get started with ML extensibility, choose from the following options:
+To integrate a model hosted on a third-party platform, choose from the following options:
 
-- If you're an ML developer wanting to integrate with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+- If you're an ML developer wanting to create integrations with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 ## Prerequisites
 
@@ -77,7 +82,7 @@ When access control is enabled, you can install the [Security plugin]({{site.url
 
 ### Node settings
 
-Remote models based on external connectors consume fewer resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`:
+Externally hosted models that are deployed using connectors consume fewer resources. Therefore, you can deploy such models model on data nodes. To make sure that your model connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`:
 
 ```json
 PUT /_cluster/settings
@@ -103,7 +108,7 @@ To register a model group, send the following request:
 POST /_plugins/_ml/model_groups/_register
 {
   "name": "remote_model_group",
-  "description": "A model group for remote models"
+  "description": "A model group for external models"
 }
 ```
 {% include copy-curl.html %}
@@ -121,7 +126,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 2: Create a connector
 
-You can create a standalone connector or an internal connector as part of a specific model. For more information about connectors and connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+You can create a standalone connector that can be reused for multiple models. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
 
@@ -162,9 +167,9 @@ The response contains the connector ID for the newly created connector:
 }
 ```
 
-## Step 3: Register a remote model
+## Step 3: Register an externally hosted model
 
-To register a remote model to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request:
+To register an externally hosted model to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request. You must specify the `function_name` as `remote`:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -187,7 +192,7 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#searching-for-a-task):
+To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#get-a-task-by-id):
 
 ```bash
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
@@ -211,7 +216,9 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-## Step 4: Deploy the remote model
+Take note of the returned `model_id` because you’ll need it to deploy the model.
+
+## Step 4: Deploy the model
 
 To deploy the registered model, provide its model ID from step 3 in the following request:
 
@@ -253,9 +260,9 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-## Step 5: Make predictions 
+## Step 5 (Optional): Test the model
 
-Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict) to make predictions:
+Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model:
 
 ```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
@@ -315,12 +322,13 @@ The response contains the inference results provided by the OpenAI model:
 }
 ```
 
+## Step 6: Use the model for search
+
+To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).
+
 ## Next steps
 
-- For more information about connectors, including connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
-- For more information about connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-- For more information about managing ML models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+- For more information about connectors, including example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+- For more information about connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- For more information about managing ML models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 - For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
-
-
-
