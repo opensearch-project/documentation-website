@@ -2,7 +2,7 @@
 layout: default
 title: Telemetry devices
 nav_order: 45
-has_children: true
+parent: OpenSearch Benchmark Reference
 ---
 
 # Telemetry devices
