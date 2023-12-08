@@ -9,10 +9,10 @@ redirect_from:
 
 # KV processor
 
-The `kv` processor automatically extracts specific event fields or messages that are  in a`key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data such as user behavior analytics, performance optimizations, or security investigations. 
+The `kv` processor automatically extracts specific event fields or messages that are in a`key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data such as user behavior analytics, performance optimizations, or security investigations. 
 
 ## Example
-The following is the syntax for the `lowercase` processor: 
+The following is the syntax for the `kv` processor: 
 
 ```json
 {
@@ -64,7 +64,7 @@ PUT _ingest/pipeline/kv-pipeline
     {
       "kv" : {
         "field" : "message",
-        "field_split": "",
+        "field_split": " ",
         "value_split": "="
       }
     }
@@ -83,8 +83,18 @@ To test the pipeline, run the following query:
 ```json
 POST _ingest/pipeline/kv-pipeline/_simulate
 
-<insert example from SME>
-
+```json
+{  
+  "docs": [  
+    {  
+      "_index": "testindex1",  
+      "_id": "1",  
+      "_source":{  
+         "message": "goodbye=everybody hello=world"  
+      }  
+    }  
+  ]  
+}
 ```
 {% include copy-curl.html %}
 
@@ -93,9 +103,24 @@ POST _ingest/pipeline/kv-pipeline/_simulate
 The following example response confirms that the pipeline is working as expected:
 
 ```json
-
-<insert reponse example from SME>
-
+{  
+  "docs": [  
+    {  
+      "doc": {  
+        "_index": "testindex1",  
+        "_id": "1",  
+        "_source": {  
+          "hello": "world",  
+          "message": "goodbye=everybody hello=world",  
+          "goodbye": "everybody"  
+        },  
+        "_ingest": {  
+          "timestamp": "2023-12-06T09:59:21.823292Z"  
+        }  
+      }  
+    }  
+  ]  
+}
 ```
 
 **Step 3: Ingest a document.**
@@ -104,7 +129,11 @@ The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=kv-pipeline
-<insert example from SME>
+
+```json
+{  
+  "message": "goodbye=everybody hello=world"  
+}  
 ```
 {% include copy-curl.html %}
 
