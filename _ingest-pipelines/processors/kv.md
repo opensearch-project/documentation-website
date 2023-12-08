@@ -9,7 +9,7 @@ redirect_from:
 
 # KV processor
 
-The `kv` processor automatically extracts specific event fields or messages that are `key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data such as user behavior analytics, performance optimizations, or security investigations. 
+The `kv` processor automatically extracts specific event fields or messages that are  in a`key=value` format. This structured format organizes your data by grouping it together based on keys and values. It's helpful for analyzing, visualizing, and using data such as user behavior analytics, performance optimizations, or security investigations. 
 
 ## Example
 The following is the syntax for the `lowercase` processor: 
