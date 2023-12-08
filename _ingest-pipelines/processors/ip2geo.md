@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/ip2geo/
 ---
 
-# IP2Geo
+# IP2Geo processor
 **Introduced 2.10**
 {: .label .label-purple }
 
