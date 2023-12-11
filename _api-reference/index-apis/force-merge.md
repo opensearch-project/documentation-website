@@ -26,13 +26,13 @@ In addition to periodic merging, you can force a segment merge using the Force M
 Use the Force Merge API on an index only after all write requests to the index are completed. Force merge can produce very large segments. If write requests are still sent to the index, then the merge policy does not merge these segments until they primarily consist of deleted documents. This can increase disk space usage and lead to performance degradation.
 {: .warning}
 
-When you call the Force Merge API, the call is blocked until merge completion. If during this time the connection is lost, the force merge operation continues on the background. New force merge requests to the same index will block until the currently running merge operation is complete.
+When you call the Force Merge API, the call is blocked until merge completion. If during this time the connection is lost, the force merge operation continues in the background. New force merge requests to the same index will be blocked until the currently running merge operation is complete.
 
 ## Force merging multiple indexes
 
-To force merge multiple indexes, you can call the force merge API on the following index combinations:
+To force merge multiple indexes, you can call the Force Merge API on the following index combinations:
 
-- multiple indexes
+- Multiple indexes
 - One or more data streams containing multiple backing indexes
 - One or more index aliases pointing to multiple indexes
 - All data streams and indexes in a cluster
@@ -66,7 +66,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `allow_no_indices` | Boolean | If `false`, the request returns an error if any wildcard expression or index alias targets any closed or missing indexes. Default is `true`. |
 | `expand_wildcards` | Specifies the type of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes. <br> - `open`: Expand to open indexes. <br> - `closed`: Expand to closed indexes. <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both. <br> - `none`: Do not accept wildcard expressions. <br> Default is `open`. |
-| `flush` | Boolean | Specifies to perform a flush on the indexes after the force merge. A flush persists the files from the file cache to disk. Default is `true`. |
+| `flush` | Boolean | Specifies to perform a flush on the indexes after the force merge. A flush ensures the files are persisted to disk. Default is `true`. |
 | `ignore_unavailable` | Boolean | If `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`. |
 | `max_num_segments` | Integer | The number of larger segments into which smaller segments are merged. Set this parameter to `1` to merge all segments into one segment. Default behavior performs the merge as necessary. |
 | `only_expunge_deletes` | Boolean | If `true`, the merge operation only expunges segments containing a certain percentage of deleted documents. The percentage is 10% by default and is configurable in the `index.merge.policy.expunge_deletes_allowed` setting. Using `only_expunge_deletes` may produce segments larger than `index.merge.policy.max_merged_segment`, and those large segments may not participate in future merges. For more information, see [Deleted documents](#deleted-documents). Default is `false`. |
