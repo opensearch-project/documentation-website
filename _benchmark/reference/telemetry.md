@@ -36,7 +36,7 @@ The `gc` telemetry device enables garbage collector (GC) logs for the benchmark 
 
 If the runtime JDK is Java 9 or higher, you can specify the `gc-log-config` parameter. The GC logging configuration consists of a list of tags and levels, such as the default value `gc*=info,safepoint=info,age*=trace`. Run `java -Xlog:help` to view a list of available levels and tags. 
 
-## headdump
+## heapdump
 
 The `heapdump` telemetry device captures a heap dump after a benchmark has finished and right before the node is shut down.
 
