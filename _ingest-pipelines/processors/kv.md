@@ -39,7 +39,7 @@ The following table lists the required and optional parameters for the `lowercas
 `prefix` | Optional | The prefix to add to the extracted keys. Default is `null`. |
 `strip_brackets` | Optional | If set to `true`, strips brackets `()`, `<>,` or `[]` and quotes `'` or `"` from extracted values. Default is `false`.
 `trim_key` | Optional | String of characters to trim from extracted keys. | 
-`trim value` | Optional | String of characters to trim from extracted values. |
+`trim value` | Optional | The string of characters to trim from the extracted values. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
