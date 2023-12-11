@@ -30,7 +30,7 @@ The following is the syntax for the `convert` processor:
 
 The following table lists the required and optional parameters for the `convert` processor.   
 
-Parameter | Required | Description |
+Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field that contains the data to be converted. Supports template snippets. |
 `type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, the value is set to `true` if the field value is a string `true` (ignoring case) and to `false` if  the field value is a string `false` (ignoring case). If the value is not one of the allowed values, an error will occur.  |

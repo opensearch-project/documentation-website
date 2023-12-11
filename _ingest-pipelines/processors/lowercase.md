@@ -29,7 +29,7 @@ The following is the syntax for the `lowercase` processor:
 
 The following table lists the required and optional parameters for the `lowercase` processor.
 
-| Name  | Required  | Description  |
+| Parameter  | Required/Optional  | Description  |
 |---|---|---|
 `field`  | Required  | The name of the field that contains the data to be converted. Supports template snippets. |
 `description`  | Optional  | A brief description of the processor.  |

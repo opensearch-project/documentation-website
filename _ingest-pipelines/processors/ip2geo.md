@@ -157,7 +157,7 @@ Once the data source is created, you can create the pipeline. The following is t
 
 The following table lists the required and optional parameters for the `ip2geo` processor.
 
-| Name | Required | Default | Description |
+| Parameter | Required/Optional | Default | Description |
 |------|----------|---------|-------------|
 | `datasource` | Required | - | The data source name to use to retrieve geographical information. |
 | `field` | Required | - | The field that contains the IP address for geographical lookup. |

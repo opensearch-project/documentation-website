@@ -29,7 +29,7 @@ The following is the syntax for the `bytes` processor:
 
 The following table lists the required and optional parameters for the `bytes` processor.  
 
-Parameter | Required | Description |
+Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field where the data should be converted. Supports template snippets. |
 `description`  | Optional  | A brief description of the processor.  |

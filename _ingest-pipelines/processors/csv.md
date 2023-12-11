@@ -30,7 +30,7 @@ The following is the syntax for the `csv` processor:
 
 The following table lists the required and optional parameters for the `csv` processor.
 
-Parameter | Required | Description |
+Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field that contains the data to be converted. Supports template snippets. |
 `target_fields`  | Required  | The name of the field in which to store the parsed data. |

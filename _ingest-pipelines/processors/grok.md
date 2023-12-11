@@ -34,7 +34,7 @@ The following is the basic syntax for the `grok` processor:
 
 To configure the `grok` processor, you have various options that allow you to define patterns, match specific keys, and control the processor's behavior. The following table lists the required and optional parameters for the `grok` processor.
 
-Parameter | Required | Description |
+Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field containing the text that should be parsed. |
 `patterns`  | Required  | A list of grok expressions used to match and extract named captures. The first matching expression in the list is returned. | 

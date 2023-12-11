@@ -29,7 +29,7 @@ The following is the syntax for the `remove` processor:
 
 The following table lists the required and optional parameters for the `remove` processor.
 
-| Name  | Required  | Description  |
+| Parameter  | Required/Optional  | Description  |
 |---|---|---|
 `field`  | Required  | The name of the field to which the data should be appended. Supports template snippets. |
 `description`  | Optional  | A brief description of the processor.  |
