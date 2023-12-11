@@ -119,5 +119,5 @@ The following table lists all response fields.
 | :--- | :--- | :--- |
 | `shards` | Object | Contains information about the shards on which the request was executed. |
 | `shards.total` | Integer | The number of shards on which the operation was executed. |
-| `shards.successful` | Integer | The number of shards for which the operation was successful. |
-| `shards.failed` | Integer | The number of shards for which the operation failed. |
+| `shards.successful` | Integer | The number of shards on which the operation was successful. |
+| `shards.failed` | Integer | The number of shards on which the operation failed. |
