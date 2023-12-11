@@ -69,7 +69,7 @@ The following table lists the available query parameters. All query parameters a
 | `flush` | Boolean | Specifies to perform a flush on the indexes after the force merge. A flush persists the files from the file cache to disk. Default is `true`. |
 | `ignore_unavailable` | Boolean | If `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`. |
 | `max_num_segments` | Integer | The number of larger segments into which smaller segments are merged. Set this parameter to `1` to merge all segments into one segment. Default behavior performs the merge as necessary. |
-| `only_expunge_deletes` | Boolean | If `true`, the merge operation only expunges segments containing a certain percentage of deleted documents. The percentage is 10% by default and is configurable in the `index.merge.policy.expunge_deletes_allowed` setting. For more information, see [Deleted documents](#deleted-documents). Default is `false`. |
+| `only_expunge_deletes` | Boolean | If `true`, the merge operation only expunges segments containing a certain percentage of deleted documents. The percentage is 10% by default and is configurable in the `index.merge.policy.expunge_deletes_allowed` setting. Using `only_expunge_deletes` may produce segments larger than `index.merge.policy.max_merged_segment`, and those large segments may not participate in future merges. For more information, see [Deleted documents](#deleted-documents). Default is `false`. |
 
 #### Example request: Force merge a specific index
 
