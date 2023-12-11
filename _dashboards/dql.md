@@ -26,7 +26,7 @@ To follow this tutorial in OpenSearch Dashboards, expand the following setup ste
   </summary>
   {: .text-delta}
 
-Use these steps to set up an index and ingest documents:
+Use these steps to prepare sample data for querying:
 
 **Step 1: Set up mappings for the index**
 
