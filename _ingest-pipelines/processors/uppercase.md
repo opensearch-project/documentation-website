@@ -25,7 +25,7 @@ The following is the syntax for the `uppercase` processor:
 ```
 {% include copy-curl.html %}
 
-#### Configuration parameters
+## Configuration parameters
 
 The following table lists the required and optional parameters for the `uppercase` processor.
 

@@ -153,7 +153,7 @@ Once the data source is created, you can create the pipeline. The following is t
 ```
 {% include copy-curl.html %}
 
-#### Configuration parameters
+## Configuration parameters
 
 The following table lists the required and optional parameters for the `ip2geo` processor.
 
