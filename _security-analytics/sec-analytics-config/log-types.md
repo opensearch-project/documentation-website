@@ -61,7 +61,7 @@ The following tables show the log types that are currently supported by Security
 | `cisco` | Cisco logs for when a user tries to authenticate to a [Cisco router or firewall](https://www.cisco.com/c/en/us/support/docs/security-vpn/terminal-access-controller-access-control-system-tacacs-/10384-security.html#anc1).
 
 
-### System acivity
+### System activity
 
 | Log type | Description | 
 |:--- |:--- |
