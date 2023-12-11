@@ -192,7 +192,7 @@ t*le: *wind and rise*
 
 ## Ranges
 
-DQL supports numeric inequalities using the `>`, `<`, `>=`, and `<=` operators, for example, 
+DQL supports numeric inequalities using the `>`, `<`, `>=`, and `<=` operators, for example: 
 
 ```python
 page_views > 100 and page_views <= 300
@@ -270,7 +270,7 @@ title: ((wind or windy) and not rises)
 
 To refer to an object's inner field, list the dot path of the field. 
 
-To index a document containing an object, follow the steps in the [object field type example]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/object/#example).  To search the `name` field of the `patient` object, use the following syntax:
+To index a document containing an object, follow the steps in the [object field type example]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/object/#example). To search the `name` field of the `patient` object, use the following syntax:
 
 ```python
 patient.name: john
