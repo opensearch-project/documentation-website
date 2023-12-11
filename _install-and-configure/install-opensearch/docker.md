@@ -486,7 +486,7 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

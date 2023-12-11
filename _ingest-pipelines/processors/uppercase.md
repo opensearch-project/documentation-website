@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/uppercase/
 ---
 
-# Uppercase
+# Uppercase processor
 **Introduced 1.0**
 {: .label .label-purple }
 
