@@ -127,7 +127,7 @@ rises wind
 
 The preceding query matches documents where any search term appears regardless of the order. By default, DQL combines search terms with an `or`. To learn how to create Boolean expressions containing search terms, see [Boolean operators](#boolean-operators). 
 
-To search for a phrase (search terms in order), surround your text with quotation marks:
+To search for a phrase (where search terms are in order), surround your text with quotation marks:
 
 ```python
 "wind rises"
