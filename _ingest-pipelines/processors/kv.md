@@ -27,9 +27,9 @@ The following is the syntax for the `kv` processor:
 
 ## Configuration parameters
 
-The following table lists the required and optional parameters for the `lowercase` processor.
+The following table lists the required and optional parameters for the `kv` processor.
 
-| Name  | Required/Optional  | Description  |
+| Parameter  | Required/Optional  | Description  |
 |---|---|---|
 `field`  | Required  | The name of the field that contains the data to be parsed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `field_split` | Required | The regex pattern for key-value pair splitting. |
