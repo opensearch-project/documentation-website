@@ -44,9 +44,9 @@ GET _cat/indices
 
 ## URL parameters
 
-All CAT indices URL parameters are optional.
+All URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index/), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---
