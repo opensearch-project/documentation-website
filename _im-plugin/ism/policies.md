@@ -958,6 +958,13 @@ After 30 days, the policy moves this index into a `delete` state. The service se
             "replica_count": {
               "number_of_replicas": 5
             }
+          },
+          {
+            "allocation": {
+              "require": {
+                "temp": "warm"
+              }
+            }
           }
         ],
         "transitions": [
