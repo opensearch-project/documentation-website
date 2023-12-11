@@ -38,7 +38,7 @@ The following table lists the required and optional parameters for the `lowercas
 `include_keys` | Optional | The keys for filtering and inserting. Default is to include all keys. |
 `prefix` | Optional | The prefix to add to the extracted keys. Default is `null`. |
 `strip_brackets` | Optional | If set to `true`, strips brackets `()`, `<>,` or `[]` and quotes `'` or `"` from extracted values. Default is `false`.
-`trim_key` | Optional | String of characters to trim from extracted keys. | 
+`trim_key` | Optional | The string of characters to trim from the extracted keys. | 
 `trim value` | Optional | The string of characters to trim from the extracted values. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
