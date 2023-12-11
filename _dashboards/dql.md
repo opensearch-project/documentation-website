@@ -206,7 +206,7 @@ date >= "2013-01-01" and date < "2024-01-01"
 ```
 {% include copy.html %}
 
-Querying for `not equal to` can be achieved with `not` and the field name, for example: 
+You can query for "not equal to" using `not` and the field name, for example: 
 
 ```python
 not page_views: 100
@@ -215,14 +215,14 @@ not page_views: 100
 
 ## Boolean operators
 
-DQL supports the `and`, `or`, and `not` Boolean operators. DQL is not case sensitive, so `AND` and `and` are the same. 
+DQL supports the `and`, `or`, and `not` Boolean operators. DQL is not case sensitive, so `AND` and `and` are the same. For example, the following query is a conjunction of two Boolean clauses: 
 
 ```python
 title: wind and description: epic
 ```
 {% include copy.html %}
 
-Boolean operators follow the logical precedence order of `not`, `and`, and `or`, so in the following example, `title: wind and description: epic` is evaluated first.
+Boolean operators follow the logical precedence order of `not`, `and`, and `or`, so in the following example, `title: wind and description: epic` is evaluated first:
 
 ```python
 media_type: article or title: wind and description: epic
@@ -236,7 +236,7 @@ To dictate the order of evaluation, group Boolean clauses in parentheses. For ex
 ```
 {% include copy.html %}
 
-Field prefix refers to the token after the colon. For example, the following query searches for documents where the `title` field contains `windy` or documents that contain the word `historical` in any of their fields:
+The field prefix refers to the token that immediately follows the colon. For example, the following query searches for documents where the `title` field contains `windy` or documents that contain the word `historical` in any of their fields:
 
 ```python
 title: windy or historical
