@@ -28,7 +28,7 @@ Query language | Where you can use it | Description
 [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) | [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) search bar | A simple text-based query language used to filter data in OpenSearch Dashboards. 
 [Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) | [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) search bar | A scaled-down query language whose syntax is based on the Apache Lucene query syntax.
 [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) | [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | A traditional query language that bridges the gap between relational database concepts and the flexibility of OpenSearch’s document-oriented data storage.
-[PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) | [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
+[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) | [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
 
 ### Discover and Dashboard search bar
 
@@ -38,9 +38,9 @@ Using the search bar in the [Discover]({{site.url}}{{site.baseurl}}/dashboards/d
 
 - [Query string query (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/)
 
-The following table compares DQL and Query string query language features.
+The following table compares DQL and query string query language features.
 
-DQL and Query string query language | DQL | Query string query language
+DQL and query string query language | DQL | Query string query language
 :--- | :--- | :---
 - Wildcard expressions (DQL supports `*` only)<br> - Ranges<br> - Boolean operations<br> | - Querying nested fields | - Regular expressions<br> - Fuzziness<br> - Proximity queries<br> - Boosting
 

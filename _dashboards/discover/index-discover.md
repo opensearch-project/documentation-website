@@ -78,7 +78,7 @@ You'll see a view similar to the one in the following image.
 
 ## Searching the data
 
-You can use the search toolbar to enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. The search toolbar is best for basic queries; for full query and filter capability, use [query DSL]({{site.url}}{{site.baseurl}}/query-dsl/index/) in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/).
+You can use the search toolbar to enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. The search toolbar is best for basic queries; for full query and filter capability, use [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/).
 
 For more information, see [Discover and Dashboard search toolbar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
 

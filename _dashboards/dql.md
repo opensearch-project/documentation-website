@@ -13,7 +13,7 @@ Dashboards Query Language (DQL) is a simple text-based query language used to fi
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png" alt="Search term using DQL toolbar in Dashboard" width="500">
 
-DQL and Query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
+DQL and query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
 {: .tip}
 
 ## Setup
@@ -118,7 +118,7 @@ The [Object fields](#object-fields) and [Nested fields](#nested-fields) sections
 
 ## Search for terms
 
-By default, DQL searches in the default field set on the index. If the default field is not set, DQL searches all fields. For example, the following query searches for documents that contain the words `rises` or `wind` in any of their fields:
+By default, DQL searches in the field set as the default field on the index. If the default field is not set, DQL searches all fields. For example, the following query searches for documents containing the words `rises` or `wind` in any of their fields:
 
 ```python
 rises wind
@@ -127,7 +127,7 @@ rises wind
 
 The preceding query matches documents in which any search term appears regardless of the order. By default, DQL combines search terms with an `or`. To learn how to create Boolean expressions containing search terms, see [Boolean operators](#boolean-operators). 
 
-To search for a phrase (where search terms are in order), surround your text with quotation marks. For example, the following query searches for the exact text "wind rises":
+To search for a phrase (an ordered sequence of words), surround your text with quotation marks. For example, the following query searches for the exact text "wind rises":
 
 ```python
 "wind rises"
@@ -192,7 +192,7 @@ t*le: *wind and rise*
 
 ## Ranges
 
-DQL supports numeric inequalities using the `>`, `<`, `>=`, or `<=` operators, for example: 
+DQL supports numeric inequalities using the `>`, `<`, `>=`, and `<=` operators, for example: 
 
 ```python
 page_views > 100 and page_views <= 300
@@ -213,7 +213,7 @@ not page_views: 100
 ```
 {% include copy.html %}
 
-Note that the preceding query returns documents where the `page_views` field does not contain `100` and documents where the field is not present. To filter by those documents that contain the field `page_views`, use the following query:
+Note that the preceding query returns documents in which either the `page_views` field does not contain `100` or the field is not present. To filter by those documents that contain the field `page_views`, use the following query:
 
 ```python
 page_views:* and not page_views: 100
