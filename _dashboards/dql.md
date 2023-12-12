@@ -9,11 +9,11 @@ redirect_from:
 
 # Dashboards Query Language (DQL)
 
-Dashboards Query Language (DQL) is a simple text-based query language for filtering data in OpenSearch Dashboards. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` in the search field, as shown in the following image.
+Dashboards Query Language (DQL) is a simple text-based query language used to filter data in OpenSearch Dashboards. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` in the search field, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png" alt="Search term using DQL toolbar in Dashboard" width="500">
 
-DQL and Query string query (Lucene) language are the two language options for the search bar in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
+DQL and Query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
 {: .tip}
 
 ## Setup
@@ -26,11 +26,11 @@ To follow this tutorial in OpenSearch Dashboards, expand the following setup ste
   </summary>
   {: .text-delta}
 
-Use these steps to prepare sample data for querying:
+Use the following steps to prepare sample data for querying.
 
 **Step 1: Set up mappings for the index**
 
-From the main menu, select **Management** > **Dev Tools** to open [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/). Send the following request to create index mappings:
+On the main menu, select **Management** > **Dev Tools** to open [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/). Send the following request to create index mappings:
 
 ```json
 PUT testindex
@@ -100,17 +100,17 @@ PUT /testindex/_doc/4
 
 Follow these steps to create an index pattern for your index:
 
-1. From the main menu, select **Management** > **Dashboards Management**. 
+1. On the main menu, select **Management** > **Dashboards Management**. 
 1. Select **Index patterns** and then **Create index pattern**.
 1. In **Index pattern name**, enter `testindex*`. Select **Next step**.
-1. In the **Time field**, select `I don't want to use the time filter`.
+1. In **Time field**, select `I don't want to use the time filter`.
 1. Select **Create index pattern**.
 
 For more information about index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/).
 
 **Step 4: Navigate to Discover and select the index pattern**
 
-From the main menu, select **Discover**. In the upper-left corner, select `testindex*` from the **Index patterns** dropdown list. The main panel displays the documents in the index and you're now ready to try out DQL queries described on this page.
+On the main menu, select **Discover**. In the upper-left corner, select `testindex*` from the **Index patterns** dropdown list. The main panel displays the documents in the index, and you can now try out the DQL queries described on this page.
 
 The [Object fields](#object-fields) and [Nested fields](#nested-fields) sections provide links for additional setup needed to try queries in those sections.
 {: .note}
@@ -134,7 +134,7 @@ To search for a phrase (where search terms are in order), surround your text wit
 ```
 {% include copy.html %}
 
-Hyphens are reserved characters in Lucene, so if your search term contains hyphens, DQL might prompt you to switch to Lucene syntax. To avoid this, surround your search term with quotation marks for a phrase search or omit the hyphen for regular search.
+Hyphens are reserved characters in Lucene, so if your search term contains hyphens, DQL might prompt you to switch to Lucene syntax. To avoid this, surround your search term with quotation marks in a phrase search or omit the hyphen in a regular search.
 {: .tip}
 
 ## Reserved characters
@@ -159,9 +159,9 @@ title: rises wind
 ```
 {% include copy.html %}
 
-The analyzer set up for the field you're searching parses the query text into tokens and matches documents where any of the tokens appear.
+The analyzer for the field you're searching parses the query text into tokens and matches documents in which any of the tokens appear.
 
-DQL ignores white space characters so `title:rises wind` and `title: rises wind` are the same. 
+DQL ignores white space characters, so `title:rises wind` and `title: rises wind` are the same. 
 {: .tip}
 
 Use wildcards to refer to field names containing spaces. For example, `article*title` matches the `article title` field.
@@ -192,21 +192,21 @@ t*le: *wind and rise*
 
 ## Ranges
 
-DQL supports numeric inequalities using the `>`, `<`, `>=`, and `<=` operators, for example: 
+DQL supports numeric inequalities using the `>`, `<`, `>=`, or `<=` operators, for example: 
 
 ```python
 page_views > 100 and page_views <= 300
 ```
 {% include copy.html %}
 
-You can use the range operators on dates. For example, the following query searches for documents with the dates within the 2013--2023 range, inclusive:
+You can use the range operators on dates. For example, the following query searches for documents containing dates within the 2013--2023 range, inclusive:
 
 ```python
 date >= "2013-01-01" and date < "2024-01-01"
 ```
 {% include copy.html %}
 
-You can query for "not equal to" using `not` and the field name, for example: 
+You can query for "not equal to" by using `not` and the field name, for example: 
 
 ```python
 not page_views: 100
@@ -250,7 +250,7 @@ title: windy or historical
 ```
 {% include copy.html %}
 
-To search for documents where the `title` field contains `windy` or `historical`, group the terms in parentheses:
+To search for documents in which the `title` field contains `windy` or `historical`, group the terms in parentheses:
 
 ```python
 title: (windy or historical)
@@ -259,7 +259,7 @@ title: (windy or historical)
 
 The preceding query is equivalent to `title: windy or title: historical`.
 
-To negate a query, use the `not` operator. For example, the following query searches for documents that contain the word `wind` in the `title` field, are not of the `media_type` `article`, and don't contain `epic` in the `description` field:
+To negate a query, use the `not` operator. For example, the following query searches for documents that contain the word `wind` in the `title` field, are not of the `media_type` `article`, and do not contain `epic` in the `description` field:
 
 ```python
 title: wind and not (media_type: article or description: epic)
@@ -325,7 +325,7 @@ patients: {name: john and smoker: true and age < 57}
 
 ## Doubly nested fields 
 
-Consider a document with a doubly nested field. In this document, both `patients` and `names` fields are of type `nested`:
+Consider a document with a doubly nested field. In this document, both the `patients` and `names` fields are of type `nested`:
 
 ```json
 {
@@ -347,7 +347,7 @@ patients: {names: {name: john}}
 ```
 {% include copy.html %}
 
-In contrast, consider a document where the `patients` field is of type `object` but the `names` field is of type `nested`:
+In contrast, consider a document in which the `patients` field is of type `object` but the `names` field is of type `nested`:
 
 ```json
 {
