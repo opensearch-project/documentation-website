@@ -30,6 +30,10 @@
 
 ---
 
+# 1. This should not be flagged
+
+---
+
 # Example: should be flagged
 
 ---
