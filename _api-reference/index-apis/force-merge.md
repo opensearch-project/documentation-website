@@ -15,7 +15,7 @@ The force merge API operation forces a merge on the shards of one or more indexe
 
 In OpenSearch, a shard is a Lucene index, which consists of _segments_ (or segment files). Segments store the indexed data. Periodically, smaller segments are merged into larger ones and the larger segments become immutable. Merging reduces the overall number of segments on each shard and frees up disk space. 
 
-OpenSearch performs background segment merges that produce segments whose size equals to at most `index.merge.policy.max_merged_segment` (the default is 5 GB).
+OpenSearch performs background segment merges that produce segments whose size is at most `index.merge.policy.max_merged_segment` (the default is 5 GB).
 
 ## Deleted documents
 
