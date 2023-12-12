@@ -36,8 +36,8 @@ Parameter | Required/Optional | Description |
 `description`  | Optional  | A brief description of the processor.  |
 `empty_value`  | Optional  | Represents optional parameters that are not required or are not applicable.  |
 `if` | Optional | A condition for running the processor. |
-`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. Default is `false`. |
-`ignore_missing`  | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, failures are ignored. Default is `false`.  | 
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
+`ignore_missing`  | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`.  | 
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `quote`  | Optional  | The character used to quote fields in the CSV data. Default is `"`. |
 `separator`  | Optional  | The delimiter used to separate the fields in the CSV data. Default is `,`.  |
