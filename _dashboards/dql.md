@@ -118,16 +118,16 @@ The [Object fields](#object-fields) and [Nested fields](#nested-fields) sections
 
 ## Search for terms
 
-By default, DQL searches in the default field set on the index. If the default field is not set, DQL searches all fields. For example, the following query searches for the exact text "wind rises":
+By default, DQL searches in the default field set on the index. If the default field is not set, DQL searches all fields. For example, the following query searches for documents that contain the words `rises` or `wind` in any of their fields:
 
 ```python
 rises wind
 ```
 {% include copy.html %}
 
-The preceding query matches documents where any search term appears regardless of the order. By default, DQL combines search terms with an `or`. To learn how to create Boolean expressions containing search terms, see [Boolean operators](#boolean-operators). 
+The preceding query matches documents in which any search term appears regardless of the order. By default, DQL combines search terms with an `or`. To learn how to create Boolean expressions containing search terms, see [Boolean operators](#boolean-operators). 
 
-To search for a phrase (where search terms are in order), surround your text with quotation marks:
+To search for a phrase (where search terms are in order), surround your text with quotation marks. For example, the following query searches for the exact text "wind rises":
 
 ```python
 "wind rises"
@@ -143,7 +143,7 @@ The following is a list of reserved characters in DQL:
 
 `\`, `(`, `)`, `:`, `<`, `>`, `"`, `*`
 
-Use a backslash (`\`) to escape reserved characters. For example, to search for an expression `2*3`, specify the query string: `2\*3`:
+Use a backslash (`\`) to escape reserved characters. For example, to search for an expression `2*3`, specify the query as `2\*3`:
 
 ```plaintext
 2\*3
@@ -179,7 +179,7 @@ Query | Criterion for a document to match | Matching documents from the `testind
 `title.keyword: The wind rises` | The `title.keyword` field exactly matches `The wind rises`. | 1
 `title*: wind` | Any field that starts with `title` (for example, `title` and `title.keyword`) contains the word `wind` | 1, 2
 `article*title: wind` | The field that starts with `article` and ends with `title` contains the word `wind`. Matches the field `article title`. | 4
-`description:*` | Documents in which the field `description` exists. | 1, 2, 3
+`description:*` | Documents in which the field `description` exists. | 1, 2
 
 ## Wildcards
 
@@ -210,6 +210,13 @@ You can query for "not equal to" using `not` and the field name, for example:
 
 ```python
 not page_views: 100
+```
+{% include copy.html %}
+
+Note that the preceding query returns documents where the `page_views` field does not contain `100` and documents where the field is not present. To filter by those documents that contain the field `page_views`, use the following query:
+
+```python
+page_views:* and not page_views: 100
 ```
 {% include copy.html %}
 
