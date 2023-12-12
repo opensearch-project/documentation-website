@@ -1,5 +1,37 @@
 items:
   -
+    label: OpenSearchCon
+    fragments: 
+      - opensearchcon
+      - sessions
+      - speakers
+      - exhibitors
+      - workshops
+      - unconference
+      - opensearchcon2023-cfp
+    children:
+      -
+        label: 2024 - Stay Informed
+        url: /events/opensearchcon/
+      -
+        label: Sessions
+        url: /events/opensearchcon/sessions/
+      -
+        label: Speakers
+        url: /events/opensearchcon/speakers/
+      -
+        label: Exhibitors
+        url: /events/opensearchcon/exhibitors/
+      -
+        label: Workshops
+        url: /events/opensearchcon/workshops/
+      -
+        label: Unconference
+        url: /events/opensearchcon/unconference/
+      -
+        label: CFP is closed
+        url: /opensearchcon2023-cfp.html
+  -
     label: Download
     fragments:
       - downloads
@@ -7,17 +39,19 @@ items:
     url: /downloads.html
   -
     label: About
+    url: /about.html
     fragments:
       - about
       - releases
+      - roadmap
       - faq
     children:
       -
-       label: OpenSearch
-       url: /about.html
-      -
        label: Releases
        url: /releases.html
+      -
+       label: Roadmap
+       url: https://github.com/orgs/opensearch-project/projects/1
       -
        label: FAQ
        url: /faq
@@ -48,3 +82,30 @@ items:
     label: Documentation
     fragment: docs
     url: /docs/
+  -
+    label: Platform
+    url: /platform/index.html
+    fragments: 
+      - platform
+      - search
+      - observability
+      - security-analytics
+      - vector-database
+      - benchmarks
+    children:
+      - label: Search
+        url: /platform/search/index.html
+      - label: Observability
+        url: /platform/observability/index.html
+      -
+        label: Security Analytics
+        url: /platform/security-analytics/index.html
+      -
+        label: Vector Database
+        url: /platform/search/vector-database.html
+      -
+        label: Playground Demo
+        url: https://playground.opensearch.org/
+      -
+        label: Performance Benchmarks
+        url: /benchmarks
