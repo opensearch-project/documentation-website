@@ -9,7 +9,8 @@ nav_order: 60
 
 The `dissect` processor extracts values from an event and maps them to individual fields based on user-defined dissect patterns. The processor is well-suited for field extractions from log messages with a known structure.
 
-## Example
+## Syntax
+
 The following is the syntax for the `dissect` processor:
 
 ```json
@@ -29,13 +30,13 @@ The following table lists the required and optional parameters for the `dissect`
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field to which the data should be dissected. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`dissect_pattern` | Required | The dissect pattern used to extract data from the field specified. |
+`field`  | Required  | The name of the field containing the data to be dissected. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`dissect_pattern` | Required | The dissect pattern used to extract data from the specified field. |
 `append_separator` | Optional | The separator character or string between two or more values. Default is `""` (empty string).
 `description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | A condition for running this processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`ignore_missing`  | Optional  | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
+`if` | Optional | A condition for running the processor. |
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
+`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 
@@ -43,7 +44,7 @@ Parameter | Required/Optional | Description |
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline.**
+**Step 1: Create a pipeline**
 
 The following query creates a pipeline, named `dissect-text`, that uses the `dissect` processor to parse the log line:
 
@@ -63,7 +64,7 @@ PUT /_ingest/pipeline/dissect-test
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**Step 2 (Optional): Test the pipeline**
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -86,7 +87,7 @@ POST _ingest/pipeline/dissect-test/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
+**Response**
 
 The following example response confirms that the pipeline is working as expected:
 
@@ -116,7 +117,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document.**
+**Step 3: Ingest a document**
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -128,7 +129,7 @@ PUT testindex1/_doc/1?pipeline=dissect-test
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document.**
+**Step 4 (Optional): Retrieve the document**
 
 To retrieve the document, run the following query:
 
@@ -186,9 +187,9 @@ The right padding modifier can be used to address this issue. By adding the righ
 
 The right padding modifier is used to allow for the repetition of characters following a `%{keyname->}`. The right padding modifier can be applied to any key along with any other modifiers. It should always be the rightmost modifier, for example, `%{+keyname/1->}`, `%{}`.
 
-#### Example
+#### Example of usage
 
-The following is an example of a right padding modifier and how it is used:
+The following is an example of how to use a right padding modifier:
 
 `%{name->} %{city}, %{state} %{zip}`
 
@@ -207,9 +208,9 @@ Both addresses contain the same information, but the second entry has an extra w
 
 The append modifier combines the values of two or more keys into a single output value. The values are appended from left to right. You can also specify an optional separator to be inserted between the values. 
 
-#### Example
+#### Example of usage
 
-The following pattern extracts the values of `key1` and `key2` fields and appends them together, with a space as the separator:
+The following is an example of how to use the append modifier. In this example, the pattern extracts the values of `key1` and `key2` fields and appends them together, with a space as the separator:
 
 `%{key1} %{key2}`
 
@@ -229,9 +230,9 @@ The output is:
 
 The append with order modifier combines the values of two or more keys into a single output value based on the order specified after the `/`. You have the flexibility to customize the separator that separates the appended values. The append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
 
-#### Example
+#### Example of usage
 
-The `append_separator` parameter must be defined in the processor configuration, outside of the pattern. It is only relevant with the `+` modifier. See the following example pipeline:
+The following example pipeline uses the append with order modifier. Note that the `append_separator` parameter must be defined in the processor configuration, outside of the `pattern`. It is only relevant with the `+` modifier. See the following example pipeline:
 
 ```json
 PUT /_ingest/pipeline/dissect-test
@@ -263,9 +264,9 @@ If you ingest the following example document, you'll get the response `"a":"appl
 
 The named skip key modifier excludes specific matches from the final output by using an empty key `{}` or `?` modifier within the pattern. For example, the following patterns are equivalent: `%{firstName} %{lastName} %{?ignore}` and `%{firstName} %{lastName} %{}`. The named skip key modifier is useful for excluding irrelevant or unnecessary fields from the output, focusing on specific information, or streamlining the output for further processing or analysis. 
 
-#### Example
+#### Example of usage
 
-The following pattern excludes a field (in this case, `ignore`) from the output. You can assign a descriptive name to the empty key, for example, `%{?ignore}`, to clarify that the corresponding value should be excluded from the final result.
+The following pattern uses a named skip key to exclude a field (in this case, `ignore`) from the output. You can assign a descriptive name to the empty key, for example, `%{?ignore}`, to clarify that the corresponding value should be excluded from the final result:
 
 `%{firstName} %{lastName} %{?ignore}`
 
@@ -273,9 +274,9 @@ The following pattern excludes a field (in this case, `ignore`) from the output.
 
 Reference keys use parsed values as key/value pairings for structured content. This can use useful when handling systems that partially log data in key/value pairs. by using reference keys, you can preserve the key/value relationship and maintain the integrity of the extracted information. 
 
-#### Example
+#### Example of usage
 
-The following pattern extracts data into a structured format, with `%{value}` represented the parsed value and `%{reference_key}` acting as placeholder for the actual key:
+The following pattern uses a reference key to extract data into a structured format. In this example, `%{value}` represents the parsed value and `%{reference_key}` acts as the placeholder for the actual key:
 
 `%{value} %{reference_key}`
 
