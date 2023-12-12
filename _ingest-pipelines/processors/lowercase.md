@@ -29,15 +29,15 @@ The following is the syntax for the `lowercase` processor:
 
 The following table lists the required and optional parameters for the `lowercase` processor.
 
-| Name  | Required  | Description  |
+| Parameter  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field that contains the data to be converted. Supports template snippets. |
+`field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not have the specified field. Default is `false`.  |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 `target_field`  | Optional  | The name of the field in which to store the parsed data. Default is `field`. By default, `field` is updated in place. |
 
 ## Using the processor
