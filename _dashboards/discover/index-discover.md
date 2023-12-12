@@ -78,13 +78,9 @@ You'll see a view similar to the one in the following image.
 
 ## Searching the data
 
-You can use the search toolbar or enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) query using the **DevTools** console to search data. While the search toolbar is best for basic queries, such as field name queries, DQL is best for complex queries, such as term, string, Boolean, date, range, or nested queries. DQL provides suggestions for fields and operators as you type, helping you build structured queries.
+You can use the search toolbar to enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. The search toolbar is best for basic queries; for full query and filter capability, use [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/).
 
-To search data, follow these steps:
-
-1. Enter a simple query in the DQL search bar. For example, enter `FlightDelay:true`, which searches for delayed flights.
-2. Select the **Update** button to the right of the search bar.
-3. Enter a more complex query in the DQL search bar, and then select **Update**. For example, enter `FlightDelay:true AND FlightDelayMin >= 60`, which searches the data for flights delayed by 60 minutes or more.
+For more information, see [Discover and Dashboard search toolbar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
 
 ## Filtering the data
 

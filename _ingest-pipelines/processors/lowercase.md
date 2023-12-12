@@ -28,9 +28,9 @@ The following is the syntax for the `lowercase` processor:
 
 The following table lists the required and optional parameters for the `lowercase` processor.
 
-| Parameter  | Required/Optional  | Description  |
+| Parameter  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field that contains the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional |  Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
