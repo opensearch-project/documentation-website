@@ -243,7 +243,7 @@ To dictate the order of evaluation, group Boolean clauses in parentheses. For ex
 ```
 {% include copy.html %}
 
-The field prefix refers to the token that immediately follows the colon. For example, the following query searches for documents where the `title` field contains `windy` or documents that contain the word `historical` in any of their fields:
+The field prefix refers to the token that immediately follows the colon. For example, the following query searches for documents in which the `title` field contains `windy` or documents containing the word `historical` in any of their fields:
 
 ```python
 title: windy or historical
