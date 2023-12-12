@@ -8,8 +8,6 @@ redirect_from:
 ---
 
 # Lowercase processor
-**Introduced 1.0**
-{: .label .label-purple }
 
 The `lowercase` processor converts all the text in a specific field to lowercase letters. 
 
