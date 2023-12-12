@@ -141,7 +141,11 @@ DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 
 ## Creating the pipeline
 
-Once the data source is created, you can create the pipeline. The following is the syntax for the `ip2geo` processor:
+Once the data source is created, you can create the pipeline. 
+
+## Syntax 
+
+The following is the syntax for the `ip2geo` processor:
 
 ```json 
 {
