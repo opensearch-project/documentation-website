@@ -8,15 +8,14 @@ redirect_from:
 ---
  
 # Append processor
-**Introduced 1.0**
-{: .label .label-purple }
 
 The `append` processor is used to add values to a field:
 - If the field is an array, the `append` processor appends the specified values to that array.
 - If the field is a scalar field, the `append` processor converts it to an array and appends the specified values to that array.
 - If the field does not exist, the `append` processor creates an array with the specified values.
 
-### Example
+### Syntax 
+
 The following is the syntax for the `append` processor: 
 
 ```json
@@ -39,7 +38,7 @@ Parameter | Required/Optional | Description |
 `value`  | Required  | The value to be appended. This can be a static value or a dynamic value derived from existing fields. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). | 
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 

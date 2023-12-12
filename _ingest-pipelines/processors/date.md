@@ -11,7 +11,7 @@ redirect_from:
 
 The `date` processor is used to parse dates from document fields and to add the parsed data to a new field. By default, the parsed data is stored in the `@timestamp` field. 
 
-## Example
+## Syntax
 
 The following is the syntax for the `date` processor:
 
@@ -35,7 +35,7 @@ Parameter | Required/Optional | Description |
 `formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`. |

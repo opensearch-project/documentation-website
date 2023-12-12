@@ -11,7 +11,7 @@ redirect_from:
 
 The `bytes` processor converts a human-readable byte value to its equivalent value in bytes. The field can be a scalar or an array. If the field is a scalar, the value is converted and stored in the field. If the field is an array, all values of the array are converted.
 
-### Example
+### Syntax
 
 The following is the syntax for the `bytes` processor: 
 
@@ -33,7 +33,7 @@ Parameter | Required/Optional | Description |
 `field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |

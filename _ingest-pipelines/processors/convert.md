@@ -11,7 +11,7 @@ redirect_from:
 
 The `convert` processor converts a field in a document to a different type, for example, a string to an integer or an integer to a string. For an array field, all values in the array are converted. 
 
-## Example
+## Syntax
 
 The following is the syntax for the `convert` processor: 
 
@@ -35,7 +35,7 @@ Parameter | Required/Optional | Description |
 `type`  | Required  | The type to convert the field value to. The supported types are `integer`, `long`, `float`, `double`, `string`, `boolean`, `ip`, and `auto`. If the `type` is `boolean`, the value is set to `true` if the field value is a string `true` (ignoring case) and to `false` if  the field value is a string `false` (ignoring case). If the value is not one of the allowed values, an error will occur.  |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |

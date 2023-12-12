@@ -11,7 +11,7 @@ redirect_from:
 
 The `csv` processor is used to parse CSVs and store them as individual fields in a document. The processor ignores empty fields. 
 
-## Example
+## Syntax
 
 The following is the syntax for the `csv` processor: 
 
@@ -36,8 +36,8 @@ Parameter | Required/Optional | Description |
 `description`  | Optional  | A brief description of the processor.  |
 `empty_value`  | Optional  | Represents optional parameters that are not required or are not applicable.  |
 `if` | Optional | A condition for running the processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`ignore_missing`  | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.  | 
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. Default is `false`. |
+`ignore_missing`  | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, failures are ignored. Default is `false`.  | 
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `quote`  | Optional  | The character used to quote fields in the CSV data. Default is `"`. |
 `separator`  | Optional  | The delimiter used to separate the fields in the CSV data. Default is `,`.  |
