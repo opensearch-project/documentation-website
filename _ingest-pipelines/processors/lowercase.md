@@ -31,7 +31,7 @@ The following table lists the required and optional parameters for the `lowercas
 
 | Parameter  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field that contains the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
