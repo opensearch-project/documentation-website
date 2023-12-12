@@ -1,20 +1,35 @@
 ---
 layout: default
-title: schedule
+title: test_procedures
 parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference
 nav_order: 100
 ---
 
-# schedule
+# test_procedures
+
+If your workload only defines one benchmarking scenario specify the schedule on top-level. Use the challenge element if you want to specify additional properties like a name or a description. You can think of a challenge as a benchmarking scenario. If you have multiple challenges, you can define an array of challenges.
+
+This section contains one or more challenges which describe the benchmark scenarios for this data set. A challenge can reference all operations that are defined in the operations section.
+
+Parameter | Required | Type | Description
+:--- | :--- | :--- | :---
+`name` | Yes | String | The name of the test procedure. When naming the test procedure, do not use spaces so that the name is easy to enter on the command line.
+`description` | No | String |  A human readable description of the test procedure.
+`user-info` | No | String | A message that is printed at the beginning of the test intended to notify the user about important information related to the test, such as deprecations.
+`default` | No | Boolean | When set to `true`, OpenSearch Benchmark selects this test procedure by default if the user did not specify another `test-procedure` on the command line. If your workload only defines one challenge, it is implicitly selected as default, otherwise you need to define `"default": true` on exactly one challenge.
+[schedule](#schedule) | Yes | Array |  Defines the workload. 
+
+
+## schedule
 
 The schedule element contains a list of a tasks, which are operations supported by OpenSearch Benchmark (OSB), run by the workload during the benchmark test. 
 
-## Usage
+### Usage
 
 The `schedule` element can define tasks in the following ways:
 
-### Using the operations element
+#### Using the operations element
 
 The following example defines a `force-merge` and `match-all` query task using the `operations` element. The `force-merge` operation does not use any parameters, so only the `name` and `operation-type` is needed. `match-all-query` requires a query `body` and `operation-type`. 
 
@@ -53,7 +68,7 @@ Operations defined in the `operations` element can be reused more than once in t
 }
 ```
 
-### Defining operations inline
+#### Defining operations inline
 
 If you don't want reuse an operation in the schedule, you can also define operations inside the `schedule` element, as shown in the following example:
 
@@ -86,7 +101,7 @@ If you don't want reuse an operation in the schedule, you can also define operat
 }
 ```
 
-## Task options
+### Task options
 
 Each task contains the following options.
 
@@ -105,13 +120,13 @@ OpenSearch Benchmark requires one of the following options when running a task.
 `target-interval` | No | Interval | Defines an internal of less 1 / target-throughput (in seconds) less than one operation per second. Define either target-throughput or target-interval but not both (otherwise Rally will raise an error).
 `ignore-response-error-level` | No | Boolean | Controls whether to ignore errors encountered during the task when a benchmark is run with the `on-error=abort` command flag. 
 
-## Parallel tasks
+### Parallel tasks
 
 The `parallel` element runs tasks wrapped inside the element concurrently. 
 
 When running tasks in parallel, each task requires the `client` option to make sure clients inside your benchmark are reserved for that task. Otherwise, when the client option is specified inside the parallel element without a connection to the task, the benchmark will use that number of clients for all tasks.
 
-### Usage
+#### Usage
 
 In the following example, `parallel-task-1` and `parallel-task-2` execute a `bulk` operation concurrently:
 
@@ -146,14 +161,14 @@ In the following example, `parallel-task-1` and `parallel-task-2` execute a `bul
 }
 ```
 
-### Options
+#### Options
 
 The `parallel` element supports all `schedule` parameters, in addition to the following:
 
 `tasks` | Yes | Array | Defines a list of tasks that should be executed concurrently. 
 `completed-by` | No | String | Allows you define the name of one task in the tasks list, or the value `any`. If a specific task name has been provided then as soon as the named task has completed, the whole parallel task structure is considered completed. If the of value `any` is provided, then any task that completes first renders all other tasks specified in parallel structure complete. If this property is not explicitly defined, the parallel task structure is considered completed as soon as the tasks in the element complete.
 
-## Iteration-based options
+### Iteration-based options
 
 Iteration-based options determine the number of times an operation should fun. It can also define the number of iterative runs when tasks are run in [parallel](#parallel-tasks). To configure an iteration-based schedule, use the following options.
 
@@ -163,7 +178,7 @@ Parameter | Required | Type | Description
 `iterations` | No | Integer | Defines a default value for all tasks of the parallel element. Default is `1`.
 `warmup-iterations` | No | Integer | Number of iterations that each client should execute to warmup the benchmark candidate. Warmup iterations will not show up in the measurement results. Default is `0`.
 
-## Time-based options
+### Time-based options
 
 Time-based options determines the duration of time, in seconds, that operations should run for. This is ideal with batch-style operations which may require an additional warmup period, including batch style operations. 
 

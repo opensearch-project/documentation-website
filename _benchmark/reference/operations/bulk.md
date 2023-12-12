@@ -24,7 +24,7 @@ The following example shows a `bulk` operations with a `bulk-size` of 5000 docum
 
 ## Split documents among clients
 
-With multiple `clients`, OpenSearch Benchmark splits each document based on the number of clients set.  This ensures that the bulk index operations are efficiently parallelized but has the drawback that the ingestion is not done in the order of each document. For example, if `clients` is set to `2`, one client indexes the document starting from the beginning, while the other indexes starting from the middle.
+With multiple `clients`, OpenSearch Benchmark splits each document based on the number of clients set. This ensures that the bulk index operations are efficiently parallelized but has the drawback that the ingestion is not done in the order of each document. For example, if `clients` is set to `2`, one client indexes the document starting from the beginning, while the other indexes starting from the middle.
 
 Additionally, if there are multiple documents or corpora, OpenSearch Benchmark tries to index all documents in parallel in two ways:
 
