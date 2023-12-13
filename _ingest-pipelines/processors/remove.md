@@ -31,7 +31,7 @@ The following table lists the required and optional parameters for the `remove` 
 
 | Name  | Required  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field to which the data should be appended. Supports template snippets. |
+`field`  | Required  | The name of the field to which the data should be appended. Supports template snippets. Note that these metadata fields `_index`, `_version` and `_version_type` are not allowed to remove, and `_id` is also not allowed to remove when there's a specified external version for the ingesting document. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
