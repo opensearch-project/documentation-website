@@ -205,7 +205,7 @@ The `delete-index` operation returns the following meta-data.
 
 ## cluster-health
 
-The `cluster-health` operation runs the [Cluster Health API](/api-reference/cluster-apis/cluster-health/), which checks the cluster health status returns the expected status according the parameters set in the `request-params` option. If an unexpected cluster health status is returned, the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when an the health check fails.
+The `cluster-health` operation runs the [Cluster Health API](api-reference/cluster-api/cluster-health/), which checks the cluster health status returns the expected status according the parameters set in the `request-params` option. If an unexpected cluster health status is returned, the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when an the health check fails.
 
 
 ### Usage
