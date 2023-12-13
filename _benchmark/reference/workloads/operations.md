@@ -1,9 +1,9 @@
 ---
 layout: default
 title: operations
-has_children: true
-parent: OpenSearch Benchmark Reference
-nav_order: 100
+parent: Workload reference
+grand_parent: OpenSearch Benchmark Reference
+nav_order: 110
 ---
 
 # operations
@@ -137,7 +137,7 @@ Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `index` | Yes | String | The name of the index.
 `body` | No | Request body | The request body for the Create Index API. For more information, see [Create Index API](/api-reference/index-apis/create-index/)
-`request-params` | No | List of settings | Contains any request parameters allowed by Create Index API. OpenSearch Benchmark will not attempt to serialize the parameters and pass them as is. 
+`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark will not attempt to serialize the parameters and pass them as is. 
 
 ### Meta-data
 
@@ -185,7 +185,7 @@ Use the following options when deleting all indexes indicated in the `indices` s
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `only-if-exists` | No | Boolean | Decides whether an index should only be deleted in the index exists. Default is `true`.
-`request-params` | No | List of settings | Contains any request parameters allowed by Create Index API. OpenSearch Benchmark will not attempt to serialize the parameters and pass them as is. 
+`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark will not attempt to serialize the parameters and pass them as is. 
 
 Use the following options if you want to delete one or more indexes based on pattern indicated in the `index` option:
 
@@ -233,7 +233,7 @@ Use the following options with the `cluster-health` operation.
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `index` | Yes | String | The name of the index or indexes you want to delete. 
-`request-params` | No | List of settings | Contains any request parameters allowed by Cluster Health API. OpenSearch Benchmark will not attempt to serialize the parameters and pass them as is. 
+`request-params` | No | List of settings | Contains any request parameters allowed by the Cluster Health API. OpenSearch Benchmark will not attempt to serialize the parameters and pass them as is. 
 
 ### Meta-data
 
@@ -271,4 +271,53 @@ Parameter | Required | Type | Description
 
 ## search
 
-The `search` operation 
+The `search` operation runs the [Search API](/api-reference/search/), which gives you the ability to run queries in OpenSearch Benchmark indexes.
+
+### Usage
+
+The follow example runs a `match_all` query inside the `search` operation:
+
+```yml
+{
+  "name": "default",
+  "operation-type": "search",
+  "body": {
+    "query": {
+      "match_all": {}
+    }
+  },
+  "request-params": {
+    "_source_include": "some_field",
+    "analyze_wildcard": "false"
+  }
+}
+```
+
+### Options
+
+The `search` operation uses the following options.
+
+Parameter | Required | Type | Description
+:--- | :--- | :--- | :---
+`index` | No | String | The name of the index(es) or data streams that query targets. This options is only needed when the `indices` section contains more than one index. Otherwise, OpenSearch Benchmark automatically derives the index or data stream to use. To query against all indexes in the workload, specify `"index": "_all"`.
+`cache` | No | Boolean | Whether to use the query request cache. OpenSearch Benchmark defines no value. The default depends on the benchmark candidate settings and OpenSearch version.
+`request-params` | No | List of settings | Contains any request parameters allowed by the Search API.
+`body` | Yes | Request body | The query body that indicates which query to use and the query parameters.
+`detailed-results` | No | Boolean | Records more detailed meta-data about queries. When `true`, OpenSearch Benchmark might incur additional overhead to return the detailed results, which can skew measurement results. This option does not work with `scroll` queries.
+`results-per-page` | No | Integer | The number of documents to retrieve per page. This maps to the Search API’s `size` parameter, and can be used for scroll and non-scroll searches. Default is 10.
+
+### Meta-data
+
+The following meta-data is always returned:
+- `weight`:  The “weight” of an operation. Always `1` for regular queries and the number of retrieved pages for scroll queries.
+- `unit`: The unit in which to interpret weight. Always “ops” for regular queries and “pages” for scroll queries.
+- `success`: A Boolean indicating whether the query has succeeded.
+
+If `detailed-results` is set to `true`, the following meta-data is also returned:
+- `hits`: The total number of hits for this query.
+- `hits_relation`: whether hits is accurate (eq) or a lower bound of the actual hit count (gte).
+- `timed_out`: Whether the query has timed out. For scroll queries, this flag is true if the flag was true for any of the queries issued.
+
+    took: Value of the the took property in the query response. For scroll queries, this value is the sum of all took values in query responses.
+
+
