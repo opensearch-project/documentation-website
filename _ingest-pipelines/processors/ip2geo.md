@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/ip2geo/
 ---
 
-# IP2Geo
+# IP2Geo processor
 **Introduced 2.10**
 {: .label .label-purple }
 
@@ -22,15 +22,15 @@ To get started with the `ip2geo` processor, the `opensearch-geospatial` plugin m
 
 ## Cluster settings
 
-The IP2Geo data source and `ip2geo` processor node settings are listed in the following table.
+The IP2Geo data source and `ip2geo` processor node settings are listed in the following table. All settings in this table are dynamic. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 | Key | Description | Default |
 |--------------------|-------------|---------|
-| plugins.geospatial.ip2geo.datasource.endpoint | Default endpoint for creating the data source API. | Defaults to https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json. |
-| plugins.geospatial.ip2geo.datasource.update_interval_in_days | Default update interval for creating the data source API. | Defaults to 3. |
-| plugins.geospatial.ip2geo.datasource.batch_size | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Defaults to 10,000. |
-| plugins.geospatial.ip2geo.processor.cache_size | Maximum number of results that can be cached. There is only one cache used for all IP2Geo processors in each node | Defaults to 1,000. |
-|-------------------|-------------|---------|
+| `plugins.geospatial.ip2geo.datasource.endpoint` | Default endpoint for creating the data source API. | Default is `https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json`. |
+| `plugins.geospatial.ip2geo.datasource.update_interval_in_days` | Default update interval for creating the data source API. | Default is 3. |
+| `plugins.geospatial.ip2geo.datasource.batch_size` | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Default is 10,000. |
+| `plugins.geospatial.ip2geo.processor.cache_size` | Maximum number of results that can be cached. Only one cache is used for all IP2Geo processors in each node. | Default is 1,000. |
+| `plugins.geospatial.ip2geo.timeout` | The amount of time to wait for a response from the endpoint and the cluster. | Defaults to 30 seconds. |
 
 ## Creating the IP2Geo data source
 
@@ -44,7 +44,7 @@ OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country,
 
 If an OpenSearch cluster cannot update a data source from the endpoints within 30 days, the cluster does not add GeoIP data to the documents and instead adds `"error":"ip2geo_data_expired"`.
 
-#### Data source options
+### Data source options
 
 The following table lists the data source options for the `ip2geo` processor.   
 
@@ -66,7 +66,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 
 A `true` response means that the request was successful and that the server was able to process the request. A `false` response indicates that you should check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
 
-#### Sending a GET request
+### Sending a GET request
 
 To get information about one or more IP2Geo data sources, send a GET request:  
 
@@ -113,7 +113,7 @@ You'll receive the following response:
 }
 ```
 
-#### Updating an IP2Geo data source
+### Updating an IP2Geo data source
 
 See the Creating the IP2Geo data source section for a list of endpoints and request field descriptions. 
 
@@ -128,7 +128,7 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 ```
 {% include copy-curl.html %}
 
-#### Deleting the IP2Geo data source
+### Deleting the IP2Geo data source
 
 To delete the IP2Geo data source, you must first delete all processors associated with the data source. Otherwise, the request fails. 
 
@@ -141,7 +141,11 @@ DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 
 ## Creating the pipeline
 
-Once the data source is created, you can create the pipeline. The following is the syntax for the `ip2geo` processor:
+Once the data source is created, you can create the pipeline. 
+
+## Syntax 
+
+The following is the syntax for the `ip2geo` processor:
 
 ```json 
 {
@@ -153,23 +157,23 @@ Once the data source is created, you can create the pipeline. The following is t
 ```
 {% include copy-curl.html %}
 
-#### Configuration parameters
+## Configuration parameters
 
 The following table lists the required and optional parameters for the `ip2geo` processor.
 
-| Name | Required | Default | Description |
+| Parameter | Required/Optional | Description |
 |------|----------|---------|-------------|
-| `datasource` | Required | - | The data source name to use to retrieve geographical information. |
-| `field` | Required | - | The field that contains the IP address for geographical lookup. |
-| `ignore_missing` | Optional | false | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
-| `properties` | Optional |  All fields in `datasource` | The field that controls which properties are added to `target_field` from `datasource`. |
-| `target_field` | Optional | ip2geo | The field that contains the geographical information retrieved from the data source. |
+| `datasource` | Required | The data source name to use to retrieve geographical information. |
+| `field` | Required | The field containing the IP address for geographical lookup. |
+| `ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
+| `properties` | Optional | The field that controls which properties are added to `target_field` from `datasource`. Default is all the fields in `datasource`. |
+| `target_field` | Optional | The field containing the geographical information retrieved from the data source. Default is `ip2geo`. |
 
 ## Using the processor
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline.**
+**Step 1: Create a pipeline**
 
 The following query creates a pipeline, named `my-pipeline`, that converts the IP address to geographical information:
 
@@ -189,7 +193,7 @@ PUT /_ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**Step 2 (Optional): Test the pipeline**
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **NOTE**<br>It is recommended that you test your pipeline before you ingest documents.
 {: .note}
@@ -211,7 +215,7 @@ POST _ingest/pipeline/my-pipeline/_simulate
 }
 ```
 
-#### Response
+**Response**
 
 The following response confirms that the pipeline is working as expected:
 
@@ -240,7 +244,7 @@ The following response confirms that the pipeline is working as expected:
 ```
 {% include copy-curl.html %}
 
-**Step 3: Ingest a document.**
+**Step 3: Ingest a document**
 
 The following query ingests a document into an index named `my-index`:
 
@@ -252,7 +256,7 @@ PUT /my-index/_doc/my-id?pipeline=ip2geo
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document.** 
+**Step 4 (Optional): Retrieve the document** 
 
 To retrieve the document, run the following query:
 

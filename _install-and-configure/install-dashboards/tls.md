@@ -19,7 +19,6 @@ server.ssl.enabled | This setting is for communications between OpenSearch Dashb
 server.ssl.certificate | If `server.ssl.enabled` is true, specify the full path to a valid client certificate for your OpenSearch cluster. You can [generate your own]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
 server.ssl.key | If `server.ssl.enabled` is true, specify the full path (e.g. `/usr/share/opensearch-dashboards-1.0.0/config/my-client-cert-key.pem` to the key for your client certificate. You can [generate your own]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
 server.ssl.certificateAuthorities | This setting adds the SSL certificate authority which issues SSL certificates for the Dashboard's server in a list format. 
-opensearch.ssl.certificateAuthorities | This setting adds the SSL certificate authority for OpenSearch.
 opensearch_security.cookie.secure | If you enable TLS for OpenSearch Dashboards, change this setting to `true`. For HTTP, set it to `false`.
 
 This `opensearch_dashboards.yml` configuration shows OpenSearch and OpenSearch Dashboards running on the same machine with the demo configuration:
