@@ -27,8 +27,6 @@ Each of the three engines used for approximate k-NN search has its own attribute
 
 In general, nmslib outperforms both faiss and Lucene on search. However, to optimize for indexing throughput, faiss is a good option. For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.
 
-Also, the Lucene engine uses a pure Java implementation and does not share any of the limitations that engines using platform-native code experience. However, one exception to this is that the maximum dimension count for the Lucene engine is 1,024, compared with 16,000 for the other engines. Refer to the sample mapping parameters in the following section to see where this is configured.
-
 When considering cluster node sizing, a general approach is to first establish an even distribution of the index across the cluster. However, there are other considerations. To help make these choices, you can refer to the OpenSearch managed service guidance in the section [Sizing domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/sizing-domains.html).
 
 ## Get started with approximate k-NN
@@ -82,7 +80,7 @@ PUT my-knn-index-1
 
 In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) section.
 
-The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the nmslib and faiss engines, as set by the dimension mapping parameter. The maximum dimension count for the Lucene library is 1,024.
+The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the nmslib, faiss and lucene engines, as set by the dimension mapping parameter.
 
 In OpenSearch, codecs handle the storage and retrieval of indexes. The k-NN plugin uses a custom codec to write vector data to native library indexes so that the underlying k-NN search library can read it.
 {: .tip }
