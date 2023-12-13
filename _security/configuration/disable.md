@@ -17,7 +17,6 @@ To disable the OpenSearch Security plugin, add the following line in `opensearch
 plugins.security.disabled: true
 ```
 
-If you disable the Security plugin in `opensearch.yml` (or delete the plugin entirely) and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards plugin. For more information, see [OpenSearch Dashboards remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#remove-plugins).
 
 ## Remove OpenSearch plugin
 
@@ -37,6 +36,8 @@ Disabling or removing the plugin exposes the configuration index for the Securit
 
 
 ## Remove OpenSearch Dashboards plugin
+
+If you disable the Security plugin in `opensearch.yml` (or delete the plugin entirely) and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards plugin. For more information, see [OpenSearch Dashboards remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#remove-plugins).
 
 Refer to the following installation types to remove the OpenSearch Dashboards plugin:
 
@@ -69,7 +70,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 1. Change `OPENSEARCH_HOSTS` or `opensearch.hosts` to `http://` rather than `https://`.
 1. Enter `docker-compose up`.
 
-### Binary 
+### Tarball 
 
 1. Stop the running instance of OpenSearch Dashboards (Ctrl+C).
 
@@ -92,7 +93,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
    ./bin/opensearch-dashboards
    ```
    
-### Service 
+### RPM and Debian 
 
 1. Stop the running instance of OpenSearch Dashboards with the following command: 
 
