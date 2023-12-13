@@ -51,7 +51,7 @@ $max-container: 1440px;
             text-decoration: none;
             text-indent: 100%;
             position: relative;
-            left: min(80px, calc(100% - $header-banner-min-width));
+            left: Min(80px, calc(100% - $header-banner-min-width));
             box-sizing: content-box;
             @media screen and (max-width: 1339px) {
                 left: 0;
