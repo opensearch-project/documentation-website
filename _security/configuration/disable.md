@@ -42,7 +42,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 ### Docker
 
-1. Remove all security plugin related configuration from `opensearch_dashboards.yml` or use the example file and place the file in the same folder as `Dockerfile`.
+1. Remove all security plugin related configuration from `opensearch_dashboards.yml` or use the example file and place the file in the same folder as the `Dockerfile`.
 
    ```yml
    ---
