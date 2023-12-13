@@ -50,7 +50,7 @@ Option | Required | Type | Description
 
 ### topic
 
-Each `topic` configures a single Kafka topic and how to use that Kafka topic.
+The `topic` option configures a single Kafka topic and tells the `kafka` buffer how to use that topic.
 
 
 Option | Required | Type | Description
