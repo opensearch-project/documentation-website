@@ -9,7 +9,7 @@ redirect_from:
 
 # Disabling security
 
-You might want to temporarily disable the Security plugin to make testing or internal usage more straightforward. The Security plugin is actually two plugins: one for OpenSearch and one for OpenSearch Dashboards. You can use the OpenSearch plugin independently, but the OpenSearch Dashboards plugin depends on a secured OpenSearch cluster. 
+You might want to temporarily disable the Security plugin to make testing or internal usage more straightforward. The Security plugin is actually two plugins: one for OpenSearch and one for OpenSearch Dashboards. You can use the OpenSearch plugin independently, but the OpenSearch Dashboards plugin requires a secured OpenSearch cluster. 
 
 To disable the OpenSearch Security plugin, add the following line in `opensearch.yml`:
 
