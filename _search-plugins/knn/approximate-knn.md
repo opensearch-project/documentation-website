@@ -80,7 +80,7 @@ PUT my-knn-index-1
 
 In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) section.
 
-The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the nmslib, faiss and lucene engines, as set by the dimension mapping parameter.
+The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the nmslib, Faiss, and Lucene engines, as set by the dimension mapping parameter.
 
 In OpenSearch, codecs handle the storage and retrieval of indexes. The k-NN plugin uses a custom codec to write vector data to native library indexes so that the underlying k-NN search library can read it.
 {: .tip }
