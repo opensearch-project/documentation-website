@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: corpora
 parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference

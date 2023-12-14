@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: Rust client
 nav_order: 100
 ---

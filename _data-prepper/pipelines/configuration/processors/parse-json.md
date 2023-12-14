@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: parse_json 
 parent: Processors
 grand_parent: Pipelines

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Configuring Data Prepper
 parent: Managing Data Prepper
 nav_order: 5

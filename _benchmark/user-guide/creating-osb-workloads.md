@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Creating OpenSearch Benchmark workloads
 nav_order: 10
 parent: User guide

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: http_source
 parent: Sources
 grand_parent: Pipelines

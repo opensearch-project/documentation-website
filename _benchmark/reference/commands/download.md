@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: download
 nav_order: 60
 parent: Command reference

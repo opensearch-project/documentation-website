@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: stdout sink
 parent: Sinks
 grand_parent: Pipelines

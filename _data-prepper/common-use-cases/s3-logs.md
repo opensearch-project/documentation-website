@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: S3 logs
 parent: Common use cases
 nav_order: 20

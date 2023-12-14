@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Configuring OpenSearch Benchmark
 nav_order: 7
 parent: User guide

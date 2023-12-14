@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Log analytics
 parent: Common use cases
 nav_order: 10

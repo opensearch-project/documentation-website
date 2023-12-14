@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: trace_peer_forwarder
 parent: Processors
 grand_parent: Pipelines

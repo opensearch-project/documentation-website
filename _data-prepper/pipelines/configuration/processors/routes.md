@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: routes
 parent: Processors
 grand_parent: Pipelines

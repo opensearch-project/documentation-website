@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: copy_values 
 parent: Processors
 grand_parent: Pipelines

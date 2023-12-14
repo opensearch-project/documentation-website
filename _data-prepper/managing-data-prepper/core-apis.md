@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Core APIs
 parent: Managing Data Prepper
 nav_order: 15

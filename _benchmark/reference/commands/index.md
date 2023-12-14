@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Command reference
 nav_order: 50
 has_children: true

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: otel_logs_source 
 parent: Sources
 grand_parent: Pipelines

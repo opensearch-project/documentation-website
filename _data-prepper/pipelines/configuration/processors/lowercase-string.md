@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: lowercase_string
 parent: Processors
 grand_parent: Pipelines

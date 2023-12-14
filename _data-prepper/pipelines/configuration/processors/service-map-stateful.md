@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: service_map 
 parent: Processors
 grand_parent: Pipelines

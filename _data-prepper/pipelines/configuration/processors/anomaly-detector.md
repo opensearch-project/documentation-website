@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: anomaly_detector
 parent: Processors
 grand_parent: Pipelines

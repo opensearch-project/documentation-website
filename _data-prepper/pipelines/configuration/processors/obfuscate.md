@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: obfuscate
 parent: Processors
 grand_parent: Pipelines

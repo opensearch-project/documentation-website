@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: .NET client considerations
 nav_order: 20
 has_children: false

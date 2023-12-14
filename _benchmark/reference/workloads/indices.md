@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: indices
 parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference

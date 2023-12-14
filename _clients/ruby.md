@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: Ruby client
 nav_order: 60
 has_children: false

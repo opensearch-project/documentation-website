@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Summary report
 nav_order: 40
 parent: Metrics

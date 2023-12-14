@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: Java client
 nav_order: 30
 ---

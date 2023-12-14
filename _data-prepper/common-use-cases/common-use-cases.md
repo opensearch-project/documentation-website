@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Common use cases
 has_children: true
 nav_order: 15

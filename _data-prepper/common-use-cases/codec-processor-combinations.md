@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Codec processor combinations
 parent: Common use cases
 nav_order: 25

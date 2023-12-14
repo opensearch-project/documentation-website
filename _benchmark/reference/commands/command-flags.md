@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Command flags
 nav_order: 51
 parent: Command reference

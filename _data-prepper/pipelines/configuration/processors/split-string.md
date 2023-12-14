@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: split_string
 parent: Processors
 grand_parent: Pipelines

@@ -57,9 +57,6 @@ layout: table_wrappers
         </a>
       </div>
       <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
-        <div class="version-wrapper">
-          <version-selector selected="{{ site.data.versions.current }}"></version-selector>
-        </div>
         {% assign pages_top_size = site.html_pages
             | where_exp:"item", "item.title != nil"
             | where_exp:"item", "item.parent == nil"
@@ -68,9 +65,9 @@ layout: table_wrappers
         {% if pages_top_size > 0 %}
           {% include nav.html pages=site.html_pages key=nil expanded=true %}
         {% endif %}
-        {% if site.opensearch_collection.collections %}
-          {% assign collections_size = site.opensearch_collection.collections | size %}
-          {% for collection_entry in site.opensearch_collection.collections %}
+        {% if site.data_prepper_collection.collections %}
+          {% assign collections_size = site.data_prepper_collection.collections | size %}
+          {% for collection_entry in site.data_prepper_collection.collections %}
             {% assign collection_key = collection_entry[0] %}
             {% assign collection_value = collection_entry[1] %}
             {% assign collection = site[collection_key] %}

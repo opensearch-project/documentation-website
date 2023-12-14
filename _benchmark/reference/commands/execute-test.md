@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: execute-test
 nav_order: 65
 parent: Command reference

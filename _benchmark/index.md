@@ -1,10 +1,12 @@
 ---
-layout: default
+layout: benchmark
 title: OpenSearch Benchmark
 nav_order: 1
 has_children: false
 nav_exclude: true
 has_toc: false
+redirect_from:
+  - /benchmark/
 ---
 
 # OpenSearch Benchmark

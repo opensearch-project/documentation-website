@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: Language clients
 nav_order: 1
 has_children: false

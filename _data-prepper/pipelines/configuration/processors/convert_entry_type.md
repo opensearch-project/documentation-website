@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: convert_entry_type
 parent: Processors
 grand_parent: Pipelines

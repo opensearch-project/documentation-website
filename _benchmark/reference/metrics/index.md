@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Metrics reference
 nav_order: 25
 has_children: true

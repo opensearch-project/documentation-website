@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Concepts
 nav_order: 3
 parent: User guide

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Processors
 has_children: true
 parent: Pipelines

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Buffers
 parent: Pipelines
 has_children: true

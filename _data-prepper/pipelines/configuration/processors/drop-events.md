@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: drop_events
 parent: Processors
 grand_parent: Pipelines

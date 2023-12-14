@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Workload reference
 nav_order: 60
 parent: OpenSearch Benchmark Reference

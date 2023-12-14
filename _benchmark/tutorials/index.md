@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Tutorials
 nav_order: 10
 has_children: true

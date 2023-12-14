@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: PHP client
 nav_order: 70
 ---

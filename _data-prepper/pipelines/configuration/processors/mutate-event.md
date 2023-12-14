@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Mutate event
 parent: Processors
 grand_parent: Pipelines

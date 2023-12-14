@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: compare
 nav_order: 55
 parent: Command reference

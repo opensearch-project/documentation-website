@@ -57,72 +57,19 @@ layout: table_wrappers
         </a>
       </div>
       <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
-        <div class="version-wrapper">
-          <version-selector selected="{{ site.data.versions.current }}"></version-selector>
-        </div>
-        {% assign pages_top_size = site.html_pages
-            | where_exp:"item", "item.title != nil"
-            | where_exp:"item", "item.parent == nil"
-            | where_exp:"item", "item.nav_exclude != true"
-            | size %}
-        {% if pages_top_size > 0 %}
-          {% include nav.html pages=site.html_pages key=nil expanded=true %}
-        {% endif %}
-        {% if site.opensearch_collection.collections %}
-          {% assign collections_size = site.opensearch_collection.collections | size %}
-          {% for collection_entry in site.opensearch_collection.collections %}
-            {% assign collection_key = collection_entry[0] %}
-            {% assign collection_value = collection_entry[1] %}
-            {% assign collection = site[collection_key] %}
-            {% if collection_value.nav_exclude != true %}
-              {% assign owned_tree_id = collection_key | append: "_" | append: forloop.index | append: "_navitems" | replace: " ", "_" %}
-              {% if collections_size > 1 or pages_top_size > 0 %}
-                {% if collection_value.nav_fold == true %}
-                  <ul
-                    role="tree" 
-                    class="nav-list nav-category-list"
-                  >
-                    <li role="none" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
-                      
-                      {% assign collection_url_path = collection_key | append: "/index/" %}
-                      {% assign category_comparison_url = "/" | append: collection_url_path %}
-                      {%- if collection.size > 0 -%}
-                        <a 
-                          role="treeitem"
-                          aria-owns="{{ owned_tree_id }}"
-                          aria-current="{% if page.collection == collection_key %}page{% endif %}"
-                          href="#" 
-                          class="nav-list-expander"
-                        ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
-                      {%- endif -%}
-                      <a 
-                        role="treeitem"
-                        aria-owns="{{ owned_tree_id }}"
-                        aria-current="{% if page.collection == collection_key %}page{% endif %}"
-                        class="nav-category{% if category_comparison_url == page.url %} active{% endif %}" 
-                        href="{{ collection_url_path | relative_url  }}"
-                      >{{ collection_value.name }}</a>
-                      {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
-                    </li>
-                  </ul>
-                {% else %}
-                  {% assign collection_url_path = collection_key | append: "/index/" %}
-                  <a 
-                    role="treeitem"
-                    aria-owns="{{ owned_tree_id }}"
-                    aria-current="{% if page.collection == collection_key %}page{% endif %}"
-                    class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
-                    href="{{ collection_url_path | relative_url }}"
-                  >{{ collection_value.name }}</a>
-                  {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
-                {% endif %}
-              {% else %}
-                {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
-              {% endif %}
+            {% assign pages_top_size = site.html_pages
+                | where_exp:"item", "item.title != nil"
+                | where_exp:"item", "item.parent == nil"
+                | where_exp:"item", "item.nav_exclude != true"
+                | size %}
+            {% if pages_top_size > 0 %}
+              {% include nav.html pages=site.html_pages key=nil expanded=true %}
             {% endif %}
-          {% endfor %}
-        {% endif %}
-        </nav>
+        <a class="nav-category" href="{{site.url}}{{site.baseurl}}/getting-started/">OpenSearch and OpenSearch Dashboards</a>
+        <a class="nav-category" href="{{site.url}}{{site.baseurl}}/data-prepper/">Data Prepper</a>
+        <a class="nav-category" href="{{site.url}}{{site.baseurl}}/clients/">Clients</a>
+        <a class="nav-category" href="{{site.url}}{{site.baseurl}}/benchmark/">Benchmark</a>
+    </nav>
     </div>
     <div class="main">
       <div id="main-content-wrap" class="main-content-wrap">

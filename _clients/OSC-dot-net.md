@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: Getting started with the high-level .NET client
 nav_order: 10
 has_children: false

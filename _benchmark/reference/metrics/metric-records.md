@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Metric records
 nav_order: 30
 parent: Metrics reference

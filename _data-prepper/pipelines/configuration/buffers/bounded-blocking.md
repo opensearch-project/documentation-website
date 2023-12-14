@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Bounded blocking
 parent: Buffers
 grand_parent: Pipelines

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: kafka
 parent: Sources
 grand_parent: Pipelines

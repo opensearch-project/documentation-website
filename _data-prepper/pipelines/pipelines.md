@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: Pipelines
 has_children: true
 nav_order: 10

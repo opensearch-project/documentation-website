@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: Low-level Python client
 nav_order: 10
 redirect_from: 

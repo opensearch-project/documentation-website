@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: data-prepper
 title: user_agent
 parent: Processors
 grand_parent: Pipelines

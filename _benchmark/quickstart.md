@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: benchmark
 title: Quickstart
 nav_order: 2
 ---

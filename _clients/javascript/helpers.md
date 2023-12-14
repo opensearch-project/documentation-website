@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: Helper methods
 parent: JavaScript client
 nav_order: 2

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: clients
 title: More advanced features of the high-level .NET client
 nav_order: 12
 has_children: false
