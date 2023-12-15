@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Syntax
-parent: PPL &ndash; Piped Processing Language
+parent: PPL
 grand_parent: SQL and PPL
 nav_order: 1
 ---

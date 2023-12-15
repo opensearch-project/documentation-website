@@ -42,11 +42,11 @@ Processor | Description | Earliest available version
 
 A search phase results processor runs between search phases at the coordinating node level. It intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
 
-The following table lists all supported search request processors.
+The following table lists all supported search phase results processors.
 
 Processor | Description | Earliest available version
 :--- | :--- | :---
-[`normalization_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | Intercepts the query phase results and normalizes and combines the document scores before passing the documents to the fetch phase. | 2.10
+[`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) | Intercepts the query phase results and normalizes and combines the document scores before passing the documents to the fetch phase. | 2.10
 
 ## Viewing available processor types
 

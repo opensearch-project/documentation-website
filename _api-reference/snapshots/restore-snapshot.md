@@ -6,7 +6,9 @@ parent: Snapshot APIs
 nav_order: 9
 ---
 
-## Restore Snapshot
+# Restore Snapshot
+**Introduced 1.0**
+{: .label .label-purple }
 
 Restores a snapshot of a cluster or specified data streams and indices. 
 
@@ -17,14 +19,14 @@ Restores a snapshot of a cluster or specified data streams and indices.
 If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. See [Example request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) for information about closing an index.
 {: .note}
 
-### Path parameters
+## Path parameters
 
 | Parameter | Data type | Description |
 :--- | :--- | :---
 repository | String | Repository containing the snapshot to restore. |
 | snapshot | String | Snapshot to restore. |
 
-### Query parameters
+## Query parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
@@ -90,7 +92,7 @@ Upon success, the response returns the following JSON object:
 ````
 Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API to examine the snapshot, a fully populated snapshot object is returned. 
 
-### Response fields
+## Response fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

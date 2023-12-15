@@ -52,7 +52,7 @@ Use the **Rule severity** dropdown list to filter the list of findings by severi
 The **Actions** column includes two options for each finding:
 * The diagonal arrow provides a way to open the [**Finding details**](#finding-details) pane, which describes the finding according to parameters defined when creating the detector and includes the document that generated the finding.
 * The bell icon allows you to open the **Create detector alert trigger** pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions as required.
-For information about setting up alerts, see [Step 4. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-4-set-up-alerts) in the detector creation documentation.
+For information about setting up alerts, see [Step 2. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-2-set-up-alerts) in the detector creation documentation.
 
 ### Finding details
 
@@ -69,7 +69,7 @@ The **Finding details** pane contains specific information about the finding, in
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/findings2.png" alt="popup window prompting users to create an index pattern" width="60%">
 
-1. In the **Create index pattern to view documents** window, the index pattern name is automatically populated. Enter the appropriate time field from the log index used to determine the timing for log events. For information on mapping log fields to detector fields, see [Step 2. Create field mappings]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-2-create-field-mappings). Choose **Create index pattern**. The **Create index pattern to view documents** confirmation window opens.
+1. In the **Create index pattern to view documents** window, the index pattern name is automatically populated. Enter the appropriate time field from the log index used to determine the timing for log events. Choose **Create index pattern**. The **Create index pattern to view documents** confirmation window opens.
 1. Select **View surrounding documents** in the confirmation window. The **Discover** panel opens, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/findings4.png" alt="Discover panel with surrounding documents" width="85%">

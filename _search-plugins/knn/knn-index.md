@@ -2,14 +2,14 @@
 layout: default
 title: k-NN index
 nav_order: 5
-parent: k-NN
+parent: k-NN search
+grand_parent: Search methods
 has_children: false
 ---
 
 # k-NN index
 
-The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors
-into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
+The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
 ## Lucene byte vector
 
@@ -72,7 +72,7 @@ Parameter name | Required | Default | Updatable | Description
 `nprobes` | false | 1 | false | Number of buckets to search during query. Higher values lead to more accurate but slower searches.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
 
-For more information about setting these parameters, please refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
+For more information about setting these parameters, refer to the [Faiss documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
 
 #### IVF training requirements
 
@@ -118,12 +118,13 @@ Lucene HNSW implementation ignores `ef_search`  and dynamically sets it to the v
 You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. faiss has
 several encoder types, but the plugin currently only supports *flat* and *pq* encoding.
 
-An example method definition that specifies an encoder may look something like this:
+The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
 ```json
 "method": {
   "name":"hnsw",
   "engine":"faiss",
+  "space_type": "l2",
   "parameters":{
     "encoder":{
       "name":"pq",
@@ -136,10 +137,63 @@ An example method definition that specifies an encoder may look something like t
 }
 ```
 
+The `hnsw` method supports the `pq` encoder for OpenSearch versions 2.10 and later. The `code_size` parameter of a `pq` encoder with the `hnsw` method must be **8**.
+{: .important}
+
 Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
-`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
+`pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
+
+#### Examples
+
+
+The following example uses the `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+
+```json
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "nlist": 4,
+    "nprobes": 2
+  }
+}
+```
+
+The following example uses the `ivf` method with a `pq` encoder:
+
+```json
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder":{
+      "name":"pq",
+      "parameters":{
+        "code_size": 8,
+        "m": 8
+      }
+    }
+  }
+}
+```
+
+The following example uses the `hnsw` method without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+
+```json
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "ef_construction": 256,
+    "m": 8
+  }
+}
+```
 
 #### PQ parameters
 

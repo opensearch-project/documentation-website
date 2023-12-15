@@ -2,7 +2,8 @@
 layout: default
 title: k-NN search with filters
 nav_order: 20
-parent: k-NN
+parent: k-NN search
+grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -67,7 +68,7 @@ The following flow chart outlines the Lucene algorithm.
 
 ![Lucene algorithm for filtering]({{site.url}}{{site.baseurl}}/images/lucene-algorithm.png)
 
-For more information about the Lucene filtering implementation and the underlying `KnnVectorQuery`, see the [Apache Lucene documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
+For more information about the Lucene filtering implementation and the underlying `KnnVectorQuery`, see the [Apache Lucene documentation](https://lucene.apache.org/core/9_2_0/core/org/apache/lucene/search/KnnVectorQuery.html).
 
 ### Using a Lucene k-NN filter
 

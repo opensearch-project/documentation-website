@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Update document
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want in your index or by including a script in your request body, which OpenSearch runs to update the document.
@@ -92,7 +92,7 @@ You can also use a script to tell OpenSearch how to update your document.
 
 ### Upsert
 
-Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. In the sample below, the `upsert` object updates the last name and adds the `age` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
+Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. In the following example, the `upsert` operation updates the `last name` and adds the `first_name` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
 
 ```json
 {
@@ -143,7 +143,7 @@ Field | Description
 _index | The name of the index.
 _id | The document's ID.
 _version | The document's version.
-_result | The result of the update operation.
+result | The result of the update operation.
 _shards | Detailed information about the cluster's shards.
 total | The total number of shards.
 successful | The number of shards OpenSearch successfully updated the document in.

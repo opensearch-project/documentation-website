@@ -2,7 +2,7 @@
 
 Welcome to the content style guide for the OpenSearch Project. This guide covers the style standards to be observed when creating OpenSearch content and will evolve as we implement best practices and lessons learned in order to best serve the community.
 
-Our content is generally edited in accordance with the _AWS Style Guide_, the [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/), [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html), and [Merriam-Webster](https://www.merriam-webster.com/) (listed in order of precedence); however, we may deviate from these style guides in order to maintain consistency and accommodate the unique needs of the community. This is by no means an exhaustive list of style standards, and we value transparency, so we welcome contributions to our style standards and guidelines. If you have a question regarding our standards or adherence/non-adherence to the style guides or would like to make a contribution, please tag @natebower on GitHub.
+In addition to this guide and [TERMS.md](https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md), our content is generally edited in accordance with the [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/), [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html), and [Merriam-Webster](https://www.merriam-webster.com/) (listed in order of precedence); however, we may deviate from these style guides in order to maintain consistency and accommodate the unique needs of the community. This is by no means an exhaustive list of style standards, and we value transparency, so we welcome contributions to our style standards and guidelines. If you have a question regarding our standards or adherence/non-adherence to the style guides or would like to make a contribution, please tag @natebower on GitHub.
 
 ## Naming conventions, voice, tone, and brand personality traits
 
@@ -123,6 +123,7 @@ The following table lists acronyms that you don't need to spell out.
 | BASIC | Beginner's All-Purpose Symbolic Instruction Code |
 | BM25 | Best Match 25 |
 | CPU | central processing unit |
+| CRUD | create, read, update, and delete |
 | CSV | comma-separated values |
 | DNS | Domain Name System |
 | DOS | disk operating system |

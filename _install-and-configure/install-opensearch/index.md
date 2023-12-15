@@ -77,6 +77,13 @@ vm.max_map_count=262144
 
 Then run `sudo sysctl -p` to reload.
 
+For Windows workloads, you can set the `vm.max_map_count` running the following commands:
+
+```bash
+wsl -d docker-desktop
+sysctl -w vm.max_map_count=262144
+```
+
 The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml) file also contains several key settings:
 
 - `bootstrap.memory_lock=true`
