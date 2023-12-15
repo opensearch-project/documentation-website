@@ -74,7 +74,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 1. Stop the running instance of OpenSearch Dashboards (Ctrl+C).
 
-1. Navigate to the uncompressed OpenSearch Dashboards folder and run the following command to uninstall the secruity plugin. 
+1. Navigate to the uncompressed OpenSearch Dashboards folder and run the following command to uninstall the Security plugin. 
 
    ```bash
    ./bin/opensearch-dashboards-plugin remove securityDashboards
