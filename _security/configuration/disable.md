@@ -24,7 +24,7 @@ A more permanent option is to remove the Security plugin entirely:
 
 1. Delete the `plugins/opensearch-security` folder on all nodes.
 1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
-1. Uninstall the security plugin with the following command.
+1. Uninstall the Security plugin with the following command.
 ```bash
 /usr/share/opensearch/opensearch-plugin remove opensearch-security
 ```
