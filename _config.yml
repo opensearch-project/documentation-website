@@ -5,10 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.8.0'
-opensearch_dashboards_version: '2.8.0'
-opensearch_major_minor_version: '2.8'
-lucene_version: '9_6_0'
+opensearch_version: '2.11.0'
+opensearch_dashboards_version: '2.11.0'
+opensearch_major_minor_version: '2.11'
+lucene_version: '9_7_0'
 
 # Build settings
 markdown: kramdown
@@ -37,7 +37,13 @@ collections:
   im-plugin:
     permalink: /:collection/:path/
     output: true
+  ingest-pipelines:
+    permalink: /:collection/:path/
+    output: true
   dashboards:
+    permalink: /:collection/:path/
+    output: true
+  integrations:
     permalink: /:collection/:path/
     output: true
   tuning-your-cluster:
@@ -64,9 +70,18 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
+  reporting:
+    permalink: /:collection/:path/
+    output: true
+  analyzers:
+    permalink: /:collection/:path/
+    output: true
   query-dsl:
     permalink: /:collection/:path/
     output: true 
+  aggregations:
+    permalink: /:collection/:path/
+    output: true
   field-types:
     permalink: /:collection/:path/
     output: true
@@ -91,6 +106,9 @@ collections:
   external_links:
     permalink: /:collection/:path/
     output: true
+  developer-documentation:
+    permalink: /:collection/:path/
+    output: true
 
 just_the_docs:
   # Define the collections used in the theme
@@ -106,8 +124,14 @@ just_the_docs:
     im-plugin:
       name: Managing Indexes
       nav_fold: true
+    ingest-pipelines:
+      name: Ingest Pipelines
+      nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
+      nav_fold: true
+    integrations:
+      name: OpenSearch Integrations
       nav_fold: true
     tuning-your-cluster:
       name: Creating and tuning your cluster
@@ -121,8 +145,14 @@ just_the_docs:
     field-types:
       name: Mappings and field types
       nav_fold: true
+    analyzers:
+      name: Text analysis
+      nav_fold: true
     query-dsl:
-      name: Query DSL, Aggregations, and Analyzers
+      name: Query DSL
+      nav_fold: true
+    aggregations:
+      name: Aggregations
       nav_fold: true
     search-plugins:
       name: Search 
@@ -135,6 +165,9 @@ just_the_docs:
       nav_fold: true
     observing-your-data:
       name: Observability
+      nav_fold: true
+    reporting:
+      name: Reporting
       nav_fold: true
     clients:
       name: Clients
@@ -153,6 +186,9 @@ just_the_docs:
       nav_fold: true
     troubleshoot:
       name: Troubleshooting
+      nav_fold: true
+    developer-documentation:
+      name: Developer documentation
       nav_fold: true
 
 

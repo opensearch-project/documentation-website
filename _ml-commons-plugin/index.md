@@ -1,34 +1,30 @@
 ---
 layout: default
-title: About ML Commons
+title: Machine learning
 nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
 ---
 
-# ML Commons plugin
+# Machine learning
 
-ML Commons for OpenSearch eases the development of machine learning features by providing a set of common machine learning (ML) algorithms through transport and REST API calls. Those calls choose the right nodes and resources for each ML request and monitors ML tasks to ensure uptime. This allows you to leverage existing open-source ML algorithms and reduce the effort required to develop new ML features.
+The [ML Commons plugin](https://github.com/opensearch-project/ml-commons/) provides machine learning (ML) features in OpenSearch. 
 
-Interaction with the ML Commons plugin occurs through either the [REST API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api) or [`ad`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions#ad) and [`kmeans`]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands.
+## Integrating ML models
 
-Models [trained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#training-the-model) through the ML Commons plugin support model-based algorithms such as k-means. After you've trained a model enough so that it meets your precision requirements, you can apply the model to [predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#predict) new data safely. 
+For ML-model-powered search, you can use a pretrained model provided by OpenSearch, upload your own model to the OpenSearch cluster, or connect to a foundation model hosted on an external platform. In OpenSearch version 2.9 and later, you can integrate local and external models simultaneously within a single cluster.
 
-Should you not want to use a model, you can use the [Train and Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#train-and-predict) API to test your model without having to evaluate the model's performance.
+For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
-# Permissions
+## Managing ML models in OpenSearch Dashboards
 
-The ML Commons plugin has two reserved roles:
+Administrators of ML clusters can use OpenSearch Dashboards to review and manage the status of ML models running inside a cluster. For more information, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/).
 
-- `ml_full_access`: Grants full access to all ML features, including starting new ML tasks and reading or deleting models.
-- `ml_readonly_access`: Grants read-only access to ML tasks, trained models, and statistics relevant to the model's cluster. Does not grant permissions to start or delete ML tasks or models.
+## Support for algorithms
 
-## ML node
+ML Commons supports various algorithms to help train ML models and make predictions or test data-driven predictions without a model. For more information, see [Supported algorithms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/).
 
-To prevent your cluster from failing when running ML tasks, you configure a node with the `ml` node role. When configuring without the `data` node role, ML nodes will not store any shards and will calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
+## ML Commons API
 
-```yml
-node.name: ml-node
-node.roles: [ ml ]
-```
+ML Commons provides its own set of REST APIs. For more information, see [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/index/). 

@@ -1,4 +1,9 @@
-<ul class="nav-list">
+<ul 
+  role="tree" 
+  aria-expanded="{{ include.expanded | default: 'false' }}"
+  class="nav-list"
+{%- if include.owned_tree_id -%}id="{{ include.owned_tree_id }}"{%- endif  -%}
+>
   {%- assign titled_pages = include.pages
         | where_exp:"item", "item.title != nil" -%}
 
@@ -56,32 +61,64 @@
   {%- endfor -%}
 
   {%- assign pages_list = sorted_number_ordered_pages | concat: sorted_string_ordered_pages -%}
-
+  
   {%- for node in pages_list -%}
     {%- if node.parent == nil -%}
       {%- unless node.nav_exclude -%}
-      <li class="nav-list-item{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %} active{% endif %}">
+      {% assign nested_owned_tree_id = include.owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: node.title | append: "_navitems" | replace: " ", "_" %}
+      <li role="none" class="nav-list-item{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %} active{% endif %}">
         {%- if node.has_children -%}
-          <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+          <a
+            role="treeitem"
+            aria-owns="{{ nested_owned_tree_id }}"
+            {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
+            href="#" 
+            class="nav-list-expander"
+          ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
         {%- endif -%}
-        <a href="{{ node.url | absolute_url }}" class="nav-list-link{% if page.url == node.url %} active{% endif %}">{{ node.title }}</a>
+        
+        <a
+          role="treeitem"
+          {%- if node.has_children -%}aria-owns="{{ nested_owned_tree_id }}"{%- endif -%}
+          {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
+          href="{{ node.url | absolute_url }}" 
+          class="nav-list-link{% if page.url == node.url %} active{% endif %}"
+        >{{ node.title }}</a>
         {%- if node.has_children -%}
           {%- assign children_list = pages_list | where: "parent", node.title -%}
-          <ul class="nav-list ">
+          <ul role="tree" class="nav-list" id="{{ nested_owned_tree_id }}">
           {%- for child in children_list -%}
             {%- unless child.nav_exclude -%}
-            <li class="nav-list-item {% if page.url == child.url or page.parent == child.title %} active{% endif %}">
+            <li role="none" class="nav-list-item {% if page.url == child.url or page.parent == child.title %} active{% endif %}">
               {%- if child.has_children -%}
-                <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+                {% assign nested_nested_owned_tree_id = nested_owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: child.title | append: "_navitems" | replace: " ", "_" %}
+                <a
+                  role="treeitem"
+                  aria-owns="{{ nested_nested_owned_tree_id }}"
+                  {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
+                  href="#" 
+                  class="nav-list-expander"
+                ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
               {%- endif -%}
-              <a href="{{ child.url | absolute_url }}" class="nav-list-link{% if page.url == child.url %} active{% endif %}">{{ child.title }}</a>
+              <a
+                role="treeitem"
+                {%- if child.has_children -%}aria-owns="{{ nested_nested_owned_tree_id }}"{%- endif -%}
+                {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
+                href="{{ child.url | absolute_url }}" 
+                class="nav-list-link{% if page.url == child.url %} active{% endif %}"
+              >{{ child.title }}</a>
               {%- if child.has_children -%}
                 {%- assign grand_children_list = pages_list | where: "parent", child.title | where: "grand_parent", node.title -%}
-                <ul class="nav-list">
+                <ul role="tree" class="nav-list" id="{{ nested_nested_owned_tree_id }}">
                 {%- for grand_child in grand_children_list -%}
                   {%- unless grand_child.nav_exclude -%}
-                  <li class="nav-list-item {% if page.url == grand_child.url %} active{% endif %}">
-                    <a href="{{ grand_child.url | absolute_url }}" class="nav-list-link{% if page.url == grand_child.url %} active{% endif %}">{{ grand_child.title }}</a>
+                  <li role="none" class="nav-list-item {% if page.url == grand_child.url %} active{% endif %}">
+                    <a
+                      role="treeitem"
+                      {%- if page.url == grand_child.url -%}aria-current="page"{%- endif -%}
+                      href="{{ grand_child.url | absolute_url }}" 
+                      class="nav-list-link{% if page.url == grand_child.url %} active{% endif %}"
+                    >{{ grand_child.title }}</a>
                   </li>
                   {%- endunless -%}
                 {%- endfor -%}

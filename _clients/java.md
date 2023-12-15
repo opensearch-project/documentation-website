@@ -18,7 +18,13 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.4.0</version>
+  <version>2.8.1</version>
+</dependency>
+
+<dependency>
+  <groupId>org.apache.httpcomponents.client5</groupId>
+  <artifactId>httpclient5</artifactId>
+  <version>5.2.1</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -27,7 +33,8 @@ If you're using Gradle, add the following dependencies to your project:
 
 ```
 dependencies {
-  implementation 'org.opensearch.client:opensearch-java:2.4.0'
+  implementation 'org.opensearch.client:opensearch-java:2.8.1'
+  implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 }
 ```
 {% include copy.html %}
@@ -48,7 +55,7 @@ Alternatively, you can create a Java client by using the `RestClient`-based tran
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.4.0</version>
+  <version>2.6.0</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -57,8 +64,8 @@ If you're using Gradle, add the following dependencies to your project"
 
 ```
 dependencies {
-  implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
-  implementation 'org.opensearch.client:opensearch-java:2.4.0'
+  implementation 'org.opensearch.client:opensearch-rest-client:{{site.opensearch_version}}'
+  implementation 'org.opensearch.client:opensearch-java:2.6.0'
 }
 ```
 {% include copy.html %}
@@ -164,7 +171,7 @@ public class OpenSearchClientExample {
     final ApacheHttpClient5TransportBuilder builder = ApacheHttpClient5TransportBuilder.builder(host);
     builder.setHttpClientConfigCallback(httpClientBuilder -> {
       final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
-        .setSslContext(SSLContextBuilder.create().build())
+        .setSslContext(sslcontext)
         // See https://issues.apache.org/jira/browse/HTTPCLIENT-2219
         .setTlsDetailsFactory(new Factory<SSLEngine, TlsDetails>() {
           @Override
@@ -184,7 +191,7 @@ public class OpenSearchClientExample {
         .setConnectionManager(connectionManager);
     });
 
-    final OpenSearchTransport transport = ApacheHttpClient5TransportBuilder.builder(host).build();
+    final OpenSearchTransport transport = builder.build();
     OpenSearchClient client = new OpenSearchClient(transport);
   }
 }
@@ -247,7 +254,7 @@ OpenSearchClient client = new OpenSearchClient(
     new AwsSdk2Transport(
         httpClient,
         "search-...us-west-2.es.amazonaws.com", // OpenSearch endpoint, without https://
-        "es"
+        "es",
         Region.US_WEST_2, // signing service region
         AwsSdk2TransportOptions.builder().build()
     )
@@ -291,13 +298,12 @@ You can create an index with non-default settings using the following code:
 
 ```java
 String index = "sample-index";
-CreateRequest createIndexRequest = new CreateRequest.Builder().index(index).build();
+CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(index).build();
 client.indices().create(createIndexRequest);
 
 IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
-IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexSettings).build();
-PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
-client.indices().putSettings(putSettingsRequest);
+PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
+client.indices().putSettings(putIndicesSettingsRequest);
 ```
 {% include copy.html %}
 
@@ -338,22 +344,8 @@ client.delete(b -> b.index(index).id("1"));
 The following sample code deletes an index:
 
 ```java
-DeleteRequest deleteRequest = new DeleteRequest.Builder().index(index).build();
-DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
-
-} catch (IOException e){
-    System.out.println(e.toString());
-} finally {
-    try {
-      if (restClient != null) {
-        restClient.close();
-      }
-    } catch (IOException e) {
-        System.out.println(e.toString());
-      }
-    }
-  }
-}
+DeleteIndexRequest deleteIndexRequest = new DeleteRequest.Builder().index(index).build();
+DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
 ```
 {% include copy.html %}
 
@@ -386,54 +378,53 @@ public class OpenSearchClientExample {
   public static void main(String[] args) {
     RestClient restClient = null;
     try{
-    System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
-    System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
+      System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
+      System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
 
-    //Only for demo purposes. Don't specify your credentials in code.
-    final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-    credentialsProvider.setCredentials(AuthScope.ANY,
-      new UsernamePasswordCredentials("admin", "admin"));
+      //Only for demo purposes. Don't specify your credentials in code.
+      final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+      credentialsProvider.setCredentials(AuthScope.ANY,
+        new UsernamePasswordCredentials("admin", "admin"));
 
-    //Initialize the client with SSL and TLS enabled
-    restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
-      setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
-        @Override
-        public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
-        return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-        }
-      }).build();
-    Transport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
-    OpenSearchClient client = new OpenSearchClient(transport);
+      //Initialize the client with SSL and TLS enabled
+      restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
+        setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+          @Override
+          public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
+          return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+          }
+        }).build();
+      Transport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+      OpenSearchClient client = new OpenSearchClient(transport);
 
-    //Create the index
-    String index = "sample-index";
-    CreateRequest createIndexRequest = new CreateRequest.Builder().index(index).build();
-    client.indices().create(createIndexRequest);
+      //Create the index
+      String index = "sample-index";
+      CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(index).build();
+      client.indices().create(createIndexRequest);
 
-    //Add some settings to the index
-    IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
-    IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexSettings).build();
-    PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
-    client.indices().putSettings(putSettingsRequest);
+      //Add some settings to the index
+      IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
+      IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexSettings).build();
+      PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
+      client.indices().putSettings(putSettingsRequest);
 
-    //Index some data
-    IndexData indexData = new IndexData("first_name", "Bruce");
-    IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
-    client.index(indexRequest);
+      //Index some data
+      IndexData indexData = new IndexData("first_name", "Bruce");
+      IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
+      client.index(indexRequest);
 
-    //Search for the document
-    SearchResponse<IndexData> searchResponse = client.search(s -> s.index(index), IndexData.class);
-    for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
-      System.out.println(searchResponse.hits().hits().get(i).source());
-    }
+      //Search for the document
+      SearchResponse<IndexData> searchResponse = client.search(s -> s.index(index), IndexData.class);
+      for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
+        System.out.println(searchResponse.hits().hits().get(i).source());
+      }
 
-    //Delete the document
-    client.delete(b -> b.index(index).id("1"));
+      //Delete the document
+      client.delete(b -> b.index(index).id("1"));
 
-    // Delete the index
-    DeleteRequest deleteRequest = new DeleteRequest.Builder().index(index).build();
-    DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
-
+      // Delete the index
+      DeleteIndexRequest deleteIndexRequest = new DeleteRequest.Builder().index(index).build();
+      DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
     } catch (IOException e){
       System.out.println(e.toString());
     } finally {

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Rollover
-parent: Index management in Dashboards
+parent: Index Management
 nav_order: 40
 redirect_from:
   - /dashboards/admin-ui-index/rollover/

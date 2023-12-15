@@ -18,14 +18,14 @@ The searchable snapshot feature incorporates techniques like caching frequently 
 
 To configure the searchable snapshots feature, create a node in your opensearch.yml file and define the node role as `search`:
 
-    ```bash
-    node.name: snapshots-node
-    node.roles: [ search ]
-    ```
+```yaml
+node.name: snapshots-node
+node.roles: [ search ]
+```
 
 If you're running Docker, you can create a node with the `search` node role by adding the line `- node.roles=search` to your `docker-compose.yml` file:
 
-```bash
+```yaml
 version: '3'
 services:
   opensearch-node1:

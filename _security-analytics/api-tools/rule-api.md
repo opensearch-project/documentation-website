@@ -9,9 +9,10 @@ nav_order: 40
 
 The following APIs can be used for a number of tasks related to rules, from searching for pre-packaged rules to creating and updating custom rules.
 
+---
 ## Create Custom Rule
 
-The Create custom rule API uses Sigma security rule formatting to create a custom rule. For information on how to write a rule in Sigma format, see information provided at [Sigma's GitHub repository](https://github.com/SigmaHQ/sigma).
+The Create Custom Rule API uses Sigma security rule formatting to create a custom rule. For information about how to write a rule in Sigma format, see information provided at [Sigma's GitHub repository](https://github.com/SigmaHQ/sigma).
 
 ```json
 POST /_plugins/_security_analytics/rules?category=windows

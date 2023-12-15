@@ -64,7 +64,7 @@ When you run the `rename_keys` processor, it parses the message into the followi
 
 ## Special considerations
 
-Renaming operations occur in the order that the key-value pair entries are listed in the `pipeline.yaml` file. This means that chaining (where key-value pairs are renamed in sequence) is implicit in the `rename_keys` processor. See the following example `pipline.yaml` file:
+Renaming operations occur in the order that the key-value pair entries are listed in the `pipeline.yaml` file. This means that chaining (where key-value pairs are renamed in sequence) is implicit in the `rename_keys` processor. See the following example `pipeline.yaml` file:
 
 ```yaml
 pipeline:

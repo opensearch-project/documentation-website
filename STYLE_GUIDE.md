@@ -2,7 +2,7 @@
 
 Welcome to the content style guide for the OpenSearch Project. This guide covers the style standards to be observed when creating OpenSearch content and will evolve as we implement best practices and lessons learned in order to best serve the community.
 
-Our content is generally edited in accordance with the _AWS Style Guide_, the [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/), [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html), and [Merriam-Webster](https://www.merriam-webster.com/) (listed in order of precedence); however, we may deviate from these style guides in order to maintain consistency and accommodate the unique needs of the community. This is by no means an exhaustive list of style standards, and we value transparency, so we welcome contributions to our style standards and guidelines. If you have a question regarding our standards or adherence/non-adherence to the style guides or would like to make a contribution, please tag @natebower on GitHub.
+In addition to this guide and [TERMS.md](https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md), our content is generally edited in accordance with the [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/), [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html), and [Merriam-Webster](https://www.merriam-webster.com/) (listed in order of precedence); however, we may deviate from these style guides in order to maintain consistency and accommodate the unique needs of the community. This is by no means an exhaustive list of style standards, and we value transparency, so we welcome contributions to our style standards and guidelines. If you have a question regarding our standards or adherence/non-adherence to the style guides or would like to make a contribution, please tag @natebower on GitHub.
 
 ## Naming conventions, voice, tone, and brand personality traits
 
@@ -14,9 +14,12 @@ The following naming conventions should be observed in OpenSearch Project conten
 
 * Capitalize both words when referring to the *OpenSearch Project*.
 * *OpenSearch* is the name for the distributed search and analytics engine used by Amazon OpenSearch Service.
-* Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch. Use the full name *Amazon OpenSearch Service* on first appearance. The abbreviated service name, *OpenSearch Service*, can be used for subsequent appearances. 
-* OpenSearch Dashboards is the UI for OpenSearch. On first appearance, use the full name *OpenSearch Dashboards*. *Dashboards* can be used for subsequent appearances. 
-* Refer to OpenSearch Project customers as *users*, and refer to the larger group of users as *the community*.
+* Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch. Use the full name *Amazon OpenSearch Service* on first appearance. The abbreviated service name, *OpenSearch Service*, can be used for subsequent appearances.
+* Amazon OpenSearch Serverless is an on-demand serverless configuration for Amazon OpenSearch Service. Use the full name *Amazon OpenSearch Serverless* on first appearance. The abbreviated service name, *OpenSearch Serverless*, can be used for subsequent appearances. 
+* OpenSearch Dashboards is the UI for OpenSearch. On first appearance, use the full name *OpenSearch Dashboards*. *Dashboards* can be used for subsequent appearances.
+* *Security Analytics* is a security information and event management (SIEM) solution for OpenSearch. Capitalize both words when referring to the name of the solution.
+* Observability is collection of plugins and applications that let you visualize data-driven events by using Piped Processing Language (PPL). Capitalize *Observability* when referring to the name of the solution.
+* Refer to OpenSearch Project customers as *users*, and refer to the larger group of users as *the community*. Do not refer to the OpenSearch Project or to the AWS personnel working on the project as a *team*, as this implies differentiation within the community.
 
 #### Product names
 
@@ -43,7 +46,7 @@ Use lowercase when referring to features, unless you are referring to a formally
 * “*Remote-backed storage* is an experimental feature. Therefore, we do not recommend the use of *remote-backed storage* in a production environment.”
 * “You can take and restore *snapshots* using the snapshot API.”
 * “You can use the *VisBuilder* visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture.” (You can refer to VisBuilder alone or qualify the term with “visualization type”.)
-* “As of OpenSearch 2.4, the *model-serving framework* only supports text embedding models without GPU acceleration.”
+* “As of OpenSearch 2.4, the *ML framework* only supports text-embedding models without GPU acceleration.”
 
 #### Plugin names
 
@@ -62,7 +65,7 @@ The voice of the OpenSearch Project is people oriented and focused on empowering
 
 Whenever possible, use the active voice instead of the passive voice. The passive form is typically wordier and can often cause writers to obscure the details of the action. For example, change the agentless passive _it is recommended_ to the more direct _we recommend_.
 
-Refer to the reader as _you_ (second person), and refer to the OpenSearch Project as _we_ (first person). If there are multiple authors for a blog post, you can use _we_ to refer to the authors as individuals.
+Refer to the reader as _you_ (second person), and refer to the OpenSearch Project as _we_ (first person). If there are multiple authors for a blog post, you can use _we_ to refer to the authors as individuals. Do not refer to the OpenSearch Project or to the AWS personnel working on the project as a *team*, as this implies differentiation within the community.
 
 Describe the actions that the user takes, rather than contextualizing from the feature perspective. For example, use phrases such as “With this feature, you can...” or “Use this feature to...” instead of saying a feature *allows*, *enables*, or *lets* the user do something.
 
@@ -120,6 +123,9 @@ The following table lists acronyms that you don't need to spell out.
 | BASIC | Beginner's All-Purpose Symbolic Instruction Code |
 | BM25 | Best Match 25 |
 | CPU | central processing unit |
+| CRUD | create, read, update, and delete |
+| CSV | comma-separated values |
+| DNS | Domain Name System |
 | DOS | disk operating system |
 | FAQ | frequently asked questions |
 | FTP | File Transfer Protocol |
@@ -153,6 +159,70 @@ The following table lists acronyms that you don't need to spell out.
 | UTF | Unicode Transformation Format |
 | XML | Extensible Markup Language |
 | YAML | YAML Ain't Markup Language |
+
+### Code examples
+
+Calling out code within a sentence or code block makes it clear to readers which items are code specific. The following is general guidance about using code examples and when to use `code font`:
+
+* In Markdown, use single backticks (`` ` ``) for inline code formatting and triple backticks (```` ``` ````) for code blocks. For example, writing `` `discovery.type` `` in Markdown will render as `discovery.type`. A line containing three backticks should be included both before and after an example code block.
+* In sentences, use code font for things relating to code, for example, “The `from` and `size` parameters are stateless, so the results are based on the latest available data.” 
+* Use lead-in sentences to clarify the example. Exception: API examples, for which a caption-style lead-in (heading 4) is sufficient. 
+* Use the phrase *such as* for brief examples within a sentence.
+* Use language-specific indentation in code examples.
+* Make code blocks as copy-and-paste friendly as possible. Use either the [`copy` or `copy-curl` buttons](https://github.com/opensearch-project/documentation-website/blob/main/FORMATTING_GUIDE.md#buttons).
+
+#### Code formatting checklist
+
+The following items should be in `code font`:
+
+* Field names, variables (including environment variables), and settings (`discovery.type`, `@timestamp`, `PATH`). Use code font for variable and setting values if it improves readability (`false`, `1h`, `5`, or 5).
+* Placeholder variables. Use angle brackets for placeholder variables (`docker exec -it <container-id> /bin/bash`).
+* Commands, command-line utilities, and options (`docker container ls -a`, `curl`, `-v`).
+* File names, file paths, and directory names (`docker-compose.yml`, `/var/www/simplesamlphp/config/`).
+* URLs and URL components (`localhost`, `http://localhost:5601`).
+* Index names (`logs-000001`, `.opendistro-ism-config`), endpoints (`_cluster/settings`), and query parameters (`timeout`).
+* Language keywords (`if`, `for`, `SELECT`, `AND`, `FROM`).
+* Operators and symbols (`/`, `<`, `*`).
+* Regular expression, date, or other patterns (`^.*-\d+$`, `yyyy-MM-dd`).
+* Class names (`SettingsModule`) and interface names (*`RestHandler`*). Use italics for interface names.
+* Text field inputs (Enter the password `admin`).
+* Email addresses (`example@example.org`).
+
+#### Caption-style examples
+
+If you use a caption-style example, use the heading **Example**, with a colon, as appropriate. The following are caption-style examples:
+
+   **Example: Retrieve a specified document from an index**
+
+   The following example shows a request that retrieves a specific document and its information from an index:
+
+   `GET sample-index1/_doc/1`
+
+   **Example request**
+
+   `GET sample-index1/_doc/1` 
+
+Sometimes, you might not want to break up the flow of the text with a new heading. In these cases, you can use an example with no heading.
+
+   The following command maps ports 9200 and 9600, sets the discovery type to single-node, and requests the newest image of OpenSearch:
+
+   `docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest`
+
+#### Lead-in sentences
+
+When using lead-in sentences, summarize, clarify, or refer to the example that follows. A lead-in sentence is a complete sentence that ends in a colon.  
+
+   For example, the following query requests statistics for `docs` and `search`:
+
+   `GET _nodes/stats/indices/docs,search`
+
+#### Referring to a variable or placeholder
+
+When introducing a code or command line example that refers to a variable or placeholder in the example, be direct by including the variable or placeholder name in the text. Surround the variable or placeholder name with angle brackets (`<` and `>`), for example, `<port>`. Don't refer to the variable or placeholder by its color or format because these can change. If variable or placeholder texts have a lot in common and there are several for the user to complete, be direct by including a “template” for the input in the replaceable text.
+
+   In the following example, replace `<component-x>` with your own information:
+
+   `~/workspace/project-name$ eb init --modules <component-a> <component-b>`
 
 ### Formatting and organization
 
@@ -245,10 +315,10 @@ We follow a slightly modified version of the _Microsoft Writing Style Guide_ gui
 | **Close** | - Apps and programs <br> - Dialog boxes <br> - Files and folders <br> - Notifications and alerts <br> - Tabs <br> - The action a program or app takes when it encounters a problem and can't continue. (Don't confuse with _stop responding_). | - Close the Alarms app. <br> - Close Excel. <br> - Save and close the document. <br> - Closing Excel also closes all open worksheets. |
 | **Leave** | Websites and webpages | Select **Submit** to complete the survey and leave this page. |
 | **Go to** | - Opening a menu. <br> - Going to a tab or another particular place in the UI. <br> - Going to a website or webpage. <br> - It's ok to use _On the **XXX** tab_ if the instruction is brief and continues immediately. | - Go to Search, enter the word **settings**, and then select **Settings**. <br> - Go to **File**, and then select **Close**. <br> - On the ribbon, go to the **Design** tab. <br> - Go to the **Deploy** tab. in the **Configuration** list ... <br> - On the **Deploy** tab, in the **Configuration** list ... <br> - Go to Example.com to register. |
-| **Select** | Instructing the user to select a specific item, including: <br> - Selecting an option, such as a button. <br> - Selecting a check box. <br> - Selecting a value from a list box. <br> - Selecting link text to go to a link. <br> - Selecting an item on a menu or shortcut menu. <br> - Selecting an item from a gallery. | - Select the **Modify** button. <br> - For **Alignment**, select **Left**. <br> - Select the text, open the shortcut menu, and then select **Font**. <br> - Select **Open in new tab**. <br> - Select the **LinkName** link. |
+| **Select** | Instructing the user to select a specific item, including: <br> - Selecting an option, such as a button. <br> - Selecting a checkbox. <br> - Selecting a value from a list box. <br> - Selecting link text to go to a link. <br> - Selecting an item on a menu or shortcut menu. <br> - Selecting an item from a gallery. | - Select the **Modify** button. <br> - For **Alignment**, select **Left**. <br> - Select the text, open the shortcut menu, and then select **Font**. <br> - Select **Open in new tab**. <br> - Select the **LinkName** link. |
 | **Select and hold, select and hold (or right-click)** | Use to describe pressing and holding an element in the UI. It's OK to use _right-click_ with _select and hold_ when the instruction isn't specific to touch devices. | - To flag a message that you want to deal with later, select and hold it, and then select **Set flag**. <br> - Select and hold (or right-click) the Windows taskbar, and then select **Cascade windows**. <br> - Select and hold (or right-click) the **Start** button, and then select **Device Manager**. |
 | **>** | Use a greater-than symbol (>) to separate sequential steps. <br> Only use this approach when there's a clear and obvious path through the UI and the selection method is the same for each step. For example, don't mix things that require opening, selecting, and choosing. <br> Don't bold the greater-than symbol. Include a space before and after the symbol. | Select **Accounts** > **Other accounts** > **Add an account**. |
-| **Clear** | Clearing the selection from a check box. | Clear the **Header row** checkbox. | 
+| **Clear** | Clearing the selection from a checkbox. | Clear the **Header row** checkbox. | 
 | **Choose** | Choosing an option, based on the customer's preference or desired outcome. | On the **Font** tab, choose the effects you want. |
 | **Switch, turn on, turn off** | Turning a toggle key or toggle switch on or off. | - Use the **Caps lock** key to switch from typing capital letter to typing lowercase letters. <br> - To keep all applied filters, turn on the **Pass all filters** toggle. |
 | **Enter** | Instructing the customer to type or otherwise insert a value, or to type or select a value in a combo box. | - In the search box, enter... <br> - In the **Tab stop position** box, enter the location where you want to set the new tab. <br> - In the **Deployment script name** box, enter a name for this script. |
@@ -257,6 +327,8 @@ We follow a slightly modified version of the _Microsoft Writing Style Guide_ gui
 | **Zoom, zoom in, zoom out** | Use _zoom_, _zoom in_, and _zoom out_ to refer to changing the magnification of the screen or window. | - Zoom in to see more details on the map. <br> - Zoom out to see a larger geographic area on the map. <br> - Zoom in or out to see more or less detail. |
 
 ### Punctuation and capitalization
+
+- Use only one space after a period.
 
 - Use contractions carefully for a more casual tone. Use common contractions. Avoid future tense (I’ll), archaic (‘twas), colloquial (ain’t), or compound (couldn’t’ve) contractions.
 
@@ -348,7 +420,7 @@ Follow these basic guidelines when writing UI text.
 * Keep it short. Users don’t want to read dense text. Remember that UI text can expand by 30% when it’s translated into other languages.
 * Keep it simple. Try to use simple sentences (one subject, one verb, one main clause and idea) rather than compound or complex sentences.
 * Prefer active voice over passive voice. For example, "You can attach up to 10 policies" is active voice, and "Up to 10 policies can be attached" is passive voice.
-* Use device-agnostic language rather than mouse-specific language. For example, use _choose_ instead of _click_ (exception: use _select_ for check boxes).
+* Use device-agnostic language rather than mouse-specific language. For example, use _choose_ instead of _click_ (exception: use _select_ for checkboxes).
 
 ##### Tone
 
@@ -415,8 +487,6 @@ The following terms may be associated with unconscious racial bias, violence, or
 | abort          | Don't use because it has unpleasant associations and is unnecessarily harsh sounding. Use *stop*, *end*, or *cancel* instead.                    |
 | black day      | blocked day                 |
 | blacklist      | deny list                   |
-| execute        | Replace with a more specific verb. In the sense of carrying out an action, use *run*, *process*, or *apply*. In the sense of initiating an operation, use *start*, *launch*, or *initiate*.<br><br> Exception: *Execution* is unavoidable for third-party terms for which no alternative was determined, such as SQL execution plans. *Executable* is also unavoidable.                              |
-| hang           | Don't use. This term is unnecessarily violent for technical documentation. Use *stop responding* instead.                                       |
 | kill           | Don't use. Replace with *stop*, *end*, *clear*, *remove*, or *cancel*. <br><br> Exception: *Kill* is unavoidable when referring to Linux kill commands. |
 | master         | primary, main, leader       |
 | master account | management account          |
@@ -432,11 +502,7 @@ The following terms may be problematic *in some contexts*. This doesn’t mean t
 |--------------------------|-------------------------------------|
 | blackout                 | service outage, blocked             |
 | demilitarized zone (DMZ) | perimeter network, perimeter zone   |
-| invalid                  | not valid                           |
 | primitive                | Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*. |
-| purge                    | Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.                                                |
-| segregate                | separate, isolate                   |
-| trigger                  | Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*. |
 
 ## Trademark policy
 

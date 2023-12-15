@@ -128,4 +128,5 @@ The following sample shows the RBAC roles specified by the RBAC parameter:
 }
 ```
 
-To see a full request sample, see [Create a monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#create-a-query-level-monitor).
+To see a full request sample, see [Create a query-level monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#create-a-query-level-monitor).
+

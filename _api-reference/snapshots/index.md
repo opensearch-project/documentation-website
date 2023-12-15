@@ -9,5 +9,7 @@ redirect_from:
 ---
 
 # Snapshot APIs
+**Introduced 1.0**
+{: .label .label-purple }
 
 The snapshot APIs allow you to manage snapshots and snapshot repositories.
