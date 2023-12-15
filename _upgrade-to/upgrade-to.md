@@ -87,7 +87,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    # Elasticsearch OSS
    curl -XGET 'localhost:9200/_nodes/_all?pretty=true'
    # Open Distro for Elasticsearch with Security plugin enabled
-   curl -XGET 'https://localhost:9200/_nodes/_all?pretty=true' -u 'admin:admin' -k
+   curl -XGET 'https://localhost:9200/_nodes/_all?pretty=true' -u 'admin:< Admin password >' -k
    ```
 
    Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indexes.
@@ -169,7 +169,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    # Security plugin disabled
    curl -XGET 'localhost:9200/_nodes/_all?pretty=true'
    # Security plugin enabled
-   curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_nodes/_all?pretty=true'
+   curl -XGET -k -u 'admin:< Admin password >' 'https://localhost:9200/_nodes/_all?pretty=true'
    ```
 
    Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indexes.

@@ -76,7 +76,7 @@ node-0.example.com  | [2020-11-19T16:29:55,267][INFO ][o.e.c.m.MetadataMappingSe
 In a new terminal window, run the following command to see one of the raw documents in the OpenSearch cluster:
 
 ```bash
-curl -X GET -u 'admin:admin' -k 'https://localhost:9200/otel-v1-apm-span-000001/_search?pretty&size=1'
+curl -X GET -u 'admin:< Admin password >' -k 'https://localhost:9200/otel-v1-apm-span-000001/_search?pretty&size=1'
 ```
 
 Navigate to `http://localhost:5601` in a web browser and choose **Trace Analytics**. You can see the results of your single click in the Jaeger HotROD web interface: the number of traces per API and HTTP method, latency trends, a color-coded map of the service architecture, and a list of trace IDs that you can use to drill down on individual operations.

@@ -32,7 +32,7 @@ In addition, verify and add the distinguished names (DNs) of each follower clust
 First, get the node's DN from each follower cluster:
 
   ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_opendistro/_security/api/ssl/certs?pretty'
+curl -XGET -k -u 'admin:< Admin password >' 'https://localhost:9200/_opendistro/_security/api/ssl/certs?pretty'
 
 {
    "transport_certificates_list": [

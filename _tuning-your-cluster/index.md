@@ -175,7 +175,7 @@ less /var/log/opensearch/opensearch-cluster.log
 Perform the following `_cat` query on any node to see all the nodes formed as a cluster:
 
 ```bash
-curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:admin' --insecure
+curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:< Admin password >' --insecure
 ```
 
 ```

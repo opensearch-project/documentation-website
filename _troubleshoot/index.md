@@ -28,7 +28,7 @@ If you run legacy Kibana OSS scripts against OpenSearch Dashboards---for example
 In this case, your scripts likely include the `"kbn-xsrf: true"` header. Switch it to the `osd-xsrf: true` header:
 
 ```
-curl -XPOST -u 'admin:admin' 'https://DASHBOARDS_ENDPOINT/api/saved_objects/_import' -H 'osd-xsrf:true' --form file=@export.ndjson
+curl -XPOST -u 'admin:< Admin password >' 'https://DASHBOARDS_ENDPOINT/api/saved_objects/_import' -H 'osd-xsrf:true' --form file=@export.ndjson
 ```
 
 
