@@ -72,9 +72,9 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 ### Tarball 
 
-1. Stop the running instance of OpenSearch Dashboards (Ctrl+C).
+1. Navigate to /bin directory in your OpenSearch Dashboards installation folder and stop the running OpenSearch Dashboards instance by pressing Ctrl + C.
 
-1. Navigate to the uncompressed OpenSearch Dashboards folder and run the following command to uninstall the Security plugin. 
+1. Run the following command to uninstall the Security plugin. 
 
    ```bash
    ./bin/opensearch-dashboards-plugin remove securityDashboards
