@@ -76,6 +76,7 @@ When using segment replication, consider the following:
 1. Integration with remote-backed storage as the source of replication is [currently not supported](https://github.com/opensearch-project/OpenSearch/issues/4448). 
 1. Read-after-write guarantees: The `wait_until` refresh policy is not compatible with segment replication. If you use the `wait_until` refresh policy while ingesting documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. We are exploring other mechanisms for providing read-after-write guarantees. For more information, see the corresponding [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6046).  
 1. System indexes will continue to use document replication internally until read-after-write guarantees are available. In this case, document replication does not hinder the overall performance because there are few system indexes.
+1. Custom codecs do not work on 2.7.0 OpenSearch version for segment-enabled indices. For more information, see [Issue #7781](https://github.com/opensearch-project/OpenSearch/issues/7781)
 
 ## Benchmarks
 
