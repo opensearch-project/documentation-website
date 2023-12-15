@@ -12,12 +12,12 @@ grand_parent: Search pipelines
 The `truncate_hits` response processor discards returned search hits after a given hit count. The `truncate_hits` processor  is designed to work together with the 
 [`oversample` request processor]({{site.url}}{{site.baseurl}}/search-plugins/oversample-processor/), but may be used on its own.
 
-The `target_size` parameter (to specify where to truncate) is optional. If it is not specified, then we'll use the `original_size` variable set by the
+The `target_size` parameter (to specify where to truncate) is optional. If it is not specified, then OpenSearch uses the `original_size` variable set by the
 `oversample` processor (if available).
 
-A common usage pattern is to add the `oversample` processor to a request pipeline to fetch a larger set of results, then in the response pipeline, apply a 
-reranking processor (which may now promote results from beyond the the originally-requested top N) or the `collapse` processor (which may discard results after
-deduplication), then apply the `truncate` processor to return (at most) the originally-requested number of hits.
+A common usage pattern is to add the `oversample` processor to a request pipeline to fetch a larger set of results, then, in the response pipeline, to apply a 
+reranking processor (which may promote results from beyond the the originally requested top N) or the `collapse` processor (which may discard results after
+deduplication), then apply the `truncate` processor to return (at most) the originally requested number of hits.
 
 ## Request fields
 
@@ -216,7 +216,7 @@ POST /my_index/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-The response only contains 5 hits, though we requested 8 and 10 were available.
+The response only contains 5 hits, even though 8 were requested and 10 were available:
 
 <details open markdown="block">
   <summary>
@@ -298,14 +298,14 @@ The response only contains 5 hits, though we requested 8 and 10 were available.
 
 ## Oversample, collapse, and truncate hits
 
-This shows a more realistic example where you would use `oversample` to request many candidate documents, use `collapse` to remove documents that
-duplicate some field (to get more diverse results), then use `truncate` to return the originally-requested document count (avoiding returning a
+The following is a more realistic example, where you use `oversample` to request many candidate documents, use `collapse` to remove documents that
+duplicate some field (to get more diverse results), then use `truncate` to return the originally requested document count (to avoid returning a
 large result payload from the cluster).
 
 
 ### Setup
 
-Create many documents with a field that we'll use for collapsing:
+Create many documents with a field that you'll use for collapsing:
 
 ```json
 POST /_bulk
@@ -332,7 +332,7 @@ POST /_bulk
 ``` 
 {% include copy-curl.html %}
 
-Create a pipeline that just collapses on the `color` field:
+Create a pipeline that only collapses on the `color` field:
 
 ```json
 PUT /_search/pipeline/collapse_pipeline
@@ -378,8 +378,8 @@ PUT /_search/pipeline/oversampling_collapse_pipeline
 
 ### Collapse without oversample
 
-In this example, we request the top 3 documents before collapsing on the "color" field. Since the first 2 documents have the same "color", the second one is discarded,
-and the request returns the first and third document:
+In this example, you request the top 3 documents before collapsing on the "color" field. Because the first two documents have the same `color`, the second one is discarded,
+and the request returns the first and third documents:
 
 ```json
 POST /my_index/_search?search_pipeline=collapse_pipeline
@@ -442,7 +442,7 @@ POST /my_index/_search?search_pipeline=collapse_pipeline
 
 ### Oversample, collapse, and truncate
 
-Now, we will use the `oversampling_collapse_pipeline` that requests the top 9 documents (multiplying the size by 3), deduplicates by "color",
+Now, you will use the `oversampling_collapse_pipeline` that requests the top 9 documents (multiplying the size by 3), deduplicates by "color",
 then returns the top 3 hits:
 
 ```json
