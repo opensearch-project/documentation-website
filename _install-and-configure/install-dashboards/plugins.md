@@ -3,7 +3,7 @@ layout: default
 title: Managing OpenSearch Dashboards plugins
 nav_order: 100
 redirect_from: 
-  - /dashboards/install/plugins
+  - /dashboards/install/plugins/
   - /install-and-configure/install-dashboards/plugins/
 ---
 
@@ -39,7 +39,7 @@ The following table lists available OpenSearch Dashboards plugins.
 | Gantt Chart Dashboards | [gantt-chart](https://github.com/opensearch-project/dashboards-visualizations/tree/main/gantt-chart) | 1.0.0 |
 | Index Management Dashboards | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
 | Notebooks Dashboards | [dashboards-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 |
-| Notifications Dashboards | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0 |
+| Notifications Dashboards | [dashboards-notifications](https://github.com/opensearch-project/dashboards-notifications) | 2.0.0 |
 | Observability Dashboards | [dashboards-observability](https://github.com/opensearch-project/dashboards-observability) | 2.0.0 |
 | Query Workbench Dashboards | [query-workbench](https://github.com/opensearch-project/dashboards-query-workbench) | 1.0.0 |
 | Reports Dashboards | [dashboards-reporting](https://github.com/opensearch-project/dashboards-reporting) | 1.0.0 |
@@ -149,7 +149,7 @@ sudo bin/opensearch-dashboards-plugin remove <plugin-name>
 
 Then remove all associated entries from `opensearch_dashboards.yml`.
 
-For certain plugins, you must also remove the "optimze" bundle. This is a sample command for the Anomaly Detection plugin:
+For certain plugins, you must also remove the "optimize" bundle. This is a sample command for the Anomaly Detection plugin:
 
 ```bash
 sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
@@ -181,10 +181,10 @@ OpenSearch Dashboards doesn’t update plugins. Instead, you have to remove the 
 
 1. Restart OpenSearch Dashboards.
 
-For example, to remove and reinstall the anomaly detection plugin:
+For example, to remove and reinstall the Anomaly Detection plugin:
 
 ```bash
-sudo bin/opensearch-plugin remove opensearch-anomaly-detection
+sudo bin/opensearch-dashboards-plugin remove anomalyDetectionDashboards
 sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
 sudo bin/opensearch-dashboards-plugin install <AD OpenSearch Dashboards plugin artifact URL>
 ```

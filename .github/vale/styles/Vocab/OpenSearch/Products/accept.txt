@@ -22,17 +22,20 @@ Gradle
 Grafana
 Faiss
 Filebeat
+Flickr
 Fluent Bit
 Fluentd
 Helm
 Hugging Face
 Inferentia
+IP2Geo
 IPv4
 IPv6
 Iris
 JavaScript
 Jaeger
 Jaeger HotROD
+JSON
 Keycloak
 Kerberos
 Kibana
@@ -51,7 +54,9 @@ Okta
 Open Distro
 OpenID Connect
 OpenSearch
+OpenSearch Benchmark
 OpenSearch Dashboards
+OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
 OpenSSL
@@ -71,7 +76,6 @@ Querqy
 Query Workbench
 RPM Package Manager
 Ruby
-Sigv4 
 Simple Schema for Observability
 Tableau
 TorchScript

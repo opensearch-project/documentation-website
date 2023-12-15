@@ -34,6 +34,7 @@ Name | Description
 
 Name | Description
 :--- | :---
+`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 `plugins.security.ssl.http.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional.
 `plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
@@ -206,3 +207,22 @@ plugins.security.ssl.http.enabled_protocols:
 ## (Advanced) Disabling client initiated renegotiation for Java 8
 
 Set `-Djdk.tls.rejectClientInitiatedRenegotiation=true` to disable secure client initiated renegotiation, which is enabled by default. This can be set via `OPENSEARCH_JAVA_OPTS` in `config/jvm.options`.
+
+## (Advanced) Using encrypted password settings for SSL
+
+The default insecure SSL password settings have been deprecated. In order to use the secure alternative of these settings users can use their alternative forms. Specifically, users can append the `_secure` suffix to the SSL settings. The resulting secure alternatives are:
+
+* plugins.security.ssl.http.pemkey_password_secure
+* plugins.security.ssl.http.keystore_password_secure
+* plugins.security.ssl.http.keystore_keypassword_secure
+* plugins.security.ssl.http.truststore_password_secure
+* plugins.security.ssl.transport.pemkey_password_secure
+* plugins.security.ssl.transport.server.pemkey_password_secure
+* plugins.security.ssl.transport.client.pemkey_password_secure
+* plugins.security.ssl.transport.keystore_password_secure
+* plugins.security.ssl.transport.keystore_keypassword_secure
+* plugins.security.ssl.transport.server.keystore_keypassword_secure
+* plugins.security.ssl.transport.client.keystore_keypassword_secure
+* plugins.security.ssl.transport.truststore_password_secure
+
+These settings allow for the use of encrypted passwords in the settings.

@@ -2,13 +2,14 @@
 layout: default
 title: CAT cluster manager
 parent: CAT API
-
+redirect_from:
+ - /opensearch/rest-api/cat/cat-master/
 nav_order: 30
 has_children: false
 ---
 
 # CAT cluster_manager
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT cluster manager operation lists information that helps identify the elected cluster manager node.
@@ -35,6 +36,7 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-refe
 Parameter | Type | Description
 :--- | :--- | :---
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+
 ## Response
 
 ```json

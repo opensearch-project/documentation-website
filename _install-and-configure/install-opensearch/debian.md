@@ -2,6 +2,8 @@
 layout: default
 title: Debian
 parent: Installing OpenSearch
+redirect_from:
+- /opensearch/install/deb/
 nav_order: 55
 ---
 
@@ -94,15 +96,21 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
+1. Install the necessary packages.
+   ```bash
+   sudo apt-get update && sudo apt-get -y install lsb-release ca-certificates curl gnupg2
+   ```
+    {% include copy.html %}
+
 1. Import the public GPG key. This key is used to verify that the APT repository is signed.
     ```bash
-    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo apt-key add -
+    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring
     ```
     {% include copy.html %}
 
 1. Create an APT repository for OpenSearch:
    ```bash
-   echo "deb https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/opensearch-2.x.list
+   echo "deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-2.x.list
    ```
    {% include copy.html %}
 
@@ -232,7 +240,7 @@ The following recommended settings will allow you to:
 - Configure your own TLS certificates—no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
 
-If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/) for guidance before proceeding.
+If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
 {:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to mitigate any issues caused by a bad configuration.
@@ -527,7 +535,7 @@ sudo apt-get upgrade opensearch=<version>
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)

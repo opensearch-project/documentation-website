@@ -9,6 +9,7 @@ nav_order: 35
 
 The following APIs can be used for a number of tasks related to detectors, from creating detectors to updating and searching for detectors. Many API calls use the detector ID in the request, which can be retrieved using the [Search Detector API](#search-detector-api).
 
+---
 ## Create Detector API
 
 Creates a new detector.
@@ -26,7 +27,7 @@ Field | Type | Description
 `enabled` | Boolean | Sets the detector as either active (true) or inactive (false). Default is `true` when a new detector is created. Required.
 `name` | String | Name of the detector. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters. Required.
 `detector_type` | String | The log type that defines the detector. Options are `linux`, `network` ,`windows`, `ad_ldap`, `apache_access`, `cloudtrail`, `dns`, and `s3`. Required.
-`schedule` | Object | The schedule that determines how often the detector runs. For information on specifying fixed intervals in the API, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
+`schedule` | Object | The schedule that determines how often the detector runs. For information about specifying fixed intervals in the API, see the [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
 `schedule.period` | Object | Details for the frequency of the schedule.
 `schedule.period.interval` | Integer | The interval at which the detector runs.
 `schedule.period.unit` | String | The interval's unit of time.

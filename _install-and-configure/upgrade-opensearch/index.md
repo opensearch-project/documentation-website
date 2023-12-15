@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Upgrading OpenSearch
-nav_order: 4
+nav_order: 20
 has_children: true
 redirect_from:
   - /upgrade-opensearch/index/
@@ -92,6 +92,7 @@ Upgrades spanning more than a single major version of OpenSearch will require ad
 A rolling upgrade is a great option if you want to keep your cluster operational throughout the process. Data may continue to be ingested, analyzed, and queried as nodes are individually stopped, upgraded, and restarted. A variation of the rolling upgrade referred to as "node replacement" follows exactly the same process except that hosts and containers are not reused for the new node. You might perform node replacement if you are upgrading the underlying host(s) as well.
 
 OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, upgrade the cluster-manager-eligible nodes last.
+
 
 See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/) for more information about the process.
 

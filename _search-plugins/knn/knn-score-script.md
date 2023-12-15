@@ -2,7 +2,8 @@
 layout: default
 title: Exact k-NN with scoring script
 nav_order: 10
-parent: k-NN
+parent: k-NN search
+grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -306,10 +307,10 @@ A space corresponds to the function used to measure the distance between two poi
   </tr>
   <tr>
     <td>cosinesimil</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = cos \theta  = {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 1 - 
     {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} &middot; \sqrt{\sum_{i=1}^n y_i^2}}\]
-    where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent normalized vectors.</td>
-     <td>\[ score = 1 + d \]</td>
+    where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent the norms of vectors x and y respectively.</td>
+    <td>\[ score = 2 - d \]</td>
   </tr>
   <tr>
     <td>innerproduct (not supported for Lucene)</td>

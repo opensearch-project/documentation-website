@@ -5,7 +5,9 @@ parent: Snapshot APIs
 nav_order: 5
 ---
 
-## Create snapshot
+# Create snapshot
+**Introduced 1.0**
+{: .label .label-purple }
 
 Creates a snapshot within an existing repository.
 
@@ -13,27 +15,27 @@ Creates a snapshot within an existing repository.
 
 * To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository).
 
-### Path and HTTP methods
+## Path and HTTP methods
 
 ```json
 PUT /_snapshot/<repository>/<snapshot>
 POST /_snapshot/<repository>/<snapshot>
 ```
 
-### Path parameters
+## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
 repository | String | Repostory name to contain the snapshot. |
 snapshot | String | Name of Snapshot to create. |
 
-### Query parameters
+## Query parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
 wait_for_completion | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
 
-### Request fields
+## Request fields
 
 The request body is optional.
 
@@ -142,3 +144,4 @@ The snapshot definition is returned.
 | failures | array | Failures, if any, that occured during snapshot creation. |
 | shards | object | Total number of shards created along with number of successful and failed shards. |
 | state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
+| remote_store_index_shallow_copy | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`. |

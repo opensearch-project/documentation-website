@@ -52,7 +52,7 @@ The following table shows the configuration parameters.
 
 Name | Description
 :--- | :---
-`openid_connect_url` | The URL of your IdP where the Security plugin can find the OpenID Connect metadata/configuration settings. This URL differs between IdPs. Required.
+`openid_connect_url` | The URL of your IdP where the Security plugin can find the OpenID Connect metadata/configuration settings. This URL differs between IdPs. Required when using OpenID Connect as your backend.
 `jwt_header` | The HTTP header that stores the token. Typically the `Authorization` header with the `Bearer` schema: `Authorization: Bearer <token>`. Optional. Default is `Authorization`.
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of the parameter here. Optional.
 `subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. Optional.
@@ -302,6 +302,12 @@ Name | Description
 `opensearch_security.openid.logout_url` | The logout URL of your IdP. Optional. Only necessary if your IdP does not publish the logout URL in its metadata.
 `opensearch_security.openid.base_redirect_url` | The base of the redirect URL that will be sent to your IdP. Optional. Only necessary when OpenSearch Dashboards is behind a reverse proxy, in which case it should be different than `server.host` and `server.port` in `opensearch_dashboards.yml`.
 `opensearch_security.openid.trust_dynamic_headers` | Compute `base_redirect_url` from the reverse proxy HTTP headers (`X-Forwarded-Host` / `X-Forwarded-Proto`). Optional. Default is `false`.
+`opensearch_security.openid.root_ca` | Path to the root CAs (PEM format) that your IdP's certificate can match or chain to. Optional.
+`opensearch_security.openid.certificate` | Cert chains (PEM format) to be used for mTLS when obtaining endpoints from your IdP. Optional.
+`opensearch_security.openid.private_key` | Private keys (PEM format) to be used for mTLS when obtaining endpoints from your IdP. Optional.
+`opensearch_security.openid.passphrase` | Passphrase used for a single `private_key` or a `pfx`. Optional.
+`opensearch_security.openid.pfx` | PFX or PKCS12 encoded private key and certificate chain to be used for mTLS when obtaining endpoints from your IdP. Alternative to `certificate` and `private_key`. Optional.
+`opensearch_security.openid.verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Default is `true`. Optional. 
 
 
 ### Configuration example
@@ -318,6 +324,11 @@ opensearch_security.openid.client_id: "opensearch-dashboards-sso"
 
 # The client secret of the OpenID Connect client
 opensearch_security.openid.client_secret: "a59c51f5-f052-4740-a3b0-e14ba355b520"
+
+# mTLS Options for obtaining endpoints from IdP
+opensearch_security.openid.root_ca: /usr/share/opensearch-dashboards/config/certs/ca.pem
+opensearch_security.openid.certificate: /usr/share/opensearch-dashboards/config/certs/cert.pem
+opensearch_security.openid.private_key: /usr/share/opensearch-dashboards/config/certs/key.pem
 
 # Use HTTPS instead of HTTP
 opensearch.url: "https://<hostname>.com:<http port>"

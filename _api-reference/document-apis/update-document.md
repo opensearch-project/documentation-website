@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Update document
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want in your index or by including a script in your request body, which OpenSearch runs to update the document.
@@ -50,7 +50,7 @@ Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index. | Yes
 &lt;_id&gt; | String | The ID of the document to update. | Yes
-if_seq_no | Integer | Only perform the delete operation if the document's version number matches the specified number. | No
+if_seq_no | Integer | Only perform the update operation if the document has the specified sequence number. | No
 if_primary_term | Integer | Perform the update operation if the document has the specified primary term. | No
 lang | String | Language of the script. Default is `painless`. | No
 require_alias | Boolean | Specifies whether the destination must be an index alias. Default is false. | No
@@ -92,7 +92,7 @@ You can also use a script to tell OpenSearch how to update your document.
 
 ### Upsert
 
-Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. In the sample below, the `upsert` object updates the last name and adds the `age` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
+Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. In the following example, the `upsert` operation updates the `last name` and adds the `first_name` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
 
 ```json
 {
@@ -143,10 +143,10 @@ Field | Description
 _index | The name of the index.
 _id | The document's ID.
 _version | The document's version.
-_result | The result of the delete operation.
+result | The result of the update operation.
 _shards | Detailed information about the cluster's shards.
 total | The total number of shards.
-successful | The number of shards OpenSearch successfully deleted the document from.
-failed | The number of shards OpenSearch failed to delete the document from.
+successful | The number of shards OpenSearch successfully updated the document in.
+failed | The number of shards OpenSearch failed to update the document in.
 _seq_no | The sequence number assigned when the document was indexed.
 _primary_term | The primary term assigned when the document was indexed.

@@ -23,8 +23,10 @@ OpenSearch and OpenSearch Dashboards are available on any compatible host that s
 | [Ansible playbook]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/ansible/) | |
 | [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/windows/) | [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/windows/) |
 
-After you've installed OpenSearch, learn about [configuring]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/) it for your deployment.
+After you've installed OpenSearch, learn about [configuring]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) it for your deployment.
 
 For more information about upgrading your OpenSearch cluster, see the [upgrade guide]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/index/).
+
+For information about upgrade tools, see [OpenSearch upgrade, migration, and comparison tools]({{site.url}}{{site.baseurl}}/tools/index/#opensearch-upgrade-migration-and-comparison-tools).
 
 For plugin installation, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).

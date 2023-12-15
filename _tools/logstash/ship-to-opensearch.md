@@ -3,6 +3,8 @@ layout: default
 title: Ship events to OpenSearch
 parent: Logstash
 nav_order: 220
+redirect_from:
+ - /clients/logstash/ship-to-opensearch/
 ---
 
 # Ship events to OpenSearch

@@ -9,8 +9,6 @@ redirect_from:
 ---
 
 # Observability
-OpenSearch Dashboards
-{: .label .label-yellow :}
 
 Observability is collection of plugins and applications that let you visualize data-driven events by using Piped Processing Language to explore, discover, and query data stored in OpenSearch.
 

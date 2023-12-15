@@ -2,13 +2,14 @@
 layout: default
 title: Create or update mappings
 parent: Index APIs
-nav_order: 220
+nav_order: 27
 redirect_from:
   - /opensearch/rest-api/index-apis/update-mapping/
+  - /opensearch/rest-api/update-mapping/
 ---
 
 # Create or update mappings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 If you want to create or add mappings and fields to an index, you can use the put mapping API operation. For an existing mapping, this operation updates the mapping.
@@ -50,8 +51,8 @@ You can make the document structure match the structure of the index mapping by 
 
 ```json
 {
+  "dynamic": "strict",
   "properties":{
-    "dynamic": "strict",
     "color":{
       "type": "text"
     }

@@ -20,39 +20,26 @@ The following image shows the process of ingesting metrics from Prometheus and v
 
 You can view metrics collected from Prometheus in OpenSearch Dashboards by first creating a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the SQL plugin. 
 
-To configure a connection to Prometheus, create a file on your OpenSearch nodes named `datasources.json` containing the Prometheus data source settings. The following examples demonstrate the various Prometheus data source configurations using different authentication methods.
+To configure a connection to Prometheus, you can use the `_datasources` configuration API endpoint. 
 
-No authentication:
+The following example request configures a Prometheus data source with no authentication:
 
 ```json
-[{
+POST _plugins/_query/_datasources 
+{
     "name" : "my_prometheus",
     "connector": "prometheus",
     "properties" : {
         "prometheus.uri" : "http://localhost:9090"
     }
-}]
+}
 ```
 
-Basic authentication:
+The following example request configures a Prometheus data source with AWS SigV4 authentication:
 
 ```json
-[{
-    "name" : "my_prometheus",
-    "connector": "prometheus",
-    "properties" : {
-        "prometheus.uri" : "http://localhost:9090",
-        "prometheus.auth.type" : "basicauth",
-        "prometheus.auth.username" : "admin",
-        "prometheus.auth.password" : "admin"
-    }
-}]
-```
-
-AWS SigV4 authentication:
-
-```json
-[{
+POST _plugins/_query/_datasources
+{
     "name" : "my_prometheus",
     "connector": "prometheus",
     "properties" : {
@@ -62,31 +49,15 @@ AWS SigV4 authentication:
         "prometheus.auth.access_key" : "{{accessKey}}"
         "prometheus.auth.secret_key" : "{{secretKey}}"
     }
-}]
-```
-
-After configuring Prometheus in the `datasources.json` file, run the following command to load the configuration into the OpenSearch keystore. The configuration is securely stored in the keystore because it contains sensitive credential information.
-
-```
-bin/opensearch-keystore add-file plugins.query.federation.datasources.config datasources.json
-```
-
-If you are updating the keystore during runtime, refresh the keystore using following API command:
-
-```bash
-POST /_nodes/reload_secure_settings
-{
-  "secure_settings_password":""
-  
 }
 ```
-{% include copy-curl.html %}
 
 After configuring the connection from Prometheus to OpenSearch, Prometheus metrics are displayed in Dashboards in the **Observability** > **Metrics analytics** window, as shown in the following image.
 
 ![Metrics UI example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
 
-For more information, see the [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/prometheus_connector.rst) GitHub page.
+* For more information about authentication and authorization of data source APIs, see [data source documentation on GitHub](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst).
+* For more information about the Prometheus connector, see the [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.rst) GitHub page.
 
 ## Creating visualizations based on metrics
 

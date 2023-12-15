@@ -262,3 +262,7 @@ Option | Valid values | Description | Required
 :--- | :--- | :---
 `index` | String | The name of the destination index. | Yes
 `version_type` | Enum | The version type for the indexing operation. Valid values: internal, external, external_gt, external_gte. | No
+
+## Index codec considerations
+
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#reindexing).

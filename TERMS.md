@@ -75,6 +75,10 @@ Messages and pop-up boxes appear. Windows, pages, and applications open. The ver
 
 Do not abbreviate as app server.
 
+**artificial intelligence**
+
+On first mention, use *artificial intelligence (AI)*. Use *AI* thereafter. There is no need to redefine *AI* when either *AI/ML* or *GenAI* has already been defined.
+
 **as well as**
 
 Avoid. Replace with in addition to or and as appropriate.
@@ -88,6 +92,10 @@ A plugin that lets the user send search requests in the background so that the r
 Lower case scaling, auto scaling, and automatic scaling (but not autoscaling) are the preferred descriptive terms when generically describing auto scaling functionality.
 
 Do not use hyphenated auto-scaling as a compound modifier. Instead, use scaling (for example, scaling policy), or scalable (for example, scalable target or scalable, load-balanced environment).
+
+**AWS Signature Version 4**
+
+Use on first appearance. On subsequent appearances, *Signature Version 4* may be used. Only use *SigV4* when space is limited.
 
 ## B
 
@@ -146,6 +154,8 @@ certificate authority
 
 Use _certificates_ on first mention. It’s OK to use _certs_ thereafter.
 
+**checkbox, checkboxes**
+
 **CI/CD**
 
 Use _continuous integration_ and _continuous delivery (CI/CD)_ or _continuous integration and delivery (CI/CD)_ on first mention.
@@ -157,6 +167,10 @@ A collection of one or more nodes.
 **cluster manager**
 
 A single node that routes requests for the cluster and makes changes to other nodes. Each cluster contains a single cluster manager.
+
+**command line, command-line**
+
+Two words as a noun. Hyphenate as an adjective.
 
 **console**
 
@@ -179,6 +193,8 @@ Use data is, not data are. Don’t use datas. Use pieces of data or equivalent t
 **data center**
 
 **dataset**
+
+**data source**
 
 **data store, datastore**
 
@@ -283,9 +299,25 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 ## G
 
+**generative AI**
+
+On first mention, use *generative artificial intelligence (generative AI)*. Use *generative AI* thereafter. To avoid the overuse of *generative AI*, *AI/ML-powered applications* may also be used.
+
+**geodistance**
+
+**geohash**
+
+**geohex**
+
 **geopoint**
 
+**geopolygon**
+
 **geoshape**
+
+**geospatial**
+
+**geotile**
  
 ## H
 
@@ -302,6 +334,8 @@ Do not use. This term is unnecessarily violent for technical documentation. Use 
 **high performance computing (HPC)**
 
 **hostname**
+
+**Hugging Face**
 
 ## I
 
@@ -327,11 +361,15 @@ Use *on the forum*. Whatever is on the internet (the various websites, etc.), yo
 
 **index, indexes**
 
-A collection of JSON documents. Non-hardcoded references to *indices* should be changed to *indexes*.
+In technical documentation and the UI, use *indexes* as the plural form of *index*. Use *indices* only in the context of mathematical expressions. Variable and setting names should not be changed.
+
+In blog posts, use the plural *indexes* unless there is a domain-specific reason (for example, a mathematical or financial context) to use *indices*.
 
 **Index Management (IM)**
 
 **Index State Management (ISM)**
+
+**inline**
 
 **install in, on**
 
@@ -356,6 +394,8 @@ Don’t abbreviate as _IP only_.
 Use *just* in the sense of *just now* (as in "the resources that you just created"). Otherwise, use *only* in all other contexts (to mean "limited to; nothing more than").
 
 ## K
+
+**key store**
 
 **kill**
 
@@ -423,7 +463,7 @@ Apache Lucene™ is a high-performance, full-featured search engine library writ
 
 **machine learning**
 
-Write as two words (no hyphen) in all cases, including when used as an adjective before a noun. Abbreviate to ML after first use if appropriate.
+When *machine learning* is used multiple times in a document, use *machine learning (ML)* on first mention and *ML* thereafter. There is no need to redefine *ML* when *AI/ML* has already been defined. If spelled out, write *machine learning* as two words (no hyphen) in all cases, including when used as an adjective before a noun.
 
 **Machine Learning (ML) Commons**
 
@@ -479,11 +519,15 @@ OpenSearch is a community-driven, open-source search and analytics suite derived
 
 **OpenSearch Dashboards**
 
-The default visualization tool for data in OpenSearch. On first appearance, use the full name. “Dashboards” may be used on subsequent appearances.
+The default visualization tool for data in OpenSearch. On first appearance, use the full name. *Dashboards* may be used on subsequent appearances.
 
 open source (n.), open-source (adj.)
 
 Use _open source_ as a noun (for example, “The code used throughout this tutorial is open source and can be freely modified”). Use _open-source_ as an adjective _(open-source software)_.
+
+**OpenSearch Playground**
+
+OpenSearch Playground provides a central location for existing and evaluating users to explore features in OpenSearch and OpenSearch Dashboards without downloading or installing any OpenSearch components locally.
 
 **operating system**
 
@@ -541,6 +585,8 @@ With reference to property and buildings, always form as plural.
 Correct: an on-premises solution
 
 Incorrect: an on-premise solution, an on-prem solution
+
+**pretrain**
 
 **primary shard**
 
@@ -664,6 +710,8 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
+**trust store**
+
 **turn on, turn off**
 
 Use *turn on* and *turn off* in reference to a toggle to describe switching a setting or mode on or off.
@@ -727,6 +775,8 @@ Do not use. Use *open day* instead.
 **whitelist**
 
 Do not use. Use *allow list* instead.
+
+**white space**
 
 **wish, want, desire, need**
 

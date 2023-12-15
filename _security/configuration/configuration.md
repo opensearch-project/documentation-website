@@ -3,18 +3,20 @@ layout: default
 title: Configuring the Security backend
 parent: Configuration
 nav_order: 5
+redirect_from:
+ - /security-plugin/configuration/configuration/
 ---
 
 # Configuring the Security backend
 
-One of the first steps to using the Security plugin is to decide on an authentication backend, which handles [steps 2-3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
+One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The role played by the backend in authentication is covered in [steps 2 and 3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
-The main configuration file for authentication and authorization backends is `config/opensearch-security/config.yml`. It defines how the Security plugin retrieves the user credentials, how it verifies these credentials, and how to fetch additional roles from backend systems (optional).
+The primary file used to configure an authentication and authorization backend is `config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how it verifies the credentials, and how it fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
 
-`config.yml` has three main parts:
+The `config.yml` file includes three main parts:
 
 ```yml
-opensearch_security:
+config:
   dynamic:
     http:
       ...
@@ -24,24 +26,33 @@ opensearch_security:
       ...
 ```
 
-For a more complete example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
+The sections that follow describe the main elements in each part of the `config.yml` file and provide basic examples of their configuration. For a more detailed example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
 
 
 ## HTTP
 
-The `http` section has the following format:
+The `http` section includes the following format:
 
 ```yml
-anonymous_auth_enabled: <true|false>
-xff: # optional section
-  enabled: <true|false>
-  internalProxies: <string> # Regex pattern
-  remoteIpHeader: <string> # Name of the header in which to look. Typically: x-forwarded-for
-  proxiesHeader: <string>
-  trustedProxies: <string> # Regex pattern
+http:
+  anonymous_auth_enabled: <true|false>
+  xff: # optional section
+    enabled: <true|false>
+    internalProxies: <string> # Regex pattern
+    remoteIpHeader: <string> # Name of the header in which to look. Typically: x-forwarded-for
+    proxiesHeader: <string>
+    trustedProxies: <string> # Regex pattern
 ```
 
+The settings used in this configuration are described in the following table.
+
+| Setting | Description |
+| :--- | :--- |
+| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user is authenticated. If none are found, the user is authenticated as an "anonymous" user. This user then has the username "anonymous" and one role named "anonymous_backendrole". When you enable anonymous authentication, all defined [HTTP authenticators](#authentication) are non-challenging. Also see [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
+| `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/). |
+
 If you disable anonymous authentication, the Security plugin won't initialize if you have not provided at least one `authc`.
+{: .important }
 
 
 ## Authentication
@@ -49,23 +60,30 @@ If you disable anonymous authentication, the Security plugin won't initialize if
 The `authc` section has the following format:
 
 ```yml
-<name>:
-  http_enabled: <true|false>
-  transport_enabled: <true|false>
-  order: <integer>
-  http_authenticator:
-    ...
-  authentication_backend:
-    ...
+authc:
+  <domain_name>:
+    http_enabled: <true|false>
+    transport_enabled: <true|false>
+    order: <integer>
+    http_authenticator:
+      ...
+    authentication_backend:
+      ...
 ```
 
 An entry in the `authc` section is called an *authentication domain*. It specifies where to get the user credentials and against which backend they should be authenticated.
 
-You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), `enabled` flags, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
+You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), settings for enabling the domain on the REST and transport layers, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
 
-`http_authenticator` specifies which authentication method that you want to use on the HTTP layer.
+Settings that are typically found in this part of the configuration are included in the following table.
 
-This is the syntax for defining an authenticator on the HTTP layer:
+| Setting | Description |
+| :--- | :--- |
+| `http_enabled` | Enables or disables authentication on the REST layer. Default is `true` (enabled). |
+| `transport_enabled` | Enables or disables authentication on the transport layer. Default is `true` (enabled). |
+| `order` | Determines the order in which an authentication domain is queried with an authentication request when multiple backends are configured in combination. Once authentication succeeds, any remaining domains do not need to be queried. Its value is an integer. |
+
+The `http_authenticator` definition specifies the authentication method for the HTTP layer. The following example shows the syntax used for defining an HTTP authenticator:
 
 ```yml
 http_authenticator:
@@ -75,12 +93,16 @@ http_authenticator:
     ...
 ```
 
-These are the allowed values for `type`:
+The `type` setting for `http_authenticator` accepts the following values. For more information about each of the authentication options, see the links to authentication backends in [Next steps](#next-steps).
 
-- `basic`: HTTP basic authentication. No additional configuration is needed.
-- `kerberos`: Kerberos authentication. Additional [Kerberos-specific configuration](#kerberos) is needed.
-- `jwt`: JSON Web Token (JWT) authentication. Additional [JWT-specific configuration](#json-web-token) is needed.
-- `clientcert`: Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes.
+| Value | Description |
+| :--- | :--- |
+| `basic` | HTTP basic authentication. For more information about using basic authentication, see the HTTP basic authentication documentation. |
+| `jwt` | JSON Web Token (JWT) authentication. See the JSON Web Token documentation for additional configuration information. |
+| `openid` | OpenID Connect authentication. See the OpenID Connect documentation for additional configuration information. |
+| `saml` | SAML authentication. See the SAML documentation for additional configuration information. |
+| `proxy`, `extended-proxy` | Proxy-based authentication. The `extended-proxy` type authenticator allows you to pass additional user attributes for use with document-level security. See the Proxy-based authentication documentation for additional configuration information. |
+| `clientcert` | Authentication through a client TLS certificate. This certificate must be trusted by one of the root certificate authorities (CAs) in the truststore of your nodes. See the Client certificate authentication documentation for additional configuration information. |
 
 After setting an HTTP authenticator, you must specify against which backend system you want to authenticate the user:
 
@@ -91,16 +113,18 @@ authentication_backend:
     ...
 ```
 
-These are the possible values for `type`:
+The following table shows the possible values for the `type` setting under `authentication_backend`.
 
-- `noop`: No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT, Kerberos, or client certificate authentication.
-- `internal`: Use the users and roles defined in `internal_users.yml` for authentication.
-- `ldap`: Authenticate users against an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
+| Value | Description |
+| :--- | :--- |
+| `noop` | No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT or client certificate authentication. |
+| `internal` | Use the users and roles defined in `internal_users.yml` for authentication. |
+| `ldap` | Authenticate users against an LDAP server. This setting requires [additional LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
 
 
 ## Authorization
 
-After the user has been authenticated, the Security plugin can optionally collect additional roles from backend systems. The authorization configuration has the following format:
+The `authz` configuration is used to extract backend roles from an LDAP implementation. After the user has been authenticated, the Security plugin can optionally collect additional roles from the backend system. The authorization configuration has the following format:
 
 ```yml
 authz:
@@ -113,36 +137,35 @@ authz:
         ...
 ```
 
-You can define multiple entries in this section the same way as you can for authentication entries. In this case, execution order is not relevant, so there is no `order` field.
+You can define multiple entries in this section, as with authentication entries. In this case, however, the execution order is not relevant and the `order` setting is not used.
 
-These are the possible values for `type`:
+The following table shows the possible values for the `type` setting under `authorization_backend`.
 
-- `noop`: Skip this step altogether.
-- `ldap`: Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
-
-
-## Configuration examples
-
-The default `config/opensearch-security/config.yml` that ships with OpenSearch contains many configuration examples. Use these examples as a starting point, and customize them to your needs.
+| Value | Description |
+| :--- | :--- |
+| `noop` | Skips the authorization configuration step altogether. |
+| `ldap` | Fetches additional roles from an LDAP server. This setting requires [additional LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
 
 
-### HTTP basic
+## Backend configuration examples
 
-To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration:
-
-```yml
-http_authenticator:
-  type: basic
-  challenge: true
-```
-
-In most cases, you set the `challenge` flag to `true`. The flag defines the behavior of the Security plugin if the `Authorization` field in the HTTP header is not set.
-
-If `challenge` is set to `true`, the Security plugin sends a response with status `UNAUTHORIZED` (401) back to the client. If the client is accessing the cluster with a browser, this triggers the authentication dialog box, and the user is prompted to enter a user name and password.
-
-If `challenge` is set to `false` and no `Authorization` header field is set, the Security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. You might want to use this setting if you have another challenge `http_authenticator` in your configured authentication domains. One such scenario is when you plan to use basic authentication and Kerberos together.
+The default `config/opensearch-security/config.yml` file included in your OpenSearch distribution contains many configuration examples. Use these examples as a starting point and customize them to your needs. 
 
 
+## Next steps
+
+To learn about configuring the authentication backends, see the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation. Alternatively, you can view documentation for a specific backend by using the links in the following list of topics:
+
+* [HTTP basic authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/)
+* [JSON Web Token]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/)
+* [OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/)
+* [SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/)
+* [Active Directory and LDAP]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)
+* [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/)
+* [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/)
+
+
+<!--- Remvoving Kerberos documentation until issue #907 is resolved.
 ### Kerberos
 
 Kerberos authentication does not work with OpenSearch Dashboards. To track OpenSearch's progress in adding support for Kerberos in OpenSearch Dashboards, see [issue #907](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) in the Dashboard's Security plugin repository. 
@@ -200,254 +223,5 @@ If you set `strip_realm_from_principal` to `true`, the Security plugin strips th
 #### Authentication backend
 
 Because Kerberos/SPNEGO authenticates users on an HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
+--->
 
-
-### JSON Web Token
-
-JWTs are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems:
-
-1. A user logs in to an authentication server by providing credentials (for example, a user name and password).
-1. The authentication server validates the credentials.
-1. The authentication server creates an access token and signs it.
-1. The authentication server returns the token to the user.
-1. The user stores the access token.
-1. The user sends the access token alongside every request to the service that it wants to use.
-1. The service verifies the token and grants or denies access.
-
-A JWT is self-contained in the sense that it carries within itself all of the information necessary to verify a user. The tokens are base64-encoded, signed JSON objects.
-
-JWTs consist of three parts:
-
-1. Header
-1. Payload
-1. Signature
-
-
-#### Header
-
-The header contains information about the used signing mechanism, as shown in the following example:
-
-```json
-{
-  "alg": "HS256",
-  "typ": "JWT"
-}
-```
-
-In this case, the header states that the message was signed using HMAC-SHA256.
-
-
-#### Payload
-
-The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim can be any piece of information about the user that the application that created the token has verified.
-
-The specification defines a set of standard claims with reserved names, referred to as [registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims). Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
-
-Public claims, on the other hand, can be created freely by the token issuer. They can contain arbitrary information, such as the user name and the roles of the user.
-
-
-```json
-{
-  "iss": "example.com",
-  "exp": 1300819380,
-  "name": "John Doe",
-  "roles": "admin, devops"
-}
-```
-
-
-#### Signature
-
-The issuer of the token calculates the signature of the token by applying a cryptographic hash function on the base64-encoded header and payload. These three parts are then concatenated using periods to form a complete JWT:
-
-```
-encoded = base64UrlEncode(header) + "." + base64UrlEncode(payload)
-signature = HMACSHA256(encoded, 'secretkey');
-jwt = encoded + "." + base64UrlEncode(signature)
-```
-
-Example:
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI
-```
-
-
-## Configure JWTs
-
-If you use a JWT as your only authentication method, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
-{: .warning }
-
-Set up an authentication domain and choose `jwt` as the HTTP authentication type. Because the tokens already contain all required information to verify the request, `challenge` must be set to `false` and `authentication_backend` to `noop`.
-
-```yml
-jwt_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 0
-  http_authenticator:
-    type: jwt
-    challenge: false
-    config:
-      signing_key: "base64 encoded key"
-      jwt_header: "Authorization"
-      jwt_url_parameter: null
-      subject_key: null
-      roles_key: null
-      jwt_clock_skew_tolerance_seconds: 20
-  authentication_backend:
-I    type: noop
-```
-
-The following table shows the configuration parameters.
-
-Name | Description
-:--- | :---
-`signing_key` | The signing key to use when verifying the token. If you use a symmetric key algorithm, it is the base64-encoded shared secret. If you use an asymmetric algorithm, it contains the public key.
-`jwt_header` | The HTTP header in which the token is transmitted. This typically is the `Authorization` header with the `Bearer` schema: `Authorization: Bearer <token>`. Default is `Authorization`.
-`jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of this parameter here.
-`subject_key` | The key in the JSON payload that stores the user name. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used.
-`roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles.
-`jwt_clock_skew_tolerance_seconds` |  Sets a window of time, in seconds, to prevent authentication failures due to a misalignment between the JWT authentication server and OpenSearch node clock times. Security sets 30 seconds as the default. Use this setting to apply a custom value.
-
-Because JWTs are self-contained and the user is authenticated at the HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
-
-
-### Symmetric key algorithms: HMAC
-
-Hash-based message authentication codes (HMACs) are a group of algorithms that provide a way of signing messages by means of a shared key. The key is shared between the authentication server and the Security plugin. It must be configured as a base64-encoded value in the `signing_key` setting:
-
-```yml
-jwt_auth_domain:
-  ...
-    config:
-      signing_key: "a3M5MjEwamRqOTAxOTJqZDE="
-      ...
-```
-
-
-### Asymmetric key algorithms: RSA and ECDSA
-
-RSA and ECDSA are asymmetric encryption and digital signature algorithms and use a public/private key pair to sign and verify tokens. This means that they use a private key for signing the token, while the Security plugin needs to know only the public key to verify it.
-
-Because you cannot issue new tokens with the public key---and because you can make valid assumptions about the creator of the token---RSA and ECDSA are considered more secure than using HMAC.
-
-To use RS256, you need to configure only the (non-base64-encoded) public RSA key as `signing_key` in the JWT configuration:
-
-```yml
-jwt_auth_domain:
-  ...
-    config:
-      signing_key: |-
-        -----BEGIN PUBLIC KEY-----
-        MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQK...
-        -----END PUBLIC KEY-----
-      ...
-```
-
-The Security plugin automatically detects the algorithm (RSA/ECDSA), and if necessary you can break the key into multiple lines.
-
-
-### Bearer authentication for HTTP requests
-
-The most common way of transmitting a JWT in an HTTP request is to add it as an HTTP header with the bearer authentication schema:
-
-```
-Authorization: Bearer <JWT>
-```
-
-The default name of the header is `Authorization`. If required by your authentication server or proxy, you can also use a different HTTP header name using the `jwt_header` configuration key.
-
-As with HTTP basic authentication, you should use HTTPS instead of HTTP when transmitting JWTs in HTTP requests.
-
-
-### URL parameters for HTTP requests
-
-Although the most common way to transmit JWTs in HTTP requests is to use a header field, the Security plugin also supports parameters. Configure the name of the `GET` parameter using the following key:
-
-```yml
-    config:
-      signing_key: ...
-      jwt_url_parameter: "parameter_name"
-      subject_key: ...
-      roles_key: ...
-```
-
-As with HTTP basic authentication, you should use HTTPS instead of HTTP.
-
-
-### Validated registered claims
-
-The following registered claims are validated automatically:
-
-* "iat" (Issued At) Claim
-* "nbf" (Not Before) Claim
-* "exp" (Expiration Time) Claim
-
-
-### Supported formats and algorithms
-
-The Security plugin supports digitally signed, compact JWTs with all standard algorithms:
-
-```
-HS256: HMAC using SHA-256
-HS384: HMAC using SHA-384
-HS512: HMAC using SHA-512
-RS256: RSASSA-PKCS-v1_5 using SHA-256
-RS384: RSASSA-PKCS-v1_5 using SHA-384
-RS512: RSASSA-PKCS-v1_5 using SHA-512
-PS256: RSASSA-PSS using SHA-256 and MGF1 with SHA-256
-PS384: RSASSA-PSS using SHA-384 and MGF1 with SHA-384
-PS512: RSASSA-PSS using SHA-512 and MGF1 with SHA-512
-ES256: ECDSA using P-256 and SHA-256
-ES384: ECDSA using P-384 and SHA-384
-ES512: ECDSA using P-521 and SHA-512
-```
-
-## Troubleshooting common issues
-
-This section details how to troubleshoot common issues with your Security plugin configuration.
-
-
-#### Correct iat 
-
-Ensure that the JWT token contains the correct `iat` (issued at), `nbf` (not before), and `exp` (expiry) claims, all of which are validated automatically by OpenSearch.
-
-#### JWT URL parameter
-
-When using  the JWT URL parameter containing the default admin role `all_access` against OpenSearch (for example, `curl http://localhost:9200?jwtToken=<jwt-token>`) the request fails with:
-
-```json
-{
-   "error":{
-      "root_cause":[
-         {
-            "type":"security_exception",
-            "reason":"no permissions for [cluster:monitor/main] and User [name=admin, backend_roles=[all_access], requestedTenant=null]"
-         }
-      ],
-      "type":"security_exception",
-      "reason":"no permissions for [cluster:monitor/main] and User [name=admin, backend_roles=[all_access], requestedTenant=null]"
-   },
-   "status":403
-}
-```
-
-To solve this, ensure that the role `all_access` is mapped directly to the internal user and not a backend role. To do this, navigate to **Security > Roles > all_access** and switch to the tab to **Mapped Users**. Select **Manage mapping** and add "admin" to the **Users** section.
-
-![image](https://user-images.githubusercontent.com/5849965/179158704-b2bd6d48-8816-4b03-a960-8c612465cf75.png)
-
-The user should appear in the **Mapped Users** tab.
-
-![image](https://user-images.githubusercontent.com/5849965/179158750-1bb5e232-dd61-449a-a561-0613b71bfd68.png)
-
-
-#### OpenSearch Dashboards configuration
-
-Even though JWT URL parameter authentication works when querying OpenSearch directly, it fails when used to access OpenSearch Dashboards. 
-
-**Solution:** Ensure the following lines are present in the OpenSearch Dashboards config file `opensearch_dashboards.yml`
-
-```yml
-opensearch_security.auth.type: "jwt"
-opensearch_security.jwt.url_param: <your-param-name-here>
-```

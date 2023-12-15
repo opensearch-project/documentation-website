@@ -56,13 +56,12 @@ Alternatively, the source sends a negative acknowledgment when an event cannot b
 
 When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgment. In the case of a failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
 
-As of Data Prepper 2.2, only the `s3` source and `opensearch` sink support E2E acknowledgments. 
 
 ## Conditional routing
 
-Pipelines also support **conditional routing**  which allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept Events that match at least one of the routing conditions. 
+Pipelines also support **conditional routing**  which allows you to route events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept events that match at least one of the routing conditions. 
 
-In the following example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper only routes events that satisfy the condition to the first OpenSearch sink. By default, Data Prepper routes all Events to a sink which does not define a route. In the example, all Events route into the third OpenSearch sink.
+In the following example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper only routes events that satisfy the condition to the first OpenSearch sink. By default, Data Prepper routes all events to a sink which does not define a route. In the example, all events route into the third OpenSearch sink.
 
 ```yml
 conditional-routing-sample-pipeline:
@@ -132,8 +131,8 @@ log-pipeline:
         # username and password above.
         #aws_sigv4: true
         #aws_region: us-east-1
-        # Since we are grok matching for apache logs, it makes sense to send them to an OpenSearch index named apache_logs.
-        # You should change this to correspond with how your OpenSearch indices are set up.
+        # Since we are Grok matching for Apache logs, it makes sense to send them to an OpenSearch index named apache_logs.
+        # You should change this to correspond with how your OpenSearch indexes are set up.
         index: apache_logs
 ```
 
@@ -309,7 +308,7 @@ docker run --name data-prepper \
 
 ## Configure peer forwarder
 
-Data Prepper provides an HTTP service to forward Events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
+Data Prepper provides an HTTP service to forward events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
 
 Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. Peer discovery can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encryption, and mTLS for mutual authentication in a peer forwarding service.
 
@@ -327,3 +326,27 @@ peer_forwarder:
 ```
 
 
+## Pipeline Configurations
+
+Since Data Prepper 2.5, shared pipeline components can be configured under the reserved section `pipeline_configurations` when all pipelines are defined in a single pipeline configuration YAML file. 
+Shared pipeline configurations can include certain components within [Extension Plugins]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#extension-plugins), as shown in the following example that refers to secrets configurations for an `opensearch` sink:
+
+```json
+pipeline_configurations:
+  aws:
+    secrets:
+      credential-secret-config:
+        secret_id: <YOUR_SECRET_ID>
+        region: <YOUR_REGION>
+        sts_role_arn: <YOUR_STS_ROLE_ARN>
+simple-sample-pipeline:
+  ...
+  sink:
+    - opensearch:
+        hosts: [ {% raw %}"${{aws_secrets:host-secret-config}}"{% endraw %} ]
+        username: {% raw %}"${{aws_secrets:credential-secret-config:username}}"{% endraw %}
+        password: {% raw %}"${{aws_secrets:credential-secret-config:password}}"{% endraw %}
+        index: "test-migration"
+```
+
+When the same component is defined in both `pipelines.yaml` and `data-prepper-config.yaml`, the definition in the `pipelines.yaml` will overwrite the counterpart in `data-prepper-config.yaml`. For more information on shared pipeline components, see [AWS secrets extension plugin]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#aws-secrets-extension-plugin) for details.

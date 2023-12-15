@@ -299,6 +299,19 @@ internal class Program
         PrintResponse(searchResponse);
     }
 
+    private static void SearchForAllStudentsWithANonEmptyLastName()
+    {
+        var searchResponse = osClient.Search<Student>(s => s
+                                .Index("students")
+                                .Query(q => q
+                        						.Bool(b => b
+                        							.Must(m => m.Exists(fld => fld.LastName))
+                        							.MustNot(m => m.Term(t => t.Verbatim().Field(fld => fld.LastName).Value(string.Empty)))
+                        						)));
+
+        PrintResponse(searchResponse);
+    }
+
     private static void SearchLowLevel()
     {
         // Search for the student using the low-level client

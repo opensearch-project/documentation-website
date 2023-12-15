@@ -5,11 +5,12 @@ parent: Trace Analytics
 nav_order: 1
 redirect_from:
   - /observability-plugin/trace/get-started/
+  - /monitoring-plugins/trace/get-started/
 ---
 
 # Getting started with Trace Analytics
 
-OpenSearch Trace Analytics consists of two components---Data Prepper and the Trace Analytics OpenSearch Dashboards plugin---that fit into the OpenTelemetry and OpenSearch ecosystems. The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
+OpenSearch Trace Analytics consists of two components---Data Prepper and the Trace Analytics OpenSearch Dashboards plugin. The Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
 
 ## Basic flow of data
 

@@ -60,17 +60,27 @@ Official OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/o
 
 [Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
-docker pull opensearchproject/opensearch:latest
-docker pull opensearchproject/opensearch-dashboards:latest
+docker pull opensearchproject/opensearch:2
 ```
+{% include copy.html %}
+
+```bash
+docker pull opensearchproject/opensearch-dashboards:2
+```
+{% include copy.html %}
 
 [Amazon ECR](https://gallery.ecr.aws/opensearchproject/):
 ```bash
-docker pull public.ecr.aws/opensearchproject/opensearch:latest
-docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
+docker pull public.ecr.aws/opensearchproject/opensearch:2
 ```
+{% include copy.html %}
 
-To download a specific version of OpenSearch or OpenSearch Dashboards other than the latest available version, modify the image tag where it is referenced (either in the command line or in a Docker Compose file). For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
+```bash
+docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:2
+```
+{% include copy.html %}
+
+To download a specific version of OpenSearch or OpenSearch Dashboards other than the latest available version, modify the image tag where it is referenced (either in the command line or in a Docker Compose file). For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. To pull the latest version, use `opensearchproject/opensearch:latest`. Refer to the official image repositories for available versions. 
 {: .tip}
 
 Before continuing, you should verify that Docker is working correctly by deploying OpenSearch in a single container.
@@ -118,7 +128,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```
     {% include copy.html %}
 
-Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker prune`.
+Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker container prune`.
 {: .tip}
 
 ## Deploy an OpenSearch cluster using Docker Compose
@@ -476,7 +486,7 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

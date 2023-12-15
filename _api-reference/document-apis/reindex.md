@@ -4,11 +4,12 @@ title: Reindex document
 parent: Document APIs
 nav_order: 60
 redirect_from: 
- - /opensearch/reindex-data/
+  - /opensearch/reindex-data/
+  - /opensearch/rest-api/document-apis/reindex/
 ---
 
 # Reindex document
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple}
 
 The reindex document API operation lets you copy all or a subset of your data from a source index into a destination index.

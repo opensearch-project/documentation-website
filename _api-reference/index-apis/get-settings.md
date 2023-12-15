@@ -2,13 +2,13 @@
 layout: default
 title: Get settings
 parent: Index APIs
-nav_order: 100
+nav_order: 45
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
 ---
 
 # Get settings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The get settings API operation returns all the settings in your index.
@@ -30,7 +30,7 @@ GET /<target-index>/_settings/<setting>
 
 ## URL parameters
 
-All update settings parameters are optional.
+All get settings parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
@@ -41,8 +41,8 @@ expand_wildcards | String | Expands wildcard expressions to different indexes. C
 flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of “index”: { “creation_date”: “123456789” } is “index.creation_date”: “123456789”.
 include_defaults | String | Whether to include default settings, including settings used within OpenSearch plugins, in the response. Default is false.
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
-local | Boolean | Whether to return information from the local node only instead of the master node. Default is false.
-master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
+local | Boolean | Whether to return information from the local node only instead of the cluster manager node. Default is false.
+cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 
 ## Response
 

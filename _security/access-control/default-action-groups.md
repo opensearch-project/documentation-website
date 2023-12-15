@@ -5,6 +5,7 @@ parent: Access control
 nav_order: 115
 redirect_from:
  - /security/access-control/default-action-groups/
+ - /security-plugin/access-control/default-action-groups/
 ---
 
 # Default action groups
@@ -42,14 +43,14 @@ Name | Description
 indices_all | Grants all permissions on the index. Equates to `indices:*`.
 get | Grants permissions to use `get` and `mget` actions only.
 read | Grants read permissions such as search, get field mappings, `get`, and `mget`.
-write | Grants permissions to create and update documents within *existing indices*. To create new indices, see `create_index`.
+write | Grants permissions to create and update documents within *existing indices*. To create new indexes, see `create_index`.
 delete | Grants permissions to delete documents.
 crud | Combines the `read`, `write`, and `delete` action groups. Included in the `data_access` action group.
 search | Grants permissions to search documents. Includes `suggest`.
 suggest | Grants permissions to use the suggest API. Included in the `read` action group.
-create_index | Grants permissions to create indices and mappings.
+create_index | Grants permissions to create indexes and mappings.
 indices_monitor | Grants permissions to execute all index monitoring actions (e.g. recovery, segments info, index stats, and status).
 index | A more limited version of the `write` action group.
 data_access | Combines the `crud` action group with `indices:data/*`.
 manage_aliases | Grants permissions to manage aliases.
-manage | Grants all monitoring and administration permissions for indices.
+manage | Grants all monitoring and administration permissions for indexes.

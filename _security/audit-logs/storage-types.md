@@ -5,6 +5,7 @@ parent: Audit logs
 nav_order: 135
 redirect_from:
   - /security/audit-logs/storage-types/
+  - /security-plugin/audit-logs/storage-types/
 ---
 
 # Audit log storage types
@@ -42,7 +43,7 @@ plugins.security.audit.config.type: _doc
 The Security plugin uses the OpenSearch REST API to send events, just like any other indexing request. For `plugins.security.audit.config.http_endpoints`, use a comma-separated list of hosts/IP addresses and the REST port (default 9200).
 
 ```
-plugins.security.audit.config.http_endpoints: [192.168.178.1:9200,192.168.178.2:9200]
+plugins.security.audit.config.http_endpoints: ['https://my-opensearch-cluster.company.com:9200', 'http://my-opensearch-cluster.company.com:9200', 'my-opensearch-cluster.company.com:9200', '192.168.178.1:9200', '192.168.178.2:9200']
 ```
 
 If you use `external_opensearch` and the remote cluster also uses the Security plugin, you must supply some additional parameters for authentication. These parameters depend on which authentication type you configured for the remote cluster.

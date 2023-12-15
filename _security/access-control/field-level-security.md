@@ -5,6 +5,7 @@ parent: Access control
 nav_order: 90
 redirect_from:
  - /security/access-control/field-level-security/
+ - /security-plugin/access-control/field-level-security/
 ---
 
 # Field-level security

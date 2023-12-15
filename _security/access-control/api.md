@@ -36,6 +36,22 @@ plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 ```
 {% include copy.html %}
 
+Roles also allow you to control access to specific REST APIs. You can add individual or multiple cluster permissions to a role and grant users access to associated APIs when they are mapped to the role. The following list of cluster permissions includes the endpoints that correspond to the Security REST APIs:
+
+| **Permission**                 | **APIs granted**                   | **Description**                                                                                                                                    |
+|:-------------------------------|:-----------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+| restapi:admin/actiongroups     | `/actiongroup` and `/actiongroups` | Permission to get, delete, create, and patch actions groups (including bulk updates).                                                              |
+| restapi:admin/allowlist        | `/allowlist`                       | Permission to add any endpoints and HTTP requests to a list of allowed endpoints and requests.                                                     |
+| restapi:admin/internalusers    | `/internaluser` and `/user`        | Permission to add, retrieve, modify, and delete any user in the cluster.                                                                           |
+| restapi:admin/nodesdn          | `/nodesdn`                         | Permission to add, retrieve, update, or delete any distinguished names from an allow list and enable communication between clusters and/or nodes.  |
+| restapi:admin/roles            | `/roles`                           | Permission to add, retrieve, modify, and delete any roles in the cluster.                                                                          |
+| restapi:admin/rolesmapping     | `/rolesmapping`                    | Permission to add, retrieve, modify, and delete any roles-mapping.                                                                                 |
+| restapi:admin/ssl/certs/info   | `/ssl/certs/info`                  | Permission to view current Transport and HTTP certificates.                                                                                        |
+| restapi:admin/ssl/certs/reload | `/ssl/certs/reload`                | Permission to view reload Transport and HTTP certificates.                                                                                         |
+| restapi:admin/tenants          | `/tenants`                         | Permission to get, delete, create, and patch tenants.                                                                                              |
+
+
+
 Possible values for `endpoint` are:
 
 - ACTIONGROUPS
@@ -45,6 +61,8 @@ Possible values for `endpoint` are:
 - CONFIG
 - CACHE
 - SYSTEMINFO
+- NODESDN
+- SSL
 
 Possible values for `method` are:
 
@@ -146,20 +164,33 @@ Introduced 1.0
 
 Changes the password for the current user.
 
+#### Path and HTTP methods
 
-#### Request
+```json
+PUT _plugins/_security/api/account
+```
+{% include copy-curl.html %}
+
+#### Request fields
+
+| Field              | Data type  | Description                    | Required  |
+|:-------------------|:-----------|:-------------------------------|:----------|
+| current_password   | String     | The current password.          | Yes       |
+| password           | String     | The new password to set.       | Yes       |
+
+##### Example request
 
 ```json
 PUT _plugins/_security/api/account
 {
-    "current_password" : "old-password",
-    "password" : "new-password"
+    "current_password": "old-password",
+    "password": "new-password"
 }
 ```
 {% include copy-curl.html %}
 
 
-#### Example response
+##### Example response
 
 ```json
 {
@@ -167,6 +198,13 @@ PUT _plugins/_security/api/account
   "message": "'test-user' updated."
 }
 ```
+
+#### Response fields
+
+| Field    | Data type  | Description                   |
+|:---------|:-----------|:------------------------------|
+| status   | String     | The status of the operation.  |
+| message  | String     | A descriptive message.        |
 
 
 ---
@@ -465,7 +503,7 @@ Note that any role you supply in the `opendistro_security_roles` array must alre
 PUT _plugins/_security/api/internalusers/<username>
 {
   "password": "kirkpass",
-  "opendistro_security_roles": ["maintenance_staff", "weapons"],
+  "opendistro_security_roles": ["maintenance_staff", "database_manager"],
   "backend_roles": ["role 1", "role 2"],
   "attributes": {
     "attribute1": "value1",
@@ -1256,7 +1294,7 @@ PATCH _plugins/_security/api/securityconfig
 
 ## Distinguished names
 
-These REST APIs let a super admin add, retrieve, update, or delete any distinguished names from an allow list to enable communication between clusters and/or nodes.
+These REST APIs let a super admin (or a user with sufficient permissions to access this API) add, retrieve, update, or delete any distinguished names from an allow list to enable communication between clusters and/or nodes.
 
 Before you can use the REST API to configure the allow list, you must first add the following line to `opensearch.yml`:
 
@@ -1336,6 +1374,56 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 }
 ```
 
+### Update all distinguished names
+
+Makes a bulk update for the list of distinguished names.
+
+#### Path and HTTP methods
+
+```json
+PATCH _plugins/_security/api/nodesdn
+```
+{% include copy-curl.html %}
+
+#### Request fields
+
+| Field           | Data type  | Description                                                                                                       | Required |
+|:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
+| op              | string     | The operation to perform on the action group. Possible values: `remove`,`add`, `replace`, `move`, `copy`, `test`. | Yes      |
+| path            | string     | The path to the resource.                                                                                         | Yes      |
+| value           | Array      | The new values used for the update.                                                                               | Yes      |
+
+
+##### Example request
+
+```
+PATCH _plugins/_security/api/nodesdn
+[
+   {
+      "op":"replace",
+      "path":"/cluster1/nodes_dn/0",
+      "value": ["CN=Karen Berge,CN=admin,DC=corp,DC=Fabrikam,DC=COM", "CN=George Wall,CN=admin,DC=corp,DC=Fabrikam,DC=COM"]
+   }
+]
+```
+{% include copy-curl.html %}
+
+##### Example response
+
+```json
+{
+  "status":"OK",
+  "message":"Resources updated."
+}
+```
+
+#### Response fields
+
+| Field   | Data type | Description          |
+|:--------|:----------|:---------------------|
+| status  | string    | The response status. |
+| message | string    | Response message.    |
+
 
 ### Delete distinguished names
 
@@ -1399,33 +1487,77 @@ GET _plugins/_security/api/ssl/certs
   ]
 }
 ```
-### Reload certificates
-Introduced 1.0
-{: .label .label-purple }
 
-Reloads SSL certificates that are about to expire without restarting the OpenSearch node. 
+### Reload transport certificates
 
-This call assumes that new certificates are in the same location specified by the security configurations in `opensearch.yml`. To keep sensitive certificate reloads secure, this call only allows hot reload with certificates issued by the same issuer and subject DN and SAN with expiry dates after the current certificate.
+Reload transport layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload transport layer certificates.
 
-#### Request
+#### Path and HTTP methods
 
 ```json
-PUT _opendistro/_security/api/ssl/transport/reloadcerts
+PUT /_plugins/_security/api/ssl/transport/reloadcerts
 ```
 {% include copy-curl.html %}
 
-```json
-PUT _opendistro/_security/api/ssl/http/reloadcerts
+##### Example request
+
+```bash
+curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/transport/reloadcerts"
 ```
 {% include copy-curl.html %}
 
-#### Example response
+##### Example response
 
 ```json
-{ 
-  "message": "updated http certs" 
+{
+  "status": "OK",
+  "message": "updated transport certs"
 }
 ```
+
+#### Response fields
+
+| Field   | Data type | Description                                                                       |
+|:--------|:----------|:----------------------------------------------------------------------------------|
+| status  | String    | Indicates the status of the operation. Possible values: "OK" or an error message. |
+| message | String    | Additional information about the operation.                                       |
+
+
+#### Reload HTTP certificates
+
+Reload HTTP layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload HTTP layer certificates.
+
+#### Path and HTTP methods
+
+```json
+PUT /_plugins/_security/api/ssl/http/reloadcerts
+```
+{% include copy-curl.html %}
+
+
+##### Example request
+
+```
+curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/http/reloadcerts"
+```
+{% include copy-curl.html %}
+
+##### Example response
+
+```json
+{
+  "status": "OK",
+  "message": "updated http certs"
+}
+```
+
+#### Response fields
+
+| Field   | Data type | Description                                                         |
+|:--------|:----------|:--------------------------------------------------------------------|
+| status  | String    | The status of the API operation. Possible value: "OK".              |
+| message | String    | A message indicating that the HTTP certificates have been updated.  |
+
 ---
 
 ## Cache
@@ -1502,7 +1634,7 @@ You can do an initial configuration of audit logging in the `audit.yml` file, fo
 
 #### Request fields
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 `enabled` | Boolean | Enables or disables audit logging. Default is `true`.
 `audit` | Object | Contains fields for audit logging configuration.
