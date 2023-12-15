@@ -34,7 +34,7 @@ Before you get started, you must first use [Helm to install OpenSearch]({{site.u
 Make sure that you can send requests to your OpenSearch pod:
 
 ```json
-$ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
+$ curl -XGET https://localhost:9200 -u 'admin:< Admin password >' --insecure
 {
   "name" : "opensearch-cluster-master-1",
   "cluster_name" : "opensearch-cluster",

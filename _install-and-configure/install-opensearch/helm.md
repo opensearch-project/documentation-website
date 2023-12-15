@@ -91,7 +91,13 @@ You can also build the `opensearch-1.0.0.tgz` file manually:
    {% include copy.html %}
 
    The output shows you the specifications instantiated from the install.
-   To customize the deployment, pass in the values that you want to override with a custom YAML file:
+   To customize the deployment, pass in the values that you want to override with a custom YAML file. 
+   Specifically, for the demo configuration to work, you need to pass in an initial admin password:
+
+   ```yml
+   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+#    value: < Admin password >
+   ```
 
    ```bash
    helm install --values=customvalues.yaml opensearch-1.0.0.tgz
