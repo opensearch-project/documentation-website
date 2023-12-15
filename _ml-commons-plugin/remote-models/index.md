@@ -80,21 +80,6 @@ When access control is enabled, you can install the [Security plugin]({{site.url
 }
 ```
 
-### Node settings
-
-Externally hosted models that are deployed using connectors consume fewer resources. Therefore, you can deploy such models model on data nodes. To make sure that your model connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`:
-
-```json
-PUT /_cluster/settings
-{
-    "persistent": {
-        "plugins.ml_commons.only_run_on_ml_node": false
-    }
-}
-
-```
-{% include copy-curl.html %}
-
 ## Step 1: Register a model group
 
 To register a model, you have the following options:

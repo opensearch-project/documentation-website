@@ -29,11 +29,11 @@ The following is the syntax for the `sparse_encoding` processor:
 ```
 {% include copy-curl.html %}
 
-#### Configuration parameters
+## Configuration parameters
 
 The following table lists the required and optional parameters for the `sparse_encoding` processor.
 
-| Name  | Data type | Required  | Description  |
+| Parameter  | Data type | Required/Optional  | Description  |
 |:---|:---|:---|:---|
 `model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 `field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a `rank_features` field.
