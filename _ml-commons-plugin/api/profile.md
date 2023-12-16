@@ -36,8 +36,8 @@ GET /_plugins/_ml/profile/tasks
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`model_id` | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
-`tasks`| String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+`model_id` | String | Returns runtime data for a specific model. You can provide multiple `model_id`s as comma-separated values to retrieve multiple model profiles.
+`task_id`| String | Returns runtime data for a specific task. You can provide multiple `task_id`s as comma-separated values to retrieve multiple task profiles..
 
 ### Request fields
 
