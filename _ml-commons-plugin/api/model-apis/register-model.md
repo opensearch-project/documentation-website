@@ -46,7 +46,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `name`| String | Required | The model name. |
-`version` | Integer | Required | The model version number. |
+`version` | String | Required | The model version number. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
@@ -75,7 +75,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `name`| String | Required | The model name. |
-`version` | Integer | Required | The model version number. |
+`version` | String | Required | The model version number. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
 `model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
@@ -111,7 +111,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `name`| String | Required | The model name. |
-`version` | Integer | Required | The model version number. |
+`version` | String | Required | The model version number. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
 `model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
