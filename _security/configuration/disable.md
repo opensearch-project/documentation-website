@@ -80,7 +80,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
    ./bin/opensearch-dashboards-plugin remove securityDashboards
    ```
 
-1. Remove all Security plugin related configuration from the opensearch_dashbaords.yml file or use the following example file. 
+1. Remove all Security plugin related configuration settings from the `opensearch_dashbaords.yml` file or use the following example file: 
 
    ```yml
    ---
