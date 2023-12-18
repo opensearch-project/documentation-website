@@ -8,4 +8,6 @@ permalink: /
 
 {% include banner.html %}
 
+# Explore OpenSearch documentation
+
 {% include cards.html %}

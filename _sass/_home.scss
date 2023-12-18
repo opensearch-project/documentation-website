@@ -1,0 +1,79 @@
+@mixin gradient-open-sky {
+    background: linear-gradient(180deg, #E1FAFF 0%, #98E3F4 48.15%, #00B7E0 100%);
+}
+
+@mixin thick-edge-left {
+    border-left: $blue-200 10px solid;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+.card-container {
+    @include gradient-open-sky;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 2rem;
+    column-gap: 1rem;
+    row-gap: 1rem;
+}
+
+.card-container * {
+    flex: 1;
+}
+
+.card {
+    @extend .panel;
+    @include thick-edge-left;
+    padding: 1rem;
+    text-align: left;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    &:hover {
+        transition: all 0.25s ease;
+        box-shadow:2px 3px 5px #94A1A8;
+        color: $blue-200;
+        transform: scale(1.02);
+        > .heading {
+            color: $blue-vibrant-300;
+        }
+    }
+}
+
+.card * {
+    flex: 0 1 auto;
+}
+
+.heading {
+    @include heading-sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $blue-dk-300;
+}
+
+.description {
+    margin-top: 0.5rem;
+}
+
+.last-link {
+    height: 24px;
+    margin-top: auto;
+    padding: 0;
+    background-color: white;
+    border: none;
+    color: $blue-200;
+    text-align: left;
+}
+
+.card-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
