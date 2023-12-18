@@ -9,7 +9,7 @@ nav_order: 54
 # grok
 
 
-The `Grok` processor takes unstructured data and utilizes pattern matching to structure and extract important keys. 
+The `Grok` processor takes unstructured data and utilizes pattern matching to structure and extract important keys.
 
 ## Configuration
 
@@ -17,11 +17,12 @@ The following table describes options you can use with the `Grok` processor to s
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-match | No | Map | Specifies which keys to match specific patterns against. Default value is an empty body.
-keep_empty_captures | No | Boolean | Enables preserving `null` captures. Default value is `false`.
-named_captures_only | No | Boolean | Specifies whether to keep only named captures. Default value is `true`.
 break_on_match | No | Boolean | Specifies whether to match all patterns or stop once the first successful match is found. Default value is `true`.
+grok_when | No | String | Specifies the condition when the grok processor should do matching. Default is no condition.
+keep_empty_captures | No | Boolean | Enables preserving `null` captures. Default value is `false`.
 keys_to_overwrite | No | List | Specifies which existing keys will be overwritten if there is a capture with the same key value. Default value is `[]`.
+match | No | Map | Specifies which keys to match specific patterns against. Default value is an empty body.
+named_captures_only | No | Boolean | Specifies whether to keep only named captures. Default value is `true`.
 pattern_definitions | No | Map | Allows for custom pattern use inline. Default value is an empty body.
 patterns_directories | No | List | Specifies the path of directories that contain customer pattern files. Default value is an empty list.
 pattern_files_glob | No | String | Specifies which pattern files to use from the directories specified for `pattern_directories`. Default value is `*`.
@@ -31,6 +32,22 @@ timeout_millis | No | Integer | The maximum amount of time during which matching
 <!---## Configuration
 
 Content will be added to this section.--->
+
+## Conditional grok
+
+The grok processor can be configured to run conditionally by using `grok_when` option. An example grok processor config when `grok_when` -
+```
+processor:
+  - grok:
+      grok_when: '/type == "ipv4"'
+        match:
+          message: ['%{IPV4:clientip} %{WORD:request} %{POSINT:bytes}']
+  - grok:
+      grok_when: '/type == "ipv6"'
+        match:
+          message: ['%{IPV6:clientip} %{WORD:request} %{POSINT:bytes}']
+```
+`grok_when` option takes a conditional expression which described in detail [here](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/)
 
 ## Metrics
 
@@ -53,4 +70,4 @@ The `Grok` processor includes the following custom metrics.
 
 ### Timer
 
-* `grokProcessingTime`: The time taken by individual records to match against patterns from `match`. The `avg` metric is the most useful metric for this timer because it provides you with an average value of the time it takes records to match. 
+* `grokProcessingTime`: The time taken by individual records to match against patterns from `match`. The `avg` metric is the most useful metric for this timer because it provides you with an average value of the time it takes records to match.
