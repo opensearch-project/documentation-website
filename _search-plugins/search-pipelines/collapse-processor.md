@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Collapse processor
+title: Collapse
 nav_order: 7
 has_children: false
 parent: Search processors
