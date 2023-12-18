@@ -18,13 +18,13 @@ plugins.security.disabled: true
 ```
 
 
-## Remove OpenSearch plugin
+## Removing the OpenSearch plugin
 
 A more permanent option is to remove the Security plugin entirely:
 
 1. Delete the `plugins/opensearch-security` folder on all nodes.
 1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
-1. Uninstall the Security plugin with the following command.
+1. Uninstall the Security plugin by using the following command:
 ```bash
 /usr/share/opensearch/opensearch-plugin remove opensearch-security
 ```
@@ -35,11 +35,11 @@ Disabling or removing the plugin exposes the configuration index for the Securit
 {: .warning }
 
 
-## Remove OpenSearch Dashboards plugin
+## Removing the OpenSearch Dashboards plugin
 
 If you disable the Security plugin in `opensearch.yml` (or delete the plugin entirely) and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards plugin. For more information, see [OpenSearch Dashboards remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#remove-plugins).
 
-Refer to the following installation types to remove the OpenSearch Dashboards plugin:
+Refer to the following installation types to remove the OpenSearch Dashboards plugin.
 
 ### Docker
 
@@ -74,7 +74,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 1. Navigate to the `/bin` directory in your OpenSearch Dashboards installation folder and stop the running OpenSearch Dashboards instance by pressing `Ctrl + C`.
 
-1. Run the following command to uninstall the Security plugin. 
+1. Run the following command to uninstall the Security plugin:
 
    ```bash
    ./bin/opensearch-dashboards-plugin remove securityDashboards
@@ -95,13 +95,13 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
    
 ### RPM and Debian 
 
-1. Stop the running instance of OpenSearch Dashboards with the following command: 
+1. Stop the running instance of OpenSearch Dashboards by using the following command: 
 
    ```bash
    sudo systemctl stop opensearch-dashboards
    ```
 
-1. Navigate to the OpenSearch Dashboards folder `/usr/share/opensearch-dashboards` and run the following command to uninstall the Security plugin. 
+1. Navigate to the OpenSearch Dashboards folder `/usr/share/opensearch-dashboards` and run the following command to uninstall the Security plugin:
 
    ```bash
    ./bin/opensearch-dashboards-plugin remove securityDashboards
@@ -115,7 +115,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
    server.host: "0.0.0.0"
    opensearch.hosts: http://localhost:9200
    ```
-1. Start OpenSearch Dashboards.
+1. Start OpenSearch Dashboards:
    ```bash
    sudo systemctl start opensearch-dashboards
    ```
