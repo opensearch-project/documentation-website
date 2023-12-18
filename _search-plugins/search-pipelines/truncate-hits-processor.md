@@ -17,7 +17,7 @@ The `target_size` parameter (which specifies where to truncate) is optional. If 
 The following is a common usage pattern:
 
 1. Add the `oversample` processor to a request pipeline to fetch a larger set of results.
-1. In the response pipeline, to apply a reranking processor (which may promote results from beyond the originally requested top N) or the `collapse` processor (which may discard results after deduplication).
+1. In the response pipeline, apply a reranking processor (which may promote results from beyond the originally requested top N) or the `collapse` processor (which may discard results after deduplication).
 1. Apply the `truncate` processor to return (at most) the originally requested number of hits.
 
 ## Request fields
