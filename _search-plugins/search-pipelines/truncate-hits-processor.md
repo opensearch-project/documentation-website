@@ -10,14 +10,16 @@ grand_parent: Search pipelines
 # Truncate hits processor
 
 The `truncate_hits` response processor discards returned search hits after a given hit count is reached. The `truncate_hits` processor is designed to work with the 
-[`oversample` request processor]({{site.url}}{{site.baseurl}}/search-plugins/oversample-processor/) but may be used on its own.
+[`oversample` request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/oversample-processor/) but may be used on its own.
 
 The `target_size` parameter (which specifies where to truncate) is optional. If it is not specified, then OpenSearch uses the `original_size` variable set by the
 `oversample` processor (if available).
 
-A common usage pattern is to add the `oversample` processor to a request pipeline to fetch a larger set of results, then, in the response pipeline, to apply a 
-reranking processor (which may promote results from beyond the the originally requested top N) or the `collapse` processor (which may discard results after
-deduplication), then apply the `truncate` processor to return (at most) the originally requested number of hits.
+The following is a common usage pattern:
+
+1. Add the `oversample` processor to a request pipeline to fetch a larger set of results.
+1. In the response pipeline, to apply a reranking processor (which may promote results from beyond the originally requested top N) or the `collapse` processor (which may discard results after deduplication).
+1. Apply the `truncate` processor to return (at most) the originally requested number of hits.
 
 ## Request fields
 
