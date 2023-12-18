@@ -14,7 +14,7 @@ This is similar to the `collapse` parameter that can be passed in a search reque
 response after fetching from all shards. The `collapse` response processor may be used in conjunction with the `rescore` search
 request parameter or may be applied after a reranking response processor.
 
-Using the `collapse` response processor will likely result in fewer than `size` results being returned, since hits are discarded 
+Using the `collapse` response processor will likely result in fewer than `size` results being returned because hits are discarded 
 from a set whose size is already less than or equal to `size`. To increase the likelihood of returning `size` hits, use the 
 `oversample` request processor and `truncate_hits` response processor, as shown in [this example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/truncate-hits-processor/#oversample-collapse-and-truncate-hits).
 
@@ -25,7 +25,7 @@ The following table lists all request fields.
 Field | Data type | Description
 :--- | :--- | :---
 `field` | String | The field whose value will be read from each returned search hit. Only the first hit for each given field value will be returned in the search response. Required.
-`context_prefix` | String | May be used to read the `original_size` variable from a specific scope to avoid collisions. Optional.
+`context_prefix` | String | May be used to read the `original_size` variable from a specific scope in order to avoid collisions. Optional.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
 `ignore_failure` | Boolean | If `true`, OpenSearch [ignores any failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
@@ -36,7 +36,7 @@ The following example demonstrates using a search pipeline with a `collapse` pro
 
 ### Setup
 
-Create many documents with a field that we'll use for collapsing:
+Create many documents containing a field to use for collapsing:
 
 ```json
 POST /_bulk
@@ -63,7 +63,7 @@ POST /_bulk
 ``` 
 {% include copy-curl.html %}
 
-Create a pipeline that just collapses on the `color` field:
+Create a pipeline that only collapses on the `color` field:
 
 ```json
 PUT /_search/pipeline/collapse_pipeline
@@ -81,8 +81,8 @@ PUT /_search/pipeline/collapse_pipeline
 
 ### Using a search pipeline
 
-In this example, we request the top 3 documents before collapsing on the "color" field. Since the first 2 documents have the same "color", the second one is discarded,
-and the request returns the first and third document:
+In this example, you request the top three documents before collapsing on the `color` field. Because the first two documents have the same `color`, the second one is discarded,
+and the request returns the first and third documents:
 
 ```json
 POST /my_index/_search?search_pipeline=collapse_pipeline

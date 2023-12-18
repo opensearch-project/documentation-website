@@ -10,8 +10,8 @@ grand_parent: Search pipelines
 # Oversample processor
 
 The `oversample` request processor multiplies the `size` parameter of the search request by a specified `sample_factor` (>= 1.0), saving the 
-original value in the `original_size` pipeline variable. The `oversample` processor  is designed to work together with the 
-[`truncate_hits` response processor]({{site.url}}{{site.baseurl}}/search-plugins/truncate-hits-processor/), but may be used on its own.
+original value in the `original_size` pipeline variable. The `oversample` processor is designed to work with the 
+[`truncate_hits` response processor]({{site.url}}{{site.baseurl}}/search-plugins/truncate-hits-processor/) but may be used on its own.
 
 ## Request fields
 
@@ -20,7 +20,7 @@ The following table lists all request fields.
 Field | Data type | Description
 :--- | :--- | :---
 `sample_factor` | Float | The multiplicative factor (>= 1.0) that will be applied to the `size` parameter before processing the search request. Required.
-`context_prefix` | String | May be used to scope the `original_size` variable to avoid collisions. Optional.
+`context_prefix` | String | May be used to scope the `original_size` variable in order to avoid collisions. Optional.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
 `ignore_failure` | Boolean | If `true`, OpenSearch [ignores any failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
@@ -32,7 +32,7 @@ The following example demonstrates using a search pipeline with an `oversample` 
 
 ### Setup
 
-Create an index named `my_index` with many documents:
+Create an index named `my_index` containing many documents:
 
 ```json
 POST /_bulk
@@ -61,7 +61,7 @@ POST /_bulk
 
 ### Creating a search pipeline
 
-The following request creates a search pipeline called `my_pipeline` with a `oversample` request processor that requests 50% more hits than specified in `size`:
+The following request creates a search pipeline named `my_pipeline` with an `oversample` request processor that requests 50% more hits than specified in `size`:
 
 ```json
 PUT /_search/pipeline/my_pipeline 
@@ -91,7 +91,7 @@ POST /my_index/_search
 ```
 {% include copy-curl.html %}
 
-The response contains 5 hits:
+The response contains five hits:
 
 <details open markdown="block">
   <summary>
