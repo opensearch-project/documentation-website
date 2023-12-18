@@ -22,7 +22,7 @@
 }
 
 .card-container * {
-    flex: 1;
+    flex: 1 1 230px;
 }
 
 .card {
@@ -45,7 +45,7 @@
     }
 }
 
-.card * {
+.card > * {
     flex: 0 1 auto;
 }
 
