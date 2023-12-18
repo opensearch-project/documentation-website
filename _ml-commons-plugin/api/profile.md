@@ -29,7 +29,9 @@ To clear all monitoring requests, set `plugins.ml_commons.monitoring_request_cou
 ```json
 GET /_plugins/_ml/profile
 GET /_plugins/_ml/profile/models
+GET /_plugins/_ml/profile/models/<model_id>
 GET /_plugins/_ml/profile/tasks
+GET /_plugins/_ml/profile/tasks/<task_id>
 ```
 
 ## Path parameters
