@@ -19,7 +19,7 @@ The following table lists all request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`sample_factor` | Number | The multiplicative factor (>= 1.0) that will be applied to the `size` parameter before processing the search request. Required.
+`sample_factor` | Float | The multiplicative factor (>= 1.0) that will be applied to the `size` parameter before processing the search request. Required.
 `context_prefix` | String | May be used to scope the `original_size` variable to avoid collisions. Optional.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
