@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Oversample processor
+title: Oversample
 nav_order: 17
 has_children: false
 parent: Search processors
