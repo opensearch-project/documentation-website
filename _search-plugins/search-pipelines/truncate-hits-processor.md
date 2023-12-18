@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Truncate hits processor
+title: Truncate hits
 nav_order: 35
 has_children: false
 parent: Search processors
