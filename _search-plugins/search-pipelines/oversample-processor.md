@@ -9,9 +9,7 @@ grand_parent: Search pipelines
 
 # Oversample processor
 
-The `oversample` request processor multiplies the `size` parameter of the search request by a specified `sample_factor` (>= 1.0), saving the 
-original value in the `original_size` pipeline variable. The `oversample` processor is designed to work with the 
-[`truncate_hits` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/truncate-hits-processor/) but may be used on its own.
+The `oversample` request processor multiplies the `size` parameter of the search request by a specified `sample_factor` (>= 1.0), saving the original value in the `original_size` pipeline variable. The `oversample` processor is designed to work with the [`truncate_hits` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/truncate-hits-processor/) but may be used on its own.
 
 ## Request fields
 
@@ -98,6 +96,7 @@ The response contains five hits:
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took" : 3,
@@ -188,6 +187,7 @@ The response contains 8 documents (5 * 1.5 = 7.5, rounded up to 8):
     Response
   </summary>
   {: .text-delta}
+  
 ```json
 {
   "took" : 13,

@@ -17,6 +17,7 @@ Boolean
 [Dd]ashboarding
 [Dd]atagram
 [Dd]eallocate
+[Dd]eduplicates?
 [Dd]eduplication
 [Dd]eserialize
 [Dd]eserialization
@@ -71,6 +72,7 @@ Levenshtein
 [Mm]ultithreaded
 [Mm]ultivalued
 [Nn]amespace
+[Oo]versamples?
 pebibyte
 [Pp]luggable
 [Pp]reconfigure

@@ -9,8 +9,7 @@ grand_parent: Search pipelines
 
 # Truncate hits processor
 
-The `truncate_hits` response processor discards returned search hits after a given hit count is reached. The `truncate_hits` processor is designed to work with the 
-[`oversample` request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/oversample-processor/) but may be used on its own.
+The `truncate_hits` response processor discards returned search hits after a given hit count is reached. The `truncate_hits` processor is designed to work with the [`oversample` request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/oversample-processor/) but may be used on its own.
 
 The `target_size` parameter (which specifies where to truncate) is optional. If it is not specified, then OpenSearch uses the `original_size` variable set by the
 `oversample` processor (if available).
@@ -105,6 +104,7 @@ The response contains eight hits:
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took" : 13,
@@ -225,6 +225,7 @@ The response contains only 5 hits, even though 8 were requested and 10 were avai
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took" : 3,
@@ -300,9 +301,7 @@ The response contains only 5 hits, even though 8 were requested and 10 were avai
 
 ## Oversample, collapse, and truncate hits
 
-The following is a more realistic example in which you use `oversample` to request many candidate documents, use `collapse` to remove documents that
-duplicate a particular field (to get more diverse results), and then use `truncate` to return the originally requested document count (to avoid returning a
-large result payload from the cluster).
+The following is a more realistic example in which you use `oversample` to request many candidate documents, use `collapse` to remove documents that duplicate a particular field (to get more diverse results), and then use `truncate` to return the originally requested document count (to avoid returning a large result payload from the cluster).
 
 
 ### Setup
@@ -380,8 +379,7 @@ PUT /_search/pipeline/oversampling_collapse_pipeline
 
 ### Collapse without oversample
 
-In this example, you request the top three documents before collapsing on the `color` field. Because the first two documents have the same `color`, the second one is discarded,
-and the request returns the first and third documents:
+In this example, you request the top three documents before collapsing on the `color` field. Because the first two documents have the same `color`, the second one is discarded, and the request returns the first and third documents:
 
 ```json
 POST /my_index/_search?search_pipeline=collapse_pipeline
@@ -397,6 +395,7 @@ POST /my_index/_search?search_pipeline=collapse_pipeline
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took" : 2,
@@ -444,8 +443,7 @@ POST /my_index/_search?search_pipeline=collapse_pipeline
 
 ### Oversample, collapse, and truncate
 
-Now you will use the `oversampling_collapse_pipeline`, which requests the top 9 documents (multiplying the size by 3), deduplicates by `color`, and
-then returns the top 3 hits:
+Now you will use the `oversampling_collapse_pipeline`, which requests the top 9 documents (multiplying the size by 3), deduplicates by `color`, and then returns the top 3 hits:
 
 ```json
 POST /my_index/_search?search_pipeline=oversampling_collapse_pipeline
@@ -461,6 +459,7 @@ POST /my_index/_search?search_pipeline=oversampling_collapse_pipeline
     Response
   </summary>
   {: .text-delta}
+
 ```json
 {
   "took" : 2,

@@ -98,6 +98,7 @@ POST /my_index/_search?search_pipeline=collapse_pipeline
     Response
   </summary>
   {: .text-delta}
+  
 ```json
 {
   "took" : 2,
