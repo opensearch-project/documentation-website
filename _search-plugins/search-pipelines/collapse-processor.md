@@ -10,7 +10,7 @@ grand_parent: Search pipelines
 # Collapse processor
 
 The `collapse` response processor discards hits that have the same value for a particular field as a previous document in the result set.
-This is similar to the `collapse` parameter that can be passed in a search request, but the response processor is applied to the
+This is similar to passing the `collapse` parameter in a search request, but the response processor is applied to the
 response after fetching from all shards. The `collapse` response processor may be used in conjunction with the `rescore` search
 request parameter or may be applied after a reranking response processor.
 
