@@ -442,7 +442,7 @@ POST /my_index/_search?search_pipeline=collapse_pipeline
 
 ### Oversample, collapse, and truncate
 
-Now, you will use the `oversampling_collapse_pipeline` that requests the top 9 documents (multiplying the size by 3), deduplicates by "color",
+Now you will use the `oversampling_collapse_pipeline`, which requests the top 9 documents (multiplying the size by 3), deduplicates by `color`, and
 then returns the top 3 hits:
 
 ```json
