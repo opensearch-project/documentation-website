@@ -91,7 +91,7 @@ The following diagram shows the schedule built by OSB with the expected response
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-1.png" alt="">
 
-However, if the assumptions is that all responses will take 200ms, 10 operations per second won't be possible. Therefore, the highest throughput OSB can reach is 5 operations per second, as should in the following diagram.
+However, if the assumption is that all responses will take 200ms, 10 operations per second won't be possible. Therefore, the highest throughput OSB can reach is 5 operations per second, as should in the following diagram.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-2.png" alt="">
 
@@ -104,9 +104,9 @@ If we combine the service time with the delay for each operation, we’ll get th
 - 300 ms for operation 2
 - 400 ms for operation 3
 - 500 ms for operation 4 
-- 600 ms latency for operation 5. 
+- 600 ms for operation 5
 
-This latency cascade continues with each subsequent request, increasing latency times.
+This latency cascade continues, increasing latency by 100ms for each subsequent request.
 
 ### Recommendation
 
