@@ -25,6 +25,71 @@ A workload is a specification of one or more benchmarking scenarios. A workload 
 - One or more data streams that are ingested into indexes.
 - A set of queries and operations that are invoked as part of the benchmark.
 
+## Throughput and latency
+
+At the end of each test, OSB produces a table that summarizes the throughput, service time, latency, and error rate for each task or OpenSearch operation that ran. While the definition for _throughput_ remains consistent with other client-server systems, the definitions for `service time` and `latency` differ from most client-server systems in the context of OSB.
+
+### Service time
+
+OSB does not have insight into how long OpenSearch takes to process a request, apart from extracting the `took` time for the request. In OpenSearch, **service time** tracks the durations between the point OpenSearch issues a requests and when OpenSearch receives the response.
+
+OSB makes function calls to `opensearch-py`, a client for OpenSearch, to communicate with an OpenSearch cluster. OSB tracks the time between when the `opensearch-py` client sends the request and receives a response from the OpenSearch cluster and considers this to be the service time. Contrasting with the traditional definition of service time, OSB’s definition of service time includes overhead, such as network latency, load-balancer overhead, or deserialization/serialization. The following image illustrates how OpenSearch measure service time versus the traditional measurement. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/benchmark/service-time.png" alt="">
+
+### Latency
+
+Target throughput is core to understanding OSB’s definition of **latency**. Target throughput is the rate at which OSB issues requests  and assumes the responses will come back instantaneously.  `target-throughput` is one of the common workload parameters that can be set for each test and is measured in operations per second.
+
+OSB always issue requests one at a time for a single client thread, specified as `search-clients` in workload parameters. If `target-throughput` is set to `0`, OSB issues a request immediately after it receives the response from the previous request. If the `target-throughput` is not 0, OSB issues the next request to match the `target-throughput` set, assuming responses return instantaneously.
+
+#### Example A
+
+The following diagrams illustrate latency when responses come back to OSB in 200ms, `search-clients` is set to `1`. and the `target-throughput` is set to `1` operations per second. The first diagram illustrates the expected behavior with the the aforementioned settings. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-1.png" alt="">
+
+However, when a request takes longer than 200ms, as shown in the following diagram when the response for a request returns in 1110ms instead of 400ms, OSB sends the next request that was supposed to occur in 4.00s at 4.10s. All subsequent requests attempt to resynchronize with the `target-throughput` setting.
+
+<img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-2.png" alt="">
+
+When measuring latency, OSB looks all the requests performed. All have a latency of 200ms except for two, the request that lasted 1100ms and the following request which was supposed to start at 4:00s. This request was delayed by 100ms, denoted by the orange area in the following diagram, and had a response of 200ms. Therefore, when OSB calculates the latency by adding the delayed time with the response time, this scenario returns a latency of **300ms**.
+
+<img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-3.png" alt="">
+
+#### Example B
+
+In this example, OSB uses the following latency settings:
+
+- Assumes a 200ms response time
+- `search_clients` set to 1
+- `target-throughput` set to 10 operations per second.
+
+The following diagram shows the schedule built by OSB with the expected response time.
+
+<img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-1.png" alt="">
+
+However, if the assumptions is that all responses will take 200ms, 10 operations per second won't be possible. Therefore, the highest throughput OSB can reach is 5 operations per second, as should in the following diagram.
+
+<img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-2.png" alt="">
+
+OSB will not account for this, and continues to try to achieve the `target-throughput` of 10 operations per second. Because of this, delays for each request being to cascade, as illustrated in the following diagram.
+
+<img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-3.png" alt="">
+
+If we combine the service time with the delay for each operation, we’ll get the following latency measurements for each operation: 
+- 200 ms for operation 1
+- 300 ms for operation 2
+- 400 ms for operation 3
+- 500 ms for operation 4 
+- 600 ms latency for operation 5. 
+
+This latency cascade continues with each subsequent request, increasing latency times.
+
+### Recommendation
+
+As shown in the preceeding examples, make sure you are aware of the average service time of each task run and provide a target-throughput that is within reason. OSB’s latency is calculated based on the `target-throughput` set by the user. In other words, OSB’s latency could be redefined as "throughput-based latency".
+
 ## Anatomy of a workload
 
 The following example workload shows all of the essential elements needed to create a `workload.json` file. You can run this workload in your own benchmark configuration to understand how all of the elements work together:
