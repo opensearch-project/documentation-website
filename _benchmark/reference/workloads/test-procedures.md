@@ -120,6 +120,16 @@ OpenSearch Benchmark requires one of the following options when running a task.
 `target-interval` | No | Interval | Defines an internal of less 1 / target-throughput (in seconds) less than one operation per second. Define either target-throughput or target-interval but not both (otherwise Rally will raise an error).
 `ignore-response-error-level` | No | Boolean | Controls whether to ignore errors encountered during the task when a benchmark is run with the `on-error=abort` command flag. 
 
+### Iteration-based options
+
+Iteration-based options determine the number of times an operation should run. It can also define the number of iterative runs when tasks are run in [parallel](#parallel-tasks). To configure an iteration-based schedule, use the following options.
+
+
+Parameter | Required | Type | Description
+:--- | :--- | :--- | :---
+`iterations` | No | Integer | The number of times a client should execute an operation. These are included in the measured results. Default is 1. 
+`warmup-iterations` | No | Integer | The number of times a client should execute an operation for the purpose of warming up the benchmark candidate. Warmup iterations will not show up in the measurement results. Default is 0.
+
 ### Parallel tasks
 
 The `parallel` element runs tasks wrapped inside the element concurrently. 
@@ -167,16 +177,6 @@ The `parallel` element supports all `schedule` parameters, in addition to the fo
 
 `tasks` | Yes | Array | Defines a list of tasks that should be executed concurrently. 
 `completed-by` | No | String | Allows you to define the name of one task in the tasks list, or the value `any`. If `completed-by` is set to the name of one of the tasks in the list, the parallel task structure is considered complete once that specific task has been completed. If `completed-by` is set to `any`, the parallel task structure is considered complete when any of the tasks in the list has been completed. If `completed-by` is not explicitly defined, the parallel task structure is considered complete as soon as all of the tasks in the list has been completed.
-
-### Iteration-based options
-
-Iteration-based options determine the number of times an operation should run. It can also define the number of iterative runs when tasks are run in [parallel](#parallel-tasks). To configure an iteration-based schedule, use the following options.
-
-
-Parameter | Required | Type | Description
-:--- | :--- | :--- | :---
-`iterations` | No | Integer | The number of times a client should execute an operation. These are included in the measured results. Default is 1. 
-`warmup-iterations` | No | Integer | The number of times a client should execute an operation for the purpose of warming up the benchmark candidate. Warmup iterations will not show up in the measurement results. Default is 0.
 
 ### Time-based options
 
