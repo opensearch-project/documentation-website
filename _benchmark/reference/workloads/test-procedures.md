@@ -8,7 +8,7 @@ nav_order: 100
 
 # test_procedures
 
-If your workload only defines one benchmarking scenario specify the schedule on top-level. Use the challenge element if you want to specify additional properties like a name or a description. You can think of a challenge as a benchmarking scenario. If you have multiple challenges, you can define an array of challenges.
+If your workload only defines one benchmarking scenario specify the schedule on top-level. Use the `test-procedures` element if you want to specify additional properties like a name or a description. You can think of a test procedure as a benchmarking scenario. If you have multiple test procedures, you can define an array of challenges.
 
 This section contains one or more test procedures which describe the benchmark scenarios for this data set. A test procedure can reference all operations that are defined in the operations section.
 
