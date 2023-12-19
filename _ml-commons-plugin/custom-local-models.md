@@ -2,6 +2,7 @@
 layout: default
 title: Custom models
 parent: Using ML models within OpenSearch
+grand_parent: Integrating ML models
 nav_order: 120
 ---
 
@@ -118,13 +119,38 @@ POST /_plugins/_ml/models/_register
     "model_type": "distilbert",
     "embedding_dimension": 768,
     "framework_type": "sentence_transformers",
-    "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}"""
+    "all_config": "{\"_name_or_path\":\"old_models/msmarco-distilbert-base-tas-b/0_Transformer\",\"activation\":\"gelu\",\"architectures\":[\"DistilBertModel\"],\"attention_dropout\":0.1,\"dim\":768,\"dropout\":0.1,\"hidden_dim\":3072,\"initializer_range\":0.02,\"max_position_embeddings\":512,\"model_type\":\"distilbert\",\"n_heads\":12,\"n_layers\":6,\"pad_token_id\":0,\"qa_dropout\":0.1,\"seq_classif_dropout\":0.2,\"sinusoidal_pos_embds\":false,\"tie_weights_\":true,\"transformers_version\":\"4.7.0\",\"vocab_size\":30522}"
   },
   "created_time": 1676073973126,
   "url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/msmarco-distilbert-base-tas-b/1.0.1/torch_script/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.1-torch_script.zip"
 }
 ```
 {% include copy-curl.html %}
+
+Note that in OpenSearch Dashboards, wrapping the `all_config` field contents in triple quotes (`"""`) automatically escapes quotation marks within the field and provides better readability:
+
+```json
+POST /_plugins/_ml/models/_register
+{
+  "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
+  "version": "1.0.1",
+  "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
+  "description": "This is a port of the DistilBert TAS-B Model to sentence-transformers model: It maps sentences & paragraphs to a 768 dimensional dense vector space and is optimized for the task of semantic search.",
+  "model_task_type": "TEXT_EMBEDDING",
+  "model_format": "TORCH_SCRIPT",
+  "model_content_size_in_bytes": 266352827,
+  "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
+  "model_config": {
+    "model_type": "distilbert",
+    "embedding_dimension": 768,
+    "framework_type": "sentence_transformers",
+    "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}"""
+  },
+  "created_time": 1676073973126,
+  "url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/msmarco-distilbert-base-tas-b/1.0.1/torch_script/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.1-torch_script.zip"
+}
+```
+{% include copy.html %}
 
 For a description of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
 
@@ -207,6 +233,9 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
+If a cluster or node is restarted, then you need to redeploy the model. To learn how to set up automatic redeployment, see [Enable auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#enable-auto-redeploy).
+{: .tip} 
+
 ## Step 4 (Optional): Test the model
 
 Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model.
@@ -286,8 +315,4 @@ The response contains the tokens and weights:
 
 ## Step 5: Use the model for search
 
-To learn how to set up a vector index and use text embedding models for search, see [Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/).
-
-To learn how to set up a vector index and use sparse encoding models for search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
-
-To learn how to set up a vector index and use multimodal embedding models for search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).

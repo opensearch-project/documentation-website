@@ -208,7 +208,6 @@ Name | Description
 :--- | :---
 `-nhnv` | Do not validate hostname. Default is false.
 `-nrhn` | Do not resolve hostname. Only relevant if `-nhnv` is not set.
-`-noopenssl` | Do not use OpenSSL, even if available. Default is to use OpenSSL if it is available.
 
 
 ### Configuration files settings
