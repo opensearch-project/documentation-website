@@ -35,7 +35,7 @@ Content will be added to this section.--->
 
 ## Conditional grok
 
-The grok processor can be configured to run conditionally by using `grok_when` option. An example grok processor config when `grok_when` -
+The grok processor can be configured to run conditionally by using the `grok_when` option. The following is an example grok processor configuration using `grok_when`:
 ```
 processor:
   - grok:
@@ -47,7 +47,7 @@ processor:
         match:
           message: ['%{IPV6:clientip} %{WORD:request} %{POSINT:bytes}']
 ```
-`grok_when` option takes a conditional expression which described in detail [here](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/)
+The `grok_when` option takes a conditional expression. This expression is detailed in the [Expression syntax](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) documentation.
 
 ## Metrics
 
@@ -70,4 +70,4 @@ The `Grok` processor includes the following custom metrics.
 
 ### Timer
 
-* `grokProcessingTime`: The time taken by individual records to match against patterns from `match`. The `avg` metric is the most useful metric for this timer because it provides you with an average value of the time it takes records to match.
+* `grokProcessingTime`: The time taken by individual records to match against patterns from `match`. The `avg` metric is the most useful metric for this timer because it provides the average value of the time it takes records to match.
