@@ -9,7 +9,7 @@ nav_order: 54
 # grok
 
 
-The `Grok` processor takes unstructured data and utilizes pattern matching to structure and extract important keys.
+The `Grok` processor uses pattern matching to structure and extract important keys from unstructured data.
 
 ## Configuration
 
