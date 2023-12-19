@@ -18,7 +18,7 @@ Parameter | Required | Type | Description
 `description` | No | String |  A human readable description of the test procedure.
 `user-info` | No | String | A message that is printed at the beginning of the test intended to notify the user about important information related to the test, such as deprecations.
 `default` | No | Boolean | When set to `true`, OpenSearch Benchmark selects this test procedure by default if the user did not specify another `test-procedure` on the command line. If your workload only defines one challenge, it is implicitly selected as default, otherwise you need to define `"default": true` on exactly one challenge.
-[schedule](#schedule) | Yes | Array |  Defines the workload. 
+[schedule](#schedule) | Yes | Array |  Defines the order in which tasks in the workload are run.
 
 
 ## schedule
