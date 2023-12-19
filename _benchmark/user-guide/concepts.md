@@ -45,7 +45,7 @@ OSB always issue requests one at a time for a single client thread, specified as
 
 #### Example A
 
-The following diagrams illustrate latency when responses come back to OSB in 200ms, `search-clients` is set to `1`. and the `target-throughput` is set to `1` operations per second. The first diagram illustrates the expected behavior with the the aforementioned settings. 
+The following diagrams illustrate latency when responses come back to OSB in 200ms, `search-clients` is set to `1` and the `target-throughput` is set to `1` operations per second. The first diagram illustrates the expected behavior with the the aforementioned settings. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-1.png" alt="">
 
