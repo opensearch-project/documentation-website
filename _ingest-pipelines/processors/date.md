@@ -8,12 +8,11 @@ redirect_from:
 ---
 
 # Date processor
-**Introduced 1.0**
-{: .label .label-purple }
 
 The `date` processor is used to parse dates from document fields and to add the parsed data to a new field. By default, the parsed data is stored in the `@timestamp` field. 
 
-## Example
+## Syntax
+
 The following is the syntax for the `date` processor:
 
 ```json
@@ -30,25 +29,25 @@ The following is the syntax for the `date` processor:
 
 The following table lists the required and optional parameters for the `date` processor.
 
-Parameter | Required | Description |
+Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field to which the data should be converted. Supports template snippets. |
+`field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
 `description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | A condition for running this processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports template snippets.  |
+`if` | Optional | A condition for running the processor. |
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
+`locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 `target_field`  | Optional  | The name of the field in which to store the parsed data. Default target field is `@timestamp`. | 
-`timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. Supports template snippets. |
+`timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 
 ## Using the processor
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline.**
+**Step 1: Create a pipeline**
 
 The following query creates a pipeline, named `date-output-format`, that uses the `date` processor to convert from European date format to US date format, adding the new field `date_us` with the desired `output_format`:
 
@@ -71,7 +70,7 @@ PUT /_ingest/pipeline/date-output-format
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**Step 2 (Optional): Test the pipeline**
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -95,7 +94,7 @@ POST _ingest/pipeline/date-output-format/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
+**Response**
 
 The following example response confirms that the pipeline is working as expected:
 
@@ -119,7 +118,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document.**
+**Step 3: Ingest a document**
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -131,7 +130,7 @@ PUT testindex1/_doc/1?pipeline=date-output-format
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document.**
+**Step 4 (Optional): Retrieve the document**
 
 To retrieve the document, run the following query:
 
