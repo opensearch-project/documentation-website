@@ -10,7 +10,7 @@ nav_order: 100
 
 If your workload only defines one benchmarking scenario specify the schedule on top-level. Use the challenge element if you want to specify additional properties like a name or a description. You can think of a challenge as a benchmarking scenario. If you have multiple challenges, you can define an array of challenges.
 
-This section contains one or more challenges which describe the benchmark scenarios for this data set. A challenge can reference all operations that are defined in the operations section.
+This section contains one or more test procedures which describe the benchmark scenarios for this data set. A test procedure can reference all operations that are defined in the operations section.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -133,7 +133,7 @@ In the following example, `parallel-task-1` and `parallel-task-2` execute a `bul
 ```yml
 {
   "name": "parallel-any",
-  "description": "Track completed-by property",
+  "description": "Workload completed-by property",
   "schedule": [
     {
       "parallel": {
@@ -166,28 +166,28 @@ In the following example, `parallel-task-1` and `parallel-task-2` execute a `bul
 The `parallel` element supports all `schedule` parameters, in addition to the following:
 
 `tasks` | Yes | Array | Defines a list of tasks that should be executed concurrently. 
-`completed-by` | No | String | Allows you define the name of one task in the tasks list, or the value `any`. If a specific task name has been provided then as soon as the named task has completed, the whole parallel task structure is considered completed. If the of value `any` is provided, then any task that completes first renders all other tasks specified in parallel structure complete. If this property is not explicitly defined, the parallel task structure is considered completed as soon as the tasks in the element complete.
+`completed-by` | No | String | Allows you to define the name of one task in the tasks list, or the value `any`. If `completed-by` is set to the name of one of the tasks in the list, the parallel task structure is considered complete once that specific task has been completed. If `completed-by` is set to `any`, the parallel task structure is considered complete when any of the tasks in the list has been completed. If `completed-by` is not explicitly defined, the parallel task structure is considered complete as soon as all of the tasks in the list has been completed.
 
 ### Iteration-based options
 
-Iteration-based options determine the number of times an operation should fun. It can also define the number of iterative runs when tasks are run in [parallel](#parallel-tasks). To configure an iteration-based schedule, use the following options.
+Iteration-based options determine the number of times an operation should run. It can also define the number of iterative runs when tasks are run in [parallel](#parallel-tasks). To configure an iteration-based schedule, use the following options.
 
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`iterations` | No | Integer | Defines a default value for all tasks of the parallel element. Default is `1`.
-`warmup-iterations` | No | Integer | Number of iterations that each client should execute to warmup the benchmark candidate. Warmup iterations will not show up in the measurement results. Default is `0`.
+`iterations` | No | Integer | The number of times a client should execute an operation. These are included in the measured results. Default is 1. 
+`warmup-iterations` | No | Integer | The number of times a client should execute an operation for the purpose of warming up the benchmark candidate. Warmup iterations will not show up in the measurement results. Default is 0.
 
 ### Time-based options
 
-Time-based options determines the duration of time, in seconds, that operations should run for. This is ideal with batch-style operations which may require an additional warmup period, including batch style operations. 
+Time-based options determines the duration of time, in seconds, that operations should run for. This is ideal for batch-style operations which may require an additional warmup period.
 
 To configure a time-based schedule, use the following options.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`time-period` | No | Duration | The time period in seconds that OpenSearch Benchmark considers for measurement. Usually not required for bulk indexing, since OpenSearch Benchmark will index all documents at according to the `warmup-time-period`.
-`ramp-up-time-period` | No | Integer | Determines the number of clients used at the end of the specified time period in seconds, which can help increase load gradually. This prevents load spikes from occurring before the benchmark is warmed up. This property requires a `warmup-time-period` to be set as well, which must be less then the ramp up time period. Default is `0`.
-`warmup-time-period` | No | Integer | The time period in seconds to warmup of the benchmark candidate. All response data captured during the warmup period will not appear in the measurement results.
+`time-period` | No | Integer | The time period in seconds that OpenSearch Benchmark considers for measurement. This is not required for bulk-indexing as OpenSearch Benchmark will bulk index all documents and naturally measure all samples after the `warmup-time-period` specified.
+`ramp-up-time-period` | No | Integer | The time period in seconds in which OpenSearch Benchmark gradually adds clients and reaches the total number of clients specified for the operation. 
+`warmup-time-period` | No | Integer | The time period in seconds to warmup the benchmark candidate. All response data captured during the warmup period will not appear in the measurement results.
 
 

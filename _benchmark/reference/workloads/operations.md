@@ -32,7 +32,7 @@ With multiple `clients`, OpenSearch Benchmark splits each document based on the 
 
 Additionally, if there are multiple documents or corpora, OpenSearch Benchmark tries to index all documents in parallel in two ways:
 
-1. Each client starts at a different point in the corpus. For example, in a track with 2 corpora and 5 clients, clients 1, 3, and 5 begin with the first corpus, whereas clients 2 and 4 start with the second corpus.
+1. Each client starts at a different point in the corpus. For example, in a workload with 2 corpora and 5 clients, clients 1, 3, and 5 begin with the first corpus, whereas clients 2 and 4 start with the second corpus.
 2. Each client is assigned to multiple documents. Client 1 starts with the first split of the first document of the first corpus. Then it will move on to the first split of the first document of the second corpus, and so on.
 
 ### Options
@@ -47,7 +47,7 @@ Parameter | Required | Type | Description
 `indices` | No | List | A list of index names that defines which indexes should be used in the bulk index operation. OpenSearch Benchmark will only select document files that have a matching `target-index`.
 `batch-size` | No | Number | Defines how many documents OpenSearch Benchmark reads at once. This is an expert setting and only meant to avoid accidental bottlenecks for very small bulk sizes. If you want to benchmark with a bulk-size of 1, you should set batch-size higher.
 `pipeline` | No | String | Defines the name of an existing ingest pipeline that should be used.
-`conflicts` | No | String | The type of index conflicts to simulate. If not specified, no conflicts will be simulated. Valid values are ‘sequential’, a document ID is replaced with with a sequentially increasing ID, and ‘random’, where a document ID is replaced with a random document ID.
+`conflicts` | No | String | The type of index conflicts to simulate. If not specified, no conflicts will be simulated. Valid values are ‘sequential’, a document ID is replaced with a sequentially increasing ID, and ‘random’, where a document ID is replaced with a random document ID.
 `conflict-probability` | No | Percentage | A number between [0, 100] that defines how many of the documents be replaced when a conflict exists. Combining `conflicts=sequential` and `conflict-probability=0` makes OpenSearch Benchmark generate index ID by itself, instead of relying on OpenSearch’s automatic ID generation. Default is `25%`.
 `on-conflict` | No | String |  Determines whether OpenSearch should use the action `index` or `update` index on ID conflicts. Default is `index`, which creates a new index during ID conflicts.
 `recency` | No | Number | A number between [0,1] that indicates recency. Recency towards `1` bias conflicting IDs towards more recent IDs. Recency towards 0 considers all IDs for ID conflicts. 
@@ -184,7 +184,7 @@ Use the following options when deleting all indexes indicated in the `indices` s
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`only-if-exists` | No | Boolean | Decides whether an index should only be deleted in the index exists. Default is `true`.
+`only-if-exists` | No | Boolean | Decides whether an index should only be deleted if the index exists. Default is `true`.
 `request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark will not attempt to serialize the parameters and pass them as is. 
 
 Use the following options if you want to delete one or more indexes based on pattern indicated in the `index` option:
@@ -192,7 +192,7 @@ Use the following options if you want to delete one or more indexes based on pat
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `index` | Yes | String | The name of the index or indexes you want to delete. 
-`only-if-exists` | No | Boolean | Decides whether an index should only be deleted in the index exists. Default is `true`.
+`only-if-exists` | No | Boolean | Decides whether an index should only be deleted if the index exists. Default is `true`.
 `request-params` | No | List of settings | Contains any request parameters allowed by Create Index API. OpenSearch Benchmark will not attempt to serialize the parameters and pass them as is. 
 
 ### Meta-data
@@ -205,7 +205,7 @@ The `delete-index` operation returns the following meta-data.
 
 ## cluster-health
 
-The `cluster-health` operation runs the [Cluster Health API](api-reference/cluster-api/cluster-health/), which checks the cluster health status returns the expected status according the parameters set in the `request-params` option. If an unexpected cluster health status is returned, the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when an the health check fails.
+The `cluster-health` operation runs the [Cluster Health API](api-reference/cluster-api/cluster-health/), which checks the cluster health status and returns the expected status according the parameters set in the `request-params` option. If an unexpected cluster health status is returned, the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when an the health check fails.
 
 
 ### Usage
@@ -318,6 +318,6 @@ If `detailed-results` is set to `true`, the following meta-data is also returned
 - `hits_relation`: whether hits is accurate (eq) or a lower bound of the actual hit count (gte).
 - `timed_out`: Whether the query has timed out. For scroll queries, this flag is true if the flag was true for any of the queries issued.
 
-    took: Value of the the took property in the query response. For scroll queries, this value is the sum of all took values in query responses.
+ - `took`: The value of the the `took` property in the query response. For scroll queries, this value is the sum of all took values in query responses.
 
 
