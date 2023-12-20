@@ -35,7 +35,7 @@ If there are multiple documents or corpora, OpenSearch Benchmark tries to index 
 1. Each client starts at a different point in the corpus. For example, in a workload with 2 corpora and 5 clients, clients 1, 3, and 5 begin with the first corpus, whereas clients 2 and 4 start with the second corpus.
 2. Each client is assigned to multiple documents. Client 1 starts with the first split of the first document of the first corpus. Then it moves to the first split of the first document of the second corpus, and so on.
 
-### Options
+### Configuration options
 
 Use the following options to customize the `bulk` operation.
 
@@ -122,7 +122,7 @@ The following example creates a new index with all index settings specified in t
 }
 ```
 
-### Options
+### Configuration options
 
 Use the following options when creating all indexes from the `indices` section of a workload.
 
@@ -178,7 +178,7 @@ The following example deletes all `logs_*` indexes:
 }
 ```
 
-### Options
+### Configuration options
 
 Use the following options when deleting all indexes indicated in the `indices` section of the workload.
 
@@ -226,7 +226,7 @@ The following example creates a `cluster-health` operation that checks for a `gr
 
 ```
 
-### Options
+### Configuration options
 
 Use the following options with the `cluster-health` operation.
 
@@ -261,7 +261,7 @@ The following example refreshes all `logs-*` indexes:
 }
 ```
 
-### Options
+### Configuration options
 
 The `refresh` operation uses the following options.
 
@@ -293,7 +293,7 @@ The following example runs a `match_all` query inside the `search` operation:
 }
 ```
 
-### Options
+### Configuration options
 
 The `search` operation uses the following options.
 
