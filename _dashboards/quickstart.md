@@ -36,7 +36,7 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
 - Choose data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
-- Explore the data, view individual documents, and create tables summarizing the data's contents.
+- Explore the data, view individual documents, and create tables summarizing the data.
 - Visualize your findings.
 
 ## Try it: Getting familiar with Discover

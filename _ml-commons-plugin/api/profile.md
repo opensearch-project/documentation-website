@@ -29,15 +29,17 @@ To clear all monitoring requests, set `plugins.ml_commons.monitoring_request_cou
 ```json
 GET /_plugins/_ml/profile
 GET /_plugins/_ml/profile/models
+GET /_plugins/_ml/profile/models/<model_id>
 GET /_plugins/_ml/profile/tasks
+GET /_plugins/_ml/profile/tasks/<task_id>
 ```
 
 ## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`model_id` | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
-`tasks`| String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+`model_id` | String | Returns runtime data for a specific model. You can provide multiple model IDs as comma-separated values to retrieve multiple model profiles.
+`task_id`| String | Returns runtime data for a specific task. You can provide multiple task IDs as comma-separated values to retrieve multiple task profiles.
 
 ### Request fields
 
