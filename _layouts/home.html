@@ -48,31 +48,10 @@ layout: table_wrappers
 
   {% include header.html %}
 
-  <main>
+  <div class="main-home">
     <div id="main-header"></div>
-    <div class="side-bar">
-      <div class="site-header">
-        <a href="/docs/latest/" id="menu-button" class="site-button">
-          Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
-        </a>
-      </div>
-      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
-            {% assign pages_top_size = site.html_pages
-                | where_exp:"item", "item.title != nil"
-                | where_exp:"item", "item.parent == nil"
-                | where_exp:"item", "item.nav_exclude != true"
-                | size %}
-            {% if pages_top_size > 0 %}
-              {% include nav.html pages=site.html_pages key=nil expanded=true %}
-            {% endif %}
-        <a class="nav-category" href="{{site.url}}{{site.baseurl}}/getting-started/">OpenSearch and OpenSearch Dashboards</a>
-        <a class="nav-category" href="{{site.url}}{{site.baseurl}}/data-prepper/">Data Prepper</a>
-        <a class="nav-category" href="{{site.url}}{{site.baseurl}}/clients/">Clients</a>
-        <a class="nav-category" href="{{site.url}}{{site.baseurl}}/benchmark/">Benchmark</a>
-    </nav>
-    </div>
-    <div class="main">
-      <div id="main-content-wrap" class="main-content-wrap">
+    <div class="main--home">
+      <div id="main-content-wrap" class="main-content-wrap--home">
         {% unless page.url == "/" %}
           {% if page.parent %}
             <nav aria-label="Breadcrumb" class="breadcrumb-nav">
@@ -148,14 +127,6 @@ layout: table_wrappers
 
         </div>
       </div>
-      <div class="toc-wrap">
-        <div class="sticky-wrap">
-          <div class="toc">
-            {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
-          </div>
-          {% include feedback.html %}
-        </div>
-      </div>
       {% if site.search_enabled != false %}
         {% if site.search.button %}
           <a href="#" id="search-button" class="search-button">
@@ -164,7 +135,7 @@ layout: table_wrappers
         {% endif %}
       {% endif %}
     </div>
-  </main>
+  </div>
 
   {% include footer.html %}
 

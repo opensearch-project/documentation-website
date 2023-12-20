@@ -56,8 +56,10 @@ layout: table_wrappers
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
-      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
+      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">        
         <div class="version-wrapper">
+          <a href="{{site.url}}{{site.baseurl}}/getting-started/index/" class="site-category">OpenSearch and OpenSearch Dashboards</a>
+          <a href="{{site.url}}{{site.baseurl}}/" class="back-link">&#x2190; Back to docs home</a>
           <version-selector selected="{{ site.data.versions.current }}"></version-selector>
         </div>
         {% assign pages_top_size = site.html_pages
@@ -204,7 +206,7 @@ layout: table_wrappers
       <div class="toc-wrap">
         <div class="sticky-wrap">
           <div class="toc">
-            {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+            {% include toc.html html=content h_min=2 h_max=3 class="toc-list" item_class="toc-item" sanitize=true %}
           </div>
           {% include feedback.html %}
         </div>

@@ -3,6 +3,7 @@ layout: default
 title: Getting started
 nav_order: 1
 has_children: false
+has_toc: false
 nav_exclude: true
 ---
 

@@ -2,6 +2,10 @@
     background: linear-gradient(180deg, #E1FAFF 0%, #98E3F4 48.15%, #00B7E0 100%);
 }
 
+@mixin gradient-deep-blue-sea {
+    background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
+}
+
 @mixin thick-edge-left {
     border-left: $blue-200 10px solid;
 }
@@ -10,9 +14,13 @@
     box-sizing: border-box;
 }
 
+// Card style
+
+.card-container-wrapper {
+    @include gradient-open-sky;
+}
 
 .card-container {
-    @include gradient-open-sky;
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
@@ -29,6 +37,7 @@
     @extend .panel;
     @include thick-edge-left;
     padding: 1rem;
+    margin-bottom: 4rem;
     text-align: left;
     background-color: white;
     display: flex;
@@ -45,8 +54,12 @@
     }
 }
 
+.card >:nth-child(1) {
+    flex-basis: 2;
+}
+
 .card > * {
-    flex: 0 1 auto;
+    flex: 0 1;
 }
 
 .heading {
@@ -54,6 +67,12 @@
     font-size: 1.5rem;
     font-weight: 700;
     color: $blue-dk-300;
+}
+
+.heading-main {
+    @extend .heading;
+    margin: 0;
+    padding: 3rem 0 0 2rem;
 }
 
 .description {
@@ -76,4 +95,77 @@
     bottom: 0;
     left: 0;
     width: 100%;
+  }
+
+  // Banner style
+
+.os-banner {
+    @extend .panel;
+    @include gradient-deep-blue-sea;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    margin-bottom: 2rem;
+    @include mq(md) {  
+        margin-bottom: 4rem;
+    }
+}
+  
+  .banner-head {
+    @extend .panel;
+    background-size: cover;  
+  }
+  
+  .banner-text-div {
+    margin: 1rem 1rem 0 1.5rem;
+    padding: 0 1.5rem;
+    border-style: none none none solid;
+    border-color: $blue-lt-300;
+    border-width: 4px;
+    border-radius: 1px;
+    max-width: 47rem;
+    @include mq(md) {  
+        margin: 2rem 4rem 0 4rem;
+    }
+  }
+  
+  .banner-text-header {
+    font-size: 2.3rem;
+    font-family: "Open Sans";
+    font-weight: 300;
+    @include mq(md) {
+        font-size: 3.2rem;
+    }
+  }
+  
+  .banner-text-description {
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 2.25rem;
+    @include mq(md) {
+        font-size: 1rem;
+    }
+  }
+  
+  .btn-contribute {
+    @extend .btn-general;
+    margin-bottom: 2rem;
+    margin-right: 4rem;
+    padding: 1rem 2rem;
+    float: right;
+    color: $blue-dk-300;
+    font-size: 1.13rem;
+    box-shadow: 2px 3px 5px #000000;
+    &:hover {
+      box-shadow: 2px 3px 5px $blue-dk-300 !important;
+    }
+  }
+  
+  .btn-contribute span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
   }

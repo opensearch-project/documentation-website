@@ -1,4 +1,4 @@
-title: Documentation
+title: OpenSearch Documentation
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
 baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
@@ -17,9 +17,6 @@ remote_theme: pmarsceill/just-the-docs@v0.3.3
 # Kramdown settings
 kramdown:
   toc_levels: 2..3
-  syntax_highlighter_opts:
-    block:
-      line_numbers: true
 
 logo: "/assets/images/logo.svg"
 
@@ -112,10 +109,16 @@ collections:
   developer-documentation:
     permalink: /:collection/:path/
     output: true
+  getting-started:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme
   collections:
+    getting-started:
+      name: About OpenSearch
+      nav_fold: true
     install-and-configure:
       name: Install and upgrade
       nav_fold: true

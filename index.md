@@ -1,13 +1,12 @@
 ---
 layout: home
-title: OpenSearch documentation
+title: Home
 nav_order: 1
-has_children: true
+has_children: false
+nav_exclude: true
 permalink: /
 ---
 
 {% include banner.html %}
-
-# Explore OpenSearch documentation
 
 {% include cards.html %}
