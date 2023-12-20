@@ -27,7 +27,7 @@ A workload is a specification of one or more benchmarking scenarios. A workload 
 
 ## Throughput and latency
 
-At the end of each test, OSB produces a table that summarizes the following 
+At the end of each test, OSB produces a table that summarizes the following: 
 
 - [Service time](#service-time) 
 - Throughput
@@ -39,7 +39,7 @@ While the definition for _throughput_ remains consistent with other client-serve
 | Metric | Common definition | **OSB Definition**	|
 | :--- | :--- |:--- |
 | **Throughput** | The number of operations completed in a given period of time	| The number of operations completed in a given period of time	|
-| **Service time**	|The time the server takes to process a request, from the point it receives the request to the point the response is returned. </br></br> It includes the time spent waiting in server-side queues, but _excludes_ network latency, load-balancer overhead, and deserialization/serialization. | The time it takes for the `opensearch-py` to send a request to and receive a response from the OpenSearch cluster. </br> </br> It includes the time it takes for the server to process a request, and also _includes_ network latency, load-balancer overhead, and deserialization/serialization.  |
+| **Service time**	| The time the server takes to process a request, from the point it receives the request to the point the response is returned. </br></br> It includes the time spent waiting in server-side queues, but _excludes_ network latency, load-balancer overhead, and deserialization/serialization. | The time it takes for the `opensearch-py` to send a request to and receive a response from the OpenSearch cluster. </br> </br> It includes the time it takes for the server to process a request, and also _includes_ network latency, load-balancer overhead, and deserialization/serialization.  |
 | **Latency** | The total time, including the service time and the time the request waited before responding. | Based on the `target-throughput` set by the user, the total time the request waited before receiving the response, in addition to any other delays that occur before the request is sent. |
 
 For more information on service time and latency in OSB, see the [Service time](#service-time) and [Latency](#latency) sections.
@@ -49,7 +49,7 @@ For more information on service time and latency in OSB, see the [Service time](
 
 OSB does not have insight into how long OpenSearch takes to process a request, apart from extracting the `took` time for the request. In OpenSearch, **service time** tracks the durations between the point OpenSearch issues a requests and when OpenSearch receives the response.
 
-OSB makes function calls to `opensearch-py` to communicate with an OpenSearch cluster. OSB tracks the time between when the `opensearch-py` client sends the request and receives a response from the OpenSearch cluster and considers this to be the service time. Unlike the traditional definition of service time, OSB’s definition of service time includes overhead, such as network latency, load-balancer overhead, or deserialization/serialization. The following image highlights the differences in the traditional definition of service time and OSB's definition of service time. 
+OSB makes function calls to `opensearch-py` to communicate with an OpenSearch cluster. OSB tracks the time between when the `opensearch-py` client sends the request and receives a response from the OpenSearch cluster and considers this to be the service time. Unlike the traditional definition of service time, OSB’s definition of service time includes overhead, such as network latency, load-balancer overhead, or deserialization/serialization. The following image highlights the differences in the traditional definition of service time and OSB's definition of service time.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/service-time.png" alt="">
 
@@ -68,40 +68,38 @@ The following diagrams illustrate how latency is calculated when we expect a req
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-1.png" alt="">
 
-However, when a request takes longer than 200ms, such as when a request takes 1110ms instead of 400ms, OSB sends the next request that was supposed to occur at 4.00s based on the `target-throughput` at 4.10s. All subsequent requests after the 4.10s request attempt to resynchronize with the `target-throughput` setting.
+When a request takes longer than 200ms, such as when a request takes 1110ms instead of 400ms, OSB sends the next request that was supposed to occur at 4.00s based on the `target-throughput` at 4.10s. All subsequent requests after the 4.10s request attempt to resynchronize with the `target-throughput` setting.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-2.png" alt="">
 
-When measuring the overall latency, OSB looks all the requests performed. All requests have a latency of 200ms except for the following two: 
-- The request that lasted 1100ms 
-- The following request which was supposed to start at 4:00s. This request was delayed by 100ms, denoted by the orange area in the following diagram, and had a response of 200ms. When calculating the latency for this request, OSB will account for the delayed start time and combine it with the response time. Thus, the latency for this request is **300ms**.
+When measuring the overall latency, OSB looks all the requests performed. All requests have a latency of 200ms except for the following two requests:
 
+- The request that lasted 1100ms. 
+- The subsquent request which was supposed to start at 4:00s. This request was delayed by 100ms, denoted by the orange area in the following diagram, and had a response of 200ms. When calculating the latency for this request, OSB will account for the delayed start time and combine it with the response time. Thus, the latency for this request is **300ms**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-3.png" alt="">
 
-
-
 #### Example B
 
-In this example, OSB uses the following latency settings:
+In this example, OSB assumes a latency of 200ms and uses the following latency settings:
 
-- Assumes a 200ms response time
 - `search_clients` set to 1
-- `target-throughput` set to 10 operations per second.
+- `target-throughput` set to 10 operations per second
 
 The following diagram shows the schedule built by OSB with the expected response time.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-1.png" alt="">
 
-However, if the assumption is that all responses will take 200ms, 10 operations per second won't be possible. Therefore, the highest throughput OSB can reach is 5 operations per second, as should in the following diagram.
+However, if the assumption is that all responses will take 200ms, 10 operations per second won't be possible. Therefore, the highest throughput OSB can reach is 5 operations per second, as shown in the following diagram.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-2.png" alt="">
 
-OSB will not account for this, and continues to try to achieve the `target-throughput` of 10 operations per second. Because of this, delays for each request being to cascade, as illustrated in the following diagram.
+OSB does not account for this, and continues to try to achieve the `target-throughput` of 10 operations per second. Because of this, delays for each request being to cascade, as illustrated in the following diagram.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/b-latency-explanation-3.png" alt="">
 
 If we combine the service time with the delay for each operation, we’ll get the following latency measurements for each operation: 
+
 - 200 ms for operation 1
 - 300 ms for operation 2
 - 400 ms for operation 3
@@ -112,7 +110,7 @@ This latency cascade continues, increasing latency by 100ms for each subsequent 
 
 ### Recommendation
 
-As shown in the preceding examples, make sure you are aware of the average service time of each task run and provide a target-throughput that is within reason. OSB’s latency is calculated based on the `target-throughput` set by the user. In other words, OSB’s latency could be redefined as "throughput-based latency".
+As shown in the preceding examples, be aware of the average service time of each task run and provide a `target-throughput` that accounts for the service time. OSB’s latency is calculated based on the `target-throughput` set by the user. In other words, OSB’s latency could be redefined as "throughput-based latency".
 
 ## Anatomy of a workload
 
