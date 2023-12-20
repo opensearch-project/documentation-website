@@ -200,7 +200,7 @@ Parameter | Required | Type | Description
 The `delete-index` operation returns the following metadata.
 
 `weight`: The number of indexes created by the operation.
-`unit`: Always “ops”.
+`unit`: Always `ops`, for the number of operations inside the workload.
 `success`: A Boolean indicating whether the operation has succeeded.
 
 ## cluster-health
@@ -232,17 +232,17 @@ Use the following options with the `cluster-health` operation.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`index` | Yes | String | The index or indexes you want to delete. 
+`index` | Yes | String | The index or indexes you want to assess. 
 `request-params` | No | List of settings | Contains any request parameters allowed by the Cluster Health API. OpenSearch Benchmark does not attempt to serialize the parameters and pass them as is. 
 
 ### Metadata
 
 The `cluster-health` operation returns the following metadata.
 
-- `weight`: Always 1.
-- `unit`: Always “ops”.
-- `success`: A Boolean that indicates whether the operation has succeeded.
-- `cluster-status`: Current cluster status.
+`weight`: The number of indexes the `cluster-health` operation assesses. Alwasys `1`, since the operation runs once per index.
+`unit`: Always `ops`, for the number of operations inside the workload.
+`success`: A Boolean indicating whether the operation has succeeded.
+- `cluster-status`: The current cluster status.
 - `relocating-shards`: The number of shards currently relocating to a different node.
 
 ## refresh
@@ -309,11 +309,13 @@ Parameter | Required | Type | Description
 ### Metadata
 
 The following metadata is always returned:
+
 - `weight`:  The “weight” of an operation. Always `1` for regular queries and the number of retrieved pages for scroll queries.
 - `unit`: The unit used to interpret weight, which is `ops` for regular queries and `pages` for scroll queries.
 - `success`: A Boolean indicating whether the query has succeeded.
 
 If `detailed-results` is set to `true`, the following metadata is also returned:
+
 - `hits`: The total number of hits for this query.
 - `hits_relation`: whether hits is accurate (eq) or a lower bound of the actual hit count (gte).
 - `timed_out`: Whether the query has timed out. For scroll queries, this flag is true if the flag was true for any of the queries issued.
