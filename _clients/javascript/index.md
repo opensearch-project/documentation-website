@@ -108,7 +108,7 @@ const client = new Client({
 ```
 {% include copy.html %}
 
-AWS V2 SDK for Amazon OpenSearch Serverless
+Use the following code to authenticate with AWS V2 SDK for Amazon OpenSearch Serverless:
 
 ```javascript
 const AWS = require('aws-sdk'); // V2 SDK.
@@ -173,7 +173,7 @@ const client = new Client({
 ```
 {% include copy.html %}
 
-AWS V3 SDK for Amazon OpenSearch Serverless
+Use the following code to authenticate with AWS V3 SDK for Amazon OpenSearch Serverless:
 
 ```javascript
 const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
@@ -202,13 +202,13 @@ const client = new Client({
 ```
 {% include copy.html %}
 
-From within AWS Lambda function
+### Authenticating from within an AWS Lambda function
 
-Within an AWS Lambda function, objects declared outside the handler function retain their initialization. For more information, see [Lambda Execution Environment](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html). To leverage this, you should initialize the OpenSearch client outside of the handler function to ensure the reuse of the original connection in subsequent invocations, promoting efficiency without the need to create a new connection each time. 
+Within an AWS Lambda function, objects declared outside the handler function retain their initialization. For more information, see [Lambda Execution Environment](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html). Thus, you must initialize the OpenSearch client outside of the handler function to ensure the reuse of the original connection in subsequent invocations. This promotes efficiency and eliminates the need to create a new connection each time. 
 
-Conversely, initializing the client within the handler function poses a potential risk of encountering a `ConnectionError: getaddrinfo EMFILE error`. This occurs when multiple connections are created in subsequent invocations, exceeding the system's file descriptor limit.
+Initializing the client within the handler function poses a potential risk of encountering a `ConnectionError: getaddrinfo EMFILE error`. This error occurs when multiple connections are created in subsequent invocations, exceeding the system's file descriptor limit.
 
-Below is an example of AWS Lambda function code that demonstrates the correct initialization of the OpenSearch client:
+The following example AWS Lambda function code demonstrates the correct initialization of the OpenSearch client:
 
 ```javascript
 const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
