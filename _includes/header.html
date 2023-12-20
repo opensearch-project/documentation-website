@@ -1,21 +1,88 @@
 {% assign url_parts = page.url | split: "/" %}
-{%if page.alert %}
+{% if url_parts.size > 0 %}
+  
+  {% assign last_url_part = url_parts | last %}
+
+  {% comment %} Does the URL contain a filename, and is it an index.html or not? {% endcomment %}
+  {% if last_url_part contains ".html" %}
+    {% assign url_has_filename = true %}
+    {% if last_url_part == 'index.html' %}
+      {% assign url_filename_is_index = true %}
+    {% else %}
+      {% assign url_filename_is_index = false %}
+    {% endif %}
+  {% else %}
+    {% assign url_has_filename = false %}
+  {% endif %}
+
+  {% comment %} 
+    OpenSearchCon URLs require some special consideration, because it's a specialization
+    of the /events URL which is itself a child of Community; te OpenSearchCon menu is NOT
+    a child of Community.
+  {% endcomment %}
+  {% if page.url contains "opensearchcon" %}
+    {% assign is_conference_page = true %}
+  {% else %}
+    {% assign is_conference_page = false %}
+  {% endif %}
+
+  {% if is_conference_page %}
+    {% comment %}
+      If the page is a confernce page and it has a filename then its the penultimate
+      path component that has the child menu item of the OpenSearchCon that needs
+      to be marked as in-category. If there's no filename then reference the ultimate
+      path component.
+      Unless the filename is opensearchcon2023-cfp, because it's a one off that is not
+      within the /events/opensearchcon/... structure.
+    {% endcomment %}
+    {% if url_has_filename %}
+      {% unless page.url contains 'opensearchcon2023-cfp' %}
+        {% assign url_fragment_index = url_parts | size | minus: 2 %}
+        {% assign url_fragment = url_parts[url_fragment_index] %}
+      {% else %}
+        {% assign url_fragment = 'opensearchcon2023-cfp' %}
+      {% endunless %}
+    {% else %}
+      {% assign url_fragment = last_url_part %}
+    {% endif %}
+  {% else %}
+    {% comment %}
+      If the page is NOT a conference page, the URL has a filename, and the filename
+      is NOT index.html then refer to the filename without the .html extension.
+      If the filename is index.html then refer to the penultimate path component.
+      If there is not filename then refer to the ultimate path component.
+    {% endcomment %}
+    {% if url_has_filename %}
+      {% unless url_filename_is_index %}
+        {% assign url_fragment = last_url_part | replace: '.html', '' %}
+      {% else %}
+        {% assign url_fragment_index = url_parts | size |  minus: 2 %}
+        {% assign url_fragment = url_parts[url_fragment_index] %}
+      {% endunless %}
+    {% else %}
+      {% assign url_fragment = last_url_part %}
+    {% endif %}
+  {% endif %}
+{% else %}
+  {% assign url_fragment = '' %}
+{% endif %}
+{% if page.alert %}
 <div role="banner" class="banner-alert">
   <div class="container">
-    {{page.alert | markdownify}}
+    {{ page.alert | markdownify }}
   </div>
 </div>
-{%endif%}
-{%if site.data.alert.message %}
+{% endif %}
+{% if site.data.alert.message %}
 <div role="banner" class="banner-alert">
   <div class="container">
-    {{site.data.alert.message | markdownify}}
+  {{site.data.alert.message | markdownify}}
   </div>
 </div>
-{%endif%}
+{% endif %}
 <div role="banner" id="top">
-  <div class="container">
-    <a class="logo" href="/">
+  <div class="navigation-container">
+    <a class="navigation-container--logo" href="{{ '/' }}">
       OpenSearch
       <svg width="200" height="39" viewBox="0 0 200 39" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_723_1352)">
@@ -30,98 +97,142 @@
             <rect width="200" height="38.7097" fill="white"/>
           </clipPath>
         </defs>
-      </svg>
+      </svg>       
     </a>
-    <div class="menu-button"><i class="icon icon-reorder"></i><i class="icon icon-close"></i><span>Menu</span></div>
-    <div class="nav-menu-on" role="navigation">
-      <ul class="nested-nav">
-        {% assign url_fragment = url_parts[1] | replace: '.html', '' %}
+    <div class="menu-button">
+      <i class="icon icon-reorder"></i>
+      <i class="icon icon-close"></i>
+      <span>Menu</span>
+    </div>
+    <div role="navigation" class="navigation-container--nested-nav-wrapper nav-menu-on">
+      <ul class="navigation-container--nested-nav-wrapper--nested-nav">
         {% for nav_item in site.data.top_nav.items %}
-        <li>
-          {% unless nav_item.children %}
-            {% assign nested_nav_item_wrapper_classname = "nested-nav--top-menu-item--wrapper__without-children" %}
-          {% else %}
-            {% assign nested_nav_item_wrapper_classname = "nested-nav-top-menu-item--wrapper__has_children" %}
-          {% endunless %}
-          <div class="nested-nav--top-menu-item-wrapper {{nested_nav_item_wrapper_classname}}">
-            <div class="nested-nav--top-menu-item-wrapper--link">
-              <a {% if nav_item.url %} href="{{ nav_item.url }}" {% endif %}
+          <li>
+            {%- unless nav_item.children -%}
+              {%- assign nested_nav_item_wrapper_classname = "nested-nav--top-menu-item--wrapper__without-children" -%}
+            {%- else -%}
+              {%- assign nested_nav_item_wrapper_classname = "nested-nav-top-menu-item--wrapper__has_children" -%}
+            {%- endunless -%}
+            <div class="nested-nav--top-menu-item-wrapper {{nested_nav_item_wrapper_classname}}">
+              <div class="nested-nav--top-menu-item-wrapper--link">
+                <a {% if nav_item.url %} href="{{ nav_item.url }}" {% else %} href="#" {% endif %}
                   {% if nav_item.fragments contains url_fragment or nav_item.fragment == url_fragment %} class="in-category" {% endif %}
-              >{{ nav_item.label }}</a>
+                >{{ nav_item.label }}</a>
+              </div>
+              {%- if nav_item.children -%}
+                <div class="nested-nav--top-menu-item-wrapper--toggle">
+                  <div class="opensearch-toggle-button--wrapper">
+                      <a href="#" class="opensearch-toggle-button-link opensearch-toggle-button-link--untoggled opensearch-toggle-button-link__visible">
+                        <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect y="14" width="30" height="3" fill="#0085B8"/>
+                          <rect x="13.5" y="30.5" width="30" height="3" transform="rotate(-90 13.5 30.5)" fill="#0085B8"/>
+                        </svg>
+                      </a>
+                      <a href="#" class="opensearch-toggle-button-link opensearch-toggle-button-link--toggled opensearch-toggle-button-link__invisible">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect y="13.5" width="30" height="3" fill="#0085B8"/>
+                        </svg>
+                      </a>
+                  </div>
+                </div>
+              {%- endif -%}
             </div>
             {% if nav_item.children %}
-              <div class="nested-nav--top-menu-item-wrapper--toggle">
-                <div class="opensearch-toggle-button--wrapper">
-                  <a href="#" class="opensearch-toggle-button-link opensearch-toggle-button-link--untoggled opensearch-toggle-button-link__visible">
-                    <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect y="14" width="30" height="3" fill="#0085B8"/>
-                      <rect x="13.5" y="30.5" width="30" height="3" transform="rotate(-90 13.5 30.5)" fill="#0085B8"/>
-                    </svg>
-                  </a>
-                  <a href="#" class="opensearch-toggle-button-link opensearch-toggle-button-link--toggled opensearch-toggle-button-link__invisible">
-                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect y="13.5" width="30" height="3" fill="#0085B8"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
+              <ul>
+                {% for nav_child in nav_item.children %}
+                  {%- if nav_child.url contains '://' -%}
+                    {%- assign child_url_fragment = '#' -%}
+                  {%- else -%}
+                    {%- assign child_url_parts = nav_child.url | split: "/" -%}
+                    {% assign last_child_url_part = child_url_parts | last %}
+                    {% if last_child_url_part contains ".html" %}
+                      {% assign child_url_has_filename = true %}
+                    {% else %}
+                      {% assign child_url_has_filename = false %}
+                    {% endif %}
+                    {% if last_child_url_part == 'index.html' %}
+                      {% assign child_url_filename_is_index = true %}
+                    {% else %}
+                      {% assign child_url_filename_is_index = false %}
+                    {% endif %}
+                    {% if is_conference_page %}
+                      {% if child_url_has_filename %}
+                        {% assign child_url_fragment_index = child_url_parts | size | minus: 2 %}
+                        {% assign child_url_fragment = child_url_parts[child_url_fragment_index] %}
+                      {% else %}
+                        {% assign child_url_fragment = last_child_url_part %}
+                      {% endif %}
+                    {% else %}
+                      {% if child_url_has_filename %}
+                        {% unless child_url_filename_is_index %}
+                          {% assign child_url_fragment = last_child_url_part | replace: ".html", "" %}
+                        {% else %}
+                          {% assign child_url_fragment_index = child_url_parts | size | minus: 2 %}
+                          {% assign child_url_fragment = child_url_parts[child_url_fragment_index] %}
+                        {% endunless %}
+                      {% else %}
+                        {% assign child_url_fragment = last_child_url_part %}
+                      {% endif %}
+                    {% endif %}
+                  {%- endif -%}
+                  <li>
+                    <a href="{{ nav_child.url }}"
+                      {% if page.url == nav_child.url -%}
+                        class="in-category"
+                      {%- elsif child_url_fragment == url_fragment -%}
+                        class="in-category"
+                      {%- endif %}
+                    >{{ nav_child.label }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
             {% endif %}
-          </div>
-          {% if nav_item.children %}
-          <ul>
-            {% for nav_child in nav_item.children %}
-            {% if nav_child.url contains '://' %}
-            {% assign child_url_fragment = '#' %}
-            {% else %}
-            {% assign child_url_parts = nav_child.url | split: "/" %}
-            {% assign child_url_fragment = child_url_parts[1] | replace: '.html', '' %}
-            {% endif %}
-            <li>
-              <a href="{{ nav_child.url }}"
-                 {% if child_url_fragment == url_fragment %} class="in-category" {% endif %}
-              >{{ nav_child.label }}</a>
-            </li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-        </li>
+          </li>
         {% endfor %}
-        {% if site.search_enabled != false or site.use_custom_search == true %}
-          <li class="landing-page-redesign--nav--search">
-            <div class="landing-page-redesign--nav-search--field-with-results">
-              <div class="landing-page-redesign--nav-search--field-with-results--field">
-                <div class="landing-page-redesign--nav-search--field-with-results--field--wrapper">
-                  <div class="search opensearch-more-important">
-                    <div class="search-input-wrap">
-                      <input type="text" id="search-input" class="search-input"
-                        placeholder="Search for Anything" aria-label="Search {{ site.title }}"
-                        data-docs-version="latest" autocomplete="off"
-                      >
-                      <div class="search-spinner"><i></i></div>
-                      <label for="search-input" class="search-label">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="search-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                      </label>
-                    </div>
-                    <div id="search-results" class="search-results custom-search-results"></div>
+        <li class="top-banner-search">
+          <div class="top-banner-search--field-with-results">
+            <div class="top-banner-search--field-with-results--field">
+              <div class="top-banner-search--field-with-results--field--wrapper">
+                <div class="top-banner-search--field-with-results--field--wrapper--search-component">
+                  <div class="top-banner-search--field-with-results--field--wrapper--search-component--input-wrap">
+                    <input type="text" id="search-input" class="top-banner-search--field-with-results--field--wrapper--search-component--search-input"
+                      placeholder="Search for anything" aria-label="Search {{ site.title }}"
+                      data-docs-version="latest" autocomplete="off"
+                    >
+                    <div class="top-banner-search--field-with-results--field--wrapper--search-component--search-spinner"><i></i></div>
+                    <label for="search-input" class="top-banner-search--field-with-results--field--wrapper--search-component--search-label">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="top-banner-search--field-with-results--field--wrapper--search-component--search-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                      </svg>
+                    </label>
+                  </div>
+                  <div id="search-results" class="top-banner-search--field-with-results--field--wrapper--search-component--search-results">
+                    <div class="top-banner-search--field-with-results--field--wrapper--search-component--search-results-wrapper"></div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="search-overlay"></div>
-          </li>
-        {% endif %}
+          </div>
+          <div class="top-banner-search--overlay"></div>
+        </li>
       </ul>
     </div>
   </div>
 </div>
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
+    const menu = document.querySelector('#top .nav-menu-on');
+    const button = document.querySelector('#top .menu-button');
+    button.addEventListener('click', () => {
+        menu.classList.toggle('active');
+        button.classList.toggle('active');
+    });
+  });
+  document.addEventListener('DOMContentLoaded', () => {
     function getSubMenu(button) {
-      const parentLI = button.closest('li');
-      const childUL = parentLI.querySelector('ul');
-      return childUL;
+        const parentLI = button.closest('li');
+        const childUL = parentLI.querySelector('ul');
+        return childUL;
     }
     function initializeCustomMenuHeights(button) {
         const childUL = getSubMenu(button);
@@ -132,38 +243,38 @@
     function onNestedNavMenuTransitionEnd(e) {
         const { target } = e;
         if (!target?.hasAttribute?.('expanded')) {
-          target?.classList.add('nested-nav--menu__mobile-hidden-collapsed');
+            target?.classList.add('nested-nav--menu__mobile-hidden-collapsed');
         }
     }
 
     function onToggleButtonClick(e) {
-      const visibleClassName = 'opensearch-toggle-button-link__visible';
-      const visibleSelector = `.${visibleClassName}`;
-      const invisibleClassName = 'opensearch-toggle-button-link__invisible';
-      const invisibleSelector = `.${invisibleClassName}`;
+        const visibleClassName = 'opensearch-toggle-button-link__visible';
+        const visibleSelector = `.${visibleClassName}`;
+        const invisibleClassName = 'opensearch-toggle-button-link__invisible';
+        const invisibleSelector = `.${invisibleClassName}`;
 
-      const toggle = e.currentTarget;
-      const visibleLink = toggle.querySelector(visibleSelector);
-      const invisibleLink = toggle.querySelector(invisibleSelector);
-      visibleLink.classList.remove(visibleClassName);
-      visibleLink.classList.add(invisibleClassName);
-      invisibleLink.classList.remove(invisibleClassName);
-      invisibleLink.classList.add(visibleClassName);
-      
-      const childUL = getSubMenu(toggle);
-      const isAlreadyExpanded = childUL?.getAttribute?.('expanded') ?? false;
-      if (childUL.classList.contains('nested-nav--menu__mobile-hidden-collapsed')) {
-        childUL?.classList?.remove?.('nested-nav--menu__mobile-hidden-collapsed');
-      }
-      window.setTimeout(() => childUL?.toggleAttribute?.('expanded'), 60);
+        const toggle = e.currentTarget;
+        const visibleLink = toggle.querySelector(visibleSelector);
+        const invisibleLink = toggle.querySelector(invisibleSelector);
+        visibleLink.classList.remove(visibleClassName);
+        visibleLink.classList.add(invisibleClassName);
+        invisibleLink.classList.remove(invisibleClassName);
+        invisibleLink.classList.add(visibleClassName);
+
+        const childUL = getSubMenu(toggle);
+        const isAlreadyExpanded = childUL?.getAttribute?.('expanded') ?? false;
+        if (childUL.classList.contains('nested-nav--menu__mobile-hidden-collapsed')) {
+            childUL?.classList?.remove?.('nested-nav--menu__mobile-hidden-collapsed');
+        }
+        window.setTimeout(() => childUL?.toggleAttribute?.('expanded'), 60);
     }
 
-    document.querySelector('#top .nested-nav')?.addEventListener?.('transitionend', onNestedNavMenuTransitionEnd);
+    document.querySelector('#top .navigation-container--nested-nav-wrapper--nested-nav')?.addEventListener?.('transitionend', onNestedNavMenuTransitionEnd);
     const topNavigationToggleButtons = document.querySelectorAll('#top .opensearch-toggle-button--wrapper');
     for (let i = 0; i < topNavigationToggleButtons.length; ++i) {
-      const button = topNavigationToggleButtons[i];
-      initializeCustomMenuHeights(button);
-      button.addEventListener('click', onToggleButtonClick);
+        const button = topNavigationToggleButtons[i];
+        initializeCustomMenuHeights(button);
+        button.addEventListener('click', onToggleButtonClick);
     }
   });
 </script>

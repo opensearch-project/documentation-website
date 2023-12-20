@@ -26,3 +26,6 @@ If you don't want to use the plugin, see [Disable security]({{site.url}}{{site.b
 
 The Security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that use kibana in their names. We will change these names in a future release.
 {: .note }
+
+For a full list of `opensearch.yml` Security plugin settings, Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
+{: .note}

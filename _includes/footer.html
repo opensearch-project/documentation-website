@@ -1,13 +1,13 @@
 
-<div role="contentinfo">
-  <div class="subfooter">
-    <div class="container footer-container">
+<div role="contentinfo" class="bottom-contentinfo--wrapper">
+  <div class="bottom-contentinfo--subfooter">
+    <div class="bottom-contentinfo--container">
       <h1 class="visuallyhidden">OpenSearch Links</h1>
       <div class="subfooter--flex-wrapper">
         <div class="subfooter--columns-wrapper">
           {% for column in site.data.footer.columns %}
             <div class="subfooter--columns-wrapper--column">
-              <h4 class="opensearch-more-important">{{ column.title }}</h4>
+              <h4>{{ column.title }}</h4>
               <ul>
               {% for link in column.links %}
                 <li><a href="{{ link.url }}">{{ link.title}}</a></li>
@@ -20,8 +20,8 @@
     </div>
   </div>
 
-  <div class="footer">
-    <div class="container footer-container">
+  <div class="bottom-contentinfo--footer">
+    <div class="bottom-contentinfo--container">
       <div class="footer--flex-wrapper">
         <div class="footer--legal-rows-wrapper">
           <div class="footer--legal-rows-wrapper--row">
@@ -80,5 +80,4 @@
       </div>
     </div>
   </div>
-
 </div>

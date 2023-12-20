@@ -18,7 +18,13 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.6.0</version>
+  <version>2.8.1</version>
+</dependency>
+
+<dependency>
+  <groupId>org.apache.httpcomponents.client5</groupId>
+  <artifactId>httpclient5</artifactId>
+  <version>5.2.1</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -27,7 +33,8 @@ If you're using Gradle, add the following dependencies to your project:
 
 ```
 dependencies {
-  implementation 'org.opensearch.client:opensearch-java:2.6.0'
+  implementation 'org.opensearch.client:opensearch-java:2.8.1'
+  implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 }
 ```
 {% include copy.html %}
@@ -164,7 +171,7 @@ public class OpenSearchClientExample {
     final ApacheHttpClient5TransportBuilder builder = ApacheHttpClient5TransportBuilder.builder(host);
     builder.setHttpClientConfigCallback(httpClientBuilder -> {
       final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
-        .setSslContext(SSLContextBuilder.create().build())
+        .setSslContext(sslcontext)
         // See https://issues.apache.org/jira/browse/HTTPCLIENT-2219
         .setTlsDetailsFactory(new Factory<SSLEngine, TlsDetails>() {
           @Override
@@ -184,7 +191,7 @@ public class OpenSearchClientExample {
         .setConnectionManager(connectionManager);
     });
 
-    final OpenSearchTransport transport = ApacheHttpClient5TransportBuilder.builder(host).build();
+    final OpenSearchTransport transport = builder.build();
     OpenSearchClient client = new OpenSearchClient(transport);
   }
 }
@@ -247,7 +254,7 @@ OpenSearchClient client = new OpenSearchClient(
     new AwsSdk2Transport(
         httpClient,
         "search-...us-west-2.es.amazonaws.com", // OpenSearch endpoint, without https://
-        "es"
+        "es",
         Region.US_WEST_2, // signing service region
         AwsSdk2TransportOptions.builder().build()
     )
@@ -296,7 +303,7 @@ client.indices().create(createIndexRequest);
 
 IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
 PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
-client.indices().putSettings(PutIndicesSettingsRequest);
+client.indices().putSettings(putIndicesSettingsRequest);
 ```
 {% include copy.html %}
 

@@ -108,7 +108,7 @@ items:
         label: Vector Database
         url: /platform/search/vector-database.html
       -
-        label: Live Demo
+        label: Playground Demo
         url: https://playground.opensearch.org/
       -
         label: Performance Benchmarks

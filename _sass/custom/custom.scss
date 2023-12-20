@@ -3,7 +3,6 @@
 @import "../../assets/fonts/noto-serif/webfont.css";
 @import "../../assets/fonts/fira-mono/webfont.css";
 @import "../color_schemes/opensearch.scss";
-@import "../font-awesome";
 
 // Font Family Mixins
 @mixin serif {
@@ -37,48 +36,6 @@
   }
 }
 
-@mixin header-level4($color: $primary-open-sky-s3) {
-  color: $color;
-  font-family: 'Open Sans';
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 4.5px;
-  text-transform: uppercase;
-}
-@mixin header-level5($color: $primary-open-sky-s3) {
-  color: $color;
-  font-family: 'Open Sans';
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px; 
-}
-@mixin header-level6($color: $primary-open-sky-s2) {
-  color: $color;
-  font-family: 'Open Sans';
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 24px;
-}
-
-@mixin bottom-border-underline($color: $primary-pacific-blue) {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid $color;
-}
-
-@mixin body-text($color: #000) {
-  color: $color;
-  font-family: 'Open Sans';
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 48px;
-}
-
 body {
   @include sans-serif;
 }
@@ -106,16 +63,6 @@ nav#site-nav > .nav-list:nth-of-type(1) {
   padding-top: 2px;
 }
 
-nav#site-nav > .nav-list,
-nav#site-nav > .version-wrapper {
-  width: 264px;
-  position: relative;
-  box-sizing: border-box;
-  left: -21px;
-}
-nav#site-nav > .version-wrapper {
-  left: -36px;
-}
 .nav-list {
   margin-top: 1px;
 }
@@ -558,14 +505,7 @@ p.label {
   flex-grow: 1;
 
   @include mq(lg) {
-    
-  }
-  @media screen and (min-width: 1004px) {
     max-width: calc(100% - #{$nav-width + $top-button-margin});
-  }
-  @media screen and (max-width: 1003px) {
-    box-sizing: border-box;
-    max-width: 100%;
   }
 
   @include mq(xl) {
@@ -575,13 +515,10 @@ p.label {
 
 // Adds TOC to right hand side in xl layout
 .main-content-wrap {
-  max-width: 100%;
-  min-width: 0;
-  padding-left: 0;
-  padding-right: 0;
-  box-sizing: border-box;
-  @media screen and (max-width: 1003px) {
-    padding-left: 20px;
+  width: 100%;
+
+  @include mq(xl) {
+    width: calc(100% - #{$toc-width});
   }
 }
 
@@ -752,7 +689,7 @@ html {
 body {
   @include sans-serif;
   @include font-size(16);
-  background: linear-gradient(to right, #F5F7F7 100%, transparent 100%);;
+  background: $background-lightest;
   color: $text;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -770,7 +707,7 @@ main {
   align-content: stretch;
   height: 100%;
   position: relative;
-  justify-content: space-between;
+  justify-content: center;
 
   @include mq(lg) {
     background: linear-gradient(to right, $sidebar-color $nav-width, transparent $nav-width); 
@@ -778,6 +715,10 @@ main {
 
   @include mq(xl) {
     background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
+  }
+
+  @include mq(md) {
+    padding-top: 0;
   }
 
   .side-bar {
@@ -803,26 +744,18 @@ main {
 
   @include mq(xs) {
     padding: 0 calc(#{$top-button-margin} + 1rem);
-    &.footer-container {
-      padding: 0;
-    }
   }
 
   @include mq(md) {
     margin: 0 auto;
-    max-width: 1440px;
+    max-width: 1400px;
+    padding: 0 (32/768) * 100%;
   }
 
   &.sidebar-right {
     .mdzr-boxshadow & {
       box-shadow: -1200px 0 0 0px $background-lightest;
     }
-  }
-  @media screen and (min-width: 740px) and (max-width: 1045px) {
-    padding: 0 20px;
-  }
-  @media screen and (max-width: 739px) {
-    padding: 0;
   }
 }
 
@@ -851,37 +784,10 @@ main {
   -moz-osx-font-smoothing: auto;
 }
 
-//
-// Top banner header navigation menu.
-//
-$header-banner-min-width: 1019px;
-$header-banner-mobile-breakpoint: 1018px;
-$header-logo-max-left: 80px;
-$header-navigation-max-right: 40px;
-$max-container: 1440px;
-$light-theme-navigation-background: rgba(0, 163, 224, 0.05);
-$primary-pacific-blue-s2: #004381;
-$primary-open-sky-s3: #003551;
-$primary-pacific-sky-t2: #DCEBF4;
-$primary-pacific-sky-t3: #F4F8FB;
-$primary-open-sky-s2: #006D97;
-$primary-deep-blue-sea-s3: #001E30;
-$primary-open-sky-t3: #E1F0F9;
-$primary-deep-blue-sea-t1: #2C5E7A;
-$primary-open-sky-t1: #4FB3E3;
-$primary-open-sky-t2: #9BCFED;
-$footer-3-column-min: 835px;
-$footer-2-column-max: 834px;
-$footer-2-column-min: 701px;
-$footer-1-column-max:700px;
-@mixin gradient-deep-blue-sea {
-  background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
-}
-
-[role="banner"] {
+[role="banner"]:not(#top) {
   // Includes global navigation, logo, and tagline at top of document
   @include clearfix;
-  background: $light-theme-navigation-background;
+  background: $accent-dark;
   overflow: hidden;
   margin: 0;
   padding: 10px 0 6px;
@@ -891,697 +797,6 @@ $footer-1-column-max:700px;
   .container {
     @include mq(md) {
       position: relative;
-    }
-    @media screen and (max-width: 1200px) {
-      padding-right: 10px;
-    }
-  }
-
-  .meta {
-    @include font-size(13);
-    color: $attention;
-    font-weight: 700;
-    width: auto;
-    float: left;
-    margin: 8px 0 0 10px;
-    display: none;
-
-    @include respond-min(1150px) {
-      float: left;
-      width: 200px;
-      display: block;
-    }
-
-
-  }
-
-
-  .logo {
-    font-size: 35px;
-    @include sans-serif;
-    color: $background-lightest;
-    display: block;
-    float: left;
-    font-weight: 700;
-    margin: 10px 0 10px 10px;
-    overflow: hidden;
-    text-decoration: none;
-    text-indent: 100%;
-    height: 36px;
-    position: relative;
-
-    // NOTE: The min() call is wrapped in a calc() call to workaround the
-    // outdated SASS compiler that has an issue mixing the percentage with pixels,
-    // and will not interpolate the variable for 1019px either because of the error
-    // which is why the constant value as a "magic number" is present.
-    // left: calc(min(80px, 100% - 1019px));
-    @media screen and (max-width: 1339px) {
-      left: 0;
-    }
-    svg {
-      position: absolute;
-      top: 1px;
-      left: 1px
-    }
-    @include respond-min($header-banner-min-width) {
-      margin-left: 0;
-    }
-  }
-
-  .menu-button {
-    font-size: 35px;
-    color: $primary-deep-blue-sea-t1;
-    cursor: pointer;
-    display: block;
-    float: right;
-    height: 45px;
-    line-height: 48px;
-    margin: 4px 10px;
-    text-align: center;
-    text-decoration: none;
-    width: 45px;
-    > .icon {
-      &:nth-of-type(1) {
-        width: 30px;
-        height: 35px;
-      }
-      &:nth-of-type(2) {
-        width: 27.5px;
-        height: 35px;
-      }
-    }
-    > i {
-      position: relative;
-      top: -1px;
-      &:nth-of-type(1) {
-        display: inline-block;
-      }
-      &:nth-of-type(2) {
-          display: none;
-      }
-    }
-    @include respond-min($header-banner-min-width) {
-      display: none;
-    }
-
-    &:active {
-      color: $attention;
-    }
-    span {
-      @include visuallyhidden;
-    }
-
-    &.active {
-      > i {
-        &:nth-of-type(1) {
-            display: none;
-        }
-        &:nth-of-type(2) {
-            display: inline-block;
-        }
-      }
-    }
-  }
-
-  .nav-menu-on {
-    @media screen and (max-width: $header-banner-mobile-breakpoint) {
-      height: 0;
-    }
-    overflow: hidden;
-
-    -webkit-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
-
-    @include respond-min($header-banner-min-width) {
-      // turn off animations if on a desktop width
-      max-height: none;
-      height: auto;
-      -webkit-transition: none;
-      transition: none;
-    }
-    &.active {
-      @include respond-min($header-banner-min-width) {
-        overflow-y: scroll;
-      }
-
-      @media screen and (max-width: $header-banner-mobile-breakpoint) {
-        height: calc(100vh - 65px);
-        overflow-y: auto;
-        > .nested-nav {
-          @include clearfix;
-          height: auto;
-          clear: both;
-        }
-      }
-    }
-  }
-
-  [role="navigation"] {
-    @media screen and (max-width: $header-banner-mobile-breakpoint) {
-      background: $primary-open-sky-s3;
-    }
-
-    width: 100%;
-
-    @include respond-min($header-banner-min-width) {
-      width: auto;
-      float: right;
-    }
-
-    ul {
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      @include sans-serif;
-      @include font-size(13);
-      display: block;
-      font-weight: 700;
-      line-height: 16px;
-      text-align: left;
-      text-transform: uppercase;
-      margin: 0 10px;
-
-      @include respond-min($header-banner-min-width) {
-        margin: 0;
-        border: 0;
-        float: left;
-        text-align: left;
-      }
-
-      &.active a {
-        color: $attention;
-      }
-    }
-
-    a {
-      color: $background-lightest;
-      display: block;
-      text-decoration: none;
-    }
-
-    a:not([class]) {
-      background-image: unset;
-    }
-
-    .nav-primary {
-      @include respond-min($header-banner-min-width) {
-          position: absolute;
-          right: 0;
-          top: 45px;
-      }
-    }
-  }
-}
-
-[role="banner"] [role="navigation"] {
-  margin-top: 17px;
-  margin-right: 10px;
-  @media screen and (max-width: 1339px) {
-    margin-right: 0;
-  }
-  li {
-    color: $primary-open-sky-s3;
-    text-transform: none;
-    @media screen and (min-width: 1250px) {
-      margin-right: 20px;
-    }
-    @media screen and (min-width: 1150px) and (max-width: 1249px) {
-      margin-right: 10px;
-    }
-    margin-right: 5px;
-  }
-  li a {
-    display: inline;
-    @include header-level6($primary-open-sky-s3);
-  }
-  .nested-nav a.in-category,
-  .nested-nav a:hover {
-    color: $primary-open-sky-s2;
-    text-decoration: underline;
-    text-decoration-color: $primary-open-sky-s2;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 6px;
-  }
-}
-
-[role=banner] [role=navigation] li.landing-page-redesign--nav--search {
-  display: inline-flex;
-  align-items: flex-start;
-  @media screen and (max-width: $header-banner-mobile-breakpoint) {
-      display: flex;
-      width: calc(100% - 20px);
-      padding: 15px 10px;
-      height: 60px;
-      box-sizing: content-box;
-  }
-  
-  >.landing-page-redesign--nav-search--field-with-results {
-      display: inline-flex;
-      align-items: flex-start;
-      min-width: 200px;
-      justify-content: stretch;
-      
-      @media screen and (min-width: $header-banner-min-width) {
-          position: relative;
-          top: -20px;
-      }
-
-      @media screen and (max-width: $header-banner-mobile-breakpoint) {
-          display: flex;
-          width: 100%;
-          position: relative;
-          z-index: 11;
-      }
-      
-    >.landing-page-redesign--nav-search--field-with-results--field {
-      flex-basis: 100%;
-      flex-grow: 1;
-      flex-shrink: 1;
-
-      >.landing-page-redesign--nav-search--field-with-results--field--wrapper {
-        position: relative;
-
-        >.search {
-          >.search-input-wrap {
-            >.search-input {
-              padding-left: 9.6px;
-              padding-right: 6px;
-              transition: padding-right linear 200ms;
-              border-radius: 6px;
-              background-color: $primary-pacific-sky-t2;
-              @include header-level6($primary-open-sky-s2);
-              box-sizing: border-box;
-
-              &::placeholder {
-                @include header-level6($primary-open-sky-s2);
-              }
-
-              @media screen and (max-width: $header-banner-mobile-breakpoint) {
-                height: 60px;
-                padding-top: 0;
-                padding-bottom: 0;
-                font-size: 18px;
-              }
-
-              @media screen and (min-width: $header-banner-min-width) {
-                height: 45px;
-                position: relative;
-                border: none;
-                padding-bottom: 17px;
-                padding-top: 1em;
-              }
-            }
-
-            >.search-spinner {
-              display: none;
-              font-weight: 700;
-              outline: 0;
-              user-select: none;
-              position: absolute;
-              padding-right: 9.6px;
-              height: 100%;
-              right: 0;
-              left: auto;
-              top: 13.5px;
-              @media screen and (max-width: $header-banner-mobile-breakpoint) {
-                top: 21px;
-              }
-            }
-
-            >.search-label {
-              right: 4px;
-              top: 2px;
-              padding-left: 0;
-              padding-right: 0;
-              transition: right linear 200ms;
-
-              @media screen and (max-width: $header-banner-mobile-breakpoint) {
-                width: 25px;
-                height: 26px;
-                top: 17px;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.search-active [role=banner] [role=navigation] li.landing-page-redesign--nav--search {
-  >.landing-page-redesign--nav-search--field-with-results {
-    @media screen and (min-width: $header-banner-min-width) {
-      top: -10px;
-    }
-  }
-}
-body {
-  padding-bottom: 0;
-}
-
-[role="contentinfo"] {
-  // Global Footer at bottom of page
-  @include clearfix;
-  @include sans-serif;
-  position: relative;
-  background: $attention;
-  clear: both;
-  margin-top: 0px;
-
-  & * {
-    box-sizing: content-box;
-  }
-
-  .container {
-    overflow: hidden;
-  }
-
-  .subfooter {
-    @include clearfix;
-    padding: 0;
-    @include gradient-deep-blue-sea;
-    .subfooter--flex-wrapper {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: flex-start;
-      .subfooter--columns-wrapper {
-          flex-basis: 1265px;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          align-items: flex-start;
-          padding-bottom: 60px;
-          > .subfooter--columns-wrapper--column {
-              box-sizing: border-box;
-              @media screen and (min-width: $footer-3-column-min) {
-                  flex-basis: 33%;
-                  max-width: 350px;
-                  padding-left: 80px;
-              }
-              @media screen and (max-width: $footer-2-column-max) and (min-width: $footer-2-column-min) {
-                  &:nth-of-type(1) {
-                      flex-basis: 50%;
-                      padding-left: 40px;
-                  }
-                  &:nth-of-type(2) {
-                      flex-basis: 50%;
-                      padding-left: 40px;
-                  }
-                  &:nth-of-type(3) {
-                      flex-basis: 100%;
-                      padding-left: 40px;
-                  }
-              }
-              @media screen and (max-width: $footer-1-column-max) {
-                  flex-basis: 100%;
-                  padding-left: 10px;
-                  padding-bottom: 80px;
-              }
-              > h4 {
-                  @include header-level4($white);
-                  margin-top: 35px;
-                  margin-bottom: 20px;
-                  &.opensearch-more-important {
-                    font-size: 15px !important; // Sorry, but the base theme uses !important.
-                  }
-              }
-              > ul {
-                  list-style-type: none;
-                  margin: 0;
-                  padding: 0;
-                  > li {
-                      @media screen and (max-width: $footer-1-column-max) {
-                          @include body-text($white);
-                      }
-                      @media screen and (min-width: $footer-2-column-min) {
-                          @include header-level5($white);
-                      }
-                  }
-              }
-          }
-      }
-    }
-    .col {
-      &:first-child {
-        h2 {
-          border-top: 0;
-        }
-      }
-      @include mq(md) {
-        float: left;
-        margin-bottom: -999px;
-        padding: 0 3% 999px 0;
-        width: 23%;
-      }
-
-      &:first-child {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      &.last-child {
-        margin-right: 0;
-        padding-right: 0;
-      }
-    }
-
-  }
-
-  h2 {
-    @include heading-sans-serif;
-    @include font-size(16, true);
-    border-top: 1px solid $line;
-    color: $background-lightest;
-    font-weight: 700;
-    margin-top: 20px;
-    padding: 30px 0 10px;
-    @include respond-min(46.25rem) {
-      border: none;
-      margin-top: 0;
-    }
-  }
-
-  ul {
-    font-size: 14px;
-    font-weight: 400;
-    list-style: none;
-    margin: 15px 0 0 0;
-    padding: 0 0 30px;
-
-    li {
-      margin: 10px 0 0;
-      padding: 0;
-    }
-
-    a {
-      color: $white;
-      text-decoration: none;
-      background: none;
-
-      &:hover,
-      &:active,
-      &:focus {
-        text-decoration: underline;
-        background: none;
-      }
-    }
-  }
-
-  .footer {
-    background: $primary-deep-blue-sea-s3;
-    padding: 10px 0 30px;
-    color: #d9d9d9;
-    .footer--flex-wrapper {
-      box-sizing: border-box;
-      .footer--legal-rows-wrapper {
-        text-align: left;
-        margin: auto;
-        max-width: 1265px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        row-gap: 24px;
-        box-sizing: border-box;
-        @media screen and (min-width: $footer-3-column-min) {
-          padding-left: 80px;
-        }
-        @media screen and (min-width: $footer-2-column-min) and (max-width: $footer-2-column-max) {
-          padding-left: 40px;
-        }
-        @media screen and (max-width: $footer-1-column-max) {
-          padding-left: 20px;
-        }
-        > .footer--legal-rows-wrapper--row {
-          flex-basis: 60px;
-          font-size: 15px;
-          line-height: 24px;
-          a:not([class]) {
-            color: $primary-open-sky-t1;
-            background-image: none;
-          }
-          a {
-            color: $primary-open-sky-t1;
-            text-decoration: underline;
-            &:hover {
-              color: $primary-pacific-sky-t3;
-            }
-            &:visited {
-              color: $primary-open-sky-t2;
-            }
-          }
-          svg > path {
-            fill: $primary-pacific-sky-t3;
-          }
-          @media screen and (max-width: $footer-1-column-max) {
-            > .footer--legal-rows-wrapper--row--logo__desktop {
-              display: none;
-            }
-            > .footer--legal-rows-wrapper--row--logo__mobile {
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              > svg {
-                height: auto;
-              }
-            }
-          }
-          @media screen and (min-width: $footer-2-column-min) {
-            > .footer--legal-rows-wrapper--row--logo__mobile {
-              display: none;
-            }
-            > .footer--legal-rows-wrapper--row--logo__desktop {
-              display: block;
-            }
-          }
-          box-sizing: border-box;
-          &:nth-of-type(1) {
-            width: 100%;
-            box-sizing: border-box;
-          }
-          &:nth-of-type(2) {
-            padding-right: $top-button-margin;
-          }
-        }
-      }
-    }
-    a, svg {
-      color: $accent-light;
-    }
-    svg {
-        float: left;
-        height: 50px;
-        padding-top: 40px;
-        padding-right: 30px;
-    }
-    .copyright {
-      float: left;
-      @include font-size(12);
-      margin: 20px 0 0 10px;
-      @include respond-min(46.25rem) {
-        max-width: 80%;
-        padding-top: 30px;
-        margin: 0;
-      }
-    }
-    .logo {
-      margin-right: 0;
-      margin-top: 28px;
-      .mdzr-svg & {
-        background-position: left center;
-        margin-right: 0;
-        margin-top: 20px;
-      }
-    }
-  }
-
-  .logo {
-    @include font-size(40);
-    @include sans-serif;
-    color: $accent-dark;
-    display: block;
-    font-weight: 700;
-    height: 50px;
-    margin: 10px;
-    overflow: hidden;
-    text-decoration: none;
-    text-indent: 100%;
-    width: 142px;
-    @include mq(md) {
-      float: left;
-      margin: 20px 90px 0 0;
-    }
-  }
-
-  .thanks {
-    @include font-size(12);
-    color: $attention-dark;
-    margin: 0;
-    padding: 0;
-    @include mq(md) {
-      border: none;
-    }
-
-    li {
-      @include clearfix;
-      margin: 0;
-      padding: 17px 10px 11px;
-      display: block;
-      clear: both;
-      @include mq(md) {
-        background: none;
-        float: left;
-        clear: none;
-        padding: 0 3% 0 0;
-        width: 30%;
-
-        &.design {
-
-          span.ampersand, a {
-            display: inline-block;
-            vertical-align: top;
-            &.threespot {
-              clear: both;
-            }
-
-            &.ampersand {
-              position: relative;
-              top: 6px;
-              margin: 0 6px;
-              line-height: 36px;
-            }
-          }
-        }
-      }
-
-      span.ampersand {
-        line-height: 24px;
-      }
-    }
-
-    span {
-      display: block;
-      height: 24px;
-      line-height: 36px;
-      padding-right: 12px;
-      white-space: nowrap;
-    }
-
-    a {
-      display: block;
-      height: 33px;
-      overflow: hidden;
-      text-indent: -200px;
-      width: 94px;
-
-      @include mq(md) {
-        clear: both;
-        margin-top: 5px;
-      }
     }
   }
 }
@@ -1594,21 +809,20 @@ body {
 }
 
 @media screen and (max-width: ($content-width - 1)) {
-  [role="banner"] .nav-menu-on .small-nav {
-
-    li {
-      line-height: 1.5em;
-      font-size: 1em;
-    }
-    li + li:before {
-      display: none;
-    }
-  }
-
-
   main {
     flex-flow: column nowrap;
   }
+}
+
+.icon-reorder {
+  display: inline-block;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cpath d='M96 20v-8c0-1.1-.4-2-1.2-2.8S93.1 8 92 8H4c-1.1 0-2 .4-2.8 1.2S0 10.9 0 12v8c0 1.1.4 2 1.2 2.8S2.9 24 4 24h88c1.1 0 2-.4 2.8-1.2S96 21.1 96 20zm0 32v-8c0-1.1-.4-2-1.2-2.8S93.1 40 92 40H4c-1.1 0-2 .4-2.8 1.2S0 42.9 0 44v8c0 1.1.4 2 1.2 2.8S2.9 56 4 56h88c1.1 0 2-.4 2.8-1.2S96 53.1 96 52zm0 32v-8c0-1.1-.4-2-1.2-2.8S93.1 72 92 72H4c-1.1 0-2 .4-2.8 1.2S0 74.9 0 76v8c0 1.1.4 2 1.2 2.8S2.9 88 4 88h88c1.1 0 2-.4 2.8-1.2S96 85.1 96 84z' fill='%23fff'/%3E%3C/svg%3E") center / contain no-repeat;
+  width: 17px;
+  vertical-align: middle;
+  margin-bottom: 6px;
+}
+.icon-remove:before, .icon-close:before, .icon-times:before {
+  content: "\f00d";
 }
 
 .copy-banner {
@@ -1618,6 +832,12 @@ body {
 
   @include mq(md) {
     display: block;
+    padding: 1px 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    top: 0;
   }
 
   h1 {
@@ -1654,6 +874,23 @@ body {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+  }
+
+  .search {
+    display: none;
+
+    @include mq(md) {
+      display: block;
+      height: 3rem !important;
+      margin-left: 3rem;
+    }
+  }
+
+  @include mq(md) {
+    .search-input-wrap {
+      height: 3rem !important;
+      right: 0;
+    }
   }
 }
 
@@ -1763,5 +1000,94 @@ version-selector {
   --link-color: #{$blue-300};
 }
 
-@import "./_custom-search.scss";
-@import "../_nested-nav.scss";
+body {
+  padding-bottom: 0;
+}
+
+#top { 
+  a:not([class]) {
+    background-image: none;
+  }
+}
+.bottom-contentinfo--wrapper {
+  box-sizing: content-box;
+  & * {
+    box-sizing: content-box;
+  }
+  a:not([class]) {
+    background-image: none;
+  }
+  svg {
+    box-sizing: content-box;
+  }
+  h4 {
+    font-size: 15px !important;
+  }
+}
+
+$light-theme-navigation-background: #F1FBFF;
+$primary-deep-blue-sea-s3: #001E30;
+$primary-deep-blue-sea-t1: #2C5E7A;
+$primary-open-sky: #00A3E0;
+$primary-open-sky-s3: #003551;
+$primary-open-sky-s2: #006D97;
+$primary-open-sky-t1: #4FB3E3;
+$primary-open-sky-t2: #9BCFED;
+$primary-open-sky-t3: #E1F0F9;
+$primary-pacific-sky-t2: #DCEBF4;
+$primary-pacific-sky-t3: #F4F8FB;
+
+@mixin body-text($color: #000) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px;
+}
+
+@mixin gradient-deep-blue-sea {
+  background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
+}
+
+@mixin header-level3($color: $primary-open-sky-s1) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 21px;
+  font-style: normal;
+  line-height: 36px;
+  font-weight: 700;
+}
+
+@mixin header-level4($color: $primary-open-sky-s3) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 4.5px;
+  text-transform: uppercase;
+}
+
+@mixin header-level5($color: $primary-open-sky-s3) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; 
+}
+
+@mixin header-level6($color: $primary-open-sky-s2) {
+  color: $color;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+@import "../font-awesome.scss";
+@import "../_navigation-header.scss";
+@import "../footer.scss";
