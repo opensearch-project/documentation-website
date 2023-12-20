@@ -74,12 +74,12 @@ However, when a request takes longer than 200ms, such as when a request takes 11
 
 When measuring the overall latency, OSB looks all the requests performed. All requests have a latency of 200ms except for the following two: 
 - The request that lasted 1100ms 
-- The following request which was supposed to start at 4:00s. This request was delayed by 100ms, denoted by the orange area in the following diagram, and had a response of 200ms. 
+- The following request which was supposed to start at 4:00s. This request was delayed by 100ms, denoted by the orange area in the following diagram, and had a response of 200ms. When calculating the latency for this request, OSB will account for the delayed start time and combine it with the response time. Thus, the latency for this request is **300ms**.
 
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-3.png" alt="">
 
-Therefore, the overall latency OSB calculates in this scenario, when accounting for the delayed response time with the response time, is **300ms**.
+
 
 #### Example B
 
