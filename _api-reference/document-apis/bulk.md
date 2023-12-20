@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Bulk
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The bulk operation lets you add, update, or delete multiple documents in a single request. Compared to individual OpenSearch indexing requests, the bulk operation has significant performance benefits. Whenever practical, we recommend batching indexing operations into bulk requests.
@@ -57,7 +57,7 @@ refresh | Enum | Whether to refresh the affected shards after performing the ind
 require_alias | Boolean | Set to `true` to require that all actions target an index alias rather than an index. Default is `false`.
 routing | String | Routes the request to the specified shard.
 timeout | Time | How long to wait for the request to return. Default `1m`.
-type | String | (Deprecated) The default document type for documents that don't specify a type. Default is `_doc`. We highly recommend ignoring this parameter and using a type of `_doc` for all indices.
+type | String | (Deprecated) The default document type for documents that don't specify a type. Default is `_doc`. We highly recommend ignoring this parameter and using a type of `_doc` for all indexes.
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the bulk request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
 {% comment %}_source | List | asdf
 _source_excludes | list | asdf
@@ -114,7 +114,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "doc" : { "title": "World War Z" } }
   ```
-  
+
   It can also include a script or upsert for more complex document updates.
 
   - Script
@@ -122,7 +122,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
   ```
-  
+
   - Upsert
   ```json
   { "update": { "_index": "movies", "_id": "tt0816711" } }
