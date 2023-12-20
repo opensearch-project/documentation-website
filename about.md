@@ -94,3 +94,23 @@ DELETE https://<host>:<port>/<index-name>/_doc/<document-id>
 ```
 
 You can change most OpenSearch settings using the REST API, modify indexes, check the health of the cluster, get statistics---almost everything.
+
+## Advanced concepts
+
+The following section describes more advanced OpenSearch concepts.
+
+### Translog
+
+Any index changes, such as indexing or deleting documents, are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called translog. When a document is indexed, it is added to the memory buffer and recorded in the translog. Frequent refresh operations write the documents in the memory buffer to a segment and then clear the memory buffer. Periodically, a flush performs a Lucene commit, which includes writing the segments to disk using `fsync`, purging the old translog, and starting a new translog. Thus, a translog contains all operations that have not yet been flushed.
+
+### Refresh
+
+Periodically, OpenSearch performs a refresh operation, which writes the documents from the in-memory Lucene index to files. These files are not durable because they reside in the file cache. A refresh makes documents available for search.
+
+### Flush
+
+A flush operation persists the files from the file cache to disk, ensuring durability. Flushing the files ensures that the data stored only in the translog is recorded in the Lucene index. OpenSearch performs a flush as needed using `fsync`. After `fsync`, segment files become immutable because they have been written to disk. 
+
+### Merge
+
+In OpenSearch, a shard is a Lucene index, which consists of segments (or segment files). Segments store the indexed data. Periodically, smaller segments are merged into larger ones and the larger segments become immutable. This is done in order to prevent having many small segments on disk. The merge policy specifies how often merges are performed. Merging reduces the overall number of segments on each shard and frees up disk space.
