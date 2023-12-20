@@ -3,7 +3,7 @@ layout: default
 title: operations
 parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference
-nav_order: 110
+nav_order: 100
 ---
 
 # operations

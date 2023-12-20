@@ -3,7 +3,7 @@ layout: default
 title: test_procedures
 parent: Workload reference
 grand_parent: OpenSearch Benchmark Reference
-nav_order: 100
+nav_order: 110
 ---
 
 # test_procedures
