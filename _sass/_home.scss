@@ -21,16 +21,19 @@
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr;
     margin: 0 auto;
     padding: 2rem;
-    column-gap: 1rem;
-    row-gap: 1rem;
-}
-
-.card-container * {
-    flex: 1 1 230px;
+    grid-row-gap: 1rem;
+    grid-column-gap: 1rem;
+    grid-auto-rows: 1fr;
+    @include mq(md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @include mq(xl) {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .card {
@@ -51,37 +54,42 @@
         > .heading {
             color: $blue-vibrant-300;
         }
+        > .last-link {
+            transform: translateY(-1px);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
     }
 }
 
-.card >:nth-child(1) {
-    flex-basis: 2;
-}
-
-.card > * {
-    flex: 0 1;
-}
-
-.heading {
+@mixin heading-font {
     @include heading-sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: $blue-dk-300;
 }
 
+.heading {
+    @include heading-font;   
+    flex-grow: 1;
+    flex-basis: 1rem;
+    margin: 1rem 0 1.5rem 0;
+}
+
 .heading-main {
-    @extend .heading;
+    @include heading-font;
     margin: 0;
     padding: 3rem 0 0 2rem;
 }
 
 .description {
-    margin-top: 0.5rem;
+    margin-top: auto;
 }
 
 .last-link {
     height: 24px;
     margin-top: auto;
+    margin-bottom: 1rem;
     padding: 0;
     background-color: white;
     border: none;
