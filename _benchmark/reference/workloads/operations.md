@@ -235,7 +235,7 @@ Parameter | Required | Type | Description
 `index` | Yes | String | The index or indexes you want to delete. 
 `request-params` | No | List of settings | Contains any request parameters allowed by the Cluster Health API. OpenSearch Benchmark does not attempt to serialize the parameters and pass them as is. 
 
-### Meta-data
+### Metadata
 
 The `cluster-health` operation returns the following metadata.
 
@@ -317,7 +317,6 @@ If `detailed-results` is set to `true`, the following metadata is also returned:
 - `hits`: The total number of hits for this query.
 - `hits_relation`: whether hits is accurate (eq) or a lower bound of the actual hit count (gte).
 - `timed_out`: Whether the query has timed out. For scroll queries, this flag is true if the flag was true for any of the queries issued.
-
  - `took`: The value of the `took` property in the query response. For scroll queries, the value is the sum of all `took` values in the query responses.
 
 

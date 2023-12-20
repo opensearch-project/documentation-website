@@ -15,7 +15,7 @@ The following table lists test procedures for the benchmark scenarios in this da
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `name` | Yes | String | The name of the test procedure. When naming the test procedure, do not use spaces so that the name is easy to enter on the command line.
-`description` | No | String |  A human readable description of the test procedure.
+`description` | No | String |  Describes the test procedure in a human-readable format.
 `user-info` | No | String | Outputs a message at the start of the test to notify user about important test-related information, for example, deprecations.
 `default` | No | Boolean | When set to `true`, selects the default test procedure if the user did not specify a test procedure on the command line. If the workload only defines one test procedure, it is implicitly selected as default. Otherwise, you must define `"default": true` on exactly one challenge.
 [`schedule`](#Schedule) | Yes | Array |  Defines the order in which tasks in the workload are run.
@@ -123,7 +123,6 @@ OpenSearch Benchmark requires one of the following options when running a task:
 ### Iteration-based options
 
 Iteration-based options determine the number of times an operation should run. It can also define the number of iterative runs when tasks are run in [parallel](#parallel-tasks). To configure an iteration-based schedule, use the following options.
-
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
