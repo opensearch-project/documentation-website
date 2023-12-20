@@ -40,14 +40,14 @@ While the definition for _throughput_ remains consistent with other client-serve
 | :--- | :--- |:--- |
 | **Throughput** | The number of operations completed in a given period of time	| The number of operations completed in a given period of time	|
 | **Service time**	|The time the server takes to process a request, from the point it receives the request to the point the response is returned. </br></br> It includes the time spent waiting in server-side queues, but _excludes_ network latency, load-balancer overhead, and deserialization/serialization. | The time it takes for the `opensearch-py` to send a request to and receive a response from the OpenSearch cluster. </br> </br> It includes the time it takes for the server to process a request, and also _includes_ network latency, load-balancer overhead, and deserialization/serialization.  |
-| **Latency** | The total time, including the service time and the time the request waited before responding. | The total the request waited before responding based on the `target-throughput` set and any other delays that occur before the request responds. |
+| **Latency** | The total time, including the service time and the time the request waited before responding. | Based on the `target-throughput` set by the user, the total time the request waited before receiving the response, in addition to any other delays that occur before the request is sent. |
 
 
 ### Service time
 
 OSB does not have insight into how long OpenSearch takes to process a request, apart from extracting the `took` time for the request. In OpenSearch, **service time** tracks the durations between the point OpenSearch issues a requests and when OpenSearch receives the response.
 
-OSB makes function calls to `opensearch-py`, a client for OpenSearch, to communicate with an OpenSearch cluster. OSB tracks the time between when the `opensearch-py` client sends the request and receives a response from the OpenSearch cluster and considers this to be the service time. Contrasting with the traditional definition of service time, OSB’s definition of service time includes overhead, such as network latency, load-balancer overhead, or deserialization/serialization. The following image illustrates how OpenSearch measure service time versus the traditional measurement. 
+OSB makes function calls to `opensearch-py` to communicate with an OpenSearch cluster. OSB tracks the time between when the `opensearch-py` client sends the request and receives a response from the OpenSearch cluster and considers this to be the service time. Unlike the traditional definition of service time, OSB’s definition of service time includes overhead, such as network latency, load-balancer overhead, or deserialization/serialization. The following image highlights the differences in the traditional definition of service time and OSB's definition of service time. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/service-time.png" alt="">
 
