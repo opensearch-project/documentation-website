@@ -187,5 +187,5 @@ Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `time-period` | No | Integer | Specifies the time period, in seconds, that OpenSearch Benchmark considers for measurement. This is not required for bulk indexing because OpenSearch Benchmark bulk indexes all documents and naturally measures all samples after the specified `warmup-time-period`.
 `ramp-up-time-period` | No | Integer | Specifies the time period, in seconds, during which OpenSearch Benchmark gradually adds clients and reaches the total number of clients specified for the operation. 
-`warmup-time-period` | No | Integer | Specifies the time period in seconds to warm up the benchmark candidate. All response data captured during the warmup period do not appear in the measurement results.
+`warmup-time-period` | No | Integer | Specifies the amount of time, in seconds, to warm up the benchmark candidate. None of the response data captured during the warmup period appears in the measurement results.
 

@@ -129,7 +129,7 @@ Use the following options when creating all indexes from the `indices` section o
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `settings` | No | Array |  Specifies additional index settings to be merged with the index settings specified in the `indices` section of the workload.
-`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and pass them as is. 
+`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state. 
 
 Use the following options when creating a single index in the operation.
 
@@ -184,7 +184,7 @@ Use the following options when deleting all indexes indicated in the `indices` s
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`only-if-exists` | No | Boolean | Decides whether an index should be deleted only if the index exists. Default is `true`.
+`only-if-exists` | No | Boolean | Decides whether an existing index should be deleted. Default is `true`.
 `request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state. 
 
 Use the following options if you want to delete one or more indexes based on the pattern indicated in the `index` option.
