@@ -108,7 +108,7 @@ const client = new Client({
 ```
 {% include copy.html %}
 
-Use the following code to authenticate with AWS V2 SDK for Amazon OpenSearch Serverless:
+Use the following code to authenticate with the AWS V2 SDK for Amazon OpenSearch Serverless:
 
 ```javascript
 const AWS = require('aws-sdk'); // V2 SDK.
