@@ -310,7 +310,7 @@ Parameter | Required | Type | Description
 
 The following metadata is always returned:
 - `weight`:  The “weight” of an operation. Always `1` for regular queries and the number of retrieved pages for scroll queries.
-- `unit`: The unit in which to interpret weight. Always “ops” for regular queries and “pages” for scroll queries.
+- `unit`: The unit used to interpret weight, which is `ops` for regular queries and `pages` for scroll queries.
 - `success`: A Boolean indicating whether the query has succeeded.
 
 If `detailed-results` is set to `true`, the following metadata is also returned:
