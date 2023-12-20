@@ -117,7 +117,7 @@ Parameter | Required | Type | Description
 OpenSearch Benchmark requires one of the following options when running a task:
 
 `target-throughput` | No | Integer | Defines the benchmark mode. When not defined, OpenSearch Benchmark assumes that it is a throughput benchmark and runs the task as fast as possible. This is useful for batch operations, where achieving better throughput is preferred over better latency. When defined, the target specifies the number of requests per second across all clients. For example, if you specify `target-throughput: 1000` with 8 clients, each client issues 125 (= 1000 / 8) requests per second. 
-`target-interval` | No | Interval | Defines an interval of 1 divided by the target-throughput (in seconds) when the `target-throughput` is less than 1 operation per second. Define either `target-throughput` or `target-interval` but not both, otherwise OpenSearch Benchmark raises an error.
+`target-interval` | No | Interval | Defines an interval of 1 divided by the `target-throughput` (in seconds) when the `target-throughput` is less than 1 operation per second. Define either `target-throughput` or `target-interval` but not both, otherwise OpenSearch Benchmark raises an error.
 `ignore-response-error-level` | No | Boolean | Controls whether to ignore errors encountered during the task when a benchmark is run with the `on-error=abort` command flag. 
 
 ### Iteration-based options
