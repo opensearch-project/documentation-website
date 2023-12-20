@@ -8,7 +8,7 @@ nav_order: 110
 
 # operations
 
-The `operations` element contains a list of all operations that are available when specifying a schedule.
+The `operations` element contains a list of all available operations for specifying a schedule.
 
 ## bulk
 
