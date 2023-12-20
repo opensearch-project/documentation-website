@@ -42,6 +42,8 @@ While the definition for _throughput_ remains consistent with other client-serve
 | **Service time**	|The time the server takes to process a request, from the point it receives the request to the point the response is returned. </br></br> It includes the time spent waiting in server-side queues, but _excludes_ network latency, load-balancer overhead, and deserialization/serialization. | The time it takes for the `opensearch-py` to send a request to and receive a response from the OpenSearch cluster. </br> </br> It includes the time it takes for the server to process a request, and also _includes_ network latency, load-balancer overhead, and deserialization/serialization.  |
 | **Latency** | The total time, including the service time and the time the request waited before responding. | Based on the `target-throughput` set by the user, the total time the request waited before receiving the response, in addition to any other delays that occur before the request is sent. |
 
+For more information on service time and latency in OSB, see the [Service time](#service-time) and [Latency](#latency) sections.
+
 
 ### Service time
 
