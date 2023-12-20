@@ -11,5 +11,4 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 | Nate Archer      | [Naarcha-AWS](https://github.com/Naarcha-AWS)   | Amazon      |
 | Nate Bower       | [natebower](https://github.com/natebower)       | Amazon      |
 | Melissa Vagi     | [vagimeli](https://github.com/vagimeli)         | Amazon      |
-| Anan Zhuang      | [ananzh](https://github.com/ananzh)             | Amazon      |
 | Miki Barahmand   | [AMoo-Miki](https://github.com/AMoo-Miki)       | Amazon      |
