@@ -47,7 +47,7 @@ processor:
         match:
           message: ['%{IPV6:clientip} %{WORD:request} %{POSINT:bytes}']
 ```
-The `grok_when` option takes a conditional expression. This expression is detailed in the [Expression syntax](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) documentation.
+The `grok_when` option can take a conditional expression. This expression is detailed in the [Expression syntax](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) documentation.
 
 ## Metrics
 
