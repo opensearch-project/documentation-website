@@ -1,19 +1,18 @@
 ---
 layout: default
-title: grok
+title: Grok
 parent: Processors
 grand_parent: Pipelines
 nav_order: 54
 ---
 
-# grok
+# Grok
 
-
-The `Grok` processor uses pattern matching to structure and extract important keys from unstructured data.
+The Grok processor uses pattern matching to structure and extract important keys from unstructured data.
 
 ## Configuration
 
-The following table describes options you can use with the `Grok` processor to structure your data and make your data easier to query.
+The following table describes options you can use with the Grok processor to structure your data and make your data easier to query.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -35,7 +34,7 @@ Content will be added to this section.--->
 
 ## Conditional grok
 
-The `Grok` processor can be configured to run conditionally by using the `grok_when` option. The following is an example `Grok` processor configuration that uses `grok_when`:
+The Grok processor can be configured to run conditionally by using the `grok_when` option. The following is an example Grok processor configuration that uses `grok_when`:
 ```
 processor:
   - grok:
@@ -59,7 +58,7 @@ The following table describes common [Abstract processor](https://github.com/ope
 | `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
 | `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
 
-The `Grok` processor includes the following custom metrics.
+The Grok processor includes the following custom metrics.
 
 ### Counter
 
