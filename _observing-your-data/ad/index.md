@@ -110,7 +110,7 @@ To get the entity model size of a detector, use the [profile detector API]({{sit
 This formula serves as a starting point. Make sure to test it with a representative workload. You can dive deeper in the [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/) blog.
 {: .note }
 
-For example, for a cluster with three data nodes, each with 8 GB of JVM heap size, a maximum memory percentage of 10% (default), and the entity model size of the detector as 1MB: the total number of unique entities supported is
+Consider a cluster with three data nodes, each with 8 GB of JVM heap size and the default 10% memory allocation. With an entity model size of 1 MB, the following formula calculates the estimated number of unique entities: 
 
 ```
 (8096 MB * 0.1 / 1 MB ) * 3 = 2429
