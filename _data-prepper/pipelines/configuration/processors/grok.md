@@ -18,7 +18,7 @@ The following table describes options you can use with the `Grok` processor to s
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 break_on_match | No | Boolean | Specifies whether to match all patterns or stop once the first successful match is found. Default value is `true`.
-grok_when | No | String | Specifies the condition when the grok processor should do matching. Default is no condition.
+grok_when | No | String | Specifies under what condition the `Grok` processor should perform matching. Default is no condition.
 keep_empty_captures | No | Boolean | Enables the preservation of `null` captures. Default value is `false`.
 keys_to_overwrite | No | List | Specifies which existing keys will be overwritten if there is a capture with the same key value. Default value is `[]`.
 match | No | Map | Specifies which keys to match specific patterns against. Default value is an empty body.
