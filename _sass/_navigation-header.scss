@@ -51,6 +51,8 @@ $max-container: 1440px;
             text-decoration: none;
             text-indent: 100%;
             position: relative;
+            // NOTE: The min() function name is deliberatedly misspelled with an upercase M to workaround an outdated SCSS compiler
+            // dependency used by the Just the Docs theme 0.3.3.
             left: Min(80px, calc(100% - $header-banner-min-width));
             box-sizing: content-box;
             @media screen and (max-width: 1339px) {
