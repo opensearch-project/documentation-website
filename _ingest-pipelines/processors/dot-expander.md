@@ -197,7 +197,7 @@ If the field value is set to a wildcard `*`, the processor expands all top-level
 }
 ```
 
-Take for example the following:
+Take for example the following document:
 
 ```json
 {
