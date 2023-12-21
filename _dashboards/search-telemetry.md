@@ -1,14 +1,8 @@
 ---
 layout: default
-<<<<<<< HEAD
-title: Search telemetry
-nav_order: 30
-=======
 title: Managing search telemetry settings
 nav_order: 100
->>>>>>> 7ba0d6d1 (Updates title (#2762))
 ---
-
 
 # Managing search telemetry settings
 
