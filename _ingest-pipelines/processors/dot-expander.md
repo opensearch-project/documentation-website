@@ -154,32 +154,6 @@ The processor consolidates the `user.address.city` and `user.address.state` fiel
 
 ```json
 {
-    "user": {
-        "address": {
-            "city": "Denver",
-            "state": "CO"
-        }
-    }
-}
-```
-
-The `dot_expander` processor transforms the individual fields into arrays as follows:
-
-```json
-{
-    "user": {
-        "address": {
-            "city": ["Denver"],
-            "state": ["CO"]
-        }
-    }
-}
-```
-
-If you set the `override` parameter to `true`, the value of the expanded field overrides the value of the nested object. Take for example the following configuration:
-
-```json
-{
     "dot_expander": {
         "field": "user.address.city",
         "override": true
@@ -187,13 +161,26 @@ If you set the `override` parameter to `true`, the value of the expanded field o
 }
 ```
 
-The result is the following document, in which the expanded field `user.address.city` overrides the value of the nested object `user.address`:
+With `override:false` (or unset), the dot-pathed top-level field gets appended to the target object node, so it transforms into:
 
 ```json
 {
-    "user": {
+   "user": {
         "address": {
-            "city": "Denver",
+            "city": ["Denver", "Boulder"],
+            "state": "CO"
+        }
+    }
+}
+```
+
+With `override:true`, the dot-pathed top-level field value overwrites the target object node, so it transforms into:
+
+```json
+{
+   "user": {
+        "address": {
+            "city": "Boulder",
             "state": "CO"
         }
     }
