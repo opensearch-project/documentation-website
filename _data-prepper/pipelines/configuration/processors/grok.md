@@ -35,7 +35,7 @@ Content will be added to this section.--->
 
 ## Conditional grok
 
-The grok processor can be configured to run conditionally by using the `grok_when` option. The following is an example grok processor configuration using `grok_when`:
+The `Grok` processor can be configured to run conditionally by using the `grok_when` option. The following is an example `Grok` processor configuration that uses `grok_when`:
 ```
 processor:
   - grok:
