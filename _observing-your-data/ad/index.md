@@ -107,7 +107,7 @@ Only a certain number of unique entities are supported in the category field. Us
 
 To get the entity model size of a detector, use the [profile detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector). You can adjust the maximum memory percentage with the `plugins.anomaly_detection.model_max_size_percent` setting.
 
-This formula provides a good starting point, but make sure to test with a representative workload. For a detailed and comprehensive exploration of this subject, please visit [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/).
+This formula serves as a starting point. Make sure to test it with a representative workload. You can dive deeper in the [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/) blog.
 {: .note }
 
 For example, for a cluster with three data nodes, each with 8 GB of JVM heap size, a maximum memory percentage of 10% (default), and the entity model size of the detector as 1MB: the total number of unique entities supported is
