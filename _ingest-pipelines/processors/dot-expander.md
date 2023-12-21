@@ -150,7 +150,7 @@ The following response confirms the document was indexed:
 
 ## Nested fields
 
-The processor consolidates the `user.address.city` and `user.address.state` fields by merging with an existing `address`, `city`, and `state` field nested under `user`. If the field is a scalar value, then it will turn that into an array field. Take for example the following document:
+The `dot_expander` processor consolidates the `user.address.city` and `user.address.state` fields by merging with an existing `address`, `city`, and `state` field nested under `user`. If the field is a scalar value, then it will turn that field into an array. Take for example the following document:
 
 ```json
 {
