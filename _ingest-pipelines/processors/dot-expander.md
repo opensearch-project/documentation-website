@@ -206,7 +206,7 @@ Take for example the following:
 }
 ```
 
-The `dot_expander` processor transforms that document into the following:
+The `dot_expander` processor transforms that document into the following fields, all nested under user:
 
 ```json
 {
