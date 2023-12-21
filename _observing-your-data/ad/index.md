@@ -113,7 +113,7 @@ Consider a cluster with 3 data nodes, each with 8 GB of JVM heap size and the de
 (8096 MB * 0.1 / 1 MB ) * 3 = 2429
 ```
 
-If the actual total number of unique entities higher than the number that you calculate (in this case, 2429), the anomaly detector makes its best effort to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
+If the actual total number of unique entities is higher than the number that you calculate (in this case, 2,429), the anomaly detector will attempt to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
 
 This formula serves as a starting point. Make sure to test it with a representative workload. You can dive deeper in the [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/) blog.
 {: .note }
