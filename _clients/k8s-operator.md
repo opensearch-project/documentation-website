@@ -21,7 +21,7 @@ If you use Helm to manage your Kubernetes cluster, you can use the OpenSearch Ku
 To begin, log in to your Kubernetes cluster and add the Helm repository (repo) from [Artifact Hub](https://artifacthub.io/packages/helm/opensearch-operator/opensearch-operator/). 
 
 ```
-helm repo add opensearch-operator https://opster.github.io/opensearch-k8s-operator/
+helm repo add opensearch-operator https://opensearch-project.github.io/opensearch-k8s-operator/
 ```
 
 Make sure that the repo is included in your Kubernetes cluster. 
