@@ -34,12 +34,12 @@ At the end of each test, OSB produces a table that summarizes the following:
 - [Latency](#latency)
 - The error rate for each task or OpenSearch operation that ran 
 
-While the definition for _throughput_ remains consistent with other client-server systems, the definitions for `service time` and `latency` differ from most client-server systems in the context of OSB. The following table compares how service time and latency work with OSB versus the common definition of each term for a client-server system.
+While the definition for _throughput_ remains consistent with other client-server systems, the definitions for `service time` and `latency` differ from most client-server systems in the context of OSB. The following table compares the OSB definition of service time and latency versus the common definitions for a client-server system.
 
 | Metric | Common definition | **OSB Definition**	|
 | :--- | :--- |:--- |
-| **Throughput** | The number of operations completed in a given period of time	| The number of operations completed in a given period of time	|
-| **Service time**	| The time the server takes to process a request, from the point it receives the request to the point the response is returned. </br></br> It includes the time spent waiting in server-side queues, but _excludes_ network latency, load-balancer overhead, and deserialization/serialization. | The time it takes for the `opensearch-py` to send a request to and receive a response from the OpenSearch cluster. </br> </br> It includes the time it takes for the server to process a request, and also _includes_ network latency, load-balancer overhead, and deserialization/serialization.  |
+| **Throughput** | The number of operations completed in a given period of time.	| The number of operations completed in a given period of time. |
+| **Service time**	| The time the server takes to process a request, from the point it receives the request to the point the response is returned. </br></br> It includes the time spent waiting in server-side queues, but _excludes_ network latency, load-balancer overhead, and deserialization/serialization. | The time it takes for `opensearch-py` to send a request and receive a response from the OpenSearch cluster. </br> </br> It includes the time it takes for the server to process a request, and also _includes_ network latency, load-balancer overhead, and deserialization/serialization.  |
 | **Latency** | The total time, including the service time and the time the request waited before responding. | Based on the `target-throughput` set by the user, the total time the request waited before receiving the response, in addition to any other delays that occur before the request is sent. |
 
 For more information on service time and latency in OSB, see the [Service time](#service-time) and [Latency](#latency) sections.
@@ -55,16 +55,16 @@ OSB makes function calls to `opensearch-py` to communicate with an OpenSearch cl
 
 ### Latency
 
-Target throughput is core to understanding OSB’s definition of **latency**. Target throughput is the rate at which OSB issues requests  and assumes the responses will come back instantaneously.  `target-throughput` is one of the common workload parameters that can be set for each test and is measured in operations per second.
+Target throughput is core to understanding OSB’s definition of **latency**. Target throughput is the rate at which OSB issues requests and assumes the responses will come back instantaneously.  `target-throughput` is one of the common workload parameters that can be set for each test and is measured in operations per second.
 
-OSB always issue requests one at a time for a single client thread, specified as `search-clients` in workload parameters. If `target-throughput` is set to `0`, OSB issues a request immediately after it receives the response from the previous request. If the `target-throughput` is not 0, OSB issues the next request to match the `target-throughput` set, assuming responses return instantaneously.
+OSB always issues one request at a time for a single client thread, specified as `search-clients` in the workload parameters. If `target-throughput` is set to `0`, OSB issues a request immediately after it receives the response from the previous request. If the `target-throughput` is not 0, OSB issues the next request to match the `target-throughput` set, assuming responses return instantaneously.
 
 #### Example A
 
 The following diagrams illustrate how latency is calculated when we expect a request response time of 200ms and use the following settings: 
 
 - `search-clients` is set to `1` 
-- `target-throughput` is set to `1` operations per second. 
+- `target-throughput` is set to `1` operations per second
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-1.png" alt="">
 
