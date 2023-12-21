@@ -9,7 +9,7 @@ nav_order: 65
 
 The `dot_expander` processor transforms fields containing dots into object fields, making them accessible to other processors in the pipeline. Without this transformation, fields with dots cannot be processed.
 
-The following is the syntax for the `date_index_name` processor:
+The following is the syntax for the `dot_expander` processor:
 
 ```json
 {
