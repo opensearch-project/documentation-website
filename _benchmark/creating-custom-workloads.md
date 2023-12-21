@@ -354,11 +354,11 @@ If you want to make your `workload.json` file more readable, you can separate yo
 
     ```json
     "operations": [
-        {{ benchmark.collect(parts="operations/*.json") }}
+        {% raw %}{{ benchmark.collect(parts="operations/*.json") }}{% endraw %}
     ]
     # Reference test procedure files in workload.json
     "test_procedures": [
-        {{ benchmark.collect(parts="test_procedures/*.json") }}
+        {% raw %}{{ benchmark.collect(parts="test_procedures/*.json") }}{% endraw %}
     ]
     ```
 
