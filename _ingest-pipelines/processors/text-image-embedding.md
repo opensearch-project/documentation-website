@@ -7,12 +7,12 @@ redirect_from:
    - /api-reference/ingest-apis/processors/text-image-embedding/
 ---
 
-# Text/image embedding
+# Text/image embedding processor
 
-The `text_image_embedding` processor is used to generate combined vector embeddings from text and image fields for [multimodal neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/). 
+The `text_image_embedding` processor is used to generate combined vector embeddings from text and image fields for [multimodal neural search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/). 
 
 **PREREQUISITE**<br>
-Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
 The following is the syntax for the `text_image_embedding` processor: 
@@ -35,9 +35,9 @@ The following is the syntax for the `text_image_embedding` processor:
 
 The following table lists the required and optional parameters for the `text_image_embedding` processor.
 
-| Name  | Data type | Required  | Description  |
+| Parameter  | Data type | Required/Optional  | Description  |
 |:---|:---|:---|:---|
-`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
 `embedding` | String | Required | The name of the vector field in which to store the generated embeddings. A single embedding is generated for both `text` and `image` fields.
 `field_map` | Object | Required | Contains key-value pairs that specify the fields from which to generate embeddings.
 `field_map.text` | String | Optional | The name of the field from which to obtain text for generating vector embeddings. You must specify at least one `text` or `image`.
@@ -47,7 +47,7 @@ The following table lists the required and optional parameters for the `text_ima
 
 ## Using the processor
 
-Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/). 
+Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). 
 
 **Step 1: Create a pipeline.** 
 
@@ -131,9 +131,11 @@ The response confirms that in addition to the `image_description` and `image_bin
 }
 ```
 
+Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/#step-3-ingest-documents-into-the-index) of [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
+
 ## Next steps
 
 - To learn how to use the `neural` query for a multimodal search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
-- To learn more about multimodal neural search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/).
-- To learn more about using models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
-- For a semantic search tutorial, see [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+- To learn more about multimodal search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
+- To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
+- For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
