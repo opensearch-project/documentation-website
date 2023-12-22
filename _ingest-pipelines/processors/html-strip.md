@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 140
 ---
 
-# JSON processor
+# HTML strip processor
 
 The `html_strip` processor is used to <explain what is used to do>.
 
