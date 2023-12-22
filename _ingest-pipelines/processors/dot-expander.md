@@ -7,7 +7,7 @@ nav_order: 65
 
 # Dot expander 
 
-The `dot_expander` processor transforms fields containing dots into object fields, making them accessible to other processors in the pipeline. Without this transformation, fields with dots cannot be processed.
+The `dot_expander` processor is a tool that helps you work with hierarchical data. It transforms fields containing dots into object fields, making them accessible to other processors in the pipeline. Without this transformation, fields with dots cannot be processed.
 
 The following is the syntax for the `dot_expander` processor:
 
@@ -198,7 +198,7 @@ If the field value is set to a wildcard `*`, the processor expands all top-level
 ```
 
 Take for example the following document:
-Take for example the following document:
+
 
 ```json
 {
@@ -224,7 +224,7 @@ The `dot_expander` processor transforms that document into the following fields,
 }
 ```
 
-If the field is nested within a structure without dots, use the `path` parameter to navigate the non-dotted structure, for example:
+If a field is nested within a structure without dots, you can use the `path` parameter to traverse the non-dotted structure. For example, if you have the field `user.address`, in your data, you can use the `dot_expander processor` expand it into an object field named `user` with a nested field named `address`, as shown in the following example:
 
 ```json
 {
