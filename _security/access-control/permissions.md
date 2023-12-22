@@ -296,7 +296,7 @@ See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 
 ### Update settings permission
 
-See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) on the Index APIs page.
+See [Update settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) on the Index APIs page.
 
 - cluster:admin/settings/update
 

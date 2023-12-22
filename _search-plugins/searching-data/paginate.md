@@ -2,7 +2,8 @@
 layout: default
 title: Paginate results
 parent: Searching data
-nav_order: 21
+has_children: true
+nav_order: 10
 redirect_from:
   - /opensearch/search/paginate/
 ---

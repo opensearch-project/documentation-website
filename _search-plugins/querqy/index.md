@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Querqy
+parent: Search relevance
 has_children: false
 redirect_from:
   - /search-plugins/querqy/

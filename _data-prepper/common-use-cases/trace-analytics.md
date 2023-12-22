@@ -38,8 +38,8 @@ The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/c
 
 There are three processors for the trace analytics feature:
 
-* *otel_trace_raw* - The *otel_trace_raw* processor receives a collection of [span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records from [*otel-trace-source*]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace/), and performs stateful processing, extraction, and completion of trace-group-related fields.
-* *otel_trace_group* - The *otel_trace_group* processor fills in the missing trace-group-related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/298e7931aa3b26130048ac3bde260e066857df54/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
+* *otel_traces_raw* - The *otel_traces_raw* processor receives a collection of [span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records from [*otel-trace-source*]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace/), and performs stateful processing, extraction, and completion of trace-group-related fields.
+* *otel_traces_group* - The *otel_traces_group* processor fills in the missing trace-group-related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/298e7931aa3b26130048ac3bde260e066857df54/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
 * *service_map_stateful* – The *service_map_stateful* processor performs the required preprocessing for trace data and builds metadata to display the `service-map` dashboards.
 
 
@@ -49,7 +49,7 @@ OpenSearch provides a generic sink that writes data to OpenSearch as the destina
 
 The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
 
-* *otel-v1-apm-span* – The *otel-v1-apm-span* index stores the output from the [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) processor.
+* *otel-v1-apm-span* – The *otel-v1-apm-span* index stores the output from the [otel_traces_raw]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) processor.
 * *otel-v1-apm-service-map* – The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/) processor.
 
 ## Trace tuning
@@ -114,13 +114,13 @@ The following sections provide examples of different types of pipelines and how 
 
 The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines serve two different purposes and write to different OpenSearch indexes. The first pipeline prepares trace data for OpenSearch and enriches and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
 
-Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor. The `otel_trace_raw` processor replaces the `otel_trace_raw_prepper` processor and supports some of Data Prepper's recent data model changes. Instead, you should use the `otel_trace_raw` processor. See the following YAML file example:
+Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_traces_raw_prepper` processor. The `otel_traces_raw` processor replaces the `otel_traces_raw_prepper` processor and supports some of Data Prepper's recent data model changes. Instead, you should use the `otel_traces_raw` processor. See the following YAML file example:
 
 ```yml
 entry-pipeline:
   delay: "100"
   source:
-    otel_trace_source:
+    otel_traces_source:
       ssl: false
   buffer:
     bounded_blocking:
@@ -140,7 +140,7 @@ raw-pipeline:
       buffer_size: 10240
       batch_size: 160
   processor:
-    - otel_trace_raw:
+    - otel_traces_raw:
   sink:
     - opensearch:
         hosts: ["https://localhost:9200"]
@@ -176,7 +176,7 @@ The following is an example `otel-trace-source` .yaml file with SSL and basic au
 
 ```yaml
 source:
-  otel_trace_source:
+  otel_traces_source:
     #record_type: event  # Add this when using Data Prepper 1.x. This option is removed in 2.0
     ssl: true
     sslKeyCertChainFile: "/full/path/to/certfile.crt"
@@ -202,7 +202,7 @@ otel-trace-pipeline:
   # default value is 3_000 ms
   delay: "100" 
   source:
-    otel_trace_source:
+    otel_traces_source:
       #record_type: event  # Add this when using Data Prepper 1.x. This option is removed in 2.0
       ssl: false # Change this to enable encryption in transit
       authentication:
@@ -242,8 +242,8 @@ raw-pipeline:
          # With 64 as batch size each worker thread could process upto 3200 spans (64 * 50)
          batch_size: 64
   processor:
-    - otel_trace_raw:
-    - otel_trace_group:
+    - otel_traces_raw:
+    - otel_traces_group:
         hosts: [ "https://localhost:9200" ]
         # Change to your credentials
         username: "admin"
@@ -369,9 +369,9 @@ For more information about how to tune and scale Data Prepper for trace analytic
 
 Starting with Data Prepper version 1.4, trace processing uses Data Prepper's event model. This allows pipeline authors to configure other processors to modify spans or traces. To provide a migration path, Data Prepper version 1.4 introduced the following changes:
 
-* `otel_trace_source` has an optional `record_type` parameter that can be set to `event`. When configured, it will output event objects.
-* `otel_trace_raw` replaces `otel_trace_raw_prepper` for event-based spans.
-* `otel_trace_group` replaces `otel_trace_group_prepper` for event-based spans.
+* `otel_traces_source` has an optional `record_type` parameter that can be set to `event`. When configured, it will output event objects.
+* `otel_traces_raw` replaces `otel_traces_raw_prepper` for event-based spans.
+* `otel_traces_group` replaces `otel_traces_group_prepper` for event-based spans.
 
-In Data Prepper version 2.0, `otel_trace_source` will only output events. Data Prepper version 2.0 also removes `otel_trace_raw_prepper` and `otel_trace_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
+In Data Prepper version 2.0, `otel_traces_source` will only output events. Data Prepper version 2.0 also removes `otel_traces_raw_prepper` and `otel_traces_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
  

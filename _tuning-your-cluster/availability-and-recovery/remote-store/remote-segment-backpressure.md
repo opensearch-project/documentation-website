@@ -33,8 +33,8 @@ The following table lists the settings used for activating backpressure. For thr
 
 |Setting	|Data type	|Description	|
 |:---	|:---	|:---	|
-|`remote_store.segment.pressure.enabled`	|Boolean	| If `true`, enables remote segment backpressure. Default is `false`. |
-|`remote_store.segment.pressure.consecutive_failures.limit`	|Integer |The minimum consecutive failure count for activating remote segment backpressure. Default is `5`.	|
+|`remote_store.segment.pressure.enabled`	|Boolean | Enables remote segment backpressure. Default is `true`. |
+|`remote_store.segment.pressure.consecutive_failures.limit`	|Integer | The minimum consecutive failure count for activating remote segment backpressure. Default is `5`.	|
 |`remote_store.segment.pressure.bytes_lag.variance_factor`	|Float | The variance factor that is used together with the moving average to calculate the dynamic bytes lag threshold for activating remote segment backpressure. Default is `10`.	|
 |`remote_store.segment.pressure.time_lag.variance_factor`	|Float 	|The variance factor that is used together with the moving average to calculate the dynamic time lag threshold for activating remote segment backpressure. Default is `10`.	|
 
