@@ -76,13 +76,13 @@ PUT https://<host>:<port>/<index-name>/_doc/<document-id>
 
 To run a search for the document:
 
-```
+```json
 GET https://<host>:<port>/<index-name>/_search?q=wind
 ```
 
 To delete the document:
 
-```
+```json
 DELETE https://<host>:<port>/<index-name>/_doc/<document-id>
 ```
 
