@@ -55,18 +55,6 @@
             if (!_showingResults && elResults.textContent) showResults();
         });
 
-<<<<<<< HEAD
-            case 'Enter':
-                e.preventDefault();
-                navToHighlightedResult();
-                break;
-
-            case 'Tab':
-                e.preventDefault();
-                highlightNextResult(!e.shiftKey);
-                break;
-
-=======
         elResults.addEventListener('pointerenter', e => {
             cancelAnimationFrame(animationFrame);
             animationFrame = requestAnimationFrame(() => {
@@ -94,7 +82,6 @@
             else if (result.type) crumbs.unshift(result.type);
 
             return sanitizeText(crumbs.join(' › '));
->>>>>>> ad8df5c9 (Redesigned header / footer integration copied from project site. (#5702))
         }
 
         const doSearch = async () => {
