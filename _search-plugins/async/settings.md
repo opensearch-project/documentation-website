@@ -2,6 +2,7 @@
 layout: default
 title: Settings
 parent: Asynchronous search
+grand_parent: Improving search performance
 nav_order: 4
 ---
 

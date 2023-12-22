@@ -1,16 +1,17 @@
 ---
 layout: default
-title: Sparse search
-nav_order: 30
+title: Neural sparse search
+nav_order: 50
 has_children: false
-parent: Neural search
+redirect_from:
+  - /search-plugins/sparse-search/
 ---
 
-# Sparse search
+# Neural sparse search
 Introduced 2.11
 {: .label .label-purple }
 
-[Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/) relies on dense retrieval that is based on text embedding models. However, dense methods use k-NN search, which consumes a large amount of memory and CPU resources. An alternative to neural text search, sparse neural search is implemented using an inverted index and thus is as efficient as BM25. Sparse search is facilitated by sparse embedding models. When you perform a sparse search, it creates a sparse vector (a list of `token: weight` key-value pairs representing an entry and its weight) and ingests data into a rank features index.
+[Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) relies on dense retrieval that is based on text embedding models. However, dense methods use k-NN search, which consumes a large amount of memory and CPU resources. An alternative to semantic search, neural sparse search is implemented using an inverted index and is thus as efficient as BM25. Neural sparse search is facilitated by sparse embedding models. When you perform a neural sparse search, it creates a sparse vector (a list of `token: weight` key-value pairs representing an entry and its weight) and ingests data into a rank features index.
 
 When selecting a model, choose one of the following options:
 
@@ -18,12 +19,12 @@ When selecting a model, choose one of the following options:
 - Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
 
 **PREREQUISITE**<br>
-Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+Before using neural sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
-## Using sparse search
+## Using neural sparse search
 
-To use sparse search, follow these steps:
+To use neural sparse search, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
@@ -142,7 +143,7 @@ Before the document is ingested into the index, the ingest pipeline runs the `sp
 
 ## Step 4: Search the index using neural search
 
-To perform a sparse vector search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
+To perform a neural sparse search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
 
 The following example request uses a `neural_sparse` query to search for relevant documents:
 
