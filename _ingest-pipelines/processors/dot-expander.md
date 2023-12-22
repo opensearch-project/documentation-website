@@ -224,7 +224,7 @@ The `dot_expander` processor transforms that document into the following fields,
 }
 ```
 
-If a field is nested within a structure without dots, you can use the `path` parameter to traverse the non-dotted structure. For example, if you have the field `user.address`, in your data, you can use the `dot_expander processor` expand it into an object field named `user` with a nested field named `address`, as shown in the following example: 
+If a field is nested within a structure without dots, you can use the `path` parameter to traverse the non-dotted structure. For example, if you have the field `user.address`, you can use the `dot_expander processor` to expand it into an object field named `user` with a nested field named `address`, as shown in the following example: 
 
 ```json
 {
