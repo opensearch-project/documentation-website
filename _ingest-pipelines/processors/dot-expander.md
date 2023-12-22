@@ -39,7 +39,7 @@ Parameter | Required/Optional | Description |
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline.**
+### Step 1: Create a pipeline
 
 The following query expands two fields named `user.address.city` and `user.address.state` into nested objects named `city` and `state`: 
 
@@ -63,7 +63,7 @@ PUT /_ingest/pipeline/dot-expander
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -109,7 +109,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document.**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -121,7 +121,7 @@ PUT testindex1/_doc/1?pipeline=dot-expander
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document.**
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -198,6 +198,7 @@ If the field value is set to a wildcard `*`, the processor expands all top-level
 ```
 
 Take for example the following document:
+Take for example the following document:
 
 ```json
 {
@@ -206,7 +207,7 @@ Take for example the following document:
 }
 ```
 
-The `dot_expander` processor transforms that document into the following fields, all nested under user:
+The `dot_expander` processor transforms that document into the following fields, all nested under `user`:
 
 ```json
 {
