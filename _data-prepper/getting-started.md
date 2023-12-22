@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Getting started
 nav_order: 5
 redirect_from:

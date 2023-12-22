@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: delete_entries
 parent: Processors
 grand_parent: Pipelines

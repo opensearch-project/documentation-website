@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Mutate string
 parent: Processors
 grand_parent: Pipelines

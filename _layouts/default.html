@@ -58,10 +58,12 @@ layout: table_wrappers
       </div>
       <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">        
         <div class="version-wrapper">
-          <a href="{{site.url}}{{site.baseurl}}/getting-started/index/" class="site-category">OpenSearch and OpenSearch Dashboards</a>
+          <a href="{{site.url}}{{site.baseurl}}/getting-started/index/" class="site-category">{{ page.section-name }}</a>
           <a href="{{site.url}}{{site.baseurl}}/" class="back-link">&#x2190; Back to docs home</a>
-          <version-selector selected="{{ site.data.versions.current }}"></version-selector>
-        </div>
+          {% if page.section == "opensearch" %}
+            <version-selector selected="{{ site.data.versions.current }}"></version-selector>
+          {% endif %}
+          </div>
         {% assign pages_top_size = site.html_pages
             | where_exp:"item", "item.title != nil"
             | where_exp:"item", "item.parent == nil"
@@ -70,9 +72,20 @@ layout: table_wrappers
         {% if pages_top_size > 0 %}
           {% include nav.html pages=site.html_pages key=nil expanded=true %}
         {% endif %}
-        {% if site.opensearch_collection.collections %}
-          {% assign collections_size = site.opensearch_collection.collections | size %}
-          {% for collection_entry in site.opensearch_collection.collections %}
+
+        {% if page.section == "opensearch" %}
+          {% assign section = site.opensearch_collection.collections %}
+        {% elsif page.section == "data-prepper" %}
+          {% assign section = site.data_prepper_collection.collections %}
+        {% elsif page.section == "clients" %}
+          {% assign section = site.clients_collection.collections %}
+        {% elsif page.section == "benchmark" %}
+          {% assign section = site.benchmark_collection.collections %}
+        {% endif %}
+
+        {% if section %}
+          {% assign collections_size = section | size %}
+          {% for collection_entry in section %}
             {% assign collection_key = collection_entry[0] %}
             {% assign collection_value = collection_entry[1] %}
             {% assign collection = site[collection_key] %}

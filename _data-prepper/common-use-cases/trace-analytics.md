@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Trace analytics
 parent: Common use cases
 nav_order: 5

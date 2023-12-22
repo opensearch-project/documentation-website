@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Monitoring
 parent: Managing Data Prepper
 nav_order: 25

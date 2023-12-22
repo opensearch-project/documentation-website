@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Migrating from Open Distro
 nav_order: 30
 ---

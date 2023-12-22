@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: otel_metrics_source
 parent: Sources
 grand_parent: Pipelines

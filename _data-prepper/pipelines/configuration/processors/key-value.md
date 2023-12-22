@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: key_value
 parent: Processors
 grand_parent: Pipelines

@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: opensearch
 parent: Sources
 grand_parent: Pipelines

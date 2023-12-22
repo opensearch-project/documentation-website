@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Source coordination
 nav_order: 35
 parent: Managing Data Prepper

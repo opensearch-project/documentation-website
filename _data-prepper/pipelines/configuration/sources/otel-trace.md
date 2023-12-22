@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: otel_trace_source source
 parent: Sources
 grand_parent: Pipelines

@@ -1,5 +1,5 @@
 ---
-layout: clients
+layout: default
 title: Go client
 nav_order: 50
 ---

@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Expression syntax
 parent: Pipelines
 nav_order: 12

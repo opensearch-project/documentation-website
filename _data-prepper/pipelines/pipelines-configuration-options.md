@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Pipeline options
 parent: Pipelines
 nav_order: 11

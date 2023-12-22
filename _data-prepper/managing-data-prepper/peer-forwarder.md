@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Peer forwarder
 nav_order: 12
 parent: Managing Data Prepper

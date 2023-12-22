@@ -1,5 +1,5 @@
 ---
-layout: clients
+layout: default
 title: Opensearch-py-ml
 nav_order: 11
 ---

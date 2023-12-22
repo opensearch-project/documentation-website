@@ -5,7 +5,14 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+redirect_from:
+  - /docs/opensearch/
+  - /opensearch/
+  - /opensearch/index/
+  - /about/
 ---
+
+{%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # OpenSearch and OpenSearch Dashboards
 
@@ -13,7 +20,7 @@ This section contains documentation for OpenSearch and OpenSearch Dashboards.
 
 ## Getting started
 
-- [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
+- [Intro to OpenSearch]({{site.url}}{{site.baseurl}}/about/intro/)
 - [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
 - [Install OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/)
 - [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)

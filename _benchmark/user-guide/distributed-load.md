@@ -1,5 +1,5 @@
 ---
-layout: benchmark
+layout: default
 title: Running distributed loads
 nav_order: 10
 parent: User guide

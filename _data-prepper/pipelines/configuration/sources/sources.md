@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Sources
 parent: Pipelines
 has_children: true

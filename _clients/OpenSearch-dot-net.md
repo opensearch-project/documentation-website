@@ -1,5 +1,5 @@
 ---
-layout: clients
+layout: default
 title: Low-level .NET client
 nav_order: 30
 has_children: false

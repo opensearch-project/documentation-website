@@ -1,5 +1,5 @@
 ---
-layout: benchmark
+layout: default
 title: Enabling telemetry devices
 nav_order: 15
 parent: User guide

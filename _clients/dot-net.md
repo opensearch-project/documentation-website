@@ -1,5 +1,5 @@
 ---
-layout: clients
+layout: default
 title: .NET clients
 nav_order: 75
 has_children: true

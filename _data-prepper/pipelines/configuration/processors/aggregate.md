@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: aggregate
 parent: Processors
 grand_parent: Pipelines

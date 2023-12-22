@@ -1,5 +1,5 @@
 ---
-layout: clients
+layout: default
 title: Java high-level REST client
 nav_order: 20
 ---

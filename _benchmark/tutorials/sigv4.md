@@ -1,5 +1,5 @@
 ---
-layout: benchmark
+layout: default
 title: AWS Signature Version 4 support
 nav_order: 70
 parent: Tutorials

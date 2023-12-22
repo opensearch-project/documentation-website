@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: otel_metrics
 parent: Processors
 grand_parent: Pipelines

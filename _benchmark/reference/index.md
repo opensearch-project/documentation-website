@@ -1,5 +1,5 @@
 ---
-layout: benchmark
+layout: default
 title: OpenSearch Benchmark Reference
 nav_order: 25
 has_children: true

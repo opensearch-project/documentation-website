@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Dead-letter queues 
 parent: Pipelines
 nav_order: 13

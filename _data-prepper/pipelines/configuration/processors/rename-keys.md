@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: rename_keys
 parent: Processors
 grand_parent: Pipelines

@@ -109,14 +109,14 @@ collections:
   developer-documentation:
     permalink: /:collection/:path/
     output: true
-  getting-started:
+  about:
     permalink: /:collection/:path/
     output: true
 
 opensearch_collection:
   # Define the collections used in the theme
   collections:
-    getting-started:
+    about:
       name: About OpenSearch
       nav_fold: true
     install-and-configure:
@@ -205,6 +205,34 @@ data_prepper_collection:
     data-prepper: 
       name: Data Prepper
       nav_fold: true
+
+# Defaults
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      section: "opensearch"
+      section-name: "OpenSearch and OpenSearch Dashboards"
+  -
+    scope:
+      path: "_data-prepper"
+    values:
+      section: "data-prepper"
+      section-name: "Data Prepper"
+  -
+    scope:
+      path: "_clients"
+    values:
+      section: "clients"
+      section-name: "Clients"
+  -
+    scope:
+      path: "_benchmark"
+    values:
+      section: "benchmark"
+      section-name: "Benchmark"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.

@@ -1,5 +1,5 @@
 ---
-layout: clients
+layout: default
 title: High-level Python client
 nav_order: 5
 ---

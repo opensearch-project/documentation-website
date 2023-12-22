@@ -2,13 +2,7 @@
 layout: default
 title: Intro to OpenSearch
 nav_order: 2
-redirect_from:
-  - /docs/opensearch/
-  - /opensearch/
-  - /opensearch/index/
 ---
-
-{%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # Introduction to OpenSearch
 

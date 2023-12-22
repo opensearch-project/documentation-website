@@ -1,5 +1,5 @@
 ---
-layout: data-prepper
+layout: default
 title: Data Prepper 
 nav_order: 1
 has_children: false
