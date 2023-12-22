@@ -14,6 +14,12 @@
     box-sizing: border-box;
 }
 
+.main-content-wrap-home {
+    width: 100%;
+    background-color: $grey-lt-000;
+    padding: 3rem 4rem;
+  }
+
 // Card style
 
 .card-container-wrapper {
@@ -103,9 +109,9 @@
     bottom: 0;
     left: 0;
     width: 100%;
-  }
+}
 
-  // Banner style
+// Banner style
 
 .os-banner {
     @extend .panel;
