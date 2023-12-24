@@ -27,7 +27,7 @@ IP | [`ip`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/):
 [Autocomplete]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/autocomplete/) |[`completion`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/completion/): Provides autocomplete functionality through a completion suggester.<br> [`search_as_you_type`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/search-as-you-type/): Provides search-as-you-type functionality using both prefix and infix completion. 
 [Geographic]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geographic/)| [`geo_point`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/): A geographic point.<br>[`geo_shape`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-shape/): A geographic shape.
 [Rank]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/) | Boosts or decreases the relevance score of documents (`rank_feature`, `rank_features`).  
-[k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/): Allows indexing a k-NN vector into OpenSearch and performing different kinds of k-NN search.
+k-NN vector | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/): Allows indexing a k-NN vector into OpenSearch and performing different kinds of k-NN search.
 Percolator | [`percolator`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/): Specifies to treat this field as a query. 
 
 ## Arrays
