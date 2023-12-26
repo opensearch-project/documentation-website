@@ -178,7 +178,7 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:monitor/stats
 - cluster:monitor/task
 - cluster:monitor/task/get
-- cluster:monitor/tasks/list
+- cluster:monitor/tasks/lists
 
 
 ## Index permissions
