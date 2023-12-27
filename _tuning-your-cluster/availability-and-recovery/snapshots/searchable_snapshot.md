@@ -45,6 +45,15 @@ Request Field | Description
 :--- | :---
 `storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the `search` node role in order to restore a snapshot using the `remote_snapshot` type. <br /><br > Defaults to `local`.
 
+#### Example request
+The following request restores `my-snapshot-name` as searchable snapshot.
+````json
+POST /_snapshot/my-repository-name/my-snapshot-name/_restore
+{
+  "storage_type": "remote_snapshot"
+}
+````
+
 ## Listing indexes
 
 To determine whether an index is a searchable snapshot index, look for a store type with the value of `remote_snapshot`:
