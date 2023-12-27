@@ -42,8 +42,8 @@ Geopoints can be indexed in the following formats:
 PUT testindex1/_doc/1
 {
   "point": { 
-    "lat": 40.71,
-    "lon": 74.00
+    "lat": "40.71",
+    "lon": "74.00"
   }
 }
 ```
