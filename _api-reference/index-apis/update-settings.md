@@ -42,9 +42,6 @@ Parameter | Data type | Description
 :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
-flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of “index”: { “creation_date”: “123456789” } is “index.creation_date”: “123456789”.
-ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
-preserve_existing | Boolean | Whether to preserve existing index settings. Default is false.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 timeout | Time | How long to wait for a connection to return. Default is `30s`.
 
