@@ -361,7 +361,7 @@ See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 - cluster:monitor/stats
 - cluster:monitor/task
 - cluster:monitor/task/get
-- cluster:monitor/tasks/list
+- cluster:monitor/tasks/lists
 
 ### Index templates
 
