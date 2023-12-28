@@ -50,6 +50,8 @@ In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discove
 - Analyze your data, view individual documents, and create tables summarizing your data.
 - Visualize your findings and share them.
 
+### Getting familiar with Discover
+
 The following steps give you a basic overview about how to use the Discover tool:
 
 1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
@@ -62,7 +64,7 @@ The following image shows the view you'll see once you've completed the precedin
 
 <img src="{{site.url}}{{site.baseurl}}//images/dashboards/discover-basics.png" alt="Screenshot of Discover tutorial screen view" width="700">
 
-# Visualizing data
+## Visualizing data
 
 Raw data can be difficult to comprehend and use. Data visualizations help you prepare and present data in a visual form. In **Dashboard** you can:
 
@@ -71,57 +73,57 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 - Create and share reports.
 - Embed analytics to differentiate your applications.
 
-## Try it: Getting familiar with Dashboard
+### Getting familiar with Dashboard 
+
+The following steps give you a basic overview about how to use the Dashboard tool:
 
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboard**.
-1. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
+2. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
+3. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
+4. In the **Add panels** window, choose the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window on the lower right confirming that you've added the panel.
+5. Select `x` to close the **Add panels** window.
+6. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="700"/>
+The following image shows the view you'll see once you've completed the preceding steps:
 
-1. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
-1. In the **Add panels** window, choose the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window on the lower right confirming that you've added the panel.
-1. Select `x` to close the **Add panels** window.
-1. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
-
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="700"/>
-
-## Try it: Creating a visualization panel
+<img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial screen view" width="700">
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
 1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from **24 hours** to **Last 7 days**. 
-1. In the toolbar, choose **Edit**, then **Create new**.
-1. Select **VisBuilder** in the **New Visualizations** window.
-1. In the **Data Source** dropdown list, choose `opensearch_dashboards_sample_data_flights`.
-1. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
-1. Drag the field **FlightDelayType** to the x-axis column.
-1. Choose **Save** and name the visualization in the **Title** field.
-2. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
+2. In the toolbar, choose **Edit**, then **Create new**.
+3. Select **VisBuilder** in the **New Visualizations** window.
+4. In the **Data Source** dropdown list, choose `opensearch_dashboards_sample_data_flights`.
+5. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
+6. Drag the field **FlightDelayType** to the x-axis column.
+7. Choose **Save** and name the visualization in the **Title** field.
+8. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-panel-quickstart.png" alt="Creating a visualization panel" width="700"/>
+The following image shows the view you'll see once you've completed the preceding steps:
 
-# Interacting with data
+<img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
+
+## Interacting with data
 
 Interactive dashboards allow you analyze data in more depth and filter it in several ways. In Dashboards, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
 
-## Try it: Interacting with the sample flight data
+### Interacting with the sample flight data
 
 1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
-1. Choose **Save** to save the customized dashboard.
+2. Choose **Save** to save the customized dashboard.
 
 Alternatively, you can apply filters using the dashboard toolbar:
 
 1. In the dashboard toolbar, choose **Add filter**.
-1. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
+2. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
+3. Choose **Save**. The dashboard updates automatically, and the result is the dashboard shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/edit-filter.png" alt="Edit field interface" width="400"/>
+The following image shows the view you'll see once you've completed the preceding steps:
 
-1. Choose **Save**. The dashboard updates automatically, and the result is the dashboard shown in the following image.
-
-  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="700"/>
+<img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
 
 # Next steps
 
-- **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
-- **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards**]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
-- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
+- **Visualize data.** To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+- **Create dashboards.** To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards**]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
+- **Explore data.** To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
