@@ -15,44 +15,52 @@ This quickstart guide covers the core concepts that you need to understand to ge
 - Explore and inspect data.
 - Visualize data.
 
-Here's a glance at the view you see when you open the **Dashboard** or **Discover** tool.
+Starting with OpenSearch 2.12, you'll see the following homepage view. This redesign considers the OpenSearch community's feedback about creating a streamlined, intuitive dashboard experience. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-look.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
 
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
-{: .note}
-# Adding sample data
+## What's new
 
-Sample datasets come with visualizations, dashboards, and other tools to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
+Here's what's new with the redesigned homepage:
 
-1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`.
-1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**.
-2. Choose **Add data** to add the datasets, as shown in the following image.
+- **Enhanced user experience:** Improves your experience by incorporating intuitive navigation, streamlined workflows, and a visually appealing interface. 
+- **Optimized data accessibility:** Presents critical information in a more critical manner, making it easier for you to interpret and analyze data more effectively.
+- **Responsive design for multi-platform access:** Prioritizes responsive design principles, ensuring seamless access and functionality across various devices and screen sizes. 
+- **Integration of advanced visualizations:** Enhances your data comprehension and analysis by giving you visualization tools that convey information in a more digestible format.
+- **Customization for individual preferences:** Offers customization based on your preferences and needs.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="700">
+## Prerequisites
 
-# Exploring and inspecting data
+Before getting started with this quickstart, make sure you've installed the latest version of OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
+
+The following sections include several tutorials to help you learn OpenSearch basics. You can use your own environment or the [OpenSearch Playground](https://playground.opensearch.org/app/home#/), which runs on the latest version of OpenSearch. 
+
+## Adding sample data
+
+Sample datasets come with visualizations, dashboards, and other tools to help you explore OpenSearch Dashboards before you add your own data. To add sample data, follow these steps:
+
+1. On the OpenSearch Dashboards **Home** page, choose **Add data** on the upper-right side of page.
+2. On the **Add sample data** page, choose the datasets you want to add. Note that the **Sample flight data** dataset is used in the tutorials throughout this quickstart.
+
+## Exploring and inspecting data
 
 In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
 - Choose data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
-- Explore the data, view individual documents, and create tables summarizing the data.
-- Visualize your findings.
+- Analyze your data, view individual documents, and create tables summarizing your data.
+- Visualize your findings and share them.
 
-## Try it: Getting familiar with Discover
+The following steps give you a basic overview about how to use the Discover tool:
 
-1. On the OpenSearch Dashboards **Home** page, choose **Discover**.
-1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) to **Last 7 days**, as shown in the following image.
+1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
+2. On the **Discover** page, choose the sample flight dataset from the dropdown menu on the upper-left side of the page. 
+3. Select the calendar icon to change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from the default of **Last 15 minutes** to **Last 7 days**.
+4. In the DQL search bar, input `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then select **Update**. You should see results for US-bound flights delayed by 60 minutes or more.
+5. Filter data by choosing **Add filter** from under the DQL search bar and then selecting an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather Delay** from the **Field**, **Operator**, and **Value** dropdown lists on the **Edit Filter** pop-up window.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="250"/>
+The following image shows the view you'll see once you've completed the preceding steps:
 
-2. Search using the DQL query `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then choose **Update**. You should see results for US-bound flights delayed by 60 minutes or more, as shown in the following image.
-   
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt="DQL search field example" width="700"/>
-
-3. To filter data, choose **Add filter** and then select an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather delay** from the **Field**, **Operator**, and **Value** dropdown lists, as shown in the following image.
-
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt="Filter data by FlightDelayType field" width="250"/>
+<img src="{{site.url}}{{site.baseurl}}//images/dashboards/discover-basics.png" alt="Screenshot of Discover tutorial screen view" width="700">
 
 # Visualizing data
 
