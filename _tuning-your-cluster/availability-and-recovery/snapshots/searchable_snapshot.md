@@ -57,7 +57,7 @@ POST /_snapshot/my-repository/my-snapshot/_restore
 }
 ````
 
-Just like any snapshot restore requests, you can include or exclude certain indexes or specify some other settings, see the [restore snapshots API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#restore-snapshots) for more details.
+Similar to all snapshot restore requests, you can include or exclude certain indexes or specify additional snapshot settings. For more information, see the [restore snapshots API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#restore-snapshots).
 
 
 ## Listing indexes
