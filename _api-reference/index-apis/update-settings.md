@@ -43,6 +43,7 @@ Parameter | Data type | Description
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+preserve_existing | Boolean | Whether to preserve existing index settings. Default is false.
 timeout | Time | How long to wait for a connection to return. Default is `30s`.
 
 ## Request body
