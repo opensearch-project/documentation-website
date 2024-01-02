@@ -211,7 +211,7 @@ After you run Data Prepper, the source is converted to the following format:
 
 ## trim_string
 
-The `trim_string` processor removes whitespace from the beginning and end of a key.
+The `trim_string` processor removes white space from the beginning and end of a key.
 
 ### Configuration
 
@@ -219,7 +219,7 @@ You can configure the `trim_string` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
- `with_keys` | Yes | A list of keys from which to trim the whitespace. |
+ `with_keys` | Yes | A list of keys from which to trim the white space. |
 
 ### Usage
 
