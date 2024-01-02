@@ -18,7 +18,7 @@ You can configure the `parse_json` processor with the following options.
 | Option | Required | Type | Description |
 | :--- | :--- | :--- | :--- | 
 | `source` | No | String | The field in the `event` that will be parsed. Default value is `message`. |
-| `destination` | No | String | The destination field of the parsed JSON. Defaults to the root of the `event`. Cannot be `""`, `/`, or any white space-only `string` because these are not valid `event` fields. |
+| `destination` | No | String | The destination field of the parsed JSON. Defaults to the root of the `event`. Cannot be `""`, `/`, or any white-space-only `string` because these are not valid `event` fields. |
 | `pointer` | No | String | A JSON pointer to the field to be parsed. There is no `pointer` by default, meaning the entire `source` is parsed. The `pointer` can access JSON array indexes as well. If the JSON pointer is invalid then the entire `source` data is parsed into the outgoing `event`. If the key that is pointed to already exists in the `event` and the `destination` is the root, then the pointer uses the entire path of the key. |
 
 ## Usage
