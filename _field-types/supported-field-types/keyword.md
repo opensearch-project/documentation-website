@@ -53,5 +53,5 @@ Parameter | Description
 `norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Default is `false`.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
 `similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. 
-`split_queries_on_whitespace` | A Boolean value that specifies whether full-text queries should be split on whitespace. Default is `false`.
+`split_queries_on_whitespace` | A Boolean value that specifies whether full-text queries should be split on white space. Default is `false`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
