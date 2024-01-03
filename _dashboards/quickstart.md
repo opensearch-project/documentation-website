@@ -15,23 +15,23 @@ This quickstart guide covers the core concepts that you need to understand to ge
 - Explore and inspect data.
 - Visualize data.
 
-Starting with OpenSearch 2.12, you'll see the following homepage view. This redesign considers the OpenSearch community's feedback about creating a streamlined, intuitive dashboard experience. 
+Starting with OpenSearch 2.12, you'll see the following homepage view. This redesign considers the OpenSearch community's feedback about creating a more intuitive dashboard experience. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
 
 ## What's new
 
-Here's what's new with the redesigned homepage:
+Here's what's new with the homepage:
 
 - **Enhanced user experience:** Improves your experience by incorporating intuitive navigation, streamlined workflows, and a visually appealing interface. 
-- **Optimized data accessibility:** Presents critical information in a more critical manner, making it easier for you to interpret and analyze data more effectively.
+- **Optimized data accessibility:** Presents critical information in a more effective manner, making it easier for you to interpret and analyze data.
 - **Responsive design for multi-platform access:** Prioritizes responsive design principles, ensuring seamless access and functionality across various devices and screen sizes. 
 - **Integration of advanced visualizations:** Enhances your data comprehension and analysis by giving you visualization tools that convey information in a more digestible format.
 - **Customization for individual preferences:** Offers customization based on your preferences and needs.
 
 ## Prerequisites
 
-Before getting started with this quickstart, make sure you've installed the latest version of OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
+Before getting started with this quickstart, make sure you've installed the latest version of OpenSearch and OpenSearch Dashboards. If you're running a previous version of OpenSearch, see that version's quickstart guide. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 
 The following sections include several tutorials to help you learn OpenSearch basics. You can use your own environment or the [OpenSearch Playground](https://playground.opensearch.org/app/home#/), which runs on the latest version of OpenSearch. 
 
@@ -42,6 +42,10 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 1. On the OpenSearch Dashboards **Home** page, choose **Add data** on the upper-right side of page.
 2. On the **Add sample data** page, choose the datasets you want to add. Note that the **Sample flight data** dataset is used in the tutorials throughout this quickstart.
 
+The following image shows a view of the adding sample data window.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Screenshot of adding sample data window" width="700">
+
 ## Exploring and inspecting data
 
 In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
@@ -50,9 +54,7 @@ In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discove
 - Analyze your data, view individual documents, and create tables summarizing your data.
 - Visualize your findings and share them.
 
-### Getting familiar with Discover
-
-The following steps give you a basic overview about how to use the Discover tool:
+The following steps give you a basic overview about using the Discover tool:
 
 1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
 2. On the **Discover** page, choose the sample flight dataset from the dropdown menu on the upper-left side of the page. 
@@ -60,9 +62,9 @@ The following steps give you a basic overview about how to use the Discover tool
 4. In the DQL search bar, input `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then select **Update**. You should see results for US-bound flights delayed by 60 minutes or more.
 5. Filter data by choosing **Add filter** from under the DQL search bar and then selecting an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather Delay** from the **Field**, **Operator**, and **Value** dropdown lists on the **Edit Filter** pop-up window.
 
-The following image shows the view you'll see once you've completed the preceding steps:
+The following image shows the view you see once you've completed the preceding steps:
 
-<img src="{{site.url}}{{site.baseurl}}//images/dashboards/discover-basics.png" alt="Screenshot of Discover tutorial screen view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-basics.png" alt="Screenshot of Discover tutorial screen view" width="700">
 
 ## Visualizing data
 
@@ -73,9 +75,7 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 - Create and share reports.
 - Embed analytics to differentiate your applications.
 
-### Getting familiar with Dashboard 
-
-The following steps give you a basic overview about how to use the Dashboard tool:
+The following steps give you a basic overview about using the Dashboard tool:
 
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboard**.
 2. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
@@ -84,9 +84,9 @@ The following steps give you a basic overview about how to use the Dashboard too
 5. Select `x` to close the **Add panels** window.
 6. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
 
-The following image shows the view you'll see once you've completed the preceding steps:
+The following image shows the view you see once you've completed the preceding steps:
 
-<img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial screen view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Screenshot of Dashboard tutorial screen view" width="700">
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
@@ -99,15 +99,15 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 7. Choose **Save** and name the visualization in the **Title** field.
 8. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
 
-The following image shows the view you'll see once you've completed the preceding steps:
+The following image shows the view you see once you've completed the preceding steps:
 
-<img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
 
 ## Interacting with data
 
 Interactive dashboards allow you analyze data in more depth and filter it in several ways. In Dashboards, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
 
-### Interacting with the sample flight data
+The following steps give you a basic overview about interacting with the sample flight data:
 
 1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
 2. Choose **Save** to save the customized dashboard.
