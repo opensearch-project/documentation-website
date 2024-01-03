@@ -28,7 +28,7 @@ GET _plugins/_performanceanalyzer/rca?name=HotShardClusterRca
 ```
 {% include copy-curl.html %}
 
-#### Example Response
+#### Example response
 
 The response contains a list of unhealthy shards:
 

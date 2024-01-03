@@ -42,7 +42,7 @@ plugins.security.authcz.impersonation_dn:
 ```
 
 
-## Impersonating Users
+## Impersonating users
 
 To impersonate another user, submit a request to the system with the HTTP header `opendistro_security_impersonate_as` set to the name of the user to be impersonated. A good test is to make a GET request to the `_plugins/_security/authinfo` URI:
 
