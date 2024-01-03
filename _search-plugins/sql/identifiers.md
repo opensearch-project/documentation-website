@@ -17,7 +17,7 @@ OpenSearch supports two types of identifiers: regular identifiers and delimited 
 
 A regular identifier is a string of characters that starts with an ASCII letter (lower or upper case).
 The next character can either be a letter, digit, or underscore (_). It can't be a reserved keyword.
-Whitespace and other special characters are also not allowed.
+White space and other special characters are also not allowed.
 
 OpenSearch supports the following regular identifiers:
 
