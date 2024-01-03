@@ -58,8 +58,14 @@ layout: table_wrappers
       </div>
       <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">        
         <div class="version-wrapper">
-          <a href="{{site.url}}{{site.baseurl}}/getting-started/index/" class="site-category">{{ page.section-name }}</a>
+          {% if page.section == "opensearch" %}
+            <a href="{{site.url}}{{site.baseurl}}/about/" class="site-category">{{ page.section-name }}</a>
+          {% else %}
+            <a href="{{site.url}}{{site.baseurl}}/{{ page.section}}/" class="site-category">{{ page.section-name }}</a>
+          {% endif %}
+          
           <a href="{{site.url}}{{site.baseurl}}/" class="back-link">&#x2190; Back to docs home</a>
+          
           {% if page.section == "opensearch" %}
             <version-selector selected="{{ site.data.versions.current }}"></version-selector>
           {% endif %}
