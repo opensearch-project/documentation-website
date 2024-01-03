@@ -7,7 +7,9 @@ nav_order: 70
 redirect_from: /benchmark/workloads/corpora/
 ---
 
+<!-- vale off -->
 # corpora
+<!-- vale on -->
 
 The `corpora` element contains all the document corpora used by the workload. You can use document corpora across workloads by copying and pasting any corpora definitions. 
 
