@@ -34,6 +34,8 @@ dependencies {
 
 You can now start your OpenSearch cluster.
 
+Note that if your OpenSearch version is 1.3.2 or lower, consider using opensearch-java version 1.0 ([refer](https://github.com/opensearch-project/opensearch-java/blob/main/COMPATIBILITY.md)).
+
 ## Installing the client using RestClient Transport
 
 Alternatively, you can create a Java client by using the `RestClient`-based transport. In this case, make sure that you have the following dependencies in your project's `pom.xml` file:
@@ -64,6 +66,8 @@ dependencies {
 {% include copy.html %}
 
 You can now start your OpenSearch cluster.
+
+Note that if your OpenSearch version is 1.3.2 or lower, consider using opensearch-java version 1.0 ([refer](https://github.com/opensearch-project/opensearch-java/blob/main/COMPATIBILITY.md)).
 
 ## Security
 
