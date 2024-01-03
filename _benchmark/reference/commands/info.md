@@ -7,7 +7,9 @@ grand_parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/commands/info/
 ---
 
+<!-- vale off -->
 # info
+<!-- vale on -->
 
 The `info` command prints details about an OpenSearch Benchmark component. 
 
