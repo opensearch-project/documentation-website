@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Quickstart guide
+title: Dashboards quickstart
 nav_order: 2
 has_children: false
 redirect_from:
    - /dashboards/quickstart-dashboards/
 ---
 
-# Quickstart guide
+# Dashboards quickstart
 
-This quickstart guide covers the core concepts that you need to understand to get started with OpenSearch Dashboards. You'll learn how to:
+This quickstart covers the core concepts that you need to understand to get started with OpenSearch Dashboards. You'll learn how to:
 
 - Add sample data.
-- Explore and inspect data.
+- Explore and interact with data.
 - Visualize data.
 
-Starting with OpenSearch 2.12, you'll see the following homepage view. This redesign considers the OpenSearch community's feedback about creating a more intuitive dashboard experience. 
+Starting with OpenSearch 2.12, you'll see the following homepage view. This redesign considers the OpenSearch community's feedback about simplifying the dashboard experience. Share your [feedback](<insert-link-feedback-dashboards>) about this update or other tools you want to see in OpenSearch Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
 
@@ -28,6 +28,7 @@ Here's what's new with the homepage:
 - **Responsive design for multi-platform access:** Prioritizes responsive design principles, ensuring seamless access and functionality across various devices and screen sizes. 
 - **Integration of advanced visualizations:** Enhances your data comprehension and analysis by giving you visualization tools that convey information in a more digestible format.
 - **Customization for individual preferences:** Offers customization based on your preferences and needs.
+- **OpenSearch Assistant toolkit:** Connects you to tools to build generative AI-powered experiences that unlock actionable insights from complex datasets. Watch the [demo](https://playground.opensearch.org/app/home#/) on the homepage to learn more. 
 
 ## Prerequisites
 
@@ -64,7 +65,7 @@ The following steps give you a basic overview about using the Discover tool:
 
 The following image shows the view you see once you've completed the preceding steps:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-basics.png" alt="Screenshot of Discover tutorial screen view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-basics.png" alt="Discover tutorial screen view" width="700">
 
 ## Visualizing data
 
@@ -77,16 +78,15 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 
 The following steps give you a basic overview about using the Dashboard tool:
 
-1. On the OpenSearch Dashboards **Home** page, choose **Dashboard**.
-2. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
-3. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
-4. In the **Add panels** window, choose the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window on the lower right confirming that you've added the panel.
-5. Select `x` to close the **Add panels** window.
-6. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
+1. On the OpenSearch Dashboards **Home** page, choose **Dashboards** and then **[Flights] Global Flight Dashboard**.
+2. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
+3. In the **Add panels** window, search for the existing panel **[Flights] Delay Buckets** and then select it. A pop-up message confirms that you've added the panel.
+4. Select `x` to close the **Add panels** window.
+5. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard.
 
 The following image shows the view you see once you've completed the preceding steps:
 
-<img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Screenshot of Dashboard tutorial screen view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/<insert-new-image>" alt="Dashboard tutorial screen view" width="700">
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
@@ -101,7 +101,7 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 
 The following image shows the view you see once you've completed the preceding steps:
 
-<img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Dashboard tutorial panel view" width="700">
 
 ## Interacting with data
 
