@@ -4,10 +4,14 @@ title: Managing indexes
 nav_order: 1
 has_children: false
 nav_exclude: true
+permalink: /index-management/
 redirect_from:
   - /im-plugin/
   - /opensearch/index-data/
   - /opensearch/rest-api/index-apis/index/
+  - /index-management/index/
+  - /im-plugin/index/
+  - /index-management/
 ---
 
 # Managing indexes

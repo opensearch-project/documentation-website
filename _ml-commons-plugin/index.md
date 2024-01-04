@@ -5,6 +5,12 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /machine-learning/
+redirect_from: 
+  - /ml-commons-plugin/
+  - /ml-commons-plugin/index/
+  - /machine-learning/index/
+  - /machine-learning/
 ---
 
 # ML Commons plugin
