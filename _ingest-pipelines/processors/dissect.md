@@ -46,7 +46,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline**
 
-The following query creates a pipeline, named `dissect-text`, that uses the `dissect` processor to parse the log line:
+The following query creates a pipeline, named `dissect-test`, that uses the `dissect` processor to parse the log line:
 
 ```json
 PUT /_ingest/pipeline/dissect-test
