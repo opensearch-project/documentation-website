@@ -78,7 +78,7 @@ plugins.security.authcz.admin_dn:
   - CN=kirk,OU=client,O=client,L=test,C=DE
 ```
 
-You can't use node certificates as admin certificates. The two must be separate. Also, do not add whitespace between the parts of the DN.
+You can't use node certificates as admin certificates. The two must be separate. Also, do not add white space between the parts of the DN.
 {: .warning }
 
 

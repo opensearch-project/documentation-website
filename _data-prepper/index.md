@@ -5,10 +5,11 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /data-prepper/
 redirect_from: 
   - /clients/data-prepper/index/
-  - /data-prepper/
   - /monitoring-plugins/trace/data-prepper/
+  - /data-prepper/index/
 ---
 
 # Data Prepper
