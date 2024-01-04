@@ -84,7 +84,7 @@ layout: table_wrappers
                   >
                     <li role="none" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
                       
-                      {% assign collection_url_path = collection_key | append: "/index/" %}
+                      {% assign collection_url_path = collection_key | append: "/" %}
                       {% assign category_comparison_url = "/" | append: collection_url_path %}
                       {%- if collection.size > 0 -%}
                         <a 
@@ -106,7 +106,7 @@ layout: table_wrappers
                     </li>
                   </ul>
                 {% else %}
-                  {% assign collection_url_path = collection_key | append: "/index/" %}
+                  {% assign collection_url_path = collection_key | append: "/" %}
                   <a 
                     role="treeitem"
                     aria-owns="{{ owned_tree_id }}"
