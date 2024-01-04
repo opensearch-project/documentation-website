@@ -5,8 +5,9 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 has_toc: false
+permalink: /benchmark/
 redirect_from:
-  - /benchmark/
+  - /benchmark/index/
 ---
 
 # OpenSearch Benchmark

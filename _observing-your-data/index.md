@@ -4,8 +4,13 @@ title: Observability
 nav_order: 1
 has_children: true
 nav_exclude: true
+permalink: /observability/
 redirect_from:
   - /observability-plugin/index/
+  - /observing-your-data/
+  - /observing-your-data/index/
+  - /observability/index/
+  - /observability/
 ---
 
 # Observability
