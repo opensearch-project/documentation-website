@@ -138,7 +138,7 @@ GET testindex1/_doc/1
 
 #### Response
 
-The following response confirms the document was indexed:
+The following response confirms that the specified fields were expanded into nested fields:
 
 ```json
 {
