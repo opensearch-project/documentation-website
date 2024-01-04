@@ -2,6 +2,7 @@
 layout: default
 title: Intro to OpenSearch
 nav_order: 2
+permalink: /intro/
 ---
 
 # Introduction to OpenSearch
