@@ -435,67 +435,9 @@ p.label {
   }
 }
 
-.os-banner {
-  @extend .panel;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: white;
-  background: linear-gradient(to right, $blue-dk-300, $blue-dk-200 80%); // fallback if image is not rendered
-}
-
-.banner-head {
-  @extend .panel;
-  background-size: cover;
-}
-
-.banner-text-div {
-  margin: 1rem 1rem 0 1.5rem;
-  padding: 0 1.5rem;
-  border-style: none none none solid;
-  border-color: $blue-lt-300;
-  border-width: 4px;
-  border-radius: 1px;
-  max-width: 47rem;
-  @include mq(sm) {  
-    margin: 2rem 4rem 0 4rem;
-  }
-}
-
-.banner-text-header {
-  font-size: 2rem;
-  font-weight: 700;
-  @include mq(sm) {
-    font-size: 2.5rem;
-  }
-}
-
-.banner-text-description {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.btn-contribute {
-  @extend .btn-general;
-  margin-bottom: 2rem;
-  margin-right: 4rem;
-  float: right;
-  color: $blue-dk-300;
-  box-shadow: 2px 3px 5px #000000;
-  &:hover {
-    box-shadow: 2px 3px 5px $blue-dk-300 !important;
-  }
-}
-
-.btn-contribute span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
 // Modifies margins in xl layout to support TOC
 .side-bar {
+  background-color: $sidebar-color;
   @include mq(lg) {
     width: $nav-width;
   }
@@ -993,7 +935,7 @@ main {
 version-selector {
   z-index: 1;
   font-size: .9rem;
-  margin: 1.5rem 3px;
+  margin: 0.5rem 3px;
 
   --normal-bg: linear-gradient(#{lighten($blue-300, 5%)}, #{darken($blue-300, 2%)});
   --hover-bg: linear-gradient(#{lighten($blue-300, 2%)}, #{darken($blue-300, 4%)});
@@ -1025,17 +967,26 @@ body {
   }
 }
 
-$light-theme-navigation-background: #F1FBFF;
-$primary-deep-blue-sea-s3: #001E30;
-$primary-deep-blue-sea-t1: #2C5E7A;
-$primary-open-sky: #00A3E0;
-$primary-open-sky-s3: #003551;
-$primary-open-sky-s2: #006D97;
-$primary-open-sky-t1: #4FB3E3;
-$primary-open-sky-t2: #9BCFED;
-$primary-open-sky-t3: #E1F0F9;
-$primary-pacific-sky-t2: #DCEBF4;
-$primary-pacific-sky-t3: #F4F8FB;
+.back-link {
+  text-align: start;
+  display: block;
+  font-size: 0.9rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  padding-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.site-category {
+  @extend .back-link;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: $blue-dk-300;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid #eeebee;
+}
 
 @mixin body-text($color: #000) {
   color: $color;
@@ -1091,3 +1042,4 @@ $primary-pacific-sky-t3: #F4F8FB;
 @import "../font-awesome.scss";
 @import "../_navigation-header.scss";
 @import "../footer.scss";
+@import "../_home.scss";

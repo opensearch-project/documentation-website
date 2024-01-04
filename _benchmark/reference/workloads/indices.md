@@ -7,7 +7,9 @@ nav_order: 65
 redirect_from: /benchmark/workloads/indices/
 ---
 
+<!-- vale off -->
 # indices
+<!-- vale on -->
 
 The `indices` element contains a list of all indices used in the workload. 
 
