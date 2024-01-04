@@ -987,15 +987,15 @@ The following sections contain definitions of all modified or added response fie
 
 |Field	|Description	|
 |:---	|:---	|
-|`time_in_nanos`	| The total elapsed time for this query, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).   |
+|`time_in_nanos`	| The total elapsed time for this query, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total time spent across all the slices i.e. difference between end time of last completed slice execution and start time of first slice execution.   |
 |`max_slice_time_in_nanos`	| The maximum amount of time taken by any slice to run a query, in nanoseconds.	|
 |`min_slice_time_in_nanos`	| The minimum amount of time taken by any slice to run a query, in nanoseconds.	|
 |`avg_slice_time_in_nanos`	| The average amount of time taken by any slice to run a query, in nanoseconds.	|
-|`breakdown.<method>`	| For concurrent segment search, this is the total elapsed time across all slices (`max(slice_end_time) - min(slice_start_time)`). For example, for the `build_scorer` method, it is the total time spent constructing the `Scorer` object across all slices. |
+|`breakdown.<method>`	| For concurrent segment search, `time_in_nanos` is the total time spent across all the slices i.e. difference between end time of last completed slice execution and start time of first slice execution. For example, for the `build_scorer` method, it is the total time spent constructing the `Scorer` object across all slices. |
 |`breakdown.max_<method>`	| The maximum amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `max` time because the method runs at the query level rather than the slice level.	|
 |`breakdown.min_<method>`	| The minimum amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `min` time because the method runs at the query level rather than the slice level.  |
 |`breakdown.avg_<method>`	| The average amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `avg` time because the method runs at the query level rather than the slice level.	|
-|`breakdown.<method>_count`	| For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all segments.       |
+|`breakdown.<method>_count`	| For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all slices.       |
 |`breakdown.max_<method>_count`	| The maximum number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `max` count because the method runs at the query level rather than the slice level. |
 |`breakdown.min_<method>_count`	| The minimum number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `min` count because the method runs at the query level rather than the slice level. |
 |`breakdown.avg_<method>_count`	| The average number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `avg` count because the method runs at the query level rather than the slice level. |
@@ -1004,7 +1004,7 @@ The following sections contain definitions of all modified or added response fie
 
 |Field	|Description	|
 |:---	|:---	|
-|`time_in_nanos`	|The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).	|
+|`time_in_nanos`	|The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices i.e. difference between end time of last completed slice execution and start time of first slice execution.	|
 |`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice, in nanoseconds.	|
 |`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice, in nanoseconds.	|
 |`avg_slice_time_in_nanos`	|The average amount of time taken by any slice, in nanoseconds.	|
@@ -1015,11 +1015,11 @@ The following sections contain definitions of all modified or added response fie
 
 |Field	|Description	|
 |:---	|:---	|
-|`time_in_nanos`	|The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).	|
+|`time_in_nanos`	|The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices i.e. difference between end time of last completed slice execution and start time of first slice execution.	|
 |`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
 |`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
 |`avg_slice_time_in_nanos`	|The average amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`<method>`	|The total elapsed time across all slices (`max(slice_end_time) - min(slice_start_time)`). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	|
+|`<method>`	|The total elapsed time across all slices i.e. difference between end time of last completed slice execution and start time of first slice execution. For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	|
 |`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method.	|
 |`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method.	|
 |`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method.	|
