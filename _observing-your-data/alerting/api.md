@@ -1335,7 +1335,7 @@ The following table lists the available path parameters. All path parameters are
 | Parameter | Data type | Description
 | :--- | :--- | :---
 | `sortString` | String | Defines how to sort the results. Default is `monitor_name.keyword`.
-| `sortOrder` | String | Defines the results order. Options are `asc` or `desc`. Default is `asc`.
+| `sortOrder` | String | Defines the order of the results. Options are `asc` or `desc`. Default is `asc`.
 | `missing` | String | Specifies whether to include missing data in the response.
 | `size` | String | Defines the size of the request to be returned. Default is `20`.
 | `startIndex` | String | Defines the index to start from. Used for paginating results. Default is `0`.
