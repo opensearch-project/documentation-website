@@ -27,7 +27,7 @@ The following is the syntax for the `drop` processor:
 
 ## Configuration parameters
 
-The following table lists the required and optional parameters for the `date` processor.
+The following table lists the required and optional parameters for the `drop` processor.
 
 Parameter | Required | Description |
 |-----------|-----------|-----------|
@@ -43,7 +43,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline.**
 
-The following query creates a pipeline, named `drop-user`, that uses the `drop` processor to prevent a document containing personally identifiable information (PII) from being indexed:
+The following query creates a pipeline, named `drop-pii`, that uses the `drop` processor to prevent a document containing personally identifiable information (PII) from being indexed:
 
 ```json
 PUT /_ingest/pipeline/drop-pii
@@ -52,7 +52,7 @@ PUT /_ingest/pipeline/drop-pii
   "processors": [
     {
       "drop": {
-        "if" : "ctx.user_info.contains('password') || ctx.user_info.contains('credit_card')"
+        "if" : "ctx.user_info.contains('password') || ctx.user_info.contains('credit card')"
       }
     }
   ]
@@ -85,23 +85,12 @@ POST _ingest/pipeline/drop-pii/_simulate
 
 #### Response
 
-The following example response confirms that the pipeline is working as expected:
+The following example response confirms that the pipeline is working as expected, that is, the document has been dropped:
 
 ```json
 {
   "docs": [
-    {
-      "doc": {
-        "_index": "testindex1",
-        "_id": "1",
-        "_source": {
-          "user_info": "Sensitive information including credit card"
-        },
-        "_ingest": {
-          "timestamp": "2023-12-01T20:49:52.476308925Z"
-        }
-      }
-    }
+    null
   ]
 }
 ```
@@ -115,14 +104,5 @@ PUT testindex1/_doc/1?pipeline=drop-pii
 {
   "user_info": "Sensitive information including credit card"
 }
-```
-{% include copy-curl.html %}
-
-**Step 4 (Optional): Retrieve the document.**
-
-To retrieve the document, run the following query:
-
-```json
-GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
