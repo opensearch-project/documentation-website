@@ -26,9 +26,8 @@ The following table lists the required and optional parameters for the `dot_expa
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The field to expand into an object field. If set to `*`, all top-level fields will be expanded. |
+`field`  | Required  | The field to expand into an object field. |
 `path` | Optional | The field is only required if the field to be expanded is nested within another object field. This is because the `field` parameter only recognizes leaf fields, which are fields that are not nested within any other objects. |
-`override` | Optional | The field determines how the processor handles conflicts when expanding a field that overlaps with an existing nested object. Setting `override` to `false` instructs the processor to merge the conflicting values into an array, preserving both the original and expanded values. Conversely, setting `override` to `true` causes the processor to replace the existing nested object's value with the expanded field's value. |
 `description`  | Optional  | A brief description of the processor. |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
@@ -40,25 +39,25 @@ Parameter | Required/Optional | Description |
 Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
-
-The following query expands two fields named `user.address.city` and `user.address.state` into nested objects named `city` and `state`: 
+ 
+The following query creates a dot expander processor that will expand two fields named `user.address.city` and `user.address.state` into nested objects:
 
 ```json
 PUT /_ingest/pipeline/dot-expander
 {
-  "description": "Dot expander processor",
-  "processors": [
-    {
-      "dot_expander": {
-        "field": "user.address.city"
-      }
-    },
-    {
-        "dot_expander":{
-         "field": "user.address.state"
+    "description": "Dot expander processor",
+    "processors": [
+        {
+            "dot_expander": {
+                "field": "user.address.city"
+            }
+        },
+        {
+            "dot_expander": {
+                "field": "user.address.state"
+            }
         }
-    }
-  ]
+    ]
 }
 ```
 {% include copy-curl.html %}
@@ -71,17 +70,18 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/dot-expander/_simulate
-{
-  "docs": [
-    {
-      "_index": "testindex1",
-      "_id": "1",
-      "_source": {
-        "field": "city, state"
-      }
-    }
-  ]
+POST _ingest/pipeline/dot-expander/_simulate  
+{  
+  "docs": [  
+    {  
+      "_index": "testindex1",  
+      "_id": "1",  
+      "_source": {  
+        "user.address.city": "New York",  
+        "user.address.state": "NY"  
+      }  
+    }  
+  ]  
 }
 ```
 {% include copy-curl.html %}
@@ -98,10 +98,15 @@ The following example response confirms that the pipeline is working as expected
         "_index": "testindex1",
         "_id": "1",
         "_source": {
-          "field": "city, state"
+          "user": {
+            "address": {
+              "city": "New York",
+              "state": "NY"
+            }
+          }
         },
         "_ingest": {
-          "timestamp": "2023-11-17T23:49:27.597933805Z"
+          "timestamp": "2024-01-04T21:00:42.053781253Z"
         }
       }
     }
@@ -114,9 +119,10 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-PUT testindex1/_doc/1?pipeline=dot-expander
-{
-  "field": "Denver, CO"
+PUT testindex1/_doc/1?pipeline=dot-expander  
+{  
+  "user.address.city": "Denver",  
+  "user.address.state": "CO"  
 }
 ```
 {% include copy-curl.html %}
@@ -138,91 +144,22 @@ The following response confirms the document was indexed:
 {
   "_index": "testindex1",
   "_id": "1",
-  "_version": 58,
-  "_seq_no": 57,
-  "_primary_term": 30,
+  "_version": 63,
+  "_seq_no": 62,
+  "_primary_term": 33,
   "found": true,
   "_source": {
-    "field": "Denver, CO"
+    "user": {
+      "address": {
+        "city": "Denver",
+        "state": "CO"
+      }
+    }
   }
 }
 ```
 
 ## Nested fields
-
-The `dot_expander` processor consolidates the `user.address.city` and `user.address.state` fields by merging with an existing `address`, `city`, and `state` field nested under `user`. If the field is a scalar value, then it will turn that field into an array. Take for example the following document:
-
-```json
-{
-    "dot_expander": {
-        "field": "user.address.city",
-        "override": true
-    }
-}
-```
-
-With `override:false` (or unset), the dot-pathed top-level field gets appended to the target object node, so it transforms into:
-
-```json
-{
-   "user": {
-        "address": {
-            "city": ["Denver", "Boulder"],
-            "state": "CO"
-        }
-    }
-}
-```
-
-With `override:true`, the dot-pathed top-level field value overwrites the target object node, so it transforms into:
-
-```json
-{
-   "user": {
-        "address": {
-            "city": "Boulder",
-            "state": "CO"
-        }
-    }
-}
-```
-
-If the field value is set to a wildcard `*`, the processor expands all top-level dotted field names, for example:  
-
-```json
-{
-    "dot_expander": {
-        "field": "*"
-    }
-}
-```
-
-Take for example the following document:
-
-
-```json
-{
-    "user.address.city": "Denver",
-    "user.address.state": "CO"
-}
-```
-
-The `dot_expander` processor transforms that document into the following fields, all nested under `user`:
-
-```json
-{
-    "user": {
-        "address": {
-            "city": "Denver"
-        }
-    },
-    "user": {
-        "address": {
-            "state": "CO"
-        }
-    }
-}
-```
 
 If a field is nested within a structure without dots, you can use the `path` parameter to traverse the non-dotted structure. For example, if you have the field `user.address`, you can use the `dot_expander processor` to expand it into an object field named `user` with a nested field named `address`, as shown in the following example: 
 
@@ -230,7 +167,7 @@ If a field is nested within a structure without dots, you can use the `path` par
 {
     "dot_expander": {
         "path": "user.address",
-        "field": "*"
+        "field": "<insert-field>"
     }
 }
 ```
@@ -238,48 +175,19 @@ If a field is nested within a structure without dots, you can use the `path` par
 Then take for example the following document: 
 
 ```json
-{
-    "user": {
-        "address": {
-            "city.one": "Denver",
-            "city.two": "Houston",
-            "state.one": "CO",
-            "state.two": "TX"
-        }
-    }
-}
+<insert-code-example>
 ```
 
 The `dot_expander` processor transforms the document into:
 
 ```json
-{
-    "user": {
-        "address": {
-            "city": {
-                "one": "Denver",
-                "two": "Houston"
-            },
-            "state": {
-                "one": "CO",
-                "two": "TX"
-            }
-        } 
-    }
-}
+<insert-code-example>
 ```
 
 To ensure proper expansion of the `user.address.city` and `user.address.state` fields and handle conflicts with pre-existing fields, use a similar configuration as the following document: 
 
 ```json
-{
-    "user": {
-        "address": {
-            "city": "Denver",
-            "state": "CO"
-        }
-    }
-}
+<insert-code-example>
 ```
 
 To ensure the correct expansion of the `city` and `state` fields, the following pipeline uses the `rename` processor to prevent conflicts and allow for proper handling of scalar fields during expansion.
