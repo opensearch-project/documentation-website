@@ -272,7 +272,7 @@ The following pattern uses a named skip key to exclude a field (in this case, `i
 
 ### Reference keys (`*` and `&`)
 
-Reference keys use parsed values as key/value pairings for structured content. This can use useful when handling systems that partially log data in key/value pairs. by using reference keys, you can preserve the key/value relationship and maintain the integrity of the extracted information. 
+Reference keys use parsed values as key/value pairings for structured content. This can use useful when handling systems that partially log data in key/value pairs. By using reference keys, you can preserve the key/value relationship and maintain the integrity of the extracted information. 
 
 #### Example of usage
 
