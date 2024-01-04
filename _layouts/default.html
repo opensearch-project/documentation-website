@@ -56,10 +56,20 @@ layout: table_wrappers
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
-      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
+      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">        
         <div class="version-wrapper">
-          <version-selector selected="{{ site.data.versions.current }}"></version-selector>
-        </div>
+          {% if page.section == "opensearch" %}
+            <a href="{{site.url}}{{site.baseurl}}/about/" class="site-category">{{ page.section-name }}</a>
+          {% else %}
+            <a href="{{site.url}}{{site.baseurl}}/{{ page.section}}/" class="site-category">{{ page.section-name }}</a>
+          {% endif %}
+          
+          <a href="{{site.url}}{{site.baseurl}}/" class="back-link">&#x2190; Back to docs home</a>
+          
+          {% if page.section == "opensearch" %}
+            <version-selector selected="{{ site.data.versions.current }}"></version-selector>
+          {% endif %}
+          </div>
         {% assign pages_top_size = site.html_pages
             | where_exp:"item", "item.title != nil"
             | where_exp:"item", "item.parent == nil"
@@ -68,9 +78,20 @@ layout: table_wrappers
         {% if pages_top_size > 0 %}
           {% include nav.html pages=site.html_pages key=nil expanded=true %}
         {% endif %}
-        {% if site.just_the_docs.collections %}
-          {% assign collections_size = site.just_the_docs.collections | size %}
-          {% for collection_entry in site.just_the_docs.collections %}
+
+        {% if page.section == "opensearch" %}
+          {% assign section = site.opensearch_collection.collections %}
+        {% elsif page.section == "data-prepper" %}
+          {% assign section = site.data_prepper_collection.collections %}
+        {% elsif page.section == "clients" %}
+          {% assign section = site.clients_collection.collections %}
+        {% elsif page.section == "benchmark" %}
+          {% assign section = site.benchmark_collection.collections %}
+        {% endif %}
+
+        {% if section %}
+          {% assign collections_size = section | size %}
+          {% for collection_entry in section %}
             {% assign collection_key = collection_entry[0] %}
             {% assign collection_value = collection_entry[1] %}
             {% assign collection = site[collection_key] %}
@@ -84,7 +105,7 @@ layout: table_wrappers
                   >
                     <li role="none" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
                       
-                      {% assign collection_url_path = collection_key | append: "/index/" %}
+                      {% assign collection_url_path = collection_key | append: "/" %}
                       {% assign category_comparison_url = "/" | append: collection_url_path %}
                       {%- if collection.size > 0 -%}
                         <a 
@@ -106,7 +127,7 @@ layout: table_wrappers
                     </li>
                   </ul>
                 {% else %}
-                  {% assign collection_url_path = collection_key | append: "/index/" %}
+                  {% assign collection_url_path = collection_key | append: "/" %}
                   <a 
                     role="treeitem"
                     aria-owns="{{ owned_tree_id }}"
@@ -123,32 +144,6 @@ layout: table_wrappers
           {% endfor %}
         {% endif %}
         </nav>
-    </div>
-    <div class="copy-banner">
-      <div class="container">
-        <h1><a href="/docs/latest/">Documentation</a></h1>
-        {% if site.search_enabled != false or site.use_custom_search == true %}
-        <div class="search">
-          <div class="search-input-wrap">
-            {% assign docs_version = site.data.versions.current %}
-            {% if site.baseurl == '/docs/latest' %}
-              {% assign docs_version = "latest" %}
-            {% endif %}
-            <input type="text" id="search-input" class="search-input"
-              placeholder="Search..." aria-label="Search {{ site.title }}"
-              data-docs-version="{{ docs_version }}" autocomplete="off">
-            <div class="search-spinner"><i></i></div>
-            <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
-          </div>
-          {% if site.search_enabled != false %}
-          <div id="search-results" class="search-results"></div>
-          {% elsif site.use_custom_search == true %}
-          <div id="search-results" class="search-results custom-search-results"></div>
-          {% endif %}
-        </div>
-        {% endif %}
-      </div>
-      <div class="search-overlay"></div>
     </div>
     <div class="main">
       <div id="main-content-wrap" class="main-content-wrap">
@@ -230,7 +225,7 @@ layout: table_wrappers
       <div class="toc-wrap">
         <div class="sticky-wrap">
           <div class="toc">
-            {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+            {% include toc.html html=content h_min=2 h_max=3 class="toc-list" item_class="toc-item" sanitize=true %}
           </div>
           {% include feedback.html %}
         </div>
@@ -252,7 +247,6 @@ layout: table_wrappers
       anchors.add().remove('.subfooter h1, .subfooter h2');
     </script>
   {% endif %}
-  <script src="{{ '/assets/js/header-nav.js' | relative_url }}"></script>
   {% if site.search_enabled == false and site.use_custom_search == true %}
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   {% endif %}
