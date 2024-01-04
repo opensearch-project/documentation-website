@@ -148,9 +148,9 @@ See [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
 - cluster:admin/ingest/pipeline/simulate
 - cluster:admin/ingest/processor/grok/get
 
-### Anomaly Detection permissions
+### Anomaly detection permissions
 
-See [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
+See [Anomaly Detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
 
 - cluster:admin/opendistro/ad/detector/delete
 - cluster:admin/opendistro/ad/detector/info
@@ -296,7 +296,7 @@ See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 
 ### Update settings permission
 
-See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) on the Index APIs page.
+See [Update settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) on the Index APIs page.
 
 - cluster:admin/settings/update
 
@@ -361,7 +361,7 @@ See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 - cluster:monitor/stats
 - cluster:monitor/task
 - cluster:monitor/task/get
-- cluster:monitor/tasks/list
+- cluster:monitor/tasks/lists
 
 ### Index templates
 
