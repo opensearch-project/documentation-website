@@ -85,12 +85,11 @@ cluster.indices.replication.strategy: 'SEGMENT'
 {% include copy.html %}
 
 
-### Enforce cluster level replication type
+### Enforcing cluster-level replication type
 
-If enabled, `cluster.index.restrict.replication.type` setting enforces that indexes will be created with a replication type 
-matching the cluster setting defined in cluster.indices.replication.strategy by rejecting any request that specifies a replication
-type that does not match the cluster setting. If disabled, a user can choose a replication type on a per-index basis using
-the index.replication.type setting. You can define this setting in the `opensearch.yml` file as follows:
+If enabled, the `cluster.index.restrict.replication.type` setting enforces newly created indexes to have a replication type specified in the `cluster.indices.replication.strategy` cluster setting. Requests that specify a different replication type are rejected. If `cluster.index restrict.replication.type` is disabled, you can choose a replication type on a per-index basis by specifying it in the `index.replication.type` setting. 
+
+You can define the `cluster.index.restrict.replication.type` setting in the `opensearch.yml` file as follows:
 
 ```yaml
 cluster.index.restrict.replication.type: true
