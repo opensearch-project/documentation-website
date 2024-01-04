@@ -5,6 +5,12 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /search/
+redirect_from:
+  - /search-plugins/
+  - /search-plugins/index/
+  - /search/index/
+  - /search/
 ---
 
 # Search

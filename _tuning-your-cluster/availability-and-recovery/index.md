@@ -4,6 +4,7 @@ title: Availability and recovery
 nav_order: 20
 has_children: true
 has_toc: true
+permalink: /tuning-your-cluster/
 ---
 
 # Availability and recovery
