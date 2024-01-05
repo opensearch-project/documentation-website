@@ -32,7 +32,7 @@ Here's what's new with the homepage:
 
 ## Prerequisites
 
-Before getting started with this quickstart, make sure you've installed the latest version of OpenSearch and OpenSearch Dashboards. If you're running a previous version of OpenSearch, see that version's quickstart guide. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
+Before getting started with this quickstart, make sure you've installed the latest version of OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/). If you're running OpenSearch 2.11 or older, see the respective quickstart. 
 
 The following sections include several tutorials to help you learn OpenSearch basics. You can use your own environment or the [OpenSearch Playground](https://playground.opensearch.org/app/home#/), which runs on the latest version of OpenSearch. 
 
