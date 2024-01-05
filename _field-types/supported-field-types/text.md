@@ -18,6 +18,8 @@ A text field type contains a string that is analyzed. It is used for full-text s
 If you need to use a field for exact-value search, map it as a [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) instead.
 {: .note }
 
+If you don't query phrases or don't have a use case of positional queries, such as interval/span queries, where order of the term in the phrase is of significance, then use space optimized version of the text field - [`match_only_text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/match-only-text/) instead.
+
 ## Example
 
 Create a mapping with a text field:
