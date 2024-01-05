@@ -4,14 +4,6 @@ title: Ingest pipelines
 parent: Ingest APIs
 has_children: true
 nav_order: 5
-<<<<<<< HEAD:_api-reference/ingest-apis/ingest-pipelines.md
-=======
-nav_exclude: true
-permalink: /ingest-pipelines/
-redirect_from:
-   - /api-reference/ingest-apis/ingest-pipelines/
-   - /ingest-pipelines/index/
->>>>>>> 2e2e5d0c (Change navigation for index pages of collections):_ingest-pipelines/index.md
 ---
 
 # Ingest pipelines
