@@ -20,7 +20,7 @@ This section contains documentation for OpenSearch and OpenSearch Dashboards.
 
 ## Getting started
 
-- [Intro to OpenSearch]({{site.url}}{{site.baseurl}}/about/intro/)
+- [Intro to OpenSearch]({{site.url}}{{site.baseurl}}/intro/)
 - [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
 - [Install OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/)
 - [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
