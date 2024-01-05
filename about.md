@@ -107,7 +107,7 @@ Frequent refresh operations write the documents in the memory buffer to a segmen
 
 ### Refresh
 
-Periodically, OpenSearch performs a _refresh_ operation, which writes the documents from the in-memory Lucene index to files. These files are not durable because they reside in the file cache. A refresh makes documents available for search.
+Periodically, OpenSearch performs a _refresh_ operation, which writes the documents from the in-memory Lucene index to files. These files are not guaranteed to be durable because an `fsync` is not performed. A refresh makes documents available for search.
 
 ### Flush
 
