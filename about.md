@@ -111,7 +111,7 @@ Periodically, OpenSearch performs a _refresh_ operation, which writes the docume
 
 ### Flush
 
-A _flush_ operation persists the files from the file cache to disk, ensuring durability. Flushing the files ensures that the data stored only in the translog is recorded in the Lucene index. OpenSearch performs a flush as needed using `fsync`. After `fsync`, segment files become immutable because they have been written to disk. 
+A _flush_ operation persists the files to disk using `fsync`, ensuring durability. Flushing ensures that the data stored only in the translog is recorded in the Lucene index. OpenSearch performs a flush as needed to ensure the translog does not grow too large.
 
 ### Merge
 
