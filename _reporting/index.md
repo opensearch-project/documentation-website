@@ -4,6 +4,9 @@ title: Reporting
 nav_order: 1
 has_children: false
 nav_exclude: true
+permalink: /reporting/
+redirect_from:
+  - /reporting/index/
 ---
 
 # Reporting

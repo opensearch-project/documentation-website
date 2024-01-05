@@ -5,10 +5,12 @@ has_children: true
 nav_order: 5
 nav_exclude: true
 has_toc: false
+permalink: /analyzers/
 redirect_from: 
   - /opensearch/query-dsl/text-analyzers/
   - /query-dsl/analyzers/text-analyzers/
   - /analyzers/text-analyzers/
+  - /analyzers/index/
 ---
 
 # Text analysis
