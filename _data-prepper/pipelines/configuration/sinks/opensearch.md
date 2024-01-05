@@ -31,7 +31,7 @@ pipeline:
       bulk_size: 4
 ```
 
-To configure an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) sink, specify the domain endpoint as the `hosts` option:
+To configure an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) sink, specify the domain endpoint as the `hosts` option, as shown in the following example:
 
 ```yaml
 pipeline:
@@ -66,7 +66,7 @@ insecure | No | Boolean | Whether or not to verify SSL certificates. If set to t
 proxy | No | String | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
 index | Conditionally | String | Name of the export index. Applicable and required only when the `index_type` is `custom`.
 index_type | No | String | This index type tells the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default value is `custom`.
-template_type | No | String | Defines what type of OpenSearch template to use. The available options are `v1` and `index-template`. The default value is `v1`, which uses the original OpenSearch templates available at the `_template` API endpoints. The `index-template` option uses composable [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) which are available through OpenSearch's `_index_template` API. Composable index types offer more flexibility than the default and are necessary when an OpenSearch cluster has already existing index templates. Composable templates are available for all versions of OpenSearch and some later versions of Elasticsearch. 
+template_type | No | String | Defines what type of OpenSearch template to use. The available options are `v1` and `index-template`. The default value is `v1`, which uses the original OpenSearch templates available at the `_template` API endpoints. The `index-template` option uses composable [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) which are available through OpenSearch's `_index_template` API. Composable index types offer more flexibility than the default and are necessary when an OpenSearch cluster has already existing index templates. Composable templates are available for all versions of OpenSearch and some later versions of Elasticsearch. When `distribution_version` is set to `es6`, Data Prepper enforces the `template_type` as `v1`.
 template_file | No | String | The path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file such as `/your/local/template-file.json` when `index_type` is set to `custom`.  For an example template file, see [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json). If you supply a template file it must match the template format specified by the `template_type` parameter.
 document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (for example, `"my-field"`) if `index_type` is `custom`.
 dlq_file | No | String | The path to your preferred dead letter queue file (for example, `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
@@ -75,6 +75,20 @@ bulk_size | No | Integer (long) | The maximum size (in MiB) of bulk requests sen
 ism_policy_file | No | String | The absolute file path for an ISM (Index State Management) policy JSON file. This policy file is effective only when there is no built-in policy file for the index type. For example, `custom` index type is currently the only one without a built-in policy file, thus it would use the policy file here if it's provided through this parameter. For more information, see [ISM policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 number_of_shards | No | Integer | The number of primary shards that an index should have on the destination OpenSearch server. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
 number_of_replicas | No | Integer | The number of replica shards each primary shard should have on the destination OpenSearch server. For example, if you have 4 primary shards and set number_of_replicas to 3, the index has 12 replica shards. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
+distribution_version | No | String | Indicates whether the sink backend version is Elasticsearch 6 or later. `es6` represents Elasticsearch 6. `default` represents the latest compatible backend version, such as Elasticsearch 7.x, OpenSearch 1.x, or OpenSearch 2.x. Default is `default`.
+enable_request_compression | No | Boolean | Whether to enable compression when sending requests to OpenSearch. When `distribution_version` is set to `es6`, default is `false`. For all other distribution versions, default is `true`. 
+serverless | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
+serverless_options | No | Object | The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
+
+### Serverless options
+
+The following options can be used in the `serverless_options` object.
+
+Option | Required | Type | Description
+:--- | :--- | :---| :---
+network_policy_name | Yes | String | The name of the network policy to create.
+collection_name | Yes | String | The name of the Amazon OpenSearch Serverless collection to configure.
+vpce_id | Yes | String | The virtual private cloud (VPC) endpoint to which the source connects.
 
 ### Configure max_retries
 
@@ -260,7 +274,7 @@ Next, create a collection with the following settings:
       ],
       "Description":"Pipeline role access"
    }
- ]
+  ]
   ```
 
   ***Important***: Make sure to replace the ARN in the `Principal` element with the ARN of the pipeline role that you created in the preceding step.

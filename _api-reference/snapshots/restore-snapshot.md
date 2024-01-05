@@ -6,7 +6,9 @@ parent: Snapshot APIs
 nav_order: 9
 ---
 
-## Restore Snapshot
+# Restore Snapshot
+**Introduced 1.0**
+{: .label .label-purple }
 
 Restores a snapshot of a cluster or specified data streams and indices. 
 
@@ -17,14 +19,14 @@ Restores a snapshot of a cluster or specified data streams and indices.
 If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. See [Example request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) for information about closing an index.
 {: .note}
 
-### Path parameters
+## Path parameters
 
 | Parameter | Data type | Description |
 :--- | :--- | :---
 repository | String | Repository containing the snapshot to restore. |
 | snapshot | String | Snapshot to restore. |
 
-### Query parameters
+## Query parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
@@ -45,6 +47,7 @@ All request body parameters are optional.
 | partial | Boolean | How the restore operation will behave if indices in the snapshot do not have all primary shards available. If `false`, the entire restore operation fails if any indices in the snapshot do not have all primary shards available. <br /> <br />If `true`, allows the restoration of a partial snapshot of indices with unavailable shards. Only shards that were successfully included in the snapshot are restored. All missing shards are recreated as empty. By default, the entire restore operation fails if one or more indices included in the snapshot do not have all primary shards available. To change this behavior, set `partial` to `true`. Defaults to `false`. |
 | rename_pattern | String | The pattern to apply to restored data streams and indices. Data streams and indices matching the rename pattern will be renamed according to `rename_replacement`. <br /><br />The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br />The request fails if two or more data streams or indices are renamed into the same name. If you rename a restored data stream, its backing indices are also renamed. For example, if you rename the logs data stream to `recovered-logs`, the backing index `.ds-logs-1` is renamed to `.ds-recovered-logs-1`. <br /> <br />If you rename a restored stream, ensure an index template matches the new stream name. If there are no matching index template names, the stream cannot roll over and new backing indices are not created.|
 | rename_replacement | String | The rename replacement string. See `rename_pattern` for more information.|
+| source_remote_store_repository | String | The name of the remote store repository of the source index being restored. If not provided, the Snapshot Restore API will use the repository that was registered when the snapshot was created.
 | wait_for_completion | Boolean | Whether to return a response after the restore operation has completed.  If `false`, the request returns a response when the restore operation initializes.  If `true`, the request returns a response when the restore operation completes. Defaults to `false`. |
 
 <sup>1</sup>The cluster state includes:
@@ -89,7 +92,7 @@ Upon success, the response returns the following JSON object:
 ````
 Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API to examine the snapshot, a fully populated snapshot object is returned. 
 
-### Response fields
+## Response fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

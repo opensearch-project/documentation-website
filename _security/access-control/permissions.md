@@ -65,6 +65,71 @@ Rather than individual permissions, you can often achieve your desired security 
 {: .tip }
 
 
+## System index permissions
+
+System index permissions are unique among other permissions in that they extend some traditional admin-only accessibility to non-admin users. These permissions give normal users the ability to modify any system index specified in the role or roles to which they are mapped. The exception to this is the security system index, `.opendistro_security`, which is used to store the Security plugin's configuration YAML files and remains accessible only to admins with an admin certificate.
+
+Along with standard index permissions, you specify system index permissions in the `roles.yml` configuration file under `index_permissions` (see [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml)). This involves a two-step process: 1) adding the system index in the `index_patterns` section and 2) specifying `system:admin/system_index` in the role's `allowed_actions` section.
+
+For example, the system index permission that gives a user permission to modify the system index that stores configurations for the Alerting plugin is defined by the index pattern `.opendistro-alerting-config`, and its allowed action is defined as `system:admin/system_index`. The following role shows how this system index permission is configured along with other attributes:
+
+```yml
+alerting-role:
+  reserved: true
+  hidden: false
+  cluster_permissions:
+    - 'cluster:admin/opendistro/alerting/alerts/ack'
+    - 'cluster:admin/opendistro/alerting/alerts/get'
+  index_permissions:
+    - index_patterns:
+        - .opendistro-alerting-config
+    - allowed_actions:
+        - 'system:admin/system_index'
+```
+{% include copy.html %}
+
+System index permissions also work with the wildcard to include all variations of a partial system index name. This can be useful, but it should be used with caution to avoid giving unintentional access to system indexes. When specifying system indexes for roles, keep the following considerations in mind:
+
+* Specifying the full name of a system index limits access to only that index: `.opendistro-alerting-config`.
+* Specifying a partial name for a system index along with the wildcard provides access to all system indexes that begin with that name: `.opendistro-anomaly-detector*`.
+* Although not recommended---given the wide-reaching access granted by this role definition---using `*` for the index pattern along with `system:admin/system_index` as an allowed action grants access to all system indexes.
+
+  Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes. The allowed action `system:admin/system_index` must be explicitly added.
+  {: .note }
+
+The following example shows a role that grants access to all system indexes:
+
+```yml
+index_permissions:
+    - index_patterns:
+        - '*'
+    - allowed_actions:
+        - 'system:admin/system_index'
+```
+
+
+### Verifying system index access
+
+You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permissions provide the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
+
+The following example response shows the three system indexes associated with the index pattern `.kibana*`:
+
+```json
+health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
+green open .kibana_1 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
+green open .kibana_2 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
+green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
+```
+
+
+### Enabling system index permissions
+
+Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) are able to map system index permissions to all users in the same way they would for a cluster or index permission in the `roles.yml` file. However, to preserve some control over this permission, the `plugins.security.system_indices.permissions.enabled` setting allows you to enable or disable the system index permissions feature. This setting is disabled by default. To enable the system index permissions feature, set `plugins.security.system_indices.permissions.enabled` to `true`. For more information about this setting, see [Enabling user access to system indexes]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
+
+Keep in mind that enabling this feature and mapping system index permissions to normal users gives those users access to indexes that may contain sensitive information and configurations essential to a cluster's health. We also recommend caution when mapping users to `restapi:admin/roles` because this permission gives a user not only the ability to assign the system index permission to another user but also the ability to self-assign access to any system index.
+{: .warning }
+
+
 ## Cluster permissions
 
 These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. The cluster permission, therefore, cannot grant a user privileges to take snapshots of a select set of indexes while preventing the user from taking snapshots of others.
@@ -83,9 +148,9 @@ See [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
 - cluster:admin/ingest/pipeline/simulate
 - cluster:admin/ingest/processor/grok/get
 
-### Anomaly Detection permissions
+### Anomaly detection permissions
 
-See [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
+See [Anomaly Detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
 
 - cluster:admin/opendistro/ad/detector/delete
 - cluster:admin/opendistro/ad/detector/info
@@ -231,7 +296,7 @@ See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 
 ### Update settings permission
 
-See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) on the Index APIs page.
+See [Update settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) on the Index APIs page.
 
 - cluster:admin/settings/update
 
@@ -296,7 +361,7 @@ See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 - cluster:monitor/stats
 - cluster:monitor/task
 - cluster:monitor/task/get
-- cluster:monitor/tasks/list
+- cluster:monitor/tasks/lists
 
 ### Index templates
 

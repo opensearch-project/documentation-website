@@ -4,8 +4,10 @@ title: Tools
 nav_order: 50
 has_children: false
 nav_exclude: true
+permalink: /tools/
 redirect_from:
   - /clients/agents-and-ingestion-tools/index/
+  - /tools/index/
 ---
 
 # OpenSearch tools
@@ -15,6 +17,7 @@ This section provides documentation for OpenSearch-supported tools, including:
 - [Agents and ingestion tools](#agents-and-ingestion-tools)
 - [OpenSearch CLI](#opensearch-cli)
 - [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
+- [OpenSearch upgrade, migration, and comparison tools](#opensearch-upgrade-migration-and-comparison-tools)
 
 For information about Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/).
 
@@ -37,7 +40,7 @@ PUT _cluster/settings
 }
 ```
 
-[Just like any other setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
+[Just like any other setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
 
 ```yml
 compatibility.override_main_response_version: true
@@ -110,4 +113,10 @@ The OpenSearch CLI command line interface (opensearch-cli) lets you manage your 
 
 ## OpenSearch Kubernetes operator
 
-The OpenSearch Kubernetes (K8s) Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)
+The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the operator, see [OpenSearch Kubernetes Operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/).
+
+## OpenSearch upgrade, migration, and comparison tools
+
+OpenSearch migration tools facilitate migrations to OpenSearch and upgrades to newer versions of OpenSearch. These can help you can set up a proof-of-concept environment locally using Docker containers or deploy to AWS using a one-click deployment script. This empowers you to fine-tune cluster configurations and manage workloads more effectively before migration. 
+
+For more information about OpenSearch migration tools, see the documentation in the [OpenSearch Migration GitHub repository](https://github.com/opensearch-project/opensearch-migrations/tree/capture-and-replay-v0.1.0).

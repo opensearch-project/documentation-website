@@ -37,7 +37,7 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 ## Register repository
 
-Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon S3, Hadoop Distributed File System (HDFS), Azure Storage, etc.
+Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon Simple Storage Service (Amazon S3), Hadoop Distributed File System (HDFS), or Azure Storage.
 
 
 ### Shared file system
@@ -124,7 +124,6 @@ You will most likely not need to specify any parameters except for `location`. F
 1. (Optional) Add other settings to `opensearch.yml`:
 
    ```yml
-   s3.client.default.disable_chunked_encoding: false # Disables chunked encoding for compatibility with some storage services, but you probably don't need to change this value.
    s3.client.default.endpoint: s3.amazonaws.com # S3 has alternate endpoints, but you probably don't need to change this value.
    s3.client.default.max_retries: 3 # number of retries if a request fails
    s3.client.default.path_style_access: false # whether to use the deprecated path-style bucket URLs.
@@ -134,7 +133,7 @@ You will most likely not need to specify any parameters except for `location`. F
    s3.client.default.proxy.port: 8080 # port for your proxy server
    s3.client.default.read_timeout: 50s # the S3 connection timeout
    s3.client.default.use_throttle_retries: true # whether the client should wait a progressively longer amount of time (exponential backoff) between each successive retry
-   s3.client.default.region: us-east-2 # AWS region to use
+   s3.client.default.region: us-east-2 # AWS region to use. For non-AWS S3 storage, this value is required but has no effect.
    ```
 
 1. (Optional) If you don't want to use AWS access and secret keys, you could configure the S3 plugin to use AWS Identity and Access Management (IAM) roles for service accounts:
@@ -340,7 +339,7 @@ Request parameters | Description
 `partial` | Whether to allow the restoration of partial snapshots. Default is false.
 `rename_pattern` | If you want to rename indexes as you restore them, use this option to specify a regular expression that matches all indexes you want to restore. Use capture groups (`()`) to reuse portions of the index name.
 `rename_replacement` | If you want to rename indexes as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, and so on.
-`index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings) applied during restore, specify them here. You cannot change `index.number_of_shards`.
+`index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) applied during the restore operation, specify them here. You cannot change `index.number_of_shards`.
 `ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults applied during restore. You cannot ignore `index.number_of_shards`, `index.number_of_replicas`, or `index.auto_expand_replicas`.
 `storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
@@ -385,3 +384,7 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_s
 
 We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your Security plugin configuration.
 {: .warning}
+
+## Index codec considerations
+
+For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#snapshots).

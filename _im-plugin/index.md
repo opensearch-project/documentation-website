@@ -4,10 +4,11 @@ title: Managing indexes
 nav_order: 1
 has_children: false
 nav_exclude: true
+permalink: /im-plugin/
 redirect_from:
-  - /im-plugin/
   - /opensearch/index-data/
   - /opensearch/rest-api/index-apis/index/
+  - /im-plugin/index/
 ---
 
 # Managing indexes
@@ -16,7 +17,7 @@ You index data using the OpenSearch REST API. Two APIs exist: the index API and 
 
 For situations in which new data arrives incrementally (for example, customer orders from a small business), you might use the index API to add documents individually as they arrive. For situations in which the flow of data is less frequent (for example, weekly updates to a marketing website), you might prefer to generate a file and send it to the `_bulk` API. For large numbers of documents, lumping requests together and using the `_bulk` API offers superior performance. If your documents are enormous, however, you might need to index them individually.
 
-When indexing documents, the document `_id` must be 512 MB or less in size.
+When indexing documents, the document `_id` must be 512 bytes or less in size.
 
 
 ## Introduction to indexing

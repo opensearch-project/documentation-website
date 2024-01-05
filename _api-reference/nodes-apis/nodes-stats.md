@@ -6,6 +6,8 @@ nav_order: 20
 ---
 
 # Nodes stats
+**Introduced 1.0**
+{: .label .label-purple }
 
 The nodes stats API returns statistics about your cluster.
 
@@ -27,8 +29,8 @@ The following table lists the available path parameters. All path parameters are
 Parameter | Type | Description
 :--- | :--- | :---
 nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
-metric | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,fs`. See the list of all metrics below. Defaults to all metrics.
-index_metric | String | A comma-separated list of index metric groups that will be included in the response. For example, `docs,store`. See the list of all index metrics below. Defaults to all index metrics.
+metric | String | A comma-separated list of metric groups that are included in the response. For example, `jvm,fs`. See the following list of all index metrics. Defaults to all metrics.
+index_metric | String | A comma-separated list of index metric groups that are included in the response. For example, `docs,store`. See the following list of all index metrics. Defaults to all index metrics.
 
 The following table lists all available metric groups.
 
@@ -245,6 +247,29 @@ Select the arrow to view the example response.
           "version_map_memory_in_bytes" : 0,
           "fixed_bit_set_memory_in_bytes" : 288,
           "max_unsafe_auto_id_timestamp" : -1,
+          "remote_store" : {
+            "upload" : {
+              "total_upload_size" : {
+                "started_bytes" : 152419,
+                "succeeded_bytes" : 152419,
+                "failed_bytes" : 0
+              },
+              "refresh_size_lag" : {
+                "total_bytes" : 0,
+                "max_bytes" : 0
+              },
+              "max_refresh_time_lag_in_millis" : 0,
+              "total_time_spent_in_millis" : 516
+            },
+            "download" : {
+              "total_download_size" : {
+                "started_bytes" : 0,
+                "succeeded_bytes" : 0,
+                "failed_bytes" : 0
+              },
+              "total_time_spent_in_millis" : 0
+            }
+          },
           "file_sizes" : { }
         },
         "translog" : {
@@ -252,7 +277,21 @@ Select the arrow to view the example response.
           "size_in_bytes" : 1452,
           "uncommitted_operations" : 12,
           "uncommitted_size_in_bytes" : 1452,
-          "earliest_last_modified_age" : 164160
+          "earliest_last_modified_age" : 164160,
+          "remote_store" : {
+            "upload" : {
+              "total_uploads" : {
+                "started" : 57,
+                "failed" : 0,
+                "succeeded" : 57
+              },
+              "total_upload_size" : {
+                "started_bytes" : 16830,
+                "failed_bytes" : 0,
+                "succeeded_bytes" : 16830
+              }
+            }
+          }
         },
         "request_cache" : {
           "memory_size_in_bytes" : 1649,
@@ -792,6 +831,27 @@ segments.index_writer_memory_in_bytes | Integer | The total amount of memory use
 segments.version_map_memory_in_bytes | Integer | The total amount of memory used by all version maps, in bytes. 
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
+segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is enabled on the node. 
+segments.segment_replication.maxBytesBehind | long | The maximum number of bytes behind the primary replica.
+segments.segment_replication.totalBytesBehind | long | The total number of bytes behind the primary replicas. 
+segments.segment_replication.maxReplicationLag | long | The maximum amount of time, in milliseconds, taken by a replica to catch up to its primary. 
+segments.remote_store | Object | Statistics about remote segment store operations.
+segments.remote_store.upload | Object | Statistics related to uploads to the remote segment store.
+segments.remote_store.upload.total_upload_size | Object | The amount of data, in bytes, uploaded to the remote segment store.
+segments.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes to upload to the remote segment store after the upload has started.
+segments.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote segment store.
+segments.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes that failed to upload to the remote segment store.
+segments.remote_store.upload.refresh_size_lag | Object | The amount of lag during upload between the remote segment store and the local store.
+segments.remote_store.upload.refresh_size_lag.total_bytes | Integer | The total number of bytes that lagged during the upload refresh between the remote segment store and the local store.
+segments.remote_store.upload.refresh_size_lag.max_bytes | Integer | The maximum amount of lag, in bytes, during the upload refresh between the remote segment store and the local store.
+segments.remote_store.upload.max_refresh_time_lag_in_millis | Integer | The maximum duration, in milliseconds, that the remote refresh is behind the local refresh.
+segments.remote_store.upload.total_time_spent_in_millis | Integer | The total amount of time, in milliseconds, spent on uploads to the remote segment store.
+segments.remote_store.download | Object | Statistics related to downloads to the remote segment store.
+segments.remote_store.download.total_download_size | Object | The total amount of data download from the remote segment store.
+segments.remote_store.download.total_download_size.started_bytes | Integer | The number of bytes downloaded from the remote segment store after the download starts.
+segments.remote_store.download.total_download_size.succeeded_bytes | Integer | The number of bytes successfully downloaded from the remote segment store.
+segments.remote_store.download.total_download_size.failed_bytes | Integer | The number of bytes that failed to download from the remote segment store.
+segments.remote_store.download.total_time_spent_in_millis | Integer | The total duration, in milliseconds, spent on downloads from the remote segment store.
 segments.file_sizes | Integer | Statistics about the size of the segment files.
 translog | Object | Statistics about transaction log operations for the node.
 translog.operations | Integer | The number of translog operations.
@@ -799,6 +859,16 @@ translog.size_in_bytes | Integer | The size of the translog, in bytes.
 translog.uncommitted_operations | Integer | The number of uncommitted translog operations.
 translog.uncommitted_size_in_bytes | Integer | The size of uncommitted translog operations, in bytes.
 translog.earliest_last_modified_age | Integer | The earliest last modified age for the translog.
+translog.remote_store | Object | Statistics related to operations from the remote translog store.
+translog.remote_store.upload | Object | Statistics related to uploads to the remote translog store.
+translog.remote_store.upload.total_uploads | Object | The number of syncs to the remote translog store.
+translog.remote_store.upload.total_uploads.started | Integer | The number of upload syncs to the remote translog store that have started.
+translog.remote_store.upload.total_uploads.failed | Integer | The number of failed upload syncs to the remote translog store.
+translog.remote_store.upload.total_uploads.succeeded | Integer | The number of successful upload syncs to the remote translog store.
+translog.remote_store.upload.total_upload_size | Object | The total amount of data uploaded to the remote translog store.
+translog.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes actively uploading to the remote translog store after the upload has started.
+translog.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes that failed to upload to the remote translog store.
+translog.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote translog store.
 request_cache | Object | Statistics about the request cache for the node.
 request_cache.memory_size_in_bytes | Integer | The memory size used by the request cache, in bytes.
 request_cache.evictions | Integer | The number of request cache evictions.
@@ -899,7 +969,7 @@ classes.total_unloaded_count | Integer | The total number of classes unloaded by
 
 ### `thread_pool`
 
-The `thread_pool` object contains a list of all thread pools. Each thread pool is a nested object specified by its ID with the properties listed below.
+The `thread_pool` object contains a list of all thread pools. Each thread pool is a nested object that is specified by its ID and contains the following properties.
 
 Field | Field type | Description
 :--- | :--- | :---
@@ -909,6 +979,7 @@ active | Integer | The number of active threads in the pool.
 rejected | Integer | The number of tasks that have been rejected.
 largest | Integer | The peak number of threads in the pool.
 completed | Integer | The number of tasks completed.
+total_wait_time | Integer | The total amount of time tasks spent waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
 
 ### `fs`
 
@@ -921,7 +992,7 @@ total | Object | Statistics for all file stores of the node.
 total.total_in_bytes | Integer | The total memory size of all file stores, in bytes. 
 total.free_in_bytes | Integer | The total unallocated disk space in all file stores, in bytes.
 total.available_in_bytes | Integer | The total disk space available to the JVM on all file stores. Represents the actual amount of memory, in bytes, that OpenSearch can use.
-data | Array | The list of all file stores. Each file store has the properties listed below.
+data | Array | The list of all file stores. Each file store has the following properties.
 data.path | String | The path to the file store.
 data.mount | String | The mount point of the file store.
 data.type | String | The type of the file store (for example, overlay).
@@ -998,7 +1069,7 @@ total.count | Integer | The total number of documents ingested by the node.
 total.time_in_millis | Integer | The total amount of time for preprocessing ingest documents, in milliseconds.
 total.current | Integer | The total number of documents that are currently being ingested by the node.
 total.failed | Integer | The total number of failed ingestions for the node.
-pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object specified by its ID with the properties listed below.
+pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object that is specified by its ID and has the following properties.
 pipelines._id_.count | Integer | The number of documents preprocessed by the ingest pipeline.
 pipelines._id_.time_in_millis | Integer | The total amount of time for preprocessing documents in the ingest pipeline, in milliseconds.
 pipelines._id_.failed | Integer | The total number of failed ingestions for the ingest pipeline.
@@ -1034,7 +1105,7 @@ pipelines._id_.response_processors | Array of objects | Statistics for the searc
 
 ### `adaptive_selection`
 
-The `adaptive_selection` object contains the adaptive selection statistics. Each entry is specified by the node ID and has the properties listed below. 
+The `adaptive_selection` object contains the adaptive selection statistics. Each entry is specified by the node ID and has the following properties. 
 
 Field | Field type | Description
 :--- | :--- | :---
@@ -1071,6 +1142,10 @@ total_rejections_breakup_shadow_mode.no_successful_request_limits | Integer | Th
 total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
+
+## Concurrent segment search
+
+Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you [enable the experimental concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the Nodes Stats API response will contain several additional fields with statistics about slices (units of work executed by a thread). For the descriptions of those fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
 
 ## Required permissions
 

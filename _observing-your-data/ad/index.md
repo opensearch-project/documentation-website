@@ -14,9 +14,9 @@ An anomaly in OpenSearch is any unusual behavior change in your time-series data
 
 It can be challenging to discover anomalies using conventional methods such as creating visualizations and dashboards. You could configure an alert based on a static threshold, but this requires prior domain knowledge and isn't adaptive to data that exhibits organic growth or seasonal behavior.
 
-Anomaly detection  automatically detects anomalies in your OpenSearch data in near real-time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an `anomaly grade` and `confidence score` value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://www.semanticscholar.org/paper/Robust-Random-Cut-Forest-Based-Anomaly-Detection-on-Guha-Mishra/ecb365ef9b67cd5540cc4c53035a6a7bd88678f9).
+Anomaly detection automatically detects anomalies in your OpenSearch data in near real-time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an `anomaly grade` and `confidence score` value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://www.semanticscholar.org/paper/Robust-Random-Cut-Forest-Based-Anomaly-Detection-on-Guha-Mishra/ecb365ef9b67cd5540cc4c53035a6a7bd88678f9).
 
-You can pair the anomaly detection plugin with the [alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
+You can pair the Anomaly Detection plugin with the [Alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
 
 To get started, choose **Anomaly Detection** in OpenSearch Dashboards.
 To first test with sample streaming data, you can try out one of the preconfigured detectors with one of the sample datasets.
@@ -43,21 +43,21 @@ A detector is an individual anomaly detection task. You can define multiple dete
 
    - (Optional) To add extra processing time for data collection, specify a **Window delay** value.
       - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
-      - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49 - 1:59, so the detector accounts for all 10 minutes of the detector interval time.
+      - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
 1. Specify custom result index.
    - If you want to store the anomaly detection results in your own index, choose **Enable custom result index** and specify the custom index to store the result. The anomaly detection plugin adds an `opensearch-ad-plugin-result-` prefix to the index name that you input. For example, if you input `abc` as the result index name, the final index name is `opensearch-ad-plugin-result-abc`.
 
    You can use the dash “-” sign to separate the namespace to manage custom result index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the result index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the "financial" department at a granular level for the "us" area.
    {: .note }
 
-      - If the custom index you specify doesn’t already exist, the anomaly detection plugin creates this index when you create the detector and start your real-time or historical analysis.
+      - If the custom index you specify doesn’t already exist, the Anomaly Detection plugin creates this index when you create the detector and start your real-time or historical analysis.
       - If the custom index already exists, the plugin checks if the index mapping of the custom index matches the anomaly result file. You need to make sure the custom index has valid mapping as shown here: [anomaly-results.json](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json).
    - To use the custom result index option, you need the following permissions:
       - `indices:admin/create` - If the custom index already exists, you don't need this.
-      - `indices:data/write/index` - You need the `write` permission for the anomaly detection plugin to write results into the custom index for a single-entity detector.
+      - `indices:data/write/index` - You need the `write` permission for the Anomaly Detection plugin to write results into the custom index for a single-entity detector.
       - `indices:data/read/search` - You need the `search` permission because the Anomaly Detection plugin needs to search custom result indexes to show results on the anomaly detection UI.
       - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
-      - `indices:data/write/bulk*` -  You need the `bulk*` permission because the anomaly detection plugin uses the bulk API to write results into the custom index.
+      - `indices:data/write/bulk*` -  You need the `bulk*` permission because the Anomaly Detection plugin uses the bulk API to write results into the custom index.
    - Managing the custom result index:
       - The anomaly detection dashboard queries all detectors’ results from all custom result indexes. Having too many custom result indexes might impact the performance of the Anomaly Detection plugin.
       - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indexes. You can also manually delete or archive any old result indexes. We recommend reusing a custom result index for multiple detectors.
@@ -107,12 +107,16 @@ Only a certain number of unique entities are supported in the category field. Us
 
 To get the entity model size of a detector, use the [profile detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector). You can adjust the maximum memory percentage with the `plugins.anomaly_detection.model_max_size_percent` setting.
 
-This formula provides a good starting point, but make sure to test with a representative workload.
+Consider a cluster with 3 data nodes, each with 8 GB of JVM heap size and the default 10% memory allocation. With an entity model size of 1 MB, the following formula calculates the estimated number of unique entities: 
+
+```
+(8096 MB * 0.1 / 1 MB ) * 3 = 2429
+```
+
+If the actual total number of unique entities is higher than the number that you calculate (in this case, 2,429), the anomaly detector will attempt to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
+
+This formula serves as a starting point. Make sure to test it with a representative workload. You can find more information in the [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/) blog post.
 {: .note }
-
-For example, for a cluster with three data nodes, each with 8 GB of JVM heap size, a maximum memory percentage of 10% (default), and the entity model size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1 MB ) * 3 = 2429.
-
-If the actual total number of unique entities higher than this number that you calculate (in this case: 2429), the anomaly detector makes its best effort to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
 
 #### (Advanced settings) Set a shingle size
 
@@ -123,7 +127,7 @@ The anomaly detector expects the shingle size to be in the range of 1 and 60. Th
 #### Preview sample anomalies
 
 Preview sample anomalies and adjust the feature settings if needed.
-For sample previews, the anomaly detection plugin selects a small number of data samples---for example, one data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. It loads this sample dataset into the detector. The detector uses this sample dataset to generate a sample preview of anomaly results.
+For sample previews, the Anomaly Detection plugin selects a small number of data samples---for example, one data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. It loads this sample dataset into the detector. The detector uses this sample dataset to generate a sample preview of anomaly results.
 
 Examine the sample preview and use it to fine-tune your feature configurations (for example, enable or disable features) to get more accurate results.
 
@@ -137,7 +141,7 @@ To start a real-time detector to find anomalies in your data in near real-time, 
 
 Alternatively, if you want to perform historical analysis and find patterns in long historical data windows (weeks or months), check **Run historical analysis detection** and select a date range (at least 128 detection intervals).
 
-Analyzing historical data helps you get familiar with the anomaly detection plugin. You can also evaluate the performance of a detector with historical data to further fine-tune it.
+Analyzing historical data helps you get familiar with the Anomaly Detection plugin. You can also evaluate the performance of a detector with historical data to further fine-tune it.
 
 We recommend experimenting with historical analysis with different feature sets and checking the precision before moving on to real-time detectors.
 
@@ -189,11 +193,11 @@ If you set the category field, you see an additional **Heat map** chart. The hea
 
 If you have set multiple category fields, you can select a subset of fields to filter and sort the fields by. Selecting a subset of fields lets you see the top values of one field that share a common value with another field.
 
-For example, if you have a detector with the category fields `ip` and `endpoint`, you can select `endpoint` in the **View by** dropdown menu. Then, select a specific cell to overlay the top 20 values of `ip` on the charts. The anomaly detection plugin selects the top `ip` by default. You can see a maximum of 5 individual time-series values at the same time.
+For example, if you have a detector with the category fields `ip` and `endpoint`, you can select `endpoint` in the **View by** dropdown menu. Then select a specific cell to overlay the top 20 values of `ip` on the charts. The Anomaly Detection plugin selects the top `ip` by default. You can see a maximum of 5 individual time-series values at the same time.
 
 ## Step 6: Set up alerts
 
-Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
+Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
 
 If you stop or delete a detector, make sure to delete any monitors associated with it.
 

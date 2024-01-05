@@ -11,6 +11,7 @@ The **Detection rules** window lists all security rules used for detection creat
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/Rules.png" alt="The Rules page" width="90%">
 
+---
 ## Viewing and filtering rules
 
 When you open the **Detection rules** page, all rules are listed in the table. Use the search bar to search for specific rules by entering a full or partial name and pressing **Return/Enter** on your keyboard. The list is filtered and displays matching results.
@@ -32,10 +33,10 @@ In Visual view, rule details are arranged in fields, and the links are active. S
 * Rule details are formatted as a YAML file according to the Sigma rule specification.
 * To copy the rule, select the copy icon in the upper-right corner of the rule. To quickly create a new, customized rule, you can paste the rule into the YAML editor and make any modifications before saving it. See [Customizing rules](#customizing-rules) for more information.
 
-## Creating rules
+---
+## Creating detection rules
 
 There are multiple ways to create rules on the **Detection rules** page. These methods include manually creating a custom rule, importing a rule, and duplicating an existing rule to customize it. The following sections discuss these methods in detail.  
-
 
 ### Custom rules
 
@@ -162,7 +163,6 @@ status: experimental
 {% include copy.html %}
 
 To assist in rule creation using the **YAML Editor**, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) and use the descriptions of each field to learn more about defining the rule.
-
 
 ### Importing rules
 

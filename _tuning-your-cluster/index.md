@@ -3,9 +3,11 @@ layout: default
 title: Creating a cluster
 nav_order: 1
 nav_exclude: true
+permalink: /tuning-your-cluster/
 redirect_from: 
   - /opensearch/cluster/
   - /tuning-your-cluster/cluster/
+  - /tuning-your-cluster/index/
 ---
 
 # Creating a cluster
@@ -18,7 +20,7 @@ To create and deploy an OpenSearch cluster according to your requirements, it’
 
 There are many ways to design a cluster. The following illustration shows a basic architecture that includes a four-node cluster that has one dedicated cluster manager node, one dedicated coordinating node, and two data nodes that are cluster manager eligible and also used for ingesting data.
 
-  The nomenclature recently changed for the master node; it is now called the cluster manager node.
+  The nomenclature for the master node is now referred to as the cluster manager node.
    {: .note }
 
 ![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
@@ -135,13 +137,19 @@ network.bind_host: <IP address of the node>
 
 Make sure to configure these settings on all of your nodes.
 
-## Step 4: Configure discovery hosts for a cluster
+## Step 4: Configure discovery hosts and initial cluster manager nodes for a cluster
 
-Now that you've configured the network hosts, you need to configure the discovery hosts.
+Now that you've configured the network hosts, you need to configure the discovery hosts and specify the cluster manager nodes for the initial cluster election. 
+
+For example, the setting looks like the following:
+
+```yml
+cluster.initial_cluster_manager_nodes: ["opensearch-cluster_manager"]
+```
 
 Zen Discovery is the built-in, default mechanism that uses [unicast](https://en.wikipedia.org/wiki/Unicast) to find other nodes in the cluster.
 
-You can generally just add all of your cluster-manager-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other cluster-manager-eligible nodes, determines which one is the cluster manager, and asks to join the cluster.
+You can generally add all of your cluster-manager-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other cluster-manager-eligible nodes, determines which one is the cluster manager, and asks to join the cluster.
 
 For example, for `opensearch-cluster_manager` the line looks something like this:
 

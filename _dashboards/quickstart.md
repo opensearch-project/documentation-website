@@ -15,9 +15,12 @@ This quickstart guide covers the core concepts that you need to understand to ge
 - Explore and inspect data.
 - Visualize data.
 
-Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information on installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
-{: .note}
+Here's a glance at the view you see when you open the **Dashboard** or **Discover** tool.
 
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-look.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
+
+{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
+{: .note}
 # Adding sample data
 
 Sample datasets come with visualizations, dashboards, and other tools to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
@@ -26,14 +29,14 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**.
 2. Choose **Add data** to add the datasets, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="800">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="700">
 
 # Exploring and inspecting data
 
 In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
 - Choose data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
-- Explore the data, view individual documents, and create tables summarizing the data's contents.
+- Explore the data, view individual documents, and create tables summarizing the data.
 - Visualize your findings.
 
 ## Try it: Getting familiar with Discover
@@ -41,15 +44,15 @@ In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discove
 1. On the OpenSearch Dashboards **Home** page, choose **Discover**.
 1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) to **Last 7 days**, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="350"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="250"/>
 
 2. Search using the DQL query `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then choose **Update**. You should see results for US-bound flights delayed by 60 minutes or more, as shown in the following image.
    
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt="DQL search field example" width="1000"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt="DQL search field example" width="700"/>
 
 3. To filter data, choose **Add filter** and then select an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather delay** from the **Field**, **Operator**, and **Value** dropdown lists, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt="Filter data by FlightDelayType field" width="350"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt="Filter data by FlightDelayType field" width="250"/>
 
 # Visualizing data
 
@@ -65,14 +68,14 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboard**.
 1. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="800"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="700"/>
 
 1. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
 1. In the **Add panels** window, choose the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window on the lower right confirming that you've added the panel.
 1. Select `x` to close the **Add panels** window.
 1. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="600"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="700"/>
 
 ## Try it: Creating a visualization panel
 
@@ -87,7 +90,7 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 1. Choose **Save** and name the visualization in the **Title** field.
 2. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-panel-quickstart.png" alt="Creating a visualization panel" width="500"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-panel-quickstart.png" alt="Creating a visualization panel" width="700"/>
 
 # Interacting with data
 
@@ -107,7 +110,7 @@ Alternatively, you can apply filters using the dashboard toolbar:
 
 1. Choose **Save**. The dashboard updates automatically, and the result is the dashboard shown in the following image.
 
-  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="800"/>
+  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="700"/>
 
 # Next steps
 

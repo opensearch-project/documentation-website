@@ -5,6 +5,9 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 has_toc: false
+permalink: /benchmark/
+redirect_from:
+  - /benchmark/index/
 ---
 
 # OpenSearch Benchmark
@@ -17,17 +20,18 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 OpenSearch Benchmark can be installed directly on a compatible host running Linux and macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) for more information.
 
-## Concepts
+The following diagram visualizes how OpenSearch Benchmark works when run against a local host:
 
-Before using OpenSearch Benchmark, familiarize yourself with the following concepts:
+![Benchmark workflow]({{site.url}}{{site.baseurl}}/images/benchmark/OSB-workflow.png).
 
-- **Workload**: The description of one or more benchmarking scenarios that use a specific document corpus from which to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workflow runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads inside the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/).
+The OpenSearch Benchmark documentation is split into five sections:
 
-- **Pipeline**: A series of steps before and after a workload is run that determines benchmark results. OpenSearch Benchmark supports three pipelines:
-  - `from-sources`: Builds and provisions OpenSearch, runs a benchmark, and then publishes the results.
-  - `from-distribution`: Downloads an OpenSearch distribution, provisions it, runs a benchmark, and then publishes the results.
-  - `benchmark-only`: The default pipeline. Assumes an already running OpenSearch instance, runs a benchmark on that instance, and then publishes the results.
+- [Quickstart]({{site.url}}{{site.baseurl}}/benchmark/quickstart/): Learn how to quickly run and install OpenSearch Benchmark.
+- [User guide]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/): Dive deep into how OpenSearch Benchmark can help you track the performance of your cluster.
+- [Tutorials]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/): Use step-by-step guides for more advanced benchmarking configurations and functionality.
+- [Commands]({{site.url}}{{site.baseurl}}/benchmark/commands/index/): A detailed reference of commands and command options supported by OpenSearch.
+- [Workloads]({{site.url}}{{site.baseurl}}/benchmark/workloads/index/): A detailed reference of options available for both default and custom workloads.
 
-- **Test**: A single invocation of the OpenSearch Benchmark binary.
+
 
 

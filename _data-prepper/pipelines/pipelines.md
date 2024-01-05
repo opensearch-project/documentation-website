@@ -56,7 +56,6 @@ Alternatively, the source sends a negative acknowledgment when an event cannot b
 
 When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgment. In the case of a failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
 
-As of Data Prepper 2.2, only the `s3` source and `opensearch` sink support E2E acknowledgments. 
 
 ## Conditional routing
 
@@ -327,3 +326,27 @@ peer_forwarder:
 ```
 
 
+## Pipeline Configurations
+
+Since Data Prepper 2.5, shared pipeline components can be configured under the reserved section `pipeline_configurations` when all pipelines are defined in a single pipeline configuration YAML file. 
+Shared pipeline configurations can include certain components within [Extension Plugins]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#extension-plugins), as shown in the following example that refers to secrets configurations for an `opensearch` sink:
+
+```json
+pipeline_configurations:
+  aws:
+    secrets:
+      credential-secret-config:
+        secret_id: <YOUR_SECRET_ID>
+        region: <YOUR_REGION>
+        sts_role_arn: <YOUR_STS_ROLE_ARN>
+simple-sample-pipeline:
+  ...
+  sink:
+    - opensearch:
+        hosts: [ {% raw %}"${{aws_secrets:host-secret-config}}"{% endraw %} ]
+        username: {% raw %}"${{aws_secrets:credential-secret-config:username}}"{% endraw %}
+        password: {% raw %}"${{aws_secrets:credential-secret-config:password}}"{% endraw %}
+        index: "test-migration"
+```
+
+When the same component is defined in both `pipelines.yaml` and `data-prepper-config.yaml`, the definition in the `pipelines.yaml` will overwrite the counterpart in `data-prepper-config.yaml`. For more information on shared pipeline components, see [AWS secrets extension plugin]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#aws-secrets-extension-plugin) for details.

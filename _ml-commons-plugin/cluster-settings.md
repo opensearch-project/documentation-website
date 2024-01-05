@@ -2,17 +2,31 @@
 layout: default
 title: ML Commons cluster settings
 has_children: false
-nav_order: 160
+nav_order: 10
 ---
 
 # ML Commons cluster settings
 
-To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file.
 
+To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file. 
+
+To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+
+## ML node
+
+By default, ML tasks and models only run on ML nodes. When configured without the `data` node role, ML nodes do not store any shards and instead calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
+
+```yml
+node.roles: [ ml ]
+```
 
 ## Run tasks and models on ML nodes only
 
-If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. We recommend that you do not set this value to "false" on production clusters. 
+If `true`, ML Commons tasks and models run ML tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. 
+
+We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on production clusters. 
+{: .tip}
+
 
 ### Setting
 
@@ -74,7 +88,7 @@ plugins.ml_commons.max_model_on_node: 10
 
 ## Set sync job intervals 
 
-When returning runtime information with the [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly deployed or undeployed models on each node. When set to `0`, ML Commons immediately stops sync-up jobs.
+When returning runtime information with the [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/), ML Commons will run a regular job to sync newly deployed or undeployed models on each node. When set to `0`, ML Commons immediately stops sync-up jobs.
 
 
 ### Setting
@@ -172,7 +186,7 @@ The default value allows you to register a model file from any http/https/ftp/lo
 
 ### Setting
 
-The default URL value for this trusted URL setting is not secure. To ensure the security, please use you own regex string to the trusted repository that contains your models, for example `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
+The default URL value for this trusted URL setting is not secure. For security, use you own regex string to the trusted repository that contains your models, for example `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
 {: .warning }
 
 

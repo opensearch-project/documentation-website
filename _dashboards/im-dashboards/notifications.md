@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Notification settings
-parent: Index management in Dashboards
+parent: Index Management
 nav_order: 60
 ---
 
@@ -20,7 +20,7 @@ In the **Notification settings** interface, you can configure the default notifi
 - Clone
 - Force merge
 
-To get started, under the OpenSearch Dashboards main menu, select **Management** > **Index Management**. Under **Index Management**, select **Notification settings**. 
+To get started, from the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Index Management**. Under **Index Management**, select **Notification settings**. 
 
 You can choose to be notified when the operation has completed or failed. Additionally, you can select the notification channels for this notification, as shown in the following image.
 
@@ -33,7 +33,7 @@ If you don't have permission to view notification settings, you cannot view the 
 
 You can view default notification settings when you perform an indexing operation as well as set up additional notifications. For example, if you want to configure an additional notification for a reindex operation, perform the following steps:
 
-1. Select **Management** > **Index Management**.
+1. Select **OpenSearch Plugins** > **Index Management**.
 
 1. In the **Index Management** interface, select **Indices**.
 

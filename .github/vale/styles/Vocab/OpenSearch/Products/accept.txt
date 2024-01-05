@@ -3,6 +3,8 @@ Adoptium
 Amazon
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
+Amazon Bedrock
+Amazon SageMaker
 Ansible
 Auditbeat
 AWS Cloud
@@ -22,10 +24,12 @@ Gradle
 Grafana
 Faiss
 Filebeat
+Flickr
 Fluent Bit
 Fluentd
 Helm
 Hugging Face
+IdP
 Inferentia
 IP2Geo
 IPv4
@@ -35,6 +39,7 @@ JavaScript
 Jaeger
 Jaeger HotROD
 JSON
+JSON Web Token
 Keycloak
 Kerberos
 Kibana
@@ -51,10 +56,12 @@ Minikube
 Nagios
 Okta
 Open Distro
+OpenAI
 OpenID Connect
 OpenSearch
 OpenSearch Benchmark
 OpenSearch Dashboards
+OpenSearch Playground
 OpenSearch Project
 OpenSearch Service
 OpenSSL
@@ -72,6 +79,7 @@ Python
 PyTorch
 Querqy
 Query Workbench
+RCF Summarize
 RPM Package Manager
 Ruby
 Simple Schema for Observability

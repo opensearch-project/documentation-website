@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # Alias
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 An alias is a virtual pointer that you can use to reference one or more indexes. Creating and updating aliases are atomic operations, so you can reindex your data and point an alias at it without any downtime.
@@ -50,7 +50,7 @@ All alias parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
-master_timeout | Time | The amount of time to wait for a response from the master node. Default is `30s`.
+cluster_manager_timeout | Time | The amount of time to wait for a response from the cluster manager node. Default is `30s`.
 timeout | Time | The amount of time to wait for a response from the cluster. Default is `30s`.
 
 ## Request body

@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Approximate search
+title: Approximate k-NN search
 nav_order: 15
-parent: k-NN
+parent: k-NN search
+grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -79,7 +80,7 @@ PUT my-knn-index-1
 }
 ```
 
-In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#knn_vector-data-type) section.
+In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) section.
 
 The `knn_vector` data type supports a vector of floats that can have a dimension count of up to 16,000 for the nmslib and faiss engines, as set by the dimension mapping parameter. The maximum dimension count for the Lucene library is 1,024.
 
@@ -247,7 +248,11 @@ To learn about using filters with k-NN search, see [k-NN search with filters]({{
 
 ## Spaces
 
-A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin the spaces the plugin supports are below. Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
+A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin supports the following spaces. 
+
+Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
+{: note.}
+
 
 <table>
   <thead style="text-align: center">

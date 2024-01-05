@@ -10,6 +10,7 @@ nav_order: 50
 
 The following APIs can be used for tasks related to alerts and findings.
 
+---
 ## Get Alerts
 
 Provides an option for retrieving alerts related to a specific detector type or detector ID.
