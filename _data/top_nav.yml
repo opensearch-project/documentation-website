@@ -80,8 +80,26 @@ items:
         url: /community_projects
   -
     label: Documentation
-    fragment: docs
-    url: /docs/
+    fragments: 
+    - docs
+    - opensearch
+    - data-prepper
+    - clients
+    - benchmark
+    url: /docs/latest/
+    children:
+      -
+        label: OpenSearch and Dashboards
+        url: /docs/latest/about/
+      -
+        label: Data Prepper
+        url: /docs/latest/data-prepper/
+      -
+        label: Clients
+        url: /docs/latest/clients/
+      -
+        label: Benchmark
+        url: /docs/latest/benchmark/
   -
     label: Platform
     url: /platform/index.html

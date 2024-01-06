@@ -4,8 +4,10 @@ title: Tools
 nav_order: 50
 has_children: false
 nav_exclude: true
+permalink: /tools/
 redirect_from:
   - /clients/agents-and-ingestion-tools/index/
+  - /tools/index/
 ---
 
 # OpenSearch tools
