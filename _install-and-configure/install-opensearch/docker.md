@@ -90,7 +90,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
     # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
-   **Note**: For OpenSearch 2.12 and above, set the initial admin password before installation:
+   **Note**: For OpenSearch 2.12 and later, set the initial admin password before installation:
    ```bash
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password >" opensearchproject/opensearch:latest
     ```
