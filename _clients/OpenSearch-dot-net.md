@@ -4,6 +4,8 @@ title: Low-level .NET client
 nav_order: 30
 has_children: false
 parent: .NET clients
+nav_exclude: true
+redirect_to: https://opensearch.org/docs/latest/clients/OpenSearch-dot-net/
 ---
 
 # Low-level .NET client (OpenSearch.Net)
