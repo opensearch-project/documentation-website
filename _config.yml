@@ -1,4 +1,4 @@
-title: OpenSearch documentation
+title: OpenSearch Documentation
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
 baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
@@ -82,10 +82,16 @@ collections:
   external_links:
     permalink: /:collection/:path/
     output: true
+  about:
+    permalink: /:collection/:path/
+    output: true
 
-just_the_docs:
+opensearch_collection:
   # Define the collections used in the theme
   collections:
+    about:
+      name: About OpenSearch
+      nav_fold: true
     install-and-configure:
       name: Install and upgrade
       nav_fold: true
@@ -125,10 +131,7 @@ just_the_docs:
       name: Job Scheduler plugin
       nav_fold: true
     clients:
-      name: Clients and tools
-      nav_fold: true
-    data-prepper: 
-      name: Data Prepper
+      name: Tools
       nav_fold: true
     api-reference:
       name: API reference
@@ -139,6 +142,51 @@ just_the_docs:
     external_links:
       name: External links
 
+clients_collection:
+  collections:
+    clients:
+        name: Clients
+        nav_fold: true
+
+benchmark_collection:
+  collections:
+    benchmark:
+      name: OpenSearch Benchmark
+      nav_fold: true
+
+data_prepper_collection:
+  collections:
+    data-prepper: 
+      name: Data Prepper
+      nav_fold: true
+
+# Defaults
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      section: "opensearch"
+      section-name: "OpenSearch and OpenSearch Dashboards"
+  -
+    scope:
+      path: "_data-prepper"
+    values:
+      section: "data-prepper"
+      section-name: "Data Prepper"
+  -
+    scope:
+      path: "_clients"
+    values:
+      section: "clients"
+      section-name: "Clients"
+  -
+    scope:
+      path: "_benchmark"
+    values:
+      section: "benchmark"
+      section-name: "Benchmark"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
