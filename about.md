@@ -101,7 +101,7 @@ The following section describes more advanced OpenSearch concepts.
 
 ### Translog
 
-Any index changes, such as indexing or deleting documents, are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called _translog_. When a document is indexed, it is added to the memory buffer and recorded in the translog. After a process or host restart, any data in the in-memory buffer is lost. Recording the document in the translog ensures durability because the translog is written to disk.
+Any index changes, such as document indexing or deletion, are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called _translog_. When a document is indexed, it is added to the memory buffer and recorded in the translog. After a process or host restart, any data in the in-memory buffer is lost. Recording the document in the translog ensures durability because the translog is written to disk.
 
 Frequent refresh operations write the documents in the memory buffer to a segment and then clear the memory buffer. Periodically, a [flush](#flush) performs a Lucene commit, which includes writing the segments to disk using `fsync`, purging the old translog, and starting a new translog. Thus, a translog contains all operations that have not yet been flushed.
 
@@ -111,7 +111,7 @@ Periodically, OpenSearch performs a _refresh_ operation, which writes the docume
 
 ### Flush
 
-A _flush_ operation persists the files to disk using `fsync`, ensuring durability. Flushing ensures that the data stored only in the translog is recorded in the Lucene index. OpenSearch performs a flush as needed to ensure the translog does not grow too large.
+A _flush_ operation persists the files to disk using `fsync`, ensuring durability. Flushing ensures that the data stored only in the translog is recorded in the Lucene index. OpenSearch performs a flush as needed to ensure that the translog does not grow too large.
 
 ### Merge
 
