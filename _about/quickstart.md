@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Quickstart
-parent: OpenSearch documentation
 nav_order: 3
+permalink: /quickstart/
 redirect_from: 
   - /opensearch/install/quickstart/
 ---

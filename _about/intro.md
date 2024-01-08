@@ -1,15 +1,9 @@
 ---
 layout: default
-title: About OpenSearch
+title: Intro to OpenSearch
 nav_order: 2
-parent: OpenSearch documentation
-redirect_from:
-  - /docs/opensearch/
-  - /opensearch/
-  - /opensearch/index/
+permalink: /intro/
 ---
-
-{%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # Introduction to OpenSearch
 
@@ -29,7 +23,7 @@ You can run OpenSearch locally on a laptop---its system requirements are minimal
 In a single node cluster, such as a laptop, one machine has to do everything: manage the state of the cluster, index and search data, and perform any preprocessing of data prior to indexing it. As a cluster grows, however, you can subdivide responsibilities. Nodes with fast disks and plenty of RAM might be great at indexing and searching data, whereas a node with plenty of CPU power and a tiny disk could manage cluster state. For more information on setting node types, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
 
-## indexes and documents
+## Indexes and documents
 
 OpenSearch organizes data into *indexes*. Each index is a collection of JSON *documents*. If you have a set of raw encyclopedia articles or log lines that you want to add to OpenSearch, you must first convert them to [JSON](https://www.json.org/). A simple JSON document for a movie might look like this:
 
@@ -83,13 +77,13 @@ PUT https://<host>:<port>/<index-name>/_doc/<document-id>
 
 To run a search for the document:
 
-```
+```json
 GET https://<host>:<port>/<index-name>/_search?q=wind
 ```
 
 To delete the document:
 
-```
+```json
 DELETE https://<host>:<port>/<index-name>/_doc/<document-id>
 ```
 
