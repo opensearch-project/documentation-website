@@ -2,6 +2,8 @@
 layout: default
 title: Go client
 nav_order: 80
+nav_exclude: true
+redirect_to: https://opensearch.org/docs/latest/clients/go/
 ---
 
 # Go client

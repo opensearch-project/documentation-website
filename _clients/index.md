@@ -5,6 +5,8 @@ nav_order: 1
 has_children: false
 redirect_from:
   - /clients/
+nav_exclude: true
+redirect_to: https://opensearch.org/docs/latest/clients/
 ---
 
 # OpenSearch language clients

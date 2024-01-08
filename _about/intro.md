@@ -1,15 +1,9 @@
 ---
 layout: default
-title: About OpenSearch
+title: Intro to OpenSearch
 nav_order: 2
-parent: OpenSearch documentation
-redirect_from:
-  - /docs/opensearch/
-  - /opensearch/
-  - /opensearch/index/
+permalink: /intro/
 ---
-
-{%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # Introduction to OpenSearch
 
@@ -83,13 +77,13 @@ PUT https://<host>:<port>/<index-name>/_doc/<document-id>
 
 To run a search for the document:
 
-```
+```json
 GET https://<host>:<port>/<index-name>/_search?q=wind
 ```
 
 To delete the document:
 
-```
+```json
 DELETE https://<host>:<port>/<index-name>/_doc/<document-id>
 ```
 

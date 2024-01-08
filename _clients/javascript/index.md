@@ -3,6 +3,8 @@ layout: default
 title: JavaScript client
 has_children: true
 nav_order: 40
+nav_exclude: true
+redirect_to: https://opensearch.org/docs/latest/clients/javascript/index/
 ---
 
 # JavaScript client
