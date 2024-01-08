@@ -86,13 +86,13 @@ extraEnvs:
 For RPM packages, install OpenSearch and set up the demo configuration using:
 
 ```bash
-$ sudo yum install opensearch-2.12.0-linux-x64.rpm
+$ sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
 ```
 
 **Note**: For OpenSearch 2.12 and above, set the initial admin password before installation:
 
 ```bash
-$ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<your-strong-password> yum install opensearch-2.12.0-linux-x64.rpm
+$ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<your-strong-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
 ```
 
 ### DEB (Debian / Ubuntu)
@@ -100,13 +100,13 @@ $ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<your-strong-password> yum install 
 For DEB packages, install OpenSearch and set up the demo configuration using:
 
 ```bash
-$ sudo dpkg -i opensearch-2.12.0-linux-arm64.deb
+$ sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
 ```
 
 **Note**: For OpenSearch 2.12 and above, set the initial admin password before installation:
 
 ```bash
-$ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<your-strong-password> dpkg -i opensearch-2.12.0-linux-arm64.deb
+$ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<your-strong-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
 ```
 
 ### Local Distribution
