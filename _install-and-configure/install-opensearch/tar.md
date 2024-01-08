@@ -100,10 +100,16 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```
    {% include copy.html %}
 
+   **Note**: For OpenSearch 2.12 and above, set the initial admin password before installation:
+   ```bash
+   $ export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<your-strong-password>
+   ```
+   {% include copy.html %}
+
 1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200:
       ```bash
-      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
+      curl -X GET https://localhost:9200 -u 'admin:< Admin password >' --insecure
       ```
       {% include copy.html %}
 
@@ -129,7 +135,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       ```
    - Query the plugins endpoint:
       ```bash
-      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:< Admin password >' --insecure
       ```
       {% include copy.html %}
 
