@@ -102,7 +102,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
 
    **Note**: For OpenSearch 2.12 and above, set the initial admin password before installation:
    ```bash
-   $ export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<your-strong-password>
+   $ export OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password >
    ```
    {% include copy.html %}
 

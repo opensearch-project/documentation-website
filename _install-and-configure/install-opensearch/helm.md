@@ -103,7 +103,7 @@ You can also build the `opensearch-1.0.0.tgz` file manually:
 ```yaml
 extraEnvs:
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    value: <your-strong-password>
+    value: < Admin password >
 ```
 
 #### Sample output

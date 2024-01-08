@@ -72,7 +72,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          {% include copy.html %}
          **Note**: For OpenSearch 2.12 and above, set the initial admin password before installation:
          ```bat
-         > set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<your-strong-password>
+         > set OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password >
          ```
          {% include copy.html %}
 
