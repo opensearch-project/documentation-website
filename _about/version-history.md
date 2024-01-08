@@ -2,7 +2,6 @@
 layout: default
 title: Version history
 nav_order: 4
-parent: OpenSearch documentation
 permalink: /version-history/
 ---
 
