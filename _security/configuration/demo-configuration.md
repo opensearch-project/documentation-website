@@ -23,6 +23,8 @@ The demo configuration tool performs the following tasks:
 
 The demo configuration is automatically called as part of the setup for each supported distribution of OpenSearch. Following are the instructions per distribution.
 
+**Note**: Starting from OpenSearch 2.12, a custom admin password is required to install demo configuration. If none is provided, the cluster would fail to start. Please note, that this change affects fresh clusters only. Already setup clusters are not affected, as they already have `opensearch.yml` configured, and so the installation tool will not run. 
+
 ### Docker
 
 Follow these steps to set up OpenSearch Security using Docker:
