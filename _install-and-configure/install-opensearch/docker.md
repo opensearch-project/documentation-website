@@ -85,14 +85,14 @@ To download a specific version of OpenSearch or OpenSearch Dashboards other than
 
 Before continuing, you should verify that Docker is working correctly by deploying OpenSearch in a single container.
 
-1. Run the following command and pass in your own custom admin password:
+1. Run the following command:
     ```bash
-    # This command maps ports 9200 and 9600, sets the discovery type to "single-node", sets the initial admin password according to user input and requests the newest image of OpenSearch
-    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password >" opensearchproject/opensearch:latest
+    # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
+    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
-1. Send a request to port 9200. The default username is `admin` and the password is what you set for `OPENSEARCH_INITIAL_ADMIN_PASSWORD`.
+1. Send a request to port 9200. The default username and password are `admin`.
     ```bash
-    curl https://localhost:9200 -ku 'admin:< Admin password >'
+    curl https://localhost:9200 -ku 'admin:admin'
     ```
     {% include copy.html %}
 
@@ -166,7 +166,6 @@ services:
       - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
-      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password >" # Set the password of the admin user for the demo configuration
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -191,7 +190,6 @@ services:
       - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password >"
     ulimits:
       memlock:
         soft: -1

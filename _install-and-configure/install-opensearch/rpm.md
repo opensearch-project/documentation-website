@@ -46,16 +46,16 @@ This guide assumes that you are comfortable working from the Linux command line 
 1. From the CLI, you can install the package with `rpm` or `yum`.
    ```bash
    # Install the x64 package using yum.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password > yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
 
    # Install the x64 package using rpm.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password > rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
 
    # Install the arm64 package using yum.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password > yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
 
    # Install the arm64 package using rpm.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password > rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
@@ -147,7 +147,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
 1. Send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200:
       ```bash
-      curl -X GET https://localhost:9200 -u 'admin:< Admin password >' --insecure
+      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
       {% include copy.html %}
 
@@ -173,7 +173,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```
    - Query the plugins endpoint:
       ```bash
-      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:< Admin password >' --insecure
+      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
       {% include copy.html %}
 
