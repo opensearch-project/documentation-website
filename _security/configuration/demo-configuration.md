@@ -9,7 +9,7 @@ redirect_from:
 
 # Demo configuration setup guide
 
-Welcome to the OpenSearch Security plugin's demo configuration setup guide. This tool provides a quick and easy way to replicate a production environment for testing purposes. The demo configuration includes the setup of security-related components such as internal users, roles, role mappings, audit configuration, basic authentication, tenants and allowlists.
+Welcome to the OpenSearch Security plugin's demo configuration setup guide. This tool provides a quick and easy way to replicate a production environment for testing purposes. The demo configuration includes the setup of security-related components such as internal users, roles, role mappings, audit configuration, basic authentication, tenants, and allowlists.
 
 ## Overview
 
@@ -25,7 +25,7 @@ The demo configuration is automatically called as part of the setup for each sup
 
 ### Docker
 
-Follow these steps to set up OpenSearch Security using docker:
+Follow these steps to set up OpenSearch Security using Docker:
 
 1. [Download docker-compose.yml](https://opensearch.org/downloads.html)
 2. Ensure that the `DISABLE_SECURITY_PLUGIN` environment variable is not set to true.
