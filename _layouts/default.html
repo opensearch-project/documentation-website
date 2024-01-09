@@ -163,6 +163,13 @@ layout: table_wrappers
           {% endif %}
         {% endunless %}
         <div id="main-content" class="main-content" role="main">
+          {% if page.section == "opensearch" %}
+            {% if site.doc_version == "supported" %}            
+              <p class="supported-version-warning">This is an earlier version of the OpenSearch documentation. For the latest version, see the <a href="{{ site.url }}/docs{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+            {% elsif site.doc_version == "unsupported" %}
+              <p class="unsupported-version-warning">This version of the OpenSearch documentation is no longer maintained. For the latest version, see the <a href="{{ site.url }}/docs{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+            {% endif %}
+          {% endif %}
           {% if site.heading_anchors != false %}
             {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><use xlink:href=\"#svg-link\"></use></svg>" anchorClass="anchor-heading" anchorAttrs="aria-labelledby=\"%html_id%\"" %}
           {% else %}
