@@ -3,7 +3,7 @@ layout: default
 title: Ingest pipelines
 nav_order: 5
 nav_exclude: true
-has_toc: false
+has_toc: true
 permalink: /ingest-pipelines/
 redirect_from:
    - /api-reference/ingest-apis/ingest-pipelines/
@@ -54,3 +54,4 @@ Learn how to:
 - [Test a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/simulate-ingest/).
 - [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/get-ingest/).
 - [Delete a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/delete-ingest/). 
+- [Use ingest processors in OpenSearch]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/index-processors/)

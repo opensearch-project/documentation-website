@@ -3,6 +3,7 @@ layout: default
 title: Ingest processors
 nav_order: 30
 has_children: true
+has_toc: false
 redirect_from:
    - /api-reference/ingest-apis/ingest-processors/
 ---
@@ -24,3 +25,13 @@ To set up and deploy ingest processors, make sure you have the necessary permiss
 {:.note}
 
 Processor types and their required or optional parameters vary depending on your specific use case. See the [Ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) section to learn more about the processor types and defining and configuring them within a pipeline.
+
+
+## Supported processors
+
+OpenSearch supports the following ingest processors.
+
+Processor | Description
+:--- | :--- 
+`processors` | 
+`description` |  
