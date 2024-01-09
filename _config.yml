@@ -240,6 +240,11 @@ heading_anchors: false
 # Adds on-hover anchor links to h2-h6
 anchor_links: true
 
+# This setting governs including warning on every page
+# 'unsupported' produces red warning, 'supported' produces yellow warning
+# everything else produces no warning
+doc_version: unsupported
+
 footer_content:
 
 plugins:
