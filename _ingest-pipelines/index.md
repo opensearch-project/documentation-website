@@ -3,6 +3,7 @@ layout: default
 title: Ingest pipelines
 nav_order: 5
 nav_exclude: true
+has_toc: false
 permalink: /ingest-pipelines/
 redirect_from:
    - /api-reference/ingest-apis/ingest-pipelines/
