@@ -91,7 +91,7 @@ just_the_docs:
       name: Monitoring plugins
       nav_fold: true
     clients:
-      name: Clients and tools
+      name: Tools
       nav_fold: true
     troubleshoot:
       name: Troubleshooting
