@@ -22,7 +22,6 @@ GET /_nodes/ingest?filter_path=nodes.*.ingest.processors
 To set up and deploy ingest processors, make sure you have the necessary permissions and access rights. See [Security plugin REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/) to learn more.
 {:.note}
 
-
 ## Supported processors
 
 Processor types and their required or optional parameters vary depending on your specific use case. OpenSearch supports the following ingest processors. For tutorials on using these processors in an OpenSerch pipeline, go to each processor's respective documentation. 
