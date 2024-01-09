@@ -2,6 +2,8 @@
 layout: default
 title: PHP client
 nav_order: 90
+nav_exclude: true
+redirect_to: https://opensearch.org/docs/latest/clients/php/
 ---
 
 # PHP client

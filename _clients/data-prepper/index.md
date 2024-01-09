@@ -4,6 +4,7 @@ title: Data Prepper
 nav_order: 120
 has_children: true
 has_toc: false
+nav_exclude: true
 ---
 
 # Data Prepper
