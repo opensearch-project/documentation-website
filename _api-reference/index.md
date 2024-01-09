@@ -5,8 +5,10 @@ nav_order: 1
 has_toc: false
 has_children: true
 nav_exclude: true
+permalink: /api-reference/
 redirect_from:
   - /opensearch/rest-api/index/
+  - /api-reference/index/
 ---
 
 # REST API reference

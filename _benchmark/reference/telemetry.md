@@ -13,7 +13,9 @@ All telemetry devices with a `--stats` can be used with clusters not provisioned
 
 This page lists the telemetry devices supported by OpenSearch Benchmark.
 
+<!-- vale off -->
 ## jfr
+<!-- vale on -->
 
 The `jfr` telemetry device enables the [Java Flight Recorder (JFR)](https://docs.oracle.com/javacomponents/jmc-5-5/jfr-runtime-guide/index.html) on the benchmark candidate. Up to Java Development Kit (JDK) 11, JFR ships only with Oracle JDK. OpenSearch Benchmark assumes that Oracle JDK is used for benchmarking. If you run benchmarks on JDK 11 or later, [JFR](https://jdk.java.net/jmc/) is also available on OpenJDK.
 
@@ -26,21 +28,29 @@ The `jfr` devices support the following parameters:
 - `jfr-delay`: The length of time to wait before starting to record. Optional.
 - `jfr-duration`:  The length of time to record. Optional.
 
+<!-- vale off -->
 ## jit
+<!-- vale on -->
 
 The `jit` telemetry device enables JIT compiler logs for the benchmark candidate. If the HotSpot disassembler library is available, the logs will contain the disassembled JIT compiler output, which can be used for low-level analysis.
 
+<!-- vale off -->
 ## gc
+<!-- vale on -->
 
 The `gc` telemetry device enables garbage collector (GC) logs for the benchmark candidate. You can use tools such as GCViewer to analyze the GC logs.
 
 If the runtime JDK is Java 9 or higher, you can specify the `gc-log-config` parameter. The GC logging configuration consists of a list of tags and levels, such as the default value `gc*=info,safepoint=info,age*=trace`. Run `java -Xlog:help` to view a list of available levels and tags. 
 
+<!-- vale off -->
 ## heapdump
+<!-- vale on -->
 
 The `heapdump` telemetry device captures a heap dump after a benchmark has finished and right before the node is shut down.
 
+<!-- vale off -->
 ## node-stats
+<!-- vale on -->
 
 The `node-stats` telemetry device regularly calls the cluster [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) and records metrics from the following stats and their associated keys:
 
@@ -70,7 +80,9 @@ The `node-stats` device supports the following parameters:
 - `node-stats-include-process`: A Boolean indicating whether process CPU stats should be included. Default is `true`.
 - `node-stats-include-indexing-pressure`:  A Boolean indicating whether indexing presser stats should be included. Default is `true`.
 
+<!-- vale off -->
 ## recovery-stats
+<!-- vale on -->
 
 The `recovery-stats` telemetry device regularly calls the [CAT Recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/) and records one metrics document per shard.
 
@@ -79,13 +91,17 @@ This telemetry device supports the following parameters:
 - `searchable-snapshots-stats-indices` A string with the index pattern, or list of index patterns, that searchable snapshots stats should additionally be collected from. If unset, only cluster-level stats will be collected. Default is `None`.
 - `searchable-snapshots-stats-sample-interval`: A positive number greater than zero denoting the sampling interval in seconds. Default is `1`.
 
+<!-- vale off -->
 ## shard-stats
+<!-- vale on -->
 
 The `shard-stats` telemetry device regularly calls the cluster [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) using a `level=shard` cluster parameter and records one metrics document per shard.
 
 This device supports the `shard-stats-sample-interval` parameter, which defines the sampling interval in seconds. Default is `60`.
 
+<!-- vale off -->
 ## data-stream-stats
+<!-- vale on -->
 
 The `data-stream-stats` telemetry device regularly calls the [Data Stream Stats API]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/#step-2-create-a-data-stream) and records one metrics document for cluster-level stats (`_all`) and one metrics document per data stream.
 
@@ -129,7 +145,9 @@ The following is an example of recorded documents given two data streams in the 
 
 This telemetry device supports the `data-stream-stats-sample-interval` parameter, which defines the sampling interval in seconds. Default is `10`.
 
+<!-- vale off -->
 ## ingest-pipeline-stats
+<!-- vale on -->
 
 The `ingest-pipeline-stats` telemetry device makes a call at the beginning and end of the benchmark to the Node Stats API and records the deltas in the form of the following documents:
 
