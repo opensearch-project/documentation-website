@@ -11,8 +11,6 @@ redirect_from:
 ---
 
 # Ingest pipelines
-**Introduced 1.0**
-{: .label .label-purple }
 
 An _ingest pipeline_ is a sequence of _processors_ that are applied to documents as they are ingested into an index. Each [processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/index-processors/) in a pipeline performs a specific task, such as filtering, transforming, or enriching data. 
 
