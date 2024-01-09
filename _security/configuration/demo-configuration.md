@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Demo configuration setup guide
+title: Setting up a demo configuration
 parent: Configuration
 nav_order: 4
 redirect_from:
