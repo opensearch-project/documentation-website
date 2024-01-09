@@ -252,7 +252,7 @@ _Effect_ as a noun refers to something that’s caused by something else. _Effec
 
 **e.g.**
 
-Avoid. Use for example or such as instead.
+Avoid. Use _for example_ or _such as_ instead.
 
 **Elastic IP address**
 
@@ -368,6 +368,10 @@ In blog posts, use the plural *indexes* unless there is a domain-specific reason
 **Index Management (IM)**
 
 **Index State Management (ISM)**
+
+**ingest pipeline**
+
+Not _ingestion pipeline_.
 
 **inline**
 
@@ -705,6 +709,8 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 **timestamp**
 
 **time zone**
+
+**trade-off**
 
 **trigger**
 
