@@ -160,7 +160,7 @@ nested(field_expression | field_expression, path_expression)
 
 #### Example query 
 
-The following are examples of a query using nested queries in the `ORDER BY` clause, a sample dataset, and the query results:
+The following are examples of a query using nested queries in the `ORDER BY` clause:
 
 ```sql
 SELECT nested(message.info) FROM nested_objects ORDER BY nested(message.info) DESC;
