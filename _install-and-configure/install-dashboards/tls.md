@@ -55,6 +55,6 @@ opensearch_security.readonly_mode.roles: ["kibana_read_only"]
 opensearch_security.cookie.secure: true
 ```
 
-If you use the Docker install option, you can pass a custom `opensearch_dashboards.yml` to the container. To learn more, see the [Docker installation page]({{site.url}}{{site.baseurl}}/opensearch/install/docker/).
+If you use the Docker install option, you can pass a custom `opensearch_dashboards.yml` file to the container. To learn more, see the [Docker installation page]({{site.url}}{{site.baseurl}}/opensearch/install/docker/).
 
 After enabling these settings and starting OpenSearch Dashboards, you can connect to it at `https://localhost:5601`. You might have to acknowledge a browser warning if your certificates are self-signed. To avoid this type of warning (or outright browser incompatibility), it is best practice to use certificates from a trusted certificate authority.
