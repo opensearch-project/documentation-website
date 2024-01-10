@@ -2,6 +2,7 @@
 layout: default
 title: Intro to OpenSearch
 nav_order: 2
+permalink: /intro/
 ---
 
 # Introduction to OpenSearch
@@ -87,3 +88,25 @@ DELETE https://<host>:<port>/<index-name>/_doc/<document-id>
 ```
 
 You can change most OpenSearch settings using the REST API, modify indexes, check the health of the cluster, get statistics---almost everything.
+
+## Advanced concepts
+
+The following section describes more advanced OpenSearch concepts.
+
+### Translog
+
+Any index changes, such as document indexing or deletion, are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called _translog_. When a document is indexed, it is added to the memory buffer and recorded in the translog. After a process or host restart, any data in the in-memory buffer is lost. Recording the document in the translog ensures durability because the translog is written to disk.
+
+Frequent refresh operations write the documents in the memory buffer to a segment and then clear the memory buffer. Periodically, a [flush](#flush) performs a Lucene commit, which includes writing the segments to disk using `fsync`, purging the old translog, and starting a new translog. Thus, a translog contains all operations that have not yet been flushed.
+
+### Refresh
+
+Periodically, OpenSearch performs a _refresh_ operation, which writes the documents from the in-memory Lucene index to files. These files are not guaranteed to be durable because an `fsync` is not performed. A refresh makes documents available for search.
+
+### Flush
+
+A _flush_ operation persists the files to disk using `fsync`, ensuring durability. Flushing ensures that the data stored only in the translog is recorded in the Lucene index. OpenSearch performs a flush as needed to ensure that the translog does not grow too large.
+
+### Merge
+
+In OpenSearch, a shard is a Lucene index, which consists of _segments_ (or segment files). Segments store the indexed data and are immutable. Periodically, smaller segments are merged into larger ones. Merging reduces the overall number of segments on each shard, frees up disk space, and improves search performance. Eventually, segments reach a maximum size specified in the merge policy and are no longer merged into larger segments. The merge policy also specifies how often merges are performed. 
