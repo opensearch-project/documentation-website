@@ -32,7 +32,7 @@ In the `SELECT` clause, the `*` character in a nested function's `field_expressi
 
 ### Flattening
 
-Flattening is a process in OpenSearch that transforms the response format by converting nested objects into key/value pairs. The full path of each object becomes the key, while the object itself becomes the value. The following are examples of an input, an output, a query, and a dataset. 
+Flattening is a process in OpenSearch that transforms the response format by converting nested objects into key-value pairs. The full path of each object becomes the key, while the object itself becomes the value. The following are examples of an input, an output, a query, and a dataset. 
 
 #### Example input
 
