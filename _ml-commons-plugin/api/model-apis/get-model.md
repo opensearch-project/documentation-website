@@ -104,6 +104,106 @@ POST /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
+#### Example: Excluding model content
+
+Because model contents are large, you can specify to exclude model content from the search response to avoid request timeout. For example, the following query specifies to search for all models (excluding model chunks), to exclude the model content, and to sort the results in descending order:
+
+```json
+GET /_plugins/_ml/models/_search
+{
+  "query": {
+    "bool": {
+      "must_not": {
+        "exists": {
+          "field": "chunk_number"
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "created_time": {
+        "order": "desc"
+      }
+    }
+  ],
+  "_source": {
+    "excludes": [
+      "content",
+      "model_content"
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example: Searching for all model chunks
+
+The following query searches for all chunks of the model with the ID `979y9YwBjWKCe6KgNGTm` and sorts the chunks in ascending order:
+
+```json
+GET /_plugins/_ml/models/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "model_id": "9r9w9YwBjWKCe6KgyGST"
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "chunk_number": {
+        "order": "asc"
+      }
+    }
+  ],
+  "_source": {
+    "excludes": [
+      "content",
+      "model_content"
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example: Searching for a model by description
+
+```json
+GET _plugins/_ml/models/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "description": "sentence transformer"
+          }
+        }
+      ],
+      "must_not": {
+        "exists": {
+          "field": "chunk_number"
+        }
+      }
+    }
+  },
+  "_source": {
+    "excludes": [
+      "content",
+      "model_content"
+    ]
+  },
+  "size": 1000
+}
+```
+{% include copy-curl.html %}
+
 #### Example response
 
 ```json
