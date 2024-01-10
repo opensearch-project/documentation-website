@@ -115,7 +115,7 @@ nested(field_expression | field_expression, path_expression) Operator Literal_ex
 
 #### Example query
 
-The following are examples of a query using nested queries in the `WHERE` clause, a sample dataset, and the query results:
+The following are examples of a query using nested queries in the `WHERE` clause:
 
 ```sql
 SELECT nested(message.info) FROM nested_objects WHERE nested(message.info) = 'letter2';
