@@ -4,8 +4,9 @@ title: Language clients
 nav_order: 1
 has_children: false
 nav_exclude: true
+permalink: /clients/
 redirect_from:
-  - /clients/
+  - /clients/index/
 ---
 
 # OpenSearch language clients

@@ -6,6 +6,7 @@ has_children: false
 nav_exclude: true
 redirect_from:
   - /clients/agents-and-ingestion-tools/
+  - /tools/index/
 ---
 
 # OpenSearch tools

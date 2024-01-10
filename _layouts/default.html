@@ -52,48 +52,93 @@ layout: table_wrappers
     <div id="main-header"></div>
     <div class="side-bar">
       <div class="site-header">
-        <a href="#" id="menu-button" class="site-button">
+        <a href="/docs/latest/" id="menu-button" class="site-button">
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
-      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
+      <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">        
         <div class="version-wrapper">
-          <version-selector selected="{{ site.data.versions.current }}"></version-selector>
-        </div>
+          {% if page.section == "opensearch" %}
+            <a href="{{site.url}}{{site.baseurl}}/about/" class="site-category">{{ page.section-name }}</a>
+          {% else %}
+            <a href="{{site.url}}{{site.baseurl}}/{{ page.section}}/" class="site-category">{{ page.section-name }}</a>
+          {% endif %}
+          
+          <a href="{{site.url}}/docs/latest/" class="back-link">&#x2190; Back to docs home</a>
+          
+          {% if page.section == "opensearch" %}
+            <version-selector selected="{{ site.data.versions.current }}"></version-selector>
+          {% endif %}
+          </div>
         {% assign pages_top_size = site.html_pages
             | where_exp:"item", "item.title != nil"
             | where_exp:"item", "item.parent == nil"
             | where_exp:"item", "item.nav_exclude != true"
             | size %}
         {% if pages_top_size > 0 %}
-          {% include nav.html pages=site.html_pages key=nil %}
+          {% include nav.html pages=site.html_pages key=nil expanded=true %}
         {% endif %}
-        {% if site.just_the_docs.collections %}
-          {% assign collections_size = site.just_the_docs.collections | size %}
-          {% for collection_entry in site.just_the_docs.collections %}
+
+        {% if page.section == "opensearch" %}
+          {% assign section = site.opensearch_collection.collections %}
+        {% elsif page.section == "data-prepper" %}
+          {% assign section = site.data_prepper_collection.collections %}
+        {% elsif page.section == "clients" %}
+          {% assign section = site.clients_collection.collections %}
+        {% elsif page.section == "benchmark" %}
+          {% assign section = site.benchmark_collection.collections %}
+        {% endif %}
+
+        {% if section %}
+          {% assign collections_size = section | size %}
+          {% for collection_entry in section %}
             {% assign collection_key = collection_entry[0] %}
             {% assign collection_value = collection_entry[1] %}
             {% assign collection = site[collection_key] %}
             {% if collection_value.nav_exclude != true %}
+              {% assign owned_tree_id = collection_key | append: "_" | append: forloop.index | append: "_navitems" | replace: " ", "_" %}
               {% if collections_size > 1 or pages_top_size > 0 %}
                 {% if collection_value.nav_fold == true %}
-                  <ul class="nav-list nav-category-list">
-                    <li class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
+                  <ul
+                    role="tree" 
+                    class="nav-list nav-category-list"
+                  >
+                    <li role="none" class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
+                      
+                      {% assign collection_url_path = collection_key | append: "/" %}
+                      {% assign category_comparison_url = "/" | append: collection_url_path %}
                       {%- if collection.size > 0 -%}
-                      <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+                        <a 
+                          role="treeitem"
+                          aria-owns="{{ owned_tree_id }}"
+                          aria-current="{% if page.collection == collection_key %}page{% endif %}"
+                          href="#" 
+                          class="nav-list-expander"
+                        ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                       {%- endif -%}
-                      {% assign collection_url_path = collection_key | append: "/index/" %}
-                      <div class="nav-category"><a href="{{ collection_url_path | relative_url  }}">{{ collection_value.name }}</a></div>
-                      {% include nav.html pages=collection key=collection_key %}
+                      <a 
+                        role="treeitem"
+                        aria-owns="{{ owned_tree_id }}"
+                        aria-current="{% if page.collection == collection_key %}page{% endif %}"
+                        class="nav-category{% if category_comparison_url == page.url %} active{% endif %}" 
+                        href="{{ collection_url_path | relative_url  }}"
+                      >{{ collection_value.name }}</a>
+                      {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
                     </li>
                   </ul>
                 {% else %}
-                  {% assign collection_url_path = collection_key | append: "/index/" %}
-                  <div class="nav-category"><a href="{{ collection_url_path | relative_url }}">{{ collection_value.name }}</a></div>
-                  {% include nav.html pages=collection key=collection_key %}
+                  {% assign collection_url_path = collection_key | append: "/" %}
+                  <a 
+                    role="treeitem"
+                    aria-owns="{{ owned_tree_id }}"
+                    aria-current="{% if page.collection == collection_key %}page{% endif %}"
+                    class="nav-category{% if category_comparison_url == page.url %} active{% endif %}"
+                    href="{{ collection_url_path | relative_url }}"
+                  >{{ collection_value.name }}</a>
+                  {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
                 {% endif %}
               {% else %}
-                {% include nav.html pages=collection key=collection_key %}
+                {% include nav.html pages=collection key=collection_key owned_tree_id=owned_tree_id %}
               {% endif %}
             {% endif %}
           {% endfor %}
@@ -118,7 +163,13 @@ layout: table_wrappers
           {% endif %}
         {% endunless %}
         <div id="main-content" class="main-content" role="main">
-          {% include warning.html %}
+          {% if page.section == "opensearch" %}
+            {% if site.doc_version == "supported" %}            
+              <p class="supported-version-warning">This is an earlier version of the OpenSearch documentation. For the latest version, see the <a href="{{ site.url }}/docs{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+            {% elsif site.doc_version == "unsupported" %}
+              <p class="unsupported-version-warning">This version of the OpenSearch documentation is no longer maintained. For the latest version, see the <a href="{{ site.url }}/docs{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+            {% endif %}
+          {% endif %}
           {% if site.heading_anchors != false %}
             {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><use xlink:href=\"#svg-link\"></use></svg>" anchorClass="anchor-heading" anchorAttrs="aria-labelledby=\"%html_id%\"" %}
           {% else %}
@@ -181,7 +232,7 @@ layout: table_wrappers
       <div class="toc-wrap">
         <div class="sticky-wrap">
           <div class="toc">
-            {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+            {% include toc.html html=content h_min=2 h_max=3 class="toc-list" item_class="toc-item" sanitize=true %}
           </div>
           {% include feedback.html %}
         </div>
