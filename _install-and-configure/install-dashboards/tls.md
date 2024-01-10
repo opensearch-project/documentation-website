@@ -35,7 +35,7 @@ Setting | Description
 `opensearch.ssl.keyPassphrase` | Sets the password for the key. Omit this setting if the key has no password. Optional.
 `opensearch.ssl.keystore.path` | Uses a JKS or PKCS12/PFX key store file instead of a PEM certificate and key.
 `opensearch.ssl.keystore.password` | Sets the password for the key store. Required.
-`opensearch_security.cookie.secure` | If enable TLS is enabled for OpenSearch Dashboards, change the setting to `true`. For HTTP, set it to `false`.
+`opensearch_security.cookie.secure` | If TLS is enabled for OpenSearch Dashboards, change the setting to `true`. For HTTP, set it to `false`.
 
 The following `opensearch_dashboards.yml` configuration shows OpenSearch and OpenSearch Dashboards running on the same machine with the demo configuration:
 
