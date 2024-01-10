@@ -151,7 +151,7 @@ In the `ORDER BY` clause, the `nested` function enables sorting across documents
 
 ### Syntax
 
-The `ORDER BY` clause with the `nested` function defaults to ascending order (`ASC`). Specifying `DESC` (desending) after the function allows overriding this behavior. The syntax is shown in the following example: 
+The `ORDER BY` clause with the `nested` function defaults to ascending order (`ASC`). Specifying `DESC` (desending) after the function allows you to override this behavior. The syntax is shown in the following example: 
 
 ```sql
 nested(field_expression | field_expression, path_expression)
