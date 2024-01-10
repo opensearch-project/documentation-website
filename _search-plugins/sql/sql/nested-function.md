@@ -11,7 +11,7 @@ redirect_from:
 
 # Nested function
 
-The `nested` function is used to created a query within a query. See the following sections for how and why to use the function in OpenSearch.   
+The `nested` function is used to create a query within a query. The following sections describe how and why to use this function in OpenSearch.   
 
 ## Using the function in a SELECT clause
 
