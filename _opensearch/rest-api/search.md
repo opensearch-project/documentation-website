@@ -3,6 +3,7 @@ layout: default
 title: Search
 parent: REST API reference
 nav_order: 10
+canonical_url: 'https://opensearch.org/docs/latest/api-reference/search/'
 ---
 
 # Search

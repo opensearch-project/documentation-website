@@ -3,6 +3,7 @@ layout: default
 title: Boolean queries
 parent: Query DSL
 nav_order: 45
+canonical_url: 'https://opensearch.org/docs/latest/query-dsl/compound/bool/'
 ---
 
 # Boolean queries

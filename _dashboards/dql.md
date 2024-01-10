@@ -2,6 +2,7 @@
 layout: default
 title: Dashboards query language
 nav_order: 99
+canonical_url: 'https://opensearch.org/docs/latest/dashboards/dql/'
 ---
 
 # Dashboards Query Language

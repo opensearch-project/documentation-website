@@ -3,6 +3,7 @@ layout: default
 title: Users and roles
 parent: Access control
 nav_order: 1
+canonical_url: 'https://opensearch.org/docs/latest/security/access-control/users-roles/'
 ---
 
 # Users and roles
