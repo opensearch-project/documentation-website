@@ -37,7 +37,7 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 
 - `http.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes for HTTP communication.
 
-- `http.compression` (Static, Boolean): Enables support for compression using `Accept-Encoding` when applicable. When `HTTPS` is enabled, the default is `false`. otherwise the defaults is `true`. Disabling compression for HTTPS helps mitigate potential security risks, such as `BREACH` attacks. To enable compression for HTTPS traffic, explicitly set `http.compression` to `true`.
+- `http.compression` (Static, Boolean): Enables support for compression using `Accept-Encoding` when applicable. When `HTTPS` is enabled, the default is `false`, otherwise, the default is `true`. Disabling compression for HTTPS helps mitigate potential security risks, such as `BREACH` attacks. To enable compression for HTTPS traffic, explicitly set `http.compression` to `true`.
 
 ## Advanced transport settings
 
