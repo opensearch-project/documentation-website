@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Dashboards quickstart
+title: OpenSearch Dashboards quickstart
 nav_order: 2
 has_children: false
 redirect_from:
    - /dashboards/quickstart-dashboards/
 ---
 
-# Dashboards quickstart
+# OpenSearch Dashboards quickstart
 
 This quickstart covers the core concepts that you need to understand to get started with OpenSearch Dashboards. You'll learn how to:
 
