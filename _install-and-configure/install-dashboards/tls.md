@@ -16,7 +16,7 @@ Setting | Description
 `server.ssl.enabled` | Enables SSL communication between the OpenSearch Dashboards server and the user's web browser. Set to `true` for HTTPS or `false` for HTTP.
 `server.ssl.supportedProtocols` | Specifies the array of supported TLS protocols. Possible values are `TLSv1`, `TLSv1.1`, and `TLSv1.2`, `TLSv1.3`. Default is `['TLSv1.1', 'TLSv1.2', and 'TLSv1.3']`.
 `server.ssl.cipherSuites` | Specifies the array of TLS cipher suites. Optional.
-`server.ssl.certificate` | If `server.ssl.enabled` is set to `true`, specifies the full path to a valid PEM server certificate for OpenSearch Dashboards. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
+`server.ssl.certificate` | If `server.ssl.enabled` is set to `true`, specifies the full path to a valid Privacy Enhanced Mail (PEM) server certificate for OpenSearch Dashboards. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
 `server.ssl.key` | If `server.ssl.enabled` is set to `true`, specifies the full path to the key for your server certificate, for example, `/usr/share/opensearch-dashboards-1.0.0/config/my-client-cert-key.pem`. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
 `server.ssl.keyPassphrase` | Sets the password for the key. Omit this setting if the key has no password. Optional.
 `server.ssl.keystore.path` | Uses a JKS or PKCS12/PFX key store file instead of a PEM certificate and key.
