@@ -33,7 +33,7 @@ Setting | Description
 `opensearch.ssl.certificate` | If `opensearch.ssl.alwaysPresentCertificate` is set to `true`, specifies the full path to a valid client certificate for the OpenSearch cluster. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
 `opensearch.ssl.key` | If `opensearch.ssl.alwaysPresentCertificate` is set to `true`, specifies the full path to the key for the client certificate. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
 `opensearch.ssl.keyPassphrase` | Sets the password for the key. Omit this setting if the key has no password. Optional.
-`opensearch.ssl.keystore.path` | Uses JKS or PKCS12/PFX keystore file instead of PEM certificate and key.
+`opensearch.ssl.keystore.path` | Uses a JKS or PKCS12/PFX key store file instead of a PEM certificate and key.
 `opensearch.ssl.keystore.password` | Sets the password for the keystore. Required.
 `opensearch_security.cookie.secure` | If enable TLS is enabled for OpenSearch Dashboards, change the setting to `true`. For HTTP, set it to `false`.
 
