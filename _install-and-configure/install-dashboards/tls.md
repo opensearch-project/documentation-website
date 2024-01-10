@@ -13,31 +13,31 @@ By default, for ease of testing and getting started, OpenSearch Dashboards runs 
 
 Setting | Description
 :--- | :---
-server.ssl.enabled | This setting enables SSL communication between OpenSearch Dashboards server and the user's web browser. Set to `true` for HTTPS or `false` for HTTP.
-server.ssl.supportedProtocols | Specific the array of supported TLS protocols. Possible values are `TLSv1`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`. Default is `['TLSv1.1', 'TLSv1.2', 'TLSv1.3']`.
-server.ssl.cipherSuites | Specific the array of TLS cipher suites. Optional.
-server.ssl.certificate | If `server.ssl.enabled` is set to `true`, specify the full path to a valid PEM server certificate for OpenSearch Dashboards. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
-server.ssl.key | If `server.ssl.enabled` is set to `true`, specify the full path, for example, `/usr/share/opensearch-dashboards-1.0.0/config/my-client-cert-key.pem`, to the key for your server certificate. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
-server.ssl.keyPassphrase | Password for the above key. Omit this setting if the key has no password. Optional.
-server.ssl.keystore.path | Use JKS or PKCS12/PFX keystore file instead of PEM certificate and key.
-server.ssl.keystore.password | Password for the above keystore. Required.
-server.ssl.clientAuthentication | TLS client authentication mode to use. Can be one of `none`, `optional` or `required`. The user's web browser needs to send a valid client certificate signed by CA configured in `server.ssl.certificateAuthorities` if set to `required`. Default is `none`.
-server.ssl.certificateAuthorities | Specify the full path to one or more CA certificates in an array who issues the certificate used for client authentication. Required if `server.ssl.clientAuthentication` is set to `optional` or `required`.
-server.ssl.truststore.path | Use JKS or PKCS12/PFX truststore file instead of PEM CA certificates.
-server.ssl.truststore.password | Password for the above truststore. Required.
-opensearch.ssl.verificationMode | This setting is for communications between OpenSearch and OpenSearch Dashboards. Valid values are `full`, `certificate`, or `none`. We recommend `full` if you enable TLS, which enables hostname verification. `certificate` just checks the certificate, not the hostname, and `none` performs no checks (suitable for HTTP). Default is `full`.
-opensearch.ssl.certificateAuthorities | If `opensearch.ssl.verificationMode` is `full` or `certificate`, specify the full path to one or more CA certificates in an array that comprise a trusted chain for your OpenSearch cluster. For example, you might need to include a root CA _and_ an intermediate CA if you used the intermediate CA to issue your admin, client, and node certificates.
-opensearch.ssl.truststore.path | Use JKS or PKCS12/PFX truststore file instead of PEM CA certificates.
-opensearch.ssl.truststore.password | Password for the above truststore. Required.
-opensearch.ssl.alwaysPresentCertificate | Set to `true` to send the client certificate to the OpenSearch cluster. This is necessary when mTLS is enabled in OpenSearch. Default is `false`.
-opensearch.ssl.certificate | If `opensearch.ssl.alwaysPresentCertificate` is set to `true`, specify the full path to a valid client certificate for the OpenSearch cluster. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
-opensearch.ssl.key | If `opensearch.ssl.alwaysPresentCertificate` is set to `true`, specify the full path to the key for your client certificate. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
-opensearch.ssl.keyPassphrase | Password for the above key. Omit this setting if the key has no password. Optional.
-opensearch.ssl.keystore.path | Use JKS or PKCS12/PFX keystore file instead of PEM certificate and key.
-opensearch.ssl.keystore.password | Password for the above keystore. Required.
-opensearch_security.cookie.secure | If you enable TLS for OpenSearch Dashboards, change this setting to `true`. For HTTP, set it to `false`.
+`server.ssl.enabled` | Enables SSL communication between OpenSearch Dashboards server and the user's web browser. Set to `true` for HTTPS or `false` for HTTP.
+`server.ssl.supportedProtocols` | Specifies the array of supported TLS protocols. Possible values are `TLSv1`, `TLSv1.1`, and `TLSv1.2`, `TLSv1.3`. Default is `['TLSv1.1', 'TLSv1.2', and 'TLSv1.3']`.
+`server.ssl.cipherSuites` | Specifies the array of TLS cipher suites. Optional.
+`server.ssl.certificate` | If `server.ssl.enabled` is set to `true`, specifies the full path to a valid PEM server certificate for OpenSearch Dashboards. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
+`server.ssl.key` | If `server.ssl.enabled` is set to `true`, specifies the full path to the key for your server certificate, for example, `/usr/share/opensearch-dashboards-1.0.0/config/my-client-cert-key.pem`. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
+`server.ssl.keyPassphrase` | Sets the password for the key. Omit this setting if the key has no password. Optional.
+`server.ssl.keystore.path` | Uses JKS or PKCS12/PFX keystore file instead of PEM certificate and key.
+`server.ssl.keystore.password` | Sets the password for the keystore. Required.
+`server.ssl.clientAuthentication` | Specifies the TLS client authentication mode to use. Can be one of the following: `none`, `optional`, or `required`. If set to `required`, your web browser needs to send a valid client certificate signed by the certificate authority configured in `server.ssl.certificateAuthorities`. Default is `none`.
+`server.ssl.certificateAuthorities` | Specifies the full path to one or more certificate authority certificates in an array that issues the certificate used for client authentication. Required if `server.ssl.clientAuthentication` is set to `optional` or `required`.
+`server.ssl.truststore.path` | Uses JKS or PKCS12/PFX truststore file instead of PEM certificate authority certificates.
+`server.ssl.truststore.password` | Sets the password for the truststore. Required.
+`opensearch.ssl.verificationMode` | Establishes communication between OpenSearch and OpenSearch Dashboards. Valid values are `full`, `certificate`, or `none`. `full` is recommended if TLS is enabled, which enables hostname verification. `certificate` checks the certificate, but not the hostname. `none` performs no checks (suitable for HTTP). Default is `full`.
+`opensearch.ssl.certificateAuthorities` | If `opensearch.ssl.verificationMode` is `full` or `certificate`, specifies the full path to one or more certificate authority certificates in an array that comprises a trusted chain for an OpenSearch cluster. For example, you might need to include a root certificate authority _and_ an intermediate certificate authority if you used the intermediate certificate authority to issue your admin, client, and node certificates.
+`opensearch.ssl.truststore.path` | Uses JKS or PKCS12/PFX truststore file instead of PEM certificate authority certificates.
+`opensearch.ssl.truststore.password` | Sets the password for the truststore. Required.
+`opensearch.ssl.alwaysPresentCertificate` | Sends the client certificate to the OpenSearch cluster if set to `true`, which is necessary when mTLS is enabled in OpenSearch. Default is `false`.
+`opensearch.ssl.certificate` | If `opensearch.ssl.alwaysPresentCertificate` is set to `true`, specifies the full path to a valid client certificate for the OpenSearch cluster. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
+`opensearch.ssl.key` | If `opensearch.ssl.alwaysPresentCertificate` is set to `true`, specifies the full path to the key for the client certificate. You can [generate your own certificate]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/) or get one from a certificate authority.
+`opensearch.ssl.keyPassphrase` | Sets the password for the key. Omit this setting if the key has no password. Optional.
+`opensearch.ssl.keystore.path` | Uses JKS or PKCS12/PFX keystore file instead of PEM certificate and key.
+`opensearch.ssl.keystore.password` | Sets the password for the keystore. Required.
+`opensearch_security.cookie.secure` | If enable TLS is enabled for OpenSearch Dashboards, change the setting to `true`. For HTTP, set it to `false`.
 
-This `opensearch_dashboards.yml` configuration shows OpenSearch and OpenSearch Dashboards running on the same machine with the demo configuration:
+The following `opensearch_dashboards.yml` configuration shows OpenSearch and OpenSearch Dashboards running on the same machine with the demo configuration:
 
 ```yml
 server.ssl.enabled: true
@@ -55,6 +55,6 @@ opensearch_security.readonly_mode.roles: ["kibana_read_only"]
 opensearch_security.cookie.secure: true
 ```
 
-If you use the Docker install, you can pass a custom `opensearch_dashboards.yml` to the container. To learn more, see the [Docker installation page]({{site.url}}{{site.baseurl}}/opensearch/install/docker/).
+If you use the Docker install option, you can pass a custom `opensearch_dashboards.yml` to the container. To learn more, see the [Docker installation page]({{site.url}}{{site.baseurl}}/opensearch/install/docker/).
 
-After enabling these settings and starting OpenSearch Dashboards, you can connect to it at `https://localhost:5601`. You might have to acknowledge a browser warning if your certificates are self-signed. To avoid this sort of warning (or outright browser incompatibility), best practice is to use certificates from trusted certificate authority.
+After enabling these settings and starting OpenSearch Dashboards, you can connect to it at `https://localhost:5601`. You might have to acknowledge a browser warning if your certificates are self-signed. To avoid this type of warning (or outright browser incompatibility), it is best practice to use certificates from a trusted certificate authority.
