@@ -62,7 +62,6 @@ SELECT nested(comment.data), nested(message.info) FROM nested_objects;
 ```
 {% include copy.html %}
 
-
 #### Example dataset
 
 ```json
@@ -95,7 +94,7 @@ Nested object documents can be filtered in SQL by using the `nested` function in
 
 The `nested` function in a SQL `WHERE` clause offers two syntax options for filtering a nested field with a literal value, both achieving the same outcome. The two options are described in the following sections.
 
-### Boolean condition inside the nested function
+#### Boolean condition inside the nested function
 
 This option specifies the Boolean condition inside the nested function using the `condition_expression` parameter, as shown in the following example:
 
@@ -104,7 +103,7 @@ nested(path_expression, condition_expression)
 ```
 {% include copy.html %}
 
-### Nested function with predicate expression and literal expression
+#### Nested function with predicate expression and literal expression
 
 This option, which is supported by the V2 engine, places the `nested` function on the left of the predicate expression and on the right of the `literal_expression`. The `path_expression` is optional and automatically determined by the SQL plugin if not provided, as shown in the following example:
 
