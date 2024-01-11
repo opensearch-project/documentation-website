@@ -4,7 +4,9 @@ title: Common issues
 nav_order: 1
 has_toc: false
 nav_exclude: true
-redirect_from: /troubleshoot/
+permalink: /troubleshoot/
+redirect_from:
+  - /troubleshoot/index/
 ---
 
 # Common issues

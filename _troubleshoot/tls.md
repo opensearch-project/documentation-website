@@ -41,7 +41,7 @@ openssl x509 -in node1.pem -text -noout
 ```
 
 
-### Check for special characters and whitespace in DNs
+### Check for special characters and white space in DNs
 
 The Security plugin uses the [string representation of Distinguished Names (RFC1779)](https://www.ietf.org/rfc/rfc1779.txt) when validating node certificates.
 
@@ -52,7 +52,7 @@ plugins.security.nodes_dn:
   - 'CN=node-0.example.com,OU=SSL,O=My\, Test,L=Test,C=DE'
 ```
 
-You can have whitespace within a field, but not between fields.
+You can have white space within a field, but not between fields.
 
 #### Bad configuration
 
