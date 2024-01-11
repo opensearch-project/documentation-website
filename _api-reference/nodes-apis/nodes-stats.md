@@ -826,7 +826,7 @@ search.request.dfs_query.total | Integer | The total number of coordinator DFS p
 search.request.expand.time_in_millis | Integer | The total amount of time for all coordinator expand operations, in milliseconds.
 search.request.expand.current | Integer | The number of coordinator expand operations that are currently running.
 search.request.expand.total | Integer | The total number of coordinator expand operations.
-search.request.can_match.time_in_millis | Integer | The total time for all coordinator match operations, in milliseconds.
+search.request.can_match.time_in_millis | Integer | The total amount of time for all coordinator match operations, in milliseconds.
 search.request.can_match.current | Integer | The number of coordinator match operations that are currently running.
 search.request.can_match.total | Integer | The total number of coordinator match operations.
 merges | Object | Statistics about merge operations for the node.
