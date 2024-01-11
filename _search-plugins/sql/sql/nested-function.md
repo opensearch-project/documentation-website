@@ -13,7 +13,7 @@ redirect_from:
 
 The `nested` function is used to create a query within a query. The following sections describe how and why to use this function in OpenSearch.   
 
-##  the function in a SELECT clause
+## Using the function in a SELECT clause
 
 To extract individual elements from nested object type collections within the `SELECT` clause, use the `nested` function. This process flattens nested structures, generating a Cartesian product when querying against nested collections. 
 
