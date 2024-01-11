@@ -55,7 +55,7 @@ Flattening is a process in OpenSearch that transforms the response format by con
 
 #### Example query
 
-The following example uses a nested query in the `SELECT` clause:
+The following example query uses a nested query in the `SELECT` clause:
 
 ```sql
 SELECT nested(comment.data), nested(message.info) FROM nested_objects;
@@ -115,7 +115,7 @@ nested(field_expression | field_expression, path_expression) Operator Literal_ex
 
 #### Example query
 
-The following are examples of a query using nested queries in the `WHERE` clause:
+The following example query uses nested queries in the `WHERE` clause:
 
 ```sql
 SELECT nested(message.info) FROM nested_objects WHERE nested(message.info) = 'letter2';
@@ -160,7 +160,7 @@ nested(field_expression | field_expression, path_expression)
 
 #### Example query 
 
-The following are examples of a query using nested queries in the `ORDER BY` clause:
+The following example query uses nested queries in the `ORDER BY` clause:
 
 ```sql
 SELECT nested(message.info) FROM nested_objects ORDER BY nested(message.info) DESC;
@@ -204,7 +204,7 @@ nested(field_expression | field_expression, path_expression)
 
 #### Example query 
 
-The following are examples of a query using nested queries in the `GROUP BY` and `HAVING` clauses:
+The following example query uses nested queries in the `GROUP BY` and `HAVING` clauses:
 
 ```sql
 SELECT count(*) FROM nested_objects GROUP BY nested(message.info) HAVING count(*) > 1;
