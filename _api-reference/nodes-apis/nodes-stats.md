@@ -802,7 +802,7 @@ search.fetch_total | Integer | The total number of shard fetch operations.
 search.fetch_time_in_millis | Integer | The total amount of time for all shard fetch operations, in milliseconds.
 search.fetch_current | Integer | The number of shard fetch operations that are currently running.
 search.scroll_total | Integer | The total number of shard scroll operations.
-search.scroll_time_in_millis | Integer | The total time for all shard scroll operations, in milliseconds.
+search.scroll_time_in_millis | Integer | The total amount of time for all shard scroll operations, in milliseconds.
 search.scroll_current | Integer | The number of shard scroll operations that are currently running.
 search.point_in_time_total | Integer | The total number of shard Point in Time (PIT) contexts that have been created (completed and active) since the node last restarted.
 search.point_in_time_time_in_millis | Integer |  The amount of time that shard PIT contexts have been held open since the node last restarted, in milliseconds.
