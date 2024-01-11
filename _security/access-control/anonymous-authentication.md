@@ -7,13 +7,13 @@ nav_order: 145
 
 # Anonymous authentication
 
-The Security plugin supports anonymous authentication where a user is able to access a cluster without providing credentials. This is useful in cases where you want lots of people to be able to access your cluster with a common set of privileges. 
+The Security plugin supports anonymous authentication, through which a user is able to access a cluster without providing credentials. This is useful in cases where you want lots of people to be able to access your cluster with a common set of privileges. 
 
 ## Configuration
 
 To enable anonymous authentication, you need to modify the `config.yml` file inside the `opensearch-security` configuration subdirectory of your cluster.
 
-In the `config.yml` file, there is an `http` section which includes the `anonymous_auth_enabled` setting: 
+In the `config.yml` file, there is an `http` section, which includes the `anonymous_auth_enabled` setting: 
 
 ```yml
 http:
@@ -70,5 +70,5 @@ anonymous_users_role:
 
 Notice that the role is mapped to `opendistro_security_anonymous_backendrole`, which means that all users with the anonymous user backend role will have these privileges. 
 
-Alternatively, you can complete these steps using the REST API or OpenSearch Security Dashboards. 
+Alternatively, you can complete these steps using the REST API or OpenSearch Dashboards. 
 
