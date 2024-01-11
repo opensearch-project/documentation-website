@@ -13,7 +13,7 @@ redirect_from:
 
 The `nested` function is used to create a query within a query. The following sections describe how and why to use this function in OpenSearch.   
 
-## Using the function in a SELECT clause
+##  the function in a SELECT clause
 
 To extract individual elements from nested object type collections within the `SELECT` clause, use the `nested` function. This process flattens nested structures, generating a Cartesian product when querying against nested collections. 
 
@@ -89,7 +89,7 @@ abc                    | letter2
 
 ## Using the function in a WHERE clause
 
-Nested object documents can be filtered in SQL using the `nested` function in the `WHERE` clause.
+Nested object documents can be filtered in SQL by using the `nested` function in the `WHERE` clause.
 
 ### Syntax
 
@@ -191,7 +191,7 @@ letter1                |
 
 ## Using the function in aggregation queries
 
-Nested fields can be aggregated in the `GROUP BY` clause and filtered in the `HAVING` clause using the `nested` function within SQL queries. 
+Nested fields can be aggregated in the `GROUP BY` clause and filtered in the `HAVING` clause by using the `nested` function within SQL queries. 
 
 ### Syntax
 
