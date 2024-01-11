@@ -808,7 +808,7 @@ search.point_in_time_total | Integer | The total number of shard Point in Time (
 search.point_in_time_time_in_millis | Integer |  The amount of time that shard PIT contexts have been held open since the node last restarted, in milliseconds.
 search.point_in_time_current | Integer | The number of shard PIT contexts currently open.
 search.suggest_total | Integer | The total number of shard suggest operations.
-search.suggest_time_in_millis | Integer | The total time for all shard suggest operations, in milliseconds.
+search.suggest_time_in_millis | Integer | The total amount of time for all shard suggest operations, in milliseconds.
 search.suggest_current | Integer | The number of shard suggest operations that are currently running.
 search.request | Object | Statistics about coordinator search operations for the node.
 search.request.dfs_pre_query.time_in_millis | Integer | The total time for all coordinator depth-first search (DFS) prequery operations, in milliseconds.
