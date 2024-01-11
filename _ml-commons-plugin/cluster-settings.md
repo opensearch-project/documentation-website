@@ -22,13 +22,13 @@ node.roles: [ ml ]
 
 ### Setting up a cluster with a dedicated ML node
 
-To set up a cluster with a dedicated ML node, see the sample [docker compose file](https://github.com/opensearch-project/ml-commons/blob/main/docs/docker/docker-compose.yml).
+To set up a cluster with a dedicated ML node, see the sample [Docker compose file](https://github.com/opensearch-project/ml-commons/blob/main/docs/docker/docker-compose.yml).
 
 ## Run tasks and models on ML nodes only
 
 If `true`, ML Commons tasks and models run ML tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. 
 
-We suggest running ML workloads on a dedicated ML node rather than data nodes. Starting with OpenSearch 2.5, ML tasks run on ML nodes only by default. To test models on a data node, set `plugins.ml_commons.only_run_on_ml_node` to `false`.
+We suggest running ML workloads on a dedicated ML node rather than on data nodes. Starting with OpenSearch 2.5, ML tasks run on ML nodes only by default. To test models on a data node, set `plugins.ml_commons.only_run_on_ml_node` to `false`.
 
 We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on production clusters. 
 {: .tip}
