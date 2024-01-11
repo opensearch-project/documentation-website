@@ -49,7 +49,7 @@ Processor type | Description
 `json` | Converts a JSON string into a structured JSON object. 
 `kv` | Automatically parses key-value pairs in a field.
 `lowercase` | Converts text in a specific field to lowercase letters.
-`pipeline` | Is a series of configurable tasks called processors that run sequentially, making specific changes to incoming documents. 
+`pipeline` | Runs an inner pipeline.
 `remove` | Removes fields from a document.
 `script` | Runs an inline or stored script on incoming documents. 
 `set` | Sets the value of a field to a specified value.
