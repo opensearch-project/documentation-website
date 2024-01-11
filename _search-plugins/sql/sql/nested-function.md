@@ -19,7 +19,7 @@ To extract individual elements from nested object type collections within the `S
 
 ### Syntax
 
-The `field_expression` parameter is required. The `path_expression` parameter is optional. Dot notation is used to show the nesting level for both the `field_expression` and `path_expression` parameters. For example, `nestedObj.innerFieldName` denotes a field nested one level. If the user does not provide the `path_expression` parameter, the path value is generated dynamically. For example, the field `user.office.cubicle` would dynamically generate the path `user.office`. The syntax is shown in the following example:
+The `field_expression` parameter is required. The `path_expression` parameter is optional. Dot notation is used to show the nesting level for both the `field_expression` and `path_expression` parameters. For example, `nestedObj.innerFieldName` denotes a field nested one level deep. If the user does not provide the `path_expression` parameter, the path value is generated dynamically. For example, the field `user.office.cubicle` would dynamically generate the path `user.office`. The syntax is shown in the following example:
 
 ```sql
 nested(field_expression | field_expression, path_expression)
