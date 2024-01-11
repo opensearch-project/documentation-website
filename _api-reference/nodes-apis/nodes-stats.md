@@ -799,7 +799,7 @@ search.query_total | Integer | The total number of shard query operations.
 search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.
 search.query_current | Integer | The number of shard query operations that are currently running.
 search.fetch_total | Integer | The total number of shard fetch operations.
-search.fetch_time_in_millis | Integer | The total time for all shard fetch operations, in milliseconds.
+search.fetch_time_in_millis | Integer | The total amount of time for all shard fetch operations, in milliseconds.
 search.fetch_current | Integer | The number of shard fetch operations that are currently running.
 search.scroll_total | Integer | The total number of shard scroll operations.
 search.scroll_time_in_millis | Integer | The total time for all shard scroll operations, in milliseconds.
