@@ -820,7 +820,7 @@ search.request.query.total | Integer | The total number of coordinator query ope
 search.request.fetch.time_in_millis | Integer | The total amount of time for all coordinator fetch operations, in milliseconds.
 search.request.fetch.current | Integer | The number of coordinator fetch operations that are currently running.
 search.request.fetch.total | Integer | The total number of coordinator fetch operations.
-search.request.dfs_query.time_in_millis | Integer | The total time for all coordinator DFS prequery operations, in milliseconds.
+search.request.dfs_query.time_in_millis | Integer | The total amount of time for all coordinator DFS prequery operations, in milliseconds.
 search.request.dfs_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
 search.request.dfs_query.total | Integer | The total number of coordinator DFS prequery operations.
 search.request.expand.time_in_millis | Integer | The total time for all coordinator expand operations, in milliseconds.
