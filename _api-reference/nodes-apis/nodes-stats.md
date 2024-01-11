@@ -186,7 +186,39 @@ Select the arrow to view the example response.
           "point_in_time_current": 0,
           "suggest_total": 0,
           "suggest_time_in_millis": 0,
-          "suggest_current": 0
+          "suggest_current": 0,
+          "request" : {
+            "dfs_pre_query" : {
+              "time_in_millis" : 0,
+              "current" : 0,
+              "total" : 0
+            },
+            "query" : {
+              "time_in_millis" : 200,
+              "current" : 2,
+              "total" : 12
+            },
+            "fetch" : {
+              "time_in_millis" : 37,
+              "current" : 3,
+              "total" : 4
+            },
+            "dfs_query" : {
+              "time_in_millis" : 0,
+              "current" : 0,
+              "total" : 0
+            },
+            "expand" : {
+              "time_in_millis" : 9,
+              "current" : 1,
+              "total" : 0
+            },
+            "can_match" : {
+              "time_in_millis" : 0,
+              "current" : 0,
+              "total" : 0
+            }
+          }
         },
         "merges" : {
           "current" : 0,
@@ -762,22 +794,41 @@ get.missing_total | Integer | The number of failed get operations.
 get.missing_time_in_millis | Integer | The total time for all failed get operations, in milliseconds.
 get.current | Integer | The number of get operations that are currently running.
 search | Object | Statistics about the search operations for the node.
-search.point_in_time_total | Integer | The total number of Point in Time contexts that have been created (completed and active) since the node last restarted.
-search.point_in_time_time_in_millis | Integer |  The amount of time that Point in Time contexts have been held open since the node last restarted, in milliseconds.
-search.point_in_time_current | Integer | The number of Point in Time contexts currently open.
 search.open_contexts | Integer | The number of open search contexts.
-search.query_total | Integer | The total number of query operations.
-search.query_time_in_millis | Integer | The total time for all query operations, in milliseconds.
-search.query_current | Integer | The number of query operations that are currently running.
-search.fetch_total | Integer | The total number of fetch operations.
-search.fetch_time_in_millis | Integer | The total time for all fetch operations, in milliseconds.
-search.fetch_current | Integer | The number of fetch operations that are currently running.
-search.scroll_total | Integer | The total number of scroll operations.
-search.scroll_time_in_millis | Integer | The total time for all scroll operations, in milliseconds.
-search.scroll_current | Integer | The number of scroll operations that are currently running.
-search.suggest_total | Integer | The total number of suggest operations.
-search.suggest_time_in_millis | Integer | The total time for all suggest operations, in milliseconds.
-search.suggest_current | Integer | The number of suggest operations that are currently running.
+search.query_total | Integer | The total number of shard query operations.
+search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.
+search.query_current | Integer | The number of shard query operations that are currently running.
+search.fetch_total | Integer | The total number of shard fetch operations.
+search.fetch_time_in_millis | Integer | The total amount of time for all shard fetch operations, in milliseconds.
+search.fetch_current | Integer | The number of shard fetch operations that are currently running.
+search.scroll_total | Integer | The total number of shard scroll operations.
+search.scroll_time_in_millis | Integer | The total amount of time for all shard scroll operations, in milliseconds.
+search.scroll_current | Integer | The number of shard scroll operations that are currently running.
+search.point_in_time_total | Integer | The total number of shard Point in Time (PIT) contexts that have been created (completed and active) since the node last restarted.
+search.point_in_time_time_in_millis | Integer |  The amount of time that shard PIT contexts have been held open since the node last restarted, in milliseconds.
+search.point_in_time_current | Integer | The number of shard PIT contexts currently open.
+search.suggest_total | Integer | The total number of shard suggest operations.
+search.suggest_time_in_millis | Integer | The total amount of time for all shard suggest operations, in milliseconds.
+search.suggest_current | Integer | The number of shard suggest operations that are currently running.
+search.request | Object | Statistics about coordinator search operations for the node.
+search.request.dfs_pre_query.time_in_millis | Integer | The total amount of time for all coordinator depth-first search (DFS) prequery operations, in milliseconds.
+search.request.dfs_pre_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
+search.request.dfs_pre_query.total | Integer | The total number of coordinator DFS prequery operations.
+search.request.query.time_in_millis | Integer | The total amount of time for all coordinator query operations, in milliseconds.
+search.request.query.current | Integer | The number of coordinator query operations that are currently running.
+search.request.query.total | Integer | The total number of coordinator query operations.
+search.request.fetch.time_in_millis | Integer | The total amount of time for all coordinator fetch operations, in milliseconds.
+search.request.fetch.current | Integer | The number of coordinator fetch operations that are currently running.
+search.request.fetch.total | Integer | The total number of coordinator fetch operations.
+search.request.dfs_query.time_in_millis | Integer | The total amount of time for all coordinator DFS prequery operations, in milliseconds.
+search.request.dfs_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
+search.request.dfs_query.total | Integer | The total number of coordinator DFS prequery operations.
+search.request.expand.time_in_millis | Integer | The total amount of time for all coordinator expand operations, in milliseconds.
+search.request.expand.current | Integer | The number of coordinator expand operations that are currently running.
+search.request.expand.total | Integer | The total number of coordinator expand operations.
+search.request.can_match.time_in_millis | Integer | The total amount of time for all coordinator match operations, in milliseconds.
+search.request.can_match.current | Integer | The number of coordinator match operations that are currently running.
+search.request.can_match.total | Integer | The total number of coordinator match operations.
 merges | Object | Statistics about merge operations for the node.
 merges.current | Integer | The number of merge operations that are currently running.
 merges.current_docs | Integer | The number of document merges that are currently running.
@@ -879,7 +930,6 @@ recovery.current_as_source | Integer | The number of recovery operations that ha
 recovery.current_as_target | Integer | The number of recovery operations that have used an index shard as a target.
 recovery.throttle_time_in_millis | Integer | The delay of recovery operations due to throttling, in milliseconds.
 
-
 ### `os`
 
 The `os` object has the OS statistics for the node and has the following properties.
@@ -922,7 +972,6 @@ cpu.percent | Integer | The percentage of CPU usage for the process.
 cpu.total_in_millis | Integer | The total CPU time used by the process on which the JVM is running, in milliseconds.
 mem  | Object | Statistics about the memory for the node.
 mem.total_virtual_in_bytes | Integer | The total amount of virtual memory that is guaranteed to be available to the process that is currently running, in bytes.
-
 
 ### `jvm`
 
