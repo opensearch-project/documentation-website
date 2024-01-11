@@ -51,7 +51,7 @@ The settings used in this configuration are described in the following table.
 | `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user is authenticated. If none are found, the user is authenticated as an "anonymous" user. This user then has the username `anonymous` and one role named `anonymous_backendrole`. When you enable anonymous authentication, all defined HTTP authenticators are non-challenging. For more information, see [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
 | `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/). |
 
-For instructions to configure anonymous authentication, see [Anonymous authentication]({{site.url}}{{site.baseurl}}/security//access-control/anonymous-authentication/).  
+For instructions to configure anonymous authentication, see [Anonymous authentication]({{site.url}}{{site.baseurl}}/opensearch/security//access-control/anonymous-authentication/).  
 {: .important }
 
 ## Authentication

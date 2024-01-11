@@ -21,11 +21,11 @@ http:
   ...
 ```
 
-The following table describes the `anonymous_auth_enabled` setting. For more information, see the [configuration]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) file overview. 
+The following table describes the `anonymous_auth_enabled` setting. For more information, see the [configuration]({{site.url}}{{site.baseurl}}/opensearch/security/configuration/configuration/) file overview. 
 
-| Setting | Description |
-| :--- | :--- |
-| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When you enable anonymous authentication, all defined HTTP authenticators are non-challenging. See [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
+| Setting | Description                                                                                                                                                                                                                                                                                   |
+| :--- |:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When you enable anonymous authentication, all defined HTTP authenticators are non-challenging. See [The challenge setting]({{site.url}}{{site.baseurl}}/opensearch/security/authentication-backends/basic-authc/#the-challenge-setting). |
 
 If you disable anonymous authentication, you must provide at least one `authc` in order for the Security plugin to initialize successfully.
 {: .important }
@@ -36,7 +36,7 @@ When anonymous authentication is enabled, your defined HTTP authenticators still
 
 All anonymous users have the username `anonymous` and a single role named `anonymous_backendrole`.
 
-You can configure the privileges associated with the `opendistro_security_anonymous_backendrole` in the [roles.yml]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) file. 
+You can configure the privileges associated with the `opendistro_security_anonymous_backendrole` in the [roles.yml]({{site.url}}{{site.baseurl}}/opensearch/security/access-control/users-roles/) file. 
 
 We recommend that your defined role have very limited privileges. Generally, an anonymous user should **never** be able to write to your cluster.
 {: .important}
