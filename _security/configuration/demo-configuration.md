@@ -3,13 +3,11 @@ layout: default
 title: Setting up a demo configuration
 parent: Configuration
 nav_order: 4
-redirect_from:
- - /security-plugin/configuration/demo-configuration/
 ---
 
 # Demo configuration setup guide
 
-Welcome to the OpenSearch Security plugin's demo configuration setup guide. This tool provides a quick and easy way to replicate a production environment for testing purposes. The demo configuration includes the setup of security-related components such as internal users, roles, role mappings, audit configuration, basic authentication, tenants, and allowlists.
+Welcome to the OpenSearch Security plugin's demo configuration setup guide. This tool provides a quick and easy way to replicate a production environment for testing purposes. The demo configuration includes the setup of security-related components such as internal users, roles, role mappings, audit configuration, basic authentication, tenants, and allow lists.
 
 ## Overview
 
@@ -23,13 +21,13 @@ The demo configuration tool performs the following tasks:
 
 The demo configuration is automatically called as part of the setup for each supported distribution of OpenSearch. Following are the instructions per distribution.
 
-**Note**: Starting from OpenSearch 2.12, a custom admin password is required to install demo configuration. If none is provided, the cluster would fail to start. Please note, that this change affects fresh clusters only. Already setup clusters are not affected, as they already have `opensearch.yml` configured, and so the installation tool will not run. 
+**Note**: Starting from OpenSearch 2.12, a custom admin password is required to install demo configuration. If none is provided, the cluster would fail to start. Note, that this change affects fresh clusters only. Already setup clusters are not affected, as they already have `opensearch.yml` configured, and so the installation tool will not run. 
 
 ### Docker
 
 Follow these steps to set up OpenSearch Security using Docker:
 
-1. [Download docker-compose.yml](https://opensearch.org/downloads.html)
+1. Download [docker-compose.yml](https://opensearch.org/downloads.html)
 2. Ensure that the `DISABLE_SECURITY_PLUGIN` environment variable is not set to true.
 3. Run the following command in your terminal:
 ```bash
