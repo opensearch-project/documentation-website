@@ -30,7 +30,7 @@ Values from the command line argument have higher priority than the environment 
 The following command requests a report with basic authentication in PNG format:
 
 ```
-opensearch-reporting-cli --url https://localhost:5601/app/dashboards#/view/7adfa750-4c81-11e8-b3d7-01146121b73d --format png --auth basic --credentials admin:< Admin password >
+opensearch-reporting-cli --url https://localhost:5601/app/dashboards#/view/7adfa750-4c81-11e8-b3d7-01146121b73d --format png --auth basic --credentials admin:<custom-admin-password>
 ```
 
 Upon success, the report will download to the current directory.

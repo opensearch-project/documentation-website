@@ -28,7 +28,7 @@ Replication rules are a collection of patterns that you create against a single 
 Create a replication rule on the follower cluster:
 
 ```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:< Admin password >' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
+curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
 {
    "leader_alias" : "my-connection-alias",
    "name": "my-replication-rule",
@@ -46,13 +46,13 @@ If the Security plugin is disabled, you can leave out the `use_roles` parameter.
 To test the rule, create a matching index on the leader cluster:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:< Admin password >' 'https://localhost:9201/movies-0001?pretty'
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9201/movies-0001?pretty'
 ```
 
 And confirm its replica shows up on the follower cluster:
 
 ```bash
-curl -XGET -u 'admin:< Admin password >' -k 'https://localhost:9200/_cat/indices?v'
+curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/_cat/indices?v'
 ```
 
 It might take several seconds for the index to appear.
@@ -67,7 +67,7 @@ yellow open   movies-0001  kHOxYYHxRMeszLjTD9rvSQ     1   1          0          
 To retrieve a list of existing replication rules that are configured on a cluster, send the following request:
 
 ```bash
-curl -XGET -u 'admin:< Admin password >' -k 'https://localhost:9200/_plugins/_replication/autofollow_stats'
+curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/_plugins/_replication/autofollow_stats'
 
 {
    "num_success_start_replication": 1,
@@ -96,7 +96,7 @@ curl -XGET -u 'admin:< Admin password >' -k 'https://localhost:9200/_plugins/_re
 To delete a replication rule, send the following request to the follower cluster:
 
 ```bash
-curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:< Admin password >' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
+curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
 {
    "leader_alias" : "my-conection-alias",
    "name": "my-replication-rule"

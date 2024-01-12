@@ -63,7 +63,7 @@ This should result in a single document being written to the OpenSearch cluster 
 Run the following command to see one of the raw documents in the OpenSearch cluster:
 
 ```bash
-curl -X GET -u 'admin:< Admin password >' -k 'https://localhost:9200/apache_logs/_search?pretty&size=1'
+curl -X GET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/apache_logs/_search?pretty&size=1'
 ```
 
 The response should show the parsed log data:
