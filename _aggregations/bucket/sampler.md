@@ -8,7 +8,7 @@ nav_order: 170
 
 # Sampler aggregations
 
-If you're aggregating over millions of documents, you can use a `sampler` aggregation to reduce its scope to a small sample of documents for a faster response. The `sampler` aggregation selects the samples by top-scoring documents.
+If you're aggregating a very large number of documents, you can use a `sampler` aggregation to reduce its scope to a small sample of documents for a faster response. The `sampler` aggregation selects the samples by top-scoring documents.
 
 The results are approximate but closely represent the distribution of the real data. The `sampler` aggregation significantly improves query performance, but the estimated responses are not entirely reliable.
 
@@ -24,6 +24,8 @@ The basic syntax is:
   }
 }
 ```
+
+### shard_size
 
 The `shard_size` property tells OpenSearch how many documents (at most) to collect from each shard.
 
