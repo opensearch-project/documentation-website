@@ -49,10 +49,10 @@ For TAR distribution on Linux, after downloading and extracting:
 $ ./opensearch-tar-install.sh
 ```
 
-**Note**: For OpenSearch 2.12 and later, set the initial admin password before installation:
+For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
 
 ```bash
-$ export OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password >
+$ export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
 ```
 
 ### Windows
@@ -63,10 +63,10 @@ For ZIP distribution on Windows, after downloading and extracting:
 > .\opensearch-windows-install.bat
 ```
 
-**Note**: For OpenSearch 2.12 and later, set the initial admin password before installation:
+For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
 
 ```powershell
-> set OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password >
+> set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
 ```
 
 ### Helm
@@ -76,7 +76,7 @@ For Helm charts, the demo configuration is automatically handled during the Open
 ```yaml
 extraEnvs:
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    value: < Admin password >
+    value: <custom-admin-password>
 ```
 
 ### RPM
@@ -87,10 +87,10 @@ For RPM packages, install OpenSearch and set up the demo configuration using:
 $ sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
 ```
 
-**Note**: For OpenSearch 2.12 and later, set the initial admin password before installation:
+For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
 
 ```bash
-$ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password > yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+$ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
 ```
 
 ### DEB
@@ -101,14 +101,14 @@ For DEB packages, install OpenSearch and set up the demo configuration using:
 $ sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
 ```
 
-**Note**: For OpenSearch 2.12 and later, set the initial admin password before installation:
+For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
 
 ```bash
-$ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=< Admin password > dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
+$ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
 ```
 
 ### Local distribution
 
 If you are building a local distribution, refer to the [DEVELOPER_GUIDE.md](https://github.com/opensearch-project/security/blob/main/DEVELOPER_GUIDE.md) for instructions on building a local binary for the Security plugin.
 
-**Note**: For OpenSearch 2.12 and later, ensure that a strong password is set before installation.
+For OpenSearch 2.12 or greater, make sure that a strong password is set before installation.
