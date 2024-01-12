@@ -978,6 +978,9 @@ body {
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
+  @include mq(md) {
+    padding: 0.5rem 2rem;
+  }
 }
 
 .site-category {
