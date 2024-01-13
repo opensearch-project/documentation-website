@@ -107,7 +107,7 @@ layout: table_wrappers
                       
                       {% assign collection_url_path = collection_key | append: "/" %}
                       {% assign category_comparison_url = "/" | append: collection_url_path %}
-                      {%- if collection.size > 0 -%}
+                      {%- if collection.size > 1 -%}
                         <a 
                           role="treeitem"
                           aria-owns="{{ owned_tree_id }}"
