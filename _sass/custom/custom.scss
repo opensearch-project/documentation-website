@@ -72,6 +72,10 @@ nav#site-nav > .nav-list:nth-of-type(1) {
   display: block;
 }
 
+.nav-shadow {
+  box-shadow: 0 8px 6px -6px $grey-lt-300 ;
+}
+
 .main-content {
   ol {
     > li {
