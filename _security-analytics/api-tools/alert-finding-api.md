@@ -23,11 +23,11 @@ You can specify the following parameters when requesting an alert.
 Parameter | Description 
 :--- | :---
 `detector_id` | The ID of the detector used to fetch alerts. Optional when the `detectorType` is specified. Otherwise required.
-`detectorType` | The type of detector used to fetch alerts. Optional when the `detectorId` is specified. Otherwise required.
+`detectorType` | The type of detector used to fetch alerts. Optional when the `detector_Id` is specified. Otherwise required.
 `severityLevel` | Used to filter by alert severity level. Optional.
-`alertState` | Used to filter by alert state. Possible values: ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, DELETED. Optional.
+`alertState` | Used to filter by alert state. Possible values are ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, or DELETED. Optional.
 `sortString` | This field specifies which string Security Analytics uses to sort the alerts. Optional.
-`sortOrder` | The order used to sort the list of findings, either `asc` or `desc`. Optional.
+`sortOrder` | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional.
 `missing` | A list of fields for which there are no found alias mappings. Optional.
 `size` | An optional limit for the maximum number of results returned in the response. Optional.
 `startIndex` | The pagination indicator. Optional.
@@ -150,8 +150,8 @@ You can specify the following parameters when getting findings.
 Parameter | Description 
 :--- | :---
 `detector_id` | The ID of the detector used to fetch alerts. Optional when the `detectorType` is specified. Otherwise required.
-`detectorType` | The type of detector used to fetch alerts. Optional when the `detectorId` is specified. Otherwise required.
-`sortOrder` | The order used to sort the list of findings, either `asc` or `desc`. Optional.
+`detectorType` | The type of detector used to fetch alerts. Optional when the `detector_id` is specified. Otherwise required.
+`sortOrder` | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional.
 `size` | An optional limit for the maximum number of results returned in the response. Optional.
 
 ### Example request
