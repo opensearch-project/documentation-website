@@ -15,6 +15,8 @@ redirect_from:
 {%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # OpenSearch and OpenSearch Dashboards
+**Version {{site.opensearch_version}}**
+{: .label .label-blue }
 
 This section contains documentation for OpenSearch and OpenSearch Dashboards.
 
