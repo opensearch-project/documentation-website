@@ -82,7 +82,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
 
 - Create
 
-  Creates a document if it doesn't already exist and returns an error otherwise. The next line must include a JSON document.
+  Creates a document if it doesn't already exist and returns an error otherwise. The next line must include a JSON document:
 
   ```json
   { "create": { "_index": "movies", "_id": "tt1392214" } }
@@ -91,7 +91,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
 
 - Delete
 
-  This action deletes a document if it exists. If the document doesn't exist, OpenSearch doesn't return an error, but instead returns `not_found` under `result`. Delete actions don't require documents on the next line.
+  This action deletes a document if it exists. If the document doesn't exist, OpenSearch doesn't return an error, but instead returns `not_found` under `result`. Delete actions don't require documents on the next line:
 
   ```json
   { "delete": { "_index": "movies", "_id": "tt2229499" } }
@@ -99,7 +99,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
 
 - Index
 
-  Index actions create a document if it doesn't yet exist and replace the document if it already exists. The next line must include a JSON document.
+  Index actions create a document if it doesn't yet exist and replace the document if it already exists. The next line must include a JSON document:
 
   ```json
   { "index": { "_index": "movies", "_id": "tt1979320" } }
@@ -108,25 +108,27 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
 
 - Update
 
-  This action updates existing documents and returns an error if the document doesn't exist. The next line must include a full or partial JSON document, depending on how much of the document you want to update.
+  By default, this action updates existing documents and returns an error if the document doesn't exist. The next line must include a full or partial JSON document, depending on how much of the document you want to update:
 
   ```json
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "doc" : { "title": "World War Z" } }
   ```
 
-  It can also include a script or upsert for more complex document updates.
-
-  - Script
-  ```json
-  { "update": { "_index": "movies", "_id": "tt0816711" } }
-  { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
-  ```
+  To upsert a document, specify `doc_as_upsert` as `true`. If a document exists, it is updated; if it does not exist, a new document is indexed with the parameters specified in the `doc` field: 
 
   - Upsert
   ```json
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
+  ```
+
+  You can specify a script for more complex document updates:
+
+  - Script
+  ```json
+  { "update": { "_index": "movies", "_id": "tt0816711" } }
+  { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
   ```
 
 ## Response

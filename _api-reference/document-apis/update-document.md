@@ -11,7 +11,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want in your index or by including a script in your request body, which OpenSearch runs to update the document.
+If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want in your index or by including a script in your request body, which OpenSearch runs to update the document. By default, the update operation only updates a document that exists in the index. If a document does not exist, the API returns an error. To _upsert_ a document (update the document that exists or index a new one), use the [upsert](#upsert) operation.
 
 ## Example
 
@@ -65,7 +65,7 @@ wait_for_active_shards | String | The number of active shards that must be avail
 
 ## Request body
 
-Your request body must contain the information you want to update your document with. If you just want to replace certain fields in your document, your request body must include a `doc` object, which has the fields you want to update.
+Your request body must contain the information you want to update your document with. If you only want to replace certain fields in your document, your request body must include a `doc` object, which has the fields you want to update:
 
 ```json
 {
@@ -76,7 +76,7 @@ Your request body must contain the information you want to update your document 
 }
 ```
 
-You can also use a script to tell OpenSearch how to update your document.
+You can also use a script to tell OpenSearch how to update your document:
 
 ```json
 {
@@ -90,11 +90,14 @@ You can also use a script to tell OpenSearch how to update your document.
 }
 ```
 
-### Upsert
+## Upsert
 
-Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. In the following example, the `upsert` operation updates the `last name` and adds the `first_name` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
+Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. 
+
+In the following example, the `upsert` operation updates the `last name` and adds the `first_name` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
 
 ```json
+POST /sample-index1/_update/1
 {
   "doc": {
     "first_name": "Martha",
@@ -106,9 +109,53 @@ Upsert is an operation that conditionally either updates an existing document or
   }
 }
 ```
-You can also add `doc_as_upsert` to the request and set it to `true` to use the information in `doc` for performing the upsert operation.
+
+Consider an index that contains the following document:
 
 ```json
+{
+  "_index": "sample-index1",
+  "_id": "1",
+  "_score": 1,
+  "_source": {
+    "first_name": "Bruce",
+    "last_name": "Wayne"
+  }
+}
+```
+
+After the upsert operation, the document's `first_name` and `last_name` fields are updated:
+
+```json
+{
+  "_index": "sample-index1",
+  "_id": "1",
+  "_score": 1,
+  "_source": {
+    "first_name": "Martha",
+    "last_name": "Rivera"
+  }
+}
+```
+
+If the document does not exist in the index, a new document is indexed with the fields specified in the `upsert` object:
+
+```json
+{
+  "_index": "sample-index1",
+  "_id": "1",
+  "_score": 1,
+  "_source": {
+    "last_name": "Oliveira",
+    "age": "31"
+  }
+}
+```
+
+You can also add `doc_as_upsert` to the request and set it to `true` to use the information in `doc` for performing the upsert operation:
+
+```json
+POST /sample-index1/_update/1
 {
   "doc": {
     "first_name": "Martha",
@@ -116,6 +163,35 @@ You can also add `doc_as_upsert` to the request and set it to `true` to use the 
     "age": "31"
   },
   "doc_as_upsert": true
+}
+```
+
+Consider an index that contains the following document:
+
+```json
+{
+  "_index": "sample-index1",
+  "_id": "1",
+  "_score": 1,
+  "_source": {
+    "first_name": "Bruce",
+    "last_name": "Wayne"
+  }
+}
+```
+
+After the upsert operation, the document's `first_name` and `last_name` fields are updated and an `age` field is added. If the document does not exist in the index, a new document is indexed with the fields specified in the `upsert` object. In both cases, the document is as follows:
+
+```json
+{
+  "_index": "sample-index1",
+  "_id": "1",
+  "_score": 1,
+  "_source": {
+    "first_name": "Martha",
+    "last_name": "Oliveira",
+    "age": "31"
+  }
 }
 ```
 
