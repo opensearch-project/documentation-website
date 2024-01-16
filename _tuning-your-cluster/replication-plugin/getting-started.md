@@ -237,7 +237,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?prett
   }]
 }
 ```
-### `.replication-metadata-store index`:
+### `.replication-metadata-store` index
 
 1. `.replication-metadata-store` index serves as a persistent store for replication-related metadata and auto-follow rules within a cluster. It stores the replication metadata of each index getting replicated from the leader  to follower opensearch cluster.
 
