@@ -83,6 +83,6 @@ You can derive metrics from traces and find anomalies in these generated metrics
 
 - `service-map-pipeline` – Aggregates and analyzes it to create documents that represent connections between services. It sends these documents to an OpenSearch index named `otel-v1-apm-service-map`. You can then see a visualization of the service map through the [Trace Analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) plugin for OpenSearch Dashboards.
 
-- `trace-to-metrics-pipeline` -–Aggregates and derives histogram metrics from the traces based on the value of the `serviceName`. It then sends the derived metrics to an OpenSearch index named `metrics_for_traces` and to the `trace-to-metrics-anomaly-detector-pipeline` sub-pipeline.
+- `trace-to-metrics-pipeline` - Aggregates and derives histogram metrics from the traces based on the value of the `serviceName`. It then sends the derived metrics to an OpenSearch index named `metrics_for_traces` and to the `trace-to-metrics-anomaly-detector-pipeline` sub-pipeline.
 
 The `trace-to-metrics-anomaly-detector-pipeline` sub-pipeline receives the aggregated histogram metrics from the `trace-to-metrics-pipeline` and sends them to the Anomaly detector processor to detect anomalies using the Random Cut Forest algorithm. If it detects any anomalies, it sends them to an OpenSearch index named `trace-metric-anomalies`.
