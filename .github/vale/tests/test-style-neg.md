@@ -32,6 +32,10 @@ This sentence tests Latin substitution through using Latin.
 
 ## This heading: Tests colons but fails capitalization
 
+This sentence tests [links double parentheses]({{site.url}}{{site.baseurl}}/opensearch/).
+
+This sentence tests [links double slash]({{site.url}}{{site.baseurl}}/opensearch/).
+
 This sentence tests [links end slash]({{site.url}}{{site.baseurl}}/opensearch/).
 
 This sentence tests [links mid slash]({{site.url}}{{site.baseurl}}/opensearch/).
