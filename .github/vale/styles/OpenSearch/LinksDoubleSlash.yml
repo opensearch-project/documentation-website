@@ -1,0 +1,7 @@
+extends: existence
+message: "Remove double slashes from the link '%s'."
+level: error
+nonword: true
+scope: raw
+tokens:
+  - '\(\{\{site.url\}\}\{\{site.baseurl\}\}.*\/{2,}.*\)'
