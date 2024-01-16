@@ -25,7 +25,7 @@ patten-matching-pipeline:
           message: ['%{IPORHOST:clientip} \[%{HTTPDATE:timestamp}\] %{NUMBER:response_status:int}']
   sink:
     - opensearch:
-        # Provide a Data Prepper domain endpoint
+        # Provide an OpenSearch cluster endpoint
 ```
 {% include copy-curl.html %}
 
