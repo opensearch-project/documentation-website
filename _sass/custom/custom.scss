@@ -58,6 +58,13 @@ code {
 
 .nav-category {
   text-align: start;
+  display: block;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.nav-list-expander {
+  margin-right: 0.5rem;
 }
 
 .main-content {
@@ -885,10 +892,7 @@ main {
 }
 
 .site-nav.nav-open {
-  padding-top: .5rem;
-  @include mq(md) {
-    padding-top: 2rem;
-  }
+  padding-top: 0;
 }
 
 .label {
@@ -931,13 +935,13 @@ main {
   top: 0;
   z-index: 9999999;
   background-color: $sidebar-color;
+  border-bottom: 1px solid #eeebee;
 }
 
 version-selector {
   z-index: 1;
   font-size: .9rem;
-  margin: 0.5rem 3px;
-
+  margin: 0.5rem 3px 1rem 3px;
   --normal-bg: linear-gradient(#{lighten($blue-300, 5%)}, #{darken($blue-300, 2%)});
   --hover-bg: linear-gradient(#{lighten($blue-300, 2%)}, #{darken($blue-300, 4%)});
   --link-color: #{$blue-300};
@@ -972,16 +976,18 @@ body {
   text-align: start;
   display: block;
   font-size: 0.9rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
-  padding-top: 0.5rem;
-  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  @include mq(md) {
+    padding: 0.5rem 2rem;
+  }
 }
 
 .site-category {
   @extend .back-link;
   padding-top: 1.5rem;
   padding-bottom: 0.5rem;
+  margin-top: 0;
   font-size: 0.8rem;
   color: $blue-dk-300;
   font-weight: 600;
