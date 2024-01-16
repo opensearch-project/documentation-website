@@ -241,7 +241,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?prett
 
 The `.replication-metadata-store` index is a persistent data store for replication-related metadata and auto-follow rules inside of a cluster. It stores the replication metadata of each index getting replicated from the leading cluster to the follower cluster.
 
-2. The index is created in the follower cluster upon the initiation of the first replication API trigger. Any updation/addition in the replication jobs/rules also get updated in the index. This enables the plugin to maintain a comprehensive record of replication status and rules across clusters.
+After the first replication API trigger, the `.replication-metadata-store` index is created inside the follower cluster. Any update or addition to replication jobs or rules also get updated in the index. This enables the plugin to maintain a comprehensive record of replication status and rules across clusters.
    
    Note: `.replication-metdata-store` is marked as a hidden index.
 
