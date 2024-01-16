@@ -243,7 +243,8 @@ The `.replication-metadata-store` index is a persistent data store for replicati
 
 After the first replication API trigger, the `.replication-metadata-store` index is created inside the follower cluster. Any update or addition to replication jobs or rules also get updated in the index. This enables the plugin to maintain a comprehensive record of replication status and rules across clusters.
    
-   Note: `.replication-metdata-store` is marked as a hidden index.
+ `.replication-metdata-store` is a hidden index.
+ {: .note}
 
 ## Pause and resume replication
 
