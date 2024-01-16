@@ -67,6 +67,10 @@ code {
   margin-right: 0.5rem;
 }
 
+.nav-shadow {
+  box-shadow: 0 6px 4px -4px $grey-lt-300;
+}
+
 .main-content {
   ol {
     > li {
