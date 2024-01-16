@@ -91,7 +91,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
 
 - Delete
 
-  This action deletes a document if it exists. If the document doesn't exist, OpenSearch doesn't return an error, but instead returns `not_found` under `result`. Delete actions don't require documents on the next line:
+  This action deletes a document if it exists. If the document doesn't exist, OpenSearch doesn't return an error but instead returns `not_found` under `result`. Delete actions don't require documents on the next line:
 
   ```json
   { "delete": { "_index": "movies", "_id": "tt2229499" } }
