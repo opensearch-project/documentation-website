@@ -9,6 +9,7 @@
 [Bb]igram
 Boolean
 [Cc]allout
+[Cc]hatbots?
 [Cc]odec
 [Cc]omposable
 [Cc]onfig
@@ -17,6 +18,7 @@ Boolean
 [Dd]ashboarding
 [Dd]atagram
 [Dd]eallocate
+[Dd]eduplicates?
 [Dd]eduplication
 [Dd]eserialize
 [Dd]eserialization
@@ -62,6 +64,7 @@ Levenshtein
 [Ll]ossy
 [Ll]owercases?d?
 [Mm]acrobenchmarks?
+[Mm]etaphone
 [Mm]isorder
 [Mm]ultifield
 [Mm]ultiline
@@ -70,6 +73,7 @@ Levenshtein
 [Mm]ultipolygon
 [Mm]ultithreaded
 [Mm]ultivalued
+[Mm]ultiword
 [Nn]amespace
 pebibyte
 [Pp]luggable
@@ -100,6 +104,7 @@ pebibyte
 [Ss]harding
 [Ss]ignificand
 stdout
+[Ss]temmers?
 [Ss]ubaggregation
 [Ss]ubcalculation
 [Ss]ubcollectors?
@@ -110,6 +115,7 @@ stdout
 [Ss]ubtag
 [Ss]ubtree
 [Ss]ubvector
+[Ss]ubwords?
 [Ss]uperset
 tebibyte
 [Tt]emplated
