@@ -45,7 +45,7 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
-   For OpenSearch 2.12 and higher, a custom admin password is required to be passed in order to set up security demo configuration. This can be done by following:
+   For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
    ```bash
    # x64
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb

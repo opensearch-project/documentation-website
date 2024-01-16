@@ -57,7 +57,7 @@ This guide assumes that you are comfortable working from the Linux command line 
    # Install the arm64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
-   For OpenSearch 2.12 and higher, a custom admin password is required to be passed in order to set up security demo configuration. This can be done by following:
+For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
    ```bash
     # Install the x64 package using yum.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
@@ -70,7 +70,6 @@ This guide assumes that you are comfortable working from the Linux command line 
 
    # Install the arm64 package using rpm.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   ```
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
     sudo systemctl enable opensearch
