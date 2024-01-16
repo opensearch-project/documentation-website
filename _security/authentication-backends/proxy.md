@@ -49,7 +49,7 @@ To determine whether a request comes from a trusted internal proxy, the Security
 
 ## Enable proxy authentication
 
-Configure the names of the HTTP header fields that carry the authenticated username and role(s) in in the `proxy` HTTP authenticator section:
+Configure the names of the HTTP header fields that carry the authenticated username and role(s) in the `proxy` HTTP authenticator section:
 
 ```yml
 proxy_auth_domain:

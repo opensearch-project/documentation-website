@@ -50,7 +50,7 @@ You can use an ML model in one of the following ways:
 
 ### Making predictions
 
-[Models trained]({{site.url}}{{site.baseurl}}//ml-commons-plugin/api/train-predict/train/) through the ML Commons plugin support model-based algorithms, such as k-means. After you've trained a model to your precision requirements, use the model to [make predictions]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/). 
+[Models trained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/) through the ML Commons plugin support model-based algorithms, such as k-means. After you've trained a model to your precision requirements, use the model to [make predictions]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/). 
 
 If you don't want to use a model, you can use the [Train and Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/) to test your model without having to evaluate the model's performance.
 
