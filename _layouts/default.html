@@ -100,7 +100,7 @@ layout: table_wrappers
                 {% if collection_value.nav_fold == true %}
                   <ul class="nav-list nav-category-list">
                     <li class="nav-list-item{% if page.collection == collection_key %} active{% endif %}">
-                      {%- if collection.size > 0 -%}
+                      {%- if collection.size > 1 -%}
                       <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                       {%- endif -%}
                       {% assign collection_url_path = collection_key | append: "/index/" %}
