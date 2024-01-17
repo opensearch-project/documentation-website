@@ -27,7 +27,7 @@ The following table lists the required and optional parameters for the `dot_expa
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The field to expand into an object field. |
-`path` | Optional | The field is only required if the field to be expanded is nested within another object field. This is because the `field` parameter only recognizes leaf fields, which are fields that are not nested within any other objects. |
+`path` | Optional | The field is only required if the field to be expanded is nested within another object field. This is because the `field` parameter only recognizes leaf fields. |
 `description`  | Optional  | A brief description of the processor. |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
@@ -40,24 +40,24 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
  
-The following query creates a dot expander processor that will expand two fields named `user.address.city` and `user.address.state` into nested objects:
+The following query creates a `dot_expander` processor that will expand two fields named `user.address.city` and `user.address.state` into nested objects:
 
 ```json
-PUT /_ingest/pipeline/dot-expander
+PUT /_ingest/pipeline/dot-expander-pipeline
 {
-    "description": "Dot expander processor",
-    "processors": [
-        {
-            "dot_expander": {
-                "field": "user.address.city"
-            }
-        },
-        {
-            "dot_expander": {
-                "field": "user.address.state"
-            }
-        }
-    ]
+  "description": "Dot expander processor",
+  "processors": [
+    {
+      "dot_expander": {
+        "field": "user.address.city"
+      }
+    },
+    {
+      "dot_expander":{
+       "field": "user.address.state"
+      }
+    }
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -70,18 +70,18 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/dot-expander/_simulate  
-{  
-  "docs": [  
-    {  
-      "_index": "testindex1",  
-      "_id": "1",  
-      "_source": {  
-        "user.address.city": "New York",  
-        "user.address.state": "NY"  
-      }  
-    }  
-  ]  
+POST _ingest/pipeline/dot-expander-pipeline/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "user.address.city": "New York",
+        "user.address.state": "NY"
+      }
+    }
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -106,7 +106,7 @@ The following example response confirms that the pipeline is working as expected
           }
         },
         "_ingest": {
-          "timestamp": "2024-01-04T21:00:42.053781253Z"
+          "timestamp": "2024-01-17T01:32:56.501346717Z"
         }
       }
     }
@@ -119,10 +119,10 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-PUT testindex1/_doc/1?pipeline=dot-expander  
-{  
-  "user.address.city": "Denver",  
-  "user.address.state": "CO"  
+PUT testindex1/_doc/1?pipeline=dot-expander-pipeline
+{
+  "user.address.city": "Denver",
+  "user.address.state": "CO"
 }
 ```
 {% include copy-curl.html %}
@@ -144,9 +144,9 @@ The following response confirms that the specified fields were expanded into nes
 {
   "_index": "testindex1",
   "_id": "1",
-  "_version": 63,
-  "_seq_no": 62,
-  "_primary_term": 33,
+  "_version": 1,
+  "_seq_no": 3,
+  "_primary_term": 1,
   "found": true,
   "_source": {
     "user": {
@@ -159,53 +159,215 @@ The following response confirms that the specified fields were expanded into nes
 }
 ```
 
-## Nested fields
+## The `path` parameter
 
-If a field is nested within a structure without dots, you can use the `path` parameter to traverse the non-dotted structure. For example, if you have the field `user.address`, you can use the `dot_expander processor` to expand it into an object field named `user` with a nested field named `address`, as shown in the following example: 
+You can use the `path` parameter to specify the path to a dotted field within an object. For example, the following pipeline specifies the `address.city` field that is located within `user` object: 
 
 ```json
+PUT /_ingest/pipeline/dot-expander-pipeline
 {
-    "dot_expander": {
-        "path": "user.address",
-        "field": "<insert-field>"
+  "description": "Dot expander processor",
+  "processors": [
+    {
+      "dot_expander": {
+        "field": "address.city",
+        "path": "user"
+      }
+    },
+    {
+      "dot_expander":{
+       "field": "address.state",
+       "path": "user"
+      }
     }
+  ]
 }
 ```
+{% include copy-curl.html %}
 
-Then take for example the following document: 
+Simulate the pipeline as follows: 
 
 ```json
-<insert-code-example>
+POST _ingest/pipeline/dot-expander-pipeline/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "user": {
+          "address.city": "New York",
+          "address.state": "NY"
+        }
+      }
+    }
+  ]
+}
 ```
+{% include copy-curl.html %}
 
 The `dot_expander` processor transforms the document into:
 
 ```json
-<insert-code-example>
+{
+  "user": {
+    "address": {
+      "city": "New York",
+      "state": "NY"
+    }
+  }
+}
 ```
 
-To ensure proper expansion of the `user.address.city` and `user.address.state` fields and handle conflicts with pre-existing fields, use a similar configuration as the following document: 
+## Field name conflicts
+
+If there already exists a field with the same path as the path where the `dot_expander` processor should expand the value, the processor merges the two values into an array.
+
+Consider the following pipeline that expands the field `user.name`:
 
 ```json
-<insert-code-example>
+PUT /_ingest/pipeline/dot-expander-pipeline
+{
+  "description": "Dot expander processor",
+  "processors": [
+    {
+      "dot_expander": {
+        "field": "user.name"
+      }
+    }
+  ]
+}
 ```
+{% include copy-curl.html %}
 
-To ensure the correct expansion of the `city` and `state` fields, the following pipeline uses the `rename` processor to prevent conflicts and allow for proper handling of scalar fields during expansion.
+Simulate the pipeline with a document where there are two values with the exact same path `user.name`:
+
+```json
+POST _ingest/pipeline/dot-expander-pipeline/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "user.name": "John", 
+        "user": {
+          "name": "Steve"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response shows that the values were merged into an array:
 
 ```json
 {
-    "processors": [
-      {
-        "rename": {
-            "field": "user.address",
-            "target_field": "user.address.original"
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "user": {
+            "name": [
+              "Steve",
+              "John"
+            ]
+          }
+        },
+        "_ingest": {
+          "timestamp": "2024-01-17T01:44:57.420220551Z"
         }
-      },
-      {
-        "dot_expander": {
-            "field": "user.address.original"
+      }
+    }
+  ]
+}
+```
+
+If there is a field name with a same name but a different path field needs to be renamed. For example, the following simulate call returns a parse exception:
+
+```json
+POST _ingest/pipeline/dot-expander-pipeline/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "user": "John",
+        "user.name": "Steve"
+      }
+    }
+  ]
+}
+```
+
+To avoid the parse exception, rename the field first using the `rename` processor:
+
+```json
+PUT /_ingest/pipeline/dot-expander-pipeline
+{
+  "processors" : [
+    {
+      "rename" : {
+        "field" : "user",
+        "target_field" : "user.name"
+      }
+    },
+    {
+      "dot_expander": {
+        "field": "user.name"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Now simulate the pipeline:
+
+```json
+POST _ingest/pipeline/dot-expander-pipeline/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex1",
+      "_id": "1",
+      "_source": {
+        "user": "John",
+        "user.name": "Steve"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response confirms that the fields are merged:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex1",
+        "_id": "1",
+        "_source": {
+          "user": {
+            "name": [
+              "John",
+              "Steve"
+            ]
+          }
+        },
+        "_ingest": {
+          "timestamp": "2024-01-17T01:52:12.864432419Z"
         }
-      }  
-    ]
+      }
+    }
+  ]
 }
 ```
