@@ -87,7 +87,7 @@ State | Description
 
 ## Acknowledge alerts
 
-Gives an acknowledgement when an alert is triggered.
+Sends an acknowledgement when an alert is triggered.
 
 ### Example request
 
