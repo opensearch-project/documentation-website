@@ -26,7 +26,7 @@ The following table lists the required and optional parameters for the `dot_expa
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The field to expand into an object field. |
+`field`  | Required  | The field to be expanded into an object field. |
 `path` | Optional | The field is only required if the field to be expanded is nested within another object field. This is because the `field` parameter only recognizes leaf fields. |
 `description`  | Optional  | A brief description of the processor. |
 `if` | Optional | A condition for running this processor. |
