@@ -346,7 +346,7 @@ POST _ingest/pipeline/dot-expander-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The response confirms that the fields are merged:
+The response confirms that the fields were merged:
 
 ```json
 {
