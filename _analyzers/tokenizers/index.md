@@ -14,7 +14,7 @@ The output of a tokenizer is a stream of tokens. Tokenizers also maintain the fo
 
 - The **order** or **position** of each token: This information is used for word and phrase proximity queries. 
 - The starting and ending positions (**offsets**) of the tokens in the text: This information is used for highlighting search terms. 
-- The token **type**: Some tokenizers (for example, `standard`) classify tokens by type, for example, <ALPHANUM> or <NUM>. Simpler tokenizers (for example, `letter`) only classify tokens as type `word`.
+- The token **type**: Some tokenizers (for example, `standard`) classify tokens by type, for example, `<ALPHANUM>` or `<NUM>`. Simpler tokenizers (for example, `letter`) only classify tokens as type `word`.
 
 You can use tokenizers to define custom analyzers. 
 
