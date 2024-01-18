@@ -240,7 +240,7 @@ PUT /_ingest/pipeline/dot-expander-pipeline
 ```
 {% include copy-curl.html %}
 
-Simulate the pipeline with a document where there are two values with the exact same path `user.name`:
+Simulate the pipeline with a document containing two values with the exact same path `user.name`:
 
 ```json
 POST _ingest/pipeline/dot-expander-pipeline/_simulate
