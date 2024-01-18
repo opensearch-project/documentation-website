@@ -632,13 +632,12 @@ The `operations` directory contains a `default.json` file that lists all of the 
     }
 ```
 
-The `_test-procedures` directory contains a `default.json` file which sets the order of operations performed by the workload. Similar to operations, the `_test-procedures` directory can also contain feature specific test procedures, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples shows the default for test procedures for `nyc_taxis`:
+The `_test-procedures` directory contains a `default.json` file which sets the order of operations performed by the workload. Similar to operations, the `_test-procedures` directory can also contain feature specific test procedures, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples shows the searchable snapshots  test procedures for `nyc_taxis`:
 
 ```json
     {
-      "name": "append-no-conflicts",
-      "description": "Indexes the whole document corpus using a setup that will lead to a larger indexing throughput than the default settings and produce a smaller index (higher compression rate). Document ids are unique so all index operations are append only. After that a couple of queries are run.",
-      "default": true,
+      "name": "searchable-snapshot",
+      "description": "Measuring performance for Searchable Snapshot feature. Based on the default test procedure 'append-no-conflicts'.",
       "schedule": [
         {
           "operation": "delete-index"
@@ -646,7 +645,7 @@ The `_test-procedures` directory contains a `default.json` file which sets the o
         {
           "operation": {
             "operation-type": "create-index",
-            "settings": {%- if index_settings is defined %} {{index_settings | tojson}} {%- else %} {
+            "settings": {%- if index_settings is defined %} {{ index_settings | tojson }} {%- else %} {
               "index.codec": "best_compression",
               "index.refresh_interval": "30s",
               "index.translog.flush_threshold_size": "4g"
@@ -659,7 +658,7 @@ The `_test-procedures` directory contains a `default.json` file which sets the o
             "operation-type": "cluster-health",
             "index": "nyc_taxis",
             "request-params": {
-              "wait_for_status": "{{cluster_health | default('green')}}",
+              "wait_for_status": "{{ cluster_health | default('green') }}",
               "wait_for_no_relocating_shards": "true"
             },
             "retry-until-success": true
@@ -668,8 +667,8 @@ The `_test-procedures` directory contains a `default.json` file which sets the o
         {
           "operation": "index",
           "warmup-time-period": 240,
-          "clients": {{bulk_indexing_clients | default(8)}},
-          "ignore-response-error-level": "{{error_level | default('non-fatal')}}"
+          "clients": {{ bulk_indexing_clients | default(8) }},
+          "ignore-response-error-level": "{{ error_level | default('non-fatal') }}"
         },
         {
           "name": "refresh-after-index",
@@ -678,7 +677,8 @@ The `_test-procedures` directory contains a `default.json` file which sets the o
         {
           "operation": {
             "operation-type": "force-merge",
-            "request-timeout": 7200{%- if force_merge_max_num_segments is defined %},
+            "request-timeout": 7200
+            {%- if force_merge_max_num_segments is defined %},
             "max-num-segments": {{ force_merge_max_num_segments | tojson }}
             {%- endif %}
           }
@@ -689,6 +689,27 @@ The `_test-procedures` directory contains a `default.json` file which sets the o
         },
         {
           "operation": "wait-until-merges-finish"
+        },
+        {
+          "operation": "create-snapshot-repository"
+        },
+        {
+          "operation": "delete-snapshot"
+        },
+        {
+          "operation": "create-snapshot"
+        },
+        {
+          "operation": "wait-for-snapshot-creation"
+        },
+        {
+          "operation": {
+            "name": "delete-local-index",
+            "operation-type": "delete-index"
+          }
+        },
+        {
+          "operation": "restore-snapshot"
         },
         {
           "operation": "default",
@@ -759,203 +780,6 @@ The `_test-procedures` directory contains a `default.json` file which sets the o
           {%-if search_clients is defined and search_clients %}
           ,"clients": {{ search_clients | tojson}}
           {%- endif %}
-        },
-        {
-          "operation": "desc_sort_tip_amount",
-          "warmup-iterations": 50,
-          "iterations": 100
-          {%- if not target_throughput %}
-          ,"target-throughput": 0.5
-          {%- elif target_throughput is string and target_throughput.lower() == 'none' %}
-          {%- else %}
-          ,"target-throughput": {{ target_throughput | tojson }}
-          {%- endif %}
-          {%-if search_clients is defined and search_clients %}
-          ,"clients": {{ search_clients | tojson}}
-          {%- endif %}
-        },
-        {
-          "operation": "asc_sort_tip_amount",
-          "warmup-iterations": 50,
-          "iterations": 100
-          {%- if not target_throughput %}
-          ,"target-throughput": 0.5
-          {%- elif target_throughput is string and target_throughput.lower() == 'none' %}
-          {%- else %}
-          ,"target-throughput": {{ target_throughput | tojson }}
-          {%- endif %}
-          {%-if search_clients is defined and search_clients %}
-          ,"clients": {{ search_clients | tojson}}
-          {%- endif %}
-        }
-      ]
-    },
-    {
-      "name": "append-no-conflicts-index-only",
-      "description": "Indexes the whole document corpus using a setup that will lead to a larger indexing throughput than the default settings and produce a smaller index (higher compression rate). Document ids are unique so all index operations are append only.",
-      "schedule": [
-        {
-          "operation": "delete-index"
-        },
-        {
-          "operation": {
-            "operation-type": "create-index",
-            "settings": {%- if index_settings is defined %} {{index_settings | tojson}} {%- else %} {
-              "index.codec": "best_compression",
-              "index.refresh_interval": "30s",
-              "index.translog.flush_threshold_size": "4g"
-            }{%- endif %}
-          }
-        },
-        {
-          "name": "check-cluster-health",
-          "operation": {
-            "operation-type": "cluster-health",
-            "index": "nyc_taxis",
-            "request-params": {
-              "wait_for_status": "{{cluster_health | default('green')}}",
-              "wait_for_no_relocating_shards": "true"
-            },
-            "retry-until-success": true
-          }
-        },
-        {
-          "operation": "index",
-          "warmup-time-period": 240,
-          "clients": {{bulk_indexing_clients | default(8)}},
-          "ignore-response-error-level": "{{error_level | default('non-fatal')}}"
-        },
-        {
-          "name": "refresh-after-index",
-          "operation": "refresh"
-        },
-        {
-          "operation": {
-            "operation-type": "force-merge",
-            "request-timeout": 7200{%- if force_merge_max_num_segments is defined %},
-            "max-num-segments": {{ force_merge_max_num_segments | tojson }}
-            {%- endif %}
-          }
-        },
-        {
-          "name": "refresh-after-force-merge",
-          "operation": "refresh"
-        },
-        {
-          "operation": "wait-until-merges-finish"
-        }
-      ]
-    },
-    {
-      "name": "append-sorted-no-conflicts-index-only",
-      "description": "Indexes the whole document corpus in an index sorted by pickup_datetime field in descending order (most recent first) and using a setup that will lead to a larger indexing throughput than the default settings and produce a smaller index (higher compression rate). Document ids are unique so all index operations are append only.",
-      "schedule": [
-        {
-          "operation": "delete-index"
-        },
-        {
-          "operation": {
-            "operation-type": "create-index",
-            "settings": {%- if index_settings is defined %} {{index_settings | tojson}} {%- else %} {
-              "index.codec": "best_compression",
-              "index.refresh_interval": "30s",
-              "index.translog.flush_threshold_size": "4g",
-              "index.sort.field": "pickup_datetime",
-              "index.sort.order": "desc"
-            }{%- endif %}
-          }
-        },
-        {
-          "name": "check-cluster-health",
-          "operation": {
-            "operation-type": "cluster-health",
-            "index": "nyc_taxis",
-            "request-params": {
-              "wait_for_status": "{{cluster_health | default('green')}}",
-              "wait_for_no_relocating_shards": "true"
-            },
-            "retry-until-success": true
-          }
-        },
-        {
-          "operation": "index",
-          "warmup-time-period": 240,
-          "clients": {{bulk_indexing_clients | default(8)}},
-          "ignore-response-error-level": "{{error_level | default('non-fatal')}}"
-        },
-        {
-          "name": "refresh-after-index",
-          "operation": "refresh"
-        },
-        {
-          "operation": {
-            "operation-type": "force-merge",
-            "request-timeout": 7200{%- if force_merge_max_num_segments is defined %},
-            "max-num-segments": {{ force_merge_max_num_segments | tojson }}
-            {%- endif %}
-          }
-        },
-        {
-          "name": "refresh-after-force-merge",
-          "operation": "refresh"
-        },
-        {
-          "operation": "wait-until-merges-finish"
-        }
-      ]
-    },
-    {
-      "name": "update",
-      "schedule": [
-        {
-          "operation": "delete-index"
-        },
-        {
-          "operation": {
-            "operation-type": "create-index",
-            "settings": {%- if index_settings is defined %} {{index_settings | tojson}} {%- else %} {
-              "index.number_of_shards": {{number_of_shards | default(1)}},
-              "index.number_of_replicas": {{number_of_replicas | default(0)}},
-              "index.store.type": "{{store_type | default('fs')}}"
-            }{%- endif %}
-          }
-        },
-        {
-          "name": "check-cluster-health",
-          "operation": {
-            "operation-type": "cluster-health",
-            "index": "nyc_taxis",
-            "request-params": {
-              "wait_for_status": "{{cluster_health | default('green')}}",
-              "wait_for_no_relocating_shards": "true"
-            },
-            "retry-until-success": true
-          }
-        },
-        {
-          "operation": "update",
-          "warmup-time-period": 1200,
-          "clients": {{bulk_indexing_clients | default(8)}},
-          "ignore-response-error-level": "{{error_level | default('non-fatal')}}"
-        },
-        {
-          "name": "refresh-after-index",
-          "operation": "refresh"
-        },
-        {
-          "operation": {
-            "operation-type": "force-merge",
-            "request-timeout": 7200{%- if force_merge_max_num_segments is defined %},
-            "max-num-segments": {{ force_merge_max_num_segments | tojson }}
-            {%- endif %}
-          }
-        },
-        {
-          "name": "refresh-after-force-merge",
-          "operation": "refresh"
-        },
-        {
-          "operation": "wait-until-merges-finish"
         }
       ]
     }
