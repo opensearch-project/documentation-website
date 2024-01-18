@@ -7,7 +7,7 @@ nav_order: 60
 
 # Dissect
 
-The `dissect` processor extracts values from an event and maps them to individual fields based on user-defined dissect patterns. The processor is well-suited for field extractions from log messages with a known structure.
+The `dissect` processor extracts values from a document text field and maps them to individual fields based on dissect patterns. The processor is well-suited for field extractions from log messages with a known structure. Unlinke the `grok` processor, `dissect` does not use regular expressions and has a simpler syntax.
 
 ## Syntax
 
