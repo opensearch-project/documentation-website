@@ -13,9 +13,9 @@ All workloads contain the following files and directories:
 - [workload.json](#workloadjson): Contains all of the workload settings.
 - [index.json](#indexjson): Contains the document mappings and parameters, as well as index settings
 - [files.txt](#filestxt): Contains the data corpora file names.
-- [_test-procedures]: Most workloads contain only one default test procedure, which is configured in `default.json`.
-- [_operations]: Contains all of the operations used in test procedures.
-- [workload.py]: Adds more dynamic functionality to the test.
+- [_test-procedures](#_operations-and-_test-procedures): Most workloads contain only one default test procedure, which is configured in `default.json`.
+- [_operations](#_operations-and-_test-procedures): Contains all of the operations used in test procedures.
+- workload.py Adds more dynamic functionality to the test.
 
 ## workload.json
 
