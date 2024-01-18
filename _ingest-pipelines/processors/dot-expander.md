@@ -221,7 +221,7 @@ The `dot_expander` processor transforms the document into the following:
 
 ## Field name conflicts
 
-If there already exists a field with the same path as the path where the `dot_expander` processor should expand the value, the processor merges the two values into an array.
+If a field already exists that has the same path as the path where the `dot_expander` processor should expand the value, the processor merges the two values into an array.
 
 Consider the following pipeline that expands the field `user.name`:
 
