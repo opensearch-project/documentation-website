@@ -8,7 +8,7 @@ has_toc: false
 
 # Tokenizers
 
-A tokenizer receives a stream of characters and splits the text into individual _tokens_. A token is a term (usually, a word) and metadata about this term. For example, a tokenizer can split text on white space so that the text `Actions speak louder than words.` becomes [`Actions`, `speak`, `louder`, `than`, `words.`]. 
+A tokenizer receives a stream of characters and splits the text into individual _tokens_. A token consists of a term (usually, a word) and metadata about this term. For example, a tokenizer can split text on white space so that the text `Actions speak louder than words.` becomes [`Actions`, `speak`, `louder`, `than`, `words.`]. 
 
 The output of a tokenizer is a stream of tokens. Tokenizers also maintain the following metadata about tokens:
 
@@ -42,8 +42,8 @@ Partial word tokenizers parse text into words and generate fragments of those wo
 
 Tokenizer | Description | Example
 :--- | :--- | :---
-`ngram`| - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates n-grams of each word | `My repo` <br>becomes<br> [`M`, `My`, `y`, `y `, <code>&nbsp;</code>, <code>&nbsp;r</code>, `r`, `re`, `e`, `ep`, `p`, `po`, `o`] because the default n-gram length is 1--2 characters. 
-`edge_ngram` | - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates edge n-grams of each word (n-grams that start at the beginning of the word) | `My repo` <br>becomes<br> [`M`, `My`] because the default n-gram length is 1--2 characters. 
+`ngram`| - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates n-grams of each word | `My repo` <br>becomes<br> [`M`, `My`, `y`, `y `, <code>&nbsp;</code>, <code>&nbsp;r</code>, `r`, `re`, `e`, `ep`, `p`, `po`, `o`] <br> because the default n-gram length is 1--2 characters 
+`edge_ngram` | - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates edge n-grams of each word (n-grams that start at the beginning of the word) | `My repo` <br>becomes<br> [`M`, `My`] <br> because the default n-gram length is 1--2 characters 
 
 ### Structured text tokenizers
 
@@ -52,10 +52,10 @@ Structured text tokenizers parse structured text, such as identifiers, email add
 Tokenizer | Description | Example
 :--- | :--- | :---
 `keyword` | - No-op tokenizer <br> - Outputs the entire string unchanged <br> - Can be combined with token filters, like lowercase, to normalize terms | `My repo` <br>becomes<br> `My repo`
-`pattern` | - Uses a regular expression pattern to parse text into terms on a word separator or to capture matching text as terms <br> - Uses [Java regular expressions](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) | `https://opensearch.org/forum` <br>becomes<br> [`https`, `opensearch`, `org`, `forum`] because by default the tokenizer splits terms at word boundaries (`\W+`). Can be configured with a regex pattern.
-`simple_pattern` | - Uses a regular expression pattern to return matching text as terms <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions |  Returns an empty array by default. Must be configured with a pattern because the pattern defaults to an empty string.
-`simple_pattern_split` | - Uses a regular expression pattern to split the text at matches rather than returning the matches as terms  <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions | No-op by default. Must be configured with a pattern.
-`char_group` | - Parses on a set of configurable characters <br> - Faster than tokenizers that run regular expressions | No-op by default. Must be configured with a list of characters.
+`pattern` | - Uses a regular expression pattern to parse text into terms on a word separator or to capture matching text as terms <br> - Uses [Java regular expressions](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) | `https://opensearch.org/forum` <br>becomes<br> [`https`, `opensearch`, `org`, `forum`] because by default the tokenizer splits terms at word boundaries (`\W+`)<br>  Can be configured with a regex pattern
+`simple_pattern` | - Uses a regular expression pattern to return matching text as terms <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions |  Returns an empty array by default <br> Must be configured with a pattern because the pattern defaults to an empty string
+`simple_pattern_split` | - Uses a regular expression pattern to split the text at matches rather than returning the matches as terms  <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions | No-op by default<br> Must be configured with a pattern
+`char_group` | - Parses on a set of configurable characters <br> - Faster than tokenizers that run regular expressions | No-op by default<br> Must be configured with a list of characters
 `path_hierarchy` | - Parses text on the path separator (by default, `/`) and returns a full path to each component in the tree hierarchy | `one/two/three` <br>becomes<br> [`one`, `one/two`, `one/two/three`]
 
 
