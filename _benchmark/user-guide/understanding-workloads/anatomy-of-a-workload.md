@@ -166,7 +166,7 @@ According to this schedule, the actions will run in the following order:
 
 The index.json file contains all of the data mappings and parameters used to index any documents contained inside the workload, as well as the index settings needed when the `create-index` operations in run during the workload. 
 
-For example, in the `nyc_taxis` workload, the `settings` array gives you the ability to customize the number of shards, replicas, and tells the index whether to cache queries or requests. All mappings are based off of a single document, usually called in the `files.txt` file, and includes each mapping paramter and its format, as shown in the following example:
+For example, in the `nyc_taxis` workload, the `settings` array gives you the ability to customize the number of shards, replicas, and tells the index whether to cache queries or requests. All mappings are based off of a single document, usually called in the `files.txt` file, and includes each mapping parameter and its format, as shown in the following example:
 
 ```json
 {
@@ -272,7 +272,7 @@ The `files.txt` contains a list of files where the data for the workload is stor
 
 To make the workload more human-readable, operations and test procedures are seperated into two different directors. 
 
-The `operations` directory contains a `default.json` file that lists all of the supported operations the test procedure can use. Some workloads, such as `nyc_taxis` will contain an additional `.json` which lists feature specific operations, such as `snapshot` operations. The following example shows a list of operations from the `nyc_taxis` workload:
+The `operations` directory contains a `default.json` file that lists all of the supported operations the test procedure can use. Some workloads, such as `nyc_taxis`, contain an additional `.json` file which lists feature-specific operations, such as `snapshot` operations. The following example shows a list of operations from the `nyc_taxis` workload:
 
 ```json
     {
@@ -632,7 +632,7 @@ The `operations` directory contains a `default.json` file that lists all of the 
     }
 ```
 
-The `_test-procedures` directory contains a `default.json` which sets the order of operations performed by the workload inside a `default.json` file. Similar to operations, the `_test-procedures` directory can also contain feature specific test procedures, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples shows the default for test procedures for `nyc_taxis`:
+The `_test-procedures` directory contains a `default.json` file which sets the order of operations performed by the workload. Similar to operations, the `_test-procedures` directory can also contain feature specific test procedures, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples shows the default for test procedures for `nyc_taxis`:
 
 ```json
     {
@@ -963,4 +963,4 @@ The `_test-procedures` directory contains a `default.json` which sets the order 
 
 ## Next steps
 
-Now that you have familiarized yourself with anatomy of a workload, see the criteria for [Choosing a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/choosing-a-workload/).
+Now that you have familiarized yourself with the anatomy of a workload, see the criteria for [Choosing a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/choosing-a-workload/).
