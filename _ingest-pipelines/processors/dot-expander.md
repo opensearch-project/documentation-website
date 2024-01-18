@@ -185,7 +185,7 @@ PUT /_ingest/pipeline/dot-expander-pipeline
 ```
 {% include copy-curl.html %}
 
-Simulate the pipeline as follows: 
+You can simulate the pipeline as follows: 
 
 ```json
 POST _ingest/pipeline/dot-expander-pipeline/_simulate
@@ -206,7 +206,7 @@ POST _ingest/pipeline/dot-expander-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The `dot_expander` processor transforms the document into the following:
+The `dot_expander` processor transforms the document into the following structure:
 
 ```json
 {
@@ -221,7 +221,7 @@ The `dot_expander` processor transforms the document into the following:
 
 ## Field name conflicts
 
-If a field already exists that has the same path as the path where the `dot_expander` processor should expand the value, the processor merges the two values into an array.
+If a field already exists with the same path as the path to which the `dot_expander` processor should expand the value, the processor merges the two values into an array.
 
 Consider the following pipeline that expands the field `user.name`:
 
@@ -240,7 +240,7 @@ PUT /_ingest/pipeline/dot-expander-pipeline
 ```
 {% include copy-curl.html %}
 
-Simulate the pipeline with a document containing two values with the exact same path `user.name`:
+You can simulate the pipeline with a document containing two values with the exact same path `user.name`:
 
 ```json
 POST _ingest/pipeline/dot-expander-pipeline/_simulate
@@ -261,7 +261,7 @@ POST _ingest/pipeline/dot-expander-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The response shows that the values were merged into an array:
+The response confirms that the values were merged into an array:
 
 ```json
 {
@@ -287,7 +287,7 @@ The response shows that the values were merged into an array:
 }
 ```
 
-If there is a field name with a same name but a different path field needs to be renamed. For example, the following simulate call returns a parse exception:
+If a field contains the same name but a different path, then the field needs to be renamed. For example, the following simulate call returns a parse exception:
 
 ```json
 POST _ingest/pipeline/dot-expander-pipeline/_simulate
@@ -327,7 +327,7 @@ PUT /_ingest/pipeline/dot-expander-pipeline
 ```
 {% include copy-curl.html %}
 
-Now simulate the pipeline:
+Now you can simulate the pipeline:
 
 ```json
 POST _ingest/pipeline/dot-expander-pipeline/_simulate
