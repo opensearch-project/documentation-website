@@ -88,3 +88,4 @@ TorchScript
 Tribuo
 VisBuilder
 Winlogbeat
+Zstandard
