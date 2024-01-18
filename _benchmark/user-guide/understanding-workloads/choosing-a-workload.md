@@ -10,7 +10,7 @@ parent: Understanding workloads
 
 The [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository contains a list of workloads that you can use to run your benchmarks. Using a workload similar to you cluster's use cases can save you time and effort when assessing the performance of your cluster. 
 
-For example, say you're a system architect at a ride share company. 
+For example, say you're a system architect at a ride share company. As a ride share company you collect and store data based off of trip times, locations, and other data related to each ride share. As opposed to building a custom workload and using your own data, which takes additional time, effort, and cost, you can use the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis) workload to benchmark your cluster, because the data inside the workload is similar to the data you collect. 
 
 ## Criteria for choosing a workload
 
