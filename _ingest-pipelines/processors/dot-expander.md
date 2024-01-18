@@ -29,7 +29,7 @@ Parameter | Required/Optional | Description |
 `field`  | Required  | The field to be expanded into an object field. |
 `path` | Optional | This field is only required if the field to be expanded is nested within another object field. This is because the `field` parameter only recognizes leaf fields. |
 `description`  | Optional  | A brief description of the processor. |
-`if` | Optional | A condition for running this processor. |
+`if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
