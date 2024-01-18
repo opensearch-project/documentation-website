@@ -305,7 +305,7 @@ POST _ingest/pipeline/dot-expander-pipeline/_simulate
 }
 ```
 
-To avoid the parse exception, rename the field first using the `rename` processor:
+To avoid the parse exception, first rename the field by using the `rename` processor:
 
 ```json
 PUT /_ingest/pipeline/dot-expander-pipeline
