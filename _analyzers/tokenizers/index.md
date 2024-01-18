@@ -33,7 +33,7 @@ Tokenizer | Description | Example
 `lowercase` | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Converts terms to lowercase | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `to`, `opensearch`]
 `whitespace` | - Parses strings into tokens at white space characters | `It’s fun to contribute a brand-new PR or 2 to OpenSearch!` <br>becomes<br> [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`] 
 `uax_url_email` | - Similar to the standard tokenizer <br> - Unlike the standard tokenizer, leaves URLs and email addresses as single terms | `It’s fun to contribute a brand-new PR or 2 to OpenSearch opensearch-project@github.com!` <br>becomes<br> [`It’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `PR`, `or`, `2`, `to`, `OpenSearch`, `opensearch-project@github.com`] 
-`classic` | - Parses strings into tokens on: <br> &emsp; - punctuation characters that are followed by a white space character <br> &emsp; - hyphens if the term does not contain numbers <br> - Removes punctuation <br>  - Leaves URLs and email addresses as single terms | `Part number PA-35234, single-use product (128.32)` <br>becomes<br> [`Part`, `number`, `PA-35234`, `single`, `use`, `product`, `128.32`]
+`classic` | - Parses strings into tokens on: <br> &emsp; - Punctuation characters that are followed by a white space character <br> &emsp; - Hyphens if the term does not contain numbers <br> - Removes punctuation <br>  - Leaves URLs and email addresses as single terms | `Part number PA-35234, single-use product (128.32)` <br>becomes<br> [`Part`, `number`, `PA-35234`, `single`, `use`, `product`, `128.32`]
 `thai` | - Parses Thai text into terms | `สวัสดีและยินดีต` <br>becomes<br> [`สวัสด`, `และ`, `ยินดี`, `ต`] 
 
 ### Partial word tokenizers
@@ -47,11 +47,11 @@ Tokenizer | Description | Example
 
 ### Structured text tokenizers
 
-Structured text tokenizers parse structured text, such as identifiers, email addresses, paths, or zip codes.
+Structured text tokenizers parse structured text, such as identifiers, email addresses, paths, or ZIP Codes.
 
 Tokenizer | Description | Example
 :--- | :--- | :---
-`keyword` | - No-op tokenizer <br> - Outputs the entire string unchanged <br> - Can be combined with token filters like lowercase to normalize terms | `My repo` <br>becomes<br> `My repo`
+`keyword` | - No-op tokenizer <br> - Outputs the entire string unchanged <br> - Can be combined with token filters, like lowercase, to normalize terms | `My repo` <br>becomes<br> `My repo`
 `pattern` | - Uses a regular expression pattern to parse text into terms on a word separator or to capture matching text as terms <br> - Uses [Java regular expressions](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) | `https://opensearch.org/forum` <br>becomes<br> [`https`, `opensearch`, `org`, `forum`] because by default the tokenizer splits terms at word boundaries (`\W+`). Can be configured with a regex pattern.
 `simple_pattern` | - Uses a regular expression pattern to return matching text as terms <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions |  Returns an empty array by default. Must be configured with a pattern because the pattern defaults to an empty string.
 `simple_pattern_split` | - Uses a regular expression pattern to split the text at matches rather than returning the matches as terms  <br>  - Uses [Lucene regular expressions](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/util/automaton/RegExp.html)  <br> - Faster than the `pattern` tokenizer because it uses a subset of the `pattern` tokenizer regular expressions | No-op by default. Must be configured with a pattern.
