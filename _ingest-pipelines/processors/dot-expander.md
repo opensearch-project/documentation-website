@@ -161,7 +161,7 @@ The following response confirms that the specified fields were expanded into nes
 
 ## The `path` parameter
 
-You can use the `path` parameter to specify the path to a dotted field within an object. For example, the following pipeline specifies the `address.city` field that is located within `user` object: 
+You can use the `path` parameter to specify the path to a dotted field within an object. For example, the following pipeline specifies the `address.city` field that is located within the `user` object: 
 
 ```json
 PUT /_ingest/pipeline/dot-expander-pipeline
