@@ -32,7 +32,7 @@ Parameter | Required/Optional | Description |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 
 ## Using the processor
 
