@@ -206,7 +206,7 @@ POST _ingest/pipeline/dot-expander-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The `dot_expander` processor transforms the document into:
+The `dot_expander` processor transforms the document into the following:
 
 ```json
 {
