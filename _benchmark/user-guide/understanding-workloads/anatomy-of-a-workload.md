@@ -963,4 +963,4 @@ The `_test-procedures` directory contains a `default.json` which sets the order 
 
 ## Next steps
 
-Now that you have familiarized yourself with anatomy of a workload, see the criteria for [Choosing a workload]({{site.url}}{{site.baseurl}}/benchmark/understanding-workloads/choosing-a-workload/).
+Now that you have familiarized yourself with anatomy of a workload, see the criteria for [Choosing a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/choosing-a-workload/).
