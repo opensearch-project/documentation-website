@@ -65,7 +65,6 @@ To use a Node.js runtime binary other than the ones included in the distribution
 
 The OpenSearch Dashboards start script,`bin/opensearch-dashboards`, searches for the Node.js runtime binary using `NODE_OSD_HOME`,
 and then `NODE_HOME`, before using the binaries included with the distribution packages. If a usable Node.js runtime binary is not found, the start script will attempt to find one in the system-wide `PATH` before failing.
-attempt to find one in the system-wide `PATH` before failing.
 
 ## Configuration
 
