@@ -7,7 +7,7 @@ nav_order: 50
 
 # Log enrichment with Data Prepper
 
-You can perform different types of log enrichment with Data Prepper, including the following:
+You can perform different types of log enrichment with Data Prepper, including:
 
 - Filtering
 - Extracting key-value pairs from strings 
@@ -18,7 +18,7 @@ You can perform different types of log enrichment with Data Prepper, including t
 
 ## Filtering
 
-Use the [Drop events]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/) processor to filter out specific log events before sending them to a sink. For example, say you're collecting web request logs and only want to store unsuccessful requests. You create the following pipeline, which drops any requests where the response is less than 400 so that only log events with HTTP status codes 400 and above remain.
+Use the [Drop events]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/) processor to filter out specific log events before sending them to a sink. For example, say you're collecting web request logs and only want to store unsuccessful requests. You create the following pipeline, which drops any requests where the response is less than 400 so that only log events with HTTP status codes 400 and greater remain.
 
 ```json
 log-pipeline:
@@ -37,11 +37,11 @@ log-pipeline:
 ```
 {% include copy-curl.html %}
 
-The `drop_when` option specifies which evens to drop from the pipeline.
+The `drop_when` option specifies which events to drop from the pipeline.
 
 ## Extracting key-value pairs from strings
 
-Log data often includes strings of key-value pairs. One common scenario is an HTTP query string. For example, if a web user queries a pageable URL, the HTTP logs might have the following HTTP query string:
+Log data often includes strings of key-value pairs. One common scenario is an HTTP query string. For example, if a web user queries a URL that can be paginated, the HTTP logs might have the following HTTP query string:
 
 ```json
 page=3&q=my-search-term
@@ -95,7 +95,7 @@ processor:
 ```
 {% include copy-curl.html %}
 
-You can also use a format string to construct new entries from existing entries. For example, `${date}-${time}` will create a new entry based on the values of the existing entries date and time.
+You can also use a format string to construct new entries from existing entries. For example, `${date}-${time}` will create a new entry based on the values of the existing entries `date` and `time`.
 
 For example, the following pipeline adds new event entries dynamically from existing events:
 
@@ -131,7 +131,7 @@ The processor transforms it into an event with a new key `key_three`, which comb
 
 ## Mutating strings
 
-The various [Mutate string]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/mutate-string/) processors offer tools to manipulate strings in incoming data. For example, if you need to split a string into an array, use the split_string processor:
+The various [Mutate string]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/mutate-string/) processors offer tools to manipulate strings in incoming data. For example, if you need to split a string into an array, use the `split_string` processor:
 
 ```json
 ...
@@ -144,7 +144,7 @@ processor:
 ```
 {% include copy-curl.html %}
 
-The processor will transform a string such as a&b&c into `["a", "b", "c"]`.
+The processor will transform a string such as `a&b&c` into `["a", "b", "c"]`.
 
 ## Converting lists to maps
 
@@ -395,4 +395,4 @@ The following incoming Apache HTTP log will generate a punctuation pattern:
 ```
 {% include copy-curl.html %}
 
-You can count these generated patterns by passing them through the [Aggregate]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) processor with the count action.
+You can count these generated patterns by passing them through the [Aggregate]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) processor with the `count` action.
