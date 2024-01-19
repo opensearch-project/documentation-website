@@ -60,9 +60,9 @@ To use a Node.js runtime binary other that the ones included in the distribution
    $Env:NODE_HOME = 'C:\Program Files\nodejs'
    ```
 
-   Please consult your operating system's documentation to make a persistent change to the environment variables.
+   Consult your operating system's documentation to make a persistent change to the environment variables.
 
-`bin/opensearch-dashboards`, the OpenSearch Dashboards start script will look for the Node.js runtime binary using `NODE_OSD_HOME`,
+The OpenSearch Dashboards start script,`bin/opensearch-dashboards`, searches for the Node.js runtime binary using `NODE_OSD_HOME`,
 and later `NODE_HOME`, before using the binaries included with the distribution packages. If a usable Node.js runtime binary is not found, the start script will
 attempt to find one in the system-wide `PATH` before failing.
 
