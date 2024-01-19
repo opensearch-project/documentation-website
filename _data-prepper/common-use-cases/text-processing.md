@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Grok pattern matching with Data Prepper
+title: Text processing
 parent: Common use cases
 nav_order: 35
 ---
 
-# Grok pattern matching with Data Prepper
+# Text processing
 
-Data Prepper provides pattern matching capabilities with the [Grok processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/). The Grok processor is based on the [`java-grok`](https://mvnrepository.com/artifact/io.krakens/java-grok) library and supports all compatible patterns. The `java-grok` library is built using the [`java.util.regex`](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html) regular expression library.
+Data Prepper provides text processing capabilities with the [`grok processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/). The `grok` processor is based on the [`java-grok`](https://mvnrepository.com/artifact/io.krakens/java-grok) library and supports all compatible patterns. The `java-grok` library is built using the [`java.util.regex`](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html) regular expression library.
 
 You can add custom patterns to your pipelines using the `patterns_definitions` option. When debugging custom patterns, the [Grok Debugger](https://grokdebugger.com/) can be helpful.
 
 ## Basic usage
 
-To get started with pattern matching, create the following pipeline:
+To get started with text processing, create the following pipeline:
 
 ```json
 patten-matching-pipeline:
@@ -50,7 +50,7 @@ When an incoming record matches the pattern, it generates an internal event like
 ```
 {% include copy-curl.html %}
 
-The `match` configuration for the Grok processor specifies which keys of a record to match which patterns against.
+The `match` configuration for the `grok` processor specifies which keys of a record to match which patterns against.
 
 In the following example, the `match` configuration checks incoming logs for a `message` key. If the key exists, it matches the key value against the `SYSLOGBASE` pattern and then against the `COMMONAPACHELOG` pattern. It then checks the logs for a `timestamp` key. If that key exists, it attempts to match the key value against the `TIMESTAMP_ISO8601` pattern.
 
@@ -129,7 +129,7 @@ Note that the `IPORHOST` capture now shows up as a new key, along with some inte
 
 Include the `keys_to_overwrite` option to specify which existing keys of a record to overwrite if there's a capture with the same key value.
 
-For example, you can modify the preceding grok configuration to replace `%{NUMBER:response_status:int}` with `%{NUMBER:message:int}` and add `message` to the list of keys to overwrite.
+For example, you can modify the preceding Grok configuration to replace `%{NUMBER:response_status:int}` with `%{NUMBER:message:int}` and add `message` to the list of keys to overwrite.
 
 ```json
 processor:
@@ -153,7 +153,7 @@ In the resulting grokked log, the original message is overwritten with the numbe
 
 ## Using custom patterns
 
-Include the `pattern_definitions` option in your grok configuration to specify custom patterns.
+Include the `pattern_definitions` option in your Grok configuration to specify custom patterns.
 
 The following configuration creates custom regex patterns named `CUSTOM_PATTERN-1` and `CUSTOM_PATTERN-2`. By default, the plugin continues until it finds a successful match.
 
@@ -189,9 +189,9 @@ You can define your own custom patterns to use for pattern matching in pipelines
 
 ## Storing captures with a parent key
 
-Include the `target_key` option in your grok configuration to wrap all captures for a record in an additional outer key value.
+Include the `target_key` option in your Grok configuration to wrap all captures for a record in an additional outer key value.
 
-For example, you can modify the preceding grok configuration to add a target key named `grokked`.
+For example, you can modify the preceding Grok configuration to add a target key named `grokked`.
 
 ```json
 processor:
