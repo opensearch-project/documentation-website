@@ -95,7 +95,7 @@ processor:
 ```
 {% include copy-curl.html %}
 
-You can also use a format string to construct new entries from existing date and time entries. For example, `${date}-${time}` will create a new entry based on the values of the existing entries `date` and `time`.
+You can also use a format string to construct new entries from existing events. For example, `${date}-${time}` will create a new entry based on the values of the existing entries `date` and `time`.
 
 For example, the following pipeline adds new event entries dynamically from existing events:
 
@@ -165,7 +165,7 @@ processor:
 ```
 {% include copy-curl.html %}
 
-This processor will convert an event that contains a list of objects like this:
+The following processor will convert an event that contains a list of objects to a map like this:
 
 ```json
 {
@@ -187,8 +187,6 @@ This processor will convert an event that contains a list of objects like this:
 ```
 {% include copy-curl.html %}
 
-into a map:
-
 ```json
 {
   "A-car-as-map": {
@@ -200,7 +198,7 @@ into a map:
 ```
 {% include copy-curl.html %}
 
-As another example, say you have an incoming event with the following structure:
+As another example, consider an incoming event with the following structure:
 
 ```json
 {
@@ -321,7 +319,7 @@ The incoming event structure is then flattened accordingly:
 
 ## Processing incoming timestamps
 
-The [`date`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/date/) processor parses the `timestamp` key from incoming events by converting it to ISO 8601 format:
+The [`date`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/date/) processor parses the `timestamp` key from incoming events by converting it to International Organization for Standardization (ISO) 8601 format:
 
 ```json
 ...
