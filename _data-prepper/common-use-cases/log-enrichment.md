@@ -14,11 +14,11 @@ You can perform different types of log enrichment with Data Prepper, including:
 - Mutating events.
 - Mutating strings.
 - Converting lists to maps.
-- Processing incoming timestamps
+- Processing incoming timestamps.
 
 ## Filtering
 
-Use the [Drop events]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/) processor to filter out specific log events before sending them to a sink. For example, say you're collecting web request logs and only want to store unsuccessful requests. You create the following pipeline, which drops any requests where the response is less than 400 so that only log events with HTTP status codes 400 and greater remain.
+Use the [`drop_events`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/) processor to filter out specific log events before sending them to a sink. For example, if you're collecting web request logs and only want to store unsuccessful requests, you can create the following pipeline, which drops any requests for which the response is less than 400 so that only log events with HTTP status codes of 400 and higher remain.
 
 ```json
 log-pipeline:
@@ -28,7 +28,7 @@ log-pipeline:
     - grok:
         match:
           log: [ "%{COMMONAPACHELOG_DATATYPED}" ]
-    - drop:
+    - drop_events:
         drop_when: "/response < 400"
   sink:
     - opensearch:
@@ -41,14 +41,14 @@ The `drop_when` option specifies which events to drop from the pipeline.
 
 ## Extracting key-value pairs from strings
 
-Log data often includes strings of key-value pairs. One common scenario is an HTTP query string. For example, if a web user queries a URL that can be paginated, the HTTP logs might have the following HTTP query string:
+Log data often includes strings of key-value pairs. For example, if a user queries a URL that can be paginated, the HTTP logs might contain the following HTTP query string:
 
 ```json
 page=3&q=my-search-term
 ```
 {% include copy-curl.html %}
 
-To perform analysis using the search terms, you can extract the value of `q` from a query string. The [Key value]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/key-value/) processor provides robust support for extracting keys and values from strings.
+To perform analysis using the search terms, you can extract the value of `q` from a query string. The [`key_value`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/key-value/) processor provides robust support for extracting keys and values from strings.
 
 The following example combines the `split_string` and `key_value` processors to extract query parameters from an Apache log line:
 
@@ -73,9 +73,9 @@ pipeline
 
 ## Mutating events
 
-The different [Mutate event]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/mutate-event/) processors let you rename, copy, add, and delete event entries.
+The different [mutate event]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/mutate-event/) processors let you rename, copy, add, and delete event entries.
 
-In this example, the first processor sets the value of the `debug` key to `true` if the key already exists in the event. The second processor only sets the `debug` key to `true` if the key doesn't exist in the event, because `overwrite_if_key_exists` is set to `true`.
+In this example, the first processor sets the value of the `debug` key to `true` if the key already exists in the event. The second processor only sets the `debug` key to `true` if the key doesn't exist in the event because `overwrite_if_key_exists` is set to `true`.
 
 ```json
 ...
@@ -95,7 +95,7 @@ processor:
 ```
 {% include copy-curl.html %}
 
-You can also use a format string to construct new entries from existing entries. For example, `${date}-${time}` will create a new entry based on the values of the existing entries `date` and `time`.
+You can also use a format string to construct new entries from existing date and time entries. For example, `${date}-${time}` will create a new entry based on the values of the existing entries `date` and `time`.
 
 For example, the following pipeline adds new event entries dynamically from existing events:
 
@@ -108,7 +108,7 @@ processor:
 ```
 {% include copy-curl.html %}
 
-For example, consider the following incoming event:
+Consider the following incoming event:
 
 ```json
 {
@@ -118,7 +118,7 @@ For example, consider the following incoming event:
 ```
 {% include copy-curl.html %}
 
-The processor transforms it into an event with a new key `key_three`, which combines values of other keys in the original event, as shown in the following example:
+The processor transforms it into an event with a new key named `key_three`, which combines values of other keys in the original event, as shown in the following example:
 
 ```json
 {
@@ -131,7 +131,7 @@ The processor transforms it into an event with a new key `key_three`, which comb
 
 ## Mutating strings
 
-The various [Mutate string]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/mutate-string/) processors offer tools to manipulate strings in incoming data. For example, if you need to split a string into an array, use the `split_string` processor:
+The various [mutate string]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/mutate-string/) processors offer tools that you can use to manipulate strings in incoming data. For example, if you need to split a string into an array, you can use the `split_string` processor:
 
 ```json
 ...
@@ -148,7 +148,7 @@ The processor will transform a string such as `a&b&c` into `["a", "b", "c"]`.
 
 ## Converting lists to maps
 
-The [List-to-map]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/list-to-map/) processor, which is one of the Mutate events processors, converts a list of objects in an event to a map.
+The [`list_to_map`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/list-to-map/) processor, which is one of the mutate event processors, converts a list of objects in an event to a map.
 
 For example, consider the following processor configuration:
 
@@ -280,7 +280,7 @@ The processor modifies the event by removing `mylist` and adding the new `myobje
 ```
 {% include copy-curl.html %}
 
-In many cases, you might want to flatten the array for each key. In these situations, you must choose only one object to remain. The processor offers the choice of either first or last.
+In many cases, you may want to flatten the array for each key. In these situations, you must choose only one object to retain. The processor offers a choice of either first or last. For example, consider the following:
 
 ```json
 ...
@@ -321,7 +321,7 @@ The incoming event structure is then flattened accordingly:
 
 ## Processing incoming timestamps
 
-The [Date]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/date/) processor parses the timestamp key from incoming events by converting it to ISO 8601 format:
+The [`date`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/date/) processor parses the `timestamp` key from incoming events by converting it to ISO 8601 format:
 
 ```json
 ...
@@ -345,7 +345,7 @@ If the preceding pipeline processes the following event:
 ```
 {% include copy-curl.html %}
 
-It converts the event into the following format:
+It converts the event to the following format:
 
 ```json
 {
@@ -357,7 +357,7 @@ It converts the event into the following format:
 
 ### Generating timestamps
 
-The Date processor can generate timestamps for incoming events if you specify `@timestamp` for the `destination` option:
+The `date` processor can generate timestamps for incoming events if you specify `@timestamp` for the `destination` option:
 
 ```json
 ...
@@ -371,7 +371,7 @@ The Date processor can generate timestamps for incoming events if you specify `@
 
 ### Deriving punctuation patterns
 
-The [Substitute string]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/substitute-string/) processor (which is one of the Mutate string processors) lets you derive a punctuation pattern from incoming events. In the following example pipeline, the processor will scan incoming Apache log events and derive punctuation patterns from them:
+The [`substitute_string`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/substitute-string/) processor (which is one of the mutate string processors) lets you derive a punctuation pattern from incoming events. In the following example pipeline, the processor will scan incoming Apache log events and derive punctuation patterns from them:
 
 ```json
 processor:  
@@ -395,4 +395,4 @@ The following incoming Apache HTTP log will generate a punctuation pattern:
 ```
 {% include copy-curl.html %}
 
-You can count these generated patterns by passing them through the [Aggregate]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) processor with the `count` action.
+You can count these generated patterns by passing them through the [`aggregate`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) processor with the `count` action.
