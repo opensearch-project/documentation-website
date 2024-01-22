@@ -15,7 +15,7 @@ The following pipeline receives logs using an HTTP source like FluentBit, extrac
 
 The `log-to-metrics-pipeline` sub-pipeline receives the grokked logs from the `apache-log-pipeline-with-metrics sub-pipeline`, aggregates them, and derives histogram metrics based on the values in the `clientip` and `request` keys. It then sends the histogram metrics to an OpenSearch index named `histogram_metrics` as well as to the `log-to-metrics-anomaly-detector` sub-pipeline.
 
-The `log-to-metrics-anomaly-detector-pipeline` sub-pipeline receives the aggregated histogram metrics from the `log-to-metrics-pipeline` sub-pipeline and sends them to the `anomaly_detector` processor to detect anomalies using the Random Cut Forest algorithm. If it detects anomalies, it sends them to an OpenSearch index named `log-metric-anomalies`.
+The `log-to-metrics-anomaly-detector-pipeline` sub-pipeline receives the aggregated histogram metrics from the `log-to-metrics-pipeline` sub-pipeline and sends them to the `anomaly_detector` processor to detect anomalies by using the Random Cut Forest algorithm. If it detects anomalies, it sends them to an OpenSearch index named `log-metric-anomalies`.
 
 ```json
 apache-log-pipeline-with-metrics:
