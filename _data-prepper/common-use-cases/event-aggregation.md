@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Event aggregation with Data Prepper
+title: Event aggregation
 parent: Common use cases
 nav_order: 40
 ---
 
-# Event aggregation with Data Prepper
+# Event aggregation
 
 You can use Data Prepper to aggregate data from different events over a period of time. Aggregating events can help to reduce unnecessary log volume and manage use cases like multiline logs that are received as separate events. The [`aggregate` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) is a stateful processor that groups events based on the values for a set of specified identification keys and performs a configurable action on each group.
 
