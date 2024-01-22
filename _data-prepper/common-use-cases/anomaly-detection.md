@@ -13,7 +13,7 @@ You can use Data Prepper to train models and generate anomalies in near real tim
 
 The following pipeline receives logs using an HTTP source like FluentBit, extracts important values from the logs by matching the value in the `log` key against the grok [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog), and then forwards the grokked logs to both the `log-to-metrics-pipeline sub-pipeline` and an OpenSearch index named `logs`.
 
-The `log-to-metrics-pipeline` sub-pipeline receives the grokked logs from the `apache-log-pipeline-with-metrics sub-pipeline`, aggregates them, and derives histogram metrics based on the values in the `clientip` and `request` keys. It then sends the histogram metrics to an OpenSearch index named `histogram_metrics`, as well as to the `log-to-metrics-anomaly-detector` sub-pipeline.
+The `log-to-metrics-pipeline` sub-pipeline receives the grokked logs from the `apache-log-pipeline-with-metrics sub-pipeline`, aggregates them, and derives histogram metrics based on the values in the `clientip` and `request` keys. It then sends the histogram metrics to an OpenSearch index named `histogram_metrics` as well as to the `log-to-metrics-anomaly-detector` sub-pipeline.
 
 The `log-to-metrics-anomaly-detector-pipeline` sub-pipeline receives the aggregated histogram metrics from the `log-to-metrics-pipeline` sub-pipeline and sends them to the `anomaly_detector` processor to detect anomalies using the Random Cut Forest algorithm. If it detects anomalies, it sends them to an OpenSearch index named `log-metric-anomalies`.
 
