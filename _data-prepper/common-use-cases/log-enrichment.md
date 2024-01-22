@@ -9,7 +9,7 @@ nav_order: 50
 
 You can perform different types of log enrichment with Data Prepper, including:
 
-- Filtering
+- Filtering.
 - Extracting key-value pairs from strings 
 - Mutating events
 - Mutating strings
