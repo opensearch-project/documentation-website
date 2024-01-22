@@ -357,7 +357,7 @@ It converts the event into the following format:
 
 ### Generating timestamps
 
-The Date processor can generate timestamps for incoming events if you specify `@timestamp` for the `destination` option.
+The Date processor can generate timestamps for incoming events if you specify `@timestamp` for the `destination` option:
 
 ```json
 ...
