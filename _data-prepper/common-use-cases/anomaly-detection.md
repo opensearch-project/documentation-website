@@ -173,7 +173,7 @@ trace-to-metrics-anomaly-detector-pipeline:
 
 You can create a pipeline that receives OpenTelemetry metrics and detects anomalies in those metrics. In this example, `entry-pipeline` receives metrics from the OpenTelemetry Collector. If a metric is of type `GAUGE` and the name of the metric is `totalApiBytesSent`, the processor sends it to the `ad-pipeline` sub-pipeline.
 
-The `ad-pipeline` sub-pipeline receives the metrics data from the entry pipeline and performs anomaly detection on the value of the metric using the [`anomaly_detector` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/anomaly-detector/).
+The `ad-pipeline` sub-pipeline receives the metrics from the entry pipeline and performs anomaly detection on the value of the metric by using the [`anomaly_detector` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/anomaly-detector/).
 
 ```json
 entry-pipeline:
