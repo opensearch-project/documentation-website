@@ -78,7 +78,7 @@ log-to-metrics-anomaly-detector-pipeline:
 
 ## Metrics from traces
 
-You can derive metrics from traces and find anomalies in these generated metrics. In this example, the `entry-pipeline` sub-pipeline receives trace data from the OpenTelemetry Collector and forwards it to the following sub-pipelines:
+You can derive metrics from traces and find anomalies in those metrics. In this example, the `entry-pipeline` sub-pipeline receives trace data from the OpenTelemetry Collector and forwards it to the following sub-pipelines:
 
 - `span-pipeline` –- Extracts the raw spans from the traces. The pipeline sends the raw spans to any indexes OpenSearch prefixed with `otel-v1-apm-span`.
 
