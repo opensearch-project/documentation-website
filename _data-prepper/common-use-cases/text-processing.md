@@ -196,7 +196,7 @@ For example, you can modify the preceding Grok configuration to add a target key
 ```json
 processor:
    - grok:
-       target_key: "grok"
+       target_key: "grokked"
        match:
          message: ['%{IPORHOST} \[%{HTTPDATE:timestamp}\] %{NUMBER:response_status:int}']
 ```
