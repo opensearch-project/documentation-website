@@ -246,6 +246,10 @@ After data is ingested, it can be search just like any other `knn_vector` field!
 
 To learn about using filters with k-NN search, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
+### Using approximate k-NN with nested field
+
+To learn about k-NN search with nested field, see [k-NN search with nested_fields]({{site.url}}{{site.baseurl}}/search-plugins/knn/nested-search-knn/).
+
 ## Spaces
 
 A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin supports the following spaces. 
