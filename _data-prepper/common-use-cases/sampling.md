@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Grok pattern matching with Data Prepper
+title: Sampling
 parent: Common use cases
 nav_order: 40
 ---
 
-# Sampling with Data Prepper
+# Sampling
 
 Data Prepper provides the following sampling capabilities:
 
@@ -15,7 +15,7 @@ Data Prepper provides the following sampling capabilities:
 
 ## Time sampling 
 
-You can use the `rate_limiter` action within the [Aggregate processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) to limit the number of events that can be processed per second. You can choose to either drop excess events or carry them forward to the next time period.
+You can use the `rate_limiter` action within the [`aggregate` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) to limit the number of events that can be processed per second. You can choose to either drop excess events or carry them forward to the next time period.
 
 In this example, only 100 events per second with a status code of `200` are sent to the sink from a given IP address. It drops all excess events from the configured time window.
 
@@ -32,13 +32,13 @@ In this example, only 100 events per second with a status code of `200` are sent
 ...
 ```
 
-If you instead set the `when_exceeds` option to block, the processor will process excess events in the next time window.
+If you instead set the `when_exceeds` option to `block`, the processor will block the pipeline until the time window completes. Then it will process the blocked events.
 
 ## Percentage sampling
 
-Use the `percent_sampler` action within the Aggregate processor to limit the number of events that are sent to a sink. All excess events will be dropped.
+Use the `percent_sampler` action within the `aggregate` processor to limit the number of events that are sent to a sink. All excess events will be dropped.
 
-In this example, only 20 percent of events with a status code of `200` are sent to the sink from a given IP address:
+In the following example, only 20 percent of events with a status code of `200` are sent to the sink from a given IP address:
 
 ```json
 ...
@@ -55,9 +55,9 @@ In this example, only 20 percent of events with a status code of `200` are sent 
 
 ## Tail sampling
 
-Use the `tail_sampler` action within the Aggregate processor to sample events based on a set of defined policies. This action waits for an aggregation to complete across different aggregation periods based on the configured wait period. When an aggregation is complete, and if it matches the specific error condition, it's sent to the sink. Otherwise, only a configured percentage of events are sent to the sink.
+Use the `tail_sampler` action within the `aggregate` processor to sample events based on a set of defined policies. This action waits for an aggregation to complete across different aggregation periods based on the configured wait period. When an aggregation is complete, and if it matches the specific error condition, it's sent to the sink. Otherwise, only a configured percentage of events is sent to the sink.
 
-The following example pipeline sends all OpenTelemetry traces with an error condition status of `2` to the sink. It only sends 20% of the traces that don't match this error condition to the sink.
+The following pipeline sends all OpenTelemetry traces with an error condition status of `2` to the sink. It only sends 20 percent of the traces that don't match this error condition to the sink.
 
 ```json
 ...
@@ -73,6 +73,6 @@ The following example pipeline sends all OpenTelemetry traces with an error cond
 ...
 ```
 
-If you set the error condition to `false` or don't include it, only a the configured percentage of events is allowed to pass through, determined by a probabilistic outcome.
+If you set the error condition to `false` or don't include it, only the configured percentage of events is allowed to pass through, determined by a probabilistic outcome.
 
 Because it's difficult to determine exactly when tail sampling should occur, you can use the `wait_period` option to measure the idle time after the last event was received.
