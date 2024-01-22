@@ -7,15 +7,15 @@ nav_order: 30
 
 # Anomaly detection
 
-You can use Data Prepper to train models and generate anomalies in near real time on time-series aggregated events. You can generate anomalies either on events generated within the pipeline or on events coming directly into the pipeline, like OpenTelemetry metrics. You can feed these tumbling window aggregated time-series events to the [`anomaly_detector` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/anomaly-detector/), which trains a model and generates anomalies with a grade score. Then write the anomalies to a separate index to create document monitors and trigger fast alerting.
+You can use Data Prepper to train models and generate anomalies in near real time on time-series aggregated events. You can generate anomalies either on events generated within the pipeline or on events coming directly into the pipeline, like OpenTelemetry metrics. You can feed these tumbling window aggregated time-series events to the [`anomaly_detector` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/anomaly-detector/), which trains a model and generates anomalies with a grade score. Then you can configure your pipeline to write the anomalies to a separate index to create document monitors and trigger fast alerting.
 
 ## Metrics from logs 
 
-The following pipeline receives logs using an HTTP source like FluentBit, extracts important values from the logs by matching the value in the `log` key against the grok [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog), and then forwards the grokked logs to both the `log-to-metrics-pipeline sub-pipeline` and an OpenSearch index named `logs`.
+The following pipeline receives logs from an HTTP source like FluentBit, extracts important values from the logs by matching the value in the `log` key against the [Grok Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog), and then forwards the grokked logs to both the `log-to-metrics-pipeline` pipeline and an OpenSearch index named `logs`.
 
-The `log-to-metrics-pipeline` sub-pipeline receives the grokked logs from the `apache-log-pipeline-with-metrics sub-pipeline`, aggregates them, and derives histogram metrics based on the values in the `clientip` and `request` keys. It then sends the histogram metrics to an OpenSearch index named `histogram_metrics` as well as to the `log-to-metrics-anomaly-detector` sub-pipeline.
+The `log-to-metrics-pipeline` pipeline receives the grokked logs from the `apache-log-pipeline-with-metrics` pipeline, aggregates them, and derives histogram metrics based on the values in the `clientip` and `request` keys. It then sends the histogram metrics to an OpenSearch index named `histogram_metrics` as well as to the `log-to-metrics-anomaly-detector-pipeline` pipeline.
 
-The `log-to-metrics-anomaly-detector-pipeline` sub-pipeline receives the aggregated histogram metrics from the `log-to-metrics-pipeline` sub-pipeline and sends them to the `anomaly_detector` processor to detect anomalies by using the Random Cut Forest algorithm. If it detects anomalies, it sends them to an OpenSearch index named `log-metric-anomalies`.
+The `log-to-metrics-anomaly-detector-pipeline` pipeline receives the aggregated histogram metrics from the `log-to-metrics-pipeline` pipeline and sends them to the `anomaly_detector` processor to detect anomalies by using the Random Cut Forest algorithm. If the algorithm detects anomalies, it sends them to an OpenSearch index named `log-metric-anomalies`.
 
 ```json
 apache-log-pipeline-with-metrics:
@@ -78,15 +78,15 @@ log-to-metrics-anomaly-detector-pipeline:
 
 ## Metrics from traces
 
-You can derive metrics from traces and find anomalies in those generated metrics. In this example, the `entry-pipeline` sub-pipeline receives trace data from the OpenTelemetry Collector and forwards it to the following sub-pipelines:
+You can derive metrics from traces and find anomalies in these generated metrics. In this example, the `entry-pipeline` sub-pipeline receives trace data from the OpenTelemetry Collector and forwards it to the following sub-pipelines:
 
-- `span-pipeline` – Extracts the raw spans from the traces. It sends the raw spans to any indexes OpenSearch prefixed with `otel-v1-apm-span`.
+- `span-pipeline` –- Extracts the raw spans from the traces. The pipeline sends the raw spans to any indexes OpenSearch prefixed with `otel-v1-apm-span`.
 
-- `service-map-pipeline` – Aggregates and analyzes it to create documents that represent connections between services. It sends these documents to an OpenSearch index named `otel-v1-apm-service-map`. You can then see a visualization of the service map through the [Trace Analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) plugin for OpenSearch Dashboards.
+- `service-map-pipeline` –- Aggregates and analyzes it to create documents that represent connections between services. The pipeline sends these documents to an OpenSearch index named `otel-v1-apm-service-map`. You can then see a visualization of the service map through the [Trace Analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) plugin for OpenSearch Dashboards.
 
-- `trace-to-metrics-pipeline` - Aggregates and derives histogram metrics from the traces based on the value of the `serviceName`. It then sends the derived metrics to an OpenSearch index named `metrics_for_traces` and to the `trace-to-metrics-anomaly-detector-pipeline` sub-pipeline.
+- `trace-to-metrics-pipeline` -- Aggregates and derives histogram metrics from the traces based on the value of the `serviceName`. The pipeline then sends the derived metrics to an OpenSearch index named `metrics_for_traces` and to the `trace-to-metrics-anomaly-detector-pipeline` pipeline.
 
-The `trace-to-metrics-anomaly-detector-pipeline` sub-pipeline receives the aggregated histogram metrics from the `trace-to-metrics-pipeline` and sends them to the `anomaly_detector` processor to detect anomalies by using the Random Cut Forest algorithm. If it detects any anomalies, it sends them to an OpenSearch index named `trace-metric-anomalies`.
+The `trace-to-metrics-anomaly-detector-pipeline` pipeline receives the aggregated histogram metrics from the `trace-to-metrics-pipeline` and sends them to the `anomaly_detector` processor to detect anomalies by using the Random Cut Forest algorithm. If the algorithm detects any anomalies, it sends them to an OpenSearch index named `trace-metric-anomalies`.
 
 ```json
 entry-pipeline:
@@ -171,9 +171,9 @@ trace-to-metrics-anomaly-detector-pipeline:
 
 ## OpenTelemetry metrics
 
-You can create a pipeline that receives OpenTelemetry metrics and detects anomalies in those metrics. In this example, `entry-pipeline` receives metrics from the OpenTelemetry Collector. If a metric is of type `GAUGE` and the name of the metric is `totalApiBytesSent`, the processor sends it to the `ad-pipeline` sub-pipeline.
+You can create a pipeline that receives OpenTelemetry metrics and detects anomalies in those metrics. In this example, `entry-pipeline` receives metrics from the OpenTelemetry Collector. If a metric is of type `GAUGE` and the name of the metric is `totalApiBytesSent`, the processor sends it to the `ad-pipeline` pipeline.
 
-The `ad-pipeline` sub-pipeline receives the metrics from the entry pipeline and performs anomaly detection on the value of the metric by using the [`anomaly_detector` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/anomaly-detector/).
+The `ad-pipeline` pipeline receives the metrics from the entry pipeline and performs anomaly detection on the metric values by using the [`anomaly_detector` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/anomaly-detector/).
 
 ```json
 entry-pipeline:
