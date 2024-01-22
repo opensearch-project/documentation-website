@@ -2,7 +2,7 @@
 layout: default
 title: Sampling
 parent: Common use cases
-nav_order: 40
+nav_order: 45
 ---
 
 # Sampling
