@@ -321,7 +321,7 @@ The incoming event structure is then flattened accordingly:
 
 ## Processing incoming timestamps
 
-The [Date]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/date/) processor parses the timestamp key from incoming events by converting it to ISO 8601 format.
+The [Date]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/date/) processor parses the timestamp key from incoming events by converting it to ISO 8601 format:
 
 ```json
 ...
