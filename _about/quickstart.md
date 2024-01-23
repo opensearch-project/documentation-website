@@ -76,7 +76,7 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
         "tagline" : "The OpenSearch Project: https://opensearch.org/"
     }
     ```
-1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the password set in your`docker-compose.yml` in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 
 ## Create an index and field mappings using sample data
 
@@ -111,7 +111,7 @@ Create an index and define field mappings using a dataset provided by the OpenSe
     curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:<custom-admin-password> -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
     ```
     Queries submitted to the OpenSearch REST API will generally return a flat JSON by default. For a human readable response body, use the query parameter `pretty=true`. For more information about `pretty` and other useful query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
-1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password set in your `opensearch.yml` configuration under Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the password set in your`docker-compose.yml` in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is set in your `opensearch.yml` configuration under Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 1. On the top menu bar, go to **Management > Dev Tools**.
 1. In the left pane of the console, enter the following:
     ```json
