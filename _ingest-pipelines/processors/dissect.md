@@ -157,7 +157,7 @@ If any `%{keyname}` defined in the pattern do not have a value, then an exceptio
 
 ### Empty and named skip keys
 
-An empty key `%{}` or a [named skip key](#named-skip-key) can be used to match values, but exclude the value from the final document. This can be useful if you want to parse a string, but you do not need to store all its parts.
+An empty key `%{}` or a [named skip key](#named-skip-key) can be used to match values but exclude the value from the final document. This can be useful if you want to parse a string but do not need to store all its parts.
 
 ### Converting matched values to a non-string data type
 
@@ -165,7 +165,7 @@ By default, all matched values are represented as string data types. If you need
 
 ### Key modifiers 
 
-The `dissect` processor supports key modifiers that can change the default processor behavior. These modifiers are always placed to the left or right of `%{keyname}` and are always enclosed within `%{}`. For example, the `%{+keyname->}` modifier includes the append and right padding modifiers. Key modifiers are useful for cases such as combining multiple fields into a single line of output, creating formatted lists of data items, or aggregating values from multiple sources.  
+The `dissect` processor supports key modifiers that can change the default processor behavior. These modifiers are always placed to the left or right of the `%{keyname}` and are always enclosed within `%{}`. For example, the `%{+keyname->}` modifier includes the append and right padding modifiers. Key modifiers are useful for cases such as combining multiple fields into a single line of output, creating formatted lists of data items, or aggregating values from multiple sources.  
 
 The following table lists the primary modifiers for the `dissect` processor.
 
@@ -177,13 +177,13 @@ Modifier | Name | Position | Example | Description |
 `?` | Named skip key | left | `%{?skipme}` | Skips the matched value in the output. Same behavior as `%{}`. |
 `*` and `&` | Reference keys | left | `%{*r1} %{&r1}` | Sets the output key as value of `*` and output value of `&`. |
 
-Detailed descriptions of each key modifier are in the following sections.
+Detailed descriptions of each key modifier, along with usage examples, are in the following sections.
 
 ### Right padding modifier (`->`)
 
 The dissection algorithm is precise and requires that every character in the pattern exactly match the source string. For instance, the pattern `%{hellokey} %{worldkey}` (one space) will match the string "Hello world" (one space) but not the string "Hello  world" (two spaces) because the pattern only has one space while the source string has two.
 
-The right padding modifier can be used to address this issue. By adding the right padding modifier to the pattern `%{helloworldkey->} %{worldkey}`, it will match `Hello world` (one space), `Hello  world` (two spaces), and even `Hello          world` (ten spaces). 
+The right padding modifier can be used to address this issue. By adding the right padding modifier to the pattern `%{helloworldkey->} %{worldkey}`, it will match <code>Hello&nbsp;world</code> (one space), <code>Hello&nbsp;&nbsp;world</code> (two spaces), and even <code>Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world</code> (ten spaces). 
 
 The right padding modifier is used to allow for the repetition of characters following a `%{keyname->}`. The right padding modifier can be applied to any key along with any other modifiers. It should always be the rightmost modifier, for example, `%{+keyname/1->}` or `%{}`.
 
@@ -200,7 +200,7 @@ New York, NY 10017
 New York City, NY 10017
 ```
 
-The following example pipeline uses the right-padding modifier with an empty key `%{->}`:
+The following example pipeline uses the right padding modifier with an empty key `%{->}`:
 
 ```json
 PUT /_ingest/pipeline/dissect-test
@@ -328,7 +328,7 @@ The substrings are appended to the `address` field, as shown in the following re
 
 ### Append with order modifier (`+` and `/`)
 
-The append with order modifier combines the values of two or more keys into a single output value based on the order specified after the `/`. You have the flexibility to customize the separator that separates the appended values. The append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
+The append with order modifier combines the values of two or more keys into a single output value based on the order specified after the `/` modifier. You have the flexibility to customize the separator that separates the appended values. The append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
 
 #### Example of usage
 
@@ -369,7 +369,7 @@ POST _ingest/pipeline/dissect-test/_simulate
 ```
 {% include copy-curl.html %}
 
-The substrings are appended into the `address` field in reverse order, as show in the following response:
+The substrings are appended into the `address` field in reverse order, as shown in the following response:
 
 ```json
 {
@@ -434,7 +434,7 @@ POST _ingest/pipeline/dissect-test/_simulate
 ```
 {% include copy-curl.html %}
 
-You should get a response similar to the following example:
+Your response should be similar to the following:
 
 ```json
 {
