@@ -30,7 +30,8 @@ The following table lists the required and optional parameters for the `remove` 
 
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). The following metadata fields are not allowed to be removed: `_index`, `_version`, `_version_type`, and `_id`. Note that `_id` is not allowed to be removed when there's a specified external version for the ingesting document. |
+`field`  | Optional  | The name of the field containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). The following metadata fields are not allowed to be removed: `_index`, `_version`, `_version_type`, and `_id`. Note that `_id` is not allowed to be removed when there's a specified external version for the ingesting document. |
+`exclude_field`  | Optional  | The name of the fields need to be kept while other fields except the metadata fields will be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). `exclude_field` and `field` are mutually exclusive, either of them can be set. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
