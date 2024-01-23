@@ -1,5 +1,5 @@
 extends: existence
-message: "Remove double slashes from the link '%s'."
+message: "Remove double parentheses from the link '%s'."
 level: error
 nonword: true
 scope: raw
