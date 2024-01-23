@@ -17,12 +17,12 @@ For example, say you're a system architect at a ride share company. As a ride sh
 Consider the following when deciding which workload would work best for benchmarking your cluster:
 
 - Consider the use case of your cluster. 
-- Consider what data types your cluster uses by comparing it the data structure of the documents contained in the workload. Each workload contains an example document so you can compare data types. Also, you can go to `index.json` file in the workload to see the data type.
+- Consider what data types your cluster uses by comparing it the data structure of the documents contained in the workload. Each workload contains an example document so you can compare data types. Also, you can go to `index.json` file in the workload to see  index mappings and the data types.
 - Consider the types of queries most commonly used inside your cluster. You can find information about the types of queries or operations the workload runs inside of the `operations/default.json` file.
 
 ## General search clusters
 
-For benchmarking clusters built for general search use cases, start with [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis). The `nyc_taxis` workload data about the rides performed by yellow taxis in New York in 2015. 
+For benchmarking clusters built for general search use cases, start with [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/nyc_taxis). The `nyc_taxis` workload contains data about the rides performed by yellow taxis in New York in 2015. 
 
 ## Log data
 
