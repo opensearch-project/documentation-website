@@ -78,11 +78,11 @@ log-to-metrics-anomaly-detector-pipeline:
 
 ## Metrics from traces
 
-You can derive metrics from traces and find anomalies in those metrics. In this example, the `entry-pipeline` sub-pipeline receives trace data from the OpenTelemetry Collector and forwards it to the following sub-pipelines:
+You can derive metrics from traces and find anomalies in those metrics. In this example, the `entry-pipeline` pipeline receives trace data from the OpenTelemetry Collector and forwards it to the following pipelines:
 
 - `span-pipeline` –- Extracts the raw spans from the traces. The pipeline sends the raw spans to any indexes OpenSearch prefixed with `otel-v1-apm-span`.
 
-- `service-map-pipeline` –- Aggregates and analyzes it to create documents that represent connections between services. The pipeline sends these documents to an OpenSearch index named `otel-v1-apm-service-map`. You can then see a visualization of the service map through the [Trace Analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) plugin for OpenSearch Dashboards.
+- `service-map-pipeline` –- Aggregates and analyzes the traces to create documents that represent connections between services. The pipeline sends these documents to an OpenSearch index named `otel-v1-apm-service-map`. You can then see a visualization of the service map through the [Trace Analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) plugin for OpenSearch Dashboards.
 
 - `trace-to-metrics-pipeline` -- Aggregates and derives histogram metrics from the traces based on the value of the `serviceName`. The pipeline then sends the derived metrics to an OpenSearch index named `metrics_for_traces` and to the `trace-to-metrics-anomaly-detector-pipeline` pipeline.
 
