@@ -126,6 +126,23 @@ POST _aliases
 }
 ```
 
+In addition, `remove` action supports `must_exist` paramater, if it is `true` and the specified alias doesn't exist, an exception will be thrown, if it is `false`, nothing happens if the specified alias doesn't exist. The default value of `must_exist` is `null`, only if all of the specified aliases don't exist, an exception will be thrown.
+
+```json
+POST _aliases
+{
+  "actions": [
+    {
+      "remove": {
+        "index": "index-1",
+        "alias": "alias1",
+        "must_exist": true
+      }
+    }
+  ]
+}
+```
+
 ## Manage aliases
 
 To list the mapping of aliases to indexes, run the following command:
