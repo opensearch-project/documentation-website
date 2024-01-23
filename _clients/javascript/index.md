@@ -327,6 +327,27 @@ var response = await client.search({
 ```
 {% include copy.html %}
 
+## Updating a document
+
+You can delete a document using the client's `update` method:
+
+```javascript
+var response = await client.update({
+  index: index_name,
+  id: id,
+  body: {
+    doc: {
+      // Specify the fields and their updated values here
+      field1: "new_value1",
+      field2: "new_value2",
+      // Add more fields as needed
+    }
+  }
+});
+```
+
+{% include copy.html %}
+
 ## Deleting a document
 
 You can delete a document using the client's `delete` method:
