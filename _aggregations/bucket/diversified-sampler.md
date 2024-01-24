@@ -10,7 +10,7 @@ redirect_from:
 
 # Diversified sampler aggregations
 
-The `diversified_sampler` aggregation lets you reduce the bias in the distribution of the sample pool by de-duplicating documents with the same `field`. It does so by using the `max_docs_per_value` and `field` settings, which limit the maximum number of documents collected on a shard for the provided `field`. Similar to the Sampler aggregation, you can use the `shard_size` setting to control the maximum number of documents collected on any one shard:
+The `diversified_sampler` aggregation lets you reduce the bias in the distribution of the sample pool by de-duplicating documents with the same `field`. It does so by using the `max_docs_per_value` and `field` settings, which limit the maximum number of documents collected on a shard for the provided `field`. Similar to the [`sampler` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/sampler/), you can use the `shard_size` setting to control the maximum number of documents collected on any one shard:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -18,7 +18,7 @@ GET opensearch_dashboards_sample_data_logs/_search
   "size": 0,
   "aggs": {
     "sample": {
-      "diversified_sampler": {
+      "diversified_": {
         "shard_size": 1000,
         "field": "response.keyword"
       },
