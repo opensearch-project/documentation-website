@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Other log type mappings
+title: Other log types
 parent: Supported log types
 nav_order: 110
 ---

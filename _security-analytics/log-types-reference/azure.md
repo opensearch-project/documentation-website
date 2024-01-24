@@ -1,6 +1,6 @@
 ---
 layout: default
-title: azure
+title: Azure
 parent: Supported log types
 nav_order: 29
 ---
