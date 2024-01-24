@@ -2,16 +2,30 @@
 layout: default
 title: Working with log types
 parent: Using Security Analytics
-nav_order: 18
+nav_order: 31
 redirect_from: 
    - /security-analytics/sec-analytics-config/custom-log-type/
 ---
 
-# Using log types
+# Working with log types
 
 Log types represent the different sources of data used for threat detection in Security Analytics. In addition to the standard [log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) supported by Security Analytics, you can create custom log types for your threat detectors.
 
 To navigate to the **Log types** page, select **Log types** under **Detectors** in the **Security Analytics** navigation menu, as shown in the following image.
+
+## Creating custom log types
+
+To create a custom log type: 
+
+1. From the dashboard, select **OpenSearch Plugins** > **Security Analytics**, and then select **Detectors** > **Log types**.
+1. Select **Create log type**.
+1. Enter a name and, optionally, a description for the log type.
+   
+   The log type name supports characters a--z (lowercase), 0--9, hyphens, and underscores.
+   {: .note }
+   
+1. Select a category. The categories are listed in [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/).
+1. Select **Create log type** in the lower-right corner of the screen. The screen returns to the **Log types** page, and the new log type appears in the list. Note that the source for the new log type indicates **Custom**.
 
 
 ## Page actions
@@ -26,21 +40,6 @@ The following list describes the main features found on the **Log types** page a
 3. Using the **Category** and **Source** dropdowns, you can sort by the log type category or source, respectively. 
 4. Select **Create log type** in the upper-right corner of the screen to begin creating a custom log type. The **Create log type** page opens. Continue with the steps in the section that follows to create a custom log type.
 5. In the **Actions** column, you can select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to delete a custom log type (you cannot delete a standard OpenSearch-defined log type). Follow the prompts to confirm and safely remove the custom log type.
-
-
-
-## Creating a custom log type
-
-To create a custom log type: 
-1. From the dashboard, select **OpenSearch Plugins** > **Security Analytics**, and then select **Detectors** > **Log types**.
-1. Select **Create log type**.
-1. Enter a name and, optionally, a description for the log type.
-   
-   The log type name supports characters a--z (lowercase), 0--9, hyphens, and underscores.
-   {: .note }
-   
-1. Select a category. The categories are listed in [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/).
-1. Select **Create log type** in the lower-right corner of the screen. The screen returns to the **Log types** page, and the new log type appears in the list. Note that the source for the new log type indicates **Custom**.
 
 ## Log type API
 
