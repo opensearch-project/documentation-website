@@ -224,7 +224,7 @@ SAML, unlike other protocols, is not meant to be used for exchanging user creden
 
 Name | Description
 :--- | :---
-`exchange_key` | The key to sign the token. The algorithm is HMAC-SHA512, so it should have at least 64 characters, and base64 URL encoding.
+`exchange_key` | The key to sign the token. The algorithm is HMAC-SHA512, so the `exchange_key` should have at least 64 characters and a `base64` URL encoding. 
 
 
 ## TLS settings
