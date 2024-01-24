@@ -25,7 +25,7 @@ The basic syntax is:
 }
 ```
 
-### shard_size
+## Shard size property
 
 The `shard_size` property tells OpenSearch how many documents (at most) to collect from each shard.
 
