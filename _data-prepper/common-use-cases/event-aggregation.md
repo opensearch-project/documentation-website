@@ -88,7 +88,7 @@ The pipeline processes this event and creates a new group because the `sourceIp`
 
 ## Log aggregation and conditional routing
 
-You can use multiple plugins to combine log aggregation with conditional routing. In this example, the pipeline `log-aggregate-pipeline` receives logs by using an HTTP client, like FluentBit, and extracts important values from the logs by matching the value in the `log` key against the common Apache log pattern.
+You can use multiple plugins to combine log aggregation with conditional routing. In this example, the pipeline `log-aggregate-pipeline` receives logs by using an HTTP client, like FluentBit, and extracts important values from the logs by matching the value in the `log` key against the [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html).
 
 Two of the values that the pipeline extracts from the logs with a Grok pattern include `response` and `clientip`. The `aggregate` processor then uses the `clientip` value, along with the `remove_duplicates` option, to drop any logs that contain a `clientip` that has already been processed within the given `group_duration`.
 
