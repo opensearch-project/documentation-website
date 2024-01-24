@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Creating log types
-parent: Setting up Security Analytics
+title: Working with log types
+parent: Using Security Analytics
 nav_order: 18
 redirect_from: 
    - /security-analytics/sec-analytics-config/custom-log-type/
