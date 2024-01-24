@@ -15,7 +15,7 @@ This quickstart covers the core concepts that you need to understand to get star
 - Explore and interact with data.
 - Visualize data.
 
-Starting with OpenSearch 2.12, you'll see the following homepage view. This redesign considers the OpenSearch community's feedback about simplifying the dashboard experience. Share your [feedback](<insert-link-feedback-dashboards>) about this update or other tools you want to see in OpenSearch Dashboards.
+Starting with OpenSearch 2.12, you'll see the following homepage view. This redesign considers the OpenSearch community's feedback about simplifying the user experience. Share your [feedback](<insert-link-feedback-dashboards>) about this update or other tools you want to see in OpenSearch Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
 
@@ -81,12 +81,12 @@ The following steps give you a basic overview about using the Dashboard tool:
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboards** and then **[Flights] Global Flight Dashboard**.
 2. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
 3. In the **Add panels** window, search for the existing panel **[Flights] Delay Buckets** and then select it. A pop-up message confirms that you've added the panel.
-4. Select `x` to close the **Add panels** window.
+4. Select close `x` to exit the **Add panels** pop-up window.
 5. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard.
 
 The following image shows the view you see once you've completed the preceding steps:
 
-<img src="{{site.url}}{{site.baseurl}}/images/<insert-new-image>" alt="Dashboard tutorial screen view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel2.png" alt="Add panel tutorial screen view" width="700">
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
@@ -125,6 +125,6 @@ The following image shows the view you'll see once you've completed the precedin
 # Next steps
 
 - **Visualize data.** To learn more about data visualizations in OpenSearch Dashboards, go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
-- **Create dashboards.** To learn more about creating dashboards in OpenSearch Dashboards, got to [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
+- **Create dashboards.** To learn more about creating dashboards in OpenSearch Dashboards, go to [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
 - **Explore data.** To learn more about exploring data in OpenSearch Dashboards, go to [Exploring data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
 - **Ingest data.** To learn more about ingesting data in OpenSearch, go to [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) and [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/).
