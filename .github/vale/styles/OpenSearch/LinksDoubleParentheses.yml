@@ -1,0 +1,8 @@
+extends: existence
+message: "Remove double parentheses from the link '%s'."
+level: error
+nonword: true
+scope: raw
+tokens:
+  - '\[.*\](\(){2,}.*(\)){1,}'
+  - '\[.*\](\(){1,}.*(\)){2,}'
