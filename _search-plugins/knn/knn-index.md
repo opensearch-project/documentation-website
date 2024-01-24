@@ -15,6 +15,16 @@ The k-NN plugin introduces a custom data type, the `knn_vector`, that allows use
 
 Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
+## SIMD optimization for Faiss
+
+Starting with k-NN plugin version 2.13, [SIMD(Single instruction, multiple data)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) is supported by default on Linux machines only for Faiss engine if the underlying processor on the system supports SIMD instructions (`AVX2` on `x64` architecture and `NEON` on `ARM64` architecture) which helps to boost the overall performance. 
+For x64 architecture, two different versions of Faiss library(`libopensearchknn_faiss.so` and `libopensearchknn_faiss_avx2.so`) are built and shipped with the artifact where the library with `_avx2` suffix has the AVX2 SIMD instructions. During runtime, detects if the underlying system supports AVX2 or not and loads the corresponding library.
+
+Users can override and disable AVX2 and load the default Faiss library(`libopensearchknn_faiss.so`) even if system supports avx2 by setting `knn.faiss.avx2.disabled`(Static) to `true` in opensearch.yml (which is by default `false`).
+{: .note}
+
+For arm64 architecture, only one Faiss library(`libopensearchknn_faiss.so`) is built and shipped which contains the NEON SIMD instructions and unlike avx2, it can't be disabled. 
+
 ## Method definitions
 
 A method definition refers to the underlying configuration of the Approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
@@ -48,7 +58,7 @@ For nmslib, *ef_search* is set in the [index settings](#index-settings).
 An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).
 {: .note}
 
-### Supported faiss methods
+### Supported Faiss methods
 
 Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
@@ -122,10 +132,10 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 }
 ```
 
-### Supported faiss encoders
+### Supported Faiss encoders
 
-You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. faiss has
-several encoder types, but the plugin currently only supports *flat* and *pq* encoding.
+You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. Faiss has
+several encoder types, but the plugin currently only supports `flat`, `pq`, and `sq` encoding.
 
 The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
@@ -153,6 +163,7 @@ Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
 `pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
+`sq` | false | sq stands for Scalar Quantization. Starting with k-NN plugin version 2.13, you can use the sq encoder(by default [SQFP16]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-sqfp16)) to quantize 32-bit floating-point vectors into 16-bit floats by using the built-in Faiss ScalarQuantizer in order to reduce the memory footprint with a minimal loss of precision. Besides optimizing memory use, sq improves the overall performance with the SIMD optimization (using `AVX2` on `x86` architecture and using `NEON` on `ARM` architecture).
 
 #### Examples
 
@@ -204,12 +215,61 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 }
 ```
 
+The following example uses the `hnsw` method with a `sq` encoder of type `fp16` with `clip` enabled:
+
+```json
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder": {
+      "name": "sq",
+      "parameters": {
+        "type": "fp16",
+        "clip": true
+      }  
+    },    
+    "ef_construction": 256,
+    "m": 8
+  }
+}
+```
+
+The following example uses the `ivf` method with a `sq` encoder of type `fp16`:
+
+```json
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder": {
+      "name": "sq",
+      "parameters": {
+        "type": "fp16",
+        "clip": false
+      }
+    },
+    "nprobes": 2
+  }
+ }
+```
+
+
 #### PQ parameters
 
-Paramater Name | Required | Default | Updatable | Description
+Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `m` | false | 1 | false |  Determines the number of subvectors into which to break the vector. Subvectors are encoded independently of each other. This dimension of the vector must be divisible by `m`. Maximum value is 1,024.
 `code_size` | false | 8 | false | Determines the number of bits into which to encode a subvector. Maximum value is 8. For IVF, this value must be less than or equal to 8. For HNSW, this value can only be 8.
+
+#### SQ parameters
+
+Parameter name | Required | Default | Updatable | Description
+:--- | :--- | :-- | :--- | :---
+`type` | false | fp16 | false |  Determines the type of scalar quantization to be used to encode the 32 bit float vectors into the corresponding type. By default, it is `fp16`.
+`clip` | false | false | false | When set to `true`, clips the vectors that are outside of the range to bring them into the range.
 
 ### Choosing the right method
 
