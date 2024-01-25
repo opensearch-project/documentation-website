@@ -131,6 +131,7 @@ tebibyte
 [Uu]nigram
 [Uu]nnesting
 [Uu]nrecovered
+[Uu]nregister(s|ed|ing)?
 [Uu]pdatable
 [Uu]psert
 [Ww]alkthrough
