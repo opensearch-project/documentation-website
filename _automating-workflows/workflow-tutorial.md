@@ -105,6 +105,9 @@ edges:
   dest: deploy_model_3
 ```
 
+If you define `previous_node_inputs`, then defining edges is optional.
+{: .note}
+
 ## 2. Use the deployed model for inference
 
 A CoT agent can use the deployed model in a tool using the [ML Commons Agent Framework](Link TBD).  This step doesn’t strictly correspond to an API but represents a component of the body that the Register Agent API requires. This simplifies the register request and allows reuse of the same tool in multiple agents.
