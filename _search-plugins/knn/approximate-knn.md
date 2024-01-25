@@ -246,9 +246,9 @@ After data is ingested, it can be search just like any other `knn_vector` field!
 
 To learn about using filters with k-NN search, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
-### Using approximate k-NN with nested field
+### Using approximate k-NN with nested fields
 
-To learn about k-NN search with nested field, see [k-NN search with nested_fields]({{site.url}}{{site.baseurl}}/search-plugins/knn/nested-search-knn/).
+To learn about k-NN search with nested fields, see [k-NN search with nested fields]({{site.url}}{{site.baseurl}}/search-plugins/knn/nested-search-knn/).
 
 ## Spaces
 

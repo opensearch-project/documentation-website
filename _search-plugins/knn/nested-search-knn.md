@@ -9,23 +9,19 @@ has_math: true
 ---
 
 # k-NN search with nested fields
-With k-NN search using nested fields, you can store multiple vectors in a single document. 
-For example, if your document consists of various components, you can generate a vector value for each component and store them in a nested field.
 
-During a k document search, the search operates at the field level. 
-However, only the nearest vector of each document contributes to the result. 
-For instance, if there are documents A and B, with A having vectors A1 and A2, and B having vector B1, and the similarity order for a query Q is A1, A2, B1, using a k value of 2 will return both documents A and B instead of just A.
+Using [nested fields]({{site.url}}{{site.baseurl}}/field-types/nested/) in a k-NN index, you can store multiple vectors in a single document. For example, if your document consists of various components, you can generate a vector value for each component and store each vector in a nested field.
 
-It's essential to note that in the case of an approximate search, the results are approximations and not exact matches.
+A k-nearest neighbors document search operates at the field level. For a document with nested fields, OpenSearch examines only the vector nearest to the query vector to decide whether to include the document in the results. For example, consider an index containing documents `A` and `B`. Document `A` is represented by vectors `A1` and `A2`, and document `B` is represented by vector `B1`. Further, the similarity order for a query Q is `A1`, `A2`, `B1`. If you search using query Q with a k value of 2, the search will return both documents `A` and `B` instead of only document `A`.
 
-k-NN search with nested fields is supported with the HNSW algorithm in Lucene and the Faiss engine. 
+Note that in the case of an approximate search, the results are approximations and not exact matches.
+
+k-NN search with nested fields is supported by the HNSW algorithm for the Lucene and the Faiss engines. 
 
 
-## Get started with k-NN search with nested fields
+## Indexing and searching nested fields
 
-To use the k-NN plugin's search functionality with nested fields, you must first create a k-NN index with `index.knn` set to `true`.
-
-Next, you must add one or more fields of the `knn_vector` data type inside nested_field. This example creates an index with one `knn_vector` data type inside nested field.
+To use k-NN search with nested fields, you must create a k-NN index by setting `index.knn` to `true`. Create a nested field by setting its `type` to `nested` and specify one or more fields of the `knn_vector` data type within the nested field. In this example, the `knn_vector` field `my_vector` is nested inside the `nested_field` field:
 
 ```json
 PUT my-knn-index-1
@@ -59,8 +55,9 @@ PUT my-knn-index-1
   }
 }
 ```
+{% include copy-curl.html %}
 
-After you create the index, you can add some data to it:
+After you create the index, add some data to it:
 
 ```json
 PUT _bulk?refresh=true
@@ -68,10 +65,10 @@ PUT _bulk?refresh=true
 {"nested_field":[{"my_vector":[1,1,1]},{"my_vector":[2,2,2]},{"my_vector":[3,3,3]}]}
 { "index": { "_index": "my-knn-index-1", "_id": "2" } }
 {"nested_field":[{"my_vector":[10,10,10]},{"my_vector":[20,20,20]},{"my_vector":[30,30,30]}]}
-
 ```
+{% include copy-curl.html %}
 
-Then you can execute a k-nearest neighbor search on the data using the `knn` query type:
+Then run a k-nearest neighbor search on the data using the `knn` query type:
 
 ```json
 GET my-knn-index-1/_search
@@ -91,9 +88,10 @@ GET my-knn-index-1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
+Even though all three nearest vectors to the query vector are in document 1, the query returns both documents 1 and 2 because k is set to 2:
 
-Even if document ID 1 has three nearest vectors, it returns two documents with a k value of 2. 
 ```json
 {
   "took": 23,
@@ -176,11 +174,13 @@ Even if document ID 1 has three nearest vectors, it returns two documents with a
 }
 ```
 
-## Filtering on k-NN search with nested fields
-You can apply filter on k-NN search with nested fields. Filter can be applied to either top level field or field inside nested fields.
+## k-NN search with filtering on nested fields
 
-In this example, it uses filter on top level field. 
-First, you need to create a knn index with a nested field.
+You can apply a filter to k-NN search with nested fields. A filter can be applied to either a top-level field or a field inside a nested field.
+
+The following example applies a filter to a top-level field. 
+
+First, create a k-NN index with a nested field:
 
 ```json
 PUT my-knn-index-1
@@ -214,8 +214,9 @@ PUT my-knn-index-1
   }
 }
 ```
+{% include copy-curl.html %}
 
-After you create the index, you can add some data to it:
+After you create the index, add some data to it:
 
 ```json
 PUT _bulk?refresh=true
@@ -225,10 +226,10 @@ PUT _bulk?refresh=true
 {"parking": true, "nested_field":[{"my_vector":[10,10,10]},{"my_vector":[20,20,20]},{"my_vector":[30,30,30]}]}
 { "index": { "_index": "my-knn-index-1", "_id": "3" } }
 {"parking": true, "nested_field":[{"my_vector":[100,100,100]},{"my_vector":[200,200,200]},{"my_vector":[300,300,300]}]}
-
 ```
+{% include copy-curl.html %}
 
-Then you can execute a k-nearest neighbor search on the data using the `knn` query type with filter:
+Then run a k-nearest neighbors search on the data using the `knn` query type with a filter. The following query returns documents whose `parking` field is set to `true`:
 
 ```json
 GET my-knn-index-1/_search
@@ -257,9 +258,10 @@ GET my-knn-index-1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
+Even though all three nearest vectors to the query vector are in document 1, the query returns documents 2 and 3 because document 1 is filtered out:
 
-Even if document ID 1 has the nearest vector value, only document ID 2 and 3 are returned with the filtering condition
 ```json
 {
   "took": 10,
