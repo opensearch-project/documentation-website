@@ -20,6 +20,7 @@ Boolean
 [Dd]eallocate
 [Dd]eduplicates?
 [Dd]eduplication
+[Dd]eprovision(s|ed|ing)?
 [Dd]eserialize
 [Dd]eserialization
 Dev

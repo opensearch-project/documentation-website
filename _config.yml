@@ -112,6 +112,9 @@ collections:
   about:
     permalink: /:collection/:path/
     output: true
+  automating-workflows:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme
@@ -165,6 +168,9 @@ opensearch_collection:
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
+      nav_fold: true
+    automating-workflows:
+      name: Automating workflows
       nav_fold: true
     monitoring-your-cluster:
       name: Monitoring your cluster
