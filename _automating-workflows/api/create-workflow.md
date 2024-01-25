@@ -72,7 +72,7 @@ The following table lists the available request fields.
 |`name`	|String	|Required	|The name of the workflow.	|
 |`description`	|String	|Optional	|A description of the workflow.	|
 |`use_case`	|String	|Optional	|A use case, which can be used with the Search Workflow API to find related workflows. OpenSearch may provide some standard use cases in the future to ease categorization, but currently you can use this field to specify custom values.	|
-|`version`	|Object	|Optional	|A key-value map with two fields: `template` identifying the template version, and `compatibility` identifying a list of minimum required versions.	|
+|`version`	|Object	|Optional	|A key-value map with two fields: `template` identifying the template version, and `compatibility` identifying a list of minimum required versions of OpenSearch.	|
 |`workflows`	|Object	|Optional	|A map of workflows. Presently only the `provision` key is supported. The value for the workflow key is a key-value map which includes fields for `user_params` and lists of `nodes` and `edges`.	|
 
 #### Example Request: Register and deploy an externally hosted model (YAML)
