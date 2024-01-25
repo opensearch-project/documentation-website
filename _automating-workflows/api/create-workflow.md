@@ -14,9 +14,14 @@ Creating a workflow adds the content of a workflow template to the flow framewor
 * Workflow step fields with invalid values
 * Workflow graph (node/edge) configurations containing cycles or having duplicate IDs
 
+To obtain the validation template for workflow steps, call the [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-steps/).
+
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
-The `POST` method creates a new workflow.  The `PUT` method updates an existing workflow.
+The `POST` method creates a new workflow.  The `PUT` method updates an existing workflow. 
+
+You can only update a workflow if it has not yet been provisioned.
+{: .note}
 
 ## Path and HTTP methods
 
