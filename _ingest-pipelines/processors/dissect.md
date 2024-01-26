@@ -326,7 +326,7 @@ The substrings are appended to the `address` field, as shown in the following re
 ```
 {% include copy-curl.html %}
 
-### Append with order modifier (`+` and `/`)
+### Append with order modifier (`+` and `/n`)
 
 The append with order modifier combines the values of two or more keys into a single output value based on the order specified after the `/`. You have the flexibility to customize the separator that separates the appended values. The append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
 
