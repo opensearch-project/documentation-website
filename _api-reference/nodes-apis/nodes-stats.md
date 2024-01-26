@@ -1228,8 +1228,8 @@ memory_utilization_percent | Float      | The node JVM memory usage statistics w
 The `admission_control` object contains the rejection count of search and indexing requests based on resource consumption and has the following properties.
 Field | Field type | Description
 :--- | :--- | :---
-admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage threshold limit was breached. In this case, additional search requests are rejected until the system recovers.
-admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage threshold limit was breached. In this case, additional indexing requests are rejected until the system recovers.
+admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was breached. In this case, additional search requests are rejected until the system recovers.
+admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was breached. In this case, additional indexing requests are rejected until the system recovers.
 
 
 ## Concurrent segment search
