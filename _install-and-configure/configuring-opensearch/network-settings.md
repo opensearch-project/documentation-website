@@ -48,3 +48,12 @@ OpenSearch supports the following advanced network settings for transport commun
 - `transport.bind_host` (Static, list): Specifies an address or addresses to which an OpenSearch node binds to listen for incoming transport connections. 
 
 - `transport.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes for transport communication.
+
+## Selecting the transport
+
+The default OpenSearch transport is provided by `transport-netty4` module and internally uses Netty 4 engine for both internal TCP-based communication between nodes in the cluster as well as external HTTP-based communication with the clients. This communication is fully asynchronous and non-blocking. However, there are other transport plugins available that could be used interchangeably:
+
+Plugin | Description
+:---------- | :--------
+`transport-nio`    | The OpenSearch transport based on Java NIO. <br> Installation: `./bin/opensearch-plugin install transport-nio` <br> Configuration (using `opensearch.yml`): <br> `transport.type: nio-transport` <br> `http.type: nio-http-transport`
+`transport-reactor-netty4`    | The OpenSearch HTTP transport based on Project Reactor and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4`
