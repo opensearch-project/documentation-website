@@ -332,7 +332,7 @@ The append with order modifier combines the values of two or more keys into a si
 
 #### Example of usage
 
-The following example pipeline uses the append with order modifier to reverse the pattern order defined in the preceding pipeline. The `append_separator` parameter must be defined in the processor configuration, outside of the `pattern`. It is only relevant with the `+` modifier.
+The following example pipeline uses the append with order modifier to reverse the pattern order defined in the preceding pipeline. This pipeline specifies a separator to insert between the appended fields. If you don't specify a separator, all values will be appended together without a separator.
 
 ```json
 PUT /_ingest/pipeline/dissect-test
