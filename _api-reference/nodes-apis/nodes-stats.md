@@ -52,6 +52,7 @@ script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
 resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
+admission_control | Statistics about admission control.
 
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
 
@@ -716,6 +717,16 @@ Select the arrow to view the example response.
           "cpu_utilization_percent": "0.1",
           "memory_utilization_percent": "3.9"
         }
+      },
+      "admission_control": {
+        "global_cpu_usage": {
+          "transport": {
+            "rejection_count": {
+              "search": 3,
+              "indexing": 1
+            }
+          }
+        }
       }
     }
   }
@@ -770,7 +781,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
 [resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
-
+[admission_control](#admission_control) | Object | Statistics related to admission control for the node.
 
 ### `indices`
 
@@ -1203,6 +1214,7 @@ enabled | Boolean | Specifies whether the shard indexing pressure feature is tur
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
 
 ### `resource_usage_stats`
+
 The `resource_usage_stats` object contains the resource usage statistics. Each entry is specified by the node ID and has the following properties.
 
 Field | Field type | Description
@@ -1210,6 +1222,15 @@ Field | Field type | Description
 timestamp | Integer    | The last refresh time for the resource usage statistics, in milliseconds since the epoch.
 cpu_utilization_percent | Float      | Statistics for the average CPU usage of OpenSearch process within the time period configured in the `node.resource.tracker.global_cpu_usage.window_duration` setting.
 memory_utilization_percent | Float      | The node JVM memory usage statistics within the time period configured in the `node.resource.tracker.global_jvmmp.window_duration` setting.
+
+### `admission_control`
+
+The `admission_control` object contains the rejection count of search and indexing requests based on resource consumption and has the following properties.
+Field | Field type | Description
+:--- | :--- | :---
+admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was breached. In this case, additional search requests are rejected until the system recovers.
+admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was breached. In this case, additional indexing requests are rejected until the system recovers.
+
 
 ## Concurrent segment search
 
