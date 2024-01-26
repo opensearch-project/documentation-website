@@ -51,9 +51,9 @@ OpenSearch supports the following advanced network settings for transport commun
 
 ## Selecting the transport
 
-The default OpenSearch transport is provided by `transport-netty4` module and internally uses Netty 4 engine for both internal TCP-based communication between nodes in the cluster as well as external HTTP-based communication with the clients. This communication is fully asynchronous and non-blocking. However, there are other transport plugins available that could be used interchangeably:
+The default OpenSearch transport is provided by the `transport-netty4` module and internally uses the [Netty 4](https://netty.io/) engine for both internal TCP-based communication between nodes in the cluster and external HTTP-based communication with the clients. This communication is fully asynchronous and non-blocking. However, there are other transport plugins available that could be used interchangeably:
 
 Plugin | Description
 :---------- | :--------
 `transport-nio`    | The OpenSearch transport based on Java NIO. <br> Installation: `./bin/opensearch-plugin install transport-nio` <br> Configuration (using `opensearch.yml`): <br> `transport.type: nio-transport` <br> `http.type: nio-http-transport`
-`transport-reactor-netty4`    | The OpenSearch HTTP transport based on Project Reactor and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4`
+`transport-reactor-netty4`    | The OpenSearch HTTP transport based on [Project Reactor](https://github.com/reactor/reactor-netty) and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4`
