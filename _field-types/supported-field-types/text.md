@@ -12,13 +12,14 @@ redirect_from:
 
 # Text field type
 
-A text field type contains a string that is analyzed. It is used for full-text search because it allows partial matches. Searches with multiple terms can match some but not all of them. Depending on the analyzer, results can be case insensitive, stemmed, stopwords removed, synonyms applied, etc.
+A text field type contains a string that is analyzed. It is used for full-text search because it allows partial matches. Searches with multiple terms can match some but not all of them. Depending on the analyzer, results can be case insensitive, stemmed, stopwords removed, synonyms applied, and so on.
 
 
 If you need to use a field for exact-value search, map it as a [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) instead.
 {: .note }
 
-If you don't query phrases or don't have a use case of positional queries, such as interval/span queries, where order of the term in the phrase is of significance, then use space optimized version of the text field - [`match_only_text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/match-only-text/) instead.
+The [`match_only_text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/match-only-text/) field is a space-optimized version of the text field. If you don't need to query phrases or use positional queries, map the field as `match_only_text` instead of `text`. Positional queries are queries for which the position of the term in the phrase matters, such as interval or span queries. 
+{: .note}
 
 ## Example
 
