@@ -30,7 +30,7 @@ The following table lists the required and optional parameters for the `remove` 
 
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
-`field`  | Optional  | The field name containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). The metadata fields `_index`, `_version`, `_version_type`, and `_id` cannot be removed. If `version` is specified, the `_id` cannot be removed from the ingested document. |
+`field`  | Optional  | The field name containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). The metadata fields `_index`, `_version`, `_version_type`, and `_id` cannot be removed. If `version` is specified, `_id` cannot be removed from the ingested document. |
 `exclude_field`  | Optional  | The field name to be retained. All other fields, except metadata fields, will be removed. The `exclude_field` and `field` options are mutually exclusive. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
