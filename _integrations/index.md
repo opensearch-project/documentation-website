@@ -15,7 +15,7 @@ Introduced 2.9
 
 OpenSearch Integrations gives you an out-of-the-box solution to set up your favorite dashboards. An _integration_ contains a bundle of metadata, data mappings, and visualizations that simplify monitoring your data. With the **Integrations** tool, you have the flexibility to connect and collect data from a variety of sources through the OpenSearch Dashboards user interface (UI). Through the UI, you can connect your data sources with a few clicks and then explore your data using search and analytics tools such as Discover and Dashboards.  
 
-The OpenSearch Project continues to work on this feature and seeks your feedback. Let us know on the [OpenSearch forum](https://forum.opensearch.org/) how it works for you or how it can be improved. 
+OpenSearch Integrations is an ongoing work in progress. New capabilities are added with each release to improve the functionality and user experience. We appreciate your [feedback and suggestions](https://forum.opensearch.org/) for improvement. 
 {: .note}
 
 ## Integrations resources for developers
