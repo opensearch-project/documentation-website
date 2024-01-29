@@ -21,7 +21,7 @@ Workflow steps are actively being developed to expand automation capabilities. W
 
 ## Workflow step types
 
-The following table lists the workflow step types. The fields under `user_inputs` for these steps correspond directly to the linked APIs.
+The following table lists the workflow step types. The `user_inputs` fields for these steps correspond directly to the linked APIs.
 
 |Step type	|Corresponding API	|Description	|
 |---	|---	|---	|
