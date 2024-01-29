@@ -105,8 +105,6 @@ Once you select a data source and log type, the system attempts to automatically
 
 Although these automatic matches are normally dependable, it's still a good idea to review the mappings in the **Mapped fields** table and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list to search for and select the correct field name. For more information about matching field names, see the following section.
 
-For more information about field mappings, see [Working with Log types > About field mappings]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types#about-field-mappings).
-
 ## Available fields
 
 The field names that are not automatically mapped appear in the **Available fields** table. In this table you can manually map detection rule fields to data source fields, as shown in the following image.
