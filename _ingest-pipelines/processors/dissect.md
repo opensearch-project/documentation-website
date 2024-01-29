@@ -183,7 +183,7 @@ Detailed descriptions of each key modifier, along with usage examples, are provi
 
 The dissection algorithm is precise and requires that every character in the pattern exactly match the source string. For example, the pattern `%{hellokey} %{worldkey}` (one space) will match the string "Hello world" (one space) but not the string "Hello  world" (two spaces) because the pattern only has one space while the source string has two.
 
-The right padding modifier can be used to address this issue. When added to the pattern `%{helloworldkey->} %{worldkey}`, the right padding modifier will match <code>Hello&nbsp;world</code> (1 space), <code>Hello&nbsp;&nbsp;world</code> (2 spaces), and even <code>Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world</code> (10 spaces). 
+The _right padding modifier_ can be used to address this issue. When added to the pattern `%{helloworldkey->} %{worldkey}`, the right padding modifier will match <code>Hello&nbsp;world</code> (1 space), <code>Hello&nbsp;&nbsp;world</code> (2 spaces), and even <code>Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world</code> (10 spaces). 
 
 The right padding modifier is used to allow for the repetition of characters following a `%{keyname->}`. The right padding modifier can be applied to any key along with any other modifiers. It should always be the rightmost modifier, for example, `%{+keyname/1->}` or `%{}`.
 
@@ -262,7 +262,7 @@ Your response should appear similar to the following:
 
 ### Append modifier (`+`)
 
-The append modifier combines the values of two or more values into a single output value. The values are appended from left to right. You can also specify an optional separator to be inserted between the values. 
+The _append modifier_ combines the values of two or more values into a single output value. The values are appended from left to right. You can also specify an optional separator to be inserted between the values. 
 
 #### Example usage
 
@@ -328,7 +328,7 @@ The substrings are appended to the `address` field, as shown in the following re
 
 ### Append with order modifier (`+` and `/n`)
 
-The append with order modifier combines the values of two or more keys into a single output value based on the order specified after `/`. You have the flexibility to customize the separator that separates the appended values. The append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
+The _append with order modifier_ combines the values of two or more keys into a single output value based on the order specified after `/`. You have the flexibility to customize the separator that separates the appended values. The append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
 
 #### Example usage
 
@@ -394,7 +394,7 @@ The substrings are appended into the `address` field in reverse order, as shown 
 
 ### Named skip key
 
-The named skip key modifier excludes specific matches from the final output by using an empty key `{}` or `?` modifier within the pattern. For example, the following patterns are equivalent: `%{firstName} %{lastName} %{?ignore}` and `%{firstName} %{lastName} %{}`. The named skip key modifier is useful for excluding irrelevant or unnecessary fields from the output.
+The _named skip key modifier_ excludes specific matches from the final output by using an empty key `{}` or `?` modifier within the pattern. For example, the following patterns are equivalent: `%{firstName} %{lastName} %{?ignore}` and `%{firstName} %{lastName} %{}`. The named skip key modifier is useful for excluding irrelevant or unnecessary fields from the output.
 
 #### Example of usage
 
