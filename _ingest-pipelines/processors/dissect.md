@@ -464,7 +464,7 @@ Reference keys use parsed values as key-value pairings for structured content. T
 
 #### Example usage
 
-The following pattern uses a reference key to extract data into a structured format. In this example, `client_ip` and two key/value pairs are extracted for the next values:
+The following pattern uses a reference key to extract data into a structured format. In this example, `client_ip` and two key-value pairs are extracted for the next values:
 
 ```json
 PUT /_ingest/pipeline/dissect-test
