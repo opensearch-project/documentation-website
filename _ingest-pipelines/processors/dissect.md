@@ -218,7 +218,7 @@ PUT /_ingest/pipeline/dissect-test
 ```
 {% include copy-curl.html %}
 
-You can test the pipeline using the following example:
+You can test the pipeline by using the following example:
 
 ```json
 POST _ingest/pipeline/dissect-test/_simulate
