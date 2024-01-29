@@ -157,7 +157,7 @@ If any `%{keyname}` defined in the pattern does not have a value, then an except
 
 ### Empty and named skip keys
 
-An empty key `%{}` or a [named skip key](#named-skip-key) can be used to match values but exclude the value from the final document. This can be useful if you want to parse a string but do not need to store all of its parts.
+An empty key `%{}` or a [named skip key](#named-skip-key-modifier) can be used to match values but exclude the value from the final document. This can be useful if you want to parse a string but do not need to store all of its parts.
 
 ### Converting matched values to a non-string data type
 
