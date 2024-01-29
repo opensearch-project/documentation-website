@@ -165,7 +165,7 @@ By default, all matched values are represented as string data types. If you need
 
 ### Key modifiers 
 
-The `dissect` processor supports key modifiers that can change the default processor behavior. These modifiers are always placed to the left or right of the `%{keyname}` and are always enclosed within `%{}`. For example, the `%{+keyname->}` modifier includes the append and right padding modifiers. Key modifiers are useful for cases such as combining multiple fields into a single line of output, creating formatted lists of data items, or aggregating values from multiple sources.  
+The `dissect` processor supports key modifiers that can change the default processor behavior. These modifiers are always placed to the left or right of the `%{keyname}` and are always enclosed within `%{}`. For example, the `%{+keyname->}` modifier includes the append and right padding modifiers. Key modifiers are useful for combining multiple fields into a single line of output, creating formatted lists of data items, or aggregating values from multiple sources.  
 
 The following table lists the primary modifiers for the `dissect` processor.
 
