@@ -82,7 +82,7 @@ Follow these steps to set up your local copy of the repository:
 
    ```
    curl -sSL https://get.rvm.io | bash -s stable
-   rvm install 2.7
+   rvm install 3.2
    ruby -v
    ```
 
