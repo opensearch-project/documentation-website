@@ -51,7 +51,7 @@ OpenSearch supports the following advanced network settings for transport commun
 
 ## Selecting the transport
 
-The default OpenSearch transport is provided by the `transport-netty4` module and internally uses the [Netty 4](https://netty.io/) engine for both internal TCP-based communication between nodes in the cluster and external HTTP-based communication with the clients. This communication is fully asynchronous and non-blocking. However, there are other transport plugins available that could be used interchangeably:
+The default OpenSearch transport is provided by the `transport-netty4` module and uses the [Netty 4](https://netty.io/) engine for both internal TCP-based communication between nodes in the cluster and external HTTP-based communication with clients. This communication is fully asynchronous and non-blocking. However, there are other transport plugins available that can be used interchangeably:
 
 Plugin | Description
 :---------- | :--------
