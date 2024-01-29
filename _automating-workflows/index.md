@@ -33,7 +33,7 @@ Workflow automation provides the following benefits:
 * **Metadata**: A name, description, use case category, template version, and OpenSearch version compatibility range.
 * **User input**: Parameters expected from the user that are common to all automation steps across all workflows, such as an index name.
 * **Workflows**: One or more workflows containing the following elements:
-    * **User Input**:  Parameters expected from the user specific to steps in this workflow.
+    * **User input**: Parameters expected from the user that are specific to the steps in this workflow.
     * **Workflow Steps**: The workflow steps described as a directed acyclic graph (DAG):  
         * ***Nodes*** describe steps of the process, which may be executed in parallel. For the syntax of workflow steps, see [Workflow steps]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-steps/). 
         * ***Edges*** sequence nodes to be executed after the previous step is complete and may use the output fields of previous steps. When a node includes a key in the `previous_node_input` map referring to a previous node’s workflow step, a corresponding edge is automatically added to the template during parsing and may be omitted for the sake of simplicity.
