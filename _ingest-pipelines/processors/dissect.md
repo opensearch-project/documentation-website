@@ -193,7 +193,7 @@ The following is an example of how to use a right padding modifier:
 
 `%{city->}, %{state} %{zip}`
 
-In this pattern, the right padding modifier `->` is applied to the `%{city}` key. Both addresses contain the same information, but the second entry has an extra word, `City`, in the city field. The right padding modifier allows the pattern to match both of these address entries, even though they have slightly different formats: 
+In this pattern, the right padding modifier `->` is applied to the `%{city}` key. Both addresses contain the same information, but the second entry has an extra word, `City`, in the city field. The right padding modifier allows the pattern to match both of these address entries even though they have slightly different formats: 
 
 ```bash
 New York, NY 10017
