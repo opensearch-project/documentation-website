@@ -11,6 +11,9 @@ Provisioning a workflow is a one-time setup process usually performed by a clust
 
 The `workflows` template field may contain multiple workflows. The workflow with the `provision` key can be executed with this API. This API is also executed when the [Create or Update Workflow API]({{site.url}}{{site.baseurl}}/automating-workflows/api/create-workflow/) is called with the `provision` parameter set to `true`.
 
+You can only provision a workflow if it has not yet been provisioned. Deprovision the workflow if you need to repeat provisioning.
+{: .note}
+
 ## Path and HTTP methods
 
 ```json
