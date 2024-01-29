@@ -10,13 +10,13 @@ has_math: true
 
 # k-NN search with nested fields
 
-Using [nested fields]({{site.url}}{{site.baseurl}}/field-types/nested/) in a k-NN index, you can store multiple vectors in a single document. For example, if your document consists of various components, you can generate a vector value for each component and store each vector in a nested field.
+Using [nested fields]({{site.url}}{{site.baseurl}}/field-types/nested/) in a k-nearest neighbors (k-NN) index, you can store multiple vectors in a single document. For example, if your document consists of various components, you can generate a vector value for each component and store each vector in a nested field.
 
-A k-nearest neighbors document search operates at the field level. For a document with nested fields, OpenSearch examines only the vector nearest to the query vector to decide whether to include the document in the results. For example, consider an index containing documents `A` and `B`. Document `A` is represented by vectors `A1` and `A2`, and document `B` is represented by vector `B1`. Further, the similarity order for a query Q is `A1`, `A2`, `B1`. If you search using query Q with a k value of 2, the search will return both documents `A` and `B` instead of only document `A`.
+A k-NN document search operates at the field level. For a document with nested fields, OpenSearch examines only the vector nearest to the query vector to decide whether to include the document in the results. For example, consider an index containing documents `A` and `B`. Document `A` is represented by vectors `A1` and `A2`, and document `B` is represented by vector `B1`. Further, the similarity order for a query Q is `A1`, `A2`, `B1`. If you search using query Q with a k value of 2, the search will return both documents `A` and `B` instead of only document `A`.
 
 Note that in the case of an approximate search, the results are approximations and not exact matches.
 
-k-NN search with nested fields is supported by the HNSW algorithm for the Lucene and the Faiss engines. 
+k-NN search with nested fields is supported by the HNSW algorithm for the Lucene and Faiss engines. 
 
 
 ## Indexing and searching nested fields
@@ -68,7 +68,7 @@ PUT _bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-Then run a k-nearest neighbor search on the data using the `knn` query type:
+Then run a k-NN search on the data by using the `knn` query type:
 
 ```json
 GET my-knn-index-1/_search
@@ -90,7 +90,7 @@ GET my-knn-index-1/_search
 ```
 {% include copy-curl.html %}
 
-Even though all three nearest vectors to the query vector are in document 1, the query returns both documents 1 and 2 because k is set to 2:
+Even though all three vectors nearest to the query vector are in document 1, the query returns both documents 1 and 2 because k is set to 2:
 
 ```json
 {
@@ -176,7 +176,7 @@ Even though all three nearest vectors to the query vector are in document 1, the
 
 ## k-NN search with filtering on nested fields
 
-You can apply a filter to k-NN search with nested fields. A filter can be applied to either a top-level field or a field inside a nested field.
+You can apply a filter to a k-NN search with nested fields. A filter can be applied to either a top-level field or a field inside a nested field.
 
 The following example applies a filter to a top-level field. 
 
@@ -229,7 +229,7 @@ PUT _bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-Then run a k-nearest neighbors search on the data using the `knn` query type with a filter. The following query returns documents whose `parking` field is set to `true`:
+Then run a k-NN search on the data using the `knn` query type with a filter. The following query returns documents whose `parking` field is set to `true`:
 
 ```json
 GET my-knn-index-1/_search
@@ -260,7 +260,7 @@ GET my-knn-index-1/_search
 ```
 {% include copy-curl.html %}
 
-Even though all three nearest vectors to the query vector are in document 1, the query returns documents 2 and 3 because document 1 is filtered out:
+Even though all three vectors nearest to the query vector are in document 1, the query returns documents 2 and 3 because document 1 is filtered out:
 
 ```json
 {

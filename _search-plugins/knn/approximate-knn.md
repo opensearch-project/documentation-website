@@ -248,7 +248,7 @@ To learn about using filters with k-NN search, see [k-NN search with filters]({{
 
 ### Using approximate k-NN with nested fields
 
-To learn about k-NN search with nested fields, see [k-NN search with nested fields]({{site.url}}{{site.baseurl}}/search-plugins/knn/nested-search-knn/).
+To learn about using k-NN search with nested fields, see [k-NN search with nested fields]({{site.url}}{{site.baseurl}}/search-plugins/knn/nested-search-knn/).
 
 ## Spaces
 
