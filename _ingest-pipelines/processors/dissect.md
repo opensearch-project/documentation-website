@@ -236,7 +236,7 @@ POST _ingest/pipeline/dissect-test/_simulate
 ```
 {% include copy-curl.html %}
 
-Your response should be similar to the following:
+Your response should appear similar to the following:
 
 ```json
 {
