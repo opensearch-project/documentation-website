@@ -369,7 +369,7 @@ POST _ingest/pipeline/dissect-test/_simulate
 ```
 {% include copy-curl.html %}
 
-The substrings are appended into the `address` field in reverse order, as shown in the following response:
+The substrings are appended to the `address` field in reverse order, as shown in the following response:
 
 ```json
 {
