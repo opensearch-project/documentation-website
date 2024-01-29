@@ -147,7 +147,7 @@ client_ip: "192.168.1.1"
 @timestamp: "03/Nov/2023:15:20:45 +0000"
 ```
 
-A dissect pattern works by matching a string against a set of rules. For example, the first rule discards a single space. The `dissect` processor will find this space and then assign the value of `client_ip` to all the data characters before that space. The next rule matches the `[` and `]` characters and then assigns the value of `@timestamp` to everything in between.
+A dissect pattern works by matching a string against a set of rules. For example, the first rule discards a single space. The `dissect` processor will find this space and then assign the value of `client_ip` to all the characters before that space. The next rule matches the `[` and `]` characters and then assigns the value of `@timestamp` to everything in between.
 
 ### Building successful dissect patterns
 
@@ -464,7 +464,7 @@ Reference keys use parsed values as key-value pairings for structured content. T
 
 #### Example usage
 
-The following pattern uses a reference key to find data and organize it into a structured format. In this example, `client_ip` and two key-value pairs are extracted for the next values:
+The following pattern uses a reference key to extract data into a structured format. In this example, `client_ip` and two key-value pairs are extracted for the next values:
 
 ```json
 PUT /_ingest/pipeline/dissect-test
