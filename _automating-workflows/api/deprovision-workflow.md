@@ -50,7 +50,7 @@ If deprovisioning did not completely remove all resources, OpenSearch responds w
 }
 ```
 
-In some cases, the failure happens because of another dependent resource which took some time to be removed. In this case, you can attempt sending the same request again.
+In some cases, the failure happens because of another dependent resource that took some time to be removed. In this case, you can attempt sending the same request again.
 {: .tip}
 
 To obtain a more detailed status of the deprovisioning than the summary in the error response, query the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-status/). 

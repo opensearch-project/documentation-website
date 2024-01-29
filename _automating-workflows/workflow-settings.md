@@ -11,7 +11,7 @@ The following keys represent configurable workflow settings.
 |Setting	|Data type	|Default value	|Description	|
 |:---	|:---	|:---	|:---	|
 |`plugins.flow_framework.enabled`	|Boolean	|`false`	|Whether the Flow Framework API is enabled.	|
-|`plugins.flow_framework.max_workflows`	|Integer	|`1000`	|The maximum number of workflows you can create. When the limit is above 1000, the count of existing workflows is defined as a lower bound for performance reasons so the actual maximum may slightly exceed this value.	|
+|`plugins.flow_framework.max_workflows`	|Integer	|`1000`	|The maximum number of workflows you can create. When the limit is above 1,000, the count of existing workflows is defined as a lower bound for performance reasons so the actual maximum may slightly exceed this value.	|
 |`plugins.flow_framework.max_workflow_steps`	|Integer	|`50`	|The maximum number of steps a workflow can have.	|
 |`plugins.flow_framework.request_timeout`	|Time units	|`10s`	|The default timeout for REST requests, which applies to internal search queries.	|
 |`plugins.flow_framework.task_request_retry_duration`	|Time units	|`5s`	|When steps correspond to an API that produces a `task_id`, OpenSearch will retry these steps at this interval until complete.	|

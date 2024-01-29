@@ -35,7 +35,7 @@ The Get Workflow Steps API retrieves this file.
 GET /_plugins/_flow_framework/workflow/_steps
 ``` 
 
-### Example request
+#### Example request
 
 ```json
 GET /_plugins/_flow_framework/workflow/_steps
@@ -43,7 +43,7 @@ GET /_plugins/_flow_framework/workflow/_steps
 {% include copy-curl.html %}
 
 
-### Example response
+#### Example response
 
 OpenSearch responds with the validation template containing the steps. The order of fields in the returned steps may not exactly match the original JSON but will function identically.
 

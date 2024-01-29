@@ -40,7 +40,7 @@ Automating workflows provides the following benefits:
 
 ## Next steps
 
-- Flow Framework provides its own set of REST APIs. For details, see [Flow Framework APIs](https://quip-amazon.com/tBZPAb0qRx58/Flow-Framework#temp:C:PMc4eaad143dd4e44e9908f55699).
+- For supported APIs, see [Workflow APIs]({{site.url}}{{site.baseurl}}/automating-workflows/api/index/).
 - For the workflow step syntax, see [Workflow steps]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-steps/).  
 - For a complete example, see [Workflow tutorial]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-tutorial/).
 - For configurable settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-settings/).
