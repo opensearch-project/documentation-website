@@ -462,7 +462,7 @@ Your response should appear similar to the following:
 
 Reference keys use parsed values as key-value pairings for structured content. This can use useful when handling systems that partially log data in key-value pairs. By using reference keys, you can preserve the key-value relationship and maintain the integrity of the extracted information. 
 
-#### Example of usage
+#### Example usage
 
 The following pattern uses a reference key to extract data into a structured format. In this example, `client_ip` and two key/value pairs are extracted for the next values:
 
