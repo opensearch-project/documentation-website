@@ -34,20 +34,20 @@ We provide a fully functional example that can help you understand how to use SA
    
    ```yml
    opensearch-saml-node1:
-    image: opensearchproject/opensearch:2.8.0
+    image: opensearchproject/opensearch:2.12.0
     ```
     ```yml
     opensearch-saml-node2:
-    image: opensearchproject/opensearch:2.8.0
+    image: opensearchproject/opensearch:2.12.0
     ```
     ```yml
     opensearch-saml-dashboards:
-    image: opensearchproject/opensearch-dashboards:2.8.0
+    image: opensearchproject/opensearch-dashboards:2.12.0
     ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
 
-1. Log in as `admin` with a password of `admin`.
+1. Log in to OpenSearch Dashboards. The default username is `admin` and the default password is set in your `customize-docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 
 1. After logging in, note that your user in the upper-right is `SAMLAdmin`, as defined in `/var/www/simplesamlphp/config/authsources.php` of the SAML server.
 
