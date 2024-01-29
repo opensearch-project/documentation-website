@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Workflow API
+title: Workflow APIs
 nav_order: 40
 has_children: true
 has_toc: false
 ---
 
-# Workflow API
+# Workflow APIs
 
 OpenSearch supports the following workflow APIs:
 

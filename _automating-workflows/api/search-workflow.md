@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Search for a workflow
-parent: Workflow API
+parent: Workflow APIs
 nav_order: 60
 ---
 

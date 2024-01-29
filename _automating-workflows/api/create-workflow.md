@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Create or update a workflow
-parent: Workflow API
+parent: Workflow APIs
 nav_order: 10
 ---
 

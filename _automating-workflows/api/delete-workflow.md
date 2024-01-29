@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Delete a workflow
-parent: Workflow API
+parent: Workflow APIs
 nav_order: 80
 ---
 

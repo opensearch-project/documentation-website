@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Get workflow steps
-parent: Workflow API
+parent: Workflow APIs
 nav_order: 50
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Provision a workflow
-parent: Workflow API
+parent: Workflow APIs
 nav_order: 30
 ---
 
