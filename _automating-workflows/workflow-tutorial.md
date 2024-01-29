@@ -8,23 +8,23 @@ nav_order: 20
 
 You can automate the setup of common use cases, such as conversational chat, using a Chain-of-Thought (CoT) agent. This page presents a complete example of setting up a CoT agent.
 
-The setup requires the following sequence of API requests, with provisioned resources used in subsequent requests. The following list is an overview of the steps required for this workflow. The step names correspond to the names in the template:
+The setup requires the following sequence of API requests, with provisioned resources used in subsequent requests. The following list provides an overview of the steps required for this workflow. The step names correspond to the names in the template:
 
 1. **Deploy a model on the cluster**
-    * [Step `create_connector_1`](#step-create_connector_1): Create a connector to an externally hosted model
-    * [Step `register_model_2`](#step-register_model_2): Register a model using the connector that you created
-    * [Step `deploy_model_3`](#step-deploy_model_3): Deploy the model
+    * [Step `create_connector_1`](#step-create_connector_1): Create a connector to an externally hosted model.
+    * [Step `register_model_2`](#step-register_model_2): Register a model using the connector that you created.
+    * [Step `deploy_model_3`](#step-deploy_model_3): Deploy the model.
 1. **Use the deployed model for inference**
-    * Set up several tools which perform specific tasks:
-      * [Step `math_tool`](#step-math_tool): Set up a math tool
-      * [Step `ml_model_tool`](#step-ml_model_tool): Set up a machine learning (ML) model tool
-    * Set up one or more agents which use some combination of the tools:
-      * [Step `sub_agent`](#step-sub_agent): Create an agent that uses the math tool
+    * Set up several tools that perform specific tasks:
+      * [Step `math_tool`](#step-math_tool): Set up a math tool.
+      * [Step `ml_model_tool`](#step-ml_model_tool): Set up a machine learning (ML) model tool.
+    * Set up one or more agents that use some combination of the tools:
+      * [Step `sub_agent`](#step-sub_agent): Create an agent that uses the math tool.
     * Set up tools representing these agents:
-      * [Step `agent_tool`](#step-agent_tool): Wrap the `sub_agent` so you can use it as a tool
-    * [Step `root_agent`](#step-root_agent): Set up a root agent which may delegate the task to either tools or another agent
+      * [Step `agent_tool`](#step-agent_tool): Wrap the `sub_agent` so that you can use it as a tool.
+    * [Step `root_agent`](#step-root_agent): Set up a root agent that may delegate the task to either a tool or another agent.
 
-The following sections describe the steps in detail. For the complete template of these steps, see [Complete YAML workflow template](#complete-yaml-workflow-template).
+The following sections describe the steps in detail. For the complete workflow template, see [Complete YAML workflow template](#complete-yaml-workflow-template).
 
 ## Workflow graph
 
@@ -60,11 +60,11 @@ nodes:
       url: https://${parameters.endpoint}/v1/chat/completions
 ```
 
-When you create a connector, OpenSearch returns a `connector_id`, which you need to register the model. 
+When you create a connector, OpenSearch returns a `connector_id`, which you need in order to register the model. 
 
 ### Step `register_model_2`
 
-When registering a model, the `previous_node_inputs` field signals to OpenSearch to obtain the required `connector_id` from the output of the `create_connector_1` step.  Other inputs required by the [Register Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/) are included in the `user_inputs` field:
+When registering a model, the `previous_node_inputs` field tells OpenSearch to obtain the required `connector_id` from the output of the `create_connector_1` step. Other inputs required by the [Register Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/) are included in the `user_inputs` field:
 
 ```yaml
 - id: register_model_2
@@ -95,7 +95,7 @@ When using the Deploy Model API directly, a task ID is returned, requiring use o
 
 ### Ordering steps
 
-To order these steps in a sequence, you must connect them by an edge in the graph. When a `previous_node_input` field is present in a step, OpenSearch automatically creates a node with a `source` and `dest` fields for this step. The output of the `source` is required as input for the `dest`. For example, the `register_model_2` step requires the `connector_id` from the `create_connector_1` step. Similarly, the `deploy_model_3` step requires the `model_id` from the `register_model_2` step. Thus, OpenSearch creates the first two edges in the graph as follows in order to match the outputs with the required inputs and raise errors if the required input is missing:
+To order these steps in a sequence, you must connect them by an edge in the graph. When a `previous_node_input` field is present in a step, OpenSearch automatically creates a node with `source` and `dest` fields for this step. The output of the `source` is required as input for the `dest`. For example, the `register_model_2` step requires the `connector_id` from the `create_connector_1` step. Similarly, the `deploy_model_3` step requires the `model_id` from the `register_model_2` step. Thus, OpenSearch creates the first two edges in the graph as follows in order to match the output with the required input and raise errors if the required input is missing:
 
 ```yaml
 edges:
@@ -110,11 +110,11 @@ If you define `previous_node_inputs`, then defining edges is optional.
 
 ## 2. Use the deployed model for inference
 
-A CoT agent can use the deployed model in a tool using the [ML Commons Agent Framework](Link TBD). This step doesn’t strictly correspond to an API but represents a component of the body that the Register Agent API requires. This simplifies the register request and allows reuse of the same tool in multiple agents.
+A CoT agent can use the deployed model in a tool by using the [ML Commons Agent Framework](Link TBD). This step doesn’t strictly correspond to an API but represents a component of the body required by the Register Agent API. This simplifies the register request and allows reuse of the same tool in multiple agents.
 
 ### Step `math_tool`
 
-You can configure other tools that the CoT agent can use. For example, you can configure a math tool as follows. The math tool does not depend on any previous steps:
+You can configure other tools to be used by the CoT agent. For example, you can configure a math tool as follows. This tool does not depend on any previous steps:
 
 ```yaml
 - id: math_tool
@@ -130,7 +130,7 @@ You can configure other tools that the CoT agent can use. For example, you can c
 
 ### Step `sub_agent`
 
-To use the math tool in the agent configuration, specify it as one of the tools in the `previous_node_inputs` field of the agent. You can add other tools to `previous_node_inputs` as necessary. The agent also needs a large language model (LLM) to reason with the tools, which is defined by the `llm.model_id` field. This example assumes the `model_id` from the `deploy_model_3` step will be used. However, if another model is already deployed, the `model_id` of that previously deployed model could be included in the `user_inputs` field instead:
+To use the math tool in the agent configuration, specify it as one of the tools in the `previous_node_inputs` field of the agent. You can add other tools to `previous_node_inputs` as necessary. The agent also needs a large language model (LLM) in order to reason with the tools. The LLM is defined by the `llm.model_id` field. This example assumes that the `model_id` from the `deploy_model_3` step will be used. However, if another model is already deployed, the `model_id` of that previously deployed model could be included in the `user_inputs` field instead:
 
 ```yaml
 - id: sub_agent
@@ -164,7 +164,7 @@ OpenSearch will automatically create the following edges so that the agent can r
 
 ### Step `agent_tool`
 
-You can use agents as tools for another agent. Registering an agent produces an `agent_id` in the output. The following step defines a tool which uses the `agent_id` from the previous step:
+You can use an agent as a tool for another agent. Registering an agent produces an `agent_id` in the output. The following step defines a tool that uses the `agent_id` from the previous step:
 
 ```yaml
 - id: agent_tool
@@ -214,7 +214,7 @@ OpenSearch automatically creates an edge to use this `previous_node_input`:
 
 ### Step `root_agent`
 
-A conversational chat application will communicate with a single root agent which includes the ML model tool and the agent tool in its `tools` field. It will also obtain the `llm.model_id` from the deployed model. Some agents require tools to be in a specific order, which can be enforced by including the `tools_order` field in the user inputs:
+A conversational chat application will communicate with a single root agent that includes the ML model tool and the agent tool in its `tools` field. It will also obtain the `llm.model_id` from the deployed model. Some agents require tools to be in a specific order, which can be enforced by including the `tools_order` field in the user inputs:
 
 ```yaml
 - id: root_agent
@@ -249,11 +249,11 @@ OpenSearch automatically creates edges for the `previous_node_input` sources:
   dest: root_agent
 ```
 
-For the complete DAG OpenSearch creates for this workflow, see the [workflow graph](#workflow-graph).
+For the complete DAG that OpenSearch creates for this workflow, see the [workflow graph](#workflow-graph).
 
 ## Complete YAML workflow template
 
-The following is the final template including all of these steps in the `provision` workflow in YAML format:
+The following is the final template including all of the `provision` workflow steps in YAML format:
 
 <details open markdown="block">
   <summary>

@@ -7,7 +7,7 @@ nav_order: 50
 
 # Get workflow steps
 
-OpenSearch validates workflows using the validation template that lists the required inputs, generated outputs, and required plugins for all steps. For example, for the `register_remote_model` step, the validation template looks as follows:
+OpenSearch validates workflows by using the validation template that lists the required inputs, generated outputs, and required plugins for all steps. For example, for the `register_remote_model` step, the validation template appears as follows:
 
 ```json
 {

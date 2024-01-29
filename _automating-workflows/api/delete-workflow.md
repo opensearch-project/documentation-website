@@ -34,7 +34,7 @@ DELETE /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50
 
 #### Example response
 
-If the workflow exists, a delete response contains the status of the deletion, where the `result` field is set to `deleted` on success or `not_found` if the workflow does not exist (may have already been deleted):
+If the workflow exists, a delete response contains the status of the deletion, where the `result` field is set to `deleted` on success or `not_found` if the workflow does not exist (it may have already been deleted):
 
 ```json
 {

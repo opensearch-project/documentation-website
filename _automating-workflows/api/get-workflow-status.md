@@ -25,7 +25,7 @@ The following table lists the available path parameters.
 
 ## Query parameters
 
-The parameter `all` controls whether the response should return all fields. 
+The `all` parameter specifies whether the response should return all fields. 
 
 When set to `false` (the default), the response contains the following fields:
 
@@ -61,7 +61,7 @@ GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status
 
 OpenSearch responds with a summary of the provisioning status and a list of created resources. 
 
-Before provisioning has started, OpenSearch does not return any resources:
+Before provisioning has begun, OpenSearch does not return any resources:
 
 ```json
 {

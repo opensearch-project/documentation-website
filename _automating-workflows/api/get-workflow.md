@@ -44,4 +44,4 @@ To retrieve a template in JSON format, specify `Content-Type: application/json` 
 curl -XGET "http://localhost:9200/_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50" -H 'Content-Type: application/json'
 ```
 
-OpenSearch responds with the stored template which contains the same content as the body of the [create workflow]({{site.url}}{{site.baseurl}}/automating-workflows/api/create-workflow/) request. The order of fields in the returned template may not exactly match the original template but will function identically.
+OpenSearch responds with the stored template containing the same content as the body of the [create workflow]({{site.url}}{{site.baseurl}}/automating-workflows/api/create-workflow/) request. The order of fields in the returned template may not exactly match the original template but will function identically.

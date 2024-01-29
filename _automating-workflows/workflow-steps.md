@@ -6,7 +6,7 @@ nav_order: 10
 
 # Workflow steps
 
-_Workflow steps_ form basic “building blocks” for process automation. Most steps correspond directly to OpenSearch or plugin API operations, such as CRUD operations on machine learning (ML) connectors, models, and agents. Some steps simplify the configuration by reusing the body expected by these APIs across multiple steps. For example, once you configure a _tool_, you can use this tool with multiple _agents_.  
+_Workflow steps_ form basic "building blocks" for process automation. Most steps directly correspond to OpenSearch or plugin API operations, such as CRUD operations on machine learning (ML) connectors, models, and agents. Some steps simplify the configuration by reusing the body expected by these APIs across multiple steps. For example, once you configure a _tool_, you can use it with multiple _agents_.  
 
 ## Workflow step fields
 
@@ -14,10 +14,10 @@ Workflow steps are actively being developed to expand automation capabilities. W
 
 |Field	|Data type	|Required/Optional	|Description	|
 |:---	|:---	|:---	|:---	|
-|`id`	|String	|Required	|A user-provided ID for this step. The ID must be unique within a given workflow and is useful for identifying resources created by that step. For example, a `register_agent` step may return an `agent_id` that has been registered. Using this ID, you can determine which step produced which resource.	|
+|`id`	|String	|Required	| A user-provided ID for the step. The ID must be unique within a given workflow and is useful for identifying resources created by the step. For example, a `register_agent` step may return an `agent_id` that has been registered. Using this ID, you can determine which step produced which resource.	|
 |`type`	|String	|Required	|The type of action to take, such as `deploy_model`, which corresponds to the API for which the step is used. Multiple steps may share the same type but must each have their own unique ID. For a list of supported types, see [Workflow step types](#workflow-step-types).	|
 |`previous_node_inputs`	|Object	|Optional	| A key-value map specifying user inputs that are produced by a previous step in the workflow. For each key-value pair, the key is the previous step's `id` and the value is an API body field name (such as `model_id`) that will be produced as an output of a previous step in the workflow. For example, `register_remote_model` (key) may produce a `model_id` (value) that is required for a subsequent `deploy_model` step. <br> A graph edge is automatically added to the workflow connecting the previous step's key as the source and the current node as the destination. <br>In some cases, you can include [additional inputs](#additional-fields) in this field.	|
-|`user_inputs`	|Object	|Optional	|A key-value map of inputs supported by the corresponding API for this specific step. Some inputs are required for an API, while others are optional. Required inputs may be specified here if known, or in the `previous_node_inputs field`. The [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-steps/) identifies required inputs and step outputs. <br> Substitutions are supported in string values, lists of strings, and maps with string values. The pattern `{% raw %}${{previous_step_id.output_key}}{% endraw %}` will be replaced by the value in the previous step's output with the given key.  For example, if a parameter map in the user inputs includes a key `embedding_model_id` with a value `{% raw %}${{deploy_embedding_model.model_id}}{% endraw %}`,  then the `model_id` output of the `deploy_embedding_model` step will be substituted here. This performs a similar function to the `previous_node_input` map, but is not checked in validation and does not automatically infer edges. <br>In some cases, you can include [additional inputs](#additional-fields) in this field.	|
+|`user_inputs`	|Object	|Optional	| A key-value map of inputs supported by the corresponding API for this specific step. Some inputs are required for an API, while others are optional. Required inputs may be specified here, if known, or in the `previous_node_inputs` field. The [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-steps/) identifies required inputs and step outputs. <br> Substitutions are supported in string values, lists of strings, and maps with string values. The pattern `{% raw %}${{previous_step_id.output_key}}{% endraw %}` will be replaced by the value in the previous step's output with the given key.  For example, if a parameter map in the user inputs includes a key `embedding_model_id` with a value `{% raw %}${{deploy_embedding_model.model_id}}{% endraw %}`, then the `model_id` output of the `deploy_embedding_model` step will be substituted here. This performs a similar function to the `previous_node_input` map but is not validated and does not automatically infer edges. <br>In some cases, you can include [additional inputs](#additional-fields) in this field.	|
 
 ## Workflow step types
 
@@ -25,7 +25,7 @@ The following table lists the workflow step types. The fields under `user_inputs
 
 |Step type	|Corresponding API	|Description	|
 |---	|---	|---	|
-|`noop`	|No API	|A no-op (no operation) step that does nothing. It may be useful in some cases for synchronizing parallel steps.	|
+|`noop`	|No API	| A no-operation (no-op) step that does nothing. It may be useful in some cases for synchronizing parallel steps.	|
 |`create_connector`	|[Create Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/)	|Creates a connector to a model hosted on a third-party platform.	|
 |`delete_connector`	|[Delete Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/delete-connector/)	|Deletes a connector to a model hosted on a third-party platform.	|
 |`register_model_group`	|[Register Model Group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/)	|Registers a model group. The model group will be deleted automatically once no model is present in the group.	|
@@ -38,7 +38,7 @@ The following table lists the workflow step types. The fields under `user_inputs
 |`undeploy_model`	|[Undeploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)	|Undeploys a deployed model from memory.	|
 |`register_agent`	|[Register Agent API](link TBD)	|Registers an agent as part of the ML Commons Agent Framework.	|
 |`delete_agent`	|[Delete Agent API](link TBD)	|Deletes an agent.	|
-|`create_tool`	|No API	|Special-case non-API step encapsulating the specification of a tool for an agent in the ML Commons Agent Framework. These will be listed as `previous_node_inputs` for the appropriate register agent step, with the value set to `tools`.	|
+|`create_tool`	|No API	| A special-case non-API step encapsulating the specification of a tool for an agent in the ML Commons Agent Framework. These will be listed as `previous_node_inputs` for the appropriate register agent step, with the value set to `tools`.	|
 
 ## Additional fields
 

@@ -7,7 +7,7 @@ nav_order: 70
 
 # Deprovision a workflow
 
-When you no longer need a workflow, you can deprovision its resources. Most workflow steps which create a resource have corresponding workflow steps to reverse that action. To retrieve all resources currently created for a workflow, call the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-status/). When you call the Deprovision Workflow API, resources included in the `resources_created` field of the Get Workflow Status API response will be removed using a corresponding workflow step to the one which provisioned them.
+When you no longer need a workflow, you can deprovision its resources. Most workflow steps that create a resource have corresponding workflow steps to reverse that action. To retrieve all resources currently created for a workflow, call the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-status/). When you call the Deprovision Workflow API, resources included in the `resources_created` field of the Get Workflow Status API response will be removed using a workflow step corresponding to the one that provisioned them.
 
 The workflow executes in the reverse order of provisioning and includes retry attempts when failures occur because of resource dependencies, such as preventing deletion of a registered model if it is still deployed.
 
@@ -50,9 +50,9 @@ If deprovisioning did not completely remove all resources, OpenSearch responds w
 }
 ```
 
-In some cases, the failure happens because of another dependent resource that took some time to be removed. In this case, you can attempt sending the same request again.
+In some cases, the failure happens because of another dependent resource that took some time to be removed. In this case, you can attempt to send the same request again.
 {: .tip}
 
-To obtain a more detailed status of the deprovisioning than the summary in the error response, query the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-status/). 
+To obtain a more detailed deprovisioning status than is provided by the summary in the error response, query the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-status/). 
 
 On success, the workflow returns to a `NOT_STARTED` state. If some resources have not yet been removed, they are provided in the response.

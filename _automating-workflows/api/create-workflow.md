@@ -9,10 +9,10 @@ nav_order: 10
 
 Creating a workflow adds the content of a workflow template to the flow framework system index. You can provide workflows in JSON format (by specifying `Content-Type: application/json`) or YAML format (by specifying `Content-Type: application/yaml`). By default, the workflow is validated to help identify invalid configurations, including:
 
-* Workflow steps requiring an OpenSearch plugin that is not installed
-* Workflow steps relying on previous node input that is provided by those steps
-* Workflow step fields with invalid values
-* Workflow graph (node/edge) configurations containing cycles or having duplicate IDs
+* Workflow steps requiring an OpenSearch plugin that is not installed.
+* Workflow steps relying on previous node input that is provided by those steps.
+* Workflow step fields with invalid values.
+* Workflow graph (node/edge) configurations containing cycles or with duplicate IDs.
 
 To obtain the validation template for workflow steps, call the [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-steps/).
 
@@ -36,7 +36,7 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `workflow_id` | String | The ID of the workflow to be updated. Required for `PUT` method. |
+| `workflow_id` | String | The ID of the workflow to be updated. Required for the `PUT` method. |
 
 ## Query parameters
 
@@ -49,7 +49,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
 
 When set to `true`, the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-workflows/api/provision-workflow/) is executed immediately following creation. 
 
-By default, workflows are validated when they are created to ensure syntax is valid and the graph does not contain cycles. This behavior can be controlled with the `validation` query parameter. If `validation` is set to `all`, OpenSearch performs a complete template validation. Any other value of the `validation` parameter suppresses validation, allowing an incomplete/work-in-progress template to be saved. To disable template validation, set `validation` to `none`:
+By default, workflows are validated when they are created to ensure that the syntax is valid and that the graph does not contain cycles. This behavior can be controlled with the `validation` query parameter. If `validation` is set to `all`, OpenSearch performs a complete template validation. Any other value of the `validation` parameter suppresses validation, allowing an incomplete/work-in-progress template to be saved. To disable template validation, set `validation` to `none`:
 
 ```json
 POST /_plugins/_flow_framework/workflow?validation=none
@@ -60,7 +60,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `provision` | Boolean | Whether to provision the workflow as part of this request. Default is `false`. |
+| `provision` | Boolean | Whether to provision the workflow as part of the request. Default is `false`. |
 | `validation` | String | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`. |
 
 ## Request fields
@@ -71,11 +71,11 @@ The following table lists the available request fields.
 |:---	|:---	|:---	|:---	|
 |`name`	|String	|Required	|The name of the workflow.	|
 |`description`	|String	|Optional	|A description of the workflow.	|
-|`use_case`	|String	|Optional	|A use case, which can be used with the Search Workflow API to find related workflows. OpenSearch may provide some standard use cases in the future to ease categorization, but currently you can use this field to specify custom values.	|
-|`version`	|Object	|Optional	|A key-value map with two fields: `template` identifying the template version and `compatibility` identifying a list of minimum required versions of OpenSearch.	|
+|`use_case`	|String	|Optional	| A use case, which can be used with the Search Workflow API to find related workflows. In the future, OpenSearch may provide some standard use cases to ease categorization, but currently you can use this field to specify custom values.	|
+|`version`	|Object	|Optional	| A key-value map with two fields: `template`, which identifies the template version, and `compatibility`, which identifies a list of minimum required OpenSearch versions.	|
 |`workflows`	|Object	|Optional	|A map of workflows. Presently, only the `provision` key is supported. The value for the workflow key is a key-value map that includes fields for `user_params` and lists of `nodes` and `edges`.	|
 
-#### Example Request: Register and deploy an externally hosted model (YAML)
+#### Example request: Register and deploy an externally hosted model (YAML)
 
 To provide a template in YAML format, specify `Content-Type: application/yaml` in the request header:
 
@@ -86,7 +86,7 @@ curl -XPOST "http://localhost:9200/_plugins/_flow_framework/workflow" -H 'Conten
 YAML templates permit comments. 
 {: .tip}
 
-The following is an example YAML template to register and deploy an externally hosted model:
+The following is an example YAML template for registering and deploying an externally hosted model:
 
 ```yaml
 # This name is required
@@ -162,7 +162,7 @@ To provide a template in JSON format, specify `Content-Type: application/json` i
 ```bash
 curl -XPOST "http://localhost:9200/_plugins/_flow_framework/workflow" -H 'Content-Type: application/json'
 ```
-The following JSON template is equivalent to the YAML template in the previous section: 
+The following JSON template is equivalent to the YAML template provided in the previous section: 
 
 ```json
 {
@@ -249,4 +249,4 @@ OpenSearch responds with the `workflow_id`:
 }
 ```
 
-Once you have created a workflow, you can use other workflow APIs with the `workflow_id` .
+Once you have created a workflow, you can use other workflow APIs with the `workflow_id`.
