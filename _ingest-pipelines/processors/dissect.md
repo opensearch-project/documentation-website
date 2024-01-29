@@ -500,7 +500,7 @@ POST _ingest/pipeline/dissect-test/_simulate
 ```
 {% include copy-curl.html %}
 
-The two key/value pairs were extracted into fields, as shown in the following response:
+The two key-value pairs were extracted into fields, as shown in the following response:
 
 ```json
 {
