@@ -460,7 +460,7 @@ Your response should appear similar to the following:
 
 ### Reference keys (`*` and `&`)
 
-Reference keys use parsed values as key/value pairings for structured content. This can use useful when handling systems that partially log data in key/value pairs. By using reference keys, you can preserve the key/value relationship and maintain the integrity of the extracted information. 
+Reference keys use parsed values as key-value pairings for structured content. This can use useful when handling systems that partially log data in key-value pairs. By using reference keys, you can preserve the key-value relationship and maintain the integrity of the extracted information. 
 
 #### Example of usage
 
