@@ -140,7 +140,7 @@ GET testindex1/_doc/1
 
 ## Dissect patterns
 
-A dissect pattern is a way to tell `dissect` how to parse a string into a structured format. The pattern is defined by the parts of the string that you want to discard. For example, the `%{client_ip} - - [%{timestamp}]` dissect pattern parses the string `"192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] \"POST /login HTTP/1.1\" 200 3456"` into the following fields:
+A dissect pattern is a method of telling the `dissect` processor how to parse a string into a structured format. The pattern is defined by the parts of the string that you want to discard. For example, the `%{client_ip} - - [%{timestamp}]` dissect pattern parses the string `"192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] \"POST /login HTTP/1.1\" 200 3456"` into the following fields:
 
 ```json
 client_ip: "192.168.1.1"
