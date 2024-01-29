@@ -30,19 +30,19 @@ We provide a fully functional example that can help you understand how to use SA
    You can remove "customize" from the file names if you plan to modify and keep these files for production.
    {: .tip }  
 
-1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2, and OpenSearch Dashboards server. For example, if you are running OpenSearch version 2.6, the `image` fields will resemble the following examples:
+1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2, and OpenSearch Dashboards server. For example, if you are running OpenSearch version {{site.opensearch_major_minor_version}}, the `image` fields will resemble the following examples:
    
    ```yml
    opensearch-saml-node1:
-    image: opensearchproject/opensearch:2.12.0
+    image: opensearchproject/opensearch:{{site.opensearch_major_minor_version}}
     ```
     ```yml
     opensearch-saml-node2:
-    image: opensearchproject/opensearch:2.12.0
+    image: opensearchproject/opensearch:{{site.opensearch_major_minor_version}}
     ```
     ```yml
     opensearch-saml-dashboards:
-    image: opensearchproject/opensearch-dashboards:2.12.0
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_major_minor_version}}
     ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
