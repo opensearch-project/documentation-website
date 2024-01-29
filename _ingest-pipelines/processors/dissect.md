@@ -398,7 +398,7 @@ The _named skip key modifier_ excludes specific matches from the final output by
 
 #### Example of usage
 
-The following pattern uses a named skip key to exclude a field (in this case, `ignore`) from the output. You can assign a descriptive name to the empty key, for example, `%{?ignore}`, to clarify that the corresponding value should be excluded from the final result:
+The following pattern uses a named skip key to exclude a field (in this case, `ignore`) from the output. You can assign a descriptive name to the empty key, for example, `%{?ignore}`, to clarify that the corresponding value should be excluded from the final output:
 
 ```json
 PUT /_ingest/pipeline/dissect-test
