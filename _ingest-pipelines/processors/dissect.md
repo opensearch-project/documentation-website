@@ -183,7 +183,7 @@ Detailed descriptions of each key modifier, along with usage examples, are provi
 
 The dissection algorithm is precise and requires that every character in the pattern exactly match the source string. For example, the pattern `%{hellokey} %{worldkey}` (one space) will match the string "Hello world" (one space) but not the string "Hello  world" (two spaces) because the pattern only has one space while the source string has two.
 
-The right padding modifier can be used to address this issue. By adding the right padding modifier to the pattern `%{helloworldkey->} %{worldkey}`, it will match <code>Hello&nbsp;world</code> (one space), <code>Hello&nbsp;&nbsp;world</code> (two spaces), and even <code>Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world</code> (ten spaces). 
+The right padding modifier can be used to address this issue. When added to the pattern `%{helloworldkey->} %{worldkey}`, the right padding modifier will match <code>Hello&nbsp;world</code> (1 space), <code>Hello&nbsp;&nbsp;world</code> (2 spaces), and even <code>Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world</code> (10 spaces). 
 
 The right padding modifier is used to allow for the repetition of characters following a `%{keyname->}`. The right padding modifier can be applied to any key along with any other modifiers. It should always be the rightmost modifier, for example, `%{+keyname/1->}` or `%{}`.
 
