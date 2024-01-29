@@ -151,7 +151,7 @@ A dissect pattern works by matching a string against a set of rules. For example
 
 ### Building successful dissect patterns
 
-When building dissect pattern, it is important to pay attention to the parts of the string that you want to discard. If you discard too much of the string, then `dissect` may not be able to successfully parse the remaining data. Conversely, if you do not discard enough of the string, then `dissect` may create unnecessary fields.
+When building a dissect pattern, it is important to pay attention to the parts of the string that you want to discard. If you discard too much of the string, then the `dissect` processor may not be able to successfully parse the remaining data. Conversely, if you do not discard enough of the string, then the processor may create unnecessary fields.
 
 If any `%{keyname}` defined in the pattern do not have a value, then an exception is thrown. You can handle this exception by providing error handling steps in the `on_failure` parameter.
 
