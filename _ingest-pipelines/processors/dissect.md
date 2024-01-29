@@ -173,7 +173,7 @@ Modifier | Name | Position | Example | Description |
 |-----------|-----------|-----------|
 `->` | Skip right padding | (far) right | `%{keyname->}` | Tells the `dissect` processor to skip over any repeated characters to the right. For example, `%{timestamp->}` could be used to tell the processor to skip any padding characters, such as two spaces or any varying character padding, that follow `timestamp`. |
 `+` | Append | left | `%{keyname} %{+keyname}` | Appends two or more fields. | 
-`+` with `/n` | Append with order | left and right | `%{+keyname}/2 %{+keyname/1}` | Appends two or more fields together in the order specified. |
+`+` with `/n` | Append with order | left and right | `%{+keyname}/2 %{+keyname/1}` | Appends two or more fields in the specified order. |
 `?` | Named skip key | left | `%{?skipme}` | Skips the matched value in the output. Same behavior as `%{}`. |
 `*` and `&` | Reference keys | left | `%{*r1} %{&r1}` | Sets the output key as value of `*` and output value of `&`. |
 
