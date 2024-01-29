@@ -175,7 +175,7 @@ Modifier | Name | Position | Example | Description |
 `+` | Append | left | `%{keyname} %{+keyname}` | Appends two or more fields. | 
 `+` with `/n` | Append with order | left and right | `%{+keyname}/2 %{+keyname/1}` | Appends two or more fields in the specified order. |
 `?` | Named skip key | left | `%{?skipme}` | Skips the matched value in the output. Same behavior as `%{}`. |
-`*` and `&` | Reference keys | left | `%{*r1} %{&r1}` | Sets the output key as value of `*` and output value of `&`. |
+`*` and `&` | Reference keys | left | `%{*r1} %{&r1}` | Sets the output key as the value of `*` and the output value of `&`. |
 
 Detailed descriptions of each key modifier, along with usage examples, are in the following sections.
 
