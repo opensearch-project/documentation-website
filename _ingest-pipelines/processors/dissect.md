@@ -264,7 +264,7 @@ Your response should appear similar to the following:
 
 The append modifier combines the values of two or more values into a single output value. The values are appended from left to right. You can also specify an optional separator to be inserted between the values. 
 
-#### Example of usage
+#### Example usage
 
 The following is an example pipeline with an append modifier: 
 
