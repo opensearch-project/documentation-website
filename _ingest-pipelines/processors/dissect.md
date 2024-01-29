@@ -396,7 +396,7 @@ The substrings are appended to the `address` field in reverse order, as shown in
 
 The _named skip key modifier_ excludes specific matches from the final output by using an empty key `{}` or `?` modifier within the pattern. For example, the following patterns are equivalent: `%{firstName} %{lastName} %{?ignore}` and `%{firstName} %{lastName} %{}`. The named skip key modifier is useful for excluding irrelevant or unnecessary fields from the output.
 
-#### Example of usage
+#### Example usage
 
 The following pattern uses a named skip key to exclude a field (in this case, `ignore`) from the output. You can assign a descriptive name to the empty key, for example, `%{?ignore}`, to clarify that the corresponding value should be excluded from the final output:
 
