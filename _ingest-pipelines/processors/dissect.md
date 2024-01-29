@@ -330,7 +330,7 @@ The substrings are appended to the `address` field, as shown in the following re
 
 The append with order modifier combines the values of two or more keys into a single output value based on the order specified after `/`. You have the flexibility to customize the separator that separates the appended values. The append modifier is useful for compiling multiple fields into a single formatted output line, constructing structured lists of data items, and consolidating values from various sources.  
 
-#### Example of usage
+#### Example usage
 
 The following example pipeline uses the append with order modifier to reverse the pattern order defined in the preceding pipeline. This pipeline specifies a separator to insert between the appended fields. If you don't specify a separator, all values will be appended together without a separator.
 
