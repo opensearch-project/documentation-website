@@ -54,7 +54,7 @@ You can include the following additional fields in the `previous_node_inputs` fi
 
 |Field	|Data type	|Description	|
 |---	|---	|---	|
-|`model_id`	|String	|The `model_id` is used as input for several steps. As a special case for the Register Agent step type, if an `llm.model_id` field is not present in the `user_inputs` and not present in `previous_node_inputs`, the `model_id` field from the previous node may be used as a backup for model ID.	|
+|`model_id`	|String	|The `model_id` is used as an input for several steps. As a special case for the Register Agent step type, if an `llm.model_id` field is not present in the `user_inputs` and not present in `previous_node_inputs`, the `model_id` field from the previous node may be used as a backup for the model ID.	|
 
 ## Example workflow steps
 
