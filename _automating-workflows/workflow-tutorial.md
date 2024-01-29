@@ -17,7 +17,7 @@ The setup requires the following sequence of API requests, with provisioned reso
 1. **Use the deployed model for inference**
     * Set up several tools which perform specific tasks:
       * [Step `math_tool`](#step-math_tool): Set up a math tool
-      * [Step `ml_model_tool`](#step-ml_model_tool): Set up an ML model tool
+      * [Step `ml_model_tool`](#step-ml_model_tool): Set up a machine learning (ML) model tool
     * Set up one or more agents which use some combination of the tools:
       * [Step `sub_agent`](#step-sub_agent): Create an agent that uses the math tool
     * Set up tools representing these agents:
@@ -110,7 +110,7 @@ If you define `previous_node_inputs`, then defining edges is optional.
 
 ## 2. Use the deployed model for inference
 
-A CoT agent can use the deployed model in a tool using the [ML Commons Agent Framework](Link TBD).  This step doesn’t strictly correspond to an API but represents a component of the body that the Register Agent API requires. This simplifies the register request and allows reuse of the same tool in multiple agents.
+A CoT agent can use the deployed model in a tool using the [ML Commons Agent Framework](Link TBD). This step doesn’t strictly correspond to an API but represents a component of the body that the Register Agent API requires. This simplifies the register request and allows reuse of the same tool in multiple agents.
 
 ### Step `math_tool`
 
@@ -188,7 +188,7 @@ OpenSearch automatically creates an edge connection because this step specifies 
 
 ### Step `ml_model_tool`
 
-A tool may reference a machine learning (ML) model. This example gets the required `model_id` from the model deployed in a previous step:
+A tool may reference an ML model. This example gets the required `model_id` from the model deployed in a previous step:
 
 ```yaml
 - id: ml_model_tool
@@ -249,7 +249,7 @@ OpenSearch automatically creates edges for the `previous_node_input` sources:
   dest: root_agent
 ```
 
-For the complete DAG OpenSearch creates for this workflow, see [the workflow graph](#workflow-graph).
+For the complete DAG OpenSearch creates for this workflow, see the [workflow graph](#workflow-graph).
 
 ## Complete YAML workflow template
 
