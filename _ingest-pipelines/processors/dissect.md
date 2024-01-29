@@ -392,7 +392,7 @@ The substrings are appended to the `address` field in reverse order, as shown in
 ```
 {% include copy-curl.html %}
 
-### Named skip key
+### Named skip key modifier
 
 The _named skip key modifier_ excludes specific matches from the final output by using an empty key `{}` or `?` modifier within the pattern. For example, the following patterns are equivalent: `%{firstName} %{lastName} %{?ignore}` and `%{firstName} %{lastName} %{}`. The named skip key modifier is useful for excluding irrelevant or unnecessary fields from the output.
 
