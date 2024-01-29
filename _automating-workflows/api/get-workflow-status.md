@@ -21,7 +21,7 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `workflow_id` | String | The ID of the workflow whose state to obtain. Required for `PUT` method. |
+| `workflow_id` | String | The ID of the workflow from which to obtain the status. Required for the `PUT` method. |
 
 ## Query parameters
 
