@@ -21,7 +21,7 @@ The k-NN plugin builds a native library index of the vectors for each knn-vector
 
 Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
 
-### Recommendations for engines and cluster node sizing
+## Recommendations for engines and cluster node sizing
 
 Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. You can follow the general information below to help determine which engine will best meet your requirements.
 
