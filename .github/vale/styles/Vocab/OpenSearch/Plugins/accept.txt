@@ -19,6 +19,7 @@ ML Commons plugin
 Neural Search plugin
 Observability plugin
 Performance Analyzer plugin
+Query Insights plugin
 Query Workbench plugin
 Search Relevance plugin
 Security plugin

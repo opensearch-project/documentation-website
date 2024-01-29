@@ -259,6 +259,7 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
 | Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 |
 | Performance Analyzer<sup>2</sup> | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
+| Query Insights | [query-insights](<!-- please provide a link -->) | 2.12.0 |
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
 | Security Analytics | [opensearch-security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |

@@ -79,6 +79,10 @@ The Notifications plugin supports the following settings. All settings in this l
 
 - `opensearch.notifications.general.filter_by_backend_roles` (Boolean): Enables filtering by backend roles (role-based access control for the notification channels). Default is `false`.
 
+## Query Insights plugin settings
+
+For information about the Query Insights plugin settings, see [Query insights settings]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/index#query-insights-settings).
+
 ## Security plugin settings
 
 For information about the Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
