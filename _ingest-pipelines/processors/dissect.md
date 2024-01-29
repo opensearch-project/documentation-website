@@ -177,7 +177,7 @@ Modifier | Name | Position | Example | Description |
 `?` | Named skip key | left | `%{?skipme}` | Skips the matched value in the output. Same behavior as `%{}`. |
 `*` and `&` | Reference keys | left | `%{*r1} %{&r1}` | Sets the output key as the value of `*` and the output value of `&`. |
 
-Detailed descriptions of each key modifier, along with usage examples, are in the following sections.
+Detailed descriptions of each key modifier, along with usage examples, are provided in the following sections.
 
 ### Right padding modifier (`->`)
 
