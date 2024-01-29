@@ -187,7 +187,7 @@ The right padding modifier can be used to address this issue. When added to the 
 
 The right padding modifier is used to allow for the repetition of characters following a `%{keyname->}`. The right padding modifier can be applied to any key along with any other modifiers. It should always be the rightmost modifier, for example, `%{+keyname/1->}` or `%{}`.
 
-#### Example of usage
+#### Example usage
 
 The following is an example of how to use a right padding modifier:
 
