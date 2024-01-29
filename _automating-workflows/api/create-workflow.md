@@ -7,9 +7,9 @@ nav_order: 10
 
 # Create or update a workflow
 
-Creating a workflow adds the content of a workflow template to the flow framework system index. You can provide workflows in JSON format (by specifying `Content-Type: application/json`) or YAML format (by specifying `Content-Type: application/yaml`).  By default, the workflow is validated to help identify invalid configurations, including:
+Creating a workflow adds the content of a workflow template to the flow framework system index. You can provide workflows in JSON format (by specifying `Content-Type: application/json`) or YAML format (by specifying `Content-Type: application/yaml`). By default, the workflow is validated to help identify invalid configurations, including:
 
-* Workflow steps requiring an OpenSearch plugin which is not installed
+* Workflow steps requiring an OpenSearch plugin that is not installed
 * Workflow steps relying on previous node input that is provided by those steps
 * Workflow step fields with invalid values
 * Workflow graph (node/edge) configurations containing cycles or having duplicate IDs
@@ -18,7 +18,7 @@ To obtain the validation template for workflow steps, call the [Get Workflow Ste
 
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
-The `POST` method creates a new workflow.  The `PUT` method updates an existing workflow. 
+The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. 
 
 You can only update a workflow if it has not yet been provisioned.
 {: .note}
@@ -72,8 +72,8 @@ The following table lists the available request fields.
 |`name`	|String	|Required	|The name of the workflow.	|
 |`description`	|String	|Optional	|A description of the workflow.	|
 |`use_case`	|String	|Optional	|A use case, which can be used with the Search Workflow API to find related workflows. OpenSearch may provide some standard use cases in the future to ease categorization, but currently you can use this field to specify custom values.	|
-|`version`	|Object	|Optional	|A key-value map with two fields: `template` identifying the template version, and `compatibility` identifying a list of minimum required versions of OpenSearch.	|
-|`workflows`	|Object	|Optional	|A map of workflows. Presently only the `provision` key is supported. The value for the workflow key is a key-value map which includes fields for `user_params` and lists of `nodes` and `edges`.	|
+|`version`	|Object	|Optional	|A key-value map with two fields: `template` identifying the template version and `compatibility` identifying a list of minimum required versions of OpenSearch.	|
+|`workflows`	|Object	|Optional	|A map of workflows. Presently, only the `provision` key is supported. The value for the workflow key is a key-value map that includes fields for `user_params` and lists of `nodes` and `edges`.	|
 
 #### Example Request: Register and deploy an externally hosted model (YAML)
 
@@ -155,7 +155,7 @@ workflows:
 ```
 {% include copy-curl.html %}
 
-#### Example Request: Register and deploy a remote model (JSON)
+#### Example request: Register and deploy a remote model (JSON)
 
 To provide a template in JSON format, specify `Content-Type: application/json` in the request header:
 
