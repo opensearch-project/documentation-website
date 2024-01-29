@@ -7,7 +7,7 @@ nav_order: 40
 
 # Get a workflow status
 
-[Provisioning a workflow]({{site.url}}{{site.baseurl}}/automating-workflows/api/provision-workflow/) may take time, particularly when associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring the status of provisioning deployment until it is complete.
+[Provisioning a workflow]({{site.url}}{{site.baseurl}}/automating-workflows/api/provision-workflow/) may take a significant amount of time, particularly when the action is associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring of the provisioning deployment status until it is complete.
 
 ## Path and HTTP methods
 
@@ -21,7 +21,7 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `workflow_id` | String | The ID of the workflow whose state to obtain. Required for `PUT` method. |
+| `workflow_id` | String | The ID of the workflow from which to obtain the status. Required for the `PUT` method. |
 
 ## Query parameters
 
