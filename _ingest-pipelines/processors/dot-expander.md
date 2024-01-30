@@ -287,7 +287,7 @@ The response confirms that the values were merged into an array:
 }
 ```
 
-If a field contains the same name but a different path, then the field needs to be renamed. For example, the following simulate call returns a parse exception:
+If a field contains the same name but a different path, then the field needs to be renamed. For example, the following `_simulate` call returns a parse exception:
 
 ```json
 POST _ingest/pipeline/dot-expander-pipeline/_simulate
