@@ -251,10 +251,10 @@ When OpenSearch Benchmark creates an index for the workload, it uses the index s
         "scaling_factor": 100,
         "type": "scaled_float"
       },
-      "trip_distance": {%- if trip_distance_mapping is defined %} {{ trip_distance_mapping | tojson }} {%- else %} {
+      "trip_distance": {
         "scaling_factor": 100,
         "type": "scaled_float"
-      }{%- endif %},
+      },
       "pickup_location": {
         "type": "geo_point"
       }
