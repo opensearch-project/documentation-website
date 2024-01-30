@@ -110,5 +110,5 @@ This latency cascade continues, increasing latency by 100ms for each subsequent 
 
 ### Recommendation
 
-As shown by the preceding examples, you should be aware of the average service time of each task and provide a `target-throughput` that accounts for the service time. The OpenSearch Benchmark latency is calculated based on the `target-throughput` set by the user. In other words, the OpenSearch Benchmark latency could be redefined as "throughput-based latency".
+As shown by the preceding examples, you should be aware of the average service time of each task and provide a `target-throughput` that accounts for the service time. The OpenSearch Benchmark latency is calculated based on the `target-throughput` set by the user, that is, the latency could be redefined as "throughput-based latency."
 
