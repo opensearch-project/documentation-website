@@ -11,7 +11,7 @@ parent: Understanding workloads
 All workloads contain the following files and directories:
 
 - [workload.json](#workloadjson): Contains all of the workload settings.
-- [index.json](#indexjson): Contains the document mappings and parameters, as well as index settings.
+- [index.json](#indexjson): Contains the document mappings and parameters as well as index settings.
 - [files.txt](#filestxt): Contains the data corpora file names.
 - [_test-procedures](#_operations-and-_test-procedures): Most workloads contain only one default test procedure, which is configured in `default.json`.
 - [_operations](#_operations-and-_test-procedures): Contains all of the operations used in test procedures.
@@ -97,7 +97,7 @@ To create an index, specify its `name`. To add definitions to your index, use th
 
 The `corpora` element requires the name of the index containing the document corpus, for example, `movies`, and a list of parameters that define the document corpora. This list includes the following parameters:
 
--  `source-file`: The file name that contains the workload's corresponding documents. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.zst`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must have one JSON file containing the name.
+-  `source-file`: The file name that contains the workload's corresponding documents. When using OpenSearch Benchmark locally, documents are contained in a JSON file. When providing a `base_url`, use a compressed file format: `.zip`, `.bz2`, `.zst`, `.gz`, `.tar`, `.tar.gz`, `.tgz`, or `.tar.bz2`. The compressed file must include one JSON file containing the name.
 -  `document-count`: The number of documents in the `source-file`, which determines which client indexes correlate to which parts of the document corpus. Each N client is assigned an Nth of the document corpus to ingest into the test cluster. When using a source that contains a document with a parent-child relationship, specify the number of parent documents.
 - `uncompressed-bytes`: The size, in bytes, of the source file after decompression, indicating how much disk space the decompressed source file needs.
 - `compressed-bytes`: The size, in bytes, of the source file before decompression. This can help you assess the amount of time needed for the cluster to ingest documents.
@@ -157,16 +157,16 @@ According to this `schedule`, the actions will run in the following order:
 2. The `cluster-health` operation assesses the cluster's health before running the workload. In the JSON example, the workload waits until the cluster's health status is `green`.
    - The `bulk` operation runs the `bulk` API to index `5000` documents simultaneously.
    - Before benchmarking, the workload waits until the specified `warmup-time-period` passes. In the JSON example, the warmup period is `120` seconds.
-3. The `clients` field defines the number of clients that will run the bulk indexing operation concurrently.
-4. The `search` operation runs a `match_all` query to match all documents after they have been indexed by the `bulk` API using the specified clients, which in this case is eight.
+3. The `clients` field defines the number of clients, in this example, eight, that will run the bulk indexing operation concurrently.
+4. The `search` operation runs a `match_all` query to match all documents after they have been indexed by the `bulk` API using the specified clients.
    - The `iterations` field defines the number of times each client runs the `search` operation. The benchmark report automatically adjusts the percentile numbers based on this number. To generate a precise percentile, the benchmark needs to run at least 1,000 iterations.
-   - The `target-throughput` field defines the number of requests per second each client performs. When set, the setting can help reduce benchmark latency. For example, a `target-throughput` of 100 requests divided by 8 clients means that each client will issue 12 requests per second. For more information about how target throughput is defined in OpenSearch Benchmark, see [Throughput and latency](https://opensearch.org/docs/latest/benchmark/user-guide/concepts/#throughput-and-latency).
+   - The `target-throughput` field defines the number of requests per second that each client performs. When set, the setting can help reduce benchmark latency. For example, a `target-throughput` of 100 requests divided by 8 clients means that each client will issue 12 requests per second. For more information about how target throughput is defined in OpenSearch Benchmark, see [Throughput and latency](https://opensearch.org/docs/latest/benchmark/user-guide/concepts/#throughput-and-latency).
 
 ## index.json
 
 The `index.json` file defines the data mappings, indexing parameters, and index settings for workload documents during `create-index` operations. 
 
-When OpenSearch Bencmark creates an index for the workload, it uses the index settings and mappings template in the `index.json` file. Mappings in the `index.json` file are based on the mappings of a single document from the workload's corpus, which is in the `files.txt` file. The following is an example of the `index.json` file for the `nyc_taxis` workload. You can customize the fields, such as `number_of_shards`, `number_of_replicas`, `query_cache_enabled`, and `requests_cache_enabled`. 
+When OpenSearch Benchmark creates an index for the workload, it uses the index settings and mappings template in the `index.json` file. Mappings in the `index.json` file are based on the mappings of a single document from the workload's corpus, which is stored in the `files.txt` file. The following is an example of the `index.json` file for the `nyc_taxis` workload. You can customize the fields, such as `number_of_shards`, `number_of_replicas`, `query_cache_enabled`, and `requests_cache_enabled`. 
 
 ```json
 {
@@ -270,7 +270,7 @@ The `files.txt` file lists the files that store the workload data, which are typ
 
 ## _operations and _test-procedures
 
-To make the workload more human-readable, operations and test procedures are separated into two different directories. 
+To make the workload more human-readable, `_operations` and `_test-procedures` are separated into two directories. 
 
 The `_operations` directory contains a `default.json` file that lists all of the supported operations that the test procedure can use. Some workloads, such as `nyc_taxis`, contain an additional `.json` file that lists feature-specific operations, such as `snapshot` operations. The following JSON example shows a list of operations from the `nyc_taxis` workload:
 
@@ -632,7 +632,7 @@ The `_operations` directory contains a `default.json` file that lists all of the
     }
 ```
 
-The `_test-procedures` directory contains a `default.json` file that sets the order of operations performed by the workload. Similar to the `_operations` directory, the `_test-procedures` directory can also contain feature-specific test procedures, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples shows the searchable snapshots test procedures for `nyc_taxis`:
+The `_test-procedures` directory contains a `default.json` file that sets the order of operations performed by the workload. Similar to the `_operations` directory, the `_test-procedures` directory can also contain feature-specific test procedures, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples show the searchable snapshots test procedures for `nyc_taxis`:
 
 ```json
     {
