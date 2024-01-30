@@ -104,7 +104,7 @@ The `corpora` element requires the name of the index containing the document cor
 
 ### Operations
 
-The `operations` element lists the OpenSearch API operations performed by the workload. For example, you can set an operation to `create-index`, an index in the test cluster to which OpenSearch Benchmark can write documents. Operations are usually listed inside of the `schedule` element.
+The `operations` element lists the OpenSearch API operations performed by the workload. For example, you can list an operation named `create-index` that creates an index in the benchmark cluster to which OpenSearch Benchmark can write documents. Operations are usually listed inside of the `schedule` element.
 
 ### Schedule
 
