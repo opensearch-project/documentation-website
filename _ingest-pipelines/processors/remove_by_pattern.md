@@ -9,7 +9,7 @@ redirect_from:
 
 # Remove processor
 
-The `remove_by_pattern` processor is used to remove fields from a document by the specified wildcard patterns. 
+The `remove_by_pattern` processor is used to remove the root level fields from a document by the specified wildcard patterns. 
 
 ## Syntax
 
@@ -30,8 +30,8 @@ The following table lists the required and optional parameters for the `remove_b
 
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
-`field_pattern`  | Optional  | The fields match this pattern will be removed. All of the metadata fields like `_index`, `_version`, `_version_type`, and `_id` are ignored if they match the pattern. |
-`exclude_field_pattern`  | Optional  | The fields do not match this pattern will be removed. All of the metadata fields like `_index`, `_version`, `_version_type`, and `_id` are ignored if they don't match the pattern.  The `field_pattern` and `exclude_field_pattern` options are mutually exclusive.|
+`field_pattern`  | Optional  | The fields match this pattern will be removed. All of the metadata fields like `_index`, `_version`, `_version_type`, and `_id` are ignored if they match the pattern. This option only supports the root level fields in the document. |
+`exclude_field_pattern`  | Optional  | The fields do not match this pattern will be removed. All of the metadata fields like `_index`, `_version`, `_version_type`, and `_id` are ignored if they don't match the pattern. This option only supports the root level fields in the document. The `field_pattern` and `exclude_field_pattern` options are mutually exclusive. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
