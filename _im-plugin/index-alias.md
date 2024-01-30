@@ -82,7 +82,7 @@ GET alias1
 
 ## Add or remove indexes
 
-You can perform multiple actions in the same `_aliases` operation. For example, the following command removes `index-1` and adds `index-2` to `alias1`:
+You can perform multiple actions using the same `_aliases` operation. For example, the following command removes `index-1` and adds `index-2` to `alias1`:
 
 ```json
 POST _aliases
