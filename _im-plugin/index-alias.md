@@ -73,7 +73,7 @@ GET /index-1/_alias/alias1
 ```
 {% include copy-curl.html %}
 
-To get the indexes' mappings and settings information that the alias references, run the following command:
+To get the indexes' mappings and settings information referenced by the alias, run the following command:
 
 ```json
 GET alias1
