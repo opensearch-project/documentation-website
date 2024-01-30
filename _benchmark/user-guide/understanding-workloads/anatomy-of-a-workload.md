@@ -715,71 +715,26 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
           "operation": "default",
           "warmup-iterations": 50,
           "iterations": 100
-          {%- if not target_throughput %}
-          ,"target-throughput": 3
-          {%- elif target_throughput is string and target_throughput.lower() == 'none' %}
-          {%- else %}
-          ,"target-throughput": {{ target_throughput | tojson }}
-          {%- endif %}
-          {%-if search_clients is defined and search_clients %}
-          ,"clients": {{ search_clients | tojson}}
-          {%- endif %}
         },
         {
           "operation": "range",
           "warmup-iterations": 50,
           "iterations": 100
-          {%- if not target_throughput %}
-          ,"target-throughput": 0.7
-          {%- elif target_throughput is string and target_throughput.lower() == 'none' %}
-          {%- else %}
-          ,"target-throughput": {{ target_throughput | tojson }}
-          {%- endif %}
-          {%-if search_clients is defined and search_clients %}
-          ,"clients": {{ search_clients | tojson}}
-          {%- endif %}
         },
         {
           "operation": "distance_amount_agg",
           "warmup-iterations": 50,
           "iterations": 50
-          {%- if not target_throughput %}
-          ,"target-throughput": 2
-          {%- elif target_throughput is string and target_throughput.lower() == 'none' %}
-          {%- else %}
-          ,"target-throughput": {{ target_throughput | tojson }}
-          {%- endif %}
-          {%-if search_clients is defined and search_clients %}
-          ,"clients": {{ search_clients | tojson}}
-          {%- endif %}
         },
         {
           "operation": "autohisto_agg",
           "warmup-iterations": 50,
           "iterations": 100
-          {%- if not target_throughput %}
-          ,"target-throughput": 1.5
-          {%- elif target_throughput is string and target_throughput.lower() == 'none' %}
-          {%- else %}
-          ,"target-throughput": {{ target_throughput | tojson }}
-          {%- endif %}
-          {%-if search_clients is defined and search_clients %}
-          ,"clients": {{ search_clients | tojson}}
-          {%- endif %}
         },
         {
           "operation": "date_histogram_agg",
           "warmup-iterations": 50,
           "iterations": 100
-          {%- if not target_throughput %}
-          ,"target-throughput": 1.5
-          {%- elif target_throughput is string and target_throughput.lower() == 'none' %}
-          {%- else %}
-          ,"target-throughput": {{ target_throughput | tojson }}
-          {%- endif %}
-          {%-if search_clients is defined and search_clients %}
-          ,"clients": {{ search_clients | tojson}}
-          {%- endif %}
         }
       ]
     }
