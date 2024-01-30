@@ -218,7 +218,7 @@ PUT index-1
 
 ## Create filtered aliases
 
-You can create a filtered alias to access a subset of documents or fields from the underlying indexes. This command adds only a specific timestamp field to `alias1`. The following shows a POST request example:
+You can create a filtered alias to access a subset of documents or fields in the underlying indexes. This command adds only a specific timestamp field to `alias1`. The following shows an example POST request:
 
 ```json
 POST _aliases
