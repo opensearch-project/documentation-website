@@ -124,7 +124,7 @@ POST _aliases
 
 The `remove` action also supports the `must_exist` parameter. If the parameter is set to `true` and the specified alias does not exist, an exception is thrown. If the parameter is set to `false`, then no action is taken if the specified alias does not exist. The default value for `must_exist` is `null`. An exception will be thrown only if none of the specified aliases exist. 
 
-The following POST request uses the `remove` action, with `must_exist` parameter set to `true`:
+The following POST request uses the `remove` action with the `must_exist` parameter set to `true`:
 
 ```json
 POST _aliases
