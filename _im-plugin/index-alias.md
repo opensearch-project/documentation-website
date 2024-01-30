@@ -264,4 +264,4 @@ For example, if `alias1` refers to `index-1` and `index-2`, you can run the foll
 DELETE index-1/_alias/alias1
 ```
 
-After you run the request above, `alias1` no longer refers to `index-1`, but still refers to `index-2`.
+After running the previous request, `alias1` no longer refers to `index-1`, but still refers to `index-2`.
