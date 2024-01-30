@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Understanding workloads
-nav_order: 10
+nav_order: 7
 parent: User guide
 has_children: true
 ---
