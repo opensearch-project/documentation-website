@@ -645,11 +645,11 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
         {
           "operation": {
             "operation-type": "create-index",
-            "settings": {%- if index_settings is defined %} {{ index_settings | tojson }} {%- else %} {
+            "settings":  {
               "index.codec": "best_compression",
               "index.refresh_interval": "30s",
               "index.translog.flush_threshold_size": "4g"
-            }{%- endif %}
+            }
           }
         },
         {
