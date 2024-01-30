@@ -678,9 +678,6 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
           "operation": {
             "operation-type": "force-merge",
             "request-timeout": 7200
-            {%- if force_merge_max_num_segments is defined %},
-            "max-num-segments": {{ force_merge_max_num_segments | tojson }}
-            {%- endif %}
           }
         },
         {
