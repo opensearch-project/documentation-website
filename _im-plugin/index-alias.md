@@ -204,7 +204,7 @@ HEAD index-1/_alias/alias1/
 
 ## Add aliases at index creation
 
-You can add an index to an alias as you create the index like that shown in the following PUT request:
+You can add an index to an alias as you create the index, as shown in the following PUT request:
 
 ```json
 PUT index-1
