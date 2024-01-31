@@ -9,7 +9,7 @@ redirect_from:
 
 # Remove processor
 
-The `remove_by_pattern` processor is used to remove the root level fields from a document by the specified wildcard patterns. 
+The `remove_by_pattern` processor is used to remove the root-level fields from a document using specified wildcard patterns. 
 
 ## Syntax
 
