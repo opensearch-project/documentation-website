@@ -11,6 +11,9 @@ nav_order: 50
 
 ## Usage
 
+To use OpenSearch Keystore, open a terminal and use the following command syntax: 
+
+
 ```
 opensearch-keystore [command] [options]
 ```
