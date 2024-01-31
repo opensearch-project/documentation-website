@@ -643,14 +643,14 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
           "operation": "delete-index"
         },
         {
-          "operation": {
+          "operation": {% raw %}{
             "operation-type": "create-index",
-            "settings": {% raw %}{%- if index_settings is defined %} {{ index_settings | tojson }} {%- else %}{% endraw %} {
+            "settings": {% raw %}{%- if index_settings is defined %} {{ index_settings | tojson }} {%- else %}{
               "index.codec": "best_compression",
               "index.refresh_interval": "30s",
               "index.translog.flush_threshold_size": "4g"
-            }{% raw %}{%- endif %}{% endraw %}
-          }
+            }{%- endif %}
+          }{% endraw %}
         },
         {
           "name": "check-cluster-health",
