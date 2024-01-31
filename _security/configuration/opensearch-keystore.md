@@ -7,7 +7,7 @@ nav_order: 50
 
 # OpenSearch Keystore
 
-`opensearch-keystore` is a utility script for managing the OpenSearch keystore. This keystore provides a secure method to store sensitive information, such as passwords and keys, used in the OpenSearch cluster. The script allows users to create, list, add, and remove settings securely.
+`opensearch-keystore` is a utility script for managing the OpenSearch Keystore. This keystore provides a secure method to store sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings.
 
 ## Usage
 
