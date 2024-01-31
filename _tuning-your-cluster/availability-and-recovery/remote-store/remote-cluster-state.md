@@ -23,8 +23,9 @@ _Cluster state_ is an internal data structure that contains the metadata of the 
 
 The cluster state metadata is managed by the elected cluster manager node and is essential for the cluster to properly function. When the cluster loses the majority of the cluster manager nodes permanently, then the cluster may experience data loss because the latest cluster state metadata might not be present in the surviving cluster manager nodes. Persisting the state of all the cluster manager nodes in the cluster to remote-backed storage provides better durability.
 
-When the remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster. As of OpenSearch 2.10, only index metadata will persist to remote-backed storage.
-Any time new cluster manager nodes are launched after disaster recovery, the nodes will automatically bootstrap using the latest index metadata stored in the remote repository. Consequently, the index data will also be restored when the remote store is enabled.
+When the remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster.
+Any time new cluster manager nodes are launched after disaster recovery, the nodes will automatically bootstrap using the latest metadata stored in the remote repository. 
+After the metadata is restored automatically, if the data nodes are unchanged the index data will be automatically recovered but if the data nodes have been replaced then the user can restore index data by invoking `_remotestore/_restore` API as specified in [remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
 ## Configuring the remote cluster state
 
@@ -45,9 +46,17 @@ node.attr.remote_store.repository.my-remote-state-repo.settings.region: <Bucket 
 ```
 {% include copy-curl.html %}
 
+Other than the above mandatory static settings, there are a few dynamic settings which can configured as per the requirements:
+
+Setting | Default | Description
+:--- | :--- | :---
+`cluster.remote_store.state.index_metadata.upload_timeout` | 20s | The amount of time to wait for index metadata upload to complete. Note that index metadata for separate indices are uploaded in parallel.
+`cluster.remote_store.state.global_metadata.upload_timeout` | 20s | The amount of time to wait for global metadata upload to complete. Global metadata contains metadata which applies on a global level like templates, cluster settings, data stream metadata and repository metadata.
+`cluster.remote_store.state.metadata_manifest.upload_timeout` | 20s | The amount of time to wait for manifest file upload to complete. Manifest file contains the details each of the files uploaded for a single cluster state (index metadata files and global metadata file). 
+
+
 ## Limitations
 
 The remote cluster state functionality has the following limitations:
-- As of OpenSearch 2.10, only index metadata can be uploaded and restored from remote-backed storage.
 - Unsafe bootstrap scripts cannot be run when the remote cluster state is enabled. When a majority of cluster-manager nodes are lost and the cluster goes down, the user needs to replace any remaining cluster manager nodes and reseed the nodes in order to bootstrap a new cluster.
 - The remote cluster state cannot be enabled without first configuring remote-backed storage.
