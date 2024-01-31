@@ -7,11 +7,11 @@ parent: User guide
 
 # Running a workload
 
-Once you understand all of the individual components of a OpenSearch Benchmark (OSB) [workload](add-link-to-understanding-workloads), its time to run your first workload. 
+Once you understand all of the individual components of a OpenSearch Benchmark (OSB) [workload](add-link-to-understanding-workloads), you can now to run your first workload. 
 
 ## Step 1: Find the workload name
 
-To find the workload name, use the following command:
+To learn more about the standard workloads that come with OSB, use the following command:
 
 ```
 opensearch-benchmark list workloads 
@@ -22,7 +22,9 @@ A list of all workloads supported by OpenSearch Benchmark appears. Review the li
 
 ## Step 2: Running the test
 
-After you've selected the workload, you can invoke the workload using the `opensearch-benchmark execute-test` command. Replace  `--target-host` with the `host:port` pairs for your cluster and `--client-options` with any authorization options required to access the cluster. The following example runs the `nyc_taxis` workload on a localhost for testing purposes. If you want to run a test on your own cluster, see [Running the workload on your own cluster](#running-a-workload-on-your-own-cluster).
+After you've selected the workload, you can invoke the workload using the `opensearch-benchmark execute-test` command. Replace  `--target-host` with the `host:port` pairs for your cluster and `--client-options` with any authorization options required to access the cluster. The following example runs the `nyc_taxis` workload on a localhost for testing purposes. 
+
+If you want to run a test on an external cluster, see [Running the workload on your own cluster](#running-a-workload-on-your-own-cluster).
 
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=nyc_taxis --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
@@ -30,7 +32,7 @@ opensearch-benchmark execute-test --pipeline=benchmark-only --workload=nyc_taxis
 {% include copy.html %}
 
 
-Results from the test appear in the directory set by `--output-path` option in `workloads.json`.
+Results from the test appear in the directory set by the `--output-path` option set in the `execute-test` command.
 
 ### Test mode
 
@@ -159,7 +161,7 @@ OpenSearch Benchmark returns the following response once the benchmark completes
 
 ## Running a workload on your own cluster
 
-Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `execute-test` command, replacing the following settings.
+Now that you're familiar with running OpenSearch Benchmark on a local cluster, you can run OpenSearch Benchmark on your external cluster
  
   * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
