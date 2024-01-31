@@ -61,7 +61,6 @@
             color: $blue-vibrant-300;
         }
         > .last-link {
-            transform: translateY(-1px);
             text-decoration: underline;
             text-underline-offset: 3px;
         }
@@ -101,6 +100,11 @@
     border: none;
     color: $blue-200;
     text-align: left;
+    &:hover {
+        transform: translateY(-1px);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
 }
 
 .card-link {
@@ -145,7 +149,7 @@
   }
   
   .banner-text-header {
-    font-size: 2.3rem;
+    font-size: 2.1rem;
     font-family: "Open Sans";
     font-weight: 300;
     @include mq(md) {
@@ -154,12 +158,12 @@
   }
   
   .banner-text-description {
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 700;
     font-style: normal;
     line-height: 2.25rem;
     @include mq(md) {
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
   }
   
