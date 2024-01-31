@@ -31,7 +31,7 @@ The following table lists the required and optional parameters for the `remove_b
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
 `field_pattern`  | Optional  | Removes fields that match the specified pattern. All of the metadata fields, such as `_index`, `_version`, `_version_type`, and `_id`, are ignored if they match the pattern. This option only supports the root-level fields in the document. |
-`exclude_field_pattern`  | Optional  | The fields do not match this pattern will be removed. All of the metadata fields like `_index`, `_version`, `_version_type`, and `_id` are ignored if they don't match the pattern. This option only supports the root level fields in the document. The `field_pattern` and `exclude_field_pattern` options are mutually exclusive. |
+`exclude_field_pattern`  | Optional  | Removes fields that do not match the specified pattern. All of the metadata fields, such as `_index`, `_version`, `_version_type`, and `_id`, are ignored if they don't match the pattern. This option only supports the root-level fields in the document. The `field_pattern` and `exclude_field_pattern` options are mutually exclusive. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
