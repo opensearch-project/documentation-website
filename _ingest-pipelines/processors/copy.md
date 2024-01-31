@@ -51,7 +51,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline** 
 
-The following query creates a pipeline, named `copy_object`, that copies a nested object from one field to the root level: 
+The following query creates a pipeline named `copy_object` that copies a nested object from one field to the root level: 
 
 ```json
 PUT /_ingest/pipeline/copy_object
