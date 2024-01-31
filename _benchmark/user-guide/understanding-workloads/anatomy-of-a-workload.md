@@ -171,14 +171,14 @@ When OpenSearch Benchmark creates an index for the workload, it uses the index s
 ```json
 {
   "settings": {
-    "index.number_of_shards": {{number_of_shards | default(1)}},
-    "index.number_of_replicas": {{number_of_replicas | default(0)}},
-    "index.queries.cache.enabled": {{query_cache_enabled | default(false) | tojson}},
-    "index.requests.cache.enable": {{requests_cache_enabled | default(false) | tojson}}
+    "index.number_of_shards": {% raw %}{{number_of_shards | default(1)}}{% endraw %},
+    "index.number_of_replicas": {% raw %}{{number_of_replicas | default(0)}}{% endraw %},
+    "index.queries.cache.enabled": {% raw %}{{query_cache_enabled | default(false) | tojson}}{% endraw %},
+    "index.requests.cache.enable": {% raw %}{{requests_cache_enabled | default(false) | tojson}}{% endraw %}
   },
   "mappings": {
     "_source": {
-      "enabled": {{ source_enabled | default(true) | tojson }}
+      "enabled": {% raw %}{{ source_enabled | default(true) | tojson }}{% endraw %}
     },
     "properties": {
       "surcharge": {
@@ -251,10 +251,10 @@ When OpenSearch Benchmark creates an index for the workload, it uses the index s
         "scaling_factor": 100,
         "type": "scaled_float"
       },
-      "trip_distance": {%- if trip_distance_mapping is defined %} {{ trip_distance_mapping | tojson }} {%- else %} {
+      "trip_distance": {% raw %}{%- if trip_distance_mapping is defined %} {{ trip_distance_mapping | tojson }} {%- else %}{% endraw %} {
         "scaling_factor": 100,
         "type": "scaled_float"
-      }{%- endif %},
+      }{% raw %}{%- endif %}{% endraw %},
       "pickup_location": {
         "type": "geo_point"
       }
