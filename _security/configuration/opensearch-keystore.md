@@ -36,7 +36,7 @@ OpenSearch Keystore supports the following the commands:
 
 You can append each command with the following options:
 
-- `-h, --help`: Displays help information about the script and its options.
+- `-h, --help`: Displays help information about the keystore script and its options.
 - `-s, --silent`: Provides minimal output.
 - `-v, --verbose`: Provides a verbose output for debugging purposes.
 
