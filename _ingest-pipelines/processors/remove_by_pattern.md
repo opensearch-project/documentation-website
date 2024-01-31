@@ -44,7 +44,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline** 
 
-The following query creates a pipeline, named `remove_fields_by_pattern`, that removes the fields which match the pattern `foo*` from a document: 
+The following query creates a pipeline named `remove_fields_by_pattern` that removes the fields that match the pattern `foo*`: 
 
 ```json
 PUT /_ingest/pipeline/remove_fields_by_pattern
