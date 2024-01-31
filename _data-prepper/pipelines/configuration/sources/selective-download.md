@@ -12,7 +12,7 @@ If your pipeline uses an S3 source, you can use SQL expressions to perform filte
 
 The `s3_select` option supports objects in the [Parquet File Format](https://parquet.apache.org/docs/). It also works with objects that are compressed with GZIP or BZIP2 (for CSV and JSON objects only) and supports columnar compression for the Parquet File Format using GZIP and Snappy.
 
-The following pipeline example downloads data in incoming S3 objects, encoded in the Parquet File Format:
+The following example pipeline downloads data in incoming S3 objects, encoded in the Parquet File Format:
 
 ```json
 pipeline:
@@ -26,7 +26,7 @@ pipeline:
 ```
 {% include copy-curl.html %}
 
-The following pipeline example downloads only the first 10,000 records in the objects:
+The following example pipeline downloads only the first 10,000 records in the objects:
 
 ```json
 pipeline:
@@ -40,7 +40,7 @@ pipeline:
 ```
 {% include copy-curl.html %}
 
-The following pipeline example checks for the minimum and maximum values of `data_value` before ingesting events into the pipeline:
+The following example pipeline checks for the minimum and maximum values of `data_value` before ingesting events into the pipeline:
 
 ```json
 pipeline:
