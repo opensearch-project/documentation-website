@@ -30,7 +30,7 @@ OpenSearch Keystore supports the following the commands:
 - `upgrade <setting-name>`: Upgrades an existing setting in the keystore.
 - `passwd`: Sets a password for the keystore.
 - `has-passwd`: Prints whether the keystore is password protected or not.
-- `help`: Displays help information about the `opensearch-keystore` commands.
+- `help`: Displays help information about all `opensearch-keystore` commands.
 
 ### Options
 
