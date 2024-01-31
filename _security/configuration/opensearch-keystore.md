@@ -69,7 +69,7 @@ After this command, you will be prompted to enter the secret key securely.
     ./bin/opensearch-keystore remove plugins.security.ssl.http.pemkey_password_secure
     ```
 
-### Refer to keystore entries within OpenSearch configuration
+## Referring to keystore entries
 
 Once a setting is added to the keystore, you can refer to the setting within the OpenSearch configuration. Place the setting name as a placeholder in the `opensearch.yml` configuration file.
 
