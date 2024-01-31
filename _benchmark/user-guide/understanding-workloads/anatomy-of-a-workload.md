@@ -749,7 +749,7 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
           {% raw %}{%- else %}{% endraw %}
           ,"target-throughput": {% raw %}{{ target_throughput | tojson }}
           {% raw %}{%- endif %}{% endraw %}
-          {% raw %}{%-if search_clients is defined and search_clients %}
+          {% raw %}{%-if search_clients is defined and search_clients %}{% endraw %}
           ,"clients": {% raw %}{{ search_clients | tojson}}{% endraw %}
           {% raw %}{%- endif %}{% endraw %}
         },
