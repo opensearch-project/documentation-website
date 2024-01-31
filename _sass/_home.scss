@@ -100,11 +100,6 @@
     border: none;
     color: $blue-200;
     text-align: left;
-    &:hover {
-        transform: translateY(-1px);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-    }
 }
 
 .card-link {
