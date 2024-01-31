@@ -643,14 +643,14 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
           "operation": "delete-index"
         },
         {
-          "operation": {% raw %}{
+          "operation": {
             "operation-type": "create-index",
-            "settings": {%- if index_settings is defined %} {{ index_settings | tojson }} {%- else %}{
+            "settings": {% raw %}{%- if index_settings is defined %} {{ index_settings | tojson }} {%- else %}{
               "index.codec": "best_compression",
               "index.refresh_interval": "30s",
               "index.translog.flush_threshold_size": "4g"
-            }{%- endif %}
-          }{% endraw %}
+            }{%- endif %}{% endraw %}
+          }
         },
         {
           "name": "check-cluster-health",
@@ -658,7 +658,7 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
             "operation-type": "cluster-health",
             "index": "nyc_taxis",
             "request-params": {
-              "wait_for_status": {% raw %}"{{ cluster_health | default('green') }}{% endraw %}"{% endraw %},
+              "wait_for_status": {% raw %}"{{ cluster_health | default('green') }}"{% endraw %},
               "wait_for_no_relocating_shards": "true"
             },
             "retry-until-success": true
