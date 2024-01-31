@@ -11,16 +11,18 @@ nav_order: 50
 
 ## Usage
 
-To use OpenSearch keystore, open a terminal and use the following command syntax: 
+In order to use the OpenSearch keystore script, you must have access to the file system in which the script resides. 
 
+To use OpenSearch keystore, open a terminal and use the following command syntax: 
 
 ```
 opensearch-keystore [command] [options]
 ```
+{% include copy-curl.html %}
 
 ## Commands
-OpenSearch keystore supports the following the commands: 
 
+OpenSearch keystore supports the following the commands: 
 
 - `create`: Initializes a new keystore. If a keystore already exists, this command will overwrite the existing keystore.
 - `list`: Lists all settings in the keystore.
@@ -44,32 +46,66 @@ You can append each command with the following options:
 
 The following examples provide the basic syntax for common OpenSearch keystore commands:
 
+### Creating a new keystore:
 
-1. Creating a new keystore:
+**Command**
 
-    ```bash
-    ./bin/opensearch-keystore create
-    ```
+```bash
+./bin/opensearch-keystore create
+```
+{% include copy-curl.html %}
 
-2. Listing settings in the keystore:
+If a keystore already exists, the script will ask if you like to overwrite the existing keystore.
+   
+**Response**
 
-    ```bash
-    ./bin/opensearch-keystore list
-    ```
+The script responds with confirmation that the keystore was created:
+   
+```bash
+Created opensearch keystore in /Users/cwperx/Projects/opensearch/OpenSearch/build/distribution/local/opensearch-2.11.2-SNAPSHOT/config/opensearch.keystore
+```
 
-3. Adding a new setting:
+### Listing settings in the keystore:
 
-    ```bash
-    ./bin/opensearch-keystore add plugins.security.ssl.http.pemkey_password_secure
-    ```
+**Command**
+   
+```bash
+./bin/opensearch-keystore list
+```
+{% include copy-curl.html %}
+
+**Response**
+
+The script responds with a list of settings in the keystore:
+
+```bash
+keystore.seed
+plugins.security.ssl.http.pemkey_password_secure
+```
+
+### Adding a new setting:
+
+```bash
+./bin/opensearch-keystore add plugins.security.ssl.http.pemkey_password_secure
+```
+{% include copy-curl.html %}
+
+**Response**
 
 After this command, you will be prompted to enter the secret key securely.
 
-4. Removing a setting:
+### Removing a setting:
 
-    ```bash
-    ./bin/opensearch-keystore remove plugins.security.ssl.http.pemkey_password_secure
-    ```
+**Command**
+
+```bash
+./bin/opensearch-keystore remove plugins.security.ssl.http.pemkey_password_secure
+```
+{% include copy-curl.html %}
+
+**Response**
+
+No response exists for this command. To confim the setting was deleted, use `opensearch-keystore list`.
 
 ## Referring to keystore entries
 
