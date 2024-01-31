@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/remove_by_pattern/
 ---
 
-# Remove processor
+# Remove_by_pattern processor
 
 The `remove_by_pattern` processor is used to remove the root-level fields from a document using specified wildcard patterns. 
 
@@ -114,7 +114,7 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-PPUT testindex1/_doc/1?pipeline=remove_fields_by_pattern
+PUT testindex1/_doc/1?pipeline=remove_fields_by_pattern
 {
   "foo1": "foo1",
   "foo2": "foo2",
