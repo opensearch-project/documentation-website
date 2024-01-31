@@ -645,11 +645,11 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
         {
           "operation": {
             "operation-type": "create-index",
-            "settings":  {
+            "settings": {% raw %}{%- if index_settings is defined %} {{ index_settings | tojson }} {%- else %} {
               "index.codec": "best_compression",
               "index.refresh_interval": "30s",
               "index.translog.flush_threshold_size": "4g"
-            }
+            }{%- endif %}{% endraw %}
           }
         },
         {
@@ -658,7 +658,7 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
             "operation-type": "cluster-health",
             "index": "nyc_taxis",
             "request-params": {
-              "wait_for_status": "{{ cluster_health | default('green') }}",
+              "wait_for_status": {% raw %}"{{ cluster_health | default('green') }}{% endraw %}"{% endraw %},
               "wait_for_no_relocating_shards": "true"
             },
             "retry-until-success": true
@@ -667,8 +667,8 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
         {
           "operation": "index",
           "warmup-time-period": 240,
-          "clients": {% raw %}{{ bulk_indexing_clients | default(8) }}{% endraw %},
-          "ignore-response-error-level": "{{ error_level | default('non-fatal') }}"
+          "clients": {% raw %}{{ bulk_indexing_clients | default(8) }},
+          "ignore-response-error-level": "{{ error_level | default('non-fatal') }}"{% endraw %}
         },
         {
           "name": "refresh-after-index",
