@@ -251,10 +251,10 @@ When OpenSearch Benchmark creates an index for the workload, it uses the index s
         "scaling_factor": 100,
         "type": "scaled_float"
       },
-      "trip_distance": {
+      "trip_distance": {%- if trip_distance_mapping is defined %} {{ trip_distance_mapping | tojson }} {%- else %} {
         "scaling_factor": 100,
         "type": "scaled_float"
-      },
+      }{%- endif %},
       "pickup_location": {
         "type": "geo_point"
       }
@@ -278,18 +278,18 @@ The `_operations` directory contains a `default.json` file that lists all of the
     {
       "name": "index",
       "operation-type": "bulk",
-      "bulk-size": {{bulk_size | default(10000)}},
-      "ingest-percentage": {{ingest_percentage | default(100)}}
+      "bulk-size": {% raw %}{{bulk_size | default(10000)}}{% endraw %},
+      "ingest-percentage": {% raw %}{{ingest_percentage | default(100)}}{% endraw %}
     },
     {
       "name": "update",
       "operation-type": "bulk",
-      "bulk-size": {{bulk_size | default(10000)}},
-      "ingest-percentage": {{ingest_percentage | default(100)}},
+      "bulk-size": {% raw %}{{bulk_size | default(10000)}}{% endraw %},
+      "ingest-percentage": {% raw %}{{ingest_percentage | default(100)}}{% endraw %},
       "conflicts": "{{conflicts | default('random')}}",
       "on-conflict": "{{on_conflict | default('update')}}",
-      "conflict-probability": {{conflict_probability | default(25)}},
-      "recency": {{recency | default(0)}}
+      "conflict-probability": {% raw %}{{conflict_probability | default(25)}}{% endraw %},
+      "recency": {% raw %}{{recency | default(0)}}{% endraw %}
     },
     {
       "name": "wait-until-merges-finish",
@@ -635,7 +635,7 @@ The `_operations` directory contains a `default.json` file that lists all of the
 The `_test-procedures` directory contains a `default.json` file that sets the order of operations performed by the workload. Similar to the `_operations` directory, the `_test-procedures` directory can also contain feature-specific test procedures, such as `searchable_snapshots.json` for `nyc_taxis`. The following examples show the searchable snapshots test procedures for `nyc_taxis`:
 
 ```json
-    {
+ {
       "name": "searchable-snapshot",
       "description": "Measuring performance for Searchable Snapshot feature. Based on the default test procedure 'append-no-conflicts'.",
       "schedule": [
@@ -645,11 +645,11 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
         {
           "operation": {
             "operation-type": "create-index",
-            "settings":  {
+            "settings": {% raw %}{%- if index_settings is defined %} {{ index_settings | tojson }} {%- else %}{% endraw %} {
               "index.codec": "best_compression",
               "index.refresh_interval": "30s",
               "index.translog.flush_threshold_size": "4g"
-            }
+            }{% raw %}{%- endif %}{% endraw %}
           }
         },
         {
@@ -667,7 +667,7 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
         {
           "operation": "index",
           "warmup-time-period": 240,
-          "clients": {{ bulk_indexing_clients | default(8) }},
+          "clients": {% raw %}{{ bulk_indexing_clients | default(8) }}{% endraw %},
           "ignore-response-error-level": "{{ error_level | default('non-fatal') }}"
         },
         {
@@ -678,6 +678,9 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
           "operation": {
             "operation-type": "force-merge",
             "request-timeout": 7200
+            {% raw %}{%- if force_merge_max_num_segments is defined %}{% endraw %},
+            "max-num-segments": {% raw %}{{ force_merge_max_num_segments | tojson }}{% endraw %}
+            {% raw %}{%- endif %}{% endraw %}
           }
         },
         {
@@ -712,26 +715,71 @@ The `_test-procedures` directory contains a `default.json` file that sets the or
           "operation": "default",
           "warmup-iterations": 50,
           "iterations": 100
+          {% raw %}{%- if not target_throughput %}{% endraw %}
+          ,"target-throughput": 3
+          {% raw %}{%- elif target_throughput is string and target_throughput.lower() == 'none' %}{% endraw %}
+          {% raw %}{%- else %}{% endraw %}
+          ,"target-throughput": {% raw %}{{ target_throughput | tojson }}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
+          {% raw %}{%-if search_clients is defined and search_clients %}{% endraw %}
+          ,"clients": {% raw %}{{ search_clients | tojson}}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
         },
         {
           "operation": "range",
           "warmup-iterations": 50,
           "iterations": 100
+          {% raw %}{%- if not target_throughput %}{% endraw %}
+          ,"target-throughput": 0.7
+          {% raw %}{%- elif target_throughput is string and target_throughput.lower() == 'none' %}{% endraw %}
+          {% raw %}{%- else %}{% endraw %}
+          ,"target-throughput": {% raw %}{{ target_throughput | tojson }}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
+          {% raw %}{%-if search_clients is defined and search_clients %}{% endraw %}
+          ,"clients": {% raw %}{{ search_clients | tojson}}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
         },
         {
           "operation": "distance_amount_agg",
           "warmup-iterations": 50,
           "iterations": 50
+          {% raw %}{%- if not target_throughput %}{% endraw %}
+          ,"target-throughput": 2
+          {% raw %}{%- elif target_throughput is string and target_throughput.lower() == 'none' %}{% endraw %}
+          {% raw %}{%- else %}{% endraw %}
+          ,"target-throughput": {% raw %}{{ target_throughput | tojson }}
+          {% raw %}{%- endif %}{% endraw %}
+          {% raw %}{%-if search_clients is defined and search_clients %}
+          ,"clients": {% raw %}{{ search_clients | tojson}}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
         },
         {
           "operation": "autohisto_agg",
           "warmup-iterations": 50,
           "iterations": 100
+          {% raw %}{%- if not target_throughput %}{% endraw %}
+          ,"target-throughput": 1.5
+          {% raw %}{%- elif target_throughput is string and target_throughput.lower() == 'none' %}{% endraw %}
+          {% raw %}{%- else %}{% endraw %}
+          ,"target-throughput": {{ target_throughput | tojson }}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
+          {% raw %}{%-if search_clients is defined and search_clients %}{% endraw %}
+          ,"clients": {% raw %}{{ search_clients | tojson}}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
         },
         {
           "operation": "date_histogram_agg",
           "warmup-iterations": 50,
           "iterations": 100
+          {% raw %}{%- if not target_throughput %}{% endraw %}
+          ,"target-throughput": 1.5
+          {% raw %}{%- elif target_throughput is string and target_throughput.lower() == 'none' %}{% endraw %}
+          {% raw %}{%- else %}{% endraw %}
+          ,"target-throughput": {% raw %}{{ target_throughput | tojson }}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
+          {% raw %}{%-if search_clients is defined and search_clients %}{% endraw %}
+          ,"clients": {% raw %}{{ search_clients | tojson}}{% endraw %}
+          {% raw %}{%- endif %}{% endraw %}
         }
       ]
     }
