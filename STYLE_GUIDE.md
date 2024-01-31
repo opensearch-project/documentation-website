@@ -45,8 +45,7 @@ Use lowercase when referring to features, unless you are referring to a formally
 * “The Notifications plugin provides a central location for all of your *notifications* from OpenSearch plugins.”
 * “*Remote-backed storage* is an experimental feature. Therefore, we do not recommend the use of *remote-backed storage* in a production environment.”
 * “You can take and restore *snapshots* using the snapshot API.”
-* “You can use the *VisBuilder* visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture.” (You can refer to VisBuilder alone or qualify the term with “visualization type”.)
-* “As of OpenSearch 2.4, the *ML framework* only supports text-embedding models without GPU acceleration.”
+* “You can use the *VisBuilder* visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture” (You can refer to VisBuilder alone or qualify the term with “visualization type”).
 
 #### Plugin names
 
@@ -344,7 +343,6 @@ We follow a slightly modified version of the _Microsoft Writing Style Guide_ gui
      - Independent clauses separated by coordinating conjunctions (but, or, yet, for, and, nor, so).
      - Introductory clauses, phrases, words that precede the main clause.
      - Words, clauses, and phrases listed in a series. Also known as the Oxford comma.
-     - Skip the comma after single-word adverbs of time at the beginning of a sentence, such as *afterward*, *then*, *later*, or *subsequently*.
 
 - An em dash (—) is the width of an uppercase M. Do not include spacing on either side. Use an em dash to set off parenthetical phrases within a sentence or set off phrases or clauses at the end of a sentence for restatement or emphasis.
 
