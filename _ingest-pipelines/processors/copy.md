@@ -35,7 +35,7 @@ The following table lists the required and optional parameters for the `copy` pr
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
 `source_field`  | Required  | The name of the field to be copied. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`target_field`  | Required  | The name of the field which will be copied to. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`target_field`  | Required  | The name of the field to be copied to. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `source_field`. If set to `true`, the processor does not modify the document if the `source_field` does not exist or is `null`. Default is `false`. |
 `override_target`  | Optional  | Specifies whether the processor should override the `target_field` if it already exists in the document. If set to `true`, the processor overrides the value of `target_field` if it already exists. Default is `false`. |
 `remove_source`  | Optional  | Specifies whether the processor should remove the `source_field` after it's been copied. If set to `true`, the processor removes the `source_field` from the document. Default is `false`. |
