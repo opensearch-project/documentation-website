@@ -71,7 +71,7 @@ After this command, you will be prompted to enter the secret key securely.
 
 ## Referring to keystore entries
 
-Once a setting is added to the keystore, you can refer to the setting within the OpenSearch configuration. Place the setting name as a placeholder in the `opensearch.yml` configuration file.
+After a setting has been added to the keystore, you can refer back to that setting inside your OpenSearch configuration. To refer back to the setting, place the keystore setting name as a placeholder in the `opensearch.yml` configuration file, as shown in the following example:
 
 ```bash
 plugins.security.ssl.http.pemkey_password_secure: ${plugins.security.ssl.http.pemkey_password_secure}
