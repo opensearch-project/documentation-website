@@ -62,7 +62,7 @@ If a keystore already exists, the script will ask if you like to overwrite the e
 The script responds with confirmation that the keystore was created:
    
 ```bash
-Created opensearch keystore in /Users/cwperx/Projects/opensearch/OpenSearch/build/distribution/local/opensearch-2.11.2-SNAPSHOT/config/opensearch.keystore
+Created opensearch keystore in $OPENSEARCH_HOME/config/opensearch.keystore
 ```
 
 ### Listing settings in the keystore:
