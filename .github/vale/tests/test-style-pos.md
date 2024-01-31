@@ -2,8 +2,6 @@
 
 This sentence tests AP. AP should be defined before using.
 
-Then, this sentence tests adverbs of time.
-
 This sentence tests cyber security.
 
 This sentence tests dash --- spacing.
