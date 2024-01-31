@@ -131,7 +131,7 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-PPUT testindex1/_doc/1?pipeline=copy_object
+PUT testindex1/_doc/1?pipeline=copy_object
 {
   "content": {
     "foo": "bar",
