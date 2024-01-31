@@ -25,7 +25,7 @@ The cluster state metadata is managed by the elected cluster manager node and is
 
 When the remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster.
 Any time new cluster manager nodes are launched after disaster recovery, the nodes will automatically bootstrap using the latest metadata stored in the remote repository. 
-After the metadata is restored automatically, if the data nodes are unchanged the index data will be automatically recovered but if the data nodes have been replaced then the user can restore index data by invoking `_remotestore/_restore` API as specified in [remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
+After the metadata is restored automatically from the latest metadata stored and if the data nodes are unchanged in the index data, the metadata lost will be automatically recovered. However, if the data nodes have been replaced, then you can restore the index data by invoking `_remotestore/_restore` API as described in the [remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
 ## Configuring the remote cluster state
 
@@ -46,13 +46,13 @@ node.attr.remote_store.repository.my-remote-state-repo.settings.region: <Bucket 
 ```
 {% include copy-curl.html %}
 
-Other than the above mandatory static settings, there are a few dynamic settings which can configured as per the requirements:
+In addition to the mandatory static settings, you can configure the following dynamic settings based on your cluster's requirements:
 
 Setting | Default | Description
 :--- | :--- | :---
-`cluster.remote_store.state.index_metadata.upload_timeout` | 20s | The amount of time to wait for index metadata upload to complete. Note that index metadata for separate indices are uploaded in parallel.
-`cluster.remote_store.state.global_metadata.upload_timeout` | 20s | The amount of time to wait for global metadata upload to complete. Global metadata contains metadata which applies on a global level like templates, cluster settings, data stream metadata and repository metadata.
-`cluster.remote_store.state.metadata_manifest.upload_timeout` | 20s | The amount of time to wait for manifest file upload to complete. Manifest file contains the details each of the files uploaded for a single cluster state (index metadata files and global metadata file). 
+`cluster.remote_store.state.index_metadata.upload_timeout` | 20s | The amount of time to wait for index metadata upload to complete. Note that index metadata for separate indexes is uploaded in parallel.
+`cluster.remote_store.state.global_metadata.upload_timeout` | 20s | The amount of time to wait for global metadata upload to complete. Global metadata contains metadata that applies on a global-level, such as templates, cluster settings, data stream metadata and repository metadata.
+`cluster.remote_store.state.metadata_manifest.upload_timeout` | 20s | The amount of time to wait for the manifest file upload to complete. The manifest file contains the details for each of the files uploaded about a single cluster state, both index metadata files and global metadata files. 
 
 
 ## Limitations
