@@ -1,17 +1,17 @@
 ---
 layout: default
-title: OpenSearch Keystore
+title: OpenSearch keystore
 parent: Configuration
 nav_order: 50
 ---
 
-# OpenSearch Keystore
+# OpenSearch keystore
 
-`opensearch-keystore` is a utility script for managing the OpenSearch Keystore. This keystore provides a secure method to store sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings.
+`opensearch-keystore` is a utility script for managing the OpenSearch keystore. This keystore provides a secure method to store sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings.
 
 ## Usage
 
-To use OpenSearch Keystore, open a terminal and use the following command syntax: 
+To use OpenSearch keystore, open a terminal and use the following command syntax: 
 
 
 ```
@@ -19,12 +19,12 @@ opensearch-keystore [command] [options]
 ```
 
 ## Commands
-OpenSearch Keystore supports the following the commands: 
+OpenSearch keystore supports the following the commands: 
 
 
 - `create`: Initializes a new keystore. If a keystore already exists, this command will overwrite the existing keystore.
 - `list`: Lists all settings in the keystore.
-- `add <setting-name>`: Adds a new setting to the current keystore. When a new setting is added, OpenSearch Keystore prompts for the value of that setting. After adding the setting and value, both are securely stored in the keystore.
+- `add <setting-name>`: Adds a new setting to the current keystore. When a new setting is added, OpenSearch keystore prompts for the value of that setting. After adding the setting and value, both are securely stored in the keystore.
 - `add-file <file-name>`: Adds a new file to the keystore.
 - `remove <setting-name>`: Removes an existing setting from the keystore.
 - `upgrade <setting-name>`: Upgrades an existing setting in the keystore.
@@ -37,12 +37,12 @@ OpenSearch Keystore supports the following the commands:
 You can append each command with the following options:
 
 - `-h, --help`: Displays help information about the keystore script and its options.
-- `-s, --silent`: Provides minimal output when OpenSearch Keystore responds to a command.
+- `-s, --silent`: Provides minimal output when OpenSearch keystore responds to a command.
 - `-v, --verbose`: Provides a verbose output for debugging purposes.
 
 ## Examples
 
-The following examples provide the basic syntax for common OpenSearch Keystore commands:
+The following examples provide the basic syntax for common OpenSearch keystore commands:
 
 
 1. Creating a new keystore:
