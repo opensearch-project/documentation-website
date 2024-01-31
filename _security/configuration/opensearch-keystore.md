@@ -18,7 +18,7 @@ To use OpenSearch Keystore, open a terminal and use the following command syntax
 opensearch-keystore [command] [options]
 ```
 
-### Commands
+## Commands
 
 - `create`: Initializes a new keystore. If a keystore already exists, this command will overwrite it.
 - `list`: Lists all settings in the keystore.
