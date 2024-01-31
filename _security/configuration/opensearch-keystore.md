@@ -22,7 +22,7 @@ opensearch-keystore [command] [options]
 OpenSearch Keystore supports the following the commands: 
 
 
-- `create`: Initializes a new keystore. If a keystore already exists, this command will overwrite it.
+- `create`: Initializes a new keystore. If a keystore already exists, this command will overwrite the existing keystore.
 - `list`: Lists all settings in the keystore.
 - `add <setting-name>`: Adds a new setting to the keystore. Prompts for the value to be securely stored.
 - `add-file <file-name>`: Adds a new file to the keystore.
