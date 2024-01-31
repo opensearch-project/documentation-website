@@ -38,7 +38,10 @@ OpenSearch Keystore supports the following the commands:
 - `-s, --silent`: Provides minimal output.
 - `-v, --verbose`: Provides a verbose output for debugging purposes.
 
-### Examples
+## Examples
+
+The following examples provide the basic syntax for common OpenSearch Keystore commands:
+
 
 1. Creating a new keystore:
 
