@@ -32,7 +32,7 @@ OpenSearch Keystore supports the following the commands:
 - `has-passwd`: Prints whether the keystore is password protected or not.
 - `help`: Displays help information about all `opensearch-keystore` commands.
 
-### Options
+## Options
 
 - `-h, --help`: Displays help information about the script and its options.
 - `-s, --silent`: Provides minimal output.
