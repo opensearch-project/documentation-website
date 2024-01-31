@@ -7,7 +7,7 @@ nav_order: 50
 
 # OpenSearch keystore
 
-`opensearch-keystore` is a utility script for managing the OpenSearch keystore. This keystore provides a secure method to store sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings.
+`opensearch-keystore` is a utility script for managing the OpenSearch keystore. This keystore provides a secure method to store sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings. It is included inside the OpenSearch distribution. 
 
 ## Usage
 
@@ -18,7 +18,7 @@ To use OpenSearch keystore, open a terminal and use the following command syntax
 ```
 opensearch-keystore [command] [options]
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Commands
 
@@ -53,7 +53,7 @@ The following examples provide the basic syntax for common OpenSearch keystore c
 ```bash
 ./bin/opensearch-keystore create
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 If a keystore already exists, the script will ask if you like to overwrite the existing keystore.
    
@@ -72,7 +72,7 @@ Created opensearch keystore in $OPENSEARCH_HOME/config/opensearch.keystore
 ```bash
 ./bin/opensearch-keystore list
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 **Response**
 
@@ -88,7 +88,7 @@ plugins.security.ssl.http.pemkey_password_secure
 ```bash
 ./bin/opensearch-keystore add plugins.security.ssl.http.pemkey_password_secure
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 **Response**
 
@@ -101,7 +101,7 @@ After this command, you will be prompted to enter the secret key securely.
 ```bash
 ./bin/opensearch-keystore remove plugins.security.ssl.http.pemkey_password_secure
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 **Response**
 
