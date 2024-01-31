@@ -284,12 +284,12 @@ The `_operations` directory contains a `default.json` file that lists all of the
     {
       "name": "update",
       "operation-type": "bulk",
-      "bulk-size": {% raw %}{{bulk_size | default(10000)}}{% endraw %},
-      "ingest-percentage": {% raw %}{{ingest_percentage | default(100)}}{% endraw %},
+      "bulk-size": {% raw %}{{bulk_size | default(10000)}},
+      "ingest-percentage": {{ingest_percentage | default(100)}},
       "conflicts": "{{conflicts | default('random')}}",
       "on-conflict": "{{on_conflict | default('update')}}",
-      "conflict-probability": {% raw %}{{conflict_probability | default(25)}}{% endraw %},
-      "recency": {% raw %}{{recency | default(0)}}{% endraw %}
+      "conflict-probability": {{conflict_probability | default(25)}},
+      "recency": {{recency | default(0)}}{% endraw %}
     },
     {
       "name": "wait-until-merges-finish",
