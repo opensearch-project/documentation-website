@@ -38,15 +38,6 @@ Results from the test appear in the directory set by the `--output-path` option 
 
 If you want run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1000 documents from each index provided and runs query operations against them.
 
-To use test mode, create a `<index>-documents-1k.json` file that contains the first 1000 documents from `<index>-documents.json` using the following command:
-
-```
-head -n 1000 <index>-documents.json > <index>-documents-1k.json
-```
-{% include copy.html %}
-
-Then run the test with the `--test-mode` option.
-
 ## Step 3: Validate the test
 
 After an OpenSearch Benchmark test runs, take the following steps to verify that it has run properly:
