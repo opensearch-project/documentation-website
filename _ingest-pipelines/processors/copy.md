@@ -9,7 +9,7 @@ redirect_from:
 
 # Copy processor
 
-The `copy` processor is used to copy the whole object from one existing field to another field.
+The `copy` processor copies the entire object from one existing field to another field.
 
 ## Syntax
 
