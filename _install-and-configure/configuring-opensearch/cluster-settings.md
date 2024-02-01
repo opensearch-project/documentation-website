@@ -120,7 +120,7 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
 
 For information about index-level index settings, see [Cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#cluster-level-index-settings).
 
-## Cluster-level Coordination settings
+## Cluster-level coordination settings
 
 - `cluster.fault_detection.leader_check.timeout` (Time unit): Determines the timeout duration for each node, indicating the period it waits for a response from the cluster manager during a leader check before deeming it as a failure. It can now be set dynamically through Update cluster settings API.
 
