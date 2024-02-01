@@ -403,6 +403,10 @@ Use *just* in the sense of *just now* (as in "the resources that you just create
 
 **keystore**
 
+**key-value**
+
+Not _key/value_.
+
 **kill**
 
 Do not use. Replace with *stop*, *end*, *clear*, *remove*, or *cancel*.
