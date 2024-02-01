@@ -291,6 +291,8 @@ Exception: *Execution* is unavoidable for third-party terms for which no alterna
 
 **fail over (v.), failover (n.)**
 
+**Faiss**
+
 **file name**
 
 **frontend (n., adj.)**
@@ -399,7 +401,7 @@ Use *just* in the sense of *just now* (as in "the resources that you just create
 
 ## K
 
-**key store**
+**keystore**
 
 **kill**
 
