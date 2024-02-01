@@ -109,7 +109,7 @@ No response exists for this command. To confirm that the setting was deleted, us
 
 ## Referring to keystore entries
 
-After a setting has been added to a keystore, you can refer back to that setting in your OpenSearch configuration. To refer back to the setting, place the keystore setting name as a placeholder in the `opensearch.yml` configuration file, as shown in the following example:
+After a setting has been added to a keystore, you can refer back to that setting in your OpenSearch configuration. To refer back to the setting, add the keystore setting name as a placeholder in the `opensearch.yml` configuration file, as shown in the following example:
 
 ```bash
 plugins.security.ssl.http.pemkey_password_secure: ${plugins.security.ssl.http.pemkey_password_secure}
