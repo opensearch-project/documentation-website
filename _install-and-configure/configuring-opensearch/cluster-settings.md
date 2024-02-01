@@ -114,8 +114,14 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
 
     Default is `all`. 
 
-- `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. 
+- `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required.
 
 ## Cluster-level index settings
 
 For information about index-level index settings, see [Cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#cluster-level-index-settings).
+
+## Cluster-level Coordination settings
+
+- `cluster.fault_detection.leader_check.timeout` (Time unit): Determines the timeout duration for each node, indicating the period it waits for a response from the cluster manager during a leader check before deeming it as a failure. It can now be set dynamically through Update cluster settings API.
+
+- `cluster.fault_detection.follower_check.timeout` (Time unit): Determines the timeout duration for the cluster manager, specifying the duration it waits for a response during a follower check before deeming it as a failure. It can now be set dynamically through Update cluster settings API.
