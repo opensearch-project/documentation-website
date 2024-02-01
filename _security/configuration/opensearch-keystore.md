@@ -94,7 +94,7 @@ plugins.security.ssl.http.pemkey_password_secure
 
 After this command, you will be prompted to enter the secret key securely.
 
-### Removing a setting:
+### Removing a setting
 
 **Command**
 
