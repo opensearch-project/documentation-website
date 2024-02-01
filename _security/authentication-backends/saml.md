@@ -227,6 +227,7 @@ Name | Description
 `exchange_key` | The key to sign the token. The algorithm is HMACSHA512, therefore we recommend to use 64 characters, for example `9a2h8ajasdfhsdiydfn7dtd6d5ashsd89a2h8ajasdHhsdiyLfn7dtd6d5ashsdI`. Ensure that you enter a value for `exchange_key`, otherwise an error is returned. 
 
 
+
 ## TLS settings
 
 If you are loading the IdP metadata from a URL, we recommend that you use SSL/TLS. If you use an external IdP like Okta or Auth0 that uses a trusted certificate, you usually do not need to configure anything. If you host the IdP yourself and use your own root CA, you can customize the TLS settings as follows. These settings are used only for loading SAML metadata over HTTPS.

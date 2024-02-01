@@ -168,7 +168,7 @@ Parameter | Description | Type | Required
 }
 ```
 
-For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
+For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/intro/#primary-and-replica-shards).
 
 ### shrink
 
@@ -924,7 +924,7 @@ Note: The `index` and `remove_index` parameters are not allowed with alias actio
 
 The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indexes based on their levels of activity.
 
-In this case, an index is initially in a `hot` state. After a day, it changes to a `warm` state, where the number of replicas increases to 5 to improve the read performance.
+In this case, an index is initially in a `hot` state. After 7 days, it changes to a `warm` state, where the number of replicas is reduced to 1 and the indexes are moved to nodes with the `warm` attribute.
 
 After 30 days, the policy moves this index into a `delete` state. The service sends a notification to a Chime room that the index is being deleted, and then permanently deletes it.
 
@@ -940,7 +940,7 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "rollover": {
-              "min_index_age": "1d",
+              "min_index_age": "7d",
               "min_primary_shard_size": "30gb"
             }
           }
@@ -956,7 +956,14 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "replica_count": {
-              "number_of_replicas": 5
+              "number_of_replicas": 1
+            }
+          },
+          {
+            "allocation": {
+              "require": {
+                "temp": "warm"
+              }
             }
           }
         ],

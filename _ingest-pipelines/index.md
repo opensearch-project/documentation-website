@@ -3,13 +3,14 @@ layout: default
 title: Ingest pipelines
 nav_order: 5
 nav_exclude: true
+has_toc: true
+permalink: /ingest-pipelines/
 redirect_from:
    - /api-reference/ingest-apis/ingest-pipelines/
+   - /ingest-pipelines/index/
 ---
 
 # Ingest pipelines
-**Introduced 1.0**
-{: .label .label-purple }
 
 An _ingest pipeline_ is a sequence of _processors_ that are applied to documents as they are ingested into an index. Each [processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/index-processors/) in a pipeline performs a specific task, such as filtering, transforming, or enriching data. 
 
@@ -51,3 +52,4 @@ Learn how to:
 - [Test a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/simulate-ingest/).
 - [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/get-ingest/).
 - [Delete a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/delete-ingest/). 
+- [Use ingest processors in OpenSearch]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/index-processors/)
