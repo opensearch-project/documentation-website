@@ -105,7 +105,7 @@ After this command, you will be prompted to enter the secret key securely.
 
 **Response**
 
-No response exists for this command. To confirm the setting was deleted, use `opensearch-keystore list`.
+No response exists for this command. To confirm that the setting was deleted, use `opensearch-keystore list`.
 
 ## Referring to keystore entries
 
