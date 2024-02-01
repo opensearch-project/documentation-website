@@ -30,24 +30,24 @@ We provide a fully functional example that can help you understand how to use SA
    You can remove "customize" from the file names if you plan to modify and keep these files for production.
    {: .tip }  
 
-1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2, and OpenSearch Dashboards server. For example, if you are running OpenSearch version 2.6, the `image` fields will resemble the following examples:
+1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2 and the OpenSearch Dashboards server. For example, if you are running OpenSearch version {{site.opensearch_major_minor_version}}, the `image` fields will resemble the following examples:
    
    ```yml
    opensearch-saml-node1:
-    image: opensearchproject/opensearch:2.8.0
+    image: opensearchproject/opensearch:{{site.opensearch_major_minor_version}}
     ```
     ```yml
     opensearch-saml-node2:
-    image: opensearchproject/opensearch:2.8.0
+    image: opensearchproject/opensearch:{{site.opensearch_major_minor_version}}
     ```
     ```yml
     opensearch-saml-dashboards:
-    image: opensearchproject/opensearch-dashboards:2.8.0
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_major_minor_version}}
     ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
 
-1. Log in as `admin` with a password of `admin`.
+1. Log in to OpenSearch Dashboards. The default username is `admin` and the default password is set in your `customize-docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 
 1. After logging in, note that your user in the upper-right is `SAMLAdmin`, as defined in `/var/www/simplesamlphp/config/authsources.php` of the SAML server.
 
