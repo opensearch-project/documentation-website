@@ -30,7 +30,7 @@ We provide a fully functional example that can help you understand how to use SA
    You can remove "customize" from the file names if you plan to modify and keep these files for production.
    {: .tip }  
 
-1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2, and OpenSearch Dashboards server. For example, if you are running OpenSearch version {{site.opensearch_major_minor_version}}, the `image` fields will resemble the following examples:
+1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2 and the OpenSearch Dashboards server. For example, if you are running OpenSearch version {{site.opensearch_major_minor_version}}, the `image` fields will resemble the following examples:
    
    ```yml
    opensearch-saml-node1:
