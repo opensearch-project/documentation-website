@@ -116,6 +116,20 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
 
 - `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. 
 
+## Cluster-level slow log settings
+
+For more information, see [Search request slow logs]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/logs/#search-request-slow-logs).
+
+- `cluster.search.request.slowlog.threshold.warn` (Time unit): Sets the request-level slow log `WARN` threshold. Default is `-1`.
+
+- `cluster.search.request.slowlog.threshold.info` (Time unit): Sets the request-level slow log `INFO` threshold. Default is `-1`.
+
+- `cluster.search.request.slowlog.threshold.debug` (Time unit): Sets the request-level slow log `DEBUG` threshold. Default is `-1`.
+
+- `cluster.search.request.slowlog.threshold.trace` (Time unit): Sets the request-level slow log `TRACE` threshold. Default is `-1`.
+
+- `cluster.search.request.slowlog.level` (String): Sets the minimum slow log level to log: `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `TRACE`.
+
 ## Cluster-level index settings
 
 For information about index-level index settings, see [Cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#cluster-level-index-settings).

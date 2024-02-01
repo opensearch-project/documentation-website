@@ -4,7 +4,8 @@ const numCharsLabel = document.getElementById('num-chars');
 const sendButton = document.getElementById('send');
 const commentTextArea = document.getElementById('comment');
 const thankYouText = document.getElementById('thank-you');
-
+const nav = document.getElementById('site-nav');
+const versionPanel = document.getElementById('version-panel');
 document.addEventListener('DOMContentLoaded', updateTextArea);
 
 document.addEventListener('click', function(event) {
@@ -27,10 +28,15 @@ document.addEventListener('click', function(event) {
     else if (target.matches('.copy-button')) {
         window.navigator.clipboard.writeText(target.getAttribute('data-text'));
     }
-    else if (target.matches('.btn-contribute')) {
-        window.open('https://github.com/opensearch-project', '_blank');
-    }
 });
+
+nav.addEventListener('scroll',(e)=>{  
+    if(nav.scrollTop > 0){
+      versionPanel.classList.add("nav-shadow");
+    }else{
+      versionPanel.classList.remove("nav-shadow");
+    }
+  });
 
 commentTextArea.addEventListener('input', updateTextArea);
 

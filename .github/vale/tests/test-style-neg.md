@@ -2,8 +2,6 @@
 
 This sentence tests Advanced Placement (AP). We should define AP before using.
 
-Then this sentence tests adverbs of time.
-
 This sentence tests cybersecurity.
 
 This sentence tests dash---spacing.
@@ -31,6 +29,10 @@ This sentence tests Latin elimination.
 This sentence tests Latin substitution through using Latin.
 
 ## This heading: Tests colons but fails capitalization
+
+This sentence tests [links double parentheses]({{site.url}}{{site.baseurl}}/opensearch/).
+
+This sentence tests [links double slash]({{site.url}}{{site.baseurl}}/opensearch/).
 
 This sentence tests [links end slash]({{site.url}}{{site.baseurl}}/opensearch/).
 

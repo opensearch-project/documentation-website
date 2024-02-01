@@ -58,3 +58,4 @@ Parameter | Description
 `similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. 
 `split_queries_on_whitespace` | A Boolean value that specifies whether full-text queries should be split on white space. Default is `false`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. 
+

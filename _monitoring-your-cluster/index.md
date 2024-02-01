@@ -5,6 +5,9 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /monitoring-your-cluster/
+redirect_from: 
+  - /monitoring-your-cluster/index/
 ---
 
 # Monitoring your cluster

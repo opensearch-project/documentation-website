@@ -5,12 +5,13 @@ nav_order: 2
 has_children: true
 nav_exclude: true
 has_toc: false
+permalink: /query-dsl/
 redirect_from:
   - /opensearch/query-dsl/
   - /opensearch/query-dsl/index/
   - /docs/opensearch/query-dsl/
   - /query-dsl/query-dsl/
-  - /query-dsl/
+  - /query-dsl/index/
 ---
 
 {%- comment -%}The `/docs/opensearch/query-dsl/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
@@ -108,5 +109,5 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To track expensive queries, enable [slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#slow-logs).
+To track expensive queries, enable [shard slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#shard-slow-logs).
 {: .tip}
