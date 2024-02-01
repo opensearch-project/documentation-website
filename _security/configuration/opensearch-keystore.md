@@ -22,7 +22,7 @@ opensearch-keystore [command] [options]
 
 ## Commands
 
-OpenSearch keystore supports the following the commands: 
+The `opensearch-keystore` script supports the following the commands: 
 
 - `create`: Initializes a new keystore. If a keystore already exists, this command will overwrite the existing keystore.
 - `list`: Lists all settings in the keystore.
