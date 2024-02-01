@@ -83,7 +83,7 @@ keystore.seed
 plugins.security.ssl.http.pemkey_password_secure
 ```
 
-### Adding a new setting:
+### Adding a new setting
 
 ```bash
 ./bin/opensearch-keystore add plugins.security.ssl.http.pemkey_password_secure
