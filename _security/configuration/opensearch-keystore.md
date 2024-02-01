@@ -31,7 +31,7 @@ The `opensearch-keystore` script supports the following the commands:
 - `remove <setting-name>`: Removes an existing setting from the keystore.
 - `upgrade <setting-name>`: Upgrades an existing setting in the keystore.
 - `passwd`: Sets a password for the keystore.
-- `has-passwd`: Prints whether the keystore is password protected or not.
+- `has-passwd`: Prints whether the keystore is password protected.
 - `help`: Displays help information about all `opensearch-keystore` commands.
 
 ## Options
