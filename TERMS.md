@@ -252,7 +252,7 @@ _Effect_ as a noun refers to something that’s caused by something else. _Effec
 
 **e.g.**
 
-Avoid. Use for example or such as instead.
+Avoid. Use _for example_ or _such as_ instead.
 
 **Elastic IP address**
 
@@ -291,6 +291,8 @@ Exception: *Execution* is unavoidable for third-party terms for which no alterna
 
 **fail over (v.), failover (n.)**
 
+**Faiss**
+
 **file name**
 
 **frontend (n., adj.)**
@@ -299,9 +301,9 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 ## G
 
-**GenAI**
+**generative AI**
 
-On first mention, use *generative artificial intelligence (GenAI)*. Use *GenAI* thereafter. To avoid the overuse of *GenAI*, *AI/ML-powered applications* may also be used.
+On first mention, use *generative artificial intelligence (generative AI)*. Use *generative AI* thereafter. To avoid the overuse of *generative AI*, *AI/ML-powered applications* may also be used.
 
 **geodistance**
 
@@ -361,11 +363,17 @@ Use *on the forum*. Whatever is on the internet (the various websites, etc.), yo
 
 **index, indexes**
 
-A collection of JSON documents. Non-hardcoded references to *indices* should be changed to *indexes*.
+In technical documentation and the UI, use *indexes* as the plural form of *index*. Use *indices* only in the context of mathematical expressions. Variable and setting names should not be changed.
+
+In blog posts, use the plural *indexes* unless there is a domain-specific reason (for example, a mathematical or financial context) to use *indices*.
 
 **Index Management (IM)**
 
 **Index State Management (ISM)**
+
+**ingest pipeline**
+
+Not _ingestion pipeline_.
 
 **inline**
 
@@ -393,7 +401,11 @@ Use *just* in the sense of *just now* (as in "the resources that you just create
 
 ## K
 
-**key store**
+**keystore**
+
+**key-value**
+
+Not _key/value_.
 
 **kill**
 
@@ -704,11 +716,13 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 **time zone**
 
+**trade-off**
+
 **trigger**
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
-**trust store**
+**truststore**
 
 **turn on, turn off**
 

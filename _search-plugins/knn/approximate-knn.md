@@ -2,7 +2,8 @@
 layout: default
 title: Approximate k-NN search
 nav_order: 15
-parent: k-NN
+parent: k-NN search
+grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -20,7 +21,7 @@ The k-NN plugin builds a native library index of the vectors for each knn-vector
 
 Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
 
-### Recommendations for engines and cluster node sizing
+## Recommendations for engines and cluster node sizing
 
 Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. You can follow the general information below to help determine which engine will best meet your requirements.
 
@@ -247,7 +248,11 @@ To learn about using filters with k-NN search, see [k-NN search with filters]({{
 
 ## Spaces
 
-A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin the spaces the plugin supports are below. Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
+A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin supports the following spaces. 
+
+Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
+{: note.}
+
 
 <table>
   <thead style="text-align: center">

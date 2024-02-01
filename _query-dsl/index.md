@@ -5,12 +5,13 @@ nav_order: 2
 has_children: true
 nav_exclude: true
 has_toc: false
+permalink: /query-dsl/
 redirect_from:
   - /opensearch/query-dsl/
   - /opensearch/query-dsl/index/
   - /docs/opensearch/query-dsl/
   - /query-dsl/query-dsl/
-  - /query-dsl/
+  - /query-dsl/index/
 ---
 
 {%- comment -%}The `/docs/opensearch/query-dsl/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
@@ -49,7 +50,7 @@ Broadly, you can classify queries into two categories---*leaf queries* and *comp
 
     - [Specialized queries]({{site.url}}{{site.baseurl}}/query-dsl/specialized/index/): Specialized queries include all other query types (`distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, and `wrapper`).
 
-- **Compound queries**: Compound queries serve as wrappers for multiple leaf or compound clauses, either to combine their results or to modify their behavior. They include the Boolean, disjunction max, constant score, function score, and boosting query types. To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/index/).
+- **Compound queries**: Compound queries serve as wrappers for multiple leaf or compound clauses, either to combine their results or to modify their behavior. They include the Boolean, disjunction max, constant score, function score, and boosting query types. To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/).
 
 ## A note on Unicode special characters in text fields
 

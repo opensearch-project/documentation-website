@@ -93,10 +93,10 @@ System index permissions also work with the wildcard to include all variations o
 * Specifying the full name of a system index limits access to only that index: `.opendistro-alerting-config`.
 * Specifying a partial name for a system index along with the wildcard provides access to all system indexes that begin with that name: `.opendistro-anomaly-detector*`.
 * Although not recommended---given the wide-reaching access granted by this role definition---using `*` for the index pattern along with `system:admin/system_index` as an allowed action grants access to all system indexes.
-  
+
   Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes. The allowed action `system:admin/system_index` must be explicitly added.
   {: .note }
-  
+
 The following example shows a role that grants access to all system indexes:
 
 ```yml
@@ -148,9 +148,9 @@ See [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
 - cluster:admin/ingest/pipeline/simulate
 - cluster:admin/ingest/processor/grok/get
 
-### Anomaly Detection permissions
+### Anomaly detection permissions
 
-See [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
+See [Anomaly Detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
 
 - cluster:admin/opendistro/ad/detector/delete
 - cluster:admin/opendistro/ad/detector/info
@@ -296,7 +296,7 @@ See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 
 ### Update settings permission
 
-See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) on the Index APIs page.
+See [Update settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) on the Index APIs page.
 
 - cluster:admin/settings/update
 
@@ -361,7 +361,7 @@ See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 - cluster:monitor/stats
 - cluster:monitor/task
 - cluster:monitor/task/get
-- cluster:monitor/tasks/list
+- cluster:monitor/tasks/lists
 
 ### Index templates
 
@@ -381,7 +381,6 @@ See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 These permissions apply to an index or index pattern. You might want a user to have read access to all indexes (that is, `*`), but write access to only a few (for example, `web-logs` and `product-catalog`).
 
 - indices:admin/aliases
-- indices:admin/aliases/exists
 - indices:admin/aliases/get
 - indices:admin/analyze
 - indices:admin/cache/clear
@@ -416,12 +415,9 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:admin/seq_no/global_checkpoint_sync
 - indices:admin/settings/update
 - indices:admin/shards/search_shards
-- indices:admin/shrink
-- indices:admin/synced_flush
 - indices:admin/template/delete
 - indices:admin/template/get
 - indices:admin/template/put
-- indices:admin/types/exists
 - indices:admin/upgrade
 - indices:admin/validate/query
 - indices:data/read/explain

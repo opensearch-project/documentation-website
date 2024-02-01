@@ -3,8 +3,11 @@ message: "'%s' is a heading and should be in sentence case."
 level: error
 scope: heading
 match: $sentence
-threshold: 1
 indicators:
   - ":"
+  - "."
+  - ")"
 exceptions:
   - k    # ignores lowercase k-NN
+  - '[A-Z]{2,}' # ignores all acronyms
+  - '([A-Z][a-z0-9]+){2,}' # ignores all camel case words

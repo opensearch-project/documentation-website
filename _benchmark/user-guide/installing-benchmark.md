@@ -124,7 +124,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```
 {% include copy.html %}
 
-### Running Benchmark with Docker
+### Running OpenSearch Benchmark with Docker
 
 To run OpenSearch Benchmark, use `docker run` to launch a container. OpenSearch Benchmark subcommands are passed as arguments when you start the container. OpenSearch Benchmark then processes the command and stops the container after the requested operation completes.
 
@@ -145,7 +145,7 @@ Use the `-v` option to specify a local directory to mount and a directory in the
 The following example command creates a volume in a user's home directory, mounts the volume to the OpenSearch Benchmark container at `/opensearch-benchmark/.benchmark`, and then runs a test benchmark using the geonames workload. Some client options are also specified:
 
 ```bash
-run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
+docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute-test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
 {% include copy.html %}
 

@@ -39,9 +39,10 @@ The OpenSearch distribution for Linux ships with a compatible [Adoptium JDK](htt
 
 OpenSearch Version | Compatible Java Versions | Bundled Java Version
 :---------- | :-------- | :-----------
-1.0 - 1.2.x | 11, 15    | 15.0.1+9
-1.3.x       | 8, 11, 14 | 11.0.14.1+1
-2.0.0       | 11, 17    | 17.0.2+8
+1.0--1.2.x    | 11, 15     | 15.0.1+9
+1.3.x          | 8, 11, 14  | 11.0.22+7
+2.0.0--2.11.x    | 11, 17     | 17.0.2+8
+2.12.0         | 11, 17, 21 | 21.0.2+13
 
 To use a different Java installation, set the `OPENSEARCH_JAVA_HOME` or `JAVA_HOME` environment variable to the Java install location. For example:
 ```bash
@@ -77,6 +78,13 @@ vm.max_map_count=262144
 
 Then run `sudo sysctl -p` to reload.
 
+For Windows workloads, you can set the `vm.max_map_count` running the following commands:
+
+```bash
+wsl -d docker-desktop
+sysctl -w vm.max_map_count=262144
+```
+
 The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml) file also contains several key settings:
 
 - `bootstrap.memory_lock=true`
@@ -106,5 +114,7 @@ OpenSearch has a number of system properties, listed in the following table, tha
 
 Property | Description
 :---------- | :-------- 
-`opensearch.xcontent.string.length.max=<value>` | By default, OpenSearch does not impose any limits on the maximum length of the JSON string fields. To protect your cluster from potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.  | 
+`opensearch.xcontent.string.length.max=<value>` | By default, OpenSearch does not impose any limits on the maximum length of the JSON/YAML/CBOR/Smile string fields. To protect your cluster against potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.  | 
 `opensearch.xcontent.fast_double_writer=[true|false]` | By default, OpenSearch serializes floating-point numbers using the default implementation provided by the Java Runtime Environment. Set this value to `true` to use the Schubfach algorithm, which is faster but may lead to small differences in precision. Default is `false`. |
+`opensearch.xcontent.name.length.max=<value>` | By default, OpenSearch does not impose any limits on the maximum length of the JSON/YAML/CBOR/Smile field names. To protect your cluster against potential DDoS or memory issues, you can set the `opensearch.xcontent.name.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.name.length.max=50000`. |
+`opensearch.xcontent.depth.max=<value>` | By default, OpenSearch does not impose any limits on the maximum nesting depth for JSON/YAML/CBOR/Smile documents. To protect your cluster against potential DDoS or memory issues, you can set the `opensearch.xcontent.depth.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.name.length.max=1000`. |

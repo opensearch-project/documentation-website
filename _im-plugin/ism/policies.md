@@ -24,7 +24,9 @@ Field | Description | Type | Required | Read Only
 :--- | :--- |:--- |:--- |
 `policy_id` |  The name of the policy. | `string` | Yes | Yes
 `description` |  A human-readable description of the policy. | `string` | Yes | No
-`ism_template` | Specify an ISM template pattern that matches the index to apply the policy. | `nested list of objects` | No | No
+`ism_template` | Specify an ISM template to automatically apply the policy to the newly created index. | `nested list of objects` | No | No
+`ism_template.index_patterns` | Specify a pattern that matches the newly created index name. | `list of strings` | No | No
+`ism_template.priority` | Specify a priority to disambiguate when multiple policies match the newly created index name. | `number` | No | No
 `last_updated_time`  |  The time the policy was last updated. | `timestamp` | Yes | Yes
 `error_notification` |  The destination and message template for error notifications. The destination could be Amazon Chime, Slack, or a webhook URL. | `object` | No | No
 `default_state` | The default starting state for each index that uses this policy. | `string` | Yes | No
@@ -166,7 +168,7 @@ Parameter | Description | Type | Required
 }
 ```
 
-For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
+For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/intro/#primary-and-replica-shards).
 
 ### shrink
 
@@ -274,6 +276,7 @@ Parameter | Description | Type | Example | Required
 `min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
 `min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
 `min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See **Important** note above. | `string` | `5d` or `7h` | No
+`copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | `boolean` | `true` or `false` | No
 
 ```json
 {
@@ -921,7 +924,7 @@ Note: The `index` and `remove_index` parameters are not allowed with alias actio
 
 The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indexes based on their levels of activity.
 
-In this case, an index is initially in a `hot` state. After a day, it changes to a `warm` state, where the number of replicas increases to 5 to improve the read performance.
+In this case, an index is initially in a `hot` state. After 7 days, it changes to a `warm` state, where the number of replicas is reduced to 1 and the indexes are moved to nodes with the `warm` attribute.
 
 After 30 days, the policy moves this index into a `delete` state. The service sends a notification to a Chime room that the index is being deleted, and then permanently deletes it.
 
@@ -937,7 +940,7 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "rollover": {
-              "min_index_age": "1d",
+              "min_index_age": "7d",
               "min_primary_shard_size": "30gb"
             }
           }
@@ -953,7 +956,14 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "replica_count": {
-              "number_of_replicas": 5
+              "number_of_replicas": 1
+            }
+          },
+          {
+            "allocation": {
+              "require": {
+                "temp": "warm"
+              }
             }
           }
         ],

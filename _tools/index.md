@@ -4,8 +4,10 @@ title: Tools
 nav_order: 50
 has_children: false
 nav_exclude: true
+permalink: /tools/
 redirect_from:
   - /clients/agents-and-ingestion-tools/index/
+  - /tools/index/
 ---
 
 # OpenSearch tools
@@ -38,7 +40,7 @@ PUT _cluster/settings
 }
 ```
 
-[Just like any other setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
+[Just like any other setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
 
 ```yml
 compatibility.override_main_response_version: true
