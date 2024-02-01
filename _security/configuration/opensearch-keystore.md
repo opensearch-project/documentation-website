@@ -59,7 +59,7 @@ If a keystore already exists, the script will ask whether you would like to over
    
 **Response**
 
-The script responds with confirmation that the keystore was created:
+The script responds with a confirmation that the keystore was created:
    
 ```bash
 Created opensearch keystore in $OPENSEARCH_HOME/config/opensearch.keystore
