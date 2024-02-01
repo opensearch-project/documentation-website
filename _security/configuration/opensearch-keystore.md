@@ -13,7 +13,7 @@ nav_order: 50
 
 In order to use the OpenSearch keystore script, you must have access to the file system in which the script resides. 
 
-To use OpenSearch keystore, open a terminal and use the following command syntax: 
+To use `opensearch-keystore`, open a terminal and use the following command syntax:
 
 ```
 opensearch-keystore [command] [options]
