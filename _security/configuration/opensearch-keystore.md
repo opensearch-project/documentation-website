@@ -65,7 +65,7 @@ The script responds with a confirmation that the keystore was created:
 Created opensearch keystore in $OPENSEARCH_HOME/config/opensearch.keystore
 ```
 
-### Listing settings in the keystore:
+### Listing settings in the keystore
 
 **Command**
    
