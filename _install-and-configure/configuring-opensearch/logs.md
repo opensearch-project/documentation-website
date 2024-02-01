@@ -43,7 +43,7 @@ The easiest way to identify modules is not from the logs, which abbreviate the p
 
 After this sample change, OpenSearch emits much more detailed logs during reindex operations:
 
-```
+```plaintext
 [2019-10-18T16:52:51,184][DEBUG][o.o.i.r.TransportReindexAction] [node1] [1626]: starting
 [2019-10-18T16:52:51,186][DEBUG][o.o.i.r.TransportReindexAction] [node1] executing initial scroll against [some-index]
 [2019-10-18T16:52:51,291][DEBUG][o.o.i.r.TransportReindexAction] [node1] scroll returned [3] documents with a scroll id of [DXF1Z==]
@@ -95,12 +95,42 @@ There are other ways to change log levels:
    - `${sys:opensearch.logs.cluster_name}` is the name of the cluster.
    - `[%node_name]` is the name of the node.
 
+## Search request slow logs
 
-## Slow logs
+New in version 2.12, OpenSearch offers request-level slow logs for search. These logs rely on thresholds to define what qualifies as "slow." All requests which exceed the threshold are logged.
 
-OpenSearch has two *slow logs*, logs that help you identify performance issues: the search slow log and the indexing slow log.
+Search request slow logs are enabled dynamically through the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). Unlike shard slow logs, search request slow log thresholds are configured for total request took time. By default, logs are disabled (all thresholds are set to `-1`).
 
-These logs rely on thresholds to define what qualifies as a "slow" search or "slow" indexing operation. For example, you might decide that a query is slow if it takes more than 15 seconds to complete. Unlike application logs, which you configure for modules, you configure slow logs for indexes. By default, both logs are disabled (all thresholds are set to `-1`):
+```json
+PUT /_cluster/settings
+{
+"persistent" : {
+      "cluster.search.request.slowlog.level" : "TRACE",
+      "cluster.search.request.slowlog.threshold.warn": "10s",
+      "cluster.search.request.slowlog.threshold.info": "5s",
+      "cluster.search.request.slowlog.threshold.debug": "2s",
+      "cluster.search.request.slowlog.threshold.trace": "10ms"
+}
+}
+```
+{% include copy-curl.html %}
+
+A line from `opensearch_index_search_slowlog.log` might look like this:
+
+```plaintext
+[2023-10-30T15:47:42,630][TRACE][c.s.r.slowlog] [runTask-0] took[80.8ms], took_millis[80], phase_took_millis[{expand=0, query=39, fetch=22}], total_hits[4 hits], search_type[QUERY_THEN_FETCH], shards[{total: 10, successful: 10, skipped: 0, failed: 0}], source[{"query":{"match_all":{"boost":1.0}}}], id[]
+```
+
+Search request slow logs can consume considerable disk space and affect performance if you set low threshold values. Consider enabling them temporarily for troubleshooting or performance tuning. To disable search request slow logs, return all thresholds to `-1`.
+{: .important}
+
+## Shard slow logs
+
+OpenSearch has two *shard slow logs*, logs that help you identify performance issues: the search slow log and the indexing slow log.
+
+These logs rely on thresholds to define what qualifies as a "slow" search or "slow" indexing operation. For example, you might decide that a query is slow if it takes more than 15 seconds to complete. Unlike application logs, which you configure for modules, you configure slow logs for indexes. By default, both logs are disabled (all thresholds are set to `-1`).
+
+Unlike search request slow logs, shard slow log thresholds are configured for individual shard took time.
 
 ```json
 GET <some-index>/_settings?include_defaults=true
@@ -174,17 +204,17 @@ In this example, OpenSearch logs indexing operations that take 15 seconds or lon
 
 A line from `opensearch_index_indexing_slowlog.log` might look like this:
 
-```
+```plaintext
 node1 | [2019-10-24T19:48:51,012][WARN][i.i.s.index] [node1] [some-index/i86iF5kyTyy-PS8zrdDeAA] took[3.4ms], took_millis[3], type[_doc], id[1], routing[], source[{"title":"Your Name", "Director":"Makoto Shinkai"}]
 ```
 
-Slow logs can consume considerable disk space if you set thresholds or levels too low. Consider enabling them temporarily for troubleshooting or performance tuning. To disable slow logs, return all thresholds to `-1`.
+Shard slow logs can consume considerable disk space and affect performance if you set low threshold values. Consider enabling them temporarily for troubleshooting or performance tuning. To disable shard slow logs, return all thresholds to `-1`.
 
 ## Task logs
 
 OpenSearch can log CPU time and memory utilization for the top N memory-expensive search tasks when task resource consumers are enabled. By default, task resource consumers will log the top 10 search tasks at 60 second intervals. These values can be configured in `opensearch.yml`.
 
-Task logging is enabled dynamically through the cluster settings API:
+Task logging is enabled dynamically through the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/):
 
 ```json
 PUT _cluster/settings
