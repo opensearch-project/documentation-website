@@ -722,7 +722,7 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
-**trust store**
+**truststore**
 
 **turn on, turn off**
 
