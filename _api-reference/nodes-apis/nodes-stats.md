@@ -579,6 +579,19 @@ Select the arrow to view the example response.
           "full_states" : 2,
           "incompatible_diffs" : 0,
           "compatible_diffs" : 10
+        },
+        "cluster_state_stats" : {
+          "overall" : {
+            "update_count" : 9,
+            "total_time_in_millis" : 807,
+            "failed_count" : 0
+          },
+          "remote_upload" : {
+            "success_count" : 9,
+            "failed_count" : 0,
+            "total_time_in_millis" : 116,
+            "cleanup_attempt_failed_count" : 0
+          }
         }
       },
       "ingest" : {
@@ -1127,6 +1140,16 @@ published_cluster_states | Object | Statistics for the published cluster states 
 published_cluster_states.full_states | Integer | The number of published cluster states.
 published_cluster_states.incompatible_diffs | Integer | The number of incompatible differences between published cluster states.
 published_cluster_states.compatible_diffs | Integer | The number of compatible differences between published cluster states.
+cluster_state_stats | Object | Cluster state update statistics published by the active leader.
+cluster_state_stats.overall | Object | Overall cluster state update statistics.
+cluster_state_stats.overall.update_count | Integer | The total number of successful cluster state updates.
+cluster_state_stats.overall.total_time_in_millis | Integer | The total amount of time taken for all cluster state updates, in milliseconds.
+cluster_state_stats.overall.failed_count | Integer | The total number of failed cluster state updates.
+cluster_state_stats.remote_upload | Object | Cluster state update statistics related to remote uploads.
+cluster_state_stats.remote_upload.success_count | Integer | The total number of successful cluster state updates uploaded to the remote store.
+cluster_state_stats.remote_upload.failed_count | Integer | The total number of cluster state updates that failed to upload to the remote store.
+cluster_state_stats.remote_upload.total_time_in_millis | Integer | The total amount of time taken for all cluster state updates uploaded to the remote store, in milliseconds.
+cluster_state_stats.remote_upload.cleanup_attempt_failed_count | Integer | The total number of failures encountered while trying to clean up older cluster states from the remote store.
 
 ### `ingest`
 
