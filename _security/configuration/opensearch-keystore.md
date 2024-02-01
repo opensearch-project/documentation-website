@@ -46,7 +46,7 @@ You can append each command with the following options:
 
 The following examples provide the basic syntax for common `opensearch-keystore` commands:
 
-### Creating a new keystore:
+### Creating a new keystore
 
 **Command**
 
