@@ -124,4 +124,4 @@ For information about index-level index settings, see [Cluster-level index setti
 
 - `cluster.fault_detection.leader_check.timeout` (Time unit): Determines the amount of time a node waits for a response from the cluster manager during a leader check before deeming the check as a failure. 
 
-- `cluster.fault_detection.follower_check.timeout` (Time unit): Determines the timeout duration for the cluster manager, specifying the duration it waits for a response during a follower check before deeming it as a failure. It can now be set dynamically through Update cluster settings API.
+- `cluster.fault_detection.follower_check.timeout` (Time unit): Determines the amount of time the cluster manager waits for a response during a follower check before deeming the check as a failure.
