@@ -55,7 +55,7 @@ The following examples provide the basic syntax for common `opensearch-keystore`
 ```
 {% include copy.html %}
 
-If a keystore already exists, the script will ask if you like to overwrite the existing keystore.
+If a keystore already exists, the script will ask whether you would like to overwrite the existing keystore.
    
 **Response**
 
