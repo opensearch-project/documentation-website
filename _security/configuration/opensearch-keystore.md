@@ -26,7 +26,7 @@ The `opensearch-keystore` script supports the following the commands:
 
 - `create`: Initializes a new keystore. If a keystore already exists, this command will overwrite the existing keystore.
 - `list`: Lists all settings in the keystore.
-- `add <setting-name>`: Adds a new setting to the current keystore. When a new setting is added, OpenSearch keystore prompts for the value of that setting. After adding the setting and value, both are securely stored in the keystore.
+- `add <setting-name>`: Adds a new setting to the current keystore. When a new setting is added, the script prompts you for the value of that setting. After adding the setting and value, both are securely stored in the keystore.
 - `add-file <file-name>`: Adds a new file to the keystore.
 - `remove <setting-name>`: Removes an existing setting from the keystore.
 - `upgrade <setting-name>`: Upgrades an existing setting in the keystore.
