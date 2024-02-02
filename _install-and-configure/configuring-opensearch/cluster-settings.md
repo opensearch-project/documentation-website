@@ -124,6 +124,6 @@ For information about index-level index settings, see [Cluster-level index setti
 
 OpenSearch supports the following cluster-level coordination settings. All settings in this list are dynamic:
 
-- `cluster.fault_detection.leader_check.timeout` (Time unit): Determines the amount of time a node waits for a response from the elected cluster manager during a leader check before deeming the check as a failure. Possible value can range from `1ms` to `60s` with default being `10s`. Changing this setting from the default value can result into an unstable cluster.
+- `cluster.fault_detection.leader_check.timeout` (Time unit): The amount of time a node waits for a response from the elected cluster manager during a leader check before deeming the check as a failure. Valid values are from `1ms` to `60s`, inclusive. Default is `10s`. Changing this setting to a value other than the default can result in an unstable cluster.
 
 - `cluster.fault_detection.follower_check.timeout` (Time unit): Determines the amount of time the elected cluster manager waits for a response during a follower check before deeming the check as a failure. Possible value can range from `1ms` to `60s` with default being `10s`. Changing this setting from the default value can result into an unstable cluster.
