@@ -13,7 +13,7 @@ Per query monitors are a type of alert monitor that can be used to identify and 
 
 Per bucket monitors are a type of alert monitor that can be used to identify and alert on specific buckets of data that are created by a query against an OpenSearch index.
 
-Both monitor types support querying remote indexes using the same `cluster-name:index-name` pattern used by [cross-cluster search](https://opensearch.org/docs/latest/security/access-control/cross-cluster-search/), or using the new dashboards interface.
+Both monitor types support querying remote indexes using the same `cluster-name:index-name` pattern used by [cross-cluster search](https://opensearch.org/docs/latest/security/access-control/cross-cluster-search/), or by using OpenSearch Dashboards 2.12 or later.
 
 <img src="{{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-per-query-per-bucket-monitors.png" alt="Cluster metrics monitor" width="700"/>
 
