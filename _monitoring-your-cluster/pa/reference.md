@@ -754,133 +754,133 @@ The following metrics are relevant to the cluster as a whole and do not require 
  </thead>
  <tbody> 
     <tr>
-    <td>searchbp_shard_stats_cancellationCount
+    <td>SearchBP_Shard_Stats_CancellationCount
     </td>
-    <td>The number of tasks marked for cancellation on the shard task.
+    <td>The number of tasks marked for cancellation at the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_limitReachedCount
+    <td>SearchBP_Shard_Stats_LimitReachedCount
     </td>
     <td>The number of times when the cancellable task total exceeded the set cancellation threshold on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_heap_usage_cancellationCount
+    <td>SearchBP_Shard_Stats_Resource_Heap_Usage_CancellationCount
     </td>
     <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_heap_usage_currentMax
+    <td>SearchBP_Shard_Stats_Resource_Heap_Usage_CurrentMax
     </td>
     <td>The maximum heap usage for tasks currently running on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_heap_usage_rollingAvg
+    <td>SearchBP_Shard_Stats_Resource_Heap_Usage_RollingAvg
     </td>
     <td> The rolling average heap usage for the _n_ most recent tasks on the shard task. The default value for _n_ is 100.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_cpu_usage_cancellationCount
+    <td>SearchBP_Shard_Stats_Resource_CPU_Usage_CancellationCount
     </td>
     <td>The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_cpu_usage_currentMax
+    <td>SearchBP_Shard_Stats_Resource_CPU_Usage_CurrentMax
     </td>
     <td>The maximum CPU time for all tasks currently running on the node on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_cpu_usage_currentAvg
+    <td>SearchBP_Shard_Stats_Resource_CPU_Usage_CurrentAvg
     </td>
     <td>The average CPU time for all tasks currently running on the node on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_elaspedtime_usage_cancellationCount
+    <td>SearchBP_Shard_Stats_Resource_ElaspedTime_Usage_CancellationCount
     </td>
     <td>The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_elaspedtime_usage_currentMax
+    <td>SearchBP_Shard_Stats_Resource_ElaspedTime_Usage_CurrentMax
     </td>
     <td>The maximum elapsed time for all tasks currently running on the node on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_shard_stats_resource_elaspedtime_usage_currentAvg
+    <td>SearchBP_Shard_Stats_Resource_ElaspedTime_Usage_CurrentAvg
     </td>
     <td>The average elapsed time for all tasks currently running on the node on the shard task.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_cancellationCount
+    <td>Searchbp_Task_Stats_CancellationCount
     </td>
     <td>The number of tasks marked for cancellation on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_limitReachedCount
+    <td>SearchBP_Task_Stats_LimitReachedCount
     </td>
     <td>The number of times when the cancellable task total exceeded the set cancellation threshold on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_heap_usage_cancellationCount
+    <td>SearchBP_Task_Stats_Resource_Heap_Usage_CancellationCount
     </td>
     <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_heap_usage_currentMax
+    <td>SearchBP_Task_Stats_Resource_Heap_Usage_CurrentMax
     </td>
     <td>The maximum heap usage for tasks currently running on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_heap_usage_rollingAvg
+    <td>SearchBP_Task_Stats_Resource_Heap_Usage_RollingAvg
     </td>
     <td> The rolling average heap usage for the _n_ most recent tasks on the search task level. The default value for _n_ is 10.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_cpu_usage_cancellationCount
+    <td>SearchBP_Task_Stats_Resource_CPU_Usage_CancellationCount
     </td>
     <td>The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_cpu_usage_currentMax
+    <td>SearchBP_Task_Stats_Resource_CPU_Usage_CurrentMax
     </td>
     <td>The maximum CPU time for all tasks currently running on the node on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_cpu_usage_currentAvg
+    <td>SearchBP_Task_Stats_Resource_CPU_Usage_CurrentAvg
     </td>
     <td>The average CPU time for all tasks currently running on the node on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_elaspedtime_usage_cancellationCount
+    <td>SearchBP_Task_Stats_Resource_ElaspedTime_Usage_CancellationCount
     </td>
     <td>The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_elaspedtime_usage_currentMax
+    <td>SearchBP_Task_Stats_Resource_ElaspedTime_Usage_CurrentMax
     </td>
     <td>The maximum elapsed time for all tasks currently running on the node on the search task level.
     </td>
   </tr>
   <tr>
-    <td>searchbp_task_stats_resource_elaspedtime_usage_currentAvg
+    <td>SearchBP_Task_Stats_Resource_ElaspedTime_Usage_CurrentAvg
     </td>
     <td>The average elapsed time for all tasks currently running on the node on the search task level.
     </td>
