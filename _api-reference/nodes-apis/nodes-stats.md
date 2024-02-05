@@ -831,10 +831,10 @@ get.missing_total | Integer | The number of failed get operations.
 get.missing_time_in_millis | Integer | The total time for all failed get operations, in milliseconds.
 get.current | Integer | The number of get operations that are currently running.
 search | Object | Statistics about the search operations for the node.
-search.concurrent_avg_slice_count	|The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	
-search.concurrent_query_total	|The total number of query operations that use concurrent segment search.	
-search.concurrent_query_time_in_millis	|The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	
-search.concurrent_query_current	|The number of currently running query operations that use concurrent segment search.	
+search.concurrent_avg_slice_count	| Integer | The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	
+search.concurrent_query_total	|Integer | The total number of query operations that use concurrent segment search.	
+search.concurrent_query_time_in_millis	| Integer | The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	
+search.concurrent_query_current	|Integer | The number of currently running query operations that use concurrent segment search.	
 search.open_contexts | Integer | The number of open search contexts.
 search.query_total | Integer | The total number of shard query operations.
 search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.
