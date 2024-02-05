@@ -131,7 +131,7 @@ Turning on and off dark mode in OpenSearch Dashboards requires administrative ac
 3. Use the toggle switch to enable or disable dark mode for all users of your OpenSearch Dashboards instance.
 4. Select the **Save changes** button and then the **Reload** button. Changes take effect immediately, so you will see the updated theme right away, similar to the view shown in the following image:
 
-<img width="1410" alt="dark-mode" src="https://github.com/opensearch-project/documentation-website/assets/105296784/4d75d18a-53f4-47f1-87ce-5ff363a43f3d">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dark-mode.png" alt="Dark mode view" width="700">
 
 # Next steps
 
