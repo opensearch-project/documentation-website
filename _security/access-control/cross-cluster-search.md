@@ -77,6 +77,7 @@ services:
       - discovery.type=single-node
       - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" # The initial admin password used by the demo configuration
     ulimits:
       memlock:
         soft: -1
@@ -97,6 +98,7 @@ services:
       - discovery.type=single-node
       - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" # The initial admin password used by the demo configuration
     ulimits:
       memlock:
         soft: -1
@@ -120,13 +122,13 @@ networks:
 After the clusters start, verify the names of each:
 
 ```json
-curl -XGET -u 'admin:admin' -k 'https://localhost:9200'
+curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200'
 {
   "cluster_name" : "opensearch-ccs-cluster1",
   ...
 }
 
-curl -XGET -u 'admin:admin' -k 'https://localhost:9250'
+curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9250'
 {
   "cluster_name" : "opensearch-ccs-cluster2",
   ...
@@ -154,7 +156,7 @@ docker inspect --format='{% raw %}{{range .NetworkSettings.Networks}}{{.IPAddres
 On the coordinating cluster, add the remote cluster name and the IP address (with port 9300) for each "seed node." In this case, you only have one seed node:
 
 ```json
-curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9250/_cluster/settings' -d '
+curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9250/_cluster/settings' -d '
 {
   "persistent": {
     "cluster.remote": {
@@ -169,13 +171,13 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 On the remote cluster, index a document:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/books/_doc/1' -d '{"Dracula": "Bram Stoker"}'
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/books/_doc/1' -d '{"Dracula": "Bram Stoker"}'
 ```
 
 At this point, cross-cluster search works. You can test it using the `admin` user:
 
 ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9250/opensearch-ccs-cluster1:books/_search?pretty'
+curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9250/opensearch-ccs-cluster1:books/_search?pretty'
 {
   ...
   "hits": [{
@@ -192,8 +194,8 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9250/opensearch-ccs-cluster1:b
 To continue testing, create a new user on both clusters:
 
 ```bash
-curl -XPUT -k -u 'admin:admin' 'https://localhost:9200/_plugins/_security/api/internalusers/booksuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
-curl -XPUT -k -u 'admin:admin' 'https://localhost:9250/_plugins/_security/api/internalusers/booksuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
+curl -XPUT -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_security/api/internalusers/booksuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
+curl -XPUT -k -u 'admin:<custom-admin-password>' 'https://localhost:9250/_plugins/_security/api/internalusers/booksuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
 ```
 
 Then run the same search as before with `booksuser`:
@@ -218,8 +220,8 @@ curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-clust
 Note the permissions error. On the remote cluster, create a role with the appropriate permissions, and map `booksuser` to that role:
 
 ```bash
-curl -XPUT -k -u 'admin:admin' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/roles/booksrole' -d '{"index_permissions":[{"index_patterns":["books"],"allowed_actions":["indices:admin/shards/search_shards","indices:data/read/search"]}]}'
-curl -XPUT -k -u 'admin:admin' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/rolesmapping/booksrole' -d '{"users" : ["booksuser"]}'
+curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/roles/booksrole' -d '{"index_permissions":[{"index_patterns":["books"],"allowed_actions":["indices:admin/shards/search_shards","indices:data/read/search"]}]}'
+curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/rolesmapping/booksrole' -d '{"users" : ["booksuser"]}'
 ```
 
 Both clusters must have the user, but only the remote cluster needs the role and mapping; in this case, the coordinating cluster handles authentication (i.e. "Does this request include valid user credentials?"), and the remote cluster handles authorization (i.e. "Can this user access this data?").

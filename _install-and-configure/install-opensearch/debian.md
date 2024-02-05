@@ -45,7 +45,15 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
+   For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
+   ```bash
+   # x64
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
    
+   # arm64
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
+   ```
+
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
     sudo systemctl enable opensearch
@@ -175,7 +183,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
 1. Send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200:
       ```bash
-      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
+      curl -X GET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
       ```
       {% include copy.html %}
 
@@ -201,7 +209,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```
    - Query the plugins endpoint:
     ```bash
-    curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+    curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:<custom-admin-password>' --insecure
     ```
     {% include copy.html %}
 

@@ -48,7 +48,7 @@ To connect to the default OpenSearch host, create a client object with the addre
 var host = "localhost";
 var protocol = "https";
 var port = 9200;
-var auth = "admin:admin"; // For testing only. Don't store credentials in code.
+var auth = "admin:<custom-admin-password>"; // For testing only. Don't store credentials in code.
 var ca_certs_path = "/full/path/to/root-ca.pem";
 
 // Optional client certificates if you don't want to use HTTP basic authentication.
@@ -360,7 +360,7 @@ The following sample program creates a client, adds an index with non-default se
 var host = "localhost";
 var protocol = "https";
 var port = 9200;
-var auth = "admin:admin"; // For testing only. Don't store credentials in code.
+var auth = "admin:<custom-admin-password>"; // For testing only. Don't store credentials in code.
 var ca_certs_path = "/full/path/to/root-ca.pem";
 
 // Optional client certificates if you don't want to use HTTP basic authentication.
