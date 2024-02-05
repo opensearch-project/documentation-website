@@ -101,6 +101,8 @@ You will most likely not need to specify any parameters except for `location`. F
 
    After the Docker cluster starts, skip to step 7.
 
+   If you're using AWS IAM Instance Profiles to allow OpenSearch nodes on AWS EC2 instances to inherit Roles for Policies granting access to AWS S3 buckets, you can skip to step 8.
+
 1. Add your AWS access and secret keys to the OpenSearch keystore:
 
    ```bash
