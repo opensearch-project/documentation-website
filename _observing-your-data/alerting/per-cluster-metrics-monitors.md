@@ -68,7 +68,7 @@ Painless scripts define triggers for cluster metrics monitors, similar to per qu
 
 The cluster metrics monitor supports up to **ten** triggers.
 
-In the following example, the monitor is configured to call the cluster health API for two clusters, (`cluster-1`, and `cluster-2`). The trigger condition will create an alert when either of the clusters' `status` is not `green`. 
+In the following example, the monitor is configured to call the Cluster Health API for two clusters, (`cluster-1` and `cluster-2`). The trigger condition will create an alert when either of the clusters' `status` is not `green`. 
 The `script` parameter points the `source` to the Painless script `for (cluster in ctx.results[0].keySet()) if (ctx.results[0][cluster].status != \"green\") return true`. See [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) for more `painless ctx` variable options.
 
 ```json
