@@ -21,7 +21,6 @@ Query insights features are backed up by the Query Insights plugin. At a high le
 * _Processors_: Perform lightweight aggregation and processing on data collected by the collectors.
 * _Exporters_: Export the insights data into different sinks.
 
-![Query Insights Framework]({{site.url}}{{site.baseurl}}/images/query-insights/query-insights-framework.png)
 
 ## Installing the OpenSearch Query Insights plugin
 
