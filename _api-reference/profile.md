@@ -18,6 +18,14 @@ The Profile API provides timing information about the execution of individual co
 The Profile API is a resource-consuming operation that adds overhead to search operations.
 {: .warning}
 
+## Concurrent segment search
+
+Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. The Profile API response contains several additional fields with statistics about _slices_.
+
+A slice is the unit of work that can be executed by a thread. Each query can be partitioned into multiple slices, with each slice containing one or more segments. All the slices can be executed either in parallel or in some order depending on the available threads in the pool.
+
+In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
+
 #### Example request
 
 To use the Profile API, include the `profile` parameter set to `true` in the search request sent to the `_search` endpoint:
@@ -236,7 +244,10 @@ Field | Data type | Description
 :--- | :--- | :---
 `type` | String | The Lucene query type into which the search query was rewritten. Corresponds to the Lucene class name (which often has the same name in OpenSearch).
 `description` | String | Contains a Lucene explanation of the query. Helps differentiate queries with the same type.
-`time_in_nanos` | Long | The amount of time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of the execution times of all the child queries.
+`time_in_nanos`	| Long | The total elapsed time for this query, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total time spent across all the slices (the difference between the last completed slice execution end time and the first slice execution start time).
+|`max_slice_time_in_nanos`	| Long | The maximum amount of time taken by any slice to run a query, in nanoseconds.	
+|`min_slice_time_in_nanos`	| Long | The minimum amount of time taken by any slice to run a query, in nanoseconds.	
+|`avg_slice_time_in_nanos`	| Long | The average amount of time taken by any slice to run a query, in nanoseconds.	
 [`breakdown`](#the-breakdown-object) | Object | Contains timing statistics about low-level Lucene execution.
 `children` | Array of objects | If a query has subqueries (children), this field contains information about the subqueries.
 
@@ -255,7 +266,15 @@ Field | Description
 `shallow_advance` | Contains the amount of time required to execute the `advanceShallow` Lucene method.
 `compute_max_score` | Contains the amount of time required to execute the `getMaxScore` Lucene method.
 `set_min_competitive_score` | Contains the amount of time required to execute the `setMinCompetitiveScore` Lucene method.
-`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
+`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components. For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all slices.    
+`<method>`	| For concurrent segment search, `time_in_nanos` is the total time spent across all the slices (the difference between the last completed slice execution end time and the first slice execution start time). For example, for the `build_scorer` method, it is the total time spent constructing the `Scorer` object across all slices. 
+`max_<method>`	| The maximum amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `max` time because the method runs at the query level rather than the slice level.	
+`min_<method>`	| The minimum amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `min` time because the method runs at the query level rather than the slice level. 
+`avg_<method>`	| The average amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `avg` time because the method runs at the query level rather than the slice level.	
+`<method>_count`	    
+`max_<method>_count`	| The maximum number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `max` count because the method runs at the query level rather than the slice level. 
+`min_<method>_count`	| The minimum number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `min` count because the method runs at the query level rather than the slice level. 
+`avg_<method>_count`	| The average number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `avg` count because the method runs at the query level rather than the slice level. 
 
 ### The `collector` array
 
@@ -265,8 +284,13 @@ Field | Description
 :--- | :--- 
 `name` | The collector name. In the [example response](#example-response), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector.
 `reason` | Contains a description of the collector. For possible field values, see [Collector reasons](#collector-reasons).
-`time_in_nanos` | A wall-clock time, including timing for all children.
+`time_in_nanos` | The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
 `children` | If a collector has subcollectors (children), this field contains information about the subcollectors.
+`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice, in nanoseconds.	
+`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice, in nanoseconds.	
+`avg_slice_time_in_nanos`	|The average amount of time taken by any slice, in nanoseconds.	
+`slice_count`	|The total slice count for this query.	
+`reduce_time_in_nanos`	|The amount of time taken to reduce results for all slice collectors, in nanoseconds.	
 
 Collector times are calculated, combined, and normalized independently, so they are independent of query times.
 {: .note}
@@ -730,42 +754,7 @@ The response contains profiling information:
 ```
 </details>
 
-### Response fields
-
-The `aggregations` array contains aggregation objects with the following fields.
-
-Field | Data type | Description
-:--- | :--- | :---
-`type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with an `AvgAggregator` child.
-`description` | String | Contains a Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
-`time_in_nanos` | Long | The amount of time taken to execute the aggregation, in nanoseconds. In a parent aggregation, the time is inclusive of the execution times of all the child aggregations.
-[`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
-`children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
-`debug` | Object | Some aggregations return a `debug` object that describes the details of the underlying execution.
-
-### The `breakdown` object
-
-The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
-
-Field | Description
-:--- | :--- 
-`initialize` | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation.
-`build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context.
-`collect`| Contains the time spent collecting the documents into buckets.
-`post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method.
-`build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation.
-`reduce`| Contains the time spent in the `reduce` phase.
-`<method>_count` | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. 
-
-## Concurrent segment search
-
-Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you enable the experimental concurrent segment search feature flag, the Profile API response will contain several additional fields with statistics about _slices_.
-
-A slice is the unit of work that can be executed by a thread. Each query can be partitioned into multiple slices, with each slice containing one or more segments. All the slices can be executed either in parallel or in some order depending on the available threads in the pool.
-
-In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
-
-#### Example response
+#### Example response: Concurrent segment search
 
 The following is an example response for a concurrent search with three segment slices:
 
@@ -979,51 +968,41 @@ The following is an example response for a concurrent search with three segment 
 ```
 </details>
 
-### Modified or added response fields
+### Response fields
 
-The following sections contain definitions of all modified or added response fields for concurrent segment search.
+The `aggregations` array contains aggregation objects with the following fields.
 
-#### The `query` array
+Field | Data type | Description
+:--- | :--- | :---
+`type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with an `AvgAggregator` child.
+`description` | String | Contains a Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
+`time_in_nanos` | Long | The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).	
+[`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
+`children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
+`debug` | Object | Some aggregations return a `debug` object that describes the details of the underlying execution.
+`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	
+`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	
+`avg_slice_time_in_nanos`	|The average amount of time taken by any slice to run an aggregation, in nanoseconds.	
+`<method>`	|The total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	
+`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method.	
+`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method.	
+`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method.	
+`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices.	
+`max_<method>_count`	|The maximum number of invocations of a `<method>` on any slice.	
+`min_<method>_count`	|The minimum number of invocations of a `<method>` on any slice.	
+`avg_<method>_count`	|The average number of invocations of a `<method>` on any slice.	
 
-|Field	|Description	|
-|:---	|:---	|
-|`time_in_nanos`	| The total elapsed time for this query, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total time spent across all the slices (the difference between the last completed slice execution end time and the first slice execution start time).   |
-|`max_slice_time_in_nanos`	| The maximum amount of time taken by any slice to run a query, in nanoseconds.	|
-|`min_slice_time_in_nanos`	| The minimum amount of time taken by any slice to run a query, in nanoseconds.	|
-|`avg_slice_time_in_nanos`	| The average amount of time taken by any slice to run a query, in nanoseconds.	|
-|`breakdown.<method>`	| For concurrent segment search, `time_in_nanos` is the total time spent across all the slices (the difference between the last completed slice execution end time and the first slice execution start time). For example, for the `build_scorer` method, it is the total time spent constructing the `Scorer` object across all slices. |
-|`breakdown.max_<method>`	| The maximum amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `max` time because the method runs at the query level rather than the slice level.	|
-|`breakdown.min_<method>`	| The minimum amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `min` time because the method runs at the query level rather than the slice level.  |
-|`breakdown.avg_<method>`	| The average amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `avg` time because the method runs at the query level rather than the slice level.	|
-|`breakdown.<method>_count`	| For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all slices.       |
-|`breakdown.max_<method>_count`	| The maximum number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `max` count because the method runs at the query level rather than the slice level. |
-|`breakdown.min_<method>_count`	| The minimum number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `min` count because the method runs at the query level rather than the slice level. |
-|`breakdown.avg_<method>_count`	| The average number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `avg` count because the method runs at the query level rather than the slice level. |
 
-#### The `collector` array
+### The `breakdown` object
 
-|Field	|Description	|
-|:---	|:---	|
-|`time_in_nanos`	|The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).	|
-|`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice, in nanoseconds.	|
-|`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice, in nanoseconds.	|
-|`avg_slice_time_in_nanos`	|The average amount of time taken by any slice, in nanoseconds.	|
-|`slice_count`	|The total slice count for this query.	|
-|`reduce_time_in_nanos`	|The amount of time taken to reduce results for all slice collectors, in nanoseconds.	|
+The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
 
-#### The `aggregations` array
-
-|Field	|Description	|
-|:---	|:---	|
-|`time_in_nanos`	|The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).	|
-|`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`avg_slice_time_in_nanos`	|The average amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`<method>`	|The total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	|
-|`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method.	|
-|`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method.	|
-|`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method.	|
-|`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices.	|
-|`max_<method>_count`	|The maximum number of invocations of a `<method>` on any slice.	|
-|`min_<method>_count`	|The minimum number of invocations of a `<method>` on any slice.	|
-|`avg_<method>_count`	|The average number of invocations of a `<method>` on any slice.	|
+Field | Description
+:--- | :--- 
+`initialize` | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation.
+`build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context.
+`collect`| Contains the time spent collecting the documents into buckets.
+`post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method.
+`build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation.
+`reduce`| Contains the time spent in the `reduce` phase.
+`<method>_count` | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. 
