@@ -82,17 +82,17 @@ Follow these steps to set up your local copy of the repository:
 
    ```
    curl -sSL https://get.rvm.io | bash -s stable
-   rvm install 2.7
+   rvm install 3.2
    ruby -v
    ```
 
-1. Install [Jekyll](https://jekyllrb.com/) if you don't already have it:
+1. Install [Bundler](https://bundler.io/) if you don't already have it:
 
    ```
-   gem install bundler jekyll
+   gem install bundler
    ```
 
-1. Install the Jekyll dependencies:
+1. Install Jekyll and all the dependencies:
 
    ```
    bundle install
