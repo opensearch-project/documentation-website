@@ -1,0 +1,74 @@
+---
+layout: default
+title: Get controller
+parent: Controller APIs
+grand_parent: ML Commons APIs
+nav_order: 20
+---
+
+# Get a controller
+**Introduced 2.12**
+{: .label .label-purple }
+
+Retrieves information about a controller for a model by model ID.
+
+### Path and HTTP methods
+
+```json
+GET /_plugins/_ml/controllers/<model_id>
+```
+
+## Path parameters
+
+The following table lists the available path parameters. 
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `model_id` | String | The model ID of the model for which to retrieve the controller. |
+
+#### Example request
+
+```json
+GET /_plugins/_ml/controllers/T_S-cY0BKCJ3ot9qr0aP
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "model_id": "T_S-cY0BKCJ3ot9qr0aP",
+  "user_rate_limiter": {
+    "user1": {
+      "limit": "4",
+      "unit": "MINUTES"
+    },
+    "user2": {
+      "limit": "4",
+      "unit": "MINUTES"
+    }
+  }
+}
+```
+
+If there is no controller defined for the model, OpenSearch sends back an error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Failed to find model controller with the provided model ID: T_S-cY0BKCJ3ot9qr0aP"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Failed to find model controller with the provided model ID: T_S-cY0BKCJ3ot9qr0aP"
+  },
+  "status": 404
+}
+```
+
+## Response fields
+
+For response fields descriptions, see [Create Controller API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller#request-fields).

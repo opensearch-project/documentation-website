@@ -36,6 +36,7 @@ The following table lists all supported search response processors.
 Processor | Description | Earliest available version
 :--- | :--- | :---
 [`personalize_search_ranking`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/personalize-search-ranking/) | Uses [Amazon Personalize](https://aws.amazon.com/personalize/) to rerank search results (requires setting up the Amazon Personalize service). | 2.9
+[`retrieval_augmented_generation`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/) | Used for retrieval-augmented generation in [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). | 2.10 (generally available 2.12)
 [`rename_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rename-field-processor/)| Renames an existing field. | 2.8
 
 ## Search phase results processors

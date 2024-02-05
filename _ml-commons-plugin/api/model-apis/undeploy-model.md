@@ -2,7 +2,7 @@
 layout: default
 title: Undeploy model
 parent: Model APIs
-grand_parent: ML Commons API
+grand_parent: ML Commons APIs
 nav_order: 40
 ---
 

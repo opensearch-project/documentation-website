@@ -45,15 +45,26 @@ For a step-by-step tutorial, see [Neural search tutorial]({{site.url}}{{site.bas
 
 You can use an ML model in one of the following ways:
 
-- [Make predictions](#making-predictions).
+- [Invoke a model for inference](#invoking-a-model-for-inference).
 - [Use a model for search](#using-a-model-for-search).
 
-### Making predictions
+### Invoking a model for inference
 
-[Models trained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/) through the ML Commons plugin support model-based algorithms, such as k-means. After you've trained a model to your precision requirements, use the model to [make predictions]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/). 
+You can invoke your model by calling the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/). For example, testing text embedding models lets you see the vector embeddings they generate.
 
-If you don't want to use a model, you can use the [Train and Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/) to test your model without having to evaluate the model's performance.
+[Models trained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/) through the ML Commons plugin support model-based algorithms, such as k-means. After you've trained a model to your precision requirements, you can use such a model for inference. Alternatively, you can use the [Train and Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/) to test your model without having to evaluate the model's performance.
 
 ### Using a model for search
 
 OpenSearch supports multiple search methods that integrate with ML models. For more information, see [Search methods]({{site.url}}{{site.baseurl}}/search-plugins/index/#search-methods).
+
+## Disabling a model
+
+You can temporarily disable a model when you don't want to undeploy or delete it. Disable a model by calling the [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/) and setting `is_enabled` to `false`. When you disable a model, it becomes unavailable for [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) requests. If you disable a model that is undeployed, the model stays disabled after deployment. You'll need to enable it in order to use it for inference.
+
+## Rate limit for Predict API calls
+
+Setting a rate limit for Predict API calls on your ML models allows you to reduce your model inference costs. You can set a rate limit on the number of Predict API calls at the following levels:
+
+- **Model level**: Configure a rate limit within the model by calling the Update Model API and specifying a `rate_limiter`. For more information, see [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/).
+- **User level**: Configure a rate limit for a specific user or users of the model by by creating a controller. A model may be shared by multiple users; you can configure the controller to set different rate limits for different users. For more information, see [Create Controller API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller/).

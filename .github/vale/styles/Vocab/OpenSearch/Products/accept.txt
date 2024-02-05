@@ -59,6 +59,7 @@ Open Distro
 OpenAI
 OpenID Connect
 OpenSearch
+OpenSearch Assistant
 OpenSearch Benchmark
 OpenSearch Dashboards
 OpenSearch Playground

@@ -2,8 +2,7 @@
 layout: default
 title: Train 
 parent: Train and Predict APIs
-grand_parent: ML Commons API
-has_children: true
+grand_parent: ML Commons APIs
 nav_order: 10
 ---
 

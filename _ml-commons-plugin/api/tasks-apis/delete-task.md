@@ -2,7 +2,7 @@
 layout: default
 title: Delete task
 parent: Tasks APIs
-grand_parent: ML Commons API
+grand_parent: ML Commons APIs
 nav_order: 20
 ---
 

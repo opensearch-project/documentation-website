@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Model APIs
-parent: ML Commons API
+parent: ML Commons APIs
 has_children: true
 nav_order: 10
+has_toc: false
 ---
 
 # Model APIs
@@ -15,6 +16,7 @@ ML Commons supports the following model-level APIs:
 - [Deploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
 - [Undeploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
 - [Delete model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)
+- [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/): Invokes a model
 
 ## Model access control considerations
 

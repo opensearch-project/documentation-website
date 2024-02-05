@@ -2,7 +2,7 @@
 layout: default
 title: Register model
 parent: Model APIs
-grand_parent: ML Commons API
+grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
@@ -29,7 +29,14 @@ If the model is more than 10 MB in size, ML Commons splits it into smaller chunk
 ```json
 POST /_plugins/_ml/models/_register
 ```
-{% include copy-curl.html %}
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `deploy` | Boolean | Whether to deploy the model after registering by calling the [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/). Default is `false`. |
 
 ## Register an OpenSearch-provided pretrained model
 
