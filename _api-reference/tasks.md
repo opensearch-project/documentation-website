@@ -267,7 +267,7 @@ To associate requests with tasks for better tracking, you can provide a `X-Opaqu
 Usage:
 
 ```bash
-curl -i -H "X-Opaque-Id: 111111" "https://localhost:9200/_tasks" -u 'admin:admin' --insecure
+curl -i -H "X-Opaque-Id: 111111" "https://localhost:9200/_tasks" -u 'admin:<custom-admin-password>' --insecure
 ```
 {% include copy.html %}
 
@@ -326,6 +326,6 @@ content-length: 768
 This operation supports the same parameters as the `tasks` operation. The following example shows how you can associate `X-Opaque-Id` with specific tasks:
 
 ```bash
-curl -i -H "X-Opaque-Id: 123456" "https://localhost:9200/_tasks?nodes=opensearch-node1" -u 'admin:admin' --insecure
+curl -i -H "X-Opaque-Id: 123456" "https://localhost:9200/_tasks?nodes=opensearch-node1" -u 'admin:<custom-admin-password>' --insecure
 ```
 {% include copy.html %}
