@@ -13,13 +13,14 @@ nav_order: 10
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-<!-- add better description -->
+The following tutorial illustrates creating a flow agent for retrieval-augmented generation (RAG). A flow agent runs its configured tools sequentially, in the order specified. In this example, you'll create an agent with two tools:
 
-The following tutorial illustrates creating a flow agent and using the memory feature.
+1. `VectorDBTool`: The agent will use this tool to retrieve OpenSearch documents relevant to the user question. You'll ingest supplementary information to an OpenSearch index. To facilitate vector search, you'll deploy a text embedding model that translates text into vector embeddings. OpenSearch will translate the ingested documents into embeddings and store them in the index. When you provide a user question to the agent, the agent will construct a query from the question, run vector search on the OpenSearch index, and pass the retrieved relevant documents to the `MLModelTool`.
+1. `MLModelTool`: The agent will run this tool to connect to a large language model (LLM) and send the user query augmented with OpenSearch documents to the model. In this example, you'll use the Anthropic Claude model hosted on Amazon Bedrock. The LLM will then answer the question based on its knowledge and the provided documents.
 
 ## Prerequisites
 
-To use the memory feature, you need to configure the following cluster settings:
+To use the memory feature, fist configure the following cluster settings:
 
 ```json
 PUT _cluster/settings
@@ -34,7 +35,7 @@ PUT _cluster/settings
 
 ## Step 1: Register and deploy a text embedding model
 
-For this tutorial, you'll use one of the OpenSearch-provided pretrained models. To register and deploy the model, send the following request:
+You need a text embedding model to facilitate vector search. For this tutorial, you'll use one of the OpenSearch-provided pretrained models. To register and deploy the model, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -81,7 +82,7 @@ Once the task is complete, the task state changes to `COMPLETED` and the Tasks A
 
 ## Step 2: Create an ingest pipeline
 
-Next you'll create an ingest pipeline by sending the following request:
+To translate text into vector embeddings, you'll set up an ingest pipeline. The pipeline translates the `text` field and writes the resulting vector embeddings into the `embedding` field. Create the pipeline by specifying the `model_id` from the previous step in the following request:
 
 ```json
 PUT /_ingest/pipeline/test-pipeline-local-model
@@ -102,7 +103,7 @@ PUT /_ingest/pipeline/test-pipeline-local-model
 
 ## Step 3: Create a k-NN index and ingest data
 
-To ingest data, first create a k-NN index:
+Now you'll ingest supplementary data into an OpenSearch index. In OpenSearch, vectors are stored in a k-NN index. You can create a k-NN index by sending the following request:
 
 ```json
 PUT my_test_data
@@ -129,7 +130,7 @@ PUT my_test_data
 ```
 {% include copy-curl.html %}
 
-Then ingest data using a bulk request:
+Then, ingest data into the index using a bulk request:
 
 ```json
 POST _bulk
@@ -150,7 +151,7 @@ POST _bulk
 
 ## Step 4: Create a connector to an externally hosted model
 
-For this example, you'll create a connector to the Anthropic Claude model hosted on Amazon Bedrock:
+You'll need an LLM to generate responses to user questions. The LLM is too large for the OpenSearch cluster, so you'll create a connector to connect to an externally hosted LLM. For this example, you'll create a connector to the Anthropic Claude model hosted on Amazon Bedrock:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -201,7 +202,7 @@ The response contains the connector ID for the newly created connector:
 
 ## Step 5: Register and deploy the externally hosted model
 
-To set up the externally hosted model, first create a model group for this model:
+Just like the text embedding model, an LLM needs to be registered and deployed to OpenSearch. To set up the externally hosted model, first create a model group for this model:
 
 ```json
 POST /_plugins/_ml/model_groups/_register
@@ -236,7 +237,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Similarly to [step 1](#step-1-register-and-deploy-a-text-embedding-model), the response contains a task ID that you can use to check the status of the deployment. Once the model is deployed, the status changes to `COMPLETED` and the response includes the model ID for the Claude model:
+Similarly to [Step 1](#step-1-register-and-deploy-a-text-embedding-model), the response contains a task ID that you can use to check the status of the deployment. Once the model is deployed, the status changes to `COMPLETED` and the response includes the model ID for the Claude model:
 
 ```json
 {
@@ -253,7 +254,7 @@ Similarly to [step 1](#step-1-register-and-deploy-a-text-embedding-model), the r
 }
 ```
 
-To test the model, send the following predict request:
+To test the LLM, send the following predict request:
 
 ```json
 POST /_plugins/_ml/models/NWR9YIsBUysqmzBdifVJ/_predict
@@ -267,7 +268,7 @@ POST /_plugins/_ml/models/NWR9YIsBUysqmzBdifVJ/_predict
 
 ## Step 6: Register and execute an agent
 
-Use the text embedding model created in step 1 and the Claude model created in step 5 to create a flow agent. This flow agent will run a vector DB tool, and then an ML model tool. The vector DB tool is configured with the model ID for the text embedding model created in step 1, and the ML model tool is configured with the Claude model created in step 5:
+Finally, you'll use the text embedding model created in Step 1 and the Claude model created in Step 5 to create a flow agent. This flow agent will run a `VectorDBTool`, and then an `MLModelTool`. The `VectorDBTool` is configured with the model ID for the text embedding model created in Step 1 for vector search, and the `MLModelTool` is configured with the Claude model created in step 5:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -314,7 +315,7 @@ GET /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx
 ```
 {% include copy-curl.html %}
 
-To execute the agent, send the following request. When registering the agent, you configured it to take in `parameters.question`, so you need to provide this parameter in this request:
+To execute the agent, send the following request. When registering the agent, you configured it to take in `parameters.question`, so you need to provide this parameter in this request. This parameter represents a human-generated user question:
 
 ```json
 POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
@@ -326,7 +327,7 @@ POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
 ```
 {% include copy-curl.html %}
 
-Because you configured the agent's ML model tool with the model ID of the Claude model, the model infers the response to the question based on the ingested data:
+The LLM does not have the recent information in its knowledge base so it infers the response to the question based on the ingested data, demonstrating RAG:
 
 ```json
 {

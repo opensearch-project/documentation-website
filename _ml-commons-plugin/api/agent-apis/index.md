@@ -21,4 +21,5 @@ ML Commons supports the following agent-level APIs:
 
 - [Register agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)
 - [Get agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/get-agent/)
+- [Execute agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/)
 - [Delete agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/delete-agent/)

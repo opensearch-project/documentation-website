@@ -67,4 +67,6 @@ You can temporarily disable a model when you don't want to undeploy or delete it
 Setting a rate limit for Predict API calls on your ML models allows you to reduce your model inference costs. You can set a rate limit on the number of Predict API calls at the following levels:
 
 - **Model level**: Configure a rate limit within the model by calling the Update Model API and specifying a `rate_limiter`. For more information, see [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/).
-- **User level**: Configure a rate limit for a specific user or users of the model by by creating a controller. A model may be shared by multiple users; you can configure the controller to set different rate limits for different users. For more information, see [Create Controller API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller/).
+- **User level**: Configure a rate limit for a specific user or users of the model by creating a controller. A model may be shared by multiple users; you can configure the controller to set different rate limits for different users. For more information, see [Create Controller API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller/).
+
+The rate limit is set to the more restrictive of the model-level limit and the user-level limit. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.

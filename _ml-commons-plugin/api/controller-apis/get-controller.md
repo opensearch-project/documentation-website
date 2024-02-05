@@ -72,3 +72,7 @@ If there is no controller defined for the model, OpenSearch sends back an error:
 ## Response fields
 
 For response fields descriptions, see [Create Controller API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller#request-fields).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/controllers/get`.

@@ -27,7 +27,8 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`parameters`| Object | Required | The parameters required by the agent. |
+`parameters`| Object | Required | The parameters required by the agent. 
+`parameters.verbose`| Boolean | Optional | Provides verbose output. 
 
 #### Example request
 

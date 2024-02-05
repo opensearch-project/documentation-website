@@ -12,9 +12,12 @@ nav_order: 10
 
 Creates or updates a controller for a model. A model may be shared by multiple users. A controller sets rate limits for the number of [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) calls users can make on the model. A controller consists of a set of rate limiters for different users.  
 
+You can only create a controller for a model once you have registered the model and received a model ID.
+{: .tip}
+
 The POST method creates a new controller. The PUT method updates an existing controller. 
 
-To learn how to set rate limits on the model level for all users, see the [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/).
+To learn how to set rate limits on the model level for all users, see the [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/). The rate limit is set to the more restrictive of the model-level limit and the user-level limit. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.
 
 ## Path and HTTP methods
 
@@ -177,3 +180,7 @@ This will overwrite the controller with the new information:
   "_primary_term": 1
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/controllers/create` and `cluster:admin/opensearch/ml/controllers/update`.

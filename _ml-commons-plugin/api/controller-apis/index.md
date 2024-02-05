@@ -19,3 +19,7 @@ ML Commons supports the following controller-level APIs:
 - [Create or update controller]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller/)
 - [Get controller]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/get-controller/)
 - [Delete controller]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/delete-controller/)
+
+## Required permissions
+
+To call Controller APIs, you must have `cluster:admin/opensearch/ml/controllers/` permissions. For more information, see each Controller API.
