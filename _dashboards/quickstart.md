@@ -122,6 +122,17 @@ The following image shows the view you'll see once you've completed the precedin
 
 <img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
 
+## Turning on and off dark mode
+
+Turning on and off dark mode in OpenSearch Dashboards requires administrative access. If you're an administrators, follow these steps:
+
+1. Navigate to **Management** > **Dashboards Management** > **Advanced Settings**.
+2. Scroll down to the **Appearance** section and locate the **Dark mode** option.
+3. Use the toggle switch to enable or disable dark mode for all users of your OpenSearch Dashboards instance.
+4. Select the **Save changes** button and then the **Reload** button. Changes take effect immediately, so you will see the updated theme right away, similar to the view shown in the following image:
+
+<img width="1410" alt="dark-mode" src="https://github.com/opensearch-project/documentation-website/assets/105296784/4d75d18a-53f4-47f1-87ce-5ff363a43f3d">
+
 # Next steps
 
 - **Visualize data.** To learn more about data visualizations in OpenSearch Dashboards, go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
