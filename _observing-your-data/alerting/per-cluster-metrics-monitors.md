@@ -68,7 +68,8 @@ Painless scripts define triggers for cluster metrics monitors, similar to per qu
 
 The cluster metrics monitor supports up to **ten** triggers.
 
-In the following example, a JSON object creates a trigger that sends an alert when the cluster health is yellow. `script` points the `source` to the Painless script `ctx.results[0].status == \"yellow\`.
+In the following example, the monitor is configured to call the cluster health API for two clusters, (`cluster-1`, and `cluster-2`). The trigger condition will create an alert when either of the clusters' `status` is not `green`. 
+`script` points the `source` to the Painless script `for (cluster in ctx.results[0].keySet()) if (ctx.results[0][cluster].status != \"green\") return true`. See [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) for more `painless ctx` variable options.
 
 ```json
 {
@@ -88,7 +89,8 @@ In the following example, a JSON object creates a trigger that sends an alert wh
         "api_type": "CLUSTER_HEALTH",
         "path": "_cluster/health/",
         "path_params": "",
-        "url": "http://localhost:9200/_cluster/health/"
+        "url": "http://localhost:9200/_cluster/health/",
+        "cluster": ["cluster-1", "cluster-2"]
       }
     }
   ],
@@ -100,7 +102,7 @@ In the following example, a JSON object creates a trigger that sends an alert wh
         "severity": "1",
         "condition": {
           "script": {
-            "source": "ctx.results[0].status == \"yellow\"",
+            "source": "for (cluster in ctx.results[0].keySet()) if (ctx.results[0][cluster].status != \"green\") return true",
             "lang": "painless"
           }
         },
@@ -110,14 +112,14 @@ In the following example, a JSON object creates a trigger that sends an alert wh
   ]
 }
 ```
+The dashboards interface supports selecting clusters to monitor, and the desired API.
 
-See [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) for more `painless ctx` variable options.
+<img src="{{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-cluster-metrics-monitors.png" alt="Cluster metrics monitor" width="700"/>
 
 ### Limitations
 
 Per cluster metrics monitors have the following limitations:
 
-- You cannot create monitors for remote clusters.
 - The OpenSearch cluster must be in a state where an index's conditions can be monitored and actions can be executed against the index.
 - Removing resource permissions from a user will not prevent that user’s preexisting monitors for that resource from executing.
 - Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions; however, those monitors will not run.
