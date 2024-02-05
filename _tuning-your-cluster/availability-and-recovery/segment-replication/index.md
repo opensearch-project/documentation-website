@@ -85,6 +85,16 @@ cluster.indices.replication.strategy: 'SEGMENT'
 {% include copy.html %}
 
 
+### Enforcing cluster-level replication type
+
+If enabled, the `cluster.index.restrict.replication.type` setting requires newly created indexes to have a replication type specified in the `cluster.indices.replication.strategy` cluster setting. Requests that specify a different replication type are rejected. If `cluster.index restrict.replication.type` is disabled, you can choose a replication type on a per-index basis by specifying it in the `index.replication.type` setting. 
+
+You can define the `cluster.index.restrict.replication.type` setting in the `opensearch.yml` file as follows:
+
+```yaml
+cluster.index.restrict.replication.type: true
+```
+{% include copy.html %}
 
 ### Creating an index with document replication
 
