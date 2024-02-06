@@ -325,7 +325,7 @@ POST /_plugins/_ml/models/_register
 To test a cross-encoder model, send the following request:
 
 ```json
-POST _plugins/_ml/models/{model_id}/_predict
+POST _plugins/_ml/models/<model_id>/_predict
 {
     "query_text": "today is sunny",
     "text_docs": [
