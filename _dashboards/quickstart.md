@@ -9,13 +9,13 @@ redirect_from:
 
 # OpenSearch Dashboards quickstart
 
-This quickstart covers the core concepts that you need to understand to get started with OpenSearch Dashboards. You'll learn how to:
+Get started with OpenSearch Dashboards. This guide cover the basics like:
 
-- Add sample data.
-- Explore and interact with data.
-- Visualize data.
+- **Adding sample data:** Get started with pre-loaded visualizations, dashboards, and other tools to help you explore OpenSearch Dashboards before you add your own data.
+- **Exploring your data:** Dig into your data and see what is there.
+- **Creating visualizations:** Turn your data into easy-to-understand visuals.
 
-Starting with OpenSearch 2.12, you'll see the following homepage view. This redesign considers the OpenSearch community's feedback about simplifying the user experience. Share your [feedback](<insert-link-feedback-dashboards>) about this update or other tools you want to see in OpenSearch Dashboards.
+Starting with OpenSearch 2.12, you'll see the following homepage view. Considering your admin settings, your view may be in light or dark mode. The OpenSearch Dashboards redesign considers the community's feedback about simplifying the user experience. Share your [feedback](<insert-link-feedback-dashboards>) about the redesign or other tools you want to see in OpenSearch Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
 
@@ -32,28 +32,30 @@ Here's what's new with the homepage:
 
 ## Prerequisites
 
-Before getting started with this quickstart, make sure you've installed the latest version of OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/). If you're running OpenSearch 2.11 or older, see the respective quickstart. 
+Before getting started with this guide, make sure you have installed the latest version of OpenSearch and OpenSearch Dashboards. If you are running OpenSearch 2.11 or older, certain features in this guide are not available in those versions. See your version's respective documentation for more information.
 
-The following sections include several tutorials to help you learn OpenSearch basics. You can use your own environment or the [OpenSearch Playground](https://playground.opensearch.org/app/home#/), which runs on the latest version of OpenSearch. 
+For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/). 
+
+The following sections include tutorials on OpenSearch basics. You can use your own environment or the [OpenSearch Playground](https://playground.opensearch.org/app/home#/), which runs on the latest version of OpenSearch. 
 
 ## Adding sample data
 
-Sample datasets come with visualizations, dashboards, and other tools to help you explore OpenSearch Dashboards before you add your own data. To add sample data, follow these steps:
+To add sample data, follow these steps:
 
 1. On the OpenSearch Dashboards **Home** page, choose **Add data** on the upper-right side of page.
 2. On the **Add sample data** page, choose the datasets you want to add. Note that the **Sample flight data** dataset is used in the tutorials throughout this quickstart.
 
 The following image shows a view of the adding sample data window.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Screenshot of adding sample data window" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Adding sample data window" width="700">
 
 ## Exploring and inspecting data
 
 In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
 - Choose data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
-- Analyze your data, view individual documents, and create tables summarizing your data.
-- Visualize your findings and share them.
+- Analyze your data by querying and filtering, viewing results in a table, and examining documents.
+- Display the distribution of your data in histograms.
 
 The following steps give you a basic overview about using the Discover tool:
 
@@ -65,11 +67,11 @@ The following steps give you a basic overview about using the Discover tool:
 
 The following image shows the view you see once you've completed the preceding steps:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-basics.png" alt="Discover tutorial screen view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-view.png" alt="Discover tutorial screen view" width="700">
 
 ## Visualizing data
 
-Raw data can be difficult to comprehend and use. Data visualizations help you prepare and present data in a visual form. In **Dashboard** you can:
+In **Dashboards** you can:
 
 - Display data in a single view.
 - Build dynamic dashboards.
@@ -78,11 +80,12 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 
 The following steps give you a basic overview about using the Dashboard tool:
 
-1. On the OpenSearch Dashboards **Home** page, choose **Dashboards** and then **[Flights] Global Flight Dashboard**.
-2. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
-3. In the **Add panels** window, search for the existing panel **[Flights] Delay Buckets** and then select it. A pop-up message confirms that you've added the panel.
-4. Select close `x` to exit the **Add panels** pop-up window.
-5. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard.
+1. On the OpenSearch Dashboards **Home** page, choose **Dashboards** .
+2. From the search toolbar, search for **[Flights] Global Flight Dashboard** and then select it. You'll see a pre-loaded dashboard with visuals including charts, maps, and data tables. 
+3. To add other panels to the dashboard, select the **Edit** button and then choose **Add** from the toolbar. The **Add panels** window then opens. 
+4. From the search toolbar in the **Add panels** window, search for the existing panel **[Flights] Delay Buckets** and then select it. A pop-up message confirms that you've added the panel.
+5. Select close `x` to exit the **Add panels** window.
+6. View the panel **[Flights] Delay Buckets** that has been added as the last panel on the dashboard.
 
 The following image shows the view you see once you've completed the preceding steps:
 
