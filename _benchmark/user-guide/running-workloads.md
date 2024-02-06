@@ -150,7 +150,7 @@ OpenSearch Benchmark returns the following response once the benchmark completes
 
 
 
-## Running a workload on your own cluster
+## Running a workload on an external cluster
 
 Now that you're familiar with running OpenSearch Benchmark on a local cluster, you can run OpenSearch Benchmark on your external cluster
  
