@@ -106,7 +106,7 @@ The following image shows the view you see once you've completed the preceding s
 
 <img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Dashboard tutorial panel view" width="700">
 
-## Interacting with data
+## Interacting with data using Dashboards
 
 Interactive dashboards allow you analyze data in more depth and filter it in several ways. In Dashboards, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
 
