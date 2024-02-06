@@ -24,7 +24,7 @@ A list of all workloads supported by OpenSearch Benchmark appears. Review the li
 
 After you've selected the workload, you can invoke the workload using the `opensearch-benchmark execute-test` command. Replace  `--target-host` with the `host:port` pairs for your cluster and `--client-options` with any authorization options required to access the cluster. The following example runs the `nyc_taxis` workload on a localhost for testing purposes. 
 
-If you want to run a test on an external cluster, see [Running the workload on your own cluster](#running-a-workload-on-your-own-cluster).
+If you want to run a test on an external cluster, see [Running the workload on your own cluster](#running-a-workload-on-an-external-cluster).
 
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=nyc_taxis --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
@@ -45,7 +45,7 @@ After an OpenSearch Benchmark test runs, take the following steps to verify that
 - Note the number of documents in the OpenSearch or OpenSearch Dashboards index that you plan to run the benchmark against.
 - In the results returned by OpenSearch Benchmark, compare the `workload.json` file for your specific workload and verify that the document count matches the number of documents. For example, based on the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/nyc_taxis/workload.json#L20) `workload.json` file, you should expect to see `165346692` documents in your cluster.
 
-## Understanding the results
+## Expected results
 
 OpenSearch Benchmark returns the following response once the benchmark completes:
 
