@@ -49,7 +49,7 @@ The following image shows a view of the adding sample data window.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Adding sample data window" width="700">
 
-##  Exploring data using Discover
+## Exploring data using Discover
 
 In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
@@ -65,7 +65,7 @@ The following steps give you a basic overview about using the Discover tool:
 4. In the DQL search bar, input `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then select **Update**. You should see results for US-bound flights delayed by 60 minutes or more.
 5. Filter data by choosing **Add filter** from under the DQL search bar and then selecting an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather Delay** from the **Field**, **Operator**, and **Value** dropdown lists on the **Edit Filter** pop-up window.
 
-The following image shows the view you see once you've completed the preceding steps:
+The following image shows the view you see once you have completed the preceding steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-view.png" alt="Discover tutorial screen view" width="700">
 
@@ -87,11 +87,11 @@ The following steps give you a basic overview about using the Dashboard tool:
 5. Select close `x` to exit the **Add panels** window.
 6. View the panel **[Flights] Delay Buckets** that has been added as the last panel on the dashboard.
 
-The following image shows the view you see once you've completed the preceding steps:
+The following image shows the view you see once you have completed the preceding steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel2.png" alt="Add panel tutorial screen view" width="700">
 
-Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
+Continuing with the preceding dashboard, you will create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
 1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from **24 hours** to **Last 7 days**. 
 2. In the toolbar, choose **Edit**, then **Create new**.
@@ -102,13 +102,13 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 7. Choose **Save** and name the visualization in the **Title** field.
 8. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
 
-The following image shows the view you see once you've completed the preceding steps:
+The following image shows the view you see once you have completed the preceding steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Dashboard tutorial panel view" width="700">
 
 ## Interacting with data using Dashboards
 
-Interactive dashboards allow you analyze data in more depth and filter it in several ways. In Dashboards, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
+Interactive dashboards allow you analyze data in more depth and filter it in several ways. In **Dashboards**, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
 
 The following steps give you a basic overview about interacting with the sample flight data:
 
@@ -121,18 +121,18 @@ Alternatively, you can apply filters using the dashboard toolbar:
 2. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
 3. Choose **Save**. The dashboard updates automatically, and the result is the dashboard shown in the following image.
 
-The following image shows the view you'll see once you've completed the preceding steps:
+The following image shows the view you see once you have completed the preceding steps.
 
 <img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
 
 ## Turning on and off dark mode
 
-Turning on and off dark mode in OpenSearch Dashboards requires administrative access. If you're an administrators, follow these steps:
+Turning on and off dark mode in OpenSearch Dashboards requires administrative access. If you are an administrator, follow these steps:
 
 1. Navigate to **Management** > **Dashboards Management** > **Advanced Settings**.
 2. Scroll down to the **Appearance** section and locate the **Dark mode** option.
 3. Use the toggle switch to enable or disable dark mode for all users of your OpenSearch Dashboards instance.
-4. Select the **Save changes** button and then the **Reload** button. Changes take effect immediately, so you will see the updated theme right away, similar to the view shown in the following image:
+4. Select the **Save changes** button and then the **Reload** button. Changes take effect immediately, so you will see the updated theme right away, similar to the view shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dark-mode.png" alt="Dark mode view" width="700">
 
