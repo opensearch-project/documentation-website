@@ -20,26 +20,26 @@ In OpenSearch, each search request follows the scatter-gather protocol. The coor
 
 Without concurrent segment search, Lucene executes a request sequentially across all segments on each shard during the query phase. The query phase then collects the top hits for the search request. With concurrent segment search, each shard-level request will search the segments in parallel during the query phase. For each shard, the segments are divided into multiple _slices_. Each slice is the unit of work that can be executed in parallel on a separate thread, so the slice count determines the maximum degree of parallelism for a shard-level request. Once all the slices complete their work, Lucene performs a reduce operation on the slices, merging them and creating the final result for this shard-level request. Slices are executed using a new `index_searcher` thread pool, which is different from the `search` thread pool that handles shard-level requests.
 
-## Disabling concurrent search at the index or cluster level
+## Enabling concurrent search at the index or cluster level
 
-After you enable the experimental feature flag, all search requests will use concurrent segment search during the query phase. To disable concurrent segment search for all indexes, set the following dynamic cluster setting:
+By default, concurrent segment search is disabled on the cluster. To enable concurrent segment search for all indexes in the cluster, set the following dynamic cluster setting:
 
 ```json
 PUT _cluster/settings
 {
    "persistent":{
-      "search.concurrent_segment_search.enabled": false
+      "search.concurrent_segment_search.enabled": true
    }
 }
 ```
 {% include copy-curl.html %}
 
-To disable concurrent segment search for a particular index, specify the index name in the endpoint:
+To enable concurrent segment search for a particular index, specify the index name in the endpoint:
 
 ```json
 PUT <index-name>/_settings
 {
-    "index.search.concurrent_segment_search.enabled": false
+    "index.search.concurrent_segment_search.enabled": enable
 }
 ```
 {% include copy-curl.html %}
