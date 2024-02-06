@@ -112,7 +112,7 @@ The `script` parameter points the `source` to the Painless script `for (cluster 
   ]
 }
 ```
-The dashboards interface supports selecting clusters to monitor, and the desired API.
+The dashboards interface supports the selection of clusters to be monitored and the desired API.
 
 <img src="{{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-cluster-metrics-monitors.png" alt="Cluster metrics monitor" width="700"/>
 
