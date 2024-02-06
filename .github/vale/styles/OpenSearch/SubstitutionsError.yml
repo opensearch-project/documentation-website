@@ -23,7 +23,8 @@ swap:
   'Huggingface': Hugging Face
   'indices': indexes
   'ingestion pipeline': ingest pipeline
-  'keystore': key store
+  'key store': keystore
+  'key/value': key-value
   'kmeans': k-means
   'kNN': k-NN
   'machine-learning': machine learning
@@ -46,7 +47,7 @@ swap:
   'time stamp': timestamp
   'timezone': time zone
   'tradeoff': trade-off
-  'truststore': trust store
+  'trust store': truststore
   'U.S.': US
   'web page': webpage
   'web site': website

@@ -113,7 +113,7 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-PPUT testindex1/_doc/1?pipeline=remove_ip
+PUT testindex1/_doc/1?pipeline=remove_ip
 {
   "ip_address": "203.0.113.1",
   "name": "John Doe"

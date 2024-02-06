@@ -2,8 +2,6 @@
 
 This sentence tests Advanced Placement (AP). We should define AP before using.
 
-Then this sentence tests adverbs of time.
-
 This sentence tests cybersecurity.
 
 This sentence tests dash---spacing.
