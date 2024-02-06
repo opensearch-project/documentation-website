@@ -7,7 +7,7 @@ parent: User guide
 
 # Running a workload
 
-Once you understand all of the individual components of a OpenSearch Benchmark (OSB) [workload](add-link-to-understanding-workloads), you can now to run your first workload. 
+After you understand all of the individual components of a OpenSearch Benchmark (OSB) [workload]({{site.url}}{{site.baseurl}}/benchmark/understanding-workloads/anatomy-of-a-workload/), you can now to run your first workload. 
 
 ## Step 1: Find the workload name
 
