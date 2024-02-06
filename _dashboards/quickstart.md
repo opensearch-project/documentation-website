@@ -49,7 +49,7 @@ The following image shows a view of the adding sample data window.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Adding sample data window" width="700">
 
-## Exploring and inspecting data
+##  Exploring data using Discover
 
 In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
@@ -69,7 +69,7 @@ The following image shows the view you see once you've completed the preceding s
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-view.png" alt="Discover tutorial screen view" width="700">
 
-## Visualizing data
+## Visualizing data using Dashboards
 
 In **Dashboards** you can:
 
