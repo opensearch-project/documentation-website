@@ -309,7 +309,7 @@ The response contains the inference results provided by the OpenAI model:
 
 ## Step 6: Use the model for search
 
-To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).
+To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#set-up-neural-search).
 
 ## Next steps
 
