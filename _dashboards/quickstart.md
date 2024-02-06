@@ -32,7 +32,7 @@ Here's what's new with the homepage:
 
 ## Prerequisites
 
-Before getting started with this guide, make sure you have installed the latest version of OpenSearch and OpenSearch Dashboards. If you are running OpenSearch 2.11 or older, certain features in this guide are not available in those versions. See your version's respective documentation for more information.
+Before getting started with this guide, make sure you have installed the latest version of OpenSearch and OpenSearch Dashboards. If you are running OpenSearch 2.11 or earlier, certain features in this guide are not available in those versions. See your version's respective documentation for more information.
 
 For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/). 
 
