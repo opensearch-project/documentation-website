@@ -106,7 +106,7 @@ POST /_plugins/_ml/message/_search
 
 ```json
 {
-  "interactions": [
+  "messages": [
     {
       "memory_id": "gW8Aa40BfUsSoeNTvOKI",
       "message_id": "BW8ha40BfUsSoeNT8-i3",

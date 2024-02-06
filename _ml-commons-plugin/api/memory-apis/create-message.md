@@ -45,7 +45,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 | `input` | String | Optional | No | The question (human input) in the message. |
-| `prompt_template` | String | Optional | No | The prompt template that was used for this interaction. The template may contain instructions or examples that were sent to the LLM. |
+| `prompt_template` | String | Optional | No | The prompt template that was used for this message. The template may contain instructions or examples that were sent to the LLM. |
 | `response` | String | Optional | No | The answer (generative AI output) to the question. |
 | `origin` | String | Optional | No | The name of the AI or other system that generated the response. |
 | `additional_info` | Object | Optional | Yes | Any other information that was sent to the `origin`. |

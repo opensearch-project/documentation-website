@@ -259,15 +259,15 @@ Parameter | Required | Description
 :--- | :--- | :---
 `llm_question` | Yes | The question the LLM must answer. 
 `llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
-`conversation_id` | No | If you provide a `conversation_id`, the pipeline retrieves the 10 most recent messages to the LLM prompt. If you don't specify a `conversation_id`, the prior context is not added to the LLM prompt. 
+`memory_id` | No | If you provide a `memory_id`, the pipeline retrieves the 10 most recent messages to the LLM prompt. If you don't specify a `memory_id`, the prior context is not added to the LLM prompt. 
 `context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary by model. Alternatively, you can use the `size` parameter in the Search API to control the number of search results sent to the LLM.
-`interaction_size` | No | The number of messages sent to the LLM. Similarly to the number of search results, this affects the total number of tokens seen by the LLM. When not set, the pipeline uses the default message size of `10`.
+`message_size` | No | The number of messages sent to the LLM. Similarly to the number of search results, this affects the total number of tokens seen by the LLM. When not set, the pipeline uses the default message size of `10`.
 `timeout` | No | The number of seconds that the pipeline waits for the remote model using a connector to respond. Default is `30`.
 
 If your LLM includes a set token limit, set the `size` field in your OpenSearch query to limit the number of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search results to the LLM.
 {: .note}
 
-If you ask an LLM a question about the present, it cannot provide an answer because it was trained on data from a few years ago. However, if you add current information as context, the LLM is able to generate a response. For example, let's ask the LLM about the population of New York City metro area in 2023. You'll construct a query that includes an OpenSearch match query and an LLM query. Provide the `memory_id` in the `conversation_id` field so the message is stored in the appropriate memory object:
+If you ask an LLM a question about the present, it cannot provide an answer because it was trained on data from a few years ago. However, if you add current information as context, the LLM is able to generate a response. For example, let's ask the LLM about the population of New York City metro area in 2023. You'll construct a query that includes an OpenSearch match query and an LLM query. Provide the `memory_id` so the message is stored in the appropriate memory object:
 
 ```json
 GET /my_rag_test_data/_search
@@ -281,9 +281,9 @@ GET /my_rag_test_data/_search
     "generative_qa_parameters": {
       "llm_model": "gpt-3.5-turbo",
       "llm_question": "What's the population of NYC metro area in 2023",
-      "conversation_id": "znCqcI0BfUsSoeNTntd7",
+      "memory_id": "znCqcI0BfUsSoeNTntd7",
       "context_size": 5,
-      "interaction_size": 5,
+      "message_size": 5,
       "timeout": 15
     }
   }
@@ -337,14 +337,14 @@ Because the context included a document that provides information about NYC popu
   "ext": {
     "retrieval_augmented_generation": {
       "answer": "The population of the New York City metro area in 2023 is projected to be 18,937,000.",
-      "interaction_id": "x3CecI0BfUsSoeNT9tV9"
+      "message_id": "x3CecI0BfUsSoeNT9tV9"
     }
   }
 }
 ```
 </details>
 
-Now you'll ask an LLM a follow-up question for the same conversation. Again, provide the `memory_id` in the `conversation_id` field: 
+Now you'll ask an LLM a follow-up question for the same conversation. Again, provide the `memory_id` in the request: 
 
 ```json
 GET /my_rag_test_data/_search
@@ -358,9 +358,9 @@ GET /my_rag_test_data/_search
     "generative_qa_parameters": {
       "llm_model": "gpt-3.5-turbo",
       "llm_question": "What was it in 2022",
-      "conversation_id": "znCqcI0BfUsSoeNTntd7",
+      "memory_id": "znCqcI0BfUsSoeNTntd7",
       "context_size": 5,
-      "interaction_size": 5,
+      "message_size": 5,
       "timeout": 15
     }
   }
@@ -376,13 +376,13 @@ The LLM correctly identifies the conversation subject and returns a relevant res
   "ext": {
     "retrieval_augmented_generation": {
       "answer": "The population of the New York City metro area in 2022 was 18,867,000.",
-      "interaction_id": "p3CvcI0BfUsSoeNTj9iH"
+      "message_id": "p3CvcI0BfUsSoeNTj9iH"
     }
   }
 }
 ```
 
-To verify that both messages were added to the memory, provide the memory ID to the Get Message API:
+To verify that both messages were added to the memory, provide the `memory_ID` to the Get Message API:
 
 ```json
 GET /_plugins/_ml/memory/znCqcI0BfUsSoeNTntd7/messages
@@ -398,7 +398,7 @@ The response contains both messages:
 
 ```json
 {
-  "interactions": [
+  "messages": [
     {
       "memory_id": "znCqcI0BfUsSoeNTntd7",
       "message_id": "x3CecI0BfUsSoeNT9tV9",
