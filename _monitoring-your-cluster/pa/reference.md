@@ -762,7 +762,7 @@ The following metrics are relevant to the cluster as a whole and do not require 
   <tr>
     <td>SearchBP_Shard_Stats_LimitReachedCount
     </td>
-    <td>The number of times when the cancellable task total exceeded the set cancellation threshold at the shard task level.
+    <td>The number of times that the cancellable task total exceeded the set cancellation threshold at the shard task level.
     </td>
   </tr>
   <tr>
@@ -780,7 +780,7 @@ The following metrics are relevant to the cluster as a whole and do not require 
   <tr>
     <td>SearchBP_Shard_Stats_Resource_Heap_Usage_RollingAvg
     </td>
-    <td> The rolling average heap usage for the _n_ most recent tasks at the shard task level. The default value for _n_ is 100.
+    <td> The rolling average heap usage for the _n_ most recent tasks at the shard task level. The default value for _n_ is `100`.
     </td>
   </tr>
   <tr>
@@ -828,7 +828,7 @@ The following metrics are relevant to the cluster as a whole and do not require 
   <tr>
     <td>SearchBP_Task_Stats_LimitReachedCount
     </td>
-    <td>The number of times when the cancellable task total exceeded the set cancellation threshold at the search task level.
+    <td>The number of times that the cancellable task total exceeded the set cancellation threshold at the search task level.
     </td>
   </tr>
   <tr>
@@ -846,7 +846,7 @@ The following metrics are relevant to the cluster as a whole and do not require 
   <tr>
     <td>SearchBP_Task_Stats_Resource_Heap_Usage_RollingAvg
     </td>
-    <td> The rolling average heap usage for the _n_ most recent tasks on the search task level. The default value for _n_ is 10.
+    <td> The rolling average heap usage for the _n_ most recent tasks at the search task level. The default value for _n_ is `10`.
     </td>
   </tr>
   <tr>
@@ -899,7 +899,7 @@ The following metrics are relevant to the cluster as a whole and do not require 
 | `ShardRole`            | The shard role, for example, `primary` or `replica`.                            |
 | `Exception`            | OpenSearch exceptions, for example, `org.opensearch.index_not_found_exception`. |
 | `Indices`              | The list of indexes in the request URL.        |
-| `HTTPRespCode`         | The response code from OpenSearch, for example, `200`. |
+| `HTTPRespCode`         | The OpenSearch response code, for example, `200`. |
 | `MemType`              | The memory type, for example, `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, or `Heap`. |
 | `DiskName`             | The name of the disk, for example, `sda1`.        |
 | `DestAddr`             | The destination address, for example, `010015AC`. |
