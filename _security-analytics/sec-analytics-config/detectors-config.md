@@ -40,7 +40,7 @@ To define a detector:
     To quickly select one or more known rules and dismiss others, first deselect all rules by turning off the **Rule name** toggle, then search for your target rule names and select each individually by turning its toggle on.
     {: .tip } 
 
-1. Review the field mappings. Field mappings allow the system to accurately pass event data from the log to the detector and then use the data to trigger alerts. For more information about field mappings, see the [A note on field mappings](#a-note-on-field-names) section.
+1. Review the field mappings. Field mappings allow the system to accurately pass event data from the log to the detector and then use the data to trigger alerts. For more information about field mappings, see the [A note on field names](#a-note-on-field-names) section.
 
 1. Choose whether or not to enable [threat intelligence]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors#threat-intelligence-feeds) feeds. Threat intelligence feeds only work with **standard** log types.
     
@@ -126,7 +126,7 @@ If you choose to perform manual field mapping, you should be familiar with the f
 Security Analytics takes advantage of prepackaged Sigma rules for security event detection. Therefore, the field names are derived from a Sigma rule field standard. To make them easier to identify, however, we have created aliases for the Sigma rule fields based on the following specifications: 
 
 - For all log types, the open-source Elastic Common Schema (ECS) specification. 
-- For the AWS CloudTrail and DNS log types, the [Open Cybersecurity Framework](https://github.com/ocsf/ocsf-schema). 
+- For the AWS CloudTrail, DNS log types and VPC Flow logs, the [Open Cybersecurity Framework](https://github.com/ocsf/ocsf-schema). 
 
 These alias rule field names are the field names used in these steps. They appear in the **Detector field name** column of the mapping tables.
 
