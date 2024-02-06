@@ -205,6 +205,20 @@ Continue with installation? [y/N]y
 Restart your OpenSearch node after installing a plugin.
 {: .note}
 
+### Installing multiple plugins
+
+Multiple plugins can be installed in one invocation.
+
+#### Usage
+```bash
+bin/opensearch-plugin install <plugin-name> <plugin-name> ... <plugin-name>
+```
+
+#### Example
+```bash
+$ sudo $ ./opensearch-plugin install analysis-nori repository-s3
+```
+
 ## Remove
 
 You can remove a plugin that has already been installed with the `remove` option. 
