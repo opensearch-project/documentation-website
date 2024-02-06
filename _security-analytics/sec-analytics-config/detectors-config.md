@@ -42,7 +42,7 @@ To define a detector:
 
 1. Review the field mappings. Field mappings allow the system to accurately pass event data from the log to the detector and then use the data to trigger alerts. For more information about field mappings, see the [A note on field names](#a-note-on-field-names) section.
 
-1. Choose whether or not to enable [threat intelligence]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors#threat-intelligence-feeds) feeds. Threat intelligence feeds only work with **standard** log types.
+1. Choose whether to enable [threat intelligence]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors#threat-intelligence-feeds) feeds. Threat intelligence feeds only work with **standard** log types.
     
 1. In the **Detector schedule** section, create a schedule for how often to run the detector. Specify a unit of time and a corresponding number to set the interval. The following image shows that the detector runs every 3 minutes.
     
@@ -126,22 +126,22 @@ If you choose to perform manual field mapping, you should be familiar with the f
 Security Analytics takes advantage of prepackaged Sigma rules for security event detection. Therefore, the field names are derived from a Sigma rule field standard. To make them easier to identify, however, we have created aliases for the Sigma rule fields based on the following specifications: 
 
 - For all log types, the open-source Elastic Common Schema (ECS) specification. 
-- For the AWS CloudTrail, DNS log types and VPC Flow logs, the [Open Cybersecurity Framework](https://github.com/ocsf/ocsf-schema). 
+- For AWS CloudTrail, Domain Name System (DNS) log types, and virtual private network (VPC) flow logs, go to the [Open Cybersecurity Framework](https://github.com/ocsf/ocsf-schema).
 
 These alias rule field names are the field names used in these steps. They appear in the **Detector field name** column of the mapping tables.
 
-You can find predefined mappings of the Sigma rule field names to ECS rule field names, for all supported log types in the following locations: 
+You can find predefined mappings of the Sigma rule field names to ECS rule field names for all supported log types in the following locations: 
 
 - The [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) reference documentation.
-- The GitHub Security Analytics repository. TO find the field mappings: 
+- The GitHub Security Analytics repository. To find the field mappings: 
    1. Navigate to the [OSMappings](https://github.com/opensearch-project/security-analytics/tree/main/src/main/resources/OSMapping) folder. 
-   2. Select the file for the specific log type. For example, to see the Sigma rule fields that correspond to ECS rule fields for the Windows log type, select the [`windows_logtype.json` file](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows_logtype.json). The `raw_field` value in the file represents the Sigma rule field name in the mapping.
+   2. Select the file for the specific log type. For example, to view the Sigma rule fields that correspond to ECS rule fields for the Windows log type, select the [`windows_logtype.json` file](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows_logtype.json). The `raw_field` value in the file represents the Sigma rule field name in the mapping.
 
 ## Amazon Security Lake logs
 
 [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) converts security log and event data to the [Open Cybersecurity Schema Framework](https://docs.aws.amazon.com/security-lake/latest/userguide/open-cybersecurity-schema-framework.html) (OCSF) to normalize combined data and facilitate its management. OpenSearch supports ingestion of log data from Security Lake in the OCSF format, and Security Analytics can automatically map fields from OCSF to ECS (the default field-mapping schema).
 
-The Security Lake log types that can be used as log sources for detector creation include CloudTrail, Route 53, and VPC Flow. Given that Route 53 is a log that captures DNS activity, its log type should be specified as **dns** when [defining a detector](#step-1-define-a-detector). Furthermore, because logs such as CloudTrail logs can conceivably be captured in both raw format and OCSF, it's good practice to name indexes in a way that keeps these logs separate and easily identifiable. This becomes helpful when specifying an index name in any of the APIs associated with Security Analytics.
+The Security Lake log types that can be used as log sources for detector creation include AWS CloudTrail, Amazon Route 53, and Amazon VPC Flow Logs. Given that Amazon Route 53 is a log that captures DNS activity, its log type should be specified as **dns** when [defining a detector](#step-1-define-a-detector). Furthermore, because logs such as AWS CloudTrail logs can conceivably be captured in both raw format and OCSF, it is good practice to name indexes in a way that keeps these logs separate and easily identifiable. This becomes helpful when specifying an index name in any of the APIs associated with Security Analytics.
 
 To reveal fields for a log index in either raw format or OCSF, use the [Get Mappings View]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/#get-mappings-view) API and specify the index in the `index_name` field of the request.
 {: .tip }
