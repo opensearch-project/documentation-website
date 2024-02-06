@@ -22,7 +22,15 @@ Without concurrent segment search, Lucene executes a request sequentially across
 
 ## Enabling concurrent search at the index or cluster level
 
-By default, concurrent segment search is disabled on the cluster. To enable concurrent segment search for all indexes in the cluster, set the following dynamic cluster setting:
+By default, concurrent segment search is disabled on the cluster. You can enable concurrent segment search at two levels:
+
+- Cluster level
+- Index level
+
+The index-level setting takes priority over the cluster-level setting. Thus, if the cluster setting is enabled but the index setting is disabled, then concurrent search will be disabled for that index.
+{: .note}
+
+To enable concurrent segment search for all indexes in the cluster, set the following dynamic cluster setting:
 
 ```json
 PUT _cluster/settings
