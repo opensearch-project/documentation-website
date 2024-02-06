@@ -133,7 +133,8 @@ These alias rule field names are the field names used in these steps. They appea
 You can find predefined mappings of the Sigma rule field names to ECS rule field names for all supported log types in the following locations: 
 
 - The [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) reference documentation.
-- The GitHub Security Analytics repository. To find the field mappings: 
+
+- The [GitHub Security Analytics](https://github.com/opensearch-project/security-analytics) repository. To find the field mappings: 
    1. Navigate to the [OSMappings](https://github.com/opensearch-project/security-analytics/tree/main/src/main/resources/OSMapping) folder. 
    2. Select the file for the specific log type. For example, to view the Sigma rule fields that correspond to ECS rule fields for the Windows log type, select the [`windows_logtype.json` file](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows_logtype.json). The `raw_field` value in the file represents the Sigma rule field name in the mapping.
 
