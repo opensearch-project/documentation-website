@@ -213,7 +213,10 @@ By default, the returned statistics are aggregated in the `primaries` and `total
               "max_bytes" : 0
             },
             "max_refresh_time_lag_in_millis" : 0,
-            "total_time_spent_in_millis" : 516
+            "total_time_spent_in_millis" : 516,
+            "pressure" : {
+              "total_rejections" : 0
+            }
           },
           "download" : {
             "total_download_size" : {
@@ -377,7 +380,10 @@ By default, the returned statistics are aggregated in the `primaries` and `total
               "max_bytes" : 0
             },
             "max_refresh_time_lag_in_millis" : 0,
-            "total_time_spent_in_millis" : 516
+            "total_time_spent_in_millis" : 516,
+            "pressure" : {
+              "total_rejections" : 0
+            }
           },
           "download" : {
             "total_download_size" : {
@@ -545,7 +551,10 @@ By default, the returned statistics are aggregated in the `primaries` and `total
                 "max_bytes" : 0
               },
               "max_refresh_time_lag_in_millis" : 0,
-              "total_time_spent_in_millis" : 516
+              "total_time_spent_in_millis" : 516,
+              "pressure" : {
+                "total_rejections" : 0
+              }
             },
             "download" : {
               "total_download_size" : {
@@ -709,7 +718,10 @@ By default, the returned statistics are aggregated in the `primaries` and `total
                 "max_bytes" : 0
               },
               "max_refresh_time_lag_in_millis" : 0,
-              "total_time_spent_in_millis" : 516
+              "total_time_spent_in_millis" : 516,
+              "pressure" : {
+                "total_rejections" : 0
+              }
             },
             "download" : {
               "total_download_size" : {
