@@ -50,7 +50,7 @@ Field | Data type | Required/Optional | Updatable | Description
 | `origin` | String | Optional | No | The name of the AI or other system that generated the response. |
 | `additional_info` | Object | Optional | Yes | Any other information that was sent to the `origin`. |
 
-#### Example request : Create message
+#### Example request: Create message
 
 ```json
 POST /_plugins/_ml/memory/SXA2cY0BfUsSoeNTz-8m/messages
