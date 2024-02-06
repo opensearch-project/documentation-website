@@ -47,7 +47,7 @@ To enable concurrent segment search for a particular index, specify the index na
 ```json
 PUT <index-name>/_settings
 {
-    "index.search.concurrent_segment_search.enabled": enable
+    "index.search.concurrent_segment_search.enabled": true
 }
 ```
 {% include copy-curl.html %}
