@@ -252,7 +252,7 @@ _Effect_ as a noun refers to something that’s caused by something else. _Effec
 
 **e.g.**
 
-Avoid. Use for example or such as instead.
+Avoid. Use _for example_ or _such as_ instead.
 
 **Elastic IP address**
 
@@ -290,6 +290,8 @@ Exception: *Execution* is unavoidable for third-party terms for which no alterna
 ## F 
 
 **fail over (v.), failover (n.)**
+
+**Faiss**
 
 **file name**
 
@@ -369,6 +371,10 @@ In blog posts, use the plural *indexes* unless there is a domain-specific reason
 
 **Index State Management (ISM)**
 
+**ingest pipeline**
+
+Not _ingestion pipeline_.
+
 **inline**
 
 **install in, on**
@@ -395,7 +401,11 @@ Use *just* in the sense of *just now* (as in "the resources that you just create
 
 ## K
 
-**key store**
+**keystore**
+
+**key-value**
+
+Not _key/value_.
 
 **kill**
 
@@ -706,11 +716,13 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 **time zone**
 
+**trade-off**
+
 **trigger**
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
-**trust store**
+**truststore**
 
 **turn on, turn off**
 

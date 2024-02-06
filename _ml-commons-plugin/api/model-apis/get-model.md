@@ -104,6 +104,86 @@ POST /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
+#### Example: Excluding model chunks
+
+```json
+GET /_plugins/_ml/models/_search
+{
+  "query": {
+    "bool": {
+      "must_not": {
+        "exists": {
+          "field": "chunk_number"
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "created_time": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+#### Example: Searching for all model chunks
+
+The following query searches for all chunks of the model with the ID `979y9YwBjWKCe6KgNGTm` and sorts the chunks in ascending order:
+
+```json
+GET /_plugins/_ml/models/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "model_id": "9r9w9YwBjWKCe6KgyGST"
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "chunk_number": {
+        "order": "asc"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+#### Example: Searching for a model by description
+
+```json
+GET _plugins/_ml/models/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "description": "sentence transformer"
+          }
+        }
+      ],
+      "must_not": {
+        "exists": {
+          "field": "chunk_number"
+        }
+      }
+    }
+  },
+  "size": 1000
+}
+```
+{% include copy-curl.html %}
+
 #### Example response
 
 ```json

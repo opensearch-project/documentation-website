@@ -1623,7 +1623,7 @@ GET _plugins/_security/health
 
 The following API is available for audit logging in the Security plugin.
 
-### Enable Audit Logs
+### Enable audit logs
 
 This API allows you to enable or disable audit logging, define the configuration for audit logging and compliance, and make updates to settings.
 

@@ -56,7 +56,7 @@ Normalization | `arabic_normalization`: [ArabicNormalizer](https://lucene.apache
 `stop` | [StopFilter](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/analysis/StopFilter.html) | Removes stop words from a token stream.
 `synonym` | N/A | Supplies a synonym list for the analysis process. The synonym list is provided using a configuration file.
 `synonym_graph` | N/A | Supplies a synonym list, including multiword synonyms, for the analysis process.
-`trim` | [TrimFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/TrimFilter.html) | Trims leading and trailing whitespace from each token in a stream. 
+`trim` | [TrimFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/TrimFilter.html) | Trims leading and trailing white space from each token in a stream. 
 `truncate` | [TruncateTokenFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/miscellaneous/TruncateTokenFilter.html) | Truncates tokens whose length exceeds the specified character limit. 
 `unique` | N/A | Ensures each token is unique by removing duplicate tokens from a stream. 
 `uppercase` | [UpperCaseFilter](https://lucene.apache.org/core/8_7_0/analyzers-common/org/apache/lucene/analysis/core/LowerCaseFilter.html) | Converts tokens to uppercase. 

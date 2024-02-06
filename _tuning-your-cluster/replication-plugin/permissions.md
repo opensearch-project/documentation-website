@@ -75,7 +75,7 @@ cluster:admin/plugins/replication/autofollow/update
 The Security plugin supports these permissions for the leader cluster:
 
 ```
-indices:admin/plugins/replication/validate
+indices:admin/plugins/replication/index/setup/validate
 indices:data/read/plugins/replication/file_chunk
 indices:data/read/plugins/replication/changes
 ```
