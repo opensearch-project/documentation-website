@@ -87,7 +87,7 @@ If the `show_term_doc_count_error` parameter is set to `true`, then the `terms` 
 
 ## The `min_doc_count` and `shard_min_doc_count` parameters
 
-You can use the `min_doc_count` parameter to filter out any unique terms with fewer than `min_doc_count` results. The `min_doc_count` threshold is applied only after merging the results retrieved from all of the shards. Each shard is unaware of the global document count for a given term. If there is a significant difference in the top `shard_size` globally frequent terms and the top terms local to a shard, you may receive unexpected results when using the `min_doc_count` parameter.
+You can use the `min_doc_count` parameter to filter out any unique terms with fewer than `min_doc_count` results. The `min_doc_count` threshold is applied only after merging the results retrieved from all of the shards. Each shard is unaware of the global document count for a given term. If there is a significant difference between the top `shard_size` globally frequent terms and the top terms local to a shard, you may receive unexpected results when using the `min_doc_count` parameter.
 
 Separately, the `shard_min_doc_count` parameter is used to filter out the unique terms that a shard returns back to the coordinator with fewer than `shard_min_doc_count` results.
 
