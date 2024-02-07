@@ -129,5 +129,5 @@ By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when yo
     sudo systemctl restart opensearch-dashboards
     ```
 1. From a web browser, navigate to OpenSearch Dashboards. The default port is 5601.
-1. Log in with the default username `admin` and the default password `admin`.
+1. Log in with the default username `admin` and the default password `admin`. (For OpenSearch 2.12 and later, the password should be the custom admin password)
 1. Visit [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to learn more.

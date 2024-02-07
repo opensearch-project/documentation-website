@@ -75,6 +75,7 @@ Levenshtein
 [Mm]ultivalued
 [Mm]ultiword
 [Nn]amespace
+[Oo]versamples?
 pebibyte
 [Pp]luggable
 [Pp]reconfigure

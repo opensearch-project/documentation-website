@@ -51,6 +51,8 @@ adaptive_selection | Statistics about adaptive replica selection, which selects 
 script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
+resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
+admission_control | Statistics about admission control.
 
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
 
@@ -291,7 +293,10 @@ Select the arrow to view the example response.
                 "max_bytes" : 0
               },
               "max_refresh_time_lag_in_millis" : 0,
-              "total_time_spent_in_millis" : 516
+              "total_time_spent_in_millis" : 516,
+              "pressure" : {
+                "total_rejections" : 0
+              }
             },
             "download" : {
               "total_download_size" : {
@@ -577,6 +582,19 @@ Select the arrow to view the example response.
           "full_states" : 2,
           "incompatible_diffs" : 0,
           "compatible_diffs" : 10
+        },
+        "cluster_state_stats" : {
+          "overall" : {
+            "update_count" : 9,
+            "total_time_in_millis" : 807,
+            "failed_count" : 0
+          },
+          "remote_upload" : {
+            "success_count" : 9,
+            "failed_count" : 0,
+            "total_time_in_millis" : 116,
+            "cleanup_attempt_failed_count" : 0
+          }
         }
       },
       "ingest" : {
@@ -708,6 +726,23 @@ Select the arrow to view the example response.
         },
         "enabled" : false,
         "enforced" : false
+      },
+      "resource_usage_stats": {
+        "nxLWtMdXQmWA-ZBVWU8nwA": {
+          "timestamp": 1698401391000,
+          "cpu_utilization_percent": "0.1",
+          "memory_utilization_percent": "3.9"
+        }
+      },
+      "admission_control": {
+        "global_cpu_usage": {
+          "transport": {
+            "rejection_count": {
+              "search": 3,
+              "indexing": 1
+            }
+          }
+        }
       }
     }
   }
@@ -761,6 +796,8 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
+[resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
+[admission_control](#admission_control) | Object | Statistics related to admission control for the node.
 
 ### `indices`
 
@@ -883,9 +920,9 @@ segments.version_map_memory_in_bytes | Integer | The total amount of memory used
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
 segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is enabled on the node. 
-segments.segment_replication.maxBytesBehind | long | The maximum number of bytes behind the primary replica.
-segments.segment_replication.totalBytesBehind | long | The total number of bytes behind the primary replicas. 
-segments.segment_replication.maxReplicationLag | long | The maximum amount of time, in milliseconds, taken by a replica to catch up to its primary. 
+segments.segment_replication.max_bytes_behind | long | The maximum number of bytes behind the primary replica.
+segments.segment_replication.total_bytes_behind | long | The total number of bytes behind the primary replicas. 
+segments.segment_replication.max_replication_lag | long | The maximum amount of time, in milliseconds, taken by a replica to catch up to its primary. 
 segments.remote_store | Object | Statistics about remote segment store operations.
 segments.remote_store.upload | Object | Statistics related to uploads to the remote segment store.
 segments.remote_store.upload.total_upload_size | Object | The amount of data, in bytes, uploaded to the remote segment store.
@@ -897,6 +934,8 @@ segments.remote_store.upload.refresh_size_lag.total_bytes | Integer | The total 
 segments.remote_store.upload.refresh_size_lag.max_bytes | Integer | The maximum amount of lag, in bytes, during the upload refresh between the remote segment store and the local store.
 segments.remote_store.upload.max_refresh_time_lag_in_millis | Integer | The maximum duration, in milliseconds, that the remote refresh is behind the local refresh.
 segments.remote_store.upload.total_time_spent_in_millis | Integer | The total amount of time, in milliseconds, spent on uploads to the remote segment store.
+segments.remote_store.upload.pressure | Object | Statistics related to segment store upload backpressure.
+segments.remote_store.upload.pressure.total_rejections | Integer | The total number of requests rejected due to segment store upload backpressure.
 segments.remote_store.download | Object | Statistics related to downloads to the remote segment store.
 segments.remote_store.download.total_download_size | Object | The total amount of data download from the remote segment store.
 segments.remote_store.download.total_download_size.started_bytes | Integer | The number of bytes downloaded from the remote segment store after the download starts.
@@ -1106,6 +1145,16 @@ published_cluster_states | Object | Statistics for the published cluster states 
 published_cluster_states.full_states | Integer | The number of published cluster states.
 published_cluster_states.incompatible_diffs | Integer | The number of incompatible differences between published cluster states.
 published_cluster_states.compatible_diffs | Integer | The number of compatible differences between published cluster states.
+cluster_state_stats | Object | Cluster state update statistics published by the active leader.
+cluster_state_stats.overall | Object | Overall cluster state update statistics.
+cluster_state_stats.overall.update_count | Integer | The total number of successful cluster state updates.
+cluster_state_stats.overall.total_time_in_millis | Integer | The total amount of time taken for all cluster state updates, in milliseconds.
+cluster_state_stats.overall.failed_count | Integer | The total number of failed cluster state updates.
+cluster_state_stats.remote_upload | Object | Cluster state update statistics related to remote uploads.
+cluster_state_stats.remote_upload.success_count | Integer | The total number of successful cluster state updates uploaded to the remote store.
+cluster_state_stats.remote_upload.failed_count | Integer | The total number of cluster state updates that failed to upload to the remote store.
+cluster_state_stats.remote_upload.total_time_in_millis | Integer | The total amount of time taken for all cluster state updates uploaded to the remote store, in milliseconds.
+cluster_state_stats.remote_upload.cleanup_attempt_failed_count | Integer | The total number of failures encountered while trying to clean up older cluster states from the remote store.
 
 ### `ingest`
 
@@ -1191,6 +1240,25 @@ total_rejections_breakup_shadow_mode.no_successful_request_limits | Integer | Th
 total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
+
+### `resource_usage_stats`
+
+The `resource_usage_stats` object contains the resource usage statistics. Each entry is specified by the node ID and has the following properties.
+
+Field | Field type | Description
+:--- |:-----------| :---
+timestamp | Integer    | The last refresh time for the resource usage statistics, in milliseconds since the epoch.
+cpu_utilization_percent | Float      | Statistics for the average CPU usage of OpenSearch process within the time period configured in the `node.resource.tracker.global_cpu_usage.window_duration` setting.
+memory_utilization_percent | Float      | The node JVM memory usage statistics within the time period configured in the `node.resource.tracker.global_jvmmp.window_duration` setting.
+
+### `admission_control`
+
+The `admission_control` object contains the rejection count of search and indexing requests based on resource consumption and has the following properties.
+Field | Field type | Description
+:--- | :--- | :---
+admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was breached. In this case, additional search requests are rejected until the system recovers.
+admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was breached. In this case, additional indexing requests are rejected until the system recovers.
+
 
 ## Concurrent segment search
 
