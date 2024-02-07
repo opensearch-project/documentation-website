@@ -93,7 +93,7 @@ To select a data source through the Dev Tools console, follow these steps:
 6. Repeat the preceding steps for each data source you want to select.
 
 ### Upload saved objects to dashboard from connected data sources
-To get saved objects from connected datasources into the current dashboard, you can export the saved objects from connected datasource into ndjson file via **Saved object management** page, then go to **Saved object management** page of the current dashboard which has multiple datasource feature enabled to upload the file. This option provides smooth migration of saved objects from dashboards you currently have to a new dashboard which has multiple datasource enabled. 
+To move saved objects from connected data sources to a dashboard with multiple data sources, export them as an ndjson file from the data source's **Saved object management** page. Then upload the file to the **Saved object management** page of the dashboard. This method makes it easy to transfer saved objects between dashboards. The following 20-second video shows this feature in action.
 
 Watch the following short video to see it in action.
 
