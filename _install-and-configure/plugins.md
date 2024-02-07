@@ -66,7 +66,7 @@ You can also list installed plugins by using the [CAT API]({{site.url}}{{site.ba
 GET _cat/plugins
 ```
 
-#### Sample response
+#### Example response
 
 ```bash
 opensearch-node1 opensearch-alerting                  2.0.1.0
@@ -237,11 +237,11 @@ bin/opensearch-plugin install --batch <plugin-name>
 Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
 {: .warning}
 
-### Bundled Plugins
+### Bundled plugins
 
 The following plugins are bundled with all OpenSearch distributions except for minimum distribution packages.
 
-| Plugin Name | Repository | Earliest Available Version |
+| Plugin name | Repository | Earliest available version |
 | :--- | :--- | :--- |
 | Alerting | [opensearch-alerting](https://github.com/opensearch-project/alerting) | 1.0.0 |
 | Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 |
@@ -259,7 +259,6 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
 | Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 |
 | Performance Analyzer<sup>2</sup> | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
-| Query Insights | [query-insights](<!-- please provide a link -->) | 2.12.0 |
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
 | Security Analytics | [opensearch-security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |
@@ -272,7 +271,7 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 Members of the OpenSearch community have built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub repository, the following list of plugins are available to be installed by name using `bin/opensearch-plugin install <plugin-name>`.
 
-| Plugin Name | Earliest Available Version |
+| Plugin name | Earliest available version |
 | :--- | :--- |
 | analysis-icu | 1.0.0 |
 | analysis-kuromoji | 1.0.0 |
@@ -288,6 +287,7 @@ Members of the OpenSearch community have built countless plugins for the service
 | mapper-annotated-text | 1.0.0 |
 | mapper-murmur3 | 1.0.0 |
 | mapper-size | 1.0.0 |
+| query-insights | 2.12.0 |
 | repository-azure | 1.0.0 |
 | repository-gcs | 1.0.0 |
 | repository-hdfs | 1.0.0 |
