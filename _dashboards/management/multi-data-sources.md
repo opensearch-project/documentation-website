@@ -103,7 +103,7 @@ Follow these steps to import saved objects from a connected data source:
 1. Locate your `opensearch_dashboards.yml` file and open it in your preferred text editor. 
 2. Set `data_source.enabled` to `true`.
 3. Connect to OpenSearch Dashboards and go to **Dashboards Management** > **Saved objects**.
-4. Click **Import** link and in **Select file**, upload the file acquired from a connected data source.
+4. Select **Import** > **Select file** and upload the file acquired from the connected data source.
 5. From the **Data source** dropdown menu, select the data source where the file is acqured and then choose the **Conflict management** option and then click **Import** button.
 
 ## Next steps 
