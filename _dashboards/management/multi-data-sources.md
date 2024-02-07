@@ -98,7 +98,8 @@ To move saved objects from connected data sources to a dashboard with multiple d
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/import_saved_objects_with_file_upload.gif" alt="Multiple data sources in Saved object management">{: .img-fluid}
 
-To import saved objects belong to a connected data source, follow these steps:
+Follow these steps to import saved objects from a connected data source:
+
 1. Locate your copy of `opensearch_dashboards.yml` and open it in the editor of your choice. 
 2. Set `data_source.enabled` to `true`.
 3. Connect to OpenSearch Dashboards and select **Dashboards Management** > **Saved objects**.
