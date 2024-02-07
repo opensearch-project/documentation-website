@@ -810,11 +810,4 @@ By default, the returned statistics are aggregated in the `primaries` and `total
 
 ## Response fields
 
-The following table provides information about the response fields.
-
-|Response field	| Description	|
-|:---	|:---	| 
-|`search.concurrent_avg_slice_count`	|The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	|
-|`search.concurrent_query_total`	|The total number of query operations that use concurrent segment search.	|
-|`search.concurrent_query_time_in_millis`	|The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	|
-|`search.concurrent_query_current`	|The number of currently running query operations that use concurrent segment search.	|
+For information about response fields, see [Nodes Stats API response fields]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#indices)
