@@ -6,7 +6,7 @@ nav_order: 20
 
 # Workflow tutorial
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](Link TBD).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
 {: .warning}
 
 You can automate the setup of common use cases, such as conversational chat, using a Chain-of-Thought (CoT) agent. An _agent_ orchestrates and runs ML models and tools. A _tool_ performs a set of specific tasks. This page presents a complete example of setting up a CoT agent. For more information about agents and tools, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/)

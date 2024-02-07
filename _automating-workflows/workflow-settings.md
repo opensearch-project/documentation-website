@@ -6,7 +6,7 @@ nav_order: 30
 
 # Workflow settings
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](Link TBD).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
 {: .warning}
 
 The following keys represent configurable workflow settings.
