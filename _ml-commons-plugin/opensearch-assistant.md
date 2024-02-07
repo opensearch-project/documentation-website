@@ -10,7 +10,7 @@ nav_order: 28
 **Introduced 2.12**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](<TODO: insert link>).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).    
 {: .warning}
 
 The OpenSearch Assistant toolkit helps you create AI-powered assistants for OpenSearch Dashboards. The toolkit includes the following parts:
