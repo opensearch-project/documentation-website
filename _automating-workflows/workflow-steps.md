@@ -36,8 +36,8 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 |`delete_model`	|[Delete Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)	|Unregisters and deletes a model.	|
 |`deploy_model`	|[Deploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)	|Deploys a registered model into memory.	|
 |`undeploy_model`	|[Undeploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)	|Undeploys a deployed model from memory.	|
-|`register_agent`	|[Register Agent API](link TBD)	|Registers an agent as part of the ML Commons Agent Framework.	|
-|`delete_agent`	|[Delete Agent API](link TBD)	|Deletes an agent.	|
+|`register_agent`	|[Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)	|Registers an agent as part of the ML Commons Agent Framework.	|
+|`delete_agent`	|[Delete Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/delete-agent/)	|Deletes an agent.	|
 |`create_tool`	|No API	| A special-case non-API step encapsulating the specification of a tool for an agent in the ML Commons Agent Framework. These will be listed as `previous_node_inputs` for the appropriate register agent step, with the value set to `tools`.	|
 
 ## Additional fields
