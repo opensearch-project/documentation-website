@@ -459,9 +459,9 @@ Field | Data type | Description
 `type` | String | The Lucene query type into which the search query was rewritten. Corresponds to the Lucene class name (which often has the same name in OpenSearch).
 `description` | String | Contains a Lucene explanation of the query. Helps differentiate queries with the same type.
 `time_in_nanos`	| Long | The total elapsed time for this query, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total time spent across all the slices (the difference between the last completed slice execution end time and the first slice execution start time).
-`max_slice_time_in_nanos`	| Long | The maximum amount of time taken by any slice to run a query, in nanoseconds.	
-`min_slice_time_in_nanos`	| Long | The minimum amount of time taken by any slice to run a query, in nanoseconds.	
-`avg_slice_time_in_nanos`	| Long | The average amount of time taken by any slice to run a query, in nanoseconds.	
+`max_slice_time_in_nanos`	| Long | The maximum amount of time taken by any slice to run a query, in nanoseconds. This field is included only if you enable concurrent segment search.	
+`min_slice_time_in_nanos`	| Long | The minimum amount of time taken by any slice to run a query, in nanoseconds. This field is included only if you enable concurrent segment search.
+`avg_slice_time_in_nanos`	| Long | The average amount of time taken by any slice to run a query, in nanoseconds. This field is included only if you enable concurrent segment search.
 [`breakdown`](#the-breakdown-object) | Object | Contains timing statistics about low-level Lucene execution.
 `children` | Array of objects | If a query has subqueries (children), this field contains information about the subqueries.
 
@@ -480,7 +480,13 @@ Field | Description
 `shallow_advance` | Contains the amount of time required to execute the `advanceShallow` Lucene method.
 `compute_max_score` | Contains the amount of time required to execute the `getMaxScore` Lucene method.
 `set_min_competitive_score` | Contains the amount of time required to execute the `setMinCompetitiveScore` Lucene method.
-`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components. For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all slices. For concurrent segment search, `time_in_nanos` is the total time spent across all the slices (the difference between the last completed slice execution end time and the first slice execution start time). For example, for the `build_scorer` method, it is the total time spent constructing the `Scorer` object across all slices. 
+`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
+`max_<method>`	| The maximum amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `max` time because the method runs at the query level rather than the slice level. This field is included only if you enable concurrent segment search.
+`min_<method>`	| The minimum amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `min` time because the method runs at the query level rather than the slice level. This field is included only if you enable concurrent segment search.
+`avg_<method>`	| The average amount of time taken by any slice to run a query method. Breakdown stats for the `create_weight` method do not include profiled `avg` time because the method runs at the query level rather than the slice level. This field is included only if you enable concurrent segment search.
+`max_<method>_count`	| The maximum number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `max` count because the method runs at the query level rather than the slice level. This field is included only if you enable concurrent segment search.
+`min_<method>_count`	| The minimum number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `min` count because the method runs at the query level rather than the slice level. This field is included only if you enable concurrent segment search.
+`avg_<method>_count`	| The average number of invocations of a `<method>` on any slice. Breakdown stats for the `create_weight` method do not include profiled `avg` count because the method runs at the query level rather than the slice level. This field is included only if you enable concurrent segment search.
 
 ### The `collector` array
 
@@ -972,9 +978,9 @@ Field | Data type | Description
 [`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
 `children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
 `debug` | Object | Some aggregations return a `debug` object that describes the details of the underlying execution.
-`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	
-`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	
-`avg_slice_time_in_nanos`	|The average amount of time taken by any slice to run an aggregation, in nanoseconds.	
+`max_slice_time_in_nanos`	|Long | The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	This field is included only if you enable concurrent segment search.
+`min_slice_time_in_nanos`	|Long |The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	This field is included only if you enable concurrent segment search.
+`avg_slice_time_in_nanos`	|Long |The average amount of time taken by any slice to run an aggregation, in nanoseconds.	This field is included only if you enable concurrent segment search.
 
 ### The `breakdown` object
 
@@ -990,10 +996,10 @@ Field | Description
 `reduce`| Contains the time spent in the `reduce` phase.
 `<method>_count` | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. 
 `<method>`	|The total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	
-`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method.	
-`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method.	
-`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method.	
-`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices.	
-`max_<method>_count`	|The maximum number of invocations of a `<method>` on any slice.	
-`min_<method>_count`	|The minimum number of invocations of a `<method>` on any slice.	
-`avg_<method>_count`	|The average number of invocations of a `<method>` on any slice.	
+`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method. This field is included only if you enable concurrent segment search.
+`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method. This field is included only if you enable concurrent segment search.
+`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method. This field is included only if you enable concurrent segment search.
+`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices. This field is included only if you enable concurrent segment search.
+`max_<method>_count`	|The maximum number of invocations of a `<method>` on any slice. This field is included only if you enable concurrent segment search.
+`min_<method>_count`	|The minimum number of invocations of a `<method>` on any slice. This field is included only if you enable concurrent segment search.
+`avg_<method>_count`	|The average number of invocations of a `<method>` on any slice. This field is included only if you enable concurrent segment search.
