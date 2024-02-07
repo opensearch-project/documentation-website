@@ -39,10 +39,13 @@ Method name | Requires training | Supported spaces | Description
 
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.
+`ef_construction` | false | 100 | false | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
 
 For nmslib, *ef_search* is set in the [index settings](#index-settings).
+{: .note}
+
+An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).
 {: .note}
 
 ### Supported faiss methods
@@ -59,10 +62,13 @@ For hnsw, "innerproduct" is not available when PQ is used.
 
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`ef_search` | false | 512 | false | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches.
-`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.
+`ef_search` | false | 100 | false | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches.
+`ef_construction` | false | 100 | false | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
+
+An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` and `ef_search` values (`512`).
+{: .note}
 
 #### IVF parameters
 
@@ -91,10 +97,13 @@ Method name | Requires training | Supported spaces | Description
 
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.<br>The Lucene engine uses the proprietary term "beam_width" to describe this function, which corresponds directly to "ef_construction". To be consistent throughout OpenSearch documentation, we retain the term "ef_construction" to label this parameter.
+`ef_construction` | false | 100 | false | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.<br>The Lucene engine uses the proprietary term "beam_width" to describe this function, which corresponds directly to "ef_construction". To be consistent throughout the OpenSearch documentation, we retain the term "ef_construction" for this parameter.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.<br>The Lucene engine uses the proprietary term "max_connections" to describe this function, which corresponds directly to "m". To be consistent throughout OpenSearch documentation, we retain the term "m" to label this parameter.
 
 Lucene HNSW implementation ignores `ef_search`  and dynamically sets it to the value of "k" in the search request. Therefore, there is no need to make settings for `ef_search` when using the Lucene engine.
+{: .note}
+
+An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` value (`512`).
 {: .note}
 
 ```json
@@ -251,7 +260,10 @@ At the moment, several parameters defined in the settings are in the deprecation
 Setting | Default | Updatable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but Approximate k-NN search functionality will be disabled.
-`index.knn.algo_param.ef_search` | 512 | true | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches. Only available for nmslib.
-`index.knn.algo_param.ef_construction` | 512 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.algo_param.ef_search` | 100 | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB.
+`index.knn.algo_param.ef_construction` | 100 | false | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
 `index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
 `index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+
+An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` and `ef_search` values (`512`).
+{: .note}
