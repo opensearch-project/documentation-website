@@ -154,7 +154,7 @@ OpenSearch Benchmark returns the following response once the benchmark completes
 
 Now that you're familiar with running OpenSearch Benchmark on a local cluster, you can run OpenSearch Benchmark on your external cluster
  
-  * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
+  * Replace `https://localhost:9200` with your target cluster endpoint. This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
   * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up.
   * If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
