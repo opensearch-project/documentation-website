@@ -19,7 +19,7 @@ You can automate complex OpenSearch setup and preprocessing tasks by providing t
 In OpenSearch 2.12, workflow automation is limited to ML tasks.
 {: .info}
 
-OpenSearch use case templates provide a compact description of the setup process in a JSON or YAML document. These templates describe automated workflow configurations for conversational chat or query generation, AI connectors, tools, agents, and other components that prepare OpenSearch as a backend for generative models. 
+OpenSearch use case templates provide a compact description of the setup process in a JSON or YAML document. These templates describe automated workflow configurations for conversational chat or query generation, AI connectors, tools, agents, and other components that prepare OpenSearch as a backend for generative models. For template examples, see [Sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates).
 
 ## Key features
 
