@@ -36,7 +36,9 @@ The workflow described in the previous section is organized into a [template](#c
 
 To deploy a model on the cluster, you need to create a connector to the model, register the model, and deploy the model.
 
-### `create_connector_1`
+<!-- vale off -->
+### create_connector_1
+<!-- vale on -->
 
 The first step in the workflow is to create a connector to an externally hosted model (in the following example, this step is called `create_connector_1`). The content of the `user_inputs` field exactly matches the ML Commons [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/):
 
@@ -62,7 +64,9 @@ nodes:
 
 When you create a connector, OpenSearch returns a `connector_id`, which you need in order to register the model. 
 
-### `register_model_2`
+<!-- vale off -->
+### register_model_2
+<!-- vale on -->
 
 When registering a model, the `previous_node_inputs` field tells OpenSearch to obtain the required `connector_id` from the output of the `create_connector_1` step. Other inputs required by the [Register Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/) are included in the `user_inputs` field:
 
@@ -79,7 +83,9 @@ When registering a model, the `previous_node_inputs` field tells OpenSearch to o
 
 The output of this step is a `model_id`. You must then deploy the registered model to the cluster. 
 
-### `deploy_model_3`
+<!-- vale off -->
+### deploy_model_3
+<!-- vale on -->
 
 The [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/) requires the `model_id` from the previous step, as specified in the `previous_node_inputs` field:
 
@@ -112,7 +118,9 @@ If you define `previous_node_inputs`, then defining edges is optional.
 
 A CoT agent can use the deployed model in a tool by using the [ML Commons Agent Framework](Link TBD). This step doesn’t strictly correspond to an API but represents a component of the body required by the Register Agent API. This simplifies the register request and allows reuse of the same tool in multiple agents.
 
-### `math_tool`
+<!-- vale off -->
+### math_tool
+<!-- vale on -->
 
 You can configure other tools to be used by the CoT agent. For example, you can configure a math tool as follows. This tool does not depend on any previous steps:
 
@@ -128,7 +136,9 @@ You can configure other tools to be used by the CoT agent. For example, you can 
       max_iteration: 5
 ```
 
-### `sub_agent`
+<!-- vale off -->
+### sub_agent
+<!-- vale on -->
 
 To use the math tool in the agent configuration, specify it as one of the tools in the `previous_node_inputs` field of the agent. You can add other tools to `previous_node_inputs` as necessary. The agent also needs a large language model (LLM) in order to reason with the tools. The LLM is defined by the `llm.model_id` field. This example assumes that the `model_id` from the `deploy_model_3` step will be used. However, if another model is already deployed, the `model_id` of that previously deployed model could be included in the `user_inputs` field instead:
 
@@ -162,7 +172,9 @@ OpenSearch will automatically create the following edges so that the agent can r
   dest: sub_agent
 ```
 
-### `agent_tool`
+<!-- vale off -->
+### agent_tool
+<!-- vale on -->
 
 You can use an agent as a tool for another agent. Registering an agent produces an `agent_id` in the output. The following step defines a tool that uses the `agent_id` from the previous step:
 
@@ -186,7 +198,9 @@ OpenSearch automatically creates an edge connection because this step specifies 
   dest: agent_tool
 ```
 
-### `ml_model_tool`
+<!-- vale off -->
+### ml_model_tool
+<!-- vale on -->
 
 A tool may reference an ML model. This example gets the required `model_id` from the model deployed in a previous step:
 
@@ -212,7 +226,9 @@ OpenSearch automatically creates an edge in order to use the `previous_node_inpu
   dest: ml_model_tool
 ```
 
-### `root_agent`
+<!-- vale off -->
+### root_agent
+<!-- vale on -->
 
 A conversational chat application will communicate with a single root agent that includes the ML model tool and the agent tool in its `tools` field. It will also obtain the `llm.model_id` from the deployed model. Some agents require tools to be in a specific order, which can be enforced by including the `tools_order` field in the user inputs:
 
