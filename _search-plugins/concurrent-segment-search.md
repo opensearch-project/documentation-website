@@ -154,7 +154,7 @@ The following aggregations do not support the concurrent search model. If a sear
 - Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316).
 - Sampler and Diversified Sampler aggregations. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750).
 
-## Things To Know
+## Things to know
 
 ### The `terminate_after` search parameter
 
@@ -166,9 +166,9 @@ Typically, queries are used with smaller `terminate_after` values and thus compl
 
 Depending on the data layout in the segments, the sort optimization can prune entire segments based on the min and max values as well as values collected so far. For cases when the top values are present in the first few segments and all other segments are pruned, you may see an increase in query latency when performing sort with concurrent segment search. Whereas for cases when the last few segments contains top values then you may see improvement in latency with concurrent segment search.
 
-### Terms Aggregations
+### Terms aggregations
 
-When performing concurrent segment search the `shard_size` parameter will be applied at the segment slice level. This may introduce additional document count error, which is correctly calculated by the `doc_count_error_upper_bound` response parameter for such cases.
+When performing concurrent segment search, the `shard_size` parameter will be applied at the segment slice level. This may introduce additional document count error, which is correctly calculated by the `doc_count_error_upper_bound` response parameter for such cases.
 
 For more details on how `shard_size` can affect both `doc_count_error_upper_bound` and collect buckets, see [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
 
