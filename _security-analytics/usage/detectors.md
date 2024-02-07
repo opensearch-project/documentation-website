@@ -37,7 +37,7 @@ After you select the **Alert triggers** tab, you also have the option to add add
 
 ### Threat intelligence feeds
 
-A threat intelligence feed is a real-time, continuous data stream that gathers information related to risks or threats. The critical information in the tactical threat intelligence feed is called an “indicator of compromise” (IoC). 
+A threat intelligence feed is a real-time, continuous data stream that gathers information related to risks or threats. A critical piece of information in the tactical threat intelligence feed is called an *indicator of compromise* (IoC). 
 
 As of OpenSearch 2.12, you can enable threat intelligence for Sigma rules related to malicious IP addresses. 
 
