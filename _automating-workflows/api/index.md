@@ -8,6 +8,9 @@ has_toc: false
 
 # Workflow APIs
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](Link TBD).    
+{: .warning}
+
 OpenSearch supports the following workflow APIs:
 
 * [Create or update workflow]({{site.url}}{{site.baseurl}}/automating-workflows/api/create-workflow/)

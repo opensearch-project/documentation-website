@@ -7,6 +7,9 @@ nav_order: 70
 
 # Deprovision a workflow
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](Link TBD).    
+{: .warning}
+
 When you no longer need a workflow, you can deprovision its resources. Most workflow steps that create a resource have corresponding workflow steps to reverse that action. To retrieve all resources currently created for a workflow, call the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-status/). When you call the Deprovision Workflow API, resources included in the `resources_created` field of the Get Workflow Status API response will be removed using a workflow step corresponding to the one that provisioned them.
 
 The workflow executes the provisioning workflow steps in reverse order. If failures occur because of resource dependencies, such as preventing deletion of a registered model if it is still deployed, the workflow attempts retries.

@@ -6,7 +6,10 @@ nav_order: 20
 
 # Workflow tutorial
 
-You can automate the setup of common use cases, such as conversational chat, using a Chain-of-Thought (CoT) agent. This page presents a complete example of setting up a CoT agent.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](Link TBD).    
+{: .warning}
+
+You can automate the setup of common use cases, such as conversational chat, using a Chain-of-Thought (CoT) agent. An _agent_ orchestrates and runs ML models and tools. A _tool_ performs a set of specific tasks. This page presents a complete example of setting up a CoT agent. For more information about agents and tools, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/)
 
 The setup requires the following sequence of API requests, with provisioned resources used in subsequent requests. The following list provides an overview of the steps required for this workflow. The step names correspond to the names in the template:
 
@@ -116,7 +119,7 @@ If you define `previous_node_inputs`, then defining edges is optional.
 
 ## 2. Use the deployed model for inference
 
-A CoT agent can use the deployed model in a tool by using the [ML Commons Agent Framework](Link TBD). This step doesn’t strictly correspond to an API but represents a component of the body required by the Register Agent API. This simplifies the register request and allows reuse of the same tool in multiple agents.
+A CoT agent can use the deployed model in a tool. This step doesn’t strictly correspond to an API but represents a component of the body required by the [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/). This simplifies the register request and allows reuse of the same tool in multiple agents. For more information about agents and tools, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
 <!-- vale off -->
 ### math_tool
@@ -627,3 +630,7 @@ The following is the same template in JSON format:
 }
 ```
 </details>
+
+## Next steps
+
+To learn more about agents and tools, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).

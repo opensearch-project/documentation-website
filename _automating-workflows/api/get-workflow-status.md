@@ -7,6 +7,9 @@ nav_order: 40
 
 # Get a workflow status
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](Link TBD).    
+{: .warning}
+
 [Provisioning a workflow]({{site.url}}{{site.baseurl}}/automating-workflows/api/provision-workflow/) may take a significant amount of time, particularly when the action is associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring of the provisioning deployment status until it is complete.
 
 ## Path and HTTP methods

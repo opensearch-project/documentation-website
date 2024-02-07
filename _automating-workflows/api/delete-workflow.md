@@ -7,6 +7,9 @@ nav_order: 80
 
 # Delete a workflow
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](Link TBD).    
+{: .warning}
+
 When you no longer need a workflow template, you can delete it by calling the Delete Workflow API. 
 
 Note that deleting a workflow only deletes the stored template but does not deprovision its resources.  
