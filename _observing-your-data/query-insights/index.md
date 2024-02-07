@@ -24,7 +24,12 @@ Query insights features are backed up by the Query Insights plugin. At a high le
 
 ## Installing the OpenSearch Query Insights plugin
 
-You need to install the `query-insights` plugin to enable query insights. For information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+You need to install the `query-insights` plugin to enable query insights. To install the plugin, run the following command:
+
+```bash
+bin/opensearch-plugin install query-insights
+```
+For information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ## Query insights settings
 
