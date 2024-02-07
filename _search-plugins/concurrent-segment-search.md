@@ -137,12 +137,6 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 - `0`: Use the default Lucene mechanism.
 - Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
 
-## The `terminate_after` search parameter
-
-The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. If you include the `terminate_after` parameter in a request, concurrent segment search is disabled and the request is run in a non-concurrent manner.
-
-Typically, queries are used with smaller `terminate_after` values and thus complete quickly because the search is performed on a reduced dataset. Therefore, concurrent search may not further improve performance in this case. Moreover, when `terminate_after` is used with other search request parameters, such as `track_total_hits` or `size`, it adds complexity and changes the expected query behavior. Falling back to a non-concurrent path for search requests that include `terminate_after` ensures consistent results between concurrent and non-concurrent requests.
-
 ## API changes
 
 If you enable the concurrent segment search feature flag, the following Stats API responses will contain several additional fields with statistics about slices:
@@ -156,7 +150,27 @@ Additionally, some [Profile API]({{site.url}}{{site.baseurl}}/api-reference/prof
 
 ## Limitations
 
-Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields do not support the concurrent search model. Thus, if a search request contains a parent aggregation, the aggregation will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level.
+The following aggregations do not support the concurrent search model. If a search request contains one of these aggregations, the request will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level or index level.
+- Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316).
+- Sampler and Diversified Sampler aggregations. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750).
+
+## Things To Know
+
+### The `terminate_after` search parameter
+
+The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. If you include the `terminate_after` parameter in a request, concurrent segment search is disabled and the request is run in a non-concurrent manner.
+
+Typically, queries are used with smaller `terminate_after` values and thus complete quickly because the search is performed on a reduced dataset. Therefore, concurrent search may not further improve performance in this case. Moreover, when `terminate_after` is used with other search request parameters, such as `track_total_hits` or `size`, it adds complexity and changes the expected query behavior. Falling back to a non-concurrent path for search requests that include `terminate_after` ensures consistent results between concurrent and non-concurrent requests.
+
+### Sorting
+
+Depending on the data layout in the segments, the sort optimization can prune entire segments based on the min and max values as well as values collected so far. For cases when the top values are present in the first few segments and all other segments are pruned, you may see an increase in query latency when performing sort with concurrent segment search. Whereas for cases when the last few segments contains top values then you may see improvement in latency with concurrent segment search.
+
+### Terms Aggregations
+
+When performing concurrent segment search the `shard_size` parameter will be applied at the segment slice level. This may introduce additional document count error, which is correctly calculated by the `doc_count_error_upper_bound` response parameter for such cases.
+
+For more details on how `shard_size` can affect both `doc_count_error_upper_bound` and collect buckets, see [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
 
 ## Developer information: AggregatorFactory changes
 
