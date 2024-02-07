@@ -154,7 +154,10 @@ The following aggregations do not support the concurrent search model. If a sear
 - Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316).
 - Sampler and Diversified Sampler aggregations. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750).
 
-## Things to know
+## Other considerations
+
+Review the following additional considerations for concurrent segment search.
+
 
 ### The `terminate_after` search parameter
 
