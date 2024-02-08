@@ -18,6 +18,10 @@ You can configure the `add_entries` processor with the following options.
 | :--- | :--- | :--- |
 | `entries` | Yes | A list of entries to add to an event. |
 | `key` | Yes | The key of the new entry to be added. Some examples of keys include `my_key`, `myKey`, and `object/sub_Key`. |
+| `metadata_key` | Yes | The key of the new metadata attribute to be added. Argument must be a literal string key and not JsonPointer. One of key or metadata_key is required. |
+| `format` | No | A format string to use as value of the new entry to be added. For example, ${key1}-${ke2} where key1 and key2 are existing keys in the event. Required if value is not specified. |
+| `value_expression` | No | An expression string to use as value of the new entry to be added. For example, /key where key is an existing key in the event of type Number/String/Boolean. Expressions can also contain functions returning Number/String/Integer. For example length(/key) would return the length of the key in the event and key must of String type. Please see expressions syntax document for complete list of supported functions. Required if value and `format are not specified. |
+| `add_when` | No | A Data Prepper ['/some_key == "test"'](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) that will be evaluated to determine if the processor will be run on an Event. |
 | `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, Booleans, numbers, null, nested objects, and arrays. |
 | `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
 
@@ -36,6 +40,9 @@ pipeline:
         - key: "newMessage"
           value: 3
           overwrite_if_key_exists: true
+        - metadata_key: "myMetadataKey"
+          value_expression: 'length("newMessage")'
+          add_when: '/some_key == "test"'
   sink:
 ```
 {% include copy.html %}
