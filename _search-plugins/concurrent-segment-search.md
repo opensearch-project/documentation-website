@@ -171,7 +171,7 @@ Depending on the data layout of the segments, the sort optimization feature can 
 
 ### Terms aggregations
 
-When performing concurrent segment search, the `shard_size` parameter will be applied at the segment slice level. This may introduce an additional document count error compared to non-concurrent search, which is correctly calculated by the `doc_count_error_upper_bound` response parameter in such cases.
+Non-concurrent search calculates the document count error and returns it in the `doc_count_error_upper_bound` response parameter. During concurrent segment search, the `shard_size` parameter is applied at the segment slice level. Because of this, concurrent search may introduce an additional document count error.
 
 For more information about how `shard_size` can affect both `doc_count_error_upper_bound` and collected buckets, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
 
