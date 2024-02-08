@@ -1,0 +1,100 @@
+---
+layout: default
+title: Dashboards Assistant
+nav_order: 1
+has_children: false
+has_toc: false
+nav_exclude: true
+permalink: /dashboards-assistant/
+redirect_from:
+  - /dashboards-assistant/index/
+---
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, please checkout [GitHub repo](https://github.com/opensearch-project/dashboards-assistant).
+{: .warning}
+
+# Dashboards assistant
+
+The OpenSearch Assistant Dashboards plugin lets you have an OpenSearch assistant to help dashboards users use OpenSearch. With dashboards assistant, user can quickly gain insights on their operational data just with nature language without the need to specialized in query tools and skills.
+
+## Enable dashboards assistant
+
+In OpenSearch 2.12, dashboards assistant is added as an experimental feature. To enable it, firstly, you need to configure OpenSearch-Dashboards, update `opensearch_dashboards.yml` with:
+```
+assistant.chat.enabled: true
+```
+
+Secondly, call the following api to setup the root agent id used by the assistant:
+```
+PUT .plugins-ml-config/_doc/os_chat
+{
+    "type":"os_chat_root_agent",
+    "configuration":{
+        "agent_id": "your root agent id"
+    }
+}
+```
+
+Then restart OpenSearch-Dashboards server, after restarted successfully, you should see the dashboards assistant on top right header on OpenSearch-Dashboards UI.
+
+<img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/entry.png" alt="The dashboards assistant entry">
+
+## Configure dashboards assistant
+Please check flow framework documentation to get the default chatbot template and modify it with your own model. You can also customize tools you want to use in the chatbot. For more details, checkout the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
+
+## Use dashboards assistant
+### Start the conversation
+
+You can start the conversation by clicking the input box, or use hot key `ctrl + /` to start typing your first question.
+
+<img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/start-conversation.png" alt="Start the conversation">
+
+Then pressing `Enter`, you will see the conversation dialog pops up, and the assistant starts to generating response for the question and after a while:
+
+<img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/response.png" alt="The assistant response">
+
+### Regenerate a response
+Under the response, the second from the left is regenerate button, click it will regenerate answer for the same question. The previous answer will be replaced with the new answer both on the UI and chat history.
+
+### The suggestions by the assistant
+Under the response, we also provide suggestions that we think user may be interested to ask. User can click one of them to see the response.
+
+<img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestions.png" alt="The assistant suggestions">
+
+### Rate the response
+Each response contains a thumb up and thumb down icon button, you can click on the button to feedback whether you are satisfied with the response.
+
+<img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/rate.png" alt="Rate the response">
+
+### See how the response was generated
+Under the available suggestions, there will be a link “How was this generated?”, click this link will show which tools are triggered to generate this response. It can be used for trouble shooting. There could be multiple steps if multiple tools are involved. Each step will display tool name with input and output of the tool.
+
+<img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/traces.png" alt="How was the response generated">
+
+### Continue with a past conversation
+#### View past conversation
+Click the clock icon to open the conversation history panel. The clock icon will become active status and conversations will be displayed clicked after clicked.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-history-entry.png" alt="Show conversation history">
+
+Search conversations by title:
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-history-list.png" alt="List of conversations">
+
+#### Manage past conversation
+Click the pencil icon to edit conversation name, type the new conversation name in the below input, then click “Confirm name” button. The new conversation name will be saved.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/edit-conversation-title.png" alt="Edit the conversation title">
+
+Click the trash icon to delete conversation, the delete confirmation modal will be displayed after clicked. Click the “Delete conversation” button to confirm the conversation delete operation. The conversation will be deleted after “Delete conversation” button clicked.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/delete-conversation.png" alt="Delete the conversation">
+
+### Share a conversation via notebook
+Click `Save to notebook` button to save your conversation to notebook. All messages between you and LLM model will be saved to observability notebook after entering name for notebook and confirm.
+
+<img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/save-conversation-to-notebook.png" alt="Save a conversation to notebook">
+
+Now you can find your conversation in observability notebook lists and others can see it as well.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-in-notebook.png" alt="Conversation saved to notebook">
