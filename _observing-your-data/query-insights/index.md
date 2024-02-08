@@ -8,23 +8,23 @@ has_toc: false
 
 # Query insights
 
-Query insights helps you monitor and analyze the search queries within your OpenSearch cluster. With minimal performance impact, query insights features aim to provide comprehensive insights into search query execution, enabling you to better understand search query characteristics, patterns, and system behavior during query execution stages. Query insights facilitate enhanced detection, diagnosis, and prevention of query performance issues, ultimately improving query processing performance, user experience, and overall system resilience.
+Query insights features help you monitor and analyze the search queries within your OpenSearch cluster. With minimal performance impact, query insights features aim to provide comprehensive insights into search query execution, enabling you to better understand search query characteristics, patterns, and system behavior during query execution stages. Query insights features facilitate enhanced detection, diagnosis, and prevention of query performance issues, ultimately improving query processing performance, user experience, and overall system resilience.
 
-Typical use cases of query insights include the following:
+Typical use cases for query insights features include the following:
 
-- Identifying top queries by latency within specific time frames.
-- Debugging slow search queries and latency spikes.
+- Identifying top queries by latency within specific time frames
+- Debugging slow search queries and latency spikes
 
-Query insights features are backed up by the Query Insights plugin. At a high level, query insights comprises the following components:
+Query insights features are supported by the Query Insights plugin. At a high level, query insights features comprise the following components:
 
-* _Collectors_: Gather performance-related data points at various stages of search query execution within OpenSearch.
+* _Collectors_: Gather performance-related data points at various stages of search query execution.
 * _Processors_: Perform lightweight aggregation and processing on data collected by the collectors.
-* _Exporters_: Export the insights data into different sinks.
+* _Exporters_: Export the data into different sinks.
 
 
-## Installing the OpenSearch Query Insights plugin
+## Installing the Query Insights plugin
 
-You need to install the `query-insights` plugin to enable query insights. To install the plugin, run the following command:
+You need to install the `query-insights` plugin to enable query insights features. To install the plugin, run the following command:
 
 ```bash
 bin/opensearch-plugin install query-insights
@@ -33,6 +33,6 @@ For information about installing plugins, see [Installing plugins]({{site.url}}{
 
 ## Query insights settings
 
-Query insights supports the following settings:
+Query insights features support the following settings:
 
 - [Top n queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)
