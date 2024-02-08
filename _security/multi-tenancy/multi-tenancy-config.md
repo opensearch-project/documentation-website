@@ -21,6 +21,7 @@ config:
       index: '.kibana'
     do_not_fail_on_forbidden: false
 ```
+The configuration mentioned is for OpenSearch Dashboards, which inherits much of Kibana's functionality but is now developed and maintained as part of the OpenSearch project.
 
 | Setting | Description |
 | :--- | :--- |
