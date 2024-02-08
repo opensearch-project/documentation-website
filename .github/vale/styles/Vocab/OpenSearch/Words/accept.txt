@@ -20,6 +20,7 @@ Boolean
 [Dd]eallocate
 [Dd]eduplicates?
 [Dd]eduplication
+[Dd]eprovision(s|ed|ing)?
 [Dd]eserialize
 [Dd]eserialization
 Dev
@@ -75,7 +76,9 @@ Levenshtein
 [Mm]ultivalued
 [Mm]ultiword
 [Nn]amespace
+[Oo]versamples?
 pebibyte
+[Pp]erformant
 [Pp]luggable
 [Pp]reconfigure
 [Pp]refetch
@@ -130,6 +133,7 @@ tebibyte
 [Uu]nigram
 [Uu]nnesting
 [Uu]nrecovered
+[Uu]nregister(s|ed|ing)?
 [Uu]pdatable
 [Uu]psert
 [Ww]alkthrough

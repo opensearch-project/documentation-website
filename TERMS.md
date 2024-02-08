@@ -291,6 +291,8 @@ Exception: *Execution* is unavoidable for third-party terms for which no alterna
 
 **fail over (v.), failover (n.)**
 
+**Faiss**
+
 **file name**
 
 **frontend (n., adj.)**
@@ -399,7 +401,11 @@ Use *just* in the sense of *just now* (as in "the resources that you just create
 
 ## K
 
-**key store**
+**keystore**
+
+**key-value**
+
+Not _key/value_.
 
 **kill**
 
@@ -716,7 +722,7 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
-**trust store**
+**truststore**
 
 **turn on, turn off**
 
