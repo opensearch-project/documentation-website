@@ -26,7 +26,7 @@ A slice is the unit of work that can be executed by a thread. Each query can be 
 
 In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
 
-#### Example request
+#### Example request: Non-concurrent search
 
 To use the Profile API, include the `profile` parameter set to `true` in the search request sent to the `_search` endpoint:
 
@@ -988,14 +988,13 @@ The `breakdown` object represents the timing statistics about low-level Lucene e
 
 Field | Description
 :--- | :--- 
-`initialize` | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation.
-`build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context.
-`collect`| Contains the time spent collecting the documents into buckets.
-`post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method.
-`build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation.
+`initialize` | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation. For concurrent segment search,`build_aggregation` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
+`build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context. For concurrent segment search,`build_aggregation` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
+`collect`| Contains the time spent collecting the documents into buckets. For concurrent segment search,`build_aggregation` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
+`post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method. For concurrent segment search,`build_aggregation` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
+`build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation. For concurrent segment search,`build_aggregation` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
 `reduce`| Contains the time spent in the `reduce` phase.
 `<method>_count` | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. 
-`<method>`	|The total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	
 `max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method. This field is included only if you enable concurrent segment search.
 `min_<method>`|The minimum amount of time taken by any slice to run an aggregation method. This field is included only if you enable concurrent segment search.
 `avg_<method>`	|The average amount of time taken by any slice to run an aggregation method. This field is included only if you enable concurrent segment search.
