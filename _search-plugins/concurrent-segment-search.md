@@ -151,12 +151,12 @@ Additionally, some [Profile API]({{site.url}}{{site.baseurl}}/api-reference/prof
 ## Limitations
 
 The following aggregations do not support the concurrent search model. If a search request contains one of these aggregations, the request will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level or index level.
-- Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316).
-- Sampler and Diversified Sampler aggregations. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750).
+- Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316) for more information.
+- Sampler and diversified sampler aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750) for more information.
 
 ## Other considerations
 
-Review the following additional considerations for concurrent segment search.
+The following sections provide additional considerations for concurrent segment search.
 
 
 ### The `terminate_after` search parameter
@@ -167,13 +167,13 @@ Typically, queries are used with smaller `terminate_after` values and thus compl
 
 ### Sorting
 
-Depending on the data layout in the segments, the sort optimization can prune entire segments based on the min and max values as well as values collected so far. For cases when the top values are present in the first few segments and all other segments are pruned, you may see an increase in query latency when performing sort with concurrent segment search. Whereas for cases when the last few segments contains top values then you may see improvement in latency with concurrent segment search.
+Depending on the data layout of the segments, the sort optimization feature can prune entire segments based on the min and max values as well as previously collected values. If the top values are present in the first few segments and all other segments are pruned, query latency may increase when sorting with concurrent segment search. Conversely, if the last few segments contain the top values, then latency may improve with concurrent segment search.
 
 ### Terms aggregations
 
-When performing concurrent segment search, the `shard_size` parameter will be applied at the segment slice level. This may introduce additional document count error, which is correctly calculated by the `doc_count_error_upper_bound` response parameter for such cases.
+When performing concurrent segment search, the `shard_size` parameter will be applied at the segment slice level. This may introduce an additional document count error, which is correctly calculated by the `doc_count_error_upper_bound` response parameter in such cases.
 
-For more details on how `shard_size` can affect both `doc_count_error_upper_bound` and collect buckets, see [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
+For more information about how `shard_size` can affect both `doc_count_error_upper_bound` and collect buckets, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
 
 ## Developer information: AggregatorFactory changes
 
