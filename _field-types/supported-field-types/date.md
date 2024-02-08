@@ -124,7 +124,7 @@ Components of full date formats are separated by a `-` delimiter for date and `:
 Format name and description | Pattern and examples
 :--- | :---
 **Dates** |
-`date_optional_time`<br>`strict_date_optional_time` <br> A generic full date and time. Year is required. Month, day, and time are optional. Time is separated from date by `T`. | Multiple patterns. <br>"2019-03-23T21:34:46.123456789-04:00" <br> `"2019-03-23T21:34:46"` <br> `"2019-03-23T21:34"` <br> `"2019"`
+`date_optional_time`<br>`strict_date_optional_time` <br> A generic full date and time. Year is required. Month, day, and time are optional. Time is separated from date by `T`. | Multiple patterns. <br>`"2019--03--23T21:34:46.123456789--04:00"` <br> `"2019-03-23T21:34:46"` <br> `"2019-03-23T21:34"` <br> `"2019"`
 `strict_date_optional_time_nanos` <br>A generic full date and time. Year is required. Month, day, and time are optional. If time is specified, it must contain hours, minutes, and seconds, but fraction of a second is optional. Fraction of a second is one to nine digits long and has nanosecond resolution. Time is separated from date by `T`. | Multiple patterns. <br> `"2019-03-23T21:34:46.123456789-04:00"` <br> `"2019-03-23T21:34:46"` <br> `"2019"` 
 `date_time` <br> `strict_date_time` <br> A full date and time separated by `T`. | `"yyyy-MM-dd`T`HH:mm:ss.SSSZ"` <br> `"2019-03-23T21:34:46.123-04:00"`
 `date_time_no_millis` <br> `strict_date_time_no_millis` <br> A full date and time without milliseconds, separated by `T`. | `"yyyy-MM-dd'T'HH:mm:ssZ"` <br> `"2019-03-23T21:34:46-04:00"` 
