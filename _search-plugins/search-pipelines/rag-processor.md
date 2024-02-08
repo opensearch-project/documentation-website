@@ -84,9 +84,9 @@ GET /my_rag_test_data/_search?search_pipeline=rag_pipeline
     "generative_qa_parameters": {
       "llm_model": "gpt-3.5-turbo",
       "llm_question": "Was Abraham Lincoln a good politician",
-      "conversation_id": "iXC4bI0BfUsSoeNTjS30",
+      "memory_id": "iXC4bI0BfUsSoeNTjS30",
       "context_size": 5,
-      "interaction_size": 5,
+      "message_size": 5,
       "timeout": 15
     }
   }
