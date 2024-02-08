@@ -152,7 +152,7 @@ Additionally, some [Profile API]({{site.url}}{{site.baseurl}}/api-reference/prof
 
 The following aggregations do not support the concurrent search model. If a search request contains one of these aggregations, the request will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level or index level.
 - Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316) for more information.
-- Sampler and diversified sampler aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750) for more information.
+- `Sampler` and `Diversified sampler` aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750) for more information.
 
 ## Other considerations
 
@@ -171,9 +171,9 @@ Depending on the data layout of the segments, the sort optimization feature can 
 
 ### Terms aggregations
 
-When performing concurrent segment search, the `shard_size` parameter will be applied at the segment slice level. This may introduce an additional document count error, which is correctly calculated by the `doc_count_error_upper_bound` response parameter in such cases.
+When performing concurrent segment search, the `shard_size` parameter will be applied at the segment slice level. This may introduce an additional document count error compared to non-concurrent search, which is correctly calculated by the `doc_count_error_upper_bound` response parameter in such cases.
 
-For more information about how `shard_size` can affect both `doc_count_error_upper_bound` and collect buckets, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
+For more information about how `shard_size` can affect both `doc_count_error_upper_bound` and collected buckets, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
 
 ## Developer information: AggregatorFactory changes
 
