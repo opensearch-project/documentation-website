@@ -88,8 +88,96 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `start_position` | No | String | The position from where the source starts reading stream events when the DynamoDB stream option is enabled. `LATEST` starts reading events from the most recent stream record. 
 
+## Exposed metadata attributes
+
+The following metadata will be added to each Event that is processed by the DynamoDB source. These metadata attributes can be accessed with
+the [expression syntax getMetadata function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata).
+
+* `primary_key` - The primary key of the DynamoDB item. For tables that only contain a partition key, this value will give the partition key. For tables that contain both a partition and sort key, the primary_key attribute will be equal to the partition and sort key, separated by a `|` (i.e. `partition_key|sort_key`)
+* `partition_key` - The partition key of the DynamoDB item
+* `sort_key` - The sort key of the DynamoDB item. This will be null if the table does not have a sort key
+* `dynamodb_timestamp` - The timestamp of the DynamoDB item. This will be the export time for export items, and the DDB stream Event time for stream items. This timestamp is used by sinks to emit an `EndtoEndLatency` metric for DDB stream Events, which tracks the latency between a change in the DDB table, and that change getting applied to the sink.
+* `document_version` - Based off the `dynamodb_timestamp`, and modified to break ties between stream items that are received in the same second. Recommend for use with the `opensearch` sink `document_version` setting.
+* `opensearch_action` - A default value for mapping DDB Event actions to OpenSearch actions. This action will be `index` for export items, and INSERT or MODIFY stream events. This action will be `delete` for REMOVE stream events.
+* `dynamodb_event_name` - The exact event type for the item. Will be `null` for export items, and either `INSERT`, `MODIFY`, or `REMOVE` for stream events.
+* `table_name` - The DynamoDB table name that an event came from.
 
 
+## Permissions
+
+The following shows the minimum required permissions for running DDB as a source
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "allowRunExportJob",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DescribeTable",
+                "dynamodb:DescribeContinuousBackups",
+                "dynamodb:ExportTableToPointInTime"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-east-1:{account-id}:table/my-table"
+            ]
+        },
+        {
+            "Sid": "allowCheckExportjob",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DescribeExport"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-east-1:{account-id}:table/my-table/export/*"
+            ]
+        },
+        {
+            "Sid": "allowReadFromStream",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DescribeStream",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-east-1:{account-id}:table/my-table/stream/*"
+            ]
+        },
+        {
+            "Sid": "allowReadAndWriteToS3ForExport",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:AbortMultipartUpload",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket/*"
+            ]
+        }
+    ]
+}
+```
+
+## Metrics
+
+The `dynamodb` source includes the following metrics
+
+### Counters
+
+* `exportJobSuccess` - The number of export jobs that have been submitted successfully
+* `exportJobFailure` - The number of export job submission attempts that have failed
+* `exportS3ObjectsTotal` - The total number of export data files found in S3 for an export
+* `exportS3ObjectsProcessed` - The total number of export data files that have been processed successfully from S3
+* `exportRecordsTotal` - The total number of records found the entire export
+* `exportRecordsProcessed` - The total number of export records that have been processed successfully
+* `exportRecordsProcessingErrors` - The number of export record processing errors
+* `changeEventsProcessed` - The number of change events processed from DDB streams
+* `changeEventsProcessingErrors` - The number of processing errors for change events from DDB streams
+* `shardProgress` - Incremented when DDB streams is being read from correctly. If this is 0 for a certain period of time, then there is a problem with the pipeline if it has streams enabled
 
 
 
