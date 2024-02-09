@@ -15,7 +15,7 @@ The `date` processor adds a default timestamp to an event, parses timestamp fiel
 
 The following table describes the options you can use to configure the `date` processor.
 
-Option | Required | Type            | Description
+Option | Required | Type | Description
 :--- | :--- |:----------------| :---
 match | Conditionally | [Match](#Match) | The Date match configuration. There is no default value. This option cannot be defined at the same time as `from_time_received`. Include multiple date processors in your pipeline if both options should be used.
 from_time_received | Conditionally | Boolean         | When `true`, timestamp from event metadata which is the time when source receives the event is added to event data. Default value is `false`. This option cannot be defined at the same time as `match`. Include multiple date processors in your pipeline if both options should be used.
@@ -28,7 +28,7 @@ destination_timezone | No | String          | Timezone used for storing timestam
 locale | No | String          | Locale is used for parsing dates. It's commonly used for parsing month names(`MMM`). It can have language, country and variant fields using IETF BCP 47 or String representation of [Locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object. For example `en-US` for IETF BCP 47 and `en_US` for string representation of Locale. Full list of locale fields which includes language, country and variant can be found [the language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default value is `Locale.ROOT`.
 
 ### Match
-Option | Required | Type    | Description
+Option | Required | Type | Description
 :--- |:---------|:--------| :---
 key | Yes      | String | Represents the key in the event to match the patterns against. Required if match is configured. 
 patterns | Yes      | List | List of possible patterns the timestamp value of key can have. The patterns are based on sequence of letters and symbols. The `patterns` support all the patterns listed in Java [DatetimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). and also supports `epoch_second`, `epoch_milli` and `epoch_nano` values which represents the timestamp as the number of seconds, milliseconds and nano seconds since epoch. Epoch values are always UTC time zone.
