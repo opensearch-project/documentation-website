@@ -223,7 +223,7 @@ The response contains profiling information:
 
 #### Example response: Concurrent segment search
 
-The following is an example response for a concurrent search with three segment slices:
+The following is an example response for a concurrent segment search with three segment slices:
 
 <details closed markdown="block">
   <summary>
