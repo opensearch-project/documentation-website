@@ -78,6 +78,7 @@ Levenshtein
 [Nn]amespace
 [Oo]versamples?
 pebibyte
+[Pp]erformant
 [Pp]luggable
 [Pp]reconfigure
 [Pp]refetch
