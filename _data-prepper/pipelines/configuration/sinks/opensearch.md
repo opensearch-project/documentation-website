@@ -50,37 +50,61 @@ pipeline:
 
 The following table describes options you can configure for the `opensearch` sink.
 
+Option | Required | Type           | Description
+:--- | :--- |:---------------| :---
+hosts | Yes | List           | List of OpenSearch hosts to write to (for example, `["https://localhost:9200", "https://remote-cluster:9200"]`).
+cert | No | String         | Path to the security certificate (for example, `"config/root-ca.pem"`) if the cluster uses the OpenSearch Security plugin.
+username | No | String         | Username for HTTP basic authentication.
+password | No | String         | Password for HTTP basic authentication.
+aws | No | AWS            | The AWS Configuration. See [aws](#aws) for more information.
+[max_retries](#configure-max_retries) | No | Integer        | The maximum number of times the OpenSearch sink should try to push data to the OpenSearch server before considering it to be a failure. Defaults to `Integer.MAX_VALUE`. If not provided, the sink will try to push data to the OpenSearch server indefinitely because the default value is high and exponential backoff would increase the waiting time before retry.
+socket_timeout | No | Integer        | The timeout, in milliseconds, waiting for data to return (or the maximum period of inactivity between two consecutive data packets). A timeout value of zero is interpreted as an infinite timeout. If this timeout value is negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing socket timeouts.
+connect_timeout | No | Integer        | The timeout in milliseconds used when requesting a connection from the connection manager. A timeout value of zero is interpreted as an infinite timeout. If this timeout value is negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing connection timeouts.
+insecure | No | Boolean        | Whether or not to verify SSL certificates. If set to true, certificate authority (CA) certificate verification is disabled and insecure HTTP requests are sent instead. Default value is `false`.
+proxy | No | String         | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
+index | Conditionally | String         | Name of the export index. Applicable and required only when the `index_type` is `custom`. Index can be a plain string, such as `my-index-name`. Index can also contain [Java date-time patterns](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) such as `my-index-${yyyy.MM.dd}` or `my-${yyyy-MM-dd-HH}-index`. Index names can also be formatted using field values such as `my-index-${/my_field}`, as well as using [Data Prepper expressions](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) such as `my-index-${getMetadata(\"my_metadata_field\"}`. Putting this all together, such as `my-${/my_field}-${getMetadata(\"metadata_field\")}-%{yyyy.MM.dd}` provides a lot of flexibility when creating static, dynamic, and rolling indexes.
+index_type | No | String         | This index type tells the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default value is `custom`.
+template_type | No | String         | Defines what type of OpenSearch template to use. The available options are `v1` and `index-template`. The default value is `v1`, which uses the original OpenSearch templates available at the `_template` API endpoints. The `index-template` option uses composable [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) which are available through OpenSearch's `_index_template` API. Composable index types offer more flexibility than the default and are necessary when an OpenSearch cluster has already existing index templates. Composable templates are available for all versions of OpenSearch and some later versions of Elasticsearch. When `distribution_version` is set to `es6`, Data Prepper enforces the `template_type` as `v1`.
+template_file | No | String         | The path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file such as `/your/local/template-file.json` when `index_type` is set to `custom`.  For an example template file, see [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json). If you supply a template file it must match the template format specified by the `template_type` parameter.
+template_content | No | Json           | Inline JSON for the [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/). See the [configuration example with template_content](#example_template_content) for a full configuration example.
+document_id | No | String         | A format string to use as the `_id` in OpenSearch documents. For specifying a single field in the Event, use `${/my_field}`. You can also use Data Prepper expressions to construct the document_id, for example `${getMetadata(\"some_metadata_key\")}`. These options can be combined into more complex formats, such as `${/my_field}-test-${getMetadata(\"some_metadata_key\")}` 
+document_version | No | String         | A format string to use as the `_version` in OpenSearch documents. For specifying a single field in the Event, use `${/my_field}`. You can also use Data Prepper expressions to construct the document_version, for example `${getMetadata(\"some_metadata_key\")}`. These options can be combined into more complex versions, such as `${/my_field}${getMetadata(\"some_metadata_key\")}`. The `document_version` format must evaluate to a Long type, and can only be used when `document_version_type` is set to either `external` or `external_gte`.
+document_version_type | No | String         | The document version type for [index operations](https://opensearch.org/docs/1.0/opensearch/rest-api/document-apis/index-document/). Must be one of `external`, `external_gte` or `internal`. If set to `external` or `external_gte`, `document_version` is required.
+dlq_file | No | String         | The path to your preferred dead letter queue file (for example, `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
+dlq | No | N/A            | DLQ configurations. See [Dead Letter Queues]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/) for details. If the `dlq_file` option is also available, the sink will fail.
+bulk_size | No | Integer (long) | The maximum size (in MiB) of bulk requests sent to the OpenSearch cluster. Values below 0 indicate an unlimited size. If a single document exceeds the maximum bulk request size, Data Prepper sends it individually. Default value is 5.
+ism_policy_file | No | String         | The absolute file path for an ISM (Index State Management) policy JSON file. This policy file is effective only when there is no built-in policy file for the index type. For example, `custom` index type is currently the only one without a built-in policy file, thus it would use the policy file here if it's provided through this parameter. For more information, see [ISM policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
+number_of_shards | No | Integer        | The number of primary shards that an index should have on the destination OpenSearch server. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
+number_of_replicas | No | Integer        | The number of replica shards each primary shard should have on the destination OpenSearch server. For example, if you have 4 primary shards and set number_of_replicas to 3, the index has 12 replica shards. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
+distribution_version | No | String         | Indicates whether the sink backend version is Elasticsearch 6 or later. `es6` represents Elasticsearch 6. `default` represents the latest compatible backend version, such as Elasticsearch 7.x, OpenSearch 1.x, or OpenSearch 2.x. Default is `default`.
+enable_request_compression | No | Boolean        | Whether to enable compression when sending requests to OpenSearch. When `distribution_version` is set to `es6`, default is `false`. For all other distribution versions, default is `true`.
+action | No | String         | The OpenSearch bulk action to use for documents. Must be one of `create`, `index`, `update`, `upsert`, or `delete`. The default value is `index`.
+actions | No | List           | A List of actions that can be used as an alternative to `action` that reads as a switch case statement to conditionally determine the bulk action to take for an Event. See [actions configuration example](#example_template_content) for a full configuration using `actions`. See [actions configuration](#actions) for details on each element of the `actions` list
+flush_timeout | No | Long           | A long of the millisecond duration to try packing a bulk request up to the bulk_size before flushing. If this timeout expires before a bulk request has reached the bulk_size, the request will be flushed as-is. Set to -1 to disable the flush timeout and instead flush whatever is present at the end of each batch. Default is 60,000, or one minute.
+normalize_index | No | Boolean        | If true, the OpenSearch sink will try to make dynamic index names (index names with format options specified in ${}) valid according to [index naming restrictions](https://opensearch.org/docs/2.11/api-reference/index-apis/create-index/#index-naming-restrictions). Any invalid characters will be removed. Default value is false.
+routing | No | String         | A string which is used as a hash for generating sharding id for the document when it is stored in the OpenSearch. Each incoming record is searched for this field and if it is present, it is used as the routing field for the document, if it is not present, the default routing mechanism of using docuemnt_id is used by OpenSearch when storing the document is used. Supports formatting with fields in the Events and [Data Prepper expressions](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `${/my_field}-test-${getMetadata(\"some_metadata_key\")}`
+document_root_key | No | String         | The key in the event that will be used as the root in the document. The default is the root of the event. If the key does not exist the entire event is written as the document. If the value at the document_root_key is a basic type (ie String, int, etc), the document will have a structure of {"data": <value of the document_root_key>}.
+
+## aws
+
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-hosts | Yes | List | List of OpenSearch hosts to write to (for example, `["https://localhost:9200", "https://remote-cluster:9200"]`).
-cert | No | String | Path to the security certificate (for example, `"config/root-ca.pem"`) if the cluster uses the OpenSearch Security plugin.
-username | No | String | Username for HTTP basic authentication.
-password | No | String | Password for HTTP basic authentication.
-aws_sigv4 | No | Boolean | Default value is false. Whether to use AWS Identity and Access Management (IAM) signing to connect to an Amazon OpenSearch Service domain. For your access key, secret key, and optional session token, Data Prepper uses the default credential chain (environment variables, Java system properties, `~/.aws/credential`, etc.).
-aws_region | No | String | The AWS region (for example, `"us-east-1"`) for the domain if you are connecting to Amazon OpenSearch Service.
-aws_sts_role_arn | No | String | IAM role that the plugin uses to sign requests sent to Amazon OpenSearch Service. If this information is not provided, the plugin uses the default credentials.
-[max_retries](#configure-max_retries) | No | Integer | The maximum number of times the OpenSearch sink should try to push data to the OpenSearch server before considering it to be a failure. Defaults to `Integer.MAX_VALUE`. If not provided, the sink will try to push data to the OpenSearch server indefinitely because the default value is high and exponential backoff would increase the waiting time before retry.
-socket_timeout | No | Integer | The timeout, in milliseconds, waiting for data to return (or the maximum period of inactivity between two consecutive data packets). A timeout value of zero is interpreted as an infinite timeout. If this timeout value is negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing socket timeouts.
-connect_timeout | No | Integer | The timeout in milliseconds used when requesting a connection from the connection manager. A timeout value of zero is interpreted as an infinite timeout. If this timeout value is negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing connection timeouts.
-insecure | No | Boolean | Whether or not to verify SSL certificates. If set to true, certificate authority (CA) certificate verification is disabled and insecure HTTP requests are sent instead. Default value is `false`.
-proxy | No | String | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
-index | Conditionally | String | Name of the export index. Applicable and required only when the `index_type` is `custom`.
-index_type | No | String | This index type tells the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default value is `custom`.
-template_type | No | String | Defines what type of OpenSearch template to use. The available options are `v1` and `index-template`. The default value is `v1`, which uses the original OpenSearch templates available at the `_template` API endpoints. The `index-template` option uses composable [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) which are available through OpenSearch's `_index_template` API. Composable index types offer more flexibility than the default and are necessary when an OpenSearch cluster has already existing index templates. Composable templates are available for all versions of OpenSearch and some later versions of Elasticsearch. When `distribution_version` is set to `es6`, Data Prepper enforces the `template_type` as `v1`.
-template_file | No | String | The path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file such as `/your/local/template-file.json` when `index_type` is set to `custom`.  For an example template file, see [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json). If you supply a template file it must match the template format specified by the `template_type` parameter.
-document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (for example, `"my-field"`) if `index_type` is `custom`.
-dlq_file | No | String | The path to your preferred dead letter queue file (for example, `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
-dlq | No | N/A | DLQ configurations. See [Dead Letter Queues]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/) for details. If the `dlq_file` option is also available, the sink will fail.
-bulk_size | No | Integer (long) | The maximum size (in MiB) of bulk requests sent to the OpenSearch cluster. Values below 0 indicate an unlimited size. If a single document exceeds the maximum bulk request size, Data Prepper sends it individually. Default value is 5.
-ism_policy_file | No | String | The absolute file path for an ISM (Index State Management) policy JSON file. This policy file is effective only when there is no built-in policy file for the index type. For example, `custom` index type is currently the only one without a built-in policy file, thus it would use the policy file here if it's provided through this parameter. For more information, see [ISM policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
-number_of_shards | No | Integer | The number of primary shards that an index should have on the destination OpenSearch server. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
-number_of_replicas | No | Integer | The number of replica shards each primary shard should have on the destination OpenSearch server. For example, if you have 4 primary shards and set number_of_replicas to 3, the index has 12 replica shards. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
-distribution_version | No | String | Indicates whether the sink backend version is Elasticsearch 6 or later. `es6` represents Elasticsearch 6. `default` represents the latest compatible backend version, such as Elasticsearch 7.x, OpenSearch 1.x, or OpenSearch 2.x. Default is `default`.
-enable_request_compression | No | Boolean | Whether to enable compression when sending requests to OpenSearch. When `distribution_version` is set to `es6`, default is `false`. For all other distribution versions, default is `true`. 
-serverless | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
-serverless_options | No | Object | The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
+`region` | No | String | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
+`sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon SQS and Amazon S3. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+`sts_header_overrides` | No | Map | A map of header overrides that the IAM role assumes for the sink plugin.
+`sts_external_id` | No | String | The external ID to attach to AssumeRole requests from AWS STS.
+`serverless` | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
+`serverless_options` | No | Object | The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
 
-### Serverless options
+## actions
+
+Option | Required                         | Type | Description
+:--- |:---------------------------------| :--- | :---
+`type` | Yes (when actions is configured) | String | The type of bulk action to use when the `when` condition evaluates to true. Must be one of `create`, `index`, `update`, `upsert`, or `delete`
+`when` | No                               | String | A [Data Prepper expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) to conditionally evaulate whether an Event will be sent to OpenSearch using the bulk action configured in `type`. If this is empty, this bulk action will be chosen when it is reached
+
+
+## Serverless options
 
 The following options can be used in the `serverless_options` object.
 
@@ -191,7 +215,6 @@ If your domain uses a master user in the internal user database, specify the mas
 sink:
     opensearch:
       hosts: ["https://your-fgac-amazon-opensearch-service-endpoint"]
-      aws_sigv4: false
       username: "master-username"
       password: "master-password"
 ```
@@ -299,6 +322,55 @@ log-pipeline:
         index: "my-serverless-index"
         aws:
           serverless: true
+          sts_role_arn: "arn:aws:iam::<AccountId>:role/PipelineRole"
+          region: "us-east-1"
+```
+
+### Example with template_content and actions
+### <a id="example_template_content"></a>
+
+```yaml
+log-pipeline:
+  source:
+    http:
+  processor:
+    - date:
+        from_time_received: true
+        destination: "@timestamp"
+  sink:
+    - opensearch:
+        hosts: [ "https://<serverless-public-collection-endpoint>" ]
+        index: "my-serverless-index"
+        template_type: index-template
+        template_content: >
+          {
+            "template" : {
+              "mappings" : {
+                "properties" : {
+                  "Data" : {
+                    "type" : "binary"
+                  },
+                  "EncodedColors" : {
+                    "type" : "binary"
+                  },
+                  "Type" : {
+                    "type" : "keyword"
+                  },
+                  "LargeDouble" : {
+                    "type" : "double"
+                  }          
+                }
+              }
+            }
+          }
+        # index is the default case  
+        actions:
+         - type: "delete"
+           when: '/operation == "delete"'
+         - type: "update"
+           when: '/operation == "update"'
+         - type: "index"
+        aws:
           sts_role_arn: "arn:aws:iam::<AccountId>:role/PipelineRole"
           region: "us-east-1"
 ```
