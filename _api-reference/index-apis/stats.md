@@ -810,4 +810,4 @@ By default, the returned statistics are aggregated in the `primaries` and `total
 
 ## Response fields
 
-For information about response fields, see [Nodes Stats API response fields]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#indices)
+For information about response fields, see [Nodes Stats API response fields]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#indices).

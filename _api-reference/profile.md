@@ -978,9 +978,9 @@ Field | Data type | Description
 [`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
 `children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
 `debug` | Object | Some aggregations return a `debug` object that describes the details of the underlying execution.
-`max_slice_time_in_nanos`	|Long | The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	This field is included only if you enable concurrent segment search.
-`min_slice_time_in_nanos`	|Long |The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	This field is included only if you enable concurrent segment search.
-`avg_slice_time_in_nanos`	|Long |The average amount of time taken by any slice to run an aggregation, in nanoseconds.	This field is included only if you enable concurrent segment search.
+`max_slice_time_in_nanos`	|Long | The maximum amount of time taken by any slice to run an aggregation, in nanoseconds. This field is included only if you enable concurrent segment search.
+`min_slice_time_in_nanos`	|Long |The minimum amount of time taken by any slice to run an aggregation, in nanoseconds. This field is included only if you enable concurrent segment search.
+`avg_slice_time_in_nanos`	|Long |The average amount of time taken by any slice to run an aggregation, in nanoseconds. This field is included only if you enable concurrent segment search.
 
 ### The `breakdown` object
 
@@ -989,7 +989,7 @@ The `breakdown` object represents the timing statistics about low-level Lucene e
 Field | Description
 :--- | :--- 
 `initialize` | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation. For concurrent segment search, the `initialize` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
-`build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context. For concurrent segment search, the `build_leaf_collector` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
+`build_leaf_collector`| Contains the time spent running the aggregation's `getLeafCollector()` method, which creates a new collector to collect the given context. For concurrent segment search, the `build_leaf_collector` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
 `collect`| Contains the time spent collecting the documents into buckets. For concurrent segment search, the `collect` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
 `post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method. For concurrent segment search, the `post_collection` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
 `build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation. For concurrent segment search, the `build_aggregation` method contains the total elapsed time across all slices (the difference between the last completed slice execution end time and the first slice execution start time).
