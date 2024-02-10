@@ -69,7 +69,7 @@ OpenSearch responds with an agent ID:
 }
 ```
 
-## Step 4: Run the agent
+## Step 2: Run the agent
 
 Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample web logs` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart#adding-sample-data).
 
