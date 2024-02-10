@@ -62,11 +62,13 @@ OpenSearch supports multiple search methods that integrate with ML models. For m
 
 You can temporarily disable a model when you don't want to undeploy or delete it. Disable a model by calling the [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/) and setting `is_enabled` to `false`. When you disable a model, it becomes unavailable for [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) requests. If you disable a model that is undeployed, the model stays disabled after deployment. You'll need to enable it in order to use it for inference.
 
-## Rate limit for Predict API calls
+## Rate limiting inference calls
 
 Setting a rate limit for Predict API calls on your ML models allows you to reduce your model inference costs. You can set a rate limit on the number of Predict API calls at the following levels:
 
-- **Model level**: Configure a rate limit within the model by calling the Update Model API and specifying a `rate_limiter`. For more information, see [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/).
+- **Model level**: Configure a rate limit for all users of the model by calling the Update Model API and specifying a `rate_limiter`. For more information, see [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/).
 - **User level**: Configure a rate limit for a specific user or users of the model by creating a controller. A model may be shared by multiple users; you can configure the controller to set different rate limits for different users. For more information, see [Create Controller API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller/).
 
-The rate limit is set to the more restrictive of the model-level limit and the user-level limit. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.
+Model-level rate limiting applies to all users of the model. If you specify both a model-level rate limit and a user-level rate limit, the overall rate limit is set to the more restrictive of the two. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.
+
+To set the rate limit, you provide two inputs: the maximum number of requests and the time frame. OpenSearch uses those inputs to calculate the rate limit as the maximum number of requests divided by the time frame. For example, if you set the limit to be 4 requests per minute, the rate limit is `4 requests / 1 minute`, which is `1 request / 0.25 minutes`, or `1 request / 15 seconds`. OpenSearch processes predict requests sequentially, in a first-come first-served manner and will limit those requests to 1 request per 15 seconds. Imagine two users, Alice and Bob, calling the Predict API for the same model, which has a rate limit of 1 request per 15 seconds. If Alice calls the Predict API and immediately after that Bob calls the Predict API, OpenSearch processes Alice's predict request first and stores Bob's request in a queue. Once 15 seconds passes since Alice's request, OpenSearch processes Bob's request. 

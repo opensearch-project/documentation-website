@@ -1,0 +1,117 @@
+---
+layout: default
+title: Search Monitors tool
+has_children: false
+has_toc: false
+nav_order: 100
+parent: Tools
+grand_parent: Agents and tools
+---
+
+<!-- vale off -->
+# Search Monitors tool
+**Introduced 2.12**
+{: .label .label-purple }
+<!-- vale on -->
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
+{: .warning}
+
+The `SearchMonitorsTool` retrieves information about alerting monitors set up on your cluster. For more information about alerting monitors, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+
+## Step 1: Register a flow agent that will run the SearchMonitorsTool
+
+A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Test_Agent_For_Search_Monitors_Tool",
+  "type": "flow",
+  "description": "this is a test agent for the SearchMonitorsTool",
+  "memory": {
+    "type": "demo"
+  },
+  "tools": [
+    {
+      "type": "SearchMonitorsTool",
+      "name": "DemoSearchMonitorsTool",
+      "parameters": {}
+    }
+  ]
+}
+```
+{% include copy-curl.html %} 
+
+OpenSearch responds with an agent ID:
+
+```json
+{
+  "agent_id": "EuJYYo0B9RaBCvhuy1q8"
+}
+```
+
+## Step 2: Run the agent
+
+Run the agent by sending the following request:
+
+```json
+POST /_plugins/_ml/agents/EuJYYo0B9RaBCvhuy1q8/_execute
+{
+  "parameters": {
+    "question": "Do I have any alerting monitors?"
+  }
+}
+```
+{% include copy-curl.html %} 
+
+OpenSearch responds with a list of alerting monitors set up on your cluster and the total number of alerting monitors:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": "Monitors=[{id=j_9mYo0Bk4MTqircEzk_,name=test-monitor,type=query_level_monitor,enabled=true,enabledTime=1706752873144,lastUpdateTime=1706752873145}{id=ZuJnYo0B9RaBCvhuEVux,name=test-monitor-2,type=query_level_monitor,enabled=true,enabledTime=1706752938405,lastUpdateTime=1706752938405}]TotalMonitors=2"
+        }
+      ]
+    }
+  ]
+}
+```
+
+If no monitors are found, OpenSearch responds with an empty array in the results:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": "Monitors=[]TotalMonitors=0"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Parameters
+
+The following table lists all available parameters. All parameters are optional.
+
+Parameter	| Type | Description	
+:--- | :--- | :---
+`monitorId`	| String	| The ID of the monitor for which to search.
+`monitorName`	| String	| The name of the monitor for which to search.
+`monitorNamePattern`	| String | A wildcard query to match the monitor name for which to search.
+`enabled` |	Boolean	| Whether to return information about monitors that are currently enabled. Leave this parameter unset (or set it to `null`) to return information about enabled and disabled monitors. Set this parameter to `true` to only return information about enabled monitors. Set this parameter to `false` to only return information about disabled monitors.
+`hasTriggers` |	Boolean	| Whether to return information about monitors that have triggers enabled. Leave this parameter unset (or set it to `null`) to return information about monitors that have triggers enabled and disabled. Set this parameter to `true` to only return information about monitors with triggers enabled. Set this parameter to `false` to only return information about monitors with triggers disabled.
+`indices` | String	| The index name or index pattern of the indexes that the returned monitors track.
+`sortOrder`| String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. 
+`sortString`| String |	Specifies the monitor field by which to sort the results. Default is `name.keyword`.
+`size`	| Integer |	The number of results to return. The number of results to return. Default is 20.
+`startIndex`| Integer |	The paginated index of the monitor to start from. Default is 0.

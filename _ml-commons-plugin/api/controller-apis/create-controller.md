@@ -40,11 +40,13 @@ Parameter | Data type | Description
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
-`user_rate_limiter`| Object | Required | Limits the number of times users can call Predict API on the model. 
+:---  | :--- | :--- | :---
+`user_rate_limiter`| Object | Required | Limits the number of times users can call Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
 
 The `user_rate_limiter` object contains an object for each user, specified by username. The user object contains the following fields.
 
+Field | Data type | Description
+:---  | :--- | :--- 
 `limit` | Integer | The maximum number of times the user can call Predict API on the model per `unit` of time. By default, there is no limit on the number of Predict API calls. Once you set a limit, you cannot reset it to no limit. As an alternative, specify a high limit value and a small time unit, for example, 1 request per nanosecond.
 `unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, `SECONDS`.
 

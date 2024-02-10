@@ -16,6 +16,10 @@ Creates a standalone connector. For more information, see [Connectors]({{site.ur
 POST /_plugins/_ml/connectors/_create
 ```
 
+## Request fields
+
+For a list of request fields, see [Blueprint configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
+
 #### Example request
 
 To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/):

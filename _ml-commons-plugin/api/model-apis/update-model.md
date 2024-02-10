@@ -7,6 +7,8 @@ nav_order: 45
 ---
 
 # Update a model
+**Introduced 2.12**
+{: .label .label-purple }
 
 Updates a model based on the `model_ID`.
 
@@ -20,18 +22,18 @@ PUT /_plugins/_ml/models/<model_id>
 
 ## Request fields
 
-The following table lists the available request fields. For more information about the request fields, see the [Register Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
+The following table lists the updatable fields. Not all request fields are applicable to all models. To learn if the field is applicable to your model type, see the [Register Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
 
 Field | Data type |  Description
 :---  | :--- | :--- 
-`connector` | Object | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). 
+`connector` | Object | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). For information about the updatable fields within a connector, see the [Update Connector API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/update-connector/#request-fields).
 `connector_id` | Optional | The connector ID of a standalone connector for a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-standalone-connector). To update a standalone connector, you must  undeploy the model, update the connector, and then redeploy the model.
 `description` | String | The model description. 
 `is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
 `model_config` | Object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. For more information, see [The `model_config` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model#the-model_config-object) |
 `model_group_id` | String | The model group ID of the model group to register this model to. 
 `name`| String | The model name. 
-`rate_limiter` | Object | Limits the number of times any user can call Predict API on the model. 
+`rate_limiter` | Object | Limits the number of times any user can call Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
 `rate_limiter.limit` | Integer | The maximum number of times any user can call Predict API on the model per `unit` of time. By default, there is no limit on the number of Predict API calls. Once you set a limit, you cannot reset it to no limit. As an alternative, specify a high limit value and a small time unit, for example, 1 request per nanosecond.
 `rate_limiter.unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, `SECONDS`.
 
@@ -47,7 +49,7 @@ PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 
 
 
-#### Example request: Rate limiting a model
+#### Example request: Rate limiting inference calls for a model
 
 The following request limits the number of times you can call Predict API on the model to four Predict API calls per minute:
 

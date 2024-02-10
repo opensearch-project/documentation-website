@@ -202,7 +202,7 @@ The response contains the connector ID for the newly created connector:
 
 ## Step 5: Register and deploy the externally hosted model
 
-Just like the text embedding model, an LLM needs to be registered and deployed to OpenSearch. To set up the externally hosted model, first create a model group for this model:
+Like the text embedding model, an LLM needs to be registered and deployed to OpenSearch. To set up the externally hosted model, first create a model group for this model:
 
 ```json
 POST /_plugins/_ml/model_groups/_register

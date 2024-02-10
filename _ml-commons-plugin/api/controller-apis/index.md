@@ -1,6 +1,6 @@
 ---
 layout: default
-title: controller APIs
+title: Controller APIs
 parent: ML Commons APIs
 has_children: true
 has_toc: false
