@@ -11,7 +11,6 @@ redirect_from:
 
 You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
-
 For plugins to work properly with OpenSearch, all plugins must have the ability to access the data in the cluster, including metadata about cluster operations. Therefore, to protect your cluster's data and preserve its integrity, first be sure you understand the function of a plugin before installing it on your OpenSearch cluster. Second, when selecting a custom plugin, make sure the plugin's source is a reliable one.
 {: .warning}
 
@@ -205,6 +204,20 @@ Continue with installation? [y/N]y
 Restart your OpenSearch node after installing a plugin.
 {: .note}
 
+### Installing multiple plugins
+
+Multiple plugins can be installed in a single invocation.
+
+#### Usage
+```bash
+bin/opensearch-plugin install <plugin-name> <plugin-name> ... <plugin-name>
+```
+
+#### Example
+```bash
+$ sudo $ ./opensearch-plugin install analysis-nori repository-s3
+```
+
 ## Remove
 
 You can remove a plugin that has already been installed with the `remove` option. 
@@ -241,13 +254,14 @@ Major, minor, and patch plugin versions must match OpenSearch major, minor, and 
 
 The following plugins are bundled with all OpenSearch distributions except for minimum distribution packages.
 
-| Plugin Name | Repository | Earliest Available Version |
+| Plugin name | Repository | Earliest available version |
 | :--- | :--- | :--- |
 | Alerting | [opensearch-alerting](https://github.com/opensearch-project/alerting) | 1.0.0 |
 | Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 |
 | Asynchronous Search | [opensearch-asynchronous-search](https://github.com/opensearch-project/asynchronous-search) | 1.0.0 |
 | Cross Cluster Replication | [opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication) | 1.1.0 |
 | Custom Codecs | [opensearch-custom-codecs](https://github.com/opensearch-project/custom-codecs) | 2.10.0 |
+| Flow Framework | [flow-framework](https://github.com/opensearch-project/flow-framework) | 2.12.0 |
 | Notebooks<sup>1</sup> | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0 |
 | Notifications | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0
 | Reports Scheduler | [opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 |

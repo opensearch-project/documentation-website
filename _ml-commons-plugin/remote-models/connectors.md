@@ -37,7 +37,7 @@ The following table lists all connector blueprints provided by OpenSearch. Follo
 
 Platform | Model | Connector blueprint
 :--- | :--- | :---
-[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [A21 Labs Jurassic-2 Mid](https://aws.amazon.com/bedrock/jurassic/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
+[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [AI21 Labs Jurassic-2 Mid](https://aws.amazon.com/bedrock/jurassic/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
 [Amazon Bedrock](https://aws.amazon.com/bedrock/) | [Anthropic Claude v2](https://aws.amazon.com/bedrock/claude/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md)
 [Amazon Bedrock](https://aws.amazon.com/bedrock/) | [Titan Text Embeddings](https://aws.amazon.com/bedrock/titan/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md)
 [Amazon SageMaker](https://aws.amazon.com/sagemaker/) | Text embedding models | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md)
