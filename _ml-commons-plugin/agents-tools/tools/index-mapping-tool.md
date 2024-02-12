@@ -107,5 +107,6 @@ The following table lists all available parameters.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
+`input` | String | Required | The user input based on which to return index information.
 `index` | Array | Required | A comma-delimited list of one or more indexes for which to obtain mapping and setting information. Default is an empty list, which means all indexes.
 `local` | Boolean | Optional | Whether to return information from the local node only instead of the cluster manager node (default is `false`).
