@@ -9,13 +9,13 @@ redirect_from:
 
 # OpenSearch Dashboards quickstart
 
-Get started with OpenSearch Dashboards. This guide cover the basics like:
+Get started with OpenSearch Dashboards. This guide covers the basics like:
 
 - **Adding sample data:** Get started with pre-loaded visualizations, dashboards, and other tools to help you explore OpenSearch Dashboards before you add your own data.
 - **Exploring your data:** Dig into your data and see what is there.
-- **Creating visualizations:** Turn your data into easy-to-understand visuals.
+- **Creating visualizations:** Make your data more accessible by creating visualizations.
 
-Starting with OpenSearch 2.12, you'll see the following homepage view. Considering your admin settings, your view may be in light or dark mode. The OpenSearch Dashboards redesign considers the community's feedback about simplifying the user experience. Share your [feedback](<insert-link-feedback-dashboards>) about the redesign or other tools you want to see in OpenSearch Dashboards.
+Starting with OpenSearch 2.12, you'll see the following homepage view. Considering your admin settings, your view may be in light or dark mode. The OpenSearch Dashboards redesign considers the community's feedback on simplifying user experience. Share your [feedback](<insert-link-feedback-dashboards>) about the redesign or other tools you want to see in OpenSearch Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
 
@@ -23,12 +23,12 @@ Starting with OpenSearch 2.12, you'll see the following homepage view. Consideri
 
 Here's what's new with the homepage:
 
-- **Enhanced user experience:** Improves your experience by incorporating intuitive navigation, streamlined workflows, and a visually appealing interface. 
-- **Optimized data accessibility:** Presents critical information in a more effective manner, making it easier for you to interpret and analyze data.
+- **Improved user experience:** Enhances your experience by incorporating intuitive navigation, streamlined workflows, and a visually appealing interface. 
+- **Streamlined data accessibility:** Simplifies the way important information is presented, enhancing your ability to understand and analyze data.
 - **Responsive design for multi-platform access:** Prioritizes responsive design principles, ensuring seamless access and functionality across various devices and screen sizes. 
-- **Integration of advanced visualizations:** Enhances your data comprehension and analysis by giving you visualization tools that convey information in a more digestible format.
+- **Advanced visualizations integration:** Improves data understanding and analysis through visual tools that present information in a more understandable format.
 - **Customization for individual preferences:** Offers customization based on your preferences and needs.
-- **OpenSearch Assistant toolkit:** Connects you to tools to build generative AI-powered experiences that unlock actionable insights from complex datasets. Watch the [demo](https://playground.opensearch.org/app/home#/) on the homepage to learn more. 
+- **OpenSearch Assistant toolkit:** Links you to resources for building generative AI-driven experiences, uncovering valuable insights from complex datasets. Watch the [demo](https://playground.opensearch.org/app/home#/) on the homepage to learn more. 
 
 ## Prerequisites
 
@@ -36,14 +36,17 @@ Before getting started with this guide, make sure you have installed the latest 
 
 For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/). 
 
-The following sections include tutorials on OpenSearch basics. You can use your own environment or the [OpenSearch Playground](https://playground.opensearch.org/app/home#/), which runs on the latest version of OpenSearch. 
+The following sections include tutorials on OpenSearch basics. Use your own environment or the [OpenSearch Playground](https://playground.opensearch.org/app/home#/), which runs on the latest version of OpenSearch. 
 
 ## Adding sample data
 
 To add sample data, follow these steps:
 
-1. On the OpenSearch Dashboards **Home** page, choose **Add data** on the upper-right side of page.
-2. On the **Add sample data** page, choose the datasets you want to add. Note that the **Sample flight data** dataset is used in the tutorials throughout this quickstart.
+1. On the OpenSearch Dashboards **Home** page, choose **Add data** on the upper-right side of the page.
+2. On the **Add sample data** page, choose the datasets you want to add.
+
+The [**Sample flight data** dataset](https://playground.opensearch.org/app/home#/tutorial_directory) is used in the tutorials in this quickstart.
+{: .note}
 
 The following image shows a view of the adding sample data window.
 
@@ -100,7 +103,7 @@ Continuing with the preceding dashboard, you will create a bar chart comparing t
 5. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
 6. Drag the field **FlightDelayType** to the x-axis column.
 7. Choose **Save** and name the visualization in the **Title** field.
-8. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
+8. Choose **Save and return**. A bar chart is added as the last panel on the dashboard.
 
 The following image shows the view you see once you have completed the preceding steps.
 
@@ -108,18 +111,18 @@ The following image shows the view you see once you have completed the preceding
 
 ## Interacting with data using Dashboards
 
-Interactive dashboards allow you analyze data in more depth and filter it in several ways. In **Dashboards**, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
+Interactive dashboards allow you to analyze data in more depth and filter it in several ways. With **Dashboards**, you can interact directly with data through the use of dashboard-level filters.
 
-The following steps give you a basic overview about interacting with the sample flight data:
+Take your previous dashboard and follow these steps to further analyze and filter the sample flight data:
 
 1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
 2. Choose **Save** to save the customized dashboard.
 
-Alternatively, you can apply filters using the dashboard toolbar:
+Another option is to use the dashboard toolbar to apply filters. Follow these steps to learn about this feature:
 
 1. In the dashboard toolbar, choose **Add filter**.
 2. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
-3. Choose **Save**. The dashboard updates automatically, and the result is the dashboard shown in the following image.
+3. Choose **Save**. The dashboard updates automatically.
 
 The following image shows the view you see once you have completed the preceding steps.
 
