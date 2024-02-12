@@ -60,7 +60,7 @@ OpenSearch responds with an agent ID:
 }
 ```
 
-## Step 4: Run the agent
+## Step 3: Run the agent
 
 Run the agent by sending the following request:
 

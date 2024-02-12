@@ -15,6 +15,20 @@ redirect_from:
 
 A _tool_ performs a set of specific tasks. The following table lists all tools OpenSearch supports.
 
+Specify a tool by providing its `type`, `parameters`, and, optionally, a `description`. For example, you can specify an `AgentTool` as follows:
+
+```json
+{
+  "type": "AgentTool",
+  "description": "A general agent to answer any question",
+  "parameters": {
+    "agent_id": "9X7xWI0Bpc3sThaJdY9i"
+  }
+}
+```
+
+Each tool takes a list of parameters specific to that tool. In the preceding example, the `AgentTool` takes an `agent_id` of the agent it will run. For a list of parameters, see each tool's documentation.
+
 |Tool	| Description	|
 |:---	|:---	|
 |[`AgentTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/agent-tool/)	|Runs any agent. |
