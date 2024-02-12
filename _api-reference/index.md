@@ -61,6 +61,7 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
 - [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
 - [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+- [Views]({{site.url}}{{site.baseurl}}/im-plugin/views/)
 
 
 
