@@ -208,9 +208,9 @@ The `opensearch` source includes the following metrics.
 
 - `documentsProcessed`: Measures the total number of documents processed by the `opensearch` source plugin.
 - `indicesProcessed`: Measures the total number of indexes processed by the `opensearch` source plugin.
-- `processingErrors`: Measures the total number of errors during index processing by HTTP Source plugin.
-- `credentialsChanged`: Measures the number of basic credential refreshments (i.e. username/password) within the `opensearch` source plugin.
-- `clientRefreshErrors`: Measures the number of errors encountered in generating a new client due to basic credential refreshments within the `opensearch` source plugin.
+- `processingErrors`: Measures the total number of errors during index processing by the `opensearch` Source plugin.
+- `credentialsChanged`: Measures the number of times the `opensearch` source refreshes basic credentials (i.e. username/password).
+- `clientRefreshErrors`: Measures the number of errors encountered in generating a new client due to the `opensearch` source refreshing basic credentials.
 
 ### Timers
 
