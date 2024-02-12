@@ -1,3 +1,11 @@
+---
+layout: default
+title: Metrics Framework 
+parent: Trace Analytics
+nav_order: 65
+redirect_from:
+  - /monitoring-your-cluster/metrics/
+---
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10141).    
 {: .warning}
 
