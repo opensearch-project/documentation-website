@@ -78,6 +78,7 @@ Levenshtein
 [Nn]amespace
 [Oo]versamples?
 pebibyte
+[Pp]erformant
 [Pp]luggable
 [Pp]reconfigure
 [Pp]refetch
@@ -105,6 +106,7 @@ pebibyte
 [Ss]erverless
 [Ss]harding
 [Ss]ignificand
+[Ss]napshott(ed|ing)
 stdout
 [Ss]temmers?
 [Ss]ubaggregation

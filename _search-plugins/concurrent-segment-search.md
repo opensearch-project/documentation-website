@@ -77,15 +77,43 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 - `0`: Use the default Lucene mechanism.
 - Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
 
-## The `terminate_after` search parameter
+## API changes
+
+If you enable the concurrent segment search feature flag, the following Stats API responses will contain several additional fields with statistics about slices:
+
+- [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)
+- [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)
+
+For descriptions of the added fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
+
+Additionally, some [Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile/) response fields will be modified and others added. For more information, see the [concurrent segment search section of the Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile#concurrent-segment-search).
+
+## Limitations
+
+The following aggregations do not support the concurrent search model. If a search request contains one of these aggregations, the request will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level or index level.
+- Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316) for more information.
+- `sampler` and `diversified_sampler` aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750) for more information.
+
+## Other considerations
+
+The following sections provide additional considerations for concurrent segment search.
+
+
+### The `terminate_after` search parameter
 
 The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. If you include the `terminate_after` parameter in a request, concurrent segment search is disabled and the request is run in a non-concurrent manner.
 
 Typically, queries are used with smaller `terminate_after` values and thus complete quickly because the search is performed on a reduced dataset. Therefore, concurrent search may not further improve performance in this case. Moreover, when `terminate_after` is used with other search request parameters, such as `track_total_hits` or `size`, it adds complexity and changes the expected query behavior. Falling back to a non-concurrent path for search requests that include `terminate_after` ensures consistent results between concurrent and non-concurrent requests.
 
-## Limitations
+### Sorting
 
-Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields do not support the concurrent search model. Thus, if a search request contains a parent aggregation, the aggregation will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level.
+Depending on the data layout of the segments, the sort optimization feature can prune entire segments based on the min and max values as well as previously collected values. If the top values are present in the first few segments and all other segments are pruned, query latency may increase when sorting with concurrent segment search. Conversely, if the last few segments contain the top values, then latency may improve with concurrent segment search.
+
+### Terms aggregations
+
+Non-concurrent search calculates the document count error and returns it in the `doc_count_error_upper_bound` response parameter. During concurrent segment search, the `shard_size` parameter is applied at the segment slice level. Because of this, concurrent search may introduce an additional document count error.
+
+For more information about how `shard_size` can affect both `doc_count_error_upper_bound` and collected buckets, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
 
 ## Developer information: AggregatorFactory changes
 
