@@ -65,7 +65,7 @@ The following steps give you a basic overview about using the Discover tool:
 1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
 2. On the **Discover** page, choose the sample flight dataset from the dropdown menu on the upper-left side of the page. 
 3. Select the calendar icon to change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from the default of **Last 15 minutes** to **Last 7 days**.
-4. In the DQL search bar, input `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then select **Update**. You should see results for US-bound flights delayed by 60 minutes or more.
+4. In the DQL search bar, input `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then select **Update**. Results for US-bound flights delayed by 60 minutes or more are shown.
 5. Filter data by choosing **Add filter** from under the DQL search bar and then selecting an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather Delay** from the **Field**, **Operator**, and **Value** dropdown lists on the **Edit Filter** pop-up window.
 
 The following image shows the view you see once you have completed the preceding steps.
@@ -74,7 +74,7 @@ The following image shows the view you see once you have completed the preceding
 
 ## Visualizing data using Dashboards
 
-In **Dashboards** you can:
+You can do the following in **Dashboards**:
 
 - Display data in a single view.
 - Build dynamic dashboards.
@@ -84,11 +84,11 @@ In **Dashboards** you can:
 The following steps give you a basic overview about using the Dashboard tool:
 
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboards** .
-2. From the search toolbar, search for **[Flights] Global Flight Dashboard** and then select it. You'll see a pre-loaded dashboard with visuals including charts, maps, and data tables. 
+2. From the search toolbar, search for **[Flights] Global Flight Dashboard** and then select it. You'll see a pre-loaded dashboard with visuals, including charts, maps, and data tables. 
 3. To add other panels to the dashboard, select the **Edit** button and then choose **Add** from the toolbar. The **Add panels** window then opens. 
 4. From the search toolbar in the **Add panels** window, search for the existing panel **[Flights] Delay Buckets** and then select it. A pop-up message confirms that you've added the panel.
 5. Select close `x` to exit the **Add panels** window.
-6. View the panel **[Flights] Delay Buckets** that has been added as the last panel on the dashboard.
+6. View the newly added panel, **[Flights] Delay Buckets**, at the end of the dashboard.
 
 The following image shows the view you see once you have completed the preceding steps.
 
