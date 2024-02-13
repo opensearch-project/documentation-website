@@ -8,7 +8,7 @@ nav_order: 145
 
 # Multi-tenancy configuration
 
-Multi-tenancy is enabled by default, but you can disable it or change its settings using `config/opensearch-security/config.yml`:
+Multi-tenancy is enabled in OpenSearch Dashboards by default. If you need to disable or change settings related to multi-tenancy, see the `kibana` settings in `config/opensearch-security/config.yml`, as shown in the following example:
 
 ```yml
 config:
@@ -21,7 +21,6 @@ config:
       index: '.kibana'
     do_not_fail_on_forbidden: false
 ```
-The configuration mentioned is for OpenSearch Dashboards, which inherits much of Kibana's functionality but is now developed and maintained as part of the OpenSearch project.
 
 | Setting | Description |
 | :--- | :--- |
