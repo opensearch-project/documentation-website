@@ -81,7 +81,7 @@ The Notifications plugin supports the following settings. All settings in this l
 
 ## Query Insights plugin settings
 
-For information about the Query Insights plugin settings, see [Query insights settings]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/index#query-insights-settings).
+For information about Query Insights plugin settings, see [Query insights settings]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/index#query-insights-settings).
 
 ## Security plugin settings
 
