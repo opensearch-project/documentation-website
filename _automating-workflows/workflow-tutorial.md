@@ -19,10 +19,10 @@ The setup requires the following sequence of API requests, with provisioned reso
     * [`deploy_model_3`](#deploy_model_3): Deploy the model.
 1. **Use the deployed model for inference**
     * Set up several tools that perform specific tasks:
-      * [`math_tool`](#math_tool): Set up a math tool.
+      * [`cat_index_tool`](#cat_index_tool): Set up a tool to obtain index information.
       * [`ml_model_tool`](#ml_model_tool): Set up a machine learning (ML) model tool.
     * Set up one or more agents that use some combination of the tools:
-      * [`sub_agent`](#sub_agent): Create an agent that uses the math tool.
+      * [`sub_agent`](#sub_agent): Create an agent that uses the `cat_index_tool`.
     * Set up tools representing these agents:
       * [`agent_tool`](#agent_tool): Wrap the `sub_agent` so that you can use it as a tool.
     * [`root_agent`](#root_agent): Set up a root agent that may delegate the task to either a tool or another agent.
@@ -122,19 +122,18 @@ If you define `previous_node_inputs`, then defining edges is optional.
 A CoT agent can use the deployed model in a tool. This step doesn’t strictly correspond to an API but represents a component of the body required by the [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/). This simplifies the register request and allows reuse of the same tool in multiple agents. For more information about agents and tools, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/).
 
 <!-- vale off -->
-### math_tool
+### cat_index_tool
 <!-- vale on -->
 
-You can configure other tools to be used by the CoT agent. For example, you can configure a math tool as follows. This tool does not depend on any previous steps:
+You can configure other tools to be used by the CoT agent. For example, you can configure a `cat_index_tool` as follows. This tool does not depend on any previous steps:
 
 ```yaml
-- id: math_tool
+- id: cat_index_tool
   type: create_tool
   user_inputs:
-    name: MathTool
-    type: MathTool
-    description: A general tool to calculate any math problem. The action input
-      must be a valid math expression, like 2+3
+    name: CatIndexTool
+    type: CatIndexTool
+    description: A tool to retrieve index information
     parameters:
       max_iteration: 5
 ```
@@ -143,7 +142,7 @@ You can configure other tools to be used by the CoT agent. For example, you can 
 ### sub_agent
 <!-- vale on -->
 
-To use the math tool in the agent configuration, specify it as one of the tools in the `previous_node_inputs` field of the agent. You can add other tools to `previous_node_inputs` as necessary. The agent also needs a large language model (LLM) in order to reason with the tools. The LLM is defined by the `llm.model_id` field. This example assumes that the `model_id` from the `deploy_model_3` step will be used. However, if another model is already deployed, the `model_id` of that previously deployed model could be included in the `user_inputs` field instead:
+To use the `cat_index_tool` in the agent configuration, specify it as one of the tools in the `previous_node_inputs` field of the agent. You can add other tools to `previous_node_inputs` as necessary. The agent also needs a large language model (LLM) in order to reason with the tools. The LLM is defined by the `llm.model_id` field. This example assumes that the `model_id` from the `deploy_model_3` step will be used. However, if another model is already deployed, the `model_id` of that previously deployed model could be included in the `user_inputs` field instead:
 
 ```yaml
 - id: sub_agent
@@ -151,7 +150,7 @@ To use the math tool in the agent configuration, specify it as one of the tools 
   previous_node_inputs:
     # When llm.model_id is not present this can be used as a fallback value
     deploy-model-3: model_id
-    math_tool: tools
+    cat_index_tool: tools
   user_inputs:
     name: Sub Agent
     type: conversational
@@ -169,7 +168,7 @@ To use the math tool in the agent configuration, specify it as one of the tools 
 OpenSearch will automatically create the following edges so that the agent can retrieve the fields from the previous node: 
 
 ```yaml
-- source: math_tool
+- source: cat_index_tool
   dest: sub_agent
 - source: deploy_model_3
   dest: sub_agent
@@ -327,13 +326,12 @@ workflows:
     # For example purposes, the model_id obtained as the output of the deploy_model_3 step will be used
     # for several below steps.  However, any other deployed model_id can be used for those steps.
     # This is one example tool from the Agent Framework.
-    - id: math_tool
+    - id: cat_index_tool
       type: create_tool
       user_inputs:
-        name: MathTool
-        type: MathTool
-        description: A general tool to calculate any math problem. The action input
-          must be a valid math expression, like 2+3
+        name: CatIndexTool
+        type: CatIndexTool
+        description: A tool to retrieve index information
         parameters:
           max_iteration: 5
     # This simple agent only has one tool, but could be configured with many tools
@@ -341,7 +339,7 @@ workflows:
       type: register_agent
       previous_node_inputs:
         deploy-model-3: model_id
-        math_tool: tools
+        cat_index_tool: tools
       user_inputs:
         name: Sub Agent
         type: conversational
@@ -405,7 +403,7 @@ workflows:
       dest: register_model_2
     - source: register_model_2
       dest: deploy_model_3
-    - source: math_tool
+    - source: cat_index_tool
       dest: sub_agent
     - source: deploy_model_3
       dest: sub_agent
@@ -490,12 +488,12 @@ The following is the same template in JSON format:
           }
         },
         {
-          "id": "math_tool",
+          "id": "cat_index_tool",
           "type": "create_tool",
           "user_inputs": {
-            "name": "MathTool",
-            "type": "MathTool",
-            "description": "A general tool to calculate any math problem. The action input must be a valid math expression, like 2+3",
+            "name": "CatIndexTool",
+            "type": "CatIndexTool",
+            "description": "A tool to retrieve index information",
             "parameters": {
               "max_iteration": 5
             }
@@ -506,7 +504,7 @@ The following is the same template in JSON format:
           "type": "register_agent",
           "previous_node_inputs": {
             "deploy-model-3": "llm.model_id",
-            "math_tool": "tools"
+            "cat_index_tool": "tools"
           },
           "user_inputs": {
             "name": "Sub Agent",
@@ -597,7 +595,7 @@ The following is the same template in JSON format:
           "dest": "deploy_model_3"
         },
         {
-          "source": "math_tool",
+          "source": "cat_index_tool",
           "dest": "sub_agent"
         },
         {
