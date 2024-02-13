@@ -106,7 +106,7 @@ POST /_plugins/_ml/memory/_search
 
 ```json
 {
-  "conversations": [
+  "memories": [
     {
       "memory_id": "OG8La40BfUsSoeNTaeQ3",
       "create_time": "2024-02-02T18:18:46.454902748Z",
@@ -172,7 +172,7 @@ GET /_plugins/_ml/memory?max_results=2&next_token=1
 
 ```json
 {
-  "conversations": [
+  "memories": [
     {
       "memory_id": "gW8Aa40BfUsSoeNTvOKI",
       "create_time": "2024-02-02T18:07:06.887061463Z",
