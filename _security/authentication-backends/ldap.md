@@ -509,6 +509,7 @@ Name | Description
 `resolve_nested_roles`  | Boolean. Whether or not to resolve nested roles. Default is `false`.
 `max_nested_depth`  | Integer. When `resolve_nested_roles` is `true`, this defines the maximum number of nested roles to traverse. Setting smaller values can reduce the amount of data retrieved from LDAP and improve authentication times at the cost of failing to discover deeply nested roles. Default is `30`.
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
+`exclude_roles`  | String array. Specifies which roles to filter out when extracting backend roles from LDAP. Wildcards are supported.
 `nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
 `custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
