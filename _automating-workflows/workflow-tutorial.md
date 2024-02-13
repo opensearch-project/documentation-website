@@ -331,7 +331,6 @@ workflows:
       user_inputs:
         name: CatIndexTool
         type: CatIndexTool
-        description: A tool to retrieve index information
         parameters:
           max_iteration: 5
     # This simple agent only has one tool, but could be configured with many tools
@@ -343,7 +342,6 @@ workflows:
       user_inputs:
         name: Sub Agent
         type: conversational
-        description: this is a test agent
         parameters:
           hello: world
         llm.parameters:
@@ -360,7 +358,6 @@ workflows:
       user_inputs:
         name: AgentTool
         type: AgentTool
-        description: Agent Tool
         parameters:
           max_iteration: 5
     # An ML Model can be used as a tool
@@ -372,7 +369,6 @@ workflows:
         name: MLModelTool
         type: MLModelTool
         alias: language_model_tool
-        description: A general tool to answer any question.
         parameters:
           prompt: Answer the question as best you can.
           response_filter: choices[0].message.content
@@ -387,7 +383,6 @@ workflows:
       user_inputs:
         name: DEMO-Test_Agent
         type: flow
-        description: this is a test agent
         parameters:
           prompt: Answer the question as best you can.
         llm.parameters:
@@ -493,7 +488,6 @@ The following is the same template in JSON format:
           "user_inputs": {
             "name": "CatIndexTool",
             "type": "CatIndexTool",
-            "description": "A tool to retrieve index information",
             "parameters": {
               "max_iteration": 5
             }
@@ -509,7 +503,6 @@ The following is the same template in JSON format:
           "user_inputs": {
             "name": "Sub Agent",
             "type": "conversational",
-            "description": "this is a test agent",
             "parameters": {
               "hello": "world"
             },
@@ -532,7 +525,6 @@ The following is the same template in JSON format:
           "user_inputs": {
             "name": "AgentTool",
             "type": "AgentTool",
-            "description": "Agent Tool",
             "parameters": {
               "max_iteration": 5
             }
@@ -548,7 +540,6 @@ The following is the same template in JSON format:
             "name": "MLModelTool",
             "type": "MLModelTool",
             "alias": "language_model_tool",
-            "description": "A general tool to answer any question.",
             "parameters": {
               "prompt": "Answer the question as best you can.",
               "response_filter": "choices[0].message.content"
@@ -566,7 +557,6 @@ The following is the same template in JSON format:
           "user_inputs": {
             "name": "DEMO-Test_Agent",
             "type": "flow",
-            "description": "this is a test agent",
             "parameters": {
               "prompt": "Answer the question as best you can."
             },
