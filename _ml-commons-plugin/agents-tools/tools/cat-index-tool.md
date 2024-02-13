@@ -17,7 +17,7 @@ grand_parent: Agents and tools
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-The `CatIndexTool` retrieves index information for the OpenSearch cluster by calling the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/).
+The `CatIndexTool` retrieves index information for the OpenSearch cluster, similarly to the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/).
 
 ## Step 1: Register a flow agent that will run the CatIndexTool
 
@@ -66,7 +66,7 @@ POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 ```
 {% include copy-curl.html %} 
 
-OpenSearch returns the result of the CAT Indices API call:
+OpenSearch returns the index information:
 
 ```json
 {
@@ -120,4 +120,4 @@ Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `input` | String | Required | The user input based on which to return index information.
 `index` | String | Optional | A comma-delimited list of one or more indexes on which to run the CAT operation. Default is an empty list, which means all indexes.
-`local` | Boolean | Optional | Whether to return information from the local node only instead of the cluster manager node (default is `false`).
+`local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node (default is `false`).

@@ -20,7 +20,7 @@ The following tutorial illustrates creating a flow agent for retrieval-augmented
 
 ## Prerequisites
 
-To use the memory feature, fist configure the following cluster settings:
+To use the memory feature, fist configure the following cluster settings. This tutorial assumes you have no dedicated ML nodes:
 
 ```json
 PUT _cluster/settings
@@ -33,9 +33,13 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
+For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
+
 ## Step 1: Register and deploy a text embedding model
 
-You need a text embedding model to facilitate vector search. For this tutorial, you'll use one of the OpenSearch-provided pretrained models. To register and deploy the model, send the following request:
+You need a text embedding model to facilitate vector search. For this tutorial, you'll use one of the OpenSearch-provided pretrained models. When selecting a model, note its dimensionality because you'll need to provide it when creating an index. 
+
+In this tutorial, you'll use the `huggingface/sentence-transformers/all-MiniLM-L12-v2` model that generates 384-dimensional dense vector embeddings. To register and deploy the model, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true

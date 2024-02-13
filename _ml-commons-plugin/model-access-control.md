@@ -166,6 +166,13 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_
 ```
 {% include copy.html %}
 
+Once a hidden model is registered, only a superadmin can invoke operations on the model, including the deploy, undeploy, delete, and get API operations. For example, to deploy a hidden model, send the following request. In this request, `q7wLt4sBaDRBsUkl9BJV` is the model ID:
+
+```json
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/models/q7wLt4sBaDRBsUkl9BJV/_deploy'
+```
+{% include copy.html %}
+
 The `model_id` of a hidden model is the model `name`. A hidden model has a `is_hidden` parameter set to `true`. You cannot change a hidden model's `is_hidden` parameter.
 
 Admin users can change access to the model by updating its backend roles. 

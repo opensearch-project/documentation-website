@@ -46,7 +46,7 @@ GET /_plugins/_ml/agents/N8AE1osB0jLkkocYjz7D
 
 ## Search for an agent
 
-Use this command to search for agents you've already created.
+Use this command to search for agents you've already created. You can provide any OpenSearch search query in the request body.
 
 ### Path and HTTP methods
 
