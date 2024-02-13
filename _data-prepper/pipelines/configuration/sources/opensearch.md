@@ -202,7 +202,7 @@ Option | Required | Type    | Description
 
 ## Metrics
 
-The `opensearch` source includes the following metrics.
+The `opensearch` source includes the following metrics:
 
 ### Counters
 
