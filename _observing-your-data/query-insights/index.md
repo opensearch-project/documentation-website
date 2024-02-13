@@ -8,14 +8,14 @@ has_toc: false
 
 # Query insights
 
-Query insights helps you monitor and analyze the search queries within your OpenSearch cluster. With minimal performance impact, query insights features aim to provide comprehensive insights into search query execution, enabling you to better understand search query characteristics, patterns, and system behavior during query execution stages. Query insights facilitate enhanced detection, diagnosis, and prevention of query performance issues, ultimately improving query processing performance, user experience, and overall system resilience.
+To monitor and analyze the search queries within your OpenSearch clusterQuery information, you can obtain query insights. With minimal performance impact, query insights features aim to provide comprehensive insights into search query execution, enabling you to better understand search query characteristics, patterns, and system behavior during query execution stages. Query insights facilitate enhanced detection, diagnosis, and prevention of query performance issues, ultimately improving query processing performance, user experience, and overall system resilience.
 
 Typical use cases of query insights include the following:
 
 - Identifying top queries by latency within specific time frames.
 - Debugging slow search queries and latency spikes.
 
-Query insights features are backed up by the Query Insights plugin. At a high level, query insights comprises the following components:
+Query insights features are provided by the Query Insights plugin. At a high level, query insights comprises the following components:
 
 * _Collectors_: Gather performance-related data points at various stages of search query execution within OpenSearch.
 * _Processors_: Perform lightweight aggregation and processing on data collected by the collectors.
