@@ -51,7 +51,7 @@ When run, the processor will parse the message. Although only two column names a
 ```
 {"message": "1,2,3", "col1": "1", "col2": "2", "column3": "3"}
 ```
-### Auto Detect column names
+### Auto detect column names
 The following configuration auto detects the header of a CSV file ingested through an [`s3 source`]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/s3/):
 
 ```yaml
