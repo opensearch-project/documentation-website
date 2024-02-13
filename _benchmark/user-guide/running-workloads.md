@@ -7,7 +7,7 @@ parent: User guide
 
 # Running a workload
 
-After you understand all of the individual components of a OpenSearch Benchmark (OSB) [workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/), you can now to run your first workload. 
+Once you have a complete understanding of the various components of an OpenSearch Benchmark (OSB) [workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/), you can run your first workload. 
 
 ## Step 1: Find the workload name
 
@@ -18,7 +18,7 @@ opensearch-benchmark list workloads
 ```
 {% include copy.html %}
 
-A list of all workloads supported by OpenSearch Benchmark appears. Review the list and select the workload that's most similar to the [use case] of your cluster.
+A list of all workloads supported by OpenSearch Benchmark appears. Review the list and select the workload that's most similar to the use case of your cluster.
 
 ## Step 2: Running the test
 
@@ -32,22 +32,22 @@ opensearch-benchmark execute-test --pipeline=benchmark-only --workload=nyc_taxis
 {% include copy.html %}
 
 
-Results from the test appear in the directory set by the `--output-path` option set in the `execute-test` command.
+Results from the test appear in the directory set by the `--output-path` option in the `execute-test` command.
 
 ### Test mode
 
-If you want run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1000 documents from each index provided and runs query operations against them.
+If you want to run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1,000 documents from each index provided and runs query operations against them.
 
 ## Step 3: Validate the test
 
-After an OpenSearch Benchmark test runs, take the following steps to verify that it has run properly:
+After an OSB test runs, take the following steps to verify that it has run properly:
 
 - Note the number of documents in the OpenSearch or OpenSearch Dashboards index that you plan to run the benchmark against.
-- In the results returned by OpenSearch Benchmark, compare the `workload.json` file for your specific workload and verify that the document count matches the number of documents. For example, based on the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/nyc_taxis/workload.json#L20) `workload.json` file, you should expect to see `165346692` documents in your cluster.
+- In the results returned by OSB, compare the `workload.json` file for your specific workload and verify that the document count matches the number of documents. For example, based on the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/nyc_taxis/workload.json#L20) `workload.json` file, you should expect to see `165346692` documents in your cluster.
 
 ## Expected results
 
-OpenSearch Benchmark returns the following response once the benchmark completes:
+OSB returns the following response once the benchmark completes:
 
 ```bash
 ------------------------------------------------------
@@ -152,12 +152,12 @@ OpenSearch Benchmark returns the following response once the benchmark completes
 
 ## Running a workload on an external cluster
 
-Now that you're familiar with running OpenSearch Benchmark on a local cluster, you can run OpenSearch Benchmark on your external cluster
+Now that you're familiar with running OSB on a local cluster, you can run OSB on your external cluster, as described in the following steps:
  
-  * Replace `https://localhost:9200` with your target cluster endpoint. This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
+  * Replace `https://localhost:9200` with your target cluster endpoint. This could be a Universal Resource Identifier (URI), such as `https://search.mydomain.com`, or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
-  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up.
-  * If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
+  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster. This directive is necessary solely for clusters without SSL certificates.
+  * If you are using a `HOST:PORT`specification and plan to use SSL or TLS, either specify `https://` or add the `use_ssl:true` directive to the `--client-options` string option.
   * Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
 
 You can copy the following command template to use in your own terminal:
