@@ -13,7 +13,7 @@ Monitoring the top N queries in query insights features can help you gain real-t
 
 To enable monitoring of the top N queries, configure the following [dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings):
 
-- `search.insights.top_queries.latency.enabled`: Set to `true` to [enable monitoring of the top N queries](#enabling-top-n-queries).
+- `search.insights.top_queries.latency.enabled`: Set to `true` to [enable monitoring of the top N queries](#enabling-the-top-n-queries-feature).
 - `search.insights.top_queries.latency.window_size`: [Configure the window size](#configuring-window-size). 
 - `search.insights.top_queries.latency.top_n_size`: [Specify the value of n](#configuring-the-value-of-n).
 
