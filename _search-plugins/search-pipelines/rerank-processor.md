@@ -111,6 +111,6 @@ The `query_context` object contains the following fields.
 Field name  | Description
 :--- | :---  
 `query_text` | The natural language text of the question that you want to use to rerank the search results. Either `query_text` or `query_text_path` (not both) is required.
-`query_text_path` | The full JSON path to the text of the question using which you want to rerank the search results. Exactly one of `query_text` and `query_text_path` (not both) is required. The maximum number of characters in the path is `1000`.
+`query_text_path` | The full JSON path to the text of the question that you want to use to rerank the search results. Either `query_text` or `query_text_path` (not both) is required. The maximum number of characters in the path is `1000`.
 
 For more information about setting up reranking, see [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
