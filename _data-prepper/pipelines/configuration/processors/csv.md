@@ -112,4 +112,4 @@ The `csv` processor includes the following custom metrics.
 
 The `csv` processor includes the following counter metrics:
 
-* `csvInvalidEvents`: The number of invalid events, ususally caused by unclosed quote in the event itself. Data prepper throws an expection when an invalid event is parsed. 
+* `csvInvalidEvents`: The number of invalid events, usually caused by unclosed quote in the event itself. Data Prepper throws an exception when an invalid event is parsed. 
