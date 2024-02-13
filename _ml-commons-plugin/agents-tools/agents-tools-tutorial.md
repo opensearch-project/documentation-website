@@ -20,7 +20,7 @@ The following tutorial illustrates creating a flow agent for retrieval-augmented
 
 ## Prerequisites
 
-To use the memory feature, fist configure the following cluster settings. This tutorial assumes you have no dedicated ML nodes:
+To use the memory feature, first configure the following cluster settings. This tutorial assumes you have no dedicated ML nodes:
 
 ```json
 PUT _cluster/settings
