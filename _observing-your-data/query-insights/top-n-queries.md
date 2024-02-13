@@ -7,43 +7,25 @@ nav_order: 65
 
 # Top n queries
 
-<<<<<<< HEAD
-Monitoring top N queries in query insights can help you gain real-time insights into the top queries with high latency in a certain window (for example, the last hour). 
+Monitoring the top N queries in query insights features can help you gain real-time insights into the top queries with high latency within a certain time frame (for example, the last hour). 
 
 ## Getting started
 
-To enable top N queries monitoring, configure the following [dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings):
+To enable monitoring of the top N queries, configure the following [dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings):
 
-- `search.insights.top_queries.latency.enabled`: Set to `true` to [enable top N query monitoring](#enabling-top-n-queries).
-=======
-Monitoring the top n queries in query insights features can help you gain real-time insights into the top queries with high latency within a certain time frame (for example, the last hour). 
-
-## Getting started
-
-To enable monitoring of the top n queries, configure the following [dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings):
-
-- `search.insights.top_queries.latency.enabled`: Set to `true` to [enable monitoring of the top n queries](#enabling-top-n-queries).
->>>>>>> 53c032c1d7815626309a0ab8a87f442f03705587
+- `search.insights.top_queries.latency.enabled`: Set to `true` to [enable monitoring of the top N queries](#enabling-top-n-queries).
 - `search.insights.top_queries.latency.window_size`: [Configure the window size](#configuring-window-size). 
-- `search.insights.top_queries.latency.top_n_size`: [Specify the value of n](#configuring-top-n-size).
+- `search.insights.top_queries.latency.top_n_size`: [Specify the value of n](#configuring-the-value-of-n).
 
 It's important to exercise caution when enabling this feature because it can consume system resources.
 {: .important}
 
 
-<<<<<<< HEAD
-For detailed information about enabling and configuring top N queries, see the following sections.
-
-## Enabling top N queries 
-
-After installing the `query-insights` plugin, you can enable the top N queries feature (which is disabled by default) by using the following dynamic setting. This setting enables the corresponding query insights collectors and aggregators in the running cluster:
-=======
 For detailed information about enabling and configuring this feature, see the following sections.
 
-## Enabling the top n queries feature 
+## Enabling the top N queries feature 
 
-After installing the `query-insights` plugin, you can enable the top n queries feature (which is disabled by default) by using the following dynamic setting. This setting enables the corresponding collectors and aggregators in the running cluster:
->>>>>>> 53c032c1d7815626309a0ab8a87f442f03705587
+After installing the `query-insights` plugin, you can enable the top N queries feature (which is disabled by default) by using the following dynamic setting. This setting enables the corresponding collectors and aggregators in the running cluster:
 
 ```json
 PUT _cluster/settings
