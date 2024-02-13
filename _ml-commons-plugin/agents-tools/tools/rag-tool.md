@@ -128,5 +128,5 @@ Parameter	| Type | Required/Optional | Description
 `query_type` | String | Optional | Specifies the type of query to run to perform neural search. Valid values are `neural` (for dense retrieval) and `neural_sparse` (for sparse retrieval). Default is `neural`.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is 2.
 `prompt` | String | Optional | The prompt to provide to the LLM.
-`k` | Integer | The number of nearest neighbors to search for when performing neural search. Default is 10.
+`k` | Integer | Optional | The number of nearest neighbors to search for when performing neural search. Default is 10.
 `enable_Content_Generation` | Boolean | Optional | Whether to enable content generation. Default is `true`.

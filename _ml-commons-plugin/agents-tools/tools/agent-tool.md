@@ -93,7 +93,7 @@ OpenSearch returns the inference results:
 
 ## Parameters
 
-The following table lists all available parameters. All parameters are optional.
+The following table lists all available parameters. 
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---

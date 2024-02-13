@@ -181,11 +181,11 @@ If you set `execute` to `false`, OpenSearch only returns the query but does not 
 
 ## Parameters
 
-The following table lists all available parameters. All parameters are optional.
+The following table lists all available parameters.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The model ID of the large language model (LLM) to use for translating text into a PPL query.
 `model_type` | String | Optional | The model type. 
 `prompt` | String | Optional | The prompt to provide to the LLM.
-`execute` | Optional | Specifies whether to run the PPL query. Default is `true`.
+`execute` | Boolean | Optional | Specifies whether to run the PPL query. Default is `true`.
