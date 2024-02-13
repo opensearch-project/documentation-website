@@ -10,7 +10,7 @@ nav_order: 60
 Introduced 2.12
 {: .label .label-purple }
 
-You can rerank search results using a cross-encoder reranker in order to improve search relevance. To implement reranking, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline you'll configure intercepts search results and applies the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to them. The `rerank` processor evaluates the search results and sorts them based on the new scores provided by the cross-encoder model. 
+You can rerank search results using a cross-encoder reranker in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to them. The `rerank` processor evaluates the search results and sorts them based on the new scores provided by the cross-encoder model. 
 
 **PREREQUISITE**<br>
 Before using hybrid search, you must set up a cross-encoder model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -29,7 +29,7 @@ To run a search with reranking, follow these steps:
 
 Next, configure a search pipeline with a [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
 
-The following example request creates a search pipeline with a `ml_opensearch` rerank processor. In the request, provide a model ID for the cross-encoder model and the document fields to use as context:
+The following example request creates a search pipeline with an `ml_opensearch` rerank processor. In the request, provide a model ID for the cross-encoder model and the document fields to use as context:
 
 ```json
 PUT /_search/pipeline/my_pipeline
@@ -115,4 +115,4 @@ POST /my-index/_search
 ```
 {% include copy-curl.html %}
 
-Alternatively, you can provide the full path to the field containing context. For more information, see [Rerank processor example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#example).
+Alternatively, you can provide the full path to the field containing the context. For more information, see [Rerank processor example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#example).

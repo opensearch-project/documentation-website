@@ -9,7 +9,7 @@ grand_parent: Search pipelines
 
 # Rerank processor
 
-The `rerank` search request processor intercepts search results and passes them to a cross-encoder model to rerank. The model reranks the results, taking into account the scoring context. Then, the processor orders documents in the search results based on their new scores.
+The `rerank` search request processor intercepts search results and passes them to a cross-encoder model to be reranked. The model reranks the results, taking into account the scoring context. Then the processor orders documents in the search results based on their new scores.
 
 ## Request fields
 
@@ -62,7 +62,7 @@ PUT /_search/pipeline/rerank_pipeline
 
 ### Using a search pipeline
 
-Combine an OpenSearch query with an `ext` object that contains the query context for the LLM. Provide the `query_text` that will be used to rerank the results:
+Combine an OpenSearch query with an `ext` object that contains the query context for the large language model (LLM). Provide the `query_text` that will be used to rerank the results:
 
 ```json
 POST /_search?search_pipeline=rerank_pipeline
@@ -83,7 +83,7 @@ POST /_search?search_pipeline=rerank_pipeline
 ```
 {% include copy-curl.html %}
 
-Instead of specifying `query_text`, you can provide a full path to the field that contains text to use for reranking. For example, if you specify a subfield `query` in the `text_representation` object, specify its path in the `query_text_path` parameter:
+Instead of specifying `query_text`, you can provide a full path to the field containing text to use for reranking. For example, if you specify a subfield `query` in the `text_representation` object, specify its path in the `query_text_path` parameter:
 
 ```json
 POST /_search?search_pipeline=rerank_pipeline
