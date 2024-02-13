@@ -25,6 +25,10 @@ For information about asynchronous search settings, see [Asynchronous Search set
 
 For information about cross-cluster replication settings, see [Replication settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/settings/).
 
+## Flow Framework plugin settings
+
+For information about automatic workflow settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-settings/).
+
 ## Geospatial plugin settings
 
 For information about the Geospatial plugin's IP2Geo processor settings, see [Cluster settings]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ip2geo/#cluster-settings).
