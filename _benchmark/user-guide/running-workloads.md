@@ -42,8 +42,8 @@ If you want to run the test in test mode to make sure that your workload operate
 
 After running an OpenSearch Benchmark test, take the following steps to verify that it has run properly:
 
-- Note the number of documents in the OpenSearch or OpenSearch Dashboards index that you plan to run the benchmark against.
-- In the results returned by OpenSearch Benchmark, compare the `workload.json` file for your specific workload and verify that the document count matches the number of documents. For example, based on the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/nyc_taxis/workload.json#L20) `workload.json` file, you should expect to see `165346692` documents in your cluster.
+1. Note the number of documents in the OpenSearch or OpenSearch Dashboards index that you plan to run the benchmark against.
+2. In the results returned by OpenSearch Benchmark, compare the `workload.json` file for your specific workload and verify that the document count matches the number of documents. For example, based on the [nyc_taxis](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/nyc_taxis/workload.json#L20) `workload.json` file, you should expect to see `165346692` documents in your cluster.
 
 ## Expected results
 
@@ -153,12 +153,12 @@ OSB returns the following response once the benchmark completes:
 ## Running a workload on an external cluster
 
 Now that you're familiar with running OpenSearch Benchmark on a local cluster, you can run it on your external cluster, as described in the following steps:
- 
-  * Replace `https://localhost:9200` with your target cluster endpoint. This could be a Uniform Resource Identifier (URI), such as `https://search.mydomain.com`, or a `HOST:PORT` specification.
-  * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
-  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster. This directive is necessary solely for clusters without SSL certificates.
-  * If you are using a `HOST:PORT`specification and plan to use SSL or TLS, either specify `https://` or add the `use_ssl:true` directive to the `--client-options` string option.
-  * Remove the `--test-mode` flag to run the full workload rather than an abbreviated test.
+
+1. Replace `https://localhost:9200` with your target cluster endpoint. This could be a Uniform Resource Identifier (URI), such as `https://search.mydomain.com`, or a `HOST:PORT` specification.
+2. If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
+3. Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster. This directive is necessary solely for clusters without SSL certificates.
+4. If you are using a `HOST:PORT`specification and plan to use SSL or TLS, either specify `https://` or add the `use_ssl:true` directive to the `--client-options` string option.
+5. Remove the `--test-mode` flag to run the full workload rather than an abbreviated test.
 
 You can copy the following command template to use it in your own terminal:
 
