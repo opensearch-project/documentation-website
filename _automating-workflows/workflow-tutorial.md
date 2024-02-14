@@ -133,7 +133,6 @@ You can configure other tools to be used by the CoT agent. For example, you can 
   user_inputs:
     name: CatIndexTool
     type: CatIndexTool
-    description: A tool to retrieve index information
     parameters:
       max_iteration: 5
 ```
