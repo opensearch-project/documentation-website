@@ -114,7 +114,7 @@ PUT _cluster/settings
 
 Model access control is achieved through the Model Group APIs. These APIs include the register, search, update, and delete model group operations.
 
-For information about model access control API, see [Model group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/).
+For information about APIs related to model access control, see [Model Group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/).
 
 ## Hidden models
 **Introduced 2.12**

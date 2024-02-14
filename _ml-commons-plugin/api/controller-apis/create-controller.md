@@ -48,7 +48,7 @@ The `user_rate_limiter` object contains an object for each user, specified by us
 Field | Data type | Description
 :---  | :--- | :--- 
 `limit` | Integer | The maximum number of times the user can call Predict API on the model per `unit` of time. By default, there is no limit on the number of Predict API calls. Once you set a limit, you cannot reset it to no limit. As an alternative, specify a high limit value and a small time unit, for example, 1 request per nanosecond.
-`unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, `SECONDS`.
+`unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, and `SECONDS`.
 
 
 #### Example request: Create controller

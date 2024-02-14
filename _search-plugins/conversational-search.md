@@ -22,7 +22,7 @@ Conversation history consists of a simple CRUD-like API comprising two resources
 
 ## RAG
 
-RAG retrieves data from the index and history and sends all the information as context to the LLM. The LLM then supplements its static knowledge base with the dynamically retrieved data. In OpenSearch, RAG is implemented through a search pipeline containing a[retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/). The processor intercepts OpenSearch query results, retrieves previous messages in the conversation from the conversation memory, and sends a prompt to a large language model (LLM). After the processor receives a response from the LLM, it saves the response in conversation memory and returns both the original OpenSearch results of the query and the LLM response. 
+RAG retrieves data from the index and history and sends all the information as context to the LLM. The LLM then supplements its static knowledge base with the dynamically retrieved data. In OpenSearch, RAG is implemented through a search pipeline containing a [retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/). The processor intercepts OpenSearch query results, retrieves previous messages in the conversation from the conversation memory, and sends a prompt to an LLM. After the processor receives a response from the LLM, it saves the response in conversation memory and returns both the original OpenSearch results of the query and the LLM response. 
 
 As of OpenSearch 2.11, the RAG technique has only been tested with OpenAI models and the Anthropic Claude model on Amazon Bedrock.
 {: .warning}

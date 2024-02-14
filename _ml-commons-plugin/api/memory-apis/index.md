@@ -14,7 +14,6 @@ redirect_from: /ml-commons-plugin/api/memory-apis/
 
 Memory APIs provide operations needed to implement [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). A memory keeps conversation history for the current conversation. A message is one question/answer interaction between the user and a large language model. Messages are organized into memories.
 
-
 ML Commons supports the following memory-level APIs:
 
 - [Create or update memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-memory/)

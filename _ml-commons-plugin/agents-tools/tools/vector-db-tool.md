@@ -21,7 +21,7 @@ The `VectorDBTool` performs dense vector retrieval. For more information about O
 
 ## Step 1: Register and deploy a sparse encoding model
 
-OpenSearch supports several pretrained models. You can either use one of those models, your own custom model, or create a connector to an externally hosted model. For a list of supported pretrained models, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/). For more information about custom models, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/). For information about integrating an externally hosted model, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). 
+OpenSearch supports several pretrained models. You can use one of those models, use your own custom model, or create a connector to an externally hosted model. For a list of supported pretrained models, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/). For more information about custom models, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/). For information about integrating an externally hosted model, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). 
 
 In this example, you'll use the `huggingface/sentence-transformers/all-MiniLM-L12-v2` pretrained model for both ingestion and search. To register and deploy the model to OpenSearch, send the following request:
 
@@ -225,6 +225,6 @@ Parameter	| Type | Required/Optional | Description
 `index` | String | Required | The index to search.
 `embedding_field` | String | Required | When the model encodes raw text documents, the encoding result is saved in a field. Specify this field as the `embedding_field`. Neural search matches documents to the query by calculating the similarity score between the query text and the text in the document's `embedding_field`.
 `source_field` | String | Required | The document field or fields to return. You can provide a list of multiple fields as an array of strings, for example, `["field1", "field2"]`.
-`input` | String | Required for flow agent | Run-time input sourced from flow agent parameters. If using an LLM, this field is populated with the LLM response.
+`input` | String | Required for flow agent | Run-time input sourced from flow agent parameters. If using a large language model (LLM), this field is populated with the LLM response.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is 2.
 `k` | Integer | Optional | The number of nearest neighbors to search for when performing neural search. Default is 10.

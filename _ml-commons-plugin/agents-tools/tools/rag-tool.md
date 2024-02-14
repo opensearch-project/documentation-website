@@ -17,7 +17,7 @@ grand_parent: Agents and tools
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-The `RAGTool` performs retrieval-augmented generation (RAG). For more information about RAG, see [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
+The `RAGTool` performs retrieval-augmented generation (RAG). For more information about RAG, see [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).
 
 Retrieval-augmented generation calls a large language model (LLM) and supplements the LLM knowledge by providing relevant OpenSearch documents along with the user question. To retrieve relevant documents from an OpenSearch index, you'll need a text embedding model that facilitates vector search.
 

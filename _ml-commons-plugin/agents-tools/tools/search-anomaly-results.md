@@ -106,7 +106,7 @@ The following table lists all available parameters. All parameters are optional.
 Parameter	| Type | Description	
 :--- | :--- | :---
 `detectorId`	| String	| The ID of the detector whose results to return.
-`realTime`	| Boolean | Whether to return real-time anomaly detector results. Set this parameter to `false` to return results only historical analysis results.
+`realTime`	| Boolean | Whether to return real-time anomaly detector results. Set this parameter to `false` to return only historical analysis results.
 `anomalyGradeThreshold` | Float	| The minimum anomaly grade for anomaly detector results to return. Anomaly grade is a number between 0 and 1 that indicates how anomalous a data point is.
 `dataStartTime` | Long	| The earliest time for which to return anomaly detector results, in epoch milliseconds.
 `dataEndTime` | Long |	The latest time for which to return anomaly detector results, in epoch milliseconds.

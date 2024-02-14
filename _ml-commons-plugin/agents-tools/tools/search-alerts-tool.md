@@ -113,5 +113,5 @@ Parameter	| Type | Description
 `searchString` | String	| The search string to use for searching for a specific alert.
 `sortOrder`| String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. 
 `sortString`| String |	Specifies the monitor field by which to sort the results. Default is `monitor_name.keyword`.
-`size`	| Integer |	The number of results to return. The number of results to return. Default is 20.
+`size`	| Integer |	The number of results to return. Default is 20.
 `startIndex`| Integer |	The paginated index of the alert to start from. Default is 0.

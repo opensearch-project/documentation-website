@@ -10,7 +10,7 @@ nav_order: 50
 **Introduced 2.12**
 {: .label .label-purple }
 
-Retrieves a message information for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). 
+Retrieves message information for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). 
 
 To retrieve message information, you can:
 
