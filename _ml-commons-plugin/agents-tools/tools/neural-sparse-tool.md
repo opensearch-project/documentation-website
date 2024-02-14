@@ -213,5 +213,5 @@ Parameter	| Type | Required/Optional | Description
 `source_field` | String | Required | The document field or fields to return. You can provide a list of multiple fields as an array of strings, for example, `["field1", "field2"]`.
 `input` | String | Required for flow agent | Run-time input sourced from flow agent parameters. If using a large language model (LLM), this field is populated with the LLM response.
 `name` | String  | Optional | The tool name. Useful for an LLM to select an appropriate tool for a task.
-`description` | String | Optional | tool description. Useful for an LLM to select an appropriate tool for a task.
+`description` | String | Optional | Tool description. Useful for an LLM to select an appropriate tool for a task.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is 2.
