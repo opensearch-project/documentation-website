@@ -3,7 +3,7 @@ layout: default
 title: Update model
 parent: Model APIs
 grand_parent: ML Commons APIs
-nav_order: 45
+nav_order: 40
 ---
 
 # Update a model

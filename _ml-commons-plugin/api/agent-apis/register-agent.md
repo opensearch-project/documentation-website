@@ -38,8 +38,8 @@ The `tools` array contains a list of tools for the agent. Each tool contains the
 Field | Data type | Required/Optional | Description
 :---  | :--- | :---
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in an agent, specify different names for the tools. |
-`type` | String | Required | The tool type. For a list of supported tools, see the [Tools library](https://github.com/opensearch-project/skills/tree/main/src/main/java/org/opensearch/agent/tools). 
-`parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. For more information, see the [Tools library](https://github.com/opensearch-project/skills/tree/main/src/main/java/org/opensearch/agent/tools).
+`type` | String | Required | The tool type. For a list of supported tools, see the [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
+`parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. For more information, see the specific tool type in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 #### Example request
 

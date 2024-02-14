@@ -13,16 +13,9 @@ nav_order: 20
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-To retrieve information about an agent, you can:
-
-- [Get an agent by ID](#get-an-agent-by-id)
-- [Search for an agent](#search-for-an-agent)
-
-## Get an agent by ID
-
 You can retrieve agent information using the `agent_id`.
 
-### Path and HTTP methods
+## Path and HTTP methods
 
 ```json
 GET /_plugins/_ml/agents/<agent_id>
@@ -41,67 +34,6 @@ The following table lists the available path parameters.
 
 ```json
 GET /_plugins/_ml/agents/N8AE1osB0jLkkocYjz7D
-```
-{% include copy-curl.html %}
-
-## Search for an agent
-
-Use this command to search for agents you've already created. You can provide any OpenSearch search query in the request body.
-
-### Path and HTTP methods
-
-```json
-GET /_plugins/_ml/agents/_search
-POST /_plugins/_ml/agents/_search
-```
-
-#### Example request: Searching for all agents
-
-```json
-POST /_plugins/_ml/agents/_search
-{
-  "query": {
-    "match_all": {}
-  },
-  "size": 1000
-}
-```
-{% include copy-curl.html %}
-
-#### Example request: Searching for agents of a certain type
-
-```json
-POST /_plugins/_ml/agents/_search
-{
-  "query": {
-    "term": {
-      "type": {
-        "value": "flow"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-#### Example: Searching for an agent by description
-
-```json
-GET _plugins/_ml/agents/_search
-{
-  "query": {
-    "bool": {
-      "should": [
-        {
-          "match": {
-            "description": "test agent"
-          }
-        }
-      ]
-    }
-  },
-  "size": 1000
-}
 ```
 {% include copy-curl.html %}
 

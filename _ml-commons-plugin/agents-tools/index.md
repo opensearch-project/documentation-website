@@ -20,7 +20,8 @@ You can automate machine learning (ML) tasks using agents and tools. An _agent_ 
 An _agent_ is a coordinator that uses a large language model (LLM) to solve a problem. After the LLM reasons and decides what action to take, the agent coordinates the action execution. OpenSearch supports the following agent types:
 
 - [_Flow agent_](#flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a flow agent is fixed. Useful for retrieval-augmented generation (RAG).
-- [_Conversational agent_](#conversational-agents): Reasons to provide a response based on the available knowledge. The workflow of a conversational agent is variable, based on follow-up questions. For specific questions, uses the Chain-of-Thought (CoT) process to select the best tool for providing a response to the question out of the configured tools. Useful for chatbot creation.
+- [_Conversational flow agent_](#conversational-flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a conversational flow agent is fixed. Stores conversation history so users can ask follow-up questions. Useful for creating a chatbot.
+- [_Conversational agent_](#conversational-agents): Reasons to provide a response based on the available knowledge, including the LLM knowledge base and a set of tools provided to the LLM. Stores conversation history so users can ask follow-up questions. The workflow of a conversational agent is variable, based on follow-up questions. For specific questions, uses the Chain-of-Thought (CoT) process to select the best tool for providing a response to the question out of the configured tools. Useful for creating a chatbot that employs RAG.
 
 ### Flow agents
 
@@ -36,7 +37,7 @@ POST /_plugins/_ml/agents/_register
     {
       "type": "VectorDBTool",
       "parameters": {
-        "model_id": "aVeif4oB5Vm0Tdw8zYO2",
+        "model_id": "YOUR_TEXT_EMBEDDING_MODEL_ID",
         "index": "my_test_data",
         "embedding_field": "embedding",
         "source_field": ["text"],
@@ -47,8 +48,60 @@ POST /_plugins/_ml/agents/_register
       "type": "MLModelTool",
       "description": "A general tool to answer any question",
       "parameters": {
-        "model_id": "NWR9YIsBUysqmzBdifVJ",
+        "model_id": "YOUR_LLM_MODEL_ID",
         "prompt": "\n\nHuman:You are a professional data analyst. You will always answer a question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say you don't know. \n\n Context:\n${parameters.VectorDBTool.output}\n\nHuman:${parameters.question}\n\nAssistant:"
+      }
+    }
+  ]
+}
+```
+
+### Conversational flow agents
+
+Similarly to a flow agent, a conversational flow agent is configured with a set of tools that it runs in order. The difference is that a conversational flow agent stores the conversation in an index, in the following example, the `conversation_index`. The following agent runs the `VectorDBTool` and then the `MLModelTool`:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "population data analysis agent",
+  "type": "conversational_flow",
+  "description": "This is a demo agent for population data analysis",
+  "app_type": "rag",
+  "memory": {
+    "type": "conversation_index"
+  },
+  "tools": [
+    {
+      "type": "VectorDBTool",
+      "name": "population_knowledge_base",
+      "parameters": {
+        "model_id": "YOUR_TEXT_EMBEDDING_MODEL_ID",
+        "index": "test_population_data",
+        "embedding_field": "population_description_embedding",
+        "source_field": [
+          "population_description"
+        ],
+        "input": "${parameters.question}"
+      }
+    },
+    {
+      "type": "MLModelTool",
+      "name": "bedrock_claude_model",
+      "description": "A general tool to answer any question",
+      "parameters": {
+        "model_id": "YOUR_LLM_MODEL_ID",
+        "prompt": """
+
+Human:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
+
+Context:
+${parameters.population_knowledge_base.output:-}
+
+${parameters.chat_history:-}
+
+Human:${parameters.question}
+
+Assistant:"""
       }
     }
   ]
@@ -57,7 +110,7 @@ POST /_plugins/_ml/agents/_register
 
 ### Conversational agents
 
-A conversational agent can be configured with an LLM and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `CATIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `CATIndexTool` as context. The LLM then decides whether it needs to use a the `CATIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `CATIndexTool` that rertrieves information about your OpenSearch indexes:
+Similarly to a conversational flow agent, a conversational agent stores the conversation in an index, in the following example, the `conversation_index`.A conversational agent can be configured with an LLM and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `CATIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `CATIndexTool` as context. The LLM then decides whether it needs to use a the `CATIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `CATIndexTool` that retrieves information about your OpenSearch indexes:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -66,7 +119,7 @@ POST /_plugins/_ml/agents/_register
   "type": "conversational",
   "description": "this is a test agent",
   "llm": {
-    "model_id": "NWR9YIsBUysqmzBdifVJ",
+    "model_id": "YOUR_LLM_MODEL_ID",
     "parameters": {
       "max_iteration": 5,
       "stop_when_no_tool_found": true,
@@ -82,7 +135,7 @@ POST /_plugins/_ml/agents/_register
       "name": "VectorDBTool",
       "description": "A tool to search opensearch index with natural language quesiotn. If you don't know answer for some question, you should always try to search data with this tool. Action Input: <natrual language question>",
       "parameters": {
-        "model_id": "zBRyYIsBls05QaITo5ex",
+        "model_id": "YOUR_TEXT_EMBEDDING_MODEL_ID",
         "index": "my_test_data",
         "embedding_field": "embedding",
         "source_field": [ "text" ],

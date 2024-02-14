@@ -3,7 +3,7 @@ layout: default
 title: Update connector
 parent: Connector APIs
 grand_parent: ML Commons APIs
-nav_order: 25
+nav_order: 30
 ---
 
 # Update a connector
