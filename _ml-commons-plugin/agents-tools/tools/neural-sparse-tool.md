@@ -212,6 +212,6 @@ Parameter	| Type | Required/Optional | Description
 `embedding_field` | String | Required | When the neural sparse model encodes raw text documents, the encoding result is saved in a field. Specify this field as the `embedding_field`. Neural sparse search matches documents to the query by calculating the similarity score between the query text and the text in the document's `embedding_field`.
 `source_field` | String | Required | The document field or fields to return. You can provide a list of multiple fields as an array of strings, for example, `["field1", "field2"]`.
 `input` | String | Required for flow agent | Run-time input sourced from flow agent parameters. If using a large language model (LLM), this field is populated with the LLM response.
-`name` | String  | Optional | The tool name. Useful for a large language model (LLM) to select an appropriate tool for a task.
+`name` | String  | Optional | The tool name. Useful for an LLM to select an appropriate tool for a task.
 `description` | String | Optional | tool description. Useful for an LLM to select an appropriate tool for a task.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is 2.
