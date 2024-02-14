@@ -186,6 +186,7 @@ The following table lists all available parameters.
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The model ID of the large language model (LLM) to use for translating text into a PPL query.
-`model_type` | String | Optional | The model type. 
+`model_type` | String | Optional | The model type. Valid values are `CLAUDE`, `OPENAI`, and `FINETUNE`. 
 `prompt` | String | Optional | The prompt to provide to the LLM.
 `execute` | Boolean | Optional | Specifies whether to run the PPL query. Default is `true`.
+`input` | Object | Optional | Contains two parameters that specify the index to search and the question for the LLM. For example, `"input": "{\"index\": \"${parameters.index}\", \"question\": ${parameters.question} }"`.
