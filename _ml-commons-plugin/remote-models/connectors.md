@@ -37,12 +37,12 @@ The following table lists all connector blueprints provided by OpenSearch. Follo
 
 Platform | Model | Connector blueprint
 :--- | :--- | :---
-[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [A21 Labs Jurassic-2 Mid](https://aws.amazon.com/bedrock/jurassic/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
+[Amazon Bedrock](https://aws.amazon.com/bedrock/) | [AI21 Labs Jurassic-2 Mid](https://aws.amazon.com/bedrock/jurassic/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md)
 [Amazon Bedrock](https://aws.amazon.com/bedrock/) | [Anthropic Claude v2](https://aws.amazon.com/bedrock/claude/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md)
 [Amazon Bedrock](https://aws.amazon.com/bedrock/) | [Titan Text Embeddings](https://aws.amazon.com/bedrock/titan/) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md)
 [Amazon SageMaker](https://aws.amazon.com/sagemaker/) | Text embedding models | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/sagemaker_connector_blueprint.md)
-[Cohere](https://cohere.com/) | The `embed-english-v2.0` [text embedding model](https://docs.cohere.com/reference/embed) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_v2_connector_embedding_blueprint.md)
-[Cohere](https://cohere.com/) | The `embed-english-v3.0` [text embedding model](https://docs.cohere.com/reference/embed) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_v3_connector_embedding_blueprint.md)
+[Cohere](https://cohere.com/) | [Text Embedding models](https://docs.cohere.com/reference/embed) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md)
+[Cohere](https://cohere.com/) | [Chat models](https://docs.cohere.com/reference/chat) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/cohere_connector_chat_blueprint.md)
 [OpenAI](https://openai.com/) | Chat models (for example, `gpt-3.5-turbo`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md)
 [OpenAI](https://openai.com/) | Completion models (for example, `text-davinci-003`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_completion_blueprint.md)
 [OpenAI](https://openai.com/) | Text embedding models (for example, `text-embedding-ada-002`) | [Blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/openai_connector_embedding_blueprint.md)
@@ -224,7 +224,7 @@ POST /_plugins/_ml/connectors/_create
   "version": "<YOUR CONNECTOR VERSION>",
   "protocol": "http",
   "credential": {
-    "cohere_key": "<YOUR Cohere API KEY HERE>"
+    "cohere_key": "<YOUR COHERE API KEY HERE>"
   },
   "parameters": {
     "model": "embed-english-v2.0",

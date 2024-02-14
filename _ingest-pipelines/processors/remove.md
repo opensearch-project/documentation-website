@@ -30,7 +30,8 @@ The following table lists the required and optional parameters for the `remove` 
 
 | Parameter  | Required/Optional  | Description  |
 |---|---|---|
-`field`  | Required  | The name of the field containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). The following metadata fields are not allowed to be removed: `_index`, `_version`, `_version_type`, and `_id`. Note that `_id` is not allowed to be removed when there's a specified external version for the ingesting document. |
+`field`  | Optional  | The field name containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). The metadata fields `_index`, `_version`, `_version_type`, and `_id` cannot be removed. If `version` is specified, `_id` cannot be removed from the ingested document. |
+`exclude_field`  | Optional  | The field name to be retained. All other fields, except metadata fields, will be removed. The `exclude_field` and `field` options are mutually exclusive. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
@@ -112,7 +113,7 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-PPUT testindex1/_doc/1?pipeline=remove_ip
+PUT testindex1/_doc/1?pipeline=remove_ip
 {
   "ip_address": "203.0.113.1",
   "name": "John Doe"
