@@ -291,3 +291,33 @@ The name and path used for the chart's output. Default is `stdout`.
 <!-- vale on -->
 
 Limits the number of search results for recent test runs. Default is `10`.
+
+<!-- vale off -->
+## latency-percentiles
+<!-- vale on -->
+
+Specifies a list of latency percentiles to report after the workload runs. Default is `50,90,99,99.9,99.99,100`. 
+
+<!-- vale off -->
+## throughput-percentiles
+<!-- vale on -->
+
+Specifies a list of throughput percentiles to report after the workload runs, in addition to mean/median/max/min. Default is `None`. 
+
+<!-- vale off -->
+## randomization-enabled
+<!-- vale on -->
+
+Enables randomization of values in range queries, where the values are drawn from standard value functions registered with `register_standard_value_source` in the workload's workload.py. Default is `False`. 
+
+<!-- vale off -->
+## randomization-repeat-frequency
+<!-- vale on -->
+
+Sets what fraction of randomized query values can be repeated. Takes values between `0.0` and `1.0`. Default is `0.3`. Has no effect if `--randomization-enabled` is not used. 
+
+<!-- vale off -->
+## randomization-n
+<!-- vale on -->
+
+Sets how many distinct repeatable pair values are generated for each operation when randomization is used. Default is `5000`. Has no effect if `--randomization-enabled` is not used. 
