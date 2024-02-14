@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Compare Search Results
+title: Comparing search results
 nav_order: 55
 parent: Search relevance
 has_children: true
@@ -9,7 +9,7 @@ redirect_from:
   - /search-plugins/search-relevance/
 ---
 
-# Compare Search Results
+# Comparing search results
 
 With Compare Search Results in OpenSearch Dashboards, you can compare results from two queries side by side to determine whether one query produces better results than the other. Using this tool, you can evaluate search quality by experimenting with queries. 
 
