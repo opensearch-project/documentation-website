@@ -380,80 +380,82 @@ See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
 These permissions apply to an index or index pattern. You might want a user to have read access to all indexes (that is, `*`), but write access to only a few (for example, `web-logs` and `product-catalog`).
 
-- indices:admin/aliases
-- indices:admin/aliases/get
-- indices:admin/analyze
-- indices:admin/cache/clear
-- indices:admin/close
-- indices:admin/close*
-- indices:admin/create (create indexes)
-- indices:admin/data_stream/create
-- indices:admin/data_stream/delete
-- indices:admin/data_stream/get
-- indices:admin/delete (delete indexes)
-- indices:admin/exists
-- indices:admin/flush
-- indices:admin/flush*
-- indices:admin/forcemerge
-- indices:admin/get (retrieve index and mapping)
-- indices:admin/mapping/put
-- indices:admin/mappings/fields/get
-- indices:admin/mappings/fields/get*
-- indices:admin/mappings/get
-- indices:admin/open
-- indices:admin/plugins/replication/index/setup/validate
-- indices:admin/plugins/replication/index/start
-- indices:admin/plugins/replication/index/pause
-- indices:admin/plugins/replication/index/resume
-- indices:admin/plugins/replication/index/stop
-- indices:admin/plugins/replication/index/update
-- indices:admin/plugins/replication/index/status_check
-- indices:admin/refresh
-- indices:admin/refresh*
-- indices:admin/resolve/index
-- indices:admin/rollover
-- indices:admin/seq_no/global_checkpoint_sync
-- indices:admin/settings/update
-- indices:admin/shards/search_shards
-- indices:admin/template/delete
-- indices:admin/template/get
-- indices:admin/template/put
-- indices:admin/upgrade
-- indices:admin/validate/query
-- indices:data/read/explain
-- indices:data/read/field_caps
-- indices:data/read/field_caps*
-- indices:data/read/get
-- indices:data/read/mget
-- indices:data/read/mget*
-- indices:data/read/msearch
-- indices:data/read/msearch/template
-- indices:data/read/mtv (multi-term vectors)
-- indices:data/read/mtv*
-- indices:data/read/plugins/replication/file_chunk
-- indices:data/read/plugins/replication/changes
-- indices:data/read/scroll
-- indices:data/read/scroll/clear
-- indices:data/read/search
-- indices:data/read/search*
-- indices:data/read/search/template
-- indices:data/read/tv (term vectors)
-- indices:data/write/bulk
-- indices:data/write/bulk*
-- indices:data/write/delete (delete documents)
-- indices:data/write/delete/byquery
-- indices:data/write/plugins/replication/changes
-- indices:data/write/index (add documents to existing indexes)
-- indices:data/write/reindex
-- indices:data/write/update
-- indices:data/write/update/byquery
-- indices:monitor/data_stream/stats
-- indices:monitor/recovery
-- indices:monitor/segments
-- indices:monitor/settings/get
-- indices:monitor/shard_stores
-- indices:monitor/stats
-- indices:monitor/upgrade
+| Permission | Description |
+| --- | --- |
+| `indices:admin/aliases` |  Permission related to index aliases.  See also [Index aliases]( https://opensearch.org/docs/latest/im-plugin/index-alias/ ) |
+| `indices:admin/aliases/get` |  Permission to get index aliases.  See also [Index aliases]( https://opensearch.org/docs/latest/im-plugin/index-alias/ ) |
+| `indices:admin/analyze` |  Permission to use analyze API.  See also [Analyze API]( https://opensearch.org/docs/latest/api-reference/analyze-apis/ ) |
+| `indices:admin/cache/clear` |  Permission to clear cache.  See also [Clear cache]( https://opensearch.org/docs/latest/api-reference/index-apis/clear-index-cache/ ) |
+| `indices:admin/close` |  Permission to close an index.  See also [Close index]( https://opensearch.org/docs/latest/api-reference/index-apis/close-index/ ) |
+| `indices:admin/close*` |  Permission to close an index.  See also [Close index]( https://opensearch.org/docs/latest/api-reference/index-apis/close-index/ ) |
+| `indices:admin/create` |  Permission to create indexes.  See also [Create index]( https://opensearch.org/docs/2.11/api-reference/index-apis/create-index/ ) |
+| `indices:admin/data_stream/create` |  Permission to create data streams.  See also [Data streams]( https://opensearch.org/docs/latest/dashboards/im-dashboards/datastream/#creating-a-data-stream ) |
+| `indices:admin/data_stream/delete` |  Permission to delete data streams.  See also [Deleting a data stream]( https://opensearch.org/docs/latest/dashboards/im-dashboards/datastream/#deleting-a-data-stream ) |
+| `indices:admin/data_stream/get` |  Permission to get data streams.  See also [Viewing a data stream]( https://opensearch.org/docs/latest/dashboards/im-dashboards/datastream/#viewing-a-data-stream ) |
+| `indices:admin/delete` |  Permission to delete indexes.  See also [Delete index]( https://opensearch.org/docs/latest/api-reference/index-apis/delete-index/ ) |
+| `indices:admin/exists` |  Permission to use exists query.  See also [Exists query]( https://opensearch.org/docs/latest/query-dsl/term/exists/ ) |
+| `indices:admin/flush` |  Permission to flush an index.  See also [Flushing an index]( https://opensearch.org/docs/latest/dashboards/im-dashboards/index-management/#flushing-an-index ) |
+| `indices:admin/flush*` |  Permission to flush an index.  See also [Flushing an index]( https://opensearch.org/docs/latest/dashboards/im-dashboards/index-management/#flushing-an-index ) |
+| `indices:admin/forcemerge` |  Permission to force merge indexes and data streams.  See also [Force merge]( https://opensearch.org/docs/latest/dashboards/im-dashboards/forcemerge/ ) |
+| `indices:admin/get` |  Permission to get index and mapping.  See also [Get index]( https://opensearch.org/docs/2.11/api-reference/index-apis/get-index/ ) |
+| `indices:admin/mapping/put` |  Permission to add new mappings and fields to an index.  See also [Put mapping]( https://opensearch.org/docs/1.2/opensearch/rest-api/index-apis/put-mapping/ ) |
+| `indices:admin/mappings/fields/get` |  Permission to get mappings fields.   |
+| `indices:admin/mappings/fields/get*` |  Permission to get mappings fields.   |
+| `indices:admin/mappings/get` |  Permission to get mapping.  See also [Get Mappings]( https://opensearch.org/docs/latest/security-analytics/api-tools/mappings-api/#get-mappings ) |
+| `indices:admin/open` |  Permission to open an index.  See also [Open index]( https://opensearch.org/docs/latest/api-reference/index-apis/open-index/ ) |
+| `indices:admin/plugins/replication/index/setup/validate` |  Permission to validate a connection to a remote cluster.  See also [Set up a cross-cluster connection]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#set-up-a-cross-cluster-connection ) |
+| `indices:admin/plugins/replication/index/start` |  Permission to start cross-cluster replication.  See also [Start replication]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#start-replication ) |
+| `indices:admin/plugins/replication/index/pause` |  Permission to pause cross-cluster replication.  See also [Confirm replication]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#confirm-replication ) |
+| `indices:admin/plugins/replication/index/resume` |  Permission to resume cross-cluster replication.  See also [Confirm replication]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#confirm-replication ) |
+| `indices:admin/plugins/replication/index/stop` |  Permission to stop cross-cluster replication.  See also [Stop replication]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#stop-replication ) |
+| `indices:admin/plugins/replication/index/update` |  Permission to update cross-cluster replication settings.  See also [Update settings]( https://opensearch.org/docs/latest/tuning-your-cluster/replication-plugin/api/#update-settings ) |
+| `indices:admin/plugins/replication/index/status_check` |  Permission to check the status of cross-cluster replication.  See also [Confirm replication]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#confirm-replication ) |
+| `indices:admin/refresh` |  Permission to use the index refresh API.  See also [Refreshing an index]( https://opensearch.org/docs/latest/dashboards/im-dashboards/index-management/#refreshing-an-index ) |
+| `indices:admin/refresh*` |  Permission to use the index refresh API.  See also [Refreshing an index]( https://opensearch.org/docs/latest/dashboards/im-dashboards/index-management/#refreshing-an-index ) |
+| `indices:admin/resolve/index` |  Permission to resolve index names, index aliases and data streams.   |
+| `indices:admin/rollover` |  Permission to perform index rollover.  See also [Rollover]( https://opensearch.org/docs/latest/dashboards/im-dashboards/rollover/ ) |
+| `indices:admin/seq_no/global_checkpoint_sync` |   |
+| `indices:admin/settings/update` |  Permission to update index settings.  See also [Update settings]( https://opensearch.org/docs/2.11/api-reference/index-apis/update-settings/ ) |
+| `indices:admin/shards/search_shards` |  Permission to perform CCS (Cross Cluster Search).  See also [Cross-cluster search]( https://opensearch.org/docs/latest/security/access-control/cross-cluster-search/ ) |
+| `indices:admin/template/delete` |  Permission to delete index templates.  See also [Delete a template]( https://opensearch.org/docs/latest/im-plugin/index-templates/#delete-a-template ) |
+| `indices:admin/template/get` |  Permission to get index templates.  See also [Retrieve a template]( https://opensearch.org/docs/latest/im-plugin/index-templates/#retrieve-a-template ) |
+| `indices:admin/template/put` |  Permission to create index templates.  See also [Create a template]( https://opensearch.org/docs/latest/im-plugin/index-templates/#create-a-template ) |
+| `indices:admin/upgrade` |   |
+| `indices:admin/validate/query` |  Permission to validate a specific query.  See also [Multi-match queries]( https://opensearch.org/docs/latest/query-dsl/full-text/multi-match/ ) |
+| `indices:data/read/explain` |  Permission to execute the _explain API.  See also [Explain]( https://opensearch.org/docs/latest/api-reference/explain/ ) |
+| `indices:data/read/field_caps` |  Permission to execute the _field_caps (field capabilities) API.  See also [Using aliases in field capabilities API operations]( https://opensearch.org/docs/latest/field-types/supported-field-types/alias/#using-aliases-in-field-capabilities-api-operations ) |
+| `indices:data/read/field_caps*` |  Permission to execute the _field_caps (field capabilities) API.  See also [Using aliases in field capabilities API operations]( https://opensearch.org/docs/latest/field-types/supported-field-types/alias/#using-aliases-in-field-capabilities-api-operations ) |
+| `indices:data/read/get` |  Permission to read index data.  See also [Get document]( https://opensearch.org/docs/latest/api-reference/document-apis/get-documents/ ) |
+| `indices:data/read/mget` |  Permission to run multiple GET operations in one request.  See also [Multi-get documents]( https://opensearch.org/docs/latest/api-reference/document-apis/multi-get/ ) |
+| `indices:data/read/mget*` |  Permission to run multiple GET operations in one request.  See also [Multi-get documents]( https://opensearch.org/docs/latest/api-reference/document-apis/multi-get/ ) |
+| `indices:data/read/msearch` |  Permission to run multiple search requests into a single request.  See also [Multi-search]( https://opensearch.org/docs/latest/api-reference/multi-search/ ) |
+| `indices:data/read/msearch/template` |  Permission to bundle multiple search templates and send them to your OpenSearch cluster in a single request.  See also [Multiple search templates]( https://opensearch.org/docs/latest/api-reference/search-template/#multiple-search-templates ) |
+| `indices:data/read/mtv` |  Permission to retrieve multiple term vectors with a single request.   |
+| `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request.   |
+| `indices:data/read/plugins/replication/file_chunk` |   |
+| `indices:data/read/plugins/replication/changes` |   |
+| `indices:data/read/scroll` |   |
+| `indices:data/read/scroll/clear` |   |
+| `indices:data/read/search` |  Permission to search data.  See also [Search]( https://opensearch.org/docs/latest/api-reference/search/ ) |
+| `indices:data/read/search*` |  Permission to search data.  See also [Search]( https://opensearch.org/docs/latest/api-reference/search/ ) |
+| `indices:data/read/search/template` |   |
+| `indices:data/read/tv` |  Permission to retrieve information and statistics for terms in the fields of a particular document.   |
+| `indices:data/write/bulk` |  Permission to execute a bulk request.  See also [Bulk]( https://opensearch.org/docs/latest/api-reference/document-apis/bulk/ ) |
+| `indices:data/write/bulk*` |  Permission to execute a bulk request.  See also [Bulk]( https://opensearch.org/docs/latest/api-reference/document-apis/bulk/ ) |
+| `indices:data/write/delete` |  Permission to delete documents.  See also [Delete document]( https://opensearch.org/docs/latest/api-reference/document-apis/delete-document/ ) |
+| `indices:data/write/delete/byquery` |  Permission to delete all documents that match a query.  See also [Delete by query]( https://opensearch.org/docs/latest/api-reference/document-apis/delete-by-query/ ) |
+| `indices:data/write/plugins/replication/changes` |   |
+| `indices:data/write/index` |  Permission to add documents to existing indexes.  See also [Index document]( https://opensearch.org/docs/latest/api-reference/document-apis/index-document/ ) |
+| `indices:data/write/reindex` |  Permission to execute reindex.  See also [Reindex data]( https://opensearch.org/docs/latest/im-plugin/reindex-data/ ) |
+| `indices:data/write/update` |   |
+| `indices:data/write/update/byquery` |  Permission to run the script to update all of the documents that match the query.  See also [Update by query]( https://opensearch.org/docs/latest/api-reference/document-apis/update-by-query/ ) |
+| `indices:monitor/data_stream/stats` |   |
+| `indices:monitor/recovery` |   |
+| `indices:monitor/segments` |   |
+| `indices:monitor/settings/get` |   |
+| `indices:monitor/shard_stores` |   |
+| `indices:monitor/stats` |   |
+| `indices:monitor/upgrade` |   |
 
 
 ## Security REST permissions
