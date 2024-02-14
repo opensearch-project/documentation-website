@@ -12,11 +12,9 @@ This is an experimental feature and is not recommended for use in a production e
 
 
 
-Whilte the OpenSearch Stats APIs offer insights into the inner workings of each node and an OpenSearch cluster as a whole, the statistics lack certain details, such as percentiles, and do not provide the semantics of richer metric types like histograms. Consequently, identifying outliers within cluster statistic becomes challenging when using only the Stats API. 
+While the OpenSearch Stats APIs offer insights into the inner workings of each node and an OpenSearch cluster as a whole, the statistics lack certain details, such as percentiles, and do not provide the semantics of richer metric types like histograms. Consequently, identifying outliers within cluster statistic becomes challenging when using only the Stats API. 
 
 The OpenSearch Metric Framework plugin adds comprehensive metric support to effectively monitor an OpenSearch cluster. Using the Metrics Framework APIs, plugin and extension developers can add new monitoring metrics. In addition, the OpenSearch distribution bundles the `telemetry-otel` plugin which provides the implementation for metrics instrumentation based on the [OpenTelemetry](https://opentelemetry.io) Java SDK.
-
-Developers can easily add new metrics using the Metrics Framework and some of them are already added to visualize the query shaping, see the associated PR [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10724). OpenTelemetry offers decent support for metrics, and we are leveraging the existing `telemetry-otel` plugin to provide the implementation for metrics as well. OpenSearch users can easily consume these metrics through open source OpenTelemetry sinks.
 
 
 ## Getting started
@@ -92,25 +90,8 @@ OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
 ```
 {% include copy.html %}
 
-### Enable for OpenSearch development
 
-To enable the metrics feature, you must first add the correct properties to `run.gradle` before building OpenSearch. See the [Developer Guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md#gradle-build) for information about how to use Gradle to build OpenSearch.
-
-Add the following properties to `run.gradle` to enable the feature:
-
-```json
-testClusters {
-  runTask {
-    testDistribution = 'archive'
- if (numZones > 1) numberOfZones = numZones
-    if (numNodes > 1) numberOfNodes = numNodes
-    systemProperty 'opensearch.experimental.feature.telemetry.enabled', 'true'
-    }
- }
- ```
- {% include copy.html %}
-
- ### Enable metrics framework
+### Enable metrics framework
 
 Once you've enabled the feature flag, you can enable the Metrics Framework by using the following setting that enables metrics in the opensearch.yaml:
 
@@ -118,7 +99,7 @@ Once you've enabled the feature flag, you can enable the Metrics Framework by us
 telemetry.feature.metrics.enabled=true
 ```
 
-The OpenSearch Metrics Frame supports various telemetry solutions through plugins. Use the following instructions to enable the `telemetry-otel` plugin:
+The OpenSearch Metrics Framework supports various telemetry solutions through plugins. Use the following instructions to enable the `telemetry-otel` plugin:
 
 
 
