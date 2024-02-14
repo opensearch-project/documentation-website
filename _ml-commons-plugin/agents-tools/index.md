@@ -111,7 +111,7 @@ plugins.ml_commons.agent_framework_enabled: true
 ```
 {% include copy.html %}
 
-For conversational agents, you also need to RAG for use in conversational search. To enable RAG, configure the following setting:
+For conversational agents, you also need to enable RAG for use in conversational search. To enable RAG, configure the following setting:
 
 ```yaml
 plugins.ml_commons.rag_pipeline_feature_enabled: true
