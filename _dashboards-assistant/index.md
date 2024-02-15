@@ -96,7 +96,8 @@ Click the trash icon to delete conversation, the delete confirmation modal will 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/delete-conversation.png" alt="Delete the conversation">
 
-### Share a conversation via notebook
+### Sharing a conversation through Notebooks
+
 Click `Save to notebook` button to save your conversation to notebook. All messages between you and LLM model will be saved to observability notebook after entering name for notebook and confirm.
 
 <img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/save-conversation-to-notebook.png" alt="Save a conversation to notebook">
