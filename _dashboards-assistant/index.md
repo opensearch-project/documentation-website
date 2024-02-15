@@ -66,7 +66,7 @@ Select `Enter` to initiate the conversation. A response snapshot is shown in the
 
 Beneath the response, select the **Regenerate** button to generate an alternative answer to your original question. The new answer will replace the previous one, appearing in both the interface and chat history.
 
-### The suggestions by the assistant
+### Suggested prompts
 Under the response, we also provide suggestions that we think user may be interested to ask. User can click one of them to see the response.
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestions.png" alt="The assistant suggestions">
