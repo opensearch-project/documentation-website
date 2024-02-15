@@ -27,7 +27,7 @@ For information about cross-cluster replication settings, see [Replication setti
 
 ## Flow Framework plugin settings
 
-For information about automatic workflow settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-settings/).
+For information about automatic workflow settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-settings/).
 
 ## Geospatial plugin settings
 

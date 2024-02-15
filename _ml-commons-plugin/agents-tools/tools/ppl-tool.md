@@ -72,7 +72,7 @@ To register and deploy the model to OpenSearch, send the following request, prov
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "remote-inferene",
+  "name": "remote-inference",
   "function_name": "remote",
   "description": "test model",
   "connector_id": "eJATWo0BkIylWTeYToTn"

@@ -17,7 +17,7 @@ Creating a workflow adds the content of a workflow template to the flow framewor
 * Workflow step fields with invalid values.
 * Workflow graph (node/edge) configurations containing cycles or with duplicate IDs.
 
-To obtain the validation template for workflow steps, call the [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-workflows/api/get-workflow-steps/).
+To obtain the validation template for workflow steps, call the [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-steps/).
 
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
@@ -50,7 +50,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
 ```
 {% include copy-curl.html %}
 
-When set to `true`, the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-workflows/api/provision-workflow/) is executed immediately following creation. 
+When set to `true`, the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) is executed immediately following creation. 
 
 By default, workflows are validated when they are created to ensure that the syntax is valid and that the graph does not contain cycles. This behavior can be controlled with the `validation` query parameter. If `validation` is set to `all`, OpenSearch performs a complete template validation. Any other value of the `validation` parameter suppresses validation, allowing an incomplete/work-in-progress template to be saved. To disable template validation, set `validation` to `none`:
 

@@ -178,4 +178,4 @@ For more information about ways to enable experimental features, see [Experiment
 - For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 - For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
-- To use agents and tools in workflow automation, see [Automating workflows]({{site.url}}{{site.baseurl}}/automating-workflows/index/).
+- To use agents and tools in workflow automation, see [Automating workflows]({{site.url}}{{site.baseurl}}/automating-configurations/index/).

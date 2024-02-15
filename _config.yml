@@ -112,7 +112,7 @@ collections:
   about:
     permalink: /:collection/:path/
     output: true
-  automating-workflows:
+  automating-configurations:
     permalink: /:collection/:path/
     output: true
 
@@ -169,8 +169,8 @@ opensearch_collection:
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
-    automating-workflows:
-      name: Automating workflows
+    automating-configurations:
+      name: Automating configurations
       nav_fold: true
     monitoring-your-cluster:
       name: Monitoring your cluster
