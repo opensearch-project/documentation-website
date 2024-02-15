@@ -15,22 +15,24 @@ This is an experimental feature and is not recommended for use in a production e
 
 For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 {: .note}
-{: .warning}
 
 # OpenSearch Assistant for OpenSearch Dashboards
 Introduced 2.12
 {: .label .label-purple }
 
-The [OpenSearch Assistant toolkit](<insert-ML-cross-ref-link>) helps you create AI-powered assistants for OpenSearch Dashboards without requiring specialized query tools or skills.
+The [OpenSearch Assistant toolkit]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/) helps you create AI-powered assistants for OpenSearch Dashboards without requiring you to have specialized query tools or skills.
 
 ## Enabling OpenSearch Assistant
 
 To enable **OpenSearch Assistant** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+
 ```
 assistant.chat.enabled: true
 ```
 {% include copy-curl.html %}
+
 Then configure the root `agent_id` through the following API:
+
 ```
 PUT .plugins-ml-config/_doc/os_chat
 {
@@ -41,20 +43,24 @@ PUT .plugins-ml-config/_doc/os_chat
 }
 ```
 {% include copy-curl.html %}
-Next, restart the OpenSearch Dashboards server. Following a successful restart, **OpenSearch Assistant** should appear in the top-right corner of the OpenSearch Dashboards interface. An example view is shown in the following image.
+
+Next, restart the OpenSearch Dashboards server. Following a successful restart, **OpenSearch Assistant** appears in the top-right corner of the OpenSearch Dashboards interface. An example view is shown in the following image.
 
 <img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/entry.png" alt="OpenSearch Assistant icon">
 
-## Configuring the plugin
-Go to the [Flow Framework plugin](https://github.com/opensearch-project/flow-framework) documentation to get the default chatbot template. You can modify this template to use your own model and customize the chatbot tools. Go to the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) for step-by-step instructions. 
+## Configuring OpenSearch Assistant
+
+For information about the chatbot template, review the [Flow Framework plugin](https://github.com/opensearch-project/flow-framework) documentation. You can modify this template to use your own model and customize the chatbot tools. See the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) for step-by-step instructions. 
+
+For information about configuring OpenSearch Assistant through the REST API, see [OpenSearch Assistant Toolkit]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/).
 
 ## Using OpenSearch Assistant in OpenSearch Dashboards
+
 The following sections guide you through using OpenSearch Assistant in OpenSearch Dashboards.
 
 ### Start the conversation
 
-
-Start the conversation by entering a question in the **Ask a question** search box or using the shortcut `ctrl + /`. An interface snapshot is shown in the following image.
+Start the conversation by entering a prompt in the **Ask a question** search box or by using the shortcut `ctrl + /`. An interface snapshot is shown in the following image.
 
 <img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/start-conversation.png" alt="Starting a conversation in OpenSearch Assistant">
 
@@ -64,10 +70,11 @@ Select `Enter` to initiate the conversation. A response snapshot is shown in the
 
 ### Regenerate a response
 
-Beneath the response, select the **Regenerate** button to generate an alternative answer to your original question. The new answer will replace the previous one, appearing in both the interface and chat history.
+Beneath the response, select the **Regenerate** button to generate an alternative answer to your original question. The new answer will replace the previous one, appearing in both the interface and the chat history.
 
 ### Suggested prompts
-OpenSearch Assistant provides suggested prompts as a starting point or to help you understand how the assistant can help you. Select a suggested prompt beneath the response field. A snapshot of a suggested prompt is shown in the following image.
+
+OpenSearch Assistant suggests prompts to help you get started, build upon your exising prompts, or explore other queries you may not have considered, among other reasons. Select a suggested prompt listed beneath the response field. A snapshot of a suggested prompt is shown in the following image.
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestions.png" alt="Example suggested prompts from OpenSearch Assistant">
 
@@ -78,7 +85,8 @@ To rate a response, select the thumbs up or thumbs down icon. An interface snaps
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/rate.png" alt="Rating a response snapshot">
 
 ### Understanding response generation
-Explore how a response is generated by selecting the link labeled **How was this generated?**. This link is within the available suggestions to help you discover which tools were involved in creating the response. If multiple tools were involved, each step will display the tool name and its input and output. This feature is useful for troubleshooting. A snapshot of the tool is shown in the following image. 
+
+Learn how a response was generated by selecting the link **How was this generated?**. This link is within the available suggestions to help you understand which tools were involved in creating the response. If multiple tools were involved, each step will display the tool name and its input and output. This feature is useful for troubleshooting. A snapshot of the tool is shown in the following image. 
 
 <img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/traces.png" alt="Snapshot of response generation details">
 
@@ -88,7 +96,7 @@ To view a previous conversation, select the clock icon to open the conversation 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-history-entry.png" alt="Snapshot of conversation history">
 
-The conversation history can be searched by title, as shown in the following snapshot. 
+The conversation history can be searched by title. An example is shown in the following snapshot. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-history-list.png" alt="List of conversations">
 
@@ -98,16 +106,16 @@ Select the pencil icon to edit a conversation name and rename it. Select the **C
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/edit-conversation-title.png" alt="Editing a conversation name">
 
-Select the trash icon to delete conversation. The confirmation dialog will appear. Select “Delete conversation”. The conversation is now deleted from your chat history. A snapshot of the delete interface is shown in the following image.
+Select the trash can icon to delete conversation. Once the confirmation dialog appears, select **Delete conversation**. The conversation is now deleted from your chat history. A snapshot of the interface is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/delete-conversation.png" alt="Deleting a conversation">
 
 ### Sharing a conversation through Notebooks
 
-You can use [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/notebooks/) to save your conversations. To use this option, select `Save to notebook` from the dropdown menu on the right-side of **OpenSearch Assistant**. Enter a name for the notebook and save it. All conversations (questions and responses) between you and the large language model (LLM) will be saved to this notebook. The following snapshot shows a save notebook interface. 
+You can use [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/notebooks/) to save your conversations. To use this option, select **Save to notebook** from the dropdown menu on the right-side of **OpenSearch Assistant**. Enter a name for the notebook, then select **Save**. All conversations (prompts and responses/questions and answers) between you and the large language model (LLM) will be saved to this notebook. The following snapshot shows an example interface. 
 
 <img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/save-conversation-to-notebook.png" alt="Saving a conversation through Notebooks">
 
-You can open your saved notebook or view a list of other notebooks by going to **Observability** > **Notebooks**. The following snapshot shows the the Notebooks interface in OpenSearch Dashboards.
+You can open the saved notebook or view a list of other notebooks by going to **Observability** > **Notebooks**. The following snapshot shows the Notebooks interface in OpenSearch Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-in-notebook.png" alt="List of conversations saved in Notebooks">
