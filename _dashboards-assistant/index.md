@@ -48,7 +48,7 @@ Next, restart the OpenSearch Dashboards server. Following a successful restart, 
 ## Configuring the plugin
 Go to the [Flow Framework plugin](https://github.com/opensearch-project/flow-framework) documentation to get the default chatbot template. You can modify this template to use your own model and customize the chatbot tools. Go to the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) for step-by-step instructions. 
 
-## Use dashboards assistant
+## Using OpenSearch Assistant in OpenSearch Dashboards
 ### Start the conversation
 
 You can start the conversation by clicking the input box, or use hot key `ctrl + /` to start typing your first question.
