@@ -88,7 +88,7 @@ To view a previous conversation, select the clock icon to open the conversation 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-history-entry.png" alt="Snapshot of conversation history">
 
-Search conversations by title:
+The conversation history can be searched by title, as shown in the following snapshot. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-history-list.png" alt="List of conversations">
 
