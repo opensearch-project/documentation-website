@@ -105,13 +105,13 @@ The following table lists all available parameters. All parameters are optional.
 
 Parameter	| Type | Description	
 :--- | :--- | :---
-`alertIds`	| Array	| The ID of the alert for which to search.
-`monitorId`	| String	| The name of the monitor to filter the alerts.
-`workflowIds`	| Array | A list of workflow IDs to filter the alerts.
-`alertState` |	String	| The alert state to filter the alerts. Valid values are `ALL`, `ACTIVE`, `ERROR`, `COMPLETED`, and `ACKNOWLEDGED`. Default is `ALL`.
-`severityLevel` | String| The severity level to filter the alerts. Valid values are `ALL`, `1`, `2`, and `3`. Default is `ALL`.
+`alertIds`	| Array	| The ID of the alert to search for.
+`monitorId`	| String	| The name of the monitor by which to filter the alerts.
+`workflowIds`	| Array | A list of workflow IDs by which to filter the alerts.
+`alertState` |	String	| The alert state by which to filter the alerts. Valid values are `ALL`, `ACTIVE`, `ERROR`, `COMPLETED`, and `ACKNOWLEDGED`. Default is `ALL`.
+`severityLevel` | String| The severity level by which to filter the alerts. Valid values are `ALL`, `1`, `2`, and `3`. Default is `ALL`.
 `searchString` | String	| The search string to use for searching for a specific alert.
-`sortOrder`| String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. 
+`sortOrder`| String | The sort order of the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. 
 `sortString`| String |	Specifies the monitor field by which to sort the results. Default is `monitor_name.keyword`.
-`size`	| Integer |	The number of results to return. Default is 20.
-`startIndex`| Integer |	The paginated index of the alert to start from. Default is 0.
+`size`	| Integer |	The number of results to return. Default is `20`.
+`startIndex`| Integer |	The paginated index of the alert to start from. Default is `0`.

@@ -287,7 +287,7 @@ POST /_plugins/_ml/connectors/_create
 
 ## Updating connector credentials
 
-In some cases, you may need to update credentials like `access_key` that you use to connect to externally hosted models. You can update credentials without undeploying the model by providing the new credentials in the following request:
+In some cases, you may need to update credentials, like `access_key`, that you use to connect to externally hosted models. You can update credentials without undeploying the model by providing the new credentials in the following request:
 
 ```json
 PUT /_plugins/_ml/models/<model_id>

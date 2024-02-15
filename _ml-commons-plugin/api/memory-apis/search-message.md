@@ -10,7 +10,7 @@ nav_order: 60
 **Introduced 2.12**
 {: .label .label-purple }
 
-Retrieves message information for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). Send queries to the `_search` endpoint to search for matching messages within a memory.
+Retrieves message information for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). You can send queries to the `_search` endpoint to search for matching messages within a memory.
 
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
@@ -28,7 +28,7 @@ The following table lists the available path parameters.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`memory_id` | String | The ID of the memory to search for messages matching the query.
+`memory_id` | String | The ID of the memory used to search for messages matching the query.
 
 #### Example request
 

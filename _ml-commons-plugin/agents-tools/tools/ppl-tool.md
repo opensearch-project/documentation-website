@@ -21,9 +21,9 @@ The `PPLTool` translates natural language into a PPL query. The tool has a flag 
 
 To create a PPL tool, you need a fine-tuned model that translates natural language into PPL queries.
 
-## Step 1: Create a connector to the model
+## Step 1: Create a connector for a model
 
-The following example request creates a connector to a model hosted on Amazon SageMaker:
+The following example request creates a connector for a model hosted on Amazon SageMaker:
 
 ```json
 POST /_plugins/_ml/connectors/_create

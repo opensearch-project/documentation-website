@@ -10,7 +10,7 @@ nav_order: 20
 **Introduced 2.12**
 {: .label .label-purple }
 
-Retrieves information about a controller for a model by model ID.
+Use this API to retrieve information about a controller for a model by model ID.
 
 ### Path and HTTP methods
 
@@ -51,7 +51,7 @@ GET /_plugins/_ml/controllers/T_S-cY0BKCJ3ot9qr0aP
 }
 ```
 
-If there is no controller defined for the model, OpenSearch sends back an error:
+If there is no controller defined for the model, OpenSearch returns an error:
 
 ```json
 {
@@ -71,7 +71,7 @@ If there is no controller defined for the model, OpenSearch sends back an error:
 
 ## Response fields
 
-For response fields descriptions, see [Create Controller API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller#request-fields).
+For response field descriptions, see [Create Controller API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller#request-fields).
 
 ## Required permissions
 

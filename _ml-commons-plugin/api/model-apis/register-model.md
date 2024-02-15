@@ -36,7 +36,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `deploy` | Boolean | Whether to deploy the model after registering by calling the [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/). Default is `false`. |
+| `deploy` | Boolean | Whether to deploy the model after registering it. The deploy operation is performed by calling the [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/). Default is `false`. |
 
 ## Register an OpenSearch-provided pretrained model
 

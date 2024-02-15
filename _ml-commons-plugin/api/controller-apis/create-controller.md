@@ -10,14 +10,14 @@ nav_order: 10
 **Introduced 2.12**
 {: .label .label-purple }
 
-Creates or updates a controller for a model. A model may be shared by multiple users. A controller sets rate limits for the number of [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) calls users can make on the model. A controller consists of a set of rate limiters for different users.  
+Use this API to create or update a controller for a model. A model may be shared by multiple users. A controller sets rate limits for the number of [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) calls users can make on the model. A controller consists of a set of rate limiters for different users.  
 
 You can only create a controller for a model once you have registered the model and received a model ID.
 {: .tip}
 
 The POST method creates a new controller. The PUT method updates an existing controller. 
 
-To learn how to set rate limits on the model level for all users, see the [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/). The rate limit is set to the more restrictive of the model-level limit and the user-level limit. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.
+To learn how to set rate limits at the model level for all users, see [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/). The rate limit is set to either the model-level limit or the user-level limit, whichever is more restrictive. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.
 
 ## Path and HTTP methods
 
@@ -41,17 +41,17 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- | :---
-`user_rate_limiter`| Object | Required | Limits the number of times users can call Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
+`user_rate_limiter`| Object | Required | Limits the number of times users can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
 
 The `user_rate_limiter` object contains an object for each user, specified by username. The user object contains the following fields.
 
 Field | Data type | Description
 :---  | :--- | :--- 
-`limit` | Integer | The maximum number of times the user can call Predict API on the model per `unit` of time. By default, there is no limit on the number of Predict API calls. Once you set a limit, you cannot reset it to no limit. As an alternative, specify a high limit value and a small time unit, for example, 1 request per nanosecond.
+`limit` | Integer | The maximum number of times the user can call the Predict API on the model per `unit` of time. By default, there is no limit on the number of Predict API calls. Once you set a limit, you cannot reset it to no limit. As an alternative, you can specify a high limit value and a small time unit, for example, 1 request per nanosecond.
 `unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, and `SECONDS`.
 
 
-#### Example request: Create controller
+#### Example request: Create a controller
 
 ```json
 POST _plugins/_ml/controllers/mtw-ZI0B_1JGmyB068C0
@@ -79,7 +79,7 @@ POST _plugins/_ml/controllers/mtw-ZI0B_1JGmyB068C0
 }
 ```
 
-#### Example request: Update rate limit for one user
+#### Example request: Update the rate limit for one user
 
 To update the limit for `user1`, send a PUT request and specify the updated information:
 
@@ -133,7 +133,7 @@ This will update only the `user1` object, leaving all other user limits intact:
 }
 ```
 
-#### Example request: Delete rate limit for one user
+#### Example request: Delete the rate limit for one user
 
 To delete the limit for `user2`, send a POST request containing all other users' limits: 
 

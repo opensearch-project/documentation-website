@@ -118,6 +118,6 @@ The following table lists all available parameters.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`input` | String | Required | The user input based on which to return index information.
+`input` | String | Required | The user input used to return index information.
 `index` | String | Optional | A comma-delimited list of one or more indexes on which to run the CAT operation. Default is an empty list, which means all indexes.
 `local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node (default is `false`).

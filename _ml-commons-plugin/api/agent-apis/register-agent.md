@@ -13,7 +13,7 @@ nav_order: 10
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-Registers an agent. For more information about agents, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
+You can use this API to register an agent. For more information about agents, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
 ## Path and HTTP methods
 
@@ -30,7 +30,7 @@ Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `name`| String | Required | The agent name. |
 `type` | String | Required | The agent type. Valid values are `flow` and `conversational`. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/). |
-`description` | String | Optional| The agent description. |
+`description` | String | Optional| A description of the agent. |
 `tools` | Array | Optional | A list of tools for the agent to execute. 
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
@@ -38,8 +38,8 @@ The `tools` array contains a list of tools for the agent. Each tool contains the
 Field | Data type | Required/Optional | Description
 :---  | :--- | :---
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in an agent, specify different names for the tools. |
-`type` | String | Required | The tool type. For a list of supported tools, see the [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
-`parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. For more information, see the specific tool type in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+`type` | String | Required | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
+`parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. You can find information about specific tool types in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 #### Example request
 

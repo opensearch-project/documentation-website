@@ -105,13 +105,13 @@ The following table lists all available parameters. All parameters are optional.
 
 Parameter	| Type | Description	
 :--- | :--- | :---
-`monitorId`	| String	| The ID of the monitor for which to search.
-`monitorName`	| String	| The name of the monitor for which to search.
-`monitorNamePattern`	| String | A wildcard query to match the monitor name for which to search.
-`enabled` |	Boolean	| Whether to return information about monitors that are currently enabled. Leave this parameter unset (or set it to `null`) to return information about enabled and disabled monitors. Set this parameter to `true` to only return information about enabled monitors. Set this parameter to `false` to only return information about disabled monitors. Default is `null`.
-`hasTriggers` |	Boolean	| Whether to return information about monitors that have triggers enabled. Leave this parameter unset (or set it to `null`) to return information about monitors that have triggers enabled and disabled. Set this parameter to `true` to only return information about monitors with triggers enabled. Set this parameter to `false` to only return information about monitors with triggers disabled. Default is `null`.
-`indices` | String	| The index name or index pattern of the indexes that the returned monitors track.
-`sortOrder`| String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. 
+`monitorId`	| String	| The ID of the monitor to search for.
+`monitorName`	| String	| The name of the monitor to search for.
+`monitorNamePattern`	| String | A wildcard query used to match the monitor name to search for.
+`enabled` |	Boolean	| Whether to return information about monitors that are currently enabled. Leave this parameter unset (or set it to `null`) to return information about both enabled and disabled monitors. Set this parameter to `true` to return only information about enabled monitors. Set this parameter to `false` to return only information about disabled monitors. Default is `null`.
+`hasTriggers` |	Boolean	| Whether to return information about monitors that have triggers enabled. Leave this parameter unset (or set it to `null`) to return information about monitors that have triggers enabled and disabled. Set this parameter to `true` to return only information about monitors with triggers enabled. Set this parameter to `false` to return only information about monitors with triggers disabled. Default is `null`.
+`indices` | String	| The index name or index pattern of the indexes tracked by the returned monitors.
+`sortOrder`| String | The sort order of the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. 
 `sortString`| String |	Specifies the monitor field by which to sort the results. Default is `name.keyword`.
-`size`	| Integer |	The number of results to return. The number of results to return. Default is 20.
-`startIndex`| Integer |	The paginated index of the monitor to start from. Default is 0.
+`size`	| Integer |	The number of results to return. Default is `20`.
+`startIndex`| Integer |	The paginated index of the monitor to start from. Default is `0`.

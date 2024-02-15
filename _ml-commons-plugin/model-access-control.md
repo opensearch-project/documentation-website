@@ -122,7 +122,7 @@ For information about APIs related to model access control, see [Model Group API
 
 To hide model details from end users, including the cluster admin, you can register a _hidden_ model. If a model is hidden, the non-superadmin users don't have permission to call any [Model APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/) except for the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) on the model.
 
-Only superadmin users can register a hidden model. A hidden model can be one of the OpenSearch-provided pretrained models, your custom model, or an externally hosted model. To register a hidden model, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates):
+Only superadmin users can register a hidden model. A hidden model can be one of the OpenSearch-provided pretrained models, your own custom model, or an externally hosted model. To register a hidden model, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates):
 
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opendistro_security/_search'
@@ -173,6 +173,6 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_
 ```
 {% include copy.html %}
 
-The `model_id` of a hidden model is the model `name`. A hidden model has a `is_hidden` parameter set to `true`. You cannot change a hidden model's `is_hidden` parameter.
+The `model_id` of a hidden model is the model `name`. A hidden model includes an `is_hidden` parameter that is set to `true`. You cannot change a hidden model's `is_hidden` parameter.
 
-Admin users can change access to the model by updating its backend roles. 
+Admin users can change access to a model by updating its backend roles. 

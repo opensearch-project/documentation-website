@@ -10,9 +10,9 @@ nav_order: 10
 **Introduced 2.12**
 {: .label .label-purple }
 
-Creates or updates a conversational memory for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). A memory keeps conversation history for the current conversation.
+Use this API to create or update a conversational memory for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). A memory stores conversation history for the current conversation.
 
-Once a memory is created, provide its `memory_id` to other APIs.
+Once a memory is created, you'll provide its `memory_id` to other APIs.
 
 The POST method creates a new memory. The PUT method updates an existing memory.
 

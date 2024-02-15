@@ -8,13 +8,13 @@ nav_order: 35
 
 # Search for a model
 
-Use this command to search for models you've already created.
+You can use this command to search for models you've already created.
 
-The response will contain only those model versions to which you have access. For example, if you send a match all query, model versions for the following model group types will be returned:
+The response will contain only those model versions to which you have access. For example, if you send a `match_all` query, model versions for the following model group types will be returned:
 
-- All public model groups in the index.
-- Private model groups for which you are the model owner.
-- Model groups that share at least one backend role with your backend roles.
+- All public model groups in the index
+- Private model groups for which you are the model owner
+- Model groups that share at least one backend role with your backend roles
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
@@ -38,7 +38,7 @@ POST /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: Searching for models with algorithm "FIT_RCF"
+#### Example request: Searching for models with the algorithm "FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search

@@ -10,7 +10,7 @@ nav_order: 30
 **Introduced 2.12**
 {: .label .label-purple }
 
-Deletes a memory based on the `memory_id`.
+Use this API to delete a memory based on the `memory_id`.
 
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}

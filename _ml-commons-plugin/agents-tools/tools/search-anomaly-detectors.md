@@ -88,15 +88,15 @@ The following table lists all available parameters. All parameters are optional.
 
 Parameter	| Type | Description	
 :--- | :--- | :---
-`detectorName`	| String	| The name of the detector for which to search.
-`detectorNamePattern`	| String | A wildcard query to match the detector name for which to search.
+`detectorName`	| String	| The name of the detector to search for.
+`detectorNamePattern`	| String | A wildcard query used to match the detector name to search for.
 `indices` | String	| The index name or index pattern of the indexes that the returned detectors are using as data sources.
 `highCardinality` | Boolean	| Whether to return information about high-cardinality detectors. Leave this parameter unset (or set it to `null`) to return information about both high-cardinality (multi-entity) and non-high-cardinality (single-entity) detectors. Set this parameter to `true` to only return information about high-cardinality detectors. Set this parameter to `false` to only return information about non-high-cardinality detectors.
 `lastUpdateTime` | Long |	Specifies the earliest last updated time of the detectors to return, in epoch milliseconds. Default is `null`.
 `sortOrder`	|String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). Default is `desc`. 
 `sortString`| String |	Specifies the detector field by which to sort the results. Default is `name.keyword`.
-`size`	| Integer |	The number of results to return. Default is 20.
-`startIndex`| Integer |	The paginated index of the detector to start from. Default is 0.
-`running`| Boolean | Whether to return information about detectors that are currently running. Leave this parameter unset (or set it to `null`) to return both running and non-running detector information. Set this parameter to `true` to only return information about running detectors. Set this parameter to `false` to only return information about detectors that are currently not running. Default is `null`.
-`disabled` |	Boolean	| Whether to return information about detectors that are currently disabled. Leave this parameter unset (or set it to `null`) to return information about enabled and disabled detectors. Set this parameter to `true` to only return information about disabled detectors. Set this parameter to `false` to only return information about enabled detectors. Default is `null`.
-`failed` |	Boolean	| Whether to return information about detectors that are currently failing. Leave this parameter unset (or set it to `null`) to return information about failed and non-failed detectors. Set this parameter to `true` to only return information about failed detectors. Set this parameter to `false` to only return information about non-failed detectors. Default is `null`.
+`size`	| Integer |	The number of results to return. Default is `20`.
+`startIndex`| Integer |	The paginated index of the detector to start from. Default is `0`.
+`running`| Boolean | Whether to return information about detectors that are currently running. Leave this parameter unset (or set it to `null`) to return both running and non-running detector information. Set this parameter to `true` to only return information about running detectors. Set this parameter to `false` to return only information about detectors that are not currently running. Default is `null`.
+`disabled` |	Boolean	| Whether to return information about detectors that are currently disabled. Leave this parameter unset (or set it to `null`) to return information about both enabled and disabled detectors. Set this parameter to `true` to return only information about disabled detectors. Set this parameter to `false` to return only information about enabled detectors. Default is `null`.
+`failed` |	Boolean	| Whether to return information about detectors that are currently failing. Leave this parameter unset (or set it to `null`) to return information about both failed and non-failed detectors. Set this parameter to `true` to return only information about failed detectors. Set this parameter to `false` to return only information about non-failed detectors. Default is `null`.

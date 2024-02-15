@@ -10,7 +10,7 @@ nav_order: 25
 **Introduced 2.12**
 {: .label .label-purple }
 
-Retrieves a conversational memory for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). Use this command to search for memories.
+This API retrieves a conversational memory for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). Use this command to search for memories.
 
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
@@ -35,7 +35,7 @@ POST /_plugins/_ml/memory/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: Searching for memory by name
+#### Example request: Searching for a memory by name
 
 ```json
 POST /_plugins/_ml/memory/_search
@@ -127,7 +127,7 @@ The following table lists all response fields.
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `memory_id` | String | The memory ID. |
-| `create_time` | String | The time the memory was created. |
-| `updated_time` | String | The time the memory was last updated. |
+| `create_time` | String | The time at which the memory was created. |
+| `updated_time` | String | The time at which the memory was last updated. |
 | `name` | String | The memory name. |
-| `user` | String | The username of the user who created this memory. |
+| `user` | String | The username of the user who created the memory. |

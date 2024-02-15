@@ -10,19 +10,19 @@ nav_order: 50
 **Introduced 2.12**
 {: .label .label-purple }
 
-Retrieves message information for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). 
+Use this API to retrieve message information for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). 
 
 To retrieve message information, you can:
 
-- [Get a message by ID](#get-a-message-by-id)
-- [Get all messages within a memory](#get-all-messages-within-a-memory)
+- [Get a message by ID](#get-a-message-by-id).
+- [Get all messages within a memory](#get-all-messages-within-a-memory).
 
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
 
 ## Get a message by ID
 
-You can retrieve message information using the `message_id`.
+You can retrieve message information by using the `message_id`.
 
 ### Path and HTTP methods
 
