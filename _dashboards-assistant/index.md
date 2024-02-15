@@ -40,7 +40,7 @@ PUT .plugins-ml-config/_doc/os_chat
     }
 }
 ```
-
+{% include copy-curl.html %}
 Next, restart the OpenSearch Dashboards server. Following a successful restart, **OpenSearch Assistant** should appear in the top-right corner of the OpenSearch Dashboards interface. An example view is shown in the following image.
 
 <img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/entry.png" alt="The dashboards assistant entry">
