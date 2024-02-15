@@ -45,7 +45,7 @@ Next, restart the OpenSearch Dashboards server. Following a successful restart, 
 
 <img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/entry.png" alt="OpenSearch Assistant icon">
 
-## Configure dashboards assistant
+## Configuring the plugin
 Please check flow framework documentation to get the default chatbot template and modify it with your own model. You can also customize tools you want to use in the chatbot. For more details, checkout the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
 
 ## Use dashboards assistant
