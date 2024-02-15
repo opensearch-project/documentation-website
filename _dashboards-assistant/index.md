@@ -17,7 +17,9 @@ For more information about ways to enable experimental features, see [Experiment
 {: .note}
 {: .warning}
 
-# Dashboards assistant
+# OpenSearch Assistant for OpenSearch Dashboards
+Introduced 2.12
+{: .label .label-purple }
 
 The OpenSearch Assistant Dashboards plugin lets you have an OpenSearch assistant to help dashboards users use OpenSearch. With dashboards assistant, user can quickly gain insights on their operational data just with nature language without the need to specialized in query tools and skills.
 
