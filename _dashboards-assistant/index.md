@@ -98,7 +98,7 @@ Select the pencil icon to edit a conversation name and rename it. Select the **C
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/edit-conversation-title.png" alt="Editing a conversation name">
 
-Click the trash icon to delete conversation, the delete confirmation modal will be displayed after clicked. Click the “Delete conversation” button to confirm the conversation delete operation. The conversation will be deleted after “Delete conversation” button clicked.
+Select the trash icon to delete conversation. The confirmation dialog will appear. Select “Delete conversation”. The conversation is now deleted from your chat history. A snapshot of the delete interface is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/delete-conversation.png" alt="Delete the conversation">
 
