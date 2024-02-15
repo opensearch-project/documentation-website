@@ -314,10 +314,10 @@ Enables randomization of values in range queries, where the values are drawn fro
 ## randomization-repeat-frequency
 <!-- vale on -->
 
-Sets what fraction of randomized query values can be repeated. Takes values between `0.0` and `1.0`. Default is `0.3`. Has no effect if `--randomization-enabled` is not used. 
+Sets what fraction of randomized query values can be repeated. Takes values between `0.0` and `1.0`. Default is `0.3`. This setting not work when `--randomization-enabled` is not used. 
 
 <!-- vale off -->
 ## randomization-n
 <!-- vale on -->
 
-Sets how many distinct repeatable pair values are generated for each operation when randomization is used. Default is `5000`. Has no effect if `--randomization-enabled` is not used. 
+Sets how many distinct repeatable pair values are generated for each operation when randomization is used. Default is `5000`. This setting does not work when `--randomization-enabled` is not used. 
