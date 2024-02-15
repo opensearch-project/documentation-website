@@ -67,7 +67,7 @@ Select `Enter` to initiate the conversation. A response snapshot is shown in the
 Beneath the response, select the **Regenerate** button to generate an alternative answer to your original question. The new answer will replace the previous one, appearing in both the interface and chat history.
 
 ### Suggested prompts
-Under the response, we also provide suggestions that we think user may be interested to ask. User can click one of them to see the response.
+OpenSearch Assistant provides suggested prompts as a starting point or to help you understand how the assistant can help you. Select a suggested prompt beneath the response field. A snapshot of a suggested prompt is shown in the following image.
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestions.png" alt="The assistant suggestions">
 
