@@ -56,7 +56,7 @@ The following sections guide you through using OpenSearch Assistant in OpenSearc
 
 Start the conversation by entering a question in the **Ask a question** search box or using the shortcut `ctrl + /`. An interface snapshot is shown in the following image.
 
-<img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/start-conversation.png" alt="Start the conversation">
+<img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/start-conversation.png" alt="Starting a conversation in OpenSearch Assistant">
 
 Then pressing `Enter`, you will see the conversation dialog pops up, and the assistant starts to generating response for the question and after a while:
 
