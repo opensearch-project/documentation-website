@@ -102,6 +102,6 @@ You can use [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/noteboo
 
 <img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/save-conversation-to-notebook.png" alt="Saving a conversation through Notebooks">
 
-Now you can find your conversation in observability notebook lists and others can see it as well.
+You can open your saved notebook or view a list of other notebooks by going to **Observability** > **Notebooks**. The following snapshot shows the the Notebooks interface in OpenSearch Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-in-notebook.png" alt="Conversation saved to notebook">
