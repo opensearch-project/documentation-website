@@ -92,7 +92,8 @@ The conversation history can be searched by title, as shown in the following sna
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-history-list.png" alt="List of conversations">
 
-#### Manage past conversation
+#### Editing and deleting previous conversations
+
 Click the pencil icon to edit conversation name, type the new conversation name in the below input, then click “Confirm name” button. The new conversation name will be saved.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/edit-conversation-title.png" alt="Edit the conversation title">
