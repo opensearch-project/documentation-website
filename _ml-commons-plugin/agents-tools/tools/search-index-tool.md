@@ -65,6 +65,8 @@ POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 ```
 {% include copy-curl.html %} 
 
+For parameter descriptions, see [Execute parameters](#execute-parameters).
+
 The query passed in the previous request is equivalent to the following query:
 
 ```json
@@ -112,9 +114,9 @@ OpenSearch returns the query results:
 }
 ```
 
-## Parameters
+## Execute parameters
 
-The following table lists all available parameters. 
+The following table lists all available parameters when registering the tool. 
 
 Parameter | Type | Description
 :--- | :--- | :---

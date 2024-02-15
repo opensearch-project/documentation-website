@@ -52,6 +52,8 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
+For parameter descriptions, see [Register parameters](#register-parameters).
+
 OpenSearch responds with an agent ID:
 
 ```json
@@ -91,10 +93,18 @@ OpenSearch returns the inference results:
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters. 
+The following table lists all available parameters when registering the tool.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `agent_id` | String | Required | The agent ID of the agent to run.
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`question` | String | Required | The natural language question to send to the LLM. 

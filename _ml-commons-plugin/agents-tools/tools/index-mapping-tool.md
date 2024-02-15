@@ -43,6 +43,8 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
+For parameter descriptions, see [Register parameters](#register-parameters).
+
 OpenSearch responds with an agent ID:
 
 ```json
@@ -101,12 +103,21 @@ index.version.created=137217827
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters. 
+The following table lists all available parameters when registering the tool.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `input` | String | Required | The user input based on which to return index information.
 `index` | Array | Required | A comma-delimited list of one or more indexes for which to obtain mapping and setting information. Default is an empty list, which means all indexes.
 `local` | Boolean | Optional | Whether to return information from the local node only instead of the cluster manager node (default is `false`).
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`question` | String | Required | The natural language question to send to the LLM. 
+`index` | Array | Optional | A comma-delimited list of one or more indexes for which to obtain mapping and setting information. Default is an empty list, which means all indexes.

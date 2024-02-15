@@ -43,6 +43,8 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
+For parameter descriptions, see [Register parameters](#register-parameters).
+
 OpenSearch responds with an agent ID:
 
 ```json
@@ -99,9 +101,9 @@ If no monitors are found, OpenSearch responds with an empty array in the results
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters. All parameters are optional.
+The following table lists all available parameters when registering the tool. All parameters are optional.
 
 Parameter	| Type | Description	
 :--- | :--- | :---
@@ -115,3 +117,11 @@ Parameter	| Type | Description
 `sortString`| String |	Specifies the monitor field by which to sort the results. Default is `name.keyword`.
 `size`	| Integer |	The number of results to return. The number of results to return. Default is 20.
 `startIndex`| Integer |	The paginated index of the monitor to start from. Default is 0.
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`question` | String | Required | The natural language question to send to the LLM. 

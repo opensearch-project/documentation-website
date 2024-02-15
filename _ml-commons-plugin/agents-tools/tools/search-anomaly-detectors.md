@@ -43,6 +43,8 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
+For parameter descriptions, see [Register parameters](#register-parameters).
+
 OpenSearch responds with an agent ID:
 
 ```json
@@ -82,9 +84,9 @@ OpenSearch responds with a list of anomaly detectors set up on your cluster and 
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters. All parameters are optional.
+The following table lists all available parameters when registering the tool. All parameters are optional.
 
 Parameter	| Type | Description	
 :--- | :--- | :---
@@ -100,3 +102,11 @@ Parameter	| Type | Description
 `running`| Boolean | Whether to return information about detectors that are currently running. Leave this parameter unset (or set it to `null`) to return both running and non-running detector information. Set this parameter to `true` to only return information about running detectors. Set this parameter to `false` to only return information about detectors that are currently not running. Default is `null`.
 `disabled` |	Boolean	| Whether to return information about detectors that are currently disabled. Leave this parameter unset (or set it to `null`) to return information about enabled and disabled detectors. Set this parameter to `true` to only return information about disabled detectors. Set this parameter to `false` to only return information about enabled detectors. Default is `null`.
 `failed` |	Boolean	| Whether to return information about detectors that are currently failing. Leave this parameter unset (or set it to `null`) to return information about failed and non-failed detectors. Set this parameter to `true` to only return information about failed detectors. Set this parameter to `false` to only return information about non-failed detectors. Default is `null`.
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`question` | String | Required | The natural language question to send to the LLM. 

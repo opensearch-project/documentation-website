@@ -156,7 +156,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
-For parameter descriptions, see [Parameters](#parameters).
+For parameter descriptions, see [Register parameters](#register-parameters).
 
 OpenSearch responds with an agent ID:
 
@@ -201,9 +201,9 @@ OpenSearch returns the inference results:
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters. 
+The following table lists all available parameters when registering the tool.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
@@ -215,3 +215,11 @@ Parameter	| Type | Required/Optional | Description
 `name` | String  | Optional | The tool name. Useful for an LLM to select an appropriate tool for a task.
 `description` | String | Optional | Tool description. Useful for an LLM to select an appropriate tool for a task.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is 2.
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`question` | String | Required | The natural language question to send to the LLM. 

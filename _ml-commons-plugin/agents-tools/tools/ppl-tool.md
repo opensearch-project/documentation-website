@@ -119,6 +119,8 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
+For parameter descriptions, see [Register parameters](#register-parameters).
+
 OpenSearch responds with an agent ID:
 
 ```json
@@ -179,9 +181,9 @@ If you set `execute` to `false`, OpenSearch only returns the query but does not 
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters.
+The following table lists all available parameters when registering the tool.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
@@ -190,3 +192,13 @@ Parameter	| Type | Required/Optional | Description
 `prompt` | String | Optional | The prompt to provide to the LLM.
 `execute` | Boolean | Optional | Specifies whether to run the PPL query. Default is `true`.
 `input` | Object | Optional | Contains two parameters that specify the index to search and the question for the LLM. For example, `"input": "{\"index\": \"${parameters.index}\", \"question\": ${parameters.question} }"`.
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`index` | String | Required | The index on which to run the PPL query.
+`question` | String | Required | The natural language question to send to the LLM. 
+`verbose` | Boolean | Optional | Whether to provide verbose output. Default is `false`.

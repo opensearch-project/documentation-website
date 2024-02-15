@@ -42,6 +42,8 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
+For parameter descriptions, see [Register parameters](#register-parameters).
+
 OpenSearch responds with an agent ID:
 
 ```json
@@ -112,12 +114,20 @@ green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1  
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters. 
+The following table lists all available parameters when registering the tool.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `input` | String | Required | The user input based on which to return index information.
 `index` | String | Optional | A comma-delimited list of one or more indexes on which to run the CAT operation. Default is an empty list, which means all indexes.
 `local` | Boolean | Optional | When `true`, retrieves information from the local node only instead of the cluster manager node (default is `false`).
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`question` | String | Required | The natural language question to send to the LLM. 

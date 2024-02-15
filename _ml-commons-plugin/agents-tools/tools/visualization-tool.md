@@ -42,6 +42,8 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
+For parameter descriptions, see [Register parameters](#register-parameters).
+
 OpenSearch responds with an agent ID:
 
 ```json
@@ -85,12 +87,20 @@ By default, OpenSearch returns the top three matching visualizations. You can sp
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters. 
+The following table lists all available parameters when registering the tool.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `input` | String | Required | The user input based on which to match visualizations.
 `index` | String | Optional | The index to search. Default is `.kibana` (the system index for OpenSearch Dashboards data).
 `size` | Integer | Optional | The number of visualizations to return. Default is 3.
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`question` | String | Required | The natural language question to send to the LLM. 

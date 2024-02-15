@@ -162,7 +162,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %} 
 
-For parameter descriptions, see [Parameters](#parameters).
+For parameter descriptions, see [Register parameters](#register-parameters).
 
 OpenSearch responds with an agent ID:
 
@@ -215,9 +215,9 @@ OpenSearch performs vector search and returns the relevant documents:
 }
 ```
 
-## Parameters
+## Register parameters
 
-The following table lists all available parameters. 
+The following table lists all available parameters when registering the tool. 
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
@@ -228,3 +228,11 @@ Parameter	| Type | Required/Optional | Description
 `input` | String | Required for flow agent | Run-time input sourced from flow agent parameters. If using a large language model (LLM), this field is populated with the LLM response.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is 2.
 `k` | Integer | Optional | The number of nearest neighbors to search for when performing neural search. Default is 10.
+
+## Execute parameters
+
+The following table lists all available parameters when running the tool.
+
+Parameter	| Type | Required/Optional | Description	
+:--- | :--- | :--- | :---
+`question` | String | Required | The natural language question to send to the LLM. 
