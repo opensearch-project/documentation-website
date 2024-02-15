@@ -58,7 +58,7 @@ Start the conversation by entering a question in the **Ask a question** search b
 
 <img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/start-conversation.png" alt="Starting a conversation in OpenSearch Assistant">
 
-Then pressing `Enter`, you will see the conversation dialog pops up, and the assistant starts to generating response for the question and after a while:
+Select `Enter` to initiate the conversation. A response snapshot is shown in the following image.
 
 <img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/response.png" alt="The assistant response">
 
