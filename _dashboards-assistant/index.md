@@ -77,7 +77,7 @@ To rate a response, select the thumbs up or thumbs down icon. An interface snaps
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/rate.png" alt="Rating a response snapshot">
 
-### See how the response was generated
+### Understanding response generation
 Under the available suggestions, there will be a link “How was this generated?”, click this link will show which tools are triggered to generate this response. It can be used for trouble shooting. There could be multiple steps if multiple tools are involved. Each step will display tool name with input and output of the tool.
 
 <img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/traces.png" alt="How was the response generated">
