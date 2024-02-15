@@ -10,7 +10,11 @@ redirect_from:
   - /dashboards-assistant/index/
 ---
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, please checkout [GitHub repo](https://github.com/opensearch-project/dashboards-assistant).
+This is an experimental feature and is not recommended for use in a production environment. For updates on the feature's progress or to leave feedback, go to the [`dashboards-assistant` repository](https://github.com/opensearch-project/dashboards-assistant) on GitHub or the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).
+{: .warning}
+
+For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+{: .note}
 {: .warning}
 
 # Dashboards assistant
