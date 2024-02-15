@@ -30,7 +30,7 @@ To enable **OpenSearch Assistant** in OpenSearch Dashboards, locate your copy of
 assistant.chat.enabled: true
 ```
 {% include copy-curl.html %}
-Secondly, call the following api to setup the root agent id used by the assistant:
+Then configure the root `agent_id` through the following API:
 ```
 PUT .plugins-ml-config/_doc/os_chat
 {
