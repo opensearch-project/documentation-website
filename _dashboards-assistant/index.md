@@ -100,7 +100,7 @@ Click the trash icon to delete conversation, the delete confirmation modal will 
 
 You can use [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/notebooks/) to save your conversations. To use this option, select `Save to notebook` from the dropdown menu on the right-side of **OpenSearch Assistant**. Enter a name for the notebook and save it. All conversations (questions and responses) between you and the large language model (LLM) will be saved to this notebook. The following snapshot shows a save notebook interface. 
 
-<img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/save-conversation-to-notebook.png" alt="Save a conversation to notebook">
+<img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/save-conversation-to-notebook.png" alt="Saving a conversation through Notebooks">
 
 Now you can find your conversation in observability notebook lists and others can see it as well.
 
