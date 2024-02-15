@@ -63,6 +63,7 @@ Select `Enter` to initiate the conversation. A response snapshot is shown in the
 <img width="400px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/response.png" alt="Example OpenSearch Assistant response">
 
 ### Regenerate a response
+
 Under the response, the second from the left is regenerate button, click it will regenerate answer for the same question. The previous answer will be replaced with the new answer both on the UI and chat history.
 
 ### The suggestions by the assistant
