@@ -89,8 +89,22 @@ To select a data source through the Dev Tools console, follow these steps:
     ```
     {% include copy-curl.html %}
 
-5. From the **DataSource** dropdown menu, select a data source and then query the source.
+5. From the **Data source** dropdown menu, select a data source and then query the source.
 6. Repeat the preceding steps for each data source you want to select.
+
+### Upload saved objects to a dashboard from connected data sources
+To upload saved objects from connected data sources to a dashboard with multiple data sources, export them as an NDJSON file from the data source's **Saved object management** page. Then upload the file to the dashboard's **Saved object management** page. This method can make it easier to transfer saved objects between dashboards. The following 20-second video shows this feature in action.
+
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/import_saved_objects_with_file_upload.gif" alt="Multiple data sources in Saved object management">{: .img-fluid}
+
+Follow these steps to import saved objects from a connected data source:
+
+1. Locate your `opensearch_dashboards.yml` file and open it in your preferred text editor. 
+2. Set `data_source.enabled` to `true`.
+3. Connect to OpenSearch Dashboards and go to **Dashboards Management** > **Saved objects**.
+4. Select **Import** > **Select file** and upload the file acquired from the connected data source.
+5. Choose the appropriate **Data source** from the dropdown menu, set your **Conflict management** option, and then select the **Import** button.
 
 ## Next steps 
 
