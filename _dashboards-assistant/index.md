@@ -75,7 +75,7 @@ OpenSearch Assistant provides suggested prompts as a starting point or to help y
 
 To rate a response, select the thumbs up or thumbs down icon. An interface snapshot is shown in the following image.
 
-<img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/rate.png" alt="Rate the response">
+<img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/rate.png" alt="Rating a response snapshot">
 
 ### See how the response was generated
 Under the available suggestions, there will be a link “How was this generated?”, click this link will show which tools are triggered to generate this response. It can be used for trouble shooting. There could be multiple steps if multiple tools are involved. Each step will display tool name with input and output of the tool.
