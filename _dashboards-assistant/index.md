@@ -104,4 +104,4 @@ You can use [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/noteboo
 
 You can open your saved notebook or view a list of other notebooks by going to **Observability** > **Notebooks**. The following snapshot shows the the Notebooks interface in OpenSearch Dashboards.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-in-notebook.png" alt="Conversation saved to notebook">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-in-notebook.png" alt="List of conversations saved in Notebooks">
