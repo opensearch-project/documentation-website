@@ -13,7 +13,7 @@ nav_order: 50
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-Deletes an agent based on the `agent_id`.
+You can use this API to delete an agent based on the `agent_id`.
 
 ## Path and HTTP methods
 

@@ -10,9 +10,9 @@ nav_order: 70
 **Introduced 2.12**
 {: .label .label-purple }
 
-Retrieves message trace information for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). This is useful for debugging.
+Use this API to retrieve message trace information for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). This can be useful for debugging.
 
-For each message, an agent may need to run different tools. You can use the Get Traces API to get all trace data for one message. The trace data includes detailed steps of a message execution.
+For each message, an agent may need to run different tools. You can use the Get Traces API to get all trace data for a message. The trace data includes detailed steps of a message execution.
 
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}

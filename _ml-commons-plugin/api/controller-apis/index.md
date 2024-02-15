@@ -12,7 +12,7 @@ redirect_from: /ml-commons-plugin/api/controller-apis/
 **Introduced 2.12**
 {: .label .label-purple }
 
-Configure a rate limit for a specific user or users of the model by calling the Controller APIs. 
+You can configure a rate limit for a specific user or users of a model by calling the Controller APIs. 
 
 ML Commons supports the following controller-level APIs:
 
@@ -22,4 +22,4 @@ ML Commons supports the following controller-level APIs:
 
 ## Required permissions
 
-To call Controller APIs, you must have `cluster:admin/opensearch/ml/controllers/` permissions. For more information, see each Controller API.
+To call the Controller APIs, you must have `cluster:admin/opensearch/ml/controllers/` permissions. Links to more information about each Controller API are provided in the preceding section.

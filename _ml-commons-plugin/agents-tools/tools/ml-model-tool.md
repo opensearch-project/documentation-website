@@ -19,9 +19,9 @@ This is an experimental feature and is not recommended for use in a production e
 
 The `MLModelTool` runs a machine learning (ML) model and returns inference results. 
 
-## Step 1: Create a connector to the model
+## Step 1: Create a connector for a model
 
-The following example request creates a connector to a model hosted on Amazon SageMaker:
+The following example request creates a connector for a model hosted on [Amazon SageMaker](https://aws.amazon.com/pm/sagemaker/):
 
 ```json
 POST /_plugins/_ml/connectors/_create

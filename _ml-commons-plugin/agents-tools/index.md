@@ -13,19 +13,19 @@ nav_order: 27
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-You can automate machine learning (ML) tasks using agents and tools. An _agent_ orchestrates and runs ML models and tools. A _tool_ performs a set of specific tasks. Example tools include a `VectorDBTool`, which supports vector search, or a `CATIndexTool`, which executes the `cat indices` operation. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+You can automate machine learning (ML) tasks using agents and tools. An _agent_ orchestrates and runs ML models and tools. A _tool_ performs a set of specific tasks. Some examples of tools are the `VectorDBTool`, which supports vector search, and the `CATIndexTool`, which executes the `cat indices` operation. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 ## Agents
 
 An _agent_ is a coordinator that uses a large language model (LLM) to solve a problem. After the LLM reasons and decides what action to take, the agent coordinates the action execution. OpenSearch supports the following agent types:
 
 - [_Flow agent_](#flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a flow agent is fixed. Useful for retrieval-augmented generation (RAG).
-- [_Conversational flow agent_](#conversational-flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a conversational flow agent is fixed. Stores conversation history so users can ask follow-up questions. Useful for creating a chatbot.
-- [_Conversational agent_](#conversational-agents): Reasons to provide a response based on the available knowledge, including the LLM knowledge base and a set of tools provided to the LLM. Stores conversation history so users can ask follow-up questions. The workflow of a conversational agent is variable, based on follow-up questions. For specific questions, uses the Chain-of-Thought (CoT) process to select the best tool for providing a response to the question out of the configured tools. Useful for creating a chatbot that employs RAG.
+- [_Conversational flow agent_](#conversational-flow-agents): Runs tools sequentially, in the order specified in its configuration. The workflow of a conversational flow agent is fixed. Stores conversation history so that users can ask follow-up questions. Useful for creating a chatbot.
+- [_Conversational agent_](#conversational-agents): Reasons in order to provide a response based on the available knowledge, including the LLM knowledge base and a set of tools provided to the LLM. Stores conversation history so that users can ask follow-up questions. The workflow of a conversational agent is variable, based on follow-up questions. For specific questions, uses the Chain-of-Thought (CoT) process to select the best tool from the configured tools for providing a response to the question. Useful for creating a chatbot that employs RAG.
 
 ### Flow agents
 
-A flow agent is configured with a set of tools that it runs in order. For example, the following agent runs the `VectorDBTool` and then the `MLModelTool`. The agent coordinates the tools so one tool's output can become another tool's input. In this example, the `VectorDBTool` queries the k-NN index and the agent passes its output `${parameters.VectorDBTool.output}` to the `MLModelTool` as a context, along with the `${parameters.question}` (see the `prompt` parameter):
+A flow agent is configured with a set of tools that it runs in order. For example, the following agent runs the `VectorDBTool` and then the `MLModelTool`. The agent coordinates the tools so that one tool's output can become another tool's input. In this example, the `VectorDBTool` queries the k-NN index and the agent passes its output `${parameters.VectorDBTool.output}` to the `MLModelTool` as context, along with the `${parameters.question}` (see the `prompt` parameter):
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -58,7 +58,7 @@ POST /_plugins/_ml/agents/_register
 
 ### Conversational flow agents
 
-Similarly to a flow agent, a conversational flow agent is configured with a set of tools that it runs in order. The difference is that a conversational flow agent stores the conversation in an index, in the following example, the `conversation_index`. The following agent runs the `VectorDBTool` and then the `MLModelTool`:
+Similarly to a flow agent, a conversational flow agent is configured with a set of tools that it runs in order. The difference between them is that a conversational flow agent stores the conversation in an index, in the following example, the `conversation_index`. The following agent runs the `VectorDBTool` and then the `MLModelTool`:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -110,7 +110,7 @@ Assistant:"""
 
 ### Conversational agents
 
-Similarly to a conversational flow agent, a conversational agent stores the conversation in an index, in the following example, the `conversation_index`.A conversational agent can be configured with an LLM and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `CATIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `CATIndexTool` as context. The LLM then decides whether it needs to use a the `CATIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `CATIndexTool` that retrieves information about your OpenSearch indexes:
+Similarly to a conversational flow agent, a conversational agent stores the conversation in an index, in the following example, the `conversation_index`. A conversational agent can be configured with an LLM and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `CATIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `CATIndexTool` as context. The LLM then decides whether it needs to use the `CATIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `CATIndexTool` that retrieves information about your OpenSearch indexes:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -152,7 +152,7 @@ POST /_plugins/_ml/agents/_register
 }
 ```
 
-It is important to provide a thorough description for the tools so that the LLM can decide in which situations to use those tools.
+It is important to provide thorough descriptions of the tools so that the LLM can decide in which situations to use those tools.
 {: .tip}
 
 ## Enabling the feature

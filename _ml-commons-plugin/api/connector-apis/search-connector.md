@@ -8,7 +8,7 @@ nav_order: 25
 
 # Search for a connector
 
-Use the `_search` endpoint to search for a connector. This API searches for matching connectors using a query.
+Use the `_search` endpoint to search for a connector. This API uses a query to search for matching connectors.
 
 ## Path and HTTP methods
 

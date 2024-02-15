@@ -60,6 +60,7 @@ OpenAI
 OpenID Connect
 OpenSearch
 OpenSearch Assistant
+OpenSearch Assistant Toolkit
 OpenSearch Benchmark
 OpenSearch Dashboards
 OpenSearch Playground

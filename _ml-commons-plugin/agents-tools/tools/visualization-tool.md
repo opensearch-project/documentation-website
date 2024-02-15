@@ -68,7 +68,7 @@ POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 ```
 {% include copy-curl.html %} 
 
-By default, OpenSearch returns the top three matching visualizations. You can specify the number of results returned in the `size` parameter. The output is returned in CSV format. The output includes two columns: `Title` (the visualization title displayed in OpenSearch Dashboards) and `Id` (a unique ID for this visualization):
+By default, OpenSearch returns the top three matching visualizations. You can use the `size` parameter to specify the number of results returned. The output is returned in CSV format. The output includes two columns: `Title` (the visualization title displayed in OpenSearch Dashboards) and `Id` (a unique ID for this visualization):
 
 ```json
 {
@@ -93,9 +93,9 @@ The following table lists all available parameters when registering the tool.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`input` | String | Required | The user input based on which to match visualizations.
+`input` | String | Required | The user input used to match visualizations.
 `index` | String | Optional | The index to search. Default is `.kibana` (the system index for OpenSearch Dashboards data).
-`size` | Integer | Optional | The number of visualizations to return. Default is 3.
+`size` | Integer | Optional | The number of visualizations to return. Default is `3`.
 
 ## Execute parameters
 

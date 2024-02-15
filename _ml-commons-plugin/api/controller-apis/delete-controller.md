@@ -10,7 +10,7 @@ nav_order: 50
 **Introduced 2.12**
 {: .label .label-purple }
 
-Deletes a controller for a model based on the `model_id`.
+Use this API to delete a controller for a model based on the `model_id`.
 
 ## Path and HTTP methods
 

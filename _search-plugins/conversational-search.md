@@ -9,7 +9,7 @@ redirect_from:
 
 # Conversational search
 
-Conversational search allows you to ask questions in natural language and refine the answers by asking follow-up questions. Thus, the conversation becomes a dialog between you and a large language model (LLM). For this to happen, instead of answering each question individually, the model needs to remember the context of the whole conversation. 
+Conversational search allows you to ask questions in natural language and refine the answers by asking follow-up questions. Thus, the conversation becomes a dialog between you and a large language model (LLM). For this to happen, instead of answering each question individually, the model needs to remember the context of the entire conversation. 
 
 Conversational search is implemented with the following components:
 
@@ -18,16 +18,16 @@ Conversational search is implemented with the following components:
 
 ## Conversation history
 
-Conversation history consists of a simple CRUD-like API comprising two resources: _memories_ and _messages_. All messages for the current conversation are kept within one conversation _memory_. A _message_ represents a question/answer pair: a human input question and an artificial intelligence (AI) answer. Messages do not exist by themselves, they must be added to a memory. 
+Conversation history consists of a simple CRUD-like API comprising two resources: _memories_ and _messages_. All messages for the current conversation are stored within one conversation _memory_. A _message_ represents a question/answer pair: a human-input question and an AI answer. Messages do not exist by themselves; they must be added to a memory. 
 
 ## RAG
 
-RAG retrieves data from the index and history and sends all the information as context to the LLM. The LLM then supplements its static knowledge base with the dynamically retrieved data. In OpenSearch, RAG is implemented through a search pipeline containing a [retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/). The processor intercepts OpenSearch query results, retrieves previous messages in the conversation from the conversation memory, and sends a prompt to an LLM. After the processor receives a response from the LLM, it saves the response in conversation memory and returns both the original OpenSearch results of the query and the LLM response. 
+RAG retrieves data from the index and history and sends all the information as context to the LLM. The LLM then supplements its static knowledge base with the dynamically retrieved data. In OpenSearch, RAG is implemented through a search pipeline containing a [retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/). The processor intercepts OpenSearch query results, retrieves previous messages in the conversation from the conversation memory, and sends a prompt to the LLM. After the processor receives a response from the LLM, it saves the response in conversation memory and returns both the original OpenSearch query results and the LLM response. 
 
 As of OpenSearch 2.11, the RAG technique has only been tested with OpenAI models and the Anthropic Claude model on Amazon Bedrock.
 {: .warning}
 
-When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory. None of the users on the cluster can see another user's memory.
+When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory. No user can see another user's memory.
 {: .note}
 
 ## Prerequisites
@@ -54,11 +54,11 @@ To use conversational search, follow these steps:
 1. [Create a search pipeline](#step-3-create-a-search-pipeline).
 1. [Ingest RAG data into an index](#step-4-ingest-rag-data-into-an-index).
 1. [Create a conversation memory](#step-5-create-a-conversation-memory).
-1. [Use the pipeline for RAG](#step-6-use-the-pipeline-for-rag)
+1. [Use the pipeline for RAG](#step-6-use-the-pipeline-for-rag).
 
 ### Step 1: Create a connector to a model
 
-RAG requires an LLM in order to function. To connect to an LLM, create a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). The following request creates a connector to the OpenAI GPT 3.5 model:
+RAG requires an LLM in order to function. To connect to an LLM, create a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). The following request creates a connector for the OpenAI GPT 3.5 model:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -98,12 +98,12 @@ OpenSearch responds with a connector ID for the connector:
 }
 ```
 
-For example requests to connect to other services and models, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+For example requests that connect to other services and models, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 {: .tip}
 
 ### Step 2: Register and deploy the model
 
-Register the LLM to which you created a connector in the previous step. To register the model with OpenSearch, provide the `connector_id` returned in the previous step:
+Register the LLM for which you created a connector in the previous step. To register the model with OpenSearch, provide the `connector_id` returned in the previous step:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -133,7 +133,7 @@ GET /_plugins/_ml/tasks/gXDIbI0BfUsSoeNT_jAb
 ```
 {% include copy-curl.html %}
 
-You can see the `state` is `COMPLETED` in the response:
+The `state` changes to `COMPLETED` in the response:
 
 ```json
 {
@@ -194,9 +194,9 @@ For information about the processor fields, see [Retrieval-augmented generation 
 
 ### Step 4: Ingest RAG data into an index
 
-RAG supplements the LLM knowledge with some supplementary data. 
+RAG augments the LLM's knowledge with some supplementary data. 
 
-First, create an index to hold this data and set the default search pipeline to the pipeline created in the previous step:
+First, create an index in which to store this data and set the default search pipeline to the pipeline created in the previous step:
 
 ```json
 PUT /my_rag_test_data
@@ -228,7 +228,7 @@ POST _bulk
 
 ### Step 5: Create a conversation memory
 
-You'll need to create a conversation memory that will store all messages in a conversation. To make the memory easily identifiable, provide a name for the memory in the optional `name` field. This is your only opportunity to name your conversation because the `name` parameter is not updatable:
+You'll need to create a conversation memory that will store all messages from a conversation. To make the memory easily identifiable, provide a name for the memory in the optional `name` field, as shown in the following example. Because the `name` parameter is not updatable, this is your only opportunity to name your conversation.
 
 ```json
 POST /_plugins/_ml/memory/
@@ -257,17 +257,17 @@ The `generative_qa_parameters` object supports the following parameters.
 
 Parameter | Required | Description
 :--- | :--- | :---
-`llm_question` | Yes | The question the LLM must answer. 
+`llm_question` | Yes | The question that the LLM must answer. 
 `llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
-`memory_id` | No | If you provide a `memory_id`, the pipeline retrieves the 10 most recent messages to the LLM prompt. If you don't specify a `memory_id`, the prior context is not added to the LLM prompt. 
+`memory_id` | No | If you provide a `memory_id`, the pipeline retrieves the 10 most recent messages in the specified memory and adds them to the LLM prompt. If you don't specify a `memory_id`, the prior context is not added to the LLM prompt. 
 `context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary by model. Alternatively, you can use the `size` parameter in the Search API to control the number of search results sent to the LLM.
-`message_size` | No | The number of messages sent to the LLM. Similarly to the number of search results, this affects the total number of tokens seen by the LLM. When not set, the pipeline uses the default message size of `10`.
+`message_size` | No | The number of messages sent to the LLM. Similarly to the number of search results, this affects the total number of tokens received by the LLM. When not set, the pipeline uses the default message size of `10`.
 `timeout` | No | The number of seconds that the pipeline waits for the remote model using a connector to respond. Default is `30`.
 
 If your LLM includes a set token limit, set the `size` field in your OpenSearch query to limit the number of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search results to the LLM.
 {: .note}
 
-If you ask an LLM a question about the present, it cannot provide an answer because it was trained on data from a few years ago. However, if you add current information as context, the LLM is able to generate a response. For example, let's ask the LLM about the population of New York City metro area in 2023. You'll construct a query that includes an OpenSearch match query and an LLM query. Provide the `memory_id` so the message is stored in the appropriate memory object:
+If you ask an LLM a question about the present, it cannot provide an answer because it was trained on data from a few years ago. However, if you add current information as context, the LLM is able to generate a response. For example, you can ask the LLM about the population of the New York City metro area in 2023. You'll construct a query that includes an OpenSearch match query and an LLM query. Provide the `memory_id` so that the message is stored in the appropriate memory object:
 
 ```json
 GET /my_rag_test_data/_search
@@ -291,7 +291,7 @@ GET /my_rag_test_data/_search
 ```
 {% include copy-curl.html %}
 
-Because the context included a document that provides information about NYC population, the LLM was able to correctly answer the question (though it included the word "projected" because it was trained on data from previous years). The response contains the matching documents from the supplementary RAG data and the LLM response:
+Because the context included a document containing information about the population of New York City, the LLM was able to correctly answer the question (though it included the word "projected" because it was trained on data from previous years). The response contains the matching documents from the supplementary RAG data and the LLM response:
 
 <details open markdown="block">
   <summary>
@@ -344,7 +344,7 @@ Because the context included a document that provides information about NYC popu
 ```
 </details>
 
-Now you'll ask an LLM a follow-up question for the same conversation. Again, provide the `memory_id` in the request: 
+Now you'll ask an LLM a follow-up question as part of the same conversation. Again, provide the `memory_id` in the request: 
 
 ```json
 GET /my_rag_test_data/_search
@@ -368,7 +368,7 @@ GET /my_rag_test_data/_search
 ```
 {% include copy-curl.html %}
 
-The LLM correctly identifies the conversation subject and returns a relevant response:
+The LLM correctly identifies the subject of the conversation and returns a relevant response:
 
 ```json
 {
@@ -382,7 +382,7 @@ The LLM correctly identifies the conversation subject and returns a relevant res
 }
 ```
 
-To verify that both messages were added to the memory, provide the `memory_ID` to the Get Message API:
+To verify that both messages were added to the memory, provide the `memory_ID` to the Get Messages API:
 
 ```json
 GET /_plugins/_ml/memory/znCqcI0BfUsSoeNTntd7/messages

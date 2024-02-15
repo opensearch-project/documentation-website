@@ -13,7 +13,7 @@ nav_order: 10
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-Registers an agent. 
+Use this API to register an agent. 
 
 Agents may be of the following types:
 
@@ -37,8 +37,8 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
-`type` | String | Required | All | The agent type. Valid values are `flow` and `conversational`. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/). |
-`description` | String | Optional| All | The agent description. |
+`type` | String | Required | All | The agent type. Valid values are `flow`, `conversational_flow`, and `conversational`. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/). |
+`description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
 `memory.type` | String | Optional | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
@@ -51,8 +51,8 @@ The `tools` array contains a list of tools for the agent. Each tool contains the
 Field | Data type | Required/Optional | Description
 :---  | :--- | :---
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in an agent, specify different names for the tools. |
-`type` | String | Required | The tool type. For a list of supported tools, see the [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
-`parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. For more information, see the specific tool type in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+`type` | String | Required | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
+`parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. You can find information about specific tool types in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 #### Example request: Flow agent
 

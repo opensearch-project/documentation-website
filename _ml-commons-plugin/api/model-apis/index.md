@@ -17,7 +17,7 @@ ML Commons supports the following model-level APIs:
 - [Deploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
 - [Undeploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
 - [Delete model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)
-- [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/): Invokes a model
+- [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) (invokes a model)
 
 ## Model access control considerations
 

@@ -9,7 +9,7 @@ grand_parent: Search pipelines
 
 # Retrieval-augmented generation processor
 
-The `retrieval_augmented_generation` processor is a search results processor that you can use in [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/) for retrieval-augmented generation (RAG). The processor intercepts query results, retrieves previous messages in the conversation from the conversational memory, and sends a prompt to a large language model (LLM). After the processor receives a response from the LLM, it saves the response in conversational memory and returns both the original OpenSearch results of the query and the LLM response.
+The `retrieval_augmented_generation` processor is a search results processor that you can use in [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/) for retrieval-augmented generation (RAG). The processor intercepts query results, retrieves previous messages from the conversation from the conversational memory, and sends a prompt to a large language model (LLM). After the processor receives a response from the LLM, it saves the response in conversational memory and returns both the original OpenSearch query results and the LLM response.
 
 As of OpenSearch 2.12, the `retrieval_augmented_generation` processor supports only OpenAI and Amazon Bedrock models.
 {: .note}
@@ -21,15 +21,15 @@ The following table lists all available request fields.
 Field | Data type | Description
 :--- | :--- | :---
 `model_id` | String | The ID of the model used in the pipeline. Required.
-`context_field_list` | Array | A list of fields in document sources that the pipeline uses as context for RAG. Required. For more information, see [Context field list](#context-field-list). 
-`system_prompt` | String | The system prompt that is sent to the LLM to help adjust its behavior, such as response tone. Can be a persona description or a set of instructions. Optional.
-`user_instructions` | String | Human-generated instructions sent to the LLM to guide it in producing the results. 
+`context_field_list` | Array | A list of fields contained in document sources that the pipeline uses as context for RAG. Required. For more information, see [Context field list](#context-field-list). 
+`system_prompt` | String | The system prompt that is sent to the LLM to adjust its behavior, such as its response tone. Can be a persona description or a set of instructions. Optional.
+`user_instructions` | String | Human-generated instructions sent to the LLM to guide it in producing results. 
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
 
 ### Context field list
 
-The `context_field_list` is a list of fields in document sources that the pipeline uses as context for RAG. For example, let's say your OpenSearch index stores a collection of documents, each containing a `title` and `text`:
+The `context_field_list` is a list of fields contained in document sources that the pipeline uses as context for RAG. For example, suppose your OpenSearch index contains a collection of documents, each including a `title` and `text`:
 
 ```json
 {
@@ -42,7 +42,7 @@ The `context_field_list` is a list of fields in document sources that the pipeli
 }
 ```
 
-You can specify to send only the `text` contents to the LLM by setting `"context_field_list": ["text"]` in the processor. 
+You can specify that only the `text` contents should be sent to the LLM by setting `"context_field_list": ["text"]` in the processor. 
 
 ## Example 
 
@@ -73,7 +73,7 @@ PUT /_search/pipeline/rag_pipeline
 
 ### Using a search pipeline
 
-Combine an OpenSearch query with an `ext` object that holds generative question answering parameters for the LLM:
+Combine an OpenSearch query with an `ext` object that stores generative question answering parameters for the LLM:
 
 ```json
 GET /my_rag_test_data/_search?search_pipeline=rag_pipeline

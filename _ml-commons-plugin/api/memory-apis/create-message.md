@@ -10,9 +10,9 @@ nav_order: 40
 **Introduced 2.12**
 {: .label .label-purple }
 
-Creates or updates a message within a conversational memory for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). A memory keeps conversation history for the current conversation. A message represents one question/answer pair within a conversation.
+Use this API to create or update a message within a conversational memory for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). A memory stores conversation history for the current conversation. A message represents one question/answer pair within a conversation.
 
-Once a message is created, provide its `message_id` to other APIs.
+Once a message is created, you'll provide its `message_id` to other APIs.
 
 The POST method creates a new message. The PUT method updates an existing message.
 
@@ -45,12 +45,12 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 | `input` | String | Optional | No | The question (human input) in the message. |
-| `prompt_template` | String | Optional | No | The prompt template that was used for this message. The template may contain instructions or examples that were sent to the large language model. |
+| `prompt_template` | String | Optional | No | The prompt template that was used for the message. The template may contain instructions or examples that were sent to the large language model. |
 | `response` | String | Optional | No | The answer (generative AI output) to the question. |
 | `origin` | String | Optional | No | The name of the AI or other system that generated the response. |
 | `additional_info` | Object | Optional | Yes | Any other information that was sent to the `origin`. |
 
-#### Example request: Create message
+#### Example request: Create a message
 
 ```json
 POST /_plugins/_ml/memory/SXA2cY0BfUsSoeNTz-8m/messages
