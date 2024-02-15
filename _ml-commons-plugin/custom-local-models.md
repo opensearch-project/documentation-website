@@ -315,4 +315,149 @@ The response contains the tokens and weights:
 
 ## Step 5: Use the model for search
 
-To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).
+To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
+
+## Cross-encoder models
+
+Cross-encoder models support query reranking. 
+
+To register a cross-encoder model, send a request in the following format. The `model_config` object is optinoal. Cross-encoder models' `function_name` is `TEXT_SIMILARITY`. For example, the following request registers a `ms-marco-TinyBERT-L-2-v2` model:
+
+```json
+POST /_plugins/_ml/models/_register
+{
+    "name": "ms-marco-TinyBERT-L-2-v2",
+    "version": "1.0.0",
+    "function_name": "TEXT_SIMILARITY",
+    "description": "test model",
+    "model_format": "TORCH_SCRIPT",
+    "model_group_id": "lN4AP40BKolAMNtR4KJ5",
+    "model_content_hash_value": "90e39a926101d1a4e542aade0794319404689b12acfd5d7e65c03d91c668b5cf",
+    "model_config": { 
+        "model_type": "bert",
+        "embedding_dimension": 1,
+        "framework_type": "huggingface_transformers",
+        "total_chunks":2,
+        "all_config": "{\"total_chunks\":2,\"is_hidden\":false}"
+    },
+    "url": "https://github.com/opensearch-project/ml-commons/blob/main/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_similarity/TinyBERT-CE-torch_script.zip?raw=true"
+}
+```
+{% include copy-curl.html %}
+
+Then send a request to deploy the model:
+
+```json
+POST _plugins/_ml/models/<model_id>/_deploy
+```
+{% include copy-curl.html %}
+
+To test a cross-encoder model, send the following request:
+
+```json
+POST _plugins/_ml/models/<model_id>/_predict
+{
+    "query_text": "today is sunny",
+    "text_docs": [
+        "how are you",
+        "today is sunny",
+        "today is july fifth",
+        "it is winter"
+    ]
+}
+```
+{% include copy-curl.html %}
+
+The model calculates the similarity score of `query_text` and each document in `text_docs` and returns a list of scores for each document in the order they were provided in `text_docs`:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "similarity",
+          "data_type": "FLOAT32",
+          "shape": [
+            1
+          ],
+          "data": [
+            -6.077798
+          ],
+          "byte_buffer": {
+            "array": "Un3CwA==",
+            "order": "LITTLE_ENDIAN"
+          }
+        }
+      ]
+    },
+    {
+      "output": [
+        {
+          "name": "similarity",
+          "data_type": "FLOAT32",
+          "shape": [
+            1
+          ],
+          "data": [
+            10.223609
+          ],
+          "byte_buffer": {
+            "array": "55MjQQ==",
+            "order": "LITTLE_ENDIAN"
+          }
+        }
+      ]
+    },
+    {
+      "output": [
+        {
+          "name": "similarity",
+          "data_type": "FLOAT32",
+          "shape": [
+            1
+          ],
+          "data": [
+            -1.3987057
+          ],
+          "byte_buffer": {
+            "array": "ygizvw==",
+            "order": "LITTLE_ENDIAN"
+          }
+        }
+      ]
+    },
+    {
+      "output": [
+        {
+          "name": "similarity",
+          "data_type": "FLOAT32",
+          "shape": [
+            1
+          ],
+          "data": [
+            -4.5923924
+          ],
+          "byte_buffer": {
+            "array": "4fSSwA==",
+            "order": "LITTLE_ENDIAN"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+Higher document score means higher similarity. In the preceding response, documents are scored as follows against the query text `today is sunny`:
+
+Document text | Score
+:--- | :---
+`how are you` | -6.077798
+`today is sunny` | 10.223609
+`today is july fifth` | -1.3987057
+`it is winter` | -4.5923924
+
+The document that contains the same text as the query is scored the highest, and the remaining documents are scored based on the text similarity.
+
+To learn how to use the model for reranking, see [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
