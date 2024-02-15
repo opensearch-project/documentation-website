@@ -25,7 +25,7 @@ The [OpenSearch Assistant toolkit](<insert-ML-cross-ref-link>) helps you create 
 
 ## Enabling OpenSearch Assistant
 
-In OpenSearch 2.12, dashboards assistant is added as an experimental feature. To enable it, firstly, you need to configure OpenSearch-Dashboards, update `opensearch_dashboards.yml` with:
+To enable **OpenSearch Assistant** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
 ```
 assistant.chat.enabled: true
 ```
