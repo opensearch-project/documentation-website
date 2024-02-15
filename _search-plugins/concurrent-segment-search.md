@@ -87,6 +87,8 @@ Typically, queries are used with smaller `terminate_after` values and thus compl
 
 Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields do not support the concurrent search model. Thus, if a search request contains a parent aggregation, the aggregation will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level.
 
+The [anomaly-detection](https://opensearch.org/docs/latest/observing-your-data/ad/index/) plugin is not compatible with concurrent segment search. If you wish to use concurrent segment search with the anomaly-detection plugin please apply the index setting to disable concurrent segment search for the anomaly-detection result indices. By default this is pointed to by the alias `.opendistro-anomaly-results`. See [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/12331) for more details.
+
 ## Developer information: AggregatorFactory changes
 
 Because of implementation details, not all aggregator types can support concurrent segment search. To accommodate this, we have introduced a [`supportsConcurrentSegmentSearch()`](https://github.com/opensearch-project/OpenSearch/blob/bb38ed4836496ac70258c2472668325a012ea3ed/server/src/main/java/org/opensearch/search/aggregations/AggregatorFactory.java#L121) method in the `AggregatorFactory` class to indicate whether a given aggregation type supports concurrent segment search. By default, this method returns `false`. Any aggregator that needs to support concurrent segment search must override this method in its own factory implementation. 
