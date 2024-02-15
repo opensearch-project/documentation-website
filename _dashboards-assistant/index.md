@@ -69,7 +69,7 @@ Beneath the response, select the **Regenerate** button to generate an alternativ
 ### Suggested prompts
 OpenSearch Assistant provides suggested prompts as a starting point or to help you understand how the assistant can help you. Select a suggested prompt beneath the response field. A snapshot of a suggested prompt is shown in the following image.
 
-<img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestions.png" alt="The assistant suggestions">
+<img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestions.png" alt="Example suggested prompts from OpenSearch Assistant">
 
 ### Rate the response
 Each response contains a thumb up and thumb down icon button, you can click on the button to feedback whether you are satisfied with the response.
