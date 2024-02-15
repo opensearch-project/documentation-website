@@ -71,7 +71,8 @@ OpenSearch Assistant provides suggested prompts as a starting point or to help y
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestions.png" alt="Example suggested prompts from OpenSearch Assistant">
 
-### Rate the response
+### Rate a response
+
 Each response contains a thumb up and thumb down icon button, you can click on the button to feedback whether you are satisfied with the response.
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/rate.png" alt="Rate the response">
