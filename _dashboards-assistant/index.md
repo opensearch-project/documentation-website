@@ -54,7 +54,7 @@ The following sections guide you through using OpenSearch Assistant in OpenSearc
 ### Start the conversation
 
 
-You can start the conversation by clicking the input box, or use hot key `ctrl + /` to start typing your first question.
+Start the conversation by entering a question in the **Ask a question** search box or using the shortcut `ctrl + /`. An interface snapshot is shown in the following image.
 
 <img width="450px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/start-conversation.png" alt="Start the conversation">
 
