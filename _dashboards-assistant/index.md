@@ -23,7 +23,7 @@ Introduced 2.12
 
 The [OpenSearch Assistant toolkit](<insert-ML-cross-ref-link>) helps you create AI-powered assistants for OpenSearch Dashboards without requiring specialized query tools or skills.
 
-## Enable dashboards assistant
+## Enabling OpenSearch Assistant
 
 In OpenSearch 2.12, dashboards assistant is added as an experimental feature. To enable it, firstly, you need to configure OpenSearch-Dashboards, update `opensearch_dashboards.yml` with:
 ```
