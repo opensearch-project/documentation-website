@@ -64,7 +64,7 @@ Select `Enter` to initiate the conversation. A response snapshot is shown in the
 
 ### Regenerate a response
 
-Under the response, the second from the left is regenerate button, click it will regenerate answer for the same question. The previous answer will be replaced with the new answer both on the UI and chat history.
+Beneath the response, select the **Regenerate** button to generate an alternative answer to your original question. The new answer will replace the previous one, appearing in both the interface and chat history.
 
 ### The suggestions by the assistant
 Under the response, we also provide suggestions that we think user may be interested to ask. User can click one of them to see the response.
