@@ -73,7 +73,7 @@ OpenSearch Assistant provides suggested prompts as a starting point or to help y
 
 ### Rate a response
 
-Each response contains a thumb up and thumb down icon button, you can click on the button to feedback whether you are satisfied with the response.
+To rate a response, select the thumbs up or thumbs down icon. An interface snapshot is shown in the following image.
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/rate.png" alt="Rate the response">
 
