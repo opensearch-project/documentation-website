@@ -96,7 +96,7 @@ The conversation history can be searched by title, as shown in the following sna
 
 Select the pencil icon to edit a conversation name and rename it. Select the **Confirm name** button to save the new name. A snapshot of the edit interface is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/edit-conversation-title.png" alt="Edit the conversation title">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/edit-conversation-title.png" alt="Editing a conversation name">
 
 Click the trash icon to delete conversation, the delete confirmation modal will be displayed after clicked. Click the “Delete conversation” button to confirm the conversation delete operation. The conversation will be deleted after “Delete conversation” button clicked.
 
