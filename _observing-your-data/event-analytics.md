@@ -8,15 +8,15 @@ redirect_from:
 
 # Event analytics
 
-Event analytics in Observability is where you can use [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries to build and view different visualizations of your data.
+Event analytics in Observability lets you create and see various data visualizations using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries.
 
 ## Getting started with event analytics
 
-To get started, choose **Observability** in OpenSearch Dashboards and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add samples**, and Dashboards adds sample visualizations you can interact with.
+To get started, choose **Observability** in OpenSearch Dashboards and then choose **Event analytics**. If you want to start exploring without adding your own data, choose **Add samples**. Dashboards adds sample visualizations you can interact with.
 
 ## Building a query
 
-To generate custom visualizations, you must first specify a PPL query. OpenSearch Dashboards then automatically creates a visualization based on the results of your query.
+To generate custom visualizations, you must first specify a PPL query. OpenSearch Dashboards then automatically creates a visualization based on your query results.
 
 For example, the following PPL query returns a count of how many host addresses are currently in your data.
 
@@ -24,7 +24,7 @@ For example, the following PPL query returns a count of how many host addresses 
 source = opensearch_dashboards_sample_data_logs | fields host | stats count()
 ```
 
-By default, Dashboards shows results from the last 15 minutes of your data. To see data from a different time frame, use the date and time selector.
+By default, Dashboards shows results from the last 15 minutes of your data. To see data from a different time frame, use the date and time selector to choose the desired settings.
 
 For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
 
@@ -33,17 +33,21 @@ For more information about building PPL queries, see [Piped Processing Language]
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).    
 {: .warning}
 
-To make building queries easier, the OpenSearch Assistant Toolkit provides an assistant to help convert natural language queries to PPL.
+To simplify query building, the OpenSearch Assistant Toolkit offers an assistant to convert natural language queries into PPL. A screenshot is shown in the following image. 
 
 ![Sample OpenSearch Query Assist View]({{site.url}}{{site.baseurl}}/images/log-explorer-query-assist.png)
 
 #### Enabling OpenSearch Query Assist
+
 To enable **OpenSearch Query Assist** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+
 ```
 observability.query_assist.enabled: true
 observability.query_assist.ppl_agent_name: "PPL agent"
 ```
+
 To enable the option to summarize the responses, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+
 ```
 observability.summarize.enabled: true
 observability.summarize.response_summary_agent_name: "Response summary agent"
@@ -51,39 +55,40 @@ observability.summarize.error_summary_agent_name: "Error summary agent"
 ```
 
 #### How to setup OpenSearch Query Assist
-For a guide to setup the query assist, follow the getting started guide [here](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md). This guide shows how to setup OpenSearch Assistant and Query Assist. To only setup Query Assist, use only the `query-assist-agent` template called out in the guide.
+
+To set up Query Assist, follow the steps in the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) on GitHub. You'll receive step-by-step setup instructions for OpenSearch Assistant and Query Assist. To set up Query Assist only, use the `query-assist-agent` template included in the guide.
 
 ## Saving a visualization
 
-After Dashboards generates a visualization, you must save it if you want to return to it at a later time or if you want to add it to an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels).
-
-To save a visualization, expand the save dropdown menu next to **Refresh**, enter a name for your visualization, then choose **Save**. You can reopen any saved visualizations on the event analytics page.
+After Dashboards generates a visualization, save it if you wish to revisit it or include it in in an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels). To save a visualization, expand the save dropdown menu to the left of **Refresh**, enter a name for your visualization, and then select **Save**. You can reopen saved visualizations from the event analytics page.
 
 ## Creating event analytics visualizations and adding them to dashboards
 
-This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that use PPL to query data from OpenSearch or federated data sources such as Prometheus.
+This feature is available in OpenSearch Dashboards 2.7 and later. It works with new visualizations that use PPL to query data from OpenSearch or federated data sources such as Prometheus.
 {: .note}
 
-Presenting your visualizations on a dashboard, instead of the event analytics page, makes it easier for users to understand and interpret the data at a glance. 
+Presenting your visualizations on a dashboard, instead of from the event analytics page, simplifies understanding and interpreting data at a glance. 
 
 To create a PPL visualization, follow these steps:
 
 1. On the main menu, choose **Visualize** > **PPL**.
-2. In the **Observability** > **Logs** > **Explorer** window, enter the index source in the **PPL query** field, for example, `source = opensearch_dashboards_sample_data_flights | stats count() by DestCountry`. You must enter the query using PPL syntax. 
+2. From the **Observability** > **Logs** > **Explorer** window, enter the index source in the **PPL query** field, for example, `source = opensearch_dashboards_sample_data_flights | stats count() by DestCountry`. You must enter the query using PPL syntax. 
 3. Set the time filter, for example, **This week**, and then select **Refresh**.
-4. Choose the visualization type, for example, **Pie**, from the right sidebar dropdown menu.  
-5. Select **Save** and enter a name for the visualization.
+4. Choose the visualization type, for example, **Pie**, from the sidebar dropdown menu to the right.  
+5. Select **Save**, and enter a name for the visualization.
 
-You've created a new visualization that can be added to a new or existing dashboard. To add a PPL query to a dashboard, follow these steps:  
+You've created a new visualization that can be added to a new or an existing dashboard. To add a PPL query to a dashboard, follow these steps:  
 
-1. Select **Dashboard** from the main menu.
-2. In the **Dashboards** window, select **Create > Dashboard**.
+1. Select **Dashboards** from the main menu.
+2. In the **Dashboards** window, select **Create** > **Dashboard**.
 3. In the **Editing New Dashboard** window, choose **Add an existing**.
-4. In the **Add panels** window, choose **PPL** and select the visualization. It is now displayed on your dashboard.
-5. Select **Save** and enter a name for the dashboard.
-6. To add more visualizations to the dashboard, choose **Select existing visualization** and follow the steps above. Alternatively, choose **Create new** and then select **PPL** in the **New Visualization** window. You'll return to the event analytics page and follow steps 1--6 in the preceding instructions.
+4. In the **Add panels** window, choose **PPL** from the **Types** dropdown menu, and then select the visualization. It is now displayed on your dashboard.
+5. Select **Save**, and enter a name for the dashboard.
+6. To add more visualizations to the dashboard, choose **Select existing visualization** and follow steps 1--5. Alternatively, choose **Create new** and then select **PPL** in the **New Visualization** window. You'll return to the event analytics page and follow steps 1--5 in the preceding instructions.
 
-![Demo of how to create event analytics visualizations and add them to a dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/event-analytics-dashboard.gif)
+The following demo provides an overview of creating event analytics visualizations and adding them to a dashboard.
+
+![Demo of creating event analytics visualizations and adding them to a dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/event-analytics-dashboard.gif)
 
 ### Limitations of event analytics visualizations
 
@@ -98,20 +103,20 @@ The following are methods you can use to view logs.
 
 ### Correlating logs and traces
 
-If you regularly track events across applications, you can correlate logs and traces. To view the correlation, you have to index the traces according to Open Telemetry standards (similar to trace analytics). Once you add a `TraceId` field to your logs, you can view the correlated trace information in the event explorer log details. This method lets you correlate logs and traces that correspond to the same execution context.
+If you regularly track events across applications, you can correlate logs and traces. To view the correlation, you have to index the traces according to Open Telemetry standards (similar to [trace analytics]({{site.url}}{{site.baseurl}}observing-your-data/trace/index/)). Once you add a `TraceId` field to your logs, you can view the correlated trace information in the event explorer log details. This method correlates logs and traces that correspond to the same execution context. The following demo shows this feature in action.
 
 ![Trace Log Correlation]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
 
 ### Viewing surrounding events
 
-If you want to know more about a log event you're looking at, you can select **View surrounding events** to get a bigger picture of what was happening around the time of interest.
+If you need more information about a log event you're analyzing, you can select **View surrounding events** to gain a more comprehensive understanding of the context around the time of interest. The following demo shows this feature in action. 
 
 ![Surrounding Events]({{site.url}}{{site.baseurl}}/images/surrounding_events.gif)
 
 ### Livestreaming logs
 
-If you prefer watching events happen live, you can configure an interval so event analytics automatically refreshes the content. Live tail lets you stream logs live to OpenSearch observability event analytics based on the provided PPL query, as well as provide rich functionality such as filters. Doing so improves your debugging experience and lets you monitor your logs in real-time without having to manually refresh.
+If you prefer real-time monitoring, you can set up an interval for automatic content refresh in event analytics. Live Tail enables you to stream logs directly to OpenSearch Observability event analytics using the specified PPL query, while offering robust features like filters. This enhances your debugging process and enables seamless real-time monitoring of logs without the need for manual refreshing.
 
-You can also choose intervals and switch between them to dictate how often live tail should stream live logs. This feature is similar to the CLI's `tail -f` command in that it only retrieves the most recent live logs by possibly eliminating a large portion of live logs. Live tail also provides you with the total count of live logs received by OpenSearch during the live stream, which you can use to better understand the incoming traffic.
+You can select intervals and seamlessly switch between them to control the frequency of live log streaming with Live Tail. This functionality is similar to the CLI command `tail -f` command, as it retrieves only the most recent live logs, potentially eliminating a significant portion of live logs. Live Tail displays the total count of live logs received by OpenSearch during the live stream, offering insights into incoming traffic patterns. The following demo shows this feture in action. 
 
 ![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
