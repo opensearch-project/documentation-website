@@ -149,7 +149,7 @@ Option | Required | Type | Description
 secret_id  | Yes | String | The AWS secret name or ARN.                                                                                                                                                                                              |
 region | No | String   | The AWS region of the secret. Defaults to `us-east-1`.                                                                                                                                                                            
 sts_role_arn | No | String   | The AWS Security Token Service (AWS STS) role to assume for requests to the AWS Secrets Manager. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). 
-refresh_interval | No | Duration | The refreshment interval for AWS secrets extension plugin to poll new secret values. Defaults to `PT1H`. See [Automatically refreshing secrets](#automatically-refreshing-secrets) for details.
+refresh_interval | No | Duration | The refreshment interval for the AWS Secrets extension plugin to poll new secret values. Defaults to `PT1H`. For more information. see [Automatically refreshing secrets](#automatically-refreshing-secrets) for details.
 disable_refresh | No | Boolean | Disables regular polling on the latest secret values inside the AWS secrets extension plugin. Defaults to `false`. When set to `true`, `refresh_interval` will not be used.
 
 #### Reference secrets
