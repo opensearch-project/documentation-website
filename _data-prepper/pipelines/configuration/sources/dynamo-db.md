@@ -91,31 +91,40 @@ Option | Required | Type | Description
 ## Exposed metadata attributes
 
 The following metadata will be added to each Event that is processed by the DynamoDB source. These metadata attributes can be accessed with
-the [expression syntax getMetadata function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata).
+the [expression syntax `getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata).
 
 * `primary_key` - The primary key of the DynamoDB item. For tables that only contain a partition key, this value will give the partition key. For tables that contain both a partition and sort key, the primary_key attribute will be equal to the partition and sort key, separated by a `|` (i.e. `partition_key|sort_key`)
 * `partition_key` - The partition key of the DynamoDB item
 * `sort_key` - The sort key of the DynamoDB item. This will be null if the table does not have a sort key
-* `dynamodb_timestamp` - The timestamp of the DynamoDB item. This will be the export time for export items, and the DDB stream Event time for stream items. This timestamp is used by sinks to emit an `EndtoEndLatency` metric for DDB stream Events, which tracks the latency between a change in the DDB table, and that change getting applied to the sink.
+* `dynamodb_timestamp` - The timestamp of the DynamoDB item. This will be the export time for export items, and the DynamoDB stream Event time for stream items. This timestamp is used by sinks to emit an `EndtoEndLatency` metric for DynamoDB stream Events, which tracks the latency between a change in the DynamoDB table, and that change getting applied to the sink.
 * `document_version` - Based off the `dynamodb_timestamp`, and modified to break ties between stream items that are received in the same second. Recommend for use with the `opensearch` sink `document_version` setting.
-* `opensearch_action` - A default value for mapping DDB Event actions to OpenSearch actions. This action will be `index` for export items, and INSERT or MODIFY stream events. This action will be `delete` for REMOVE stream events.
+* `opensearch_action` - A default value for mapping DynamoDB Event actions to OpenSearch actions. This action will be `index` for export items, and INSERT or MODIFY stream events. This action will be `delete` for REMOVE stream events.
 * `dynamodb_event_name` - The exact event type for the item. Will be `null` for export items, and either `INSERT`, `MODIFY`, or `REMOVE` for stream events.
 * `table_name` - The DynamoDB table name that an event came from.
 
 
 ## Permissions
 
-The following shows the minimum required permissions for running DDB as a source
+The following shows the minimum required permissions for running DynamoDB as a source
 
 ```json
 {
     "Version": "2012-10-17",
     "Statement": [
-        {
+      {
+        "Sid": "allowDescribeTable",
+        "Effect": "Allow",
+        "Action": [
+          "dynamodb:DescribeTable"
+        ],
+        "Resource": [
+          "arn:aws:dynamodb:us-east-1:{account-id}:table/my-table"
+        ]
+      },
+       {
             "Sid": "allowRunExportJob",
             "Effect": "Allow",
             "Action": [
-                "dynamodb:DescribeTable",
                 "dynamodb:DescribeContinuousBackups",
                 "dynamodb:ExportTableToPointInTime"
             ],
@@ -162,6 +171,9 @@ The following shows the minimum required permissions for running DDB as a source
 }
 ```
 
+If only doing an export, `"Sid": "allowReadFromStream"` section is not required. If only reading from DynamoDB streams, the 
+`"Sid": "allowReadAndWriteToS3ForExport"`, `"Sid": "allowCheckExportjob"`, ` "Sid": "allowRunExportJob"` sections are not required.
+
 ## Metrics
 
 The `dynamodb` source includes the following metrics
@@ -175,9 +187,9 @@ The `dynamodb` source includes the following metrics
 * `exportRecordsTotal` - The total number of records found the entire export
 * `exportRecordsProcessed` - The total number of export records that have been processed successfully
 * `exportRecordsProcessingErrors` - The number of export record processing errors
-* `changeEventsProcessed` - The number of change events processed from DDB streams
-* `changeEventsProcessingErrors` - The number of processing errors for change events from DDB streams
-* `shardProgress` - Incremented when DDB streams is being read from correctly. If this is 0 for a certain period of time, then there is a problem with the pipeline if it has streams enabled
+* `changeEventsProcessed` - The number of change events processed from DynamoDB streams
+* `changeEventsProcessingErrors` - The number of processing errors for change events from DynamoDB streams
+* `shardProgress` - Incremented when DynamoDB streams is being read from correctly. If this is 0 for a certain period of time, then there is a problem with the pipeline if it has streams enabled
 
 
 
