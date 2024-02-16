@@ -321,7 +321,7 @@ To learn how to use the model for vector search, see [Using an ML model for neur
 
 Cross-encoder models support query reranking. 
 
-To register a cross-encoder model, send a request in the following format. The `model_config` object is optional. For cross-encoder models, specify the `function_name` as `TEXT_SIMILARITY`. For example, the following request registers a `ms-marco-TinyBERT-L-2-v2` model:
+To register a cross-encoder model, send a request in the following format. The `model_config` object is optional. For cross-encoder models, specify the `function_name` as `TEXT_SIMILARITY`. For example, the following request registers an `ms-marco-TinyBERT-L-2-v2` model:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -449,7 +449,7 @@ The model calculates the similarity score of `query_text` and each document in `
 }
 ```
 
-Higher document score means higher similarity. In the preceding response, documents are scored as follows against the query text `today is sunny`:
+A higher document score means higher similarity. In the preceding response, documents are scored as follows against the query text `today is sunny`:
 
 Document text | Score
 :--- | :---
