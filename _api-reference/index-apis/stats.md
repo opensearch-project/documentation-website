@@ -116,7 +116,7 @@ GET /testindex/_stats?level=shards
 
 By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards. The following is an example Index Stats API response: 
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
