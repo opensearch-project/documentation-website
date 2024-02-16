@@ -112,7 +112,7 @@ GET _nodes/stats/
 
 Select the arrow to view the example response.
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>

@@ -24,7 +24,7 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 ---
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Table of contents
   </summary>
