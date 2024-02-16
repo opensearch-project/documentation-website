@@ -54,7 +54,7 @@ observability.summarize.response_summary_agent_name: "Response summary agent"
 observability.summarize.error_summary_agent_name: "Error summary agent"
 ```
 
-#### How to setup OpenSearch Query Assist
+#### Setting up OpenSearch Query Assist
 
 To set up Query Assist, follow the steps in the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) on GitHub. You'll receive step-by-step setup instructions for OpenSearch Assistant and Query Assist. To set up Query Assist only, use the `query-assist-agent` template included in the guide.
 
