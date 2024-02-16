@@ -321,7 +321,7 @@ To learn how to use the model for vector search, see [Using an ML model for neur
 
 Cross-encoder models support query reranking. 
 
-To register a cross-encoder model, send a request in the following format. The `model_config` object is optional. Cross-encoder models' `function_name` is `TEXT_SIMILARITY`. For example, the following request registers a `ms-marco-TinyBERT-L-2-v2` model:
+To register a cross-encoder model, send a request in the following format. The `model_config` object is optional. For cross-encoder models, specify the `function_name` as `TEXT_SIMILARITY`. For example, the following request registers a `ms-marco-TinyBERT-L-2-v2` model:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -338,7 +338,7 @@ POST /_plugins/_ml/models/_register
         "embedding_dimension": 1,
         "framework_type": "huggingface_transformers",
         "total_chunks":2,
-        "all_config": "{\"total_chunks\":2,\"is_hidden\":false}"
+        "all_config": "{\"total_chunks\":2}"
     },
     "url": "https://github.com/opensearch-project/ml-commons/blob/main/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_similarity/TinyBERT-CE-torch_script.zip?raw=true"
 }
