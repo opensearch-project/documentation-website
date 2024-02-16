@@ -77,7 +77,7 @@ Beneath the response, select the **Regenerate** button to generate an alternativ
 
 ### Suggested prompts
 
-OpenSearch Assistant suggests prompts to help you get started, build upon your exising prompts, or explore other queries you may not have considered, among other reasons. Select a suggested prompt listed beneath the response field. A screenshot is shown in the following image.
+OpenSearch Assistant suggests prompts to help you get started, build upon your existing prompts, or explore other queries you may not have considered, among other reasons. Select a suggested prompt listed beneath the response field. A screenshot is shown in the following image.
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestions.png" alt="Example suggested prompts from OpenSearch Assistant">
 
