@@ -35,7 +35,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 To simplify query building, the OpenSearch Assistant Toolkit offers an assistant to convert natural language queries into PPL. A screenshot is shown in the following image. 
 
-![Sample OpenSearch Query Assist View]({{site.url}}{{site.baseurl}}/images/log-explorer-query-assist.png)
+![Sample OpenSearch Query Assist screen view]({{site.url}}{{site.baseurl}}/images/log-explorer-query-assist.png)
 
 #### Enabling OpenSearch Query Assist
 
