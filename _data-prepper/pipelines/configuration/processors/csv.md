@@ -91,7 +91,7 @@ The `csv` processor will take the following event:
 {"header": "a,b,c", "message": "1,2,3"}
 ```
 
-Then, the processor parses the event into the following output. Because `delete_header` is `true`, the header `a,b,c` is deleted from the output:
+Then, the processor parses the event into the following output. Because `delete_header` is `true` by default, the header `a,b,c` is deleted from the output:
 ```json
 {"message": "1,2,3", "a": "1", "b": "2", "c": "3"}
 ```
