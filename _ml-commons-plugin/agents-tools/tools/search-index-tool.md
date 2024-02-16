@@ -116,7 +116,7 @@ OpenSearch returns the query results:
 
 ## Execute parameters
 
-The following table lists all available parameters when registering the tool. 
+The following table lists all tool parameters that are available when registering an agent. 
 
 Parameter | Type | Description
 :--- | :--- | :---

@@ -203,7 +203,7 @@ OpenSearch returns the inference results:
 
 ## Register parameters
 
-The following table lists all available parameters when registering the tool.
+The following table lists all tool parameters that are available when registering an agent.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
@@ -218,7 +218,7 @@ Parameter	| Type | Required/Optional | Description
 
 ## Execute parameters
 
-The following table lists all available parameters when running the tool.
+The following table lists all tool parameters that are available when running the agent.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---

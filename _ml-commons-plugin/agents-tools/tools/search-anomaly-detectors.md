@@ -86,7 +86,7 @@ OpenSearch responds with a list of anomaly detectors set up on your cluster and 
 
 ## Register parameters
 
-The following table lists all available parameters when registering the tool. All parameters are optional.
+The following table lists all tool parameters that are available when registering an agent. All parameters are optional.
 
 Parameter	| Type | Description	
 :--- | :--- | :---
@@ -105,7 +105,7 @@ Parameter	| Type | Description
 
 ## Execute parameters
 
-The following table lists all available parameters when running the tool.
+The following table lists all tool parameters that are available when running the agent.
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
