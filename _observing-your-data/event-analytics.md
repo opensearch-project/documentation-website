@@ -8,7 +8,7 @@ redirect_from:
 
 # Event analytics
 
-Event analytics in Observability lets you create and see various data visualizations using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries.
+Event analytics in OpenSearch Observability lets you create and see various data visualizations using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries.
 
 ## Getting started with event analytics
 
