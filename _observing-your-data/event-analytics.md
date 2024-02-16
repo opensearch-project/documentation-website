@@ -103,7 +103,7 @@ The following are methods you can use to view logs.
 
 ### Correlating logs and traces
 
-If you regularly track events across applications, you can correlate logs and traces. To view the correlation, you have to index the traces according to Open Telemetry standards (similar to [trace analytics]({{site.url}}{{site.baseurl}}observing-your-data/trace/index/)). Once you add a `TraceId` field to your logs, you can view the correlated trace information in the event explorer log details. This method correlates logs and traces that correspond to the same execution context. The following demo shows this feature in action.
+If you regularly track events across applications, you can correlate logs and traces. To view the correlation, you have to index the traces according to Open Telemetry standards, similarly to [trace analytics]({{site.url}}{{site.baseurl}}observing-your-data/trace/index/). Once you add a `TraceId` field to your logs, you can view the correlated trace information in the event explorer log details. This method correlates logs and traces that correspond to the same execution context. The following demo shows this feature in action.
 
 ![Trace Log Correlation]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
 
@@ -117,6 +117,9 @@ If you need more information about a log event you're analyzing, you can select 
 
 If you prefer real-time monitoring, you can set up an interval for automatic content refresh in event analytics. Live Tail enables you to stream logs directly to OpenSearch Observability event analytics using the specified PPL query, while offering robust features like filters. This enhances your debugging process and enables seamless real-time monitoring of logs without the need for manual refreshing.
 
+## Related articles
+
+- [Demonstrating OpenSearch Assistant toolkit for Analysis](https://www.youtube.com/watch?v=VTiJtGI2Sr4&t=152s)
 You can select intervals and seamlessly switch between them to control the frequency of live log streaming with Live Tail. This functionality is similar to the CLI command `tail -f` command, as it retrieves only the most recent live logs, potentially eliminating a significant portion of live logs. Live Tail displays the total count of live logs received by OpenSearch during the live stream, offering insights into incoming traffic patterns. The following demo shows this feature in action. 
 
 ![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
