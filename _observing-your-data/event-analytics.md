@@ -60,7 +60,7 @@ To set up Query Assist, follow the steps in the [Getting started guide](https://
 
 ## Saving a visualization
 
-After Dashboards generates a visualization, save it if you wish to revisit it or include it in in an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels). To save a visualization, expand the save dropdown menu to the left of **Refresh**, enter a name for your visualization, and then select **Save**. You can reopen saved visualizations from the event analytics page.
+After Dashboards generates a visualization, save it if you wish to revisit it or include it in an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels). To save a visualization, expand the save dropdown menu to the left of **Refresh**, enter a name for your visualization, and then select **Save**. You can reopen saved visualizations from the event analytics page.
 
 ## Creating event analytics visualizations and adding them to dashboards
 
