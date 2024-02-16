@@ -43,6 +43,12 @@ To enable **OpenSearch Query Assist** in OpenSearch Dashboards, locate your copy
 observability.query_assist.enabled: true
 observability.query_assist.ppl_agent_name: "PPL agent"
 ```
+To enable the option to summarize the responses, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+```
+observability.summarize.enabled: true
+observability.summarize.response_summary_agent_name: "Response summary agent"
+observability.summarize.error_summary_agent_name: "Error summary agent"
+```
 
 #### How to setup OpenSearch Query Assist
 For a guide to setup the query assist, follow the getting started guide [here](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md). This guide shows how to setup OpenSearch Assistant and Query Assist. To only setup Query Assist, use only the `query-assist-agent` template called out in the guide.
