@@ -122,3 +122,8 @@ You can use [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/noteboo
 You can open the saved notebook or view a list of other notebooks by going to **Observability** > **Notebooks**. A screenshot of the Notebooks interface in OpenSearch Dashboards is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/conversation-in-notebook.png" alt="List of conversations saved in Notebooks">
+
+## Related articles
+
+- [Getting started guide for running OpenSearch Assistant](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
+- [OpenSearch Assistant toolkit configuration through the REST API]({site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)
