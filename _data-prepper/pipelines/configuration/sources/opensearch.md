@@ -202,24 +202,24 @@ Option | Required | Type    | Description
 
 ## Metrics
 
-The `opensearch` source includes the following metrics:
+The `opensearch` source includes the following metrics.
 
 ### Counters
 
 - `documentsProcessed`: Measures the total number of documents processed by the `opensearch` source plugin.
 - `indicesProcessed`: Measures the total number of indexes processed by the `opensearch` source plugin.
 - `processingErrors`: Measures the total number of errors during index processing by the `opensearch` Source plugin.
-- `credentialsChanged`: Measures the number of times the `opensearch` source refreshes basic credentials (i.e. username/password).
+- `credentialsChanged`: Measures the number of times that the `opensearch` source refreshes basic credentials (username/password).
 - `clientRefreshErrors`: Measures the number of errors encountered when generating a new client due to the `opensearch` source refreshing basic credentials.
 
 ### Timers
 
-- `indexProcessingTime`: Measures the latency of processing an index in seconds by the `opensearch` source plugin.
+- `indexProcessingTime`: Measures the `opensearch` source plugin index processing latency, in seconds.
 
 ### Distribution summaries
 
-- `bytesReceived`: Measures the distribution of incoming document size in bytes received by the `opensearch` source plugin.
-- `bytesProcessed`: Measures the distribution of incoming document size in bytes successfully processed by the `opensearch` source plugin.
+- `bytesReceived`: Measures the size distribution of incoming documents, in bytes, received by the `opensearch` source plugin.
+- `bytesProcessed`: Measures the size distribution of incoming document, in bytes, successfully processed by the `opensearch` source plugin.
 
 ## OpenSearch cluster security
 
