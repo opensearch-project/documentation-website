@@ -83,7 +83,7 @@ OpenSearch Assistant suggests prompts to help you get started, build upon your e
 
 ### Rate a response
 
-To rate a response, select the thumbs up or thumbs down icon. A screenshot of the interface is shown in the following image.
+To rate a response, select the thumbs up or thumbs down icon. A screenshot of the interface is shown in the following image. The feedback is stored in the `additional_info` field of the message index.
 
 <img width="600px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/rate.png" alt="Rating a response screenshot">
 
