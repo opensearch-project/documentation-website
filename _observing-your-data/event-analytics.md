@@ -8,7 +8,7 @@ redirect_from:
 
 # Event analytics
 
-Event analytics in OpenSearch Observability lets you create and see various data visualizations using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries.
+Event analytics in OpenSearch Observability lets you create and see various data visualizations using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) (PPL) queries.
 
 ## Getting started with event analytics
 
@@ -26,20 +26,20 @@ source = opensearch_dashboards_sample_data_logs | fields host | stats count()
 
 By default, Dashboards shows results from the last 15 minutes of your data. To see data from a different time frame, use the date and time selector to choose the desired settings.
 
-For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
+For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/).
 
-### OpenSearch Query Assist
+### OpenSearch Dashboards Query Assistant
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).    
 {: .warning}
 
-To simplify query building, the OpenSearch Assistant Toolkit offers an assistant to convert natural language queries into PPL. A screenshot is shown in the following image. 
+To simplify query building, the **OpenSearch Assistant** toolkit offers an assistant to convert natural language queries into PPL. A screenshot is shown in the following image. 
 
 ![Sample OpenSearch Query Assist screen view]({{site.url}}{{site.baseurl}}/images/log-explorer-query-assist.png)
 
-#### Enabling OpenSearch Query Assist
+#### Enabling Query Assistant
 
-To enable **OpenSearch Query Assist** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+To enable **Query Assistant** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
 
 ```
 observability.query_assist.enabled: true
@@ -54,9 +54,9 @@ observability.summarize.response_summary_agent_name: "Response summary agent"
 observability.summarize.error_summary_agent_name: "Error summary agent"
 ```
 
-#### Setting up OpenSearch Query Assist
+#### Setting up Query Assistant
 
-To set up Query Assist, follow the steps in the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) on GitHub. You'll receive step-by-step setup instructions for OpenSearch Assistant and Query Assist. To set up Query Assist only, use the `query-assist-agent` template included in the guide.
+To set up **Query Assistant**, follow the steps in the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) on GitHub. You'll receive step-by-step setup instructions for **OpenSearch Assistant** and **Query Assistant**. To set up **Query Assistant** only, use the `query-assist-agent` template included in the guide.
 
 ## Saving a visualization
 
@@ -117,6 +117,6 @@ If you need more information about a log event you're analyzing, you can select 
 
 If you prefer real-time monitoring, you can set up an interval for automatic content refresh in event analytics. Live Tail enables you to stream logs directly to OpenSearch Observability event analytics using the specified PPL query, while offering robust features like filters. This enhances your debugging process and enables seamless real-time monitoring of logs without the need for manual refreshing.
 
-You can select intervals and seamlessly switch between them to control the frequency of live log streaming with Live Tail. This functionality is similar to the CLI command `tail -f` command, as it retrieves only the most recent live logs, potentially eliminating a significant portion of live logs. Live Tail displays the total count of live logs received by OpenSearch during the live stream, offering insights into incoming traffic patterns. The following demo shows this feture in action. 
+You can select intervals and seamlessly switch between them to control the frequency of live log streaming with Live Tail. This functionality is similar to the CLI command `tail -f` command, as it retrieves only the most recent live logs, potentially eliminating a significant portion of live logs. Live Tail displays the total count of live logs received by OpenSearch during the live stream, offering insights into incoming traffic patterns. The following demo shows this feature in action. 
 
 ![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
