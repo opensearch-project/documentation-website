@@ -194,6 +194,7 @@ Parameter	| Type | Required/Optional | Description
 `prompt` | String | Optional | The prompt to provide to the LLM.
 `execute` | Boolean | Optional | Specifies whether to run the PPL query. Default is `true`.
 `input` | Object | Optional | Contains two parameters that specify the index to search and the question for the LLM. For example, `"input": "{\"index\": \"${parameters.index}\", \"question\": ${parameters.question} }"`.
+`head` | Integer | Optional | Limits the number of returned execution results if `execute` is set to `true`. Default is `-1` (no limit).
 
 ## Execute parameters
 
