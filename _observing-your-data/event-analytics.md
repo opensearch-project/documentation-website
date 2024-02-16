@@ -28,6 +28,25 @@ By default, Dashboards shows results from the last 15 minutes of your data. To s
 
 For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
 
+### OpenSearch Query Assist
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).    
+{: .warning}
+
+To make building queries easier, the OpenSearch Assistant Toolkit provides an assistant to help convert natural language queries to PPL.
+
+![Sample OpenSearch Query Assist View]({{site.url}}{{site.baseurl}}/images/log-explorer-query-assist.png)
+
+#### Enabling OpenSearch Query Assist
+To enable **OpenSearch Query Assist** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+```
+observability.query_assist.enabled: true
+observability.query_assist.ppl_agent_name: "PPL agent"
+```
+
+#### How to setup OpenSearch Query Assist
+For a guide to setup the query assist, follow the getting started guide [here](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md). This guide shows how to setup OpenSearch Assistant and Query Assist. To only setup Query Assist, use only the `query-assist-agent` template called out in the guide.
+
 ## Saving a visualization
 
 After Dashboards generates a visualization, you must save it if you want to return to it at a later time or if you want to add it to an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels).
