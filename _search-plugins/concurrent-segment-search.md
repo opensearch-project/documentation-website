@@ -82,6 +82,7 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 The following aggregations do not support the concurrent search model. If a search request contains one of these aggregations, the request will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level or index level.
 - Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316) for more information.
 - `sampler` and `diversified_sampler` aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11075) for more information.
+- Composite aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/12331) for more information.
 
 ## Other considerations
 
@@ -102,9 +103,6 @@ Depending on the data layout of the segments, the sort optimization feature can 
 Non-concurrent search calculates the document count error and returns it in the `doc_count_error_upper_bound` response parameter. During concurrent segment search, the `shard_size` parameter is applied at the segment slice level. Because of this, concurrent search may introduce an additional document count error.
 
 For more information about how `shard_size` can affect both `doc_count_error_upper_bound` and collected buckets, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
-
-The [Anomaly Detection](https://opensearch.org/docs/latest/observing-your-data/ad/index/) plugin is not compatible with concurrent segment search. To use concurrent segment search with the Anomaly Detection plugin, disable concurrent segment search for the anomaly detection result indexes by applying the index-level setting. By default, the result indexes are specified by the `.opendistro-anomaly-results` alias. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/12331) for more information.
-{: .warning}
 
 
 ## Developer information: AggregatorFactory changes
