@@ -16,7 +16,7 @@ For more information about ways to enable experimental features, see [Experiment
 Introduced 2.12
 {: .label .label-purple }
 
-The [OpenSearch Assistant toolkit]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/) helps you create AI-powered assistants for OpenSearch Dashboards without requiring you to have specialized query tools or skills.
+The OpenSearch Assistant toolkit helps you create AI-powered assistants for OpenSearch Dashboards without requiring you to have specialized query tools or skills.
 
 ## Enabling OpenSearch Assistant
 
