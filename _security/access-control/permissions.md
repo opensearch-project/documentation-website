@@ -382,12 +382,12 @@ These permissions apply to an index or index pattern. You might want a user to h
 
 | Permission | Description |
 | --- | --- |
-| `indices:admin/aliases` |  Permission related to index aliases.  See also [Index aliases]( https://opensearch.org/docs/latest/im-plugin/index-alias/ ) |
-| `indices:admin/aliases/get` |  Permission to get index aliases.  See also [Index aliases]( https://opensearch.org/docs/latest/im-plugin/index-alias/ ) |
-| `indices:admin/analyze` |  Permission to use analyze API.  See also [Analyze API]( https://opensearch.org/docs/latest/api-reference/analyze-apis/ ) |
-| `indices:admin/cache/clear` |  Permission to clear cache.  See also [Clear cache]( https://opensearch.org/docs/latest/api-reference/index-apis/clear-index-cache/ ) |
-| `indices:admin/close` |  Permission to close an index.  See also [Close index]( https://opensearch.org/docs/latest/api-reference/index-apis/close-index/ ) |
-| `indices:admin/close*` |  Permission to close an index.  See also [Close index]( https://opensearch.org/docs/latest/api-reference/index-apis/close-index/ ) |
+| `indices:admin/aliases` |  Permissions for [index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/). |
+| `indices:admin/aliases/get` |  Permission to get [index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/). |
+| `indices:admin/analyze` |  Permission to use the [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/). |
+| `indices:admin/cache/clear` |  Permission to [clear cache]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/). |
+| `indices:admin/close` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) |
+| `indices:admin/close*` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) |
 | `indices:admin/create` |  Permission to create indexes.  See also [Create index]( https://opensearch.org/docs/2.11/api-reference/index-apis/create-index/ ) |
 | `indices:admin/data_stream/create` |  Permission to create data streams.  See also [Data streams]( https://opensearch.org/docs/latest/dashboards/im-dashboards/datastream/#creating-a-data-stream ) |
 | `indices:admin/data_stream/delete` |  Permission to delete data streams.  See also [Deleting a data stream]( https://opensearch.org/docs/latest/dashboards/im-dashboards/datastream/#deleting-a-data-stream ) |
