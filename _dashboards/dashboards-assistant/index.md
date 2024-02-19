@@ -99,11 +99,11 @@ To view a previous conversation, select the clock icon to open the conversation 
 
 Select the pencil icon to edit a conversation name and rename it. Select the **Confirm name** button to save the new name. A screenshot is shown in the following image.
 
-<img width="400" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-edit-convo.png" alt="Editing a conversation name">
+<img width="300" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-edit-convo.png" alt="Editing a conversation name">
 
 Select the trash can icon to delete a conversation. Once the confirmation dialog appears, select **Delete conversation**. The conversation is now deleted from your chat history. A screenshot is shown in the following image.
 
-<img width="400" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-delete-convo.png" alt="Deleting a conversation">
+<img width="300" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-delete-convo.png" alt="Deleting a conversation">
 
 ### Share a conversation through Notebooks
 
