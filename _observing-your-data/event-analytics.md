@@ -103,7 +103,7 @@ The following are methods you can use to view logs.
 
 ### Correlating logs and traces
 
-If you regularly track events across applications, you can correlate logs and traces. To view the correlation, you have to index the traces according to Open Telemetry standards, similarly to [trace analytics]({{site.url}}{{site.baseurl}}observing-your-data/trace/index/). Once you add a `TraceId` field to your logs, you can view the correlated trace information in the event explorer log details. This method correlates logs and traces that correspond to the same execution context. The following demo shows this feature in action.
+If you regularly track events across applications, you can correlate logs and traces. To view the correlation, you have to index the traces according to Open Telemetry standards, similarly to [trace analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/). Once you add a `TraceId` field to your logs, you can view the correlated trace information in the event explorer log details. This method correlates logs and traces that correspond to the same execution context. The following demo shows this feature in action.
 
 ![Trace Log Correlation]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
 
