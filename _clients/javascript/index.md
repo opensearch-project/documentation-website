@@ -329,7 +329,7 @@ var response = await client.search({
 
 ## Updating a document
 
-You can delete a document using the client's `update` method:
+You can update a document using the client's `update` method:
 
 ```javascript
 var response = await client.update({
