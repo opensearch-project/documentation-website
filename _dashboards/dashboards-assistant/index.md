@@ -53,7 +53,7 @@ A screenshot of the interface is shown in the following image.
 
 You can use the OpenSearch Dashboards interface to configure OpenSearch Assistant. Go to the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) for step-by-step instructions. For the chatbot template, go to the [Flow Framework plugin](https://github.com/opensearch-project/flow-framework) documentation. You can modify this template to use your own model and customize the chatbot tools. 
 
-For information about configuring OpenSearch Assistant through the REST API, see [OpenSearch Assistant toolkit]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/).
+For information about configuring OpenSearch Assistant through the REST API, see OpenSearch Assistant toolkit.
 
 ## Using OpenSearch Assistant in OpenSearch Dashboards
 
