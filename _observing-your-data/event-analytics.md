@@ -77,7 +77,7 @@ To create a PPL visualization, follow these steps:
 4. Choose the visualization type, for example, **Pie**, from the sidebar dropdown menu to the right.  
 5. Select **Save** and enter a name for the visualization.
 
-You've created a new visualization that can be added to a new or an existing dashboard. To add a PPL query to a dashboard, follow these steps:  
+You've created a new visualization that can be added to a new or existing dashboard. To add a PPL query to a dashboard, follow these steps:  
 
 1. Select **Dashboards** from the main menu.
 2. In the **Dashboards** window, select **Create** > **Dashboard**.
