@@ -40,7 +40,7 @@ PUT .plugins-ml-config/_doc/os_chat
 ```
 {% include copy-curl.html %}
 
-This example is a system index. In security-enabled domains, only super administrators have access to execute this code. For details about making super admin calls, see the [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) guide. For access permission, contact your IT administrator.
+This example is a system index. In security-enabled domains, only super administrators have permission to execute this code. For information about making super admin calls, see the [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) guide. For access permission, contact your IT administrator.
 {: .warning}
 
 Next, restart the OpenSearch Dashboards server. Following a successful restart, **OpenSearch Assistant** appears in the OpenSearch Dashboards interface. 
