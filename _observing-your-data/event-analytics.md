@@ -75,7 +75,7 @@ To create a PPL visualization, follow these steps:
 2. From the **Observability** > **Logs** > **Explorer** window, enter the index source in the **PPL query** field, for example, `source = opensearch_dashboards_sample_data_flights | stats count() by DestCountry`. You must enter the query using PPL syntax. 
 3. Set the time filter, for example, **This week**, and then select **Refresh**.
 4. Choose the visualization type, for example, **Pie**, from the sidebar dropdown menu to the right.  
-5. Select **Save**, and enter a name for the visualization.
+5. Select **Save** and enter a name for the visualization.
 
 You've created a new visualization that can be added to a new or an existing dashboard. To add a PPL query to a dashboard, follow these steps:  
 
