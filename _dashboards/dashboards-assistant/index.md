@@ -124,4 +124,4 @@ The following screenshot shows a saved conversation, along with actions you can 
 ## Related articles
 
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
-- [OpenSearch Assistant configuration through the REST API]({site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)
+- OpenSearch Assistant configuration through the REST API
