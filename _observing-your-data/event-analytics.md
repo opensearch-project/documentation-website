@@ -12,7 +12,7 @@ Event analytics in OpenSearch Observability provides for creating data visualiza
 
 ## Getting started with event analytics
 
-To get started, choose **Observability** in OpenSearch Dashboards and then choose **Event analytics**. If you want to start exploring without adding your own data, choose **Add samples**. Dashboards adds sample visualizations you can interact with.
+To get started, choose **Observability** in OpenSearch Dashboards and then choose **Logs**. If you want to start exploring without adding your own data, choose **Add samples**. Dashboards adds sample visualizations you can interact with. You can also try out pre-configured analytics in the [OpenSearch Playground](https://playground.opensearch.org/app/observability-logs#/).
 
 ## Building a query
 
