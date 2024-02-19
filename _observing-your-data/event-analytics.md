@@ -83,7 +83,7 @@ You've created a new visualization that can be added to a new or existing dashbo
 2. In the **Dashboards** window, select **Create** > **Dashboard**.
 3. In the **Editing New Dashboard** window, choose **Add an existing**.
 4. In the **Add panels** window, choose **PPL** from the **Types** dropdown menu, and then select the visualization. It is now displayed on your dashboard.
-5. Select **Save**, and enter a name for the dashboard.
+5. Select **Save** and enter a name for the dashboard.
 6. To add more visualizations to the dashboard, choose **Select existing visualization** and follow steps 1--5. Alternatively, choose **Create new** and then select **PPL** in the **New Visualization** window. You'll return to the event analytics page and follow steps 1--5 in the preceding instructions.
 
 The following demo provides an overview of creating event analytics visualizations and adding them to a dashboard.
