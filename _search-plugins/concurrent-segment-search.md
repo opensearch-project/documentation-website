@@ -81,7 +81,7 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 
 The following aggregations do not support the concurrent search model. If a search request contains one of these aggregations, the request will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level or index level.
 - Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316) for more information.
-- `sampler` and `diversified_sampler` aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/110750) for more information.
+- `sampler` and `diversified_sampler` aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11075) for more information.
 
 ## Other considerations
 
