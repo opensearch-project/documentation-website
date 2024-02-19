@@ -17,7 +17,7 @@ The OpenSearch Assistant Toolkit helps you create AI-powered assistants for Open
 
 - [**Agents and tools**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/): _Agents_ interface with a large language model (LLM) and execute high-level tasks, such as summarization or generating Piped Processing Language (PPL) from natural language. The agent's high-level tasks consist of low-level tasks called _tools_, which can be reused by multiple agents.
 - [**Configuration automation**]({{site.url}}{{site.baseurl}}/automating-configurations/index/): Uses templates to set up infrastructure for artificial intelligence and machine learning (AI/ML) applications. For example, you can automate configuring agents to be used for chat or generating PPL queries from natural language.
-- **OpenSearch Assistant**: This is the OpenSearch Dashboards UI for the AI-powered assistant. The assistant's workflow is configured with various agents and tools.
+- [**OpenSearch Assistant for OpenSearch Dashboards**]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/): This is the OpenSearch Dashboards UI for the AI-powered assistant. The assistant's workflow is configured with various agents and tools.
  
 ## Enabling OpenSearch Assistant
 
@@ -37,3 +37,7 @@ To enable OpenSearch Assistant, perform the following steps:
     {% include copy.html %}
 
 For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+
+## Next steps
+
+- For more information about the OpenSearch Assistant UI, see [OpenSearch Assistant for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/)

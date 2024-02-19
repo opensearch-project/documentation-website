@@ -115,6 +115,9 @@ collections:
   automating-configurations:
     permalink: /:collection/:path/
     output: true
+  dashboards-assistant:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme

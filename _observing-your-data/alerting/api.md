@@ -13,7 +13,7 @@ Use the Alerting API to programmatically create, update, and manage monitors and
 
 ---
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Table of contents
   </summary>
