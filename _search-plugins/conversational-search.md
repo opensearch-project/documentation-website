@@ -226,8 +226,10 @@ The Memory API responds with the following:
 
 RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then supplements the static LLM information with the dynamically retrieved data in context.
 
-As of OpenSearch 2.11, the RAG technique has only been tested with OpenAI models and the Anthropic Claude model on Amazon Bedrock.
+As of OpenSearch 2.11, the RAG technique has only been tested with OpenAI models, the Anthropic Claude model on Amazon Bedrock, and Cohere command models. 
 {: .warning}
+
+Setting up Cohere's command model to enable RAG with chat requires modified request bodies than shown below, please refer to the [Cohere RAG Tutorial](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/conversational_search/conversational_search_with_Cohere_Command.md) for more details.
 
 ### Enabling RAG
 
