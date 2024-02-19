@@ -117,9 +117,12 @@ If you need more information about a log event you're analyzing, you can select 
 
 If you prefer real-time monitoring, you can set up an interval for automatic content refresh in event analytics. Live Tail enables you to stream logs directly to OpenSearch Observability event analytics using the specified PPL query, while offering robust features like filters. This enhances your debugging process and enables seamless real-time monitoring of logs without the need for manual refreshing.
 
-## Related articles
-
-- [Demonstrating OpenSearch Assistant toolkit for Analysis](https://www.youtube.com/watch?v=VTiJtGI2Sr4&t=152s)
 You can select intervals and seamlessly switch between them to control the frequency of live log streaming with Live Tail. This functionality is similar to the CLI command `tail -f` command, as it retrieves only the most recent live logs, potentially eliminating a significant portion of live logs. Live Tail displays the total count of live logs received by OpenSearch during the live stream, offering insights into incoming traffic patterns. The following demo shows this feature in action. 
 
 ![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
+
+## Related articles
+
+- [Demonstrating OpenSearch Assistant toolkit for Analysis](https://www.youtube.com/watch?v=VTiJtGI2Sr4&t=152s)
+- [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
+- [OpenSearch Assistant configuration through the REST API]({site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)
