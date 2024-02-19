@@ -123,6 +123,6 @@ With Live Tail, you can select intervals and seamlessly switch between them to c
 
 ## Related articles
 
-- [Demonstrating OpenSearch Assistant toolkit for Analysis](https://www.youtube.com/watch?v=VTiJtGI2Sr4&t=152s)
+- [Demonstrating the OpenSearch Assistant toolkit](https://www.youtube.com/watch?v=VTiJtGI2Sr4&t=152s)
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
 - [OpenSearch Assistant configuration through the REST API]({site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)
