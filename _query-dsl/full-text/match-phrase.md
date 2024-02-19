@@ -80,7 +80,7 @@ GET testindex/_search
 
 The response contains the matching document:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -139,7 +139,7 @@ GET testindex/_search
 
 The `english` analyzer removes the stopword `the` and performs stemming, producing the token `wind`. Both documents match this token and are returned in the results:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -204,7 +204,7 @@ GET _search
 
 The query still returns the matching document:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
