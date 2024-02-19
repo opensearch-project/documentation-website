@@ -7,16 +7,16 @@ parent: User guide
 
 # Contributing custom workloads
 
-After [Creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/) you can contribute your workload for other OpenSearch Benchmark users to use. If you plan on configuring a workload, use the following guidelines.
+After [creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/) you can contribute your workload for other OpenSearch Benchmark users to use. If you plan on contibuting a workload, use the following guidelines.
 
 ## README and license
 
 Each workload must include a detailed `README.MD` file, which should include the following:  
 
 - The purpose of the workload and what users should use the workload. When creating a description, think about what specific use case your workload address that other workloads included in OpenSearch Benchmark do not.
-- An overview of the data set use. Make sure that any data included in the data set does not contain any properietary data or PII. 
-- An example document from the data that displays that data types.
-- The pearamters supported by the workload.
+- An overview of the dataset used by the workload. Make sure that any data included in the dataset does not contain any proprietary data or Personal Identifiable Information (PII). 
+- An example document from the data set that gives users an idea of how the data looks like.
+- The parameters supported by the workload.
 - A list of default test procedures included in the workload and other test procedures the workload can run.
 - A sample of the output the workload produces after a test is run.
 - A copy of the license that gives the user and OpenSearch Benchmark permission to use the dataset.
@@ -46,7 +46,7 @@ All workloads contributed to OpenSearch Benchmark must fulfil the following test
 - The workload passes integration tests in order to be included in [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). To make sure the workload passes integration tests, run the following steps:
    1. Add the workload to your forked copy of the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/).
    2. In the forked repository, change the `benchmark-os-it.ini` and `benchmark-in-memory.ini` files in the `/osbenchmark/it/resources` to point to your forked workloads repository which contains your workload.
-   3. After you've modified the `.ini` files, open a branch modifying your workload and make sure that the integration tests run as expected.
+   3. After you've modified the `.ini` files, commit your changes to a branch for testing and run integration tests via Github actions to ensure they run as expected.
 
 ## Raise a Pull Request
 
