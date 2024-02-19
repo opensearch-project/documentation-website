@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Top n queries
+title: Top N queries
 parent: Query insights
 nav_order: 65
 ---
 
-# Top n queries
+# Top N queries
 
 Monitoring the top N queries in query insights features can help you gain real-time insights into the top queries with high latency within a certain time frame (for example, the last hour). 
 
