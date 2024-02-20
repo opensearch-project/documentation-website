@@ -22,6 +22,10 @@ Avoid. Use *one-time* instead.
 
 Affect as a noun refers to emotion as expressed in face or body language. Affect as a verb means to influence. Do not confuse with effect.
 
+**AI**
+
+No need to define as _artificial intelligence (AI)_.
+
 **AI/ML**
 
 On first mention, use artificial intelligence and machine learning (AI/ML).
@@ -74,10 +78,6 @@ Messages and pop-up boxes appear. Windows, pages, and applications open. The ver
 **application server**
 
 Do not abbreviate as app server.
-
-**artificial intelligence**
-
-On first mention, use *artificial intelligence (AI)*. Use *AI* thereafter. There is no need to redefine *AI* when either *AI/ML* or *GenAI* has already been defined.
 
 **as well as**
 
@@ -159,6 +159,10 @@ Use _certificates_ on first mention. It’s OK to use _certs_ thereafter.
 **CI/CD**
 
 Use _continuous integration_ and _continuous delivery (CI/CD)_ or _continuous integration and delivery (CI/CD)_ on first mention.
+
+**CLI**
+
+No need to define as _command line interface (CLI)_.
 
 **cluster**
 
@@ -303,7 +307,7 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 **generative AI**
 
-On first mention, use *generative artificial intelligence (generative AI)*. Use *generative AI* thereafter. To avoid the overuse of *generative AI*, *AI/ML-powered applications* may also be used.
+Do not use _GenAI_, _Gen AI_, _gen AI_, or _genAI_. To avoid the overuse of *generative AI*, *AI/ML-powered applications* may also be used.
 
 **geodistance**
 
@@ -419,7 +423,7 @@ A simple and popular unsupervised clustering ML algorithm built on top of Tribuo
 
 **k-NN**
 
-Short for _k-nearest neighbors_, the k-NN plugin enables users to search for the k-nearest neighbors to a query point across an index of vectors.
+Short for _k-nearest neighbors_, the k-NN plugin enables users to search for the k-nearest neighbors to a query point across an index of vectors. No need to define.
 
 ## L
 
@@ -444,6 +448,10 @@ One word in reference to software.
 OK to use to call out something for comparison.
 
 As a general rule, if you can replace like with similar to, it’s OK to use like. But, if you can replace _like_ with _such as_, use _such as_.
+
+**LLM**
+
+Define on first appearance as _large language model (LLM)_.
 
 **locate in, on**
 
@@ -537,7 +545,7 @@ Use _open source_ as a noun (for example, “The code used throughout this tutor
 
 **OpenSearch Playground**
 
-OpenSearch Playground provides a central location for existing and evaluating users to explore features in OpenSearch and OpenSearch Dashboards without downloading or installing any OpenSearch components locally.
+Do not precede with _the_. OpenSearch Playground provides a central location for existing and evaluating users to explore features in OpenSearch and OpenSearch Dashboards without downloading or installing any OpenSearch components locally.
 
 **operating system**
 
@@ -570,7 +578,7 @@ The default scripting language for OpenSearch, either used inline or stored for 
 
 **percent**
 
-Spell out in blog posts (for example, 30 percent).
+Spell out in blog posts (for example, _30 percent_).
 
 Use % in headlines, quotations, and tables or in technical copy.
 
@@ -601,10 +609,6 @@ Incorrect: an on-premise solution, an on-prem solution
 **primary shard**
 
 A Lucene instance that contains data for some or all of an index.
-
-**primitive**
-
-Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*.
 
 **purge**
 
