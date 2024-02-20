@@ -33,6 +33,9 @@ For more information about building PPL queries, see [Piped Processing Language]
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).    
 {: .warning}
 
+Note that machine learning models are probabilistic and that some may perform better than others, so the OpenSearch Assistant may occasionally produce inaccurate information. We recommend evaluating outputs for accuracy as appropriate to your use case, including reviewing the output or combining it with other verification factors.
+{: .important}
+
 To simplify query building, the **OpenSearch Assistant** toolkit offers an assistant that converts natural language queries into PPL. A screenshot is shown in the following image. 
 
 ![Sample OpenSearch Query Assist screen view]({{site.url}}{{site.baseurl}}/images/log-explorer-query-assist.png)
