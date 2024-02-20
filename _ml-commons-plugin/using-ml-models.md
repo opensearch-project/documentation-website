@@ -22,4 +22,3 @@ To integrate machine learning (ML) models into your OpenSearch cluster, you can 
 ## GPU acceleration
 
 For better performance, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
-
