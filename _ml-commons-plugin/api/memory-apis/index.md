@@ -18,12 +18,15 @@ ML Commons supports the following memory-level APIs:
 
 - [Create or update memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-memory/)
 - [Get memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/get-memory/)
+- [Search memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/search-memory/)
 - [Delete memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/delete-memory/)
 
 ML Commons supports the following message-level APIs:
 
 - [Create or update message]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message/)
-- [Get message information]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/get-message/)
+- [Get message]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/get-message/)
+- [Search message]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/search-message/)
+- [Get message traces]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/get-message-traces/)
 
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
