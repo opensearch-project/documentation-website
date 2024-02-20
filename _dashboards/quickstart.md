@@ -9,15 +9,15 @@ redirect_from:
 
 # OpenSearch Dashboards quickstart
 
-Get started with OpenSearch Dashboards. This guide covers the basics like:
+Get started with OpenSearch Dashboards. This guide covers the following basics:
 
 - **Adding sample data:** Get started with pre-loaded visualizations, dashboards, and other tools to help you explore OpenSearch Dashboards before you add your own data.
 - **Exploring your data:** Dig into your data and see what is there.
 - **Creating visualizations:** Make your data more accessible by creating visualizations.
 
-Starting with OpenSearch 2.13, you'll see the following homepage view. Your view can be in either [light or dark mode](<insert-link>), depending on your admin settings. The OpenSearch Dashboards redesign considers the community's feedback on simplifying user experience. Share your [feedback](<insert-link-feedback-dashboards>) about the redesign or other tools you want to see in OpenSearch Dashboards.
+Your OpenSearch Dashboards view can be in either [light or dark mode](#turning-on-and-off-dark-mode), depending on your admin settings. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-overview-page.png" alt="OpenSearch Dashboards Overview page" width="700">
 
 ## Prerequisites
 
@@ -41,11 +41,11 @@ The following image shows a view of the adding sample data window.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Adding sample data window" width="700">
 
-## Exploring data using Discover
+## Using the Discover application 
 
-In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
+With [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
-- Choose data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
+- Choose data to analyze, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
 - Analyze your data by querying and filtering, viewing results in a table, and examining documents.
 - Display the distribution of your data in histograms.
 
@@ -61,9 +61,9 @@ The following image shows the view you see once you have completed the preceding
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-view.png" alt="Discover tutorial screen view" width="700">
 
-## Visualizing data using Dashboards
+## Using the Dashboards application
 
-You can do the following in **Dashboards**:
+With **Dashboards**, you can:
 
 - Display data in a single view.
 - Build dynamic dashboards.
@@ -98,7 +98,7 @@ The following image shows the view you see once you have completed the preceding
 
 <img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Dashboard tutorial panel view" width="700">
 
-## Interacting with data using Dashboards
+### Interacting with data using Dashboards
 
 Interactive dashboards allow you to analyze data in more depth and filter it in several ways. With **Dashboards**, you can interact directly with data through the use of dashboard-level filters.
 
@@ -132,5 +132,5 @@ Turning on and off dark mode in OpenSearch Dashboards requires administrative ac
 
 - **Visualize data.** To learn more about data visualizations in OpenSearch Dashboards, go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
 - **Create dashboards.** To learn more about creating dashboards in OpenSearch Dashboards, go to [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
-- **Explore data.** To learn more about exploring data in OpenSearch Dashboards, go to [Exploring data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
+- **Gain data insights.** To learn more about your data in OpenSearch Dashboards, go to [Exploring data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
 - **Ingest data.** To learn more about ingesting data in OpenSearch, go to [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) and [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/).
