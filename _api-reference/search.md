@@ -86,6 +86,7 @@ track_scores | Boolean | Whether to return document scores. Default is false.
 track_total_hits | Boolean or Integer | Whether to return how many documents matched the query.
 typed_keys | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is true.
 version | Boolean | Whether to include the document version as a match.
+include_named_queries_score | Boolean | Whether to return scores with named queries. Default is false.
 
 ### The `preference` query parameter
 
