@@ -15,7 +15,7 @@ Get started with OpenSearch Dashboards. This guide covers the basics like:
 - **Exploring your data:** Dig into your data and see what is there.
 - **Creating visualizations:** Make your data more accessible by creating visualizations.
 
-Starting with OpenSearch 2.12, you'll see the following homepage view. Your view can be in either [light or dark mode](<insert-link>), depending on your admin settings. The OpenSearch Dashboards redesign considers the community's feedback on simplifying user experience. Share your [feedback](<insert-link-feedback-dashboards>) about the redesign or other tools you want to see in OpenSearch Dashboards.
+Starting with OpenSearch 2.13, you'll see the following homepage view. Your view can be in either [light or dark mode](<insert-link>), depending on your admin settings. The OpenSearch Dashboards redesign considers the community's feedback on simplifying user experience. Share your [feedback](<insert-link-feedback-dashboards>) about the redesign or other tools you want to see in OpenSearch Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
 
