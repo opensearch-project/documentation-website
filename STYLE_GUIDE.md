@@ -122,7 +122,7 @@ The following table lists acronyms that you don't need to spell out.
 | ASCII | American Standard Code for Information Interchange |
 | BASIC | Beginner's All-Purpose Symbolic Instruction Code |
 | BM25 | Best Match 25 |
-| CLI | command line interface |
+| CLI | command-line interface |
 | CPU | central processing unit |
 | CRUD | create, read, update, and delete |
 | CSV | comma-separated values |
