@@ -12,9 +12,10 @@ has_toc: false
 ML Commons supports the following model-level APIs:
 
 - [Register model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/)
-- [Update model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/)
-- [Get model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/)
 - [Deploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
+- [Get model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/)
+- [Search model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/search-model/)
+- [Update model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/)
 - [Undeploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
 - [Delete model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)
 - [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) (invokes a model)
