@@ -9,8 +9,8 @@ has_toc: false
 This is an experimental feature and is not recommended for use in a production environment. For updates on the feature's progress or to leave feedback, go to the [`dashboards-assistant` repository](https://github.com/opensearch-project/dashboards-assistant) on GitHub or the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).
 {: .warning}
 
-For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-{: .note}
+Note that machine learning models are probabilistic and that some may perform better than others, so the OpenSearch Assistant may occasionally produce inaccurate information. We recommend evaluating outputs for accuracy as appropriate to your use case, including reviewing the output or combining it with other verification factors.
+{: .important}
 
 # OpenSearch Assistant for OpenSearch Dashboards
 Introduced 2.12
@@ -49,11 +49,14 @@ A screenshot of the interface is shown in the following image.
 
 <img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-full-frame.png" alt="OpenSearch Assistant interface">
 
+For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+{: .note}
+
 ## Configuring OpenSearch Assistant
 
 You can use the OpenSearch Dashboards interface to configure OpenSearch Assistant. Go to the [Getting started guide](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md) for step-by-step instructions. For the chatbot template, go to the [Flow Framework plugin](https://github.com/opensearch-project/flow-framework) documentation. You can modify this template to use your own model and customize the chatbot tools. 
 
-For information about configuring OpenSearch Assistant through the REST API, see OpenSearch Assistant toolkit.
+For information about configuring OpenSearch Assistant through the REST API, see [OpenSearch Assistant Toolkit]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/).
 
 ## Using OpenSearch Assistant in OpenSearch Dashboards
 
@@ -124,4 +127,4 @@ The following screenshot shows a saved conversation, along with actions you can 
 ## Related articles
 
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
-- OpenSearch Assistant configuration through the REST API
+- [OpenSearch Assistant configuration through the REST API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)

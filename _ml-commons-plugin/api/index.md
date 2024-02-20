@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ML Commons API
+title: ML Commons APIs
 has_children: false
 nav_order: 130
 has_children: true
@@ -9,9 +9,9 @@ redirect_from:
   - /ml-commons-plugin/api/
 ---
 
-# ML Commons API 
+# ML Commons APIs 
 
-ML Commons supports the following API types:
+ML Commons supports the following APIs:
 
 - [Model APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/)
 - [Model group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/)
