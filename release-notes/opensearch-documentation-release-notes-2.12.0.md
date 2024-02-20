@@ -26,7 +26,7 @@ The OpenSearch 2.12.0 documentation includes the following additions and updates
 - Document new experimental HTTP transport based on Netty 4 and Project Reactor [#6265](https://github.com/opensearch-project/documentation-website/pull/6265)
 - Add Query Insights documentation [#6261](https://github.com/opensearch-project/documentation-website/pull/6261)
 - Add flow framework documentation [#6257](https://github.com/opensearch-project/documentation-website/pull/6257)
-- [DOC] Added documentation for admission control stats [#6253](https://github.com/opensearch-project/documentation-website/pull/6253)
+- [DOC] Add documentation for admission control stats [#6253](https://github.com/opensearch-project/documentation-website/pull/6253)
 - Update bundled JDK version (January 2024 Patch releases) [#6250](https://github.com/opensearch-project/documentation-website/pull/6250)
 - Create or Update alias API supports must_exist parameter [#6245](https://github.com/opensearch-project/documentation-website/pull/6245)
 
