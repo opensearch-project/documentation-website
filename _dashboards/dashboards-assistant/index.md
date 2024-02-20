@@ -9,8 +9,8 @@ has_toc: false
 This is an experimental feature and is not recommended for use in a production environment. For updates on the feature's progress or to leave feedback, go to the [`dashboards-assistant` repository](https://github.com/opensearch-project/dashboards-assistant) on GitHub or the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).
 {: .warning}
 
-For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-{: .note}
+Note that machine learning models are probabilistic and that some may perform better than others, so the OpenSearch Assistant may occasionally produce inaccurate information. We recommend evaluating outputs for accuracy as appropriate to your use case, including reviewing the output or combining it with other verification factors.
+{: .important}
 
 # OpenSearch Assistant for OpenSearch Dashboards
 Introduced 2.12
@@ -48,6 +48,9 @@ Next, restart the OpenSearch Dashboards server. Following a successful restart, 
 A screenshot of the interface is shown in the following image.
 
 <img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-full-frame.png" alt="OpenSearch Assistant interface">
+
+For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+{: .note}
 
 ## Configuring OpenSearch Assistant
 
