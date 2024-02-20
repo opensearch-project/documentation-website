@@ -62,6 +62,9 @@ If you want to provide full Amazon SNS access to the IAM user, ensure that the u
 
 ### Assuming an IAM role with Amazon SNS permissions
 
+OpenSearch does not support cross-account Amazon Simple Email Service (SES) and Amazon SNS.
+{: .warning}
+
 If you want to let the user send notifications without directly having full permissions to Amazon SNS, let the user assume a role that does have the necessary permissions.
 
 The IAM user must have the following permissions to assume a role:
