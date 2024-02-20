@@ -19,17 +19,6 @@ Starting with OpenSearch 2.13, you'll see the following homepage view. Your view
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-home.png" alt="Screenshot of OpenSearch Dashboards homepage" width="700">
 
-## What's new
-
-Here's what's new with the homepage:
-
-- **Improved user experience:** Enhances your experience by incorporating intuitive navigation, streamlined workflows, and a visually appealing interface. 
-- **Streamlined data accessibility:** Simplifies the way important information is presented, enhancing your ability to understand and analyze data.
-- **Responsive design for multi-platform access:** Prioritizes responsive design principles, ensuring seamless access and functionality across various devices and screen sizes. 
-- **Advanced visualizations integration:** Improves data understanding and analysis through visual tools that present information in a more understandable format.
-- **Customization for individual preferences:** Offers customization based on your preferences and needs.
-- **OpenSearch Assistant toolkit:** Links you to resources for building generative AI-driven experiences, uncovering valuable insights from complex datasets. Watch the [demo](https://playground.opensearch.org/app/home#/) on the homepage to learn more. 
-
 ## Prerequisites
 
 Before getting started with this guide, make sure you have installed the latest version of OpenSearch and OpenSearch Dashboards. If you are running OpenSearch 2.11 or earlier, certain features in this guide are not available in those versions. See your version's respective documentation for more information.
