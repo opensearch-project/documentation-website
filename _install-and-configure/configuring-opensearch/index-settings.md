@@ -182,6 +182,10 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.final_pipeline` (String): The final ingest node pipeline for the index. If the final pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name `_none` specifies that the index does not have an ingest pipeline.
 
+- `index.optimize_doc_id_lookup.fuzzy_set.enabled` (Boolean): This setting controls whether fuzzy set should be enabled for optimizing document id lookups in indexing/search calls by using an additional data structure (Bloom Filter). Enabling this improves performance for upsert and search operations which rely on document id by creating a new data structure (bloom filter) which allows to handle negative cases (i.e. ids being absent in the existing index) through faster off-heap look-ups. Default is `false`. This setting can only be used if the feature flag `opensearch.experimental.optimize_doc_id_lookup.fuzzy_set.enabled` is set to `true`.
+
+- `index.optimize_doc_id_lookup.fuzzy_set.false_positive_probability` (Double): Set the false positive probability for the underlying fuzzy set (i.e. bloom filter). A lower false positive probability ensures higher throughput improvement for upsert/get operations. Allowed values are in the range `0.01` and `0.50`. Default is `0.20`. This setting can only be used if the feature flag `opensearch.experimental.optimize_doc_id_lookup.fuzzy_set.enabled` is set to `true`.
+
 ### Updating a dynamic index setting
 
 You can update a dynamic index setting at any time through the API. For example, to update the refresh interval, use the following request:
