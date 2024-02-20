@@ -162,7 +162,7 @@ Use _continuous integration_ and _continuous delivery (CI/CD)_ or _continuous in
 
 **CLI**
 
-No need to define as _command line interface (CLI)_.
+No need to define as _command-line interface (CLI)_.
 
 **cluster**
 
