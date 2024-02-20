@@ -233,7 +233,7 @@ RAG is a technique that retrieves documents from an index, passes them through a
 As of OpenSearch 2.12, the RAG technique has only been tested with OpenAI models, the Anthropic Claude model on Amazon Bedrock, and Cohere Command models. 
 {: .warning}
 
-Configuring the Cohere Command model to enable RAG requires using a post-processing function to transform the model output. For more details, see the [Cohere RAG Tutorial](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/conversational_search/conversational_search_with_Cohere_Command.md).
+Configuring the Cohere Command model to enable RAG requires using a post-processing function to transform the model output. For more information, see the [Cohere RAG Tutorial](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/conversational_search/conversational_search_with_Cohere_Command.md).
 
 ### Enabling RAG
 
