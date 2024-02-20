@@ -15,7 +15,7 @@ This quickstart covers the following basics to help you get started with OpenSea
 - **Exploring your data:** Dig into your data and see what is there.
 - **Creating visualizations:** Make your data more accessible by creating visualizations.
 
-Your OpenSearch Dashboards view can be in either [light or dark mode](#turning-on-and-off-dark-mode), depending on your admin settings. To dock or undock the navigation menu, select the menu icon and then **Dock navigation** or **Undock navigation**. A view of the OpenSearch Dashboards homepage is shown in the following image.  
+Your OpenSearch Dashboards view can be in either [light or dark mode](#turning-on-and-off-dark-mode), depending on your admin settings. To dock or undock the navigation pane, select the menu icon {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} and then **Dock navigation** or **Undock navigation**. A view of the OpenSearch Dashboards homepage is shown in the following image.  
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-home.png" alt="OpenSearch Dashboards homepage" width="700">
 
