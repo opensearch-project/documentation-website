@@ -9,15 +9,15 @@ redirect_from:
 
 # OpenSearch Dashboards quickstart
 
-Get started with OpenSearch Dashboards. This guide covers the following basics:
+This quickstart covers the following basics to help you get started with OpenSearch Dashboards:
 
-- **Adding sample data:** Get started with pre-loaded visualizations, dashboards, and other tools to help you explore OpenSearch Dashboards before you add your own data.
+- **Adding sample data:** Use pre-loaded visualizations, dashboards, and other tools to help you explore OpenSearch Dashboards before you add your own data.
 - **Exploring your data:** Dig into your data and see what is there.
 - **Creating visualizations:** Make your data more accessible by creating visualizations.
 
-Your OpenSearch Dashboards view can be in either [light or dark mode](#turning-on-and-off-dark-mode), depending on your admin settings. 
+Your OpenSearch Dashboards view can be in either [light or dark mode](#turning-on-and-off-dark-mode), depending on your admin settings. To dock or undock the navigation menu, select the menu icon and then **Dock navigation** or **Undock navigation**. A view of the OpenSearch Dashboards homepage is shown in the following image.  
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-overview-page.png" alt="OpenSearch Dashboards Overview page" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-home.png" alt="OpenSearch Dashboards homepage" width="700">
 
 ## Prerequisites
 
@@ -29,15 +29,13 @@ The following sections include tutorials on OpenSearch basics. Use your own envi
 
 ## Adding sample data
 
-To add sample data, follow these steps:
-
-1. On the OpenSearch Dashboards **Home** page, choose **Add data** on the upper-right side of the page.
-2. On the **Add sample data** page, choose the datasets you want to add.
-
-The [**Sample flight data** dataset](https://playground.opensearch.org/app/home#/tutorial_directory) is used in the tutorials in this quickstart.
+The [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) is used in the tutorials throughout this quickstart.
 {: .note}
 
-The following image shows a view of the adding sample data window.
+To add sample data, follow these steps:
+
+1. On the OpenSearch Dashboards **Home** page, choose either **Add sample data**. Alternatively, choose **Add data** from the upper-right toolbar.
+2. On the **Add sample data** page, choose the datasets you want to add. The following image shows a screenshot.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Adding sample data window" width="700">
 
@@ -52,14 +50,14 @@ With [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-disco
 The following steps give you a basic overview about using the Discover tool:
 
 1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
-2. On the **Discover** page, choose the sample flight dataset from the dropdown menu on the upper-left side of the page. 
-3. Select the calendar icon to change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from the default of **Last 15 minutes** to **Last 7 days**.
+2. On the **Discover** page, choose the index pattern `opensearch_dashboards_sample_data_flights` from the dropdown menu on the upper-left side of the page. 
+3. Select the calendar icon {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/} to change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from the default of **Last 15 minutes** to **Last 7 days**.
 4. In the DQL search bar, input `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then select **Update**. Results for US-bound flights delayed by 60 minutes or more are shown.
-5. Filter data by choosing **Add filter** from under the DQL search bar and then selecting an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather Delay** from the **Field**, **Operator**, and **Value** dropdown lists on the **Edit Filter** pop-up window.
+5. Filter data by selecting **Add filter** from under the DQL search bar and then selecting a **Field**, **Operator**, and **Value** from the dropdown lists on the **Edit Filter** pop-up window. For example, select `FlightDelayType`, **is**, and **Weather Delay**.
 
 The following image shows the view you see once you have completed the preceding steps.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-view.png" alt="Discover tutorial screen view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-discover.png" alt="Discover output of steps 1 through 6" width="700">
 
 ## Using the Dashboards application
 
@@ -79,7 +77,7 @@ The following steps give you a basic overview about using the Dashboard tool:
 5. Select close `x` to exit the **Add panels** window.
 6. View the newly added panel, **[Flights] Delay Buckets**, at the end of the dashboard.
 
-The following image shows the view you see once you have completed the preceding steps.
+The following image shows a view you see once you have completed the preceding steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel2.png" alt="Add panel tutorial screen view" width="700">
 
