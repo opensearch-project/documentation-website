@@ -185,3 +185,40 @@ plugins.security.dls.mode: filter-level
 Lucene-level DLS | `lucene-level` | This setting makes all DLS queries apply to the Lucene level. | Lucene-level DLS modifies Lucene queries and data structures directly. This is the most efficient mode but does not allow certain advanced constructs in DLS queries, including TLQs.
 Filter-level DLS | `filter-level` | This setting makes all DLS queries apply to the filter level. | In this mode, OpenSearch applies DLS by modifying queries that OpenSearch receives. This allows for term-level lookup queries in DLS queries, but you can only use the `get`, `search`, `mget`, and `msearch` operations to retrieve data from the protected index. Additionally, cross-cluster searches are limited with this mode.
 Adaptive | `adaptive-level` | The default setting that allows OpenSearch to automatically choose the mode. | DLS queries without TLQs are executed in Lucene-level mode, while DLS queries that contain TLQ are executed in filter- level mode.
+
+## DLS and multiple roles
+OpenSearch combines all DLS queries with the logical OR operator. However, when a role with DLS is combined with another role that doesn't use DLS, the results are still filtered to display only documents matching the DLS from the first role, this also applies to roles which do not grant read documents.
+
+See the below example where there are two roles defined, one with a DLS specifed and another granting access to search templates, with no DLS specifed.
+
+A role with DLS specified:
+```
+{
+  "index_permissions": [
+    {
+      "index_patterns": [
+        "example-index"
+      ],
+      "dls": "[.. some DLS here ..]",
+      "allowed_actions": [
+        "indices:data/read/search",
+      ]
+    }
+  ]
+}
+```
+A role which grants only access to search templates:
+```
+{
+  "index_permissions" : [
+    {
+      "index_patterns" : [ "*" ],
+      "allowed_actions" : [ "indices:data/read/search/template" ]
+    }
+  ]
+}
+```
+To ensure that the role with no DLS takes precedence, add the setting to the `opensearch.yml`:
+
+`plugins.security.dfm_empty_overrides_all: true`
+
