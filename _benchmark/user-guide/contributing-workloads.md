@@ -19,7 +19,7 @@ Each workload must include a detailed `README.MD` file, which should include the
 - The parameters supported by the workload.
 - A list of test procedures included in the workload. The test procedures should have a least one default set, usually identified in a `default.json` file, as well as option test procedures.
 - A sample of the output the workload produces after a test is run.
-- A copy of the license that gives the user and OpenSearch Benchmark permission to use the dataset.
+- A copy of the open-source license that gives the user and OpenSearch Benchmark permission to use the dataset.
 
 
 For an example workload README, see the `http_logs` [README](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/http_logs/README.md).
