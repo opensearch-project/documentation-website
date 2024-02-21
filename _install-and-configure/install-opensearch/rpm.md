@@ -42,7 +42,20 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
     {% include copy.html %}
-
+1. For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
+   ```bash
+   # Install the x64 package using yum.
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   
+   # Install the x64 package using rpm.
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   
+   # Install the arm64 package using yum.
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   
+   # Install the arm64 package using rpm.
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   ```
 1. From the CLI, you can install the package with `rpm` or `yum`.
    ```bash
    # Install the x64 package using yum.
@@ -57,36 +70,23 @@ This guide assumes that you are comfortable working from the Linux command line 
    # Install the arm64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
-For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
-   ```bash
-    # Install the x64 package using yum.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
-   # Install the x64 package using rpm.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
-   # Install the arm64 package using yum.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
-   # Install the arm64 package using rpm.
-   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
 1. After the installation succeeds, enable OpenSearch as a service.
-    ```bash
-    sudo systemctl enable opensearch
-    ```
-    {% include copy.html %}
+   ```bash
+   sudo systemctl enable opensearch
+   ```
+   {% include copy.html %}
 
 1. Start OpenSearch.
-    ```bash
-    sudo systemctl start opensearch
-    ```
-    {% include copy.html %}
+   ```bash
+   sudo systemctl start opensearch
+   ```
+   {% include copy.html %}
 
 1. Verify that OpenSearch launched correctly.
-    ```bash
-    sudo systemctl status opensearch
-    ```
-    {% include copy.html %}
+   ```bash
+   sudo systemctl status opensearch
+   ```
+   {% include copy.html %}
 
 ### Install OpenSearch from a YUM repository
 
