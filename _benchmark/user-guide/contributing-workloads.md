@@ -43,7 +43,7 @@ The workload can also include an optional `workload.py` file to add more dynamic
 All workloads contributed to OpenSearch Benchmark must fulfill the following testing requirements: 
 
 - All tests run to explore the workload and produce examples should target OpenSearch clusters.
-- The workload passes integration tests in order to be included in [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). To make sure the workload passes integration tests, run the following steps:
+- The workload passes integration tests in order to be included in the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). To make sure the workload passes integration tests, run the following steps:
    1. Add the workload to your forked copy of the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/).
    2. In the forked repository, change the `benchmark-os-it.ini` and `benchmark-in-memory.ini` files in the `/osbenchmark/it/resources` to point to your forked workloads repository which contains your workload.
    3. After you've modified the `.ini` files, commit your changes to a branch for testing and run integration tests via Github actions to ensure they run as expected.
