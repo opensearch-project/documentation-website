@@ -15,7 +15,7 @@ Each workload must include a detailed `README.MD` file, which should include the
 
 - The purpose of the workload and which users should use the workload. When creating a description, consider the specific use case of the workload, especially scenarios that have not yet been addressed by OpenSearch Benchmark.
 - An overview of the dataset used by the workload. Make sure that any data included in the dataset does not contain any proprietary data or Personal Identifiable Information (PII). 
-- An example document from the dataset that helps users understand the data's structure.
+- An example document from the dataset that helps users understand the datas structure.
 - The parameters supported by the workload.
 - A list of default test procedures included in the workload and other test procedures that the workload can run.
 - An output sample that the workload produces after a test is run.
