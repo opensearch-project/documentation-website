@@ -108,7 +108,7 @@ All fields are optional.
 
 Field | Type | Description
 :--- | :--- | :---
-aggs | Object | In the aggs property (you can use aggregations if you want), you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports.
+aggs | Object | In the optional `aggs` parameter, you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports. For more information, see [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/).
 docvalue_fields | Array of objects | The fields that OpenSearch should return using their docvalue forms. Specify a format to return results in a certain format, such as date and time.
 fields | Array | The fields to search for in the request. Specify a format to return results in a certain format, such as date and time.
 explain | String | Whether to return details about how OpenSearch computed the document's score. Default is false.
