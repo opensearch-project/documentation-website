@@ -78,20 +78,8 @@ The following image shows a view you see once you have completed the preceding s
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel2.png" alt="Add panel tutorial screen view" width="700">
 
-Continuing with the preceding dashboard, you will create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
-
-1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from **24 hours** to **Last 7 days**. 
-2. In the toolbar, choose **Edit**, then **Create new**.
-3. Select **VisBuilder** in the **New Visualizations** window.
-4. In the **Data Source** dropdown list, choose `opensearch_dashboards_sample_data_flights`.
-5. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
-6. Drag the field **FlightDelayType** to the x-axis column.
-7. Choose **Save** and name the visualization in the **Title** field.
-8. Choose **Save and return**. A bar chart is added as the last panel on the dashboard.
-
-The following image shows the view you see once you have completed the preceding steps.
-
-<img src="{{site.url}}{{site.baseurl}}/images/<insert image>" alt="Dashboard tutorial panel view" width="700">
+For information about using a specific data visualization type, such as VisBuilder, go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/). For information about using dashboards and visualizations in **Observability**, go to [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/).
+{: .note}
 
 ### Interacting with data using Dashboards
 
