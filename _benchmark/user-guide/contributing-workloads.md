@@ -40,7 +40,7 @@ The workload can also include an optional `workload.py` file to add more dynamic
 
 ## Testing the workload
 
-All workloads contributed to OpenSearch Benchmark must fulfil the following testing requirements: 
+All workloads contributed to OpenSearch Benchmark must fulfill the following testing requirements: 
 
 - All tests run to explore the workload and produce examples should be run on OpenSearch clusters.
 - The workload passes integration tests in order to be included in [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). To make sure the workload passes integration tests, run the following steps:
