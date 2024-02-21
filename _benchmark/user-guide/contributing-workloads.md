@@ -52,5 +52,5 @@ All workloads contributed to OpenSearch Benchmark must fulfil the following test
 
 After you've completed [testing the workload](#testing-the-workload), make a PR from your fork to `opensearch-project` [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). Add a sample output and summary result to the PR description. Then, the OpenSearch Benchmark maintainers will review the PR. 
 
-If approved, you'll be required to share the data corpora of your dataset, so the OpenSearch Benchmark team can add the dataset to a shared Amazon S3 bucket. If your corpora is stored in an S3 bucket, you can use [AWS DataSync](https://docs.aws.amazon.com/datasync/latest/userguide/create-s3-location.html) to share the data corpora. Otherwise, inform the maintainers of where the corpora currently resides.
+If approved, you'll be required to share the data corpora of your dataset, so the OpenSearch Benchmark team can add the dataset to a shared Amazon S3 bucket. If your corpora is currently available in an S3 bucket, you can use [AWS DataSync](https://docs.aws.amazon.com/datasync/latest/userguide/create-s3-location.html) to share the data corpora. Otherwise, inform the maintainers of where the corpora currently resides.
 
