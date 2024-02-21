@@ -17,7 +17,7 @@ Each workload must include a detailed `README.MD` file, which should include the
 - An overview of the dataset used by the workload. Make sure that any data included in the dataset does not contain any proprietary data or Personal Identifiable Information (PII). 
 - An example document from the data set that gives users an idea of how the data looks like.
 - The parameters supported by the workload.
-- A list of default test procedures included in the workload and other test procedures the workload can run.
+- A list of test procedures included in the workload. The test procedures should have a least one default set, usually identified in a `default.json` file, as well as option test procedures.
 - A sample of the output the workload produces after a test is run.
 - A copy of the license that gives the user and OpenSearch Benchmark permission to use the dataset.
 
