@@ -7,7 +7,7 @@ parent: User guide
 
 # Contributing custom workloads
 
-After [creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/) you can contribute your workload for other OpenSearch Benchmark users to use. If you plan on contibuting a workload, use the following guidelines.
+After [creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/) you can contribute your workload for other OpenSearch Benchmark users to use. If you plan on contributing a workload, use the following guidelines.
 
 ## README and license
 
