@@ -13,13 +13,13 @@ After [creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creati
 
 Each workload must include a detailed `README.MD` file, which should include the following:  
 
-- The purpose of the workload and which users should use the workload. When creating a description, consider the specific use case of the workload, especially scenarios that have not yet been addressed by OpenSearch Benchmark.
-- An overview of the dataset used by the workload. Make sure that any data included in the dataset does not contain any proprietary data or Personal Identifiable Information (PII). 
-- An example document from the dataset that helps users understand the datas structure.
-- The parameters supported by the workload.
+- The purpose of the workload and which users should use the workload. When creating a description, consider the specific use case of the workload and how the workload's use case is different from other workloads included in the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/).
+- Make sure that any data included in the workload's dataset does not contain any proprietary data or Personal Identifiable Information (PII). 
+- An example document from the dataset that helps users understand the data's structure.
+- The workload parameters that can be used to customize the workloads.
 - A list of default test procedures included in the workload and other test procedures that the workload can run.
 - An output sample that the workload produces after a test is run.
-- A copy of the license that gives the user and OpenSearch Benchmark permission to use the dataset.
+- A copy of the open source license that gives the user and OpenSearch Benchmark permission to use the dataset.
 
 For an example workload README, go to the `http_logs` [README](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/http_logs/README.md).
 
@@ -48,6 +48,6 @@ All workloads contributed to OpenSearch Benchmark must fulfil the following test
 
 ## Raise a pull request
 
-After completing the [testing the workload](#testing-the-workload) step, create a pull request (PR) from your fork to `opensearch-project` [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). Add a sample output and summary result to the PR description. The OpenSearch Benchmark maintainers then will review the PR. 
+After completing the [testing the workload](#testing-the-workload) step, create a pull request (PR) from your fork to the `opensearch-project` [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). Add a sample output and summary result to the PR description. The OpenSearch Benchmark maintainers will review the PR
 
-Once the PR is approved, you must share the data corpora of your dataset. The OpenSearch Benchmark team can then add the shared dataset to a shared Amazon S3 bucket. Note that if your data corpora is stored in an Amazon S3 bucket, you can use [AWS DataSync](https://docs.aws.amazon.com/datasync/latest/userguide/create-s3-location.html) to share the data corpora. Otherwise, you must inform the maintainers of where the data corpora resides.
+Once the PR is approved, you must share the data corpora of your dataset. The OpenSearch Benchmark team can then add the shared dataset to a shared Amazon S3 bucket. If your data corpora is stored in an Amazon S3 bucket, you can use [AWS DataSync](https://docs.aws.amazon.com/datasync/latest/userguide/create-s3-location.html) to share the data corpora. Otherwise, you must inform the maintainers of where the data corpora resides.
