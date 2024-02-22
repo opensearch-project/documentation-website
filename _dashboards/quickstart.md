@@ -21,7 +21,8 @@ Here's a glance at the view you see when you open the **Dashboard** or **Discove
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
-# Adding sample data
+
+## Adding sample data
 
 Sample datasets come with visualizations, dashboards, and other tools to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
 
@@ -31,7 +32,7 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="700">
 
-# Exploring and inspecting data
+## Exploring and inspecting data
 
 In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
@@ -39,7 +40,7 @@ In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discove
 - Explore the data, view individual documents, and create tables summarizing the data.
 - Visualize your findings.
 
-## Try it: Getting familiar with Discover
+### Try it: Getting familiar with Discover
 
 1. On the OpenSearch Dashboards **Home** page, choose **Discover**.
 1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) to **Last 7 days**, as shown in the following image.
@@ -54,7 +55,7 @@ In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discove
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt="Filter data by FlightDelayType field" width="250"/>
 
-# Visualizing data
+## Visualizing data
 
 Raw data can be difficult to comprehend and use. Data visualizations help you prepare and present data in a visual form. In **Dashboard** you can:
 
@@ -63,7 +64,7 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 - Create and share reports.
 - Embed analytics to differentiate your applications.
 
-## Try it: Getting familiar with Dashboard
+### Try it: Getting familiar with Dashboard
 
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboard**.
 1. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
@@ -77,7 +78,7 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="700"/>
 
-## Try it: Creating a visualization panel
+### Try it: Creating a visualization panel
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
@@ -92,11 +93,11 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-panel-quickstart.png" alt="Creating a visualization panel" width="700"/>
 
-# Interacting with data
+## Interacting with data
 
 Interactive dashboards allow you analyze data in more depth and filter it in several ways. In Dashboards, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
 
-## Try it: Interacting with the sample flight data
+### Try it: Interacting with the sample flight data
 
 1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
 1. Choose **Save** to save the customized dashboard.
@@ -112,7 +113,7 @@ Alternatively, you can apply filters using the dashboard toolbar:
 
   <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="700"/>
 
-# Next steps
+## Next steps
 
 - **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
 - **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards**]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).

@@ -159,7 +159,7 @@ OpenSearch sends back the model group ID:
 
 You'll use this ID to register the chosen model to the model group.
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Test it
   </summary>
@@ -271,7 +271,7 @@ Once the task is complete, the task state will be `COMPLETED` and the Tasks API 
 
 You'll need the model ID in order to use this model for several of the following steps.
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Test it
   </summary>
@@ -391,7 +391,7 @@ Once the task is complete, the task state will be `COMPLETED`:
 }
 ```
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Test it
   </summary>
@@ -469,7 +469,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Test it
   </summary>
@@ -541,7 +541,7 @@ PUT /my-nlp-index
 
 Setting up a k-NN index allows you to later perform a vector search on the `passage_embedding` field.
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Test it
   </summary>
@@ -670,7 +670,7 @@ GET /my-nlp-index/_search
 
 Document 3 is not returned because it does not contain the specified keywords. Documents containing the words `rodeo` and `cowboy` are scored lower because semantic meaning is not considered:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Results
   </summary>
@@ -762,7 +762,7 @@ GET /my-nlp-index/_search
 
 This time, the response not only contains all five documents, but the document order is also improved because neural search considers semantic meaning:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Results
   </summary>
@@ -910,7 +910,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 
 Not only does OpenSearch return documents that match the semantic meaning of `wild west`, but now the documents containing words related to the wild west theme are also scored higher relative to the others:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Results
   </summary>

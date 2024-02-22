@@ -74,7 +74,7 @@ The Profile API response is verbose, so if you're running the request through th
 
 The response contains profiling information:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -225,7 +225,7 @@ The response contains profiling information:
 
 The following is an example response for a concurrent segment search with three segment slices:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -553,7 +553,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 The response contains profiling information:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -825,7 +825,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 The response contains profiling information:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>

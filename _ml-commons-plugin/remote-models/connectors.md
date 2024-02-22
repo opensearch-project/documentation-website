@@ -7,7 +7,7 @@ nav_order: 61
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
 redirect_from: 
-  - ml-commons-plugin/extensibility/connectors/
+  - /ml-commons-plugin/extensibility/connectors/
 ---
 
 # Creating connectors for third-party ML platforms
@@ -284,6 +284,21 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 {% include copy-curl.html %}
+
+## Updating connector credentials
+
+In some cases, you may need to update credentials, like `access_key`, that you use to connect to externally hosted models. You can update credentials without undeploying the model by providing the new credentials in the following request:
+
+```json
+PUT /_plugins/_ml/models/<model_id>
+{
+  "connector": {
+    "credential": {
+      "openAI_key": "YOUR NEW OPENAI KEY"
+    }
+  }
+}
+```
 
 ## Next steps
 
