@@ -5,9 +5,9 @@ nav_order: 11
 parent: User guide
 ---
 
-# Contributing custom workloads
+# Sharing custom workloads
 
-After [creating a custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/), you can contribute your workload for other OpenSearch Benchmark users to use. If you plan on contributing a workload, use the following guidelines.
+You can share a custom workload with other OpenSearch users by uploading it to the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/) in GitHub. To share a custom workload, follow these guidelines.
 
 ## README and license
 
