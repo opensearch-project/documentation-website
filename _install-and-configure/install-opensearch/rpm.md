@@ -42,7 +42,7 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
     {% include copy.html %}
-1. For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
+1. For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration. To set a custom admin password, use one the following commands:
    ```bash
    # Install the x64 package using yum.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
