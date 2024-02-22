@@ -13,3 +13,4 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 | Melissa Vagi     | [vagimeli](https://github.com/vagimeli)         | Amazon      |
 | Miki Barahmand   | [AMoo-Miki](https://github.com/AMoo-Miki)       | Amazon      |
 | David Venable    | [dlvenable](https://github.com/dlvenable)       | Amazon      | 
+| Stephen Crawford | [scraw99](https://github.com/scrawfor99)        | Amazon      |
