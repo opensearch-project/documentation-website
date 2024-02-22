@@ -51,9 +51,9 @@ When run, the processor will parse the message. Although only two column names a
 ```
 {"message": "1,2,3", "col1": "1", "col2": "2", "column3": "3"}
 ```
-### Auto detect column names
+### Automatically detect column names
 
-The following configuration auto detects the header of a CSV file ingested through an [`s3 source`]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/s3/):
+The following configuration automatically detects the header of a CSV file ingested through an [`s3 source`]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/s3/):
 
 ```yaml
 csv-s3-pipeline:
@@ -78,7 +78,7 @@ csv-s3-pipeline:
 {% include copy.html %}
 
 
-For example, if the `ingest.csv` in the S3 bucket that the SQS queue is attached to contains the following data:
+For example, if the `ingest.csv` file in the Amazon Simple Storage Service (Amazon S3) bucket that the Amazon Simple Queue Service (SQS) queue is attached to contains the following data:
 
 ```
 Should,skip,this,line
@@ -86,7 +86,7 @@ a,b,c
 1,2,3
 ```
 
-The `csv` processor will take the following event:
+Then the `csv` processor will take the following event:
 
 ```json
 {"header": "a,b,c", "message": "1,2,3"}
@@ -113,4 +113,4 @@ The `csv` processor includes the following custom metrics.
 
 The `csv` processor includes the following counter metrics:
 
-* `csvInvalidEvents`: The number of invalid events, usually caused by unclosed quote in the event itself. Data Prepper throws an exception when an invalid event is parsed. 
+* `csvInvalidEvents`: The number of invalid events, usually caused by an unclosed quotation mark in the event itself. Data Prepper throws an exception when an invalid event is parsed. 
