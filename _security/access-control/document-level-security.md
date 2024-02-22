@@ -189,7 +189,7 @@ Adaptive | `adaptive-level` | The default setting that allows OpenSearch to auto
 ## DLS and multiple roles
 OpenSearch combines all DLS queries with the logical OR operator. However, when a role with DLS is combined with another role that doesn't use DLS, the results are still filtered to display only documents matching the DLS from the first role, this also applies to roles which do not grant read documents.
 
-See the below example where there are two roles defined, one with a DLS specifed and another granting access to search templates, with no DLS specifed.
+See the following example where there are two roles defined, one with DLS, and another granting access to search templates, without DLS.
 
 A role with DLS specified:
 ```
