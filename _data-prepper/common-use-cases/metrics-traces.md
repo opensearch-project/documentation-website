@@ -9,11 +9,11 @@ nav_order: 60
 
 You can use Data Prepper to derive metrics from OpenTelemetry traces. The following example pipeline receives incoming traces and extracts a metric called `durationInNanos`, aggregated over a tumbling window of 30 seconds. It then derives a histogram from the incoming traces.
 
-The pipeline contains the following multiple pipelines:
+The pipeline contains the following pipelines:
 
-- `entry-pipeline` -– Receives trace data from the OpenTelemetry collector and forwards it to the `trace_to_metrics_pipeline` pipeline.
+- `entry-pipeline` – Receives trace data from the OpenTelemetry collector and forwards it to the `trace_to_metrics_pipeline` pipeline.
 
-- `trace-to-metrics-pipeline` –- Receives the trace data from the `entry-pipeline` pipeline, aggregates it, and derives a histogram of `durationInNanos` from the traces based on the value of the `serviceName` field. It then sends the derived metrics to the OpenSearch index called `metrics_for_traces`.
+- `trace-to-metrics-pipeline` - Receives the trace data from the `entry-pipeline` pipeline, aggregates it, and derives a histogram of `durationInNanos` from the traces based on the value of the `serviceName` field. It then sends the derived metrics to the OpenSearch index called `metrics_for_traces`.
 
 ```json
 entry-pipeline:
