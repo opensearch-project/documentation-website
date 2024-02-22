@@ -23,7 +23,7 @@ Provide a detailed `README.MD` file that includes the following:
 
 For an example workload README, go to the `http_logs` [README](https://github.com/opensearch-project/opensearch-benchmark-workloads/blob/main/http_logs/README.md).
 
-## Structure
+## Verify the workload's structure
 
 The workload must include the following files: 
 
