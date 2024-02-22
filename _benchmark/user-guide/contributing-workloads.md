@@ -1,20 +1,23 @@
 ---
 layout: default
-title: Contributing custom workloads
+title: Sharing custom workloads
 nav_order: 11
 parent: User guide
 ---
 
 # Sharing custom workloads
 
-You can share a custom workload with other OpenSearch users by uploading it to the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/) in GitHub. To share a custom workload, follow these guidelines.
+You can share a custom workload with other OpenSearch users by uploading it to the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/) in GitHub. 
+
+Make sure that any data included in the workload's dataset does not contain any proprietary data or Personal Identifiable Information (PII). 
+
+To share a custom workload, follow these steps.
 
 ## Create a README.md
 
 Provide a detailed `README.MD` file that includes the following:  
 
 - The purpose of the workload. When creating a description for the workload, consider the specific use case of the workload and how the workload's use case is different from other workloads included in the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/).
-- Make sure that any data included in the workload's dataset does not contain any proprietary data or Personal Identifiable Information (PII). 
 - An example document from the dataset that helps users understand the data's structure.
 - The workload parameters that can be used to customize the workloads.
 - A list of default test procedures included in the workload and other test procedures that the workload can run.
