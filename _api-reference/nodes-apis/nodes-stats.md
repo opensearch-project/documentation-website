@@ -112,7 +112,7 @@ GET _nodes/stats/
 
 Select the arrow to view the example response.
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -831,6 +831,10 @@ get.missing_total | Integer | The number of failed get operations.
 get.missing_time_in_millis | Integer | The total time for all failed get operations, in milliseconds.
 get.current | Integer | The number of get operations that are currently running.
 search | Object | Statistics about the search operations for the node.
+search.concurrent_avg_slice_count	| Integer | The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	
+search.concurrent_query_total	|Integer | The total number of query operations that use concurrent segment search.	
+search.concurrent_query_time_in_millis	| Integer | The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	
+search.concurrent_query_current	|Integer | The number of currently running query operations that use concurrent segment search.	
 search.open_contexts | Integer | The number of open search contexts.
 search.query_total | Integer | The total number of shard query operations.
 search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.
@@ -1258,11 +1262,6 @@ Field | Field type | Description
 :--- | :--- | :---
 admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was breached. In this case, additional search requests are rejected until the system recovers.
 admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was breached. In this case, additional indexing requests are rejected until the system recovers.
-
-
-## Concurrent segment search
-
-Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you [enable the experimental concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the Nodes Stats API response will contain several additional fields with statistics about slices (units of work executed by a thread). For the descriptions of those fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
 
 ## Required permissions
 
