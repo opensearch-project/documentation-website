@@ -46,7 +46,7 @@ csv-pipeline:
 {% include copy.html %}
 
 
-When run, the processor will parse the message. Although only two column names are specified in processor settings, a third column name is automatically generated since the data contained in `ingest.csv` includes three columns, `1,2,3`:
+When run, the processor will parse the message. Although only two column names are specified in processor settings, a third column name is automatically generated because the data contained in `ingest.csv` includes three columns, `1,2,3`:
 
 ```
 {"message": "1,2,3", "col1": "1", "col2": "2", "column3": "3"}
