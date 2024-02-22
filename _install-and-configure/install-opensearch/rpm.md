@@ -82,7 +82,8 @@ This guide assumes that you are comfortable working from the Linux command line 
    ```
    {% include copy.html %}
 
-1. Verify that OpenSearch launched correctly.
+1. Verify that OpenSearch launched correctly:
+
    ```bash
    sudo systemctl status opensearch
    ```
