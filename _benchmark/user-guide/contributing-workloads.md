@@ -9,7 +9,7 @@ parent: User guide
 
 You can share a custom workload with other OpenSearch users by uploading it to the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/) in GitHub. To share a custom workload, follow these guidelines.
 
-## README and license
+## Create a README.md
 
 Provide a detailed `README.MD` file that includes the following:  
 
