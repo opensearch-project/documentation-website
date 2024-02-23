@@ -221,7 +221,9 @@ A role with DLS specified:
   ]
 }
 ```
-To ensure that the role with no DLS takes precedence, add the setting to the `opensearch.yml`:
+
+To ensure that the role with no DLS takes precedence in the query response, add the following setting to `opensearch.yml`:
+
 
 `plugins.security.dfm_empty_overrides_all: true`
 
