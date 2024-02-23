@@ -192,7 +192,8 @@ OpenSearch combines all DLS queries with the logical `OR` operator. However, whe
 
 In following examples two roles are defined, one with DLS, and another granting access to search templates without DLS:
 
-A role with DLS specified:
+**Role with DLS specified**
+
 ```
 {
   "index_permissions": [
