@@ -18,6 +18,11 @@ As of OpenSearch 2.6, OpenSearch supports local text embedding models.
 
 As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
 
+As of OpenSearch 2.12, OpenSearch supports local cross-encoder models.
+
+Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
+{: .important}
+
 ## Preparing a model
 
 For both text embedding and sparse encoding models, you must provide a tokenizer JSON file within the model zip file.
