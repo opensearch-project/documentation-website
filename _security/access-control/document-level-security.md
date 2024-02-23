@@ -190,7 +190,7 @@ Adaptive | `adaptive-level` | The default setting that allows OpenSearch to auto
 
 OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role with DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles which do not grant read documents.
 
-See the following example where there are two roles defined, one with DLS, and another granting access to search templates, without DLS.
+In following examples two roles are defined, one with DLS, and another granting access to search templates without DLS:
 
 A role with DLS specified:
 ```
