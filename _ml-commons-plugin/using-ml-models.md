@@ -19,7 +19,7 @@ To integrate machine learning (ML) models into your OpenSearch cluster, you can 
 
 - **Custom models** such as PyTorch deep learning models: To learn more, see [Custom models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
 
-OpenSearch does not support running local models on the CentOS 7 operating system. Moreover, not all local models can run on all hardware and operating systems.
+Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
 {: .important}
 
 ## GPU acceleration

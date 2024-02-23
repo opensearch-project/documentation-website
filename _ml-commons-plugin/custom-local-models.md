@@ -20,7 +20,7 @@ As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
 
 As of OpenSearch 2.12, OpenSearch supports local cross-encoder models.
 
-OpenSearch does not support running local models on the CentOS 7 operating system. Moreover, not all local models can run on all hardware and operating systems.
+Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
 {: .important}
 
 ## Preparing a model
