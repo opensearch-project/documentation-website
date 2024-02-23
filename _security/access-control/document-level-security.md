@@ -208,7 +208,9 @@ A role with DLS specified:
   ]
 }
 ```
-A role which grants only access to search templates:
+
+**Role that grants only access to search templates:**
+
 ```
 {
   "index_permissions" : [
