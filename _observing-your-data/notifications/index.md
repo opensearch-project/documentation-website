@@ -102,7 +102,7 @@ Then add this policy into the IAM user’s trust relationship to actually assume
 
 ### Host deny list
 
-To specify any IP address ranges or hostnames for which the nodes running the OpenSearch software should not make requests against, populate the host deny list:
+Define IP ranges or hostnames where OpenSearch nodes should not initiate requests. 
 
 ## Email as a channel type
 
