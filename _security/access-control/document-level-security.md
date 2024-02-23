@@ -187,7 +187,8 @@ Filter-level DLS | `filter-level` | This setting makes all DLS queries apply to 
 Adaptive | `adaptive-level` | The default setting that allows OpenSearch to automatically choose the mode. | DLS queries without TLQs are executed in Lucene-level mode, while DLS queries that contain TLQ are executed in filter- level mode.
 
 ## DLS and multiple roles
-OpenSearch combines all DLS queries with the logical OR operator. However, when a role with DLS is combined with another role that doesn't use DLS, the results are still filtered to display only documents matching the DLS from the first role, this also applies to roles which do not grant read documents.
+
+OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role with DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles which do not grant read documents.
 
 See the following example where there are two roles defined, one with DLS, and another granting access to search templates, without DLS.
 
