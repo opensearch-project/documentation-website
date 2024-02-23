@@ -264,7 +264,7 @@ shard_size | Integer | The maximum number of buckets to return from each shard. 
 
 The relationship between geohash precision and the approximate grid cell dimensions is described in the following table.
 
-Percision /<br>geohash length | Latitude bits | Longitude bits | Latitude error | Longitude error | Cell height | Cell width
+Precision /<br>geohash length | Latitude bits | Longitude bits | Latitude error | Longitude error | Cell height | Cell width
 :---:|:-------------:|:--------------:|:--------------:|:---------------:|:-----------:|:----------:
   1  |       2       |       3        |      ±23       |       ±23       |  4992.6 km  | 5009.4 km  
   2  |       5       |       5        |      ±2.8      |      ±5.6       |  624.1 km   | 1252.3 km  
