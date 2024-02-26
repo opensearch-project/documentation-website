@@ -18,8 +18,7 @@ The following is the syntax for the `drop` processor:
 ```json
 {
   "drop": {
-    "if": "date_field",
-    "field": "field-to-be-dropped"]"
+    "if": "ctx.foo == 'bar'"
   }
 }
 ```
@@ -94,6 +93,7 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
+{% include copy-curl.html %}
 
 **Step 3: Ingest a document.**
 
@@ -105,4 +105,19 @@ PUT testindex1/_doc/1?pipeline=drop-pii
   "user_info": "Sensitive information including credit card"
 }
 ```
+{% include copy-curl.html %}
+
+The following response confirms that the document with ID `1` was not indexed: 
+
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": -3,
+  "result": "noop",
+  "_shards": {
+    "total": 0,
+    "successful": 0,
+    "failed": 0
+  }
+}
 {% include copy-curl.html %}
