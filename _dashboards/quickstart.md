@@ -85,7 +85,7 @@ For information about using a specific data visualization type, such as VisBuild
 
 Interactive dashboards allow you to analyze data in more depth and filter it in several ways. With **Dashboards**, you can interact directly with data through the use of dashboard-level filters.
 
-Take your previous dashboard and follow these steps to further analyze and filter the sample flight data:
+Use the **[Flights] Global Flight Dashboard** dashboard and follow these steps to further analyze and filter the sample flight data:
 
 1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
 2. Choose **Save** to save the customized dashboard.
