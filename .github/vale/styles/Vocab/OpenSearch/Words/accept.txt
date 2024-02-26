@@ -106,6 +106,7 @@ pebibyte
 [Ss]erverless
 [Ss]harding
 [Ss]ignificand
+[Ss]napshott(ed|ing)
 stdout
 [Ss]temmers?
 [Ss]ubaggregation
