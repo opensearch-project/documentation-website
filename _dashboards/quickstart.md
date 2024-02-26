@@ -65,7 +65,7 @@ With **Dashboards**, you can:
 - Create and share reports.
 - Embed analytics to differentiate your applications.
 
-The Dashboard tool creates and stores visualizations related to you data. The following steps give you a basic overview about using the Dashboard tool:
+The Dashboards tool creates and stores visualizations related to your data. The following steps give you a basic overview about using the Dashboard tool:
 
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboards** . A list of pre-loaded Dashboards related to the sample data appears.
 2. From the search toolbar, search for **[Flights] Global Flight Dashboard** and then select it. You'll see a pre-loaded dashboard with visuals, including charts, maps, and data tables. 
