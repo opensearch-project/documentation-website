@@ -108,7 +108,7 @@ For OpenSearch 2.12 or later, set a new custom admin password before installatio
 $ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
 ```
 
-### Local distribution
+## Local distribution
 
 If you are building a local distribution, refer to [DEVELOPER_GUIDE.md](https://github.com/opensearch-project/security/blob/main/DEVELOPER_GUIDE.md) for instructions on building a local binary for the Security plugin.
 
