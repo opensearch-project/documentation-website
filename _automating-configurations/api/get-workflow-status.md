@@ -10,7 +10,7 @@ nav_order: 40
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
 {: .warning}
 
-[Provisioning a workflow]({{site.url}}{{site.baseurl}}/automating-workflows/api/provision-workflow/) may take a significant amount of time, particularly when the action is associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring of the provisioning deployment status until it is complete.
+[Provisioning a workflow]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) may take a significant amount of time, particularly when the action is associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring of the provisioning deployment status until it is complete.
 
 ## Path and HTTP methods
 

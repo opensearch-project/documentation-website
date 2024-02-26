@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Automating workflows
+title: Automating configurations
 nav_order: 1
 has_children: false
 nav_exclude: true
-redirect_from: /automating-workflows/
+redirect_from: /automating-configurations/
 ---
 
-# Automating workflows
+# Automating configurations
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -16,7 +16,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 You can automate complex OpenSearch setup and preprocessing tasks by providing templates for common use cases. For example, automating machine learning (ML) setup tasks streamlines the use of OpenSearch ML offerings.
 
-In OpenSearch 2.12, workflow automation is limited to ML tasks.
+In OpenSearch 2.12, configuration automation is limited to ML tasks.
 {: .info}
 
 OpenSearch use case templates provide a compact description of the setup process in a JSON or YAML document. These templates describe automated workflow configurations for conversational chat or query generation, AI connectors, tools, agents, and other components that prepare OpenSearch as a backend for generative models. For template examples, see [Sample templates](https://github.com/opensearch-project/flow-framework/tree/main/sample-templates).
@@ -38,12 +38,12 @@ Workflow automation provides the following benefits:
 * **Workflows**: One or more workflows containing the following elements:
     * **User input**: Parameters expected from the user that are specific to the steps in this workflow.
     * **Workflow Steps**: The workflow steps described as a directed acyclic graph (DAG):  
-        * ***Nodes*** describe steps of the process, which may be executed in parallel. For the syntax of workflow steps, see [Workflow steps]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-steps/). 
+        * ***Nodes*** describe steps of the process, which may be executed in parallel. For the syntax of workflow steps, see [Workflow steps]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-steps/). 
         * ***Edges*** sequence nodes to be executed after the previous step is complete and may use the output fields of previous steps. When a node includes a key in the `previous_node_input` map referring to a previous node’s workflow step, a corresponding edge is automatically added to the template during parsing and may be omitted for the sake of simplicity.
 
 ## Next steps
 
-- For supported APIs, see [Workflow APIs]({{site.url}}{{site.baseurl}}/automating-workflows/api/index/).
-- For the workflow step syntax, see [Workflow steps]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-steps/).  
-- For a complete example, see [Workflow tutorial]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-tutorial/).
-- For configurable settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-workflows/workflow-settings/).
+- For supported APIs, see [Workflow APIs]({{site.url}}{{site.baseurl}}/automating-configurations/api/index/).
+- For the workflow step syntax, see [Workflow steps]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-steps/).  
+- For a complete example, see [Workflow tutorial]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-tutorial/).
+- For configurable settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-settings/).

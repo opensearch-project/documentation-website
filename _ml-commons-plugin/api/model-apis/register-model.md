@@ -2,7 +2,7 @@
 layout: default
 title: Register model
 parent: Model APIs
-grand_parent: ML Commons API
+grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
@@ -29,7 +29,14 @@ If the model is more than 10 MB in size, ML Commons splits it into smaller chunk
 ```json
 POST /_plugins/_ml/models/_register
 ```
-{% include copy-curl.html %}
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `deploy` | Boolean | Whether to deploy the model after registering it. The deploy operation is performed by calling the [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/). Default is `false`. |
 
 ## Register an OpenSearch-provided pretrained model
 
@@ -50,6 +57,7 @@ Field | Data type | Required/Optional | Description
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
+`is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
 
 #### Example request: OpenSearch-provided text embedding model
 
@@ -82,6 +90,7 @@ Field | Data type | Required/Optional | Description
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
+`is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
 
 #### Example request: OpenSearch-provided sparse encoding model
 
@@ -119,6 +128,7 @@ Field | Data type | Required/Optional | Description
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
+`is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
 
 #### The `model_config` object
 
@@ -176,6 +186,7 @@ Field | Data type | Required/Optional | Description
 `connector` | Object | Required | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). You must provide either `connector_id` or `connector`.
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
+`is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
 
 #### Example request: Remote model with a standalone connector
 
