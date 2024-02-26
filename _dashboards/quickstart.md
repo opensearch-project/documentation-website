@@ -32,7 +32,7 @@ The [**Sample flight data**](https://playground.opensearch.org/app/home#/tutoria
 To add sample data, follow these steps:
 
 1. On the OpenSearch Dashboards **Home** page, choose either **Add sample data**. Alternatively, choose **Add data** from the upper-right toolbar.
-2. On the **Add sample data** page, choose the datasets you want to add. The following image shows a screenshot.
+2. On the **Add sample data** page, choose the datasets you want to add. The following image shows which sample datasets are available.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Adding sample data window" width="700">
 
