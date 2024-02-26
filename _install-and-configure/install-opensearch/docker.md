@@ -31,6 +31,7 @@ If you need to install Docker Compose manually and your host supports Python, yo
 
 ## Important host settings
 
+### Linux settings
 Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'} that can impact the performance of your services.
 
 1. Disable memory paging and swapping performance on the host to improve performance.
@@ -53,6 +54,14 @@ Before launching OpenSearch you should review some [important system settings]({
    # Verify that the change was applied by checking the value
    cat /proc/sys/vm/max_map_count
    ```
+
+### Windows settings
+For Windows workloads using WSL through Docker Desktop, run the following commands in terminal to set the `vm.max_map_count`:
+
+```bash
+wsl -d docker-desktop
+sysctl -w vm.max_map_count=262144
+```   
 
 ## Run OpenSearch in a Docker container
 
