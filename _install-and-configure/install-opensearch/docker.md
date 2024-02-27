@@ -29,10 +29,11 @@ Docker Compose is a utility that allows users to launch multiple containers with
 If you need to install Docker Compose manually and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
 {: .tip}
 
-## Important host settings
-Based on your host system, certain settings must be configured in order to install OpenSearch using Docker.
+## Configure important host settings
+Before installing OpenSearch using Docker, configure the following settings relevant for your environment. These are the most important settings that can impact the performance of your services, but for additional information, see [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'}.
+
 ### Linux settings
-Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'} that can impact the performance of your services.
+For Linux environments, do the following: 
 
 1. Disable memory paging and swapping performance on the host to improve performance.
    ```bash
