@@ -49,8 +49,6 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
 1. Run the demo batch script.
 
-   There are two ways of running the batch script:
-
    1. Run the batch script from Command prompt or Powershell:
 
       1. Open Command Prompt by entering `cmd`, or Powershell by entering `powershell`, in the search box next to **Start** on the taskbar. 
