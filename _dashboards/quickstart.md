@@ -68,7 +68,7 @@ With **Dashboards**, you can:
 The **Dashboards** application creates and stores visualizations generated from your data. Follow these steps to use the application:
 
 1. On the OpenSearch Dashboards **Home** page, choose **Dashboards**. A list of dashboards generated from the sample data appears.
-2. From the search toolbar, search for **[Flights] Global Flight Dashboard** and then select it. You'll see a pre-loaded dashboard with visuals, including charts, maps, and data tables. 
+2. In the search toolbar, search for and select **[Flights] Global Flight Dashboard**. You'll see a dashboard preloaded with visualizations, including charts, maps, and data tables. 
 3. To add other panels to the dashboard, select the **Edit** button and then choose **Add** from the toolbar. The **Add panels** window then opens. 
 4. From the search toolbar in the **Add panels** window, search for the existing panel **[Flights] Delay Buckets** and then select it. A pop-up message confirms that you've added the panel.
 5. Select close `x` to exit the **Add panels** window.
