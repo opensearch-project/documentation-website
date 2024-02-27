@@ -30,7 +30,7 @@ If you need to install Docker Compose manually and your host supports Python, yo
 {: .tip}
 
 ## Important host settings
-
+Based on your host system, certain settings must be configured in order to install OpenSearch using Docker.
 ### Linux settings
 Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'} that can impact the performance of your services.
 
