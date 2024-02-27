@@ -72,7 +72,7 @@ Name | Description
 `plugins.security.ssl.http.keystore_alias` | Alias name. Optional. Default is the first alias.
 `plugins.security.ssl.http.keystore_password` | Keystore password. Default is `changeit`.
 `plugins.security.ssl.http.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
-`plugins.security.ssl.http.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.truststore_alias` | Alias name. Optional. Default is all certificates.
 `plugins.security.ssl.http.truststore_password` | Truststore password. Default is `changeit`.
 
