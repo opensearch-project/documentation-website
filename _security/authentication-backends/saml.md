@@ -19,24 +19,29 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
+Note: These steps require basic knowledge about interacting with Github. If you are new to Github, please check-out this [onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md) to get started.
+
 1. Check-out the [saml-demo](https://github.com/opensearch-project/demos/tree/saml-demo) branch on the [demos](https://github.com/opensearch-project/demos) repository to a preferred location in your directory.
 
-1. Navigate to `demo` folder
+1. Navigate to the `demo` folder
    ```zsh
    $ cd <path-to-demos-folder>/demo
    ```
-   
-1. Modify `.env` file with preferred versions if needed. The default to the latest (i.e {{site.opensearch_major_minor_version}}).
 
-1. Review the files:
+1. Review these files as needed:
 
-   * `.env`: Defines the opensearch and opensearch dashboards version to be used, along-with `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
+   * `.env`: 
+     * Defines the opensearch and opensearch dashboards version to be used. It defaults to the latest version (i.e {{site.opensearch_major_minor_version}}).
+     * Defines `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
    * `./custom-config/opensearch_dashboards.yml`: Includes SAML settings for the default `opensearch_dashboards.yml` file.
    * `./custom-config/config.yml`: Configures SAML for authentication.
    * `docker-compose.yml`: Defines an OpenSearch server node, an OpenSearch Dashboards server node, and a SAML server node.
    * `./saml/config/authsources.php`: Contains the list of users that can be authenticated by this SAML domain.
 
-1. At the command line, run`docker-compose up`.
+1. At the command line, run:
+   ```zsh
+   $ docker-compose up.
+   ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}.
 
