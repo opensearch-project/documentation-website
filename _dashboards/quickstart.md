@@ -96,7 +96,7 @@ Alternatively, you can use the dashboard toolbar to apply filters by following t
 2. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
 3. Choose **Save**. The dashboard updates automatically.
 
-The following image shows the view you see once you have completed the preceding steps.
+The resulting view is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
 
