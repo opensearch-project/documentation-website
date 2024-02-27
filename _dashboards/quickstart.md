@@ -90,7 +90,7 @@ Using the **[Flights] Global Flight Dashboard** dashboard, follow these steps to
 1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
 2. Choose **Save** to save the dashboard.
 
-Another option is to use the dashboard toolbar to apply filters. Follow these steps to learn about this feature:
+Alternatively, you can use the dashboard toolbar to apply filters by following these steps:
 
 1. In the dashboard toolbar, choose **Add filter**.
 2. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
