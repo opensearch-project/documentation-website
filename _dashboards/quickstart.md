@@ -72,7 +72,7 @@ The **Dashboards** application creates and stores visualizations generated from 
 3. To add other panels to the dashboard, select the **Edit** button and then choose **Add** from the toolbar. The **Add panels** window opens. 
 4. In the search toolbar in the **Add panels** window, search for and select the existing panel **[Flights] Delay Buckets**. A pop-up message confirms that you've added the panel.
 5. Select close `x` to exit the **Add panels** window.
-6. View the newly added panel, **[Flights] Delay Buckets**, at the end of the dashboard.
+6. The newly added panel is now displayed on the dashboard.
 
 The following image shows a view you see once you have completed the preceding steps.
 
