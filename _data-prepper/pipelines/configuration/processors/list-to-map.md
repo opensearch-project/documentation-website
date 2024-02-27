@@ -21,7 +21,7 @@ Option | Required | Type | Description
 `key` | Conditionally | String | The key of the fields to be extracted as keys in the generated mappings. Must be specified if `use_source_key` is `false`.
 `use_source_key` | No | Boolean | When `true`, keys in the generated map will use original keys from the source. Default is `false`.
 `value_key` | No | String | When specified, values given a `value_key` in objects contained in the source list will be extracted and converted into the value specified by this option based on the generated map. When not specified, objects contained in the source list retain their original value when mapped.
-`extract_value` | No | Boolean | When `true`, values in objects from the source list will be extracted and put into the generated map. When `false`, objects from the source list are put into the generated map with their values listed the same as they were found in the source list. Default is `false`
+`extract_value` | No | Boolean | When `true`, object values from the source list will be extracted and added to the generated map. When `false`, object values from the source list are added to the generated map as they appear in the source list. Default is `false`
 `flatten` | No | Boolean | When `true`, values in the generated map output flatten into single items based on the `flattened_element`. Otherwise, objects mapped to values from the generated map appear as lists.
 `flattened_element` | Conditionally | String | The element to keep, either `first` or `last`, when `flatten` is set to `true`.
 
@@ -306,7 +306,7 @@ Some objects in the response may have more than one element in their values, as 
 }
 ```
 
-### Example: `use_source_key` and `extract_value` set to true
+### Example: `use_source_key` and `extract_value` set to `true`
 
 The following example `pipeline.yaml` file sets `flatten` to `false`, causing the processor to output values from the generated map as a list:
 
