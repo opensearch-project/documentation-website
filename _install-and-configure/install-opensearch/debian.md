@@ -440,7 +440,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
    ```
    {% include copy.html %}
 
-1. Add a new internal user and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example:
+1. Add a new internal user and replace the hash inside `internal_users.yml` with the output provided by `hash.sh` in step 2. The file should look similar to the following example:
    ```bash
    ---
    # This is the internal user database
