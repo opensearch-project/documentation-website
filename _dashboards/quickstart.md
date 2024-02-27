@@ -47,7 +47,7 @@ With [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-disco
 Follow these steps to use the Discover tool:
 
 1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
-2. On the **Discover** page, choose the index pattern `opensearch_dashboards_sample_data_flights` from the dropdown menu on the upper-left side of the page. 
+2. On the **Discover** page, choose the index pattern `opensearch_dashboards_sample_data_flights` from the dropdown menu on the upper left. 
 3. Select the calendar icon {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/} to change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from the default of **Last 15 minutes** to **Last 7 days**.
 4. In the DQL search bar, input `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then select **Update**. Results for US-bound flights delayed by 60 minutes or more are shown.
 5. Filter data by selecting **Add filter** from under the DQL search bar and then selecting a **Field**, **Operator**, and **Value** from the dropdown lists on the **Edit Filter** pop-up window. For example, select `FlightDelayType`, **is**, and **Weather Delay**.
