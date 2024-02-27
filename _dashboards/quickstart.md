@@ -102,7 +102,7 @@ The resulting view is shown in the following image.
 
 ## Turning dark mode on or off
 
-Turning on and off dark mode in OpenSearch Dashboards requires administrative access. If you are an administrator, follow these steps:
+Changing the Dashboards theme requires admin access. If you are an admin, follow these steps:
 
 1. Navigate to **Management** > **Dashboards Management** > **Advanced Settings**.
 2. Scroll down to the **Appearance** section and locate the **Dark mode** option.
