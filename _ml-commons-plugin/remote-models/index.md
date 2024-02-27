@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Connecting to remote models 
+title: Connecting to externally hosted models 
 parent: Integrating ML models
 has_children: true
 has_toc: false
 nav_order: 60
 redirect_from: 
-  - ml-commons-plugin/extensibility/index/
+  - /ml-commons-plugin/extensibility/index/
 ---
 
-# Connecting to remote models
+# Connecting to externally hosted models
 **Introduced 2.9**
 {: .label .label-purple }
 
-Machine learning (ML) remote models enable ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. These integrations allow system administrators and data scientists to run ML workloads outside of their OpenSearch cluster. 
+Integrations with machine learning (ML) models hosted on third-party platforms allow system administrators and data scientists to run ML workloads outside of their OpenSearch cluster. Connecting to externally hosted models enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. 
 
-To get started with ML remote models, choose from the following options:
+To integrate a model hosted on a third-party platform, choose from the following options:
 
 - If you're an ML developer wanting to create integrations with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 - If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
@@ -80,21 +80,6 @@ When access control is enabled, you can install the [Security plugin]({{site.url
 }
 ```
 
-### Node settings
-
-Remote models based on external connectors consume fewer resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`:
-
-```json
-PUT /_cluster/settings
-{
-    "persistent": {
-        "plugins.ml_commons.only_run_on_ml_node": false
-    }
-}
-
-```
-{% include copy-curl.html %}
-
 ## Step 1: Register a model group
 
 To register a model, you have the following options:
@@ -108,7 +93,7 @@ To register a model group, send the following request:
 POST /_plugins/_ml/model_groups/_register
 {
   "name": "remote_model_group",
-  "description": "A model group for remote models"
+  "description": "A model group for external models"
 }
 ```
 {% include copy-curl.html %}
@@ -167,9 +152,9 @@ The response contains the connector ID for the newly created connector:
 }
 ```
 
-## Step 3: Register a remote model
+## Step 3: Register an externally hosted model
 
-To register a remote model to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request:
+To register an externally hosted model to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request. You must specify the `function_name` as `remote`:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -192,7 +177,7 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#get-a-task-by-id):
+To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```bash
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
@@ -218,7 +203,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 
 Take note of the returned `model_id` because you’ll need it to deploy the model.
 
-## Step 4: Deploy the remote model
+## Step 4: Deploy the model
 
 To deploy the registered model, provide its model ID from step 3 in the following request:
 
@@ -260,7 +245,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-## Step 5 (Optional): Test the remote model
+## Step 5 (Optional): Test the model
 
 Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model:
 
@@ -324,7 +309,7 @@ The response contains the inference results provided by the OpenAI model:
 
 ## Step 6: Use the model for search
 
-To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).
+To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
 
 ## Next steps
 

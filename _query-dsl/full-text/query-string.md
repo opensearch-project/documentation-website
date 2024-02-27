@@ -39,16 +39,18 @@ You can use query string syntax in the following cases:
     ```
     {% include copy-curl.html %}
 
-1. In the Discover app of OpenSearch Dashboards, if you turn off DQL, as shown in the following image.
+1. In the OpenSearch Dashboards Discover or Dashboard apps, if you turn off DQL, as shown in the following image.
   ![Using query string syntax in OpenSearch Dashboards Discover]({{site.url}}{{site.baseurl}}/images/discover-lucene-syntax.png)
-  For more information, see [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
+  
+  DQL and Query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
+  {: .tip}
 
 1. If you search using the HTTP request query parameters, for example: 
   ```json
     GET _search?q=wind
   ```
 
-A query string consists of _terms_ and _operators_. A term is a single word (for example, in the query `wind rises`, the terms are `wind` and `rises`). If several terms are surrounded by quotation marks, they are treated as one phrase where words are marched in the order they appear (for example, `"wind rises"`). Operators (such as `OR`, `AND`, and `NOT`) specify the Boolean logic used to interpret text in the query string. 
+A query string consists of _terms_ and _operators_. A term is a single word (for example, in the query `wind rises`, the terms are `wind` and `rises`). If several terms are surrounded by quotation marks, they are treated as one phrase where words are matched in the order they appear (for example, `"wind rises"`). Operators (such as `OR`, `AND`, and `NOT`) specify the Boolean logic used to interpret text in the query string. 
 
 The examples in this section use an index containing the following mapping and documents:
 
@@ -356,7 +358,7 @@ The query returns the same results as the query that uses the `+` and `-` operat
 ```
 {% include copy-curl.html %}
 
-## Grouping
+### Grouping
 
 Group multiple clauses or terms into subqueries using parentheses. For example, the following query searches for documents containing the words `gone` or `rises` that must contain the word `wind` in the title:
 

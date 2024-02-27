@@ -5,6 +5,9 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /ml-commons-plugin/
+redirect_from: 
+  - /ml-commons-plugin/index/
 ---
 
 # Machine learning
@@ -13,7 +16,7 @@ The [ML Commons plugin](https://github.com/opensearch-project/ml-commons/) provi
 
 ## Integrating ML models
 
-For ML-model-powered search, you can use a pretrained model provided by OpenSearch, upload your own model to the OpenSearch cluster, or connect to a foundation model hosted on an external platform. 
+For ML-model-powered search, you can use a pretrained model provided by OpenSearch, upload your own model to the OpenSearch cluster, or connect to a foundation model hosted on an external platform. In OpenSearch version 2.9 and later, you can integrate local and external models simultaneously within a single cluster.
 
 For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 

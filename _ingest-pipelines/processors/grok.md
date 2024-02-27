@@ -6,7 +6,7 @@ grand_parent: Ingest pipelines
 nav_order: 140
 ---
 
-# Grok 
+# Grok processor 
 
 The `grok` processor is used to parse and structure unstructured data using pattern matching. You can use the `grok` processor to extract fields from log messages, web server access logs, application logs, and other log data that follows a consistent format.
 
@@ -16,7 +16,7 @@ The `grok` processor uses a set of predefined patterns to match parts of the inp
 
 The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the [Grok Debugger](https://grokdebugger.com/) tool to test and debug your grok expressions.
 
-## Grok processor syntax
+## Syntax
 
 The following is the basic syntax for the `grok` processor: 
 
@@ -34,24 +34,24 @@ The following is the basic syntax for the `grok` processor:
 
 To configure the `grok` processor, you have various options that allow you to define patterns, match specific keys, and control the processor's behavior. The following table lists the required and optional parameters for the `grok` processor.
 
-Parameter | Required | Description |
+Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field containing the text that should be parsed. |
+`field`  | Required  | The name of the field containing the text to be parsed. |
 `patterns`  | Required  | A list of grok expressions used to match and extract named captures. The first matching expression in the list is returned. | 
 `pattern_definitions`  | Optional  | A dictionary of pattern names and pattern tuples used to define custom patterns for the current processor. If a pattern matches an existing name, it overrides the pre-existing definition. |
 `trace_match` | Optional | When the parameter is set to `true`, the processor adds a field named `_grok_match_index` to the processed document. This field contains the index of the pattern within the `patterns` array that successfully matched the document. This information can be useful for debugging and understanding which pattern was applied to the document. Default is `false`. |
 `description` | Optional | A brief description of the processor. |
-`if` | Optional | A condition for running this processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`ignore_missing` | Optional | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
+`if` | Optional | A condition for running the processor. |
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
+`ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 
 ## Creating a pipeline
 
 The following steps guide you through creating an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/index/) with the `grok` processor. 
 
-**Step 1: Create a pipeline.** 
+**Step 1: Create a pipeline** 
 
 The following query creates a pipeline, named `log_line`. It extracts fields from the `message` field of the document using the specified pattern. In this case, it extracts the `clientip`, `timestamp`, and `response_status` fields:
 
@@ -92,7 +92,7 @@ POST _ingest/pipeline/log_line/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
+**Response**
 
 The following response confirms that the pipeline is working as expected:
 
@@ -118,7 +118,7 @@ The following response confirms that the pipeline is working as expected:
 }
 ```
 
-**Step 3: Ingest a document.**
+**Step 3: Ingest a document**
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -130,7 +130,7 @@ PUT testindex1/_doc/1?pipeline=log_line
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document.**
+**Step 4 (Optional): Retrieve the document**
 
 To retrieve the document, run the following query:
 

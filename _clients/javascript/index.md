@@ -17,7 +17,7 @@ You can use helper methods to simplify the use of complicated API tasks. For mor
 
 ## Setup
 
-To add the client to your project, install it from [npm](https://www.npmjs.com):
+To add the client to your project, install it from [`npm`](https://www.npmjs.com):
 
 ```bash
 npm install @opensearch-project/opensearch
@@ -31,7 +31,7 @@ npm install @opensearch-project/opensearch@<version>
 ```
 {% include copy.html %}
 
-If you prefer to add the client manually or just want to examine the source code, see [opensearch-js](https://github.com/opensearch-project/opensearch-js) on GitHub.
+If you prefer to add the client manually or only want to examine the source code, see [`opensearch-js`](https://github.com/opensearch-project/opensearch-js) on GitHub.
 
 Then require the client:
 
@@ -48,7 +48,7 @@ To connect to the default OpenSearch host, create a client object with the addre
 var host = "localhost";
 var protocol = "https";
 var port = 9200;
-var auth = "admin:admin"; // For testing only. Don't store credentials in code.
+var auth = "admin:<custom-admin-password>"; // For testing only. Don't store credentials in code.
 var ca_certs_path = "/full/path/to/root-ca.pem";
 
 // Optional client certificates if you don't want to use HTTP basic authentication.
@@ -71,7 +71,22 @@ var client = new Client({
 ```
 {% include copy.html %}
 
-## Authenticating with Amazon OpenSearch Service – AWS Sigv4
+If you are not using the Security plugin, create a client object with the address `http://localhost:9200`:
+
+```javascript
+var host = "localhost";
+var protocol = "http";
+var port = 9200;
+
+// Create a client
+var { Client } = require("@opensearch-project/opensearch");
+var client = new Client({
+  node: protocol + "://" + host + ":" + port
+});
+```
+{% include copy.html %}
+
+## Authenticating with Amazon OpenSearch Service: AWS Signature Version 4
 
 Use the following code to authenticate with AWS V2 SDK:
 
@@ -108,7 +123,7 @@ const client = new Client({
 ```
 {% include copy.html %}
 
-AWS V2 SDK for Amazon OpenSearch Serverless
+Use the following code to authenticate with the AWS V2 SDK for Amazon OpenSearch Serverless:
 
 ```javascript
 const AWS = require('aws-sdk'); // V2 SDK.
@@ -173,7 +188,7 @@ const client = new Client({
 ```
 {% include copy.html %}
 
-AWS V3 SDK for Amazon OpenSearch Serverless
+Use the following code to authenticate with the AWS V3 SDK for Amazon OpenSearch Serverless:
 
 ```javascript
 const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
@@ -201,6 +216,63 @@ const client = new Client({
 });
 ```
 {% include copy.html %}
+
+### Authenticating from within an AWS Lambda function
+
+Within an AWS Lambda function, objects declared outside the handler function retain their initialization. For more information, see [Lambda Execution Environment](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html). Thus, you must initialize the OpenSearch client outside of the handler function to ensure the reuse of the original connection in subsequent invocations. This promotes efficiency and eliminates the need to create a new connection each time. 
+
+Initializing the client within the handler function poses a potential risk of encountering a `ConnectionError: getaddrinfo EMFILE error`. This error occurs when multiple connections are created in subsequent invocations, exceeding the system's file descriptor limit.
+
+The following example AWS Lambda function code demonstrates the correct initialization of the OpenSearch client:
+
+```javascript
+const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
+const { Client } = require('@opensearch-project/opensearch');
+const { AwsSigv4Signer } = require('@opensearch-project/opensearch/aws');
+
+const client = new Client({
+  ...AwsSigv4Signer({
+    region: 'us-east-1',
+    service: 'es',  // 'aoss' for OpenSearch Serverless
+    // Must return a Promise that resolve to an AWS.Credentials object.
+    // This function is used to acquire the credentials when the client start and
+    // when the credentials are expired.
+    // The Client will refresh the Credentials only when they are expired.
+    // With AWS SDK V2, Credentials.refreshPromise is used when available to refresh the credentials.
+
+    // Example with AWS SDK V3:
+    getCredentials: () => {
+      // Any other method to acquire a new Credentials object can be used.
+      const credentialsProvider = defaultProvider();
+      return credentialsProvider();
+    },
+  }),
+  node: 'https://search-xxx.region.es.amazonaws.com', // OpenSearch domain URL
+  // node: "https://xxx.region.aoss.amazonaws.com" for OpenSearch Serverless
+});
+
+export const handler = async (event, context) => {
+  const indexName = "books";
+
+  const settings = {
+    settings: {
+      index: {
+        number_of_shards: 4,
+        number_of_replicas: 3,
+      },
+    },
+  };
+
+  // Use the already initialized client
+  const response = await client.indices.create({
+    index: indexName,
+    body: settings,
+  });
+
+};
+```
+{% include copy.html %}
+
 
 ## Creating an index
 
@@ -270,6 +342,43 @@ var response = await client.search({
 ```
 {% include copy.html %}
 
+## Updating a document
+
+You can update a document using the client's `update` method:
+
+```javascript
+var response = await client.update({
+  index: index_name,
+  id: id,
+  body: {
+    doc: {
+      // Specify the fields and their updated values here
+      field1: "new_value1",
+      field2: "new_value2",
+      // Add more fields as needed
+    }
+  }
+});
+```
+{% include copy.html %}
+
+For example, the following code updates the `genre` field and adds a `tv_adapted` field to the document specified by `id`:
+
+```javascript
+var response = await client.update({
+    index: index_name,
+    id: id,
+    body: {
+      doc: {
+        genre: "Detective fiction",
+        tv_adapted: true
+      }
+    },
+    refresh: true
+  });
+```
+{% include copy.html %}
+
 ## Deleting a document
 
 You can delete a document using the client's `delete` method:
@@ -303,14 +412,14 @@ The following sample program creates a client, adds an index with non-default se
 var host = "localhost";
 var protocol = "https";
 var port = 9200;
-var auth = "admin:admin"; // For testing only. Don't store credentials in code.
+var auth = "admin:<custom-admin-password>"; // For testing only. Don't store credentials in code.
 var ca_certs_path = "/full/path/to/root-ca.pem";
 
-// Optional client certificates if you don't want to use HTTP basic authentication.
+// Optional client certificates if you don't want to use HTTP basic authentication
 // var client_cert_path = '/full/path/to/client.pem'
 // var client_key_path = '/full/path/to/client-key.pem'
 
-// Create a client with SSL/TLS enabled.
+// Create a client with SSL/TLS enabled
 var { Client } = require("@opensearch-project/opensearch");
 var fs = require("fs");
 var client = new Client({
@@ -325,7 +434,7 @@ var client = new Client({
 });
 
 async function search() {
-  // Create an index with non-default settings.
+  // Create an index with non-default settings
   var index_name = "books";
   
   var settings = {
@@ -345,7 +454,7 @@ async function search() {
   console.log("Creating index:");
   console.log(response.body);
 
-  // Add a document to the index.
+  // Add a document to the index
   var document = {
     title: "The Outsider",
     author: "Stephen King",
@@ -365,7 +474,7 @@ async function search() {
   console.log("Adding document:");
   console.log(response.body);
 
-  // Search for the document.
+  // Search for the document
   var query = {
     query: {
       match: {
@@ -382,9 +491,41 @@ async function search() {
   });
 
   console.log("Search results:");
-  console.log(response.body.hits);
+  console.log(JSON.stringify(response.body.hits, null, "  "));
 
-  // Delete the document.
+  // Update a document
+  var response = await client.update({
+    index: index_name,
+    id: id,
+    body: {
+      doc: {
+        genre: "Detective fiction",
+        tv_adapted: true
+      }
+    },
+    refresh: true
+  });
+
+  // Search for the updated document
+  var query = {
+    query: {
+      match: {
+        title: {
+          query: "The Outsider",
+        },
+      },
+    },
+  };
+
+  var response = await client.search({
+    index: index_name,
+    body: query,
+  });
+
+  console.log("Search results:");
+  console.log(JSON.stringify(response.body.hits, null, "  "));
+
+  // Delete the document
   var response = await client.delete({
     index: index_name,
     id: id,
@@ -393,7 +534,7 @@ async function search() {
   console.log("Deleting document:");
   console.log(response.body);
 
-  // Delete the index.
+  // Delete the index
   var response = await client.indices.delete({
     index: index_name,
   });
@@ -405,6 +546,7 @@ async function search() {
 search().catch(console.log);
 ```
 {% include copy.html %}
+
 ## Circuit breaker
 
 The `memoryCircuitBreaker` option can be used to prevent errors caused by a response payload being too large to fit into the heap memory available to the client.

@@ -1,26 +1,33 @@
 items:
   -
     label: OpenSearchCon
-    fragment: opensearchcon
+    fragments: 
+      - opensearchcon
+      - sessions
+      - speakers
+      - exhibitors
+      - workshops
+      - unconference
+      - opensearchcon2023-cfp
     children:
       -
-        label: Register for OpenSearchCon!
-        url: https://opensearchcon2023.splashthat.com
+        label: 2024 - Stay Informed
+        url: /events/opensearchcon/
       -
         label: Sessions
-        url: /events/opensearchcon/sessions/index.html
+        url: /events/opensearchcon/sessions/
       -
         label: Speakers
-        url: /events/opensearchcon/speakers/index.html
+        url: /events/opensearchcon/speakers/
       -
         label: Exhibitors
-        url: /events/opensearchcon/exhibitors/index.html
+        url: /events/opensearchcon/exhibitors/
       -
         label: Workshops
-        url: /events/opensearchcon/workshops/index.html
+        url: /events/opensearchcon/workshops/
       -
         label: Unconference
-        url: /events/opensearchcon/unconference/index.html
+        url: /events/opensearchcon/unconference/
       -
         label: CFP is closed
         url: /opensearchcon2023-cfp.html
@@ -32,17 +39,19 @@ items:
     url: /downloads.html
   -
     label: About
+    url: /about.html
     fragments:
       - about
       - releases
+      - roadmap
       - faq
     children:
       -
-       label: OpenSearch
-       url: /about.html
-      -
        label: Releases
        url: /releases.html
+      -
+       label: Roadmap
+       url: https://github.com/orgs/opensearch-project/projects/1
       -
        label: FAQ
        url: /faq
@@ -75,19 +84,50 @@ items:
         url: /community_projects
   -
     label: Documentation
-    fragment: docs
-    url: /docs/
+    fragments: 
+    - docs
+    - opensearch
+    - data-prepper
+    - clients
+    - benchmark
+    url: /docs/latest/
+    children:
+      -
+        label: OpenSearch and Dashboards
+        url: /docs/latest/about/
+      -
+        label: Data Prepper
+        url: /docs/latest/data-prepper/
+      -
+        label: Clients
+        url: /docs/latest/clients/
+      -
+        label: Benchmark
+        url: /docs/latest/benchmark/
   -
     label: Platform
-    fragment: platform
+    url: /platform/index.html
+    fragments: 
+      - platform
+      - search
+      - observability
+      - security-analytics
+      - vector-database
+      - benchmarks
     children:
+      - label: Search
+        url: /platform/search/index.html
+      - label: Observability
+        url: /platform/observability/index.html
+      -
+        label: Security Analytics
+        url: /platform/security-analytics/index.html
       -
         label: Vector Database
         url: /platform/search/vector-database.html
       -
-        label: Live Demo
+        label: Playground Demo
         url: https://playground.opensearch.org/
       -
         label: Performance Benchmarks
         url: /benchmarks
-  

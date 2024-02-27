@@ -148,9 +148,9 @@ See [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
 - cluster:admin/ingest/pipeline/simulate
 - cluster:admin/ingest/processor/grok/get
 
-### Anomaly Detection permissions
+### Anomaly detection permissions
 
-See [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
+See [Anomaly Detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
 
 - cluster:admin/opendistro/ad/detector/delete
 - cluster:admin/opendistro/ad/detector/info
@@ -296,7 +296,7 @@ See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 
 ### Update settings permission
 
-See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) on the Index APIs page.
+See [Update settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) on the Index APIs page.
 
 - cluster:admin/settings/update
 
@@ -361,7 +361,7 @@ See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 - cluster:monitor/stats
 - cluster:monitor/task
 - cluster:monitor/task/get
-- cluster:monitor/tasks/list
+- cluster:monitor/tasks/lists
 
 ### Index templates
 
@@ -381,7 +381,6 @@ See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 These permissions apply to an index or index pattern. You might want a user to have read access to all indexes (that is, `*`), but write access to only a few (for example, `web-logs` and `product-catalog`).
 
 - indices:admin/aliases
-- indices:admin/aliases/exists
 - indices:admin/aliases/get
 - indices:admin/analyze
 - indices:admin/cache/clear
@@ -416,12 +415,9 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:admin/seq_no/global_checkpoint_sync
 - indices:admin/settings/update
 - indices:admin/shards/search_shards
-- indices:admin/shrink
-- indices:admin/synced_flush
 - indices:admin/template/delete
 - indices:admin/template/get
 - indices:admin/template/put
-- indices:admin/types/exists
 - indices:admin/upgrade
 - indices:admin/validate/query
 - indices:data/read/explain
