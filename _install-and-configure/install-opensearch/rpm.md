@@ -38,11 +38,14 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be downloaded for both **x64** and **arm64** architectures.
 1. Import the public GNU Privacy Guard (GPG) key. This key verifies that your OpenSearch instance is signed.
+   
     ```bash
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
     {% include copy.html %}
+   
 1. For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration. To set a custom admin password, use one the following commands:
+
    ```bash
    # Install the x64 package using yum.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
@@ -56,7 +59,9 @@ This guide assumes that you are comfortable working from the Linux command line 
    # Install the arm64 package using rpm.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
+   
 1. From the CLI, you can install the package with `rpm` or `yum`.
+
    ```bash
    # Install the x64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
@@ -70,13 +75,16 @@ This guide assumes that you are comfortable working from the Linux command line 
    # Install the arm64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
+
 1. After the installation succeeds, enable OpenSearch as a service.
+
    ```bash
    sudo systemctl enable opensearch
    ```
    {% include copy.html %}
 
 1. Start OpenSearch.
+
    ```bash
    sudo systemctl start opensearch
    ```
