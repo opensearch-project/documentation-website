@@ -26,7 +26,7 @@ To dock or undock the navigation pane, select the menu icon {::nomarkdown}<img s
 
 ## Adding sample data
 
-The [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) is used in the tutorials throughout this quickstart.
+The following tutorials use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset.
 {: .note}
 
 To add sample data, follow these steps:
