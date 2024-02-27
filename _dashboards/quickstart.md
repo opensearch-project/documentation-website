@@ -100,7 +100,7 @@ The resulting view is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
 
-## Turning on and off dark mode
+## Turning dark mode on or off
 
 Turning on and off dark mode in OpenSearch Dashboards requires administrative access. If you are an administrator, follow these steps:
 
