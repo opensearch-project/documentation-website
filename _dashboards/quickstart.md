@@ -40,7 +40,7 @@ To add sample data, follow these steps:
 
 With [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
-- Choose data to analyze, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
+- Choose data for analysis, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
 - Analyze your data by querying and filtering, viewing results in a table, and examining documents.
 - Display the distribution of your data in histograms.
 
