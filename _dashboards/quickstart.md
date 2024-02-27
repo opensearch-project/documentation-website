@@ -42,7 +42,7 @@ With [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-disco
 
 - Choose data for analysis, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
 - Analyze your data by querying and filtering, viewing results in a table, and examining documents.
-- Display the distribution of your data in histograms.
+- Create histograms to display the distribution of your data.
 
 The following steps give you a basic overview about using the Discover tool:
 
