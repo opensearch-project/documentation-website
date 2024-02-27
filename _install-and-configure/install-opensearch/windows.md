@@ -59,8 +59,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          {% include copy.html %}
 
       1. Run the batch script.
-         {% include copy.html %}
-         For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
+         For OpenSearch 2.12 or later, set a new custom admin password before installation using the following command:
          ```bat
          > set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
          ```
