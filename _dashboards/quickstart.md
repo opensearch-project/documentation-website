@@ -114,6 +114,6 @@ Changing the Dashboards theme requires admin access. If you are an admin, follow
 ## Next steps
 
 - **Visualize data.** To learn more about data visualizations in OpenSearch Dashboards, go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
-- **Create dashboards.** To learn more about creating dashboards in OpenSearch Dashboards, go to [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
+- Go to [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/) to learn more about creating dashboards.
 - **Gain data insights.** To learn more about your data in OpenSearch Dashboards, go to [Exploring data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
 - **Ingest data.** To learn more about ingesting data in OpenSearch, go to [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) and [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/).
