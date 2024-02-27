@@ -327,7 +327,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Values from objects in `mylist` are extracted and put into fields with the source keys `name` and `value`, as shown in the following response:
+Object values from `mylist` are extracted and added to fields with the source keys `name` and `value`, as shown in the following response:
 
 ```json
 {
