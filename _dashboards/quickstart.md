@@ -7,7 +7,7 @@ redirect_from:
    - /dashboards/quickstart-dashboards/
 ---
 
-# OpenSearch Dashboards quickstart
+# OpenSearch Dashboards quickstart guide
 
 This quickstart covers the following basics to help you get started with OpenSearch Dashboards:
 
