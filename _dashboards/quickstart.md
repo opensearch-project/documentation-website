@@ -12,7 +12,7 @@ redirect_from:
 This quickstart guide provides tutorials on using OpenSearch Dashboards applications and tools. You can use these tutorials, either in your own environment or on [OpenSearch Playground](https://playground.opensearch.org/app/home#/), to learn the following fundamental concepts:
 
 - **Adding sample data:** Use preloaded visualizations, dashboards, and other tools to explore OpenSearch Dashboards before adding your own data.
-- **Exploring your data:** Dig into your data and see what is there.
+- **Using the Discover application:** Analyze your data to gain insights.
 - **Creating visualizations:** Make your data more accessible by creating visualizations.
 
 Your OpenSearch Dashboards view can be in either [light or dark mode](#turning-on-and-off-dark-mode), depending on your admin settings. To dock or undock the navigation pane, select the menu icon {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} and then **Dock navigation** or **Undock navigation**. A view of the OpenSearch Dashboards homepage is shown in the following image.  
