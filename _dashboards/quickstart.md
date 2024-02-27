@@ -83,7 +83,7 @@ For information about using a specific data visualization type, such as VisBuild
 
 ### Interacting with data using dashboards
 
-Interactive dashboards allow you to analyze data in more depth and filter it in several ways. With **Dashboards**, you can interact directly with data through the use of dashboard-level filters.
+Interactive dashboards allow you to analyze data in more depth and filter it in several ways. With **Dashboards**, you can use dashboard-level filters to directly interact with data.
 
 Use the **[Flights] Global Flight Dashboard** dashboard and follow these steps to further analyze and filter the sample flight data:
 
