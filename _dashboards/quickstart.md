@@ -11,7 +11,7 @@ redirect_from:
 
 This quickstart guide provides tutorials on using OpenSearch Dashboards applications and tools. You can use these tutorials, either in your own environment or on [OpenSearch Playground](https://playground.opensearch.org/app/home#/), to learn the following fundamental concepts:
 
-- **Adding sample data:** Use pre-loaded visualizations, dashboards, and other tools to help you explore OpenSearch Dashboards before you add your own data.
+- **Adding sample data:** Use preloaded visualizations, dashboards, and other tools to explore OpenSearch Dashboards before adding your own data.
 - **Exploring your data:** Dig into your data and see what is there.
 - **Creating visualizations:** Make your data more accessible by creating visualizations.
 
