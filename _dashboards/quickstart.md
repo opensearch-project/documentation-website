@@ -74,7 +74,7 @@ The **Dashboards** application creates and stores visualizations generated from 
 5. Select close `x` to exit the **Add panels** window.
 6. The newly added panel is now displayed on the dashboard.
 
-The following image shows a view you see once you have completed the preceding steps.
+The resulting view is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel2.png" alt="Add panel tutorial screen view" width="700">
 
