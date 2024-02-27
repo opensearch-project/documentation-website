@@ -107,7 +107,7 @@ Changing the Dashboards theme requires admin access. If you are an admin, follow
 1. Navigate to **Management** > **Dashboards Management** > **Advanced Settings**.
 2. Scroll down to the **Appearance** section and locate the **Dark mode** option.
 3. Use the toggle switch to turn dark mode on or off for all users of your Dashboards instance, as shown in the image following these steps.
-4. Select the **Save changes** button and then the **Reload** button. Changes take effect immediately, so you will see the updated theme right away, similar to the view shown in the following image.
+4. Select the **Save changes** button and then the **Reload** button. The updated theme is applied immediately.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dark-mode.png" alt="Dark mode view" width="700">
 
