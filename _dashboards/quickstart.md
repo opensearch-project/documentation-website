@@ -44,7 +44,7 @@ With [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-disco
 - Analyze your data by querying and filtering, viewing results in a table, and examining documents.
 - Create histograms to display the distribution of your data.
 
-The following steps give you a basic overview about using the Discover tool:
+Follow these steps to use the Discover tool:
 
 1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
 2. On the **Discover** page, choose the index pattern `opensearch_dashboards_sample_data_flights` from the dropdown menu on the upper-left side of the page. 
