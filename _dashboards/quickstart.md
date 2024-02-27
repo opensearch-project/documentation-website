@@ -88,7 +88,7 @@ Interactive dashboards allow you to analyze data in more depth and filter it in 
 Using the **[Flights] Global Flight Dashboard** dashboard, follow these steps to further analyze and filter the sample flight data:
 
 1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
-2. Choose **Save** to save the customized dashboard.
+2. Choose **Save** to save the dashboard.
 
 Another option is to use the dashboard toolbar to apply filters. Follow these steps to learn about this feature:
 
