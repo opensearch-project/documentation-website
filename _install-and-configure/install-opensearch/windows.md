@@ -47,9 +47,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
 ### Option 1: Test your OpenSearch settings with security enabled
 
-1. Run the demo batch script.
-
-   1. Run the batch script from Command prompt or Powershell:
+1. Run the demo batch script from Command prompt or Powershell.
 
       1. Open Command Prompt by entering `cmd` or Powershell by entering `powershell` in the search box next to **Start** on the taskbar. 
       1. Change to the top directory of your OpenSearch installation.
