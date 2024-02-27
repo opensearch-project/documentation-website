@@ -404,7 +404,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 ### Configure a user
 
-Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to add a new internal user and how to replace the `admin` default password using a script.
 
 1. Navigate to the Security plugins tools directory.
    ```bash
@@ -440,7 +440,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
    ```
    {% include copy.html %}
 
-1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example:
+1. Add a new internal user and replace the hash inside `internal_users.yml` with the output provided by `hash.sh` in step 2. The file should look similar to the following example:
    ```bash
    ---
    # This is the internal user database
@@ -458,6 +458,15 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       backend_roles:
       - "admin"
       description: "Admin user"
+
+   user1:
+      hash: "$2y$12$zoHpvTCRjjQr6h0PEaabueCaGam3/LDvT6rZZGDGMusD7oehQjw/O"
+      reserved: false
+      backend_roles: []
+      description: "New internal user"
+
+   # Other users 
+   ...
    ```
    {% include copy.html %}
 
