@@ -386,23 +386,23 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/aliases/get` |  Permission to get [index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/). |
 | `indices:admin/analyze` |  Permission to use the [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/). |
 | `indices:admin/cache/clear` |  Permission to [clear cache]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/). |
-| `indices:admin/close` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) |
-| `indices:admin/close*` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) |
-| `indices:admin/create` |  Permission to create indexes. See also [Create index]( https://opensearch.org/docs/2.11/api-reference/index-apis/create-index/ ) |
-| `indices:admin/data_stream/create` |  Permission to create data streams. See also [Data streams]( https://opensearch.org/docs/latest/dashboards/im-dashboards/datastream/#creating-a-data-stream ) |
-| `indices:admin/data_stream/delete` |  Permission to delete data streams. See also [Deleting a data stream]( https://opensearch.org/docs/latest/dashboards/im-dashboards/datastream/#deleting-a-data-stream ) |
-| `indices:admin/data_stream/get` |  Permission to get data streams. See also [Viewing a data stream]( https://opensearch.org/docs/latest/dashboards/im-dashboards/datastream/#viewing-a-data-stream ) |
-| `indices:admin/delete` |  Permission to delete indexes. See also [Delete index]( https://opensearch.org/docs/latest/api-reference/index-apis/delete-index/ ) |
-| `indices:admin/exists` |  Permission to use exists query. See also [Exists query]( https://opensearch.org/docs/latest/query-dsl/term/exists/ ) |
-| `indices:admin/flush` |  Permission to flush an index. See also [Flushing an index]( https://opensearch.org/docs/latest/dashboards/im-dashboards/index-management/#flushing-an-index ) |
-| `indices:admin/flush*` |  Permission to flush an index. See also [Flushing an index]( https://opensearch.org/docs/latest/dashboards/im-dashboards/index-management/#flushing-an-index ) |
-| `indices:admin/forcemerge` |  Permission to force merge indexes and data streams. See also [Force merge]( https://opensearch.org/docs/latest/dashboards/im-dashboards/forcemerge/ ) |
-| `indices:admin/get` |  Permission to get index and mapping. See also [Get index]( https://opensearch.org/docs/2.11/api-reference/index-apis/get-index/ ) |
-| `indices:admin/mapping/put` |  Permission to add new mappings and fields to an index. See also [Put mapping]( https://opensearch.org/docs/1.2/opensearch/rest-api/index-apis/put-mapping/ ) |
+| `indices:admin/close` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/). |
+| `indices:admin/close*` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/). |
+| `indices:admin/create` |  Permission to [create indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/). |
+| `indices:admin/data_stream/create` |  Permission to create [data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#creating-a-data-stream). |
+| `indices:admin/data_stream/delete` |  Permission to [delete data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#deleting-a-data-stream). |
+| `indices:admin/data_stream/get` |  Permission to [get data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#viewing-a-data-stream). |
+| `indices:admin/delete` |  Permission to [delete indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/). |
+| `indices:admin/exists` |  Permission to use [exists query]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/). |
+| `indices:admin/flush` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#flushing-an-index). |
+| `indices:admin/flush*` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#flushing-an-index). |
+| `indices:admin/forcemerge` |  Permission to force merge indexes and data streams. |
+| `indices:admin/get` |  Permission to get index and mapping. |
+| `indices:admin/mapping/put` |  Permission to add new mappings and fields to an index. |
 | `indices:admin/mappings/fields/get` |  Permission to get mappings fields. |
 | `indices:admin/mappings/fields/get*` |  Permission to get mappings fields. |
-| `indices:admin/mappings/get` |  Permission to get mapping. See also [Get Mappings]( https://opensearch.org/docs/latest/security-analytics/api-tools/mappings-api/#get-mappings ) |
-| `indices:admin/open` |  Permission to open an index. See also [Open index]( https://opensearch.org/docs/latest/api-reference/index-apis/open-index/ ) |
+| `indices:admin/mappings/get` |  Permission to [get mappings]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/#get-mappings).  |
+| `indices:admin/open` |  Permission to [open an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/open-index/). |
 | `indices:admin/plugins/replication/index/setup/validate` |  Permission to validate a connection to a remote cluster. See also [Set up a cross-cluster connection]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#set-up-a-cross-cluster-connection ) |
 | `indices:admin/plugins/replication/index/start` |  Permission to start cross-cluster replication. See also [Start replication]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#start-replication ) |
 | `indices:admin/plugins/replication/index/pause` |  Permission to pause cross-cluster replication. See also [Confirm replication]( https://opensearch.org/docs/2.11/tuning-your-cluster/replication-plugin/getting-started/#confirm-replication ) |
