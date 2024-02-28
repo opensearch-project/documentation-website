@@ -16,7 +16,7 @@ This quickstart guide provides tutorials on using OpenSearch Dashboards applicat
 - **Using the Dashboards application:** Create and store data visualizations.
 - **Turning dark mode on or off:** Change the Dashboards theme.
 
-To dock or undock the navigation pane, select the menu icon {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} and then **Dock navigation** or **Undock navigation**. The OpenSearch Dashboards home page is shown in the following image.  
+To dock or undock the navigation pane, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} icon and then **Dock navigation** or **Undock navigation**. The OpenSearch Dashboards home page is shown in the following image.  
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-home.png" alt="OpenSearch Dashboards home page" width="700">
 
@@ -47,7 +47,7 @@ Follow these steps to use the Discover tool:
 
 1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
 2. On the **Discover** page, choose the index pattern `opensearch_dashboards_sample_data_flights` from the dropdown menu on the upper left. 
-3. Select the calendar icon {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/} to change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from the default of **Last 15 minutes** to **Last 7 days**.
+3. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/} icon to change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from the default of **Last 15 minutes** to **Last 7 days**.
 4. In the DQL search bar, enter `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and select **Update**. Results are shown for US-bound flights delayed by 60 minutes or more.
 5. Filter data by selecting **Add filter** from the DQL search bar and then selecting a **Field**, **Operator**, and **Value** from the dropdown lists in the **Edit Filter** pop-up window. For example, select `FlightDelayType`, **is**, and **Weather Delay**.
 
@@ -101,7 +101,7 @@ The resulting view is shown in the following image.
 
 ## Turning dark mode on or off
 
-Changing the Dashboards theme requires admin access. If you are an admin, follow these steps:
+Changing the Dashboards theme requires admin permissions. If you are an admin, follow these steps:
 
 1. Navigate to **Management** > **Dashboards Management** > **Advanced Settings**.
 2. Scroll down to the **Appearance** section and locate the **Dark mode** option.

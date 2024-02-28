@@ -32,7 +32,7 @@ To define a search, follow these steps:
 
 1. On the OpenSearch Dashboards navigation menu, select **Discover**.
 2. Choose the data you want to work with. In this case, choose `opensearch_dashboards_sample_data_flights` from the upper-left dropdown menu. 
-3. Select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/}) to change the time range of your search and then select **Refresh**.
+3. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/} icon to change the time range of your search and then select **Refresh**.
 
 The resulting view is shown in the following image.
 
@@ -44,7 +44,7 @@ In OpenSearch, a document table stores unstructured data. In a document table, e
 
 To examine document attributes, follow these steps: 
 
-1. From the data table's left-side column, choose the inspect icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/}) to open the **Document Details** window. Select the minimize icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/}) to close the **Document Details** window.
+1. From the data table's left-side column, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} icon to open the **Document Details** window. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} icon to close the **Document Details** window.
 2. Examine the metadata. You can switch between the **Table** and **JSON** tabs to view the data in your preferred format. 
 3. Select **View surrounding documents** to view data for other log entries either preceding or following your current document or select **View single document** to view a particular log entry.
 
@@ -54,7 +54,7 @@ The resulting view is shown in the following image.
 
 To add or delete fields in a document table, follow these steps:
 
-1. View the data fields listed under **Available fields** and select the plus icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/}) to add the desired fields to the document table. The field will be automatically added to both **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
+1. View the data fields listed under **Available fields** and select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} icon to add the desired fields to the document table. The field will be automatically added to both **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
 2. Select **Sort fields** > **Pick fields to sort by**. Drag and drop the chosen fields in the desired sort order. 
 
 The resulting view is shown in the following image.
@@ -76,22 +76,25 @@ To filter your data, follow these steps:
 1. Under the DQL search bar, choose **Add filter**.
 2. Select the desired options from the **Field**, **Operator**, and **Value** dropdown lists. For example, select `Cancelled`, `is`, and `true`.
 3. Choose **Save**.
-4. To remove the filter, choose the cross icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/}) next to the filter name.
-5. Add more filters to further explore the data.  
+4. To remove a filter, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} icon to the right of the filter name.
+
+The resulting view is shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-filter.png" alt="Visualize data findings interface" width="700"/>
 
 ## Saving a search
 
 To save your search, including the query text, filters, and current data view, follow these steps:  
 
-1. Select **Save** in the upper-right corner. 
-2. Give the search a title, and then choose **Save**. 
-3. Select **Open** to access the saved search. 
+1. Select **Save** on the upper-right toolbar. 
+2. Add a title, and then choose **Save**. 
+3. Select **Open** on the upper-right toolbar to access your saved searches. 
 
-## Visualizing your findings
+## Visualizing data findings
 
 To visualize your data findings, follow these steps:
 
-1. Select the inspect icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/}) next to the field you want to visualize. 
+1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} icon to the right of the field you want to visualize. 
 
    The resulting view is shown in the following image.
    
