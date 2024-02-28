@@ -9,7 +9,7 @@ redirect_from:
 
 # Analyzing data
 
-To analyze your data in OpenSearch and visualize key metrics, you can use the **Discover** application in OpenSearch Dashboards. An example of data in **Discover** is shown in the following image. 
+To analyze your data in OpenSearch and visualize key metrics, you can use the **Discover** application in OpenSearch Dashboards. An example of data analysis in **Discover** is shown in the following image. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover.png" alt="A Discover default page" width="700">
 
