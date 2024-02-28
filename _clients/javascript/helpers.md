@@ -11,7 +11,7 @@ Helper methods simplify the use of complicated API tasks. For the client's compl
 
 ## Bulk helper
 
-The bulk helper simplifies making complex bulk API requests.
+The bulk helper simplifies making complex bulk API requests. (Alternatively, you can use `client.bulk` which allows multiple types of operations (for example, you can mix `delete` with `index`). For more information, see https://github.com/opensearch-project/opensearch-js/blob/main/guides/bulk.md.)
 
 ### Usage
 
@@ -200,3 +200,6 @@ client.helpers.bulk({
 })
 ```
 {% include copy.html %}
+
+## Related articles
+https://github.com/opensearch-project/opensearch-js/tree/main/guides
