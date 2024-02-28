@@ -85,7 +85,7 @@ Field | Data type | Required/Optional | Description
 `name`| String | Required | The model name. |
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
-`function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
+`function_name` | String | Required | For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`.
 `model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
