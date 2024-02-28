@@ -157,7 +157,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy.html %}
 
-For a description of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
+For a description of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/). The `model_task_type` corresponds to the model type. For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`.
 
 OpenSearch returns the task ID of the register operation:
 
