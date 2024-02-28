@@ -31,7 +31,7 @@ Note: These steps require basic knowledge about interacting with GitHub. If you 
 1. Review these files as needed:
 
    * `.env`: 
-     * Defines the opensearch and opensearch dashboards version to be used. It defaults to the latest version (i.e {{site.opensearch_major_minor_version}}).
+     * Defines the OpenSearch and OpenSearch Dashboards version to be used. It defaults to the latest version (i.e {{site.opensearch_major_minor_version}}).
      * Defines `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
    * `./custom-config/opensearch_dashboards.yml`: Includes SAML settings for the default `opensearch_dashboards.yml` file.
    * `./custom-config/config.yml`: Configures SAML for authentication.
