@@ -222,9 +222,9 @@ Enabling `plugins.security.dfm_empty_overrides_all` ensures that administrators 
 This setting is beneficial in scenarios where you need specific users to have unrestricted access to documents, despite being part of a broader group with restricted access.
 
 #### Example 2
-In following examples two roles are defined, one with DLS, and another granting access to search templates without DLS:
+Two roles are defined, one with DLS, and another without DLS granting access to search templates:
 
-**Role A with DLS specified:**
+**Role A with DLS:**
 
 ```
 {
@@ -242,7 +242,7 @@ In following examples two roles are defined, one with DLS, and another granting 
 }
 ```
 
-**Role B, without DLS specified that grants only access to search templates:**
+**Role B, without DLS** that grants only access to search templates:
 
 ```
 {
@@ -262,11 +262,3 @@ To ensure access is not restricted, you can set  you can set the following confi
 `plugins.security.dfm_empty_overrides_all: true`
 
 With this setting enabled, if a user has both Role A and Role B, Role B's permissions will override Role A's restrictions, allowing access to all documents. This ensures that the role without DLS takes precedence in the query response.
-
-
-
-
-
-
-
-
