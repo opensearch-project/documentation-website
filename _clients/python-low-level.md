@@ -45,7 +45,7 @@ client = OpenSearch(
     http_auth = auth,
     use_ssl = True,
     verify_certs = True,
-    ssl_assert_hostname = False,
+    ssl_assert_hostname = False, # specify a different hostname, or None to use server_hostname
     ssl_show_warn = False,
     ca_certs = ca_certs_path
 )
@@ -73,7 +73,7 @@ client = OpenSearch(
     client_key = client_key_path,
     use_ssl = True,
     verify_certs = True,
-    ssl_assert_hostname = False,
+    ssl_assert_hostname = False, # specify a different hostname, or None to use server_hostname
     ssl_show_warn = False,
     ca_certs = ca_certs_path
 )
