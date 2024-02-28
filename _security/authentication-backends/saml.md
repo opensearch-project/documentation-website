@@ -19,21 +19,19 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-Note: These steps require basic knowledge about interacting with GitHub. If you are new to GitHub then check-out this [guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md) to get started.
+1. Check-out the [saml-demo](https://github.com/opensearch-project/demos/tree/saml-demo) branch on the demos repository to a preferred location in your directory. If you are new to GitHub, see [guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md).
 
-1. Check-out the [saml-demo](https://github.com/opensearch-project/demos/tree/saml-demo) branch on the [demos](https://github.com/opensearch-project/demos) repository to a preferred location in your directory.
-
-1. Navigate to the `demo` folder
+1. Navigate to the `demo` folder:
    ```zsh
    $ cd <path-to-demos-folder>/demo
    ```
 
-1. Review these files as needed:
+1. Review the following files, as needed:
 
    * `.env`: 
-     * Defines the OpenSearch and OpenSearch Dashboards version to be used. It defaults to the latest version (i.e {{site.opensearch_major_minor_version}}).
-     * Defines `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
-   * `./custom-config/opensearch_dashboards.yml`: Includes SAML settings for the default `opensearch_dashboards.yml` file.
+     * Defines the OpenSearch and OpenSearch Dashboards version to use. The default is the latest version ({{site.opensearch_major_minor_version}}).
+     * Defines the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
+   * `./custom-config/opensearch_dashboards.yml`: Includes the SAML settings for the default `opensearch_dashboards.yml` file.
    * `./custom-config/config.yml`: Configures SAML for authentication.
    * `docker-compose.yml`: Defines an OpenSearch server node, an OpenSearch Dashboards server node, and a SAML server node.
    * `./saml/config/authsources.php`: Contains the list of users that can be authenticated by this SAML domain.
@@ -45,11 +43,11 @@ Note: These steps require basic knowledge about interacting with GitHub. If you 
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}.
 
-1. Click on `Log in with single sign-on`. This will redirect you to the SAML login page.
+1. Select `Log in with single sign-on`. This redirects you to the SAML login page.
 
-1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php`. (i.e. `user1` and `user1pass`)
+1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php`. (such as, `user1` and `user1pass`)
 
-1. After logging in, note that your user in the upper-right is same as `NameID` attribute for the user defined in `./saml/config/authsources.php` of the SAML server. (i.e. `saml-test` for `user1`)
+1. After logging in, note that the user ID shown in the upper-right corner of the screen is the same as the `NameID` attribute for the user defined in `./saml/config/authsources.php` of the SAML server (that is, `saml-test` for `user1`).
 
 1. If you want to examine the SAML server, run `docker ps` to find its container ID and then `docker exec -it <container-id> /bin/bash`.
 
