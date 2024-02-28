@@ -42,7 +42,7 @@ Both `default.json` file names can be customized to have a descriptive name. The
 
 All workloads contributed to OpenSearch Benchmark must fulfill the following testing requirements: 
 
-- All tests run to explore the workload and produce example from the work must target an OpenSearch cluster.
+- All tests run to explore and produce an example from the workload must target an OpenSearch cluster.
 - The workload must pass all integration tests. Follow these steps to ensure that the workload passes the integration tests:
    1. Add the workload to your forked copy of the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/).
    2. In the forked repository, update the `benchmark-os-it.ini` and `benchmark-in-memory.ini` files in the `/osbenchmark/it/resources` directory to point to the forked workloads repository containing your workload.
