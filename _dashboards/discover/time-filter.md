@@ -1,10 +1,11 @@
 ---
 layout: default
 title: Time filter
-parent: Discover
+parent: Analyzing data
 nav_order: 20
 redirect_from:
   - /dashboards/get-started/time-filter/
+  -/dashboards/discover/time-filter/
 ---
 
 # Time filter
