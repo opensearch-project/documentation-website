@@ -190,9 +190,41 @@ Adaptive | `adaptive-level` | The default setting that allows OpenSearch to auto
 
 OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role with DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles which do not grant read documents.
 
+### When to Enable `plugins.security.dfm_empty_overrides_all`
+
+#### Example 1
+**Role A with DLS**: This role is granted to a broad group of users and includes Document-Level Security (DLS) to restrict access to specific documents.
+```
+{
+  "index_permissions": [
+    {
+      "index_patterns": ["example-index"],
+      "dls": "[.. some DLS here ..]",
+      "allowed_actions": ["indices:data/read/search"]
+    }
+  ]
+}
+```
+**Role B without DLS:** This role is specifically granted to certain users, such as administrators, and does not include DLS.
+```
+{
+  "index_permissions" : [
+    {
+      "index_patterns" : ["*"],
+      "allowed_actions" : ["indices:data/read/search"]
+    }
+  ]
+}
+```
+
+Enabling `plugins.security.dfm_empty_overrides_all` ensures that administrators assigned Role B can override any document-level security restrictions imposed by Role A. This allows specific users designated in Role B to access all documents, regardless of the restrictions applied by Role A's DLS.
+
+This setting is beneficial in scenarios where you need specific users to have unrestricted access to documents, despite being part of a broader group with restricted access.
+
+#### Example 2
 In following examples two roles are defined, one with DLS, and another granting access to search templates without DLS:
 
-**Role with DLS specified**
+**Role A with DLS specified:**
 
 ```
 {
@@ -210,7 +242,7 @@ In following examples two roles are defined, one with DLS, and another granting 
 }
 ```
 
-**Role that grants only access to search templates:**
+**Role B, without DLS specified that grants only access to search templates:**
 
 ```
 {
@@ -223,8 +255,18 @@ In following examples two roles are defined, one with DLS, and another granting 
 }
 ```
 
-To ensure that the role with no DLS takes precedence in the query response, add the following setting to `opensearch.yml`:
+When a user has both Role A and Role B, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are held and the returned access is appropriately restricted. 
 
+To ensure access is not restricted, you can set  you can set the following configuration in  `opensearch.yml`:
 
 `plugins.security.dfm_empty_overrides_all: true`
+
+With this setting enabled, if a user has both Role A and Role B, Role B's permissions will override Role A's restrictions, allowing access to all documents. This ensures that the role without DLS takes precedence in the query response.
+
+
+
+
+
+
+
 
