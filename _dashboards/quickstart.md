@@ -16,13 +16,12 @@ This quickstart guide provides tutorials on using OpenSearch Dashboards applicat
 - **Using the Dashboards application:** Create and store data visualizations.
 - **Turning dark mode on or off:** Change the Dashboards theme.
 
-To dock or undock the navigation pane, select the menu icon {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} and then **Dock navigation** or **Undock navigation**. The OpenSearch Dashboards homepage is shown in the following image.  
+To dock or undock the navigation pane, select the menu icon {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} and then **Dock navigation** or **Undock navigation**. The OpenSearch Dashboards home page is shown in the following image.  
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-home.png" alt="OpenSearch Dashboards homepage" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-home.png" alt="OpenSearch Dashboards home page" width="700">
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
-
 
 ## Adding sample data
 
