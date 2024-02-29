@@ -46,7 +46,7 @@ In OpenSearch, a document table stores unstructured data. In a document table, e
 
 To examine document attributes, follow these steps: 
 
-1. From the data table's left-side column, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} icon to open the **Document Details** window. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} icon to close the **Document Details** window.
+1. From the data table's left column, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} icon to open the **Document Details** window. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/} icon to close the **Document Details** window.
 2. Examine the metadata. You can switch between the **Table** and **JSON** tabs to view the data in your preferred format. 
 3. Select **View surrounding documents** to view data for other log entries either preceding or following your current document or select **View single document** to view a particular log entry.
 
