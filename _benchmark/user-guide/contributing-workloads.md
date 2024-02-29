@@ -47,7 +47,7 @@ All workloads contributed to OpenSearch Benchmark must fulfill the following tes
    1. Add the workload to your forked copy of the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). Make sure that you've forked both the `opensearch-benchmark-workloads` repository and the [OpenSeach Benchmark](https://github.com/opensearch-project/opensearch-benchmark) repository.
    3. In your forked OpenSearch Benchmark repository, update the `benchmark-os-it.ini` and `benchmark-in-memory.ini` files in the `/osbenchmark/it/resources` directory to point to the forked workloads repository containing your workload.
    4. After you've modified the `.ini` files, commit your changes to a branch for testing.
-   6. Run your integration tests by using GitHub Actions and verify that the tests have run as expected.
+   6. Run your integration tests using GitHub actions by selecting the branch for which you committed your changes. Verify that the tests have run as expected.
    7. If your integration tests run as expected, go to your forked workloads repository and merge your workload changes into branches `1` and `2`. This allows for your workload to appear in both major versions of OpenSearch Benchmark.
 
 ## Create a PR
