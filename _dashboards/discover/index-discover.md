@@ -25,7 +25,7 @@ In this tutorial, you'll learn about using **Discover** to:
 Before getting started, make sure you:
 
 - Install [OpenSearch Dashboards](https://opensearch.org/downloads.html).
-- Add sample data or import your own data into OpenSearch. Go to [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) to learn about adding sample datasets. Go to [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/) to learn about importing your own data.
+- Add sample data or import your own data into OpenSearch. Go to the [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) to learn about adding sample datasets. Go to [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/) to learn about importing your own data.
 - Have a foundational understanding of [OpenSearch documents and indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
   
 ## Defining the search
