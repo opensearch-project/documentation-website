@@ -44,10 +44,10 @@ All workloads contributed to OpenSearch Benchmark must fulfill the following tes
 
 - All tests run to explore and produce an example from the workload must target an OpenSearch cluster.
 - The workload must pass all integration tests. Follow these steps to ensure that the workload passes the integration tests:
-   1. Add the workload to your forked copy of the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/).
-   2. In the forked repository, update the `benchmark-os-it.ini` and `benchmark-in-memory.ini` files in the `/osbenchmark/it/resources` directory to point to the forked workloads repository containing your workload.
-   3. After you've modified the `.ini` files, commit your changes to a branch for testing.
-   4. Run your integration tests by using GitHub Actions and verify that the tests have run as expected.
+   1. Add the workload to your forked copy of the [workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). Make sure that you've forked both the `opensearch-benchmark-workloads` repository and the [OpenSeach Benchmark](https://github.com/opensearch-project/opensearch-benchmark) repository.
+   3. In your forked OpenSearch Benchmark repository, update the `benchmark-os-it.ini` and `benchmark-in-memory.ini` files in the `/osbenchmark/it/resources` directory to point to the forked workloads repository containing your workload.
+   4. After you've modified the `.ini` files, commit your changes to a branch for testing.
+   5. Run your integration tests by using GitHub Actions and verify that the tests have run as expected.
 
 ## Create a PR
 
