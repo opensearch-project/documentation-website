@@ -31,7 +31,7 @@ The following is the syntax for the `kv` processor:
 The following table lists the required and optional parameters for the `kv` processor.
 
 | Parameter  | Required/Optional  | Description  |
-`field`  | Required  | The name of the field containing the data to be parsed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`field`  | Required  | The name of the field containing the data to be parsed. |
 `field_split` | Required | The regex pattern for key-value pair splitting. |
 `value_split` | Required | The regex pattern for splitting the key from the value within a key-value pair, for example, equal sign `=` or colon `:`.
 `exclude_keys` | Optional | The keys to exclude from the document. Default is `null`. |
@@ -46,7 +46,7 @@ The following table lists the required and optional parameters for the `kv` proc
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.  |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
-`target_field`  | Optional  | The name of the field in which to insert the extracted keys. Default is `null`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`target_field`  | Optional  | The name of the field in which to insert the extracted keys. Default is `null`. |
 
 ## Using the processor
 
