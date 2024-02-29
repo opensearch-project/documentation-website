@@ -192,7 +192,8 @@ OpenSearch combines all DLS queries with the logical `OR` operator. However, whe
 
 ### When to enable `plugins.security.dfm_empty_overrides_all`
 
-#### Example 1
+**Example 1**
+
 **Role A with DLS**: This role is granted to a broad group of users and includes Document-Level Security (DLS) to restrict access to specific documents.
 ```
 {
@@ -221,7 +222,8 @@ Enabling `plugins.security.dfm_empty_overrides_all` ensures that administrators 
 
 This setting is beneficial in scenarios where you need specific users to have unrestricted access to documents, despite being part of a broader group with restricted access.
 
-#### Example 2
+**Example 2**
+
 Two roles are defined, one with DLS, and another without DLS granting access to search templates:
 
 **Role A with DLS:**
@@ -257,7 +259,7 @@ Two roles are defined, one with DLS, and another without DLS granting access to 
 
 When a user has both Role A and Role B, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are held and the returned access is appropriately restricted. 
 
-To ensure access is not restricted, you can set  you can set the following configuration in  `opensearch.yml`:
+To ensure access is not restricted, you can set the following configuration in  `opensearch.yml`:
 
 `plugins.security.dfm_empty_overrides_all: true`
 
