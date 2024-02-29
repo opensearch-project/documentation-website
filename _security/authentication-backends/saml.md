@@ -19,7 +19,7 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Check-out the [saml-demo](https://github.com/opensearch-project/demos/tree/saml-demo) branch on the demos repository to a preferred location in your directory. If you are new to GitHub, see [guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md).
+1. Check-out the [saml-demo](https://github.com/opensearch-project/demos/tree/saml-demo) branch on the demos repository to a preferred location in your directory. If you are new to GitHub, see the [OpenSearch onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md).
 
 1. Navigate to the `demo` folder:
    ```zsh
@@ -45,7 +45,7 @@ We provide a fully functional example that can help you understand how to use SA
 
 1. Select `Log in with single sign-on`. This redirects you to the SAML login page.
 
-1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php`. (such as, `user1` and `user1pass`)
+1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php` (such as, `user1` and `user1pass`).
 
 1. After logging in, note that the user ID shown in the upper-right corner of the screen is the same as the `NameID` attribute for the user defined in `./saml/config/authsources.php` of the SAML server (that is, `saml-test` for `user1`).
 
