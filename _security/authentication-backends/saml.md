@@ -19,37 +19,35 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Download [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example-custom.zip) to a preferred location in your directory and unzip it.
-1. At the command line, specify the location of the files in your directory and run `docker-compose up`.
-1. Review the files:
+1. Visit the [saml-demo branch](https://github.com/opensearch-project/demos/tree/saml-demo) of the demos repository and download it to a folder of your choice. If you're not familiar with how to use GitHub, see the [OpenSearch onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md) for instructions.
 
-   * `customize-docker-compose.yml`: Defines two OpenSearch nodes, an OpenSearch Dashboards server, and a SAML server.  
-   * `customize-opensearch_dashboards.yml`: Includes SAML settings for the default `opensearch_dashboards.yml` file.
-   * `customize-config.yml`: Configures SAML for authentication.
+1. Navigate to the `demo` folder:
+   ```zsh
+   $ cd <path-to-demos-folder>/demo
+   ```
 
-   You can remove "customize" from the file names if you plan to modify and keep these files for production.
-   {: .tip }  
+1. Review the following files, as needed:
 
-1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2 and the OpenSearch Dashboards server. For example, if you are running OpenSearch version {{site.opensearch_major_minor_version}}, the `image` fields will resemble the following examples:
-   
-   ```yml
-   opensearch-saml-node1:
-    image: opensearchproject/opensearch:{{site.opensearch_major_minor_version}}
-    ```
-    ```yml
-    opensearch-saml-node2:
-    image: opensearchproject/opensearch:{{site.opensearch_major_minor_version}}
-    ```
-    ```yml
-    opensearch-saml-dashboards:
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_major_minor_version}}
-    ```
+   * `.env`: 
+     * Defines the OpenSearch and OpenSearch Dashboards version to use. The default is the latest version ({{site.opensearch_major_minor_version}}).
+     * Defines the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
+   * `./custom-config/opensearch_dashboards.yml`: Includes the SAML settings for the default `opensearch_dashboards.yml` file.
+   * `./custom-config/config.yml`: Configures SAML for authentication.
+   * `docker-compose.yml`: Defines an OpenSearch server node, an OpenSearch Dashboards server node, and a SAML server node.
+   * `./saml/config/authsources.php`: Contains the list of users that can be authenticated by this SAML domain.
 
-1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
+1. From the command line, run:
+   ```zsh
+   $ docker-compose up.
+   ```
 
-1. Log in to OpenSearch Dashboards. The default username is `admin` and the default password is set in your `customize-docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}.
 
-1. After logging in, note that your user in the upper-right is `SAMLAdmin`, as defined in `/var/www/simplesamlphp/config/authsources.php` of the SAML server.
+1. Select `Log in with single sign-on`. This redirects you to the SAML login page.
+
+1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php` (such as `user1` with password `user1pass`).
+
+1. After logging in, note that the user ID shown in the upper-right corner of the screen is the same as the `NameID` attribute for the user defined in `./saml/config/authsources.php` of the SAML server (that is, `saml-test` for `user1`).
 
 1. If you want to examine the SAML server, run `docker ps` to find its container ID and then `docker exec -it <container-id> /bin/bash`.
 
