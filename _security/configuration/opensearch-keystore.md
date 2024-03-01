@@ -107,10 +107,6 @@ After this command, you will be prompted to enter the secret key securely.
 
 No response exists for this command. To confirm that the setting was deleted, use `opensearch-keystore list`.
 
-## Referring to keystore entries
+## KeyStore entries as OpenSearch settings
 
-After a setting has been added to a keystore, you can refer back to that setting in your OpenSearch configuration. To refer back to the setting, add the keystore setting name as a placeholder in the `opensearch.yml` configuration file, as shown in the following example:
-
-```bash
-plugins.security.ssl.http.pemkey_password_secure: ${plugins.security.ssl.http.pemkey_password_secure}
-```
+After a setting has been added to a keystore, it is implicitly added to the OpenSearch configuration as if it were another entry in `opensearch.yml`. To modify a keystore entry use `./bin/opensearch-keystore upgrade <setting>` and to remove an entry use `./bin/opensearch-keystore remove <setting>`.
