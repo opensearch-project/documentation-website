@@ -155,7 +155,12 @@ docker-compose -f /path/to/your-file.yml up
 
 If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
 
-Starting with OpenSearch 2.12.0, a custom admin password is required to set up a demo security configuration. For a Docker cluster-setup using `docker-compose.yml`, you can do either of the following: 1) export `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a value in the same terminal session before running `docker-compose up`, or 2) create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and strong password values.
+### Setting a custom admin password
+
+Starting with OpenSearch 2.12, a custom admin password is required to set up a demo security configuration. For a docker cluster set up using a `docker-compose.yml` file, do either of the following:
+
+1. Export `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a value in the same terminal session before running `docker-compose up`.
+2. Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and strong password values.
 {: .note}
 
 ### Sample docker-compose.yml
