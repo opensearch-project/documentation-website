@@ -165,6 +165,13 @@ docker-compose -f /path/to/your-file.yml up
 
 If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file creates a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
 
+### Setting a custom admin password
+
+Starting with OpenSearch 2.12, a custom admin password is required to set up a demo security configuration. For a Docker cluster set up using a `docker-compose.yml` file, do either of the following:
+
+1. Export `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a value in the same terminal session before running `docker-compose up`.
+2. Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and strong password values.
+
 ### Sample docker-compose.yml
 
 ```yml
@@ -180,6 +187,7 @@ services:
       - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}    # Sets the demo admin user password when using demo configuration, required for OpenSearch 2.12 and later
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -204,6 +212,7 @@ services:
       - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
     ulimits:
       memlock:
         soft: -1
