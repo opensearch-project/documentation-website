@@ -38,22 +38,22 @@ GET /_plugins/_flow_framework/workflow/state/_search
 ```json
 GET /_plugins/_flow_framework/workflow/state/_search
 {
-    "query": {
-        "nested": {
-            "path": "resources_created",
-            "query": {
-                "bool": {
-                    "must": [
-                        {
-                            "match": {
-                                "resources_created.workflow_step_id": "register_model_2"
-                            }
-                        }
-                    ]
-                }
+  "query": {
+    "nested": {
+      "path": "resources_created",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "resources_created.workflow_step_id": "register_model_2"
+              }
             }
+          ]
         }
+      }
     }
+  }
 }
 ```
 {% include copy-curl.html %}
