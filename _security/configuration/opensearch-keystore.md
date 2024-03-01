@@ -109,4 +109,4 @@ No response exists for this command. To confirm that the setting was deleted, us
 
 ## KeyStore entries as OpenSearch settings
 
-After a setting has been added to a keystore, it is implicitly added to the OpenSearch configuration as if it were another entry in `opensearch.yml`. To modify a keystore entry use `./bin/opensearch-keystore upgrade <setting>` and to remove an entry use `./bin/opensearch-keystore remove <setting>`.
+After a setting has been added to a keystore, it is implicitly added to the OpenSearch configuration as if it were another entry in `opensearch.yml`. To modify a keystore entry use `./bin/opensearch-keystore upgrade <setting>`. To remove an entry, use `./bin/opensearch-keystore remove <setting>`.
