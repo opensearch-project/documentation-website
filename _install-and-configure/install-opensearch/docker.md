@@ -57,7 +57,7 @@ For a Linux environment, run the following commands:
    ```
 
 ### Windows settings
-For Windows workloads using WSL through Docker Desktop, run the following commands in Windows Terminal to set the `vm.max_map_count`:
+For Windows workloads using WSL through Docker Desktop, run the following commands in a terminal to set the `vm.max_map_count`:
 
 ```bash
 wsl -d docker-desktop
@@ -163,7 +163,7 @@ You can specify a custom file location and name when invoking `docker-compose` w
 docker-compose -f /path/to/your-file.yml up
 ```
 
-If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
+If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file creates a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
 
 ### Sample docker-compose.yml
 
