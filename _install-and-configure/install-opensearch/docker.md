@@ -167,10 +167,13 @@ If this is your first time launching an OpenSearch cluster using Docker Compose,
 
 ### Setting a custom admin password
 
-Starting with OpenSearch 2.12, a custom admin password is required to set up a demo security configuration. For a Docker cluster set up using a `docker-compose.yml` file, do either of the following:
+Starting with OpenSearch 2.12, a custom admin password is required to set up a demo security configuration. Do one of the following:
 
-1. Export `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a value in the same terminal session before running `docker-compose up`.
-2. Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and strong password values.
+- Before running `docker-compose.yml`, set a new custom admin password using the following command:
+  ```
+  export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+  ```
+- Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and a strong password value.
 
 ### Sample docker-compose.yml
 
