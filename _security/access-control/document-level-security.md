@@ -188,14 +188,14 @@ Adaptive | `adaptive-level` | The default setting that allows OpenSearch to auto
 
 ## DLS and multiple roles
 
-OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role with DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles which do not grant read documents.
+OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role that uses DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles that do not grant read documents.
 
 ### When to enable `plugins.security.dfm_empty_overrides_all`
 
-When to enable the `plugins.security.dfm_empty_overrides_all` setting depends on whether you want to restrict users from accessing documents without DLS. 
+When to enable the `plugins.security.dfm_empty_overrides_all` setting depends on whether you want to restrict user access to documents without DLS. 
 
 
-To ensure access is not restricted, you can set the following configuration in  `opensearch.yml`:
+To ensure access is not restricted, you can set the following configuration in `opensearch.yml`:
 
 ```
 plugins.security.dfm_empty_overrides_all: true
@@ -207,9 +207,9 @@ The following examples show what level of access roles with DLS enabled and with
 
 #### Example: Document access
 
-This example shows that enabling `plugins.security.dfm_empty_overrides_all` is beneficial in scenarios where you need specific users to have unrestricted access to documents, despite being part of a broader group with restricted access.
+This example demonstrates that enabling `plugins.security.dfm_empty_overrides_all` is beneficial in scenarios where you need specific users to have unrestricted access to documents despite being part of a broader group with restricted access.
 
-**Role A with DLS**: This role is granted to a broad group of users and includes Document-Level Security (DLS) to restrict access to specific documents, as shown in the following permission set:
+**Role A with DLS**: This role is granted to a broad group of users and includes DLS to restrict access to specific documents, as shown in the following permission set:
 
 ```
 {
@@ -223,7 +223,7 @@ This example shows that enabling `plugins.security.dfm_empty_overrides_all` is b
 }
 ```
 
-**Role B without DLS:** This role is specifically granted to certain users, such as administrators, and does not include DLS, as shown in the following permission set
+**Role B without DLS:** This role is specifically granted to certain users, such as administrators, and does not include DLS, as shown in the following permission set:
 
 ```
 {
@@ -237,11 +237,11 @@ This example shows that enabling `plugins.security.dfm_empty_overrides_all` is b
 ```
 {% include copy.html %}
 
-Setting `plugins.security.dfm_empty_overrides_all` to `true` ensures that administrators assigned Role B can override any document-level security restrictions imposed by Role A. This allows specific users designated in Role B to access all documents, regardless of the restrictions applied by Role A's DLS restrictions.
+Setting `plugins.security.dfm_empty_overrides_all` to `true` ensures that administrators assigned Role B can override any DLS restrictions imposed by Role A. This allows specific Role B users to access all documents, regardless of the restrictions applied by Role A's DLS restrictions.
 
 #### Example: Search template access
 
-In this example, two roles are defined, one with DLS, and another without DLS granting access to search templates:
+In this example, two roles are defined, one with DLS and another without DLS, granting access to search templates:
 
 **Role A with DLS:**
 
@@ -262,7 +262,7 @@ In this example, two roles are defined, one with DLS, and another without DLS gr
 ```
 {% include copy.html %}
 
-**Role B, without DLS** that grants only access to search templates:
+**Role B, without DLS**, which only grants access to search templates:
 
 ```
 {
@@ -276,6 +276,6 @@ In this example, two roles are defined, one with DLS, and another without DLS gr
 ```
 {% include copy.html %}
 
-When a user has both Role A and Role B permissions, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are held and the returned access is appropriately restricted. 
+When a user has both Role A and Role B permissions, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are retained, and the returned access is appropriately restricted. 
 
-With the `plugins.security.dfm_empty_overrides_all` is enabled when a user is assigned both Role A and Role B, Role B's permissions will override Role A's restrictions, allowing that user to access all documents. This ensures that the role without DLS takes precedence in the search query response.
+When a user is assigned both Role A and Role B and the `plugins.security.dfm_empty_overrides_all` setting is enabled, Role B's permissions Role B's permissions will override Role A's restrictions, allowing that user to access all documents. This ensures that the role without DLS takes precedence in the search query response.
