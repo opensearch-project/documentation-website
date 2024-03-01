@@ -19,7 +19,7 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Check-out the [saml-demo](https://github.com/opensearch-project/demos/tree/saml-demo) branch on the demos repository to a preferred location in your directory. If you are new to GitHub, see the [OpenSearch onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md).
+1. Visit the [saml-demo branch](https://github.com/opensearch-project/demos/tree/saml-demo) of the demos repository and download it to a folder of your choice. If you're not familiar with how to use GitHub, check out the [OpenSearch onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md) for helpful instructions.
 
 1. Navigate to the `demo` folder:
    ```zsh
