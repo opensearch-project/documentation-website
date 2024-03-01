@@ -98,13 +98,9 @@ Field | Data type | Required/Optional | Description
 POST /_plugins/_ml/models/_register
 {
     "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
-    "description": "This is a neural sparse encoding model: It transfers text into sparse vector, and then extract nonzero index and value to entry and weights. It serves only in ingestion and customer should use tokenizer model in query.",
-    "model_format": "TORCH_SCRIPT",
-    "function_name": "SPARSE_ENCODING",
-    "model_content_hash_value": "9a41adb6c13cf49a7e3eff91aef62ed5035487a6eca99c996156d25be2800a9a",
-    "url":  "https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1/1.0.0/torch_script/opensearch-neural-sparse-encoding-doc-v1-1.0.0-torch_script.zip"
+    "model_format": "TORCH_SCRIPT"
 }
 ```
 {% include copy-curl.html %}
