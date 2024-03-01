@@ -173,6 +173,8 @@ Starting with OpenSearch 2.12, a custom admin password is required to set up a d
   ```
   export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
   ```
+  {% include copy.html %}
+  
 - Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and a strong password value.
 
 ### Sample docker-compose.yml
