@@ -203,7 +203,7 @@ plugins.security.dfm_empty_overrides_all: true
 {% include copy.html %}
 
 
-The following examples show what level of access roles with DLS enabled and without DLS enabled, depending on the interaction. These examples can help you decide when to enable the ``plugins.security.dfm_empty_overrides_all` setting.
+The following examples show what level of access roles with DLS enabled and without DLS enabled, depending on the interaction. These examples can help you decide when to enable the `plugins.security.dfm_empty_overrides_all` setting.
 
 #### Example: Document access
 
