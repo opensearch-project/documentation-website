@@ -29,9 +29,11 @@ Docker Compose is a utility that allows users to launch multiple containers with
 If you need to install Docker Compose manually and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
 {: .tip}
 
-## Important host settings
+## Configure important host settings
+Before installing OpenSearch using Docker, configure the following settings. These are the most important settings that can affect the performance of your services, but for additional information, see [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'}.
 
-Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'} that can impact the performance of your services.
+### Linux settings
+For a Linux environment, run the following commands:
 
 1. Disable memory paging and swapping performance on the host to improve performance.
    ```bash
@@ -53,6 +55,14 @@ Before launching OpenSearch you should review some [important system settings]({
    # Verify that the change was applied by checking the value
    cat /proc/sys/vm/max_map_count
    ```
+
+### Windows settings
+For Windows workloads using WSL through Docker Desktop, run the following commands in a terminal to set the `vm.max_map_count`:
+
+```bash
+wsl -d docker-desktop
+sysctl -w vm.max_map_count=262144
+```   
 
 ## Run OpenSearch in a Docker container
 
@@ -153,14 +163,19 @@ You can specify a custom file location and name when invoking `docker-compose` w
 docker-compose -f /path/to/your-file.yml up
 ```
 
-If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
+If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file creates a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Because this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
 
 ### Setting a custom admin password
 
-Starting with OpenSearch 2.12, a custom admin password is required to set up a demo security configuration. For a Docker cluster set up using a `docker-compose.yml` file, do either of the following:
+Starting with OpenSearch 2.12, a custom admin password is required to set up a demo security configuration. Do one of the following:
 
-1. Export `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a value in the same terminal session before running `docker-compose up`.
-2. Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and strong password values.
+- Before running `docker-compose.yml`, set a new custom admin password using the following command:
+  ```
+  export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+  ```
+  {% include copy.html %}
+  
+- Create an `.env` file in the same folder as your `docker-compose.yml` file with the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and a strong password value.
 
 ### Sample docker-compose.yml
 
