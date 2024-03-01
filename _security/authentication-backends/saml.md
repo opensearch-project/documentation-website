@@ -19,7 +19,7 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Visit the [saml-demo branch](https://github.com/opensearch-project/demos/tree/saml-demo) of the demos repository and download it to a folder of your choice. If you're not familiar with how to use GitHub, check out the [OpenSearch onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md) for helpful instructions.
+1. Visit the [saml-demo branch](https://github.com/opensearch-project/demos/tree/saml-demo) of the demos repository and download it to a folder of your choice. If you're not familiar with how to use GitHub, see the [OpenSearch onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md) for instructions.
 
 1. Navigate to the `demo` folder:
    ```zsh
@@ -36,7 +36,7 @@ We provide a fully functional example that can help you understand how to use SA
    * `docker-compose.yml`: Defines an OpenSearch server node, an OpenSearch Dashboards server node, and a SAML server node.
    * `./saml/config/authsources.php`: Contains the list of users that can be authenticated by this SAML domain.
 
-1. At the command line, run:
+1. From the command line, run:
    ```zsh
    $ docker-compose up.
    ```
@@ -45,7 +45,7 @@ We provide a fully functional example that can help you understand how to use SA
 
 1. Select `Log in with single sign-on`. This redirects you to the SAML login page.
 
-1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php` (such as, `user1` and `user1pass`).
+1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php` (such as `user1` with password `user1pass`).
 
 1. After logging in, note that the user ID shown in the upper-right corner of the screen is the same as the `NameID` attribute for the user defined in `./saml/config/authsources.php` of the SAML server (that is, `saml-test` for `user1`).
 
