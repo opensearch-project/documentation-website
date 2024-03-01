@@ -192,9 +192,25 @@ OpenSearch combines all DLS queries with the logical `OR` operator. However, whe
 
 ### When to enable `plugins.security.dfm_empty_overrides_all`
 
-**Example 1**
+When to enable the `plugins.security.dfm_empty_overrides_all` setting depends on whether you want to restrict users from accessing documents without DLS. 
 
-**Role A with DLS**: This role is granted to a broad group of users and includes Document-Level Security (DLS) to restrict access to specific documents.
+
+To ensure access is not restricted, you can set the following configuration in  `opensearch.yml`:
+
+```
+plugins.security.dfm_empty_overrides_all: true
+```
+{% include copy.html %}
+
+
+The following examples show what level of access roles with DLS enabled and without DLS enabled, depending on the interaction. These examples can help you decide when to enable the ``plugins.security.dfm_empty_overrides_all` setting.
+
+#### Example: Document access
+
+This example shows that enabling `plugins.security.dfm_empty_overrides_all` is beneficial in scenarios where you need specific users to have unrestricted access to documents, despite being part of a broader group with restricted access.
+
+**Role A with DLS**: This role is granted to a broad group of users and includes Document-Level Security (DLS) to restrict access to specific documents, as shown in the following permission set:
+
 ```
 {
   "index_permissions": [
@@ -206,7 +222,9 @@ OpenSearch combines all DLS queries with the logical `OR` operator. However, whe
   ]
 }
 ```
-**Role B without DLS:** This role is specifically granted to certain users, such as administrators, and does not include DLS.
+
+**Role B without DLS:** This role is specifically granted to certain users, such as administrators, and does not include DLS, as shown in the following permission set
+
 ```
 {
   "index_permissions" : [
@@ -217,14 +235,13 @@ OpenSearch combines all DLS queries with the logical `OR` operator. However, whe
   ]
 }
 ```
+{% include copy.html %}
 
-Enabling `plugins.security.dfm_empty_overrides_all` ensures that administrators assigned Role B can override any document-level security restrictions imposed by Role A. This allows specific users designated in Role B to access all documents, regardless of the restrictions applied by Role A's DLS.
+Setting `plugins.security.dfm_empty_overrides_all` to `true` ensures that administrators assigned Role B can override any document-level security restrictions imposed by Role A. This allows specific users designated in Role B to access all documents, regardless of the restrictions applied by Role A's DLS restrictions.
 
-This setting is beneficial in scenarios where you need specific users to have unrestricted access to documents, despite being part of a broader group with restricted access.
+#### Example 2: Search template access
 
-**Example 2**
-
-Two roles are defined, one with DLS, and another without DLS granting access to search templates:
+In this example, two roles are defined, one with DLS, and another without DLS granting access to search templates:
 
 **Role A with DLS:**
 
@@ -243,6 +260,7 @@ Two roles are defined, one with DLS, and another without DLS granting access to 
   ]
 }
 ```
+{% include copy.html %}
 
 **Role B, without DLS** that grants only access to search templates:
 
@@ -256,11 +274,8 @@ Two roles are defined, one with DLS, and another without DLS granting access to 
   ]
 }
 ```
+{% include copy.html %}
 
-When a user has both Role A and Role B, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are held and the returned access is appropriately restricted. 
+When a user has both Role A and Role B permissions, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are held and the returned access is appropriately restricted. 
 
-To ensure access is not restricted, you can set the following configuration in  `opensearch.yml`:
-
-`plugins.security.dfm_empty_overrides_all: true`
-
-With this setting enabled, if a user has both Role A and Role B, Role B's permissions will override Role A's restrictions, allowing access to all documents. This ensures that the role without DLS takes precedence in the query response.
+With the `plugins.security.dfm_empty_overrides_all` is enabled when a user is assigned both Role A and Role B, Role B's permissions will override Role A's restrictions, allowing that user to access all documents. This ensures that the role without DLS takes precedence in the search query response.
