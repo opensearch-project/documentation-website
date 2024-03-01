@@ -239,7 +239,7 @@ This example shows that enabling `plugins.security.dfm_empty_overrides_all` is b
 
 Setting `plugins.security.dfm_empty_overrides_all` to `true` ensures that administrators assigned Role B can override any document-level security restrictions imposed by Role A. This allows specific users designated in Role B to access all documents, regardless of the restrictions applied by Role A's DLS restrictions.
 
-#### Example 2: Search template access
+#### Example: Search template access
 
 In this example, two roles are defined, one with DLS, and another without DLS granting access to search templates:
 
