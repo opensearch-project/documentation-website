@@ -1,119 +1,118 @@
 ---
 layout: default
-title: Quickstart guide
+title: OpenSearch Dashboards quickstart guide
 nav_order: 2
 has_children: false
 redirect_from:
    - /dashboards/quickstart-dashboards/
 ---
 
-# Quickstart guide
+# OpenSearch Dashboards quickstart guide
 
-This quickstart guide covers the core concepts that you need to understand to get started with OpenSearch Dashboards. You'll learn how to:
+This quickstart guide provides tutorials on using OpenSearch Dashboards applications and tools. You can use these tutorials, either in your own environment or on [OpenSearch Playground](https://playground.opensearch.org/app/home#/), to learn the following fundamental concepts:
 
-- Add sample data.
-- Explore and inspect data.
-- Visualize data.
+- **Adding sample data:** Use preloaded visualizations, dashboards, and other tools to explore OpenSearch Dashboards before adding your own data.
+- **Using the Discover application:** Analyze your data to gain insights.
+- **Using the Dashboards application:** Create and store data visualizations.
+- **Turning dark mode on or off:** Change the Dashboards theme.
 
-Here's a glance at the view you see when you open the **Dashboard** or **Discover** tool.
+To dock or undock the navigation pane, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} icon and then **Dock navigation** or **Undock navigation**. The OpenSearch Dashboards home page is shown in the following image.  
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-look.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-home.png" alt="OpenSearch Dashboards home page" width="700">
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
-# Adding sample data
 
-Sample datasets come with visualizations, dashboards, and other tools to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
+## Adding sample data
 
-1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`.
-1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**.
-2. Choose **Add data** to add the datasets, as shown in the following image.
+The following tutorials use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset.
+{: .note}
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="700">
+To add sample data, follow these steps:
 
-# Exploring and inspecting data
+1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**. Alternatively, choose **Add data** on the upper-right toolbar.
+2. On the **Add sample data** page, choose the dataset(s) you want to add to Dashboards. The following image shows the available sample datasets.
 
-In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data-2.png" alt="Adding sample data window" width="700">
 
-- Choose data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
-- Explore the data, view individual documents, and create tables summarizing the data.
-- Visualize your findings.
+## Using the Discover application 
 
-## Try it: Getting familiar with Discover
+With [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
 
-1. On the OpenSearch Dashboards **Home** page, choose **Discover**.
-1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) to **Last 7 days**, as shown in the following image.
+- Choose data for analysis, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
+- Analyze your data by querying and filtering, viewing results in a table, and examining documents.
+- Create histograms to display the distribution of your data.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="250"/>
+Follow these steps to use the Discover tool:
 
-2. Search using the DQL query `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then choose **Update**. You should see results for US-bound flights delayed by 60 minutes or more, as shown in the following image.
-   
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt="DQL search field example" width="700"/>
+1. From the OpenSearch Dashboards navigation menu, choose **Discover**. 
+2. On the **Discover** page, choose the index pattern `opensearch_dashboards_sample_data_flights` from the dropdown menu on the upper left. 
+3. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/} icon to change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from the default of **Last 15 minutes** to **Last 7 days**.
+4. In the DQL search bar, enter `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and select **Update**. Results are shown for US-bound flights delayed by 60 minutes or more.
+5. Filter data by selecting **Add filter** from the DQL search bar and then selecting a **Field**, **Operator**, and **Value** from the dropdown lists in the **Edit Filter** pop-up window. For example, select `FlightDelayType`, **is**, and **Weather Delay**.
 
-3. To filter data, choose **Add filter** and then select an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather delay** from the **Field**, **Operator**, and **Value** dropdown lists, as shown in the following image.
+The resulting view is shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt="Filter data by FlightDelayType field" width="250"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-dashboards-discover.png" alt="Discover output of steps 1 through 6" width="700">
 
-# Visualizing data
+## Using the Dashboards application
 
-Raw data can be difficult to comprehend and use. Data visualizations help you prepare and present data in a visual form. In **Dashboard** you can:
+With **Dashboards**, you can:
 
 - Display data in a single view.
 - Build dynamic dashboards.
 - Create and share reports.
 - Embed analytics to differentiate your applications.
 
-## Try it: Getting familiar with Dashboard
+The **Dashboards** application creates and stores visualizations generated from your data. Follow these steps to use the application:
 
-1. On the OpenSearch Dashboards **Home** page, choose **Dashboard**.
-1. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
+1. On the OpenSearch Dashboards **Home** page, choose **Dashboards**. A list of dashboards generated from the sample data appears.
+2. In the search toolbar, search for and select **[Flights] Global Flight Dashboard**. You'll see a dashboard preloaded with visualizations, including charts, maps, and data tables. 
+3. To add other panels to the dashboard, select the **Edit** button and then choose **Add** from the toolbar. The **Add panels** window opens. 
+4. In the search toolbar in the **Add panels** window, search for and select the existing panel **[Flights] Delay Buckets**. A pop-up message confirms that you've added the panel.
+5. Select close `x` to exit the **Add panels** window.
+6. The newly added panel is now displayed on the dashboard.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="700"/>
+The resulting view is shown in the following image.
 
-1. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
-1. In the **Add panels** window, choose the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window on the lower right confirming that you've added the panel.
-1. Select `x` to close the **Add panels** window.
-1. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel2.png" alt="Add panel tutorial screen view" width="700">
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="700"/>
+For information about using a specific data visualization type, such as VisBuilder, go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/). For information about using dashboards and visualizations in **Observability**, go to [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/).
+{: .note}
 
-## Try it: Creating a visualization panel
+### Interacting with data using dashboards
 
-Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
+Interactive dashboards allow you to analyze data in more depth and filter it in several ways. With **Dashboards**, you can use dashboard-level filters to directly interact with data.
 
-1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from **24 hours** to **Last 7 days**. 
-1. In the toolbar, choose **Edit**, then **Create new**.
-1. Select **VisBuilder** in the **New Visualizations** window.
-1. In the **Data Source** dropdown list, choose `opensearch_dashboards_sample_data_flights`.
-1. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
-1. Drag the field **FlightDelayType** to the x-axis column.
-1. Choose **Save** and name the visualization in the **Title** field.
-2. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-panel-quickstart.png" alt="Creating a visualization panel" width="700"/>
-
-# Interacting with data
-
-Interactive dashboards allow you analyze data in more depth and filter it in several ways. In Dashboards, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
-
-## Try it: Interacting with the sample flight data
+Using the **[Flights] Global Flight Dashboard** dashboard, follow these steps to further analyze and filter the sample flight data:
 
 1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
-1. Choose **Save** to save the customized dashboard.
+2. Choose **Save** to save the dashboard.
 
-Alternatively, you can apply filters using the dashboard toolbar:
+Alternatively, you can use the dashboard toolbar to apply filters by following these steps:
 
 1. In the dashboard toolbar, choose **Add filter**.
-1. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
+2. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
+3. Choose **Save**. The dashboard updates automatically.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/edit-filter.png" alt="Edit field interface" width="400"/>
+The resulting view is shown in the following image.
 
-1. Choose **Save**. The dashboard updates automatically, and the result is the dashboard shown in the following image.
+<img src="{{site.url}}{{site.baseurl}}//images/<insert image>" alt="Screenshot of Dashboard tutorial panel view" width="700">
 
-  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="700"/>
+## Turning dark mode on or off
 
-# Next steps
+Changing the Dashboards theme requires admin permissions. If you are an admin, follow these steps:
 
-- **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
-- **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards**]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
-- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
+1. Navigate to **Management** > **Dashboards Management** > **Advanced Settings**.
+2. Scroll down to the **Appearance** section and locate the **Dark mode** option.
+3. Use the toggle switch to turn dark mode on or off for all users of your Dashboards instance, as shown in the image following these steps.
+4. Select the **Save changes** button and then the **Reload** button. The updated theme is applied immediately.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dark-mode.png" alt="Dark mode view" width="700">
+
+## Next steps
+
+- Go to [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) to learn more about Dashboards data visualizations.
+- Go to [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/) to learn more about creating dashboards.
+- Go to [Analyzing data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) to learn more about using Dashboards to analyze data. 
+- Go to [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) and [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) to learn more about using OpenSearch for data ingestion.

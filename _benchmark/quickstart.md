@@ -31,7 +31,7 @@ After installation, you can verify OpenSearch is running by going to `localhost:
 Use the following command to verify OpenSearch is running with SSL certificate checks disabled:
 
 ```bash
-curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL certificate checks
+curl -k -u admin:<custom-admin-password> https://localhost:9200			# the "-k" option skips SSL certificate checks
 
 {
   "name" : "147ddae31bf8.opensearch.org",

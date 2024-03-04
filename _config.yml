@@ -5,10 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.11.1'
-opensearch_dashboards_version: '2.11.1'
-opensearch_major_minor_version: '2.11'
-lucene_version: '9_7_0'
+opensearch_version: '2.12.0'
+opensearch_dashboards_version: '2.12.0'
+opensearch_major_minor_version: '2.12'
+lucene_version: '9_9_2'
 
 # Build settings
 markdown: kramdown
@@ -112,6 +112,12 @@ collections:
   about:
     permalink: /:collection/:path/
     output: true
+  automating-configurations:
+    permalink: /:collection/:path/
+    output: true
+  dashboards-assistant:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme
@@ -165,6 +171,9 @@ opensearch_collection:
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
+      nav_fold: true
+    automating-configurations:
+      name: Automating configurations
       nav_fold: true
     monitoring-your-cluster:
       name: Monitoring your cluster

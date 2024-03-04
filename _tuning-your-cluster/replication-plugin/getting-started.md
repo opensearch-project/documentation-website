@@ -32,7 +32,7 @@ In addition, verify and add the distinguished names (DNs) of each follower clust
 First, get the node's DN from each follower cluster:
 
   ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_opendistro/_security/api/ssl/certs?pretty'
+curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_opendistro/_security/api/ssl/certs?pretty'
 
 {
    "transport_certificates_list": [
@@ -110,13 +110,13 @@ networks:
 After the clusters start, verify the names of each:
 
 ```bash
-curl -XGET -u 'admin:admin' -k 'https://localhost:9201'
+curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9201'
 {
   "cluster_name" : "leader-cluster",
   ...
 }
 
-curl -XGET -u 'admin:admin' -k 'https://localhost:9200'
+curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200'
 {
   "cluster_name" : "follower-cluster",
   ...
@@ -148,7 +148,7 @@ Cross-cluster replication follows a "pull" model, so most changes occur on the f
 On the follower cluster, add the IP address (with port 9300) for each seed node. Because this is a single-node cluster, you only have one seed node. Provide a descriptive name for the connection, which you'll use in the request to start replication:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_cluster/settings?pretty' -d '
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_cluster/settings?pretty' -d '
 {
   "persistent": {
     "cluster": {
@@ -167,13 +167,13 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 To get started, create an index called `leader-01` on the leader cluster:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/leader-01?pretty'
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9201/leader-01?pretty'
 ```
 
 Then start replication from the follower cluster. In the request body, provide the connection name and leader index that you want to replicate, along with the security roles you want to use:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_start?pretty' -d '
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_start?pretty' -d '
 {
    "leader_alias": "my-connection-alias",
    "leader_index": "leader-01",
@@ -194,7 +194,7 @@ This command creates an identical read-only index named `follower-01` on the fol
 After replication starts, get the status:
 
 ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
+curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
 
 {
   "status" : "SYNCING",
@@ -217,13 +217,13 @@ The leader and follower checkpoint values begin as negative numbers and reflect 
 To confirm that replication is actually happening, add a document to the leader index:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/leader-01/_doc/1?pretty' -d '{"The Shining": "Stephen King"}'
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9201/leader-01/_doc/1?pretty' -d '{"The Shining": "Stephen King"}'
 ```
 
 Then validate the replicated content on the follower index:
 
 ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?pretty'
+curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/follower-01/_search?pretty'
 
 {
   ...
@@ -251,13 +251,13 @@ After the first replication API trigger, the `.replication-metadata-store` index
 You can temporarily pause replication of an index if you need to remediate issues or reduce load on the leader cluster:
 
 ```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_pause?pretty' -d '{}'
+curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_pause?pretty' -d '{}'
 ```
 
 To confirm that replication is paused, get the status:
 
 ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
+curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
 
 {
   "status" : "PAUSED",
@@ -271,7 +271,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 When you're done making changes, resume replication:
 
 ```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_resume?pretty' -d '{}'
+curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_resume?pretty' -d '{}'
 ```
 
 When replication resumes, the follower index picks up any changes that were made to the leader index while replication was paused.
@@ -283,7 +283,7 @@ Note that you can't resume replication after it's been paused for more than 12 h
 When you no longer need to replicate an index, terminate replication from the follower cluster:
 
 ```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_stop?pretty' -d '{}'
+curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_stop?pretty' -d '{}'
 ```
 
 When you stop replication, the follower index un-follows the leader and becomes a standard index that you can write to. You can't restart replication after stopping it. 
@@ -291,7 +291,7 @@ When you stop replication, the follower index un-follows the leader and becomes 
 Get the status to confirm that the index is no longer being replicated:
 
 ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
+curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
 
 {
   "status" : "REPLICATION NOT IN PROGRESS"

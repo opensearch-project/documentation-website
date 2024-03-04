@@ -2,8 +2,8 @@
 layout: default
 title: Deploy model
 parent: Model APIs
-grand_parent: ML Commons API
-nav_order: 30
+grand_parent: ML Commons APIs
+nav_order: 20
 ---
 
 # Deploy a model
