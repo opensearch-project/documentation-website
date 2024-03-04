@@ -26,7 +26,7 @@ redirect_from:
 
 Audit logs let you track access to your OpenSearch cluster and are useful for compliance purposes or in the aftermath of a security breach. You can configure the categories to be logged, the detail level of the logged messages, and where to store the logs.
 
-To enable audit logging:
+Audit logging is disabled by default. To enable audit logging:
 
 1. Add the following line to `opensearch.yml` on each node:
 
