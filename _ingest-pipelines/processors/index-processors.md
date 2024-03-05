@@ -30,7 +30,8 @@ Processor type | Description
 :--- | :--- 
 `append` | Adds one or more values to a field in a document. 
 `bytes` | Converts a human-readable byte value to its value in bytes.
-`convert` | Changes the data type of a field in a document. 
+`convert` | Changes the data type of a field in a document.
+`copy` | Copies an entire object in an existing field to another field
 `csv` | Extracts CSVs and stores them as individual fields in a document. 
 `date` | Parses dates from fields and then uses the date or timestamp as the timestamp for a document.
 `date_index_name` | Indexes documents into time-based indexes based on a date or timestamp field in a document. 
