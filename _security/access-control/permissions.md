@@ -440,15 +440,15 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/read/search*` |  Permission to search data. |
 | `indices:data/read/search/template` |   |
 | `indices:data/read/tv` |  Permission to retrieve information and statistics for terms in the fields of a particular document. |
-| `indices:data/write/bulk` |  Permission to execute a bulk request. See also [Bulk]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/ ) |
-| `indices:data/write/bulk*` |  Permission to execute a bulk request. See also [Bulk]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/ ) |
-| `indices:data/write/delete` |  Permission to delete documents. See also [Delete document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/ ) |
-| `indices:data/write/delete/byquery` |  Permission to delete all documents that match a query. See also [Delete by query]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/ ) |
+| `indices:data/write/bulk` |  Permission to run a [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request. |
+| `indices:data/write/bulk*` |  Permission to run a bulk request. |
+| `indices:data/write/delete` |  Permission to [delete documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/). |
+| `indices:data/write/delete/byquery` |  Permission to delete all documents that [match a query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/). |
 | `indices:data/write/plugins/replication/changes` |   |
 | `indices:data/write/index` |  Permission to add documents to existing indexes. See also [Index document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/ ) |
-| `indices:data/write/reindex` |  Permission to execute reindex. See also [Reindex data]( {{site.url}}{{site.baseurl}}/im-plugin/reindex-data/ ) |
+| `indices:data/write/reindex` |  Permission to run a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/). |
 | `indices:data/write/update` |   |
-| `indices:data/write/update/byquery` |  Permission to run the script to update all of the documents that match the query. See also [Update by query]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/ ) |
+| `indices:data/write/update/byquery` |  Permission to run the script to update all of the documents that [match the query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/). |
 | `indices:monitor/data_stream/stats` |   |
 | `indices:monitor/recovery` |   |
 | `indices:monitor/segments` |   |
