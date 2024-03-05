@@ -380,6 +380,7 @@ See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
 These permissions apply to an index or index pattern. You might want a user to have read access to all indexes (that is, `*`), but write access to only a few (for example, `web-logs` and `product-catalog`).
 
+<!-- vale off -->
 | Permission | Description |
 | --- | --- |
 | `indices:admin/aliases` |  Permissions for [index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/). |
@@ -456,6 +457,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:monitor/shard_stores` |  Permission to access shard store stats. |
 | `indices:monitor/stats` | Permission to access monitoring stats.  |
 | `indices:monitor/upgrade` | Permission to access upgrade stats.  |
+<!-- vale on -->
 
 
 ## Security REST permissions
