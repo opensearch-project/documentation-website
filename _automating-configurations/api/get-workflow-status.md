@@ -83,7 +83,8 @@ While provisioning is in progress, OpenSearch returns a partial resource list:
     {
       "workflow_step_name": "create_connector",
       "workflow_step_id": "create_connector_1",
-      "connector_id": "NdjCQYwBLmvn802B0IwE"
+      "resource_type": "connector_id",
+      "resource_id": "NdjCQYwBLmvn802B0IwE"
     }
   ]
 }
@@ -99,12 +100,14 @@ Upon provisioning completion, OpenSearch returns the full resource list:
     {
       "workflow_step_name": "create_connector",
       "workflow_step_id": "create_connector_1",
-      "connector_id": "NdjCQYwBLmvn802B0IwE"
+      "resource_type": "connector_id",
+      "resource_id": "NdjCQYwBLmvn802B0IwE"
     },
     {
       "workflow_step_name": "register_remote_model",
       "workflow_step_id": "register_model_2",
-      "model_id": "N9jCQYwBLmvn802B0oyh"
+      "resource_type": "model_id",
+      "resource_id": "N9jCQYwBLmvn802B0oyh"
     }
   ]
 }
