@@ -29,7 +29,7 @@ Three request variants provide flexibility:
 
 * `GET _snapshot/_status` returns the status of all currently running snapshots in all repositories.
 
-* `GET _snapshot/<repository>/_status` returns all currently runing snampshots in the specified repository. This is the preferred variant.
+* `GET _snapshot/<repository>/_status` returns all currently running snampshots in the specified repository. This is the preferred variant.
 
 * `GET _snapshot/<repository>/<snapshot>/_status` returns detailed status information of a specific repository, regardless of whether it's currently running or not. 
 
