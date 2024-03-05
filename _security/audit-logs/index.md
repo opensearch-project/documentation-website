@@ -220,3 +220,7 @@ The default setting is `10`. Setting this value to `0` disables the thread pool,
 plugins.security.audit.config.threadpool.max_queue_len: 100000
 ```
 
+## Disabling audit logs
+
+To disable audit logs after they've been enabled, remove the `plugins.security.audit.type: internal_opensearch` setting from opensearch.yml, or switch off the **Enable audit logging** check box in Opensearch Dashboards.
+
