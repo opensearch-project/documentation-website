@@ -208,8 +208,8 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 
 Paramater Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`m` | false | 1 | false |  Determine how many sub-vectors to break the vector into. Sub-vectors are encoded independently of each other. This dimension of the vector must be divisible by `m`. Max value is 1024.
-`code_size` | false | 8 | false | Determine the number of bits to encode a sub-vector into. Max value is 8. **Note** --- for IVF, this value must be less than or equal to 8. For HNSW, this value can only be 8.
+`m` | false | 1 | false |  Determines the number of subvectors into which to break the vector. Subvectors are encoded independently of each other. This dimension of the vector must be divisible by `m`. Maximum value is 1,024.
+`code_size` | false | 8 | false | Determines the number of bits into which to encode a subvector. Maximum value is 8. For IVF, this value must be less than or equal to 8. For HNSW, this value can only be 8.
 
 ### Choosing the right method
 
