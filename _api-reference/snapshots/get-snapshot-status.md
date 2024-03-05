@@ -29,9 +29,9 @@ Three request variants provide flexibility:
 
 * `GET _snapshot/_status` returns the status of all currently running snapshots in all repositories.
 
-* `GET _snapshot/<repository>/_status` returns the status of only currently running snapshots in the specified repository. This is the preferred variant.
+* `GET _snapshot/<repository>/_status` returns all currently runing snampshots in the specified repository. This is the preferred variant.
 
-* `GET _snapshot/<repository>/<snapshot>/_status` returns the status of all snapshots in the specified repository whether they are running or not.
+* `GET _snapshot/<repository>/<snapshot>/_status` returns detailed status information of a specific repository, regardless of whether it's currently running or not. 
 
 Using the API to return state for other than currently running snapshots can be very costly for (1) machine machine resources and (2) processing time if running in the cloud. For each snapshot, each request causes file reads from all a snapshot's shards. 
 {: .warning}
