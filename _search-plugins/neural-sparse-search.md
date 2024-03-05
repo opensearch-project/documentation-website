@@ -154,8 +154,7 @@ GET my-nlp-index/_search
     "neural_sparse": {
       "passage_embedding": {
         "query_text": "Hi world",
-        "model_id": "aP2Q8ooBpBj3wT4HVS8a",
-        "max_token_score": 2
+        "model_id": "aP2Q8ooBpBj3wT4HVS8a"
       }
     }
   }
