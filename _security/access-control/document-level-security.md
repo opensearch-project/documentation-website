@@ -280,7 +280,7 @@ When a user has both Role A and Role B permissions, the query results are filter
 
 When a user is assigned both Role A and Role B and the `plugins.security.dfm_empty_overrides_all` setting is enabled, Role B's permissions Role B's permissions will override Role A's restrictions, allowing that user to access all documents. This ensures that the role without DLS takes precedence in the search query response.
 
-## Editing Document-Level Permissions
+### Editing Document-Level Permissions
 To adjust document-level permissions in OpenSearch, you can tailor existing roles or create new ones with customized configurations.
 
 To modifying an existing role, open OpenSearch Dashboards and choose Security and then choose Roles. Within the list of available roles locate the role to be changed, click on the role to inspect its current permissions and configurations.
