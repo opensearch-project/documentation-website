@@ -279,3 +279,31 @@ In this example, two roles are defined, one with DLS and another without DLS, gr
 When a user has both Role A and Role B permissions, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are retained, and the returned access is appropriately restricted. 
 
 When a user is assigned both Role A and Role B and the `plugins.security.dfm_empty_overrides_all` setting is enabled, Role B's permissions Role B's permissions will override Role A's restrictions, allowing that user to access all documents. This ensures that the role without DLS takes precedence in the search query response.
+
+## Editing Document-Level Permissions
+To adjust document-level permissions in OpenSearch, you can tailor existing roles or create new ones with customized configurations.
+
+To modifying an existing role, open OpenSearch Dashboards and choose Security and then choose Roles. Within the list of available roles locate the role to be changed, click on the role to inspect its current permissions and configurations.
+
+Within the role details, you can change index permissions in the specified index permissions section. Here, you can update index patterns, document-level security queries (DLS), and allowed actions associated with the role.
+
+Example of DLS Configuration in roles.yml:
+```
+{
+  "index_permissions": [
+    {
+      "index_patterns": [
+        "example-index"
+      ],
+      "dls": "[.. some DLS here ..]",
+      "allowed_actions": [
+        "indices:data/read/search",
+      ]
+    }
+  ]
+}
+```
+
+Edit and save the configuration files, to upload the changes into the security index execute `securityadmin.sh`
+
+Optionally you can create new roles if existing roles do not align with your requirements.
