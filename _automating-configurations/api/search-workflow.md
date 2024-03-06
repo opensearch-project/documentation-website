@@ -24,7 +24,7 @@ POST /_plugins/_flow_framework/workflow/_search
 ```json
 GET /_plugins/_flow_framework/workflow/_search
 {
-    "query": {
+  "query": {
     "match_all": {}
   }
 }
@@ -36,7 +36,7 @@ GET /_plugins/_flow_framework/workflow/_search
 ```json
 GET /_plugins/_flow_framework/workflow/_search
 {
-    "query": {
+  "query": {
     "match": {
       "use_case": "REMOTE_MODEL_DEPLOYMENT"
     }
