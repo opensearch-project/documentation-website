@@ -155,7 +155,7 @@ By default, the Security plugin validates the TLS certificate of the LDAP server
 
 ```
 plugins.security.ssl.transport.pemtrustedcas_filepath: ...
-plugins.security.ssl.http.truststore_filepath: ...
+plugins.security.ssl.transport.truststore_filepath: ...
 ```
 
 If your server uses a certificate signed by a different CA, import this CA into your truststore or add it to your trusted CA file on each node.
@@ -509,6 +509,7 @@ Name | Description
 `resolve_nested_roles`  | Boolean. Whether or not to resolve nested roles. Default is `false`.
 `max_nested_depth`  | Integer. When `resolve_nested_roles` is `true`, this defines the maximum number of nested roles to traverse. Setting smaller values can reduce the amount of data retrieved from LDAP and improve authentication times at the cost of failing to discover deeply nested roles. Default is `30`.
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
+`exclude_roles`  | Array of roles that should be excluded when retrieving roles. Wildcards are supported.
 `nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
 `custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.

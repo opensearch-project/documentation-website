@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 nav_order: 60
 redirect_from: 
-  - ml-commons-plugin/extensibility/index/
+  - /ml-commons-plugin/extensibility/index/
 ---
 
 # Connecting to externally hosted models
@@ -177,7 +177,7 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#get-a-task-by-id):
+To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```bash
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
@@ -309,7 +309,7 @@ The response contains the inference results provided by the OpenAI model:
 
 ## Step 6: Use the model for search
 
-To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).
+To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
 
 ## Next steps
 
