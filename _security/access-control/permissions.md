@@ -381,8 +381,9 @@ See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 These permissions apply to an index or index pattern. You might want a user to have read access to all indexes (that is, `*`), but write access to only a few (for example, `web-logs` and `product-catalog`).
 
 <!-- vale off -->
-| Permission | Description |
-| --- | --- |
+
+| **Permission** | **Description** |
+| :--- | :--- |
 | `indices:admin/aliases` |  Permissions for [index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/). |
 | `indices:admin/aliases/get` |  Permission to get [index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/). |
 | `indices:admin/analyze` |  Permission to use the [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/). |
@@ -415,7 +416,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/refresh*` |  Permission to use the index refresh API. |
 | `indices:admin/resolve/index` |  Permission to resolve index names, index aliases and data streams. |
 | `indices:admin/rollover` |  Permission to perform [index rollover]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/rollover/). |
-| `indices:admin/seq_no/global_checkpoint_sync` | Permission to perform a global checkpoint sync.  |
+| `indices:admin/seq_no/global_checkpoint_sync` | Permission to perform a global checkpoint sync. |
 | `indices:admin/settings/update` |  Permission to [update index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/). |
 | `indices:admin/shards/search_shards` |  Permission to perform [cross cluster search]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/). |
 | `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#delete-a-template). |
@@ -426,18 +427,18 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/read/explain` |  Permission to run the [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/). |
 | `indices:data/read/field_caps` |  Permission to run the [Field Capabilities API]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/#using-aliases-in-field-capabilities-api-operations). |
 | `indices:data/read/field_caps*` |  Permission to run the Field Capabilities API. |
-| `indices:data/read/get` |  Permission to read index data.  |
+| `indices:data/read/get` |  Permission to read index data. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
-| `indices:data/read/mget*` |  Permission to run multiple GET operations in one request.  |
+| `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. |
 | `indices:data/read/msearch` |  Permission to run [multiple search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)  requests into a single request. |
 | `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-template/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. |
 | `indices:data/read/mtv` |  Permission to retrieve multiple term vectors with a single request. |
 | `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request. |
 | `indices:data/read/plugins/replication/file_chunk` | Permission to check files during segment replication. |
-| `indices:data/read/plugins/replication/changes` | Permission to make changes to segment replication settings.  |
+| `indices:data/read/plugins/replication/changes` | Permission to make changes to segment replication settings. |
 | `indices:data/read/scroll` |  Permission to scroll data. |
 | `indices:data/read/scroll/clear` | Permission to clear read scroll data. |
-| `indices:data/read/search` |  Permission to [search]({{site.url}}{{site.baseurl}}/api-reference/search/) data.|
+| `indices:data/read/search` |  Permission to [search]({{site.url}}{{site.baseurl}}/api-reference/search/) data. |
 | `indices:data/read/search*` |  Permission to search data. |
 | `indices:data/read/search/template` |  Permission to read a search template. |
 | `indices:data/read/tv` |  Permission to retrieve information and statistics for terms in the fields of a particular document. |
@@ -445,8 +446,8 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/write/bulk*` |  Permission to run a bulk request. |
 | `indices:data/write/delete` |  Permission to [delete documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/). |
 | `indices:data/write/delete/byquery` |  Permission to delete all documents that [match a query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/). |
-| `indices:data/write/plugins/replication/changes` |   |
-| `indices:data/write/index` |  Permission to add documents to existing indexes. See also [Index document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/ ) |
+| `indices:data/write/plugins/replication/changes` |  Permission to make changes to data replication configurations and settings within indices. |
+| `indices:data/write/index` |  Permission to add documents to existing indexes. See also [Index document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/ ). |
 | `indices:data/write/reindex` |  Permission to run a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/). |
 | `indices:data/write/update` | Permission to update an index. |
 | `indices:data/write/update/byquery` |  Permission to run the script to update all of the documents that [match the query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/). |
@@ -457,6 +458,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:monitor/shard_stores` |  Permission to access shard store stats. |
 | `indices:monitor/stats` | Permission to access monitoring stats.  |
 | `indices:monitor/upgrade` | Permission to access upgrade stats.  |
+
 <!-- vale on -->
 
 
