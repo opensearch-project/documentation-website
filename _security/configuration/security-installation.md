@@ -2,7 +2,7 @@
 layout: default
 title: Security installation
 parent: Configuration
-nav_order: 50
+nav_order: 60
 ---
 
 # Security installation
