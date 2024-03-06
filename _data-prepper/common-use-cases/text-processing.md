@@ -2,7 +2,7 @@
 layout: default
 title: Text processing
 parent: Common use cases
-nav_order: 35
+nav_order: 55
 ---
 
 # Text processing

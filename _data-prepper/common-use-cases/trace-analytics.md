@@ -2,7 +2,7 @@
 layout: default
 title: Trace analytics
 parent: Common use cases
-nav_order: 5
+nav_order: 60
 ---
 
 # Trace analytics
@@ -15,7 +15,7 @@ When using Data Prepper as a server-side component to collect trace data, you ca
 
 The following flowchart illustrates the trace analytics workflow, from running OpenTelemetry Collector to using OpenSearch Dashboards for visualization.
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.jpg" alt="Trace analyticis component overview">{: .img-fluid}
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.jpg" alt="Trace analytics component overview">{: .img-fluid}
 
 To monitor trace analytics, you need to set up the following components in your service environment:
 - Add **instrumentation** to your application so it can generate telemetry data and send it to an OpenTelemetry collector.
@@ -322,7 +322,7 @@ For other configurations available for OpenSearch sinks, see [Data Prepper OpenS
 
 ## OpenTelemetry Collector
 
-You need to run OpenTelemetry Collector in your service environment. Follow [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured for your Data Prepper instance. The following example `otel-collector-config.yaml` file receives data from various instrumentations and exports it to Data Prepper.
+You need to run OpenTelemetry Collector in your service environment. Follow [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) to install an OpenTelemetry collector. Ensure that you configure the collector with an exporter configured for your Data Prepper instance. The following example `otel-collector-config.yaml` file receives data from various instrumentations and exports it to Data Prepper.
 
 ### Example otel-collector-config.yaml file
 
