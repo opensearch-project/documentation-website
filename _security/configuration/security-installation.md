@@ -32,7 +32,7 @@ bin/opensearch-plugin install opensearch-security
 3. Add necessary configuration to opensearch.yml for TLS encryption
 [Configuration]({{site.url}}{{site.baseurl}}/[security/configuration/disable/](/install-and-configure/configuring-opensearch/security-settings/)) details different settings which need to be configured
 4. Create OPENSEARCH_INITIAL_ADMIN_PASSWORD variable
-5. Restart the nodes and re-enable shard allocation
+5. Restart the nodes and reenable shard allocation
 ```json
   PUT "http://your-elasticsearch-host:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
   "transient": {
