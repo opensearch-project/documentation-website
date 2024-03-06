@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Selective download
-parent: Sources
-grand_parent: Pipelines
-nav_order: 21
+parent: Common use cases
+nav_order: 50
 ---
 
 # Selective download
