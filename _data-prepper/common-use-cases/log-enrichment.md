@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Log enrichment with Data Prepper
+title: Log enrichment
 parent: Common use cases
 nav_order: 50
 ---
 
-# Log enrichment with Data Prepper
+# Log enrichment
 
 You can perform different types of log enrichment with Data Prepper, including:
 
