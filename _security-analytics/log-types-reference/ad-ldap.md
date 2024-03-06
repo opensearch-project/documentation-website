@@ -12,7 +12,7 @@ The `ad_ldap` log type tracks Active Directory logs such as:
 - LDAP queries
 - Errors from the LDAP server
 - Timeout events
-- Unsecure LDAP binds
+- Unsecured LDAP binds
 
 The following code snippet contains all `raw_field` and `ecs` mappings for this log type:
 
