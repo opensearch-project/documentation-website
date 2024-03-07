@@ -61,7 +61,7 @@ PUT /_ingest/pipeline/drop-pii
 
 **Step 2 (Optional): Test the pipeline.**
 
-It is recommended that you test your pipeline before you ingest documents.
+It is recommended that you test your pipeline before ingesting documents.
 {: .tip}
 
 To test the pipeline, run the following query:
