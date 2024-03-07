@@ -34,7 +34,7 @@ bin/opensearch-plugin install opensearch-security
 4. Create OPENSEARCH_INITIAL_ADMIN_PASSWORD variable
 5. Restart the nodes and reenable shard allocation
 ```json
-  PUT "http://your-elasticsearch-host:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
+  PUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
   "transient": {
     "cluster.routing.allocation.enable": "all"
   }
