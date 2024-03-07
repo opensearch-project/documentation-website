@@ -283,7 +283,10 @@ When a user is assigned both Role A and Role B and the `plugins.security.dfm_emp
 ### Editing document-level permissions
 To adjust document-level permissions in OpenSearch, you can tailor existing roles or create new ones with customized configurations.
 
-To modifying an existing role, open OpenSearch Dashboards and choose Security and then choose Roles. Within the list of available roles locate the role to be changed, click on the role to inspect its current permissions and configurations.
+To modifying an existing role: 
+1. Open OpenSearch Dashboards. 
+2. Select  **Security > Roles**. This page lists all the available roles within your configuration.  
+3. Locate the role to you want to change and select it to inspect its current permissions and configurations.
 
 Within the role details, you can change index permissions in the specified index permissions section. Here, you can update index patterns, document-level security queries (DLS), and allowed actions associated with the role.
 
