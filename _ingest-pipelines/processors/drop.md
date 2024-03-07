@@ -7,7 +7,7 @@ nav_order: 70
 
 # Drop processor
 
-The `drop` processor is used to discard documents without indexing them. This is useful for preventing documents from being indexed based on certain conditions. For example, you might use a `drop` processor to prevent documents that are missing important fields or contain sensitive information from being indexed. 
+The `drop` processor is used to discard documents without indexing them. This can be useful for preventing documents from being indexed based on certain conditions. For example, you might use a `drop` processor to prevent documents that are missing important fields or contain sensitive information from being indexed. 
 
 The `drop` processor does not raise any errors when it discards documents, making it useful for preventing indexing problems without cluttering your OpenSearch logs with error messages.
 
