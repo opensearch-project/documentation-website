@@ -24,7 +24,7 @@ Option | Required | Type | Description
 `destination` | No | String | The field used to store the timestamp parsed by date processor. It can be used with both `match` and `from_time_received`. Default is `@timestamp`.
 `output_format` | No | String | Determines the format of timestamp added to event. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSXXX`.
 `source_timezone` | No | String | The time zone used to parse dates, including when the zone or offset cannot be extracted from the value. If the zone or offset are part of the value, then timezone is ignored. You can find a list of all the available timezones by going to [the list of database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) in the **TZ database name** column.
-`destination_timezone` | No | String | The timezone used for storing timestamp in `destination` field. The available timezone values are the same as `source_timestamp`.
+`destination_timezone` | No | String | The time zone used for storing timestamp in `destination` field. The available timezone values are the same as `source_timestamp`.
 `locale` | No | String | The location is used for parsing dates. It's commonly used for parsing month names(`MMM`). It can have language in the value, country and variant fields using IETF BCP 47 such as `en-US`, or a string representation of the [Locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object such as `en_US`. A full list of locale fields which includes language, country, and variant can be found in [the language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default is `Locale.ROOT`.
 
 ### Match
