@@ -84,7 +84,7 @@ POST _ingest/pipeline/drop-pii/_simulate
 
 #### Response
 
-The following example response confirms that the pipeline is working as expected, that is, the document has been dropped:
+The following example response confirms that the pipeline is working as expected (the document has been dropped):
 
 ```json
 {
