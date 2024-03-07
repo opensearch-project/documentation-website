@@ -10,11 +10,11 @@ redirect_from:
 
 # Pipelines
 
-The following image illustrates how a pipeline works. 
+Pipelines are a critical component that streamline the process of acquiring, transforming, and loading data from various sources into a centralized data repository or processing system. The following diagram shows how Data Prepper ingests your data into OpenSearch. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline">{: .img-fluid}
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline ingest process">{: .img-fluid}
 
-To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more processors, and one or more sinks. For example:
+To use Data Prepper, pipelines are defined in a configuration YAML file. Each pipeline consists of a source, a buffer, zero or more processors, and one or more sinks. The following is a configuration example:
 
 ```yml
 simple-sample-pipeline:
@@ -33,17 +33,13 @@ simple-sample-pipeline:
     - stdout:
 ```
 
-- Sources define where your data comes from. In this case, the source is a random UUID generator (`random`).
+- A _source_ specifies the origin of the data. In the given pipeline example, the source setting is `random`, which is a random Universally Unique Identifier (UUID) generator.
 
-- Buffers store data as it passes through the pipeline.
+- A _buffer_ temporarily stores data as it passes through the pipeline. Unless you have developed a custom buffer or need to adjust the default settings, you can skip this section. Data Prepper comes preconfigured with a single `bounded_blocking` buffer, which serves as the out-of-the-box buffer for handling data flow through the pipeline.
 
-  By default, Data Prepper uses its one and only buffer, the `bounded_blocking` buffer, so you can omit this section unless you developed a custom buffer or need to tune the buffer settings.
+- A _processor_ is a functional component in a pipeline that carries out a specific operation on the data stream, such as filtering, transforming, or enriching data. Multiple processors can be chained together, executing sequentially rather than in parallel. In the given pipeline example, the `string_converter` processor uses the `upper_case` processor to convert string values into uppercase letters.
 
-- Processors perform some action on your data: filter, transform, enrich, etc.
-
-  You can have multiple processors, which run sequentially from top to bottom, not in parallel. The `string_converter` processor transform the strings by making them uppercase.
-
-- Sinks define where your data goes. In this case, the sink is stdout.
+- A _sink_ specifies the destination where the processed data will be delivered or stored after flowing through the pipeline. In the given pipeline example, the sink is `stdout`.
 
 Starting from Data Prepper 2.0, you can define pipelines across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize and chain complex pipeline configurations. For Data Prepper to load your pipeline configuration properly, place your configuration YAML files in the `pipelines` folder under your application's home directory (e.g. `/usr/share/data-prepper`).
 {: .note }
