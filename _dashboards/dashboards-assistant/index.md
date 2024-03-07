@@ -128,3 +128,4 @@ The following screenshot shows a saved conversation, along with actions you can 
 
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
 - [OpenSearch Assistant configuration through the REST API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)
+- [Build your own chatbot]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/build-chatbot/)
