@@ -40,7 +40,7 @@ Parameter | Required | Description |
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline.**
+**Step 1: Create a pipeline**
 
 The following query creates a pipeline, named `drop-pii`, that uses the `drop` processor to prevent a document containing personally identifiable information (PII) from being indexed:
 
@@ -59,7 +59,7 @@ PUT /_ingest/pipeline/drop-pii
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**Step 2 (Optional): Test the pipeline**
 
 It is recommended that you test your pipeline before ingesting documents.
 {: .tip}
@@ -95,7 +95,7 @@ The following example response confirms that the pipeline is working as expected
 ```
 {% include copy-curl.html %}
 
-**Step 3: Ingest a document.**
+**Step 3: Ingest a document**
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -107,7 +107,7 @@ PUT testindex1/_doc/1?pipeline=drop-pii
 ```
 {% include copy-curl.html %}
 
-The following response confirms that the document with ID `1` was not indexed: 
+The following response confirms that the document with the ID of `1` was not indexed: 
 
 {
   "_index": "testindex1",
