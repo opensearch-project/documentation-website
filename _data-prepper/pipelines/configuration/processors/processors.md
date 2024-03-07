@@ -3,7 +3,7 @@ layout: default
 title: Processors
 has_children: true
 parent: Pipelines
-nav_order: 25
+nav_order: 8
 ---
 
 # Processors

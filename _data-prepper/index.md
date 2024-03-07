@@ -14,34 +14,29 @@ redirect_from:
 
 # Data Prepper
 
-Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization.
+Data Prepper is a server-side data ingestion tool that collects, transforms, and prepares data for downstream analytics and visualizations to give you operational visibility and insight into application performance. Key uses cases include [trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) and [log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/). 
 
-Data Prepper lets users build custom pipelines to improve the operational view of applications. Two common uses for Data Prepper are trace and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/index/) can help you visualize the flow of events and identify performance problems, and [log analytics]({{site.url}}{{site.baseurl}}/observability-plugin/log-analytics/) can improve searching, analyzing and provide insights into your application.
+Let's explore some key fundamentals before [Getting started with Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/). 
 
-## Concepts
+## Key concepts and fundamentals
 
-Data Prepper includes one or more **pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
+Data Prepper ingest data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your own needs, allowing you to even plug in your own implementations. A pipeline includes the following components: 
 
-- One [source](#source)
-- One or more [sinks](#sink)
-- (Optional) One [buffer](#buffer)
-- (Optional) One or more [processors](#processor)
+- One [source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/)
+- One or more [sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/)
+- (Optional) One [buffer]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
+- (Optional) One or more [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
 
-A single instance of Data Prepper can have one or more pipelines. 
+Each pipeline definition contains two required components: `source` and `sink`. If a buffer, a processor, or both are missing from the pipeline, Data Prepper uses the default `bounded_blocking` buffer and a no-op processor. A single instance of Data Prepper can have one or more pipelines.
 
-Each pipeline definition contains two required components: **source** and **sink**. If buffers and processors are missing from the Data Prepper pipeline, Data Prepper uses the default buffer and a no-op processor. 
+## Next steps
 
-### Source 
-
-Source is the input component that defines the mechanism through which a Data Prepper pipeline will consume events. A pipeline can have only one source. The source can consume events either by receiving the events over HTTP or HTTPS or by reading from external endpoints like OTeL Collector for traces and metrics and Amazon Simple Storage Service (Amazon S3). Sources have their own configuration options based on the format of the events (such as string, JSON, Amazon CloudWatch logs, or open telemetry trace). The source component consumes events and writes them to the buffer component. 
+- [Get started with Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/).
+- [Get familiar with Data Prepper pipelines]().
 
 ### Buffer
 
 The buffer component acts as the layer between the source and the sink. Buffer can be either in-memory or disk based. The default buffer uses an in-memory queue called `bounded_blocking` that is bounded by the number of events. If the buffer component is not explicitly mentioned in the pipeline configuration, Data Prepper uses the default `bounded_blocking`.
-
-### Sink
-
-Sink is the output component that defines the destination(s) to which a Data Prepper pipeline publishes events. A sink destination could be a service, such as OpenSearch or Amazon S3, or another Data Prepper pipeline. When using another Data Prepper pipeline as the sink, you can chain multiple pipelines together based on the needs of the data. Sink contains its own configuration options based on the destination type.
 
 ### Processor
 
@@ -49,7 +44,7 @@ Processors are units within the Data Prepper pipeline that can filter, transform
 
 ## Sample pipeline configurations
 
-To understand how all pipeline components function within a Data Prepper configuration, see the following examples. Each pipeline configuration uses a `yaml` file format.
+To understand how all pipeline components function within a Data Prepper configuration, see the following examples. Each pipeline configuration uses a YAML file format.
 
 ### Minimal component
 
@@ -87,10 +82,3 @@ sample-pipeline:
     - file:
        path: <path/to/output-file>
 ```
-
-## Next steps
-
-To get started building your own custom pipelines with Data Prepper, see [Getting started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).
-
-<!---Delete this comment.--->
-

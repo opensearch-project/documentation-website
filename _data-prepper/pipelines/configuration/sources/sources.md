@@ -3,9 +3,11 @@ layout: default
 title: Sources
 parent: Pipelines
 has_children: true
-nav_order: 15
+nav_order: 5
 ---
 
 # Sources
 
-Sources define where your data comes from within a Data Prepper pipeline.
+The _source_ is the input component that specifies how a Data Prepper pipeline ingests events. Each pipeline has a single source that either receives events over HTTP(S) or reads from external endpoints like OTel Collector for traces or metrics and Amazon S3. Sources have configurable options based on the event format (string, JSON, Amazon CloudWatch logs, OpenTelemtry traces). The source consumes events and passes them to the [buffer]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/) component.
+
+Go to the Related articles section to learn more about the source options in Data Prepper.
