@@ -100,7 +100,7 @@ Option | Required | Type | Description
 
 ## actions
 
-The following options can be used insie the `actions` option.
+The following options can be used inside the `actions` option.
 
 Option | Required | Type | Description
 :--- |:---| :--- | :---
@@ -330,8 +330,7 @@ log-pipeline:
           region: "us-east-1"
 ```
 
-### Example with template_content and actions
-### <a id="example_template_content"></a>
+### Example with template_content and actions <a id="example_template_content"></a>
 
 The following example pipeline contains both `template_content` and a list of conditional `actions`. 
 
