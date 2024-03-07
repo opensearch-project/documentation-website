@@ -49,6 +49,8 @@ pipeline:
 ## Configuration options
 
 The following table describes options you can configure for the `opensearch` sink.
+
+<!-- vale off -->
 Option | Required | Type | Description
 :--- | :--- |:---| :---
 `hosts` | Yes | List | List of OpenSearch hosts to write to such as `["https://localhost:9200", "https://remote-cluster:9200"]`.
@@ -83,6 +85,7 @@ Option | Required | Type | Description
 `normalize_index` | No | Boolean | If true, the OpenSearch sink will try to make dynamic index names. Index names with format options specified in `${})` valid according to the [index naming restrictions]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-naming-restrictions). Any invalid characters will be removed. Default value is false.
 `routing` | No | String | A string which is used as a hash for generating the `shard_id` for the document when it is stored in the OpenSearch. Each incoming record is searched for this field. When present, the string is used as the routing field for the document. When not present, the default routing mechanism of using `document_id` is used by OpenSearch when storing the document. Supports formatting with fields in the Events and [Data Prepper expressions]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `${/my_field}-test-${getMetadata(\"some_metadata_key\")}`
 `document_root_key` | No | String  | The key in the event that will be used as the root in the document. The default is the root of the event. If the key does not exist the entire event is written as the document. If the value at the `document_root_key `is of a basic value type such as a string or integer, the document will have a structure of `{"data": <value of the document_root_key>}`.
+<!-- vale on -->
 
 ## aws
 
