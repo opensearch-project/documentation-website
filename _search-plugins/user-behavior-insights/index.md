@@ -26,17 +26,15 @@ The User Behavior Insights plugin is available for OpenSearch 2.12.0. To install
    "https://github.com/o19s/opensearch-ubi/releases/download/0.0.8/opensearch-ubi-0.0.8-os2.12.0.zip"
 ```
 
-After installing the UBI plugin you can find [documentation](https://github.com/o19s/opensearch-ubi/blob/main/documentation.md).
-
-## Using the plugin
+For plugin APIs and examples, see [OpenSearch User Behavior Insights documentation](https://github.com/o19s/opensearch-ubi/blob/main/documentation.md).
 
 The following steps outline how to get started with the UBI plugin.
 
-### Initializing a UBI store
+## Initializing a UBI store
 
-A "store" contains the client-side events and the queries. After installing the plugin we need to initialize a store. In the following request we are creating a store called `mystore`.
+A _store_ contains the client-side events and the queries. After installing the plugin we need to initialize a store. In the following request we are creating a store called `mystore`.
 
-```
+```json
 PUT _plugins/ubi/mystore
 ```
 {% include copy.html %}
@@ -46,11 +44,11 @@ A store consists of two OpenSearch indexes whose names are based on the name of 
 * `.mystore_events` - This index contains the client-side events sent to the plugin by the JavaScript library.
 * `.mystore_queries` - This index contains the queries that the plugin passively stores.
 
-### Sending events to the store
+## Sending events to the store
 
-With the store initialized, we can now send client-side events to our `mystore` store.
+With the store initialized, you can now send client-side events to our `mystore` store:
 
-```
+```json
 POST /_plugins/ubi/mystore
 {
   "type": "instant-search",
@@ -63,7 +61,7 @@ POST /_plugins/ubi/mystore
 ```
 {% include copy-curl.html %}
 
-### Capturing queries
+## Capturing queries
 
 The UBI plugin passively stores queries. To test it, you can run a query against an example index of products called `ecommerce`:
 
