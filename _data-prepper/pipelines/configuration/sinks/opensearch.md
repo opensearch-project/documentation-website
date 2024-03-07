@@ -98,7 +98,9 @@ Option | Required | Type | Description
 `serverless` | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
 `serverless_options` | No | Object | The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
 
+<!-- vale off -->
 ## actions
+<!-- vale on -->
 
 The following options can be used inside the `actions` option.
 
