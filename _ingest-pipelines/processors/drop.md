@@ -34,7 +34,7 @@ Parameter | Required | Description |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) for more information. |
 `on_failure` | Optional | A list of processors to run if the processor fails. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) for more information. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for distinguishing between processors of the same type when debugging. |
 
 ## Using the processor
 
