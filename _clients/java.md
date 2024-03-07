@@ -344,7 +344,7 @@ client.delete(b -> b.index(index).id("1"));
 The following sample code deletes an index:
 
 ```java
-DeleteIndexRequest deleteIndexRequest = new DeleteRequest.Builder().index(index).build();
+DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest.Builder().index(index).build();
 DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
 ```
 {% include copy.html %}
