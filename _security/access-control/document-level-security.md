@@ -288,7 +288,7 @@ To modifying an existing role:
 2. Select  **Security > Roles**. This page lists all the available roles within your configuration.  
 3. Locate the role to you want to change and select it to inspect its current permissions and configurations.
 
-Within the role details, you can change index permissions in the specified index permissions section. Here, you can update index patterns, document-level security queries (DLS), and allowed actions associated with the role.
+4. Within the role details, you can change index permissions in the specified index permissions section, such as can index patterns, document-level security queries (DLS), and allowed actions associated with the role. The following example adds DLS permissions and lists the actions allowed for the role:
 
 Example of DLS Configuration in roles.yml:
 ```
