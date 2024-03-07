@@ -18,13 +18,13 @@ The following table describes the options you can use to configure the `date` pr
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `match` | Conditionally | [Match](#Match) | The date match configuration. There is no default value. This option cannot be defined at the same time as `from_time_received`.  There is no default value
-`from_time_received` | Conditionally | Boolean | When `true`, the timestamp from the event metadata which is the time when source receives the event is added to event data.  This option cannot be defined at the same time as `match`. Default is `false`.
+`from_time_received` | Conditionally | Boolean | When `true`, the timestamp from the event metadata which is the time when source receives the event is added to event data. This option cannot be defined at the same time as `match`. Default is `false`.
 `date_when` | No | String | Specifies under what condition the `date` processor should perform matching. Default is no condition.
 `to_origination_metadata` | No | Boolean | When `true` matched time is also added to the event's metadata as an instance of `Instant`. Defaults to `false`.
 `destination` | No | String | The field used to store the timestamp parsed by date processor. It can be used with both `match` and `from_time_received`. Default is `@timestamp`.
 `output_format` | No | String | Determines the format of timestamp added to event. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSXXX`.
-`source_timezone` | No | String | The time zone used to parse dates, including when the zone or offset cannot be extracted from the value. If the zone or offset are part of the value, then timezone is ignored. You can find a list of all the available timezones by going to [the list of database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) in the **TZ database name** column.
-`destination_timezone` | No | String | The time zone used for storing timestamp in `destination` field. The available timezone values are the same as `source_timestamp`.
+`source_timezone` | No | String | The time zone used to parse dates, including when the zone or offset cannot be extracted from the value. If the zone or offset are part of the value, then time zone is ignored. You can find a list of all the available time zones by going to [the list of database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) in the **TZ database name** column.
+`destination_timezone` | No | String | The time zone used for storing timestamp in `destination` field. The available time zone values are the same as `source_timestamp`.
 `locale` | No | String | The location is used for parsing dates. It's commonly used for parsing month names(`MMM`). It can have language in the value, country and variant fields using IETF BCP 47 such as `en-US`, or a string representation of the [Locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object such as `en_US`. A full list of locale fields which includes language, country, and variant can be found in [the language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default is `Locale.ROOT`.
 
 ### Match
@@ -32,7 +32,7 @@ Option | Required | Type | Description
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `key` | Yes | String | Represents the key in the event to match the patterns against. Required if `match` is configured. 
-`patterns` | Yes | List | A list of possible patterns the timestamp value of the key can have. The patterns are based on a sequence of letters and symbols. The `patterns` support all the patterns listed in the Java [DatetimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) reference. It also supports `epoch_second`, `epoch_milli` and `epoch_nano` values which represents the timestamp as the number of seconds, milliseconds and nano seconds since the epoch. Epoch values always use the UTC time zone.
+`patterns` | Yes | List | A list of possible patterns the timestamp value of the key can have. The patterns are based on a sequence of letters and symbols. The `patterns` support all the patterns listed in the Java [DatetimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) reference. It also supports `epoch_second`, `epoch_milli` and `epoch_nano` values which represents the timestamp as the number of seconds, milliseconds and nanoseconds since the epoch. Epoch values always use the UTC time zone.
 
 ## Metrics
 
@@ -58,7 +58,7 @@ The following Date processor configuration can be used to add default timestamp 
     destination: "@timestamp"
 ```
 
-## Example: Parse timestamp to convert format and timezone
+## Example: Parse timestamp to convert format and time zone
 The following Data processor configuration can be used to parse the value of timestamp filed in `dd/MMM/yyyy:HH:mm:ss` and write it in `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` format:
 
 ```yaml
