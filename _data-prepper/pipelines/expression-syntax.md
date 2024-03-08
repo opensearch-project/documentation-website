@@ -15,15 +15,15 @@ Operators are listed in order of precedence (top to bottom, left to right).
 
 | Operator             | Description                                           | Associativity |
 |----------------------|-------------------------------------------------------|---------------|
-| `()`                 | Priority Expression                                   | left-to-right |
-| `not`<br> `+`<br>  `-`| Unary Logical NOT<br>Unary Positive<br>Unary negative | right-to-left |
-| `<`, `<=`, `>`, `>=` | Relational Operators                                  | left-to-right |
-| `==`, `!=`           | Equality Operators                                    | left-to-right |
-| `and`, `or`          | Conditional Expression                                | left-to-right |
+| `()`                 | Priority expression                                   | left-to-right |
+| `not`<br> `+`<br>  `-`| Unary logical NOT<br>Unary positive<br>Unary negative | right-to-left |
+| `<`, `<=`, `>`, `>=` | Relational operators                                  | left-to-right |
+| `==`, `!=`           | Equality operators                                    | left-to-right |
+| `and`, `or`          | Conditional expression                                | left-to-right |
 
 ## Reserved for possible future functionality
 
-The reserved symbol sets include the following: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
+The reserved symbol sets include `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
 ## Set initializer
 
@@ -180,7 +180,7 @@ To effectively understand and work with the expression syntax in Data Prepper pi
 "/Hello - 'world\//0/\"JsonPointer\""
 ```
 
-**Literal:** A literal is a fundamental value that has no children. The values include the following:
+**Literal:** A fundamental value that has no children. The values include the following:
 - Float: Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45</sup>.
 - Integer: Supports values from &minus;2,147,483,648 to 2,147,483,647.
 - Boolean: Supports true or false.
