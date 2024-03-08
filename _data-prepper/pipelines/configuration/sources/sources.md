@@ -12,4 +12,4 @@ The `source` is the input component that specifies how a Data Prepper pipeline i
 
 ## Next steps 
 
-- Learn more about the source options in Data Prepper.
+- Learn more about the source types listed under the Related Articles section.
