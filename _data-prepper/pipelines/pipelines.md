@@ -90,4 +90,4 @@ conditional-routing-sample-pipeline:
 
 ## Next steps
 
-- Explore the Data Prepper pipeline [Common uses cases]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/common-use-cases/) to view configuration examples.
+- Explore [common uses cases]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/common-use-cases/) to view configuration examples.
