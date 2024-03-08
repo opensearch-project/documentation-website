@@ -2,12 +2,12 @@
 layout: default
 title: Expression syntax
 parent: Pipelines
-nav_order: 12
+nav_order: 15
 ---
 
 # Expression syntax 
 
-The following sections provide information about expression syntax in Data Prepper.
+Expressions provide flexibility in data manipulation, filtering, and routing in Data Prepper. The following sections provide detailed information about the expression syntax used in Data Prepper.
 
 ## Supported operators
 
@@ -23,29 +23,25 @@ Operators are listed in order of precedence (top to bottom, left to right).
 
 ## Reserved for possible future functionality
 
-Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
+The following are the reserved symbol sets: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
 ## Set initializer
 
-The set initializer defines a set or term and/or expressions.
+The set initializer defines a set or term and/or expressions. The following are set initializer syntax examples.
 
-### Examples
-
-The following are examples of set initializer syntax.
-
-#### HTTP status codes
+### HTTP status codes
 
 ```
 {200, 201, 202}
 ```
 
-#### HTTP response payloads
+### HTTP response payloads
 
 ```
 {"Created", "Accepted"}
 ```
 
-#### Handle multiple event types with different keys
+### Handle multiple event types with different keys
 
 ```
 {/request_payload, /request_message}
@@ -53,9 +49,7 @@ The following are examples of set initializer syntax.
 
 ## Priority expression
 
-A priority expression identifies an expression that will be evaluated at the highest priority level. A priority expression must contain an expression or value; empty parentheses are not supported.
-
-### Example
+A priority expression identifies an expression that will be evaluated at the highest priority level. A priority expression must contain an expression or value. Empty parentheses are not supported. The following is a priority example:
 
 ```
 /is_cool == (/name == "Steven")
@@ -63,8 +57,7 @@ A priority expression identifies an expression that will be evaluated at the hig
 
 ## Relational operators
 
-Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON Pointers that resolve to numbers.
-
+Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON pointers that resolve to numbers. The following is the relational operator syntax: 
 ### Syntax
 
 ```
@@ -74,7 +67,7 @@ Relational operators are used to test the relationship of two numeric values. Th
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
 
-### Example
+The following is a relational operator example: 
 
 ```
 /status_code >= 200 and /status_code < 300
@@ -82,25 +75,25 @@ Relational operators are used to test the relationship of two numeric values. Th
 
 ## Equality operators
 
-Equality operators are used to test whether two values are equivalent.
+Equality operators are used to test whether two values are equivalent. The following is the equality operator syntax:
 
-### Syntax
 ```
 <Any> == <Any>
 <Any> != <Any>
 ```
 
-### Examples
+The following is an equality operator example:
+
 ```
 /is_cool == true
 3.14 != /status_code
 {1, 2} == /event/set_property
 ```
-## Using equality operators to check for a JSON Pointer 
 
-Equality operators can also be used to check whether a JSON Pointer exists by comparing the value with `null`.
+### Using equality operators to check for JSON pointers 
 
-### Syntax
+Equality operators can be used to check whether a JSON pointer exists by comparing the value with `null`. The following is a syntax example:
+
 ```
 <JSON Pointer> == null
 <JSON Pointer> != null
@@ -108,24 +101,25 @@ null == <JSON Pointer>
 null != <JSON Pointer>
 ```
 
-### Example
+The following is an example of an equality operator checking for JSON pointers:
+
 ```
 /response == null
 null != /response
 ```
 
-#### Conditional expression
+## Conditional expressions
 
-A conditional expression is used to chain together multiple expressions and/or values.
+A conditional expression is used to chain together multiple expressions and/or values. The following is a syntax example:
 
-#### Syntax
 ```
 <Any> and <Any>
 <Any> or <Any>
 not <Any>
 ```
 
-### Example
+The following is a conditional expression example:  
+
 ```
 /status_code == 200 and /message == "Hello world"
 /status_code == 200 or /status_code == 202
@@ -136,7 +130,7 @@ not /status_code in {200, 202}
 
 ## Definitions
 
-This section provides expression definitions. 
+The foll 
 
 ### Literal
 A literal is a fundamental value that has no children:
@@ -165,7 +159,7 @@ An expression is a generic component that contains a _Primary_ or an _Operator_.
 ### Operator
 An operator is a hardcoded token that identifies the operation used in an _expression_.
 
-### JSON Pointer
+## JSON pointer
 A JSON Pointer is a literal used to reference a value within an event and provided as context for an _expression string_. JSON Pointers are identified by a leading `/` containing alphanumeric characters or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped in double quotes (`"`) using the escape character `\`. Note that JSON Pointers require `~` and `/` characters, which should be used as part of the path and not as a delimiter that needs to be escaped.
 
 The following are examples of JSON Pointers:
