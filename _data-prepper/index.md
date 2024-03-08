@@ -16,11 +16,9 @@ redirect_from:
 
 Data Prepper is a server-side data ingestion tool that collects, transforms, and prepares data for downstream analytics and visualizations to give you operational visibility and insight into application performance. Key uses cases include [trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) and [log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/). 
 
-Let's explore some key fundamentals before [Getting started with Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/). 
-
 ## Key concepts and fundamentals
 
-Data Prepper ingest data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your own needs, allowing you to even plug in your own implementations. A pipeline includes the following components: 
+Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your own needs, allowing you to even plug in your own implementations. A pipeline includes the following components: 
 
 - One [source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/)
 - One or more [sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/)
