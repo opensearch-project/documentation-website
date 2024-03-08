@@ -53,14 +53,16 @@ When using DLQ with an OpenSearch sink, you can configure the [max_retries]({{si
 
 DLQ supports the following metrics:
 
-- Counter
+- **Counter**
     - `dlqS3RecordsSuccess`: Measures the number of successful records sent to S3.
     - `dlqS3RecordsFailed`: Measures the number of records that failed to be sent to S3.
     - `dlqS3RequestSuccess`: Measures the number of successful S3 requests.
     - `dlqS3RequestFailed`: Measures the number of failed S3 requests.
-- Distribution summary
+
+- **Distribution summary**
     - `dlqS3RequestSizeBytes`: Measures the distribution of the S3 request's payload size in bytes.
-- Timer
+
+- **Timer**
     - `dlqS3RequestLatency`: Measures latency when sending each S3 request, including retries.
 
 ## DLQ objects
