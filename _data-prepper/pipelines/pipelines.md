@@ -16,7 +16,7 @@ Pipelines are a critical component that streamlines the process of acquiring, tr
 
 ## Configuring Data Prepper pipelines
 
-Pipelines are defined in the configuration YAML file. Starting with Data Prepper 2.0, you can define pipelines across multiple YAML configuration files, with each file containing the configuration for one or more pipelines. This gives you flexibility to organize and chain complex pipeline configurations. To ensure proper loading of your pipeline configurations, place the YAML configuration YAML files in the `pipelines` folder under your application's home directory, for example, `/usr/share/data-prepper`.
+Pipelines are defined in the configuration YAML file. Starting with Data Prepper 2.0, you can define pipelines across multiple YAML configuration files, with each file containing the configuration for one or more pipelines. This gives you flexibility to organize and chain complex pipeline configurations. To ensure proper loading of your pipeline configurations, place the YAML configuration files in the `pipelines` folder under your application's home directory, for example, `/usr/share/data-prepper`.
 
 The following is a configuration example:
 
@@ -50,7 +50,7 @@ Option | Required | Type        | Description
 
 ## Pipeline concepts
 
-The following are important concepts in pipelines. 
+The following are important concepts for Data Prepper pipelines. 
 
 ### End-to-end acknowledgments
 
@@ -64,7 +64,7 @@ If a pipeline component fails to process and send an event, the source receives 
 
 Pipelines also support conditional routing, which enables routing events to different sinks based on specific conditions. To add conditional routing, specify a list of named routes under the `route` component and assign specific routes to sinks using the `routes` property. Any sink with the `routes` property will only accept events matching at least one of the routing conditions. 
 
-In the following example pipeline, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper routes events satisfying this condition to the first OpenSearch sink. By default, Data Prepper routes all events to sinks without a defined route, as shown in the third OpenSearch sink in the given pipeline.
+In the following example pipeline, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper routes events satisfying this condition to the first OpenSearch sink. By default, Data Prepper routes all events to sinks without a defined route, as shown in the third OpenSearch sink of the given pipeline.
 
 ```yml
 conditional-routing-sample-pipeline:
