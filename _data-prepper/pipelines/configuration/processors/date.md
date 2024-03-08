@@ -25,7 +25,7 @@ Option | Required | Type | Description
 `output_format` | No | String | Determines the format of the timestamp added to an event. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSXXX`.
 `source_timezone` | No | String | The time zone used to parse dates, including when the zone or offset cannot be extracted from the value. If the zone or offset are part of the value, then the time zone is ignored. A list of all the available time zones is contained in the **TZ database name** column of [the list of database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List).
 `destination_timezone` | No | String | The time zone used for storing the timestamp in the `destination` field. A list of all the available time zones is contained in the **TZ database name** column of [the list of database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List).
-`locale` | No | String | The location used for parsing dates. Commonly used for parsing month names (`MMM`).  The value can contain language, country, or variant fields in IETF BCP 47, such as `en-US`, or a string representation of the [locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object, such as `en_US`. A full list of locale fields, including language, country, and variant, can be found in [the language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default is `Locale.ROOT`.
+`locale` | No | String | The location used for parsing dates. Commonly used for parsing month names (`MMM`). The value can contain language, country, or variant fields in IETF BCP 47, such as `en-US`, or a string representation of the [locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object, such as `en_US`. A full list of locale fields, including language, country, and variant, can be found in [the language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default is `Locale.ROOT`.
 
 ### Match
 
@@ -50,7 +50,7 @@ The `date` processor includes the following custom metrics.
 * `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified by the `patterns match` configuration option.
 
 ## Example: Add the default timestamp to an event
-The following `date` processor configuration can be used to add a default timestamp in the `@timestamp` filed to all events:
+The following `date` processor configuration can be used to add a default timestamp in the `@timestamp` filed applied to all events:
 
 ```yaml
 - date:
@@ -58,8 +58,8 @@ The following `date` processor configuration can be used to add a default timest
     destination: "@timestamp"
 ```
 
-## Example: Parse a timestamp to convert it's format and time zone
-The following `date` processor configuration can be used to parse the value of the timestamp filed in `dd/MMM/yyyy:HH:mm:ss` and write it in `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` format:
+## Example: Parse a timestamp to convert its format and time zone
+The following `date` processor configuration can be used to parse the value of the timestamp applied to `dd/MMM/yyyy:HH:mm:ss` and write it in `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` format:
 
 ```yaml
 - date:
