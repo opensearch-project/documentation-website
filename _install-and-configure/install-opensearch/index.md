@@ -23,8 +23,10 @@ The following table lists the operating system versions that we currently suppor
 
 OS | Version
 :---------- | :-------- 
-RHEL/CentOS |	7/8
-Rocky Linux |	8
+RHEL | 7/8
+CentOS | 7
+Rocky Linux | 8
+Alma Linux | 8
 Ubuntu | 16.04/18.04/20.04
 Windows Server | 2019
 
