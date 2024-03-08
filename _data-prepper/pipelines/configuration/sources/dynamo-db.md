@@ -188,7 +188,7 @@ The `dynamodb` source includes the following metrics.
 * `exportRecordsProcessingErrors`: The number of export record processing errors.
 * `changeEventsProcessed`: The number of change events processed from DynamoDB streams.
 * `changeEventsProcessingErrors`: The number of processing errors for change events from DynamoDB streams.
-* `shardProgress`: The incremented shard progress when DynamoDB streams are being read correctly. If this is `0` for a certain period of time, then there is a problem with the pipeline that has streams enabled.
+* `shardProgress`: The incremented shard progress when DynamoDB streams are being read correctly. This being`0` for any significant amount of time means there is a problem with the pipeline that has streams enabled.
 
 
 
