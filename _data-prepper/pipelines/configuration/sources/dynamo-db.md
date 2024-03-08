@@ -92,14 +92,14 @@ Option | Required | Type | Description
 
 The following metadata will be added to each event that is processed by the `dynamodb` source. These metadata attributes can be accessed using the [expression syntax `getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata).
 
-* `primary_key` - The primary key of the DynamoDB item. For tables that only contain a partition key, this value provides the partition key. For tables that contain both a partition and sort key, the `primary_key` attribute will be equal to the partition and sort key, separated by a `|`, for example, `partition_key|sort_key`.
-* `partition_key` - The partition key of the DynamoDB item.
-* `sort_key` - The sort key of the DynamoDB item. This will be null if the table does not contain a sort key.
-* `dynamodb_timestamp` - The timestamp of the DynamoDB item. This will be the export time for export items and the DynamoDB stream event time for stream items. This timestamp is used by sinks to emit an `EndtoEndLatency` metric for DynamoDB stream events that tracks the latency between a change occurring in the DynamoDB table and that change being applied to the sink.
-* `document_version` - Uses the `dynamodb_timestamp` to modify break ties between stream items that are received in the same second. Recommend for use with the `opensearch` sink's `document_version` setting.
-* `opensearch_action` - A default value for mapping DynamoDB event actions to OpenSearch actions. This action will be `index` for export items, and `INSERT` or `MODIFY` for stream events, and `REMOVE` stream events when the OpenSearch action is `delete`.
-* `dynamodb_event_name` - The exact event type for the item. Will be `null` for export items and either `INSERT`, `MODIFY`, or `REMOVE` for stream events.
-* `table_name` - The name of the DynamoDB table that an event came from.
+* `primary_key`: The primary key of the DynamoDB item. For tables that only contain a partition key, this value provides the partition key. For tables that contain both a partition and sort key, the `primary_key` attribute will be equal to the partition and sort key, separated by a `|`, for example, `partition_key|sort_key`.
+* `partition_key`: The partition key of the DynamoDB item.
+* `sort_key`: The sort key of the DynamoDB item. This will be null if the table does not contain a sort key.
+* `dynamodb_timestamp`: The timestamp of the DynamoDB item. This will be the export time for export items and the DynamoDB stream event time for stream items. This timestamp is used by sinks to emit an `EndtoEndLatency` metric for DynamoDB stream events that tracks the latency between a change occurring in the DynamoDB table and that change being applied to the sink.
+* `document_version`: Uses the `dynamodb_timestamp` to modify break ties between stream items that are received in the same second. Recommend for use with the `opensearch` sink's `document_version` setting.
+* `opensearch_action`: A default value for mapping DynamoDB event actions to OpenSearch actions. This action will be `index` for export items, and `INSERT` or `MODIFY` for stream events, and `REMOVE` stream events when the OpenSearch action is `delete`.
+* `dynamodb_event_name`: The exact event type for the item. Will be `null` for export items and either `INSERT`, `MODIFY`, or `REMOVE` for stream events.
+* `table_name`: The name of the DynamoDB table that an event came from.
 
 
 ## Permissions
@@ -179,16 +179,16 @@ The `dynamodb` source includes the following metrics.
 
 ### Counters
 
-* `exportJobSuccess` - The number of export jobs that have been submitted successfully.
-* `exportJobFailure` - The number of export job submission attempts that have failed.
-* `exportS3ObjectsTotal` - The total number of export data files found in S3.
-* `exportS3ObjectsProcessed` - The total number of export data files that have been processed successfully from S3.
-* `exportRecordsTotal` - The total number of records found in the export.
-* `exportRecordsProcessed` - The total number of export records that have been processed successfully.
-* `exportRecordsProcessingErrors` - The number of export record processing errors.
-* `changeEventsProcessed` - The number of change events processed from DynamoDB streams.
-* `changeEventsProcessingErrors` - The number of processing errors for change events from DynamoDB streams.
-* `shardProgress` - The incremented shard progress when DynamoDB streams are being read correctly. If this is `0` for a certain period of time, then there is a problem with the pipeline that has streams enabled.
+* `exportJobSuccess`: The number of export jobs that have been submitted successfully.
+* `exportJobFailure`: The number of export job submission attempts that have failed.
+* `exportS3ObjectsTotal`: The total number of export data files found in S3.
+* `exportS3ObjectsProcessed`: The total number of export data files that have been processed successfully from S3.
+* `exportRecordsTotal`: The total number of records found in the export.
+* `exportRecordsProcessed`: The total number of export records that have been processed successfully.
+* `exportRecordsProcessingErrors`: The number of export record processing errors.
+* `changeEventsProcessed`: The number of change events processed from DynamoDB streams.
+* `changeEventsProcessingErrors`: The number of processing errors for change events from DynamoDB streams.
+* `shardProgress`: The incremented shard progress when DynamoDB streams are being read correctly. If this is `0` for a certain period of time, then there is a problem with the pipeline that has streams enabled.
 
 
 
