@@ -290,7 +290,6 @@ To modifying an existing role:
 
 4. Within the role details, you can change index permissions in the specified index permissions section, such as can index patterns, document-level security queries (DLS), and allowed actions associated with the role. The following example adds DLS permissions and lists the actions allowed for the role:
 
-Example of DLS Configuration in roles.yml:
 ```
 {
   "index_permissions": [
