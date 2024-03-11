@@ -9,7 +9,7 @@ redirect_from:
 
 # PerfTop dashboards
 
-YOu can view metrics derived from performance analyzer in a PerfTop dashboard. A PerfTop dashboard is a command line interface (CLI) for displaying the metrics. You create a PerfTop dashboard in JSON with three main elements: tables, line graphs, and bar graphs. You define a grid of rows and columns and then place elements within that grid, with each element spanning as many rows and columns as you specify.
+YOu can view metrics derived from Performance Analyzer in a PerfTop dashboard. A PerfTop dashboard is a command line interface (CLI) for displaying the metrics. You create a PerfTop dashboard in JSON with three main elements: tables, line graphs, and bar graphs. You define a grid of rows and columns and then place elements within that grid, with each element spanning as many rows and columns as you specify.
 
 The best way to get started with building custom dashboards is to duplicate and modify one of the existing JSON files in the `dashboards` directory.
 {: .tip }
