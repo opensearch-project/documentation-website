@@ -123,6 +123,41 @@ client = OpenSearch(
 ```
 {% include copy.html %}
 
+If you need to verify ssl to a different hostname, specify it in `ssl_assert_hostname`: 
+
+```python
+host = 'localhost'
+port = 9200
+
+# Create the client with SSL/TLS and hostname verification disabled.
+client = OpenSearch(
+    hosts = [{'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = 'example.com',
+    ssl_show_warn = False
+)
+```
+{% include copy.html %}
+
+If you need to enable ssl hostname verification to the same host, specify None, or leave it to its default value.
+```python
+host = 'localhost'
+port = 9200
+
+# Create the client with SSL/TLS and hostname verification disabled.
+client = OpenSearch(
+    hosts = [{'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = None,
+    ssl_show_warn = False
+)
+```
+{% include copy.html %}
+
 ## Connecting to Amazon OpenSearch Serverless
 
 The following example illustrates connecting to Amazon OpenSearch Serverless Service:
