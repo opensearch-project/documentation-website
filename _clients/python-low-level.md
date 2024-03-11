@@ -45,7 +45,7 @@ client = OpenSearch(
     http_auth = auth,
     use_ssl = True,
     verify_certs = True,
-    ssl_assert_hostname = False, # specify a different hostname, or None to use server_hostname
+    ssl_assert_hostname = False,
     ssl_show_warn = False,
     ca_certs = ca_certs_path
 )
@@ -73,7 +73,7 @@ client = OpenSearch(
     client_key = client_key_path,
     use_ssl = True,
     verify_certs = True,
-    ssl_assert_hostname = False, # specify a different hostname, or None to use server_hostname
+    ssl_assert_hostname = False,
     ssl_show_warn = False,
     ca_certs = ca_certs_path
 )
@@ -94,31 +94,6 @@ client = OpenSearch(
     verify_certs = False,
     ssl_assert_hostname = False,
     ssl_show_warn = False
-)
-```
-{% include copy.html %}
-
-## Connecting to Amazon OpenSearch Service
-
-The following example illustrates connecting to Amazon OpenSearch Service:
-
-```python
-from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
-import boto3
-
-host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
-region = 'us-west-2'
-service = 'es'
-credentials = boto3.Session().get_credentials()
-auth = AWSV4SignerAuth(credentials, region, service)
-
-client = OpenSearch(
-    hosts = [{'host': host, 'port': 443}],
-    http_auth = auth,
-    use_ssl = True,
-    verify_certs = True,
-    connection_class = RequestsHttpConnection,
-    pool_maxsize = 20
 )
 ```
 {% include copy.html %}
@@ -154,6 +129,31 @@ client = OpenSearch(
     verify_certs = False,
     ssl_assert_hostname = None,
     ssl_show_warn = False
+)
+```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Service
+
+The following example illustrates connecting to Amazon OpenSearch Service:
+
+```python
+from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
+import boto3
+
+host = '' # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
+region = 'us-west-2'
+service = 'es'
+credentials = boto3.Session().get_credentials()
+auth = AWSV4SignerAuth(credentials, region, service)
+
+client = OpenSearch(
+    hosts = [{'host': host, 'port': 443}],
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = True,
+    connection_class = RequestsHttpConnection,
+    pool_maxsize = 20
 )
 ```
 {% include copy.html %}
