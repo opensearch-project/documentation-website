@@ -30,6 +30,7 @@ Processor type | Description
 :--- | :--- 
 `append` | Adds one or more values to a field in a document. 
 `bytes` | Converts a human-readable byte value to its value in bytes.
+`community_id` | Generate community id flow hash for the network flow tuples.
 `convert` | Changes the data type of a field in a document.
 `copy` | Copies an entire object in an existing field to another field.
 `csv` | Extracts CSVs and stores them as individual fields in a document. 
@@ -52,6 +53,7 @@ Processor type | Description
 `lowercase` | Converts text in a specific field to lowercase letters.
 `pipeline` | Runs an inner pipeline.
 `remove` | Removes fields from a document.
+`remove_by_pattern` | Removes fields from a document by field patterns.
 `script` | Runs an inline or stored script on incoming documents. 
 `set` | Sets the value of a field to a specified value.
 `sort` | Sorts the elements of an array in ascending or descending order.
