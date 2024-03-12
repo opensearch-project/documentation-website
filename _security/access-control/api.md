@@ -29,7 +29,7 @@ plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
 {% include copy.html %}
 
-For APIs related to `Distinguished names` or `Certificates` that require super admin access, you should enable REST API admin configuration in `opensearch.yml`:
+If you're working with APIs that manage `Distinguished names` or `Certificates` that require super admin access, enable the REST API admin configuration in your `opensearch.yml` file as shown in the following setting example:
 
 ```yml
 plugins.security.restapi.admin.enabled: true
