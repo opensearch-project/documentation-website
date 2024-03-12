@@ -250,7 +250,7 @@ curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-clust
 ## Bare metal / virtual machines
 
 If you are running OpenSearch on bare metal or using virtual machine, you can run the same commands, specifying the ip (or domain) of the OpenSearch cluster.
-In order to configure remote cluster, find the IP/domain of the remote cluster (or node) and run command:
+For example, in order to configure remote cluster for Cross-cluster search, find the IP of the remote node or domain of the remote cluster and run command:
 
 ```json
 curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
