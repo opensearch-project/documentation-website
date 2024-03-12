@@ -15,7 +15,6 @@ A full cluster restart is necessary to enable security features.
 ## Installation steps for prod cluster
 
 1. Disable shard allocation and stop all nodes in order to prevent shards from moving around when the cluster is restarted.
-  You need to disable in order to prevent shards moving around when the cluster is restarted.
 ```json
   PUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
   "transient": {
