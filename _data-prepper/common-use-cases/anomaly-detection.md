@@ -2,7 +2,7 @@
 layout: default
 title: Anomaly detection
 parent: Common use cases
-nav_order: 30
+nav_order: 5
 ---
 
 # Anomaly detection
