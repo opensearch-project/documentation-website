@@ -38,13 +38,13 @@ Parameter | Required/Optional | Description |
 `source_port_field`  | Optional  | The name of the field which contains the source port address. If the network protocol is TCP, UDP or SCTP, this field is required, otherwise is not required.|
 `destination_ip_field`  | Required  | The name of the field which contains the destination IP address. |
 `destination_port_field`  | Optional  | The name of the field which contains the destination port address. If the network protocol is TCP, UDP or SCTP, this field is required, otherwise is not required. |
-`iana_protocol_number`  | Optional  | The name of the field which contains the protocol number defined by iana, the supported values are 1(ICMP), 6(TCP), 17(UDP), 58(IPv6-ICMP), 132(SCTP). |
+`iana_protocol_number`  | Optional  | The name of the field which contains the protocol number defined by IANA, the supported values are 1(ICMP), 6(TCP), 17(UDP), 58(IPv6-ICMP), 132(SCTP). |
 `protocol_field`  | Optional  | The name of the field which contains the protocol name. If `iana_protocol_number` is not set, this field is required, otherwise is not required. |
 `icmp_type_field`  | Optional  | The name of the field which contains the ICMP message type. Required when the protocol is ICMP or IPv6-ICMP. |
 `icmp_code_field`  | Optional  | The name of the field which contains the ICMP message code. For some ICMP message types which don't have code, this field is optional, otherwise is required. |
 `seed`  | Optional  | Seed for generating community ID hash, the value must be between 0 and 65535. |
 `target_field`  | Optional  | The name of the field in which to store the community ID hash value. Default target field is `community_id`.  |
-`ignore_missing`  | Optional  | Specifies whether the processor should exit quietly if one of the required fields is missing.  Default is `false`. |
+`ignore_missing`  | Optional  | Specifies whether the processor should exit quietly if one of the required fields is missing. Default is `false`. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running this processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
