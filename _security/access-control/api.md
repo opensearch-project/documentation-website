@@ -29,6 +29,13 @@ plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
 {% include copy.html %}
 
+For APIs related to `Distinguished names` or `Certificates` that require super admin access, you should enable RESR API admin configuration in `opensearch.yml`:
+
+```yml
+plugins.security.restapi.admin.enabled: true
+```
+{% include copy.html %}
+
 These roles can now access all APIs. To prevent access to certain APIs:
 
 ```yml
