@@ -13,7 +13,7 @@ Log types represent the different sources of data used for threat detection in S
 
 Log types can come from two different sources:
 
-- [Standard log types](#standard-log-types): A list of data sources that Security Analytics automatically preppopulates field mappings and rules for, depending on the data indexed from the source.
+- [Standard log types](#standard-log-types): A list of data sources that Security Analytics automatically populates field mappings and rules for, depending on the data indexed from the source.
 - [Custom log types](#creating-custom-log-types): A log type created by the user when your data source is not listed in the [standard] set. [log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) supported by Security Analytics, you can create custom log types for your threat detectors. 
 
 To navigate to the **Log types** page, select **Log types** under **Detectors** in the **Security Analytics** navigation menu.
