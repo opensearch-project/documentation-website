@@ -7,7 +7,7 @@ nav_order: 60
 
 # Security installation
 
-Default version of OpenSearch comes with Security features pre-installed, however if this was [disabled]({{site.url}}{{site.baseurl}}/security/configuration/disable/) or OpenSearch Minimum was installed, this page goes through the steps of installing Security features.
+The default version of OpenSearch comes with Security features pre-installed, however if the Security plugin was [disabled]({{site.url}}{{site.baseurl}}/security/configuration/disable/) or OpenSearch was installed without security, for example, using the minimal distribution method, you can enable the plugin as follows. 
 
 Full cluster restart is necessary to enable security features
 {: .label .label-red }
