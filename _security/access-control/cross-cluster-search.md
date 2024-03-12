@@ -62,7 +62,7 @@ humanresources:
 ![OpenSearch Dashboards UI for creating a cross-cluster search role]({{site.url}}{{site.baseurl}}/images/security-ccs.png)
 
 
-## Walkthrough
+## Walkthrough using docker
 
 Save this file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
 
@@ -167,6 +167,9 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
   }
 }'
 ```
+All of the curl requests can also be sent using Opensearch Dashboards dev tools
+{: .label .label-green }
+![OpenSearch Dashboards UI for configuring remote cluster for ccs]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
 
 On the remote cluster, index a document:
 
@@ -242,4 +245,57 @@ curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-clust
     }
   }]
 }
+```
+
+## Bare metal / virtual machines
+
+If you are running OpenSearch on bare metal or using virtual machine, you can run the same commands, specifying the ip (or domain) of the OpenSearch cluster.
+In order to configure remote cluster, find the IP/domain of the remote cluster (or node) and run command:
+
+```json
+curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
+{
+  "persistent": {
+    "cluster.remote": {
+      "opensearch-ccs-cluster2": {
+        "seeds": ["opensearch-domain-2:9300"]
+      }
+    }
+  }
+}'
+```
+It is enough to point to just one of the node IPs on the remote cluster, as node discovery process will query all nodes in that cluster.
+{: .label .label-green }
+
+You can now run queries across both clusters.
+
+```bash
+curl -XGET -k -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/opensearch-ccs-cluster2:books/_search?pretty'
+{
+  ...
+  "hits": [{
+    "_index": "opensearch-ccs-cluster2:books",
+    "_id": "1",
+    "_score": 1.0,
+    "_source": {
+      "Dracula": "Bram Stoker"
+    }
+  }]
+}
+```
+
+## Kubernetes/Helm
+If you are using kuberneters clusters to deploy your OpenSearch, you have to configure the remote cluster via LoadBalancer or Ingress. The services that get created using [helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of ClusterIP type and can only be accessible inside the cluster, therefore external services need to be used.
+
+```json
+curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
+{
+  "persistent": {
+    "cluster.remote": {
+      "opensearch-ccs-cluster2": {
+        "seeds": ["ingress:9300"]
+      }
+    }
+  }
+}'
 ```
