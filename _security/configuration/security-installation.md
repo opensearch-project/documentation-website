@@ -23,7 +23,7 @@ A full cluster restart is necessary to enable security features.
 }'
 ```
 {% include copy-curl.html %}
-2. Install plugin on all nodes
+2. Install the plugin on all nodes.
 ```bash
 bin/opensearch-plugin install opensearch-security
 ```
