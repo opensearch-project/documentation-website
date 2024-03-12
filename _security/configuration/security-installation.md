@@ -30,7 +30,7 @@ bin/opensearch-plugin install opensearch-security
 {% include copy.html %}
 3. Add the necessary configuration to opensearch.yml for TLS encryption.
 [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) details different settings which need to be configured
-4. Create OPENSEARCH_INITIAL_ADMIN_PASSWORD variable
+4. Create the OPENSEARCH_INITIAL_ADMIN_PASSWORD variable.
 5. Restart the nodes and reenable shard allocation
 ```json
   PUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
