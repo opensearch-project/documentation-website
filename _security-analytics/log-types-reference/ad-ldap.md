@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 20
 ---
 
-# AD/LDAP
+# AD LDAP
 
 The `ad_ldap` log type tracks Active Directory logs such as:
 

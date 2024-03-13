@@ -7,7 +7,7 @@ nav_order: 29
 
 # Azure
 
-The `azure` log types monitors log data for cloud applications managed by Azure Cloud Services.
+The `azure` log type monitors log data for cloud applications managed by Azure Cloud Services.
 
 The following code snippet contains all `raw_field` and `ecs` mappings for this log type:
 
