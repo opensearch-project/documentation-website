@@ -130,7 +130,7 @@ If you choose to perform manual field mapping, you should be familiar with the f
 
 Security Analytics takes advantage of prepackaged Sigma rules for security event detection. Therefore, the field names are derived from a Sigma rule field standard. To make them more identifiable, aliases for the Sigma rule fields have been created based on the following specifications: 
 
-- For all log types, the open-source Elastic Common Schema (ECS) specification. 
+- For all log types, the open-source Elastic Common Schema (ECS)
 - For AWS CloudTrail and DNS log types, the [Open Cybersecurity Framework](https://github.com/ocsf/ocsf-schema) 
 
 The field names for alias rules are used in the following steps and are listed under the **Detector field name** column within the mapping tables.

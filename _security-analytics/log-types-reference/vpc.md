@@ -7,7 +7,7 @@ nav_order: 90
 
 # VPC Flow
 
-The `vpcflow` log type captures information about the IP traffic going to and from network interfaces in your virtual private cloud (VPC) in the form of [VPC Flow Logs](https://docs.aws.amazon.com/prescriptive-guidance/latest/logging-monitoring-for-application-owners/vpc-flow-logs.html).
+The `vpcflow` log type records data about the IP traffic to and from the network interfaces within your virtual private cloud (VPC). This data is stored using the [VPC Flow Logs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html) feature.
 
 The following code snippet contains all the `raw_field`,`ecs` and `oscf` mappings for this log type:
 
