@@ -9,8 +9,7 @@ nav_order: 70
 
 The `network` log type records events that happen in a system's network, such as login attempts and application events.
 
-The following code snippet contains all the `raw_field`
-and `ecs` mappings for this log type:
+The following code snippet contains all the `raw_field` and `ecs` mappings for this log type:
 
 ```json
  "mappings": [

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Other log types
+title: Other log type mappings
 parent: Supported log types
 nav_order: 110
 ---
@@ -16,8 +16,7 @@ Security analytics supports additional field mappings which are not specific to 
 - Proxy: Records logs related to proxy events.
 - Web: Records logs related to network access from the web.
 
-
-Each of these log types contain the same field mappings, as shown in the following code snippet:
+Each log type contains the same field mappings, as shown in the following code snippet:
 
 ```json
   "mappings": [

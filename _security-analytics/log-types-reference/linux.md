@@ -9,8 +9,7 @@ nav_order: 50
 
 The `linux` log type records Linux syslog events.
 
-The following code snippet contains all the `raw_field`
-and `ecs` mappings for this log type:
+The following code snippet contains all the `raw_field` and `ecs` mappings for this log type:
 
 ```json
   "mappings": [

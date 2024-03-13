@@ -13,5 +13,5 @@ Logs contain raw data about events that happen throughout a system and in its se
 
 For more information about field mappings, see [Working with Log types > About field mappings]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types#about-field-mappings).
 
-For more information about log types and detectors, see [Creating detectors]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/).
+For more information about log types and detectors, refer to the [Creating detectors]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/) documentation.
 

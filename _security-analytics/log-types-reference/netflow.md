@@ -5,12 +5,11 @@ parent: Supported log types
 nav_order: 60
 ---
 
-# Netflow
+# NetFlow
 
-The `netflow` log type records Netflow events used during integration testing.
+The `netflow` log type records NetFlow events used during integration testing.
 
-The following code snippet contains all the `raw_field`
-and `ecs` mappings for this log type:
+The following code snippet contains all the `raw_field` and `ecs` mappings for this log type:
 
 ```json
 "mappings": [

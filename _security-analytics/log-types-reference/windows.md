@@ -9,8 +9,7 @@ nav_order: 100
 
 The `windows` log type records events that have happened in the operating system, applications, and other Windows system services.
 
-The following code snippet contains all the `raw_field`
-and `ecs` mappings for this log type:
+The following code snippet contains all the `raw_field` and `ecs` mappings for this log type:
 
 ```json
  "mappings":[

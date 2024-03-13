@@ -9,7 +9,7 @@ nav_order: 20
 
 The `ad_ldap` log type tracks Active Directory logs such as:
 
-- LDAP queries
+- Lightweight Directory Access Protocol (LDAP) queries
 - Errors from the LDAP server
 - Timeout events
 - Unsecured LDAP binds
