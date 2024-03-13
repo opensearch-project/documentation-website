@@ -22,7 +22,7 @@ curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: applicati
   }
 }'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 2. Install the plugin on all nodes.
 ```bash
 bin/opensearch-plugin install opensearch-security
@@ -39,4 +39,4 @@ curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: applicati
   }
 }'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
