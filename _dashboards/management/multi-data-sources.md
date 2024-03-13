@@ -3,7 +3,7 @@ layout: default
 title: Configuring and using multiple data sources
 parent: Data sources
 nav_order: 10
-redirect_from: 
+redirect_from:
   - /dashboards/discover/multi-data-sources/
 ---
 
@@ -16,7 +16,7 @@ You can ingest, process, and analyze data from multiple data sources in OpenSear
 
 ## Getting started
 
-The following tutorial guides you through configuring and using multiple data sources. 
+The following tutorial guides you through configuring and using multiple data sources.
 
 ### Step 1: Modify the YAML file settings
 
@@ -36,16 +36,16 @@ A data source connection specifies the parameters needed to connect to a data so
 To create a new data source connection:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**.
-2. Add the required information to each field to configure **Connection Details** and **Authentication Method**. 
-   
+2. Add the required information to each field to configure **Connection Details** and **Authentication Method**.
+
     - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
 
     - Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
       - **No authentication**: No authentication is used to connect to the data source.
       - **Username & Password**: A basic username and password are used to connect to the data source.
       - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key.
-            - For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization. 
-      
+            - For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Last, enter the **Access Key** and **Secret Key** for authorization.
+
       For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more information about AWS Signature Version 4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
       {: .note}
 
@@ -71,7 +71,7 @@ An example data source connection screen is shown in the following image.
 
 ### Selecting multiple data sources through the Dev Tools console
 
-Alternatively, you can select multiple data sources through the [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) console. This option provides for working with a broader range of data and gaining deeper insight into your code and applications. 
+Alternatively, you can select multiple data sources through the [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) console. This option provides for working with a broader range of data and gaining deeper insight into your code and applications.
 
 Watch the following 10-second video to see it in action.
 
@@ -79,7 +79,7 @@ Watch the following 10-second video to see it in action.
 
 To select a data source through the Dev Tools console, follow these steps:
 
-1. Locate your copy of `opensearch_dashboards.yml` and open it in the editor of your choice. 
+1. Locate your copy of `opensearch_dashboards.yml` and open it in the editor of your choice.
 2. Set `data_source.enabled` to `true`.
 3. Connect to OpenSearch Dashboards and select **Dev Tools** in the menu.
 4. Enter the following query in the editor pane of the **Console** and then select the play button:
@@ -100,13 +100,13 @@ To upload saved objects from connected data sources to a dashboard with multiple
 
 Follow these steps to import saved objects from a connected data source:
 
-1. Locate your `opensearch_dashboards.yml` file and open it in your preferred text editor. 
+1. Locate your `opensearch_dashboards.yml` file and open it in your preferred text editor.
 2. Set `data_source.enabled` to `true`.
 3. Connect to OpenSearch Dashboards and go to **Dashboards Management** > **Saved objects**.
 4. Select **Import** > **Select file** and upload the file acquired from the connected data source.
 5. Choose the appropriate **Data source** from the dropdown menu, set your **Conflict management** option, and then select the **Import** button.
 
-## Next steps 
+## Next steps
 
 Once you've configured your multiple data sources, you can start exploring that data. See the following resources to learn more:
 
@@ -120,5 +120,5 @@ Once you've configured your multiple data sources, you can start exploring that 
 This feature has some limitations:
 
 * The multiple data sources feature is supported for index-pattern-based visualizations only.
-* The visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.
+* The visualization types Time Series Visual Builder (TSVB) and timeline are not supported.
 * External plugins, such as Gantt chart, and non-visualization plugins, such as the developer console, are not supported.
