@@ -78,7 +78,7 @@ Search backpressure runs in `monitor_only` (default), `enforced`, or `disabled` 
 
 Search backpressure adds several settings to the standard OpenSearch cluster settings. These settings are dynamic, so you can change the default behavior of this feature without restarting your cluster.
 
-To configure these settings, send a PUT request to `/_cluster/settings`
+To configure these settings, send a PUT request to `/_cluster/settings`:
 
 For example:
 
