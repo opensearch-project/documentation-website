@@ -82,11 +82,12 @@ To configure these settings, send a PUT request to `/_cluster/settings`:
 
 ```json
 PUT /_cluster/settings
-    "persistent": {
-        "search_backpressure": {
-            "mode": "monitor_only"
-      }
+{
+  "persistent": {
+    "search_backpressure": {
+      "mode": "monitor_only"
     }
+  }
 }
 ```
 {% include copy-curl.html %}
