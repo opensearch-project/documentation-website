@@ -80,7 +80,6 @@ Search backpressure adds several settings to the standard OpenSearch cluster set
 
 To configure these settings, send a PUT request to `/_cluster/settings`:
 
-
 ```json
 PUT /_cluster/settings
     "persistent": {
