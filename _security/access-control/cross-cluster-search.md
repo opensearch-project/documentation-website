@@ -285,7 +285,7 @@ curl -XGET -k -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:92
 ```
 
 ## Kubernetes/Helm
-If you are using Kuberneters clusters to deploy your OpenSearch, you have to configure the remote cluster via LoadBalancer or Ingress. The services that get created using [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of ClusterIP type and can only be accessible inside the cluster, therefore external services need to be used.
+If you are using Kuberneters clusters to deploy your OpenSearch, you have to configure the remote cluster using LoadBalancer or Ingress. The services that get created using [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of ClusterIP type and can only be accessible inside the cluster, therefore external services need to be used.
 
 ```json
 curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
