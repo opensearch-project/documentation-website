@@ -227,7 +227,7 @@ POST /_plugins/_ml/connectors/_create
     "cohere_key": "<ENTER_COHERE_API_KEY_HERE>"
   },
   "parameters": {
-    "model": "<ENTER_MODEL_NAME_HERE>", // Choose a Model from the provided list above
+    "model": "embed-english-v3.0",
     "input_type":"search_document",
     "truncate": "END"
   },
