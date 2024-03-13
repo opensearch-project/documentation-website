@@ -30,7 +30,7 @@ The main features available from the **Log types** user interface and the action
 2. Create a [custom log type](#creating-custom-log-types).
 3. Select the log type **Name** to open the details page. The **Details** tab is shown by default. This tab includes the log type's ID. You can also select the **Detection rules** tab to show all detection rules associated with the log type.
 4. Using the **Category** and **Source** dropdowns, you can sort by the log type category or source, respectively. 
-5. In the **Actions** column, you can select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}) to delete a custom log type (you cannot delete a standard OpenSearch-defined log type). Follow the prompts to confirm and safely remove the custom log type.
+5. From the **Actions** column, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} icon to delete a custom log type. (You cannot delete a standard OpenSearch-defined log type.) Then follow the prompts to confirm and delete it.
 
 ## Standard log types
 

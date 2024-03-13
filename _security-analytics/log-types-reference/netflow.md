@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Netflow
+title: NetFlow
 parent: Supported log types
 nav_order: 60
 ---

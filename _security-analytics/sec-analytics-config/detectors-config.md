@@ -151,7 +151,7 @@ The Amazon Security Lake log types that can be used as log sources for detector 
 Supported log types are available in the following resources:
 
 - For all log types, go to the open-source Elastic Common Schema (ECS) specification. 
-- For AWS CloudTrail, Domain Name System (DNS) log types, and virtual private network (VPC) flow logs, go to the [Open Cybersecurity Framework](https://github.com/ocsf/ocsf-schema).
+- For AWS CloudTrail, DNS log types, and VPC flow logs, the [Open Cybersecurity Framework](https://github.com/ocsf/ocsf-schema)
 
 
 The field names for alias rules are used in the following steps and are listed under the **Detector field name** column within the mapping tables.
