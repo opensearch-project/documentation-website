@@ -82,7 +82,7 @@ To configure these settings, send a PUT request to `/_cluster/settings`:
 
 
 ```json
-curl -X PUT "http://127.0.0.1:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
+PUT /_cluster/settings
     "persistent": {
         "search_backpressure": {
             "mode": "monitor_only"
