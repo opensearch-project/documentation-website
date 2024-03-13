@@ -12,7 +12,7 @@ The default version of OpenSearch comes with Security features pre-installed, ho
 A full cluster restart is necessary to enable security features.
 {: .warning}
 
-# To enable security
+To enable security
 
 1. Disable shard allocation and stop all nodes in order to prevent shards from moving around when the cluster is restarted.
 ```json
