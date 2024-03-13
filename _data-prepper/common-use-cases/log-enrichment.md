@@ -2,7 +2,7 @@
 layout: default
 title: Log enrichment
 parent: Common use cases
-nav_order: 50
+nav_order: 35
 ---
 
 # Log enrichment
