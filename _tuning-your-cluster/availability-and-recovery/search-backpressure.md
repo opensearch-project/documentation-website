@@ -81,7 +81,7 @@ Search backpressure adds several settings to the standard OpenSearch cluster set
 To configure these settings, send a PUT request to `/_cluster/settings`:
 
 
-```bash
+```json
 curl -X PUT "http://127.0.0.1:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
     "persistent": {
         "search_backpressure": {
