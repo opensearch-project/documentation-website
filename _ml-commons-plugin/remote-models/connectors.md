@@ -214,7 +214,7 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 
 ### Cohere connector
 
-You can use the following example request to create a standalone Cohere connector using Embed V3. 
+You can use the following example request to create a standalone Cohere connector using Embed V3. For more information about using the Cohere connector blueprint, see https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md#1b-create-a-connector. 
 
 ```json
 POST /_plugins/_ml/connectors/_create
