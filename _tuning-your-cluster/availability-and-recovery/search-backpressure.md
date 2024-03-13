@@ -90,6 +90,7 @@ PUT /_cluster/settings
     }
 }
 ```
+{% include copy-curl.html %}
 
 Setting | Default | Description
 :--- | :--- | :---
