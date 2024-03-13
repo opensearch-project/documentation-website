@@ -169,7 +169,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 All of the curl requests can also be sent using OpenSearch Dashboards Dev tools
 {: .label .label-green }
-![OpenSearch Dashboards UI for configuring remote cluster for ccs]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
+![OpenSearch Dashboards UI for configuring remote cluster for Cross-cluster search]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
 
 On the remote cluster, index a document:
 
@@ -264,7 +264,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
   }
 }'
 ```
-It is enough to point to just one of the node IPs on the remote cluster, as node discovery process will query all nodes in that cluster.
+It is enough to point to only one of the node IPs on the remote cluster, as node discovery process will query all nodes in that cluster.
 {: .label .label-green }
 
 You can now run queries across both clusters.
@@ -285,7 +285,7 @@ curl -XGET -k -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:92
 ```
 
 ## Kubernetes/Helm
-If you are using kuberneters clusters to deploy your OpenSearch, you have to configure the remote cluster via LoadBalancer or Ingress. The services that get created using [helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of ClusterIP type and can only be accessible inside the cluster, therefore external services need to be used.
+If you are using Kuberneters clusters to deploy your OpenSearch, you have to configure the remote cluster via LoadBalancer or Ingress. The services that get created using [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of ClusterIP type and can only be accessible inside the cluster, therefore external services need to be used.
 
 ```json
 curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
