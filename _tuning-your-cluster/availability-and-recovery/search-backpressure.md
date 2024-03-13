@@ -88,7 +88,7 @@ PUT /_cluster/settings
             "mode": "monitor_only"
       }
     }
-}'
+}
 ```
 
 Setting | Default | Description
