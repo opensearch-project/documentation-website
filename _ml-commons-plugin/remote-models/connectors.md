@@ -214,20 +214,21 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 
 ### Cohere connector
 
-You can use the following example request to create a standalone Cohere connector:
+You can use the following example request to create a standalone Cohere connector using Embed V3. 
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "<YOUR CONNECTOR NAME>",
-  "description": "<YOUR CONNECTOR DESCRIPTION>",
-  "version": "<YOUR CONNECTOR VERSION>",
+  "name": "Cohere Embed Model",
+  "description": "The connector to Cohere's public embed API",
+  "version": "1",
   "protocol": "http",
   "credential": {
-    "cohere_key": "<YOUR COHERE API KEY HERE>"
+    "cohere_key": "<ENTER_COHERE_API_KEY_HERE>"
   },
   "parameters": {
-    "model": "embed-english-v2.0",
+    "model": "<ENTER_MODEL_NAME_HERE>", // Choose a Model from the provided list above
+    "input_type":"search_document",
     "truncate": "END"
   },
   "actions": [
@@ -236,9 +237,10 @@ POST /_plugins/_ml/connectors/_create
       "method": "POST",
       "url": "https://api.cohere.ai/v1/embed",
       "headers": {
-        "Authorization": "Bearer ${credential.cohere_key}"
+        "Authorization": "Bearer ${credential.cohere_key}",
+        "Request-Source": "unspecified:opensearch"
       },
-      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\" }", 
+      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\", \"input_type\": \"${parameters.input_type}\" }",
       "pre_process_function": "connector.pre_process.cohere.embedding",
       "post_process_function": "connector.post_process.cohere.embedding"
     }
