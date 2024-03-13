@@ -62,7 +62,7 @@ humanresources:
 ![OpenSearch Dashboards UI for creating a cross-cluster search role]({{site.url}}{{site.baseurl}}/images/security-ccs.png)
 
 
-## Walkthrough using docker
+## Walkthrough using Docker
 
 Save this file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
 
@@ -167,7 +167,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
   }
 }'
 ```
-All of the curl requests can also be sent using Opensearch Dashboards dev tools
+All of the curl requests can also be sent using OpenSearch Dashboards Dev tools
 {: .label .label-green }
 ![OpenSearch Dashboards UI for configuring remote cluster for ccs]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
 
@@ -247,9 +247,9 @@ curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-clust
 }
 ```
 
-## Bare metal / virtual machines
+## Bare metal/virtual machines
 
-If you are running OpenSearch on bare metal or using virtual machine, you can run the same commands, specifying the ip (or domain) of the OpenSearch cluster.
+If you are running OpenSearch on bare metal or using virtual machine, you can run the same commands, specifying the IP (or domain) of the OpenSearch cluster.
 For example, in order to configure remote cluster for Cross-cluster search, find the IP of the remote node or domain of the remote cluster and run command:
 
 ```json
