@@ -101,7 +101,7 @@ To upload saved objects from connected data sources to a dashboard with multiple
 ### Hide/Show authentication method in multiple data source plugin based on configuration
 To hide/show authentication methods in the multiple data source plugin based on configuration, a feature flag can be utilized. This feature flag was introduced in the 2.13.0 release. We added a feature flag to hide/show the authentication methods on the create multiple data source page. The following example demonstrates how to hide the authentication methods for `AWSSigV4` authentication. 
 
-An example of a feature flag configuration in the `opensearch_dashboards.yml` is provided below:
+An example of a feature flag configuration in the `opensearch_dashboards.yml` is provided following:
 ````
 # Set enabled to false to hide the authentication method from multiple data source in OpenSearch Dashboards.
 # If this setting is commented out, then all three options will be available in OpenSearch Dashboards.
@@ -120,7 +120,7 @@ The following 10-second video demonstrates this feature in action.
 ### Hide local cluster in multiple data source plugin based on configuration
 To hide the `local cluster` option in the multiple data source plugin based on configuration, a new feature flag was introduced in the 2.13.0 release. We added a feature flag to hide the `local cluster` option under the data source dropdown and on the index pattern creation page, which suits some users who don't need the `local cluster` option to show up in the data source dropdown and index pattern creation page.
 
-An example of a feature flag configuration in the `opensearch_dashboards.yml` is provided below:
+An example of a feature flag configuration in the `opensearch_dashboards.yml` is provided following:
 ````
 # hide local cluster in the data source dropdown and index pattern creation page. 
 data_source.hideLocalCluster: true
