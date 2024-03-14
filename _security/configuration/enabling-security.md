@@ -20,10 +20,10 @@ Use the following steps to enable security:
   curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
     "transient": {
       "cluster.routing.allocation.enable": "none"
-   }
-  }'
- ```
- {% include copy.html %}
+      }
+   }'
+  ```
+  {% include copy.html %}
  
 2. Install the plugin on all nodes.
 
