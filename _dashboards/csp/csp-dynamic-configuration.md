@@ -5,7 +5,7 @@ nav_order: 110
 has_children: false
 ---
 
-# Configuring Content Security Policy Rules Dynamically
+# Configuring content security policy rules dynamically
 
 Content Security Policy (CSP) is a security standard introduced to help prevent cross-site scripting (XSS), `clickjacking`, and other code injection attacks resulting from the execution of malicious content in the trusted webpage context. OpenSearch Dashboards supports configuring CSP rules in OSD YML file with key `csp.rules`. A change in YML file requires a server restart which may interrupt service availability. This document introduces a dynamic way to configure the CSP rules through the plugin `applicationConfig` without restarting the server.
 
