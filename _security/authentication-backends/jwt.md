@@ -123,7 +123,7 @@ Name | Description
 `subject_key` | The key in the JSON payload that stores the username. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used.
 `roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles.
 `required_audience` | The name of the audience which the JWT must specify. This corresponds [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
-`required_issuer` | A target issuer of JWT stored in the JSON payload. This is a [iss claim of JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
+`required_issuer` | The target issuer of JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
 `jwt_clock_skew_tolerance_seconds` | Sets a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. Security sets 30 seconds as the default. Use this setting to apply a custom value.
 
 Because JWTs are self-contained and the user is authenticated at the HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
