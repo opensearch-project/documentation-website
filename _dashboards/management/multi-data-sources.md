@@ -98,6 +98,37 @@ To upload saved objects from connected data sources to a dashboard with multiple
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/import_saved_objects_with_file_upload.gif" alt="Multiple data sources in Saved object management">{: .img-fluid}
 
+### Hide/Show authentication method in multiple data source plugin based on configuration
+To hide/show authentication methods in the multiple data source plugin based on configuration, a feature flag can be utilized. This feature flag was introduced in the 2.13.0 release. We added a feature flag to hide/show the authentication methods on the create multiple data source page. The following example demonstrates how to hide the authentication methods for `AWSSigV4` authentication. 
+
+An example of a feature flag configuration in the `opensearch_dashboards.yml` is provided below:
+````
+# Set enabled to false to hide the authentication method from multiple data source in OpenSearch Dashboards.
+# If this setting is commented out, then all three options will be available in OpenSearch Dashboards.
+# The default value will be considered as true.
+data_source.authTypes:
+   NoAuthentication:
+     enabled: true
+   UsernamePassword:
+     enabled: true
+   AWSSigV4:
+     enabled: false
+````
+The following 10-second video demonstrates this feature in action.
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-hide-show-auth.gif" alt="Multiple data sources hide and show authentication">{: .img-fluid}
+
+### Hide local cluster in multiple data source plugin based on configuration
+To hide the `local cluster` option in the multiple data source plugin based on configuration, a new feature flag was introduced in the 2.13.0 release. We added a feature flag to hide the `local cluster` option under the data source dropdown and on the index pattern creation page, which suits some users who don't need the `local cluster` option to show up in the data source dropdown and index pattern creation page.
+
+An example of a feature flag configuration in the `opensearch_dashboards.yml` is provided below:
+````
+# hide local cluster in the data source dropdown and index pattern creation page. 
+data_source.hideLocalCluster: true
+````
+The following 20-second video demonstrates this feature in action.
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-hide-localcluster.gif" alt="Multiple data sources hide local cluster">{: .img-fluid}
+
+
 Follow these steps to import saved objects from a connected data source:
 
 1. Locate your `opensearch_dashboards.yml` file and open it in your preferred text editor. 
@@ -121,4 +152,4 @@ This feature has some limitations:
 
 * The multiple data sources feature is supported for index-pattern-based visualizations only.
 * The visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.
-* External plugins, such as Gantt chart, and non-visualization plugins, such as the developer console, are not supported.
+* External plugins, such as Gantt chart, and non-visualization plugins are not supported.
