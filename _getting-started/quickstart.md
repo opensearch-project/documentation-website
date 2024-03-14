@@ -1,13 +1,14 @@
 ---
 layout: default
-title: Quickstart
+title: Installation quickstart
 nav_order: 3
 permalink: /quickstart/
 redirect_from: 
   - /opensearch/install/quickstart/
+  - /quickstart/
 ---
 
-# Quickstart
+# Installation quickstart
 
 Get started using OpenSearch and OpenSearch Dashboards by deploying your containers with [Docker](https://www.docker.com/). Before proceeding, you need to [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) installed on your local machine. 
 

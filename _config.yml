@@ -118,12 +118,18 @@ collections:
   dashboards-assistant:
     permalink: /:collection/:path/
     output: true
+  getting-started:
+    permalink: /:collection/:path/
+    output: true
 
 opensearch_collection:
   # Define the collections used in the theme
   collections:
     about:
       name: About OpenSearch
+      nav_fold: true
+    getting-started:
+      name: Getting started
       nav_fold: true
     install-and-configure:
       name: Install and upgrade
@@ -196,6 +202,7 @@ opensearch_collection:
     developer-documentation:
       name: Developer documentation
       nav_fold: true
+    
 
 clients_collection:
   collections:
