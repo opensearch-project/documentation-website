@@ -89,6 +89,8 @@ Option | Required | Type | Description
 `normalize_index` | No | Boolean | If true, the OpenSearch sink will try to make dynamic index names. Index names with format options specified in `${})` valid according to the [index naming restrictions]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-naming-restrictions). Any invalid characters will be removed. Default value is false.
 `routing` | No | String | A string which is used as a hash for generating the `shard_id` for the document when it is stored in the OpenSearch. Each incoming record is searched for this field. When present, the string is used as the routing field for the document. When not present, the default routing mechanism of using `document_id` is used by OpenSearch when storing the document. Supports formatting with fields in the Events and [Data Prepper expressions]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `${/my_field}-test-${getMetadata(\"some_metadata_key\")}`
 `document_root_key` | No | String  | The key in the event that will be used as the root in the document. The default is the root of the event. If the key does not exist the entire event is written as the document. If the value at the `document_root_key `is of a basic value type such as a string or integer, the document will have a structure of `{"data": <value of the document_root_key>}`.
+`serverless` | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
+`serverless_options` | No | Object | The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
 
 <!-- vale on -->
 
@@ -100,8 +102,8 @@ Option | Required | Type | Description
 `sts_role_arn` | No | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon SQS and Amazon S3. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 `sts_header_overrides` | No | Map | A map of header overrides that the IAM role assumes for the sink plugin.
 `sts_external_id` | No | String | The external ID to attach to AssumeRole requests from AWS STS.
-`serverless` | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
-`serverless_options` | No | Object | The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
+`serverless` | No | Boolean | **(Deprecated in Data Prepper 2.7. Use this option under the `aws` configuration instead.)** Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
+`serverless_options` | No | Object | **(Deprecated in Data Prepper 2.7. Use this option under the `aws` configuration instead.)** The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
 
 <!-- vale off -->
 ## actions
