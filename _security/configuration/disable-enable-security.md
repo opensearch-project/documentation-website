@@ -174,10 +174,10 @@ Use the following steps to enable security:
 
 ### Installing the OpenSearch Dashboards plugin
 
-1. Stop Opensearch Dashboards
+1. Stop OpenSearch Dashboards
 2. Install the Security plugin
    ```bash
       ./bin/opensearch-dashboards-plugin install securityDashboards
    ```
 3. Add necessary [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/) settings in the `opensearch_dashboards.yml`
-4. Start Opensearch Dashboards
+4. Start OpenSearch Dashboards
