@@ -1294,7 +1294,7 @@ PATCH _plugins/_security/api/securityconfig
 Introduced 2.13
 {: .label .label-purple }
 
-Checks the configuration bundled with the Security Plugin against the existing security configuration, returns if an upgrade can be performed and what resources would be updated.
+Checks the configuration bundled with the Security plugin against the existing security configuration, returns if an upgrade can be performed and what resources would be updated.
 
 #### Request
 
@@ -1321,16 +1321,16 @@ GET _plugins/_security/api/_upgrade_check
 
 | Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
-| upgradeAvailable   | Boolean     | True when an upgrade can be performed.  |
-| upgradeActions  | Object     | The security objects that would be modified by an upgrade.  |
+| `upgradeAvailable`   | Boolean     | True when an upgrade can be performed.  |
+| `upgradeActions`  | Object     | The security objects that would be modified by an upgrade.  |
 
 ### Perform configuration upgrade
 Introduced 2.13
 {: .label .label-purple }
 
-Adds and updates resources on the existing security configuration from the configuration bundled with the Security Plugin.
+Adds and updates resources on the existing security configuration from the configuration bundled with the Security plugin.
 
-These bundled configuration files can be found in the opensearch-project/security/config directory.  Default configuration files are updated on OpenSearch upgrade, whereas the cluster configuration is only updated by the cluster operators.  This request used to bridge these scenarios.
+These bundled configuration files can be found in the `opensearch-project/security/config` directory.  Default configuration files are updated on OpenSearch upgrade, whereas the cluster configuration is only updated by the cluster operators. This request used to bridge these scenarios.
 
 #### Request
 
@@ -1367,7 +1367,7 @@ POST _plugins/_security/api/_upgrade_check
 | Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
 | `upgrades`    | Object    | A container for the upgrade results, organized by configuration type (e.g., `roles`). Each configuration type that has changes will be represented as a key in this object.           |
-| ↳ `roles`     | Object    | Demonstrates changes made to the roles configuration. The `roles` object contains keys of actions `add`, `modify`, etc..., listing the objects change in this way. |
+| ↳ `roles`     | Object    | Demonstrates changes made to the roles configuration. The `roles` object contains keys of actions that list the objects modified by the upgrade. |
 
 ---
 
