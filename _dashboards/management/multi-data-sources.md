@@ -11,7 +11,6 @@ redirect_from:
 
 You can ingest, process, and analyze data from multiple data sources in OpenSearch Dashboards. You configure the data sources in the **Dashboards Management** > **Data sources** app, as shown in the following image.
 
-
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-management.png" alt="Dashboards Management Data sources main screen" width="700">
 
 ## Getting started
@@ -23,11 +22,11 @@ The following tutorial guides you through configuring and using multiple data so
 To use multiple data sources, you must enable the `data_source.enabled` setting. It is disabled by default. To enable multiple data sources:
 
 1. Open your local copy of the OpenSearch Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) is available on GitHub.
-2. Set `data_source.enabled:` to  `true` and save the YAML file.
+2. Set `data_source.enabled:` to `true` and save the YAML file.
 3. Restart the OpenSearch Dashboards container.
 4. Verify that the configuration settings were configured properly by connecting to OpenSearch Dashboards and viewing the **Dashboards Management** navigation menu. **Data sources** appears in the sidebar. You'll see a view similar to the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt="Data sources in sidebar within Dashboards Management" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt="Data sources in sidebar within Dashboards Management" width="700">
 
 ### Step 2: Create a new data source connection
 
@@ -37,7 +36,7 @@ To create a new data source connection:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**.
 2. Add the required information to each field to configure **Connection Details** and **Authentication Method**. 
-   
+ 
     - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
 
     - Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
@@ -132,7 +131,7 @@ data_source.authTypes:
 Introduced 2.13
 {: .label .label-purple }
 
-A feature flag in your `opensearch_dashboards.yml` file enables you to hide the local cluster option within the `data_source` plugin.  This option hides the local cluster from the data source dropdown and index creation page, which is suitable for environments without a local OpenSearch cluster. The following example setting hides the local cluster,  and the following 20-second demo shows the feature in action. 
+A feature flag in your `opensearch_dashboards.yml` file enables you to hide the local cluster option within the `data_source` plugin.  This option hides the local cluster from the data source dropdown and index creation page, which is suitable for environments without a local OpenSearch cluster. The following example setting hides the local cluster, and the following 20-second demo shows the feature in action. 
 
 ````
 # hide local cluster in the data source dropdown and index pattern creation page. 
