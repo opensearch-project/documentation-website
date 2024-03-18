@@ -14,7 +14,7 @@ nav_order: 45
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vega-2.png" alt="Vega maps visualization">
 
 ## Querying from Multiple Data Sources
-If you have configured multiple data sources in your OpenSearch Dashboards, you can optionally write queries to specific data sources. In your Vega specification, you can add the field `data_source_name` under the `url` body and specify a data source name. If `data_source_name` is not provided, the query will search data in the local cluster. You can specify individual `data_source_name` fields to each OpenSearch query too to enable queries on multiple indices on multiple data sources.
+If you have configured multiple data sources in your OpenSearch Dashboards, you can optionally write queries to specific data sources. In your Vega specification, you can add the field `data_source_name` under the `url` body and specify a data source name. If `data_source_name` is not provided, the query will search data in the local cluster. You can specify individual `data_source_name` fields to each OpenSearch query too to enable queries on multiple indexes on multiple data sources.
 
 ```
 url: {
