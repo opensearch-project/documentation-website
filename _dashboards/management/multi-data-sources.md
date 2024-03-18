@@ -93,11 +93,11 @@ To select a data source through the Dev Tools console, follow these steps:
 
 ### Upload saved objects to a dashboard from connected data sources
 
-To upload saved objects from connected data sources to a dashboard with multiple data sources, export them as an NDJSON file from the data source's **Saved object management** page. Then upload the file to the dashboard's **Saved object management** page. This method can make it easier to transfer saved objects between dashboards. The following 20-second video shows this feature in action.
+To upload saved objects from connected data sources to a dashboard with multiple data sources, export them as an NDJSON file from the data source's **Saved object management** page. Then upload the file to the dashboard's **Saved object management** page. This method can simplify the transfer of saved objects between dashboards. The following 20-second video shows this feature in action.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/import_saved_objects_with_file_upload.gif" alt="Multiple data sources in Saved object management">{: .img-fluid}
 
-### Import saved objects from a connected data source
+#### Import saved objects from a connected data source
 
 Follow these steps to import saved objects from a connected data source:
 
@@ -132,7 +132,7 @@ data_source.authTypes:
 Introduced 2.13
 {: .label .label-purple }
 
-A feature flag in your `opensearch_dashboards.yml` file enables you to hide the local cluster option within the `data_source` plugin.  This option hides the local cluster from the data source dropdown and index creation page, which is suitable for environments without a local OpenSearch cluster. The following example setting hides the local cluster, and the following 20-second demo shows the feature in action. 
+A feature flag in your `opensearch_dashboards.yml` file enables you to hide the local cluster option within the `data_source` plugin.  This option hides the local cluster from the data source dropdown and index creation page, which is suitable for environments with or without a local OpenSearch cluster. The following example setting hides the local cluster, and the following 20-second demo shows the feature in action. 
 
 ````
 # hide local cluster in the data source dropdown and index pattern creation page. 
