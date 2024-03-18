@@ -8,6 +8,7 @@ nav_order: 65
 # Tiered cache
 
 Tiered caching feature is an experimental feature as of OpenSearch 2.13. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10024).
+
 A multi level cache with each tier having it’s own characteristics and performance levels. This tries to utilize the combination of different tiers and provide a balance between performance and size.
 
 ## Types of tiered cache
