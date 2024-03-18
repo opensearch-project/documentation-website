@@ -150,7 +150,7 @@ You can specify the following parameters when getting findings.
 Parameter | Description 
 :--- | :---
 `detector_id` | The ID of the detector used to fetch alerts. Optional
-`detectorType` | The type of detector used to fetch alerts. Optional
+`detectorType` | The type of detector used to fetch alerts. Optional.
 `sortOrder` | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional.
 `size` | An optional limit for the maximum number of results returned in the response. Optional.
 `startIndex` | The pagination indicator. Optional.
