@@ -70,5 +70,5 @@ cosineSimilarity | `float cosineSimilarity (float[] queryVector, doc['vector fie
 
 With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...`]) as input. This is because the magnitude of
 such a vector is 0, which raises a `divide by 0` exception when computing the value. Requests
-containing the 0 vector will be rejected and a corresponding exception will be thrown.
+containing the zero vector will be rejected and a corresponding exception will be thrown.
 {: .note }
