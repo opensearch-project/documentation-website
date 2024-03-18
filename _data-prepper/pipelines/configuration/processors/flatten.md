@@ -184,7 +184,7 @@ All other nested objects excluding the `key2` will be flattened, as shown in the
 }
 ```
 
-### Remove list indices
+### Remove list indexes
 
 Use the `remove_list_indices` option to convert the fields from the source map into lists and put the lists into the target field, as shown in the following example:
 
