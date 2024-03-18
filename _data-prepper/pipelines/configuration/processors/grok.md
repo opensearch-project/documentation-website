@@ -22,7 +22,7 @@ Option | Required | Type | Description
 `keys_to_overwrite` | No | List | Specifies which existing keys will be overwritten if there is a capture with the same key value. Default is `[]`.
 `match` | No | Map | Specifies which keys to match specific patterns against. Default is an empty response body.
 `named_captures_only` | No | Boolean | Specifies whether to keep only named captures. Default is `true`.
-`pattern_definitions` | No | Map | Allows for custom pattern which can be used inline. Dafault is an empty response body.
+`pattern_definitions` | No | Map | Allows for custom pattern which can be used inline. Default is an empty response body.
 `patterns_directories` | No | List | Specifies directory paths that contain the customer pattern files. Default is an empty list.
 `pattern_files_glob` | No | String | Specifies which pattern files to use from the directories specified for `pattern_directories`. Default is `*`.
 `target_key` | No | String | Specifies a parent-level key used to store all captures. Default value is `null`.
