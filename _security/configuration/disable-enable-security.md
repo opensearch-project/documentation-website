@@ -1,20 +1,16 @@
 ---
 layout: default
-title: Disabling/Enabling security
+title: Disabling and enabling the Security plugin
 parent: Configuration
 nav_order: 40
 has_toc: true
 redirect_from: 
- - /security-plugin/configuration/disable-enable-security/
+ - /security-plugin/configuration/disable/
 ---
 
-#### Table of contents
-- TOC
-{:toc}
+# Disabling and enabling the Security plugin
 
-# Disabling/Enabling security
-
-You might want to temporarily disable the Security plugin to make testing or internal usage more straightforward. The Security plugin is actually two plugins: one for OpenSearch and one for OpenSearch Dashboards. You can use the OpenSearch plugin independently, but the OpenSearch Dashboards plugin requires a secured OpenSearch cluster. 
+Depending on the temporarily disable the Security plugin to make testing or internal usage more straightforward. The Security plugin is actually two plugins: one for OpenSearch and one for OpenSearch Dashboards. You can use the OpenSearch plugin independently, but the OpenSearch Dashboards plugin requires a secured OpenSearch cluster. 
 
 ## Disabling security
 
@@ -23,7 +19,6 @@ To disable the OpenSearch Security plugin, add the following line in `opensearch
 ```yml
 plugins.security.disabled: true
 ```
-
 
 ### Removing the OpenSearch plugin
 
@@ -149,7 +144,7 @@ Use the following steps to enable security:
   ```
   {% include copy.html %}
  
-2. Install the plugin on all nodes.
+2. Install the Security plugin on all nodes in your cluster
 
   ```bash
   bin/opensearch-plugin install opensearch-security
@@ -159,7 +154,7 @@ Use the following steps to enable security:
 3. Add the necessary configuration to opensearch.yml for TLS encryption.
 [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) details different settings which need to be configured.
 
-4. Create the OPENSEARCH_INITIAL_ADMIN_PASSWORD variable.
+4. Create the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable. For more information, see [Setting up a custom admin password](https://opensearch.org/docs/latest/security/configuration/demo-configuration/#setting-up-a-custom-admin-password).
   
 5. Restart the nodes and reenable shard allocation.
 
@@ -174,10 +169,12 @@ Use the following steps to enable security:
 
 ### Installing the OpenSearch Dashboards plugin
 
-1. Stop OpenSearch Dashboards
-2. Install the Security plugin
+1. Stop running your OpenSearch Dashboards cluster. 
+2. Install the Security plugin:
+
    ```bash
       ./bin/opensearch-dashboards-plugin install securityDashboards
    ```
-3. Add necessary [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/) settings in the `opensearch_dashboards.yml`
-4. Start OpenSearch Dashboards
+   
+4. Add necessary [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/) settings in the `opensearch_dashboards.yml`
+5. Start OpenSearch Dashboards. You should be prompted to enter your log in credentials. 
