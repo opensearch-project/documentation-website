@@ -8,29 +8,29 @@ nav_order: 54
 
 # flatten
 
-The `flatten` processor transforms nested objects in events into flattened structures. 
+The `flatten` processor transforms nested objects inside of events into flattened structures. 
 
 ## Configuration
 
-The following table describes the available configuration options.
+The following table describes configuration options for the `flatten` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`source` | Yes | String | The source key to perform the operation on; If set to empty string (`""`), it will use the root of the event as source.
-`target` | Yes | String | The target key to put the flattened fields. If set to empty string (`""`), it will use the root of the event as target.
-`exclude_keys` | No | List | The keys in source field that will be excluded from processing. Default is an empty list (`[]`).
-`remove_processed_fields` | No | Boolean | If `true`, the processor will remove processed fields from the source. Default is `false`.
-`remove_list_indices` | No | Boolean | If `true`, the processor will convert the fields from source map to lists and put them in the target field. Default is `false`.
-`flatten_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. Default is null and all events will be processed.
+`source` | Yes | String | The source key to perform the operation on; If set to empty string (`""`), the processor uses the root of the event as source.
+`target` | Yes | String | The target key to put the flattened fields. If set to empty string (`""`), the processor uses the root of the event as target.
+`exclude_keys` | No | List | The keys from the source field that should be excluded from processing. Default is an empty list (`[]`).
+`remove_processed_fields` | No | Boolean | When `true`, the processor removes all processed fields from the source. Default is `false`.
+`remove_list_indices` | No | Boolean | When `true`, the processor converts the fields from the source map into lists and puts the lists into the target field. Default is `false`.
+`flatten_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the processor will be run on the event. Default is null and all events will be processed.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
 ## Usage
 
-Here we show a few examples for using the `flatten` processor.
+The following examples show how the `flatten` processor can be used inside of Data Prepper pipelines.
 
-### Example: minimum configuration
+### Minimum configuration
 
-The following example shows only required parameters `source` and `target` configured. 
+The following example shows only the required parameters `source` and `target` configured for the `flatten` processor:
 
 ```yaml
 ...
@@ -41,7 +41,8 @@ The following example shows only required parameters `source` and `target` confi
 ...
 ```
 
-If the input event contains the following data:
+When the input event contains the following nested objects:
+
 ```json
 {
   "key1": "val1",
@@ -52,7 +53,9 @@ If the input event contains the following data:
   }
 }
 ```
-the processed event will have the following data:
+
+The `flatten` processor creates a flattened structure under the `flattened-key2` object:
+
 ```json
 {
   "key1": "val1",
@@ -67,9 +70,9 @@ the processed event will have the following data:
 }
 ```
 
-### Example: remove processed fields
+### Remove processed fields
 
-The option `remove_processed_fields` can be useful when flattening the entire event. The following example shows how to flattening the entire event and remove processed fields.
+Use the `remove_processed_fields` option when flattening all of an event's nested objects and removes the processed fields, as shown in the following example:
 
 ```yaml
 ...
@@ -81,7 +84,8 @@ The option `remove_processed_fields` can be useful when flattening the entire ev
 ...
 ```
 
-If the input event contains the following data:
+When the input event contains the following nested objects:
+
 ```json
 {
   "key1": "val1",
@@ -106,7 +110,10 @@ If the input event contains the following data:
   ]
 }
 ```
-the processed event will have the following data:
+
+
+The `flatten` processor creates a flattened structure where all processed fields are absent, as shown in the following output:
+
 ```json
 {
   "key1": "val1",
@@ -118,9 +125,9 @@ the processed event will have the following data:
 }
 ```
 
-### Example: exclude specific keys from flattening
+### Exclude specific keys from flattening
 
-The following example shows how to exclude specific keys from flattening using `exclude_keys`.
+Use the `exclude_keys` option to keep specific keys from being flattened in the output, as shown in the following example where the `key2` value is excluded:
 
 ```yaml
 ...
@@ -133,7 +140,8 @@ The following example shows how to exclude specific keys from flattening using `
 ...
 ```
 
-If the input event contains the following data:
+When the input event contains the following nested objects:
+
 ```json
 {
   "key1": "val1",
@@ -158,7 +166,9 @@ If the input event contains the following data:
   ]
 }
 ```
-the processed event will have the following data, "key2" field will not be flattened:
+
+All other nested objects excluding the `key2` will be flattened, as shown in the following example:
+
 ```json
 {
   "key1": "val1",
@@ -174,9 +184,9 @@ the processed event will have the following data, "key2" field will not be flatt
 }
 ```
 
-### Example: remove list indices
+### Remove list indices
 
-The following example shows how to use `remove_list_indices` option.
+Use the `remove_list_indices` option to convert the fields from the source map into lists and put the lists into the target field, as shown in the following example:
 
 ```yaml
 ...
@@ -189,7 +199,8 @@ The following example shows how to use `remove_list_indices` option.
 ...
 ```
 
-If the input event contains the following data:
+When the input event contains the following nested objects:
+
 ```json
 {
   "key1": "val1",
@@ -214,7 +225,9 @@ If the input event contains the following data:
   ]
 }
 ```
-the processed event will have the following data. List indices will be removed and values under that same flattened key will be put in a list.
+
+The processors removes all indexes from the output and places them into the source map as a flattened structured list, as shown in the following example:
+
 ```json
 {
   "key1": "val1",
