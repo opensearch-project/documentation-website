@@ -1,5 +1,11 @@
+---
+layout: default
+title: Cache plugins
+nav_order: 100
+---
+
 # Cache plugins
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated GitHub issue.
+This is an experimental feature and is not recommended for use in a production environment.
 
 Cache plugins gives an ability to use different kind of cache stores(like on-heap, disk and tiered) within Opensearch. 
 
