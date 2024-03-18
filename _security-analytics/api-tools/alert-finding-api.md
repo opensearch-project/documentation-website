@@ -154,7 +154,7 @@ Parameter | Description
 `sortOrder` | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional.
 `size` | An optional limit for the maximum number of results returned in the response. Optional.
 `startIndex` | The pagination indicator. Optional.
-`detectionType` |  The detection rule type dictates the retrieval of type of findings. If the detection type is 'threat', it fetches threat intel feeds; if it's 'rule', findings are fetched based on the detector's rule. Optional.
+`detectionType` |  The detection rule type that dictates the retrieval type of the findings. When the detection type is `threat`, it fetches threat intelligence feeds. When it's `rule`, findings are fetched based on the detector's rule. Optional.
 `severity` |  The severity of the detector rule used to fetch alerts. Severity can be critical|high|medium|low. Optional
 
 ### Example request
