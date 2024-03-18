@@ -14,7 +14,7 @@ Depending on the temporarily disable the Security plugin to make testing or inte
 
 ## Disabling security
 
-To disable the OpenSearch Security plugin, add the following line in `opensearch.yml`:
+To disable the Security plugin, add the following line in `opensearch.yml`:
 
 ```yml
 plugins.security.disabled: true
@@ -27,6 +27,7 @@ A more permanent option is to remove the Security plugin entirely:
 1. Delete the `plugins/opensearch-security` folder on all nodes.
 1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
 1. Uninstall the Security plugin by using the following command:
+
 ```bash
 /usr/share/opensearch/opensearch-plugin remove opensearch-security
 ```
@@ -90,6 +91,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
    server.host: "0.0.0.0"
    opensearch.hosts: http://localhost:9200
    ```
+   
 1. Start OpenSearch Dashboards.
    ```bash
    ./bin/opensearch-dashboards
@@ -177,4 +179,4 @@ Use the following steps to enable security:
    ```
    
 4. Add necessary [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/) settings in the `opensearch_dashboards.yml`
-5. Start OpenSearch Dashboards. You should be prompted to enter your log in credentials. 
+5. Start OpenSearch Dashboards. You should be prompted to enter your log in credentials if the plugin was successfully installed.
