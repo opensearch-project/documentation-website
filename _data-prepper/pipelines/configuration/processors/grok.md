@@ -16,8 +16,8 @@ The following table describes options you can use with the Grok processor to str
 
 Option | Required | Type | Description
 :--- | :--- |:--- | :---
-`break_on_match` | No | Boolean | Specifies whether to match all patterns (`true`) or stop once the first successful match is found (`false`). Defaultis `true`.
-`grok_when` | No | String  | Specifies under what condition the `Grok` processor should perform matching. Default is no condition.
+`break_on_match` | No | Boolean | Specifies whether to match all patterns (`true`) or stop once the first successful match is found (`false`). Default is `true`.
+`grok_when` | No | String  | Specifies under what condition the `grok` processor should perform matching. Default is no condition.
 `keep_empty_captures` | No | Boolean | Enables the preservation of `null` captures. Default is `false`.
 `keys_to_overwrite` | No | List | Specifies which existing keys will be overwritten if there is a capture with the same key value. Default is `[]`.
 `match` | No | Map | Specifies which keys to match specific patterns against. Default is an empty response body.
@@ -27,7 +27,7 @@ Option | Required | Type | Description
 `pattern_files_glob` | No | String | Specifies which pattern files to use from the directories specified for `pattern_directories`. Default is `*`.
 `target_key` | No | String | Specifies a parent-level key used to store all captures. Default value is `null`.
 `timeout_millis` | No | Integer | The maximum amount of time during which matching occurs. Setting to `0` disables the timeout. Default is `30,000`.
-`performance_metadata` | No | Boolean | Whether or not to add performance metadata to Events. Defaults to `false`. For more information, see [Grok Performance Metadata](#grok-performance-metadata)
+`performance_metadata` | No | Boolean | Whether or not to add performance metadata to events. Default is `false`. For more information, see [Grok Performance Metadata](#grok-performance-metadata)
 
 
 ## Conditional grok
@@ -48,14 +48,13 @@ The `grok_when` option can take a conditional expression. This expression is det
 
 # Grok performance metadata
 
-When `performance_metadata` is set to true, the `grok` processor adds the following metadata keys to each event.
+When the `performance_metadata` option is set to true, the `grok` processor adds the following metadata keys to each event:
 
-* `_total_grok_processing_time` - The total time, in milliseconds, that the `grok` processor takes to match the event. This is the sum processing time for this event based on all of the grok processors that ran on this Event, and also have the `performance_metadata` enabled.
-* `_total_grok_patterns_attempted` - The total number `grok` pattern match attempts across all `grok` processors that have run on the event.
+* `_total_grok_processing_time` - The total time, in milliseconds, that the `grok` processor takes to match the event. This is the sum of the processing time for this event based on all of the grok processors that ran on this event that have the `performance_metadata` option enabled.
+* `_total_grok_patterns_attempted` - The total number of `grok` pattern match attempts across all `grok` processors that have run on the event.
 
-To include this metadata in the event that is sent to the sink of the pipeline, and `add_entries` processor can be used.
+To include this metadata in the event when the event is sent to the sink set inside the pipeline, use the `add_entries` processor tot describe the metadata you want to include, as shown in the following example:
 
-If you want to include grok performance metadata when the event is sent from the processor to the sink, use the `add_entries` processor to describe the metadata, as shown in the following example:
 
 ```yaml
 processor:
