@@ -142,6 +142,7 @@ OpenSearch Dashboards instances installed using `dpkg` or `apt-get` can be easil
 Download the Debian package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
+
 ```bash
 sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
 ```
