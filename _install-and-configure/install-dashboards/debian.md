@@ -166,7 +166,8 @@ sudo apt-get upgrade opensearch-dashboards=<version>
 
 ### Auto restart service after package upgrade ([2.13.0 or later](https://github.com/opensearch-project/opensearch-build/pull/4530))
 
-To automatically restart OpenSearch Dashboards after a package upgrade, enable the `opensearch-dashboards.service` through systemd:
+To automatically restart OpenSearch Dashboards after a package upgrade, enable the `opensearch-dashboards.service` through `systemd`:
+
 ```bash
 sudo systemctl enable opensearch-dashboards.service
 ```
