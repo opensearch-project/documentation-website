@@ -10,8 +10,8 @@ redirect_from:
 
 # Document-level security (DLS)
 
-Document-level security lets you restrict a role to a subset of documents in an index. 
-For more information on OpenSearch [Users & Roles, see the documentation](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles)
+Document-level security lets you restrict a role to a subset of documents in an index.
+For more information about on OpenSearch [Users and Roles, see the documentation](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles)
 
 The easiest way to get started with document- and field-level security is:
 1. Open OpenSearch Dashboards 
@@ -19,7 +19,7 @@ The easiest way to get started with document- and field-level security is:
 3. Choose **Roles** 
 4. Create a new role
 5. Review the **Index permissions** section
-6. Add document-level security with the addtion of a DSL query to the `Document level security - optional` section
+6. Add document-level security with the addition of a DSL query to the `Document level security - optional` section
    - For example, the following DSL could be added in the `Document level security - optional` text box.
    - This query specifies that for the role to have access to a document, its `genres` field must include `Comedy`
    - A typical request to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
@@ -36,7 +36,7 @@ The easiest way to get started with document- and field-level security is:
    ```
    - ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
-## Updating roles via the Rest API 
+## Updating roles by accessing the Rest API 
 
 In the REST API, you provide the query as a string, so you must escape your quotes. This role allows a user to read any document in any index with the field `public` set to `true`:
 
@@ -282,33 +282,3 @@ In this example, two roles are defined, one with DLS and another without DLS, gr
 When a user has both Role A and Role B permissions, the query results are filtered based on Role A's DLS, even though Role B doesn't use DLS. The DLS settings are retained, and the returned access is appropriately restricted. 
 
 When a user is assigned both Role A and Role B and the `plugins.security.dfm_empty_overrides_all` setting is enabled, Role B's permissions Role B's permissions will override Role A's restrictions, allowing that user to access all documents. This ensures that the role without DLS takes precedence in the search query response.
-
-### Editing document-level permissions
-To adjust document-level permissions in OpenSearch, you can tailor existing roles or create new ones with customized configurations.
-
-To modifying an existing role: 
-1. Open OpenSearch Dashboards. 
-2. Select  **Security > Roles**. This page lists all the available roles within your configuration.  
-3. Locate the role to you want to change and select it to inspect its current permissions and configurations.
-
-4. Within the role details, you can change index permissions in the specified index permissions section, such as can index patterns, document-level security queries (DLS), and allowed actions associated with the role. The following example adds DLS permissions and lists the actions allowed for the role:
-
-```
-{
-  "index_permissions": [
-    {
-      "index_patterns": [
-        "example-index"
-      ],
-      "dls": "[.. some DLS here ..]",
-      "allowed_actions": [
-        "indices:data/read/search",
-      ]
-    }
-  ]
-}
-```
-
-Edit and save the configuration files, to upload the changes into the security index execute `securityadmin.sh`
-
-Optionally you can create new roles if existing roles do not align with your requirements.
