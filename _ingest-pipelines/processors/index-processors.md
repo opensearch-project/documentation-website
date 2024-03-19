@@ -30,7 +30,7 @@ Processor type | Description
 :--- | :--- 
 `append` | Adds one or more values to a field in a document. 
 `bytes` | Converts a human-readable byte value to its value in bytes.
-`community_id` | Generate community ID flow hash for the network flow tuples.
+`community_id` | Generates community ID flow hash for the network flow tuples.
 `convert` | Changes the data type of a field in a document.
 `copy` | Copies an entire object in an existing field to another field.
 `csv` | Extracts CSVs and stores them as individual fields in a document. 
