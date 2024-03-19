@@ -15,8 +15,9 @@ The `decompress` processor decompresses the `base64`-encoded compressed fields i
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `keys` | Yes | List<String> | The fields in the event that will be decompressed.                                                                                          
-`type` | Yes | Enum | The type of decompression to use for the `keys` specified. As of Data Prepper 2.7, only `gzip` is supported.                                            `decompress_when` | No | String| A [Data Prepper conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) to determine which events to run the `decompress` processor. 
-`tags_on_failure` | No | List<String> | A list of strings to tag events with when the processor fails to decompress the `keys` on the event. Defaults to `_decompression_failure`.                               
+`type` | Yes | Enum | The type of decompression to use for the `keys` in the event. Only `gzip` is supported.                                           
+`decompress_when` | No | String| A [Data Prepper conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) that determines when the `decompress` processor will run on certain events.
+`tags_on_failure` | No | List<String> | A list of strings to tag events with when the processor fails to decompress the `keys` inside the event. Defaults to `_decompression_failure`.                               
 
 ## Usage
 
@@ -40,9 +41,9 @@ The following table describes common [Abstract processor](https://github.com/ope
 | `recordsOut` | Counter | The egress of records from a pipeline component. |
 | `timeElapsed` | Timer | The time elapsed during execution of a pipeline component. |
 
-The `decompress` processor includes the following custom metrics.
-
 ### Counter
+
+The `decompress` processor accounts for the following metrics:
 
 * `processingErrors`: The number of processing errors that have occurred in the `decompress` processor.
 
