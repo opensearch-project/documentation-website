@@ -53,7 +53,7 @@ Parameter | Required/Optional | Description |
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline.**
+**Step 1: Create a pipeline**
 
 The following query creates a pipeline named `commnity_id_pipeline` that uses the `commnity_id` processor to generate a hash value for the network flow tuple: 
 
