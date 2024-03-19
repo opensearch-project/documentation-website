@@ -250,14 +250,16 @@ If the IP address in the first argument is in the range of any of the given CIDR
 
 The `join()` function joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or a map where values are of the list type, and joins the lists as strings using commas (`,`), the default delimiter between strings.
 
-For example, with `{"source": [1, 2, 3]}` as input data, `join(/source)` will return `"1,2,3"`. With the following input data:
+For example, when `{"source": [1, 2, 3]}`is the input data, as shown in the following:
+
+
 ```json
 {"source": {"key1": [1, 2, 3], "key2": ["a", "b", "c"]}}
 ```
 
-`join(/source)` will return:
+`join(/source)` will return `"1,2,3"` returns in the following format:
 
 ```json
 {"key1": "1,2,3", "key2": "a,b,c"}
 ```
-You can also specify a delimiter. For example, `join("-", /source)` will join `source` field using hyphen (`-`) as delimiter.
+You can also specify a delimiter other than the default inside the expression. For example, `join("-", /source)` joins each `source` field using a hyphen (`-`) as the delimiter.
