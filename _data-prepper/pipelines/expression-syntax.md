@@ -230,7 +230,7 @@ The `length()` function takes one argument of the JSON pointer type and returns 
 
 ### `hasTags()`
 
-The `hasTags()` function takes one or more string type arguments and returns `true` if all the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains a `tag1` tag, Data Prepper returns `false`.
+The `hasTags()` function takes one or more string type arguments and returns `true` if all of the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains `tag1`, Data Prepper returns `false`.
 
 ### `getMetadata()`
 
