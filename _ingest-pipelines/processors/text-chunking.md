@@ -15,7 +15,7 @@ The `text_chunking` processor is used to chunk a long document into paragraphs. 
 {
   "text_chunking": {
     "field_map": {
-      "<input_field>": "<output_field>",
+      "<input_field>": "<output_field>"
     },
     "algorithm": {
       "<name>": <parameters>
