@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AD/LDAP
+title: AD LDAP
 parent: Supported log types
 nav_order: 20
 ---
