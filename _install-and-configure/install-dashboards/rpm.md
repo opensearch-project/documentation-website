@@ -125,5 +125,5 @@ sudo yum update opensearch-dashboards
 
 ### Auto restart service after package upgrade
 
-At the moment, OpenSearch Dashboards RPM package does not support automatically restart service after a package upgrade.
+Currently, the OpenSearch Dashboards RPM package does not support automatically restarting the service after a package upgrade.
 
