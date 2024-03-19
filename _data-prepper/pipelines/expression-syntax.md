@@ -248,7 +248,7 @@ If the IP address in the first argument is in the range of any of the given CIDR
 
 ### `join()`
 
-The `join()` function joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or a map where values are of the list type, and joins the lists to strings using commas (`,`) as the default delimiter. 
+The `join()` function joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or a map where values are of the list type, and joins the lists as strings using commas (`,`), the default delimiter between strings.
 
 For example, with `{"source": [1, 2, 3]}` as input data, `join(/source)` will return `"1,2,3"`. With the following input data:
 ```json
