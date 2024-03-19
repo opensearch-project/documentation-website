@@ -90,3 +90,37 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
+
+## Upgrade to a newer version
+
+OpenSearch Dashboards instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using RPM.
+
+
+### Manual upgrade with RPM
+
+Download the RPM package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+
+Navigate to the directory containing the distribution and run the following command:
+```bash
+rpm -Uvh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+```
+{% include copy.html %}
+
+### YUM
+
+To upgrade to the latest version of OpenSearch Dashboards using YUM:
+```bash
+sudo yum update opensearch-dashboards
+```
+{% include copy.html %}
+
+ You can also upgrade to a specific OpenSearch Dashboards version:
+ ```bash
+ sudo yum update opensearch-dashboards-<version-number>
+ ```
+ {% include copy.html %}
+
+### Auto restart service after package upgrade
+
+At the moment, OpenSearch Dashboards RPM package does not support automatically restart service after a package upgrade.
+

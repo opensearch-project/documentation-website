@@ -500,7 +500,7 @@ OpenSearch instances installed using RPM or YUM can be easily upgraded to a newe
 
 ### Manual upgrade with RPM 
 
-Download the RPM package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+Download the RPM package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
 ```bash
@@ -512,7 +512,7 @@ rpm -Uvh opensearch-{{site.opensearch_version}}-linux-x64.rpm
 
 To upgrade to the latest version of OpenSearch using YUM:
 ```bash
-sudo yum update
+sudo yum update opensearch
 ```
 {% include copy.html %}
 
@@ -521,6 +521,10 @@ sudo yum update
  sudo yum update opensearch-<version-number>
  ```
  {% include copy.html %}
+
+### Auto restart service after package upgrade
+
+At the moment, OpenSearch RPM package does not support automatically restart service after a package upgrade.
 
 ## Related links
 
