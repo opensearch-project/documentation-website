@@ -157,7 +157,8 @@ sudo apt-get upgrade opensearch-dashboards
 ```
 {% include copy.html %}
 
-You can also upgrade to a specific OpenSearch Dashboards version:
+You can also upgrade to a specific OpenSearch Dashboards version by providing the version number:
+
 ```bash
 sudo apt-get upgrade opensearch-dashboards=<version>
 ```
