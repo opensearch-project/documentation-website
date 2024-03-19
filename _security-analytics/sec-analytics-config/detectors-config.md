@@ -162,7 +162,7 @@ Predefined mappings that correlate the field names from Sigma rules to those of 
 
 - The [GitHub Security Analytics](https://github.com/opensearch-project/security-analytics) repository. To find the field mappings: 
    1. Navigate to the [OSMappings](https://github.com/opensearch-project/security-analytics/tree/main/src/main/resources/OSMapping) folder. 
-2. Select the file for the specific log type. For example, for the `windows` log type, to view field names that correlate from Sigma rules to those of ECS rules, select the [`windows_logtype.json`](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows_logtype.json) file. The `raw_field` value represents the field name for the Sigma rule in the mapping.
+   2. Select the file for the specific log type. For example, for the `windows` log type, to view field names that correlate from Sigma rules to those of ECS rules, select the [`windows_logtype.json`](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows_logtype.json) file. The `raw_field` value represents the field name for the Sigma rule in the mapping.
 
 
 ## What's next
