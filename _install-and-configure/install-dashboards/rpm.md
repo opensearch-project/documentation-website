@@ -93,7 +93,7 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
 
 ## Upgrade to a newer version
 
-OpenSearch Dashboards instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using RPM.
+OpenSearch Dashboards instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend upgrading using YUM, but you can also choose RPM.
 
 
 ### Manual upgrade with RPM
