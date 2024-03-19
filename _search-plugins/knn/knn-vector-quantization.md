@@ -16,7 +16,7 @@ The OpenSearch k-NN plugin by default supports the indexing and querying of vect
 
 Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of memory needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
-## Faiss sqfp16
+## Faiss scalar quantization fp16
 
 Starting with k-NN plugin version 2.13, users can ingest `fp16` vectors with `faiss` engine where when user provides the 32 bit float vectors, the Faiss engine quantize the vector into FP16 using scalar quantization (users don’t need to do any quantization on their end), stores it and decodes it back to FP32 for distance computation during search operations. Using this feature, users can
 reduce memory footprints by a factor of 2, significant reduction in search latencies (with [SIMD Optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-faiss)), with a very minimal loss in recall(depends on distribution of vectors).
@@ -31,7 +31,7 @@ Ideally, `clip` parameter is recommended to be set as `true` only when most of t
 {: .note}
 
 * `type`  - Set this as `fp16` if we want to quantize the indexed vectors into fp16 using Faiss SQFP16; Default value is `fp16`.
-* `clip` - Set this as `true` if you want to skip the FP16 validation check and clip vector value to bring it into FP16 MIN or MAX range; Default value is `false`.
+* `clip` - Set this as `true` if you want to skip the FP16 validation check and clip vector value to bring it into FP16 MIN or MAX range. If it is `false` and any vector element is out of range, then it rejects the request and throws an exception; Default value is `false`.
 
 This is an example of a method definition using Faiss SQfp16 with `clip` as `true`
 ```json

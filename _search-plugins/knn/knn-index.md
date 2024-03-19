@@ -163,7 +163,7 @@ Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
 `pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-`sq` | false | sq stands for Scalar Quantization. Starting with k-NN plugin version 2.13, you can use the sq encoder(by default [SQFP16]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-sqfp16)) to quantize 32-bit floating-point vectors into 16-bit floats by using the built-in Faiss ScalarQuantizer in order to reduce the memory footprint with a minimal loss of precision. Besides optimizing memory use, sq improves the overall performance with the SIMD optimization (using `AVX2` on `x86` architecture and using `NEON` on `ARM` architecture).
+`sq` | false | sq stands for Scalar Quantization. Starting with k-NN plugin version 2.13, you can use the sq encoder(by default [SQFP16]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization-fp16)) to quantize 32-bit floating-point vectors into 16-bit floats by using the built-in Faiss ScalarQuantizer in order to reduce the memory footprint with a minimal loss of precision. Besides optimizing memory use, sq improves the overall performance with the SIMD optimization (using `AVX2` on `x86` architecture and using `NEON` on `ARM` architecture).
 
 #### Examples
 
@@ -269,7 +269,7 @@ Parameter name | Required | Default | Updatable | Description
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :-- | :--- | :---
 `type` | false | fp16 | false |  Determines the type of scalar quantization to be used to encode the 32 bit float vectors into the corresponding type. By default, it is `fp16`.
-`clip` | false | false | false | When set to `true`, clips the vectors that are outside of the range to bring them into the range.
+`clip` | false | false | false | When set to `true`, clips the vectors that are outside of the range to bring them into the range. If it is `false` and any vector element is out of range, then it rejects the request and throws an exception. 
 
 ### Choosing the right method
 
