@@ -146,8 +146,9 @@ PUT /_search/pipeline/nlp-search-pipeline
 
 To perform hybrid search on your index, use the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/), which combines the results of keyword and semantic search.
 
-The following example request combines two query clauses---a neural query and a `match` query. It specifies the search pipeline created in the previous step as a query parameter:
+The following example request combines two query clauses---a `neural` query and a `match` query. It specifies the search pipeline created in the previous step as a query parameter:
 
+Example 1
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
@@ -161,7 +162,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
       "queries": [
         {
           "match": {
-            "text": {
+            "passage_text": {
               "query": "Hi world"
             }
           }
@@ -216,3 +217,151 @@ The response contains the matching document:
   }
 }
 ```
+{% include copy-curl.html %}
+
+Example 2
+
+```json
+{
+  "_source": {
+    "exclude": [
+      "passage_embedding"
+    ]
+  },
+  "query": {
+    "hybrid": {
+      "queries": [
+           {
+             "match":{
+                 "passage_text": "hello"
+              }
+           },
+           {
+             "term":{
+              "passage_text":{
+                 "value":"planet"
+              }
+             }
+           }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response is:
+```json
+{
+    "took": 11,
+    "timed_out": false,
+    "_shards": {
+        "total": 2,
+        "successful": 2,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 2,
+            "relation": "eq"
+        },
+        "max_score": 0.7,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "2",
+                "_score": 0.7,
+                "_source": {
+                    "id": "s2",
+                    "passage_text": "Hi planet"
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "1",
+                "_score": 0.3,
+                "_source": {
+                    "id": "s1",
+                    "passage_text": "Hello world"
+                }
+            }
+        ]
+    }
+}
+```
+{% include copy-curl.html %}
+
+### Step 5.1: Search the index using hybrid search with post_filter
+
+In OpenSearch, enabling the post-filter functionality involves using the post_filter parameter in your search queries.
+
+The post_filter clause is applied after the search results have been retrieved, and it does not affect the calculation of relevance scores. It is useful for applying additional filters to the search results without impacting the scoring or the order of the results. It does not contribute to the relevance scores of the documents but is applied for post-processing purposes.
+
+**Note**: post_filtering does not impact results of aggregations
+
+The following example request combines two query clauses a `term` query and a `match` query. It specifies the search pipeline created in the earlier step as a query parameter. There is a `post_filter` query added in it:
+
+Example 1
+```json
+{
+  "query": {
+    "hybrid":{
+      "queries":[
+        {
+          "match":{
+            "passage_text": "hello"
+          }
+        },
+        {
+          "term":{
+            "passage_text":{
+              "value":"planet"
+            }
+          }
+        }
+      ]
+    }
+
+  },
+  "post_filter":{
+    "match": { "passage_text": "world" }
+  }
+}
+
+```
+{% include copy-curl.html %}
+
+The response contains the matching document because it is filtered in post_filtering:
+
+```json
+{
+  "took": 18,
+  "timed_out": false,
+  "_shards": {
+    "total": 2,
+    "successful": 2,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.3,
+    "hits": [
+      {
+        "_index": "my-nlp-index",
+        "_id": "1",
+        "_score": 0.3,
+        "_source": {
+          "id": "s1",
+          "passage_text": "Hello world"
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
