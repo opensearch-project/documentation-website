@@ -77,7 +77,7 @@ PUT /_ingest/pipeline/commnity_id_pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**Step 2 (Optional): Test the pipeline**
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
