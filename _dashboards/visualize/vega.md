@@ -7,7 +7,7 @@ nav_order: 45
 
 # Using Vega
 
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization tools that you can use to create custom data visualizations from your OpenSearch data and  [Vega Data](https://vega.github.io/vega/docs/data/). These tools are ideal for for advanced users comfortable writing OpenSearch queries directly. Enable the Vega plugin in your `opensearch_dsahboards.yml` file to write your [Vega specifications](https://vega.github.io/vega/docs/specification/) in either JSON or [HJSON](https://hjson.github.io/) format or to specify one or more OpenSearch queries within your Vega specification. The configuration is shown in the following example. For configuration details, go to the `vis_type_vega` [README](insert-link-to-plugin-config-file).
+[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization tools that you can use to create custom data visualizations from your OpenSearch data and  [Vega Data](https://vega.github.io/vega/docs/data/). These tools are ideal for advanced users comfortable writing OpenSearch queries directly. Enable the Vega plugin in your `opensearch_dsahboards.yml` file to write your [Vega specifications](https://vega.github.io/vega/docs/specification/) in either JSON or [HJSON](https://hjson.github.io/) format or to specify one or more OpenSearch queries within your Vega specification. The configuration is shown in the following example. For configuration details, go to the `vis_type_vega` [README](insert-link-to-plugin-config-file).
 
 ```
 vis_type_vega.enabled: true
