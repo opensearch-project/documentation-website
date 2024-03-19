@@ -38,7 +38,7 @@ curl '{osd endpoint}/api/appconfig/csp.rules' -X DELETE -H 'osd-xsrf: osd-fetch'
 
 ## Get CSP rules
 
-Use the following CURL command to get CSP rules.
+Use the following CURL command to get CSP rules:
 
 ```
 curl '{osd endpoint}/api/appconfig/csp.rules'
