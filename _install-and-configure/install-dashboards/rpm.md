@@ -101,6 +101,7 @@ OpenSearch Dashboards instances installed using RPM or YUM can be easily upgrade
 Download the RPM package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
+
 ```bash
 rpm -Uvh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
 ```
