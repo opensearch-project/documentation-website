@@ -109,7 +109,8 @@ rpm -Uvh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
 
 ### YUM
 
-To upgrade to the latest version of OpenSearch Dashboards using YUM:
+To upgrade to the latest version of OpenSearch Dashboards using YUM, run the following command:
+
 ```bash
 sudo yum update opensearch-dashboards
 ```
