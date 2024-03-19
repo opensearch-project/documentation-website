@@ -16,12 +16,12 @@ The following table describes configuration options for the `flatten` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`source` | Yes | String | The source key to perform the operation on; If set to empty string (`""`), the processor uses the root of the event as source.
-`target` | Yes | String | The target key to put the flattened fields. If set to empty string (`""`), the processor uses the root of the event as target.
+`source` | Yes | String | The source key to perform the operation on;. If set to an empty string (`""`), the processor uses the root of the event as the source.
+`target` | Yes | String | The target key to put into the flattened fields. If set to an empty string (`""`), the processor uses the root of the event as the target.
 `exclude_keys` | No | List | The keys from the source field that should be excluded from processing. Default is an empty list (`[]`).
 `remove_processed_fields` | No | Boolean | When `true`, the processor removes all processed fields from the source. Default is `false`.
 `remove_list_indices` | No | Boolean | When `true`, the processor converts the fields from the source map into lists and puts the lists into the target field. Default is `false`.
-`flatten_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the processor will be run on the event. Default is null and all events will be processed.
+`flatten_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the `flatten` processor will be run on the event. Default is `null`, which means all events will be processed unless otherwise stated.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
 ## Usage
@@ -30,7 +30,7 @@ The following examples show how the `flatten` processor can be used inside of Da
 
 ### Minimum configuration
 
-The following example shows only the required parameters `source` and `target` configured for the `flatten` processor:
+The following example shows only the required parameters to use the `flatten` processor, `source` and `target`:
 
 ```yaml
 ...
@@ -40,8 +40,9 @@ The following example shows only the required parameters `source` and `target` c
         target: "flattened-key2"  
 ...
 ```
+{% include copy.html %}
 
-When the input event contains the following nested objects:
+For example, when the input event contains the following nested objects:
 
 ```json
 {
@@ -54,7 +55,7 @@ When the input event contains the following nested objects:
 }
 ```
 
-The `flatten` processor creates a flattened structure under the `flattened-key2` object:
+The `flatten` processor creates a flattened structure under the `flattened-key2` object, as shown in the following output:
 
 ```json
 {
@@ -72,7 +73,7 @@ The `flatten` processor creates a flattened structure under the `flattened-key2`
 
 ### Remove processed fields
 
-Use the `remove_processed_fields` option when flattening all of an event's nested objects and removes the processed fields, as shown in the following example:
+Use the `remove_processed_fields` option when flattening all of an event's nested objects. This removes all the event's processed fields, as shown in the following example:
 
 ```yaml
 ...
@@ -84,7 +85,7 @@ Use the `remove_processed_fields` option when flattening all of an event's neste
 ...
 ```
 
-When the input event contains the following nested objects:
+For example, when the input event contains the following nested objects:
 
 ```json
 {
@@ -140,7 +141,7 @@ Use the `exclude_keys` option to keep specific keys from being flattened in the 
 ...
 ```
 
-When the input event contains the following nested objects:
+For example, when the input event contains the following nested objects:
 
 ```json
 {
@@ -167,7 +168,7 @@ When the input event contains the following nested objects:
 }
 ```
 
-All other nested objects excluding the `key2` will be flattened, as shown in the following example:
+All other nested objects in the input event excluding the `key2` key will be flattened, as shown in the following example:
 
 ```json
 {
@@ -199,7 +200,7 @@ Use the `remove_list_indices` option to convert the fields from the source map i
 ...
 ```
 
-When the input event contains the following nested objects:
+For example, when the input event contains the following nested objects:
 
 ```json
 {
