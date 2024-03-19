@@ -552,7 +552,8 @@ sudo apt-get upgrade opensearch=<version>
 
 ### Auto restart service after package upgrade ([2.13.0 or later](https://github.com/opensearch-project/opensearch-build/pull/4530))
 
-To automatically restart OpenSearch after a package upgrade, enable the `opensearch.service` through systemd:
+To automatically restart OpenSearch after a package upgrade, enable the `opensearch.service` through `systemd`:
+
 ```bash
 sudo systemctl enable opensearch.service
 ```
