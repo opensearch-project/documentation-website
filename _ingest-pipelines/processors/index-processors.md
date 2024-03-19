@@ -53,7 +53,7 @@ Processor type | Description
 `lowercase` | Converts text in a specific field to lowercase letters.
 `pipeline` | Runs an inner pipeline.
 `remove` | Removes fields from a document.
-`remove_by_pattern` | Removes fields from a document by field patterns.
+`remove_by_pattern` | Removes fields from a document by field pattern.
 `script` | Runs an inline or stored script on incoming documents. 
 `set` | Sets the value of a field to a specified value.
 `sort` | Sorts the elements of an array in ascending or descending order.
