@@ -22,7 +22,7 @@ csp_handler.enabled: true
 
 ## Enable site embedding for OpenSearch Dashboards
 
-To enable site embedding for OpenSearch Dashboards, update the CSP rules using CURL. When using CURL commands with single quotation marks inside the `data-raw` parameter, escape them with a backslash (`\`). For example, use `'\''` to represent `'`. The configuration is shown in the following example. Refer to the `applicationConfig` plugin [README]([<insert-link>](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/application_config/README.md)) for configuration details.
+To enable site embedding for OpenSearch Dashboards, update the CSP rules using CURL. When using CURL commands with single quotation marks inside the `data-raw` parameter, escape them with a backslash (`\`). For example, use `'\''` to represent `'`. The configuration is shown in the following example. Refer to the `applicationConfig` plugin [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/application_config/README.md) for configuration details.
 
 ```
 curl '{osd endpoint}/api/appconfig/csp.rules' -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'osd-xsrf: osd-fetch' -H 'Sec-Fetch-Dest: empty' --data-raw '{"newValue":"script-src '\''unsafe-eval'\'' '\''self'\''; worker-src blob: '\''self'\''; style-src '\''unsafe-inline'\'' '\''self'\''; frame-ancestors '\''self'\'' {new site}"}'
