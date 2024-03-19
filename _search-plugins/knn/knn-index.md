@@ -17,13 +17,13 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `luce
 
 ## SIMD optimization for Faiss
 
-Starting with k-NN plugin version 2.13, [SIMD(Single instruction, multiple data)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) is supported by default on Linux machines only for Faiss engine if the underlying processor on the system supports SIMD instructions (`AVX2` on `x64` architecture and `NEON` on `ARM64` architecture) which helps to boost the overall performance. 
-For x64 architecture, two different versions of Faiss library(`libopensearchknn_faiss.so` and `libopensearchknn_faiss_avx2.so`) are built and shipped with the artifact where the library with `_avx2` suffix has the AVX2 SIMD instructions. During runtime, detects if the underlying system supports AVX2 or not and loads the corresponding library.
+Starting with k-NN plugin version 2.13, [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) is supported by default on Linux machines only for the Faiss engine if the underlying processor on the system supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD architecture helps boost the overall performance. 
+For the x64 architecture, two different versions of the Faiss library (`libopensearchknn_faiss.so` and `libopensearchknn_faiss_avx2.so`) are built and shipped with the artifact. The library with the `_avx2` suffix contains the AVX2 SIMD instructions. At runtime, the k-NN plugin detects whether AVX2 is supported and loads the appropriate library.
 
-Users can override and disable AVX2 and load the default Faiss library(`libopensearchknn_faiss.so`) even if system supports avx2 by setting `knn.faiss.avx2.disabled`(Static) to `true` in opensearch.yml (which is by default `false`).
+You can override or disable AVX2 and load the default Faiss library (`libopensearchknn_faiss.so`) even if your hardware supports AVX2 by specifying the `knn.faiss.avx2.disabled` static setting as `true` in opensearch.yml (the default is `false`).
 {: .note}
 
-For arm64 architecture, only one Faiss library(`libopensearchknn_faiss.so`) is built and shipped which contains the NEON SIMD instructions and unlike avx2, it can't be disabled. 
+For the ARM64 architecture, only one performance-boosting Faiss library (`libopensearchknn_faiss.so`) is built and shipped. The library is based on Neon SIMD instructions and, unlike AVX2, it cannot be disabled. 
 
 ## Method definitions
 
@@ -163,7 +163,7 @@ Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
 `pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-`sq` | false | sq stands for Scalar Quantization. Starting with k-NN plugin version 2.13, you can use the sq encoder(by default [SQFP16]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization-fp16)) to quantize 32-bit floating-point vectors into 16-bit floats by using the built-in Faiss ScalarQuantizer in order to reduce the memory footprint with a minimal loss of precision. Besides optimizing memory use, sq improves the overall performance with the SIMD optimization (using `AVX2` on `x86` architecture and using `NEON` on `ARM` architecture).
+`sq` | false | Stands for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. The default `sq` encoder is [SQFP16]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization-fp16). The built-in Faiss scalar quantizer reduces memory footprint with a minimal loss of precision. Besides optimizing memory use, `sq` improves the overall performance by employing SIMD optimization (using AVX2 on x86 architecture or Neon on ARM architecture). 
 
 #### Examples
 
