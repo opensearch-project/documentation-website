@@ -10,7 +10,7 @@ redirect_from:
 
 # Disabling and enabling the Security plugin
 
-If you're interested in using OpenSearch without security to make testing or internal usage more straightforward, you can temporarily disable the Security plugin. OpenSearch uses two seperate security plugins, one for OpenSearch (Security plugin) and one of OpenSearch Dashboards (OpenSearch Dashboards Security plugin) You can use the OpenSearch by [disabling the security plugin](#disabling-security) or [removing the Security plugin](#removing-the-security-plugin).  However by default OpenSearch Dashboards, requires a secured OpenSearch cluster, which means that the OpenSearch Dashboards Security plugin must be [uninstalled](#removing-the-opensearch-dashboards-security-plugin) from OpenSearch Dashboards in order to use Dashboards without security.
+If you're interested in using OpenSearch without security to make testing or internal usage more straightforward, you can temporarily disable the Security plugin. OpenSearch uses two separate security plugins, one for OpenSearch (Security plugin) and one of OpenSearch Dashboards (OpenSearch Dashboards Security plugin) You can use the OpenSearch by [disabling the Security plugin](#disabling-security) or [uninstalling the plugin](#removing-the-security-plugin).  However by default OpenSearch Dashboards, requires a secured OpenSearch cluster, which means that the OpenSearch Dashboards Security plugin must be [uninstalled](#removing-the-opensearch-dashboards-security-plugin) from OpenSearch Dashboards in order to use Dashboards without security.
 
 ## Disabling security
 
