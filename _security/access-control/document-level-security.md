@@ -11,7 +11,7 @@ redirect_from:
 # Document-level security (DLS)
 
 Document-level security lets you restrict a role to a subset of documents in an index.
-For more information about on OpenSearch [Users and Roles, see the documentation](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles)
+For more information about users and roles in OpenSearch[, see the documentation.](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles)
 
 The easiest way to get started with document- and field-level security is:
 1. Open OpenSearch Dashboards 
