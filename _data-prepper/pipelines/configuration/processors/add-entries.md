@@ -60,5 +60,5 @@ And then you run the `add_entries` processor using the example pipeline, it adds
 {"message": "hello", "newMessage": 3}
 ```
 
-> If `newMessage` already exists, its existing value is overwritten with a value of `3`.
+If `newMessage` already exists, its existing value is overwritten with a value of `3`.
 

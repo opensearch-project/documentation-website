@@ -9,7 +9,7 @@ redirect_from:
 
 # Managing OpenSearch Dashboards plugins
 
-OpenSearch Dashboards provides a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
+OpenSearch Dashboards provides a command line tool called `opensearch-dashboards-plugin` for managing plugins. This tool allows you to:
 
 - List installed plugins.
 - Install plugins.

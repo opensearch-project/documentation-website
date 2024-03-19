@@ -10,7 +10,7 @@ redirect_from:
 
 # Search backpressure
 
-Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. If a search request on a node or shard has breached the resource limits and does not recover within a certain threshold, it is rejected. These thresholds are dynamic and configurable through [cluster settings](#search-backpressure-settings). 
+Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. If a search request on a node or shard has breached the resource limits and does not recover within a certain threshold, it is rejected. These thresholds are dynamic and configurable through [cluster settings](#search-backpressure-settings) using the `/_cluster/settings` API endpoint. 
 
 ## Measuring resource consumption
 
@@ -77,6 +77,20 @@ Search backpressure runs in `monitor_only` (default), `enforced`, or `disabled` 
 ## Search backpressure settings
 
 Search backpressure adds several settings to the standard OpenSearch cluster settings. These settings are dynamic, so you can change the default behavior of this feature without restarting your cluster.
+
+To configure these settings, send a PUT request to `/_cluster/settings`:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent": {
+    "search_backpressure": {
+      "mode": "monitor_only"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 Setting | Default | Description
 :--- | :--- | :---
