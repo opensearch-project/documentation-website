@@ -150,7 +150,8 @@ sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
 
 ### APT-GET
 
-To upgrade to the latest version of OpenSearch Dashboards using `apt-get`:
+To upgrade to the latest version of OpenSearch Dashboards using `apt-get`, run the following command:
+
 ```bash
 sudo apt-get upgrade opensearch-dashboards
 ```
