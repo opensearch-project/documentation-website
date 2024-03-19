@@ -1,31 +1,32 @@
 ---
 layout: default
-title: Cache plugins
+title: Cache types
+parent: Improving search performance
+has_children: true
 nav_order: 100
 ---
 
-# Cache plugins
-This is an experimental feature and is not recommended for use in a production environment.
+# Cache types
 
-Cache plugins gives an ability to use different kind of cache stores(like on-heap, disk and tiered) within Opensearch. 
+OpenSearch relies heavily on different types of on-heap cache to accelerate data retrieval, providing significant improvement in search latencies. However, cache size is limited by the amount of memory available on a node. If you are processing a larger dataset that can potentially be cached, the cache size limit causes a lot of cache evictions and misses. The increasing number of evictions impacts performance because OpenSearch needs to process the query again, causing high resource consumption.
 
-## Background
+Prior to version 2.13, OpenSearch supported the following on-heap cache types:
 
-OpenSearch relies heavily on different on-heap caches to speed up the data retrieval process and thereby providing significant improvement in search latencies. But cache size is limited by the amount of memory available on a node. In cases where we are dealing with larger datasets which can potentially be cached, this causes a lot of cache evictions/misses and potentially impacting performance as we need to process/compute the query again causing high resource consumption.
+- **Request cache**: Caches the local results on each shard. This allows frequently used (and potentially resource-heavy) search requests to return results almost instantly. 
+- **Query cache**: The shard-level query cache caches common data from similar queries. The query cache is more granular than the request cache and can cache data that is reused between different queries.
+- **Field data cache**: The field data cache contains field data and global ordinals, which are both used to support aggregations on certain field types.
 
-Different on-heap cache types within OpenSearch(as of today):
-- Request cache: Caches the local results on each shard. This allows frequently used (and potentially heavy) search requests to return results almost instantly. 
-- Query cache: The shard-level query cche aches data when a similar query is used. The query cache is even more granular and can cache data that is reused between different queries.
-- Field data cache: The field data cache contains field data and global ordinals, which are both used to support aggregations on certain field types.
+## Additional cache stores
+**Introduced 2.13**
+{: .label .label-purple }
 
-## New cache stores
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10024).    
+{: .warning}
 
-In addition to on-heap cache, we have introduced new cache implementations as listed below:
+In addition to existing OpenSearch cache types, you can use the following cache stores with the help of cache plugins: 
 
-- Disk cache: This cache uses disk to store precomputed result of a query and can be used to extend the capabilities of OpenSearch. This can be used to cache much larger dataset provided that the disk latencies are acceptable.
-- Tiered cache: This is basically a multi level cache with each tier having it’s own characteristics and performance levels. For example, it can contain on-heap and disk tier. This tries to utilize the combination of different tiers and provide a balance between performance and size. To learn more about this, see {}
+- **Disk cache**: This cache stores a precomputed result of a query on disk. You can use disk cache to cache much larger datasets, provided that the disk latencies are acceptable.
+- **Tiered cache**: This is a multi-level cache, in which each tier has its own characteristics and performance levels. For example, a tiered cache can contain on-heap and disk tiers. By combining different tiers, you can achieve a balance between cache performance and size. To learn more, see [Tiered cache]({{site.url}}{{site.baseurl}}/search-plugins/cache-plugins/tiered-cache/).
 
-## Integration points
-
-As of now, we have integrated below caches within OpenSearch with above plugin and provided an ability to extend its capabilities to use tiered or disk cache.
-- Request cache 
+In OpenSearch 2.13, request cache is integrated with cache plugins. You can use tiered or disk cache on a request level.
+{: .note}
