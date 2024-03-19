@@ -168,7 +168,7 @@ The request indexes the document into the `testindex1` index:
 }
 ```
 
-**Step 4 (Optional): Retrieve the document.**
+**Step 4 (Optional): Retrieve the document**
 
 To retrieve the document, run the following query:
 
