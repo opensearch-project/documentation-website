@@ -12,7 +12,7 @@ Security analytics supports field mappings that are not specific to a single ser
 - Application: Records application logs.
 - Advanced Persistent Threat (APT): Records logs commonly associated with APT attacks.
 - Compliance: Records logs related to compliance.
-- MacOS: Records event logs when using a Mac device to access a network.
+- macOS: Records event logs when using a Mac device to access a network.
 - Proxy: Records logs related to proxy events.
 - Web: Records logs related to network access from the web.
 
