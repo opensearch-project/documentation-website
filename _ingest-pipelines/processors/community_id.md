@@ -132,7 +132,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document.**
+**Step 3: Ingest a document**
 
 The following query ingests a document into an index named `testindex1`:
 
