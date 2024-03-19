@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Content Security Policy (CSP) rules dynamic configuration
+title: Configuring Content Security Policy rules dynamically
 nav_order: 110
 has_children: false
 ---
 
-# Configuring content security policy rules dynamically
+# Configuring Content Security Policy rules dynamically
 Introduced 2.13
 {: .label .label-purple }
 
@@ -47,4 +47,4 @@ curl '{osd endpoint}/api/appconfig/csp.rules'
 
 ## Precedence
 
-Dynamic configurations override YAML configurations, except for empty CSP rules. To prevent `clickjacking`, a `frame-ancestors: self` directive is automatically added to YAML-defined rules that lack it.
+Dynamic configurations override YAML configurations, except for empty CSP rules. To prevent `clickjacking`, a `frame-ancestors: self` directive is automatically added to YAML-defined rules when necessary.
