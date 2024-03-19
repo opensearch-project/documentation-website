@@ -150,7 +150,7 @@ PUT testindex1/_doc/1?pipeline=commnity_id_pipeline
 
 #### Response
 
-The request indexes the document into the index `testindex1`.
+The request indexes the document into the `testindex1` index:
 
 ```json
 {
