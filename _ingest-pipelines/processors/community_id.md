@@ -33,7 +33,7 @@ The following table lists the required and optional parameters for the `communit
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `source_ip_field`  | Required  | The name of the field containing the source IP address.  |
-`source_port_field`  | Optional  | The name of the field containing the source port address. If the network protocol is TCP, UDP or SCTP, the field is required. Otherwise, it is not required.|
+`source_port_field`  | Optional  | The name of the field containing the source port address. If the network protocol is TCP, UDP, or SCTP, then the field is required. Otherwise, it is not required.|
 `destination_ip_field`  | Required  | The name of the field containing the destination IP address. |
 `destination_port_field`  | Optional  | The name of the field containing the destination port address. If the network protocol is TCP, UDP or SCTP, the field is required. Otherwise, it is not required. |
 `iana_protocol_number`  | Optional  | The name of the field containing the protocol number defined by the Internet Assigned Numbers Authority (IANA). The supported values are 1 (ICMP), 6 (TCP), 17 (UDP), 58 (IPv6-ICMP), and 132 (SCTP). |
