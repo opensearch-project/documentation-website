@@ -55,7 +55,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline**
 
-The following query creates a pipeline named `commnity_id_pipeline` that uses the `commnity_id` processor to generate a hash value for the network flow tuple: 
+The following query creates a pipeline named `community_id_pipeline` that uses the `community_id` processor to generate a hash value for the network flow tuple: 
 
 ```json
 PUT /_ingest/pipeline/commnity_id_pipeline
