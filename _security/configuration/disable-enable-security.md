@@ -10,19 +10,19 @@ redirect_from:
 
 # Disabling and enabling the Security plugin
 
-Depending on the temporarily disable the Security plugin to make testing or internal usage more straightforward. The Security plugin is actually two plugins: one for OpenSearch and one for OpenSearch Dashboards. You can use the OpenSearch plugin independently, but the OpenSearch Dashboards plugin requires a secured OpenSearch cluster. 
+If you're interested in using OpenSearch without security to make testing or internal usage more straightforward, you can temporarily disable the Security plugin. OpenSearch uses two seperate security plugins, one for OpenSearch (Security plugin) and one of OpenSearch Dashboards (OpenSearch Dashboards Security plugin) You can use the OpenSearch by [disabling the security plugin](#disabling-security) or [removing the Security plugin](#removing-the-security-plugin).  However by default OpenSearch Dashboards, requires a secured OpenSearch cluster, which means that the OpenSearch Dashboards Security plugin must be [uninstalled](#removing-the-opensearch-dashboards-security-plugin) from OpenSearch Dashboards in order to use Dashboards without security.
 
 ## Disabling security
 
-To disable the Security plugin, add the following line in `opensearch.yml`:
+To disable the Security plugin for OpenSearch, add the following line in `opensearch.yml`:
 
 ```yml
 plugins.security.disabled: true
 ```
 
-### Removing the OpenSearch plugin
+## Removing the Security plugin
 
-A more permanent option is to remove the Security plugin entirely:
+If you want to remove the Security plugin in your OpenSearch instance without changing your configuration settings in `opensearch.yml`, use the following steps.
 
 1. Delete the `plugins/opensearch-security` folder on all nodes.
 1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
@@ -38,13 +38,13 @@ Disabling or removing the plugin exposes the configuration index for the Securit
 {: .warning }
 
 
-### Removing the OpenSearch Dashboards plugin
+## Removing the OpenSearch Dashboards Security plugin
 
-If you disable the Security plugin in `opensearch.yml` (or delete the plugin entirely) and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards plugin. For more information, see [OpenSearch Dashboards remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#remove-plugins).
+If you disable the Security plugin in `opensearch.yml` and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards Security plugin. For more information, see [OpenSearch Dashboards remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#remove-plugins).
 
 Refer to the following installation types to remove the OpenSearch Dashboards plugin.
 
-#### Docker
+### Docker
 
 1. Remove all Security plugin configuration settings from `opensearch_dashboards.yml` or place the example file in the same folder as the `Dockerfile`:
 
@@ -73,7 +73,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 1. Change `OPENSEARCH_HOSTS` or `opensearch.hosts` to `http://` rather than `https://`.
 1. Enter `docker-compose up`.
 
-#### Tarball 
+### Tarball 
 
 1. Navigate to the `/bin` directory in your OpenSearch Dashboards installation folder and stop the running OpenSearch Dashboards instance by pressing `Ctrl + C`.
 
@@ -97,7 +97,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
    ./bin/opensearch-dashboards
    ```
    
-#### RPM and Debian 
+### RPM and Debian 
 
 1. Stop the running instance of OpenSearch Dashboards by using the following command: 
 
@@ -126,7 +126,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 ## Enabling security
 
-The default version of OpenSearch comes with Security features pre-installed, however if the Security plugin was [disabled]({{site.url}}{{site.baseurl}}/security/configuration/disable-enable-security/) or OpenSearch was installed without security, for example, using the minimal distribution method, you can enable the plugin as follows.
+The default version of OpenSearch comes with Security features pre-installed, however if the Security plugin was [disabled]({{site.url}}{{site.baseurl}}/security/configuration/disable-enable-security/) or OpenSearch was installed without security, such as when using the minimal distribution method, you can enable the plugin as follows.
 
 A full cluster restart is necessary to enable security features.
 {: .warning}
