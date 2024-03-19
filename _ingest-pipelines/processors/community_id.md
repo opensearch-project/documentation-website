@@ -7,7 +7,7 @@ nav_order: 55
 
 # Community ID processor
 
-The `community_id` processor is used to generate the community ID flow hash for network flow tuples. The community ID flow hash algorithm is defined in the [community ID specification](https://github.com/corelight/community-id-spec). The processor-generated hash value can be used to correlate all related network events so that you can filter the network flow data by the hash value or generate statistics by aggregating on the hash field. The processor supports TCP, UDP, SCTP, ICMP, and IPv6-ICMP network protocols. The SHA-1 hash algorithm is used to generate the hash value.
+The `community_id` processor is used to generate the community ID flow hash for network flow tuples. The community ID flow hash algorithm is defined in the [community ID specification](https://github.com/corelight/community-id-spec). The processor-generated hash value can be used to correlate all related network events so that you can filter the network flow data by the hash value or generate statistics by aggregating on the hash field. The processor supports the TCP, UDP, SCTP, ICMP, and IPv6-ICMP network protocols. The SHA-1 hash algorithm is used to generate the hash value.
 
 The following is the `community_id` processor syntax:
 
