@@ -40,7 +40,7 @@ Parameter | Required/Optional | Description |
 `protocol_field`  | Optional  | The name of the field containing the protocol name. If `iana_protocol_number` is not set, then the field is required. Otherwise, it is not required. |
 `icmp_type_field`  | Optional  | The name of the field containing the ICMP message type. Required when the protocol is ICMP or IPv6-ICMP. |
 `icmp_code_field`  | Optional  | The name of the field containing the ICMP message code. For certain ICMP message types that do not have a code, the field is optional. Otherwise, is required. |
-`seed`  | Optional  | Seed for generating community ID hash, the value must be between 0 and 65535. |
+`seed`  | Optional  | The seed for generating the community ID hash. The value must be between 0 and 65535. |
 `target_field`  | Optional  | The name of the field in which to store the community ID hash value. Default target field is `community_id`.  |
 `ignore_missing`  | Optional  | Specifies whether the processor should exit quietly if one of the required fields is missing. Default is `false`. |
 `description`  | Optional  | A brief description of the processor.  |
