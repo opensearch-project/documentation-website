@@ -18,7 +18,7 @@ The `text_chunking` processor is used to chunk a long document into paragraphs. 
       "<input_field>": "<output_field>",
     },
     "algorithm": {
-      "<algorithm_name>": <algorithm_parameters>
+      "<name>": <parameters>
     }
   }
 }
@@ -28,16 +28,16 @@ The `text_chunking` processor is used to chunk a long document into paragraphs. 
 
 The following table lists the required and optional parameters for the `text_chunking` processor.
 
-| Name	                                | Data type	 | Required	 | Description	                                                                                                        |
-|--------------------------------------|------------|-----------|---------------------------------------------------------------------------------------------------------------------|
-| `field_map`	                         | Object	    | Required	 | Contains key-value pairs that specify the mapping of a text field to the output field by text chunking processor.	  |
-| `field_map.<input_field>`	           | String	    | Required	 | The name of the field from which to obtain text for generating chunked passages.	                                   |
-| `field_map.<output_field>`	          | String	    | Required	 | The name of the field in which to store the chunking results.	                                                      |
-| `algorithm`	                         | Object	    | Required	 | Contains at most one key-value pair that specify the chunking algorithm and parameters.	                            |
-| `algorithm.<algorithm\_name>`	       | String	    | Optional	 | The name of the chunking algorithm. Default is `fixed_token_length`.	                                               |
-| `algorithm.<algorithm\_parameters>`	 | Object	    | Optional	 | The parameters of the chunking algorithm. Default is the default parameters of the `fixed_token_length` algorithm.	 |
-| `description`	                       | String	    | Optional	 | A brief description of the processor.	                                                                              |
-| `tag`	                               | String	    | Optional	 | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type.	      |
+| Name	                       | Data type	 | Required	 | Description	                                                                                                        |
+|-----------------------------|------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| `field_map`	                | Object	    | Required	 | Contains key-value pairs that specify the mapping of a text field to the output field by text chunking processor.	  |
+| `field_map.<input_field>`	  | String	    | Required	 | The name of the field from which to obtain text for generating chunked passages.	                                   |
+| `field_map.<output_field>`	 | String	    | Required	 | The name of the field in which to store the chunking results.	                                                      |
+| `algorithm`	                | Object	    | Required	 | Contains at most one key-value pair that specify the chunking algorithm and parameters.	                            |
+| `algorithm.<name>`	         | String	    | Optional	 | The name of the chunking algorithm. Default is `fixed_token_length`.	                                               |
+| `algorithm.<parameters>`	   | Object	    | Optional	 | The parameters of the chunking algorithm. Default is the default parameters of the `fixed_token_length` algorithm.	 |
+| `description`	              | String	    | Optional	 | A brief description of the processor.	                                                                              |
+| `tag`	                      | String	    | Optional	 | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type.	      |
 
 The `algorithm_name` parameter can be either `fixed_token_length` or `delimiter`.
 
