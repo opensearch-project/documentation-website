@@ -8,7 +8,7 @@ nav_order: 40
 
 # decompress
 
-The `decompress` processor decompresses the `base64`-encoded compressed fields inside of an event.
+The `decompress` processor decompresses any base64-encoded compressed fields inside of an event.
 
 ## Configuration
 
