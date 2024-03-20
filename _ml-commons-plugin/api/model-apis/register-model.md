@@ -248,6 +248,68 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
+## Register a remote model with guardrails
+
+To register a remote model with guardrails, you can add guardrails parameter on top of a remote model configuration as above.
+
+### Request fields
+
+The following table lists the available request fields.
+
+Field | Data type | Required/Optional | Description
+:---  | :--- | :---
+`input_guardrail`| Object | Optional | The guardrail for remote model input. |
+`output_guardrail`| Object | Optional | The guardrail for remote model output. |
+`stop_words`| Object | Optional | The stop words used by a guardrail validation. |
+`index_name`| Object | Optional | The name of index storing stop words. |
+`source_fields`| Object | Optional | The name of field storing stop words. |
+`regex`| Object | Optional | The regex used by a guardrail validation. |
+
+#### Example request: Remote model with guardrails
+
+```json
+POST /_plugins/_ml/models/_register
+{
+  "name": "openAI-gpt-3.5-turbo",
+  "function_name": "remote",
+  "model_group_id": "1jriBYsBq7EKuKzZX131",
+  "description": "test model",
+  "connector_id": "a1eMb4kBJ1eYAeTMAljY",
+  "guardrails": {
+    "input_guardrail": {
+      "stop_words": [
+        {
+          "index_name": "stop_words_input",
+          "source_fields": ["title"]
+        }
+      ],
+      "regex": ["regex1", "regex2"]
+    },
+    "output_guardrail": {
+      "stop_words": [
+        {
+          "index_name": "stop_words_output",
+          "source_fields": ["title"]
+        }
+      ],
+      "regex": ["regex1", "regex2"]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+OpenSearch responds with the `task_id` and task `status`.
+
+```json
+{
+  "task_id" : "ew8I44MBhyWuIwnfvDIH",
+  "status" : "CREATED"
+}
+```
+
 ## Check the status of model registration
 
 To see the status of your model registration and retrieve the model ID created for the new model version, pass the `task_id` as a path parameter to the Tasks API:
