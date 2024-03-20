@@ -311,6 +311,7 @@ Post-filtering does not impact document relevance scores or aggregation results.
 The following example request combines two query clauses---a `term` query and a `match` query. This is the same query as the [preceding example](#example-combining-a-match-query-and-a-term-query) but it contains a `post_filter`:
 
 ```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
   "query": {
     "hybrid":{
