@@ -524,7 +524,7 @@ sudo yum update opensearch
 
 ### Automatically restart the service after a package upgrade
 
-Currently, the OpenSearch RPM package does not support automatically restarting the service after a package upgrade.
+The OpenSearch RPM package does not currently support automatically restarting the service after a package upgrade.
 
 ## Related links
 
