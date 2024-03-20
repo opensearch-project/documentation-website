@@ -27,7 +27,7 @@ By default, concurrent segment search is disabled on the cluster. You can enable
 - Cluster level
 - Index level
 
-The index-level setting takes priority over the cluster-level setting. Thus, if the cluster setting is enabled but the index setting is disabled, then concurrent segment search will be disabled for that index.
+The index-level setting takes priority over the cluster-level setting. Thus, if the cluster setting is enabled but the index setting is disabled, then concurrent segment search will be disabled for that index. Because of this, the index-level setting is not evaluated unless it is explicitly set, regardless of the default value configured for the setting. You can retrieve the current value of the index-level setting by calling the [Index Settings API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-settings/) and omitting the `?include_defaults` query parameter.
 {: .note}
 
 To enable concurrent segment search for all indexes in the cluster, set the following dynamic cluster setting:
