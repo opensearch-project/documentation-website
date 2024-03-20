@@ -329,6 +329,39 @@ plugins.ml_commons.connector_access_control_enabled: true
 - Default value: false
 - Valid values: `false`, `true`
 
+## Enable/Disable Local Model feature
+
+This setting allows admin to enable/disable the local model feature on the cluster. It is by default set to `true`. When disabled, users will not be able to register/deploy/predict any local model.
+
+
+### Setting
+
+```
+plugins.ml_commons.local_model.enabled: true
+```
+
+### Values
+
+- Default value: true
+- Valid values: `false`, `true`
+
+## Enable/Disable Remote Inference
+
+This setting allows admin to enable/disable the remote inference on the cluster. It is by default set to `true`. When disabled, users will not be able to register/deploy/predict any remote model.
+
+### Setting
+
+```
+plugins.ml_commons.remote_inference.enabled: true
+```
+
+### Values
+
+- Default value: true
+- Valid values: `false`, `true`
+
+
+
 
 
 
