@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tiered cache
-parent: Cache types
+parent: Cache stores
 grand_parent: Improving search performance
 nav_order: 10
 ---
