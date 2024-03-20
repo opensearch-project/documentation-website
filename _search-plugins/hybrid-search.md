@@ -146,9 +146,10 @@ PUT /_search/pipeline/nlp-search-pipeline
 
 To perform hybrid search on your index, use the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/), which combines the results of keyword and semantic search.
 
+#### Example: Combining a neural query and a match query
+
 The following example request combines two query clauses---a `neural` query and a `match` query. It specifies the search pipeline created in the previous step as a query parameter:
 
-Example 1
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
@@ -219,9 +220,12 @@ The response contains the matching document:
 ```
 {% include copy-curl.html %}
 
-Example 2
+#### Example: Combining a match query and a term query
+
+The following example request combines two query clauses---a `match` query and a `term` query. It specifies the search pipeline created in the previous step as a query parameter:
 
 ```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 {
   "_source": {
     "exclude": [
@@ -250,7 +254,8 @@ Example 2
 ```
 {% include copy-curl.html %}
 
-The response is:
+The response contains the matching documents:
+
 ```json
 {
     "took": 11,
@@ -292,17 +297,19 @@ The response is:
 ```
 {% include copy-curl.html %}
 
-### Step 5.1: Search the index using hybrid search with post_filter
+### Searching the index using hybrid search with post-filtering
 
-In OpenSearch, enabling the post-filter functionality involves using the post_filter parameter in your search queries.
+You can perform post-filtering on hybrid search results by providing the `post_filter` parameter in your query.
 
-The post_filter clause is applied after the search results have been retrieved, and it does not affect the calculation of relevance scores. It is useful for applying additional filters to the search results without impacting the scoring or the order of the results. It does not contribute to the relevance scores of the documents but is applied for post-processing purposes.
+The `post_filter` clause is applied after the search results have been retrieved. Post-filtering is useful for applying additional filters to the search results without impacting the scoring or the order of the results. 
 
-**Note**: post_filtering does not impact results of aggregations
+Post-filtering does not impact document relevance scores or aggregation results.
+{: .note}
 
-The following example request combines two query clauses a `term` query and a `match` query. It specifies the search pipeline created in the earlier step as a query parameter. There is a `post_filter` query added in it:
+#### Example: Post-filtering
 
-Example 1
+The following example request combines two query clauses---a `term` query and a `match` query. This is the same query as the [preceding example](#example-combining-a-match-query-and-a-term-query) but it contains a `post_filter`:
+
 ```json
 {
   "query": {
@@ -332,7 +339,7 @@ Example 1
 ```
 {% include copy-curl.html %}
 
-The response contains the matching document because it is filtered in post_filtering:
+Compare the results to the results without post-filtering in the [preceding example](#example-combining-a-match-query-and-a-term-query). Unlike the preceding example response, which contains two documents, the response in this example contains one document because the second document is filtered using post-filtering:
 
 ```json
 {
@@ -364,4 +371,3 @@ The response contains the matching document because it is filtered in post_filte
   }
 }
 ```
-{% include copy-curl.html %}
