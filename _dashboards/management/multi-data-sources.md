@@ -120,5 +120,5 @@ Once you've configured your multiple data sources, you can start exploring that 
 This feature has some limitations:
 
 * The multiple data sources feature is supported for index-pattern-based visualizations only.
-* The visualization types Time Series Visual Builder (TSVB) and timeline are not supported.
+* The Time Series Visual Builder (TSVB) and timeline visualization types are not supported.
 * External plugins, such as Gantt chart, and non-visualization plugins, such as the developer console, are not supported.
