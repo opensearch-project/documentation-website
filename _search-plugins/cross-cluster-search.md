@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cross-cluster search
-nav_order: 210
+nav_order: 65
 redirect_from:
  - /security/access-control/cross-cluster-search/
  - /security-plugin/access-control/cross-cluster-search/
@@ -167,7 +167,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 }'
 ```
 All of the curl requests can also be sent using OpenSearch Dashboards Dev tools
-{: .label .label-green }
+{: .tip }
 ![OpenSearch Dashboards UI for configuring remote cluster for Cross-cluster search]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
 
 On the remote cluster, index a document:
@@ -264,7 +264,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 }'
 ```
 It is enough to point to only one of the node IPs on the remote cluster, as node discovery process will query all nodes in that cluster.
-{: .label .label-green }
+{: .tip }
 
 You can now run queries across both clusters.
 
