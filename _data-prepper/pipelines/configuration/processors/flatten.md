@@ -16,21 +16,21 @@ The following table describes configuration options for the `flatten` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`source` | Yes | String | The source key to perform the operation on;. If set to an empty string (`""`), the processor uses the root of the event as the source.
-`target` | Yes | String | The target key to put into the flattened fields. If set to an empty string (`""`), the processor uses the root of the event as the target.
+`source` | Yes | String | The source key on which to perform the operation. If set to an empty string (`""`), then the processor uses the root of the event as the source.
+`target` | Yes | String | The target key to put into the flattened fields. If set to an empty string (`""`), then the processor uses the root of the event as the target.
 `exclude_keys` | No | List | The keys from the source field that should be excluded from processing. Default is an empty list (`[]`).
 `remove_processed_fields` | No | Boolean | When `true`, the processor removes all processed fields from the source. Default is `false`.
 `remove_list_indices` | No | Boolean | When `true`, the processor converts the fields from the source map into lists and puts the lists into the target field. Default is `false`.
-`flatten_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the `flatten` processor will be run on the event. Default is `null`, which means all events will be processed unless otherwise stated.
+`flatten_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the `flatten` processor will be run on the event. Default is `null`, which means that all events will be processed unless otherwise stated.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
 ## Usage
 
-The following examples show how the `flatten` processor can be used inside of Data Prepper pipelines.
+The following examples show how the `flatten` processor can be used in Data Prepper pipelines.
 
 ### Minimum configuration
 
-The following example shows only the required parameters to use the `flatten` processor, `source` and `target`:
+The following example shows only the parameters that are required for using the `flatten` processor, `source` and `target`:
 
 ```yaml
 ...
@@ -113,7 +113,7 @@ For example, when the input event contains the following nested objects:
 ```
 
 
-The `flatten` processor creates a flattened structure where all processed fields are absent, as shown in the following output:
+The `flatten` processor creates a flattened structure in which all processed fields are absent, as shown in the following output:
 
 ```json
 {
@@ -128,7 +128,7 @@ The `flatten` processor creates a flattened structure where all processed fields
 
 ### Exclude specific keys from flattening
 
-Use the `exclude_keys` option to keep specific keys from being flattened in the output, as shown in the following example where the `key2` value is excluded:
+Use the `exclude_keys` option to prevent specific keys from being flattened in the output, as shown in the following example, where the `key2` value is excluded:
 
 ```yaml
 ...
@@ -168,7 +168,7 @@ For example, when the input event contains the following nested objects:
 }
 ```
 
-All other nested objects in the input event excluding the `key2` key will be flattened, as shown in the following example:
+All other nested objects in the input event, excluding the `key2` key, will be flattened, as shown in the following example:
 
 ```json
 {
@@ -227,7 +227,7 @@ For example, when the input event contains the following nested objects:
 }
 ```
 
-The processors removes all indexes from the output and places them into the source map as a flattened structured list, as shown in the following example:
+The processor removes all indexes from the output and places them into the source map as a flattened, structured list, as shown in the following example:
 
 ```json
 {
