@@ -313,9 +313,11 @@ A space corresponds to the function used to measure the distance between two poi
     <td>\[ score = 2 - d \]</td>
   </tr>
   <tr>
-    <td>innerproduct (not supported for Lucene)</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]</td>
-    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]</td>
+    <td>innerproduct (supported for Lucene in OpenSearch version 2.13 and later)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]
+    </td>
+    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]
+    </td>
   </tr>
   <tr>
     <td>hammingbit</td>

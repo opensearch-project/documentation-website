@@ -287,9 +287,15 @@ Not every method supports each of these spaces. Be sure to check out [the method
     <td><b>nmslib</b> and <b>faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {2 - d \over 2}\]</td>
   </tr>
   <tr>
-    <td>innerproduct (not supported for Lucene)</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]</td>
-    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]</td>
+    <td>innerproduct (supported for Lucene in OpenSearch version 2.13 and later)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \] 
+        <br><b>Lucene:</b>
+        \[ d(\mathbf{x}, \mathbf{y}) = {\mathbf{x} &middot; \mathbf{y}} = \sum_{i=1}^n x_i y_i \]
+    </td>
+    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]
+        <br><b>Lucene:</b>
+        \[ \text{If} d > 0, score = d + 1 \] \[\text{If} d \le 0\] \[score = {1 \over 1 + (-1 &middot; d) }\]
+    </td>
   </tr>
 </table>
 
