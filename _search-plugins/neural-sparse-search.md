@@ -237,3 +237,113 @@ The response contains the matching documents:
   }
 }
 ```
+
+## Setting a default model on an index or field
+
+A [`neural_sparse`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/) query requires a model ID for generating sparse embeddings. To eliminate passing the model ID with each neural_sparse query request, you can set a default model on index-level or field-level. 
+
+First, create a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) request processor. To set a default model for an index, provide the model ID in the `default_model_id` parameter. To set a default model for a specific field, provide the field name and the corresponding model ID in the `neural_field_default_id` map. If you provide both `default_model_id` and `neural_field_default_id`, `neural_field_default_id` takes precedence:
+
+```json
+PUT /_search/pipeline/default_model_pipeline 
+{
+  "request_processors": [
+    {
+      "neural_query_enricher" : {
+        "default_model_id": "bQ1J8ooBpBj3wT4HVUsb",
+        "neural_field_default_id": {
+           "my_field_1": "uZj0qYoBMtvQlfhaYeud",
+           "my_field_2": "upj0qYoBMtvQlfhaZOuM"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Then set the default model for your index:
+
+```json
+PUT /my-nlp-index/_settings
+{
+  "index.search.default_pipeline" : "default_model_pipeline"
+}
+```
+{% include copy-curl.html %}
+
+You can now omit the model ID when searching:
+
+```json
+{
+  "took" : 688,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 30.0029,
+    "hits" : [
+      {
+        "_index" : "my-nlp-index",
+        "_id" : "1",
+        "_score" : 30.0029,
+        "_source" : {
+          "passage_text" : "Hello world",
+          "passage_embedding" : {
+            "!" : 0.8708904,
+            "door" : 0.8587369,
+            "hi" : 2.3929274,
+            "worlds" : 2.7839446,
+            "yes" : 0.75845814,
+            "##world" : 2.5432441,
+            "born" : 0.2682308,
+            "nothing" : 0.8625516,
+            "goodbye" : 0.17146169,
+            "greeting" : 0.96817183,
+            "birth" : 1.2788506,
+            "come" : 0.1623208,
+            "global" : 0.4371151,
+            "it" : 0.42951578,
+            "life" : 1.5750692,
+            "thanks" : 0.26481047,
+            "world" : 4.7300377,
+            "tiny" : 0.5462298,
+            "earth" : 2.6555297,
+            "universe" : 2.0308156,
+            "worldwide" : 1.3903781,
+            "hello" : 6.696973,
+            "so" : 0.20279501,
+            "?" : 0.67785245
+          },
+          "id" : "s1"
+        }
+      },
+      {
+        "_index" : "my-nlp-index",
+        "_id" : "2",
+        "_score" : 16.480486,
+        "_source" : {
+          "passage_text" : "Hi planet",
+          "passage_embedding" : {
+            "hi" : 4.338913,
+            "planets" : 2.7755864,
+            "planet" : 5.0969057,
+            "mars" : 1.7405145,
+            "earth" : 2.6087382,
+            "hello" : 3.3210192
+          },
+          "id" : "s2"
+        }
+      }
+    ]
+  }
+}
+```
