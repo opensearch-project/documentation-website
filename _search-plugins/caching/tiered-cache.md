@@ -42,6 +42,7 @@ In OpenSearch 2.13, request cache can use tiered cache. To start, configure the 
 ### Cache store name
 
 Setting the cache store name to `tiered_spillover` signals to use the OpenSearch-provided tiered spillover cache implementation:
+
 ```yaml
 indices.request.cache.store.name: tiered_spillover: true
 ```
@@ -49,13 +50,15 @@ indices.request.cache.store.name: tiered_spillover: true
 
 ### Setting on-heap and disk store tiers
 
-The `opensearch_onheap` setting is the built-in on-heap cache available in OpenSearch. The `ehcache_disk` setting is the disk cache implementation from [Ehcache](https://www.ehcache.org/). This requires installing a <!-- TODO: what plugin and how does the user install it? --> plugin:
+The `opensearch_onheap` setting is the built-in on-heap cache available in OpenSearch. The `ehcache_disk` setting is the disk cache implementation from [Ehcache](https://www.ehcache.org/). This requires installing the `cache-ehcache` plugin:
 
 ```yaml
 indices.request.cache.tiered_spillover.onheap.store.name: opensearch_onheap
 indices.request.cache.tiered_spillover.disk.store.name: ehcache_disk
 ```
 {% include copy.html %}
+
+For more information about installing non-bundled plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins).
 
 ### Configuring on-heap and disk store
 
