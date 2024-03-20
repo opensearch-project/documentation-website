@@ -16,7 +16,7 @@ The `text_chunking` processor is used to chunk a long document into paragraphs o
       "<input_field>": "<output_field>"
     },
     "algorithm": {
-      "<name>": <parameters>
+      "<name>": "<parameters>"
     }
   }
 }
@@ -78,7 +78,7 @@ Follow these steps to use the processor in a pipeline. You can specify the chunk
 The following example request creates an ingest pipeline where the text from `passage_text` will be converted into chunked passages, which will be stored in `passage_chunk`:
 
 ```json
-PUT /_ingest/pipeline/text-chunking-ingest-pipeline
+PUT _ingest/pipeline/text-chunking-ingest-pipeline
 {
   "description": "A text chunking ingest pipeline",
   "processors": [
@@ -126,7 +126,7 @@ POST _ingest/pipeline/text-chunking-ingest-pipeline/_simulate
 
 #### Response
 
-The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_chunk` field. The processor split the paragraph into 10-word chunks. Because of the `overlap` setting of 0.2, the last two words of a chunk are duplicated in the following chunk:
+The response confirms that in addition to the `passage_text` field, the processor has generated chunking results in the `passage_chunk` field. The processor split the paragraph into 10-word chunks. Because of the `overlap` setting of 0.2, the last two words of a chunk are duplicated in the following chunk:
 
 ```json
 {
@@ -144,7 +144,7 @@ The response confirms that in addition to the `passage_text` field, the processo
           ]
         },
         "_ingest": {
-          "timestamp": "2024-03-18T06:49:05.723026Z"
+          "timestamp": "2024-03-20T02:55:25.642366Z"
         }
       }
     }
@@ -155,6 +155,151 @@ The response confirms that in addition to the `passage_text` field, the processo
 Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-3-ingest-documents-into-the-index) of [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 
 ---
+
+## Comibining with embedding models
+
+We can combine chunking processor together with the `text_embedding` or `sparse_encoding` processor to obtain the embedding results for each chunked passages.
+
+**Prerequisites**
+
+Follow [our guide]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models) to register an embedding model.
+
+**Step 1: Create a pipeline.**
+
+The following example request creates an ingest pipeline where the text from `passage_text` will be converted into chunked passages, which will be stored in `passage_chunk`. Then, the text from `passage_chunk` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
+
+```json
+PUT _ingest/pipeline/text-chunking-embedding-ingest-pipeline
+{
+  "description": "A text chunking and embedding ingest pipeline",
+  "processors": [
+    {
+      "text_chunking": {
+        "algorithm": {
+          "fixed_token_length": {
+            "token_limit": 10,
+            "overlap_rate": 0.2,
+            "tokenizer": "standard"
+          }
+        },
+        "field_map": {
+          "passage_text": "passage_chunk"
+        }
+      }
+    },
+    {
+      "text_embedding": {
+        "model_id": "LMLPWY4BROvhdbtgETaI",
+        "field_map": {
+          "passage_chunk": "passage_chunk_embedding"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+**Step 2 (Optional): Test the pipeline.**
+
+It is recommended that you test your pipeline before you ingest documents.
+{: .tip}
+
+To test the pipeline, run the following query:
+
+```json
+POST _ingest/pipeline/text-chunking-embedding-ingest-pipeline/_simulate
+{
+  "docs": [
+    {
+      "_index": "testindex",
+      "_id": "1",
+      "_source":{
+         "passage_text": "This is an example document to be chunked. The document contains a single paragraph, two sentences and 24 tokens by standard tokenizer in OpenSearch."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+#### Response
+
+The response confirms that in addition to the `passage_text` and `passage_chunk` field, the processor has generated text embeddings in the `passage_chunk_embedding` field with three objects. The embedding vectors are stored in `knn` field.
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "testindex",
+        "_id": "1",
+        "_source": {
+          "passage_chunk_embedding": [
+            {
+              "knn": [...]
+            },
+            {
+              "knn": [...]
+            },
+            {
+              "knn": [...]
+            }
+          ],
+          "passage_text": "This is an example document to be chunked. The document contains a single paragraph, two sentences and 24 tokens by standard tokenizer in OpenSearch.",
+          "passage_chunk": [
+            "This is an example document to be chunked. The document ",
+            "The document contains a single paragraph, two sentences and 24 ",
+            "and 24 tokens by standard tokenizer in OpenSearch."
+          ]
+        },
+        "_ingest": {
+          "timestamp": "2024-03-20T03:04:49.144054Z"
+        }
+      }
+    }
+  ]
+}
+```
+
+## Cascaded text chunking processors
+
+Users can chain multiple chunking processor together. For example, if a user wish to split documents according to paragraphs, they can apply `delimiter` algorithm and specify the parameter to be `\n\n`. In case that a paragraph exceeds the token limit, the user can then append another chunking processor with `fixed_token_length` algorithm. The ingestion pipeline in this example should be configured like:
+
+```json
+PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
+{
+  "description": "A text chunking pipeline with cascaded algorithms",
+  "processors": [
+    {
+      "text_chunking": {
+        "algorithm": {
+          "delimiter": {
+            "delimiter": "\n\n"
+          }
+        },
+        "field_map": {
+          "passage_text": "passage_chunk1"
+        }
+      }
+    },
+    {
+      "text_chunking": {
+        "algorithm": {
+          "fixed_token_length": {
+            "token_limit": 500,
+            "overlap_rate": 0.2,
+            "tokenizer": "standard"
+          }
+        },
+        "field_map": {
+          "passage_chunk1": "passage_chunk2"
+        }
+      }
+    }
+  ]
+}
+```
 
 ## Next steps
 
