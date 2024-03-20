@@ -7,10 +7,7 @@ nav_order: 50
 
 # Get workflow steps
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
-{: .warning}
-
-OpenSearch validates workflows by using the validation template that lists the required inputs, generated outputs, and required plugins for all steps. For example, for the `register_remote_model` step, the validation template appears as follows:
+This API returns a list of workflow steps, including their required inputs, outputs, default timeout value, and required plugins  For example, for the `register_remote_model` step, the Get Workflow Steps API returns the following information:
 
 ```json
 {
@@ -28,20 +25,33 @@ OpenSearch validates workflows by using the validation template that lists the r
     ]
   }
 }
-```
-
-Returns a list of Workflow Steps including their required inputs, outputs, default timeout value and required plugins defined [here](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/java/org/opensearch/flowframework/workflow/WorkflowStepFactory.java#L120).   
+``` 
 
 ## Path and HTTP methods
 
-To fetch all the workflow steps to figure out their inputs, outputs, required plugin for the workflow step and the timeout use the following request.
+```json
+GET /_plugins/_flow_framework/workflow/_steps
+GET /_plugins/_flow_framework/workflow/_step?workflow_step=<step_name>
+``` 
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `workflow_step` | String | The step name of the step to retrieve. Specify multiple step names as a comma-separated list. For example, `create_connector,delete_model,deploy_model`. |
+
+#### Example request
+
+To fetch all workflow steps, use the following request:
 
 ```json
 GET /_plugins/_flow_framework/workflow/_steps
 ``` 
+{% include copy-curl.html %}
 
-To fetch specific workflow steps, pass the step names to the request as a parameter.
-#### Example request
+To fetch specific workflow steps, pass the step names to the request as a query parameter:
 
 ```json
 GET /_plugins/_flow_framework/workflow/_step?workflow_step=create_connector,delete_model,deploy_model
@@ -51,7 +61,7 @@ GET /_plugins/_flow_framework/workflow/_step?workflow_step=create_connector,dele
 
 #### Example response
 
-OpenSearch responds with the validation template containing the steps. The order of fields in the returned steps may not exactly match the original JSON but will function identically.
+OpenSearch responds with the workflow steps. The order of fields in the returned steps may not exactly match the original JSON but will function identically.
 
 To retrieve the template in YAML format, specify `Content-Type: application/yaml` in the request header:
 
