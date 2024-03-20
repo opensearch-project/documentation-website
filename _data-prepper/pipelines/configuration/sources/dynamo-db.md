@@ -31,6 +31,7 @@ cdc-pipeline:
             s3_prefix: "myprefix"
           stream:
             start_position: "LATEST" # Read latest data from streams (Default)
+            view_on_remove: NEW_IMAGE
       aws:
         region: "us-west-2"
         sts_role_arn: "arn:aws:iam::123456789012:role/my-iam-role"
@@ -84,9 +85,10 @@ Option | Required | Type | Description
 
 The following option lets you customize how the pipeline reads events from the DynamoDB table.
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
+Option | Required | Type   | Description
+:--- | :--- |:-------| :---
 `start_position` | No | String | The position from where the source starts reading stream events when the DynamoDB stream option is enabled. `LATEST` starts reading events from the most recent stream record. 
+`view_on_remove` | No | Enum   | The [stream record view](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html) to use for REMOVE events from DynamoDB streams. Must be one of [ `NEW_IMAGE`, `OLD_IMAGE` ]. Defaults to `NEW_IMAGE`. If OLD_IMAGE is used, and the old image can not be found, NEW_IMAGE will be used.
 
 ## Exposed metadata attributes
 
