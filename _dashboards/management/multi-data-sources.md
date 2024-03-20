@@ -36,7 +36,7 @@ A data source connection specifies the parameters needed to connect to a data so
 To create a new data source connection:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**.
-2. Add the required information to each field to configure **Connection Details** and **Authentication Method**.
+2. Add the required information to each field to configure the **Connection Details** and **Authentication Method**.
 
     - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
 
