@@ -275,6 +275,22 @@ PUT /my-nlp-index/_settings
 You can now omit the model ID when searching:
 
 ```json
+GET /my-nlp-index/_search
+{
+  "query": {
+    "neural_sparse": {
+      "passage_embedding": {
+        "query_text": "Hi world"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains both documents:
+
+```json
 {
   "took" : 688,
   "timed_out" : false,
