@@ -297,7 +297,9 @@ The response contains the matching documents:
 ```
 {% include copy-curl.html %}
 
-### Searching the index using hybrid search with post-filtering
+### Hybrid search with post-filtering
+Introduced 2.13
+{: .label .label-purple }
 
 You can perform post-filtering on hybrid search results by providing the `post_filter` parameter in your query.
 
