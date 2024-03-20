@@ -2,16 +2,14 @@
 layout: default
 title: Text chunking
 parent: Ingest processors
-nav_order: 240
-redirect_from:
-   - /api-reference/ingest-apis/processors/text-chunking/
+nav_order: 250
 ---
 
 # Text chunking processor
 
-The `text_chunking` processor is used to chunk a long document into paragraphs. The following is the syntax for the `text_chunking` processor:
+The `text_chunking` processor is used to chunk a long document into paragraphs on a delimiter or chunks of a certain size. The following is the syntax for the `text_chunking` processor:
 
-```
+```json
 {
   "text_chunking": {
     "field_map": {
@@ -28,58 +26,58 @@ The `text_chunking` processor is used to chunk a long document into paragraphs. 
 
 The following table lists the required and optional parameters for the `text_chunking` processor.
 
-| Name	                       | Data type	 | Required	 | Description	                                                                                                        |
-|-----------------------------|------------|-----------|---------------------------------------------------------------------------------------------------------------------|
-| `field_map`	                | Object	    | Required	 | Contains key-value pairs that specify the mapping of a text field to the output field by text chunking processor.	  |
-| `field_map.<input_field>`	  | String	    | Required	 | The name of the field from which to obtain text for generating chunked passages.	                                   |
-| `field_map.<output_field>`	 | String	    | Required	 | The name of the field in which to store the chunking results.	                                                      |
-| `algorithm`	                | Object	    | Required	 | Contains at most one key-value pair that specify the chunking algorithm and parameters.	                            |
-| `algorithm.<name>`	         | String	    | Optional	 | The name of the chunking algorithm. Default is `fixed_token_length`.	                                               |
-| `algorithm.<parameters>`	   | Object	    | Optional	 | The parameters of the chunking algorithm. Default is the default parameters of the `fixed_token_length` algorithm.	 |
-| `description`	              | String	    | Optional	 | A brief description of the processor.	                                                                              |
-| `tag`	                      | String	    | Optional	 | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type.	      |
+| Parameter  | Data type | Required/Optional  | Description  |
+|:---|:---|:---|:---|
+| `field_map` | Object | Required	 | Contains key-value pairs that specify the mapping of a text field to the output field for the text chunking processor.	  |
+| `field_map.<input_field>`	  | String	| Required	 | The name of the field from which to obtain text for generating chunked passages.	                                   |
+| `field_map.<output_field>`	 | String	    | Required	 | The name of the field in which to store the chunking results.	|
+| `algorithm`	| Object	    | Required	 | Contains at most one key-value pair that specifies the chunking algorithm and parameters. |
+| `algorithm.<name>` | String	    | Optional	 | The name of the chunking algorithm. Valid values are [`fixed_token_length`](#fixed-token-length-algorithm) or [`delimiter`](#delimiter-algorithm). Default is `fixed_token_length`.	|
+| `algorithm.<parameters>`	   | Object	    | Optional	 | The parameters for the chunking algorithm. By default, contains the default parameters of the `fixed_token_length` algorithm.	 |
+| `description`	              | String	    | Optional	 | A brief description of the processor. |
+| `tag`	| String	    | Optional	 | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type.	|
 
-The `algorithm_name` parameter can be either `fixed_token_length` or `delimiter`.
+### Fixed token length algorithm
 
-### Fixed token length
+The following table lists the optional parameters for the `fixed_token_length` algorithm.
 
-The following table lists the optional parameters for the fixed token length algorithm in `text_chunking` processor.
+| Parameter  | Data type | Required/Optional  | Description  |
+|:---|:---|:---|:---|
+| `token_limit`	     | Integer	   | Optional	 | The token limit for chunking algorithms. Valid values are integers of at least `1`. Default is `384`.	                                                  |
+| `tokenizer`	       | String	    | Optional	 | The [word tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/index/#word-tokenizers) name. Default is `standard`.	 |
+| `overlap_rate`	    | String	    | Optional	 | The degree of overlap in the token algorithm. Valid values are floats between `0` and `0.5`, inclusive. Default is `0`.	                                              |
+| `max_chunk_limit`	 | Integer	   | Optional	 | The chunk limit for chunking algorithms. Default is 100. To disable this parameter, set it to `-1`.	|
 
-| Name	              | Data type	 | Required	 | Description	                                                                                                                                |
-|--------------------|------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| `token_limit`	     | Integer	   | Optional	 | The token limit for chunking algorithms. Should be an integer at least 1. Default is 384.	                                                  |
-| `tokenizer`	       | String	    | Optional	 | The [word tokenizer](https://opensearch.org/docs/latest/analyzers/tokenizers/index/#word-tokenizers) in OpenSearch. Default is `standard`.	 |
-| `overlap_rate`	    | String	    | Optional	 | The overlapping degree in token algorithm. Should be a float between 0 and 0.5. Default is 0.	                                              |
-| `max_chunk_limit`	 | Integer	   | Optional	 | The chunk limit for chunking algorithms. Default is 100. Users can set this value to -1 to disable this parameter.	                         |
+The default value of `token_limit` is `384` so that output paragraphs don't exceed the token limit constraint of the downstream text embedding models. For [OpenSearch-supported pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models) like `msmarco-distilbert-base-tas-b` and `opensearch-neural-sparse-encoding-v1`, the input token limit is `512`. The `standard` tokenizer tokenizes text into words. According to [OpenAI](https://platform.openai.com/docs/introduction), 1 token equals approximately 0.75 words for English text. The default token limit is calculated as 512 * 0.75 = 384.
+{: .note}
 
-We set the default value of `token_limit` to be 384 so that output paragraphs would not exceed the token limit constraint by downstream text embedding models. In OpenSearch [supported pretrained models](https://opensearch.org/docs/latest/ml-commons-plugin/pretrained-models/#supported-pretrained-models) like `msmarco-distilbert-base-tas-b` and `opensearch-neural-sparse-encoding-v1`  have input token limit with 512. The standard tokenizer in OpenSearch tokenize text according by words. According to [OpenAI](https://platform.openai.com/docs/introduction), 1 token is approximately 0.75 words for English text. The default token limit should be 512 * 0.75 = 384.
+You can set the `overlap_rate` to a decimal equal to 0 to 50 percent. Per [Bedrock](https://aws.amazon.com/blogs/aws/knowledge-bases-now-delivers-fully-managed-rag-experience-in-amazon-bedrock/), we recommend setting this parameter to a value of 0–20 percent to improve accuracy.
+{: .note}
 
-Users can set parameter `overlap_rate` from 0 to 50 percent. According to [bedrock](https://aws.amazon.com/blogs/aws/knowledge-bases-now-delivers-fully-managed-rag-experience-in-amazon-bedrock/), we recommend users to set this parameter between 0–20 percent to help improve accuracy.
+The `max_chunk_limit` parameter restricts the number of chunked passages. If the number of passages generated by the processor exceed this limit, the algorithm will return an exception, prompting you to either increase or disable this limit.
+{: .note}
 
-Parameter `max_chunk_limit` places a restriction on the number of chunked passages. If the chunking results exceed this limit, the algorithm will return an exception to the user, prompting the user to either enlarge or disable this limit.
+### Delimiter algorithm
 
-### Delimiter
+The following table lists the optional parameters for the `delimiter` algorithm.
 
-The following table lists the optional parameters for the delimiter algorithm in `text_chunking` processor.
+| Parameter  | Data type | Required/Optional  | Description  |
+|:---|:---|:---|:---|
+| `delimiter`	| String	    | Optional	 | A string delimiter used to split text. You can set the `delimiter` to `\n` or `.`. Default is `\n\n` (split the text into paragraphs). |
+| `max_chunk_limit`	 | Integer	   | Optional	 | The chunk limit for chunking algorithms. Default is `100`. To disable this parameter, set it to `-1`.	 |
 
-| Name	              | Data type	 | Required	 | Description	                                                                                                        |
-|--------------------|------------|-----------|---------------------------------------------------------------------------------------------------------------------|
-| `delimiter`	       | String	    | Optional	 | A string as the paragraph split indicator. Default is `\n\n`.	                                                      |
-| `max_chunk_limit`	 | Integer	   | Optional	 | The chunk limit for chunking algorithms. Default is 100. Users can set this value to -1 to disable this parameter.	 |
-
-Apart from default value `\n\n` , users can set the `delimiter` parameter to be `\n` and `.` according their needs. The delimiter will at the end of each paragraph.
-
-Similar to the fixed token length algorithm, user will encounter an exception when the chunking results exceed the `max_chunk_limit`.
+The `max_chunk_limit` parameter restricts the number of chunked passages. If the number of passages generated by the processor exceed this limit, the algorithm will return an exception, prompting you to either increase or disable this limit.
+{: .note}
 
 ## Using the processor
 
-Follow these steps to use the processor in a pipeline. You can specify the chunking algorithm when creating the processor. If no algorithm name is provided, the chunking processor will use default algorithm `fixed_token_length` along with all its default processor.
+Follow these steps to use the processor in a pipeline. You can specify the chunking algorithm when creating the processor. If you don't provide an algorithm name, the chunking processor will use default `fixed_token_length` algorithm along with all its default parameters.
 
 **Step 1: Create a pipeline.**
 
-The following example request creates an ingest pipeline where the text from `passage_text` will be converted into chunked passages which will be stored in `passage_chunk`:
+The following example request creates an ingest pipeline where the text from `passage_text` will be converted into chunked passages, which will be stored in `passage_chunk`:
 
-```
+```json
 PUT /_ingest/pipeline/text-chunking-ingest-pipeline
 {
   "description": "A text chunking ingest pipeline",
@@ -128,7 +126,7 @@ POST _ingest/pipeline/text-chunking-ingest-pipeline/_simulate
 
 #### Response
 
-The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_chunk` field:
+The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_chunk` field. The processor split the paragraph into 10-word chunks. Because of the `overlap` setting of 0.2, the last two words of a chunk are duplicated in the following chunk:
 
 ```json
 {
