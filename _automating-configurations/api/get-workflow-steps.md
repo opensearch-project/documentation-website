@@ -30,7 +30,7 @@ OpenSearch validates workflows by using the validation template that lists the r
 }
 ```
 
-The Get Workflow Steps API retrieves [this](https://github.com/opensearch-project/flow-framework/blob/2.x/src/main/java/org/opensearch/flowframework/workflow/WorkflowStepFactory.java#L120-L229) enum.   
+Returns a list of Workflow Steps including their required inputs, outputs, default timeout value and required plugins defined [here](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/java/org/opensearch/flowframework/workflow/WorkflowStepFactory.java#L120).   
 
 ## Path and HTTP methods
 
