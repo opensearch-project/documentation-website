@@ -264,7 +264,7 @@ To test the LLM, send the following predict request:
 POST /_plugins/_ml/models/NWR9YIsBUysqmzBdifVJ/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:hello\n\nnAssistant:"
+    "prompt": "\n\nHuman:hello\n\nAssistant:"
   }
 }
 ```
