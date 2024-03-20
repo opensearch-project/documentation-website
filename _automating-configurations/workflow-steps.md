@@ -42,6 +42,9 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 |`register_agent`	|[Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/)	|Registers an agent as part of the ML Commons Agent Framework.	|
 |`delete_agent`	|[Delete Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/)	|Deletes an agent.	|
 |`create_tool`	|No API	| A special-case non-API step encapsulating the specification of a tool for an agent in the ML Commons Agent Framework. These will be listed as `previous_node_inputs` for the appropriate register agent step, with the value set to `tools`.	|
+|`create_index`|[Create Index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)     | Creates a new OpenSearch index. The inputs include `index_name`, which should be the name of the index to be created, and `configurations`, which contains the payload body of a regular REST request for creating an index.
+|`create_ingest_pipeline`|[Create Ingest Pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/) | Creates or updates an ingest pipeline. The inputs include `pipeline_id`, which should be the id of the pipeline, and `configurations`, which contains the payload body of a regular REST request for creating an ingest pipeline.
+|`create_search_pipeline`|[Create Search Pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/) | Creates or updates a search pipeline. The inputs include `pipeline_id`, which should be the id of the pipeline, and `configurations`, which contains the payload body of a regular REST request for creating a search pipeline.
 
 ## Additional fields
 
