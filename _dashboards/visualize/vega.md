@@ -19,7 +19,7 @@ The following image shows a custom Vega map created in OpenSearch.
 
 ## Querying from multiple data sources
 
-If you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use Vega to query those data sources. Within your Vega specification, add the `data_source_name` field under the `url` property to target a specific data source by name. By default, queries use data from the local cluster. You can assign individual `data_source_name` values to each OpenSearch query within your Vega specification. This allow you to query multiple indexes across different data sources in a single visualization.
+If you have configured [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) in OpenSearch Dashboards, you can use Vega to query those data sources. Within your Vega specification, add the `data_source_name` field under the `url` property to target a specific data source by name. By default, queries use data from the local cluster. You can assign individual `data_source_name` values to each OpenSearch query within your Vega specification. This allows you to query multiple indexes across different data sources in a single visualization.
 
 The following is an example Vega specification with `Demo US Cluster` as the specified `data_source_name`:
 
