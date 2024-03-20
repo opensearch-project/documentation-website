@@ -6,9 +6,6 @@ nav_order: 10
 
 # Workflow steps
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
-{: .warning}
-
 _Workflow steps_ form basic "building blocks" for process automation. Most steps directly correspond to OpenSearch or plugin API operations, such as CRUD operations on machine learning (ML) connectors, models, and agents. Some steps simplify the configuration by reusing the body expected by these APIs across multiple steps. For example, once you configure a _tool_, you can use it with multiple _agents_.  
 
 ## Workflow step fields
