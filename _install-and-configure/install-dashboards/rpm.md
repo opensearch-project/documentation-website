@@ -116,7 +116,7 @@ sudo yum update opensearch-dashboards
 ```
 {% include copy.html %}
 
- You can also upgrade to a specific OpenSearch Dashboards version by providing the version number:
+You can also upgrade to a specific OpenSearch Dashboards version by providing the version number:
  
  ```bash
  sudo yum update opensearch-dashboards-<version-number>
