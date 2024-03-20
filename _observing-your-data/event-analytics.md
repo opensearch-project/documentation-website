@@ -30,9 +30,6 @@ For more information about building PPL queries, see [Piped Processing Language]
 
 ### OpenSearch Dashboards Query Assistant
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).    
-{: .warning}
-
 Note that machine learning models are probabilistic and that some may perform better than others, so the OpenSearch Assistant may occasionally produce inaccurate information. We recommend evaluating outputs for accuracy as appropriate to your use case, including reviewing the output or combining it with other verification factors.
 {: .important}
 

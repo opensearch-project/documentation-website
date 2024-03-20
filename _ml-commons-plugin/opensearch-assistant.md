@@ -7,11 +7,8 @@ nav_order: 28
 ---
 
 # OpenSearch Assistant Toolkit
-**Introduced 2.12**
+**Generally available 2.13**
 {: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).    
-{: .warning}
 
 The OpenSearch Assistant Toolkit helps you create AI-powered assistants for OpenSearch Dashboards. The toolkit includes the following elements:
 
@@ -35,8 +32,6 @@ To enable OpenSearch Assistant, perform the following steps:
     observability.query_assist.enabled: true
     ```
     {% include copy.html %}
-
-For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
 ## Next steps
 

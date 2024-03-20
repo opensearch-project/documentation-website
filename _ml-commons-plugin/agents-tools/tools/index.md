@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # Tools
-**Introduced 2.12**
+**Generally available 2.13**
 {: .label .label-purple }
 
 A _tool_ performs a set of specific tasks. The following table lists all tools that OpenSearch supports.

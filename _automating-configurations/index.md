@@ -8,7 +8,7 @@ redirect_from: /automating-configurations/
 ---
 
 # Automating configurations
-**Introduced 2.12**
+**Generally available 2.13**
 {: .label .label-purple }
 
 You can automate complex OpenSearch setup and preprocessing tasks by providing templates for common use cases. For example, automating machine learning (ML) setup tasks streamlines the use of OpenSearch ML offerings.

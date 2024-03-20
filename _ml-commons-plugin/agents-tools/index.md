@@ -7,11 +7,8 @@ nav_order: 27
 ---
 
 # Agents and tools
-**Introduced 2.12**
+**Generally available 2.13**
 {: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 You can automate machine learning (ML) tasks using agents and tools. An _agent_ orchestrates and runs ML models and tools. A _tool_ performs a set of specific tasks. Some examples of tools are the `VectorDBTool`, which supports vector search, and the `CATIndexTool`, which executes the `cat indices` operation. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
@@ -170,8 +167,6 @@ For conversational agents, you also need to enable RAG for use in conversational
 plugins.ml_commons.rag_pipeline_feature_enabled: true
 ```
 {% include copy.html %}
-
-For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
 ## Next steps
 

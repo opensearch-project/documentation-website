@@ -10,12 +10,9 @@ grand_parent: Agents and tools
 
 <!-- vale off -->
 # Vector DB tool
-**Introduced 2.12**
+**Generally available 2.13**
 {: .label .label-purple }
 <!-- vale on -->
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 The `VectorDBTool` performs dense vector retrieval. For more information about OpenSearch vector database capabilities, see [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/).
 

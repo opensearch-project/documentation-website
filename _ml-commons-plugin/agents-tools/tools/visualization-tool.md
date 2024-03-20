@@ -9,11 +9,8 @@ grand_parent: Agents and tools
 ---
 
 # Visualization tool
-**Introduced 2.12**
+**Generally available 2.13**
 {: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 Use the `VisualizationTool` to find visualizations relevant to a question. 
 
