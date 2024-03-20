@@ -156,13 +156,13 @@ Once you have created an ingest pipeline, you need to create an index for ingest
 
 ---
 
-## Comibining with embedding models
+## Text chunking with embedding processor
 
 We can combine chunking processor together with the `text_embedding` or `sparse_encoding` processor to obtain the embedding results for each chunked passages.
 
 **Prerequisites**
 
-Follow [our guide]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models) to register an embedding model.
+Follow [pretrained model guide]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) to register an embedding model.
 
 **Step 1: Create a pipeline.**
 
@@ -264,7 +264,7 @@ The response confirms that in addition to the `passage_text` and `passage_chunk`
 
 ## Cascaded text chunking processors
 
-Users can chain multiple chunking processor together. For example, if a user wish to split documents according to paragraphs, they can apply `delimiter` algorithm and specify the parameter to be `\n\n`. In case that a paragraph exceeds the token limit, the user can then append another chunking processor with `fixed_token_length` algorithm. The ingestion pipeline in this example should be configured like:
+Users can chain multiple chunking processor together. For example, if a user wish to split documents according to paragraphs, they can apply `delimiter` algorithm and specify the parameter to be `\n\n`. In case that a paragraph exceeds the token limit, the user can then append another chunking processor with `fixed_token_length` algorithm. The ingest pipeline in this example should be configured like:
 
 ```json
 PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
