@@ -8,7 +8,7 @@ nav_order: 40
 
 # decompress
 
-The `decompress` processor decompresses any base64-encoded compressed fields inside of an event.
+The `decompress` processor decompresses any Base64-encoded compressed fields inside of an event.
 
 ## Configuration
 
@@ -21,7 +21,7 @@ Option | Required | Type | Description
 
 ## Usage
 
-The following example shows the `decompress` processor when used in `pipelines.yaml`:
+The following example shows the `decompress` processor used in `pipelines.yaml`:
 
 ```yaml
 processor:
@@ -33,7 +33,7 @@ processor:
 
 ## Metrics 
 
-The following table describes common [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
+The following table describes common [abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
 
 | Metric name | Type | Description |
 | ------------- | ---- | -----------|
