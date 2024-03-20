@@ -247,8 +247,24 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## Available plugins
 
-Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
-{: .warning}
+### Plugin Compatibility
+
+A plugin can specify explicit compatibility with a specific OpenSearch version. For example, a plugin with following property in its plugin-descriptor.properties is compatible only with OpenSearch 2.3.0
+```bash
+opensearch.version=2.3.0
+```
+Alternately, a plugin can specify a range of compatible OpenSearch versions using the 'dependencies' property in its plugin-descriptor.properties file. Following notations are supported:
+- `dependencies={ opensearch: "2.3.0" }`
+  Plugin is compatible only with OpenSearch version 2.3.0.
+- `dependencies={ opensearch: "=2.3.0" }`
+  Plugin is compatible only with OpenSearch version 2.3.0.
+- `dependencies={ opensearch: "~2.3.0" }`
+  Plugin is compatible with all versions starting from 2.3.0 upto next minor version, i.e. 2.4.0 (exclusive).
+- `dependencies={ opensearch: "^2.3.0" }`
+  Plugin is compatible with all versions starting from 2.3.0 upto next major version, i.e. 3.0.0 (exclusive).
+
+Only one of `opensearch.version` or `dependencies` properties is allowed to be specified.
+{: .note}
 
 ### Bundled plugins
 
