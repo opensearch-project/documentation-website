@@ -55,7 +55,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
 ```
 {% include copy-curl.html %}
 
-To split long text into paragraphs, use the `text_chunking` ingest processor before the `sparse_encoding` processor. For more information, see [Text chunking processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/).
+To split long text into passages, use the `text_chunking` ingest processor before the `sparse_encoding` processor. For more information, see [Chaining text chunking and embedding processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/#chaining-text-chunking-and-embedding-processors).
 
 ## Step 2: Create an index for ingestion
 
