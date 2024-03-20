@@ -205,7 +205,18 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 ## Step 4: Deploy the model
 
-To deploy the registered model, provide its model ID from step 3 in the following request:
+From 2.13, we support automatically deploy remote model by default so this step can be skipped. You can disable it by setting plugins.ml_commons.model_auto_deploy.enable as false
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.ml_commons.model_auto_deploy.enable" : "false"
+  }
+}
+```
+{% include copy-curl.html %}
+
+To deploy the registered model manually, provide its model ID from step 3 in the following request:
 
 ```bash
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
