@@ -30,18 +30,21 @@ OpenSearch validates workflows by using the validation template that lists the r
 }
 ```
 
-The Get Workflow Steps API retrieves this file.   
+The Get Workflow Steps API retrieves [this](https://github.com/opensearch-project/flow-framework/blob/2.x/src/main/java/org/opensearch/flowframework/workflow/WorkflowStepFactory.java#L120-L229) enum.   
 
 ## Path and HTTP methods
+
+To fetch all the workflow steps to figure out their inputs, outputs, required plugin for the workflow step and the timeout use the following request.
 
 ```json
 GET /_plugins/_flow_framework/workflow/_steps
 ``` 
 
+To fetch specific workflow steps, pass the step names to the request as a parameter.
 #### Example request
 
 ```json
-GET /_plugins/_flow_framework/workflow/_steps
+GET /_plugins/_flow_framework/workflow/_step?workflow_step=create_connector,delete_model,deploy_model
 ```
 {% include copy-curl.html %}
 
@@ -53,11 +56,11 @@ OpenSearch responds with the validation template containing the steps. The order
 To retrieve the template in YAML format, specify `Content-Type: application/yaml` in the request header:
 
 ```bash
-curl -XGET "http://localhost:9200/_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50" -H 'Content-Type: application/yaml'
+curl -XGET "http://localhost:9200/_plugins/_flow_framework/workflow/_steps" -H 'Content-Type: application/yaml'
 ```
 
 To retrieve the template in JSON format, specify `Content-Type: application/json` in the request header:
 
 ```bash
-curl -XGET "http://localhost:9200/_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50" -H 'Content-Type: application/json'
+curl -XGET "http://localhost:9200/_plugins/_flow_framework/workflow/_steps" -H 'Content-Type: application/json'
 ```
