@@ -19,3 +19,31 @@ The following table describes the configuration options for the SplitEventProces
 | `field`          | String  | The field in the event to be split.                                                           |
 | `delimiter_regex`| String  | The regular expression used as the delimiter for splitting the field.                         |
 | `delimiter`      | String  | The delimiter used for splitting the field. If not specified, the default delimiter is used.  |
+
+# Usage
+
+Add the following examples to your pipelines.yaml file
+
+```
+split-event-pipeline:
+  source:
+    http:
+  processor:
+    - split_event:
+        field: query
+        delimiter: ' '    
+  sink:
+    - stdout:
+```
+
+For example, if the input is as follows:
+```
+{"query" : "open source", "some_other_field" : "abc" }
+```
+
+The input will be split into multiple events based on the field `query` with delimiter as whitespace as follows:
+```
+{"query" : "open", "some_other_field" : "abc" }
+{"query" : "source", "some_other_field" : "abc" }
+```
+
