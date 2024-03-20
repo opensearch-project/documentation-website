@@ -10,7 +10,10 @@ redirect_from:
 
 # Disabling and enabling the Security plugin
 
-If you're interested in using OpenSearch without security to make testing or internal usage more straightforward, you can temporarily disable the Security plugin. OpenSearch uses two separate security plugins, one for OpenSearch (Security plugin) and one of OpenSearch Dashboards (OpenSearch Dashboards Security plugin) You can use the OpenSearch by [disabling the Security plugin](#disabling-security) or [uninstalling the plugin](#removing-the-security-plugin).  However by default OpenSearch Dashboards, requires a secured OpenSearch cluster, which means that the OpenSearch Dashboards Security plugin must be [uninstalled](#removing-the-opensearch-dashboards-security-plugin) from OpenSearch Dashboards in order to use Dashboards without security.
+The Security plugin is installed by default with OpenSearch, but you can disable it temporarily if you want to make testing or internal usage more straightforward. You can then enable it once you're ready to configure security for your cluster. 
+
+If you have your own security solution or need to remove the Security plugin for development purposes, you can uninstall the plugin completely. Note that OpenSearch Dashboards can run only against a secure cluster, so if you uninstall the OpenSearch Security plugin, you'll have to also uninstall the Dashboard plugin. 
+
 
 ## Disabling security
 
@@ -133,7 +136,7 @@ A full cluster restart is necessary to enable security features.
 
 ### Installing the OpenSearch plugin
 
-Use the following steps to enable security:
+Use the following steps to install the plugin if you previously uninstalled it. 
 
 1. Disable shard allocation and stop all nodes in order to prevent shards from moving around when the cluster is restarted.
 
