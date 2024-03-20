@@ -93,7 +93,7 @@ Options | Valid values | Description | Required
 
 You can use the following cluster settings to configure the retry policy:
 
-Setting | Description | Deafult value
+Setting | Description | Default value
 :--- | :--- 
 `reindex.remote.retry.initial_backoff` | Initial backoff time for retries. Subsequent retries will do exponential backoff based on initial backoff time. | 500 ms
 `reindex.remote.retry.max_count` | Max number of retry attempts | 15
