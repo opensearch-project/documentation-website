@@ -224,7 +224,7 @@ You can enhance search results by combining a hybrid query clause with any aggre
 
 Most aggregations are performed on the subset of documents that is returned by a hybrid query. The only aggregation that operates on all documents is the [`global`]({{site.url}}{{site.baseurl}}/aggregations/bucket/global/) aggregation.
 
-To illustrate how aggregations can be used with hybrid query, first let's create an index. Aggregations are typically used on fields of special types, like `keyword` or `integer`. The following example creates an index with several such fields:
+To use aggregations with a hybrid query, first create an index. Aggregations are typically used on fields of special types, like `keyword` or `integer`. The following example creates an index with several such fields:
 
 ```json
 PUT /my-nlp-index
@@ -249,7 +249,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-The following request ingests six documents to your new index:
+The following request ingests six documents into your new index:
 
 ```json
 POST /_bulk
