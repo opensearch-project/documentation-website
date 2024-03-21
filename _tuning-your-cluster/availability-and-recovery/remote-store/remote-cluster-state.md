@@ -29,7 +29,7 @@ Any time new cluster manager nodes are launched after disaster recovery, the nod
 You can enable remote cluster state independently of remote-backed data storage.
 {: .note}
 
-If you require data durability, you must enable remote-backed data storage as described in the [Remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
+If you require data durability, you must enable remote-backed data storage as described in the [remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
 ## Configuring the remote cluster state
 
