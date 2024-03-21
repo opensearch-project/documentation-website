@@ -360,7 +360,7 @@ Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
 **Introduced 2.13**
 {: .label .label-purple }
 
-To hide agent details from end users, including the cluster admin, you can register a _hidden_ agent. If an agent is hidden, the non-superadmin users don't have permission to call any [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/index/) except for the [Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/) on the agent.
+To hide agent details from end users, including the cluster admin, you can register a _hidden_ agent. If an agent is hidden, non-superadmin users don't have permission to call any [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/index/) except for the [Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), on the agent.
 
 Only superadmin users can register a hidden agent. To register a hidden agent, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates):
 
