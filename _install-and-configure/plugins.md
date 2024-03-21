@@ -251,7 +251,8 @@ OpenSearch provides several bundled plugins and additional plugins.
 
 ### Plugin compatibility
 
-A plugin can specify explicit compatibility with a specific OpenSearch version. For example, a plugin with following property in its plugin-descriptor.properties is compatible only with OpenSearch 2.3.0
+A plugin can explicitly specify compatibility with a specific OpenSearch version by listing that version in its `plugin-descriptor.properties` file. For example, a plugin with the following property is compatible only with OpenSearch 2.3.0:
+
 ```bash
 opensearch.version=2.3.0
 ```
