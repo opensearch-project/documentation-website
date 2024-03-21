@@ -262,7 +262,7 @@ Alternatively, a plugin can specify a range of compatible OpenSearch versions by
 - `dependencies={ opensearch: "~2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next minor version, in this example, 2.4.0 (exclusive).
 - `dependencies={ opensearch: "^2.3.0" }`: The plugin is compatible with all versions starting from 2.3.0 up to the next major version, in this example, 3.0.0 (exclusive).
 
-You can only specify one of `opensearch.version` or `dependencies` properties.
+You can specify only one of the `opensearch.version` or `dependencies` properties.
 {: .note}
 
 ### Bundled plugins
