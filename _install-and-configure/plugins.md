@@ -247,7 +247,9 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## Available plugins
 
-### Plugin Compatibility
+OpenSearch provides several bundled plugins and additional plugins.
+
+### Plugin compatibility
 
 A plugin can specify explicit compatibility with a specific OpenSearch version. For example, a plugin with following property in its plugin-descriptor.properties is compatible only with OpenSearch 2.3.0
 ```bash
