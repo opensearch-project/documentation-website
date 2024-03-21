@@ -1,9 +1,10 @@
 ---
 layout: default
-title: otel_trace_source source
+title: otel_trace_source
 parent: Sources
 grand_parent: Pipelines
 nav_order: 15
+- /data-prepper/pipelines/configuration/sources/otel-trace/
 ---
 
 
@@ -11,7 +12,7 @@ nav_order: 15
 
 ## Overview
 
-The `otel_trace_source` is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace_source` source.
+`otel_trace_source` is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace_source` source.
 
 
 Option | Required | Type | Description
@@ -34,6 +35,8 @@ authentication | No | Object | An authentication configuration. By default, an u
 
 
 ## Metrics
+
+The 'otel_trace_source' source includes the following metrics.
 
 ### Counters
 
