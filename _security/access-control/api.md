@@ -1297,11 +1297,14 @@ PATCH _plugins/_security/api/securityconfig
 }
 ```
 
-### Check configuration upgrade
+### Configuration upgrade check
 Introduced 2.13
 {: .label .label-purple }
 
 Checks the configuration bundled with the Security plugin against the existing security configuration, returns if an upgrade can be performed and what resources would be updated.
+
+Between new OpenSearch version new defaults to the security configuration are added.  This endpoint helps cluster operators check if the cluster is missing defaults or has stale definitions of defaults. 
+{: .note}
 
 #### Request
 
@@ -1331,18 +1334,21 @@ GET _plugins/_security/api/_upgrade_check
 | `upgradeAvailable`   | Boolean     | True when an upgrade can be performed.  |
 | `upgradeActions`  | Object     | The security objects that would be modified by an upgrade.  |
 
-### Perform configuration upgrade
+### Configuration upgrade
 Introduced 2.13
 {: .label .label-purple }
 
 Adds and updates resources on the existing security configuration from the configuration bundled with the Security plugin.
 
-These bundled configuration files can be found in the `opensearch-project/security/config` directory.  Default configuration files are updated on OpenSearch upgrade, whereas the cluster configuration is only updated by the cluster operators. This request used to bridge these scenarios.
+These bundled configuration files can be found in the `<OPENSEARCH_HOME>/security/config` directory.  Default configuration files are updated on OpenSearch upgrade, whereas the cluster configuration is only updated by the cluster operators. This endpoint helps cluster operators upgrade missing defaults and stale defaults definitions. 
+
+Between new OpenSearch version new defaults to the security configuration are added.  This endpoint helps cluster operators check if the cluster is missing default roles or has stale definitions of default roles. 
+{: .note}
 
 #### Request
 
 ```json
-POST _plugins/_security/api/_upgrade_check
+POST _plugins/_security/api/_upgrade_perform
 {
   "configs": ["roles"]
 }
@@ -1353,7 +1359,7 @@ POST _plugins/_security/api/_upgrade_check
 
 | Field           | Data type  | Description                                                                                                       | Required |
 |:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
-| configs              | Array     | Specifies the configurations to be upgraded. This field can include any combination of the following values: `actiongroups`,`allowlist`, `audit`, `internalusers`, `nodesdn`, `roles`, `rolesmappings`, `tenants`.  If absent, all supported configurations are included.  | No      |
+| configs              | Array     | Specifies the configurations to be upgraded. This field can include any combination of the following values.<br>`actiongroups`,`allowlist`, `audit`, `internalusers`, `nodesdn`, `roles`, `rolesmappings`, `tenants`</br>  If absent, all supported configurations are included.  | No      |
 
 
 #### Example response
