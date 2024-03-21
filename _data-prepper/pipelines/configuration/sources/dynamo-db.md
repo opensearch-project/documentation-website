@@ -86,7 +86,7 @@ Option | Required | Type | Description
 The following option lets you customize how the pipeline reads events from the DynamoDB table.
 
 Option | Required | Type   | Description
-:--- | :--- |:-------| :---
+:--- | :--- | :--- | :---
 `start_position` | No | String | The position from where the source starts reading stream events when the DynamoDB stream option is enabled. `LATEST` starts reading events from the most recent stream record. 
 `view_on_remove` | No | Enum | The [stream record view](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html) to use for REMOVE events from DynamoDB streams. Must be either `NEW_IMAGE` or `OLD_IMAGE` . Defaults to `NEW_IMAGE`. If the `OLD_IMAGE` option is used and the old image can not be found, the source will find the `NEW_IMAGE`.
 
