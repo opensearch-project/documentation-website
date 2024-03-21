@@ -1,18 +1,18 @@
 ---
 layout: default
-title: split_event
+title: split-event
 parent: Processors
 grand_parent: Pipelines
 nav_order: 56
 ---
 
-# SplitEventProcessor
+# split-event
 
-The `split_event` processor is used to split events based on a delimiter and generates multiple events for a user specified field.
+The `split-event` processor is used to split events based on a delimiter and generates multiple events from a user-specified field.
 
 ## Configuration
 
-The following table describes the configuration options for the SplitEventProcessor.
+The following table describes the configuration options for the `split-event`
 
 | Option           | Type    | Description                                                                                   |
 |------------------|---------|-----------------------------------------------------------------------------------------------|
@@ -22,7 +22,7 @@ The following table describes the configuration options for the SplitEventProces
 
 # Usage
 
-Add the following examples to your pipelines.yaml file
+To use the `split-event` processor, add the following to your `pipelines.yaml` file:
 
 ```
 split-event-pipeline:
@@ -35,13 +35,16 @@ split-event-pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
-For example, if the input is as follows:
+When an event contains the following input example:
+
 ```
 {"query" : "open source", "some_other_field" : "abc" }
 ```
 
-The input will be split into multiple events based on the field `query` with delimiter as whitespace as follows:
+The input will be split into multiple events based on the field `query`, as the delimiter set as whitespace, as shown in the following example:
+
 ```
 {"query" : "open", "some_other_field" : "abc" }
 {"query" : "source", "some_other_field" : "abc" }
