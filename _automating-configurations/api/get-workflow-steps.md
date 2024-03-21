@@ -7,7 +7,7 @@ nav_order: 50
 
 # Get workflow steps
 
-This API returns a list of workflow steps, including their required inputs, outputs, default timeout value, and required plugins  For example, for the `register_remote_model` step, the Get Workflow Steps API returns the following information:
+This API returns a list of workflow steps, including their required inputs, outputs, default timeout values, and required plugins. For example, for the `register_remote_model` step, the Get Workflow Steps API returns the following information:
 
 ```json
 {
@@ -40,7 +40,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `workflow_step` | String | The step name of the step to retrieve. Specify multiple step names as a comma-separated list. For example, `create_connector,delete_model,deploy_model`. |
+| `workflow_step` | String | The name of the step to retrieve. Specify multiple step names as a comma-separated list. For example, `create_connector,delete_model,deploy_model`. |
 
 #### Example request
 
