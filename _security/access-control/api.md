@@ -1340,7 +1340,7 @@ Introduced 2.13
 
 Adds and updates resources on the existing security configuration from the configuration bundled with the Security plugin.
 
-These bundled configuration files can be found in the `<OPENSEARCH_HOME>/security/config` directory.  Default configuration files are updated on OpenSearch upgrade, whereas the cluster configuration is only updated by the cluster operators. This endpoint helps cluster operators upgrade missing defaults and stale defaults definitions. 
+These bundled configuration files can be found in the `<OPENSEARCH_HOME>/security/config` directory.  Default configuration files are updated on OpenSearch upgrade, whereas the cluster configuration is only updated by the cluster operators.  This endpoint helps cluster operators upgrade missing defaults and stale defaults definitions. 
 
 Between new OpenSearch version new defaults to the security configuration are added.  This endpoint helps cluster operators check if the cluster is missing default roles or has stale definitions of default roles. 
 {: .note}
