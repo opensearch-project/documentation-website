@@ -20,7 +20,7 @@ Option | Required | Type | Description
 `grok_when` | No | String  | Specifies under what condition the `grok` processor should perform matching. Default is no condition.
 `keep_empty_captures` | No | Boolean | Enables the preservation of `null` captures from the processed output. Default is `false`.
 `keys_to_overwrite` | No | List | Specifies which existing keys will be overwritten if there is a capture with the same key value. Default is `[]`.
-`match` | No | Map | Specifies which keys to should match specific patterns. Default is an empty response body.
+`match` | No | Map | Specifies which keys should match specific patterns. Default is an empty response body.
 `named_captures_only` | No | Boolean | Specifies whether to keep only named captures. Default is `true`.
 `pattern_definitions` | No | Map | Allows for a custom pattern that can be used inline inside the response body. Default is an empty response body.
 `patterns_directories` | No | List | Specifies which directory paths contain the custom pattern files. Default is an empty list.
