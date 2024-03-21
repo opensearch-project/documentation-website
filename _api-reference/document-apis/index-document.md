@@ -43,7 +43,7 @@ Parameter | Type | Description | Required
 &lt;_id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target>/doc` in your request instead of PUT. | No
 if_seq_no | Integer | Only perform the index operation if the document has the specified sequence number. | No
 if_primary_term | Integer | Only perform the index operation if the document has the specified primary term.| No
-op_type | Enum | Specifies the type of operation to complete with the document. Valid values are `create` (create the index if it doesn't exist) and `index`. If a document ID is included in the request, then the default is `index`. Otherwise, the default is `create`. | No
+op_type | Enum | Specifies the type of operation to complete with the document. Valid values are `create` (index a document only if it doesn't exist) and `index`. If a document ID is included in the request, then the default is `index`. Otherwise, the default is `create`. | No
 pipeline | String | Route the index operation to a certain pipeline. | No
 routing | String | value used to assign the index operation to a specific shard. | No
 refresh | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is false. | No
