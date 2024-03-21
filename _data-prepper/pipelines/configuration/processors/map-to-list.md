@@ -8,31 +8,31 @@ nav_order: 63
 
 # map_to_list
 
-The `map_to_list` processor converts a map of key-value pairs to a list of objects, each contains the key and value in separate fields.
+The `map_to_list` processor converts a map of key-value pairs to a list of objects. Each object contains the key and value in separate fields.
 
 ## Configuration
 
-The following table describes the available configuration options.
+The following table describes the configuration options for the `map_to_list` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`source` | Yes | String | the source map to perform the operation; If set to empty string (`""`), it will use the root of the event as source.
+`source` | Yes | String | The source map used to perform the mapping operation. When set to an empty string (`""`), it will use the root of the event as the `source`.
 `target` | Yes | String | The target for the generated list. 
-`key_name` | No | String | The name of the field to hold the original key. Default is "key".
-`value_name` | No | String |  The name of the field to hold the original value. Default is "value".
-`exclude_keys` | No | List | The keys in source map that will be excluded from processing. Default is an empty list (`[]`).
-`remove_processed_fields` | No | Boolean | If `true`, the processor will remove processed fields from source map. Default is `false`.
-`convert_field_to_list` | No | Boolean | If `true`, the processor will convert the fields from source map to lists and put them in the target list. Default is `false`.
-`map_to_list_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. Default is null and all events will be processed.
+`key_name` | No | String | The name of the field to hold the original key. Default is `key`.
+`value_name` | No | String |  The name of the field to hold the original value. Default is `value`.
+`exclude_keys` | No | List | The keys in the source map that will be excluded from processing. Default is an empty list (`[]`).
+`remove_processed_fields` | No | Boolean | When `true`, the processor will remove the processed fields from the source map. Default is `false`.
+`convert_field_to_list` | No | Boolean | If `true`, the processor will convert the fields from the source map into lists and place them fields in the target list. Default is `false`.
+`map_to_list_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. Default is `null`. All events will be processed unless otherwise stated.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
 ## Usage
 
-Here we show a few examples for using the `map_to_list` processor.
+The following examples show how the `map_to_list` processor can be used in your pipeline.
 
-### Example: minimum configuration
+### Example: Minimum configuration
 
-The following example shows only required parameters `source` and `target` configured. 
+The following example shows the `map_to_list` processor with only the required parameters `source` and `target` configured. 
 
 ```yaml
 ...
@@ -42,8 +42,10 @@ The following example shows only required parameters `source` and `target` confi
         target: "my-list"
 ...
 ```
+{% include copy.html %}
 
-If the input event contains the following data:
+When the input event contains the following data:
+
 ```json
 {
   "my-map": {
@@ -53,7 +55,10 @@ If the input event contains the following data:
   }
 }
 ```
-the processed event will have the following data:
+
+
+The processed event will contain the following output:
+
 ```json
 {
   "my-list": [
@@ -78,9 +83,9 @@ the processed event will have the following data:
 }
 ```
 
-### Example: custom key name and value name
+### Example: Custom key name and value name
 
-The following example shows how custom key name and value name can be configured. 
+The following example shows how to configure a custom key name and value name:
 
 ```yaml
 ...
@@ -92,8 +97,10 @@ The following example shows how custom key name and value name can be configured
         value_name: "data"
 ...
 ```
+{% include copy.html %}
 
-If the input event contains the following data:
+When the input event contains the following data:
+
 ```json
 {
   "my-map": {
@@ -103,7 +110,9 @@ If the input event contains the following data:
   }
 }
 ```
-the processed event will have the following data:
+
+The processed event will contain the following output:
+
 ```json
 {
   "my-list": [
@@ -128,9 +137,9 @@ the processed event will have the following data:
 }
 ```
 
-### Example: exclude specific keys from processing and remove processed fields
+### Example: Exclude specific keys from processing and remove any processed fields
 
-The following example shows how to exclude specific keys and remove processed fields. 
+The following example shows how to exclude specific keys and remove any processed fields from the output:
 
 ```yaml
 ...
@@ -142,8 +151,9 @@ The following example shows how to exclude specific keys and remove processed fi
         remove_processed_fields: true
 ...
 ```
+{% include copy.html %}
 
-If the input event contains the following data:
+When the input event contains the following data:
 ```json
 {
   "my-map": {
@@ -153,7 +163,9 @@ If the input event contains the following data:
   }
 }
 ```
-the processed event will process fields "key2" and "key3" and remove them from "my-map". "key1" remains in "my-map" unchanged:
+
+The processed event will remove "key2" and "key3" fields the "my-map" object, "key1" will remain, as showing in the following output:
+
 ```json
 {
   "my-list": [
@@ -172,9 +184,9 @@ the processed event will process fields "key2" and "key3" and remove them from "
 }
 ```
 
-### Example: use convert_field_to_list
+### Example: Use convert_field_to_list
 
-The following example shows how `convert_field_to_list` option works.
+The following example shows how to use the `convert_field_to_list` option in the processor:
 
 ```yaml
 ...
@@ -185,8 +197,10 @@ The following example shows how `convert_field_to_list` option works.
         convert_field_to_list: true
 ...
 ```
+{% include copy.html %}
 
-If the input event contains the following data:
+When the input event contains the following data:
+
 ```json
 {
   "my-map": {
@@ -196,7 +210,9 @@ If the input event contains the following data:
   }
 }
 ```
-the processed event will have the following data, with fields converted to lists:
+
+The processed event will convert all fields into lists, as shown in the following output:
+
 ```json
 {
   "my-list": [
@@ -212,9 +228,9 @@ the processed event will have the following data, with fields converted to lists
 }
 ```
 
-### Example: use event root as source
+### Example: Use the event root as the source
 
-The following example shows that we can use event root as source by setting source to empty string (`""`). 
+The following example shows how you can use an event's root as the source by setting the `source` setting to empty string (`""`).:
 
 ```yaml
 ...
@@ -224,8 +240,10 @@ The following example shows that we can use event root as source by setting sour
         target: "my-list"
 ...
 ```
+{% include copy.html %}
 
-If the input event contains the following data:
+When the input event contains the following data:
+
 ```json
 {
   "key1": "value1",
@@ -233,7 +251,9 @@ If the input event contains the following data:
   "key3": "value3"
 }
 ```
-the processed event will have the following data:
+
+The processed event will contain the following output:
+
 ```json
 {
   "my-list": [
