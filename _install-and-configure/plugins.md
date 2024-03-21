@@ -247,7 +247,7 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## Available plugins
 
-OpenSearch provides several bundled plugins and additional plugins.
+OpenSearch provides several bundled and additional plugins.
 
 ### Plugin compatibility
 
