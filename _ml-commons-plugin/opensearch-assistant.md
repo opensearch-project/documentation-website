@@ -7,7 +7,7 @@ nav_order: 28
 ---
 
 # OpenSearch Assistant Toolkit
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 The OpenSearch Assistant Toolkit helps you create AI-powered assistants for OpenSearch Dashboards. The toolkit includes the following elements:

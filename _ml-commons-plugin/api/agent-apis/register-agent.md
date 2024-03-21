@@ -7,7 +7,7 @@ nav_order: 10
 ---
 
 # Register an agent
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 Use this API to register an agent. 

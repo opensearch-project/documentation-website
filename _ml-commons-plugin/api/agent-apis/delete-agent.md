@@ -7,7 +7,7 @@ nav_order: 50
 ---
 
 # Delete an agent
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 You can use this API to delete an agent based on the `agent_id`.

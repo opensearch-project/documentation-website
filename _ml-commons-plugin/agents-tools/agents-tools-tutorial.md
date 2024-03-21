@@ -7,7 +7,7 @@ nav_order: 10
 ---
 
 # Agents and tools tutorial
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 The following tutorial illustrates creating a flow agent for retrieval-augmented generation (RAG). A flow agent runs its configured tools sequentially, in the order specified. In this example, you'll create an agent with two tools:

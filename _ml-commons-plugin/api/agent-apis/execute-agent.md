@@ -7,7 +7,7 @@ nav_order: 20
 ---
 
 # Execute an agent
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 When an agent is executed, it runs the tools with which it is configured.

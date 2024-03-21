@@ -9,7 +9,7 @@ grand_parent: Agents and tools
 ---
 
 # PPL tool
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 The `PPLTool` translates natural language into a PPL query. The tool provides an `execute` flag to specify whether to run the query. If you set the flag to `true`, the `PPLTool` runs the query and returns the query and the results. 

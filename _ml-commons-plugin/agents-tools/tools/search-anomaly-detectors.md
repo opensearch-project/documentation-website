@@ -10,7 +10,7 @@ grand_parent: Agents and tools
 
 <!-- vale off -->
 # Search Anomaly Detectors tool
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 <!-- vale on -->
 

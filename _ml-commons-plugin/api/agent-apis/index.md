@@ -9,7 +9,7 @@ redirect_from: /ml-commons-plugin/api/agent-apis/
 ---
 
 # Agent APIs
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 You can automate machine learning (ML) tasks using agents and tools. An _agent_ orchestrates and runs ML models and tools. For more information, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).

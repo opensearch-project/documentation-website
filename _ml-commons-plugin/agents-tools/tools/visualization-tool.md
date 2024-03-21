@@ -9,7 +9,7 @@ grand_parent: Agents and tools
 ---
 
 # Visualization tool
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 Use the `VisualizationTool` to find visualizations relevant to a question. 

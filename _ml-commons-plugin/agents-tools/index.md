@@ -7,7 +7,7 @@ nav_order: 27
 ---
 
 # Agents and tools
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 You can automate machine learning (ML) tasks using agents and tools. An _agent_ orchestrates and runs ML models and tools. A _tool_ performs a set of specific tasks. Some examples of tools are the `VectorDBTool`, which supports vector search, and the `CATIndexTool`, which executes the `cat indices` operation. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).

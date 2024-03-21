@@ -7,7 +7,7 @@ nav_order: 20
 ---
 
 # Get an agent
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 You can retrieve agent information using the `agent_id`.
