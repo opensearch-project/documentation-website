@@ -24,7 +24,7 @@ _Cluster state_ is an internal data structure that contains the metadata of the 
 The cluster state metadata is managed by the elected cluster manager node and is essential for the cluster to properly function. When the cluster loses the majority of the cluster manager nodes permanently, then the cluster may experience data loss because the latest cluster state metadata might not be present in the surviving cluster manager nodes. Persisting the state of all the cluster manager nodes in the cluster to remote-backed storage provides better durability.
 
 When the remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster.
-Any time new cluster manager nodes are launched after disaster recovery, the nodes will automatically bootstrap using the latest metadata stored in the remote repository. This way you get durability of metadata. 
+Any time new cluster manager nodes are launched after disaster recovery, the nodes will automatically bootstrap using the latest metadata stored in the remote repository. This provides metadata durability. 
 
 Note that remote cluster state can be enabled independent of remote backed data storage.
 If durability of data is required then the remote backed data storage should also be enabled as specified in [remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
