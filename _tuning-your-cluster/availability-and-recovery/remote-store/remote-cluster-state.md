@@ -26,7 +26,9 @@ The cluster state metadata is managed by the elected cluster manager node and is
 When the remote cluster state feature is enabled, the cluster metadata will be published to a remote repository configured in the cluster.
 Any time new cluster manager nodes are launched after disaster recovery, the nodes will automatically bootstrap using the latest metadata stored in the remote repository. This provides metadata durability. 
 
-Note that remote cluster state can be enabled independent of remote backed data storage.
+You can enable remote cluster state independently of remote-backed data storage.
+{: .note}
+
 If durability of data is required then the remote backed data storage should also be enabled as specified in [remote store documentation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
 ## Configuring the remote cluster state
