@@ -8,9 +8,7 @@ nav_order: 15
 ---
 
 
-# otel_trace source 
-
-## Overview
+# otel_trace_source 
 
 `otel_trace_source` is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace_source` source.
 
