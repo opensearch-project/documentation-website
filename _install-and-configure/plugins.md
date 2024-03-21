@@ -256,7 +256,7 @@ A plugin can explicitly specify compatibility with a specific OpenSearch version
 ```bash
 opensearch.version=2.3.0
 ```
-Alternately, a plugin can specify a range of compatible OpenSearch versions using the 'dependencies' property in its plugin-descriptor.properties file. Following notations are supported:
+Alternatively, a plugin can specify a range of compatible OpenSearch versions by setting the `dependencies` property in its `plugin-descriptor.properties` file in one of the following notations:
 - `dependencies={ opensearch: "2.3.0" }`
   Plugin is compatible only with OpenSearch version 2.3.0.
 - `dependencies={ opensearch: "=2.3.0" }`
