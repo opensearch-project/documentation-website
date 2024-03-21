@@ -11,9 +11,6 @@ redirect_from: /automating-configurations/
 **Introduced 2.12**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
-{: .warning}
-
 You can automate complex OpenSearch setup and preprocessing tasks by providing templates for common use cases. For example, automating machine learning (ML) setup tasks streamlines the use of OpenSearch ML offerings.
 
 In OpenSearch 2.12, configuration automation is limited to ML tasks.
