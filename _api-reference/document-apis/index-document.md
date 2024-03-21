@@ -11,17 +11,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple}
 
-Before you can search for data, you must first add documents. This operation adds a single document to your index.
-
-## Example
-
-```json
-PUT sample-index/_doc/1
-{
-  "Description": "To be or not to be, that is the question."
-}
-```
-{% include copy-curl.html %}
+Through the use of HTTP methods, we can interact with the data in our database. 
 
 ## Path and HTTP methods
 
@@ -32,6 +22,32 @@ POST <index>/_doc
 PUT <index>/_create/<_id>
 POST <index>/_create/<_id>
 ```
+- PUT adds or updates documents with a specified ID in the index. Used for controlled document creation or updates.
+- POST adds documents to the index with auto-generated IDs. Useful for adding new documents without specifying IDs.
+- `_create` is a type identifier indicating document creation should only occur if the document with the specified ID doesn't already exist.
+- `<index>` represents the name of the index where the document will be added.
+- `<_id>` represents the unique identifier of the document.
+
+## Adding a sample index and documents to use the HTTP methods 
+
+Before you can search for data, you must first add documents.
+To do this follow the steps:
+1. Open OpenSearch Dashboards
+2. Navigate to the hamburger menu 
+3. In the **Management** section, choose **Dev Tools**
+4. Running the PUT command in the dev tools and send the request to create the index `sample-index`
+```json
+PUT /sample-index
+```
+## Example
+
+```json
+PUT sample-index/_doc/1
+{
+  "Description": "To be or not to be, that is the question."
+}
+```
+{% include copy-curl.html %}
 
 ## URL parameters
 
