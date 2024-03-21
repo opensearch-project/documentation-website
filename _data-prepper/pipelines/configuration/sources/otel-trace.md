@@ -11,12 +11,12 @@ nav_order: 15
 
 ## Overview
 
-The `otel_trace` source is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace` source.
+The `otel_trace_source` is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace_source` source.
 
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-port | No | Integer | The port that the `otel_trace` source runs on. Default value is `21890`.
+port | No | Integer | The port that the `otel_trace_source` source runs on. Default value is `21890`.
 request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
 health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`.
 unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default value is `false`.
