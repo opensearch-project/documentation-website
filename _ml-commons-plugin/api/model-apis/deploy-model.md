@@ -8,7 +8,7 @@ nav_order: 20
 
 # Deploy a model
 
-The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`. For remote models, by default the model is deployed automatically when it's predicted the first time through the Predict API. You can disable the remote model auto deployment by setting plugins.ml_commons.model_auto_deploy.enable to false. To learn more about remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index).
+The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`. For remote models, from 2.13 the model is deployed automatically by default when it's predicted the first time through the Predict API. You can disable the remote model auto deployment by setting plugins.ml_commons.model_auto_deploy.enable to false. To learn more about remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index).
 
 ```json
 PUT _cluster/settings

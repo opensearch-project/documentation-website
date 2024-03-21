@@ -205,7 +205,7 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 ## Step 4: Deploy the model
 
-From 2.13, we support automatically deploy remote model by default so this step can be skipped. You can disable it by setting plugins.ml_commons.model_auto_deploy.enable as false
+From 2.13, we support automatically deploy remote model by default so this step can be skipped. You can disable it by setting plugins.ml_commons.model_auto_deploy.enable as false. To undeploy the model, please use the undeploy API to undeploy it.
 ```json
 PUT _cluster/settings
 {
