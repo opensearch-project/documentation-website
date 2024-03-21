@@ -20,10 +20,10 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `luce
 Starting with k-NN plugin version 2.13, [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) is supported by default on Linux machines only for the Faiss engine if the underlying processor on the system supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD architecture helps boost the overall performance. 
 For the x64 architecture, two different versions of the Faiss library (`libopensearchknn_faiss.so` and `libopensearchknn_faiss_avx2.so`) are built and shipped with the artifact. The library with the `_avx2` suffix contains the AVX2 SIMD instructions. At runtime, the k-NN plugin detects whether AVX2 is supported and loads the appropriate library.
 
-You can override or disable AVX2 and load the default Faiss library (`libopensearchknn_faiss.so`) even if your hardware supports AVX2 by specifying the `knn.faiss.avx2.disabled` static setting as `true` in opensearch.yml (the default is `false`).
+You can override or disable AVX2 and load the default Faiss library (`libopensearchknn_faiss.so`), even if your hardware supports AVX2, by specifying the `knn.faiss.avx2.disabled` static setting as `true` in `opensearch.yml` (default is `false`).
 {: .note}
 
-For the ARM64 architecture, only one performance-boosting Faiss library (`libopensearchknn_faiss.so`) is built and shipped. The library is based on Neon SIMD instructions and, unlike AVX2, it cannot be disabled. 
+For the ARM64 architecture, only one performance-boosting Faiss library (`libopensearchknn_faiss.so`) is built and shipped. The library is based on Neon SIMD instructions, and, unlike AVX2, it cannot be disabled. 
 
 ## Method definitions
 
@@ -163,7 +163,7 @@ Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
 `pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-`sq` | false | Stands for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. The default `sq` encoder is [SQFP16]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization-fp16). The built-in Faiss scalar quantizer reduces memory footprint with a minimal loss of precision. Besides optimizing memory use, `sq` improves the overall performance by employing SIMD optimization (using AVX2 on x86 architecture or Neon on ARM architecture). 
+`sq` | false | Stands for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. The default `sq` encoder is [SQFP16]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization-fp16). The built-in Faiss scalar quantizer reduces memory footprint with a minimal loss of precision. In addition to optimizing memory use, `sq` improves overall performance by employing SIMD optimization (using AVX2 on x86 architecture or Neon on ARM architecture). 
 
 #### Examples
 
@@ -215,7 +215,7 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 }
 ```
 
-The following example uses the `hnsw` method with a `sq` encoder of type `fp16` with `clip` enabled:
+The following example uses the `hnsw` method with an `sq` encoder of type `fp16` with `clip` enabled:
 
 ```json
 "method": {
@@ -236,7 +236,7 @@ The following example uses the `hnsw` method with a `sq` encoder of type `fp16` 
 }
 ```
 
-The following example uses the `ivf` method with a `sq` encoder of type `fp16`:
+The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 
 ```json
 "method": {
@@ -269,7 +269,7 @@ Parameter name | Required | Default | Updatable | Description
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :-- | :--- | :---
 `type` | false | fp16 | false |  Determines the type of scalar quantization to be used to encode the 32 bit float vectors into the corresponding type. By default, it is `fp16`.
-`clip` | false | false | false | When set to `true`, clips the vectors that are outside of the range to bring them into the range. If it is `false` and any vector element is out of range, then it rejects the request and throws an exception. 
+`clip` | `false` | `false` | `false` | When set to `true`, clips any out of range vectors to bring them into the range. If `clip` is `false` and any vector element is out of range, the request throws an exception. 
 
 ### Choosing the right method
 

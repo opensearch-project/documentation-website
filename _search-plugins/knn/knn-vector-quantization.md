@@ -10,11 +10,11 @@ has_math: true
 
 # k-NN vector quantization
 
-The OpenSearch k-NN plugin by default supports the indexing and querying of vectors of type float where each dimension of the vector occupies 4 bytes of memory. This is getting expensive in terms of memory for use cases that requires ingestion on a large scale where we need to construct, load, save and search graphs(for native engines `nmslib` and `faiss`) which is getting even more costlier. To reduce these memory footprints, we can use these vector quantization features supported by k-NN plugin.
+By default, the k-NN plugin supports indexing and querying vectors of type `float`, where each dimension of the vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors is expensive because OpenSearch needs to construct, load, save, and search graphs (for native engines `nmslib` and `faiss`). To reduce memory use, you can use vector quantization.
 
 ## Lucene byte vector
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of memory needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of required memory. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
 ## Faiss scalar quantization fp16
 
