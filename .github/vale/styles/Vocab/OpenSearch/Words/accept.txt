@@ -26,7 +26,7 @@ Boolean
 Dev
 [Dd]iscoverability
 Distro
-[Dd]ownvote(s|ed)?
+[Dd]ownvote(s|d)?
 [Dd]uplicative
 [Ee]gress
 [Ee]num
@@ -139,7 +139,7 @@ tebibyte
 [Uu]nregister(s|ed|ing)?
 [Uu]pdatable
 [Uu]psert
-[Uu]pvote(s|ed)?
+[Uu]pvote(s|d)?
 [Ww]alkthrough
 [Ww]ebpage
 xy
