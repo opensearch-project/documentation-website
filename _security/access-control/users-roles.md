@@ -14,19 +14,21 @@ The Security plugin includes an internal user database. Use this database in pla
 
 Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
 
-## Creating and Editing OpenSearch Roles - Overview
+## Creating and editing OpenSearch roles - Overview
 
 OpenSearch roles can be updated using various methods, the three methods to add or edit roles are as follows.
 
-### Using the API:
-Users can make HTTP requests to endpoints provided by OpenSearch to update security roles, permissions, and associated settings. This method offers granular control and automation capabilities for managing roles.
+### Using the API
 
-### Using the UI (OpenSearch Dashboards):
-OpenSearch Dashboards provides a user-friendly interface for managing roles. Navigate to the Security section within OpenSearch Dashboard where the roles, permissions, and document-level security settings can be configured. When updating the roles via the UI, the UI calls the API in the background to implement these changes.
+You can make HTTP requests to endpoints provided by OpenSearch to update security roles, permissions, and associated settings. This method offers granular control and automation capabilities for managing roles.
 
-### Editing the YAML Configuration File:
-For users comfortable with configuration files and prefer a text-based approach, editing the YAML configuration file directly is an option. Roles and their associated permissions can be defined or modified within the roles.yml file. This method provides direct access to the underlying configuration and can be version-controlled for collaborative development environments.
-More information on **Creating Roles** can be found in the [Create Roles documentation][https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles)
+### Using the UI (OpenSearch Dashboards)
+
+OpenSearch Dashboards provides a user-friendly interface for managing roles. Navigate to the Security section within OpenSearch Dashboard where the roles, permissions, and document-level security settings can be configured. When updating the roles using the UI, OpenSearch Dashboards calls the API in the background to implement these changes.
+
+### Editing the `roles.yml` file
+If you are comfortable with configuration files and prefer a text-based approach, editing the YAML configuration file directly is an option. Roles and their associated permissions can be defined or modified within the `roles.yml` file. This method provides direct access to the underlying configuration and can be version-controlled for collaborative development environments.
+For more information about creating roles, see the [Create Roles documentation][https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles).
 
 Unless you need to create new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
@@ -89,15 +91,14 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
 
-## Edit Roles
+## Edit roles
 
 ### OpenSearch Dashboards
 
-1. Choose **Security**, **Roles**, and under **Create role**, select **Explore existing roles**. 
-1. Given you are logged in with the correct admin permissions for editing the role, select the role from the list you would like to edit. 
-1. Choose 'edit role' on the top right 
-1. Update the role as required.
-1. Choose **Update** to save 
+1. Choose **Security** > **Roles**. Under the **Create role** section, select **Explore existing roles**. 
+1. Select the role you would like to edit. 
+1. Choose **edit role** on the upper right. Make any updates you need to the role.
+1. To save your changes, select **Update**.
 
 ### roles.yml
 
