@@ -40,7 +40,7 @@ Add the following setting to `opensearch_dashboards.yml`:
 opensearch_security.auth.anonymous_auth_enabled: true
 ```
 
-Anonymous login for OpenSearch Dashboards requires that anonymous authentication is enabled on the OpenSearch cluster.
+Anonymous login for OpenSearch Dashboards requires anonymous authentication to be enabled on the OpenSearch cluster.
 {: .important}
 
 ## Defining anonymous authentication privileges
