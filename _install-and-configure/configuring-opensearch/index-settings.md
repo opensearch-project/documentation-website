@@ -100,7 +100,7 @@ OpenSearch supports the following static index-level index settings:
 
 - `index.merge_on_flush.policy` (default | merge-on-flush): This setting controls which merge policy should be used when `index.merge_on_flush.enabled` is enabled. Default is `default`.
 
-- `index.check_pending_flush.enabled` (Boolean): This setting controls the Apache Lucene's `checkPendingFlushOnUpdate` index writer setting, which specifies whether an indexing thread should check for pending flushes on an update in order to flush indexing buffers to disk. Default is `true`.
+- `index.check_pending_flush.enabled` (Boolean): This setting controls the Apache Lucene `checkPendingFlushOnUpdate` index writer setting, which specifies whether an indexing thread should check for pending flushes on an update in order to flush indexing buffers to disk. Default is `true`.
 
 ### Updating a static index setting
 
