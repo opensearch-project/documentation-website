@@ -236,6 +236,8 @@ Do not use *disable* to refer to users.
 
 Always hyphenated. Don’t use _double click_.
 
+**downvote**
+
 **dropdown list**
 
 **due to**
@@ -586,6 +588,10 @@ Use % in headlines, quotations, and tables or in technical copy.
 
 An agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics, independent of the Java Virtual Machine (JVM).
 
+**plaintext, plain text**
+
+Use *plaintext* only to refer to nonencrypted or decrypted text in content about encryption. Use *plain text* to refer to ASCII files.
+
 **please**
 
 Avoid using except in quoted text.
@@ -700,6 +706,8 @@ Never hyphenated. Use _startup_ as a noun (for example, “The following startup
 
 **Stochastic Gradient Descent (SGD)**
 
+**syslog**
+
 ## T
 
 **term frequency–inverse document frequency (TF–IDF)**
@@ -745,6 +753,8 @@ A storage tier that you can use to store and analyze your data with Elasticsearc
 **upper left, upper right**
 
 Hyphenate as adjectives. Use instead of *top left* and *top right*, unless the field name uses *top*. For example, "The upper-right corner."
+
+**upvote**
 
 **US**
 
