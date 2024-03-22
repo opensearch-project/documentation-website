@@ -35,19 +35,39 @@ To do this follow the steps:
 1. Open OpenSearch Dashboards
 2. Navigate to the hamburger menu 
 3. In the **Management** section, choose **Dev Tools**
-4. Running the PUT command in the dev tools and send the request to create the index `sample-index`
+4. Run the following commands in the dev tools by pressing the green triangle play button to send the request.
+
+### Create a sample-index
 ```json
 PUT /sample-index
 ```
-## Example
+{% include copy-curl.html %}
+
+### Example PUT request
 
 ```json
-PUT sample-index/_doc/1
+PUT /sample_index/_doc/1
 {
-  "Description": "To be or not to be, that is the question."
+  "name": "Example",
+  "price": 29.99,
+  "description": "To be or not to be, that is the question"
 }
 ```
 {% include copy-curl.html %}
+
+### Example POST request
+
+```json
+POST /sample_index/_doc
+{
+  "name": "Another Example",
+  "price": 19.99,
+  "description": "We are such stuff as dreams are made on"
+}
+
+```
+{% include copy-curl.html %}
+
 
 ## URL parameters
 
