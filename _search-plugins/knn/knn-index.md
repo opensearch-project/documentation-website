@@ -50,6 +50,9 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `luce
 
 Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost the overall performance by improving indexing throughput and reducing search latency.
 
+SIMD optimization is applicable only if the vector dimension is a multiple of 8.
+{: .note}
+
 <!-- vale off -->
 ### x64 architecture
 <!-- vale on -->
