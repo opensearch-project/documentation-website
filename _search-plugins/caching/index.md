@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Cache stores
+title: Caching
 parent: Improving search performance
 has_children: true
 nav_order: 100
 ---
 
-# Cache stores
+# Caching
 
 OpenSearch relies heavily on different types of on-heap cache to accelerate data retrieval, providing significant improvement in search latencies. However, cache size is limited by the amount of memory available on a node. If you are processing a larger dataset that can potentially be cached, the cache size limit causes a lot of cache evictions and misses. The increasing number of evictions impacts performance because OpenSearch needs to process the query again, causing high resource consumption.
 
