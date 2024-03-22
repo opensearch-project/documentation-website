@@ -30,7 +30,7 @@ The following table lists the available path parameters.
 
 ## Query parameters
 
-If you have included substitution expressions in the template, you may pass them as parameters on the path or in the body as a string field value. For example, if you specified a credential field in a template as `openAI_key: '${{ openai_key }}'`, then you can include the `openai_key` parameter on the path or in the body, to substitute during provisioning.
+If you have included a substitution expression in the template, you may pass it as a query parameter or as a string value of a request body field. For example, if you specified a credential field in a template as `openAI_key: '${{ openai_key }}'`, then you can include the `openai_key` parameter as a query parameter or body field so it can be substituted during provisioning.
 
 ```json
 POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision?<parameter>=<value>
