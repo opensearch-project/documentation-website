@@ -64,7 +64,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `provision` | Boolean | Whether to provision the workflow as part of the request. Default is `false`. |
 | `validation` | String | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`. |
-| User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`.  Optional. |
+| User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters). |
 
 ## Request fields
 
