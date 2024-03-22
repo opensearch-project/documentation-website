@@ -38,7 +38,7 @@ POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision?<parameter>=<va
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| User-provided | String | Parameters matching substitutions in the template. Optional. |
+| User-provided | String | Parameters that match substitutions in the template. Optional. |
 
 #### Example requests
 
