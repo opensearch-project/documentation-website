@@ -283,7 +283,7 @@ plugins.ml_commons.allow_custom_deployment_plan: false
 
 ## Enable auto deploy
 
-When set to `true`, this setting automatically deploys a remote model to the cluster if the model has not been deployed already. This setting is applicable when running a prediction request for an externally hosted model.
+This setting is applicable when you send a prediction request for an externally hosted model that has not been deployed. When set to `true`, this setting automatically deploys the model to the cluster if the model has not been deployed already. 
 
 ### Setting
 
@@ -403,7 +403,7 @@ plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
 
 ## Local model eligible node roles setting
 
-This setting allows a cluster admin to control the types of nodes on which local models can run. The`plugins.ml_commons.only_run_on_ml_node` setting specifies for the model to only run on an ML node. For a local model, if `plugins.ml_commons.only_run_on_ml_node` is set to `true`, the model will always run on an ML node. If `plugins.ml_commons.only_run_on_ml_node` is set to `false`, the model will run on nodes defined in the `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model` setting.
+This setting allows a cluster admin to control the types of nodes on which local models can run. The`plugins.ml_commons.only_run_on_ml_node` setting specifies for the model to only run on ML nodes. For a local model, if `plugins.ml_commons.only_run_on_ml_node` is set to `true`, the model will always run on ML nodes. If `plugins.ml_commons.only_run_on_ml_node` is set to `false`, the model will run on nodes defined in the `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model` setting.
 
 ### Setting
 
