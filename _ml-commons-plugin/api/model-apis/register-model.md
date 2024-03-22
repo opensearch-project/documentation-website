@@ -183,8 +183,9 @@ Field | Data type | Required/Optional | Description
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
 `is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`guardrails`| Object | Optional | The guardrails for the model input. For more information, see [Guardrails](#guardrails).|
 
-#### Example request: Remote model with a standalone connector
+#### Example request: Externally hosted with a standalone connector
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -198,7 +199,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: Remote model with a connector specified as part of the model
+#### Example request: Externally hosted with a connector specified as part of the model
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -248,24 +249,22 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-## Register a remote model with guardrails
+### Guardrails
 
-To register a remote model with guardrails, you can add guardrails parameter on top of a remote model configuration as above.
+Guardrails act like safety measures for large language models (LLMs). They provide a set of rules and boundaries that control how an LLM behaves and what kind of outputs it generates. 
 
-### Request fields
+To register an externally hosted model with guardrails, provide the `guardrails` parameter, which supports the following fields. All fields are optional.
 
-The following table lists the available request fields.
-
-Field | Data type | Required/Optional | Description
+Field | Data type | Description
 :---  | :--- | :---
-`input_guardrail`| Object | Optional | The guardrail for remote model input. |
-`output_guardrail`| Object | Optional | The guardrail for remote model output. |
-`stop_words`| Object | Optional | The stop words used by a guardrail validation. |
-`index_name`| Object | Optional | The name of index storing stop words. |
-`source_fields`| Object | Optional | The name of field storing stop words. |
-`regex`| Object | Optional | The regex used by a guardrail validation. |
+`input_guardrail`| Object |  The guardrail for the model input. |
+`output_guardrail`| Object |  The guardrail for the model output. |
+`stop_words`| Object | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. |
+`index_name`| Object | The name of the index storing the stopwords. |
+`source_fields`| Object | The name of the field storing the stopwords. |
+`regex`| Object |  A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected. |
 
-#### Example request: Remote model with guardrails
+#### Example request: Externally hosted model with guardrails
 
 ```json
 POST /_plugins/_ml/models/_register

@@ -36,7 +36,7 @@ Field | Data type |  Description
 `rate_limiter` | Object | Limits the number of times any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
 `rate_limiter.limit` | Integer | The maximum number of times any user can call the Predict API on the model per `unit` of time. By default, there is no limit on the number of Predict API calls. Once you set a limit, you cannot reset it to no limit. As an alternative, you can specify a high limit value and a small time unit, for example, 1 request per nanosecond.
 `rate_limiter.unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, and `SECONDS`.
-`guardrails`| Object | The guardrails for model.
+`guardrails`| Object | The guardrails for the model.
 
 #### Example request: Disabling a model
 
@@ -63,25 +63,7 @@ PUT /_plugins/_ml/models/T_S-cY0BKCJ3ot9qr0aP
 ```
 {% include copy-curl.html %}
 
-#### Example response
-
-```json
-{
-  "_index": ".plugins-ml-model",
-  "_id": "MzcIJX8BA7mbufL6DOwl",
-  "_version": 10,
-  "result": "updated",
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "failed": 0
-  },
-  "_seq_no": 48,
-  "_primary_term": 4
-}
-```
-
-#### Example request: Update the guardrails
+#### Example request: Updating the guardrails
 
 ```json
 PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
@@ -109,3 +91,22 @@ PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 }
 ```
 {% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "_index": ".plugins-ml-model",
+  "_id": "MzcIJX8BA7mbufL6DOwl",
+  "_version": 10,
+  "result": "updated",
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 48,
+  "_primary_term": 4
+}
+```
+
