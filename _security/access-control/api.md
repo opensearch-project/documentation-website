@@ -1350,7 +1350,7 @@ Between new OpenSearch version new defaults to the security configuration are ad
 ```json
 POST _plugins/_security/api/_upgrade_perform
 {
-  "configs": ["roles"]
+  "configs" : [ "roles" ]
 }
 ```
 {% include copy-curl.html %}
