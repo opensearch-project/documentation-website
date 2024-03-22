@@ -99,7 +99,9 @@ The metrics framework feature supports various telemetry solutions through plugi
   
 ### Supported metric types
 
-1. **Counters:** Counters are continuous and synchronous meters used to track the frequency of events over time. They can only be incremented with positive values, making them ideal for monitoring occurrences such as errors, processed or received bytes, and total requests.
-2. **UpDown Counters:** Similar to counters, UpDown counters can be incremented or decremented by a specified value. They are well-suited for tracking metrics like open connections, active requests, and other fluctuating quantities.
-3. **Histograms:** Histograms are valuable tools for visualizing the distribution of continuous data. They offer insights into central tendency, spread, skewness, and potential outliers. Patterns such as normal distribution, skewed distribution, or bimodal distribution can be readily identified, making histograms ideal for analyzing latency metrics and assessing percentiles.
-4. **Asynchronous Gauges:** Asynchronous Gauges capture the current value at the moment of reading. These metrics are non-additive and are commonly used to measure metrics like CPU utilization on a per-minute basis, memory utilization, and other real-time values.
+The metrics framework feature supports the following metric types:
+
+1. **Counters:** Counters are continuous and synchronous meters used to track the frequency of events over time. Counters can only be incremented with positive values making them ideal for measuring the number monitoring occurrences such as errors, processed or received bytes, and total requests.
+2. **UpDown counters:**  UpDown counters can be incremented with positive values or decremented with negative values. UpDown counters are well-suited for tracking metrics like open connections, active requests, and other fluctuating quantities.
+3. **Histograms:** Histograms are valuable tools for visualizing the distribution of continuous data. Histograms offer insights into the central tendency, spread, skewness, and any potential outliers that might exist inside your metrics Patterns such as normal distribution, skewed distribution, or bimodal distribution can be readily identified, making histograms ideal for analyzing latency metrics and assessing percentiles.
+4. **Asynchronous Gauges:** Asynchronous gauges capture the current value at the moment a metric is read. These metrics are non-additive and are commonly used to measure CPU utilization on a per-minute basis, memory utilization, and other real-time values.
