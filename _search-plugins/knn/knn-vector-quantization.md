@@ -1,7 +1,7 @@
 ---
 layout: default
 title: k-NN vector quantization
-nav_order: 50
+nav_order: 27
 parent: k-NN search
 grand_parent: Search methods
 has_children: false
@@ -10,57 +10,112 @@ has_math: true
 
 # k-NN vector quantization
 
-By default, the k-NN plugin supports indexing and querying vectors of type `float`, where each dimension of the vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors is expensive because OpenSearch needs to construct, load, save, and search graphs (for native engines `nmslib` and `faiss`). To reduce memory use, you can use vector quantization.
+By default, the k-NN plugin supports indexing and querying vectors of type `float`, where each dimension of the vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors is expensive because OpenSearch needs to construct, load, save, and search graphs (for native `nmslib` and `faiss` engines). To reduce the memory footprint, you can use vector quantization.
 
 ## Lucene byte vector
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of required memory. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
-## Faiss scalar quantization fp16
+## Faiss scalar quantization 
+ 
+Starting with version 2.13, the k-NN plugin supports vector quantization for the Faiss engine within OpenSearch. Within the Faiss engine, a scalar quantizer (SQfp16) performs the conversion between 32-bit and 16-bit vectors. At ingestion time, when you upload 32-bit floating-point vectors to OpenSearch, SQfp16 quantizes them into 16-bit floating-point vectors and stores the quantized vectors in a k-NN index. At search time, SQfp16 decodes the vector values back into 32-bit floating-point values for distance computation. The SQfp16 vector quantization can decrease the memory footprint by a factor of 2. When used with [SIMD Optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), vector quantization can also significantly reduce search latencies. 
 
-Starting with k-NN plugin version 2.13, users can ingest `fp16` vectors with `faiss` engine where when user provides the 32 bit float vectors, the Faiss engine quantize the vector into FP16 using scalar quantization (users don’t need to do any quantization on their end), stores it and decodes it back to FP32 for distance computation during search operations. Using this feature, users can
-reduce memory footprints by a factor of 2, significant reduction in search latencies (with [SIMD Optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-faiss)), with a very minimal loss in recall(depends on distribution of vectors).
+SQfp16 vector quantization generally introduces minimal recall loss. The extent of this reduction depends on the closeness of the original vector values. When the values are very similar (for example, `[10.000006, 10.000007, 10.000008]`), quantization can round them to the same value or closer values. In such cases, a slight decrease in recall accuracy may occur.
 
-To use this feature, users needs to set `encoder` name as `sq` and to know the type of quantization in SQ, we are introducing a new optional field, `type` in the encoder parameters. The data indexed by users should be within the FP16 range of [-65504.0, 65504.0]. If the data lies out of this range then an exception is thrown and the request is rejected.
+### Using Faiss scalar quantization
 
-We also introduced another optional encoder parameter `clip`  and if this is set to `true`(by default `false`) in the index mapping, then if the data lies out of FP16 range it will be clipped to the MIN(`-65504.0`) and MAX(`65504.0`) of FP16 range and ingested into the index without throwing any exception. But, clipping the values might cause a drop in recall.
+To use Faiss scalar quantization, set the `method.parameters.encoder.name` to `sq` for the [k-NN vector field]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) when creating a k-NN index:
 
-For Example - when `clip` is set to `true`, `65510.82` will be clipped and indexed as `65504.0` and `-65504.1` will be clipped and indexed as `-65504.0`.
-
-Ideally, `clip` parameter is recommended to be set as `true` only when most of the vector elements are within the fp16 range and very few elements lies outside of the range.
-{: .note}
-
-* `type`  - Set this as `fp16` if we want to quantize the indexed vectors into fp16 using Faiss SQFP16; Default value is `fp16`.
-* `clip` - Set this as `true` if you want to skip the FP16 validation check and clip vector value to bring it into FP16 MIN or MAX range. If it is `false` and any vector element is out of range, then it rejects the request and throws an exception; Default value is `false`.
-
-This is an example of a method definition using Faiss SQfp16 with `clip` as `true`
 ```json
-"method": {
-  "name":"hnsw",
-  "engine":"faiss",
-  "space_type": "l2",
-  "parameters":{
-    "encoder":{
-      "name":"sq",
-      "parameters":{
-        "type": "fp16",
-        "clip": true
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true,
+      "knn.algo_param.ef_search": 100
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "method": {
+          "name": "hnsw",
+          "engine": "faiss",
+          "space_type": "l2",
+          "parameters": {
+            "encoder": {
+              "name": "sq",
+            },
+            "ef_construction": 256,
+            "m": 8
+          }
+        }
       }
     }
   }
 }
-
 ```
+{% include copy-curl.html %}
 
-During ingestion, make sure each dimension of the vector is in the supported range [-65504.0, 65504.0] if `clip` is set as `false`:
+Optionally, you can specify the parameters in `method.parameters.encoder`. For more information about parameters within the `encoder` object, see [SQ parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#sq-parameters).
+
+The `fp16` encoder converts 32-bit vectors into their 16-bit counterparts. For this encoder type, the vector values must be in the [-65504.0, 65504.0] range. To define handling out-of-range values, the preceding request specifies the `clip` parameter. By default, this parameter is `false` and any vectors containing out-of-range values are rejected. When `clip` is set to `true` (as in the preceding request), out-of-range vector values are rounded up or down so that they are in the supported range. For example, if the original 32-bit vector is `[65510.82, -65504.1]`, the vector will indexed as a 16-bit vector `[65504.0, -65504.0]`.
+
+We recommend setting `clip` to `true` only if very few elements lie outside the supported range. Rounding the values might cause a drop in recall.
+{: .note}
+
+The following example method definition specifies the Faiss SQfp16 encoder, which rejects any indexing request that contains out-of-range vector values (because the `clip` parameter is `false` by default):
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true,
+      "knn.algo_param.ef_search": 100
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "method": {
+          "name": "hnsw",
+          "engine": "faiss",
+          "space_type": "l2",
+          "parameters": {
+            "encoder": {
+              "name": "sq",
+              "parameters": {
+                "type": "fp16"
+              }
+            },
+            "ef_construction": 256,
+            "m": 8
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+During ingestion, make sure each dimension of the vector is in the supported range ([-65504.0, 65504.0]):
+
 ```json
 PUT test-index/_doc/1
 {
   "my_vector1": [-65504.0, 65503.845, 55.82]
 }
 ```
+{% include copy-curl.html %}
 
-During querying, there is no range limitation for query vector:
+During querying, there is no range limitation for the query vector:
+
 ```json
 GET test-index/_search
 {
@@ -75,10 +130,11 @@ GET test-index/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-### Memory estimation
+## Memory estimation
 
-Ideally, Faiss SQfp16 requires 50% of the memory consumed by FP32 vectors. 
+In the best case scenario, 16-bit vectors produced by the Faiss SQfp16 quantizer require 50% of the memory that 32-bit vectors require. 
 
 #### HNSW memory estimation
 
@@ -86,7 +142,7 @@ The memory required for HNSW is estimated to be `1.1 * (2 * dimension + 8 * M)` 
 
 As an example, assume you have a million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
 
-```
+```bash
 1.1 * (2 * 256 + 8 * 16) * 1,000,000 ~= 0.656 GB
 ```
 
@@ -96,8 +152,7 @@ The memory required for IVF is estimated to be `1.1 * (((2 * dimension) * num_ve
 
 As an example, assume you have a million vectors with a dimension of 256 and `nlist` of 128. The memory requirement can be estimated as follows:
 
-```
+```bash
 1.1 * (((2 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 0.525 GB
-
 ```
 

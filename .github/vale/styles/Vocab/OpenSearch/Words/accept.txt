@@ -80,6 +80,7 @@ Levenshtein
 [Oo]nboarding
 pebibyte
 [Pp]erformant
+[Pp]laintext
 [Pp]luggable
 [Pp]reconfigure
 [Pp]refetch
@@ -91,6 +92,7 @@ pebibyte
 [Pp]reprocess
 [Pp]retrain
 [Pp]seudocode
+[Quantiz](e|ation|ing|er)
 [Rr]ebalance
 [Rr]ebalancing
 [Rr]edownload

@@ -11,19 +11,61 @@ has_children: false
 
 The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/).
 
+To create a k-NN index, set the `settings.index.knn` parameter to `true`:
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 3,
+        "method": {
+          "name": "hnsw",
+          "space_type": "l2",
+          "engine": "lucene",
+          "parameters": {
+            "ef_construction": 128,
+            "m": 24
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 ## Lucene byte vector
 
 Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
-## SIMD optimization for Faiss
+## SIMD optimization for the Faiss engine
 
-Starting with k-NN plugin version 2.13, [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) is supported by default on Linux machines only for the Faiss engine if the underlying processor on the system supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD architecture helps boost the overall performance. 
-For the x64 architecture, two different versions of the Faiss library (`libopensearchknn_faiss.so` and `libopensearchknn_faiss_avx2.so`) are built and shipped with the artifact. The library with the `_avx2` suffix contains the AVX2 SIMD instructions. At runtime, the k-NN plugin detects whether AVX2 is supported and loads the appropriate library.
+Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost the overall performance, improving indexing throughput at indexing time and reducing latency at search time.
 
-You can override or disable AVX2 and load the default Faiss library (`libopensearchknn_faiss.so`), even if your hardware supports AVX2, by specifying the `knn.faiss.avx2.disabled` static setting as `true` in `opensearch.yml` (default is `false`).
-{: .note}
+<!-- vale off -->
+### x64 architecture
+<!-- vale on -->
 
-For the ARM64 architecture, only one performance-boosting Faiss library (`libopensearchknn_faiss.so`) is built and shipped. The library is based on Neon SIMD instructions, and, unlike AVX2, it cannot be disabled. 
+For the x64 architecture, two different versions of the Faiss library are built and shipped with the artifact:
+
+- `libopensearchknn_faiss.so`: The default Faiss library. 
+- `libopensearchknn_faiss_avx2.so`: The Faiss library that contains AVX2 SIMD instructions. 
+
+If your hardware supports AVX2, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
+
+To disable AVX2 and load the default Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx2.disabled` static setting as `true` in `opensearch.yml` (default is `false`). Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
+
+### ARM64 architecture
+
+For the ARM64 architecture, only one performance-boosting Faiss library (`libopensearchknn_faiss.so`) is built and shipped. The library contains Neon SIMD instructions and cannot be disabled. 
 
 ## Method definitions
 
@@ -140,16 +182,20 @@ several encoder types, but the plugin currently only supports `flat`, `pq`, and 
 The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
 ```json
-"method": {
-  "name":"hnsw",
-  "engine":"faiss",
-  "space_type": "l2",
-  "parameters":{
-    "encoder":{
-      "name":"pq",
-      "parameters":{
-        "code_size": 8,
-        "m": 8
+{
+  "type": "knn_vector",
+  "dimension": 100,
+  "method": {
+    "name":"hnsw",
+    "engine":"faiss",
+    "space_type": "l2",
+    "parameters":{
+      "encoder":{
+        "name":"pq",
+        "parameters":{
+          "code_size": 8,
+          "m": 8
+        }
       }
     }
   }
@@ -161,101 +207,9 @@ The `hnsw` method supports the `pq` encoder for OpenSearch versions 2.10 and lat
 
 Encoder name | Requires training | Description
 :--- | :--- | :---
-`flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
+`flat` (Default) | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
 `pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-`sq` | false | Stands for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. The default `sq` encoder is [SQFP16]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization-fp16). The built-in Faiss scalar quantizer reduces memory footprint with a minimal loss of precision. In addition to optimizing memory use, `sq` improves overall performance by employing SIMD optimization (using AVX2 on x86 architecture or Neon on ARM architecture). 
-
-#### Examples
-
-
-The following example uses the `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
-
-```json
-"method": {
-  "name":"ivf",
-  "engine":"faiss",
-  "space_type": "l2",
-  "parameters":{
-    "nlist": 4,
-    "nprobes": 2
-  }
-}
-```
-
-The following example uses the `ivf` method with a `pq` encoder:
-
-```json
-"method": {
-  "name":"ivf",
-  "engine":"faiss",
-  "space_type": "l2",
-  "parameters":{
-    "encoder":{
-      "name":"pq",
-      "parameters":{
-        "code_size": 8,
-        "m": 8
-      }
-    }
-  }
-}
-```
-
-The following example uses the `hnsw` method without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
-
-```json
-"method": {
-  "name":"hnsw",
-  "engine":"faiss",
-  "space_type": "l2",
-  "parameters":{
-    "ef_construction": 256,
-    "m": 8
-  }
-}
-```
-
-The following example uses the `hnsw` method with an `sq` encoder of type `fp16` with `clip` enabled:
-
-```json
-"method": {
-  "name":"hnsw",
-  "engine":"faiss",
-  "space_type": "l2",
-  "parameters":{
-    "encoder": {
-      "name": "sq",
-      "parameters": {
-        "type": "fp16",
-        "clip": true
-      }  
-    },    
-    "ef_construction": 256,
-    "m": 8
-  }
-}
-```
-
-The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
-
-```json
-"method": {
-  "name":"ivf",
-  "engine":"faiss",
-  "space_type": "l2",
-  "parameters":{
-    "encoder": {
-      "name": "sq",
-      "parameters": {
-        "type": "fp16",
-        "clip": false
-      }
-    },
-    "nprobes": 2
-  }
- }
-```
-
+`sq` | false | Stands for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization).
 
 #### PQ parameters
 
@@ -268,8 +222,120 @@ Parameter name | Required | Default | Updatable | Description
 
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :-- | :--- | :---
-`type` | false | fp16 | false |  Determines the type of scalar quantization to be used to encode the 32 bit float vectors into the corresponding type. By default, it is `fp16`.
-`clip` | `false` | `false` | `false` | When set to `true`, clips any out of range vectors to bring them into the range. If `clip` is `false` and any vector element is out of range, the request throws an exception. 
+`type` | false | `fp16` | false |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. As of OpenSearch 2.13, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
+`clip` | false | `false` | false | If `true`, any vector values that are out of the supported range for the specified vector type are rounded so they are in the range. If `false`, the request is rejected if any vector values are out of the supported range. Setting `clip` to `true` may decrease recall.
+
+For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#using-faiss-scalar-quantization).
+
+#### Examples
+
+The following example uses the `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+
+```json
+{
+  "type": "knn_vector",
+  "dimension": 100,
+  "method": {
+    "name":"ivf",
+    "engine":"faiss",
+    "space_type": "l2",
+    "parameters":{
+      "nlist": 4,
+      "nprobes": 2
+    }
+  }
+}
+```
+
+The following example uses the `ivf` method with a `pq` encoder:
+
+```json
+{
+  "type": "knn_vector",
+  "dimension": 100,
+  "method": {
+    "name":"ivf",
+    "engine":"faiss",
+    "space_type": "l2",
+    "parameters":{
+      "encoder":{
+        "name":"pq",
+        "parameters":{
+          "code_size": 8,
+          "m": 8
+        }
+      }
+    }
+  }
+}
+```
+
+The following example uses the `hnsw` method without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
+
+```json
+{
+  "type": "knn_vector",
+  "dimension": 100,
+  "method": {
+    "name":"hnsw",
+    "engine":"faiss",
+    "space_type": "l2",
+    "parameters":{
+      "ef_construction": 256,
+      "m": 8
+    }
+  }
+}
+```
+
+The following example uses the `hnsw` method with an `sq` encoder of type `fp16` with `clip` enabled:
+
+```json
+{
+  "type": "knn_vector",
+  "dimension": 100,
+  "method": {
+    "name":"hnsw",
+    "engine":"faiss",
+    "space_type": "l2",
+    "parameters":{
+      "encoder": {
+        "name": "sq",
+        "parameters": {
+          "type": "fp16",
+          "clip": true
+        }  
+      },    
+      "ef_construction": 256,
+      "m": 8
+    }
+  }
+}
+```
+
+The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
+
+```json
+{
+  "type": "knn_vector",
+  "dimension": 100,
+  "method": {
+    "name":"ivf",
+    "engine":"faiss",
+    "space_type": "l2",
+    "parameters":{
+      "encoder": {
+        "name": "sq",
+        "parameters": {
+          "type": "fp16",
+          "clip": false
+        }
+      },
+      "nprobes": 2
+    }
+  }
+}
+```
 
 ### Choosing the right method
 
@@ -288,6 +354,9 @@ native library indexes to a portion of the remaining RAM. This portion's size is
 the `circuit_breaker_limit` cluster setting. By default, the limit is set at 50%.
 
 Having a replica doubles the total number of vectors.
+{: .note }
+
+For memory estimation when using vector quantization, see the [vector quantization documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#memory-estimation).
 {: .note }
 
 #### HNSW memory estimation
