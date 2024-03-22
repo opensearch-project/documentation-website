@@ -56,12 +56,12 @@ Starting with version 2.13, the k-NN plugin supports [Single Instruction Multipl
 
 For the x64 architecture, two different versions of the Faiss library are built and shipped with the artifact:
 
-- `libopensearchknn_faiss.so`: The default Faiss library. 
+- `libopensearchknn_faiss.so`: The non-optimized Faiss library without SIMD instructions. 
 - `libopensearchknn_faiss_avx2.so`: The Faiss library that contains AVX2 SIMD instructions. 
 
 If your hardware supports AVX2, the k-NN plugin loads the `libopensearchknn_faiss_avx2.so` library at runtime.
 
-To disable AVX2 and load the default Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx2.disabled` static setting as `true` in `opensearch.yml` (default is `false`). Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
+To disable AVX2 and load the non-optimized Faiss library (`libopensearchknn_faiss.so`), specify the `knn.faiss.avx2.disabled` static setting as `true` in `opensearch.yml` (default is `false`). Note that to update a static setting, you must stop the cluster, change the setting, and restart the cluster. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 
 ### ARM64 architecture
 
@@ -159,17 +159,13 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 {: .note}
 
 ```json
-{
-    "type": "knn_vector",
-    "dimension": 100,
-    "method": {
-        "name":"hnsw",
-        "engine":"lucene",
-        "space_type": "l2",
-        "parameters":{
-            "m":2048,
-            "ef_construction": 245
-        }
+"method": {
+    "name":"hnsw",
+    "engine":"lucene",
+    "space_type": "l2",
+    "parameters":{
+        "m":2048,
+        "ef_construction": 245
     }
 }
 ```
@@ -182,20 +178,16 @@ several encoder types, but the plugin currently only supports `flat`, `pq`, and 
 The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
 ```json
-{
-  "type": "knn_vector",
-  "dimension": 100,
-  "method": {
-    "name":"hnsw",
-    "engine":"faiss",
-    "space_type": "l2",
-    "parameters":{
-      "encoder":{
-        "name":"pq",
-        "parameters":{
-          "code_size": 8,
-          "m": 8
-        }
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder":{
+      "name":"pq",
+      "parameters":{
+        "code_size": 8,
+        "m": 8
       }
     }
   }
@@ -232,17 +224,13 @@ For more information and examples, see [Using Faiss scalar quantization]({{site.
 The following example uses the `ivf` method  without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
 
 ```json
-{
-  "type": "knn_vector",
-  "dimension": 100,
-  "method": {
-    "name":"ivf",
-    "engine":"faiss",
-    "space_type": "l2",
-    "parameters":{
-      "nlist": 4,
-      "nprobes": 2
-    }
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "nlist": 4,
+    "nprobes": 2
   }
 }
 ```
@@ -250,20 +238,16 @@ The following example uses the `ivf` method  without specifying an encoder (by d
 The following example uses the `ivf` method with a `pq` encoder:
 
 ```json
-{
-  "type": "knn_vector",
-  "dimension": 100,
-  "method": {
-    "name":"ivf",
-    "engine":"faiss",
-    "space_type": "l2",
-    "parameters":{
-      "encoder":{
-        "name":"pq",
-        "parameters":{
-          "code_size": 8,
-          "m": 8
-        }
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder":{
+      "name":"pq",
+      "parameters":{
+        "code_size": 8,
+        "m": 8
       }
     }
   }
@@ -273,17 +257,13 @@ The following example uses the `ivf` method with a `pq` encoder:
 The following example uses the `hnsw` method without specifying an encoder (by default, OpenSearch uses the `flat` encoder):
 
 ```json
-{
-  "type": "knn_vector",
-  "dimension": 100,
-  "method": {
-    "name":"hnsw",
-    "engine":"faiss",
-    "space_type": "l2",
-    "parameters":{
-      "ef_construction": 256,
-      "m": 8
-    }
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "ef_construction": 256,
+    "m": 8
   }
 }
 ```
@@ -291,24 +271,20 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 The following example uses the `hnsw` method with an `sq` encoder of type `fp16` with `clip` enabled:
 
 ```json
-{
-  "type": "knn_vector",
-  "dimension": 100,
-  "method": {
-    "name":"hnsw",
-    "engine":"faiss",
-    "space_type": "l2",
-    "parameters":{
-      "encoder": {
-        "name": "sq",
-        "parameters": {
-          "type": "fp16",
-          "clip": true
-        }  
-      },    
-      "ef_construction": 256,
-      "m": 8
-    }
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder": {
+      "name": "sq",
+      "parameters": {
+        "type": "fp16",
+        "clip": true
+      }  
+    },    
+    "ef_construction": 256,
+    "m": 8
   }
 }
 ```
@@ -316,23 +292,19 @@ The following example uses the `hnsw` method with an `sq` encoder of type `fp16`
 The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 
 ```json
-{
-  "type": "knn_vector",
-  "dimension": 100,
-  "method": {
-    "name":"ivf",
-    "engine":"faiss",
-    "space_type": "l2",
-    "parameters":{
-      "encoder": {
-        "name": "sq",
-        "parameters": {
-          "type": "fp16",
-          "clip": false
-        }
-      },
-      "nprobes": 2
-    }
+"method": {
+  "name":"ivf",
+  "engine":"faiss",
+  "space_type": "l2",
+  "parameters":{
+    "encoder": {
+      "name": "sq",
+      "parameters": {
+        "type": "fp16",
+        "clip": false
+      }
+    },
+    "nprobes": 2
   }
 }
 ```

@@ -18,9 +18,7 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `luce
 
 ## Faiss scalar quantization 
  
-Starting with version 2.13, the k-NN plugin supports performing vector quantization for the Faiss engine within OpenSearch. Within the Faiss engine, a scalar quantizer (SQfp16) performs the conversion between 32-bit and 16-bit vectors. At ingestion time, when you upload 32-bit floating-point vectors to OpenSearch, SQfp16 quantizes them into 16-bit floating-point vectors and stores the quantized vectors in a k-NN index. At search time, SQfp16 decodes the vector values back into 32-bit floating-point values for distance computation. The SQfp16 vector quantization can decrease the memory footprint by a factor of 2. When used with [SIMD Optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), vector quantization can also significantly reduce search latencies. 
-
-SQfp16 vector quantization generally introduces minimal recall loss. The extent of this reduction depends on the closeness of the original vector values. When the values are very similar (for example, `[10.000006, 10.000007, 10.000008]`), quantization can round them to the same value or closer values. In such cases, a slight decrease in recall accuracy may occur.
+Starting with version 2.13, the k-NN plugin supports performing vector quantization for the Faiss engine within OpenSearch. Within the Faiss engine, a scalar quantizer (SQfp16) performs the conversion between 32-bit and 16-bit vectors. At ingestion time, when you upload 32-bit floating-point vectors to OpenSearch, SQfp16 quantizes them into 16-bit floating-point vectors and stores the quantized vectors in a k-NN index. At search time, SQfp16 decodes the vector values back into 32-bit floating-point values for distance computation. The SQfp16 vector quantization can decrease the memory footprint by a factor of 2, with minimal loss in recall when vector values are not very similar. When used with [SIMD Optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), vector quantization can also significantly reduce search latencies and improve indexing throughput. 
 
 ### Using Faiss scalar quantization
 
@@ -148,7 +146,7 @@ As an example, assume you have a million vectors with a dimension of 256 and M o
 
 #### IVF memory estimation
 
-The memory required for IVF is estimated to be `1.1 * (((2 * dimension) * num_vectors) + (4 * nlist * d))` bytes.
+The memory required for IVF is estimated to be `1.1 * (((2 * dimension) * num_vectors) + (4 * nlist * d))` bytes/vector.
 
 As an example, assume you have a million vectors with a dimension of 256 and `nlist` of 128. The memory requirement can be estimated as follows:
 
