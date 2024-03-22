@@ -32,7 +32,7 @@ If you disable anonymous authentication, you must provide at least one `authc` i
 
 ## OpenSearch Dashboards configuration
 
-To enable anonymous authentication for OpenSearch Dashboards, you need to modify the `opensearch_dashboards.yml` file inside the configuration directory of your OpenSearch Dashboards installation.
+To enable anonymous authentication for OpenSearch Dashboards, you need to modify the `opensearch_dashboards.yml` file in the configuration directory of your OpenSearch Dashboards installation.
 
 Add the following setting to `opensearch_dashboards.yml`:
 
