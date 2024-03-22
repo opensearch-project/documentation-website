@@ -1359,7 +1359,7 @@ POST _plugins/_security/api/_upgrade_perform
 
 | Field           | Data type  | Description                                                                                                       | Required |
 |:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
-| configs              | Array     | Specifies the configurations to be upgraded. This field can include any combination of the following values.<br>`actiongroups`,`allowlist`, `audit`, `internalusers`, `nodesdn`, `roles`, `rolesmappings`, `tenants`</br>  If absent, all supported configurations are included.  | No      |
+| configs              | Array     | Specifies the configurations to be upgraded. This field can include any combination of the following configurations `actiongroups`,`allowlist`, `audit`, `internalusers`, `nodesdn`, `roles`, `rolesmappings`, `tenants`.<br>  Default is all supported configurations.  | No      |
 
 
 #### Example response
