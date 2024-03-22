@@ -54,7 +54,7 @@ POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision?openai_k
 ```
 {% include copy-curl.html %}
 
-A request substituting the expression `${{ openai_key }}` with the value "12345" using the request body:
+The following request substitutes the expression `${{ openai_key }}` with the value "12345" using the request body:
 
 ```json
 POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision
