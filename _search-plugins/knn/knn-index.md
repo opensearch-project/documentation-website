@@ -347,6 +347,8 @@ If you want to use less memory and index faster than HNSW, while maintaining sim
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
+If you want to reduce the memory requirements by a factor of 2 (with very minimal loss of search quality) or by a factor of 4 (with a significant drop in search quality), consider vector quantization. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
+
 ### Memory estimation
 
 In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates
