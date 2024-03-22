@@ -12,7 +12,7 @@ redirect_from:
 
 The Security plugin is installed by default with OpenSearch, but you can disable it temporarily if you want to make testing or internal usage more straightforward. You can then enable it once you're ready to configure security for your cluster. 
 
-If you have your own security solution or need to remove the Security plugin for development purposes, you can uninstall the plugin completely. Note that OpenSearch Dashboards can run only against a secure cluster, so if you uninstall the OpenSearch Security plugin, you'll have to also uninstall the Dashboard plugin. 
+If you have your own security solution or need to remove the Security plugin for development purposes, you can uninstall the plugin completely. Note that OpenSearch Dashboards can only run against a secure cluster; if you uninstall the OpenSearch Security plugin, you'll have to also uninstall the Dashboard plugin. 
 
 
 ## Disabling security
@@ -25,7 +25,7 @@ plugins.security.disabled: true
 
 ## Removing the Security plugin
 
-If you want to remove the Security plugin in your OpenSearch instance without changing your configuration settings in `opensearch.yml`, use the following steps.
+While using the Security plugin is always recommended, if you do need to completely remove the Security plugin from your OpenSearch instance, you can take the following steps:
 
 1. Delete the `plugins/opensearch-security` folder on all nodes.
 1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
