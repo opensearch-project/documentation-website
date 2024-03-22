@@ -205,7 +205,7 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 ## Step 4: Deploy the model
 
-From 2.13, we support automatically deploy remote model by default so this step can be skipped. You can disable it by setting plugins.ml_commons.model_auto_deploy.enable as false. To undeploy the model, please use the undeploy API to undeploy it.
+Starting with OpenSearch version 2.13, externally hosted models are deployed automatically by default when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
 ```json
 PUT _cluster/settings
 {
@@ -216,7 +216,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To deploy the registered model manually, provide its model ID from step 3 in the following request:
+To undeploy the model, use the [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
 
 ```bash
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
