@@ -7,9 +7,6 @@ nav_order: 30
 
 # Provision a workflow
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
-{: .warning}
-
 Provisioning a workflow is a one-time setup process usually performed by a cluster administrator to create resources that will be used by end users.  
 
 The `workflows` template field may contain multiple workflows. The workflow with the `provision` key can be executed with this API. This API is also executed when the [Create or Update Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/) is called with the `provision` parameter set to `true`.
