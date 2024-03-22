@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Metrics framework 
-parent: Trace Analytics
-nav_order: 65
+title: Metrics framework
+nav_order: 1
+has_children: false
+has_toc: false
 redirect_from:
   - /monitoring-your-cluster/metrics/
 ---
@@ -95,8 +96,9 @@ The metrics framework feature supports various telemetry solutions through plugi
 2. **Exporters:** Exporters are responsible for persisting the data. OpenTelemetry provides several out-of-the-box exporters. OpenSearch supports the following exporters:
     - `LoggingMetricExporter`: Exports metrics to a log file, generating a separate file in the logs directory `_otel_metrics.log`. Default is `telemetry.otel.metrics.exporter.class=io.opentelemetry.exporter.logging.LoggingMetricExporter`.
     - `OtlpGrpcMetricExporter`: Exports spans through gRPC. To use this exporter, you need to install the `otel-collector` on the node. By default, it writes to the http://localhost:4317/ endpoint. To use this exporter, set the following static setting: `telemetry.otel.metrics.exporter.class=io.opentelemetry.exporter.otlp.metrics.OtlpGrpcMetricExporter`.
+  
+### Supported metric types
 
-### Supported Metric Types
 1. **Counters:** Counters are continuous and synchronous meters used to track the frequency of events over time. They can only be incremented with positive values, making them ideal for monitoring occurrences such as errors, processed or received bytes, and total requests.
 2. **UpDown Counters:** Similar to counters, UpDown counters can be incremented or decremented by a specified value. They are well-suited for tracking metrics like open connections, active requests, and other fluctuating quantities.
 3. **Histograms:** Histograms are valuable tools for visualizing the distribution of continuous data. They offer insights into central tendency, spread, skewness, and potential outliers. Patterns such as normal distribution, skewed distribution, or bimodal distribution can be readily identified, making histograms ideal for analyzing latency metrics and assessing percentiles.
