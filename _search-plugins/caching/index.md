@@ -13,7 +13,7 @@ OpenSearch relies heavily on different types of on-heap cache to accelerate data
 Prior to version 2.13, OpenSearch supported the following on-heap cache types:
 
 - **Request cache**: Caches the local results on each shard. This allows frequently used (and potentially resource-heavy) search requests to return results almost instantly. 
-- **Query cache**: The shard-level query cache caches common data from similar queries. The query cache is more granular than the request cache and can cache data that is reused between different queries.
+- **Query cache**: The shard-level query cache caches common data from similar queries. The query cache is more granular than the request cache and can cache data that is reused in different queries.
 - **Field data cache**: The field data cache contains field data and global ordinals, which are both used to support aggregations on certain field types.
 
 ## Additional cache stores
@@ -28,5 +28,5 @@ In addition to existing OpenSearch custom on-heap cache stores, cache plugins pr
 - **Disk cache**: This cache stores a precomputed result of a query on disk. You can use disk cache to cache much larger datasets, provided that the disk latencies are acceptable.
 - **Tiered cache**: This is a multi-level cache, in which each tier has its own characteristics and performance levels. For example, a tiered cache can contain on-heap and disk tiers. By combining different tiers, you can achieve a balance between cache performance and size. To learn more, see [Tiered cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/).
 
-In OpenSearch 2.13, request cache is integrated with cache plugins. You can use tiered or disk cache as a request-level cache.
+In OpenSearch 2.13, the request cache is integrated with cache plugins. You can use a tiered or disk cache as a request-level cache.
 {: .note}
