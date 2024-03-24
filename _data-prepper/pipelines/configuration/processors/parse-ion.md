@@ -8,7 +8,7 @@ nav_order: 79
 
 # parse_ion
 
-The `parse_ion` processor takes any nested fields inside an event and parses them into Ion data.
+The `parse_ion` processor parses data which is formatted as [Amazon Ion](https://amazon-ion.github.io/ion-docs/).
 
 ## Configuration
 
@@ -35,7 +35,7 @@ parse-json-pipeline:
     stdin:
   processor:
     - parse_json:
-        pointer: "outer_key/inner_key"
+        source: "my_ion"
   sink:
     - stdout:
 ```
@@ -44,13 +44,13 @@ parse-json-pipeline:
 When the input event contains the following data:
 
 ```
-{"outer_key": {"inner_key": "inner_value"}}
+{"my_ion": "{ion_value1: \"hello\", ion_value2: \"world\"}"}
 ```
 
 The processor will parse the event into the following output:
 
 ```
-{"message": {"outer_key": {"inner_key": "inner_value"}}", "outer_key":{"inner_key":"inner_value"}}
+{"ion_value1": "hello", "ion_value2" : "world"}
 ```
 
 ### Example: Using a JSON pointer
