@@ -53,30 +53,4 @@ The processor will parse the event into the following output:
 {"ion_value1": "hello", "ion_value2" : "world"}
 ```
 
-### Example: Using a JSON pointer
 
-The following example shows how to parse a selection of the ion data using the `pointer` option:
-
-```yaml
-parse-json-pipeline:
-  source:
-    stdin:
-  processor:
-    - parse_json:
-        pointer: "outer_key/inner_key"
-  sink:
-    - stdout:
-```
-{% include copy.html %}
-
-When the input event contains the following data:
-
-```
-{"outer_key": {"inner_key": "inner_value"}}
-```
-
-The processor will parse the event into the following output:
-
-```
-{"message": {"outer_key": {"inner_key": "inner_value"}}", "inner_key": "inner_value"}
-```
