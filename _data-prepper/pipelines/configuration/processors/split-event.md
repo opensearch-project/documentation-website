@@ -43,7 +43,7 @@ When an event contains the following input example:
 {"query" : "open source", "some_other_field" : "abc" }
 ```
 
-The input will be split into multiple events based on the field `query`, as the delimiter set as whitespace, as shown in the following example:
+The input will be split into multiple events based on the field `query`, as the delimiter set as white space, as shown in the following example:
 
 ```
 {"query" : "open", "some_other_field" : "abc" }
