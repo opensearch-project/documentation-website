@@ -12,7 +12,7 @@ The `select_entries` processor selects entries from a Data Prepper event.
 
 ## Configuration
 
-You can configure the `select_entries` processor wusing the following options.
+You can configure the `select_entries` processor using the following options.
 
 | Option | Required | Description |
 | :--- | :--- | :--- |
