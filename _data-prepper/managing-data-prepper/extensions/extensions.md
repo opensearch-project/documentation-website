@@ -11,5 +11,5 @@ nav_order: 18
 Data Prepper extensions Data Prepper functionality outside of core Data Prepper pipeline components.
 Many extensions provide configuration options that give Data Prepper administrators greater flexibility over Data Prepper's functionality.
 
-Extension configurations are available to configure in the `data-prepper-config.yaml` file under the `extensions:` YAML block.
+Extension configurations can be configured in the `data-prepper-config.yaml` file under the `extensions:` YAML block.
 
