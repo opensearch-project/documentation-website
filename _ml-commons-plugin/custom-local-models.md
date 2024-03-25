@@ -324,9 +324,9 @@ The response contains the tokens and weights:
 
 To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
 
-## Question Answering models
+## Question answering models
 
-Question Answering model extracts the answer to the question from a given context. Currently ml-commons supports context in `text` format.
+A question answering model extracts the answer to a question from a given context. ML Commons supports context in `text` format.
 
 To register a question answering model, send a request in the following format. Specify the `function_name` as `QUESTION_ANSWERING`:
 
@@ -356,7 +356,7 @@ POST _plugins/_ml/models/<model_id>/_deploy
 ```
 {% include copy-curl.html %}
 
-To test a question answering, send the following request. It requires a `question` and the relevant `context` from which answer will be generated:
+To test a question answering model, send the following request. It requires a `question` and the relevant `context` from which the answer will be generated:
 
 ```json
 POST /_plugins/_ml/_predict/question_answering/<model_id>
@@ -367,7 +367,7 @@ POST /_plugins/_ml/_predict/question_answering/<model_id>
 ```
 {% include copy-curl.html %}
 
-The response gives the answer based on the context provided:
+The response provides the answer based on the context:
 
 ```json
 {

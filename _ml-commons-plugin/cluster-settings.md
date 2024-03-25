@@ -293,7 +293,7 @@ plugins.ml_commons.model_auto_deploy.enable: false
 
 ### Values
 
-- Default value: true
+- Default value: `true`
 - Valid values: `false`, `true`
 
 ## Enable auto redeploy
@@ -368,7 +368,7 @@ plugins.ml_commons.connector_access_control_enabled: true
 
 ### Values
 
-- Default value: false
+- Default value: `false`
 - Valid values: `false`, `true`
 
 ## Enable a local model
@@ -403,7 +403,7 @@ plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
 
 ## Local model eligible node roles setting
 
-This setting allows a cluster admin to control the types of nodes on which local models can run. The`plugins.ml_commons.only_run_on_ml_node` setting specifies for the model to only run on ML nodes. For a local model, if `plugins.ml_commons.only_run_on_ml_node` is set to `true`, the model will always run on ML nodes. If `plugins.ml_commons.only_run_on_ml_node` is set to `false`, the model will run on nodes defined in the `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model` setting.
+This setting allows a cluster admin to control the types of nodes on which local models can run. The `plugins.ml_commons.only_run_on_ml_node` setting only allows the model to run on ML nodes. For a local model, if `plugins.ml_commons.only_run_on_ml_node` is set to `true`, then the model will always run on ML nodes. If `plugins.ml_commons.only_run_on_ml_node` is set to `false`, then the model will run on nodes defined in the `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model` setting.
 
 ### Setting
 
@@ -417,7 +417,7 @@ plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
 
 ## Enable remote inference
 
-This setting allows a cluster admin to enable remote inference on the cluster. If this setting is `false`, users will not be able to run register, deploy, or predict operations on any externally hosted model or create any connector for remote inference.
+This setting allows a cluster admin to enable remote inference on the cluster. If this setting is `false`, users will not be able to run register, deploy, or predict operations on any externally hosted model or create a connector for remote inference.
 
 ### Setting
 
@@ -432,7 +432,7 @@ plugins.ml_commons.remote_inference.enabled: true
 
 ## Enable agent framework
 
-When set to `true`, this setting enables the agent framework (incuding agents and tools) on the cluster and allows users to run register, execute, delete, get, and search operations on an agent.
+When set to `true`, this setting enables the agent framework (including agents and tools) on the cluster and allows users to run register, execute, delete, get, and search operations on an agent.
 
 ### Setting
 
