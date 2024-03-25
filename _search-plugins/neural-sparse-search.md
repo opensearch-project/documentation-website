@@ -55,6 +55,8 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
 ```
 {% include copy-curl.html %}
 
+To split long text into passages, use the `text_chunking` ingest processor before the `sparse_encoding` processor. For more information, see [Chaining text chunking and embedding processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/#chaining-text-chunking-and-embedding-processors).
+
 ## Step 2: Create an index for ingestion
 
 In order to use the text embedding processor defined in your pipeline, create a rank features index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as [`rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features). Similarly, the `passage_text` field should be mapped as `text`.
