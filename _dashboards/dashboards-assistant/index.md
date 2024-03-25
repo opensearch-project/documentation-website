@@ -10,7 +10,7 @@ Note that machine learning models are probabilistic and that some may perform be
 {: .important}
 
 # OpenSearch Assistant for OpenSearch Dashboards
-**Generally available 2.13**
+**Introduced 2.13**
 {: .label .label-purple }
 
 The OpenSearch Assistant toolkit helps you create AI-powered assistants for OpenSearch Dashboards without requiring you to have specialized query tools or skills.
@@ -45,9 +45,6 @@ Next, restart the OpenSearch Dashboards server. Following a successful restart, 
 A screenshot of the interface is shown in the following image.
 
 <img width="700" src="{{site.url}}{{site.baseurl}}/images/dashboards/opensearch-assistant-full-frame.png" alt="OpenSearch Assistant interface">
-
-For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-{: .note}
 
 ## Configuring OpenSearch Assistant
 

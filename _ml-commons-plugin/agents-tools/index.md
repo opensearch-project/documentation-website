@@ -152,22 +152,6 @@ POST /_plugins/_ml/agents/_register
 It is important to provide thorough descriptions of the tools so that the LLM can decide in which situations to use those tools.
 {: .tip}
 
-## Enabling the feature
-
-To enable agents and tools, configure the following setting:
-
-```yaml
-plugins.ml_commons.agent_framework_enabled: true
-```
-{% include copy.html %}
-
-For conversational agents, you also need to enable RAG for use in conversational search. To enable RAG, configure the following setting:
-
-```yaml
-plugins.ml_commons.rag_pipeline_feature_enabled: true
-```
-{% include copy.html %}
-
 ## Next steps
 
 - For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
