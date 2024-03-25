@@ -18,11 +18,11 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `source` | Yes | String | The source map used to perform the mapping operation. When set to an empty string (`""`), it will use the root of the event as the `source`.
 `target` | Yes | String | The target for the generated list. 
-`key_name` | No | String | The name of the field to hold the original key. Default is `key`.
-`value_name` | No | String |  The name of the field to hold the original value. Default is `value`.
+`key_name` | No | String | The name of the field in which to store the original key. Default is `key`.
+`value_name` | No | String |  The name of the field in which to store the original value. Default is `value`.
 `exclude_keys` | No | List | The keys in the source map that will be excluded from processing. Default is an empty list (`[]`).
 `remove_processed_fields` | No | Boolean | When `true`, the processor will remove the processed fields from the source map. Default is `false`.
-`convert_field_to_list` | No | Boolean | If `true`, the processor will convert the fields from the source map into lists and place them fields in the target list. Default is `false`.
+`convert_field_to_list` | No | Boolean | If `true`, the processor will convert the fields from the source map into lists and place them in fields in the target list. Default is `false`.
 `map_to_list_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. Default is `null`. All events will be processed unless otherwise stated.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
@@ -32,7 +32,7 @@ The following examples show how the `map_to_list` processor can be used in your 
 
 ### Example: Minimum configuration
 
-The following example shows the `map_to_list` processor with only the required parameters `source` and `target` configured. 
+The following example shows the `map_to_list` processor with only the required parameters, `source` and `target`, configured: 
 
 ```yaml
 ...
@@ -164,7 +164,7 @@ When the input event contains the following data:
 }
 ```
 
-The processed event will remove "key2" and "key3" fields the "my-map" object, "key1" will remain, as showing in the following output:
+The processed event will remove the "key2" and "key3" fields, but the "my-map" object, "key1", will remain, as shown in the following output:
 
 ```json
 {
@@ -230,7 +230,7 @@ The processed event will convert all fields into lists, as shown in the followin
 
 ### Example: Use the event root as the source
 
-The following example shows how you can use an event's root as the source by setting the `source` setting to empty string (`""`).:
+The following example shows how you can use an event's root as the source by setting the `source` setting to an empty string (`""`):
 
 ```yaml
 ...
