@@ -8,11 +8,11 @@ nav_order: 59
 
 # select_entries
 
-The `select_entries` processor selects entries from an event.
+The `select_entries` processor selects entries from a Data Prepper event.
 
-### Configuration
+## Configuration
 
-You can configure the `select_entries` processor with the following options.
+You can configure the `select_entries` processor wusing the following options.
 
 | Option | Required | Description |
 | :--- | :--- | :--- |
@@ -21,7 +21,7 @@ You can configure the `select_entries` processor with the following options.
 
 ### Usage
 
-To get started, create the following `pipeline.yaml` file:
+The following example shows how to configure the `select_entries` processor inside of the `pipeline.yaml` file:
 
 ```yaml
 pipeline:
@@ -44,7 +44,7 @@ For example, when your source contains the following event record:
 {"message": "hello", "key1" : "value1", "key2" : "value2", "some_key" : "test"}
 ```
 
-And then you run the `select_entries` processor using the example pipeline, only "key1" and "key2" are selected from the event
+The `select_entries` processor include only `key1` and `key2` in the processed output:
 
 ```json
 {"key1": "value1", "key2": "value2"}
