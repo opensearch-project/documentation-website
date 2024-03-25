@@ -8,7 +8,7 @@ nav_order: 75
 
 # otel_trace
 
-The `otel_trace` processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. 
+The `otel_trace` processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `traceId`. 
 
 ## Parameters
 

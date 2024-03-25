@@ -26,6 +26,7 @@ Boolean
 Dev
 [Dd]iscoverability
 Distro
+[Dd]ownvote(s|d)?
 [Dd]uplicative
 [Ee]gress
 [Ee]num
@@ -77,6 +78,7 @@ Levenshtein
 [Mm]ultiword
 [Nn]amespace
 [Oo]versamples?
+[Oo]nboarding
 pebibyte
 [Pp]erformant
 [Pp]luggable
@@ -106,6 +108,7 @@ pebibyte
 [Ss]erverless
 [Ss]harding
 [Ss]ignificand
+[Ss]napshott(ed|ing)
 stdout
 [Ss]temmers?
 [Ss]ubaggregation
@@ -120,6 +123,7 @@ stdout
 [Ss]ubvector
 [Ss]ubwords?
 [Ss]uperset
+[Ss]yslog
 tebibyte
 [Tt]emplated
 [Tt]okenization
@@ -136,6 +140,7 @@ tebibyte
 [Uu]nregister(s|ed|ing)?
 [Uu]pdatable
 [Uu]psert
+[Uu]pvote(s|d)?
 [Ww]alkthrough
 [Ww]ebpage
 xy

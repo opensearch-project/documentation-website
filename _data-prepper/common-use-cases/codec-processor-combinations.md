@@ -2,7 +2,7 @@
 layout: default
 title: Codec processor combinations
 parent: Common use cases
-nav_order: 25
+nav_order: 10
 ---
 
 # Codec processor combinations

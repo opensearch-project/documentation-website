@@ -18,6 +18,11 @@ As of OpenSearch 2.6, OpenSearch supports local text embedding models.
 
 As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
 
+As of OpenSearch 2.12, OpenSearch supports local cross-encoder models.
+
+Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
+{: .important}
+
 ## Preparing a model
 
 For both text embedding and sparse encoding models, you must provide a tokenizer JSON file within the model zip file.
@@ -152,7 +157,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy.html %}
 
-For a description of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
+For descriptions of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/). The `model_task_type` corresponds to the model type. For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`.
 
 OpenSearch returns the task ID of the register operation:
 
@@ -315,4 +320,4 @@ The response contains the tokens and weights:
 
 ## Step 5: Use the model for search
 
-To learn how to use the model for vector search, see [Set up neural search]({{site.url}}{{site.baseurl}}http://localhost:4000/docs/latest/search-plugins/neural-search/#set-up-neural-search).
+To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).

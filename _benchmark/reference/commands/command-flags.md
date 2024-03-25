@@ -291,3 +291,39 @@ The name and path used for the chart's output. Default is `stdout`.
 <!-- vale on -->
 
 Limits the number of search results for recent test runs. Default is `10`.
+
+<!-- vale off -->
+## latency-percentiles
+<!-- vale on -->
+
+Specifies a comma-separated list of latency percentiles to report after the workload runs. Accepts `ints` or `floats` with values between `0` and `100` inclusive. Does not accept `min`, `median`, `mean`, or `max`. Default is `50,90,99,99.9,99.99,100`. 
+
+<!-- vale off -->
+## throughput-percentiles
+<!-- vale on -->
+
+Specifies a list of throughput percentiles to report after the workload runs, in addition to min/median/mean/max which is always displayed. Like `--latency-percentiles`, the setting accepts `ints` or `floats` with values between `0` and `100` inclusive. Does not accept `min`, `median`, `mean`, or `max`. Default is `None`. 
+
+<!-- vale off -->
+## randomization-enabled
+<!-- vale on -->
+
+Enables randomization of values in range queries, where the values are drawn from standard value functions registered with `register_standard_value_source` in the workload's `workload.py` file. 
+
+A standard value function is a no-argument function that generates a random pair of values for a certain field, in a dict with keys `"gte"`, `"lte"`, and optionally `"format"`. 
+
+If this argument is `True` but a search operation does not have a registered standard value function, OpenSearch Benchmark raises a `SystemSetupError`. 
+
+Default is `False`. 
+
+<!-- vale off -->
+## randomization-repeat-frequency
+<!-- vale on -->
+
+Sets what fraction of randomized query values can be repeated. Takes values between `0.0` and `1.0`. Default is `0.3`. This setting does not work when `--randomization-enabled` is not used. 
+
+<!-- vale off -->
+## randomization-n
+<!-- vale on -->
+
+Sets how many distinct repeatable pair values are generated for each operation when randomization is used. Default is `5000`. This setting does not work when `--randomization-enabled` is not used. 
