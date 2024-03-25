@@ -183,7 +183,7 @@ Field | Data type | Required/Optional | Description
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
 `is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
-`guardrails`| Object | Optional | The guardrails for the model input. For more information, see [Guardrails](#guardrails).|
+`guardrails`| Object | Optional | The guardrails for the model input. For more information, see [Guardrails](#the-guardrails-parameter).|
 
 #### Example request: Externally hosted with a standalone connector
 
@@ -249,7 +249,7 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-### Guardrails
+### The `guardrails` parameter
 
 Guardrails act like safety measures for large language models (LLMs). They provide a set of rules and boundaries that control how an LLM behaves and what kind of outputs it generates. 
 
@@ -297,6 +297,8 @@ POST /_plugins/_ml/models/_register
 }
 ```
 {% include copy-curl.html %}
+
+For an end-to-end example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
 
 #### Example response
 
