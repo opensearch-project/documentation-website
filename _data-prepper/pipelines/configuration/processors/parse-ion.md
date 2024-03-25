@@ -18,8 +18,8 @@ You can configure the `parse_ion` processor with the following options.
 | :--- | :--- | :--- | :--- | 
 | `source` | No | String | The field in the `event` that is parsed. Default value is `message`. |
 | `destination` | No | String | The destination field of the parsed JSON. Defaults to the root of the `event`. Cannot be `""`, `/`, or any white-space-only `string` because these are not valid `event` fields. |
-| `pointer` | No | String | A JSON pointer to the field to be parsed. There is no `pointer` by default, meaning the entire `source` is parsed. The `pointer` can access JSON array indexes as well. If the JSON pointer is invalid then the entire `source` data is parsed into the outgoing `event`. If the key that is pointed to already exists in the `event` and the `destination` is the root, then the pointer uses the entire path of the key. |
-| `tags_on_failure` | No | String | A list of strings which specify the tags to be set in the event when the processors fails or unknown exception occurs while parsing. 
+| `pointer` | No | String | A JSON pointer to the field to be parsed. There is no `pointer` by default, meaning that the entire `source` is parsed. The `pointer` can access JSON array indexes as well. If the JSON pointer is invalid, then the entire `source` data is parsed into the outgoing `event`. If the key that is pointed to already exists in the `event` and the `destination` is the root, then the pointer uses the entire path of the key. |
+| `tags_on_failure` | No | String | A list of strings that specify the tags to be set in the event that the processors fails or an unknown exception occurs while parsing. 
 
 ## Usage
 
