@@ -8,7 +8,7 @@ nav_order: 79
 
 # parse_ion
 
-The `parse_ion` processor parses data which is formatted as [Amazon Ion](https://amazon-ion.github.io/ion-docs/).
+The `parse_ion` processor parses [Amazon Ion](https://amazon-ion.github.io/ion-docs/) data.
 
 ## Configuration
 
