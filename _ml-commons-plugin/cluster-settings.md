@@ -386,7 +386,7 @@ plugins.ml_commons.local_model.enabled: true
 - Default value: `true`
 - Valid values: `false`, `true`
 
-## Remote model eligible node roles
+## Node roles that can run externally hosted models
 
 This setting allows a cluster admin to control the types of nodes on which externally hosted models can run.  
 
@@ -401,7 +401,7 @@ plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
 - Default value: `["data", "ml"]`, which allows externally hosted models to run on data nodes and ML nodes.
 
 
-## Local model eligible node roles setting
+## Node roles that can run local models
 
 This setting allows a cluster admin to control the types of nodes on which local models can run. The `plugins.ml_commons.only_run_on_ml_node` setting only allows the model to run on ML nodes. For a local model, if `plugins.ml_commons.only_run_on_ml_node` is set to `true`, then the model will always run on ML nodes. If `plugins.ml_commons.only_run_on_ml_node` is set to `false`, then the model will run on nodes defined in the `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model` setting.
 
