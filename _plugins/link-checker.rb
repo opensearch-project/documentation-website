@@ -64,6 +64,7 @@ module Jekyll::LinkChecker
     'crates.io', # 404s on bots
     'www.cloudflare.com', # 403s on bots
     'platform.openai.com', # 403s on bots
+    'mvnrepository.com', # 403s on bots
     'example.issue.link' # a fake example link from the template
   ]
 

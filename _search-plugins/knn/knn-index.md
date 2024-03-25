@@ -17,7 +17,7 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `luce
 
 ## Method definitions
 
-A method definition refers to the underlying configuration of the Approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+A method definition refers to the underlying configuration of the approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 
 A method definition will always contain the name of the method, the space_type the method is built for, the engine
 (the library) to use, and a map of parameters.
@@ -33,7 +33,7 @@ Mapping parameter | Required | Default | Updatable | Description
 
 Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
-`hnsw` | false | l2, innerproduct, cosinesimil, l1, linf | Hierarchical proximity graph approach to Approximate k-NN search. For more details on the algorithm, see this [abstract](https://arxiv.org/abs/1603.09320).
+`hnsw` | false | l2, innerproduct, cosinesimil, l1, linf | Hierarchical proximity graph approach to approximate k-NN search. For more details on the algorithm, see this [abstract](https://arxiv.org/abs/1603.09320).
 
 #### HNSW parameters
 
@@ -52,7 +52,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 
 Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
-`hnsw` | false | l2, innerproduct | Hierarchical proximity graph approach to Approximate k-NN search.
+`hnsw` | false | l2, innerproduct | Hierarchical proximity graph approach to approximate k-NN search.
 `ivf` | true | l2, innerproduct | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets is searched.
 
 For hnsw, "innerproduct" is not available when PQ is used.
@@ -90,8 +90,8 @@ Training data can be composed of either the same data that is going to be ingest
 ### Supported Lucene methods
 
 Method name | Requires training | Supported spaces | Description
-:--- | :--- | :--- | :---
-`hnsw` | false | l2, cosinesimil | Hierarchical proximity graph approach to Approximate k-NN search.
+:--- | :--- |:--------------------------------------------------------------------------------| :---
+`hnsw` | false | l2, cosinesimil, innerproduct (supported in OpenSearch 2.13 and later) | Hierarchical proximity graph approach to approximate k-NN search.
 
 #### HNSW parameters
 
@@ -208,8 +208,8 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 
 Paramater Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`m` | false | 1 | false |  Determine how many many sub-vectors to break the vector into. sub-vectors are encoded independently of each other. This dimension of the vector must be divisible by `m`. Max value is 1024.
-`code_size` | false | 8 | false | Determines the number of bits to encode a sub-vector into. Max value is 8. **Note** --- for IVF, this value must be less than or equal to 8. For HNSW, this value can only be 8.
+`m` | false | 1 | false |  Determines the number of subvectors into which to break the vector. Subvectors are encoded independently of each other. This dimension of the vector must be divisible by `m`. Maximum value is 1,024.
+`code_size` | false | 8 | false | Determines the number of bits into which to encode a subvector. Maximum value is 8. For IVF, this value must be less than or equal to 8. For HNSW, this value can only be 8.
 
 ### Choosing the right method
 
@@ -259,7 +259,7 @@ At the moment, several parameters defined in the settings are in the deprecation
 
 Setting | Default | Updatable | Description
 :--- | :--- | :--- | :---
-`index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but Approximate k-NN search functionality will be disabled.
+`index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
 `index.knn.algo_param.ef_search` | 100 | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB.
 `index.knn.algo_param.ef_construction` | 100 | false | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
 `index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
