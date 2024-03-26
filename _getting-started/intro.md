@@ -98,21 +98,39 @@ When searching for documents, you need to make sure that the word is _relevant_.
 
 Then, the relevance of a word is calculated as $$ relevance = { \text {term frequency} \over \text {document frequency} }. $$
 
+OpenSearch scores the results in terms of relevance and returns them sorted by relevance.
+
 ## Clusters and nodes
 
-Its distributed design means that you interact with OpenSearch *clusters*. Each cluster is a collection of one or more *nodes*, servers that store your data and process search requests.
+OpenSearch is designed to be a distributed search engine. OpenSearch can run on one or more *nodes*, servers that store your data and process search requests. An OpenSearch *cluster* is a collection of nodes. 
 
 You can run OpenSearch locally on a laptop---its system requirements are minimal---but you can also scale a single cluster to hundreds of powerful machines in a data center.
 
-In a single node cluster, such as a laptop, one machine has to do everything: manage the state of the cluster, index and search data, and perform any preprocessing of data prior to indexing it. As a cluster grows, however, you can subdivide responsibilities. Nodes with fast disks and plenty of RAM might be great at indexing and searching data, whereas a node with plenty of CPU power and a tiny disk could manage cluster state. For more information about setting node types, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+In a single-node cluster, such as a laptop, one machine has to do everything: manage the state of the cluster, index and search data, and perform any preprocessing of data prior to indexing it. As a cluster grows, however, you can subdivide responsibilities. Nodes with fast disks and plenty of RAM might be great at indexing and searching data, whereas a node with plenty of CPU power and a tiny disk could manage cluster state. 
+
+In each cluster, there is an elected _cluster manager_ node, which orchestrates cluster-level operations, such as creating an index. Nodes communicate with each other, so if your request is routed to a node, that node sends requests to appropriate nodes, gathers the nodes' responses, and returns the final response.
+
+For more information about setting node types, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+
+## Shards
+
+OpenSearch splits indexes into *shards*. Each shard stores a subset of all documents in an index, as shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/intro/index-shard.png" alt="An index is split into shards" width="450">
+
+Shards are used for even distribution across nodes in a cluster. For example, a 400-GB index might be too large for any single node in your cluster to handle, but split into ten shards, each one 40 GB, OpenSearch can distribute the shards across ten nodes and work with each shard individually. When you index documents into OpenSearch, the documents are directed to a particular shard, and shards can reside on different nodes in a cluster. For example, consider a cluster with two indexes: index 1 and index 2. Index 1 is split into 2 shards, and index 2 is split into 4 shards. The shards are distributed across nodes 1 and 2, as shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/intro/cluster.png" alt="A cluster containing two indexes and two nodes" width="650">
+
+Despite being a piece of an OpenSearch index, each shard is actually a full Lucene index---confusing, we know. This detail is important, though, because each instance of Lucene is a running process that consumes CPU and memory. More shards is not necessarily better. Splitting a 400 GB index into 1,000 shards, for example, would place needless strain on your cluster. A good rule of thumb is to keep shard size as 10--50 GB.
 
 ## Primary and replica shards
 
-OpenSearch splits indexes into *shards* for even distribution across nodes in a cluster. For example, a 400 GB index might be too large for any single node in your cluster to handle, but split into ten shards, each one 40 GB, OpenSearch can distribute the shards across ten nodes and work with each shard individually.
+In OpenSearch, shards may be _primary_ (the original) or _replica_ (a copy). By default, OpenSearch creates a replica shard for each primary shard. Thus, if you split your index into ten shards, OpenSearch creates ten replica shards. For example, consider a cluster described in the previous section. If you add one replica for each shard of each index in the cluster, your cluster will contain a total of 2 shards and 2 replicas for index 1 and 4 shards and 4 replicas for index 2, as shown in the following image. 
 
-By default, OpenSearch creates a *replica* shard for each *primary* shard. If you split your index into ten shards, for example, OpenSearch also creates ten replica shards. These replica shards act as backups in the event of a node failure---OpenSearch distributes replica shards to different nodes than their corresponding primary shards---but they also improve the speed and rate at which the cluster can process search requests. You might specify more than one replica per index for a search-heavy workload.
+<img src="{{site.url}}{{site.baseurl}}/images/intro/cluster-replicas.png" alt="A cluster containing two indexes with one replica shard for each shard in the index" width="700">
 
-Despite being a piece of an OpenSearch index, each shard is actually a full Lucene index---confusing, we know. This detail is important, though, because each instance of Lucene is a running process that consumes CPU and memory. More shards is not necessarily better. Splitting a 400 GB index into 1,000 shards, for example, would place needless strain on your cluster. A good rule of thumb is to keep shard size between 10--50 GB.
+These replica shards act as backups in the event of a node failure---OpenSearch distributes replica shards to different nodes than their corresponding primary shards---but they also improve the speed at which the cluster processes search requests. You might specify more than one replica per index for a search-heavy workload.
 
 ## Advanced concepts
 
