@@ -1303,7 +1303,7 @@ Introduced 2.13
 
 Checks the configuration bundled with the Security plugin against the existing security configuration, returns if an upgrade can be performed and what resources would be updated.
 
-Between new OpenSearch version new defaults to the security configuration are added.  This endpoint helps cluster operators check if the cluster is missing defaults or has stale definitions of defaults. 
+Between new OpenSearch versions, there are changes to the default security configuration.  This endpoint helps cluster operators check if the cluster is missing defaults or has stale definitions of defaults.
 {: .note}
 
 #### Request
@@ -1342,8 +1342,6 @@ Adds and updates resources on the existing security configuration from the confi
 
 These bundled configuration files can be found in the `<OPENSEARCH_HOME>/security/config` directory.  Default configuration files are updated on OpenSearch upgrade, whereas the cluster configuration is only updated by the cluster operators.  This endpoint helps cluster operators upgrade missing defaults and stale defaults definitions. 
 
-Between new OpenSearch version new defaults to the security configuration are added. This endpoint helps cluster operators check if the cluster is missing default roles or has stale definitions of default roles. 
-{: .note}
 
 #### Request
 
