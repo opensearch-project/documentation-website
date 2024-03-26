@@ -1302,7 +1302,7 @@ PATCH _plugins/_security/api/securityconfig
 Introduced 2.13
 {: .label .label-purple }
 
-Checks the cuurent configuration bundled with the host's Security plugin and compares it to the latest Security plugin bundled with OpenSearch. Then the API returns whether or not can be performed and what resources can be updated.
+Checks the current configuration bundled with the host's Security plugin and compares it to the latest Security plugin bundled with OpenSearch. Then, the API returns whether or not can an upgrade can be performed and what resources can be updated.
 
 With each new OpenSearch version, there are changes to the default security configuration. This endpoint helps cluster operators determine whether the cluster is missing defaults or has stale definitions of defaults.
 {: .note}
