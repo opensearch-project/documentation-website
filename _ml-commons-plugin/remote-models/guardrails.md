@@ -182,8 +182,8 @@ POST /_plugins/_ml/models/_register?deploy=true
         }
       ],
       "regex": [
-        "regex1",
-        "regex2"
+        ".*abort.*",
+        ".*kill.*"
       ]
     }
   }
@@ -234,11 +234,31 @@ To demonstrate how guardrails are applied, first run the predict operation that 
 POST /_plugins/_ml/models/p94dYo4BrXGpZpgPp98E/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:hello\n\nnAssistant:"
+    "prompt": "\n\nHuman:this is a test\n\nnAssistant:"
   }
 }
 ```
 {% include copy-curl.html %}
+
+The response contains inference results:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "dataAsMap": {
+            "response": " Thank you for the test, I appreciate you taking the time to interact with me. I'm an AI assistant created by Anthropic to be helpful, harmless, and honest."
+          }
+        }
+      ],
+      "status_code": 200
+    }
+  ]
+}
+```
 
 Then run the predict operation that contains excluded words:
 
@@ -251,6 +271,24 @@ POST /_plugins/_ml/models/p94dYo4BrXGpZpgPp98E/_predict
 }
 ```
 {% include copy-curl.html %}
+
+The response contains an error message because guardrails were triggered:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "illegal_argument_exception",
+        "reason": "guardrails triggered for user input"
+      }
+    ],
+    "type": "illegal_argument_exception",
+    "reason": "guardrails triggered for user input"
+  },
+  "status": 400
+}
+```
 
 ## Next steps
 
