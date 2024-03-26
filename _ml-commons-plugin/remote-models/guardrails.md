@@ -168,8 +168,8 @@ POST /_plugins/_ml/models/_register?deploy=true
         }
       ],
       "regex": [
-        "regex1",
-        "regex2"
+        ".*abort.*",
+        ".*kill.*"
       ]
     },
     "output_guardrail": {
@@ -289,6 +289,8 @@ The response contains an error message because guardrails were triggered:
   "status": 400
 }
 ```
+
+The guardrails are also triggered when a prompt matches the supplied regular expression.
 
 ## Next steps
 
