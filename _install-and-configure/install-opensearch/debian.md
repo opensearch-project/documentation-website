@@ -528,7 +528,7 @@ OpenSearch instances installed using `dpkg` or `apt-get` can be easily upgraded 
 
 ### Manual upgrade with DPKG 
 
-Download the Debian package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+Download the Debian package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
 ```bash
@@ -547,6 +547,15 @@ sudo apt-get upgrade opensearch
 You can also upgrade to a specific OpenSearch version:
 ```bash
 sudo apt-get upgrade opensearch=<version>
+```
+{% include copy.html %}
+
+### Automatically restart the service after a package upgrade (2.13.0+)
+
+To automatically restart OpenSearch after a package upgrade, enable the `opensearch.service` through `systemd`:
+
+```bash
+sudo systemctl enable opensearch.service
 ```
 {% include copy.html %}
 

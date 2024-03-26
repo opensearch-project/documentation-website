@@ -2,7 +2,7 @@
 layout: default
 title: Event aggregation
 parent: Common use cases
-nav_order: 40
+nav_order: 25
 ---
 
 # Event aggregation
