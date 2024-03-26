@@ -7,11 +7,11 @@ nav_order: 45
 
 # Google Workspace
 
-The `gworkspace` log types monitors Google Workspace log entries such as the following:
+The `gworkspace` log type monitors Google Workspace log entries, such as the following:
 
 - Admin actions
 - Group and group membership actions
-- Any event related to log ins.
+- Events related to logins
 
 The following code snippet contains all the `raw_field` and `ecs` mappings for this log type:
 

@@ -9,7 +9,7 @@ redirect_from:
 
 # Supported log types
 
-Logs contain raw data about events that happen throughout a system and within its separate parts. This reference describes each standard log type supported by Security Analytics and the automatic mappings they contain.
+Logs contain raw data about events that happen throughout a system and within its separate parts. This reference describes the standard log types supported by Security Analytics and the automatic mappings they contain.
 
 For more information about field mappings, refer to the [About field mappings]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types#about-field-mappings) section in the [Working with log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) documentation. 
 

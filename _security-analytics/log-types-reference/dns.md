@@ -9,7 +9,7 @@ nav_order: 35
 
 The `dns` log type stores DNS activity.
 
-The following code snippet contains all the `raw_field`, `ecs`, and `oscf` mappings for this log type:
+The following code snippet contains all the `raw_field`, `ecs`, and `ocsf` mappings for this log type:
 
 ```json
  "mappings": [

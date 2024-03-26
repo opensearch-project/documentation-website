@@ -9,7 +9,7 @@ nav_order: 28
 
 The `cloudtrail` log type monitors events from an [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) account. OpenSearch can ingest AWS CloudTrail log data from both [Amazon Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (Amazon S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) service accounts.
 
-The following code snippet contains all the `raw_field`, `ecs`, and `oscf` mappings for this log type:
+The following code snippet contains all the `raw_field`, `ecs`, and `ocsf` mappings for this log type:
 
 ```json
   "mappings": [

@@ -7,7 +7,7 @@ nav_order: 110
 
 # Other log type mappings
 
-Security analytics supports field mappings that are not specific to a single service or system. These mapping types are separated into the following categories: 
+Security Analytics supports field mappings that are not specific to a single service or system. These mapping types are separated into the following categories: 
 
 - Application: Records application logs.
 - Advanced Persistent Threat (APT): Records logs commonly associated with APT attacks.
