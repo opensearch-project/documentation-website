@@ -155,7 +155,7 @@ Parameter | Description
 `size` | An optional limit for the maximum number of results returned in the response. Optional.
 `startIndex` | The pagination indicator. Optional.
 `detectionType` |  The detection rule type that dictates the retrieval type for the findings. When the detection type is `threat`, it fetches threat intelligence feeds. When the detection type is `rule`, findings are fetched based on the detector's rule. Optional.
-`severity` |  The severity of the detector rule used to fetch alerts. Severity can be `critical`, `high`, `medium`, or `low`. Optional
+`severity` |  The severity of the detector rule used to fetch alerts. Severity can be `critical`, `high`, `medium`, or `low`. Optional.
 
 ### Example request
 
