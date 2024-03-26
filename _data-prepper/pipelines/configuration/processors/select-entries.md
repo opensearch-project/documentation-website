@@ -8,7 +8,7 @@ nav_order: 59
 
 # select_entries
 
-The `select_entries` processor selects entries from a Data Prepper event.
+The `select_entries` processor selects entries from a Data Prepper event. Only the selected entries will remain in the event and all other entries will be removed from the event.
 
 ## Configuration
 

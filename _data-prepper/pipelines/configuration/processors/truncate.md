@@ -17,7 +17,7 @@ You can configure the `truncate` processor using the following options.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `entries` | Yes | String list | A list of entries to add to an event.
-`source_keys` | Yes | String list | The list of sources keys that will be modified by the processor.
+`source_keys` | No | String list | The list of sources keys that will be modified by the processor. The default value is an empty list which indicates truncating all values.
 `truncate_when` | No | Conditional expression | A condition that, when met, determines when the truncate operation is performed. 
 `start_at` | No | Integer | Where inside the string value to start the truncation process. Default is `0`, which means the truncation of each key's value starts at the beginning.
 `length` | No | Integer| The length of the string after truncation. When not specified, the processor will measure the length based on where the string ends.
