@@ -69,6 +69,8 @@ PUT /words0/_doc/2?refresh
 ```
 {% include copy-curl.html %}
 
+For more query string options, see [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/).
+
 ## Step 3: Register a model group
 
 To register a model group, send the following request:
