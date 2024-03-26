@@ -1263,20 +1263,20 @@ The `resource_usage_stats` object contains the resource usage statistics. Each e
 Field | Field type | Description
 :--- |:-----------| :---
 timestamp | Integer    | The last refresh time for the resource usage statistics, in milliseconds since the epoch.
-cpu_utilization_percent | Float      | Statistics for the average CPU usage of OpenSearch process within the time period configured in the `node.resource.tracker.global_cpu_usage.window_duration` setting.
+cpu_utilization_percent | Float      | Statistics for the average CPU usage of any OpenSearch processes within the time period configured in the `node.resource.tracker.global_cpu_usage.window_duration` setting.
 memory_utilization_percent | Float      | The node JVM memory usage statistics within the time period configured in the `node.resource.tracker.global_jvmmp.window_duration` setting.
-max_io_utilization_percent  | Float     |  Statistics for the average IO usage of OpenSearch process within the time period configured in the `node.resource.tracker.global_io_usage.window_duration` setting(Linux only).
+max_io_utilization_percent  | Float     |  (Linux only) Statistics for the average IO usage of any OpenSearch processes within the time period configured in the `node.resource.tracker.global_io_usage.window_duration` setting.
 
 ### `admission_control`
 
 The `admission_control` object contains the rejection count of search and indexing requests based on resource consumption and has the following properties.
 
 Field | Field type | Description
-:--- | :---------- | :---
-admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was breached. In this case, additional search requests are rejected until the system recovers. The threshold limit is configured in the `admission_control.search.cpu_usage.limit` setting.
-admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was breached. In this case, additional indexing requests are rejected until the system recovers. The threshold limit is configured in the `admission_control.indexing.cpu_usage.limit` setting.
-admission_control.global_io_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node IO usage limit was breached. In this case, additional search requests are rejected until the system recovers. The threshold limit is configured in the `admission_control.search.io_usage.limit` setting (Linux only).
-admission_control.global_io_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node IO usage limit was breached. In this case, additional indexing requests are rejected until the system recovers. The threshold limit is configured in the `admission_control.indexing.io_usage.limit` setting (Linux only).
+:--- | :--- | :---
+admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was met. In this case, additional search requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.search.cpu_usage.limit` setting.
+admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was met. Any additional indexing requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.indexing.cpu_usage.limit` setting.
+admission_control.global_io_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node IO usage limit was met. Any additional search requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.search.io_usage.limit` setting (Linux only).
+admission_control.global_io_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node IO usage limit was met. Any additional indexing requests are rejected until the system recovers. The IO usage limit is configured in the `admission_control.indexing.io_usage.limit` setting (Linux only).
 
 ## Required permissions
 
