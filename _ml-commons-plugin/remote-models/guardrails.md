@@ -16,6 +16,10 @@ Guardrails can guide a large language model (LLM) toward desired behavior. They 
 
 To configure guardrails for your LLM, you can provide a list of words that are prohibited in the input or output of the model. Alternatively, you can provide a regular expression against which the model input or output will be matched.
 
+## Prerequisites
+
+Before you start, make sure you have fulfilled the [prerequisites]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/#prerequisites) for connecting to an externally hosted model.
+
 ## Step 1: Create a guardrail index
 
 To start, create an index that will hold the excluded words (_stopwords_). In the index settings, specify for the index to contain a `title` field, which will contain excluded words, and a `query` field, which is of the [percolator]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) type. The percolator query will be used to match the LLM input or output:
