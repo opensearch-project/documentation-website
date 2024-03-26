@@ -12,7 +12,7 @@ grand_parent: Integrating ML models
 **Introduced 2.13**
 {: .label .label-purple }
 
-Guardrails can guide a large language model (LLM) towards desired behaviors. They act as a filter, preventing the LLM from generating outputs that are harmful or violate ethical principles and facilitating a safe user of AI. Guardrails also steer the LLM to produce more focused and relevant outputs. 
+Guardrails can guide a large language model (LLM) toward desired behavior. They act as a filter, preventing the LLM from generating outputs that are harmful or violate ethical principles and facilitating a safer use of AI. Guardrails also steer the LLM to produce a more focused and relevant output. 
 
 To configure guardrails for your LLM, you can provide a list of words that are prohibited in the input or output of the model. Alternatively, you can provide a regular expression against which the model input or output will be matched.
 
@@ -146,31 +146,41 @@ To register an externally hosted model, provide the model group ID from step 3 a
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Bedrock Claude V2 model",
-    "function_name": "remote",
-    "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
-    "description": "test model",
-    "connector_id": "a1eMb4kBJ1eYAeTMAljY-A",
-    "guardrails": {
-        "input_guardrail": {
-            "stop_words": [
-                {
-                    "index_name": "words0",
-                    "source_fields": ["title"]
-                }
-            ],
-            "regex": ["regex1", "regex2"]
-        },
-        "output_guardrail": {
-            "stop_words": [
-                {
-                    "index_name": "words0",
-                    "source_fields": ["title"]
-                }
-            ],
-            "regex": ["regex1", "regex2"]
+  "name": "Bedrock Claude V2 model",
+  "function_name": "remote",
+  "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
+  "description": "test model",
+  "connector_id": "a1eMb4kBJ1eYAeTMAljY",
+  "guardrails": {
+    "input_guardrail": {
+      "stop_words": [
+        {
+          "index_name": "words0",
+          "source_fields": [
+            "title"
+          ]
         }
+      ],
+      "regex": [
+        "regex1",
+        "regex2"
+      ]
+    },
+    "output_guardrail": {
+      "stop_words": [
+        {
+          "index_name": "words0",
+          "source_fields": [
+            "title"
+          ]
+        }
+      ],
+      "regex": [
+        "regex1",
+        "regex2"
+      ]
     }
+  }
 }
 ```
 {% include copy-curl.html %}
