@@ -50,7 +50,7 @@ PUT /words0/_doc/1?refresh
 {
   "query": {
     "query_string": {
-      "query": "title: \"Black day blacklist\""
+      "query": "title: blacklist"
     }
   }
 }
