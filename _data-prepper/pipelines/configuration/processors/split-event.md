@@ -3,7 +3,7 @@ layout: default
 title: split-event
 parent: Processors
 grand_parent: Pipelines
-nav_order: 56
+nav_order: 96
 ---
 
 # split-event

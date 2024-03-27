@@ -3,7 +3,7 @@ layout: default
 title: Grok
 parent: Processors
 grand_parent: Pipelines
-nav_order: 55
+nav_order: 50
 ---
 
 # Grok
