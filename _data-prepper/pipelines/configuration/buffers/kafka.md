@@ -44,7 +44,7 @@ Option | Required | Type | Description
 `authentication` | No | [Authentication](#authentication) | Sets the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
 `aws` | No | [AWS](#aws) | The AWS configuration. For more information, see [aws](#aws).
 `bootstrap_servers` | Yes | String list | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or the port number for each broker. When using [Amazon Managed Streaming for Apache Kafka (Amazon MSK)](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from Amazon MSK using the Amazon Resource Name (ARN) provided in the configuration.
-`encryption` | No | [Encryption](#encryption) | The encryption configuration for encryptions in transit. For more information, see [Encryption](#encryption).
+`encryption` | No | [Encryption](#encryption) | The encryption configuration for encryption in transit. For more information, see [Encryption](#encryption).
 `producer_properties` | No | [Producer Properties](#producer_properties) | A list of configurable Kafka producer properties. 
 `topics` | Yes | List | A list of [topics](#topic) for the buffer to use. You must supply one topic per buffer.
 
