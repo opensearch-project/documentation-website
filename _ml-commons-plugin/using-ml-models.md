@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # Using ML models within OpenSearch
-**Generally available 2.9**
+**Introduced 2.9**
 {: .label .label-purple }
 
 To integrate machine learning (ML) models into your OpenSearch cluster, you can upload and serve them locally. Choose one of the following options:

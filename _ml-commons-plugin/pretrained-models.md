@@ -7,7 +7,7 @@ nav_order: 120
 ---
 
 # OpenSearch-provided pretrained models
-**Generally available 2.9**
+**Introduced 2.9**
 {: .label .label-purple }
 
 OpenSearch provides a variety of open-source pretrained models that can assist with a range of machine learning (ML) search and analytics use cases. You can upload any supported model to the OpenSearch cluster and use it locally.

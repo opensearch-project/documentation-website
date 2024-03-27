@@ -7,11 +7,8 @@ nav_order: 20
 ---
 
 # Get an agent
-**Introduced 2.12**
+**Introduced 2.13**
 {: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 You can retrieve agent information using the `agent_id`.
 

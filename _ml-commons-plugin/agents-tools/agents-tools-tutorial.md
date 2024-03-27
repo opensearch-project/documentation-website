@@ -7,11 +7,8 @@ nav_order: 10
 ---
 
 # Agents and tools tutorial
-**Introduced 2.12**
+**Introduced 2.13**
 {: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 The following tutorial illustrates creating a flow agent for retrieval-augmented generation (RAG). A flow agent runs its configured tools sequentially, in the order specified. In this example, you'll create an agent with two tools:
 
