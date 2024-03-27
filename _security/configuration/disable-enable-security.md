@@ -10,7 +10,7 @@ redirect_from:
 
 # Disabling and enabling the Security plugin
 
-The Security plugin is installed by default with OpenSearch, but you can temporarily disable it or remove it altogether. Disabling the plugin involves a change to the `opensearch.yml` file, and you may want to do this to streamline testing. A more substantive change is to remove the Security plugin completely. You might want to remove it if, for example, you have your own security solution or need to remove it for development purposes. 
+The Security plugin is installed by default when using OpenSearch, but you can temporarily disable it or remove it altogether. Disabling the plugin involves a change to the `opensearch.yml` file, and you may want to do this to streamline testing. A more substantive change is to remove the Security plugin completely. You might want to remove it if, for example, you have your own security solution or need to remove it for development purposes. 
 
 Disabling or removing the plugin exposes the configuration index for the Security plugin. If the index contains sensitive information, be sure to protect it through some other means. If you no longer need the index, delete it.
 {: .warning }
