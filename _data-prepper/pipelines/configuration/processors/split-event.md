@@ -12,11 +12,11 @@ The `split-event` processor is used to split events based on a delimiter and gen
 
 ## Configuration
 
-The following table describes the configuration options for the `split-event`
+The following table describes the configuration options for the `split-event` processor.
 
 | Option           | Type    | Description                                                                                   |
 |------------------|---------|-----------------------------------------------------------------------------------------------|
-| `field`          | String  | The field in the event to be split.                                                           |
+| `field`          | String  | The event field to be split.                                                           |
 | `delimiter_regex`| String  | The regular expression used as the delimiter for splitting the field.                         |
 | `delimiter`      | String  | The delimiter used for splitting the field. If not specified, the default delimiter is used.  |
 
@@ -37,13 +37,13 @@ split-event-pipeline:
 ```
 {% include copy.html %}
 
-When an event contains the following input example:
+When an event contains the following example input:
 
 ```
 {"query" : "open source", "some_other_field" : "abc" }
 ```
 
-The input will be split into multiple events based on the field `query`, as the delimiter set as white space, as shown in the following example:
+The input will be split into multiple events based on the `query` field, with the delimiter set as white space, as shown in the following example:
 
 ```
 {"query" : "open", "some_other_field" : "abc" }
