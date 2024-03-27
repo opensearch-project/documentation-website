@@ -22,19 +22,17 @@ You can use the cross-cluster search feature in OpenSearch to search and analyze
 
 ## Authentication flow
 
-When accessing a *remote cluster* from a *coordinating cluster* using cross-cluster search:
+The following sequence describes the authentication flow when using cross-cluster search to access a *remote cluster* from a *coordinating cluster*. You can have different authentication and authorization configurations on the remote and coordinating cluster, but we recommend using the same settings on both.
 
 1. The Security plugin authenticates the user on the coordinating cluster.
 1. The Security plugin fetches the user's backend roles on the coordinating cluster.
 1. The call, including the authenticated user, is forwarded to the remote cluster.
 1. The user's permissions are evaluated on the remote cluster.
 
-You can have different authentication and authorization configurations on the remote and coordinating cluster, but we recommend using the same settings on both.
-
 
 ## Setting permissions
 
-To query indexes on remote clusters, users need to have `READ` or `SEARCH` permissions. Furthermore, when the search request includes the query parameter `ccs_minimize_roundtrips=false` – which tells OpenSearch not to minimize outgoing and incoming requests to remote clusters – users need to have the following additional permission for the index:
+To query indexes on remote clusters, users must have `READ` or `SEARCH` permissions. Furthermore, when the search request includes the query parameter `ccs_minimize_roundtrips=false` – which tells OpenSearch not to minimize outgoing and incoming requests to remote clusters – users need to have the following additional permission for the index:
 
 ```
 indices:admin/shards/search_shards
@@ -42,7 +40,7 @@ indices:admin/shards/search_shards
 
 For more information about the `ccs_minimize_roundtrips` parameter, see the list of [URL Parameters]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) for the Search API.
 
-#### Sample roles.yml configuration
+#### Example roles.yml configuration
 
 ```yml
 humanresources:
@@ -56,7 +54,7 @@ humanresources:
 ```
 
 
-#### Sample role in OpenSearch Dashboards
+#### Example role in OpenSearch Dashboards
 
 ![OpenSearch Dashboards UI for creating a cross-cluster search role]({{site.url}}{{site.baseurl}}/images/security-ccs.png)
 
