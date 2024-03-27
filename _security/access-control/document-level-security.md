@@ -18,7 +18,7 @@ Use the following steps to get started with document-level and field-level secur
 2. Choose **Security** > **Roles**.
 3. Select **Create Role** and provide a name for the role.
 4. Review the **Index permissions** section and any necessary [index permissions](https://opensearch.org/docs/latest/security/access-control/permissions/) for the role. 
-5. Add document-level security, with the addition of a Domain Specific Language (DSL) query inside the `Document level security - optional` section. A typical request sent to the `_search` API includes `{ "query": { ... } }` around the query, but with document-level security in OpenSearch Dashboards, you only need to specify the query itself. For example, the following DSL query specifies that for the new role to have access to a document, the query's `genres` field must include `Comedy`:
+5. Add document-level security, with the addition of a domain-specific language (DSL) query in the `Document level security - optional` section. A typical request sent to the `_search` API includes `{ "query": { ... } }` around the query, but with document-level security in OpenSearch Dashboards, you only need to specify the query itself. For example, the following DSL query specifies that for the new role to have access to a document, the query's `genres` field must include `Comedy`:
 
    ```json
    {
