@@ -11,15 +11,15 @@ redirect_from:
 # Document-level security (DLS)
 
 Document-level security lets you restrict a role to a subset of documents in an index.
-For more information about users and roles in OpenSearch, see the [documentation](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles).
+For more information about OpenSearch users and roles, see the [documentation](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles).
 
 Use the following steps to get started with document-level and field-level security:
 1. Open OpenSearch Dashboards.
-2. Choose **Security** > **Roles**
+2. Choose **Security** > **Roles**.
 3. Select **Create Role** and provide a name for the role.
 4. Review the **Index permissions** section and any necessary [index permissions](https://opensearch.org/docs/latest/security/access-control/permissions/) for the role. 
-5. Add document-level security with the addition of a DSL query inside the `Document level security - optional` section.  A typical request to the `_search` API includes the `{ "query": { ... } }` around the query, but when Document-level security in OpenSearch Dashboards, you only need to specify the query itself. For example, the following DSL query specifies that for the new role to have access to a document, the query's `genres` field must include `Comedy`:
-   - For example, the following DSL could be added in the `Document level security - optional` text box.
+5. Add document-level security, with the addition of a Domain Specific Language (DSL) query inside the `Document level security - optional` section. A typical request sent to the `_search` API includes `{ "query": { ... } }` around the query, but with document-level security in OpenSearch Dashboards, you only need to specify the query itself. For example, the following DSL query specifies that for the new role to have access to a document, the query's `genres` field must include `Comedy`:
+   - For example, the following DSL query can be entered in the `Document level security - optional` text box.
    - This query specifies that for the role to have access to a document, its `genres` field must include `Comedy`
    - A typical request to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
    ```json
@@ -36,7 +36,7 @@ Use the following steps to get started with document-level and field-level secur
 
    - ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
-## Updating roles by accessing the Rest API 
+## Updating roles by accessing the REST API 
 
 In the REST API, you provide the query as a string, so you must escape your quotes. This role allows a user to read any document in any index with the field `public` set to `true`:
 
