@@ -84,7 +84,7 @@ The script responds with a confirmation that the keystore password was set succe
 OpenSearch keystore password changed successfully.
 ```
 
-When starting OpenSearch you will be prompted to enter the keystore password. Alternatively, you can set the environment variable KEYSTORE_PASSWORD to avoid be prompted for password on startup.
+When starting OpenSearch you will be prompted to enter the keystore password. Alternatively, you can set the environment variable KEYSTORE_PASSWORD to avoid being prompted for password on startup.
 {: .note}
 
 ### Listing settings in the keystore
