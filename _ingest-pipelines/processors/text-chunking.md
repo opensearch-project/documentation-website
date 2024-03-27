@@ -226,7 +226,7 @@ POST _ingest/pipeline/text-chunking-embedding-ingest-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
+**Response**
 
 The response confirms that, in addition to the `passage_text` and `passage_chunk` fields, the processor has generated text embeddings for each of the three passages in the `passage_chunk_embedding` field. The embedding vectors are stored in the `knn` field for each chunk:
 
@@ -265,7 +265,71 @@ The response confirms that, in addition to the `passage_text` and `passage_chunk
 }
 ```
 
-Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-3-ingest-documents-into-the-index) of the [neural sparse search documentation]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+**Step 3: Create an index for ingestion**
+
+In order to use the ingest pipeline, you need to create a k-NN index. Continuing with the example, the `passage_chunk_embedding` field must be configured as nested type with `knn` field matching the model dimension.
+
+```json
+PUT testindex
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "text": {
+        "type": "text"
+      },
+      "passage_chunk_embedding": {
+        "type": "nested",
+        "properties": {
+          "knn": {
+            "type": "knn_vector",
+            "dimension": 768
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Step 4: Ingest documents into the index**
+
+To ingest documents into the index created in the previous step, send the following requests:
+
+```json
+POST testindex/_doc?pipeline=text-chunking-embedding-ingest-pipeline
+{
+  "passage_text": "This is an example document to be chunked. The document contains a single paragraph, two sentences and 24 tokens by standard tokenizer in OpenSearch."
+}
+```
+
+**Step 5: Search the index using neural search**
+
+You can use nested query to perform vector search on your index. We recommend using `max` as the `score_mode`, where the document score takes the maximum among embedding from each passage.
+
+```json
+GET testindex/_search
+{
+  "query": {
+    "nested": {
+      "score_mode": "max",
+      "path": "passage_chunk_embedding",
+      "query": {
+        "neural": {
+          "passage_chunk_embedding.knn": {
+            "query_text": "document",
+            "model_id": "-tHZeI4BdQKclr136Wl7"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ## Cascaded text chunking processors
 
