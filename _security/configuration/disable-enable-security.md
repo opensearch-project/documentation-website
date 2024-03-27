@@ -30,7 +30,7 @@ You can completely remove the Security plugin from your OpenSearch instance. Not
 
 ### Removing the Security plugin from OpenSearch
 
-Do the following to remove the plugin from the OpenSearch core.
+Do the following to remove the plugin from the OpenSearch.
 
 1. Delete the `plugins/opensearch-security` folder on all nodes.
 1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
