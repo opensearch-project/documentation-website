@@ -15,6 +15,9 @@ The Security plugin is installed by default when using OpenSearch, but you can t
 Disabling or removing the plugin exposes the configuration index for the Security plugin. If the index contains sensitive information, be sure to protect it through some other means. If you no longer need the index, delete it.
 {: .warning }
 
+Disabling/removing or installing the Security plugin, requires a full cluster restart to enable security features.
+{: .warning}
+
 ## Disabling/Enabling the Security plugin
 
 You can disable the Security plugin by editing the `opensearch.yml` file.   
@@ -32,13 +35,30 @@ You can completely remove the Security plugin from your OpenSearch instance. Not
 
 Do the following to remove the plugin from the OpenSearch.
 
-1. Delete the `plugins/opensearch-security` folder on all nodes.
-1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
-1. Uninstall the Security plugin by using the following command:
+1. Disable shard allocation and stop all nodes so that you prevent shards from moving when the cluster is restarted.
 
-```bash
-/usr/share/opensearch/opensearch-plugin remove opensearch-security
-```
+   ```json
+   curl -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
+      "transient": {
+         "cluster.routing.allocation.enable": "none"
+      }
+   }'
+   ```
+   {% include copy.html %}
+2. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
+3. Uninstall the Security plugin by using the following command:
+
+   ```bash
+   ./bin/opensearch-plugin remove opensearch-security
+   ```
+4. Restart the nodes and enable shard allocation
+   ```json
+   curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
+    "transient": {
+      "cluster.routing.allocation.enable": "all"
+      }
+   }'
+   ```
 
 To perform these steps on the Docker image, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins).
 {: .note }
@@ -133,9 +153,6 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 Use the following steps to reinstall the plugin. 
 
-After installing the Security plugin, a full cluster restart is necessary to enable security features.
-{: .warning}
-
 1. Disable shard allocation and stop all nodes so that you prevent shards from moving when the cluster is restarted.
 
   ```json
@@ -162,7 +179,7 @@ After installing the Security plugin, a full cluster restart is necessary to ena
 5. Restart the nodes and reenable shard allocation.
 
    ```json
-   curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
+   curl -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
      "transient": {
       "cluster.routing.allocation.enable": "all"
      }
