@@ -4,17 +4,17 @@ title: Default Use Cases
 nav_order: 10
 ---
 
-# Default Use Cases
+# Default workflows
 
-As part of our plugin we offer out of the box templates for some common use cases in the ML space. Our first set of pre-defined templates each execute a set of APIs to configure the starting point for popular ML use cases like semantic and conversational search. 
+As part of our plugin we offer out of the box templates for some common use cases in the ML space. Our first set of predefined templates each execute a set of APIs to configure the starting point for popular ML use cases like semantic and conversational search. 
 
-While each default use case template has a defined schema and set of APIs with pre-defined defaults for each step, users can over-write any of these defaults as they choose too. The default use cases are added as part of our create API, meaning creating one of the default use cases doesn’t automatically provision them, however the optional provision param can be added to the request to create and provision these templates together. 
+While each default use case template has a defined schema and set of APIs with predefined defaults for each step, users can overwrite any of these defaults as they choose too. The default use cases are available to be used as part of the [Create Workflow API](https://opensearch.org/docs/latest/automating-configurations/api/create-workflow/), and can be optionally provisioned in the same create call by setting `provision=true`
 
 
-## Use Case Tutorial Example:
+## Use case tutorial example:
 
-* One of the use cases we offer is semantic_search_with_cohere_embedding_query_enricher 
-* This predefined use case template will deploy a remote model, create an ingest pipeline with the new model, creates a sample KNN index and sets up a search pipeline to define the default model ID for that index.
+* One of the use cases we offer is `semantic_search_with_cohere_embedding_query_enricher `
+* This predefined use case template will deploy a Cohere remote model, create an ingest pipeline with the new model, creates a sample k-NN index and sets up a search pipeline to define the default model ID for that index.
 * Only field required here is the API key for cohere
 
 
@@ -26,14 +26,18 @@ POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_emb
 ```
 
 
-### You are ready to ingest and search now!
+### You are ready to ingest and search now
 
+To ingest documents into the index created in the previous step, send the following requests:
 ```
 PUT /my-nlp-index/_doc/1
 {
   "passage_text": "Hello world",
   "id": "s1"
 }
+```
+To perform vector search on your index, use the neural query clause either in the [k-NN plugin API](https://opensearch.org/docs/latest/search-plugins/knn/api/) or [Query DSL](https://opensearch.org/docs/latest/query-dsl/) queries
+```
 GET /my-nlp-index/_search
 {
   "_source": {
@@ -52,14 +56,14 @@ GET /my-nlp-index/_search
 }
 ```
 
-### Additional Flexibility:
+### Additional flexibility:
 
-* The workflow we created with the above use case set up all the necessary resources for sample semantic search, you can view the resources created utilizing the get status API with the workflowID that was created: 
+* The workflow we created with the previous use case set up all the necessary resources for sample semantic search, you can view the resources created utilizing the get status API with the `workflowID` that was created: 
     * `GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status`
 
-### Semantic Search Pre Defined defaults:
+### Semantic search predefined defaults:
 
-* Each use case has out of the box defaults based on sample configurations, however any of the given defaults can be overwritten by the user through the request body. 
+Each use case has unique out of the box defaults based on sample configurations, however any of the given defaults can be overwritten by the user through the request body. The defaults listed are an example for `semantic_search_with_cohere_embedding_query_enricher`:
 
 ```
 {
@@ -92,7 +96,7 @@ GET /my-nlp-index/_search
 }
 ```
 
-### Example overriding of params:
+### Overwriting parameters:
 
 ```
 POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_embedding_query_enricher
@@ -103,47 +107,49 @@ POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_emb
 }
 ```
 
-* In the example above, we are changing the Cohere model we want to use
+In the preceding example, we are changing:
+* The Cohere model we want to use
 * The name of text_embedding processor output field
 * The name of the sparse index we create
 
-#### Additional Note:
+#### Additional note:
 
-* It is important to note that every field listed in the defaults can be overridden by the user, so different use cases can have more flexibility over the sample index content and other important parameters in configuration
+It is important to note that every field listed in the defaults can be overwritten by the user, so different use cases can have more flexibility over the sample index content and other important parameters in configuration
 
-### All Available Use Cases
+### All available use cases
 
-| Use Case Name                                        | Description                                                                                                                                                                                                                                                                       | required params | link to defaults |
+| use case name                                        | description                                                                                                                                                                                                                                                                       | required parameters | link to defaults |
 | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ---------------- |
-| bedrock-titan-embedding_model_deploy                 | Creates and deploys an Amazon Bedrock embedding model, defaulting to titan-embed-text-v1                                                                                                                                                                                          | AWS Credentials |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)|
-| bedrock-titan-multimodal_model_deploy                | Creates and deploys an Amazon Bedrock multimodal embedding model, defaulting to titan-embed-image-v1                                                                                                                                                                              | AWS Credentials |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| cohere-embedding_model_deploy                        | Creates and deploys a Cohere embedding model, defaulting to embed-english-v3.0                                                                                                                                                                                                    | API Key         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| cohere-chat_model_deploy                             | Creates and deploys a Cohere chat model, defaulting to command                                                                                                                                                                                                                    | API Key         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| open_ai_embedding_model_deploy                       | Creates and deploys an OpenAI embedding model, defaulting to text-embedding-ada-002                                                                                                                                                                                               | API Key         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| openai-chat_model_deploy                             | Creates and deploys an OpenAI chat model, defaulting to gpt-3.5-turbo                                                                                                                                                                                                             | API Key         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| local_neural_sparse_search_bi_encoder                | Sets up neural sprase search by deploying a pretrained sparse encoding model, creating an ingest pipeline with a sparse encoding processor and creates a sample index to utilize for sparse search with newly created pipeline as default                                         | none            |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| semantic_search                                      | Sets up semantic search by creating an ingest pipeline with a text_embedding processor and a KNN index, user should supply a model ID to correctly use the template                                                                                                               | model_id        |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| semantic_search_with_query_enricher                  | Sets up semantic search as above use case does but also attaches a query enricher search processor so model ID is defaulted to on any neural query. User should supply a model ID to correctly use the template.                                                                  | model_id        |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| semantic_search_with_cohere_embedding_query_enricher | Sets up semantic search with query enricher search processor as aboce use case but also deploys a Cohere embedding model so user can start using semantic search out of the box. All user must provide here is the API key, other params can be changed up to the user descrition | API Key         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| semantic_search_with_cohere_embedding                | Same as above use case but without any query enricher processor setup                                                                                                                                                                                                             | API Key         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| multi_modal_search                                   | Sets up an ingest pipeline with a text_image_embedding processor and a matching KNN index for multimodal search. User should provide a model ID                                                                                                                                   | model_id        |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| multi_modal_search_with_bedrock_titan_multi_modal    | Deploys an Amazon Bedrock multimodal model and sets up an ingest pipeline with a text_image_embedding processor and a matching KNN index for multimodal search. User should provide there AWS Credentials                                                                         | AWS Credentials |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| hybrid_search                                        | Sets up hybrid search by creating an ingest pipeline, a KNN index and a search pipeline with a normalization processor for appropriate usage. User should provide a model_id                                                                                                      | model_id        |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
-| conversational_search_with_llm_deploy                | Deploys an LLM model (defaulted to cohere) and sets up a search pipeline with a retrieval_augmented_generation processor for use.                                                                                                                                                 | API Key         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| bedrock-titan-embedding_model_deploy                 | Creates and deploys an Amazon Bedrock embedding model, defaulting to titan-embed-text-v1                                                                                                                                                                                          | `create_connector.credential.access_key`, `create_connector.credential.secret_key`, `create_connector.credential.session_token` |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)|
+| bedrock-titan-multimodal_model_deploy                | Creates and deploys an Amazon Bedrock multimodal embedding model, defaulting to titan-embed-image-v1                                                                                                                                                                              | `create_connector.credential.access_key`, `create_connector.credential.secret_key`, `create_connector.credential.session_token` |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| cohere-embedding_model_deploy                        | Creates and deploys a Cohere embedding model, defaulting to `embed-english-v3.0`                                                                                                                                                                                                    | `create_connector.credential.key`         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| cohere-chat_model_deploy                             | Creates and deploys a Cohere chat model, defaulting to command                                                                                                                                                                                                                    | `create_connector.credential.key`         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| open_ai_embedding_model_deploy                       | Creates and deploys an OpenAI embedding model, defaulting to text-embedding-ada-002                                                                                                                                                                                               | `create_connector.credential.key`         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| openai-chat_model_deploy                             | Creates and deploys an OpenAI chat model, defaulting to gpt-3.5-turbo                                                                                                                                                                                                             | `create_connector.credential.key`         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| local_neural_sparse_search_bi_encoder                | Sets up neural sparse search by deploying a pretrained sparse encoding model, creating an ingest pipeline with a sparse encoding processor and creates a sample index to utilize for sparse search with newly created pipeline as default                                         | none            |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| semantic_search                                      | Sets up semantic search by creating an ingest pipeline with a text_embedding processor and a k-NN index, user should supply a model ID to correctly use the template                                                                                                               | `create_ingest_pipeline.model_id`        |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| semantic_search_with_query_enricher                  | Sets up semantic search as `semantic_search` use case does but also attaches a `query_enricher` search processor so model ID is defaulted to on any neural query. User should supply a model ID to correctly use the template.                                                                  | `create_ingest_pipeline.model_id`        |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| semantic_search_with_cohere_embedding_query_enricher | Sets up semantic search with `query_enricher` search processor as `semantic_search_with_query_enricher` use case but also deploys a Cohere embedding model so user can start using semantic search out of the box. All user must provide here is the API key, other parameters can be changed up to the user description | `create_connector.credential.key`         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| semantic_search_with_cohere_embedding                | Same as `semantic_search_with_cohere_embedding_query_enricher` use case but without any `query_enricher` processor setup                                                                                                                                                                                                             | `create_connector.credential.key`         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| multi_modal_search                                   | Sets up an ingest pipeline with a text_image_embedding processor and a matching k-NN index for multimodal search. User should provide a model ID                                                                                                                                   | `create_ingest_pipeline.model_id`       |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| multi_modal_search_with_bedrock_titan_multi_modal    | Deploys an Amazon Bedrock multimodal model and sets up an ingest pipeline with a text_image_embedding processor and a matching k-NN index for multimodal search. User should provide there AWS Credentials                                                                         | `create_connector.credential.access_key`, `create_connector.credential.secret_key`, `create_connector.credential.session_token` |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| hybrid_search                                        | Sets up hybrid search by creating an ingest pipeline, a k-NN index and a search pipeline with a normalization processor for appropriate usage. User should provide a model_id                                                                                                      | `create_ingest_pipeline.model_id`        |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
+| conversational_search_with_llm_deploy                | Deploys an LLM model (defaulted to cohere) and sets up a search pipeline with a retrieval_augmented_generation processor for use.                                                                                                                                                 | `create_connector.credential.key`         |[pre-set-defaults-file](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)                  |
 
 
-### Addtional Examples
+### Neural sparse use case tutorial example:
 
-Neural Sparse Use Case Tutorial Example:
+One template we offer is neural sparse search with a local pretrained model 
 
-* One template we offer is neural sparse search with local pre-trained model 
+Request:
 
 ```
 POST /_plugins/_flow_framework/workflow?use_case=local_neural_sparse_search_bi_encoder
 
 ```
 
-Response: 
+Response:
+
 ```
 {
 "workflow_id" : "8xL8bowB8y25Tqfenm50"
@@ -151,20 +157,22 @@ Response:
 ```
 
 
-#### The workflow created with the predefined defaults includes:
 
-1. Deploying one of our pretrained sprase encoding models (amazon/neural-sparse/opensearch-neural-sparse-encoding-v1 is default one here)
-2. Creates an ingest pipeline with a sparse encoding processor with the model deployed above
-3. Creates a sample index to utilize that is ready for sparse search and has the above pipeline set to default
+The workflow created with the predefined defaults includes:
 
-Once provisioned user’s can immediately start ingesting into the sample index. Additionally, users can use the GET workflow status API to checkout all the resources created by the template: `GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status`
+1. Deploying one of our pretrained sparse encoding models (`amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` is the default one)
+2. Creates an ingest pipeline with a sparse encoding processor with the recently deployed model
+3. Creates a sample index to utilize that is ready for sparse search and has the recently created pipeline set to default
+
+Once provisioned users can immediately start ingesting into the sample index. Additionally, users can use the GET workflow status API to check out all the resources created by the template: `GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status`
 
 
-#### Over-riding defaults: 
+#### Overwriting defaults: 
 
-Each use case has out of the box defaults based on sample configurations, however any of the given defaults can be overwritten by the user through the request body. 
+Each use case has unique out of the box defaults based on sample configurations, however any of the given defaults can be overwritten by the user through the request body. The defaults listed are an example for `semantic_search_with_cohere_embedding_query_enricher`:
 
-#### Neural Sparse Pre Defined defaults:
+
+#### Neural sparse predefined defaults:
 
 ```
 {
@@ -183,7 +191,7 @@ Each use case has out of the box defaults based on sample configurations, howeve
 }
 ```
 
-#### Example overriding of params:
+#### Overwriting parameters:
 
 ```
 POST /_plugins/_flow_framework/workflow?use_case=local_neural_sparse_search_bi_encoder
@@ -194,7 +202,7 @@ POST /_plugins/_flow_framework/workflow?use_case=local_neural_sparse_search_bi_e
 }
 ```
 
-* In the example above, we are changing the pre-trained model we want to use
+In the preceding example, we are changing:
+* The pretrained model we want to use
 * The name of text_embedding processor output field
 * The name of the sparse index we create
-
