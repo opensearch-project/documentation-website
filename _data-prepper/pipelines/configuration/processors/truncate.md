@@ -59,7 +59,7 @@ For example, the following event contains several keys with string values:
 {"message1": "hello,world", "message2": "test message", "info", "new information", "log": "test log message"}
 ```
 
-The `truncate` processor produces the following output where:
+The `truncate` processor produces the following output, where:
 
 - The `start_at` setting is `0` for the `message1` and `message 2` keys, indicating that truncation will begin at the start of the string, with the string itself truncated to a length of `5`.
 - The `start_at` setting is `4` for the `info` key, indicating that truncation will begin at letter `i` of the string, with the string truncated to a length of `6`.
