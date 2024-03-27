@@ -74,7 +74,7 @@ Option | Required | Type | Description
 `retry_backoff` | No | Integer | The amount of time to wait before attempting to retry a failed request to a given topic partition. Default is `10s`.
 `max_poll_interval` | No | Integer | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option. Default is `300s`.
 `consumer_max_poll_records` | No | Integer | The maximum number of records returned in a single `poll()` call through Kafka's `max.poll.records` setting. Default is `500`.
-`max_message_bytes` | No | Integer | The maximum size of the message in bytes. Default is 1 MB.
+`max_message_bytes` | No | Integer | The maximum size of the message, in bytes. Default is 1 MB.
 
 
 ### kms
