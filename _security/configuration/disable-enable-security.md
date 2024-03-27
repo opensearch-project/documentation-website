@@ -26,7 +26,7 @@ You can then enable the plugin by removing the `plugins.security.disabled` setti
 
 ## Removing/Adding the Security plugin
 
-We recommend that you take advantage of the rich features of the Security plugin, but you can completely remove the Security plugin from your OpenSearch instance. Note that OpenSearch Dashboards can only run against a secure cluster, so if you uninstall the OpenSearch Security plugin, you'll have to also uninstall the Dashboard plugin. 
+You can completely remove the Security plugin from your OpenSearch instance. Note that OpenSearch Dashboards can only run against a secure cluster, so if you uninstall the OpenSearch Security plugin, you'll have to also uninstall the Security Dashboard plugin. 
 
 ### Removing the Security plugin from OpenSearch
 
