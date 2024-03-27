@@ -65,6 +65,28 @@ The script responds with a confirmation that the keystore was created:
 Created opensearch keystore in $OPENSEARCH_HOME/config/opensearch.keystore
 ```
 
+### Setting a keystore password
+
+**Command**
+
+```bash
+./bin/opensearch-keystore passwd
+```
+{% include copy.html %}
+
+If a keystore password already exists, the script will ask for the current password before you can reset the password.
+   
+**Response**
+
+The script responds with a confirmation that the keystore password was set successfully:
+   
+```bash
+OpenSearch keystore password changed successfully.
+```
+
+When starting OpenSearch you will be prompted to enter the keystore password. Alternatively, you can set the environment variable KEYSTORE_PASSWORD to avoid be prompted for password on startup.
+{: .note}
+
 ### Listing settings in the keystore
 
 **Command**
