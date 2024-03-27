@@ -309,7 +309,7 @@ POST testindex/_doc?pipeline=text-chunking-embedding-ingest-pipeline
 
 **Step 5: Search the index using neural search**
 
-You can use nested query to perform vector search on your index. We recommend using `max` as the `score_mode`, where the document score takes the maximum among embedding from each passage.
+You can use nested query to perform vector search on your index. We recommend using `max` as the `score_mode`, where the document score takes the maximum scores among all embeddings from each passage.
 
 ```json
 GET testindex/_search
