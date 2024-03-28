@@ -27,7 +27,7 @@ Each workflow template has a defined schema and a set of APIs with predefined de
 
 ### Overwriting default values
 
-To overwrite the default values, provide the new values in the request body when sending a create workflow request. For example, the following request changes the Cohere model, the name of the `text_embedding` processor output field, and the name of the sparse index:
+To overwrite a template's default values, provide the new values in the request body when sending a create workflow request. For example, the following request changes the Cohere model, the name of the `text_embedding` processor output field, and the name of the sparse index of the `semantic_search_with_cohere_embedding` template:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_embedding
@@ -41,7 +41,7 @@ POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_emb
 
 ## Example
 
-In this example, you'll configure the `semantic_search_with_cohere_embedding` workflow template. The workflow created using this template performs the following configuration steps:
+In this example, you'll configure the `semantic_search_with_cohere_embedding_query_enricher` workflow template. The workflow created using this template performs the following configuration steps:
 
 - Deploys a Cohere externally hosted model
 - Creates an ingest pipeline using the model
@@ -49,10 +49,10 @@ In this example, you'll configure the `semantic_search_with_cohere_embedding` wo
 
 ### Step 1: Create and provision the workflow
 
-Send the following request to create and provision a workflow using the `semantic_search_with_cohere_embedding` workflow template. The only required request body field for this template is the API key for the Cohere Embed model:
+Send the following request to create and provision a workflow using the `semantic_search_with_cohere_embedding_query_enricher` workflow template. The only required request body field for this template is the API key for the Cohere Embed model:
 
 ```json
-POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_embedding&provision=true
+POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_embedding_query_enricher&provision=true
 {
     "create_connector.credential.key" : "<YOUR API KEY>"
 }
@@ -135,7 +135,8 @@ GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status
 | `local_neural_sparse_search_bi_encoder`  | Configures [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/): <br> - Deploys a pretrained sparse encoding model<br> - Creates an ingest pipeline with a sparse encoding processor <br> - Creates a sample index to use for sparse search, specifying the newly created pipeline as default pipeline  | None            |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/local-sparse-search-biencoder-defaults.json)                  |
 | `semantic_search`                                      | Configures [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): <br> - Creates an ingest pipeline with a `text_embedding` processor and a k-NN index <br> You must provide a model ID of the text embedding model to use. | `create_ingest_pipeline.model_id`        |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json)                  |
 | `semantic_search_with_query_enricher` | Configures [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) similarly to the `semantic_search` template. Adds a [`query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) search processor that sets a default model ID is defaulted for neural queries. You must provide a model ID of the text embedding model to use. | `create_ingest_pipeline.model_id`        |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-query-enricher-defaults.json)                  |
-| `semantic_search_with_cohere_embedding` | Configures [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) and deploys a Cohere embedding model. Adds a [`query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) search processor that sets a default model ID is defaulted for neural queries. You must provide the API key for the Cohere model.  | `create_connector.credential.key`         |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/cohere-embedding-semantic-search-defaults.json)                  |
+| `semantic_search_with_cohere_embedding` | Configures [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) and deploys a Cohere embedding model. You must provide the API key for the Cohere model.  | `create_connector.credential.key`         |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/cohere-embedding-semantic-search-defaults.json)                  |
+| `semantic_search_with_cohere_embedding_query_enricher` | Configures [semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/) and deploys a Cohere embedding model. Adds a [`query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) search processor that sets a default model ID is defaulted for neural queries. You must provide the API key for the Cohere model.  | `create_connector.credential.key`         |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/cohere-embedding-semantic-search-defaults.json)                  |
 | `multi_modal_search`  | Configures an ingest pipeline with a `text_image_embedding` processor and a k-NN index for [multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/). You must provide a model ID of the multimodal embedding model to use. | `create_ingest_pipeline.model_id`       |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/multi-modal-search-defaults.json)                  |
 | `multi_modal_search_with_bedrock_titan_multi_modal`    | Deploys an Amazon Bedrock multimodal model and configures an ingest pipeline with a `text_image_embedding` processor and a k-NN index for [multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/). You must provide your AWS credentials. | `create_connector.credential.access_key`, `create_connector.credential.secret_key`, `create_connector.credential.session_token` |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/multimodal-search-bedrock-titan-defaults.json)                  |
 | `hybrid_search`  | Configures [hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/): <br> - Creates an ingest pipeline, a k-NN index and a search pipeline with a `normalization_processor`. You must provide a model ID of the text embedding model to use. | `create_ingest_pipeline.model_id`        |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/hybrid-search-defaults.json)                  |
