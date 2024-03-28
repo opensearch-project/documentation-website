@@ -175,8 +175,8 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 
 ### Supported Faiss encoders
 
-You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. Faiss has
-several encoder types, but the plugin currently only supports `flat`, `pq`, and `sq` encoding.
+You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. The k-NN plugin currently supports the
+`flat`, `pq`, and `sq` encoders implemented in the Faiss library.
 
 The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
@@ -322,7 +322,7 @@ If you want to use less memory and index faster than HNSW, while maintaining sim
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-If you want to reduce the memory requirements by a factor of 2 (with very minimal loss of search quality) or by a factor of 4 (with a significant drop in search quality), consider vector quantization. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
+You can reduce the memory footprint by factor of 2 by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-scalar-quantization) with a minimal loss in search quality. If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector) in order to reduce memory footprint by factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
 
 ### Memory estimation
 
