@@ -16,10 +16,12 @@ The following table describes the configuration options used to generate target 
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`key` | Yes | String | The key of the fields to be extracted as keys in the generated mappings.
 `source` | Yes | String | The list of objects with `key` fields to be converted into keys for the generated map.
 `target` | No | String | The target for the generated map. When not specified, the generated map will be placed in the root node.
+`key` | Conditionally | String | The key of the fields to be extracted as keys in the generated mappings. Must be specified if `use_source_key` is `false`.
+`use_source_key` | No | Boolean | When `true`, keys in the generated map will use original keys from the source. Default is `false`.
 `value_key` | No | String | When specified, values given a `value_key` in objects contained in the source list will be extracted and converted into the value specified by this option based on the generated map. When not specified, objects contained in the source list retain their original value when mapped.
+`extract_value` | No | Boolean | When `true`, object values from the source list will be extracted and added to the generated map. When `false`, object values from the source list are added to the generated map as they appear in the source list. Default is `false`
 `flatten` | No | Boolean | When `true`, values in the generated map output flatten into single items based on the `flattened_element`. Otherwise, objects mapped to values from the generated map appear as lists.
 `flattened_element` | Conditionally | String | The element to keep, either `first` or `last`, when `flatten` is set to `true`.
 
@@ -301,5 +303,53 @@ Some objects in the response may have more than one element in their values, as 
   "c": [
     "val-c"
   ]
+}
+```
+
+### Example: `use_source_key` and `extract_value` set to `true`
+
+The following example `pipeline.yaml` file sets `flatten` to `false`, causing the processor to output values from the generated map as a list:
+
+```yaml
+pipeline:
+  source:
+    file:
+      path: "/full/path/to/logs_json.log"
+      record_type: "event"
+      format: "json"
+  processor:
+    - list_to_map:
+        source: "mylist"
+        use_source_key: true
+        extract_value: true
+  sink:
+    - stdout:
+```
+{% include copy.html %}
+
+Object values from `mylist` are extracted and added to fields with the source keys `name` and `value`, as shown in the following response:
+
+```json
+{
+  "mylist": [
+    {
+      "name": "a",
+      "value": "val-a"
+    },
+    {
+      "name": "b",
+      "value": "val-b1"
+    },
+    {
+      "name": "b",
+      "value": "val-b2"
+    },
+    {
+      "name": "c",
+      "value": "val-c"
+    }
+  ],
+  "name": ["a", "b", "b", "c"],
+  "value": ["val-a", "val-b1", "val-b2", "val-c"]
 }
 ```

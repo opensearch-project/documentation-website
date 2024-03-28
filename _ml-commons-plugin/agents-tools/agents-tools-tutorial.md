@@ -7,11 +7,8 @@ nav_order: 10
 ---
 
 # Agents and tools tutorial
-**Introduced 2.12**
+**Introduced 2.13**
 {: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 The following tutorial illustrates creating a flow agent for retrieval-augmented generation (RAG). A flow agent runs its configured tools sequentially, in the order specified. In this example, you'll create an agent with two tools:
 
@@ -264,7 +261,7 @@ To test the LLM, send the following predict request:
 POST /_plugins/_ml/models/NWR9YIsBUysqmzBdifVJ/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:hello\n\nnAssistant:"
+    "prompt": "\n\nHuman:hello\n\nAssistant:"
   }
 }
 ```
@@ -354,4 +351,50 @@ Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
     }
   ]
 }
+```
+
+## Hidden agents
+**Introduced 2.13**
+{: .label .label-purple }
+
+To hide agent details from end users, including the cluster admin, you can register a _hidden_ agent. If an agent is hidden, non-superadmin users don't have permission to call any [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/index/) except for the [Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), on the agent.
+
+Only superadmin users can register a hidden agent. To register a hidden agent, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates):
+
+```bash
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opendistro_security/_search'
+```
+
+All agents created by a superadmin user are automatically registered as hidden. To register a hidden agent, send a request to the `_register` endpoint:
+
+```bash
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/models/_register' -H 'Content-Type: application/json' -d '
+{
+  "name": "Test_Agent_For_RAG",
+  "type": "flow",
+  "description": "this is a test agent",
+  "tools": [
+    {
+      "name": "vector_tool",
+      "type": "VectorDBTool",
+      "parameters": {
+        "model_id": "zBRyYIsBls05QaITo5ex",
+        "index": "my_test_data",
+        "embedding_field": "embedding",
+        "source_field": [
+          "text"
+        ],
+        "input": "${parameters.question}"
+      }
+    },
+    {
+      "type": "MLModelTool",
+      "description": "A general tool to answer any question",
+      "parameters": {
+        "model_id": "NWR9YIsBUysqmzBdifVJ",
+        "prompt": "\n\nHuman:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. \n\n Context:\n${parameters.vector_tool.output}\n\nHuman:${parameters.question}\n\nAssistant:"
+      }
+    }
+  ]
+}'
 ```
