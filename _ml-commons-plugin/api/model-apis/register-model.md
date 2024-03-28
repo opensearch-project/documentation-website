@@ -251,7 +251,7 @@ OpenSearch responds with the `task_id` and task `status`.
 
 ### The `guardrails` parameter
 
-Guardrails act like safety measures for large language models (LLMs). They provide a set of rules and boundaries that control how an LLM behaves and what kind of outputs it generates. 
+Guardrails are safety measures for large language models (LLMs). They provide a set of rules and boundaries that control how an LLM behaves and what kind of output it generates. 
 
 To register an externally hosted model with guardrails, provide the `guardrails` parameter, which supports the following fields. All fields are optional.
 
@@ -300,11 +300,11 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-For an end-to-end example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
+For a complete example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
 
 #### Example response
 
-OpenSearch responds with the `task_id` and task `status`.
+OpenSearch responds with the `task_id` and task `status`:
 
 ```json
 {

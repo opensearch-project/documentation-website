@@ -12,9 +12,9 @@ grand_parent: Integrating ML models
 **Introduced 2.13**
 {: .label .label-purple }
 
-Guardrails can guide a large language model (LLM) toward desired behavior. They act as a filter, preventing the LLM from generating outputs that are harmful or violate ethical principles and facilitating a safer use of AI. Guardrails also steer the LLM to produce a more focused and relevant output. 
+Guardrails can guide a large language model (LLM) toward desired behavior. They act as a filter, preventing the LLM from generating output that is harmful or violates ethical principles and facilitating safer use of AI. Guardrails also cause the LLM to produce more focused and relevant output. 
 
-To configure guardrails for your LLM, you can provide a list of words that are prohibited in the input or output of the model. Alternatively, you can provide a regular expression against which the model input or output will be matched.
+To configure guardrails for your LLM, you can provide a list of words to be prohibited in the input or output of the model. Alternatively, you can provide a regular expression against which the model input or output will be matched.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ Before you start, make sure you have fulfilled the [prerequisites]({{site.url}}{
 
 ## Step 1: Create a guardrail index
 
-To start, create an index that will hold the excluded words (_stopwords_). In the index settings, specify for the index to contain a `title` field, which will contain excluded words, and a `query` field, which is of the [percolator]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) type. The percolator query will be used to match the LLM input or output:
+To start, create an index that will store the excluded words (_stopwords_). In the index settings, specify a `title` field, which will contain excluded words, and a `query` field of the [percolator]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) type. The percolator query will be used to match the LLM input or output:
 
 ```json
 PUT /words0
@@ -97,7 +97,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 4: Create a connector
 
-Create a connector to the model. In this example, you'll create a connector to the Anthropic Claude model hosted on Amazon Bedrock:
+Now you can create a connector for the model. In this example, you'll create a connector to the Anthropic Claude model hosted on Amazon Bedrock:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -291,7 +291,7 @@ The response contains an error message because guardrails were triggered:
 }
 ```
 
-The guardrails are also triggered when a prompt matches the supplied regular expression.
+Guardrails are also triggered when a prompt matches the supplied regular expression.
 
 ## Next steps
 
