@@ -37,6 +37,7 @@ OpenSearch supports the following metric aggregations:
 - [Geobounds]({{site.url}}{{site.baseurl}}/aggregations/metric/geobounds/)
 - [Matrix stats]({{site.url}}{{site.baseurl}}/aggregations/metric/matrix-stats/)
 - [Maximum]({{site.url}}{{site.baseurl}}/aggregations/metric/maximum/)
+- [Median absolute deviation]({{site.url}}{{site.baseurl}}/aggregations/metric/median-absolute-deviation/)
 - [Minimum]({{site.url}}{{site.baseurl}}/aggregations/metric/minimum/)
 - [Percentile ranks]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile-ranks/)
 - [Percentile]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/)
