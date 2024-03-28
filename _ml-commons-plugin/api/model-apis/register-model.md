@@ -257,6 +257,7 @@ To register an externally hosted model with guardrails, provide the `guardrails`
 
 Field | Data type | Description
 :---  | :--- | :---
+`type` | String | The guardrail type. Currently, only `local_regex` is supported.
 `input_guardrail`| Object |  The guardrail for the model input. |
 `output_guardrail`| Object |  The guardrail for the model output. |
 `stop_words`| Object | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. |
@@ -275,6 +276,7 @@ POST /_plugins/_ml/models/_register
   "description": "test model",
   "connector_id": "a1eMb4kBJ1eYAeTMAljY",
   "guardrails": {
+    "type": "local_regex",
     "input_guardrail": {
       "stop_words": [
         {

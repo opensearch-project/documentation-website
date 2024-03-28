@@ -158,6 +158,7 @@ POST /_plugins/_ml/models/_register?deploy=true
   "description": "test model",
   "connector_id": "a1eMb4kBJ1eYAeTMAljY",
   "guardrails": {
+    "type": "local_regex",
     "input_guardrail": {
       "stop_words": [
         {
