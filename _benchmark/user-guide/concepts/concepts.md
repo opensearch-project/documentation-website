@@ -2,7 +2,10 @@
 layout: default
 title: Concepts
 nav_order: 3
-parent: User guide
+parent: User Guide
+has_children: true
+redirect_from: 
+  - /benchmark/user-guide/concepts
 ---
 
 # Concepts
