@@ -82,7 +82,7 @@ GET _search
     "term": {
       "<field>": {
         "value": "sample",
-        ... 
+        ...
       }
     }
   }
@@ -95,5 +95,5 @@ The `<field>` accepts the following parameters. All parameters except `value` ar
 Parameter | Data type | Description
 :--- | :--- | :---
 `value` | String | The term to search for in the field specified in `<field>`. A document is returned in the results only if its field value exactly matches the term, with the correct spacing and capitalization.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
+`boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
