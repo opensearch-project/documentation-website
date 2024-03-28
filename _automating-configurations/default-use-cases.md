@@ -8,7 +8,7 @@ nav_order: 25
 
 OpenSearch provides several built-in workflow templates for some common machine learning (ML) use cases, such as semantic or conversational search. 
 
-You can specify a built-in workflow template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/). To provision the workflow, specify `provision=true` as a query parameter. For example, you can configure [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/) by using the the `local_neural_sparse_search_bi_encoder` workflow template, as shown in the following request:
+You can specify a built-in workflow template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/). To provision the workflow, specify `provision=true` as a query parameter. For example, you can configure [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/) by using the `local_neural_sparse_search_bi_encoder` workflow template, as shown in the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=local_neural_sparse_search_bi_encoder
