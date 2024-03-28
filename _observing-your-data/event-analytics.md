@@ -39,20 +39,21 @@ To simplify query building, the **OpenSearch Assistant** toolkit offers an assis
 
 #### Enabling Query Assistant
 
-To enable **Query Assistant** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+By default, **Query Assistant** is enabled in OpenSearch Dashboards. To configure Query Assistant, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
 
-```
-observability.query_assist.enabled: true
+```yaml
 observability.query_assist.ppl_agent_name: "PPL agent"
 ```
 
 To enable summarization of responses, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
 
-```
+```yaml
 observability.summarize.enabled: true
 observability.summarize.response_summary_agent_name: "Response summary agent"
 observability.summarize.error_summary_agent_name: "Error summary agent"
 ```
+
+To disable Query Assistant, add `observability.query_assist.enabled: false` to your `opensearch_dashboards.yml`. 
 
 #### Setting up Query Assistant
 
