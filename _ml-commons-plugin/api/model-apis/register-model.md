@@ -298,7 +298,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-For an end-to-end example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
+For a complete example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
 
 #### Example response
 

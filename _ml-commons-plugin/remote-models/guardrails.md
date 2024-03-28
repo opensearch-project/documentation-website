@@ -97,7 +97,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 ## Step 4: Create a connector
 
-Create a connector to the model. In this example, you'll create a connector to the Anthropic Claude model hosted on Amazon Bedrock:
+Now you can create a connector for the model. In this example, you'll create a connector to the Anthropic Claude model hosted on Amazon Bedrock:
 
 ```json
 POST /_plugins/_ml/connectors/_create
