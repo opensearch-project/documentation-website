@@ -9,7 +9,6 @@ redirect_from:
 ---
 
 # Document-level security (DLS)
-
 Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is to open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index Permissions** section.
 
 ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
@@ -34,6 +33,8 @@ Document-level security uses the OpenSearch query DSL to define which documents 
 This query specifies that for the role to have access to a document, its `genres` field must include `Comedy`.
 
 A typical request to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
+
+## Updating roles by accessing the REST API 
 
 In the REST API, you provide the query as a string, so you must escape your quotes. This role allows a user to read any document in any index with the field `public` set to `true`:
 
