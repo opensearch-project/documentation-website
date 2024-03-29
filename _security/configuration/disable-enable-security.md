@@ -33,7 +33,7 @@ You can completely remove the Security plugin from your OpenSearch instance. Not
 
 ### Removing the Security plugin from OpenSearch
 
-Do the following to remove the plugin from the OpenSearch.
+Do the following to remove the plugin from OpenSearch.
 
 1. Disable shard allocation and stop all nodes so that you prevent shards from moving when the cluster is restarted.
 
