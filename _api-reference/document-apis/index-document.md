@@ -41,12 +41,12 @@ POST <index>/_create/<_id>
 
 ## Adding a sample index and documents to use the HTTP methods 
 
-Before you can search for data, you must first add documents.
+To add a documents, do the following:
 To do this follow the steps:
-1. Open OpenSearch Dashboards
-2. Navigate to the hamburger menu 
-3. In the **Management** section, choose **Dev Tools**
-4. Run the following commands in the Dev tools by pressing the green triangle play button to send the request.
+1. Open OpenSearch Dashboards.
+2. Navigate to the hamburger menu. 
+3. In the **Management** section, choose **Dev Tools**.
+4. Enter a command, then press the green triangle play button to send the request. Some example commands follow.
 
 ### Create a sample-index
 ```json
