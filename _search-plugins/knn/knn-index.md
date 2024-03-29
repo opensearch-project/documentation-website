@@ -218,7 +218,7 @@ Parameter name | Required | Default | Updatable | Description
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :-- | :--- | :---
 `type` | false | `fp16` | false |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. As of OpenSearch 2.13, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
-`clip` | false | `false` | false | If `true`, then any vector values outside of the supported range for the specified vector type are rounded so that they are inside the range. If `false`, then the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
+`clip` | false | `false` | false | If `true`, then any vector values outside of the supported range for the specified vector type are rounded so that they are in the range. If `false`, then the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
 
 For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#using-faiss-scalar-quantization).
 
