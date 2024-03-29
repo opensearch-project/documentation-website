@@ -11,7 +11,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple}
 
-Before you can search for data, you must first add documents. This operation adds a single document to your index.
+You can use the Index document operation to add a single document to your index.
 
 ## Example
 
