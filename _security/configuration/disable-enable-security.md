@@ -164,7 +164,7 @@ Use the following steps to reinstall the plugin.
   ```
   {% include copy.html %}
  
-2. Install the Security plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install)
+2. Install the Security plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install).
 
   ```bash
   bin/opensearch-plugin install opensearch-security
