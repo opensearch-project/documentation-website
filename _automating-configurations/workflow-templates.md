@@ -23,7 +23,7 @@ The workflow created using this template performs the following configuration st
 
 ## Parameters
 
-Each workflow template has a defined schema and a set of APIs with predefined defaults for each step. For more information about template parameter default values, see [Supported workflow templates](#supported-workflow-templates).
+Each workflow template has a defined schema and a set of APIs with predefined default values for each step. For more information about template parameter defaults, see [Supported workflow templates](#supported-workflow-templates).
 
 ### Overriding default values
 
