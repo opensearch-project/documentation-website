@@ -46,7 +46,7 @@ Do the following to remove the plugin from OpenSearch.
    ```
    {% include copy.html %}
 2. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
-3. Uninstall the Security plugin by using the following command:
+3. Uninstall the Security plugin by using the following command.
 
    ```bash
    ./bin/opensearch-plugin remove opensearch-security
