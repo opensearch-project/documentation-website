@@ -108,7 +108,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 Method name | Requires training | Supported spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, innerproduct | Hierarchical proximity graph approach to Approximate k-NN search.
-`ivf` | true | l2, innerproduct | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets is searched.
+`ivf` | true | l2, innerproduct | Stands for _inverted file index_. Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets is searched.
 
 For hnsw, "innerproduct" is not available when PQ is used.
 {: .note}
