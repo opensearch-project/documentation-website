@@ -224,7 +224,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/j
 curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/rolesmapping/booksrole' -d '{"users" : ["booksuser"]}'
 ```
 
-Both clusters must have the user, but only the remote cluster needs the role and mapping. In this case, the coordinating cluster handles authentication (that is, "Does this request include valid user credentials?"), and the remote cluster handles authorization (that is, "Can this user access this data?").
+Both clusters must have the user role present, but only the remote cluster needs the role and mapping. In this case, the coordinating cluster handles authentication (that is, "Does this request include valid user credentials?"), and the remote cluster handles authorization (that is, "Can this user access this data?").
 {: .tip }
 
 Finally, repeat the search:
@@ -244,9 +244,9 @@ curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-clust
 }
 ```
 
-## Sample Bare metal/virtual machines setup
+## Sample bare metal/virtual machines setup
 
-If you are running OpenSearch on bare metal or using virtual machine, you can run the same commands, specifying the IP (or domain) of the OpenSearch cluster.
+If you are running OpenSearch on a bare metal server or using a virtual machine, you can run the same commands, specifying the IP (or domain) of the OpenSearch cluster.
 For example, in order to configure remote cluster for Cross-cluster search, find the IP of the remote node or domain of the remote cluster and run command:
 
 ```json
@@ -282,7 +282,7 @@ curl -XGET -k -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:92
 ```
 
 ## Sample Kubernetes/Helm setup
-If you are using Kubernetes clusters to deploy your OpenSearch, you have to configure the remote cluster using LoadBalancer or Ingress. The services that get created using the [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of ClusterIP type and can only be accessible inside the cluster, therefore external services need to be used.
+If you are using Kubernetes clusters to deploy OpenSearch, you have to configure the remote cluster using the `LoadBalancer` or `Ingress` services. The services that get created using the following [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of the `ClusterIP` type and are only be accessible inside the cluster, therefore external services need to be used.
 
 ```json
 curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
