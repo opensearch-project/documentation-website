@@ -3,7 +3,7 @@ layout: default
 title: Grok
 parent: Processors
 grand_parent: Pipelines
-nav_order: 54
+nav_order: 50
 ---
 
 # Grok
@@ -15,26 +15,25 @@ The Grok processor uses pattern matching to structure and extract important keys
 The following table describes options you can use with the Grok processor to structure your data and make your data easier to query.
 
 Option | Required | Type | Description
-:--- | :--- | :--- | :---
-break_on_match | No | Boolean | Specifies whether to match all patterns or stop once the first successful match is found. Default value is `true`.
-grok_when | No | String | Specifies under what condition the `Grok` processor should perform matching. Default is no condition.
-keep_empty_captures | No | Boolean | Enables the preservation of `null` captures. Default value is `false`.
-keys_to_overwrite | No | List | Specifies which existing keys will be overwritten if there is a capture with the same key value. Default value is `[]`.
-match | No | Map | Specifies which keys to match specific patterns against. Default value is an empty body.
-named_captures_only | No | Boolean | Specifies whether to keep only named captures. Default value is `true`.
-pattern_definitions | No | Map | Allows for custom pattern use inline. Default value is an empty body.
-patterns_directories | No | List | Specifies the path of directories that contain customer pattern files. Default value is an empty list.
-pattern_files_glob | No | String | Specifies which pattern files to use from the directories specified for `pattern_directories`. Default value is `*`.
-target_key | No | String | Specifies a parent-level key used to store all captures. Default value is `null`.
-timeout_millis | No | Integer | The maximum amount of time during which matching occurs. Setting to `0` disables the timeout. Default value is `30,000`.
+:--- | :--- |:--- | :---
+`break_on_match` | No | Boolean | Specifies whether to match all patterns (`true`) or stop once the first successful match is found (`false`). Default is `true`.
+`grok_when` | No | String  | Specifies under what condition the `grok` processor should perform matching. Default is no condition.
+`keep_empty_captures` | No | Boolean | Enables the preservation of `null` captures from the processed output. Default is `false`.
+`keys_to_overwrite` | No | List | Specifies which existing keys will be overwritten if there is a capture with the same key value. Default is `[]`.
+`match` | No | Map | Specifies which keys should match specific patterns. Default is an empty response body.
+`named_captures_only` | No | Boolean | Specifies whether to keep only named captures. Default is `true`.
+`pattern_definitions` | No | Map | Allows for a custom pattern that can be used inline inside the response body. Default is an empty response body.
+`patterns_directories` | No | List | Specifies which directory paths contain the custom pattern files. Default is an empty list.
+`pattern_files_glob` | No | String | Specifies which pattern files to use from the directories specified for `pattern_directories`. Default is `*`.
+`target_key` | No | String | Specifies a parent-level key used to store all captures. Default value is `null`.
+`timeout_millis` | No | Integer | The maximum amount of time during which matching occurs. Setting to `0` prevents any matching from occurring. Default is `30,000`.
+`performance_metadata` | No | Boolean | Whether or not to add the performance metadata to events. Default is `false`. For more information, see [Grok performance metadata](#grok-performance-metadata).
 
-<!---## Configuration
-
-Content will be added to this section.--->
 
 ## Conditional grok
 
-The Grok processor can be configured to run conditionally by using the `grok_when` option. The following is an example Grok processor configuration that uses `grok_when`:
+The `grok` processor can be configured to run conditionally by using the `grok_when` option. The following is an example Grok processor configuration that uses `grok_when`:
+
 ```
 processor:
   - grok:
@@ -46,7 +45,35 @@ processor:
         match:
           message: ['%{IPV6:clientip} %{WORD:request} %{POSINT:bytes}']
 ```
+{% include copy.html %}
+
 The `grok_when` option can take a conditional expression. This expression is detailed in the [Expression syntax](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) documentation.
+
+## Grok performance metadata
+
+When the `performance_metadata` option is set to `true`, the `grok` processor adds the following metadata keys to each event:
+
+* `_total_grok_processing_time`: The total amount of time, in milliseconds, that the `grok` processor takes to match the event. This is the sum of the processing time based on all of the `grok` processors that ran on the event and have the `performance_metadata` option enabled.
+* `_total_grok_patterns_attempted`: The total number of `grok` pattern match attempts across all `grok` processors that ran on the event.
+
+To include Grok performance metadata when the event is sent to the sink inside the pipeline, use the `add_entries` processor to describe the metadata you want to include, as shown in the following example:
+
+
+```yaml
+processor:
+    - grok:
+        performance_metadata: true
+        match:
+          log: "%{COMMONAPACHELOG"}
+    - add_entries:
+        entries:
+          - add_when: 'getMetadata("_total_grok_patterns_attempted") != null'
+            key: "grok_patterns_attempted"
+            value_expression: 'getMetadata("_total_grok_patterns_attempted")'
+          - add_when: 'getMetadata("_total_grok_processing_time") != null'
+            key: "grok_time_spent"
+            value_expression: 'getMetadata("_total_grok_processing_time")'
+```
 
 ## Metrics
 
