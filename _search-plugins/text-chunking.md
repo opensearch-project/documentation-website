@@ -4,7 +4,7 @@ title: Text chunking
 nav_order: 65
 ---
 
-# haining text chunking and embedding processors
+# Chaining text chunking and embedding processors
 Introduced 2.13
 {: .label .label-purple }
 
