@@ -8,7 +8,7 @@ nav_order: 25
 
 OpenSearch provides several workflow templates for some common machine learning (ML) use cases, such as semantic or conversational search. 
 
-You can specify a workflow template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/). To provision the workflow, specify `provision=true` as a query parameter. For example, you can configure [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/) by using the `local_neural_sparse_search_bi_encoder` workflow template, as shown in the following request:
+You can specify a workflow template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/). To provision the workflow, specify `provision=true` as a query parameter. For example, you can configure [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/) by providing the `local_neural_sparse_search_bi_encoder` query parameter as `use_case`, as shown in the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=local_neural_sparse_search_bi_encoder
@@ -125,7 +125,7 @@ GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status
 
 ## Supported workflow templates
 
-| Template name  | Description | Required parameters | Defaults |
+| Use case name  | Description | Required parameters | Defaults |
 | `bedrock_titan_embedding_model_deploy`  | Creates and deploys an Amazon Bedrock embedding model (by default, `titan-embed-text-v1`).| `create_connector.credential.access_key`, `create_connector.credential.secret_key`, `create_connector.credential.session_token` |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)|
 | `bedrock_titan_multimodal_model_deploy` | Creates and deploys an Amazon Bedrock multimodal embedding model (by default, `titan-embed-image-v1`).  | `create_connector.credential.access_key`, `create_connector.credential.secret_key`, `create_connector.credential.session_token` |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-multimodal-defaults.json). |
 | `cohere_embedding_model_deploy`| Creates and deploys a Cohere embedding model (by default, `embed-english-v3.0`).   | `create_connector.credential.key`         |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/cohere-embedding-defaults.json)                  |
