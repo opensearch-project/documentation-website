@@ -51,7 +51,7 @@ Do the following to remove the plugin from OpenSearch.
    ```bash
    ./bin/opensearch-plugin remove opensearch-security
    ```
-4. Restart the nodes and enable shard allocation
+4. Restart the nodes and enable shard allocation.
    ```json
    curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
     "transient": {
