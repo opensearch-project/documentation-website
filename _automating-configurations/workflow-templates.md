@@ -25,9 +25,9 @@ The workflow created using this template performs the following configuration st
 
 Each workflow template has a defined schema and a set of APIs with predefined defaults for each step. For more information about template parameter default values, see [Supported workflow templates](#supported-workflow-templates).
 
-### Overwriting default values
+### Overriding default values
 
-To overwrite a template's default values, provide the new values in the request body when sending a create workflow request. For example, the following request changes the Cohere model, the name of the `text_embedding` processor output field, and the name of the sparse index of the `semantic_search_with_cohere_embedding` template:
+To override a template's default values, provide the new values in the request body when sending a create workflow request. For example, the following request changes the Cohere model, the name of the `text_embedding` processor output field, and the name of the sparse index of the `semantic_search_with_cohere_embedding` template:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_embedding
