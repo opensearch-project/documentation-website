@@ -48,7 +48,7 @@ PUT _ingest/pipeline/text-chunking-embedding-ingest-pipeline
 
 ## Step 2: Create an index for ingestion
 
-In order to use the ingest pipeline, you need to create a k-NN index. The `passage_chunk_embedding` field must be of a `nested` type. The `knn.dimension` field must contain the number of dimensions for your model:
+In order to use the ingest pipeline, you need to create a k-NN index. The `passage_chunk_embedding` field must be of the `nested` type. The `knn.dimension` field must contain the number of dimensions for your model:
 
 ```json
 PUT testindex
