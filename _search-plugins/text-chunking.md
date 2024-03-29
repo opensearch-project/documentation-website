@@ -4,7 +4,7 @@ title: Text chunking
 nav_order: 65
 ---
 
-# Chaining text chunking and embedding processors
+# Text chunking
 Introduced 2.13
 {: .label .label-purple }
 
@@ -92,7 +92,7 @@ POST testindex/_doc?pipeline=text-chunking-embedding-ingest-pipeline
 
 ## Step 4: Search the index using neural search
 
-You can use a `nested` query to perform vector search on your index. We recommend setting `score_mode` to `max`, where the document score is set to the maximum of the scores from all passage embeddings:
+You can use a `nested` query to perform vector search on your index. We recommend setting `score_mode` to `max`, where the document score is set to the highest score out of all passage embeddings:
 
 ```json
 GET testindex/_search
@@ -111,46 +111,6 @@ GET testindex/_search
       }
     }
   }
-}
-```
-{% include copy-curl.html %}
-
-## Cascaded text chunking processors
-
-You can chain multiple text chunking processors together. For example, to split documents into paragraphs, apply the `delimiter` algorithm and specify the parameter as `\n\n`. To prevent a paragraph from exceeding the token limit, append another text chunking processor that uses the `fixed_token_length` algorithm. You can configure the ingest pipeline for this example as follows:
-
-```json
-PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
-{
-  "description": "A text chunking pipeline with cascaded algorithms",
-  "processors": [
-    {
-      "text_chunking": {
-        "algorithm": {
-          "delimiter": {
-            "delimiter": "\n\n"
-          }
-        },
-        "field_map": {
-          "passage_text": "passage_chunk1"
-        }
-      }
-    },
-    {
-      "text_chunking": {
-        "algorithm": {
-          "fixed_token_length": {
-            "token_limit": 500,
-            "overlap_rate": 0.2,
-            "tokenizer": "standard"
-          }
-        },
-        "field_map": {
-          "passage_chunk1": "passage_chunk2"
-        }
-      }
-    }
-  ]
 }
 ```
 {% include copy-curl.html %}

@@ -159,6 +159,46 @@ The response confirms that, in addition to the `passage_text` field, the process
 
 Once you have created an ingest pipeline, you need to create an index for document ingestion. To learn more, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 
+## Cascaded text chunking processors
+
+You can chain multiple text chunking processors together. For example, to split documents into paragraphs, apply the `delimiter` algorithm and specify the parameter as `\n\n`. To prevent a paragraph from exceeding the token limit, append another text chunking processor that uses the `fixed_token_length` algorithm. You can configure the ingest pipeline for this example as follows:
+
+```json
+PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
+{
+  "description": "A text chunking pipeline with cascaded algorithms",
+  "processors": [
+    {
+      "text_chunking": {
+        "algorithm": {
+          "delimiter": {
+            "delimiter": "\n\n"
+          }
+        },
+        "field_map": {
+          "passage_text": "passage_chunk1"
+        }
+      }
+    },
+    {
+      "text_chunking": {
+        "algorithm": {
+          "fixed_token_length": {
+            "token_limit": 500,
+            "overlap_rate": 0.2,
+            "tokenizer": "standard"
+          }
+        },
+        "field_map": {
+          "passage_chunk1": "passage_chunk2"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
 ## Next steps
 
 - For a complete example, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
