@@ -4,22 +4,20 @@ title: Text chunking
 nav_order: 65
 ---
 
-# Text chunking
+# haining text chunking and embedding processors
 Introduced 2.13
 {: .label .label-purple }
 
-To split long text into passages, use the `text_chunking` ingest processor before the `text_embedding` or `sparse_encoding` processors. For more information about the processor parameters, see [Text chunking processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/).
-
-The following example preprocesses text by splitting it into passages and then produces embeddings using the `sparse_encoding` processor.
+To split long text into passages, you can use a `text_chunking` processor as a preprocessing step for a `text_embedding` or `sparse_encoding` processor in order to obtain embeddings for each chunked passage. For more information about the processor parameters, see [Text chunking processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/). Before you start, follow the steps outlined in the [pretrained model documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) to register an embedding model. The following example preprocesses text by splitting it into passages and then produces embeddings using the `text_embedding` processor.
 
 ## Step 1: Create a pipeline
 
-The following request creates an ingest pipeline that converts the text in the `passage_text` field into chunked passages, which will be stored in the `passage_chunk` field:
+The following example request creates an ingest pipeline that converts the text in the `passage_text` field into chunked passages, which will be stored in the `passage_chunk` field. The text in the `passage_chunk` field is then converted into text embeddings, and the embeddings are stored in the `passage_embedding` field:
 
 ```json
-PUT _ingest/pipeline/text-chunking-ingest-pipeline
+PUT _ingest/pipeline/text-chunking-embedding-ingest-pipeline
 {
-  "description": "A text chunking ingest pipeline",
+  "description": "A text chunking and embedding ingest pipeline",
   "processors": [
     {
       "text_chunking": {
@@ -32,6 +30,14 @@ PUT _ingest/pipeline/text-chunking-ingest-pipeline
         },
         "field_map": {
           "passage_text": "passage_chunk"
+        }
+      }
+    },
+    {
+      "text_embedding": {
+        "model_id": "LMLPWY4BROvhdbtgETaI",
+        "field_map": {
+          "passage_chunk": "passage_chunk_embedding"
         }
       }
     }
@@ -108,48 +114,6 @@ GET testindex/_search
 }
 ```
 {% include copy-curl.html %}
-
-
-## Chaining text chunking and embedding processors
-
-You can use a `text_chunking` processor as a preprocessing step for a `text_embedding` or `sparse_encoding` processor in order to obtain embeddings for each chunked passage.
-
-Before you start, follow the steps outlined in the [pretrained model documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) to register an embedding model.
-
-The following example request creates an ingest pipeline that converts the text in the `passage_text` field into chunked passages, which will be stored in the `passage_chunk` field. The text in the `passage_chunk` field is then converted into text embeddings, and the embeddings are stored in the `passage_embedding` field:
-
-```json
-PUT _ingest/pipeline/text-chunking-embedding-ingest-pipeline
-{
-  "description": "A text chunking and embedding ingest pipeline",
-  "processors": [
-    {
-      "text_chunking": {
-        "algorithm": {
-          "fixed_token_length": {
-            "token_limit": 10,
-            "overlap_rate": 0.2,
-            "tokenizer": "standard"
-          }
-        },
-        "field_map": {
-          "passage_text": "passage_chunk"
-        }
-      }
-    },
-    {
-      "text_embedding": {
-        "model_id": "LMLPWY4BROvhdbtgETaI",
-        "field_map": {
-          "passage_chunk": "passage_chunk_embedding"
-        }
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
 
 ## Cascaded text chunking processors
 
