@@ -41,7 +41,7 @@ POST <index>/_create/<_id>
 
 ## Adding a sample index and documents to use the HTTP methods 
 
-To add a documents, do the following:
+If you want to quickly test the Document APIs, you can quickly add a document by doing the following:
 To do this follow the steps:
 1. Open OpenSearch Dashboards.
 2. Navigate to the hamburger menu. 
