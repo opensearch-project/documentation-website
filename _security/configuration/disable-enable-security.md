@@ -15,7 +15,7 @@ The Security plugin is installed by default when using OpenSearch, but you can t
 Disabling or removing the plugin exposes the configuration index for the Security plugin. If the index contains sensitive information, make sure to protect it through some other means. If you no longer need the index, delete it.
 {: .warning }
 
-Disabling, removing, or installing the Security plugin requires a full cluster restart to enable security features.
+Disabling, removing, or installing the Security plugin requires a full cluster restart, as during this process the individual nodes are not able to communicate with each other.
 {: .warning}
 
 ## Disabling/Enabling the Security plugin
