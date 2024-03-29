@@ -117,7 +117,7 @@ GET testindex/_search
 
 ## Cascaded text chunking processors
 
-You can chain multiple chunking processors together. For example, to split documents into paragraphs, apply the `delimiter` algorithm and specify the parameter as `\n\n`. To prevent a paragraph from exceeding the token limit, append another chunking processor that uses the `fixed_token_length` algorithm. You can configure the ingest pipeline for this example as follows:
+You can chain multiple text chunking processors together. For example, to split documents into paragraphs, apply the `delimiter` algorithm and specify the parameter as `\n\n`. To prevent a paragraph from exceeding the token limit, append another text chunking processor that uses the `fixed_token_length` algorithm. You can configure the ingest pipeline for this example as follows:
 
 ```json
 PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
