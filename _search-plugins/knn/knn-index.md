@@ -48,7 +48,7 @@ Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `luce
 
 ## SIMD optimization for the Faiss engine
 
-Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost the overall performance by improving indexing throughput and reducing search latency.
+Starting with version 2.13, the k-NN plugin supports [Single Instruction Multiple Data (SIMD)](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data) processing if the underlying hardware supports SIMD instructions (AVX2 on x64 architecture and Neon on ARM64 architecture). SIMD is supported by default on Linux machines only for the Faiss engine. SIMD architecture helps boost overall performance by improving indexing throughput and reducing search latency.
 
 SIMD optimization is applicable only if the vector dimension is a multiple of 8.
 {: .note}
@@ -176,7 +176,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 ### Supported Faiss encoders
 
 You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. The k-NN plugin currently supports the
-`flat`, `pq`, and `sq` encoders implemented in the Faiss library.
+`flat`, `pq`, and `sq` encoders in the Faiss library.
 
 The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
@@ -202,15 +202,15 @@ The `hnsw` method supports the `pq` encoder for OpenSearch versions 2.10 and lat
 
 Encoder name | Requires training | Description
 :--- | :--- | :---
-`flat` (Default) | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
+`flat` (Default) | false | Encode vectors as floating-point arrays. This encoding does not reduce memory footprint.
 `pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-`sq` | false | Stands for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization).
+`sq` | false | An abbreviation for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization).
 
 #### PQ parameters
 
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`m` | false | 1 | false |  Determines the number of subvectors into which to break the vector. Subvectors are encoded independently of each other. This dimension of the vector must be divisible by `m`. Maximum value is 1,024.
+`m` | false | 1 | false |  Determines the number of subvectors into which to break the vector. Subvectors are encoded independently of each other. This vector dimension must be divisible by `m`. Maximum value is 1,024.
 `code_size` | false | 8 | false | Determines the number of bits into which to encode a subvector. Maximum value is 8. For IVF, this value must be less than or equal to 8. For HNSW, this value can only be 8.
 
 #### SQ parameters
@@ -218,7 +218,7 @@ Parameter name | Required | Default | Updatable | Description
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :-- | :--- | :---
 `type` | false | `fp16` | false |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. As of OpenSearch 2.13, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
-`clip` | false | `false` | false | If `true`, any vector values that are out of the supported range for the specified vector type are rounded so they are in the range. If `false`, the request is rejected if any vector values are out of the supported range. Setting `clip` to `true` may decrease recall.
+`clip` | false | `false` | false | If `true`, then any vector values outside of the supported range for the specified vector type are rounded so that they are inside the range. If `false`, then the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
 
 For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#using-faiss-scalar-quantization).
 
@@ -322,7 +322,7 @@ If you want to use less memory and index faster than HNSW, while maintaining sim
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-You can reduce the memory footprint by factor of 2 by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-scalar-quantization) with a minimal loss in search quality. If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector) in order to reduce memory footprint by factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
+You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector) in order to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
 
 ### Memory estimation
 
@@ -333,7 +333,7 @@ the `circuit_breaker_limit` cluster setting. By default, the limit is set at 50%
 Having a replica doubles the total number of vectors.
 {: .note }
 
-For memory estimation when using vector quantization, see the [vector quantization documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#memory-estimation).
+For information about using memory estimation with vector quantization, see the [vector quantization documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#memory-estimation).
 {: .note }
 
 #### HNSW memory estimation
