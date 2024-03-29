@@ -125,7 +125,9 @@ GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status
 
 ## Supported workflow templates
 
-| Use case name  | Description | Required parameters | Defaults |
+The following table lists the supported workflow templates. To use a workflow template, specify it in the `use_case` query parameter when creating a workflow.
+
+| Template use case  | Description | Required parameters | Defaults |
 | `bedrock_titan_embedding_model_deploy`  | Creates and deploys an Amazon Bedrock embedding model (by default, `titan-embed-text-v1`).| `create_connector.credential.access_key`, `create_connector.credential.secret_key`, `create_connector.credential.session_token` |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-embedding-defaults.json)|
 | `bedrock_titan_multimodal_model_deploy` | Creates and deploys an Amazon Bedrock multimodal embedding model (by default, `titan-embed-image-v1`).  | `create_connector.credential.access_key`, `create_connector.credential.secret_key`, `create_connector.credential.session_token` |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/bedrock-titan-multimodal-defaults.json). |
 | `cohere_embedding_model_deploy`| Creates and deploys a Cohere embedding model (by default, `embed-english-v3.0`).   | `create_connector.credential.key`         |[Defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/cohere-embedding-defaults.json)                  |
