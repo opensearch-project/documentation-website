@@ -20,7 +20,7 @@ You can configure the `parse_xml` processor with the following options.
 | `destination` | No | String | The destination field of the parsed XML. Defaults to the root of the `event`. Cannot be `""`, `/`, or any white-space-only string because these are not valid `event` fields. |
 | `pointer` | No | String | A JSON pointer to the field to be parsed. There is no `pointer` by default, meaning that the entire `source` is parsed. The `pointer` can access JSON array indexes as well. If the JSON pointer is invalid, then the entire `source` data is parsed into the outgoing `event`. If the key that is pointed to already exists in the `event` and the `destination` is the root, then the pointer uses the entire path of the key. |
 | `parse_when` | No | String | Specifies under what conditions the processor should perform parsing. Default is no condition. Accepts a Data Prepper expression string following the [Data Prepper Expression Syntax]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). |
-| `tags_on_failure` | No | String | A list of strings that specify the tags to be set in the event that the processors fails or an unknown exception occurs while parsing. 
+| `tags_on_failure` | No | String | A list of strings that specify the tags to be set if the processor fails or an unknown exception occurs while parsing. 
 
 ## Usage
 
