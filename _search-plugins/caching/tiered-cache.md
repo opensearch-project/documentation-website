@@ -58,9 +58,9 @@ indices.request.cache.tiered_spillover.disk.store.name: ehcache_disk
 ```
 {% include copy.html %}
 
-The `opensearch_onheap` setting is the built-in on-heap cache available in OpenSearch. 
+The `opensearch_onheap` setting specifies to use the built-in on-heap cache available in OpenSearch. 
 
-The `ehcache_disk` setting is the disk cache implementation from [Ehcache](https://www.ehcache.org/). Using `ehcache_disk` requires installing the `cache-ehcache` plugin. 
+The `ehcache_disk` setting specifies to use the disk cache implementation from [Ehcache](https://www.ehcache.org/). Using `ehcache_disk` requires installing the `cache-ehcache` plugin. 
 
 ### Configuring on-heap and disk stores
 
