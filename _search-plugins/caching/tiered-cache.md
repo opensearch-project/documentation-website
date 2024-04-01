@@ -15,7 +15,7 @@ A tiered cache is a multi-level cache in which each tier has its own characteris
 
 ## Types of tiered caches
 
-OpenSearch 2.13 provides an implementation of _tiered spillover cache_. This implementation spills the evicted items from upper to lower tiers. The upper tier, such as the on-heap tier, is smaller in size but offers better latency. The lower tier, such as a disk cache, is larger in size but is slower in terms of latency. OpenSearch 2.13 offers on-heap and disk tiers. 
+OpenSearch 2.13 provides an implementation of a _tiered spillover cache_. This implementation spills the evicted items from upper to lower tiers. An upper tier, such as an on-heap tier, is smaller in size but offers better latency. A lower tier, such as a disk cache, is larger in size but is slower in terms of latency. OpenSearch 2.13 offers on-heap and disk tiers. 
 
 ## Enabling a tiered cache
 
