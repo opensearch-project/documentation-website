@@ -11,7 +11,13 @@ As with any roles in OpenSearch, read only roles can be configured using three m
 
 ## Basic read only role
 
-If you are looking to create a role to access OpenSearch Dashboards, view existing dashboards/visualizations and query different indexes, assuming you want the user to have read access to all indexes and tenants, you can add cluster permission group of `cluster_composite_ops_ro`, `read` access to all indexes (`*`) and `read` access to all tenants
+If you are looking to create a role to access OpenSearch Dashboards, view existing dashboards/visualizations and query different indexes, assuming you want the user to have read access to all indexes and tenants, you can use the following permissions.
+### Cluster permission
+Cluster permission is needed to access cluster wide resources like visualizations and dashboards. For read only user you add already created `cluster_composite_ops_ro` permission.
+### Indexes permission
+In order to view visualizations, user needs to have access to the index that was used to create it, In this can you can add `read` permission to all (`*`) indexes. 
+### Tenant permissions
+If you are using tenants to separate work area between different teams/projects, visualizations and dashboards are saved in specific tenant. To be able to view these the user needs `read` access to the correct tenant. To keep things more straightforward we are giving user access to all (`*`) tenants.
 
 ![creating role]({{site.url}}{{site.baseurl}}/images/role_creation_read_only.png)
 
@@ -21,7 +27,7 @@ Once the role is created, you can directly map the role to a user by going to "M
 
 ## OpenSearch Dashboards readonly_mode
 
-OpenSearch Dashboards comes with functionality to only give access to `Dashboards` UI by using readonly_mode.
+OpenSearch Dashboards `readonly_mode` functionality is used to give user access to only `Dashboards` UI, removing the rest of the UI elements from the user.
 You need to configure this in `opensearch_dashboards.yml` file by adding following line:
 `opensearch_security.readonly_mode.roles: [new_role]`
 
