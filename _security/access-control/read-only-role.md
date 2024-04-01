@@ -7,7 +7,7 @@ nav_order: 150
 
 # Read only roles
 
-As with any roles in OpenSearch, read only roles can be configured using three methods: `yml` configuration files, API and OpenSearch Dashboards. The most user friendly approach for anyone getting familiar with Roles and role mappings is to use OpenSearch Dashboards, as it is easy to navigate the creation of roles and assignment to users. The basic steps of creating roles/mappings/users are outlines here (https://opensearch.org/docs/latest/security/access-control/users-roles/)
+As with any roles in OpenSearch, read only roles can be configured using three methods: `yml` configuration files, API and OpenSearch Dashboards. The most user friendly approach for anyone getting familiar with Roles and role mappings is to use OpenSearch Dashboards, as it is easy to navigate the creation of roles and assignment to users. The basic steps of creating roles/mappings/users are outlined here (https://opensearch.org/docs/latest/security/access-control/users-roles/)
 
 ## Basic read only role
 
