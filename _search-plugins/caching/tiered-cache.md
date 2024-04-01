@@ -11,7 +11,7 @@ nav_order: 10
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10024).    
 {: .warning}
 
-A tiered cache is a multi-level cache, in which each tier has its own characteristics and performance levels. By combining different tiers, you can achieve a balance between cache performance and size.
+A tiered cache is a multi-level cache in which each tier has its own characteristics and performance levels. By combining different tiers, you can achieve a balance between cache performance and size.
 
 ## Types of tiered caches
 
