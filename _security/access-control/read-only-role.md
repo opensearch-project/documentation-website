@@ -27,7 +27,7 @@ You need to configure this in `opensearch_dashboards.yml` file by adding followi
 
 If the role mapped to user has additional privileges or user is mapped to other roles, giving them write access to indexes, this access will not be allowed using OpenSearch Dashboard. Direct data access to OpenSearch using curl or API is still allowed, as OpenSearch Dashboards is not involved in this communication. 
 
-If the user is mapped to this `readonly_mode` role, all other elements of the UI will be removed, except for `Dashboards`. See following comparison, on the left is user mapped to role which is configured as readonly_mode, on the right is the standard view.
+If the user is mapped to this `readonly_mode` role, all other elements of the UI will be removed, except for `Dashboards`. In the following comparison, the left view shows the screen from the perspective of a user mapped to a role which is configured as readonly_mode. On the right, the user is given the standard view.
 
 ![compare read only mode]({{site.url}}{{site.baseurl}}/images/compare_read_only_mode.png)
 
