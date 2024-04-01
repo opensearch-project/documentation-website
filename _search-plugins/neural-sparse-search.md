@@ -2,7 +2,7 @@
 layout: default
 title: Neural sparse search
 nav_order: 50
-has_children: true
+has_children: false
 redirect_from:
   - /search-plugins/sparse-search/
 ---
