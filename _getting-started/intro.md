@@ -27,8 +27,6 @@ A _document_ is a unit that stores information, such as text or structured data.
 }
 ```
 
-You can use the preceding document for full-text search.
-
 You can think of a document in several ways:
 
 - If you have a collection of encyclopedia articles, a document might represent one article.
@@ -54,7 +52,7 @@ Here is how this document looks in JSON format:
 
 ## Index
 
-An index is a collection of documents. 
+An _index_ is a collection of documents. 
 
 You can think of an index in several ways:
 
