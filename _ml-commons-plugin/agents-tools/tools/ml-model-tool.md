@@ -10,12 +10,9 @@ grand_parent: Agents and tools
 
 <!-- vale off -->
 # ML Model tool
-**Introduced 2.12**
+plugins.ml_commons.rag_pipeline_feature_enabled: true
 {: .label .label-purple }
 <!-- vale on -->
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 The `MLModelTool` runs a machine learning (ML) model and returns inference results. 
 

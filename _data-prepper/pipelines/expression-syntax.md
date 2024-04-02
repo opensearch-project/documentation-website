@@ -230,7 +230,7 @@ The `length()` function takes one argument of the JSON pointer type and returns 
 
 ### `hasTags()`
 
-The `hastags()` function takes one or more string type arguments and returns `true` if all the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains a `tag1` tag, Data Prepper returns `false`.
+The `hasTags()` function takes one or more string type arguments and returns `true` if all of the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains `tag1`, Data Prepper returns `false`.
 
 ### `getMetadata()`
 
@@ -245,3 +245,21 @@ The `contains()` function takes two string arguments and determines whether eith
 The `cidrContains()` function takes two or more arguments. The first argument is a JSON pointer, which represents the key to the IP address that is checked. It supports both IPv4 and IPv6 addresses. Every argument that comes after the key is a string type that represents CIDR blocks that are checked against.
 
 If the IP address in the first argument is in the range of any of the given CIDR blocks, the function returns `true`. If the IP address is not in the range of the CIDR blocks, the function returns `false`. For example, `cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` will return `true` if the `sourceIp` field indicated in the JSON pointer has a value of `192.0.2.5`.
+
+### `join()`
+
+The `join()` function joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or a map where values are of the list type, and joins the lists as strings using commas (`,`), the default delimiter between strings.
+
+If `{"source": [1, 2, 3]}` is the input data, as shown in the following example:
+
+
+```json
+{"source": {"key1": [1, 2, 3], "key2": ["a", "b", "c"]}}
+```
+
+Then `join(/source)` will return `"1,2,3"` in the following format:
+
+```json
+{"key1": "1,2,3", "key2": "a,b,c"}
+```
+You can also specify a delimiter other than the default inside the expression. For example, `join("-", /source)` joins each `source` field using a hyphen (`-`) as the delimiter.

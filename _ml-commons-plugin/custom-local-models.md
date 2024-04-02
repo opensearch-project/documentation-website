@@ -7,7 +7,7 @@ nav_order: 120
 ---
 
 # Custom local models
-**Generally available 2.9**
+**Introduced 2.9**
 {: .label .label-purple }
 
 To use a custom model locally, you can upload it to the OpenSearch cluster.
