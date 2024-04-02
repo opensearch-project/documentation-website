@@ -32,6 +32,21 @@ For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compressi
 When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
 {: .note}
 
+As of OpenSearch 2.14, hardware-accelerated compression codecs for DEFLATE and LZ4 compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel (R) Xeon (R) processors running Linux kernel 3.10 and above. For all other systems and platforms, the codecs use their corresponding software implementations. 
+
+The new hard-accelerated codecs can be used by setting the value of `index.codec`:
+* `qat_lz4` (OpenSearch 2.14 and later) -- uses hardware-accelerated LZ4. 
+* `qat_deflate` (OpenSearch 2.14 and later)  -- uses hardware-accelerated DEFLATE. `qat_deflate` offers a much better compression ratio than `qat_lz4`, but with a modest drop in compression and decompression speed.
+
+Just like `zstd` and `zstd_no_dict`, the `index.codec.compression_level` can be used to specify the compression level for both `qat_lz4` and `qat_deflate`. The new setting, `index.codec.qatmode`, controls the behavior of the hardware accelerator. It takes two valid values:
+
+* `auto` -- uses hardware-accelerated compression. Fails over to use software if the hardware accelerator is not available.
+* `hardware` -- use hardware-accelerated compression. An exception is thrown if hardware is not available (guarantees a hardware-only compression).
+
+Refer to the snapshot section of this page for the implications of the above values on snapshot and restore.
+
+The hardware accelerator that is used is [Intel (R) QAT accelerator](https://www.intel.com/content/www/us/en/architecture-and-technology/intel-quick-assist-technology-overview.html).
+
 ## Choosing a codec 
 
 The choice of index codec impacts the amount of disk space required to store the index data. Codecs like `best_compression`, `zstd`, and `zstd_no_dict` can achieve higher compression ratios, resulting in smaller index sizes. Conversely, the `default` codec doesn’t prioritize compression ratio, resulting in larger index sizes but faster search operations than `best_compression`.
@@ -58,6 +73,7 @@ When creating a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/avai
 
 When you restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs of the segments in the source snapshot. For example, if the source snapshot contains segments of the `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), you won't be able to restore the snapshot to a cluster that runs on an older OpenSearch version because it doesn't support these codecs. 
 
+For hardware-accelerated compression codecs, available starting with OpenSearch 2.14, the value of `index.codec.qatmode` affects how snapshots and restores are done. If the value set for `index.codec.qatmode` is `auto` (the default), snapshots and restores can be done with no additional instructions. But if the value was set to `hardware`, it will need to change to `auto` for restore to work on systems that do not have the hardware accelerator. You can specify a new value for`index.codec.qatmode` during a restore process using: `"index_settings": {"index.codec.qatmode": "auto"}`.
 ### Reindexing
 
 When you are performing a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/) operation from a source index, the new segments created in the target index will have the properties of the codec settings of the target index. 
