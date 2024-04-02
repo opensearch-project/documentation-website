@@ -3,7 +3,7 @@ name: Encoding Checker
 on: [pull_request]
 
 jobs:
-  extendedAsciiAndBom:
+  encoding-checker:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
