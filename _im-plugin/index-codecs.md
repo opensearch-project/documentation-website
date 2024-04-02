@@ -32,7 +32,7 @@ For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compressi
 When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
 {: .note}
 
-As of OpenSearch 2.14, hardware-accelerated compression codecs for DEFLATE and LZ4 compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel\(R\) Xeon\(R\) processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use their corresponding software implementations. 
+As of OpenSearch 2.14, hardware-accelerated compression codecs for DEFLATE and LZ4 compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel®️ Xeon®️ processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use their corresponding software implementations. 
 
 The new hard-accelerated codecs can be used by setting the value of `index.codec`:
 * `qat_lz4` (OpenSearch 2.14 and later) -- uses hardware-accelerated LZ4. 
