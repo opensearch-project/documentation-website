@@ -157,119 +157,11 @@ The response confirms that, in addition to the `passage_text` field, the process
 }
 ```
 
-Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-3-ingest-documents-into-the-index) of the [neural sparse search documentation]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
-
-## Chaining text chunking and embedding processors
-
-You can use a `text_chunking` processor as a preprocessing step for a `text_embedding` or `sparse_encoding` processor in order to obtain embeddings for each chunked passage.
-
-**Prerequisites**
-
-Follow the steps outlined in the [pretrained model documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) to register an embedding model.
-
-**Step 1: Create a pipeline**
-
-The following example request creates an ingest pipeline that converts the text in the `passage_text` field into chunked passages, which will be stored in the `passage_chunk` field. The text in the `passage_chunk` field is then converted into text embeddings, and the embeddings are stored in the `passage_embedding` field:
-
-```json
-PUT _ingest/pipeline/text-chunking-embedding-ingest-pipeline
-{
-  "description": "A text chunking and embedding ingest pipeline",
-  "processors": [
-    {
-      "text_chunking": {
-        "algorithm": {
-          "fixed_token_length": {
-            "token_limit": 10,
-            "overlap_rate": 0.2,
-            "tokenizer": "standard"
-          }
-        },
-        "field_map": {
-          "passage_text": "passage_chunk"
-        }
-      }
-    },
-    {
-      "text_embedding": {
-        "model_id": "LMLPWY4BROvhdbtgETaI",
-        "field_map": {
-          "passage_chunk": "passage_chunk_embedding"
-        }
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-**Step 2 (Optional): Test the pipeline**
-
-It is recommended that you test your pipeline before ingesting documents.
-{: .tip}
-
-To test the pipeline, run the following query:
-
-```json
-POST _ingest/pipeline/text-chunking-embedding-ingest-pipeline/_simulate
-{
-  "docs": [
-    {
-      "_index": "testindex",
-      "_id": "1",
-      "_source":{
-         "passage_text": "This is an example document to be chunked. The document contains a single paragraph, two sentences and 24 tokens by standard tokenizer in OpenSearch."
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-#### Response
-
-The response confirms that, in addition to the `passage_text` and `passage_chunk` fields, the processor has generated text embeddings for each of the three passages in the `passage_chunk_embedding` field. The embedding vectors are stored in the `knn` field for each chunk:
-
-```json
-{
-  "docs": [
-    {
-      "doc": {
-        "_index": "testindex",
-        "_id": "1",
-        "_source": {
-          "passage_chunk_embedding": [
-            {
-              "knn": [...]
-            },
-            {
-              "knn": [...]
-            },
-            {
-              "knn": [...]
-            }
-          ],
-          "passage_text": "This is an example document to be chunked. The document contains a single paragraph, two sentences and 24 tokens by standard tokenizer in OpenSearch.",
-          "passage_chunk": [
-            "This is an example document to be chunked. The document ",
-            "The document contains a single paragraph, two sentences and 24 ",
-            "and 24 tokens by standard tokenizer in OpenSearch."
-          ]
-        },
-        "_ingest": {
-          "timestamp": "2024-03-20T03:04:49.144054Z"
-        }
-      }
-    }
-  ]
-}
-```
-
-Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Step 2: Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-2-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#step-3-ingest-documents-into-the-index) of the [neural sparse search documentation]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+Once you have created an ingest pipeline, you need to create an index for document ingestion. To learn more, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 
 ## Cascaded text chunking processors
 
-You can chain multiple chunking processors together. For example, to split documents into paragraphs, apply the `delimiter` algorithm and specify the parameter as `\n\n`. To prevent a paragraph from exceeding the token limit, append another chunking processor that uses the `fixed_token_length` algorithm. You can configure the ingest pipeline for this example as follows:
+You can chain multiple text chunking processors together. For example, to split documents into paragraphs, apply the `delimiter` algorithm and specify the parameter as `\n\n`. To prevent a paragraph from exceeding the token limit, append another text chunking processor that uses the `fixed_token_length` algorithm. You can configure the ingest pipeline for this example as follows:
 
 ```json
 PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
@@ -309,7 +201,7 @@ PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
 
 ## Next steps
 
+- For a complete example, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 - To learn more about semantic search, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
 - To learn more about sparse search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
 - To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
-- For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
