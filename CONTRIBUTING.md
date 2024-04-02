@@ -98,6 +98,13 @@ Follow these steps to set up your local copy of the repository:
    bundle install
    ```
 
+#### Troubleshooting
+- Error when running `rvm install 3.2`: `Error running '__rvm_make -j10'`
+  - Resolve by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2 instead of rvm install 3.2`
+- Error when running `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.`
+  - Resolve by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"` before running `bundle install`
+
+
 #### Making, viewing, and submitting changes 
 
 Here's how to build the website, make changes, and view them locally:
