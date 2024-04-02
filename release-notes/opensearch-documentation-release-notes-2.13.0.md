@@ -25,7 +25,6 @@ The OpenSearch 2.13.0 documentation includes the following additions and updates
 - Add post_filter is supported in hybrid search [#6724](https://github.com/opensearch-project/documentation-website/pull/6724)
 - Update deb/rpm autorestart service after upgrade documentation [#6720](https://github.com/opensearch-project/documentation-website/pull/6720)
 - Add documentation page for Vega Visualizations [#6711](https://github.com/opensearch-project/documentation-website/pull/6711)
-- Add cache plugin and tiered cache documentation [#6708](https://github.com/opensearch-project/documentation-website/pull/6708)
 - Add documentation for text chunking processor [#6707](https://github.com/opensearch-project/documentation-website/pull/6707)
 - Update documentation to support InnerProduct with k-NN Lucene Engine [#6703](https://github.com/opensearch-project/documentation-website/pull/6703)
 - Add documentation for kuromoji_completion filter [#6699](https://github.com/opensearch-project/documentation-website/pull/6699)
