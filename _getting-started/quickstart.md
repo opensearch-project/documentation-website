@@ -2,7 +2,6 @@
 layout: default
 title: Installation quickstart
 nav_order: 3
-permalink: /quickstart/
 redirect_from: 
   - /opensearch/install/quickstart/
   - /quickstart/
@@ -19,33 +18,63 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 You'll need a special file, called a Compose file, that Docker Compose uses to define and create the containers in your cluster. The OpenSearch Project provides a sample Compose file that you can use to get started. Learn more about working with Compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
 
-1. Before running OpenSearch on your machine, you should disable memory paging and swapping performance on the host to improve performance and increase the number of memory maps available to OpenSearch. See [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/) for more information.
+1. Before running OpenSearch on your machine, you should disable memory paging and swapping performance on the host to improve performance and increase the number of memory maps available to OpenSearch.
+    
+    Disable memory paging and swapping:
+    
     ```bash
-    # Disable memory paging and swapping.
     sudo swapoff -a
+    ```
+    {% include copy.html %}
 
-    # Edit the sysctl config file that defines the host's max map count.
+    Edit the sysctl config file that defines the host's max map count:
+
+    ```bash
     sudo vi /etc/sysctl.conf
+    ```
+    {% include copy.html %}
 
-    # Set max map count to the recommended value of 262144.
+    Set max map count to the recommended value of `262144`:
+    
+    ```bash
     vm.max_map_count=262144
+    ```
+    {% include copy.html %}
 
-    # Reload the kernel parameters.
+    Reload the kernel parameters:
+
+    ```
     sudo sysctl -p
     ```  
-1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
-    ```bash
-    # Using cURL:
-    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml
+    {% include copy.html %}
 
-    # Using wget:
+    For more information, see [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
+
+1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
+
+    To use cURL, send the following request:
+
+    ```bash
+    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml
+    ```
+    {% include copy.html %}
+
+    To use wget, send the following request:
+
+    ```
     wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml
     ```
-1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you just downloaded, and run the following command to create and start the cluster as a background process.
+    {% include copy.html %}
+
+1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you downloaded, and run the following command to create and start the cluster as a background process:
+    
     ```bash
     docker-compose up -d
     ```
+    {% include copy.html %}
+
 1. Confirm that the containers are running with the command `docker-compose ps`. You should see an output like the following:
+
     ```bash
     $ docker-compose ps
     NAME                    COMMAND                  SERVICE                 STATUS              PORTS
@@ -53,11 +82,16 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     opensearch-node1        "./opensearch-docker…"   opensearch-node1        running             0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp
     opensearch-node2        "./opensearch-docker…"   opensearch-node2        running             9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
     ```
-1. Query the OpenSearch REST API to verify that the service is running. You should use `-k` (also written as `--insecure`) to disable hostname checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:<custom-admin-password>`).
+
+1. Query the OpenSearch REST API to verify that the service is running. You should use `-k` (also written as `--insecure`) to disable hostname checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:<custom-admin-password>`):
+
     ```bash
     curl https://localhost:9200 -ku admin:<custom-admin-password>
     ```
-    Sample response:
+    {% include copy.html %}
+
+    The response confirms that the installation is successful:
+
     ```json
     {
         "name" : "opensearch-node1",
@@ -78,16 +112,6 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     }
     ```
 1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
-
-## Next steps
-
-You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards and added some sample data. Now you're ready to learn about configuration and functionality in more detail. Here are a few recommendations on where to begin:
-- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
-- [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/index/)
-- [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
 
 ## Common issues
 
@@ -116,3 +140,17 @@ opensearch-node1         | ERROR: [1] bootstrap checks failed
 opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
 ```
+
+## Further reading
+
+You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards and added some sample data. Now you're ready to learn about configuration and functionality in more detail. Here are a few recommendations on where to begin:
+- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
+- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
+- [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/index/)
+- [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
+
+## Next steps
+
+- Learn about how to send requests to OpenSearch in [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/)

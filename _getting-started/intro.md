@@ -13,42 +13,31 @@ OpenSearch is a distributed search and analytics engine, which supports various 
 
 ## Document
 
-A _document_ is a unit that stores information, such as text or structured data. In OpenSearch, documents are stored in [JSON](https://www.json.org/) format. For example, a document may represent a line in a Shakespeare play:
-
-```json
-{
-  "type": "line",
-  "line_id": 5,
-  "play_name": "Henry IV",
-  "speech_number": 1,
-  "line_number": "1.1.2",
-  "speaker": "KING HENRY IV",
-  "text_entry": "Find we a time for frighted peace to pant,"
-}
-```
+A _document_ is a unit that stores information (text or structured data). In OpenSearch, documents are stored in [JSON](https://www.json.org/) format. 
 
 You can think of a document in several ways:
 
-- If you have a collection of encyclopedia articles, a document might represent one article.
+- In a database of students, a document might represent one student.
 - When you search for information, OpenSearch returns documents related to your search.
 - If you're familiar with traditional databases, a document represents a row.
 
-For example, in a school database, a document might represent one student and contain structured data like the student ID and name:
+For example, in a school database, a document might represent one student and contain the following data.
 
-ID | First name | Last name | Address | 
+ID | Name | GPA | Graduation year | 
 :--- | :--- | :--- | :--- | 
-123456 | John | Doe | 121 Main St. | 
+1 | John Doe | 3.89 | 2022 | 
 
-Here is how this document looks in JSON format:
+Here is what this document looks like in JSON format:
 
 ```json
 {
-  "id": "123456",
-  "first_name": John,
-  "last_name": "Doe",
-  "address": "121 Main St."
+  "name": "John Doe",
+  "gpa": 3.89,
+  "grad_year": 2022
 }
 ```
+
+You'll learn about how document IDs are assigned in [Indexing documents]({{site.url}}{{site.baseurl}}/getting-started/communicate/#indexing-documents).
 
 ## Index
 
@@ -60,14 +49,17 @@ You can think of an index in several ways:
 - When you search for information, you query data contained in an index.
 - If you're familiar with traditional databases, a document represents a database table.
 
-For example, in a school database, an index might contain all students in the school:
+For example, in a school database, an index might contain all students in the school.
 
-ID | First name | Last name | Address 
+ID | Name | GPA | Graduation year 
 :--- | :--- | :--- | :--- 
-123456 | John | Doe | 121 Main St.  
-123457 | Jane | Smith | 1 Chestnut St. 
+1 | John Doe | 3.89 | 2022
+2 | Jonathan Powers | 3.85 | 2025
+3 | Jane Doe | 3.52 | 2024
 
-An OpenSearch index is represented as an _inverted index_. An inverted index maps words to the documents that they occur in. For example, consider an index containing the following two documents:
+## Inverted index
+
+An OpenSearch index uses a data structure called an _inverted index_. An inverted index maps words to the documents that they occur in. For example, consider an index containing the following two documents:
 
 - Document 1 : "Beauty is in the eye of the beholder"
 - Document 2: "Beauty and the beast"
@@ -89,18 +81,20 @@ beast | 2
 
 In addition to the document ID, OpenSearch stores the position of the word within that document for phrase queries, where words must appear next to each other.
 
-When searching for documents, you need to make sure that the word is _relevant_. For example, the word `the` appears in most English phrases but searching for this word is meaningless. OpenSearch determines the relevance of a term by calculating two values:
+## Relevance
+
+When searching for documents using a phrase, you need to make sure that the words you are searching for are _relevant_. For example, the word `the` appears in most English phrases but searching for this word is meaningless. OpenSearch determines the relevance of a term by calculating two values:
 
 - _Term frequency_: how often a word appears in the document
 - _Document frequency_:  how often a word appears in all documents 
 
-Then, the relevance of a word is calculated as $$ relevance = { \text {term frequency} \over \text {document frequency} }. $$
+The relevance of a word is calculated as $$ relevance = { \text {term frequency} \over \text {document frequency} }. $$ This score is called term frequency/inverse document frequency (TF/IDF). For more information, see [TF/IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf).
 
-OpenSearch scores the results in terms of relevance and returns them sorted by relevance.
+OpenSearch uses the BM25 ranking algorithm to calculate relevance scores and returns the results sorted by relevance. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
 
 ## Clusters and nodes
 
-OpenSearch is designed to be a distributed search engine. OpenSearch can run on one or more *nodes*, servers that store your data and process search requests. An OpenSearch *cluster* is a collection of nodes. 
+OpenSearch is designed to be a distributed search engine. OpenSearch can run on one or more _nodes_---servers that store your data and process search requests. An OpenSearch *cluster* is a collection of nodes. 
 
 You can run OpenSearch locally on a laptop---its system requirements are minimal---but you can also scale a single cluster to hundreds of powerful machines in a data center.
 
@@ -116,7 +110,7 @@ OpenSearch splits indexes into *shards*. Each shard stores a subset of all docum
 
 <img src="{{site.url}}{{site.baseurl}}/images/intro/index-shard.png" alt="An index is split into shards" width="450">
 
-Shards are used for even distribution across nodes in a cluster. For example, a 400-GB index might be too large for any single node in your cluster to handle, but split into ten shards, each one 40 GB, OpenSearch can distribute the shards across ten nodes and work with each shard individually. When you index documents into OpenSearch, the documents are directed to a particular shard, and shards can reside on different nodes in a cluster. For example, consider a cluster with two indexes: index 1 and index 2. Index 1 is split into 2 shards, and index 2 is split into 4 shards. The shards are distributed across nodes 1 and 2, as shown in the following image.
+Shards are used for even distribution across nodes in a cluster. For example, a 400-GB index might be too large for any single node in your cluster to handle, but split into ten shards, each one 40 GB, OpenSearch can distribute the shards across ten nodes and work with each shard individually. For example, consider a cluster with two indexes: index 1 and index 2. Index 1 is split into 2 shards, and index 2 is split into 4 shards. The shards are distributed across nodes 1 and 2, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/intro/cluster.png" alt="A cluster containing two indexes and two nodes" width="650">
 
