@@ -71,7 +71,7 @@ Because the system can automatically map field names, it is optional to manually
 
 ## Log type APIs
 
-Use the Log type APIs, to perform custom log type operations using the REST API. For more information, refer to the [Log type APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/log-type-api/) documentation.
+Use the log type APIs to perform custom log type operations using the REST API. For more information, refer to the [log type APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/log-type-api/) documentation.
 
 
 
