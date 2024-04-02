@@ -16,6 +16,8 @@ Creating a workflow adds the content of a workflow template to the flow framewor
 
 To obtain the validation template for workflow steps, call the [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-steps/).
 
+You can include placeholder expressions in the value of workflow step fields. For example, you can specify a credential field in a template as `openAI_key: '${{ openai_key }}'`. The expression will be substituted with the user-provided value during provisioning, using the format {% raw %}`${{ <value> }}`{% endraw %}. You can pass the actual key as a parameter by using the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) or by using this API with the `provision` parameter set to `true`.
+
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
 The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. 
@@ -56,12 +58,13 @@ POST /_plugins/_flow_framework/workflow?validation=none
 ```
 {% include copy-curl.html %}
 
-The following table lists the available query parameters. All query parameters are optional.
+The following table lists the available query parameters. All query parameters are optional. User-provided parameters are only allowed if the `provision` parameter is set to `true`.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `provision` | Boolean | Whether to provision the workflow as part of the request. Default is `false`. |
 | `validation` | String | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`. |
+| User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters). |
 
 ## Request fields
 
