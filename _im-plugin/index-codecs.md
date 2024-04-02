@@ -32,18 +32,18 @@ For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compressi
 When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
 {: .note}
 
-As of OpenSearch 2.14, hardware-accelerated compression codecs for DEFLATE and LZ4 compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel (R) Xeon (R) processors running Linux kernel 3.10 and above. For all other systems and platforms, the codecs use their corresponding software implementations. 
+As of OpenSearch 2.14, hardware-accelerated compression codecs for DEFLATE and LZ4 compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel\(R\) Xeon\(R\) processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use their corresponding software implementations. 
 
 The new hard-accelerated codecs can be used by setting the value of `index.codec`:
 * `qat_lz4` (OpenSearch 2.14 and later) -- uses hardware-accelerated LZ4. 
 * `qat_deflate` (OpenSearch 2.14 and later)  -- uses hardware-accelerated DEFLATE. `qat_deflate` offers a much better compression ratio than `qat_lz4`, but with a modest drop in compression and decompression speed.
 
-Just like `zstd` and `zstd_no_dict`, the `index.codec.compression_level` can be used to specify the compression level for both `qat_lz4` and `qat_deflate`. The new setting, `index.codec.qatmode`, controls the behavior of the hardware accelerator. It takes two valid values:
+The `index.codec.compression_level` can be used to specify the compression level for both `qat_lz4` and `qat_deflate`. The new setting, `index.codec.qatmode`, controls the behavior of the hardware accelerator. It takes two valid values:
 
 * `auto` -- uses hardware-accelerated compression. Fails over to use software if the hardware accelerator is not available.
 * `hardware` -- use hardware-accelerated compression. An exception is thrown if hardware is not available (guarantees a hardware-only compression).
 
-Refer to the snapshot section of this page for the implications of the above values on snapshot and restore.
+Refer to the snapshot section of this page for the implications `index.codec.qatmode` on snapshot and restore.
 
 The hardware accelerator that is used is [Intel (R) QAT accelerator](https://www.intel.com/content/www/us/en/architecture-and-technology/intel-quick-assist-technology-overview.html).
 
