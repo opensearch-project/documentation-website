@@ -36,7 +36,10 @@ As of OpenSearch 2.14, hardware-accelerated compression codecs for DEFLATE and L
 
 The new hard-accelerated codecs can be used by setting the value of `index.codec`:
 * `qat_lz4` (OpenSearch 2.14 and later) -- uses hardware-accelerated LZ4. 
-* `qat_deflate` (OpenSearch 2.14 and later)  -- uses hardware-accelerated DEFLATE. `qat_deflate` offers a much better compression ratio than `qat_lz4`, but with a modest drop in compression and decompression speed.
+* `qat_deflate` (OpenSearch 2.14 and later)  -- uses hardware-accelerated DEFLATE. 
+
+`qat_deflate` offers a much better compression ratio than `qat_lz4` with a modest drop in compression and decompression speed.
+{: .note}
 
 The `index.codec.compression_level` can be used to specify the compression level for both `qat_lz4` and `qat_deflate`. The new setting, `index.codec.qatmode`, controls the behavior of the hardware accelerator. It takes two valid values:
 
@@ -73,7 +76,11 @@ When creating a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/avai
 
 When you restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs of the segments in the source snapshot. For example, if the source snapshot contains segments of the `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), you won't be able to restore the snapshot to a cluster that runs on an older OpenSearch version because it doesn't support these codecs. 
 
-For hardware-accelerated compression codecs, available starting with OpenSearch 2.14, the value of `index.codec.qatmode` affects how snapshots and restores are done. If the value set for `index.codec.qatmode` is `auto` (the default), snapshots and restores can be done with no additional instructions. But if the value was set to `hardware`, it will need to change to `auto` for restore to work on systems that do not have the hardware accelerator. You can specify a new value for`index.codec.qatmode` during a restore process using: `"index_settings": {"index.codec.qatmode": "auto"}`.
+For hardware-accelerated compression codecs, available starting with OpenSearch 2.14, the value of `index.codec.qatmode` affects how snapshots and restores are done. If the value set for `index.codec.qatmode` is `auto` (the default), snapshots and restores can be done with no additional instructions. But if the value is `hardware`, you won't be able to restore the snapshot unless you set it to `auto`. 
+
+You may modify the value of `index.codec.qatmode` during a retore process by setting its value: `"index_settings": {"index.codec.qatmode": "auto"}`.
+{: .note}
+
 ### Reindexing
 
 When you are performing a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/) operation from a source index, the new segments created in the target index will have the properties of the codec settings of the target index. 
