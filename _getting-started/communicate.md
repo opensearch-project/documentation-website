@@ -43,7 +43,7 @@ curl -XGET "http://localhost:9200/_cluster/health?pretty"
 
 For more information about `pretty` and other useful query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
 
-For requests that contain a body, specify the `Content-Type` header and provide the request payload in the `-d` (data) oprion:
+For requests that contain a body, specify the `Content-Type` header and provide the request payload in the `-d` (data) option:
 
 ```json
 curl -XGET "http://localhost:9200/students/_search?pretty" -H 'Content-Type: application/json' -d'
