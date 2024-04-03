@@ -151,9 +151,6 @@ You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
-- [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/index/)
-- [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
 
 ## Next steps
 
