@@ -306,7 +306,7 @@ Both `John Doe` and `Jane Doe` matched the word `doe`, but `John Doe` is scored 
 
 ### Keyword search
 
-The `name` field also contains the `name.keyword` subfield, which was added by OpenSearch automatically. You can try to search the `name.keyword` field in a manner similar to the previous request:
+The `name` field contains the `name.keyword` subfield, which was added by OpenSearch automatically. You can try to search the `name.keyword` field in a manner similar to the previous request:
 
 ```json
 GET /students/_search
