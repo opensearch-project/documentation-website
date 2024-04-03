@@ -440,5 +440,5 @@ Along with the traditional BM25 search described in this tutorial, OpenSearch su
 
 ## Next steps
 
-- For information about available query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/index/)
-- For information about available search methods, see [Search]({{site.url}}{{site.baseurl}}/search-plugins/)
+- For information about available query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/index/).
+- For information about available search methods, see [Search]({{site.url}}{{site.baseurl}}/search-plugins/).
