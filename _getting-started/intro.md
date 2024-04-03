@@ -90,7 +90,7 @@ When searching for documents using a phrase, you need to make sure that the word
 
 The relevance of a word is calculated as $$ relevance = { \text {term frequency} \over \text {document frequency} }. $$ This score is called term frequency/inverse document frequency (TF/IDF). For more information, see [TF/IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf).
 
-OpenSearch uses the BM25 ranking algorithm to calculate relevance scores and returns the results sorted by relevance. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
+OpenSearch uses the BM25 ranking algorithm to calculate document relevance scores and returns the results sorted by relevance. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
 
 ## Clusters and nodes
 
