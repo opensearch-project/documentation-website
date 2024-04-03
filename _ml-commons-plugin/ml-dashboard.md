@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 # Managing ML models in OpenSearch Dashboards
-**Generally available 2.9**
+**Introduced 2.9**
 {: .label .label-purple }
 
 Administrators of machine learning (ML) clusters can use OpenSearch Dashboards to manage and check the status of ML models running inside a cluster. This can help ML developers provision nodes to ensure their models run efficiently.

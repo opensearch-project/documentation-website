@@ -30,9 +30,6 @@ For more information about building PPL queries, see [Piped Processing Language]
 
 ### OpenSearch Dashboards Query Assistant
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [OpenSearch forum thread](https://forum.opensearch.org/t/feedback-opensearch-assistant/16741).    
-{: .warning}
-
 Note that machine learning models are probabilistic and that some may perform better than others, so the OpenSearch Assistant may occasionally produce inaccurate information. We recommend evaluating outputs for accuracy as appropriate to your use case, including reviewing the output or combining it with other verification factors.
 {: .important}
 
@@ -42,20 +39,15 @@ To simplify query building, the **OpenSearch Assistant** toolkit offers an assis
 
 #### Enabling Query Assistant
 
-To enable **Query Assistant** in OpenSearch Dashboards, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
+By default, **Query Assistant** is enabled in OpenSearch Dashboards. To enable summarization of responses, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
 
-```
-observability.query_assist.enabled: true
-observability.query_assist.ppl_agent_name: "PPL agent"
-```
-
-To enable summarization of responses, locate your copy of the `opensearch_dashboards.yml` file and set the following option:
-
-```
+```yaml
 observability.summarize.enabled: true
 observability.summarize.response_summary_agent_name: "Response summary agent"
 observability.summarize.error_summary_agent_name: "Error summary agent"
 ```
+
+To disable Query Assistant, add `observability.query_assist.enabled: false` to your `opensearch_dashboards.yml`. 
 
 #### Setting up Query Assistant
 
@@ -63,7 +55,7 @@ To set up **Query Assistant**, follow the steps in the [Getting started guide](h
 
 ## Saving a visualization
 
-After Dashboards generates a visualization, save it if you want to revisit it or include it in an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels). To save a visualization, expand the **Save** dropdown menu in the upper-right corner, enter a name for the visualization, and then select the **Save** button. You can reopen saved visualizations on the event analytics page.
+After Dashboards generates a visualization, save it if you want to revisit it or include it in an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels/). To save a visualization, expand the **Save** dropdown menu in the upper-right corner, enter a name for the visualization, and then select the **Save** button. You can reopen saved visualizations on the event analytics page.
 
 ## Creating event analytics visualizations and adding them to dashboards
 

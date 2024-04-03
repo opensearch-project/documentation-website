@@ -41,11 +41,12 @@ Use the following configuration options with the `kafka` buffer.
 
 Option | Required | Type | Description
 --- | --- | --- | ---
-`bootstrap_servers` | Yes | String list | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or the port number for each broker. When using [Amazon Managed Streaming for Apache Kafka (Amazon MSK)](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from Amazon MSK using the Amazon Resource Name (ARN) provided in the configuration.
-`topics` | Yes | List | A list of [topics](#topic) to use. You must supply one topic per buffer.
 `authentication` | No | [Authentication](#authentication) | Sets the authentication options for both the pipeline and Kafka. For more information, see [Authentication](#authentication).
-`encryption` | No | [Encryption](#encryption) | The encryption configuration for encryption in transit. For more information, see [Encryption](#encryption).
 `aws` | No | [AWS](#aws) | The AWS configuration. For more information, see [aws](#aws).
+`bootstrap_servers` | Yes | String list | The host and port for the initial connection to the Kafka cluster. You can configure multiple Kafka brokers by using the IP address or the port number for each broker. When using [Amazon Managed Streaming for Apache Kafka (Amazon MSK)](https://aws.amazon.com/msk/) as your Kafka cluster, the bootstrap server information is obtained from Amazon MSK using the Amazon Resource Name (ARN) provided in the configuration.
+`encryption` | No | [Encryption](#encryption) | The encryption configuration for encryption in transit. For more information, see [Encryption](#encryption).
+`producer_properties` | No | [Producer Properties](#producer_properties) | A list of configurable Kafka producer properties. 
+`topics` | Yes | List | A list of [topics](#topic) for the buffer to use. You must supply one topic per buffer.
 
 
 ### topic
@@ -73,6 +74,7 @@ Option | Required | Type | Description
 `retry_backoff` | No | Integer | The amount of time to wait before attempting to retry a failed request to a given topic partition. Default is `10s`.
 `max_poll_interval` | No | Integer | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option. Default is `300s`.
 `consumer_max_poll_records` | No | Integer | The maximum number of records returned in a single `poll()` call through Kafka's `max.poll.records` setting. Default is `500`.
+`max_message_bytes` | No | Integer | The maximum size of the message, in bytes. Default is 1 MB.
 
 
 ### kms
@@ -122,6 +124,14 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `type` | No | String | The encryption type. Use `none` to disable encryption. Default is `ssl`.
 `insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, certificate authority (CA) certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
+
+#### producer_properties
+
+Use the following configuration options to configure a Kafka producer.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`max_request_size` | No | Integer | The maximum size of the request that the producer sends to Kafka. Default is 1 MB.
 
 
 #### aws
