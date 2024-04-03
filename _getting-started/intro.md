@@ -110,7 +110,7 @@ OpenSearch splits indexes into *shards*. Each shard stores a subset of all docum
 
 <img src="{{site.url}}{{site.baseurl}}/images/intro/index-shard.png" alt="An index is split into shards" width="450">
 
-Shards are used for even distribution across nodes in a cluster. For example, a 400-GB index might be too large for any single node in your cluster to handle, but split into ten shards, each one 40 GB, OpenSearch can distribute the shards across ten nodes and work with each shard individually. For example, consider a cluster with two indexes: index 1 and index 2. Index 1 is split into 2 shards, and index 2 is split into 4 shards. The shards are distributed across nodes 1 and 2, as shown in the following image.
+Shards are used for even distribution across nodes in a cluster. For example, a 400-GB index might be too large for any single node in your cluster to handle, but split into ten shards, each one 40 GB, OpenSearch can distribute the shards across ten nodes and work with each shard individually. Consider a cluster with two indexes: index 1 and index 2. Index 1 is split into 2 shards, and index 2 is split into 4 shards. The shards are distributed across nodes 1 and 2, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/intro/cluster.png" alt="A cluster containing two indexes and two nodes" width="650">
 
