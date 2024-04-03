@@ -13,7 +13,7 @@ Introduced 2.12
 You can rerank search results using a cross-encoder reranker in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to them. The `rerank` processor evaluates the search results and sorts them based on the new scores provided by the cross-encoder model. 
 
 **PREREQUISITE**<br>
-Before configuring a reranking pipeline, you must set up a cross-encoder model. For more information, see [Cross-encoder models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/#cross-encoder-models).
+Before configuring a reranking pipeline, you must set up a cross-encoder model. For information about using an OpenSearch-provided model, see [Cross-encoder models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#cross-encoder-models). For information about using a custom model, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
 {: .note}
 
 ## Running a search with reranking

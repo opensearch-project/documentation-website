@@ -2,7 +2,7 @@
 layout: default
 title: Deriving metrics from traces
 parent: Common use cases
-nav_order: 60
+nav_order: 20
 ---
 
 # Deriving metrics from traces

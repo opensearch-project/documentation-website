@@ -2,7 +2,7 @@
 layout: default
 title: Log analytics
 parent: Common use cases
-nav_order: 10
+nav_order: 30
 ---
 
 # Log analytics
