@@ -21,7 +21,6 @@ DELETE /sample-index
 {% include copy-curl.html %}
 
 ## Path and HTTP methods
-Do we need these here? 
 ```
 DELETE /<index-name>
 ```
