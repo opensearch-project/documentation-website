@@ -302,7 +302,7 @@ The response contains two matching documents:
 }
 ```
 
-Both `John Doe` and `Jane Doe` matched the word `doe`, but `John Doe` is scored higher because it also matched `john`.
+The match query type uses `OR` as an operator by default, so the query is functionally `doe OR john`. Both `John Doe` and `Jane Doe` matched the word `doe`, but `John Doe` is scored higher because it also matched `john`.
 
 ### Keyword search
 
@@ -436,7 +436,7 @@ GET students/_search
 
 ## Search methods
 
-Along with the traditional BM25 search described in this tutorial, OpenSearch supports a range of machine learning (ML)-powered search methods, including k-NN, semantic, multimodal, sparse, hybrid, and conversational search. For information about all search methods, see [Search]({{site.url}}{{site.baseurl}}/search-plugins/).
+Along with the traditional full-text search described in this tutorial, OpenSearch supports a range of machine learning (ML)-powered search methods, including k-NN, semantic, multimodal, sparse, hybrid, and conversational search. For information about all search methods, see [Search]({{site.url}}{{site.baseurl}}/search-plugins/).
 
 ## Next steps
 

@@ -83,12 +83,13 @@ In addition to the document ID, OpenSearch stores the position of the word withi
 
 ## Relevance
 
-When searching for documents using a phrase, you need to make sure that the words you are searching for are _relevant_. For example, the word `the` appears in most English phrases but searching for this word is meaningless. OpenSearch determines the relevance of a term by calculating two values:
+Individual words in a search query are called search _terms_. Each search term is scored according to the following rules:
 
-- _Term frequency_: how often a word appears in the document
-- _Document frequency_: how often a word appears in all documents 
+1. A search term that occurs more frequently in a document will tend to score higher. A document about dogs that uses the word `dog` many times is likely more relevant than a document that contains the word `dog` fewer times. This is the _term frequency_ component of the score.
 
-The relevance of a word is calculated as $$ relevance = { \text {term frequency} \over \text {document frequency} }. $$ This score is called term frequency/inverse document frequency (TF/IDF). For more information, see [TF/IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf).
+1. A search term that occurs in more documents will tend to score lower. A query for the terms `blue` and `axolotl` should prefer documents that contain `axolotl` over the likely more common word `blue`. This is the _inverse document frequency_ component of the score.
+
+1. A match on a longer document should tend to score lower than a match on a shorter document. A document that contains a full dictionary would match on any word, but is not very relevant to any particular word. This corresponds to the _length normalization_ component of the score.
 
 OpenSearch uses the BM25 ranking algorithm to calculate document relevance scores and returns the results sorted by relevance. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
 
@@ -128,11 +129,18 @@ These replica shards act as backups in the event of a node failure---OpenSearch 
 
 The following section describes more advanced OpenSearch concepts.
 
+### Update lifecycle
+
+The lifecycle of an update operation consists of the following steps:
+
+1. An update is received by a primary shard and is written to the shard's transaction log ([translog](#translog)). The translog is flushed to disk (followed by an fsync) before the update is acknowledged. This guarantees durability.
+1. The update is also passed to the Lucene index writer, which adds it to an in-memory buffer.
+1. On a [refresh operation](#refresh), the Lucene index writer flushes the in-memory buffers to disk (with each buffer becoming a new Lucene segment), and a new index reader is opened over the resulting segment files. The updates are now visible for search.
+1. On a [flush operation](#flush), the shard fsyncs the Lucene segments. Because the segment files are a durable representation of the updates, the translog is no longer needed to provide durability, do the updates can be purged from the translog.
+
 ### Translog
 
-Any index changes, such as document indexing or deletion, are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called _translog_. When a document is indexed, it is added to the memory buffer and recorded in the translog. After a process or host restart, any data in the in-memory buffer is lost. Recording the document in the translog ensures durability because the translog is written to disk.
-
-Frequent refresh operations write the documents in the memory buffer to a segment and then clear the memory buffer. Periodically, a [flush](#flush) performs a Lucene commit, which includes writing the segments to disk using `fsync`, purging the old translog, and starting a new translog. Thus, a translog contains all operations that have not yet been flushed.
+An indexing or bulk call responds when the documents have been written to the translog and the translog is flushed to disk, so the updates are durable. The updates will be visible from search requests until after a [refresh operation](#refresh).
 
 ### Refresh
 

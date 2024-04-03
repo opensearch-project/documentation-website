@@ -305,7 +305,7 @@ OpenSearch mapped the `name` and `grad_year` fields according to the types you s
 }
 ```
 
-You cannot change the mappings once the index is created. 
+You cannot change the type of a field once it is created. Changing a field type requires deleting the index and recreating it with the new mappings. 
 {: .note}
 
 ## Further reading
