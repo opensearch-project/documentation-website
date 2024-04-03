@@ -434,6 +434,8 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
+For more information about Boolean and other compound queries, see [Compound queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/).
+
 ## Search methods
 
 Along with the traditional full-text search described in this tutorial, OpenSearch supports a range of machine learning (ML)-powered search methods, including k-NN, semantic, multimodal, sparse, hybrid, and conversational search. For information about all search methods, see [Search]({{site.url}}{{site.baseurl}}/search-plugins/).
