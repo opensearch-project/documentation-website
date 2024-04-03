@@ -16,6 +16,7 @@ jobs:
     # See https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target.
     if: >
       github.event.pull_request.merged
+      && github.repository == 'opensearch-project/documentation-website'
       && (
         github.event.action == 'closed'
         || (
@@ -38,3 +39,12 @@ jobs:
         with:
           github_token: ${{ steps.github_app_token.outputs.token }}
           head_template: backport/backport-<%= number %>-to-<%= base %>
+
+      - name: Label new backport PR with backport-automerge label
+        run: |
+          PR_BRANCH=backport/backport-<%= number %>-to-<%= base %>
+          PR_NUMBER=`gh pr list -R opensearch-project/documentation-website --json "number,headRefName" --state open | jq -r ".[] | select(.headRefName == \"$PR_BRANCH\") | .number"`
+          echo "Update Backport PR #$PR_NUMBER on branch $PR_BRANCH with backport-automerge label"
+          gh issue edit -R opensearch-project/documentation-website $PR_NUMBER --add-label backport-automerge
+        env:
+          GH_TOKEN: ${{ steps.github_app_token.outputs.token }}
