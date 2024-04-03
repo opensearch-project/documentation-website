@@ -365,10 +365,11 @@ Only superadmin users can register a hidden agent. To register a hidden agent, y
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opendistro_security/_search'
 ```
 
-All agents created by a superadmin user are automatically registered as hidden. To register a hidden agent, send a request to the `_register` endpoint:
+All agents created by a superadmin user are automatically registered as hidden. Only the superadmin user can view hidden agent details and delete hidden agents.
+To register a hidden agent, send a request to the `_register` endpoint:
 
 ```bash
-curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/models/_register' -H 'Content-Type: application/json' -d '
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/agents/_register' -H 'Content-Type: application/json' -d '
 {
   "name": "Test_Agent_For_RAG",
   "type": "flow",
