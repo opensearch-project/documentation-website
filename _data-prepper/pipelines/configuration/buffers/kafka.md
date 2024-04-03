@@ -128,6 +128,7 @@ Option | Required | Type | Description
 #### producer_properties
 
 Use the following configuration options to configure a Kafka producer.
+
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `max_request_size` | No | Integer | The maximum size of the request that the producer sends to Kafka. Default is 1 MB.
