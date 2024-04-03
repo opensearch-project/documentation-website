@@ -20,19 +20,19 @@ An equally popular, but less obvious use case is log analytics, in which you tak
 
 Though this section focuses on the core product, OpenSearch is more than the core engine. It also includes the following components:
 
-- [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/): The OpenSearch data visualization UI.
+- [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/): The OpenSearch data visualization user interface (UI).
 - [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/): A server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization.
 - [Clients]({{site.url}}{{site.baseurl}}/clients/): Language APIs that let you communicate with OpenSearch in several popular programming languages.
 
 ## Use cases
 
-OpenSearch supports a wide variety of use cases, for example:
+OpenSearch supports a variety of use cases, for example:
 
-- [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/): Visualize data-driven events by using Piped Processing Language to explore, discover, and query data stored in OpenSearch.
+- [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/): Visualize data-driven events by using Piped Processing Language (PPL) to explore, discover, and query data stored in OpenSearch.
 - [Search]({{site.url}}{{site.baseurl}}/search-plugins/): Choose the search method best for your application, from regular lexical search to conversational search powered by machine learning (ML).
 - [Machine learning]({{site.url}}{{site.baseurl}}/ml-commons-plugin/): Integrate ML models into your OpenSearch application.
 - [Security analytics]({{site.url}}{{site.baseurl}}/security-analytics/): Investigate, detect, analyze, and respond to security threats that can jeopardize the success of businesses and organizations and their online operations. 
 
 ## Next steps
 
-- Learn the essential OpenSearch concepts in [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/)
+- Learn the essential OpenSearch concepts in [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/).

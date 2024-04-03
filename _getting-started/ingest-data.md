@@ -101,11 +101,11 @@ To learn how to use OpenSearch Dashboards to visualize the data, see the [OpenSe
 
 ## Further reading
 
-- For information about Data Prepper, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/)
-- For information about ingestion tools, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/)
-- For information about OpenSearch Dashboards, see [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/)
-- For information about bulk indexing, see [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)
+- For information about Data Prepper, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
+- For information about ingestion tools, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/).
+- For information about OpenSearch Dashboards, see [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/).
+- For information about bulk indexing, see [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
 
 ## Next steps
 
-- Learn about search options in [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/)
+- Learn about search options in [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/).

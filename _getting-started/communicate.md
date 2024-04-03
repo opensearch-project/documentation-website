@@ -10,9 +10,9 @@ You can communicate with OpenSearch using the REST API or one of the OpenSearch 
 
 ## OpenSearch REST API
 
-You interact with OpenSearch clusters using the REST API, which offers a lot of flexibility. Through the REST API, you can change most OpenSearch settings, modify indexes, check the health of the cluster, get statistics---almost everything. You can use clients like [cURL](https://curl.se/) or any programming language that can send HTTP requests. 
+You interact with OpenSearch clusters using the REST API, which offers a lot of flexibility. Through the REST API, you can change most OpenSearch settings, modify indexes, check cluster health, get statistics---almost everything. You can use clients like [cURL](https://curl.se/) or any programming language that can send HTTP requests. 
 
-You can send HTTP requests in your terminal or in the Dev Tools console in OpenSearch Dashboards.
+You can send HTTP requests in your terminal or in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) in OpenSearch Dashboards.
 
 ### Sending requests in the terminal
 
@@ -25,7 +25,7 @@ curl -XGET "http://localhost:9200/_cluster/health"
 ```
 {% include copy.html %}
 
-If you're using the Security plugin, provide the user name and password in the request:
+If you're using the Security plugin, provide the username and password in the request:
 
 ```bash
 curl -X GET "http://localhost:9200/_cluster/health" -ku admin:<custom-admin-password>
@@ -310,11 +310,11 @@ You cannot change the mappings once the index is created.
 
 ## Further reading
 
-- For information about OpenSearch REST API, see the [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/)
-- For information about OpenSearch language clients, see [Clients]({{site.url}}{{site.baseurl}}/clients/)
-- For information about mappings, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types)
-- For information about settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)
+- For information about OpenSearch REST API, see the [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/).
+- For information about OpenSearch language clients, see [Clients]({{site.url}}{{site.baseurl}}/clients/).
+- For information about mappings, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/).
+- For information about settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Next steps
 
-- Learn about ingestion options in [Ingest data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/)
+- Learn about ingestion options in [Ingest data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).

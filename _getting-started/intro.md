@@ -9,7 +9,7 @@ redirect_from:
 
 # Introduction to OpenSearch
 
-OpenSearch is a distributed search and analytics engine, which supports various use cases, from implementing a search box on a website to analyzing security data for threat detection. The term _distributed_ means you can run OpenSearch on multiple computers. _Search and analytics_ means you can search and analyze your data once you ingest it into OpenSearch. Whether your data is geographic or genetic, you can store and analyze it using OpenSearch.
+OpenSearch is a distributed search and analytics engine that supports various use cases, from implementing a search box on a website to analyzing security data for threat detection. The term _distributed_ means you can run OpenSearch on multiple computers. _Search and analytics_ means you can search and analyze your data once you ingest it into OpenSearch. Whether your data is geographic or genetic, you can store and analyze it using OpenSearch.
 
 ## Document
 
@@ -86,7 +86,7 @@ In addition to the document ID, OpenSearch stores the position of the word withi
 When searching for documents using a phrase, you need to make sure that the words you are searching for are _relevant_. For example, the word `the` appears in most English phrases but searching for this word is meaningless. OpenSearch determines the relevance of a term by calculating two values:
 
 - _Term frequency_: how often a word appears in the document
-- _Document frequency_:  how often a word appears in all documents 
+- _Document frequency_: how often a word appears in all documents 
 
 The relevance of a word is calculated as $$ relevance = { \text {term frequency} \over \text {document frequency} }. $$ This score is called term frequency/inverse document frequency (TF/IDF). For more information, see [TF/IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf).
 
@@ -106,7 +106,7 @@ For more information about other node types, see [Cluster formation]({{site.url}
 
 ## Shards
 
-OpenSearch splits indexes into *shards*. Each shard stores a subset of all documents in an index, as shown in the following image.
+OpenSearch splits indexes into _shards_. Each shard stores a subset of all documents in an index, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/intro/index-shard.png" alt="An index is split into shards" width="450">
 
@@ -118,7 +118,7 @@ Despite being a piece of an OpenSearch index, each shard is actually a full Luce
 
 ## Primary and replica shards
 
-In OpenSearch, shards may be _primary_ (the original) or _replica_ (a copy). By default, OpenSearch creates a replica shard for each primary shard. Thus, if you split your index into ten shards, OpenSearch creates ten replica shards. For example, consider a cluster described in the previous section. If you add one replica for each shard of each index in the cluster, your cluster will contain a total of 2 shards and 2 replicas for index 1 and 4 shards and 4 replicas for index 2, as shown in the following image. 
+In OpenSearch, shards may be _primary_ (the original) or _replica_ (a copy). By default, OpenSearch creates a replica shard for each primary shard. Thus, if you split your index into 10 shards, OpenSearch creates 10 replica shards. For example, consider a cluster described in the previous section. If you add one replica for each shard of each index in the cluster, your cluster will contain a total of 2 shards and 2 replicas for index 1 and 4 shards and 4 replicas for index 2, as shown in the following image. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/intro/cluster-replicas.png" alt="A cluster containing two indexes with one replica shard for each shard in the index" width="700">
 
@@ -148,4 +148,4 @@ In OpenSearch, a shard is a Lucene index, which consists of _segments_ (or segme
 
 ## Next steps
 
-- Learn how to quickly install OpenSearch in [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/)
+- Learn how to install OpenSearch within minutes in [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/).
