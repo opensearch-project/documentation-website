@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Median Absolute Deviation
+title: Median absolute deviation
 parent: Metric aggregations
 grand_parent: Aggregations
 nav_order: 65
@@ -8,7 +8,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/median-absolute-deviation/
 ---
 
-# Median Absolute Deviation Aggregations
+# Median absolute deviation aggregations
 
 The `median_absolute_deviation` metric is a single-value metric aggregation that returns median absolute deviation field. Median absolute deviation is a statistical measure of data variability. It is used to measure dispersion from the median, may be less impacted by outliers in a dataset. 
 
@@ -106,5 +106,51 @@ GET opensearch_dashboards_sample_data_flights/_search
     }
   }
 }
+```
 
+### Compression
+The calculation of the median absolute deviation utilizes [t-digest](https://github.com/tdunning/t-digest/tree/main) which controls the balance between performance and accuracy of estimation. The default value for TDigest's `compression` field is 1000. Decreasing the `compression` value will increase the performance while reducing the accuracy of the estimation.
+
+```json
+GET opensearch_dashboards_sample_data_flights/_search
+{
+  "size": 0,
+  "aggs": {
+    "median_absolute_deviation_DistanceMiles": {
+      "median_absolute_deviation": {
+        "field": "DistanceMiles",
+        "compression": 10
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "gte"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "median_absolute_deviation_DistanceMiles": {
+      "value": 1836.265614211182
+    }
+  }
+}
 ```
