@@ -102,7 +102,7 @@ In a single-node cluster, such as a laptop, one machine has to do everything: ma
 
 In each cluster, there is an elected _cluster manager_ node, which orchestrates cluster-level operations, such as creating an index. Nodes communicate with each other, so if your request is routed to a node, that node sends requests to appropriate nodes, gathers the nodes' responses, and returns the final response.
 
-For more information about setting node types, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+For more information about other node types, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
 ## Shards
 
