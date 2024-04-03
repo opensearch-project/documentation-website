@@ -57,42 +57,6 @@ ID | Name | GPA | Graduation year
 2 | Jonathan Powers | 3.85 | 2025
 3 | Jane Doe | 3.52 | 2024
 
-## Inverted index
-
-An OpenSearch index uses a data structure called an _inverted index_. An inverted index maps words to the documents that they occur in. For example, consider an index containing the following two documents:
-
-- Document 1 : "Beauty is in the eye of the beholder"
-- Document 2: "Beauty and the beast"
-
-An inverted index for such an index maps the words to the documents where they occur:
-
-Word | Document
-:--- | :---
-beauty | 1, 2
-is | 1
-in | 1
-the | 1, 2
-eye | 1
-of | 1
-the | 1
-beholder | 1
-and | 2
-beast | 2 
-
-In addition to the document ID, OpenSearch stores the position of the word within that document for phrase queries, where words must appear next to each other.
-
-## Relevance
-
-Individual words in a search query are called search _terms_. Each search term is scored according to the following rules:
-
-1. A search term that occurs more frequently in a document will tend to score higher. A document about dogs that uses the word `dog` many times is likely more relevant than a document that contains the word `dog` fewer times. This is the _term frequency_ component of the score.
-
-1. A search term that occurs in more documents will tend to score lower. A query for the terms `blue` and `axolotl` should prefer documents that contain `axolotl` over the likely more common word `blue`. This is the _inverse document frequency_ component of the score.
-
-1. A match on a longer document should tend to score lower than a match on a shorter document. A document that contains a full dictionary would match on any word, but is not very relevant to any particular word. This corresponds to the _length normalization_ component of the score.
-
-OpenSearch uses the BM25 ranking algorithm to calculate document relevance scores and returns the results sorted by relevance. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
-
 ## Clusters and nodes
 
 OpenSearch is designed to be a distributed search engine. OpenSearch can run on one or more _nodes_---servers that store your data and process search requests. An OpenSearch *cluster* is a collection of nodes. 
@@ -124,6 +88,44 @@ In OpenSearch, shards may be _primary_ (the original) or _replica_ (a copy). By 
 <img src="{{site.url}}{{site.baseurl}}/images/intro/cluster-replicas.png" alt="A cluster containing two indexes with one replica shard for each shard in the index" width="700">
 
 These replica shards act as backups in the event of a node failure---OpenSearch distributes replica shards to different nodes than their corresponding primary shards---but they also improve the speed at which the cluster processes search requests. You might specify more than one replica per index for a search-heavy workload.
+
+## Inverted index
+
+An OpenSearch index uses a data structure called an _inverted index_. An inverted index maps words to the documents that they occur in. For example, consider an index containing the following two documents:
+
+- Document 1 : "Beauty is in the eye of the beholder"
+- Document 2: "Beauty and the beast"
+
+An inverted index for such an index maps the words to the documents where they occur:
+
+Word | Document
+:--- | :---
+beauty | 1, 2
+is | 1
+in | 1
+the | 1, 2
+eye | 1
+of | 1
+the | 1
+beholder | 1
+and | 2
+beast | 2 
+
+In addition to the document ID, OpenSearch stores the position of the word within that document for phrase queries, where words must appear next to each other.
+
+## Relevance
+
+When you search for a document, OpenSearch matches the words in the query to the words in the documents. For example, if you search the index described in the previous section for the word `beauty`, OpenSearch will return documents 1 and 2. Each document is assigned a _relevance score_ that tells you how well the document matched the query.
+
+Individual words in a search query are called search _terms_. Each search term is scored according to the following rules:
+
+1. A search term that occurs more frequently in a document will tend to score higher. A document about dogs that uses the word `dog` many times is likely more relevant than a document that contains the word `dog` fewer times. This is the _term frequency_ component of the score.
+
+1. A search term that occurs in more documents will tend to score lower. A query for the terms `blue` and `axolotl` should prefer documents that contain `axolotl` over the likely more common word `blue`. This is the _inverse document frequency_ component of the score.
+
+1. A match on a longer document should tend to score lower than a match on a shorter document. A document that contains a full dictionary would match on any word, but is not very relevant to any particular word. This corresponds to the _length normalization_ component of the score.
+
+OpenSearch uses the BM25 ranking algorithm to calculate document relevance scores and returns the results sorted by relevance. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
 
 ## Advanced concepts
 
