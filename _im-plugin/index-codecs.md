@@ -76,9 +76,9 @@ When creating a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/avai
 
 When you restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs of the segments in the source snapshot. For example, if the source snapshot contains segments of the `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), you won't be able to restore the snapshot to a cluster that runs on an older OpenSearch version because it doesn't support these codecs. 
 
-For hardware-accelerated compression codecs, available starting with OpenSearch 2.14, the value of `index.codec.qatmode` affects how snapshots and restores are done. If the value set for `index.codec.qatmode` is `auto` (the default), snapshots and restores can be done with no additional instructions. But if the value is `hardware`, you won't be able to restore the snapshot unless you set it to `auto`. 
+For hardware-accelerated compression codecs, available in OpenSearch 2.14 and later, the value of `index.codec.qatmode` affects how snapshots and restores are performed. If the value is `auto` (the default), then snapshots and restores can be performed with no additional instructions. However, if the value is `hardware`, it must be reset to `auto` for the restore process to succeed on systems lacking the hardware accelerator
 
-You may modify the value of `index.codec.qatmode` during a retore process by setting its value: `"index_settings": {"index.codec.qatmode": "auto"}`.
+You can modify the value of `index.codec.qatmode` during a restore process by setting its value as follows: `"index_settings": {"index.codec.qatmode": "auto"}`.
 {: .note}
 
 ### Reindexing
