@@ -22,6 +22,8 @@ jobs:
     if: github.repository == 'opensearch-project/documentation-website' 
     runs-on: ubuntu-latest
     steps:
+      - name: Wait some time so that label and approval is up
+        run: sleep 60
       - id: automerge
         name: automerge
         uses: "pascalgn/automerge-action@v0.16.2"
