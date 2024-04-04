@@ -10,7 +10,9 @@ on:
   status: {}
 jobs:
   automerge-backport:
-    if: github.repository == 'opensearch-project/documentation-website' 
+    if: |
+      github.repository == 'opensearch-project/documentation-website' &&
+      startsWith(github.event.pull_request.head.ref, 'backport/')
     runs-on: ubuntu-latest
     steps:
       - name: Wait some time so that label and approval is up
