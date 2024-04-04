@@ -6,7 +6,7 @@ nav_order: 25
 
 # Workflow templates
 
-OpenSearch provides several workflow templates for some common machine learning (ML) use cases. Using a template simplifies complex setups required for use cases like semantic or conversational search. 
+OpenSearch provides several workflow templates for some common machine learning (ML) use cases. Using a template simplifies complex setups and provides many default values for use cases like semantic or conversational search. 
 
 You can specify a workflow template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/):
 
