@@ -48,7 +48,7 @@ The following examples provide the basic syntax for common `opensearch-keystore`
 
 ### Creating a new keystore
 
-The following command creates a new OpenSearch Keystore:
+The following command creates a new keystore:
 
 ```bash
 ./bin/opensearch-keystore create
