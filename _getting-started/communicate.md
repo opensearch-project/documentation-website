@@ -283,7 +283,7 @@ GET /students/_mapping
 ```
 {% include copy-curl.html %}
 
-OpenSearch mapped the `name` and `grad_year` fields according to the specified types and inferred the field types for the other fields:
+OpenSearch mapped the `name` and `grad_year` fields according to the specified types and inferred the field type for the `gpa` field:
 
 ```json
 {
