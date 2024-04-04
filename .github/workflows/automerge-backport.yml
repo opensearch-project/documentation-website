@@ -28,7 +28,7 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "backport-automerge,!On hold"
-          MERGE_FILTER_AUTHOR: "opensearch-trigger-bot"
+          MERGE_FILTER_AUTHOR: "opensearch-trigger-bot[bot]"
           MERGE_REQUIRED_APPROVALS: "1"
           MERGE_ERROR_FAIL: "true"
           MERGE_FORKS: "false"
