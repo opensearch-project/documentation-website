@@ -42,10 +42,11 @@ jobs:
 
       - name: Label new backport PR with backport-automerge label
         run: |
+          PR_REPO="opensearch-project/documentation-website"
           PR_BRANCH=backport/backport-${{ github.event.pull_request.number }}-to-`echo ${{ github.event.label.name }} | cut -d ' ' -f2`
-          PR_NUMBER=`gh pr list -R opensearch-project/documentation-website --json "number,headRefName" --state open | jq -r ".[] | select(.headRefName == \"$PR_BRANCH\") | .number"`
+          PR_NUMBER=`gh pr list -R $PR_REPO --json "number,headRefName" --state open | jq -r ".[] | select(.headRefName == \"$PR_BRANCH\") | .number"`
           echo "Update Backport PR '#$PR_NUMBER' on branch '$PR_BRANCH' with 'backport-automerge' label"
-          gh issue edit -R opensearch-project/documentation-website $PR_NUMBER --add-label backport-automerge
+          gh issue edit -R $PR_REPO $PR_NUMBER --add-label backport-automerge
           echo "Auto approve $PR_REPO PR #$PR_NUMBER with opensearch-trigger-bot"
           gh pr review -R $PR_REPO $PR_NUMBER --approve
         env:
