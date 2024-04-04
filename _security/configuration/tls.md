@@ -238,7 +238,7 @@ In order to enable hot reloading of TLS certificates, add the following line to 
 This setting is set to false by default
 {: .note }
 
-The following API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be in the same location as previous certificates, in order to prevent any changes to `opensearch.yml` file. This api is only accessible using [super admin user's certificate and key]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates)
+The following API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be in the same location as previous certificates, in order to prevent any changes to `opensearch.yml` file. This API is only accessible using [super admin user's certificate and key]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates)
 
 ### Reload TLS certificates on transport layer
   ```json
