@@ -18,7 +18,7 @@ Processors are customizable tasks that run in a sequential order as they appear 
 
 ## OpenSearch ingest pipelines compared to Data Prepper
 
-OpenSeach ingest pipelines run within the OpenSearch cluster, whereas [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) is an external component that runs off the OpenSearch cluster. 
+OpenSeach ingest pipelines run within the OpenSearch cluster, whereas [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) is an external component that runs on the OpenSearch cluster. 
 
 OpenSearch ingest pipelines perform actions on indexes and are preferred for use cases involving pre-processing simple datasets, [machine learning processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/), and [vector embedding processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-image-embedding/). OpenSearch ingest pipelines are recommended for simple data pre-processing and small datasets. 
 
