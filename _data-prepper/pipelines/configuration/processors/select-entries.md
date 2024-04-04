@@ -1,0 +1,51 @@
+---
+layout: default
+title: select_entries
+parent: Processors
+grand_parent: Pipelines
+nav_order: 59
+---
+
+# select_entries
+
+The `select_entries` processor selects entries from a Data Prepper event. Only the selected entries will remain in the event, and all other entries will be removed from the event.
+
+## Configuration
+
+You can configure the `select_entries` processor using the following options.
+
+| Option | Required | Description |
+| :--- | :--- | :--- |
+| `include_keys` | Yes | A list of keys to be selected from an event. |
+| `select_when` | No | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. |
+
+### Usage
+
+The following example shows how to configure the `select_entries` processor in the `pipeline.yaml` file:
+
+```yaml
+pipeline:
+  source:
+    ...
+  ....  
+  processor:
+    - select_entries:
+        entries:
+        - include_keys: [ "key1", "key2" ]
+          add_when: '/some_key == "test"'
+  sink:
+```
+{% include copy.html %}
+
+
+For example, when your source contains the following event record:
+
+```json
+{"message": "hello", "key1" : "value1", "key2" : "value2", "some_key" : "test"}
+```
+
+The `select_entries` processor includes only `key1` and `key2` in the processed output:
+
+```json
+{"key1": "value1", "key2": "value2"}
+```
