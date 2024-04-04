@@ -138,7 +138,7 @@ The lifecycle of an update operation consists of the following steps:
 1. An update is received by a primary shard and is written to the shard's transaction log ([translog](#translog)). The translog is flushed to disk (followed by an fsync) before the update is acknowledged. This guarantees durability.
 1. The update is also passed to the Lucene index writer, which adds it to an in-memory buffer.
 1. On a [refresh operation](#refresh), the Lucene index writer flushes the in-memory buffers to disk (with each buffer becoming a new Lucene segment), and a new index reader is opened over the resulting segment files. The updates are now visible for search.
-1. On a [flush operation](#flush), the shard fsyncs the Lucene segments. Because the segment files are a durable representation of the updates, the translog is no longer needed to provide durability, do the updates can be purged from the translog.
+1. On a [flush operation](#flush), the shard fsyncs the Lucene segments. Because the segment files are a durable representation of the updates, the translog is no longer needed to provide durability, so the updates can be purged from the translog.
 
 ### Translog
 
