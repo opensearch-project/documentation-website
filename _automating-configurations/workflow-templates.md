@@ -6,9 +6,11 @@ nav_order: 25
 
 # Workflow templates
 
-OpenSearch provides several workflow templates for some common machine learning (ML) use cases, such as semantic or conversational search. 
+OpenSearch provides several workflow templates for some common machine learning (ML) use cases. Using a template simplifies complex setups required for use cases like semantic or conversational search. 
 
-You can specify a workflow template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/). To provision the workflow, specify `provision=true` as a query parameter. For example, you can configure [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/) by providing the `local_neural_sparse_search_bi_encoder` query parameter as `use_case`, as shown in the following request:
+For example, you can configure the setup required for [neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/) by using the `local_neural_sparse_search_bi_encoder` predefined template. When you use a template, the multi-step setup that required running separate API requests is accomplished with a single request.
+
+To specify a workflow template, provide the use case name as a query parameter, as shown in the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=local_neural_sparse_search_bi_encoder
@@ -21,23 +23,7 @@ The workflow created using this template performs the following configuration st
 - Creates an ingest pipeline that contains a `sparse_encoding` processor, which converts the text in a document field to vector embeddings using the deployed model.
 - Creates a sample index for sparse search, specifying the default pipeline as the newly created ingest pipeline.
 
-## Parameters
-
-Each workflow template has a defined schema and a set of APIs with predefined default values for each step. For more information about template parameter defaults, see [Supported workflow templates](#supported-workflow-templates).
-
-### Overriding default values
-
-To override a template's default values, provide the new values in the request body when sending a create workflow request. For example, the following request changes the Cohere model, the name of the `text_embedding` processor output field, and the name of the sparse index of the `semantic_search_with_cohere_embedding` template:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_embedding
-{
-    "create_connector.model" : "embed-multilingual-v3.0",
-    "text_embedding.field_map.output": "book_embedding",
-    "create_index.name": "sparse-book-index"
-}
-```
-{% include copy-curl.html %}
+To create a custom workflow template, specify the template when you call the [Create Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/create-workflow/). To provision the workflow, specify `provision=true` as a query parameter. 
 
 ## Example
 
@@ -110,6 +96,24 @@ GET /my-nlp-index/_search
       }
     }
   }
+}
+```
+{% include copy-curl.html %}
+
+## Parameters
+
+Each workflow template has a defined schema and a set of APIs with predefined default values for each step. For more information about template parameter defaults, see [Supported workflow templates](#supported-workflow-templates).
+
+### Overriding default values
+
+To override a template's default values, provide the new values in the request body when sending a create workflow request. For example, the following request changes the Cohere model, the name of the `text_embedding` processor output field, and the name of the sparse index of the `semantic_search_with_cohere_embedding` template:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=semantic_search_with_cohere_embedding
+{
+    "create_connector.model" : "embed-multilingual-v3.0",
+    "text_embedding.field_map.output": "book_embedding",
+    "create_index.name": "sparse-book-index"
 }
 ```
 {% include copy-curl.html %}
