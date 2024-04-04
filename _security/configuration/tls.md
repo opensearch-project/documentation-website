@@ -226,3 +226,35 @@ The default insecure SSL password settings have been deprecated. In order to use
 * plugins.security.ssl.transport.truststore_password_secure
 
 These settings allow for the use of encrypted passwords in the settings.
+
+## Hot reloading TLS certificates
+
+Updating expired (or nearly expired) certificates does not require cluster restart. You can use hot reloading to achieve this without any downtime. 
+
+In order to enable hot reloading of TLS certificates, add the following line to `opensearch.yml`
+
+`opendistro_security.ssl_cert_reload_enabled: true`
+
+This setting is set to false by default
+{: .note }
+
+The following API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be in the same location as previous certificates, in order to prevent any changes to `opensearch.yml` file. This api is only accessible using [super admin user's certificate and key]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates)
+
+### Reload TLS certificates on transport layer
+  ```json
+  curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_opendistro/_security/api/ssl/transport/reloadcerts
+  ```
+  {% include copy.html %}
+
+Expected response
+```{ "message": "successfully updated transport certs"}```
+
+### Reload TLS certificates on http layer
+  ```json
+  curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_opendistro/_security/api/ssl/http/reloadcerts
+  ```
+  {% include copy.html %}
+
+Expected response
+```{ "message": "successfully updated http certs"}```
+
