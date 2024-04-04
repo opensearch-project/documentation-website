@@ -142,7 +142,7 @@ The lifecycle of an update operation consists of the following steps:
 
 ### Translog
 
-An indexing or bulk call responds when the documents have been written to the translog and the translog is flushed to disk, so the updates are durable. The updates will be visible from search requests until after a [refresh operation](#refresh).
+An indexing or bulk call responds when the documents have been written to the translog and the translog is flushed to disk, so the updates are durable. The updates will not be visible to search requests until after a [refresh operation](#refresh).
 
 ### Refresh
 
