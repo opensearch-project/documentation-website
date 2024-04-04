@@ -34,4 +34,4 @@ jobs:
           MERGE_RETRY_SLEEP: "10000"
           MERGE_ERROR_FAIL: "true"
           MERGE_FORKS: "false"
-          MERGE_METHOD: "merge"
+          MERGE_METHOD: "squash"
