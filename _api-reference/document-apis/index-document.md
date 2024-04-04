@@ -11,7 +11,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple}
 
-You can use the index document operation to add a single document to your index.
+You can use the `Index document` operation to add a single document to your index.
 
 ## Example
 
@@ -39,11 +39,13 @@ POST <index>/_create/<_id>
 - `<index>` represents the name of the index to which the document will be added.
 - `<_id>` represents the unique identifier of the document.
 
-## Adding a sample index and documents to use the HTTP methods 
+## Adding a sample index 
 
-To test the Document APIs, add a document by following these steps:
+Sample data can be added to the index with curl commands in the terminal, or through the API.
+
+To test the Document APIs, add a document by following the steps:
 1. Open OpenSearch Dashboards.
-2. Navigate to the hamburger menu. 
+2. Navigate to the actions menu. 
 3. In the **Management** section, choose **Dev Tools**.
 4. Enter a command, and then select the green triangle play button to send the request. The following are some example commands.
 
@@ -77,7 +79,6 @@ POST /sample_index/_doc
 
 ```
 {% include copy-curl.html %}
-
 
 ## URL parameters
 
