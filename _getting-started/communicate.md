@@ -14,7 +14,7 @@ You interact with OpenSearch clusters using the REST API, which offers a lot of 
 
 You can send HTTP requests in your terminal or in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) in OpenSearch Dashboards.
 
-### Sending requests in the terminal
+### Sending requests in a terminal
 
 When sending cURL requests in a terminal, the request format varies depending on whether you're using the Security plugin. As an example, consider a request to the Cluster Health API. 
 
@@ -32,9 +32,9 @@ curl -X GET "http://localhost:9200/_cluster/health" -ku admin:<custom-admin-pass
 ```
 {% include copy.html %}
 
-The default username is `admin` and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 
-Queries submitted to OpenSearch generally return a flat JSON by default. For a human-readable response body, provide the `pretty` query parameter:
+OpenSearch generally returns responses in a flat JSON format by default. For a human-readable response body, provide the `pretty` query parameter:
 
 ```bash
 curl -XGET "http://localhost:9200/_cluster/health?pretty"
@@ -57,22 +57,22 @@ curl -XGET "http://localhost:9200/students/_search?pretty" -H 'Content-Type: app
 
 ### Sending requests in Dev Tools
 
-The Dev Tools console in OpenSearch Dashboards uses a simplified syntax to format REST requests compared to the cURL command. To send requests in Dev Tools, use the following steps:
+The Dev Tools console in OpenSearch Dashboards uses a simpler syntax to format REST requests as compared to the cURL command. To send requests in Dev Tools, use the following steps:
 
-1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 1. On the top menu bar, go to **Management > Dev Tools**.
 1. In the left pane of the console, enter the following request:
     ```json
     GET _cluster/health
     ```
     {% include copy-curl.html %}
-1. Choose the triangle icon at the upper right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or `Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/).
+1. Choose the triangle icon on the upper right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or `Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/).
 
-In the following sections, and in most of OpenSearch documentation, requests are presented in the Dev Tools console format. 
+In the following sections, and in most of the OpenSearch documentation, requests are presented in the Dev Tools console format. 
 
 ## Indexing documents
 
-To add a JSON document to an OpenSearch index (that is, to _index_ a document), you send an HTTP request that has the following header:
+To add a JSON document to an OpenSearch index (that is, to _index_ a document), you send an HTTP request with the following header:
 
 ```json
 PUT https://<host>:<port>/<index-name>/_doc/<document-id>
@@ -90,7 +90,7 @@ PUT /students/_doc/1
 ```
 {% include copy-curl.html %}
 
-Once you send the preceding request, OpenSearch creates an index called `students` and stores the ingested document in the index. If you don't provide an ID for your document, OpenSearch generates a document ID. For the preceding request, you have specified the document ID to be the student ID (`1`). 
+Once you send the preceding request, OpenSearch creates an index called `students` and stores the ingested document in the index. If you don't provide an ID for your document, OpenSearch generates a document ID. In the preceding request, the document ID is specified as the student ID (`1`). 
 
 To learn more about indexing, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/).
 
@@ -98,7 +98,7 @@ To learn more about indexing, see [Managing indexes]({{site.url}}{{site.baseurl}
 
 When you index a document, OpenSearch infers the field types from the JSON types submitted in the document. This process is called _dynamic mapping_. For more information, see [Dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/#dynamic-mapping).
 
-To view the inferred field data types, send a request to the `_mapping` endpoint:
+To view the inferred field types, send a request to the `_mapping` endpoint:
 
 ```json
 GET /students/_mapping
@@ -135,11 +135,11 @@ OpenSearch responds with the field `type` for each field:
 
 OpenSearch mapped the numeric fields to the `float` and `long` types. Notice that OpenSearch mapped the `name` text field to `text` and added a `name.keyword` subfield mapped to `keyword`. Fields mapped to `text` are analyzed (lowercased and split into terms) and can be used for full-text search. Fields mapped to `keyword` are used for exact term search.
 
-OpenSearch mapped the `grad_year` field to `long`. If you want to map it to the `date` type instead, you need to [delete the index](#deleting-the-index) and then recreate it, specifying the mappings you want explicitly. For steps to specify explicit mappings, see [Index settings and mappings](#index-settings-and-mappings).
+OpenSearch mapped the `grad_year` field to `long`. If you want to map it to the `date` type instead, you need to [delete the index](#deleting-the-index) and then recreate it, explicitly specifying the mappings. For instructions on how to explicitly specify mappings, see [Index settings and mappings](#index-settings-and-mappings).
 
 ## Searching for documents
 
-To run a search for the document, specify the index that you're searching and a query that will be used to match documents. For example, the simplest query is the `match_all` query that matches all documents in the index:
+To run a search for the document, specify the index that you're searching and a query that will be used to match documents. The simplest query is the `match_all` query, which matches all documents in an index:
 
 ```json
 GET /students/_search
@@ -151,7 +151,7 @@ GET /students/_search
 ```
 {% include copy-curl.html %}
 
-OpenSearch returns the document that you indexed:
+OpenSearch returns the indexed document:
 
 ```json
 {
@@ -185,11 +185,11 @@ OpenSearch returns the document that you indexed:
 }
 ```
 
-For more information about searching, see [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/).
+For more information about search methods, see [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/).
 
 ## Updating documents
 
-In OpenSearch, documents are immutable. However, you can update a document by retrieving it, updating its information, and reindexing it. You can update the whole document using the Index Document API, providing values for all existing and added fields in the document. For example, to update the `gpa` field and add an `address` field to the previously indexed document, send the following request:
+In OpenSearch, documents are immutable. However, you can update a document by retrieving it, updating its information, and reindexing it. You can update an entire document using the Index Document API, providing values for all existing and added fields in the document. For example, to update the `gpa` field and add an `address` field to the previously indexed document, send the following request:
 
 ```json
 PUT /students/_doc/1
@@ -217,32 +217,32 @@ POST /students/_update/1/
 
 For more information about partial document updates, see [Update Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/).
 
-## Deleting documents
+## Deleting a document
 
-To delete the document, send a delete request and provide the document ID:
+To delete a document, send a delete request and provide the document ID:
 
 ```json
 DELETE /students/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Deleting the index
+## Deleting an index
 
-To delete the index, send the following request:
+To delete an index, send the following request:
 
 ```json
 DELETE /students
 ```
 {% include copy-curl.html %}
 
-## Index settings and mappings
+## Index mappings and settings
 
 OpenSearch indexes are configured with mappings and settings:
 
-- A _mapping_ is the collection of fields and the types of those fields. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/).
+- A _mapping_ is a collection of fields and the types of those fields. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/).
 - _Settings_ include index data like the index name, creation date, and number of shards. For more information, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
-You can specify the settings and mappings in one request. For example, the following request specifies the number of shards for the index and maps the `name` field to `text` and the `grad_year` field to `date`:
+You can specify the mappings and settings in one request. For example, the following request specifies the number of index shards and maps the `name` field to `text` and the `grad_year` field to `date`:
 
 ```json
 PUT /students
@@ -264,7 +264,7 @@ PUT /students
 ```
 {% include copy-curl.html %}
 
-Now you can index the same document as you indexed in the previous section:
+Now you can index the same document that you indexed in the previous section:
 
 ```json
 PUT /students/_doc/1
@@ -283,7 +283,7 @@ GET /students/_mapping
 ```
 {% include copy-curl.html %}
 
-OpenSearch mapped the `name` and `grad_year` fields according to the types you specified and inferred the field types for the other fields:
+OpenSearch mapped the `name` and `grad_year` fields according to the specified types and inferred the field types for the other fields:
 
 ```json
 {
@@ -305,16 +305,16 @@ OpenSearch mapped the `name` and `grad_year` fields according to the types you s
 }
 ```
 
-You cannot change the type of a field once it is created. Changing a field type requires deleting the index and recreating it with the new mappings. 
+Once a field is created, you cannot change its type. Changing a field type requires deleting the index and recreating it with the new mappings. 
 {: .note}
 
 ## Further reading
 
-- For information about OpenSearch REST API, see the [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/).
+- For information about the OpenSearch REST API, see the [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/).
 - For information about OpenSearch language clients, see [Clients]({{site.url}}{{site.baseurl}}/clients/).
 - For information about mappings, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/).
 - For information about settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Next steps
 
-- Learn about ingestion options in [Ingest data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).
+- See [Ingest data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/) to learn about ingestion options.

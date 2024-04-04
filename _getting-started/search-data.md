@@ -8,15 +8,15 @@ nav_order: 50
 
 In OpenSearch, there are several ways to search data:
 
-- [Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/): The primary OpenSearch query language that supports creating complex, fully customizable queries.
+- [Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/): The primary OpenSearch query language, which you can use to create complex, fully customizable queries.
 - [Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A scaled-down query language that you can use in a query parameter of a search request or in OpenSearch Dashboards.
 - [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/): A traditional query language that bridges the gap between traditional relational database concepts and the flexibility of OpenSearch’s document-oriented data storage.
-- [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/): The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
+- [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/): The primary language used for observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
 - [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/): A simple text-based query language for filtering data in OpenSearch Dashboards. 
 
 ## Prepare the data
 
-For this tutorial, you'll need to index student data if you haven't done so. You can start by deleting the `students` index (`DELETE /students`) and then sending the following bulk request:
+For this tutorial, you'll need to index student data if you haven't done so already. You can start by deleting the `students` index (`DELETE /students`) and then sending the following bulk request:
 
 ```json
 POST _bulk
@@ -38,7 +38,7 @@ GET /students/_search
 ```
 {% include copy-curl.html %}
 
-The preceding request is an equivalent of the `match_all` query, which matches all documents in the index:
+The preceding request is equivalent to the `match_all` query, which matches all documents in an index:
 
 ```json
 GET /students/_search
@@ -118,7 +118,7 @@ The `took` field contains the amount of time the query took to run, in milliseco
 ### timed_out
 <!-- vale on -->
 
-This field specifies whether the request timed out. If a request timed out, OpenSearch returns those results that were gathered before the timeout. You can set the desired timeout value by providing the `timeout` query parameter:
+This field indicates whether the request timed out. If a request timed out, then OpenSearch returns the results that were gathered before the timeout. You can set the desired timeout value by providing the `timeout` query parameter:
 
 ```json
 GET /students/_search?timeout=20ms
@@ -129,13 +129,13 @@ GET /students/_search?timeout=20ms
 ### _shards
 <!-- vale on -->
 
-The `_shards` object specifies the total number of shards the query ran on, and the number of shards that were successful or failed. A shard may fail if the shard itself and all its replicas are unavailable. If any of the involved shards failed, OpenSearch continues to run the query on the remaining shards.
+The `_shards` object specifies the total number of shards on which the query ran as well as the number of shards that succeeded or failed. A shard may fail if the shard itself and all its replicas are unavailable. If any of the involved shards fail, OpenSearch continues to run the query on the remaining shards.
 
 <!-- vale off -->
 ### hits
 <!-- vale on -->
 
-The `hits` object contains the total number of matching documents and the documents themselves (listed in the `hits` array). Each matching document contains the `_index` and `_id` fields and the `_source` field, which contains the originally indexed complete document. 
+The `hits` object contains the total number of matching documents and the documents themselves (listed in the `hits` array). Each matching document contains the `_index` and `_id` fields as well as the `_source` field, which contains the complete originally indexed document. 
 
 Each document is given a relevance score in the `_score` field. Because you ran a `match_all` search, all document scores are set to `1` (there is no difference in their relevance). The `max_score` field contains the highest score of any matching document.
 
@@ -192,7 +192,7 @@ Using Query DSL, you can create more complex and customized queries.
 
 ### Full-text search
 
-You can run a full-text search on fields mapped as `text`. By default, text fields are analyzed by the `default` analyzer. The analyzer splits text into terms and makes it lowercase. For more information about OpenSearch analyzers, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/).
+You can run a full-text search on fields mapped as `text`. By default, text fields are analyzed by the `default` analyzer. The analyzer splits text into terms and changes it to lowercase. For more information about OpenSearch analyzers, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/).
 
 For example, the following query searches for students with the name `john`:
 
@@ -306,7 +306,7 @@ The match query type uses `OR` as an operator by default, so the query is functi
 
 ### Keyword search
 
-The `name` field contains the `name.keyword` subfield, which was added by OpenSearch automatically. You can try to search the `name.keyword` field in a manner similar to the previous request:
+The `name` field contains the `name.keyword` subfield, which is added by OpenSearch automatically. If you search the `name.keyword` field in a manner similar to the previous request:
 
 ```json
 GET /students/_search
@@ -320,9 +320,9 @@ GET /students/_search
 ```
 {% include copy-curl.html %}
 
-This request returns no hits because the `keyword` fields must be matched exactly. 
+Then the request returns no hits because the `keyword` fields must exactly match. 
 
-However, you can search for the exact text `John Doe`:
+However, if you search for the exact text `John Doe`:
 
 ```json
 GET /students/_search
@@ -372,7 +372,7 @@ OpenSearch returns the matching document:
 
 ### Filters
 
-You can add a filter clause to your query for fields with exact values using a Boolean query. 
+Using a Boolean query, you can add a filter clause to your query for fields with exact values
 
 Term filters match specific terms. For example, the following Boolean query searches for students whose graduation year is 2022:
 
@@ -390,7 +390,7 @@ GET students/_search
 ```
 {% include copy-curl.html %}
 
-Range filters support specifying a range of values. For example, the following Boolean query searches for students whose GPA is greater than 3.6:
+With range filters, you can specify a range of values. For example, the following Boolean query searches for students whose GPA is greater than 3.6:
 
 ```json
 GET students/_search
@@ -438,7 +438,7 @@ For more information about Boolean and other compound queries, see [Compound que
 
 ## Search methods
 
-Along with the traditional full-text search described in this tutorial, OpenSearch supports a range of machine learning (ML)-powered search methods, including k-NN, semantic, multimodal, sparse, hybrid, and conversational search. For information about all search methods, see [Search]({{site.url}}{{site.baseurl}}/search-plugins/).
+Along with the traditional full-text search described in this tutorial, OpenSearch supports a range of machine learning (ML)-powered search methods, including k-NN, semantic, multimodal, sparse, hybrid, and conversational search. For information about all OpenSearch-supported search methods, see [Search]({{site.url}}{{site.baseurl}}/search-plugins/).
 
 ## Next steps
 

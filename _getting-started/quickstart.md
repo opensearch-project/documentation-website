@@ -66,7 +66,7 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     ```
     {% include copy.html %}
 
-1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you downloaded, and run the following command to create and start the cluster as a background process:
+1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you downloaded and run the following command to create and start the cluster as a background process:
     
     ```bash
     docker-compose up -d
@@ -90,7 +90,7 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     ```
     {% include copy.html %}
 
-    The response confirms that the installation is successful:
+    The response confirms that the installation was successful:
 
     ```json
     {
@@ -154,4 +154,4 @@ You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards
 
 ## Next steps
 
-- Learn about how to send requests to OpenSearch in [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/).
+- See [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/) to learn about how to send requests to OpenSearch.

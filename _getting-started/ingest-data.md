@@ -10,7 +10,7 @@ There are several ways to ingest data into OpenSearch:
 
 - Ingest individual documents. For more information, see [Indexing documents]({{site.url}}{{site.baseurl}}/getting-started/communicate/#indexing-documents).
 - Index multiple documents in bulk. For more information, see [Bulk indexing](#bulk-indexing).
-- Use Data Prepper---an OpenSearch server-side data collector that can enrich data for downstream analytics and visualization. For more information, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). 
+- Use Data Prepper---an OpenSearch server-side data collector that can enrich data for downstream analysis and visualization. For more information, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). 
 - Use other ingestion tools. For more information, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/).
 
 ## Bulk indexing
@@ -28,7 +28,7 @@ POST _bulk
 
 ## Experiment with sample data
 
-OpenSearch provides a fictitious e-commerce dataset that you can use to experiment with REST API requests and OpenSearch Dashboards visualizations. Create an index and define field mappings using a dataset provided by the OpenSearch Project. 
+OpenSearch provides a fictitious e-commerce dataset that you can use to experiment with REST API requests and OpenSearch Dashboards visualizations. You can create an index and define field mappings by downloading the corresponding dataset and mapping files. 
 
 ### Create a sample index
 
@@ -81,7 +81,7 @@ Use the following steps to create a sample index and define field mappings for t
 
 ### Query the data
 
-Query the data using the Search API. The following query searches for documents where `customer_first_name` is `Sonya`:
+Query the data using the Search API. The following query searches for documents in which `customer_first_name` is `Sonya`:
 
 ```json
 GET ecommerce/_search
@@ -108,4 +108,4 @@ To learn how to use OpenSearch Dashboards to visualize the data, see the [OpenSe
 
 ## Next steps
 
-- Learn about search options in [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/).
+- See [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/) to learn about search options.
