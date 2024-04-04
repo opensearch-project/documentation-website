@@ -185,7 +185,7 @@ OpenSearch returns the indexed document:
 }
 ```
 
-For more information about search methods, see [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/).
+For more information about search, see [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/).
 
 ## Updating documents
 
