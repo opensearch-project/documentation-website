@@ -135,7 +135,7 @@ OpenSearch responds with the field `type` for each field:
 
 OpenSearch mapped the numeric fields to the `float` and `long` types. Notice that OpenSearch mapped the `name` text field to `text` and added a `name.keyword` subfield mapped to `keyword`. Fields mapped to `text` are analyzed (lowercased and split into terms) and can be used for full-text search. Fields mapped to `keyword` are used for exact term search.
 
-OpenSearch mapped the `grad_year` field to `long`. If you want to map it to the `date` type instead, you need to [delete the index](#deleting-the-index) and then recreate it, explicitly specifying the mappings. For instructions on how to explicitly specify mappings, see [Index settings and mappings](#index-settings-and-mappings).
+OpenSearch mapped the `grad_year` field to `long`. If you want to map it to the `date` type instead, you need to [delete the index](#deleting-an-index) and then recreate it, explicitly specifying the mappings. For instructions on how to explicitly specify mappings, see [Index settings and mappings](#index-mappings-and-settings).
 
 ## Searching for documents
 
