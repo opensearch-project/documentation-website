@@ -8,7 +8,7 @@ jobs:
   delete-branch:
     runs-on: ubuntu-latest
     if: |
-      startsWith(github.event.pull_request.head.repo.full_name, 'opensearch-project/documentation-website') &&
+      github.repository == 'opensearch-project/documentation-website' &&
       ${{ !startsWith(github.event.pull_request.head.ref, 'main') }} &&
       ${{ !startsWith(github.event.pull_request.head.ref, '1.') }} &&
       ${{ !startsWith(github.event.pull_request.head.ref, '2.') }} &&
