@@ -32,7 +32,7 @@ Document-level security uses OpenSearch query DSL to define which documents a ro
 
 This query specifies that for the role to have access to a document, its `genres` field must include `Comedy`.
 
-A typical request to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
+A typical request sent to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
 
 ## Updating roles by accessing the REST API 
 
