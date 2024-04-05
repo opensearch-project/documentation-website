@@ -49,7 +49,7 @@ OpenSearch Benchmark makes function calls to `opensearch-py` to communicate with
 
 There are two types of testing modes when using OpenSearch Benchmark, which affects the definition of latency:
 
-- [Benchmarking mode](): Latency is measured the same as service time.
+- [Benchmarking mode](#benchmarking-mode): Latency is measured the same as service time.
 - [Throughput-throttled mode](#throughput-throttled-mode): Latency is service-time plus the time a request spends waiting in the queue.
 
 ### Throughput-throttled mode
