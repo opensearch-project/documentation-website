@@ -21,7 +21,7 @@ If you are using tenants to separate work area between different teams/projects,
 
 ![creating role]({{site.url}}{{site.baseurl}}/images/role_creation_read_only.png)
 
-Once the role is created, you can directly map the role to a user by going to "Mapped users" tab in roles, select "Map users" and select the user to map to this role. 
+Once the role is created, you can directly map the role to a user by going to **Mapped users** tab in roles, select **Map users** and select the user to map to this role. 
 
 ![mapping users]({{site.url}}{{site.baseurl}}/images/mapping-users.png)
 
