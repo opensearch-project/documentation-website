@@ -41,9 +41,9 @@ POST <index>/_create/<_id>
 
 ## Adding a sample index 
 
-Sample data can be added to the index with curl commands in the terminal, or through the API.
+Sample data can be added to the index with curl commands in the terminal or through the API.
 
-To test the Document APIs, add a document by following the steps:
+To test the Document APIs, add a document by following these steps:
 1. Open OpenSearch Dashboards.
 2. Navigate to the actions menu. 
 3. In the **Management** section, choose **Dev Tools**.
