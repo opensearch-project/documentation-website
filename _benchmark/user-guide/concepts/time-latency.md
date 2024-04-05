@@ -17,7 +17,7 @@ At the end of each test, OpenSearch Benchmark produces a table that summarizes t
 - [Processing time]
 - The error rate for each completed task or OpenSearch operation.
 
-The following diagram illustrates how each component of the table is measured during the life cycle of a request from an OpenSearch cluster to the OpenSearch client:
+The following diagram illustrates how each component of the table is measured during the life cycle of a request request involving the OpenSearch cluster, the OpenSearch client, and OpenSearch Benchmark:
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/concepts-diagram.png" alt="">
 
