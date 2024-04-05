@@ -16,7 +16,7 @@ Document-level security (DLS) lets you restrict a role to a subset of documents 
 
 ## Simple roles
 
-Document-level security uses OpenSearch query DSL to define which documents a role grants access to. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document-level security** section:
+Document-level security uses OpenSearch query domain-specific language (DSL) to define which documents a role grants access to. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document-level security** section:
 
 ```json
 {
