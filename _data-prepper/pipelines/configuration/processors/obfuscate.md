@@ -67,6 +67,8 @@ Use the following configuration options with the `obfuscate` processor.
 | `source` | Yes | The source field to obfuscate. |
 | `target` | No | The new field in which to store the obfuscated value. This leaves the original source field unchanged. When no `target` is provided, the source field updates with the obfuscated value. |
 | `patterns` | No | A list of regex patterns that allow you to obfuscate specific parts of a field. Only parts that match the regex pattern will obfuscate. When not provided, the processor obfuscates the whole field. |
+| `obfuscate_when` | No | Specifies under what condition the Obfuscate processor should perform matching. Default is no condition. |
+| `tags_on_match_failure` | No | The tag to add to an event if the obfuscate processor fails to match the pattern. |
 | `action` | No | The obfuscation action. As of Data Prepper 2.3, only the `mask` action is supported. |
 
 You can customize the `mask` action with the following optional configuration options.

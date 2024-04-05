@@ -10,30 +10,31 @@ redirect_from:
 
 # Document-level security (DLS)
 
-Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is to open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
+Document-level security lets you restrict a role to a subset of documents in an index.
+For more information about OpenSearch users and roles, see the [documentation](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles).
 
-![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
+Use the following steps to get started with document-level and field-level security:
+1. Open OpenSearch Dashboards.
+2. Choose **Security** > **Roles**.
+3. Select **Create Role** and provide a name for the role.
+4. Review the **Index permissions** section and any necessary [index permissions](https://opensearch.org/docs/latest/security/access-control/permissions/) for the role. 
+5. Add document-level security, with the addition of a domain-specific language (DSL) query in the `Document level security - optional` section. A typical request sent to the `_search` API includes `{ "query": { ... } }` around the query, but with document-level security in OpenSearch Dashboards, you only need to specify the query itself. For example, the following DSL query specifies that for the new role to have access to a document, the query's `genres` field must include `Comedy`:
 
+   ```json
+   {
+     "bool": {
+       "must": {
+         "match": {
+           "genres": "Comedy"
+         }
+       }
+     }
+   }
+   ```
 
-## Simple roles
+   - ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
-Document-level security uses the OpenSearch query DSL to define which documents a role grants access to. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document level security** section:
-
-```json
-{
-  "bool": {
-    "must": {
-      "match": {
-        "genres": "Comedy"
-      }
-    }
-  }
-}
-```
-
-This query specifies that for the role to have access to a document, its `genres` field must include `Comedy`.
-
-A typical request to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
+## Updating roles by accessing the REST API 
 
 In the REST API, you provide the query as a string, so you must escape your quotes. This role allows a user to read any document in any index with the field `public` set to `true`:
 

@@ -14,6 +14,23 @@ The Security plugin includes an internal user database. Use this database in pla
 
 Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
 
+## Creating and editing OpenSearch roles
+
+You can update OpenSearch by using one of the following methods.
+
+### Using the API
+
+You can send HTTP requests to OpenSearch-provided endpoints to update security roles, permissions, and associated settings. This method offers granular control and automation capabilities for managing roles.
+
+### Using the UI (OpenSearch Dashboards)
+
+OpenSearch Dashboards provides a user-friendly interface for managing roles. Roles, permissions, and document-level security settings are configured in the Security section within OpenSearch Dashboards. When updating roles through the UI, OpenSearch Dashboards calls the API in the background to implement the changes.
+
+### Editing the `roles.yml` file
+
+If you want more granular control of your security configuration, you can edit roles and their associated permissions in the `roles.yml` file. This method provides direct access to the underlying configuration and can be version controlled for use in collaborative development environments.
+For more information about creating roles, see the [Create roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles) documentation.
+
 Unless you need to create new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
 
@@ -75,6 +92,24 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
 
+## Edit roles
+
+You can edit roles using one of the following methods.
+
+### OpenSearch Dashboards
+
+1. Choose **Security** > **Roles**. In the **Create role** section, select **Explore existing roles**. 
+1. Select the role you want to edit. 
+1. Choose **edit role**. Make any necessary updates to the role.
+1. To save your changes, select **Update**.
+
+### roles.yml
+
+See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml).
+
+### REST API
+
+See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
 
 ## Map users to roles
 

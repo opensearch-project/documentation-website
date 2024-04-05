@@ -183,8 +183,9 @@ Field | Data type | Required/Optional | Description
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
 `is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`guardrails`| Object | Optional | The guardrails for the model input. For more information, see [Guardrails](#the-guardrails-parameter).|
 
-#### Example request: Remote model with a standalone connector
+#### Example request: Externally hosted with a standalone connector
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -198,7 +199,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: Remote model with a connector specified as part of the model
+#### Example request: Externally hosted with a connector specified as part of the model
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -244,6 +245,70 @@ OpenSearch responds with the `task_id` and task `status`.
 ```json
 {
   "task_id" : "ew8I44MBhyWuIwnfvDIH", 
+  "status" : "CREATED"
+}
+```
+
+### The `guardrails` parameter
+
+Guardrails are safety measures for large language models (LLMs). They provide a set of rules and boundaries that control how an LLM behaves and what kind of output it generates. 
+
+To register an externally hosted model with guardrails, provide the `guardrails` parameter, which supports the following fields. All fields are optional.
+
+Field | Data type | Description
+:---  | :--- | :---
+`type` | String | The guardrail type. Currently, only `local_regex` is supported.
+`input_guardrail`| Object |  The guardrail for the model input. |
+`output_guardrail`| Object |  The guardrail for the model output. |
+`stop_words`| Object | The list of indexes containing stopwords used for the model input/output validation. If the model prompt/response contains a stopword contained in any of the indexes, the predict request on this model is rejected. |
+`index_name`| Object | The name of the index storing the stopwords. |
+`source_fields`| Object | The name of the field storing the stopwords. |
+`regex`| Object |  A regular expression used for input/output validation. If the model prompt/response matches the regular expression, the predict request on this model is rejected. |
+
+#### Example request: Externally hosted model with guardrails
+
+```json
+POST /_plugins/_ml/models/_register
+{
+  "name": "openAI-gpt-3.5-turbo",
+  "function_name": "remote",
+  "model_group_id": "1jriBYsBq7EKuKzZX131",
+  "description": "test model",
+  "connector_id": "a1eMb4kBJ1eYAeTMAljY",
+  "guardrails": {
+    "type": "local_regex",
+    "input_guardrail": {
+      "stop_words": [
+        {
+          "index_name": "stop_words_input",
+          "source_fields": ["title"]
+        }
+      ],
+      "regex": ["regex1", "regex2"]
+    },
+    "output_guardrail": {
+      "stop_words": [
+        {
+          "index_name": "stop_words_output",
+          "source_fields": ["title"]
+        }
+      ],
+      "regex": ["regex1", "regex2"]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For a complete example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
+
+#### Example response
+
+OpenSearch responds with the `task_id` and task `status`:
+
+```json
+{
+  "task_id" : "ew8I44MBhyWuIwnfvDIH",
   "status" : "CREATED"
 }
 ```
