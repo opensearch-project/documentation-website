@@ -37,10 +37,12 @@ If the user is mapped to this `readonly_mode` role, all other elements of the UI
 
 ![compare read only mode]({{site.url}}{{site.baseurl}}/images/compare_read_only_mode.png)
 
-Don't forget that mapping the user to only readonly_mode role, that doesn't give permissions to view relevant indexes, will not allow the user to view the existing dashboards, as user still needs read access to view data behind the dashboards.
+Don't forget that mapping the user to only readonly_mode role, that doesn't give permissions to view relevant indexes, will not allow the user to view the existing dashboards, as read access is still required to view data behind the dashboards.
 {: .note }
 
-The only exception is "admin" backend role, if this backend role is also provided to the same user, the readonly_mode is ignored, giving the user access to standard UI elements, as well as full access to the cluster.
+
+If the user is also mapped to any roles listed under `plugins.security.restapi.roles_enabled` in `opensearch.yml`, for example `all_access` or `security_rest_api_access`, then `readonly_mode` is ignored, giving the user access to standard UI elements.
+
 
 ## Additional permissions
 
