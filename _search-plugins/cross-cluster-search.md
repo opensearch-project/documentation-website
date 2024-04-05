@@ -166,7 +166,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 All of the cURL requests can also be sent using OpenSearch Dashboards Dev Tools.
 {: .tip }
-Following image is the example of cURL request using Dev Tools:
+The following image shows an example of a cURL request using Dev Tools.
 ![OpenSearch Dashboards UI for configuring remote cluster for Cross-cluster search]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
 
 On the remote cluster, index a document:
