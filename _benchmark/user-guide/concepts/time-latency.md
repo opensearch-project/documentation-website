@@ -10,6 +10,7 @@ grand_parent: User Guide
 
 At the end of each test, OpenSearch Benchmark produces a table that summarizes the following: 
 
+- [Throughput](#throughput)
 - [Took time](#took-time)
 - [Service time](#service-time) 
 - Throughput
@@ -32,6 +33,14 @@ While the definition for _throughput_ remains consistent with other client-serve
 | **Latency** | The total amount of time, including the service time and the amount of time that the request waited before responding. | Based on the `target-throughput` set by the user, the total amount of time that the request waited before receiving the response, in addition to any other delays that occured before the request is sent. |
 
 For more information about service time and latency in OpenSearch Benchmark, see the [Service time](#service-time) and [Latency](#latency) sections.
+
+## Throughput
+
+**Throughput** measures the rate at which OpenSearch Benchmark issues requests, assuming that responses will be returned instantaneously. `target-throughput` is one of the common workload parameters that can be set for each test and is measured in operations per second.
+
+OpenSearch Benchmark always issues one request at a time for a single client thread, specified as `search-clients` in the workload parameters. If `target-throughput` is set to `0`, OpenSearch Benchmark issues a request immediately after it receives the response from the previous request. If the `target-throughput` is not set to `0`, OpenSearch Benchmark issues the next request to match the `target-throughput`, assuming that responses are returned instantaneously.
+
+Measuring throughput is particularly useful [throughput-throttled testing mode](#throughput-throttled-mode), which also affects [latency](#latency). 
 
 ## Took time
 
@@ -57,9 +66,7 @@ There are two types of testing modes when using OpenSearch Benchmark, which affe
 
 Target throughput is key to understanding the OpenSearch Benchmark definition of **latency**. Target throughput is the rate at which OpenSearch Benchmark issues requests, assuming that responses will be returned instantaneously. `target-throughput` is one of the common workload parameters that can be set for each test and is measured in operations per second. 
 
-OpenSearch Benchmark always issues one request at a time for a single client thread, specified as `search-clients` in the workload parameters. If `target-throughput` is set to `0`, OpenSearch Benchmark issues a request immediately after it receives the response from the previous request. If the `target-throughput` is not set to `0`, OpenSearch Benchmark issues the next request to match the `target-throughput`, assuming that responses are returned instantaneously.
-
-When you want to simulate the type traffic you might encounter when deploying a production cluster, set the `target-throughput` in your benchmark test to match to the rate of requests you think the production cluster might receive.
+When you want to simulate the type traffic you might encounter when deploying a production cluster, set the `target-throughput` in your benchmark test to match to the rate of requests you think the production cluster might receive. The following examples illustrate how the set `target-throughput` affects the latency measurement.
 
 
 #### Example A
