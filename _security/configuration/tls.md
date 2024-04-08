@@ -96,7 +96,7 @@ Name | Description
 `plugins.security.ssl.transport.client.pemcert_filepath` | Path to the X.509 node client certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.client.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
-### Separate client and server Keystore and truststore files
+### Separate client and server keystore and truststore files
 
 Name | Description
 :--- | :---
