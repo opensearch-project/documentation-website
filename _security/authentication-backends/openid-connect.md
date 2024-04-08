@@ -348,7 +348,7 @@ opensearch.password: "kibanaserver"
 opensearch.ssl.verificationMode: none
 
 # allowlist basic headers and multi-tenancy header
-opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
+opensearch.requestHeadersAllowlist: ["Authorization", "securitytenant"]
 ```
 
 To include OpenID Connect with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
