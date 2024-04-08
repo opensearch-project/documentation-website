@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Cross-cluster search
-parent: Access control
-nav_order: 105
+nav_order: 65
 redirect_from:
  - /security/access-control/cross-cluster-search/
  - /security-plugin/access-control/cross-cluster-search/
@@ -10,7 +9,7 @@ redirect_from:
 
 # Cross-cluster search
 
-Cross-cluster search is exactly what it sounds like: it lets any node in a cluster execute search requests against other clusters. The Security plugin supports cross-cluster search out of the box.
+You can use the cross-cluster search feature in OpenSearch to search and analyze data across multiple clusters, enabling you to gain insights from distributed data sources. Cross-cluster search is available by default with the Security plugin, but you need to configure each cluster to allow remote connections from other clusters. This involves setting up remote cluster connections and configuring access permissions.
 
 ---
 
@@ -23,19 +22,17 @@ Cross-cluster search is exactly what it sounds like: it lets any node in a clust
 
 ## Authentication flow
 
-When accessing a *remote cluster* from a *coordinating cluster* using cross-cluster search:
+The following sequence describes the authentication flow when using cross-cluster search to access a *remote cluster* from a *coordinating cluster*. You can have different authentication and authorization configurations on the remote and coordinating clusters, but we recommend using the same settings on both.
 
 1. The Security plugin authenticates the user on the coordinating cluster.
 1. The Security plugin fetches the user's backend roles on the coordinating cluster.
 1. The call, including the authenticated user, is forwarded to the remote cluster.
 1. The user's permissions are evaluated on the remote cluster.
 
-You can have different authentication and authorization configurations on the remote and coordinating cluster, but we recommend using the same settings on both.
 
+## Setting permissions
 
-## Permissions
-
-To query indexes on remote clusters, users need to have `READ` or `SEARCH` permissions. Furthermore, when the search request includes the query parameter `ccs_minimize_roundtrips=false` – which tells OpenSearch not to minimize outgoing and ingoing requests to remote clusters – users need to have the following additional permission for the index:
+To query indexes on remote clusters, users must have `READ` or `SEARCH` permissions. Furthermore, when the search request includes the query parameter `ccs_minimize_roundtrips=false`---which tells OpenSearch not to minimize outgoing and incoming requests to remote clusters---users need to have the following additional index permission:
 
 ```
 indices:admin/shards/search_shards
@@ -43,7 +40,7 @@ indices:admin/shards/search_shards
 
 For more information about the `ccs_minimize_roundtrips` parameter, see the list of [URL Parameters]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) for the Search API.
 
-#### Sample roles.yml configuration
+#### Example roles.yml configuration
 
 ```yml
 humanresources:
@@ -57,14 +54,14 @@ humanresources:
 ```
 
 
-#### Sample role in OpenSearch Dashboards
+#### Example role in OpenSearch Dashboards
 
 ![OpenSearch Dashboards UI for creating a cross-cluster search role]({{site.url}}{{site.baseurl}}/images/security-ccs.png)
 
 
-## Walkthrough
+## Sample Docker setup
 
-Save this file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
+To define Docker permissions, save the following sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
 
 ```yml
 version: '3'
@@ -119,7 +116,7 @@ networks:
   opensearch-net:
 ```
 
-After the clusters start, verify the names of each:
+After the clusters start, verify the names of each cluster using the following commands:
 
 ```json
 curl -XGET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200'
@@ -167,6 +164,10 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
   }
 }'
 ```
+All of the cURL requests can also be sent using OpenSearch Dashboards Dev Tools.
+{: .tip }
+The following image shows an example of a cURL request using Dev Tools.
+![OpenSearch Dashboards UI for configuring remote cluster for Cross-cluster search]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
 
 On the remote cluster, index a document:
 
@@ -224,7 +225,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/j
 curl -XPUT -k -u 'admin:<custom-admin-password>' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/rolesmapping/booksrole' -d '{"users" : ["booksuser"]}'
 ```
 
-Both clusters must have the user, but only the remote cluster needs the role and mapping; in this case, the coordinating cluster handles authentication (i.e. "Does this request include valid user credentials?"), and the remote cluster handles authorization (i.e. "Can this user access this data?").
+Both clusters must have the user role, but only the remote cluster needs both the role and mapping. In this case, the coordinating cluster handles authentication (that is, "Does this request include valid user credentials?"), and the remote cluster handles authorization (that is, "Can this user access this data?").
 {: .tip }
 
 Finally, repeat the search:
@@ -242,4 +243,57 @@ curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-clust
     }
   }]
 }
+```
+
+## Sample bare metal/virtual machine setup
+
+If you are running OpenSearch on a bare metal server or using a virtual machine, you can run the same commands, specifying the IP (or domain) of the OpenSearch cluster.
+For example, in order to configure a remote cluster for cross-cluster search, find the IP of the remote node or domain of the remote cluster and run the following command:
+
+```json
+curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
+{
+  "persistent": {
+    "cluster.remote": {
+      "opensearch-ccs-cluster2": {
+        "seeds": ["opensearch-domain-2:9300"]
+      }
+    }
+  }
+}'
+```
+It is sufficient to point to only one of the node IPs on the remote cluster because all nodes in the cluster will be queried as part of the node discovery process.
+{: .tip }
+
+You can now run queries across both clusters:
+
+```bash
+curl -XGET -k -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/opensearch-ccs-cluster2:books/_search?pretty'
+{
+  ...
+  "hits": [{
+    "_index": "opensearch-ccs-cluster2:books",
+    "_id": "1",
+    "_score": 1.0,
+    "_source": {
+      "Dracula": "Bram Stoker"
+    }
+  }]
+}
+```
+
+## Sample Kubernetes/Helm setup
+If you are using Kubernetes clusters to deploy OpenSearch, you need to configure the remote cluster using either the `LoadBalancer` or `Ingress`. The Kubernetes services created using the following [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of the `ClusterIP` type and are only accessible from within the cluster; therefore, you must use an externally accessible endpoint:
+
+```json
+curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
+{
+  "persistent": {
+    "cluster.remote": {
+      "opensearch-ccs-cluster2": {
+        "seeds": ["ingress:9300"]
+      }
+    }
+  }
+}'
 ```
