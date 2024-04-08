@@ -145,16 +145,42 @@ docker inspect --format='{% raw %}{{range .NetworkSettings.Networks}}{{.IPAddres
 
 Cross-cluster replication follows a "pull" model, so most changes occur on the follower cluster, not the leader cluster. 
 
+### Connection modes to a remote cluster
+
+- Sniff Mode:
+
+In sniff mode, a remote connection is created in the follower cluster by specifying a name and a list of seed nodes of the leader cluster. While establishing the connection, the leader's cluster state is fetched from one of its seed nodes. This mode mandates that the publish addresses of the seed nodes must be reachable from the follower cluster. Sniff mode is the default connection mode.
+
 On the follower cluster, add the IP address (with port 9300) for each seed node. Because this is a single-node cluster, you only have one seed node. Provide a descriptive name for the connection, which you'll use in the request to start replication:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_cluster/settings?pretty' -d '
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_cluster/settings?pretty' -d '
 {
   "persistent": {
     "cluster": {
       "remote": {
         "my-connection-alias": {
           "seeds": ["172.22.0.3:9300"]
+        }
+      }
+    }
+  }
+}'
+```
+
+- Proxy Mode:
+
+In proxy mode, a remote connection is created in the follower cluster by specifying a name and a single proxy address of the leader cluster. While establishing the connection, a configurable number of socket connections are opened up to the proxy address. The responsibility of the proxy is to direct these connections to the leader cluster. Unlike other connection modes, proxy mode does not necessitate that leader cluster nodes have accessible publish addresses. 
+
+```bash
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_cluster/settings?pretty' -d '
+{
+  "persistent": {
+    "cluster": {
+      "remote": {
+        "my-connection-alias": {
+          "mode": "proxy"
+          "proxy_address": "172.22.0.3:9300"
         }
       }
     }
