@@ -233,7 +233,7 @@ Updating expired (or nearly expired) certificates does not require cluster resta
 
 In order to enable hot reloading of TLS certificates, add the following line to `opensearch.yml`
 
-`opendistro_security.ssl_cert_reload_enabled: true`
+`plugins.security.ssl_cert_reload_enabled: true`
 
 This setting is set to false by default
 {: .note }
@@ -242,7 +242,7 @@ The following API expects the old certificates to be replaced with valid certifi
 
 ### Reload TLS certificates on transport layer
   ```json
-  curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_opendistro/_security/api/ssl/transport/reloadcerts
+  curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
   ```
   {% include copy.html %}
 
@@ -251,7 +251,7 @@ Expected response
 
 ### Reload TLS certificates on http layer
   ```json
-  curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_opendistro/_security/api/ssl/http/reloadcerts
+  curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
   ```
   {% include copy.html %}
 
