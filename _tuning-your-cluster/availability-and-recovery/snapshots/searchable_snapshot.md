@@ -16,11 +16,19 @@ The searchable snapshot feature incorporates techniques like caching frequently 
 
 ## Configuring a node to use searchable snapshots
 
-To configure the searchable snapshots feature, create a node in your opensearch.yml file and define the node role as `search`:
+To configure the searchable snapshots feature, create a node in your opensearch.yml file and define the node role as `search`. Optionally, also configure the `cache.size` property for the node.
+
+A `search` node reserves storage for the cache for performing searchable snapshot queries. In case of a dedicated search node (where the node exclusively has the `search` role), this value defaults to a fixed percentage of available storage. In other cases, the value needs to be configured by the user.
+
+Parameter | Type | Description
+:--- | :--- | :---
+`node.search.cache.size` | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/)..
+
 
 ```yaml
 node.name: snapshots-node
 node.roles: [ search ]
+node.search.cache.size: 50gb
 ```
 
 If you're running Docker, you can create a node with the `search` node role by adding the line `- node.roles=search` to your `docker-compose.yml` file:
@@ -35,7 +43,10 @@ services:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
       - node.roles=search
+      - node.search.cache.size=50gb
 ```
+
+
 
 ## Create a searchable snapshot index
 
