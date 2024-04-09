@@ -19,7 +19,7 @@ You can configure the `select_entries` processor using the following options.
 | `include_keys` | Yes | A list of keys to be selected from an event. |
 | `select_when` | No | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. |
 
-### Usage
+## Usage
 
 The following example shows how to configure the `select_entries` processor in the `pipeline.yaml` file:
 
@@ -30,9 +30,8 @@ pipeline:
   ....  
   processor:
     - select_entries:
-        entries:
-        - include_keys: [ "key1", "key2" ]
-          add_when: '/some_key == "test"'
+        include_keys: [ "key1", "key2" ]
+        select_when: '/some_key == "test"'
   sink:
 ```
 {% include copy.html %}
