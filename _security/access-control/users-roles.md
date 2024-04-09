@@ -215,3 +215,8 @@ Map the role to your user:
 1. Choose the **Mapped users** tab and **Manage mapping**.
 1. For **Internal users**, add your bulk access user.
 1. Choose **Map**.
+
+### SuperAdmin role
+
+The superAdmin role can add, update and delete the reserved configuration such as roles, roles_mapping, internal_users, action_groups and tenants. 
+Till now, the reserved were loaded from the default configuration present in yml files and now superAdmin has the privileges to do the same.
