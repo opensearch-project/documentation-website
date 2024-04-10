@@ -36,9 +36,6 @@ Unless you need to create new [reserved or hidden users]({{site.url}}{{site.base
 
 ---
 
-#### Table of contents
-1. TOC
-
 <details closed markdown="block">
   <summary>
     Table of contents
