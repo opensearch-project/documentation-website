@@ -10,42 +10,25 @@ has_math: true
 
 # k-NN vector quantization
 
-By default, the k-NN plugin supports the indexing and querying of vectors of type `float`, where each dimension of the 
-vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors can be
-expensive because OpenSearch needs to construct, load, save, and search graphs (for native `nmslib` and `faiss` engines
-). To reduce the memory footprint, you can use vector quantization.
+By default, the k-NN plugin supports the indexing and querying of vectors of type `float`, where each dimension of the vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors can be expensive because OpenSearch needs to construct, load, save, and search graphs (for native `nmslib` and `faiss` engines). To reduce the memory footprint, you can use vector quantization.
 
-In OpenSearch, there are many varieties of quantization supported. In general, the level of quantization 
-will provide a tradeoff between the accuracy of the nearest neighbor search and the size of the memory footprint the 
-vector search system will consume. The supported types include: Byte vectors, 16-bit scalar quantization, and 
-Product Quantization (PQ).
+In OpenSearch, there are many varieties of quantization supported. In general, the level of quantization will provide a tradeoff between the accuracy of the nearest neighbor search and the size of the memory footprint the vector search system will consume. The supported types include byte vectors, 16-bit scalar quantization, and product quantization (PQ).
 
 ## Lucene byte vector
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount
-of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch 
-index. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of required memory. This requires quantizing the vectors outside of OpenSearch before ingesting them into an OpenSearch index. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
 ## Faiss 16-bit scalar quantization 
  
-Starting with version 2.13, the k-NN plugin supports performing scalar quantization for the Faiss engine within 
-OpenSearch. Within the Faiss engine, a scalar quantizer (SQfp16) performs the conversion between 32-bit and 16-bit 
-vectors. At ingestion time, when you upload 32-bit floating-point vectors to OpenSearch, SQfp16 quantizes them into 
-16-bit floating-point vectors and stores the quantized vectors in a k-NN index. At search time, SQfp16 decodes the 
-vector values back into 32-bit floating-point values for distance computation. The SQfp16 quantization can decrease the 
-memory footprint by a factor of 2. Additionally, it leads to a minimal loss in recall when differences between vector 
-values are large compared to the error introduced by eliminating their two least significant bits. When used with 
-[SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), SQfp16 quantization can also significantly reduce search latencies and improve indexing 
-throughput. 
+Starting with version 2.13, the k-NN plugin supports performing scalar quantization for the Faiss engine within OpenSearch. Within the Faiss engine, a scalar quantizer (SQfp16) performs the conversion between 32-bit and 16-bit vectors. At ingestion time, when you upload 32-bit floating-point vectors to OpenSearch, SQfp16 quantizes them into 16-bit floating-point vectors and stores the quantized vectors in a k-NN index. At search time, SQfp16 decodes the vector values back into 32-bit floating-point values for distance computation. The SQfp16 quantization can decrease the memory footprint by a factor of 2. Additionally, it leads to a minimal loss in recall when differences between vector 
+values are large compared to the error introduced by eliminating their two least significant bits. When used with [SIMD optimization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#simd-optimization-for-the-faiss-engine), SQfp16 quantization can also significantly reduce search latencies and improve indexing throughput. 
 
-SIMD optimization is not supported on Windows. Using Faiss scalar quantization on Windows can lead to a significant drop
-in performance, including decreased indexing throughput and increased search latencies.
+SIMD optimization is not supported on Windows. Using Faiss scalar quantization on Windows can lead to a significant drop in performance, including decreased indexing throughput and increased search latencies.
 {: .warning} 
 
 ### Using Faiss scalar quantization
 
-To use Faiss scalar quantization, set the k-NN vector field's `method.parameters.encoder.name` to `sq` when creating a 
-k-NN index:
+To use Faiss scalar quantization, set the k-NN vector field's `method.parameters.encoder.name` to `sq` when creating a k-NN index:
 
 ```json
 PUT /test-index
@@ -80,22 +63,16 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-Optionally, you can specify the parameters in `method.parameters.encoder`. For more information about `encoder` object 
-parameters, see [SQ parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#sq-parameters).
+Optionally, you can specify the parameters in `method.parameters.encoder`. For more information about `encoder` object parameters, see [SQ parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#sq-parameters).
 
-The `fp16` encoder converts 32-bit vectors into their 16-bit counterparts. For this encoder type, the vector values must
-be in the [-65504.0, 65504.0] range. To define how to handle out-of-range values, the preceding request specifies the 
-`clip` parameter. By default, this parameter is `false`, and any vectors containing out-of-range values are rejected. 
-When `clip` is set to `true` (as in the preceding request), out-of-range vector values are rounded up or down so that 
-they are in the supported range. For example, if the original 32-bit vector is `[65510.82, -65504.1]`, the vector will 
-be indexed as a 16-bit vector `[65504.0, -65504.0]`.
+The `fp16` encoder converts 32-bit vectors into their 16-bit counterparts. For this encoder type, the vector values must be in the [-65504.0, 65504.0] range. To define how to handle out-of-range values, the preceding request specifies the `clip` parameter. By default, this parameter is `false`, and any vectors containing out-of-range values are rejected. 
 
-We recommend setting `clip` to `true` only if very few elements lie outside of the supported range. Rounding the values 
-may cause a drop in recall.
+When `clip` is set to `true` (as in the preceding request), out-of-range vector values are rounded up or down so that they are in the supported range. For example, if the original 32-bit vector is `[65510.82, -65504.1]`, the vector will be indexed as a 16-bit vector `[65504.0, -65504.0]`.
+
+We recommend setting `clip` to `true` only if very few elements lie outside of the supported range. Rounding the values may cause a drop in recall.
 {: .note}
 
-The following example method definition specifies the Faiss SQfp16 encoder, which rejects any indexing request that 
-contains out-of-range vector values (because the `clip` parameter is `false` by default):
+The following example method definition specifies the Faiss SQfp16 encoder, which rejects any indexing request that contains out-of-range vector values (because the `clip` parameter is `false` by default).
 
 ```json
 PUT /test-index
@@ -133,7 +110,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-During ingestion, make sure each dimension of the vector is in the supported range ([-65504.0, 65504.0]):
+During ingestion, make sure each dimension of the vector is in the supported range ([-65504.0, 65504.0]).
 
 ```json
 PUT test-index/_doc/1
@@ -143,7 +120,7 @@ PUT test-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-During querying, there is no range limitation for the query vector:
+During querying, there is no range limitation for the query vector.
 
 ```json
 GET test-index/_search
@@ -163,15 +140,13 @@ GET test-index/_search
 
 ### Memory estimation
 
-In the best-case scenario, 16-bit vectors produced by the Faiss SQfp16 quantizer require 50% of the memory that 32-bit 
-vectors require. 
+In the best-case scenario, 16-bit vectors produced by the Faiss SQfp16 quantizer require 50% of the memory that 32-bit vectors require. 
 
 #### HNSW memory estimation
 
 The memory required for HNSW is estimated to be `1.1 * (2 * dimension + 8 * M)` bytes/vector.
 
-As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be
-estimated as follows:
+As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
 
 ```bash
 1.1 * (2 * 256 + 8 * 16) * 1,000,000 ~= 0.656 GB
@@ -181,8 +156,7 @@ estimated as follows:
 
 The memory required for IVF is estimated to be `1.1 * (((2 * dimension) * num_vectors) + (4 * nlist * d))` bytes/vector.
 
-As an example, assume that you have 1 million vectors with a dimension of 256 and `nlist` of 128. The memory requirement
-can be estimated as follows:
+As an example, assume that you have 1 million vectors with a dimension of 256 and `nlist` of 128. The memory requirement can be estimated as follows:
 
 ```bash
 1.1 * (((2 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 0.525 GB
@@ -190,51 +164,32 @@ can be estimated as follows:
 
 ## Faiss product quantization
 
-Product quantization is a technique that allows users to represent a vector in a configurable amount of bits. In 
-general, it can be used to achieve a higher level of compression compared to byte and scalar quantization. Product 
-quantization works by breaking up vectors into _m_ subvectors, and  encoding each subvector with _code_size_ bits. Thus,
-the total amount of memory for the vector ends up being `m*code_size` bits, plus overhead. For more details about the 
-parameters of product quantization, see 
-[PQ parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#pq-parameters). Product quantization is only 
-supported for the _Faiss_ engine and can be used with either the _HNSW_ or the _IVF_ ANN algorithms.
+Product quantization is a technique that allows users to represent a vector in a configurable amount of bits. In general, it can be used to achieve a higher level of compression compared to byte and scalar quantization. Product quantization works by breaking up vectors into _m_ subvectors, and  encoding each subvector with _code_size_ bits. Thus, the total amount of memory for the vector ends up being `m*code_size` bits, plus overhead. For more details about the parameters of product quantization, see [PQ parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#pq-parameters). Product quantization is only supported for the _Faiss_ engine and can be used with either the _HNSW_ or the _IVF_ ANN algorithms.
 
 ### Using Faiss product quantization
 
-In order to minimize the loss in accuracy, product quantization requires a _training_ step that builds a model based on 
-the distribution of the data that will be searched over.
+In order to minimize the loss in accuracy, product quantization requires a _training_ step that builds a model based on the distribution of the data that will be searched over.
 
-Under the hood, the product quantizer is trained by running k-Means clustering on a set of training vectors for each 
-sub-vector space and extracts the centroids to be used for the encoding. The training vectors can either be a subset 
-of the vectors to be ingested, or vectors that have the same distribution and dimension as the vectors to be ingested. 
-In OpenSearch, the training vectors need to be present in an index. In general, the amount of training data will depend 
-on which ANN algorithm will be used and how much data will go into the index. For IVF-based indices, a good number of 
-training vectors to use is `max(1000*nlist, 2^code_size * 1000)`. For HNSW-based indices, a good number is 
-`2^code_size*1000` training vectors. See [Faiss's documentation](https://github.com/facebookresearch/faiss/wiki/FAQ#how-many-training-points-do-i-need-for-k-means) 
-for more details on how these numbers are arrived at.
+Under the hood, the product quantizer is trained by running k-Means clustering on a set of training vectors for each sub-vector space and extracts the centroids to be used for the encoding. The training vectors can either be a subset of the vectors to be ingested, or vectors that have the same distribution and dimension as the vectors to be ingested.
 
-For product quantization, the two parameters that need to be selected are _m_ and _code_size_. _m_ determines how many 
-sub-vectors the vectors should be broken up into to encode separately - consequently, the _dimension_ needs to be 
-divisible by _m_. _code_size_ determines how many bits each sub-vector will be encoded with. In general, a good place to
-start is setting `code_size = 8` and then tuning _m_ to get the desired tradeoff between memory footprint and recall.
+In OpenSearch, the training vectors need to be present in an index. In general, the amount of training data will depend on which ANN algorithm will be used and how much data will go into the index. For IVF-based indices, a good number of training vectors to use is `max(1000*nlist, 2^code_size * 1000)`. For HNSW-based indices, a good number is `2^code_size*1000` training vectors. See [Faiss's documentation](https://github.com/facebookresearch/faiss/wiki/FAQ#how-many-training-points-do-i-need-for-k-means) for more details on how these numbers are arrived at.
+
+For product quantization, the two parameters that need to be selected are _m_ and _code_size_. _m_ determines how many sub-vectors the vectors should be broken up into to encode separately - consequently, the _dimension_ needs to be divisible by _m_. _code_size_ determines how many bits each sub-vector will be encoded with. In general, a good place to start is setting `code_size = 8` and then tuning _m_ to get the desired tradeoff between memory footprint and recall.
 
 For an example of setting up an index with product quantization, see [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 
 ### Memory Estimation
 
-While product quantization is meant to represent individual vectors with `m*code_size` bits, in reality the indices 
-take up more space than this. This is mainly due to the overhead of storing certain code tables and auxilary data 
-structures.
+While product quantization is meant to represent individual vectors with `m*code_size` bits, in reality the indices take up more space than this. This is mainly due to the overhead of storing certain code tables and auxilary data structures.
 
-Some of the memory formulas depend on the number of segments present. Typically, this is not known beforehand but a good
-default value is 300.
+Some of the memory formulas depend on the number of segments present. Typically, this is not known beforehand but a good default value is 300.
 {: .note}
 
 #### HNSW memory estimation
 
 The memory required for HNSW with PQ is estimated to be `1.1*(((pq_code_size / 8) * pq_m + 24 + 8 * hnsw_m) * num_vectors + num_segments * (2^pq_code_size * 4 * d))` bytes.
 
-As an example, assume that you have 1 million vectors with a dimension of 256, `hnsw_m` of 16, `pq_m` of 32, 
-`pq_code_size` of 8 and 100 segments. The memory requirement can be estimated as follows:
+As an example, assume that you have 1 million vectors with a dimension of 256, `hnsw_m` of 16, `pq_m` of 32, `pq_code_size` of 8 and 100 segments. The memory requirement can be estimated as follows:
 
 ```bash
 1.1*((8 / 8 * 32 + 24 + 8 * 16) * 1000000 + 100 * (2^8 * 4 * 256)) ~= 0.215 GB
@@ -244,8 +199,7 @@ As an example, assume that you have 1 million vectors with a dimension of 256, `
 
 The memory required for IVF with PQ is estimated to be `1.1*(((pq_code_size / 8) * pq_m + 24) * num_vectors  + num_segments * (2^code_size * 4 * d + 4 * ivf_nlist * d))` bytes.
 
-As an example, assume that you have 1 million vectors with a dimension of 256, `ivf_nlist` of 512, `pq_m` of 32, 
-`pq_code_size` of 8 and 100 segments. The memory requirement can be estimated as follows:
+As an example, assume that you have 1 million vectors with a dimension of 256, `ivf_nlist` of 512, `pq_m` of 32, `pq_code_size` of 8 and 100 segments. The memory requirement can be estimated as follows:
 
 ```bash
 1.1*((8 / 8 * 64 + 24) * 1000000  + 100 * (2^8 * 4 * 256 + 4 * 512 * 256))  ~= 0.171 GB
