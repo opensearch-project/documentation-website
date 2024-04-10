@@ -218,10 +218,10 @@ Map the role to your user:
 
 ## SuperAdmin role
 
-The SuperAdmin role enables adding, updating, and deleting reserved configurations like roles, roles_mapping, internal_users, action_groups, and tenants. Previously, these configurations were loaded from default YAML files. Now, the superAdmin role now has the privilege to add, update, and delete via API calls.
+The `superAdmin` role enables adding, updating, and deleting reserved configurations like roles, roles_mapping, internal_users, action_groups, and tenants. Previously, these configurations were loaded from default YAML files. Now, the `superAdmin` role now has the privilege to add, update, and delete by using API calls.
 
-### Example API Calls:
-Below are examples of API calls for SuperAdmin actions:
+### Example API calls:
+Following are examples of API calls for `superAdmin` actions:
 
 Adding a Reserved Configuration:
 ```
