@@ -145,7 +145,7 @@ In the best-case scenario, 16-bit vectors produced by the Faiss SQfp16 quantizer
 
 #### HNSW memory estimation
 
-The memory required for HNSW is estimated to be `1.1 * (2 * dimension + 8 * M)` bytes/vector.
+The memory required for Hierarchical Navigable Small Worlds (HNSW) is estimated to be `1.1 * (2 * dimension + 8 * M)` bytes/vector.
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
 
