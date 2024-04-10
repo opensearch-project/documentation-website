@@ -14,6 +14,19 @@ The Security plugin includes an internal user database. Use this database in pla
 
 Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
 
+---
+
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
+
 ## Creating and editing OpenSearch roles
 
 You can update OpenSearch by using one of the following methods.
@@ -33,19 +46,6 @@ For more information about creating roles, see the [Create roles](https://opense
 
 Unless you need to create new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
-
----
-
-<details closed markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-- TOC
-{:toc}
-</details>
-
----
 
 ## Create users
 
