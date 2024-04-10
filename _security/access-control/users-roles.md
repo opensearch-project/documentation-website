@@ -216,21 +216,39 @@ Map the role to your user:
 1. For **Internal users**, add your bulk access user.
 1. Choose **Map**.
 
-### SuperAdmin role
+## SuperAdmin role
 
-The superAdmin role can add, update and delete the reserved configuration such as roles, roles_mapping, internal_users, action_groups and tenants. 
-Till now, the reserved were loaded from the default configuration present in yml files and now superAdmin has the privileges to do the same.
+The SuperAdmin role enables adding, updating, and deleting reserved configurations like roles, roles_mapping, internal_users, action_groups, and tenants. Previously, these configurations were loaded from default YAML files. Now, the superAdmin role now has the privilege to add, update, and delete via API calls.
 
-In the `yaml.md` the super admin role may be activated or via CRUD operations. The section of the `yaml.md` related to the super admin is listed as follows.
+### Example API Calls:
+Below are examples of API calls for SuperAdmin actions:
 
+Adding a Reserved Configuration:
 ```
-# Description:
-# enabled - feature flag.
-# if enabled is false, all endpoints are accessible.
-# if enabled is true, all users except the SuperAdmin can only submit the allowed requests to the specified endpoints.
-# SuperAdmin can access all APIs.
-# SuperAdmin is defined by the SuperAdmin certificate, which is configured with the opensearch.yml setting plugins.security.authcz.admin_dn:
-# Refer to the example setting in opensearch.yml to learn more about configuring SuperAdmin.
-#
-# requests - map of allow listed endpoints and HTTP requests
+curl -X PUT https://localhost:9200/_opendistro/_security/api/roles/new_role -k -H 'Content-Type: application/json' -d '{
+  "reserved": true,
+  "description": "Description of the role",
+  "cluster_permissions": [],
+  "index_permissions": [],
+  "tenant_permissions": []
+}'
 ```
+{% include copy.html %}
+
+Updating a Reserved Configuration:
+```
+curl -X PUT https://localhost:9200/_opendistro/_security/api/roles/new_role -k -H 'Content-Type: application/json' -d '{
+  "reserved": true,
+  "description": "Updated description",
+  "cluster_permissions": [],
+  "index_permissions": [],
+  "tenant_permissions": []
+}'
+```
+{% include copy.html %}
+
+Deleting a Reserved Configuration:
+```
+curl -X DELETE https://localhost:9200/_opendistro/_security/api/roles/new_role -k
+```
+{% include copy.html %}
