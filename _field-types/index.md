@@ -18,14 +18,8 @@ If you're starting to build out your cluster and data, you may not know exactly 
 
 For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. By using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
 
-This section provides an example for how to create an index mapping and how to add a document to it that will get ip_range validated.
+This documentation provides an example for how to create an index mapping and how to add a document to it that will get `ip_range` validated.
 
-#### Table of contents
-1. TOC
-{:toc}
-
-
----
 ## Dynamic mapping
 
 When you index a document, OpenSearch adds fields automatically with dynamic mapping. You can also explicitly add fields to an index mapping.
@@ -87,6 +81,41 @@ POST sample-index1/_mapping
 
 You cannot change the mapping of an existing field, you can only modify the field's mapping parameters. 
 {: .note}
+
+## Mapping parameters
+
+Mapping parameters are used to configure the behavior of fields in an index. The following table lists commonly used mapping parameters.
+
+Parameter | Description
+:--- | :---
+`analyzer` | Specifies the analyzer used to analyze string fields.
+`boost` | Specifies a field-level query time to boost.
+`coerce` | Tries to convert the value to the specified data type.
+`copy_to` | Copies the values of this field to another field.
+`doc_values` | Specifies whether the field should be stored on disk to make sorting and aggregation faster.
+`dynamic` | Determines whether new fields should be added dynamically.
+`enabled` | Specifies whether the field is enabled or disabled. 
+`format` | Specifies the date format for date fields. 
+`ignore_above` | Skips indexing values that are longer than the specified length.
+`ignore_malformed` | Specifies whether malformed values should be ignored. 
+`index` | Specifies whether the field should be indexed.
+`index_options` | Specifies what information should be stored in the index for scoring purposes.
+
+## Mapping limit settings
+
+OpenSearch may have certain limits or settings related to mappings, such as the maximum number of fields allowed in an index or the maximum depth of nested objects. These settings can be configured based on your requirements. <_Need SME input about mapping limits settings, their default values, and how to configure them if needed._>
+
+## Removal of mapping types
+
+<_Need SME input. Does OpenSearch allow for defining mapping types within an index? If so, SME needs to provide information to include in documentation. Do we have guidance on how to structure data without relying on mapping types?_>
+
+## Runtime fields
+
+You can define fields at query time, rather than at index time, by using runtime fields. this can be useful for creating fields based on the values of other fields, or for performing transformations on data during the query process. Runtime fields are defined in the query itself and do not affect the underlying data in the index.
+
+## Metadata fields
+
+OpenSearch has several built-in metadata fields that provide information about the documents in an index. These fields include `_doc_count`, `field_names`, `_ignored`, `_id`, `_index`, `_meta`, `_routing`, `_source`, `_tier`, and `_type`. These fields can be accessed or used in queries as needed.
 
 ---
 ## Mapping example usage
