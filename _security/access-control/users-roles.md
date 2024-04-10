@@ -220,3 +220,17 @@ Map the role to your user:
 
 The superAdmin role can add, update and delete the reserved configuration such as roles, roles_mapping, internal_users, action_groups and tenants. 
 Till now, the reserved were loaded from the default configuration present in yml files and now superAdmin has the privileges to do the same.
+
+In the `yaml.md` the super admin role may be activated or via CRUD operations. The section of the `yaml.md` related to the super admin is listed as follows.
+
+```
+# Description:
+# enabled - feature flag.
+# if enabled is false, all endpoints are accessible.
+# if enabled is true, all users except the SuperAdmin can only submit the allowed requests to the specified endpoints.
+# SuperAdmin can access all APIs.
+# SuperAdmin is defined by the SuperAdmin certificate, which is configured with the opensearch.yml setting plugins.security.authcz.admin_dn:
+# Refer to the example setting in opensearch.yml to learn more about configuring SuperAdmin.
+#
+# requests - map of allow listed endpoints and HTTP requests
+```
