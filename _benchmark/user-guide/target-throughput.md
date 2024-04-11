@@ -15,7 +15,7 @@ At the end of each test, OpenSearch Benchmark produces a table that summarizes t
 - [Service time](#service-time) 
 - Throughput
 - [Latency](#latency)
-- [Processing time]
+- [Processing time](#processing-time)
 - The error rate for each completed task or OpenSearch operation.
 
 The following diagram illustrates how each component of the table is measured during the life cycle of a request request involving the OpenSearch cluster, the OpenSearch client, and OpenSearch Benchmark:
