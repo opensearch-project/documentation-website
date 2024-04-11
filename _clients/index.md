@@ -44,7 +44,7 @@ OpenSearch provides clients for the following programming languages and platform
 
 ## Legacy clients
 
-Most clients that work with ElasticSearch OSS 7.10.2 *should* work with OpenSearch 1.x, but the latest versions of those clients might include license or version checks that artificially break compatibility. The table that follows includes recommendations for which client versions to use for best compatibility with OpenSearch 1.x. From OpenSearch 2.0 and later, no ElasticSearch clients are fully compatible with OpenSearch.
+Most clients that work with Elasticsearch OSS 7.10.2 *should* work with OpenSearch 1.x, but the latest versions of those clients might include license or version checks that artificially break compatibility. The table that follows includes recommendations for which client versions to use for best compatibility with OpenSearch 1.x. From OpenSearch 2.0 and later, no Elasticsearch clients are fully compatible with OpenSearch.
 
 While OpenSearch and Elasticsearch share several core features, mixing and matching the client and server has a high risk of errors and unexpected results. As OpenSearch and Elasticsearch continue to diverge, such risks may increase. Although your Elasticsearch client may continue working with your OpenSearch cluster, using OpenSearch clients for OpenSearch clusters is recommended.
 [: .warning]
