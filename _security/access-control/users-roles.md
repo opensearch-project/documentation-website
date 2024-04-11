@@ -150,7 +150,7 @@ The most user friendly approach for anyone getting familiar with Roles and role 
 ### Creating a basic read-only role
 
 
-To create a basic read-only role which allows access to OpenSearch Dashboards, view existing dashboards and visualizations, and query different indexes,  use one the following permissions. 
+To create a basic read-only role which allows access to OpenSearch Dashboards, view existing dashboards, visualizations and query different indexes, use one the following permissions. 
 
 These permissions will give the user access to all tenants and indexes on the cluster.
 {: .note}
