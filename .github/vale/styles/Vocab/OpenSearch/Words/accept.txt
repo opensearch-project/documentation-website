@@ -132,6 +132,7 @@ tebibyte
 [Tt]okenizer?
 [Tt]ooltip
 [Tt]ranslog
+[Tt]ruststore
 [Uu]nary
 [Uu]ncheck
 [Uu]ncomment
