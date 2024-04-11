@@ -13,7 +13,7 @@ redirect_from:
 
 OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, .NET, Go, Hadoop, and Rust.
 
-The OpenSearch Java high-level REST client will be deprecated starting with OpenSearch version 3.0.0 and will be removed in a future release. We recommend switching to the [Java client]({{site.url}}{{site.baseurl}}/clients/java/) instead.
+The OpenSearch Java high-level REST client will be deprecated starting with OpenSearch 3.0.0 and will be removed in a future release. Switching to the [Java client]({{site.url}}{{site.baseurl}}/clients/java/) is recommended.
 {: .warning}
 
 ## OpenSearch clients
