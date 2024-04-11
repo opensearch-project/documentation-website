@@ -155,15 +155,15 @@ To create a basic read-only role which allows access to OpenSearch Dashboards, v
 These permissions will give the user access to all tenants and indexes on the cluster.
 {: .note}
 
-#### Cluster permission
+Cluster permission
 
 For the user needs read-only access to cluster-wide resources, such as visualization or dashboards, add the `cluster_composite_ops_ro` permission to that user's role.
 
-#### Index permission
+Index permission
 
 If the user needs access to view visualizations, they will also need access to the index used to create the visualization. To give the user read-only access to all indexes, specify all (`*`) under the **Index** drop-down, and **Read** in **Index Permissions**.
 
-#### Tenant permissions
+Tenant permissions
 
 If you use tenants to split work between different teams or projects, use the all (`*`) option followed by the **Read only** option.
 
