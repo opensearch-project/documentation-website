@@ -175,9 +175,10 @@ After all permission types are set and the role is created, you can directly map
 
 ### OpenSearch Dashboards readonly_mode
 
-OpenSearch Dashboards `readonly_mode` functionality is used to give a user access to only the `Dashboards` UI, removing the rest of the UI elements from the user.
-To add the functionality, add the following line `opensearch_dashboards.yml` file:
-`opensearch_security.readonly_mode.roles: [new_role]`
+OpenSearch Dashboards `readonly_mode` functionality is used to give the user access to only the `Dashboards` UI, removing all other elements of UI from the view.
+To configure this, add the following line `opensearch_dashboards.yml` file:
+
+```opensearch_security.readonly_mode.roles: [new_role]```
 
 If the role mapped to the user has additional privileges or the user is mapped to other roles, giving them write access to indexes, this access will not be allowed using OpenSearch Dashboard. Direct data access to OpenSearch using curl or API is still allowed, as OpenSearch Dashboards is not involved in this communication. 
 
