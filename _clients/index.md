@@ -49,7 +49,7 @@ Most clients that work with Elasticsearch OSS 7.10.2 *should* work with OpenSear
 While OpenSearch and Elasticsearch share several core features, mixing and matching the client and server has a high risk of errors and unexpected results. As OpenSearch and Elasticsearch continue to diverge, such risks may increase. Although your Elasticsearch client may continue working with your OpenSearch cluster, using OpenSearch clients for OpenSearch clusters is recommended.
 [: .warning]
 
-To see the compatibility matrix for a specific client, see the COMPATIBILITY.md file in the client's repository.
+To view the compatibility matrix for a specific client, see the `COMPATIBILITY.md` file in the client's repository.
 
 Client | Recommended version
 :--- | :---
