@@ -177,7 +177,7 @@ In OpenSearch, the training vectors need to be present in an index. In general, 
 
 For product quantization, the two parameters that need to be selected are _m_ and _code_size_. _m_ determines how many sub-vectors the vectors should be broken up into to encode separately - consequently, the _dimension_ needs to be divisible by _m_. _code_size_ determines how many bits each sub-vector will be encoded with. In general, a good place to start is setting `code_size = 8` and then tuning _m_ to get the desired tradeoff between memory footprint and recall.
 
-For an example of setting up an index with product quantization, see [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+For an example of setting up an index with PQ, see the [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model) tutorial.
 
 ### Memory Estimation
 
