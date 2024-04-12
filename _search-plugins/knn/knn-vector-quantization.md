@@ -169,7 +169,7 @@ Product quantization is a technique that allows users to represent a vector in a
 
 ### Using Faiss product quantization
 
-In order to minimize the loss in accuracy, product quantization requires a _training_ step that builds a model based on the distribution of the data that will be searched over.
+To minimize the loss in accuracy, PQ requires a _training_ step that builds a model based on the distribution of the data that will be searched over.
 
 Under the hood, the product quantizer is trained by running k-Means clustering on a set of training vectors for each sub-vector space and extracts the centroids to be used for the encoding. The training vectors can either be a subset of the vectors to be ingested, or vectors that have the same distribution and dimension as the vectors to be ingested.
 
