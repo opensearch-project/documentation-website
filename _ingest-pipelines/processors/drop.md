@@ -5,6 +5,9 @@ parent: Ingest processors
 nav_order: 70
 ---
 
+This documentation describes using the `drop` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `drop_events` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # Drop processor
 
 The `drop` processor is used to discard documents without indexing them. This can be useful for preventing documents from being indexed based on certain conditions. For example, you might use a `drop` processor to prevent documents that are missing important fields or contain sensitive information from being indexed. 
