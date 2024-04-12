@@ -121,7 +121,7 @@ PUT test-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-During querying, there is no range limitation for the query vector.
+During querying, the query vector has no range limitation.
 
 ```json
 GET test-index/_search
