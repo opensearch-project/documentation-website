@@ -44,7 +44,7 @@ PUT /test-index
 
 ## Lucene byte vector
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
 ## SIMD optimization for the Faiss engine
 
@@ -137,10 +137,7 @@ For more information about setting these parameters, refer to the [Faiss documen
 
 #### IVF training requirements
 
-The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the
-[Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there should be `nlist` training
-data points, but it is [recommended that you use more](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset).
-Training data can be composed of either the same data that is going to be ingested or a separate dataset.
+The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there should be `nlist` training data points, but it is [recommended that you use more](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be composed of either the same data that is going to be ingested or a separate dataset.
 
 ### Supported Lucene methods
 
@@ -175,8 +172,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 
 ### Supported Faiss encoders
 
-You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. The k-NN plugin currently supports the
-`flat`, `pq`, and `sq` encoders in the Faiss library.
+You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. The k-NN plugin currently supports the `flat`, `pq`, and `sq` encoders in the Faiss library.
 
 The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
@@ -314,11 +310,11 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 
 ### Choosing the right method
 
-There are a lot of options to choose from when building your `knn_vector` field. To determine the correct methods and parameters to choose, you should first understand what requirements you have for your workload and what trade-offs you are willing to make. Factors to consider are (1) query latency, (2) query quality, (3) memory limits, (4) indexing latency.
+There are several options to choose from when building your `knn_vector` field. To determine the correct methods and parameters to choose, you should first understand what requirements you have for your workload and what trade-offs you are willing to make. Factors to consider are (1) query latency, (2) query quality, (3) memory limits, and (4) indexing latency.
 
-If memory is not a concern, HNSW offers a very strong query latency/query quality tradeoff.
+If memory is not a concern, HNSW offers a strong query latency/query quality trade-off.
 
-If you want to use less memory and index faster than HNSW, while maintaining similar query quality, you should evaluate IVF.
+If you want to use less memory and index faster than HNSW while maintaining similar query quality, you should evaluate IVF.
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
@@ -326,9 +322,7 @@ You can reduce the memory footprint by a factor of 2, with a minimal loss in sea
 
 ### Memory estimation
 
-In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates
-native library indexes to a portion of the remaining RAM. This portion's size is determined by
-the `circuit_breaker_limit` cluster setting. By default, the limit is set at 50%.
+In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates native library indexes to a portion of the remaining RAM. This portion's size is determined by the `circuit_breaker_limit` cluster setting. By default, the limit is set at 50%.
 
 Having a replica doubles the total number of vectors.
 {: .note }
