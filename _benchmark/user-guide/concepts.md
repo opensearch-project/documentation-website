@@ -28,10 +28,15 @@ Before using OpenSearch Benchmark, familiarize yourself with the following conce
 
 At the end of each test, OpenSearch Benchmark produces a table that summarizes the following: 
 
-- [Throughput](#throughput)
-- [Took time](#took-time)
-- [Service time](#service-time)
-- [Latency](#latency)
+- [Concepts](#concepts)
+  - [Core concepts and definitions](#core-concepts-and-definitions)
+  - [Test concepts](#test-concepts)
+    - [Differences between OpenSearch Benchmark and a traditional client-server system](#differences-between-opensearch-benchmark-and-a-traditional-client-server-system)
+  - [Processing time](#processing-time)
+    - [Took time](#took-time)
+    - [Service time](#service-time)
+    - [Latency](#latency)
+    - [Throughput](#throughput)
 
 The following diagram illustrates how each component of the table is measured during the life cycle of a request request involving the OpenSearch cluster, the OpenSearch client, and OpenSearch Benchmark:
 
@@ -49,11 +54,10 @@ While the definition for _throughput_ remains consistent with other client-serve
 
 For more information about service time and latency in OpenSearch Benchmark, see the [Service time](#service-time) and [Latency](#latency) sections.
 
-### Throughput
 
-**Throughput** measures the rate at which OpenSearch Benchmark issues requests, assuming that responses will be returned instantaneously. 
+## Processing time
 
-
+**Processing time** accounts for any extra overhead tasks that OpenSearch Benchmark performs during the life cycle of a request, such as setting up a request context manager and calling a method to pass the request off to the OpenSearch client. This is in contrast to **service time**, which only accounts for the different from when a request was sent and when the response is received by the OpenSearch client.
 
 ### Took time
 
@@ -71,9 +75,10 @@ OpenSearch Benchmark makes function calls to `opensearch-py` to communicate with
 
 The total amount of time that the request waited before receiving the response, in addition to any other delays that occurred before the request is sent. In most circumstances latency is measured the same as service time, unless in testing in [Throughput-throttled mode]({{site.url}}{{site.baseurl}}/benchmark/user-guide/target-throughput/), latency is measured as service-time plus the time request spends waiting in the queue.
 
-## Processing time
 
-**Processing time** accounts for any extra overhead tasks that OpenSearch Benchmark performs during the life cycle of a request, such as setting up a request context manager and calling a method to pass the request off to the OpenSearch client. This is in contrast to **service time**, which only accounts for the different from when a request was sent and when the response is received by the OpenSearch client.
+### Throughput
+
+**Throughput** measures the rate at which OpenSearch Benchmark issues requests, assuming that responses will be returned instantaneously. 
 
 
 
