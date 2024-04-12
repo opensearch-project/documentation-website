@@ -51,11 +51,9 @@ For more information about service time and latency in OpenSearch Benchmark, see
 
 ### Throughput
 
-**Throughput** measures the rate at which OpenSearch Benchmark issues requests, assuming that responses will be returned instantaneously. `target-throughput` is one of the common workload parameters that can be set for each test and is measured in operations per second.
+**Throughput** measures the rate at which OpenSearch Benchmark issues requests, assuming that responses will be returned instantaneously. 
 
-OpenSearch Benchmark always issues one request at a time for a single client thread, specified as `search-clients` in the workload parameters. If `target-throughput` is set to `0`, OpenSearch Benchmark issues a request immediately after it receives the response from the previous request. If the `target-throughput` is not set to `0`, OpenSearch Benchmark issues the next request to match the `target-throughput`, assuming that responses are returned instantaneously.
 
-Measuring throughput is particularly useful [throughput-throttled testing mode](#throughput-throttled-mode), which also affects [latency](#latency). 
 
 ### Took time
 
@@ -71,7 +69,7 @@ OpenSearch Benchmark makes function calls to `opensearch-py` to communicate with
 
 ### Latency
 
-The total amount of time that the request waited before receiving the response, in addition to any other delays that occurred before the request is sent. In most circumstances latency is measured the same as service time, unless in testing in [Throughput-throttled mode]({{site.url}}{{site.baseurl}}/benchmark/user-guide/target-throughput.md), latency is measured as service-time plus the time request spends waiting in the queue.
+The total amount of time that the request waited before receiving the response, in addition to any other delays that occurred before the request is sent. In most circumstances latency is measured the same as service time, unless in testing in [Throughput-throttled mode]({{site.url}}{{site.baseurl}}/benchmark/user-guide/target-throughput/), latency is measured as service-time plus the time request spends waiting in the queue.
 
 ## Processing time
 
