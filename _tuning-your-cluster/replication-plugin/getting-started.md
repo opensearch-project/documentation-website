@@ -149,7 +149,7 @@ Cross-cluster replication follows a "pull" model, so most changes occur on the f
 
 The connection modes include _sniff mode_ and _proxy mode_.
 
-In sniff mode, a remote connection is created in the follower cluster by specifying a name and a list of seed nodes of the leader cluster. While establishing the connection, the leader's cluster state is fetched from one of its seed nodes. This mode mandates that the publish addresses of the seed nodes must be reachable from the follower cluster. Sniff mode is the default connection mode.
+In sniff mode, the follower cluster establishes a remote connection to the leader cluster by specifying a name and a list of seed nodes from the leader cluster. During the connection setup, the follower cluster retrieves the leader cluster's state from one of the provided seed nodes. This mode requires that the publish addresses of the seed nodes in the leader cluster are accessible from the follower cluster. Sniff mode is the default connection mode.
 
 On the follower cluster, add the IP address (with port 9300) for each seed node. Because this is a single-node cluster, you only have one seed node. Provide a descriptive name for the connection, which you'll use in the request to start replication:
 
