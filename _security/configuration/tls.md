@@ -229,32 +229,40 @@ These settings allow for the use of encrypted passwords in the settings.
 
 ## Hot reloading TLS certificates
 
-Updating expired (or nearly expired) certificates does not require cluster restart. You can use hot reloading to achieve this without any downtime. 
+Updating expired or nearly expired TLS certificates does not require restarting the cluster. Instead, enable hot reloading of TLS cerificates by adding the following line to `opensearch.yml`:
 
-In order to enable hot reloading of TLS certificates, add the following line to `opensearch.yml`
 
 `plugins.security.ssl_cert_reload_enabled: true`
 
-This setting is set to false by default
+This setting is set to `false` by default.
 {: .note }
 
-The following API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be in the same location as previous certificates, in order to prevent any changes to `opensearch.yml` file. This API is only accessible using [super admin user's certificate and key]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates)
+After enabling hot reloading, use the Reload Certificates API to replace the expired certification. The API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be in the same location as the previous certificates, in order to prevent any changes to `opensearch.yml` file. 
 
-### Reload TLS certificates on transport layer
+Only a [super admin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can use the Reload Certificates API.
+{: .note }
+
+### Reload TLS certificates on the transport layer
+ The following example reloads TLS certificates on the transport layer:
+  
   ```json
   curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
   ```
   {% include copy.html %}
 
-Expected response
+You should receive the following response:
 ```{ "message": "successfully updated transport certs"}```
 
-### Reload TLS certificates on http layer
+### Reload TLS certificates on the http layer
+
+The following example reloads TLS certificates on the `http` layer:
+
   ```json
   curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
   ```
   {% include copy.html %}
 
-Expected response
+You should receive the following response:
+
 ```{ "message": "successfully updated http certs"}```
 
