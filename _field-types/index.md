@@ -24,7 +24,7 @@ This documentation provides an example for how to create an index mapping and ho
 
 When you index a document, OpenSearch adds fields automatically with dynamic mapping. You can also explicitly add fields to an index mapping.
 
-#### Dynamic mapping types
+### Dynamic mapping types
 
 Type | Description
 :--- | :---
@@ -57,7 +57,7 @@ PUT sample-index1
 }
 ```
 
-### Response
+#### Response
 ```json
 {
     "acknowledged": true,
@@ -105,7 +105,7 @@ Parameter | Description
 
 OpenSearch may have certain limits or settings related to mappings, such as the maximum number of fields allowed in an index or the maximum depth of nested objects. These settings can be configured based on your requirements. <_Need SME input about mapping limits settings, their default values, and how to configure them if needed._>
 
-## Removal of mapping types
+## Removing mapping types
 
 <_Need SME input. Does OpenSearch allow for defining mapping types within an index? If so, SME needs to provide information to include in documentation. Do we have guidance on how to structure data without relying on mapping types?_>
 
@@ -115,7 +115,20 @@ You can define fields at query time, rather than at index time, by using runtime
 
 ## Metadata fields
 
-OpenSearch has several built-in metadata fields that provide information about the documents in an index. These fields include `_doc_count`, `field_names`, `_ignored`, `_id`, `_index`, `_meta`, `_routing`, `_source`, `_tier`, and `_type`. These fields can be accessed or used in queries as needed.
+OpenSearch has built-in metadata fields that provide information about the documents in an index. These fields can be accessed or used in queries as needed.
+
+Metadata fields | Description
+:--- | :---
+`_doc_count` | 
+`field_names` |   
+`_ignored` | 
+`_id` | 
+`_index` | 
+`_meta` |
+`_routing` | 
+`_source` | 
+`_tier` | 
+`_type` | 
 
 ---
 ## Mapping example usage
@@ -200,7 +213,7 @@ To get all mappings for one or more indexes, use the following request:
 GET <index>/_mapping
 ```
 
-In the above request, `<index>` may be an index name or a comma-separated list of index names. 
+In the previous request, `<index>` may be an index name or a comma-separated list of index names. 
 
 To get all mappings for all indexes, use the following request:
 
@@ -249,3 +262,27 @@ The response contains the specified fields:
   }
 }
 ```
+
+## Delete a mapping
+
+The syntax for deleting a mapping depends on whether you want to delete the entire mapping for an index or the mapping for a specific field. The syntax for deleting a mapping is as follows:
+
+```json
+DELETE /<index_name>/_mapping
+DELETE /<field_name/_mapping>
+```
+
+For example, to delete the entire mapping for the `sample-index1` index, you can use the following commands:
+
+```json
+<insert command>
+```
+
+If you want to delete the mapping for a specific field, you can <insert instructional text> For example, to delete the mapping for the `year` field, use the following command:
+
+```json
+<insert command>
+```
+
+Deleting a field mapping will remove the mapping definition for that field across all indexes or the specified index. It will not delete the actual data stored in those fields.
+{: .note}
