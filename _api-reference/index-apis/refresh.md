@@ -9,8 +9,9 @@ nav_order: 61
 Introduced 1.0
 {: .label .label-purple }
 
-The Refresh API refreshes one or more indexes in an OpenSearch cluster. In the case of data streams, the Refresh API will refresh a streams backing indexes. OpenSearch, by default, will refresh indexes every second on indexes that have received one search request or more in the last 30 seconds. To change the default interval, use the `index.refresh_interval` setting in `opensearch.yml`.
+The Refresh API refreshes one or more indexes in an OpenSearch cluster. In the case of data streams, the Refresh API will refresh a streams backing indexes. 
 
+OpenSearch, by default, will refresh indexes every second on indexes that have received one search request or more in the last 30 seconds. To change the default interval, use the `index.refresh_interval` setting in `opensearch.yml`.
 
 To use the Refresh API, you must have write access to the indexes you want to refresh.
 
