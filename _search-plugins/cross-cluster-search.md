@@ -291,7 +291,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
   "persistent": {
     "cluster.remote": {
       "opensearch-ccs-cluster2": {
-        "seeds": ["ingress:9200"]
+        "seeds": ["ingress:9300"]
       }
     }
   }
@@ -299,7 +299,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 
 ## OpenSearch behind a proxy
-This section outlines the additional configuration which you need to use Cross-cluster search on cluster running behind a proxy. As there are many ways to configure a reverse proxy and various proxies to chose from, the following example demonstrates the basic Nginx reverse proxy configuration without TLS termination. The OpenSearch is expected to be running with both transport and http TLS encryption enabled, more details on configuring TLS encryption are available in section [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/)
+This section outlines the additional configuration which you need to use Cross-cluster search on cluster running behind a proxy. As there are many ways to configure a reverse proxy and various proxies to chose from, the following example demonstrates the basic Nginx reverse proxy configuration without TLS termination. The OpenSearch is expected to be running with both transport and http TLS encryption enabled, more details on configuring TLS encryption are available at [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/)
 
 ### Proxy configuration
 Basic Nginx configuration for http and transport communication:
@@ -334,7 +334,7 @@ stream {
 The listening ports for http and transport communication are set to `443` and `8300` respectively. 
 
 ### OpenSearch configuration
-Remote cluster can be configured to point to the `proxy` using the command below:
+Remote cluster can be configured to point to the `proxy` using the following command:
 
 ```bash
 curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch/_cluster/settings' -d '
