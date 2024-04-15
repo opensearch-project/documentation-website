@@ -25,7 +25,7 @@ The following tables contain the settings you can use to configure the location 
 Name | Description
 :--- | :---
 `plugins.security.ssl.transport.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.transport.pemkey_password` | Key password. Omit this setting if the key has no password. Optional.
+`plugins.security.ssl.transport.pemkey_password` | The key password. Omit this setting if the key has no password. Optional.
 `plugins.security.ssl.transport.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
@@ -36,7 +36,7 @@ Name | Description
 :--- | :---
 `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 `plugins.security.ssl.http.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional.
+`plugins.security.ssl.http.pemkey_password` | The key password. Omit this setting if the key has no password. Optional.
 `plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
@@ -54,11 +54,11 @@ Name | Description
 :--- | :---
 `plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
 `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.transport.keystore_alias` | Alias name. Optional. Default is the first alias.
+`plugins.security.ssl.transport.keystore_alias` | The alias name for keystore. Optional. Default is the first alias.
 `plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`.
 `plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
 `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.transport.truststore_alias` | Alias name. Optional. Default is all certificates.
+`plugins.security.ssl.transport.truststore_alias` | The alias name for truststore. Optional. Default is all certificates.
 `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
 
 ### REST layer TLS
@@ -68,12 +68,12 @@ Name | Description
 `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is false.
 `plugins.security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
 `plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.http.keystore_alias` | Alias name. Optional. Default is the first alias.
-`plugins.security.ssl.http.keystore_password` | Keystore password. Default is `changeit`.
+`plugins.security.ssl.http.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
+`plugins.security.ssl.http.keystore_password` | The password for the keystore. Default is `changeit`.
 `plugins.security.ssl.http.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
 `plugins.security.ssl.http.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.http.truststore_alias` | Alias name. Optional. Default is all certificates.
-`plugins.security.ssl.http.truststore_password` | Truststore password. Default is `changeit`.
+`plugins.security.ssl.http.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
+`plugins.security.ssl.http.truststore_password` | The password for the truststore. Default is `changeit`.
 
 
 ## Separate client and server certificates for transport layer TLS
@@ -101,7 +101,7 @@ Name | Description
 `plugins.security.ssl.transport.keystore_type` | The type of the keystore file, either `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
 `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file. Must be specified using a relative path under the `config` directory. Required.
 `plugins.security.ssl.transport.server.keystore_alias` | The alias name of the server key. Optional. Default is the first alias.
-`plugins.security.ssl.transport.client.keystore_alias` | The alias name for the client key. Optional. Default is the first alias.
+`plugins.security.ssl.transport.client.keystore_alias` | The alias name of the client key. Optional. Default is the first alias.
 `plugins.security.ssl.transport.server.keystore_keypassword` | The keystore password for the server. Default is `changeit`.
 `plugins.security.ssl.transport.client.keystore_keypassword` | The keystore password for the client. Default is `changeit`.
 `plugins.security.ssl.transport.server.truststore_alias` | The alias name of the server. Optional. Default is all certificates.
