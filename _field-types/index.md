@@ -103,7 +103,9 @@ Parameter | Description
 
 ## Mapping limit settings
 
-OpenSearch may have certain limits or settings related to mappings, such as the maximum number of fields allowed in an index or the maximum depth of nested objects. These settings can be configured based on your requirements. <_Need SME input about mapping limits settings, their default values, and how to configure them if needed._>
+OpenSearch may have certain limits or settings related to mappings, such as the maximum number of fields allowed in an index or the maximum depth of nested objects. These settings can be configured based on your requirements. 
+
+<_Need SME input about mapping limits settings, their default values, and how to configure them if needed._>
 
 ## Removing mapping types
 
@@ -119,16 +121,13 @@ OpenSearch has built-in metadata fields that provide information about the docum
 
 Metadata fields | Description
 :--- | :---
-`_doc_count` | 
-`field_names` |   
+`field_names` |    
 `_ignored` | 
 `_id` | 
 `_index` | 
 `_meta` |
 `_routing` | 
 `_source` | 
-`_tier` | 
-`_type` | 
 
 ---
 ## Mapping example usage
