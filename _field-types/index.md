@@ -115,20 +115,6 @@ OpenSearch may have certain limits or settings related to mappings, such as the 
 
 You can define fields at query time, rather than at index time, by using runtime fields. this can be useful for creating fields based on the values of other fields, or for performing transformations on data during the query process. Runtime fields are defined in the query itself and do not affect the underlying data in the index.
 
-## Metadata fields
-
-OpenSearch has built-in metadata fields that provide information about the documents in an index. These fields can be accessed or used in queries as needed.
-
-Metadata fields | Description
-:--- | :---
-`field_names` |    
-`_ignored` | 
-`_id` | 
-`_index` | 
-`_meta` |
-`_routing` | 
-`_source` | 
-
 ---
 ## Mapping example usage
 
