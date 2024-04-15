@@ -28,15 +28,11 @@ Before using OpenSearch Benchmark, familiarize yourself with the following conce
 
 At the end of each test, OpenSearch Benchmark produces a table that summarizes the following: 
 
-- [Concepts](#concepts)
-  - [Core concepts and definitions](#core-concepts-and-definitions)
-  - [Test concepts](#test-concepts)
-    - [Differences between OpenSearch Benchmark and a traditional client-server system](#differences-between-opensearch-benchmark-and-a-traditional-client-server-system)
   - [Processing time](#processing-time)
-    - [Took time](#took-time)
-    - [Service time](#service-time)
-    - [Latency](#latency)
-    - [Throughput](#throughput)
+  - [Took time](#took-time)
+  - [Service time](#service-time)
+  - [Latency](#latency)
+  - [Throughput](#throughput)
 
 The following diagram illustrates how each component of the table is measured during the life cycle of a request involving the OpenSearch cluster, the OpenSearch client, and OpenSearch Benchmark:
 
@@ -55,7 +51,7 @@ While the definition for _throughput_ remains consistent with other client-serve
 For more information about service time and latency in OpenSearch Benchmark, see the [Service time](#service-time) and [Latency](#latency) sections.
 
 
-## Processing time
+### Processing time
 
 **Processing time** accounts for any extra overhead tasks that OpenSearch Benchmark performs during the life cycle of a request, such as setting up a request context manager and calling a method to pass the request off to the OpenSearch client. This is in contrast to **service time**, which only accounts for the different from when a request was sent and when the response is received by the OpenSearch client.
 
