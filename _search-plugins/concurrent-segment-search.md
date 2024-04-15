@@ -7,9 +7,6 @@ nav_order: 53
 
 # Concurrent segment search
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/2587) or the [project board](https://github.com/orgs/opensearch-project/projects/117/views/1).    
-{: .warning}
-
 Use concurrent segment search to search segments in parallel during the query phase. Cases in which concurrent segment search improves search latency include the following:
 
 - When sending long-running requests, for example, requests that contain aggregations or large ranges
@@ -23,91 +20,34 @@ In OpenSearch, each search request follows the scatter-gather protocol. The coor
 
 Without concurrent segment search, Lucene executes a request sequentially across all segments on each shard during the query phase. The query phase then collects the top hits for the search request. With concurrent segment search, each shard-level request will search the segments in parallel during the query phase. For each shard, the segments are divided into multiple _slices_. Each slice is the unit of work that can be executed in parallel on a separate thread, so the slice count determines the maximum degree of parallelism for a shard-level request. Once all the slices complete their work, Lucene performs a reduce operation on the slices, merging them and creating the final result for this shard-level request. Slices are executed using a new `index_searcher` thread pool, which is different from the `search` thread pool that handles shard-level requests.
 
-## Enabling the feature flag
+## Enabling concurrent segment search at the index or cluster level
 
-There are several methods for enabling concurrent segment search, depending on the installation type. 
+By default, concurrent segment search is disabled on the cluster. You can enable concurrent segment search at two levels:
 
-### Enable in opensearch.yml
+- Cluster level
+- Index level
 
-If you are running an OpenSearch cluster and want to enable concurrent segment search in the config file, add the following line to `opensearch.yml`:
+The index-level setting takes priority over the cluster-level setting. Thus, if the cluster setting is enabled but the index setting is disabled, then concurrent segment search will be disabled for that index. Because of this, the index-level setting is not evaluated unless it is explicitly set, regardless of the default value configured for the setting. You can retrieve the current value of the index-level setting by calling the [Index Settings API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-settings/) and omitting the `?include_defaults` query parameter.
+{: .note}
 
-```yaml
-opensearch.experimental.feature.concurrent_segment_search.enabled: true
-```
-{% include copy.html %}
-
-### Enable with Docker containers
-
-If you’re running Docker, add the following line to `docker-compose.yml` under the `opensearch-node` > `environment` section:
-
-```bash
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true"
-```
-{% include copy.html %}
-
-### Enable on a node using a tarball installation
-
-To enable concurrent segment search on a tarball installation, provide the new JVM parameter either in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS`.
-
-#### OPTION 1: Modify jvm.options
-
-Add the following lines to `config/jvm.options` before starting the `opensearch` process to enable the feature and its dependency:
-
-```bash
--Dopensearch.experimental.feature.concurrent_segment_search.enabled=true
-```
-{% include copy.html %}
-
-Then run OpenSearch:
-
-```bash
-./bin/opensearch
-```
-{% include copy.html %}
-
-#### OPTION 2: Enable with an environment variable
-
-As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done using a single command when you start OpenSearch or by defining the variable with `export`.
-
-To add these flags inline when starting OpenSearch, run the following command:
-
-```bash
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true" ./opensearch-{{site.opensearch_version}}/bin/opensearch
-```
-{% include copy.html %}
-
-If you want to define the environment variable separately prior to running OpenSearch, run the following commands:
-
-```bash
-export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true"
-```
-{% include copy.html %}
-
-```bash
-./bin/opensearch
-```
-{% include copy.html %}
-
-## Disabling concurrent search at the index or cluster level
-
-After you enable the experimental feature flag, all search requests will use concurrent segment search during the query phase. To disable concurrent segment search for all indexes, set the following dynamic cluster setting:
+To enable concurrent segment search for all indexes in the cluster, set the following dynamic cluster setting:
 
 ```json
 PUT _cluster/settings
 {
    "persistent":{
-      "search.concurrent_segment_search.enabled": false
+      "search.concurrent_segment_search.enabled": true
    }
 }
 ```
 {% include copy-curl.html %}
 
-To disable concurrent segment search for a particular index, specify the index name in the endpoint:
+To enable concurrent segment search for a particular index, specify the index name in the endpoint:
 
 ```json
 PUT <index-name>/_settings
 {
-    "index.search.concurrent_segment_search.enabled": false
+    "index.search.concurrent_segment_search.enabled": true
 }
 ```
 {% include copy-curl.html %}
@@ -137,26 +77,33 @@ The `search.concurrent.max_slice_count` setting can take the following valid val
 - `0`: Use the default Lucene mechanism.
 - Positive integer: Use the max target slice count mechanism. Usually, a value between 2 and 8 should be sufficient.
 
-## The `terminate_after` search parameter
+## Limitations
+
+The following aggregations do not support the concurrent search model. If a search request contains one of these aggregations, the request will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level or index level.
+- Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/9316) for more information.
+- `sampler` and `diversified_sampler` aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11075) for more information.
+- Composite aggregations. See [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/12331) for more information.
+
+## Other considerations
+
+The following sections provide additional considerations for concurrent segment search.
+
+### The `terminate_after` search parameter
 
 The [`terminate_after` search parameter]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) is used to terminate a search request once a specified number of documents has been collected. If you include the `terminate_after` parameter in a request, concurrent segment search is disabled and the request is run in a non-concurrent manner.
 
 Typically, queries are used with smaller `terminate_after` values and thus complete quickly because the search is performed on a reduced dataset. Therefore, concurrent search may not further improve performance in this case. Moreover, when `terminate_after` is used with other search request parameters, such as `track_total_hits` or `size`, it adds complexity and changes the expected query behavior. Falling back to a non-concurrent path for search requests that include `terminate_after` ensures consistent results between concurrent and non-concurrent requests.
 
-## API changes
+### Sorting
 
-If you enable the concurrent segment search feature flag, the following Stats API responses will contain several additional fields with statistics about slices:
+Depending on the data layout of the segments, the sort optimization feature can prune entire segments based on the min and max values as well as previously collected values. If the top values are present in the first few segments and all other segments are pruned, query latency may increase when sorting with concurrent segment search. Conversely, if the last few segments contain the top values, then latency may improve with concurrent segment search.
 
-- [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)
-- [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)
+### Terms aggregations
 
-For descriptions of the added fields, see [Index Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats#concurrent-segment-search).
+Non-concurrent search calculates the document count error and returns it in the `doc_count_error_upper_bound` response parameter. During concurrent segment search, the `shard_size` parameter is applied at the segment slice level. Because of this, concurrent search may introduce an additional document count error.
 
-Additionally, some [Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile/) response fields will be modified and others added. For more information, see the [concurrent segment search section of the Profile API]({{site.url}}{{site.baseurl}}/api-reference/profile#concurrent-segment-search).
+For more information about how `shard_size` can affect both `doc_count_error_upper_bound` and collected buckets, see [this GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11680#issuecomment-1885882985).
 
-## Limitations
-
-Parent aggregations on [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields do not support the concurrent search model. Thus, if a search request contains a parent aggregation, the aggregation will be executed using the non-concurrent path even if concurrent segment search is enabled at the cluster level.
 
 ## Developer information: AggregatorFactory changes
 

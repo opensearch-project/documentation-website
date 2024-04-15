@@ -19,37 +19,35 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Download [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example-custom.zip) to a preferred location in your directory and unzip it.
-1. At the command line, specify the location of the files in your directory and run `docker-compose up`.
-1. Review the files:
+1. Visit the [saml-demo branch](https://github.com/opensearch-project/demos/tree/saml-demo) of the demos repository and download it to a folder of your choice. If you're not familiar with how to use GitHub, see the [OpenSearch onboarding guide](https://github.com/opensearch-project/demos/blob/main/ONBOARDING.md) for instructions.
 
-   * `customize-docker-compose.yml`: Defines two OpenSearch nodes, an OpenSearch Dashboards server, and a SAML server.  
-   * `customize-opensearch_dashboards.yml`: Includes SAML settings for the default `opensearch_dashboards.yml` file.
-   * `customize-config.yml`: Configures SAML for authentication.
+1. Navigate to the `demo` folder:
+   ```zsh
+   $ cd <path-to-demos-folder>/demo
+   ```
 
-   You can remove "customize" from the file names if you plan to modify and keep these files for production.
-   {: .tip }  
+1. Review the following files, as needed:
 
-1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2, and OpenSearch Dashboards server. For example, if you are running OpenSearch version 2.6, the `image` fields will resemble the following examples:
-   
-   ```yml
-   opensearch-saml-node1:
-    image: opensearchproject/opensearch:2.8.0
-    ```
-    ```yml
-    opensearch-saml-node2:
-    image: opensearchproject/opensearch:2.8.0
-    ```
-    ```yml
-    opensearch-saml-dashboards:
-    image: opensearchproject/opensearch-dashboards:2.8.0
-    ```
+   * `.env`: 
+     * Defines the OpenSearch and OpenSearch Dashboards version to use. The default is the latest version ({{site.opensearch_major_minor_version}}).
+     * Defines the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
+   * `./custom-config/opensearch_dashboards.yml`: Includes the SAML settings for the default `opensearch_dashboards.yml` file.
+   * `./custom-config/config.yml`: Configures SAML for authentication.
+   * `docker-compose.yml`: Defines an OpenSearch server node, an OpenSearch Dashboards server node, and a SAML server node.
+   * `./saml/config/authsources.php`: Contains the list of users that can be authenticated by this SAML domain.
 
-1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
+1. From the command line, run:
+   ```zsh
+   $ docker-compose up.
+   ```
 
-1. Log in as `admin` with a password of `admin`.
+1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}.
 
-1. After logging in, note that your user in the upper-right is `SAMLAdmin`, as defined in `/var/www/simplesamlphp/config/authsources.php` of the SAML server.
+1. Select `Log in with single sign-on`. This redirects you to the SAML login page.
+
+1. Log in to OpenSearch Dashboards with a user defined in `./saml/config/authsources.php` (such as `user1` with password `user1pass`).
+
+1. After logging in, note that the user ID shown in the upper-right corner of the screen is the same as the `NameID` attribute for the user defined in `./saml/config/authsources.php` of the SAML server (that is, `saml-test` for `user1`).
 
 1. If you want to examine the SAML server, run `docker ps` to find its container ID and then `docker exec -it <container-id> /bin/bash`.
 
@@ -61,20 +59,26 @@ We provide a fully functional example that can help you understand how to use SA
 To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
 
 ```yml
-authc:
-  saml_auth_domain:
-    http_enabled: true
-    transport_enabled: false
-    order: 1
-    http_authenticator:
-      type: saml
-      challenge: true
-      config:
-        idp:
-          metadata_file: okta.xml
-          ...
-    authentication_backend:
-      type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      saml_auth_domain:
+        http_enabled: true
+        transport_enabled: false
+        order: 1
+        http_authenticator:
+          type: saml
+          challenge: true
+          config:
+            idp:
+              metadata_file: okta.xml
+              ...
+        authentication_backend:
+          type: noop
 ```
 
 After you have configured SAML in `config.yml`, you must also [activate it in OpenSearch Dashboards](#opensearch-dashboards-configuration).
@@ -85,27 +89,33 @@ After you have configured SAML in `config.yml`, you must also [activate it in Op
 We recommend adding at least one other authentication domain, such as LDAP or the internal user database, to support API access to OpenSearch without SAML. For OpenSearch Dashboards and the internal OpenSearch Dashboards server user, you also must add another authentication domain that supports basic authentication. This authentication domain should be placed first in the chain, and the `challenge` flag must be set to `false`:
 
 ```yml
-authc:
-  basic_internal_auth_domain:
-    http_enabled: true
-    transport_enabled: true
-    order: 0
-    http_authenticator:
-      type: basic
-      challenge: false
-    authentication_backend:
-      type: internal
-  saml_auth_domain:
-    http_enabled: true
-    transport_enabled: false
-    order: 1
-    http_authenticator:
-      type: saml
-      challenge: true
-      config:
-        ...
-    authentication_backend:
-      type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      basic_internal_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+          type: basic
+          challenge: false
+        authentication_backend:
+          type: internal
+      saml_auth_domain:
+        http_enabled: true
+        transport_enabled: false
+        order: 1
+        http_authenticator:
+          type: saml
+          challenge: true
+          config:
+            ...
+        authentication_backend:
+          type: noop
 ```
 
 
@@ -224,7 +234,8 @@ SAML, unlike other protocols, is not meant to be used for exchanging user creden
 
 Name | Description
 :--- | :---
-`exchange_key` | The key to sign the token. The algorithm is HMAC-SHA512, so it should have at least 64 characters, and base64 URL encoding.
+`exchange_key` | The key to sign the token. The algorithm is HMACSHA512, therefore we recommend to use 64 characters, for example `9a2h8ajasdfhsdiydfn7dtd6d5ashsd89a2h8ajasdHhsdiyLfn7dtd6d5ashsdI`. Ensure that you enter a value for `exchange_key`, otherwise an error is returned. 
+
 
 
 ## TLS settings
@@ -311,25 +322,31 @@ Name | Description
 The following example shows the minimal configuration:
 
 ```yml
-authc:
-  saml_auth_domain:
-    http_enabled: true
-    transport_enabled: false
-    order: 1
-    http_authenticator:
-      type: saml
-      challenge: true
-      config:
-        idp:
-          metadata_file: metadata.xml
-          entity_id: http://idp.example.com/
-        sp:
-          entity_id: https://opensearch-dashboards.example.com
-        kibana_url: https://opensearch-dashboards.example.com:5601/
-        roles_key: Role
-        exchange_key: 'peuvgOLrjzuhXf ...'
-    authentication_backend:
-      type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      saml_auth_domain:
+        http_enabled: true
+        transport_enabled: false
+        order: 1
+        http_authenticator:
+          type: saml
+          challenge: true
+          config:
+            idp:
+              metadata_file: metadata.xml
+              entity_id: http://idp.example.com/
+            sp:
+              entity_id: https://opensearch-dashboards.example.com
+            kibana_url: https://opensearch-dashboards.example.com:5601/
+            roles_key: Role
+            exchange_key: 'peuvgOLrjzuhXf ...'
+        authentication_backend:
+          type: noop
 ```
 
 ## OpenSearch Dashboards configuration

@@ -480,7 +480,7 @@ The `cross_fields` query only works as a term-centric query on fields with the s
 For example, consider an index where the `first_name` and `last_name` fields are analyzed with the default `standard`
  analyzer and their `.edge` subfields are analyzed with an edge n-gram analyzer:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -713,7 +713,7 @@ GET articles/_search
 
 Because by default a `phrase` query matches text only when the terms appear in the same order, only document 1 is returned in the results:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -770,7 +770,7 @@ GET articles/_search
 
 The response contains document 2:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>

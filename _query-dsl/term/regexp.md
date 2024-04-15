@@ -43,7 +43,7 @@ GET _search
     "regexp": {
       "<field>": {
         "value": "[Ss]ample",
-        ... 
+        ...
       }
     }
   }
@@ -56,6 +56,7 @@ The `<field>` accepts the following parameters. All parameters except `value` ar
 Parameter | Data type | Description
 :--- | :--- | :---
 `value` | String | The regular expression used for matching terms in the field specified in `<field>`.
+`boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the regular expression value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
 `flags` | String | Enables optional operators for Lucene’s regular expression engine.
 `max_determinized_states` | Integer | Lucene converts a regular expression to an automaton with a number of determinized states. This parameter specifies the maximum number of automaton states the query requires. Use this parameter to prevent high resource consumption. To run complex regular expressions, you may need to increase the value of this parameter. Default is 10,000.
@@ -63,4 +64,3 @@ Parameter | Data type | Description
 
 If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, `regexp` queries are not run.
 {: .important}
-
