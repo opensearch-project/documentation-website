@@ -207,9 +207,7 @@ You will most likely not need to specify any parameters except for `location`. F
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
 
-### Azure Storage Account
-
-#### Helm
+### Azure storage account
 
 These steps explain how to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
 
@@ -285,7 +283,7 @@ These steps explain how to register a snapshot repository backed by an Azure sto
      tag: {{site.opensearch_version}}
    ```
 
-1. Register the repository using the REST API. Replace `snapshot_container` with the name you specified in step 1 above.
+1. Register the repository using the REST API. Replace `snapshot_container` with the name you specified earlier in step 1.
    ```json
    PUT /_snapshot/my-azure-snapshot
    {
