@@ -7,6 +7,9 @@ redirect_from:
    - /api-reference/ingest-apis/processors/convert/
 ---
 
+This documentation describes using the `convert` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `convert_entry_type` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/convert_entry_type/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # Convert processor
 
 The `convert` processor converts a field in a document to a different type, for example, a string to an integer or an integer to a string. For an array field, all values in the array are converted. 
