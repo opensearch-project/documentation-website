@@ -165,7 +165,7 @@ As an example, assume that you have 1 million vectors with a dimension of 256 an
 
 ## Faiss product quantization
 
-PQ is a technique used to represent a vector in a configurable amount of bits. In general, it can be used to achieve a higher level of compression compared to byte and scalar quantization. PQ works by breaking up vectors into _m_ subvectors and  encoding each subvector with _code_size_ bits. Thus, the total amount of memory for the vector ends up being `m*code_size` bits, plus overhead. For details about the parameters, see [PQ parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#pq-parameters). PQ is only supported for the _Faiss_ engine and can be used with either the _HNSW_ or the _IVF_ ANN (Approximate Nearest Neighbor) algorithms.
+PQ is a technique used to represent a vector in a configurable amount of bits. In general, it can be used to achieve a higher level of compression compared to byte and scalar quantization. PQ works by breaking up vectors into _m_ subvectors and encoding each subvector with _code_size_ bits. Thus, the total amount of memory for the vector ends up being `m*code_size` bits, plus overhead. For details about the parameters, see [PQ parameters]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#pq-parameters). PQ is only supported for the _Faiss_ engine and can be used with either the _HNSW_ or the _IVF_ ANN (Approximate Nearest Neighbor) algorithms.
 
 ### Using Faiss product quantization
 
