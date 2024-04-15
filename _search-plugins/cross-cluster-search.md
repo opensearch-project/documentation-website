@@ -337,7 +337,7 @@ The listening ports for http and transport communication are set to `443` and `8
 Remote cluster can be configured to point to the `proxy` using the following command:
 
 ```bash
-curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch/_cluster/settings' -d '
+curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch:9200/_cluster/settings' -d '
 {
   "persistent": {
     "cluster.remote": {
