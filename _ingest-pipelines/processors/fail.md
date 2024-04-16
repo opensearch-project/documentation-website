@@ -7,14 +7,15 @@ nav_order: 100
 
 # Fail processor
 
-The `fail` processor can be useful for testing and debugging log ingestion pipelines. It allows you to intentionally fail the pipeline execution and observe the behavior or error handling mechanisms in your log ingestion and analysis systems. This can help you identify and resolve issues related to pipeline configuration, data transformation, or other aspects of log processing.
+The `fail` processor can be useful for performing data transformations and enrichment during the indexing process. The primary use case for the `fail` processor is to fail an indexing operation when certain conditions are met.
 
 The following is the syntax for the `fail` processor:
 
 ```json
-"fail": {
-  "message": "Custom error message"
-}
+"fail": { 
+  "if": "ctx.foo == 'bar'", 
+  "message": "Custom error message" 
+  }
 ```
 {% include copy-curl.html %}
 
@@ -24,7 +25,12 @@ The following table lists the required and optional parameters for the `fail` pr
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`message` | Optional | Custom error message to be included in the failure response.
+`message` | Required | Custom error message to be included in the failure response.
+`description`  | Optional  | A brief description of the processor.  |  
+`if` | Optional | A condition for running the processor. |  
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |  
+`on_failure` | Optional | A list of processors to run if the processor fails. |  
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |  
 
 ## Using the processor
 
@@ -35,22 +41,17 @@ Follow these steps to use the processor in a pipeline.
 The following query creates a pipeline, named `fail-log-pipeline`, that uses the `fail` processor to intentionally fail the pipeline execution for log events: 
 
 ```json
-PUT _ingest/pipeline/fail-log-pipeline
-{
-  "description": "A pipeline to test the fail processor for log events",
-  "processors": [
-    {
-      "grok": {
-        "field": "message",
-        "patterns": ["%{COMBINEDAPACHELOG}"]
-      }
-    },
-    {
-      "fail": {
-        "message": "Intentionally failing the pipeline for testing"
-      }
-    }
-  ]
+PUT _ingest/pipeline/fail-log-pipeline  
+{  
+  "description": "A pipeline to test the fail processor for log events",  
+  "processors": [  
+    {  
+      "fail": {  
+        "if": "ctx.user_info.contains('password') || ctx.user_info.contains('credit card')",  
+        "message": "Document containing personally identifiable information (PII) cannot be indexed!"  
+      }  
+    }  
+  ]  
 }
 ```
 {% include copy-curl.html %}
@@ -63,18 +64,16 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-POST _ingest/pipeline/fail-log-pipeline/_simulate
-{
-  "docs": [
-    {
-      "_index": "test-fail-pipeline",
-      "_id": "1",
-      "_source": {
-        "message": "127.0.0.1 - - [23/Apr/2023:11:59:59 +0000] \"GET /sample.html HTTP/1.1\" 200 612 \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36\""
-      }
-    }
-  ]
-}
+POST _ingest/pipeline/fail-log-pipeline/_simulate  
+{  
+  "docs": [  
+    {  
+      "_source": {  
+        "user_info": "Sensitive information including credit card"  
+      }  
+    }  
+  ]  
+}  
 ```
 {% include copy-curl.html %}
 
@@ -90,11 +89,11 @@ The following example response confirms that the pipeline is working as expected
         "root_cause": [
           {
             "type": "fail_processor_exception",
-            "reason": "Intentionally failing the pipeline for testing"
+            "reason": "Document containing personally identifiable information (PII) cannot be indexed!"
           }
         ],
         "type": "fail_processor_exception",
-        "reason": "Intentionally failing the pipeline for testing"
+        "reason": "Document containing personally identifiable information (PII) cannot be indexed!"
       }
     }
   ]
@@ -107,10 +106,10 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `logstash-logs`:
 
 ```json
-POST logstash-logs/_doc/?pipeline=fail-log-pipeline
-{
-  "message": "127.0.0.1 - - [23/Apr/2023:11:59:59 +0000] \"GET /sample.html HTTP/1.1\" 200 612 \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36\""
-}
+PUT testindex1/_doc/1?pipeline=fail-log-pipeline  
+{  
+  "user_info": "Sensitive information including credit card"  
+} 
 ```
 {% include copy-curl.html %}
 
@@ -119,16 +118,16 @@ POST logstash-logs/_doc/?pipeline=fail-log-pipeline
 The request will fail to index the log event into the index `logstash-logs` due to the intentional failure in the pipeline. The response will include the custom error message specified in the fail processor.
 
 ```json
-{
+
   "error": {
     "root_cause": [
       {
         "type": "fail_processor_exception",
-        "reason": "Intentionally failing the pipeline for testing"
+        "reason": "Document containing personally identifiable information (PII) cannot be indexed!"
       }
     ],
     "type": "fail_processor_exception",
-    "reason": "Intentionally failing the pipeline for testing"
+    "reason": "Document containing personally identifiable information (PII) cannot be indexed!"
   },
   "status": 500
 }
@@ -140,32 +139,16 @@ The request will fail to index the log event into the index `logstash-logs` due 
 Since the log event was not indexed due to the pipeline failure, attempting to retrieve it will result in a document not found error.
 
 ```json
-GET logstash-logs/_doc/_search
+GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
 #### Document error example
 
 ```json
-{
-  "error": {
-    "root_cause": [
-      {
-        "type": "index_not_found_exception",
-        "reason": "no such index [logstash-logs]",
-        "index": "logstash-logs",
-        "resource.id": "logstash-logs",
-        "resource.type": "index_expression",
-        "index_uuid": "_na_"
-      }
-    ],
-    "type": "index_not_found_exception",
-    "reason": "no such index [logstash-logs]",
-    "index": "logstash-logs",
-    "resource.id": "logstash-logs",
-    "resource.type": "index_expression",
-    "index_uuid": "_na_"
-  },
-  "status": 404
-}
+{  
+  "_index": "testindex1",  
+  "_id": "1",  
+  "found": false  
+}  
 ```
