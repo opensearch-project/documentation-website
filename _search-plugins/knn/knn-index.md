@@ -322,7 +322,7 @@ You can reduce the memory footprint by a factor of 2, with a minimal loss in sea
 
 ### Memory estimation
 
-In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates native library indexes to a portion of the remaining RAM. This portion's size is determined by the `circuit_breaker_limit` cluster setting. By default, the limit is set at 50%.
+In a typical OpenSearch cluster, a certain portion of RAM is reserved for the JVM heap. The k-NN plugin allocates native library indexes to a portion of the remaining RAM. This portion's size is determined by the `circuit_breaker_limit` cluster setting. By default, the limit is set to 50%.
 
 Having a replica doubles the total number of vectors.
 {: .note }
