@@ -111,7 +111,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-During ingestion, make sure each dimension of the vector is in the supported range ([-65504.0, 65504.0]).
+During ingestion, make sure each vector dimension is in the supported range ([-65504.0, 65504.0]).
 
 ```json
 PUT test-index/_doc/1
