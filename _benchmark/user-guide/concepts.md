@@ -13,7 +13,7 @@ Before using OpenSearch Benchmark, familiarize yourself with the following conce
 
 ## Core concepts and definitions
 
-- **Workload**: A collection of one or more benchmarking scenarios that use a specific document corpus to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workload runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads in the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For more information about the elements of a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/). For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/).  A workload typically includes the following:
+- **Workload**: A collection of one or more benchmarking scenarios that use a specific document corpus to perform a benchmark against your cluster. The document corpus contains any indexes, data files, and operations invoked when the workload runs. You can list the available workloads by using `opensearch-benchmark list workloads` or view any included workloads in the [OpenSearch Benchmark Workloads repository](https://github.com/opensearch-project/opensearch-benchmark-workloads/). For more information about the elements of a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/). For information about building a custom workload, see [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/). A workload typically includes the following:
   - One or more data streams that are ingested into indexes.
   - A set of queries and operations that are invoked as part of the benchmark.
 
@@ -34,7 +34,7 @@ At the end of each test, OpenSearch Benchmark produces a table that summarizes t
   - [Latency](#latency)
   - [Throughput](#throughput)
 
-The following diagram illustrates how each component of the table is measured during the life cycle of a request involving the OpenSearch cluster, the OpenSearch client, and OpenSearch Benchmark:
+The following diagram illustrates how each component of the table is measured during the lifecycle of a request involving the OpenSearch cluster, the OpenSearch client, and OpenSearch Benchmark:
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/concepts-diagram.png" alt="">
 
@@ -53,7 +53,7 @@ For more information about service time and latency in OpenSearch Benchmark, see
 
 ### Processing time
 
-**Processing time** accounts for any extra overhead tasks that OpenSearch Benchmark performs during the life cycle of a request, such as setting up a request context manager and calling a method to pass the request off to the OpenSearch client. This is in contrast to **service time**, which only accounts for the different from when a request was sent and when the response is received by the OpenSearch client.
+**Processing time** accounts for any extra overhead tasks that OpenSearch Benchmark performs during the lifecycle of a request, such as setting up a request context manager or calling a method to pass the request to the OpenSearch client. This is in contrast to **service time**, which only accounts for the difference from when a request was sent and when the OpenSearch client receives the response.
 
 ### Took time
 
