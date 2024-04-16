@@ -129,6 +129,50 @@ Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseur
 Keep in mind that enabling this feature and mapping system index permissions to normal users gives those users access to indexes that may contain sensitive information and configurations essential to a cluster's health. We also recommend caution when mapping users to `restapi:admin/roles` because this permission gives a user not only the ability to assign the system index permission to another user but also the ability to self-assign access to any system index.
 {: .warning }
 
+### `do_not_fail_on_forbidden`
+
+If the user attempts to query multiple indexes, some of which they do not have permission for, by default they will get an `error` in OpenSearch Dashboards UI or `exception` using `cURL` or API (failing to return the result for indexes which they **do** have access to). If you want the users to receive the hits from the search for only the indexes they have permission for, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
+
+```
+_meta:
+  type: "config"
+  config_version: 2
+config:
+  dynamic:
+    http:
+      anonymous_auth_enabled: false
+      xff:
+        enabled: false
+        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
+    do_not_fail_on_forbidden: true
+    authc:
+      basic_internal_auth_domain:
+      ...
+```
+It is important to remember that if this option is set to `true`, the user will assume that the data returned is the complete set, this is also true for any aggregation.
+{: .warning }
+
+### `do_not_fail_on_forbidden_empty`
+
+When the user views visualization which returns empty result due to lack of permissions, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.` you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
+
+```
+_meta:
+  type: "config"
+  config_version: 2
+config:
+  dynamic:
+    http:
+      anonymous_auth_enabled: false
+      xff:
+        enabled: false
+        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
+    do_not_fail_on_forbidden: true
+    do_not_fail_on_forbidden_empty: true
+    authc:
+      basic_internal_auth_domain:
+      ...
+```
 
 ## Cluster permissions
 
