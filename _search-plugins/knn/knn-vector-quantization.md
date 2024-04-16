@@ -12,7 +12,7 @@ has_math: true
 
 By default, the k-NN plugin supports the indexing and querying of vectors of type `float`, where each dimension of the vector occupies 4 bytes of memory. For use cases that require ingestion on a large scale, keeping `float` vectors can be expensive because OpenSearch needs to construct, load, save, and search graphs (for native `nmslib` and `faiss` engines). To reduce the memory footprint, you can use vector quantization.
 
-In OpenSearch, many varieties of quantization are supported. In general, the level of quantization will provide a trade-off between the accuracy of the nearest neighbor search and the size of the memory footprint the vector search system will consume. The supported types include byte vectors, 16-bit scalar quantization, and product quantization (PQ).
+OpenSearch supports many varieties of quantization. In general, the level of quantization will provide a trade-off between the accuracy of the nearest neighbor search and the size of the memory footprint consumed by the vector search. The supported types include byte vectors, 16-bit scalar quantization, and product quantization (PQ).
 
 ## Lucene byte vector
 
