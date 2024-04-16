@@ -314,7 +314,7 @@ There are several options to choose from when building your `knn_vector` field. 
 
 If memory is not a concern, HNSW offers a strong query latency/query quality trade-off.
 
-If you want to use less memory and index faster than HNSW while maintaining similar query quality, you should evaluate IVF.
+If you want to use less memory and increase indexing speed as compared to HNSW while maintaining similar query quality, you should evaluate IVF.
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
