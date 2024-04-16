@@ -23,7 +23,7 @@ When you do not specify a `target-throughput`, OpenSearch Benchmark latency test
 
 OpenSearch Benchmark issues one request at a time for a single client thread, which is specified as `search-clients` in the workload parameters. If `target-throughput` is set to `0`, OpenSearch Benchmark issues a request immediately after it receives the response from the previous request. If the `target-throughput` is not set to `0`, OpenSearch Benchmark issues the next request to match the `target-throughput`, assuming that responses are returned instantaneously.
 
-When you want to simulate the type traffic you might encounter when deploying a production cluster, set the `target-throughput` in your benchmark test to match to the rate of requests you think the production cluster might receive. The following examples illustrate how the set `target-throughput` affects the latency measurement.
+When you want to simulate the type traffic you might encounter when deploying a production cluster, set the `target-throughput` in your benchmark test to match to the number of requests you think the production cluster might receive. The following examples show how the set `target-throughput` affects the latency measurement.
 
 
 ### Example A
