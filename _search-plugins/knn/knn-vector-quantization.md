@@ -179,7 +179,7 @@ For PQ, both _m_ and _code_size_ need to be selected. _m_ determines how many su
 
 For an example of setting up an index with PQ, see the [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model) tutorial.
 
-### Memory Estimation
+### Memory estimation
 
 While PQ is meant to represent individual vectors with `m*code_size` bits, in reality, the indexes consume more space. This is mainly due to the overhead of storing certain code tables and auxiliary data structures.
 
