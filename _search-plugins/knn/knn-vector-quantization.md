@@ -175,7 +175,7 @@ The product quantizer is trained by running k-means clustering on a set of train
 
 In OpenSearch, the training vectors need to be present in an index. In general, the amount of training data will depend on which ANN algorithm is used and how much data will be stored in the index. For IVF-based indexes, a recommended number of training vectors is `max(1000*nlist, 2^code_size * 1000)`. For HNSW-based indexes, a recommended number is `2^code_size*1000`. See the [Faiss documentation](https://github.com/facebookresearch/faiss/wiki/FAQ#how-many-training-points-do-i-need-for-k-means) for more information about the methodology used to calculate these figures.
 
-For PQ, the two parameters that need to be selected are _m_ and _code_size_. _m_ determines how many sub-vectors the vectors should be split to encode separately. Consequently, the _dimension_ needs to be divisible by _m_. _code_size_ determines how many bits each sub-vector will be encoded with. In general, a good place to start is setting `code_size = 8` and then tuning _m_ to get the desired trade-off between memory footprint and recall.
+For PQ, both _m_ and _code_size_ need to be selected. _m_ determines how many subvectors the vectors should be split to encode separately. Consequently, the _dimension_ needs to be divisible by _m_. _code_size_ determines how many bits each sub-vector will be encoded with. In general, we recommend a setting of `code_size = 8` and then tuning _m_ to get the desired trade-off between memory footprint and recall.
 
 For an example of setting up an index with PQ, see the [Building a k-NN index from a model]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model) tutorial.
 
