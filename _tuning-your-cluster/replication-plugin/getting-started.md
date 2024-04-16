@@ -169,7 +169,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 
 
-In proxy mode, the follower cluster establishes a remote connection to the leader cluster by specifying a name and a single proxy address. During the connection setup, a configurable number of socket connections are opened to the provided proxy address. The proxy's responsibility is to direct these connections to the appropriate nodes in the leader cluster. Unlike other connection modes, proxy mode does not require the nodes in the leader cluster to have publicly accessible publish addresses. 
+In proxy mode, the follower cluster establishes a remote connection to the leader cluster by specifying a name and a single proxy address. During the connection setup, a configurable number of socket connections to the provided proxy address are opened. The proxy's responsibility is to direct these connections to the appropriate nodes in the leader cluster. Unlike other connection modes, proxy mode does not require the nodes in the leader cluster to have publicly accessible publish addresses: 
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_cluster/settings?pretty' -d '
