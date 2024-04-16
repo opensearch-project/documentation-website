@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Users and roles
+title: Defining users and roles
 parent: Access control
 nav_order: 85
 redirect_from:
@@ -8,11 +8,13 @@ redirect_from:
  - /security-plugin/access-control/users-roles/
 ---
 
-# Users and roles
+# Defining users and roles
 
-The Security plugin includes an internal user database. Use this database in place of or in addition to an external authentication system such as LDAP or Active Directory.
+You define users in OpenSearch to control who has access to OpenSearch data. You can use the internal user database to store users, or you can store them in an external authentication system, such as LDAP or Active Directory.
 
-Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
+You define roles to determine the scope of a permission or action group. You can create roles with specific privileges, for example, roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants.
+
+You can map users to roles while defining users or after defining users and roles. This mapping determines the permissions and access levels for each user based on the roles they are assigned.
 
 ---
 
@@ -27,29 +29,12 @@ Roles are the core way of controlling access to your cluster. Roles contain any 
 
 ---
 
-## Creating and editing OpenSearch roles
+## Defining users
 
-You can update OpenSearch by using one of the following methods.
+You can define users using OpenSearch Dashboards, `internal_users.yml`, or the REST API. When creating a user, you can map users to roles using `internal_users.yml` or the REST API, but that feature is not currently available in OpenSearch Dashboards.
 
-### Using the API
-
-You can send HTTP requests to OpenSearch-provided endpoints to update security roles, permissions, and associated settings. This method offers granular control and automation capabilities for managing roles.
-
-### Using the UI (OpenSearch Dashboards)
-
-OpenSearch Dashboards provides a user-friendly interface for managing roles. Roles, permissions, and document-level security settings are configured in the Security section within OpenSearch Dashboards. When updating roles through the UI, OpenSearch Dashboards calls the API in the background to implement the changes.
-
-### Editing the `roles.yml` file
-
-If you want more granular control of your security configuration, you can edit roles and their associated permissions in the `roles.yml` file. This method provides direct access to the underlying configuration and can be version controlled for use in collaborative development environments.
-For more information about creating roles, see the [Create roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles) documentation.
-
-Unless you need to create new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
+Unless you need to define new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we strongly recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
-
-## Create users
-
-You can create users using OpenSearch Dashboards, `internal_users.yml`, or the REST API. When creating a user, you can map users to roles using `internal_users.yml` or the REST API, but that feature is not currently available in OpenSearch Dashboards.
 
 ### OpenSearch Dashboards
 
@@ -61,7 +46,7 @@ You can create users using OpenSearch Dashboards, `internal_users.yml`, or the R
 
 1. Choose **Submit**.
 
-### internal_users.yml
+### `internal_users.yml`
 
 See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#internal_usersyml).
 
@@ -71,10 +56,12 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#inter
 See [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-user).
 
 
-## Create roles
+## Defining roles
 
-Just like users, you can create roles using OpenSearch Dashboards, `roles.yml`, or the REST API.
+Just like defining users, you can define roles using OpenSearch Dashboards, `roles.yml`, or the REST API. In addition, OpenSearch provides some predefined roles and a special read-only role, which you can read about later in this topic.
 
+Unless you need to define new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we strongly recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
+{: .warning }
 
 ### OpenSearch Dashboards
 
@@ -87,7 +74,7 @@ Just like users, you can create roles using OpenSearch Dashboards, `roles.yml`, 
 1. Choose **Submit**.
 
 
-### roles.yml
+### `roles.yml`
 
 See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml).
 
@@ -96,7 +83,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
 
-## Edit roles
+## Editing roles
 
 You can edit roles using one of the following methods.
 
@@ -107,7 +94,7 @@ You can edit roles using one of the following methods.
 1. Choose **edit role**. Make any necessary updates to the role.
 1. To save your changes, select **Update**.
 
-### roles.yml
+### `roles.yml`
 
 See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml).
 
@@ -115,7 +102,7 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
 
-## Map users to roles
+## Mapping users to roles
 
 If you didn't specify roles when you created your user, you can map roles to it afterwards.
 
@@ -129,7 +116,7 @@ Just like users and roles, you create role mappings using OpenSearch Dashboards,
 1. Choose **Map**.
 
 
-### roles_mapping.yml
+### `roles_mapping.yml`
 
 See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml).
 
@@ -138,17 +125,19 @@ See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles
 
 See [Create role mapping]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping).
 
-## Read-only roles
+## Defining read-only roles
+
+A read-only role grants users the ability to read data from the OpenSearch cluster, but not to modify or delete any data. The read-only role is useful for scenarios where you want to provide access to data for reporting, analysis, or visualization purposes, without allowing modifications to the data or the cluster itself. This helps maintain data integrity and prevents accidental or unauthorized changes.
 
 As with any role in OpenSearch, read-only roles can be configured using the following three methods: 
+- Using OpenSearch Dashboards.
 - Modifying the `yml` configuration files.
 - Using the Cluster Settings API. 
-- Using OpenSearch Dashboards. 
 
-The most user friendly approach for anyone getting familiar with Roles and role mappings is to use OpenSearch Dashboards, as it is easy to navigate the creation of roles and assign those roles to users. The basic steps of creating roles, mapping, and users can be found in the [User and roles documentation](https://opensearch.org/docs/latest/security/access-control/users-roles/).
+The most user friendly approach for anyone getting familiar with roles and role mappings is to use OpenSearch Dashboards, as it is easy to navigate the creation of roles and assign those roles to users. 
+{ .tip}
 
-### Creating a basic read-only role
-
+### Defining a basic read-only role
 
 To create a basic read-only role which allows access to OpenSearch Dashboards, view existing dashboards, visualizations and query different indexes, use one the following permissions. 
 
@@ -173,7 +162,7 @@ After all permission types are set and the role is created, you can directly map
 
 ![mapping users]({{site.url}}{{site.baseurl}}/images/mapping-users.png)
 
-### OpenSearch Dashboards readonly_mode
+### OpenSearch Dashboards `readonly_mode`
 
 OpenSearch Dashboards `readonly_mode` functionality is used to give the user access to only the `Dashboards` UI, removing all other elements of UI from the view.
 To configure this, add the following line `opensearch_dashboards.yml` file:
