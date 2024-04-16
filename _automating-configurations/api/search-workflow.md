@@ -7,9 +7,6 @@ nav_order: 60
 
 # Search for a workflow
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/flow-framework/issues/475).    
-{: .warning}
-
 You can retrieve created workflows with their `workflow_id` or search for workflows by using a query matching a field. You can use the `use_case` field to search for similar workflows.
 
 ## Path and HTTP methods
@@ -24,7 +21,7 @@ POST /_plugins/_flow_framework/workflow/_search
 ```json
 GET /_plugins/_flow_framework/workflow/_search
 {
-    "query": {
+  "query": {
     "match_all": {}
   }
 }
@@ -36,7 +33,7 @@ GET /_plugins/_flow_framework/workflow/_search
 ```json
 GET /_plugins/_flow_framework/workflow/_search
 {
-    "query": {
+  "query": {
     "match": {
       "use_case": "REMOTE_MODEL_DEPLOYMENT"
     }

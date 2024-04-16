@@ -10,12 +10,9 @@ grand_parent: Agents and tools
 
 <!-- vale off -->
 # Search Anomaly Detectors tool
-**Introduced 2.12**
+**Introduced 2.13**
 {: .label .label-purple }
 <!-- vale on -->
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 The `SearchAnomalyDetectorsTool` retrieves information about anomaly detectors set up on your cluster. For more information about anomaly detectors, see [Anomaly detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
 

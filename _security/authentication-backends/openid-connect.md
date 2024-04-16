@@ -33,19 +33,26 @@ To integrate with an OpenID IdP, set up an authentication domain and choose `ope
 This is the minimal configuration:
 
 ```yml
-openid_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 0
-  http_authenticator:
-    type: openid
-    challenge: false
-    config:
-      subject_key: preferred_username
-      roles_key: roles
-      openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
-  authentication_backend:
-    type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      openid_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+          type: openid
+          challenge: false
+          config:
+            subject_key: preferred_username
+            roles_key: roles
+            openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+        authentication_backend:
+          type: noop
 ```
 
 The following table shows the configuration parameters.
@@ -341,7 +348,7 @@ opensearch.password: "kibanaserver"
 opensearch.ssl.verificationMode: none
 
 # allowlist basic headers and multi-tenancy header
-opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
+opensearch.requestHeadersAllowlist: ["Authorization", "securitytenant"]
 ```
 
 To include OpenID Connect with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
@@ -370,26 +377,33 @@ Because OpenSearch Dashboards requires that the internal OpenSearch Dashboards s
 Modify and apply the following example settings in `config.yml`:
 
 ```yml
-basic_internal_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 0
-  http_authenticator:
-    type: basic
-    challenge: false
-  authentication_backend:
-    type: internal
-openid_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 1
-  http_authenticator:
-    type: openid
-    challenge: false
-    config:
-      subject_key: preferred_username
-      roles_key: roles
-      openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
-  authentication_backend:
-    type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      basic_internal_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+          type: basic
+          challenge: false
+        authentication_backend:
+          type: internal
+      openid_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 1
+        http_authenticator:
+          type: openid
+          challenge: false
+          config:
+            subject_key: preferred_username
+            roles_key: roles
+            openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+        authentication_backend:
+          type: noop
 ```

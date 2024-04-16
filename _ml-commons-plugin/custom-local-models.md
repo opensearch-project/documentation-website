@@ -7,7 +7,7 @@ nav_order: 120
 ---
 
 # Custom local models
-**Generally available 2.9**
+**Introduced 2.9**
 {: .label .label-purple }
 
 To use a custom model locally, you can upload it to the OpenSearch cluster.
@@ -20,12 +20,14 @@ As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
 
 As of OpenSearch 2.12, OpenSearch supports local cross-encoder models.
 
+As of OpenSearch 2.13, OpenSearch supports local question answering models.
+
 Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
 {: .important}
 
 ## Preparing a model
 
-For both text embedding and sparse encoding models, you must provide a tokenizer JSON file within the model zip file.
+For all the models, you must provide a tokenizer JSON file within the model zip file.
 
 For sparse encoding models, make sure your output format is `{"output":<sparse_vector>}` so that ML Commons can post-process the sparse vector.
 
@@ -157,7 +159,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy.html %}
 
-For a description of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
+For descriptions of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/). The `model_task_type` corresponds to the model type. For text embedding models, set this parameter to `TEXT_EMBEDDING`. For sparse encoding models, set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`. For cross-encoder models, set this parameter to `TEXT_SIMILARITY`. For question answering models, set this parameter to `QUESTION_ANSWERING`.
 
 OpenSearch returns the task ID of the register operation:
 
@@ -322,30 +324,27 @@ The response contains the tokens and weights:
 
 To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
 
-## Cross-encoder models
+## Question answering models
 
-Cross-encoder models support query reranking. 
+A question answering model extracts the answer to a question from a given context. ML Commons supports context in `text` format.
 
-To register a cross-encoder model, send a request in the following format. The `model_config` object is optional. For cross-encoder models, specify the `function_name` as `TEXT_SIMILARITY`. For example, the following request registers an `ms-marco-TinyBERT-L-2-v2` model:
+To register a question answering model, send a request in the following format. Specify the `function_name` as `QUESTION_ANSWERING`:
 
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "ms-marco-TinyBERT-L-2-v2",
+    "name": "question_answering",
     "version": "1.0.0",
-    "function_name": "TEXT_SIMILARITY",
+    "function_name": "QUESTION_ANSWERING",
     "description": "test model",
     "model_format": "TORCH_SCRIPT",
     "model_group_id": "lN4AP40BKolAMNtR4KJ5",
-    "model_content_hash_value": "90e39a926101d1a4e542aade0794319404689b12acfd5d7e65c03d91c668b5cf",
+    "model_content_hash_value": "e837c8fc05fd58a6e2e8383b319257f9c3859dfb3edc89b26badfaf8a4405ff6",
     "model_config": { 
         "model_type": "bert",
-        "embedding_dimension": 1,
-        "framework_type": "huggingface_transformers",
-        "total_chunks":2,
-        "all_config": "{\"total_chunks\":2}"
+        "framework_type": "huggingface_transformers"
     },
-    "url": "https://github.com/opensearch-project/ml-commons/blob/main/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_similarity/TinyBERT-CE-torch_script.zip?raw=true"
+    "url": "https://github.com/opensearch-project/ml-commons/blob/main/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/question_answering/question_answering_pt.zip?raw=true"
 }
 ```
 {% include copy-curl.html %}
@@ -357,23 +356,18 @@ POST _plugins/_ml/models/<model_id>/_deploy
 ```
 {% include copy-curl.html %}
 
-To test a cross-encoder model, send the following request:
+To test a question answering model, send the following request. It requires a `question` and the relevant `context` from which the answer will be generated:
 
 ```json
-POST _plugins/_ml/models/<model_id>/_predict
+POST /_plugins/_ml/_predict/question_answering/<model_id>
 {
-    "query_text": "today is sunny",
-    "text_docs": [
-        "how are you",
-        "today is sunny",
-        "today is july fifth",
-        "it is winter"
-    ]
+  "question": "Where do I live?"
+  "context": "My name is John. I live in New York"
 }
 ```
 {% include copy-curl.html %}
 
-The model calculates the similarity score of `query_text` and each document in `text_docs` and returns a list of scores for each document in the order they were provided in `text_docs`:
+The response provides the answer based on the context:
 
 ```json
 {
@@ -381,88 +375,8 @@ The model calculates the similarity score of `query_text` and each document in `
     {
       "output": [
         {
-          "name": "similarity",
-          "data_type": "FLOAT32",
-          "shape": [
-            1
-          ],
-          "data": [
-            -6.077798
-          ],
-          "byte_buffer": {
-            "array": "Un3CwA==",
-            "order": "LITTLE_ENDIAN"
-          }
+          "result": "New York"
         }
-      ]
-    },
-    {
-      "output": [
-        {
-          "name": "similarity",
-          "data_type": "FLOAT32",
-          "shape": [
-            1
-          ],
-          "data": [
-            10.223609
-          ],
-          "byte_buffer": {
-            "array": "55MjQQ==",
-            "order": "LITTLE_ENDIAN"
-          }
-        }
-      ]
-    },
-    {
-      "output": [
-        {
-          "name": "similarity",
-          "data_type": "FLOAT32",
-          "shape": [
-            1
-          ],
-          "data": [
-            -1.3987057
-          ],
-          "byte_buffer": {
-            "array": "ygizvw==",
-            "order": "LITTLE_ENDIAN"
-          }
-        }
-      ]
-    },
-    {
-      "output": [
-        {
-          "name": "similarity",
-          "data_type": "FLOAT32",
-          "shape": [
-            1
-          ],
-          "data": [
-            -4.5923924
-          ],
-          "byte_buffer": {
-            "array": "4fSSwA==",
-            "order": "LITTLE_ENDIAN"
-          }
-        }
-      ]
     }
-  ]
 }
 ```
-
-A higher document score means higher similarity. In the preceding response, documents are scored as follows against the query text `today is sunny`:
-
-Document text | Score
-:--- | :---
-`how are you` | -6.077798
-`today is sunny` | 10.223609
-`today is july fifth` | -1.3987057
-`it is winter` | -4.5923924
-
-The document that contains the same text as the query is scored the highest, and the remaining documents are scored based on the text similarity.
-
-To learn how to use the model for reranking, see [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).

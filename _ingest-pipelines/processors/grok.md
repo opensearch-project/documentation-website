@@ -6,6 +6,9 @@ grand_parent: Ingest pipelines
 nav_order: 140
 ---
 
+This documentation describes using the `grok` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `grok` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # Grok processor 
 
 The `grok` processor is used to parse and structure unstructured data using pattern matching. You can use the `grok` processor to extract fields from log messages, web server access logs, application logs, and other log data that follows a consistent format.
