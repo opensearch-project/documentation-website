@@ -310,7 +310,7 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 
 ### Choosing the right method
 
-There are several options to choose from when building your `knn_vector` field. To determine the correct methods and parameters to choose, you should first understand what requirements you have for your workload and what trade-offs you are willing to make. Factors to consider are (1) query latency, (2) query quality, (3) memory limits, and (4) indexing latency.
+There are several options to choose from when building your `knn_vector` field. To determine the correct methods and parameters, you should first understand the requirements of your workload and what trade-offs you are willing to make. Factors to consider are (1) query latency, (2) query quality, (3) memory limits, and (4) indexing latency.
 
 If memory is not a concern, HNSW offers a strong query latency/query quality trade-off.
 
