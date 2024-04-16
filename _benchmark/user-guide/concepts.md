@@ -69,7 +69,7 @@ OpenSearch Benchmark makes function calls to `opensearch-py` to communicate with
 
 ### Latency
 
-The total amount of time that the request waited before receiving the response, in addition to any other delays that occurred before the request is sent. In most circumstances latency is measured the same as service time, unless in testing in [Throughput-throttled mode]({{site.url}}{{site.baseurl}}/benchmark/user-guide/target-throughput/), latency is measured as service-time plus the time request spends waiting in the queue.
+The total time that the request waited before receiving the response, as well as any other delays that occurred prior to sending the request. In most circumstances, latency is measured the same as service time, unless when testing in [Throughput-throttled mode]({{site.url}}{{site.baseurl}}/benchmark/user-guide/target-throughput/). In this case, latency is measured as service time plus the time that the request spends waiting in the queue.
 
 
 ### Throughput
