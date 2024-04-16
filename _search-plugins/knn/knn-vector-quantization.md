@@ -181,7 +181,7 @@ For an example of setting up an index with PQ, see the [Building a k-NN index fr
 
 ### Memory Estimation
 
-While PQ is meant to represent individual vectors with `m*code_size` bits, in reality the indexes take up more space. This is mainly due to the overhead of storing certain code tables and auxiliary data structures.
+While PQ is meant to represent individual vectors with `m*code_size` bits, in reality, the indexes consume more space. This is mainly due to the overhead of storing certain code tables and auxiliary data structures.
 
 Some of the memory formulas depend on the number of segments present. Typically, this is not known beforehand but a good default value is 300.
 {: .note}
