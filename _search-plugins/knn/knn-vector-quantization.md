@@ -169,7 +169,7 @@ PQ is a technique used to represent a vector in a configurable amount of bits. I
 
 ### Using Faiss product quantization
 
-To minimize the loss in accuracy, PQ requires a _training_ step that builds a model based on the distribution of the data that will be searched over.
+To minimize loss in accuracy, PQ requires a _training_ step that builds a model based on the distribution of the data that will be searched.
 
 The product quantizer is trained by running k-means clustering on a set of training vectors for each subvector space and extracts the centroids to be used for encoding. The training vectors can be either a subset of the vectors to be ingested or vectors that have the same distribution and dimension as the vectors to be ingested.
 
