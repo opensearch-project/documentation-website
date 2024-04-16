@@ -171,7 +171,7 @@ PQ is a technique used to represent a vector in a configurable amount of bits. I
 
 To minimize the loss in accuracy, PQ requires a _training_ step that builds a model based on the distribution of the data that will be searched over.
 
-The product quantizer is trained by running k-means clustering on a set of training vectors for each sub-vector space and extracts the centroids to be used for the encoding. The training vectors can be either a subset of the vectors to be ingested or vectors that have the same distribution and dimension as the vectors to be ingested.
+The product quantizer is trained by running k-means clustering on a set of training vectors for each subvector space and extracts the centroids to be used for encoding. The training vectors can be either a subset of the vectors to be ingested or vectors that have the same distribution and dimension as the vectors to be ingested.
 
 In OpenSearch, the training vectors need to be present in an index. In general, the amount of training data will depend on which ANN algorithm will be used and how much data will go into the index. For IVF-based indices, a good number of training vectors to use is `max(1000*nlist, 2^code_size * 1000)`. For HNSW-based indexes, a good number is `2^code_size*1000` training vectors. See [Faiss's documentation](https://github.com/facebookresearch/faiss/wiki/FAQ#how-many-training-points-do-i-need-for-k-means) for more details about the methodology behind calculating these figures.
 
