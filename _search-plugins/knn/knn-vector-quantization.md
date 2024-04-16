@@ -73,7 +73,7 @@ When `clip` is set to `true` (as in the preceding request), out-of-range vector 
 We recommend setting `clip` to `true` only if very few elements lie outside of the supported range. Rounding the values may cause a drop in recall.
 {: .note}
 
-The following example method definition specifies the Faiss SQfp16 encoder, which rejects any indexing request that contains out-of-range vector values (because the `clip` parameter is `false` by default).
+The following example method definition specifies the Faiss SQfp16 encoder, which rejects any indexing request that contains out-of-range vector values (because the `clip` parameter is `false` by default):
 
 ```json
 PUT /test-index
