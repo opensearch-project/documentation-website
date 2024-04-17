@@ -25,7 +25,6 @@ OpenSearch Benchmark issues one request at a time for a single client thread, wh
 
 When you want to simulate the type traffic you might encounter when deploying a production cluster, set the `target-throughput` in your benchmark test to match to the number of requests you think the production cluster might receive. The following examples show how the set `target-throughput` affects the latency measurement.
 
-
 ### Example A
 
 The following diagrams illustrate how latency is calculated with an expected request response time of 200 ms and the following settings: 
@@ -42,7 +41,7 @@ When a request takes longer than 200 ms, such as when a request takes 1110 ms in
 When measuring the overall latency, OpenSearch Benchmark includes all performed requests. All requests have a latency of 200 ms, except for the following two requests:
 
 - The request that lasted 1100 ms. 
-- The subsequent request that was supposed to start at 4:00 s. This request was delayed by 100 ms, denoted by the orange area in the following diagram, and had a response time of 200 ms. When calculating the latency for this request, OpenSearch Benchmark will account for the delayed start time and combine it with the response time. Thus, the latency for this request is **300 ms**.
+- The subsequent request that was supposed to start at 4.00 s. This request was delayed by 100 ms, denoted by the orange-colored area in the following diagram, and had a response time of 200 ms. When calculating the latency for this request, OpenSearch Benchmark accounts for the delayed start time and combines it with the response time. The latency for this request is **300 ms**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-3.png" alt="">
 
@@ -77,6 +76,6 @@ This latency cascade continues, increasing latency by 100 ms for each subsequent
 
 ### Recommendation
 
-As shown by the preceding examples, you should be aware of the average service time of each task and provide a `target-throughput` that accounts for the service time. The OpenSearch Benchmark latency is calculated based on the `target-throughput` set by the user, that is, the latency could be redefined as "throughput-based latency."
+As shown in the preceding examples, you should be aware of each task's average service time and should provide a `target-throughput` that accounts for the service time. The OpenSearch Benchmark latency is calculated based on the `target-throughput` set by the user, that is, the latency could be redefined as "throughput-based latency."
 
 

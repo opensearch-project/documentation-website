@@ -57,13 +57,13 @@ For more information about service time and latency in OpenSearch Benchmark, see
 
 ### Took time
 
-**Took time** measures the amount of time the cluster spends processing a request on the server-side. The does not include the time it took for the request to reach the cluster from the client, or the time it took for the response to get back from the client to the cluster.
+**Took time** measures the amount of time the cluster spends processing a request on the server side. It does not include the time it takes for the request to go from the client to the cluster or the response back from cluster to the client.
 
 ### Service time
 
 OpenSearch Benchmark does not have insight into how long OpenSearch takes to process a request, apart from extracting the [took time](#took-time) for the request. In OpenSearch, **service time** tracks the amount of time between when OpenSearch issues a request and receives a response.
 
-OpenSearch Benchmark makes function calls to `opensearch-py` to communicate with an OpenSearch cluster. OpenSearch Benchmark tracks the amount of time between when the `opensearch-py` client sends a request and receives a response from the OpenSearch cluster and considers this to be the service time. Unlike the traditional definition of service time, the OpenSearch Benchmark definition of service time includes overhead, such as network latency, load balancer overhead, or deserialization/serialization. The following image highlights the differences between the traditional definition of service time and the OpenSearch Benchmark definition of service time.
+OpenSearch Benchmark makes function calls to `opensearch-py` to communicate with an OpenSearch cluster. OpenSearch Benchmark measures service time, which is the duration from when the `opensearch-py` client sends a request until it receives a response from the OpenSearch cluster. Unlike the traditional definition of service time, the OpenSearch Benchmark definition includes overhead, such as network latency, load balancer overhead, or deserialization/serialization. The following image shows the differences between the traditional definition and the OpenSearch Benchmark definition.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/service-time.png" alt="">
 
