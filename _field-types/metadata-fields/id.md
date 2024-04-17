@@ -77,6 +77,7 @@ The following response shows that this query returns both documents with `_id` v
     ]
   }
   ```
+  {% include copy-curl.html %}
 
 ## Querying on the `_id` field
 
