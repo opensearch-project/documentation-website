@@ -103,9 +103,16 @@ Parameter | Description
 
 ## Mapping limit settings
 
-OpenSearch may have certain limits or settings related to mappings, such as the maximum number of fields allowed in an index or the maximum depth of nested objects. These settings can be configured based on your requirements. 
+OpenSearch has certain limits or settings related to mappings, such as the settings listed in the following table. Settings can be configured based on your requirements. 
 
-<_Need SME input about mapping limits settings, their default values, and how to configure them if needed._>
+| Setting | Default value | Allowed value | Type | Description |
+|-|-|-|-|-|
+| index.mapping.nested_fields.limit | 50 | [0,) | Dynamic | Limits the maximum number of nested fields that can be defined in an index mapping. |
+| index.mapping.nested_objects.limit | 10000 | [0,) | Dynamic | Limits the maximum number of nested objects that can be created within a single document. |
+| index.mapping.total_fields.limit | 1000 | [0,) | Dynamic | Limits the maximum number of fields that can be defined in an index mapping. |
+| index.mapping.depth.limit | 20 | [1,100] | Dynamic | Limits the maximum depth of nested objects and nested fields that can be defined in an index mapping. |
+| index.mapping.field_name_length.limit | 50000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
+| index.mapper.dynamic | true | {true,false} | Dynamic | Determines whether new fields should be added dynamically to the mapping when they are encountered in a document. |
 
 ## Removing mapping types
 
