@@ -9,7 +9,7 @@ redirect_from:
 
 # Rename processor
 
-The `rename` processor is used to rename an existing field, which can also be used to move a field from one object to another object or the root level.
+The `rename` processor is used to rename an existing field, which can also be used to move a field from one object to another object or to the root level.
 
 ## Syntax
 
