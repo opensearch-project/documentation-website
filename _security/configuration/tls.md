@@ -234,12 +234,12 @@ Updating expired or nearly expired TLS certificates does not require restarting 
 
 `plugins.security.ssl_cert_reload_enabled: true`
 
-This setting is set to `false` by default.
+This setting is `false` by default.
 {: .note }
 
-After enabling hot reloading, use the Reload Certificates API to replace the expired certification. The API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be in the same location as the previous certificates, in order to prevent any changes to `opensearch.yml` file. 
+After enabling hot reloading, use the Reload Certificates API to replace the expired certificates. The API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. The new certificates also need be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
 
-Only a [super admin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can use the Reload Certificates API.
+Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can use the Reload Certificates API.
 {: .note }
 
 ### Reload TLS certificates on the transport layer
