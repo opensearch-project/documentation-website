@@ -79,7 +79,7 @@ Name | Description
 ## Separate client and server certificates for transport layer TLS
 
 By default, transport layer TLS certificates need to be configured as both client (`TLS Web Client Authentication`) and server (`TLS Web Server Authentication`) in the certificate's `Extended Key Usage` section, bacause the nodes using the TLS certificates take on the responsibility of serving and receiving the communication requests internally.
-If you want to use separate certificates as client and server,  add  the `plugins.security.ssl.transport.extended_key_usage_enabled: true` setting to `opensearch.yml`. Next, configure the settings outlined in the [separate client and server X.509 PEM certificates and PKCS #8 keys]({{site.url}}{{site.baseurl}}/security/configuration/tls/#separate-client-and-server-x509-pem-certificates-and-pkcs-8-keys) or [separate client and server Keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#separate-client-and-server-keystore-and-truststore-files) sections.
+If you want to use separate certificates as client and server,  add the `plugins.security.ssl.transport.extended_key_usage_enabled: true` setting to `opensearch.yml`. Next, configure the settings outlined in the [separate client and server X.509 PEM certificates and PKCS #8 keys]({{site.url}}{{site.baseurl}}/security/configuration/tls/#separate-client-and-server-x509-pem-certificates-and-pkcs-8-keys) or [separate client and server keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#separate-client-and-server-keystore-and-truststore-files) sections.
 
 ### Separate client and server X.509 PEM certificates and PKCS #8 keys
 
