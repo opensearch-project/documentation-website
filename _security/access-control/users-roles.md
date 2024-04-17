@@ -31,7 +31,7 @@ You can map users to roles while defining users or after defining users and role
 
 ## Defining users
 
-You can define users using OpenSearch Dashboards, `internal_users.yml`, or the REST API. When creating a user, you can map users to roles using `internal_users.yml` or the REST API. If you are using OpenSearch Dashboards to define users, mapping to roles is archived using **Mapped users** tab in `Security/Roles` section described further in [Map users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles).
+You can define users using OpenSearch Dashboards, `internal_users.yml`, or the REST API. When creating a user, you can map users to roles using `internal_users.yml` or the REST API. If you are using OpenSearch Dashboards to define users, mapping to roles is archived using **Mapped users** tab in `Security/Roles` section described further in [Map users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#mapping-users-to-roles).
 
 Unless you need to define new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we strongly recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
