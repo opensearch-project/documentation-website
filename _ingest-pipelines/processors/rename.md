@@ -46,7 +46,7 @@ Follow these steps to use the processor in a pipeline.
 
 **Step 1: Create a pipeline** 
 
-The following query creates a pipeline named `rename_field` that moves a field in a object to the root level: 
+The following query creates a pipeline named `rename_field` that moves a field in an object to the root level: 
 
 ```json
 PUT /_ingest/pipeline/rename_field
