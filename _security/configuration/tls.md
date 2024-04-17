@@ -27,7 +27,7 @@ Name | Description
 `plugins.security.ssl.transport.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.pemkey_password` | The key password. Omit this setting if the key has no password. Optional.
 `plugins.security.ssl.transport.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root certificate authorities (CAs) (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
 
 ### REST layer TLS
@@ -54,11 +54,11 @@ Name | Description
 :--- | :---
 `plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
 `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.transport.keystore_alias` | The alias name for keystore. Optional. Default is the first alias.
+`plugins.security.ssl.transport.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`.
 `plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
 `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.transport.truststore_alias` | The alias name for truststore. Optional. Default is all certificates.
+`plugins.security.ssl.transport.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
 
 ### REST layer TLS
@@ -78,28 +78,28 @@ Name | Description
 
 ## Separate client and server certificates for transport layer TLS
 
-By default, transport layer TLS certificates need to be configured as both client (`TLS Web Client Authentication`) and server (`TLS Web Server Authentication`) in the certificate's `Extended Key Usage` section, because the nodes using the TLS certificates take on the responsibility of serving and receiving the communication requests internally.
-If you want to use separate certificates for client and server, add the `plugins.security.ssl.transport.extended_key_usage_enabled: true` setting to `opensearch.yml`. Next, configure the settings outlined in the [separate client and server X.509 PEM certificates and PKCS #8 keys]({{site.url}}{{site.baseurl}}/security/configuration/tls/#separate-client-and-server-x509-pem-certificates-and-pkcs-8-keys) or [separate client and server keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#separate-client-and-server-keystore-and-truststore-files) sections.
+By default, transport layer TLS certificates need to be configured as both the client (`TLS Web Client Authentication`) and server (`TLS Web Server Authentication`) in the certificate's `Extended Key Usage` section because the nodes using the TLS certificates assume the responsibility of serving and receiving the communication requests internally.
+If you want to use separate certificates for the client and server, add the `plugins.security.ssl.transport.extended_key_usage_enabled: true` setting to `opensearch.yml`. Next, configure the settings outlined in the [separate client and server X.509 PEM certificates and PKCS #8 keys]({{site.url}}{{site.baseurl}}/security/configuration/tls/#separate-client-and-server-x509-pem-certificates-and-pkcs-8-keys) or [separate client and server keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#separate-client-and-server-keystore-and-truststore-files) sections.
 
 ### Separate client and server X.509 PEM certificates and PKCS #8 keys
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.server.pemkey_filepath` | Path to the server certificate's key file (PKCS \#8). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.server.pemkey_filepath` | The path to the server certificate's key file (PKCS \#8). Must be specified using a relative path under the `config` directory. Required.
 `plugins.security.ssl.transport.server.pemkey_password` | The server key password. Omit this setting if the key has no password. Optional.
-`plugins.security.ssl.transport.server.pemcert_filepath` | Path to the X.509 node server certificate chain (PEM format). Must be specified using a relative path under the `config` directory. Required.
-`plugins.security.ssl.transport.server.pemtrustedcas_filepath` | Path to the root CAs (PEM format). Must be specified using a relative path under the `config` directory. Required.
-`plugins.security.ssl.transport.client.pemkey_filepath` | Path to the client certificate's key file (PKCS \#8). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.server.pemcert_filepath` | The path to the X.509 node server certificate chain (PEM format). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.server.pemtrustedcas_filepath` | The path to the root CAs (PEM format). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.client.pemkey_filepath` | The path to the client certificate's key file (PKCS \#8). Must be specified using a relative path under the `config` directory. Required.
 `plugins.security.ssl.transport.client.pemkey_password` | The client key password. Omit this setting if the key has no password. Optional.
-`plugins.security.ssl.transport.client.pemcert_filepath` | Path to the X.509 node client certificate chain (PEM format). Must be specified using a relative path under the `config` directory. Required.
-`plugins.security.ssl.transport.client.pemtrustedcas_filepath` | Path to the root CAs (PEM format). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.client.pemcert_filepath` | The path to the X.509 node client certificate chain (PEM format). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.client.pemtrustedcas_filepath` | The path to the root CAs (PEM format). Must be specified using a relative path under the `config` directory. Required.
 
 ### Separate client and server keystore and truststore files
 
 Name | Description
 :--- | :---
 `plugins.security.ssl.transport.keystore_type` | The type of the keystore file, either `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
-`plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file. Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.keystore_filepath` | The path to the keystore file. Must be specified using a relative path under the `config` directory. Required.
 `plugins.security.ssl.transport.server.keystore_alias` | The alias name of the server key. Optional. Default is the first alias.
 `plugins.security.ssl.transport.client.keystore_alias` | The alias name of the client key. Optional. Default is the first alias.
 `plugins.security.ssl.transport.server.keystore_keypassword` | The keystore password for the server. Default is `changeit`.
