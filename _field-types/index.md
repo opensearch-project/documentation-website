@@ -114,10 +114,6 @@ OpenSearch has certain limits or settings related to mappings, such as the setti
 | index.mapping.field_name_length.limit | 50000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
 | index.mapper.dynamic | true | {true,false} | Dynamic | Determines whether new fields should be added dynamically to the mapping when they are encountered in a document. |
 
-## Removing mapping types
-
-<_Need SME input. Does OpenSearch allow for defining mapping types within an index? If so, SME needs to provide information to include in documentation. Do we have guidance on how to structure data without relying on mapping types?_>
-
 ## Runtime fields
 
 You can define fields at query time, rather than at index time, by using runtime fields. this can be useful for creating fields based on the values of other fields, or for performing transformations on data during the query process. Runtime fields are defined in the query itself and do not affect the underlying data in the index.
