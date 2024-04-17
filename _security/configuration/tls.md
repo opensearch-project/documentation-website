@@ -243,7 +243,7 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 {: .note }
 
 ### Reload TLS certificates on the transport layer
- The following example reloads TLS certificates on the transport layer:
+ The following command reloads TLS certificates on the transport layer:
   
   ```json
   curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
@@ -255,7 +255,7 @@ You should receive the following response:
 
 ### Reload TLS certificates on the http layer
 
-The following example reloads TLS certificates on the `http` layer:
+The following command reloads TLS certificates on the `http` layer:
 
   ```json
   curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
