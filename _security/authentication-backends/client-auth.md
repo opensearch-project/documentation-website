@@ -43,9 +43,9 @@ clientcert_auth_domain:
 
 ## Assigning roles to your common name
 
-You can now assign your certificate's common name (CN) to a role. For this step, you must know your certificate's CN and the role you want to assign to. To get a list of all predefined roles in OpenSearch, refer to our [list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#predefined-roles). If you want to first create a role, refer to [how to create a role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users), and then map your certificate's CN to that role.
+You can now assign your certificate's common name (CN) to a role. For this step, you must know your certificate's CN and the role you want to assign to. To get a list of all predefined roles in OpenSearch, refer to our [list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#predefined-roles). If you want to first create a role, refer to [how to create a role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#defining-roles), and then map your certificate's CN to that role.
 
-After deciding which role you want to map your certificate's CN to, you can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles), [`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml), or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) to map your certificate's CN to the role. The following example uses the `REST API` to map the common name `CLIENT1` to the role `readall`.
+After deciding which role you want to map your certificate's CN to, you can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#mapping-users-to-roles), [`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml), or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) to map your certificate's CN to the role. The following example uses the `REST API` to map the common name `CLIENT1` to the role `readall`.
 
 **Example request**
 
