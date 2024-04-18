@@ -14,6 +14,19 @@ The Security plugin includes an internal user database. Use this database in pla
 
 Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
 
+---
+
+<details closed markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
+
 ## Creating and editing OpenSearch roles
 
 You can update OpenSearch by using one of the following methods.
@@ -33,15 +46,6 @@ For more information about creating roles, see the [Create roles](https://opense
 
 Unless you need to create new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
-
----
-
-#### Table of contents
-1. TOC
-{:toc}
-
-
----
 
 ## Create users
 
@@ -142,34 +146,33 @@ The Security plugin includes several predefined roles that serve as useful defau
 | **Role** | **Description** |
 | :--- | :--- |
 | `alerting_ack_alerts` | Grants permissions to view and acknowledge alerts, but not to modify destinations or monitors. |
-| `alerting_full_access` | Grants full permissions to all alerting actions. |
+| `alerting_full_access` | Grants full permissions to perform all alerting actions. |
 | `alerting_read_access` | Grants permissions to view alerts, destinations, and monitors, but not to acknowledge alerts or modify destinations or monitors. |
-| `anomaly_full_access` | Grants full permissions to all anomaly detection actions. |
+| `all_access` | Grants full access to the cluster, including all cluster-wide operations, permissions to write to all cluster indexes, and permissions to write to all tenants. For more information about access using the REST API, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
+| `anomaly_full_access` | Grants full permissions to perform all anomaly detection actions. |
 | `anomaly_read_access` | Grants permissions to view detectors, but not to create, modify, or delete detectors. |
-| `all_access` | Grants full access to the cluster, including all cluster-wide operations, permission to write to all cluster indexes, and permission to write to all tenants. For more information on access using the REST API, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
-| `cross_cluster_replication_follower_full_access` | Grants full access to perform cross-cluster replication actions on the follower cluster. |
-| `cross_cluster_replication_leader_full_access` | Grants full access to perform cross-cluster replication actions on the leader cluster. |
-| `observability_full_access` | Grants full access to perform actions on Observability objects such as visualizations, notebooks, and operational panels. |
-| `observability_read_access` | Grants permission to view Observability objects such as visualizations, notebooks, and operational panels, but not to create, modify, or delete them. |
-| `kibana_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. To enable read-only mode in Dashboards, add the `opensearch_security.readonly_mode.roles` setting to the `opensearch_dashboards.yml` file and include the role as a setting value. See the [example configuration]({{site.url}}{{site.baseurl}}/dashboards/branding/#sample-configuration) in Dashboards documentation. |
-| `kibana_user` | Grants permissions to use OpenSearch Dashboards: cluster-wide searches, index monitoring, and write to various OpenSearch Dashboards indexes. |
-| `logstash` | Grants permissions for Logstash to interact with the cluster: cluster-wide searches, cluster monitoring, and write to the various Logstash indexes. |
-| `manage_snapshots` | Grants permissions to manage snapshot repositories, take snapshots, and restore snapshots. |
-| `readall` | Grants permissions for cluster-wide searches like `msearch` and search permissions for all indexes. |
-| `readall_and_monitor` | Same as `readall` but with added cluster permissions for monitoring. |
-| `security_rest_api_access` | A special role that allows access to the REST API. See `plugins.security.restapi.roles_enabled` in `opensearch.yml` and [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
-| `reports_read_access` | Grants permissions to generate on-demand reports, download existing reports, and view report definitions but not to create report definitions. |
-| `reports_instances_read_access` | Grants permissions to generate on-demand reports and download existing reports but not to view or create report definitions. |
-| `reports_full_access` | Grants full permissions to reports. |
-| `asynchronous_search_full_access` | Grants full permissions to all asynchronous search actions. |
+| `asynchronous_search_full_access` | Grants full permissions to perform all asynchronous search actions. |
 | `asynchronous_search_read_access` | Grants permissions to view asynchronous searches but not to submit, modify, or delete them. |
-| `index_management_full_access` | Grants full permissions to all index management actions, including Index State Management (ISM), transforms, and rollups. |
-| `snapshot_management_full_access` | Grants full permissions to all snapshot management actions. |
-| `snapshot_management_read_access` | Grants permissions to view policies but not to create, modify, start, stop, or delete them. |
-| `point_in_time_full_access` | Grants full permissions to all Point in Time operations. |
-| `security_analytics_full_access` | Grants full permissions to all Security Analytics functionality. |
-| `security_analytics_read_access` | Grants permissions to view the various components in Security Analytics, such as detectors, alerts, and findings. It also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modifying or deleting a detector. |
+| `cross_cluster_replication_follower_full_access` | Grants full access to perform cross-cluster replication actions on the follower cluster. |
+| `cross_cluster_replication_leader_full_access`   | Grants full access to perform cross-cluster replication actions on the leader cluster. |
+| `index_management_full_access` | Grants full permissions to perform all index management actions, including Index State Management (ISM), transforms, and rollups. |
+| `index_management_read_access` | Same as `readall` but with added cluster permissions for monitoring. |
+| `ml_full_access` | Grants full permissions to perform all machine learning (ML) features, including starting new ML tasks and reading or deleting models. |
+| `ml_read_access` | Grants permissions to view ML features and results but not to modify them. |
+| `notifications_full_access` | Grants full permissions to perform all notification actions. |
+| `notifications_read_access` | Grants permissions to view notifications and their configurations but not to modify them. |
+| `opensearch_dashboards_read_only` | Grants read-only access to OpenSearch Dashboards. |
+| `opensearch_dashboards_user` | Grants basic user access to OpenSearch Dashboards. |
+| `point_in_time_full_access`  | Grants full permissions to perform all Point in Time operations. |
+| `readall` | Grants permissions for cluster-wide searches like `msearch` and search permissions for all indexes. |
+| `reports_instances_read_access` | Grants permissions to generate on-demand reports and download existing reports but not to view or create report definitions. |
 | `security_analytics_ack_alerts` | Grants permissions to view and acknowledge alerts. |
+| `security_analytics_full_access` | Grants full permissions to use all Security Analytics functionality. |
+| `security_analytics_read_access`  | Grants permissions to view Security Analytics components, such as detectors, alerts, and findings. Also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modifying or deleting a detector. |
+| `security_manager` | Grants permissions to manage security-related features and configurations.  |
+| `snapshot_management_full_access` | Grants full permissions to perform all snapshot management actions.  |
+| `snapshot_management_read_access`  | Grants permissions to view snapshot management actions and configurations but not to modify them. |
+
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/).
 
