@@ -224,31 +224,9 @@ The Security plugin includes several predefined roles that serve as useful defau
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/).
 
 
-## Examples 
+## Example 
 
-The following examples demonstrate how you might set up a read-only role and a bulk access role.
-
-### Setting up a read-only role in OpenSearch Dashboards
-
-Create a new `read_only_index` role:
-
-1. Open OpenSearch Dashboards.
-1. Choose **Security**, **Roles**.
-1. Create a new role named `read_only_index`.
-1. For **Cluster permissions**, add the `cluster_composite_ops_ro` action group.
-1. For **Index Permissions**, add an index pattern. For example, you might specify `my-index-*`.
-1. For index permissions, add the `read` action group.
-1. Choose **Create**.
-
-Map three roles to the read-only user:
-
-1. Choose the **Mapped users** tab and **Manage mapping**.
-1. For **Internal users**, add your read-only user.
-1. Choose **Map**.
-1. Repeat these steps for the `opensearch_dashboards_user` and `opensearch_dashboards_read_only` roles.
-
-
-### Setting up a bulk access role in OpenSearch Dashboards
+The following example demonstrate how you might set up a bulk access role in OpenSearch Dashboards.
 
 Create a new `bulk_access` role:
 
