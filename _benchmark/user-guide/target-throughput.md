@@ -8,14 +8,14 @@ nav_order: 150
 
 Target throughput is key to understanding the OpenSearch Benchmark definition of *latency*. Target throughput is the rate at which OpenSearch Benchmark issues requests, assuming that responses will be returned instantaneously. `target-throughput` is a common workload parameter that can be set for each test and is measured in operations per second.
 
-OpenSearch Benchmark has two types of testing modes, both of which are related to throughput, latency, and service time:
+OpenSearch Benchmark has two testing modes, both of which are related to throughput, latency, and service time:
 
 - [Benchmarking mode](#benchmarking-mode): Latency is measured in the same way as service time.
 - [Throughput-throttled mode](#throughput-throttled-mode): Latency is measured as service time plus the time that a request spends waiting in the queue.
 
 ## Benchmarking mode
 
-When you do not specify a `target-throughput`, OpenSearch Benchmark latency tests are performed in **Benchmarking mode**. In **Benchmarking mode**, the OpenSearch client sends requests to the OpenSearch cluster as fast as possible. After the cluster receives a response from the previous request, OpenSearch Benchmark sends the next request immediately to the OpenSearch client without delay. In this testing mode, latency is identical to service time.
+When you do not specify a `target-throughput`, OpenSearch Benchmark latency tests are performed in *benchmarking mode*. In this mode, the OpenSearch client sends requests to the OpenSearch cluster as fast as possible. After the cluster receives a response from the previous request, OpenSearch Benchmark immediately sends the next request to the OpenSearch client. In this testing mode, latency is identical to service time.
 
 ## Throughput-throttled mode
 
@@ -34,7 +34,7 @@ The following diagrams illustrate how latency is calculated with an expected req
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-1.png" alt="">
 
-When a request takes longer than 200 ms, such as when a request takes 1110 ms instead of 400 ms, OpenSearch Benchmark sends the next request that was supposed to occur at 4.00 s based on the `target-throughput` of 4.10 s. All requests subsequent to the 4.10 s request attempt to re-synchronize with the `target-throughput` setting.
+When a request takes longer than 200 ms, such as when a request takes 1110 ms instead of 400 ms, OpenSearch Benchmark sends the next request that was supposed to occur at 4.00 s based on the `target-throughput` of 4.10 s. All requests subsequent to the 4.10 s request attempt to re-synchronize with the `target-throughput` setting, as shown in the following image:
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/latency-explanation-2.png" alt="">
 
