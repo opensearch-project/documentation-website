@@ -129,7 +129,8 @@ See [Create role mapping]({{site.url}}{{site.baseurl}}/security/access-control/a
 
 A read-only role grants users the ability to read data from the OpenSearch cluster, but not to modify or delete any data. The read-only role is useful for scenarios where you want to provide access to data for reporting, analysis, or visualization purposes, without allowing modifications to the data or the cluster itself. This maintains data integrity and prevents accidental or unauthorized changes.
 
-As with any role in OpenSearch, read-only roles can be configured using the following three methods: 
+As with any role in OpenSearch, read-only roles can be configured using the following methods:
+ 
 - Using OpenSearch Dashboards.
 - Modifying the `yml` configuration files.
 - Using the Cluster Settings API. 
