@@ -58,7 +58,7 @@ See [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#crea
 
 ## Defining roles
 
-Similar to defining users, you can define roles using OpenSearch Dashboards, `roles.yml`, or the REST API. In addition, OpenSearch provides some predefined roles and a special read-only role, which you can read about later in this topic.
+Similar to defining users, you can define roles using OpenSearch Dashboards, `roles.yml`, or the REST API. OpenSearch provides predefined roles and a special read-only role.
 
 Unless you need to define new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we strongly recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
