@@ -165,7 +165,7 @@ plugins.security.restapi.password_validation_error_message: "Password must be mi
 
 In addition, a score-based password strength estimator allows you to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
 
-For information about creating users, see [Create users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#defining-users).
+For information about creating users, see [Defining users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#defining-users).
 
 This feature is not compatible with users specified as reserved. For information about reserved resources, see [Reserved and hidden resources]({{site.url}}{{site.baseurl}}/security/access-control/api#reserved-and-hidden-resources).
 {: .important }

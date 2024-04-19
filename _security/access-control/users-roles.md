@@ -225,7 +225,7 @@ For more detailed summaries of the permissions for each role, reference their ac
 
 ## Example 
 
-The following example demonstrates how you can set up a bulk access role in OpenSearch Dashboards.
+The following tutorial describes the steps for creating a bulk access role in OpenSearch Dashboards.
 
 Create a new `bulk_access` role:
 
