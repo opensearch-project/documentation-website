@@ -14,7 +14,7 @@ You define users in OpenSearch to control who has access to OpenSearch data. You
 
 You define roles to determine the scope of a permission or action group. You can create roles with specific privileges, for example, roles that contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants.
 
-You can map users to roles while defining users or after defining users and roles. This mapping determines the permissions and access levels for each user based on the roles they are assigned.
+You can map users to roles during user creation or after users and roles have been defined. This mapping determines the permissions and access levels for each user based on the roles they are assigned.
 
 ---
 
