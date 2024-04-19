@@ -12,6 +12,6 @@ The snapshot approach can mean running two clusters in parallel, but lets you va
 
 Elasticsearch OSS version | Snapshot migration path
 :--- | :--- 
-5.x | Upgrade to 5.6, upgrade to 6.8, reindex all 5.x indexes, make snapshot and restore in OpenSearch 1.x.
+5.x | Upgrade to 5.6, then upgrade to 6.8. Reindex all 5.x indexes, make a snapshot, and restore in OpenSearch 1.x.
 6.x | Make a snapshot and restore in OpenSearch 1.x
 7.x | Make a snapshot and restore in OpenSearch 1.x or OpenSearch 2.x
