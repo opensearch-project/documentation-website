@@ -132,7 +132,7 @@ A read-only role grants users the ability to read data from the OpenSearch clust
 As with any role in OpenSearch, read-only roles can be configured using the following methods:
  
 - Using OpenSearch Dashboards.
-- Modifying the `yml` configuration files.
+- Modifying the `yml` configuration files
 - Using the Cluster Settings API. 
 
 The most user-friendly approach for anyone getting familiar with roles and role mappings is to use OpenSearch Dashboards, where it's easy to navigate the creation of roles and assign those roles to users. 
