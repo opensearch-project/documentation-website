@@ -133,59 +133,57 @@ As with any role in OpenSearch, read-only roles can be configured using the foll
  
 - Using OpenSearch Dashboards
 - Modifying the `yml` configuration files
-- Using the Cluster Settings API. 
+- Using the Cluster Settings API 
 
-The most user-friendly approach for anyone getting familiar with roles and role mappings is to use OpenSearch Dashboards, where it's easy to navigate the creation of roles and assign those roles to users. 
+The most user-friendly approach for getting familiar with roles and role mappings is to use OpenSearch Dashboards. The interface simplifies the creation of roles and assign those roles to users., with an easy-to-navigate workflow. 
 { .tip}
 
 ### Defining a basic read-only role
 
-To create a basic read-only role that allows users to access OpenSearch Dashboards, view existing dashboards and visualizations, and query different indexes, use the following permissions.
+To create a basic read-only role that allows users to access OpenSearch Dashboards, view existing dashboards and visualizations, and query different indexes, use the following permissions. These permissions give the user access to all tenants and indexes on the cluster.
 
-The following permissions give the user access to all tenants and indexes on the cluster.
-{: .note}
 
 #### Cluster permission
 
-For the user that requires read-only access to cluster-wide resources, such as visualization or dashboards, add the `cluster_composite_ops_ro` permission to that user's role.
+For a user requiring read-only access to cluster-wide resources, such as visualization or dashboards, add the `cluster_composite_ops_ro` permission to that user's role.
 
 #### Index permission
 
-If the user requires access to view visualizations, they will also require access to the index used to create the visualization. To give the user read-only access to all indexes, specify all (`*`) under the **Index** drop-down, and **Read** in **Index Permissions**.
+For a user requiring access to view visualizations, they also will require access to the index used to create the visualization. To give a user read-only access to all indexes, specify all (`*`) under the **Index** drop-down and **Read** in **Index Permissions**.
 
 #### Tenant permissions
 
-If you use tenants to split work between different teams or projects, use the all (`*`) option followed by the **Read only** option.
+If you use tenants to split work between teams or projects, use the all (`*`) option followed by the **Read only** option.
 
 ![creating role]({{site.url}}{{site.baseurl}}/images/role_creation_read_only.png)
 
-After all permission types are set and the role is defined, you can map the role directly to a user in the **Mapped users** tab in roles. Select **Map users** and select the user to map to this role. 
+After setting all permission types and defining the role, you can map the role directly to a user in the role's **Mapped users** tab. Select **Map users** and then the user to map to this role. 
 
 ![mapping users]({{site.url}}{{site.baseurl}}/images/mapping-users.png)
 
 ### OpenSearch Dashboards `readonly_mode`
 
-The OpenSearch Dashboards `readonly_mode` functionality is used to give the user access to the `Dashboards` UI only, removing all other UI elements from the view.
-To configure this role, add the following line `opensearch_dashboards.yml` file:
+The OpenSearch Dashboards `readonly_mode` functionality is used to give the user access to the `Dashboards` interface only, removing all other user interface (UI) elements from the view.
+
+To configure this role, add the following line to your `opensearch_dashboards.yml` file:
 
 ```opensearch_security.readonly_mode.roles: [new_role]```
 
-If the role mapped to the user has additional privileges or the user is mapped to other roles, giving them write access to indexes, this access will not be allowed using OpenSearch Dashboard. Direct data access to OpenSearch using curl or API is still allowed, as OpenSearch Dashboards is not involved in this communication. 
+Even if the assigned role grants additional privileges or the user is mapped to other roles with write access to indexes, OpenSearch Dashboards restricts this access. Direct data access to OpenSearch using CURL or API is still allowed. OpenSearch Dashboards is not involved in this communication. 
 
-If the user is mapped to the `readonly_mode` role, all other elements of the UI will be removed, except for `Dashboards`. In the following comparison, the left view shows the screen from the perspective of a user mapped to a role in`readonly_mode`. On the right, the user is given a standard view.
+If the user is mapped to the `readonly_mode` role, all other elements of the UI will be removed, except for `Dashboards`. In the following comparison, the left view shows the screen from the perspective of a user mapped to a `readonly_mode` role. The right view shows a user's standard view.
 
 ![compare read only mode]({{site.url}}{{site.baseurl}}/images/compare_read_only_mode.png)
 
-Mapping the user to only the `readonly_mode` role does not give them permissions to view relevant indexes or allow them to view the existing dashboards. Read access to indexes and dashboards require separate permissions.
+Mapping the user to only the `readonly_mode` role does not give them permission to view relevant indexes or allow them to view the existing dashboards. Read access to indexes and dashboards require separate permissions.
 {: .note }
 
 
-If the user is also mapped to any roles listed under `plugins.security.restapi.roles_enabled` in `opensearch.yml`, for example `all_access` or `security_rest_api_access`, then `readonly_mode` is ignored, giving the user access to standard UI elements.
-
+If the user is also mapped to any roles listed under `plugins.security.restapi.roles_enabled` in `opensearch.yml`, for example, `all_access` or `security_rest_api_access`, then `readonly_mode` is ignored, giving the user access to standard UI elements.
 
 ### Additional permissions
 
-If the user requires access to additional permissions in addition to the `read_only` role,  such as alerting and anomaly detection tasks, you can use the existing predefined roles, such as `alerting_read_access` and `anomaly_read_access`.
+If a user requires access to additional permissions to those in the `read_only` role,  such as alerting and anomaly detection tasks, you can assign the predefined roles, such as `alerting_read_access` and `anomaly_read_access`.
 
 ## Predefined roles
 
