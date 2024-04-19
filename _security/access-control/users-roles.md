@@ -10,7 +10,7 @@ redirect_from:
 
 # Defining users and roles
 
-You define users in OpenSearch to control who has access to OpenSearch data. You can use the internal user database to store users, or you can store them in an external authentication system, such as LDAP or Active Directory.
+You define users in OpenSearch to control who has access to OpenSearch data. You can use the internal user database to store users, or you can store them in an external authentication system, such as [LDAP or Active Directory]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
 
 You define roles to determine the scope of a permission or action group. You can create roles with specific privileges, for example, roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants.
 
