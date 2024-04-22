@@ -62,16 +62,21 @@ By default, Lucene assigns a maximum of 250K documents or 5 segments (whichever 
 
 ### The max slice count mechanism
 
-The _max slice count_ mechanism is an alternative slicing mechanism that uses a statically configured maximum number of slices and divides segments among the slices in a round-robin fashion. This is useful when there are already too many top-level shard requests and you want to limit the number of slices per request in order to reduce competition between the slices.
+The _max slice count_ mechanism is an alternative slicing mechanism that uses a dynamically configurable maximum number of slices and divides segments among the slices in a round-robin fashion. This is useful when there are already too many top-level shard requests and you want to limit the number of slices per request in order to reduce competition between the slices.
 
 ### Setting the slicing mechanism
 
-By default, concurrent segment search uses the Lucene mechanism to calculate the number of slices for each shard-level request. To use the max slice count mechanism instead, configure the `search.concurrent.max_slice_count` static setting in the `opensearch.yml` config file:
+By default, concurrent segment search uses the Lucene mechanism to calculate the number of slices for each shard-level request. To use the max slice count mechanism instead, configure the `search.concurrent.max_slice_count` cluster setting:
 
-```yaml
-search.concurrent.max_slice_count: 2
+```json
+PUT _cluster/settings
+{
+   "persistent":{
+      "search.concurrent.max_slice_count": 2
+   }
+}
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 The `search.concurrent.max_slice_count` setting can take the following valid values:
 - `0`: Use the default Lucene mechanism.
