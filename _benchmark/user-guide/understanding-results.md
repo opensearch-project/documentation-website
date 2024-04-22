@@ -31,24 +31,6 @@ As as well as measuring performance stability and gathering data that informs th
 
 To understand the results produced by the Benchmark test, we recommend looking at the following metrics in the Summary report:
 
-### Cumulative indexing time of primary shards
-
-The following metrics was used to create the **Indexing throughput** line graphs in https://opensearch.org/benchmarks.
-
-**Definition:** Cumulative time used for indexing as reported by the index stats API. Note that this is not Wall clock time, such as if M indexing threads ran for N minutes, we will report M * N minutes, not N minutes.
-**Corresponding metrics key:** `indexing_total_time`
-
-### Cumulative merge count of primary shards
-
-The following was used to make the **Indexing throughput** bar graphs https://opensearch.org/benchmarks.
-
-**Definition:** Cumulative number of merges of primary shards, as reported by index stats API under _all/primaries.
-**Corresponding metrics key:** `merges_total_count`
-
-### Latency
-
-**Definition:** Time period between submission of a request and receiving the complete response. It also includes wait time, such as the time the request spends waiting until it is ready to be serviced by OpenSearch. More percentiles can be displayed if the test is run with `--latency-percentiles`.
-**Corresponding metrics key:** `latency`
 
 ## Result storage
 
