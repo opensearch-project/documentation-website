@@ -90,7 +90,7 @@ routing | String | Comma-separated custom routing values, for example, `"routing
 
 ## Example
 
-The following `msearch` makes queries against multiple indexes:
+The following example `msearch` API request runs queries against multiple indexes:
 
 ### Request
 
