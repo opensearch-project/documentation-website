@@ -143,11 +143,11 @@ The simplest way to get familiar with roles and role mappings is to use OpenSear
 To create a basic read-only role that allows a user to access OpenSearch Dashboards, view existing dashboards and visualizations, and query different indexes, use the following permissions. These permissions give the user access to all tenants and indexes on the cluster.
 
 
-#### Cluster permission
+#### Cluster permissions
 
 For a user requiring read-only access to cluster-wide resources, such as visualizations or dashboards, add the `cluster_composite_ops_ro` permission to that user's role.
 
-#### Index permission
+#### Index permissions
 
 A user requiring access to view visualizations will also require access to the index used to create the visualization. To give a user read-only access to all indexes, specify all (`*`) under the **Index** dropdown and **Read** in **Index Permissions**.
 
