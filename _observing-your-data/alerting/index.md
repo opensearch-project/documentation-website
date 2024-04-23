@@ -26,19 +26,24 @@ Alert | Event associated with a trigger. When an alert is created, the trigger p
 Action | Specific task that is performed when an alert is triggered.
 Notification | Message that is sent to users when an alert is triggered.
 
-## Alert states
+## Alerting settings
+
+
+## Alerting states
 
 The following table lists the alert states. 
 
 State | Description
 :--- | :---
-Active | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely. Alerts also can be moved out of the active state if the trigger condition is no longer met. For example, if an index has 4,000 documents and a trigger condition is `numOfDocs > 5000`, an active alert is generated when 3,000 documents are added to the index. If the added 3,000 documents are then deleted from the index, the alert changes to the completed state because the condition is no longer triggered.
-Acknowledged | The alert is acknowledged but the root cause is not fixed.
-Completed | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.
-Error | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
+`active` | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely. Alerts also can be moved out of the active state if the trigger condition is no longer met. For example, if an index has 4,000 documents and a trigger condition is `numOfDocs > 5000`, an active alert is generated when 3,000 documents are added to the index. If the added 3,000 documents are then deleted from the index, the alert changes to the completed state because the condition is no longer triggered.
+`acknowledged` | The alert is acknowledged but the root cause is not fixed.
+`completed` | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to `false`.
+`error` | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
 Deleted | The monitor or trigger associated with this alert was deleted while the alert was ongoing.
 
-## Related articles 
+## Next steps
+
+Learn more about the following features:
 
 - [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) for information about monitor types
 - [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) for more information about triggers
