@@ -10,11 +10,9 @@ redirect_from:
 
 # Alerting
 
-To create an alert, do the following: 
+Alerting in OpenSearch enables proactive monitoring and timely response to potential issues or anomalies within your data and applications. Whether you're building and maintaining applications or ensuring the smooth operation of systems, alerting has a crucial role in maintaining system health and minimizing downtime.
 
-- Configure a _monitor_, which is a job that runs on a defined schedule and queries OpenSearch indexes. Required.
-- Configure one or more _triggers_, which define the conditions that generate events. Optional.
-- Configure _actions_, which is what happens after an alert is triggered. Optional.
+OpenSearch provides an alerting framework that allows you to define custom rules and conditions based on your specific requirements. These rules can be applied to various data sources, such as logs, metrics, and application data, so that you can detect and respond to a range of events or patterns. By setting up alerts, you can receive notifications through various channels, such as email, messaging platforms, or integrated monitoring tools, ensuring that you're informed immediately about critical events or deviations from expected behavior.
 
 ## Key terms
 
@@ -23,10 +21,10 @@ The following table lists alerting terminology commonly used in OpenSearch and t
 Term | Definition
 :--- | :---
 Monitor | Job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more triggers.
-Trigger | Conditions that, if met, generate alerts. See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/).
+Trigger | Conditions that, if met, generate alerts.
 Alert | Event associated with a trigger. When an alert is created, the trigger performs actions, including sending notifications.
-Action | Specific task that is performed when an alert is triggered. See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
-Notification | Message that is sent to users when an alert is triggered. See [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/).
+Action | Specific task that is performed when an alert is triggered.
+Notification | Message that is sent to users when an alert is triggered.
 
 ## Alert states
 
@@ -40,22 +38,10 @@ Completed | The alert is no longer ongoing. Alerts enter this state after the co
 Error | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
 Deleted | The monitor or trigger associated with this alert was deleted while the alert was ongoing.
 
-## Creating an alert monitor
-
-You can follow these basic steps to create an alert monitor:
-
-1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
-1. Choose **Create monitor**.
-1. Enter the **Monitor details**, including monitor type, method, and schedule.  
-1. Select a data source from the dropdown list.
-1. Define the metrics in the Query section.
-1. Add a trigger.
-1. Add an action. 
-1. Select **Create**.
-
 ## Related articles 
 
-- See [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) for information about monitor types.
-- See [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/)
-- See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) for more information about triggers.
-- See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for more information about actions.
+- [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) for information about monitor types
+- [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) for more information about triggers
+- [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for more information about actions
+- [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
+- [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/)
