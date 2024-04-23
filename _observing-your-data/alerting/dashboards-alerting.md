@@ -46,21 +46,10 @@ Keep in mind the following requirements when setting up or creating alerting vis
 
 ## Creating alerting monitors
 
-By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+By default, when you begin to [create an alert monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/#creating-an-alert-monitor) workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. 
 
-To create an alerting monitor: 
-
-1. Choose **Dashboard** from the OpenSearch Dashboards main menu.
-2. From the **Dashboards** window, select **Create** and then choose **Dashboard**.
-3. Select **Add an existing**, then select the appropriate alerting visualization from the **Add panels** list. The visualization is added to the dashboard.
-4. From the visualization panel, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}). 
-5. From the **Options** menu, select **Add alerting monitor**.
-6. Input information for **Monitor details** and **Triggers**.
-7. Choose **Create monitor**. The monitor is added to the visualization.  
-
-An example of these steps is shown in the following screenshot.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/create-monitor-menu.png" alt="Create monitor interface" width="400" height="400">
+Currently, you can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+{: .note}
 
 ## Associating monitors
 
@@ -86,7 +75,9 @@ Once you've created or associated alerting monitors, verify that the monitor is 
    1. Unlink a monitor from the visualization by selecting the link icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class="inline-icon" alt="link icon"/>{:/}) under **Actions**. This only unlinks the monitor from the visualization; it does not delete the monitor.
    2. Edit the monitor's metrics by selecting the edit icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/}).
 
-## Next steps
+## Related articles 
 
-- [Learn more about the Dashboard application](https://opensearch.org/docs/latest/dashboards/dashboard/index/).
-- [Learn more about alerting](https://opensearch.org/docs/latest/observing-your-data/alerting/index/).
+- See [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) for information about monitor types.
+- See [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/)
+- See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) for more information about triggers.
+- See [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for more information about actions.
