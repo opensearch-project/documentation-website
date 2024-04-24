@@ -56,7 +56,7 @@ expand_wildcards | String | Specifies the type of index that wildcard expression
 explain | Boolean | Whether to return details about how OpenSearch computed the document's score. Default is false.
 from | Integer | The starting index to search from. Default is 0.
 ignore_throttled | Boolean | Whether to ignore concrete, expanded, or indexes with aliases if indexes are frozen. Default is true.
-ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response and ignore unavailable shards during search execution. Default is false.
+ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
 lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
 max_concurrent_shard_requests | Integer | How many concurrent shard requests this request should execute on each node. Default is 5.
 phase_took | Boolean | Whether to return phase-level `took` time values in the response. Default is false.
