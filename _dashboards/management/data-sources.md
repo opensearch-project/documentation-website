@@ -21,7 +21,7 @@ Configuration of the [YAML files]({{site.url}}{{site.baseurl}}/install-and-confi
 
 ## Permissions
 
-In order to work with data sources in OpenSearch Dashboards the user needs to be assigned the relevant permissions. As data sources are cluster wide resources, these permissions are configured under **Cluster permissions**
+To work with data sources in OpenSearch Dashboards, make sure that the user has been assigned the correct cluster-level [data source permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions#data-source-permissions).
 
 
 
