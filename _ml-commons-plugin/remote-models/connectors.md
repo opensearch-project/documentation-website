@@ -7,7 +7,7 @@ nav_order: 61
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
 redirect_from: 
-  - ml-commons-plugin/extensibility/connectors/
+  - /ml-commons-plugin/extensibility/connectors/
 ---
 
 # Creating connectors for third-party ML platforms
@@ -214,20 +214,21 @@ The `parameters` section requires the following options when using `aws_sigv4` a
 
 ### Cohere connector
 
-You can use the following example request to create a standalone Cohere connector:
+You can use the following example request to create a standalone Cohere connector using the Embed V3 model. For more information, see [Cohere connector blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md). 
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "<YOUR CONNECTOR NAME>",
-  "description": "<YOUR CONNECTOR DESCRIPTION>",
-  "version": "<YOUR CONNECTOR VERSION>",
+  "name": "Cohere Embed Model",
+  "description": "The connector to Cohere's public embed API",
+  "version": "1",
   "protocol": "http",
   "credential": {
-    "cohere_key": "<YOUR COHERE API KEY HERE>"
+    "cohere_key": "<ENTER_COHERE_API_KEY_HERE>"
   },
   "parameters": {
-    "model": "embed-english-v2.0",
+    "model": "embed-english-v3.0",
+    "input_type":"search_document",
     "truncate": "END"
   },
   "actions": [
@@ -236,9 +237,10 @@ POST /_plugins/_ml/connectors/_create
       "method": "POST",
       "url": "https://api.cohere.ai/v1/embed",
       "headers": {
-        "Authorization": "Bearer ${credential.cohere_key}"
+        "Authorization": "Bearer ${credential.cohere_key}",
+        "Request-Source": "unspecified:opensearch"
       },
-      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\" }", 
+      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\", \"input_type\": \"${parameters.input_type}\" }",
       "pre_process_function": "connector.pre_process.cohere.embedding",
       "post_process_function": "connector.post_process.cohere.embedding"
     }
@@ -284,6 +286,21 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 {% include copy-curl.html %}
+
+## Updating connector credentials
+
+In some cases, you may need to update credentials, like `access_key`, that you use to connect to externally hosted models. You can update credentials without undeploying the model by providing the new credentials in the following request:
+
+```json
+PUT /_plugins/_ml/models/<model_id>
+{
+  "connector": {
+    "credential": {
+      "openAI_key": "YOUR NEW OPENAI KEY"
+    }
+  }
+}
+```
 
 ## Next steps
 

@@ -100,6 +100,9 @@ Then add this policy into the IAM user’s trust relationship to actually assume
 }
 ```
 
+### Host deny list
+
+Define IP ranges or hostnames where OpenSearch nodes should not initiate requests. 
 
 ## Email as a channel type
 

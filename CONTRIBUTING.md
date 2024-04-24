@@ -98,6 +98,15 @@ Follow these steps to set up your local copy of the repository:
    bundle install
    ```
 
+#### Troubleshooting
+
+If you encounter an error while trying to build the documentation website, find the error in the following troubleshooting list: 
+
+- When running `rvm install 3.2` if you receive a `Error running '__rvm_make -j10'`, resolve this by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2` instead of `rvm install 3.2`.
+- If receive a `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.` error when trying to run `bundle install`, resolve this by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"`. Then, run `bundle install`.
+ 
+
+
 #### Making, viewing, and submitting changes 
 
 Here's how to build the website, make changes, and view them locally:
@@ -134,7 +143,7 @@ If we accept the PR, we will merge it and will backport it to the appropriate br
 
 To ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md), we use the [Vale](https://github.com/errata-ai/vale) linter. Addressing Vale comments on the PR expedites the review process. You can also install Vale locally as follows so you can address the comments before creating a PR:
 
-1. Run `brew install vale`.
+1. Download and install [Vale version 2.28.0](https://github.com/errata-ai/vale/releases/tag/v2.28.0).
 2. Run `vale *` from the documentation site root directory to lint all Markdown files. To lint a specific file, run `vale /path/to/file`.
 
 Optionally, you can install the [Vale VSCode](https://github.com/chrischinchilla/vale-vscode) extension, which integrates Vale with Visual Studio Code. By default, only _errors_ and _warnings_ are underlined. To change the minimum alert level to include _suggestions_, go to **Vale VSCode** > **Extension Settings** and select **suggestion** in the **Vale > Vale CLI: Min Alert Level** dropdown list. 
