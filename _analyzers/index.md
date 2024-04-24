@@ -66,7 +66,7 @@ If needed, you can combine tokenizers, token filters, and character filters to c
 
 With the introduction of OpenSearch `v2.12.1`, you can retrieve a comprehensive list of all available text analysis components by using [Nodes Info]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/). This can be helpful when building custom analyzers, especially in cases where you need to recall the component's name or identify the analysis plugin to which the component belongs.
 
-Introduced 2.12.1
+Introduced 2.14
 {: .label .label-purple }
 
 ```json
