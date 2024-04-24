@@ -176,7 +176,7 @@ rm client.ext
 
 ## Sample script to convert PEM certificates to keystore and truststore
 
-If you want to generate keystore and truststore from the above generated PEM certificates, following script can be used:
+If you want to generate keystore and truststore from the previously generated PEM certificates, following script can be used:
 
 ```bash
 #!/bin/sh
