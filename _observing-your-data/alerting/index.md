@@ -12,7 +12,7 @@ redirect_from:
 
 Alerting in OpenSearch enables proactive monitoring and timely response to potential issues or anomalies within your data and applications. Whether you're building and maintaining applications or ensuring the smooth operation of systems, alerting has a crucial role in maintaining system health and minimizing downtime.
 
-OpenSearch provides an alerting framework that allows you to define custom rules and conditions based on your specific requirements. These rules can be applied to various data sources, such as logs, metrics, and application data, so that you can detect and respond to a range of events or patterns. By setting up alerts, you can receive notifications through various channels, such as email, messaging platforms, or integrated monitoring tools, ensuring that you're informed immediately about critical events or deviations from expected behavior.
+In OpenSearch, you can configure alerts by creating monitors that run on a defined schedule and query indexes. You define triggers that specify conditions for generating alert events, such as thresholds on a specific field. You can also configure actions for the alerts, such as sending notifications through email, Slack, or custom webhooks. OpenSearch Dashboards brings alerting and monitoring directly into the dashboard experience, allowing you to overlay alerts and anomalies visually on time-series charts for enhanced insights.
 
 ## Key terms
 
@@ -28,6 +28,9 @@ Notification | Message that is sent to users when an alert is triggered.
 
 ## Alerting settings
 
+Some key alerting settings in OpenSearch include the ability to customize trigger conditions, severity levels, notification channels, and recurrence intervals for monitors. You can modify settings like notification message templates, throttling to avoid duplicate alerts, and status expiration periods. 
+
+<SME: Do we have specific settings to include in this section? If so, please provide the setting name, description, and default setting.>
 
 ## Alerting states
 
@@ -45,8 +48,8 @@ Deleted | The monitor or trigger associated with this alert was deleted while th
 
 Learn more about the following features:
 
-- [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) for information about monitor types
-- [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) for more information about triggers
-- [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for more information about actions
+- [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/)
+- [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)
+- [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
 - [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/)
