@@ -153,11 +153,11 @@ A user requiring access to view visualizations will also require access to the i
 
 #### Tenant permissions
 
-If you use tenants to split work between teams or projects, use the all (`*`) option followed by the **Read only** option, as demonstrated in the following image:
+If you use tenants to split work between teams or projects, use the all (`*`) option followed by the **Read only** option, as shown in the following image.
 
 ![creating role]({{site.url}}{{site.baseurl}}/images/role_creation_read_only.png)
 
-After setting all permission types and defining the role, you can map the role directly to a user on the role's **Mapped users** tab. Select **Map users** and then choose a user to map to the role, as outlined in the following example:
+After setting all permission types and defining the role, you can map the role directly to a user on the role's **Mapped users** tab. Select **Map users** and then choose a user to map to the role, as shown in the following image.
 
 ![mapping users]({{site.url}}{{site.baseurl}}/images/mapping-users.png)
 
