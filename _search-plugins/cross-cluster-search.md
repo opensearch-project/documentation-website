@@ -29,6 +29,12 @@ The following sequence describes the authentication flow when using cross-cluste
 1. The call, including the authenticated user, is forwarded to the remote cluster.
 1. The user's permissions are evaluated on the remote cluster.
 
+## Prerequisite
+
+In order to use proxy mode, you need to ensure that:
+- the source cluster's nodes is able to connect to the configured proxy_address. 
+- the proxy should be able to route connections to the remote cluster nodes.
+
 
 ## Setting permissions
 
@@ -267,7 +273,7 @@ It is sufficient to point to only one of the node IPs on the remote cluster beca
 
 You can now run queries across both clusters:
 
-```json
+```bash
 curl -XGET -k -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/opensearch-ccs-cluster2:books/_search?pretty'
 {
   ...
@@ -285,7 +291,7 @@ curl -XGET -k -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:92
 ## Sample Kubernetes/Helm setup
 If you are using Kubernetes clusters to deploy OpenSearch, you need to configure the remote cluster using either the `LoadBalancer` or `Ingress`. The Kubernetes services created using the following [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) example are of the `ClusterIP` type and are only accessible from within the cluster; therefore, you must use an externally accessible endpoint:
 
-```json
+```bash
 curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://opensearch-domain-1:9200/_cluster/settings' -d '
 {
   "persistent": {
@@ -314,18 +320,18 @@ stream {
     }
     server {
         listen 8300;
-        ssl_certificate /.../opensearch-2.12.0/config/esnode.pem;
-        ssl_certificate_key /.../opensearch-2.12.0/config/esnode-key.pem;
-        ssl_trusted_certificate /.../opensearch-2.12.0/config/root-ca.pem;
+        ssl_certificate /.../opensearch-<VERSION>/config/esnode.pem;
+        ssl_certificate_key /.../opensearch-<VERSION>/config/esnode-key.pem;
+        ssl_trusted_certificate /.../opensearch-<VERSION>/config/root-ca.pem;
         proxy_pass opensearch-transport;
         ssl_preread on;
     }
     server {
         listen 443;
         listen [::]:443;
-        ssl_certificate /.../opensearch-2.12.0/config/esnode.pem;
-        ssl_certificate_key /.../opensearch-2.12.0/config/esnode-key.pem;
-        ssl_trusted_certificate /.../opensearch-2.12.0/config/root-ca.pem;
+        ssl_certificate /.../opensearch-<VERSION>/config/esnode.pem;
+        ssl_certificate_key /.../opensearch-<VERSION>/config/esnode-key.pem;
+        ssl_trusted_certificate /.../opensearch-<VERSION>/config/root-ca.pem;
         proxy_pass opensearch-http;
         ssl_preread on;
     }
