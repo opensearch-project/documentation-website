@@ -128,7 +128,7 @@ openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreate
 ```
 
 
-## Sample script
+## Sample script to generate self-signed PEM certificates
 
 If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration dates of two years (730 days):
 
@@ -174,6 +174,31 @@ rm client.csr
 rm client.ext
 ```
 
+## Sample script to convert PEM certificates to KeyStore and TrustStore
+
+If you want to generate KeyStore and TrustStore from the above generated PEM certificates, following script can be used:
+
+```bash
+#!/bin/sh
+cat root-ca.pem node1.pem node1-key.pem > combined-node1.pem
+openssl pkcs12 -export -in combined-node1.pem -out node1-cert.p12 -name node1
+#prompts for password for node1-cert.p12
+keytool -importkeystore -srckeystore node1-cert.p12 -srcstoretype pkcs12 -destkeystore node1-keystore.jks
+#prompts for password for node1-keystore
+
+cat root-ca.pem admin.pem admin-key.pem > combined-admin.pem
+openssl pkcs12 -export -in combined-admin.pem -out admin-cert.p12 -name admin
+#prompts for password for admin-cert.p12
+keytool -importkeystore -srckeystore admin-cert.p12 -srcstoretype pkcs12 -destkeystore admin-keystore.jks
+#prompts for password for admin-keystore.jks
+
+keytool -importcert -keystore node1-store.jks -file root-ca.pem -alias node1 -storepass changeit -trustcacerts -deststoretype pkcs12
+
+keytool -importcert -keystore admin-store.jks -file root-ca.pem -alias admin -storepass changeit -trustcacerts -deststoretype pkcs12
+
+rm combined-admin.pem
+rm combined-node1.pem
+```
 
 ## Add distinguished names to opensearch.yml
 
