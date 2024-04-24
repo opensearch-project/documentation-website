@@ -47,19 +47,15 @@ Consider the following requirements when setting up or creating alerting visuali
 
 By default, when you begin to create an alert monitor workflow using OpenSearch Dashboards, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. These options are used to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. 
 
-You can only create [per query and per bucket monitors]({{site.url}}{{site.baseurl}}observing-your-data/alerting/per-query-bucket-monitors/) from within OpenSearch Dashboards. All other monitor types require configuration at the cluster-level.
+You can only create [per query and per bucket monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) from within visualizations.
 {: .note}
 
-To create a monitor, follow these steps:
+To create a monitor from within a visualization, follow these steps:
 
-1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
-2. Choose **Create monitor**.
-3. Enter the **Monitor details**, including monitor type, method, and schedule.
-4. Select a data source from the dropdown list.	
-5. Define the metrics in the Query section.	
-6. Add a trigger.
-7. Add an action.
-8. Select **Create**.
+1. Save your dashboard. If you are unfamiliar with saving dashboards, see [Saving dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#saving-dashboards).
+2. Select **Alerting** from the **Options** dropdown menu.
+3. 
+
 
 ## Associating monitors with visualizations
 
@@ -88,6 +84,12 @@ To configure alerts, follow these steps:
 ## Building alerting quieries
 
 <SME: Please provide an example query that can be input using OpenSearch Dashboards. What are the steps the user will follow?>
+
+An alerting query consists of the monitor, triggers, and actions. The monitor determines the frequency at which the query is executed. Triggers define the specific conditions that, when met, cause an alert to be raised. Actions specify the notifications that are sent when an alert is triggered. The monitor runs the query, triggers evaluate the results for the defined conditions, and actions initiate the specified notifications when those conditions are satisfied. This structure enables you to establish flexible alerting rules that continuously monitor your OpenSearch data and promptly notify you of significant events.
+
+The following is an example query:
+
+<SME: insert example query>
 
 ## Viewing events
 

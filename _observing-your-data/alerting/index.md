@@ -44,6 +44,21 @@ State | Description
 `error` | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
 Deleted | The monitor or trigger associated with this alert was deleted while the alert was ongoing.
 
+## Create a monitor from within OpenSearch Dashboards
+
+You can create monitors at the cluster-level and from within OpenSearch Dashboards. This documentation is about OpenSearch Dashboards. See [Alerting API](/observing-your-data/alerting/api/) for details about how to programmatically create, update, and manage monitors and alerts.
+
+The following steps guide you through creating a basic monitor:
+
+1. In the **OpenSearch Plugins** main menu, choose **Alerting**.
+2. Choose **Create monitor**.
+3. Enter the **Monitor details**, including monitor type, method, and schedule.
+4. Select a data source from the dropdown list.	
+5. Define the metrics in the Query section.	
+6. Add a trigger.
+7. Add an action.
+8. Select **Create**.
+
 ## Next steps
 
 Learn more about the following features:
