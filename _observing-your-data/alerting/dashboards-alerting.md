@@ -47,7 +47,7 @@ Consider the following requirements when setting up or creating alerting visuali
 
 By default, when you begin to create an alert monitor workflow using OpenSearch Dashboards, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. These options are used to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. 
 
-You can only create [per query and per bucket monitors]({{site.url}}{{site.baseurl}}observing-your-data/alerting/per-query-bucket-monitors/) from within OpenSearch Dashboards. All other monitor types require configuration at the cluster-level.
+You can only create [per query and per bucket monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/) from within OpenSearch Dashboards. All other monitor types require configuration at the cluster-level.
 {: .note}
 
 To create a monitor, follow these steps:
