@@ -123,7 +123,7 @@ The following command removes a keystore setting:
 
 No response exists for this command. To confirm that the setting was deleted, use `opensearch-keystore list`.
 
-Full list of secure settings which can be configured using opensearch-keystore is available at [(Advanced) Using encrypted password settings for SSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-using-encrypted-password-settings-for-ssl)
+Full list of secure settings which can be configured using `opensearch-keystore` is available at [(Advanced) Using encrypted password settings for SSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-using-encrypted-password-settings-for-ssl)
 {: .note}
 
 ## Keystore entries as OpenSearch settings
