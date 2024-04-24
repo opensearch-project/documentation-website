@@ -319,6 +319,19 @@ See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) in the API Refere
 - cluster:admin/tasks/test
 - cluster:admin/tasks/testunblock
 
+### Data source permissions
+
+See [Data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/)
+
+- cluster:admin/opensearch/ql/datasources/create
+- cluster:admin/opensearch/ql/datasources/read
+- cluster:admin/opensearch/ql/datasources/update
+- cluster:admin/opensearch/ql/datasources/delete
+- cluster:admin/opensearch/ql/datasources/patch
+- cluster:admin/opensearch/ql/async_query/create
+- cluster:admin/opensearch/ql/async_query/result
+- cluster:admin/opensearch/ql/async_query/delete
+
 ### Security Analytics permissions
 
 See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
