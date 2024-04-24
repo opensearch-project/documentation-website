@@ -7,7 +7,7 @@ nav_order: 50
 
 # OpenSearch keystore
 
-`opensearch-keystore` is a utility script used to manage an OpenSearch keystore. An OpenSearch keystore provides a secure method of storing sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings. It is included in the OpenSearch distribution. This is completely separate to KeyStore and TrustStore used to store TLS certificates in JKS or PKCS12/PFX format for transport and HTTP layer outlined in [Keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#keystore-and-truststore-files)
+`opensearch-keystore` is a utility script used to manage an OpenSearch keystore. An OpenSearch keystore provides a secure method of storing sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings. It is included in the OpenSearch distribution. This is completely separate to keystore and truststore used to store TLS certificates in JKS or PKCS12/PFX format for transport and HTTP layer outlined in [Keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#keystore-and-truststore-files)
 
 ## Usage
 
@@ -126,6 +126,6 @@ No response exists for this command. To confirm that the setting was deleted, us
 Full list of secure settings which can be configured using opensearch-keystore is available at [(Advanced) Using encrypted password settings for SSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-using-encrypted-password-settings-for-ssl)
 {: .note}
 
-## KeyStore entries as OpenSearch settings
+## Keystore entries as OpenSearch settings
 
 After a setting has been added to a keystore, it is implicitly added to the OpenSearch configuration as if it were another entry in `opensearch.yml`. To modify a keystore entry use `./bin/opensearch-keystore upgrade <setting>`. To remove an entry, use `./bin/opensearch-keystore remove <setting>`.

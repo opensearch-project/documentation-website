@@ -174,28 +174,31 @@ rm client.csr
 rm client.ext
 ```
 
-## Sample script to convert PEM certificates to KeyStore and TrustStore
+## Sample script to convert PEM certificates to keystore and truststore
 
-If you want to generate KeyStore and TrustStore from the above generated PEM certificates, following script can be used:
+If you want to generate keystore and truststore from the above generated PEM certificates, following script can be used:
 
 ```bash
 #!/bin/sh
+
+# Convert node certificate
 cat root-ca.pem node1.pem node1-key.pem > combined-node1.pem
+echo "Enter password for node1-cert.p12"
 openssl pkcs12 -export -in combined-node1.pem -out node1-cert.p12 -name node1
-#prompts for password for node1-cert.p12
-keytool -importkeystore -srckeystore node1-cert.p12 -srcstoretype pkcs12 -destkeystore node1-keystore.jks
-#prompts for password for node1-keystore
+echo "Enter password for keystore.jks"
+keytool -importkeystore -srckeystore node1-cert.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
 
+# Convert admin certificate
 cat root-ca.pem admin.pem admin-key.pem > combined-admin.pem
+echo "Enter password for admin-cert.p12"
 openssl pkcs12 -export -in combined-admin.pem -out admin-cert.p12 -name admin
-#prompts for password for admin-cert.p12
-keytool -importkeystore -srckeystore admin-cert.p12 -srcstoretype pkcs12 -destkeystore admin-keystore.jks
-#prompts for password for admin-keystore.jks
+echo "Enter password for keystore.jks"
+keytool -importkeystore -srckeystore admin-cert.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
 
-keytool -importcert -keystore node1-store.jks -file root-ca.pem -alias node1 -storepass changeit -trustcacerts -deststoretype pkcs12
+# Import certificates to truststore
+keytool -importcert -keystore truststore.jks -file root-ca.cer -storepass changeit -trustcacerts -deststoretype pkcs12
 
-keytool -importcert -keystore admin-store.jks -file root-ca.pem -alias admin -storepass changeit -trustcacerts -deststoretype pkcs12
-
+# Cleanup
 rm combined-admin.pem
 rm combined-node1.pem
 ```

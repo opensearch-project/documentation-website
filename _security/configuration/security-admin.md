@@ -127,9 +127,9 @@ Name | Description
 `-keypass` | The password of the private key of the admin certificate, if any.
 `-cacert` | The location of the PEM file containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
 
-## Using securityadmin with KeyStore and TrustStore files
+## Using securityadmin with keystore and truststore files
 
-You can also use KeyStore files in JKS format in conjunction with `securityadmin.sh`:
+You can also use keystore files in JKS format in conjunction with `securityadmin.sh`:
 
 ```bash
 ./securityadmin.sh -cd ../../../config/opensearch-security -icl -nhnv
@@ -137,20 +137,21 @@ You can also use KeyStore files in JKS format in conjunction with `securityadmin
   -ks <path/to/keystore> -kspass <keystore password>
 ```
 
-Use the following options to control the key and TrustStore settings.
+Use the following options to control the key and truststore settings.
 
 Name | Description
 :--- | :---
-`-ks` | The location of the KeyStore containing the admin certificate and all intermediate certificates, if any. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
-`-kspass` | The password for the KeyStore.
+`-ks` | The location of the keystore containing the admin certificate and all intermediate certificates, if any. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
+`-kspass` | The password for the keystore.
 `-kst` | The key store type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
 `-ksalias` | The alias of the admin certificate, if any.
-`-ts` | The location of the TrustStore containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
-`-tspass` | The password for the TrustStore.
-`-tst` | The TrustStore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
+`-ts` | The location of the truststore containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
+`-tspass` | The password for the truststore.
+`-tst` | The truststore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
 `-tsalias` | The alias for the root certificate, if any.
 
-The Certificate Authority used to sign `admin` certificate, does not need to be the same Certificate Authority that was used to sign transport or HTTP certificates, however it needs to be added to the TrustStore to be able to validate the certificate. Further details are available in [generate certificates]({{site.url}}{{site.baseurl}}/security/access-control/api/asdasdasd)
+The Certificate Authority used to sign `admin` certificate, does not need to be the same Certificate Authority that was used to sign transport or HTTP certificates, however it needs to be added to the truststore to be able to validate the certificate. Further details are available in [Generate node and client certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#optional-generate-node-and-client-certificates)
+{: .note}
 
 ## Sample commands
 
@@ -175,7 +176,7 @@ Apply a single YAML file (`config.yml`) using PEM certificates:
   -t config
 ```
 
-Apply all YAML files in `config/opensearch-security/` with KeyStore and TrustStore files:
+Apply all YAML files in `config/opensearch-security/` with keystore and truststore files:
 
 ```bash
 ./securityadmin.sh \
