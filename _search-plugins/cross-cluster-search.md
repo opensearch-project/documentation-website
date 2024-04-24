@@ -305,7 +305,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 
 ## OpenSearch behind a proxy
-You can configure cross-cluster search on a cluster running behind a proxy. There are many ways to configure a reverse proxy and various proxies to chose from. The following example demonstrates the basic NGINX reverse proxy configuration without TLS termination. OpenSearch is expected to be running with both transport and HTTP TLS encryption enabled. For more information about configuring TLS encryption, see [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
+You can configure cross-cluster search on a cluster running behind a proxy. There are many ways to configure a reverse proxy and various proxies to choose from. The following example demonstrates the basic NGINX reverse proxy configuration without TLS termination. OpenSearch is expected to be running with both transport and HTTP TLS encryption enabled. For more information about configuring TLS encryption, see [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
 
 ### Proxy configuration
 The basic NGINX configuration for HTTP and transport communication follows:
