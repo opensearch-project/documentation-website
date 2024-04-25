@@ -12,7 +12,11 @@ redirect_from:
 
 Alerting in OpenSearch enables proactive monitoring and timely response to potential issues or anomalies within your data and applications. Whether you're building and maintaining applications or ensuring the smooth operation of systems, alerting has a crucial role in maintaining system health and minimizing downtime.
 
-In OpenSearch, you can configure alerts by creating monitors that run on a defined schedule and query indexes. You define triggers that specify conditions for generating alert events, such as thresholds on a specific field. You can also configure actions for the alerts, such as sending notifications through email, Slack, or custom webhooks. OpenSearch Dashboards brings alerting and monitoring directly into the dashboard experience, allowing you to overlay alerts and anomalies visually on time-series charts for enhanced insights.
+In OpenSearch, you can configure alerts by creating monitors that run on a defined schedule and query indexes. You define triggers that specify conditions for generating alert events, such as thresholds on a specific field. You can also configure actions for the alerts, such as sending notifications through email, Slack, or custom webhooks. OpenSearch Dashboards brings alerting and monitoring directly into the dashboard experience, allowing you to overlay alerts and anomalies visually on time-series charts for enhanced insights. 
+
+An example configuration is shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-config.png" alt="Alerting monitor configuration" width="500"/>
 
 ## Key terms
 
@@ -44,9 +48,9 @@ State | Description
 `error` | An error occurred while executing the trigger---usually the result of a bad trigger or destination.
 Deleted | The monitor or trigger associated with this alert was deleted while the alert was ongoing.
 
-## Create a monitor from within OpenSearch Dashboards
+## Creating alerts from within OpenSearch Dashboards
 
-You can create monitors at the cluster-level and from within OpenSearch Dashboards. This documentation is about OpenSearch Dashboards. See [Alerting API](/observing-your-data/alerting/api/) for details about how to programmatically create, update, and manage monitors and alerts.
+You can create alerts at the cluster-level and from within OpenSearch Dashboards. This documentation is about OpenSearch Dashboards. See [Alerting API](/observing-your-data/alerting/api/) for details about how to programmatically create, update, and manage monitors and alerts.
 
 The following steps guide you through creating a basic monitor:
 
