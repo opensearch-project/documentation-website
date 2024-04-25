@@ -34,7 +34,7 @@ The following table lists the required and optional parameters for the `rename` 
 `field`  | Required  | The field name containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `target_field`  | Required  | The new name of the field. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor does not modify the document if the `field` does not exist. Default is `false`. |
-`override_target`  | Optional  | Determines the behavior when `target_field` already exists in the document. If set to `true`, the processor overwrites the existing `target_field` value with the new value. Default is `false`. |
+`override_target`  | Optional  | Determines what happens when `target_field` exists in the document. If set to `true`, the processor overwrites the existing `target_field` value with the new value. Default is `false`. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, failures are ignored. Default is `false`. |
