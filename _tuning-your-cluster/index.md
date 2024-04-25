@@ -3,9 +3,11 @@ layout: default
 title: Creating a cluster
 nav_order: 1
 nav_exclude: true
+permalink: /tuning-your-cluster/
 redirect_from: 
   - /opensearch/cluster/
   - /tuning-your-cluster/cluster/
+  - /tuning-your-cluster/index/
 ---
 
 # Creating a cluster
@@ -175,7 +177,7 @@ less /var/log/opensearch/opensearch-cluster.log
 Perform the following `_cat` query on any node to see all the nodes formed as a cluster:
 
 ```bash
-curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:admin' --insecure
+curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:<custom-admin-password>' --insecure
 ```
 
 ```

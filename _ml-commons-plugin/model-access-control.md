@@ -114,4 +114,65 @@ PUT _cluster/settings
 
 Model access control is achieved through the Model Group APIs. These APIs include the register, search, update, and delete model group operations.
 
-For information about model access control API, see [Model group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/).
+For information about APIs related to model access control, see [Model Group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/).
+
+## Hidden models
+**Introduced 2.12**
+{: .label .label-purple }
+
+To hide model details from end users, including the cluster admin, you can register a _hidden_ model. If a model is hidden, the non-superadmin users don't have permission to call any [Model APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/) except for the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) on the model.
+
+Only superadmin users can register a hidden model. A hidden model can be one of the OpenSearch-provided pretrained models, your own custom model, or an externally hosted model. To register a hidden model, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates):
+
+```bash
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opendistro_security/_search'
+```
+
+All models created by a superadmin user are automatically registered as hidden. To register a hidden model, send a request to the `_register` endpoint:
+
+```bash
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/models/_register' -H 'Content-Type: application/json' -d '
+{
+    "name": "OPENSEARCH_ASSISTANT_MODEL",
+    "function_name": "remote",
+    "description": "OpenSearch Assistant Model",
+    "connector": {
+        "name": "Bedrock Claude Connector",
+        "description": "The connector to Bedrock Claude",
+        "version": 1,
+        "protocol": "aws_sigv4",
+        "parameters": {
+          "region": "us-east-1",
+          "service_name": "bedrock"
+        },
+        "credential": {
+            "access_key": "<YOUR_ACCESS_KEY>",
+            "secret_key": "<YOUR_SECRET_KEY>",
+            "session_token": "<YOUR_SESSION_TOKEN>"
+        },
+        "actions": [
+           {
+            "action_type": "predict",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json"
+            },
+            "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke",
+            "request_body": "{\"prompt\":\"\\n\\nHuman: ${parameters.inputs}\\n\\nAssistant:\",\"max_tokens_to_sample\":300,\"temperature\":0.5,\"top_k\":250,\"top_p\":1,\"stop_sequences\":[\"\\\\n\\\\nHuman:\"]}"
+          }
+       ]
+    }
+}'
+```
+{% include copy.html %}
+
+Once a hidden model is registered, only a superadmin can invoke operations on the model, including the deploy, undeploy, delete, and get API operations. For example, to deploy a hidden model, send the following request. In this request, `q7wLt4sBaDRBsUkl9BJV` is the model ID:
+
+```json
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/models/q7wLt4sBaDRBsUkl9BJV/_deploy'
+```
+{% include copy.html %}
+
+The `model_id` of a hidden model is the model `name`. A hidden model includes an `is_hidden` parameter that is set to `true`. You cannot change a hidden model's `is_hidden` parameter.
+
+Admin users can change access to a model by updating its backend roles. 
