@@ -6,7 +6,7 @@ parent: User guide
 ---
 
 
-At the end of each test run, a summary table is produced which includes metrics like service time, throughput, latency and more. These metrics provide insights into how the workload selected performed on a benchmarked OpenSearch cluster.
+At the end of each test run, a summary table is produced which includes metrics like service time, throughput, latency, and more. These metrics provide insights into how the workload selected performed on a benchmarked OpenSearch cluster.
 
 The following guide gives information about to understand the results of the summary report and what steps to take before running another test on your cluster.
 
@@ -104,10 +104,10 @@ While an OpenSearch Benchmark summary report provides many metrics related to th
 |                                                     error rate |                                       term |           0 |      % |
 ```
 
-The unique metrics to yhe cluster begin at the `index` task line. The following two use cases can give you an idea of what metrics might be relevant to you:
+Metrics unique to the cluster begin at the `index` task line. The following two use cases can give you an idea of what metrics might be relevant to you:
 
 - To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run. 
-- To assess how fast you can query against documents in your cluster, the `match_all` and `term` give both the number of query operations performed per second and the measurable latency of the query.
+- To assess the measurable latency and service time of the queries in the workload, the `match_all` and `term` give both the number of query operations performed per second and the measurable latency of the query.
 
 
 ## Result storage
@@ -119,7 +119,7 @@ When stored in-memory, results can be found in the `/.benchmark/benchmarks/test_
 While [running a test](https://opensearch.org/docs/latest/benchmark/reference/commands/execute-test/#general-settings), you can also customize where the results are stored, using any combination of the following command flags:
 
 * `--results-file`: When provided a file path, writes the compare results to the file indicated in the path.
-* `--results-format`: Defines the output format for the command line results, either markdown or csv. Default is `markdown`.
+* `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
 * `--show-in-results`: Determines whether or not to include a comparison to previous runs in the results file. 
 * `--user-tag`: Defines user-specific key-value pairs to be used in metric record as meta information, for example, `intention:baseline-ticket-12345`.
 
