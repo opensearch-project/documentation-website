@@ -10,26 +10,104 @@ At the end of each test run, a summary table is produced which includes metrics 
 
 The following guide gives information about to understand the results of the summary report and what steps to take before running another test on your cluster.
 
-## Selecting metrics to compare
-
-While an OpenSearch Benchmark summary report provides many metrics related to the performance of your cluster, how to compare and use those metrics depends on your use case. Some users might be interested in the number of documents their can index, while another might be interested in how much latency it takes to query a document. For example, during the OpenSearch Benchmark nightly runs, the OpenSearch teams pulls the following metrics from the summary report:
-
-!---- Insert example summary report here -----
-
-```
-```
-
-
 ## OpenSearch Benchmark runs
 
 OpenSearch Benchmark runs a series of nightly tests targeting the overall OpenSearch development cluster. These runs can be found on https://opensearch.org/benchmarks. It compares several metrics across different test runs targeting both recent and future versions of OpenSearch.
 
-As as well as measuring performance stability and gathering data that informs the development of OpenSearch, you can use these nightly runs to illustrate how to make visualizations from the Summary Report.
+## Selecting metrics to compare
 
+While an OpenSearch Benchmark summary report provides many metrics related to the performance of your cluster, how to compare and use those metrics depends on your use case. Some users might be interested in the number of documents their can index, while another might be interested in how much latency it takes to query a document. For example, during the OpenSearch Benchmark nightly runs, the OpenSearch teams pulls metrics similar to the following summary report:
 
-## Important metrics
+```bash
+------------------------------------------------------
+    _______             __   _____
+   / ____(_)___  ____ _/ /  / ___/_________  ________
+  / /_  / / __ \/ __ `/ /   \__ \/ ___/ __ \/ ___/ _ \
+ / __/ / / / / / /_/ / /   ___/ / /__/ /_/ / /  /  __/
+/_/   /_/_/ /_/\__,_/_/   /____/\___/\____/_/   \___/
+------------------------------------------------------
 
-To understand the results produced by the Benchmark test, we recommend looking at the following metrics in the Summary report:
+|                                                         Metric |                                       Task |       Value |   Unit |
+|---------------------------------------------------------------:|-------------------------------------------:|------------:|-------:|
+|                     Cumulative indexing time of primary shards |                                            |     0.02655 |    min |
+|             Min cumulative indexing time across primary shards |                                            |           0 |    min |
+|          Median cumulative indexing time across primary shards |                                            |  0.00176667 |    min |
+|             Max cumulative indexing time across primary shards |                                            |   0.0140333 |    min |
+|            Cumulative indexing throttle time of primary shards |                                            |           0 |    min |
+|    Min cumulative indexing throttle time across primary shards |                                            |           0 |    min |
+| Median cumulative indexing throttle time across primary shards |                                            |           0 |    min |
+|    Max cumulative indexing throttle time across primary shards |                                            |           0 |    min |
+|                        Cumulative merge time of primary shards |                                            |   0.0102333 |    min |
+|                       Cumulative merge count of primary shards |                                            |           3 |        |
+|                Min cumulative merge time across primary shards |                                            |           0 |    min |
+|             Median cumulative merge time across primary shards |                                            |           0 |    min |
+|                Max cumulative merge time across primary shards |                                            |   0.0102333 |    min |
+|               Cumulative merge throttle time of primary shards |                                            |           0 |    min |
+|       Min cumulative merge throttle time across primary shards |                                            |           0 |    min |
+|    Median cumulative merge throttle time across primary shards |                                            |           0 |    min |
+|       Max cumulative merge throttle time across primary shards |                                            |           0 |    min |
+|                      Cumulative refresh time of primary shards |                                            |   0.0709333 |    min |
+|                     Cumulative refresh count of primary shards |                                            |         118 |        |
+|              Min cumulative refresh time across primary shards |                                            |           0 |    min |
+|           Median cumulative refresh time across primary shards |                                            |  0.00186667 |    min |
+|              Max cumulative refresh time across primary shards |                                            |   0.0511667 |    min |
+|                        Cumulative flush time of primary shards |                                            |  0.00963333 |    min |
+|                       Cumulative flush count of primary shards |                                            |           4 |        |
+|                Min cumulative flush time across primary shards |                                            |           0 |    min |
+|             Median cumulative flush time across primary shards |                                            |           0 |    min |
+|                Max cumulative flush time across primary shards |                                            |  0.00398333 |    min |
+|                                        Total Young Gen GC time |                                            |           0 |      s |
+|                                       Total Young Gen GC count |                                            |           0 |        |
+|                                          Total Old Gen GC time |                                            |           0 |      s |
+|                                         Total Old Gen GC count |                                            |           0 |        |
+|                                                     Store size |                                            | 0.000485923 |     GB |
+|                                                  Translog size |                                            | 2.01873e-05 |     GB |
+|                                         Heap used for segments |                                            |           0 |     MB |
+|                                       Heap used for doc values |                                            |           0 |     MB |
+|                                            Heap used for terms |                                            |           0 |     MB |
+|                                            Heap used for norms |                                            |           0 |     MB |
+|                                           Heap used for points |                                            |           0 |     MB |
+|                                    Heap used for stored fields |                                            |           0 |     MB |
+|                                                  Segment count |                                            |          32 |        |
+|                                                 Min Throughput |                                      index |     3008.97 | docs/s |
+|                                                Mean Throughput |                                      index |     3008.97 | docs/s |
+|                                              Median Throughput |                                      index |     3008.97 | docs/s |
+|                                                 Max Throughput |                                      index |     3008.97 | docs/s |
+|                                        50th percentile latency |                                      index |     351.059 |     ms |
+|                                       100th percentile latency |                                      index |     365.058 |     ms |
+|                                   50th percentile service time |                                      index |     351.059 |     ms |
+|                                  100th percentile service time |                                      index |     365.058 |     ms |
+|                                                     error rate |                                      index |           0 |      % |
+|                                                 Min Throughput |                   wait-until-merges-finish |       28.41 |  ops/s |
+|                                                Mean Throughput |                   wait-until-merges-finish |       28.41 |  ops/s |
+|                                              Median Throughput |                   wait-until-merges-finish |       28.41 |  ops/s |
+|                                                 Max Throughput |                   wait-until-merges-finish |       28.41 |  ops/s |
+|                                       100th percentile latency |                   wait-until-merges-finish |     34.7088 |     ms |
+|                                  100th percentile service time |                   wait-until-merges-finish |     34.7088 |     ms |
+|                                                     error rate |                   wait-until-merges-finish |           0 |      % |
+|                                                 Min Throughput |                                  match_all |       36.09 |  ops/s |
+|                                                Mean Throughput |                                  match_all |       36.09 |  ops/s |
+|                                              Median Throughput |                                  match_all |       36.09 |  ops/s |
+|                                                 Max Throughput |                                  match_all |       36.09 |  ops/s |
+|                                       100th percentile latency |                                  match_all |     35.9822 |     ms |
+|                                  100th percentile service time |                                  match_all |     7.93048 |     ms |
+|                                                     error rate |                                  match_all |           0 |      % |
+
+[...]
+
+|                                                 Min Throughput |                                       term |        16.1 |  ops/s |
+|                                                Mean Throughput |                                       term |        16.1 |  ops/s |
+|                                              Median Throughput |                                       term |        16.1 |  ops/s |
+|                                                 Max Throughput |                                       term |        16.1 |  ops/s |
+|                                       100th percentile latency |                                       term |     131.798 |     ms |
+|                                  100th percentile service time |                                       term |     69.5237 |     ms |
+|                                                     error rate |                                       term |           0 |      % |
+```
+
+The unique metrics to yhe cluster begin at the `index` task line. The following two use cases can give you an idea of what metrics might be relevant to you:
+
+- To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run. 
+- To assess how fast you can query against documents in your cluster, the `match_all` and `term` give both the number of query operations performed per second and the measurable latency of the query.
 
 
 ## Result storage
