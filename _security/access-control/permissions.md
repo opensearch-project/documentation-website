@@ -131,7 +131,7 @@ Keep in mind that enabling this feature and mapping system index permissions to 
 
 ### `do_not_fail_on_forbidden`
 
-If the user attempts to query multiple indices, some of which they lack permission for, by default they will get an `error` in OpenSearch Dashboards UI, or an `exception` using `cURL` or API. If instead, you want the user to receive the results from the search for any of the indices they _do_ have permission for, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
+If the user attempts to query multiple indexes, some of which they lack permission for, by default they will get an `error` in OpenSearch Dashboards UI, or an `exception` using `cURL` or API. If instead, you want the user to receive the results from the search for any of the indexes they _do_ have permission for, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
 
 ```
 _meta:
@@ -490,7 +490,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/write/bulk*` |  Permission to run a bulk request. |
 | `indices:data/write/delete` |  Permission to [delete documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/). |
 | `indices:data/write/delete/byquery` |  Permission to delete all documents that [match a query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/). |
-| `indices:data/write/plugins/replication/changes` |  Permission to make changes to data replication configurations and settings within indices. |
+| `indices:data/write/plugins/replication/changes` |  Permission to make changes to data replication configurations and settings within indexes. |
 | `indices:data/write/index` |  Permission to add documents to existing indexes. See also [Index document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/ ). |
 | `indices:data/write/reindex` |  Permission to run a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/). |
 | `indices:data/write/update` | Permission to update an index. |
