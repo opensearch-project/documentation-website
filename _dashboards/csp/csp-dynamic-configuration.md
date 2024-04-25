@@ -13,7 +13,7 @@ Content Security Policy (CSP) is a security standard intended to prevent cross-s
 
 ## Configuration
 
-The `applicationConfig` plugin provides read and write APIs that allow OpenSearch Dashboards users to manage dynamic configurations as key-value pairs in an index. The `cspHandler` plugin registers a pre-response handler to `HttpServiceSetup`, which gets `frame-ancestors` value from the dependent `applicationConfig` plugin and then rewrites to the CSP header. Enable both plugins within your `opensearch_dashboards.yml` file to use this feature. The configuration is shown in the following example. Refer to the `cspHandler` plugin [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/csp_handler/README.md) for configuration details.
+The `applicationConfig` plugin provides read and write APIs that allow OpenSearch Dashboards users to manage dynamic configurations as key-value pairs in an index. The `cspHandler` plugin registers a pre-response handler to `HttpServiceSetup`, which gets `frame-ancestors` value from the dependent `applicationConfig` plugin and then rewrites to the CSP header. Enable both plugins within your `opensearch_dashboards.yml` file to use this feature. The configuration is shown in the following example. Refer to [`cspHandler` plugin](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/csp_handler/README.md) for configuration details.
 
 ```
 application_config.enabled: true
@@ -22,7 +22,7 @@ csp_handler.enabled: true
 
 ## Enable site embedding for OpenSearch Dashboards
 
-To enable site embedding for OpenSearch Dashboards, update the directive `frame-ancestors` in the CSP rules using CURL. When using CURL commands with single quotation marks inside the `data-raw` parameter, escape them with a backslash (`\`). For example, use `'\''` to represent `'`. The configuration is shown in the following example. Refer to the `applicationConfig` plugin [README](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/application_config/README.md) for configuration details.
+To enable site embedding for OpenSearch Dashboards, update the directive `frame-ancestors` in the CSP rules using CURL. When using CURL commands with single quotation marks inside the `data-raw` parameter, escape them with a backslash (`\`). For example, use `'\''` to represent `'`. The configuration is shown in the following example. Refer to [`applicationConfig` plugin](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/application_config/README.md) for configuration details.
 
 ```
 curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'osd-xsrf: osd-fetch' -H 'Sec-Fetch-Dest: empty' --data-raw '{"newValue":"{new site}"}'
