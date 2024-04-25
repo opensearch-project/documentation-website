@@ -12,7 +12,9 @@ OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini
 
 The file is separated into the following sections, which you can customize based on the needs of your cluster.
 
+<!-- vale off -->
 ## meta
+<!-- vale on -->
 
 This section contains meta information about the configuration file.
 
@@ -20,7 +22,9 @@ This section contains meta information about the configuration file.
 | :---- | :---- | :---- |
 | `config.version` | Integer |  The version of the configuration file format. This property is managed by OpenSearch Benchmark and should not be changed. |
 
+<!-- vale off -->
 ## system
+<!-- vale on -->
 
 This section contains global information for the current benchmark environment. This information should be identical on all machines on which OpenSearch Benchmark is installed.
 
@@ -31,7 +35,9 @@ This section contains global information for the current benchmark environment. 
 | `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's asyncio event loop. Default is `false`. |
 | `passenv` | String | A comma-separated list of environment variable names that should be passed to OpenSearch for processing. |
 
+<!-- vale off -->
 ## node
+<!-- vale on -->
 
 This section contains node-specific information that can be customized according to the needs of your cluster.
 
@@ -40,7 +46,9 @@ This section contains node-specific information that can be customized according
 | `root.dir` | String | The directory that stores all OpenSearch Benchmark data. OpenSearch Benchmark assumes control over this directory and all its subdirectories. |
 | `src.root.dir` | String | The directory from which the OpenSearch source code and any OpenSearch plugins are called. Only relevant for benchmarks from [sources](#source). |
 
+<!-- vale off -->
 ## source
+<!-- vale on -->
 
 This section contains more details about the OpenSearch source tree.
 
@@ -51,7 +59,9 @@ This section contains more details about the OpenSearch source tree.
 | `cache` | Boolean | Enables OpenSearch's internal source artifact cache, `opensearch*.tar.gz`, and any plugin zip files. Artifacts are cached based on their Git revision. Default is `true`. |
 | `cache.days` | Integer | The number of days that an artifact should be kept in the source artifact cache. Default is `7`. |
 
+<!-- vale off -->
 ## benchmarks
+<!-- vale on -->
 
 This section contains the settings that can be customized in the OpenSearch Benchmark data directory.
 
@@ -59,7 +69,9 @@ This section contains the settings that can be customized in the OpenSearch Benc
 | :---- | :---- | :---- |
 | `local.dataset.cache` | String | The directory in which benchmark datasets are stored. Depending on the benchmarks that are run, this directory may contain hundreds of GB of data. Default path is `$HOME/.benchmark/benchmarks/data`. |
 
+<!-- vale off -->
 ## results_publishing
+<!-- vale on -->
 
 This section defines how benchmark metrics are stored.
 
@@ -70,7 +82,9 @@ This section defines how benchmark metrics are stored.
 | metrics.request.downsample.factor | Integer| (default: 1): Determines how many service time and latency samples are saved in the metrics store. By default, all values are saved. If you want to, for example. keep only every 100th sample, specify `100`. This is useful to avoid overwhelming the metrics store in benchmarks with many clients. Default is `1`. |
 | `output.processingtime` | Boolean | If set to `true`, OpenSearch shows the additional metric processing time in the command line report. Default is `false`. |
 
+<!-- vale off -->
 ### `datastore.type` parameters
+<!-- vale on -->
 
 When `datastore.type` is set to `opensearch`, the following reporting settings can be customized.
 
@@ -116,12 +130,15 @@ datastore.user = user-name
 datastore.password = the-password-to-your-cluster
 ```
 
+<!-- vale off -->
 ## workloads
+<!-- vale on -->
 
 This section defines how workloads are retrieved. All keys are read by OpenSearch using the syntax `<<workload-repository-name>>.url`, which you can select using the OpenSearch Benchmark CLI `--workload-repository=workload-repository-name"` option. By default, OpenSearch chooses the workload repository using the `default.url` `https://github.com/opensearch-project/opensearch-benchmark-workloads`.
 
-
+<!-- vale off -->
 ## defaults
+<!-- vale on -->
 
 This section defines the default values of certain OpenSearch Benchmark CLI parameters.
 
@@ -129,7 +146,9 @@ This section defines the default values of certain OpenSearch Benchmark CLI para
 | :---- | :---- | :---- |
 | `preserve_benchmark_candidate` | Boolean | Determines whether OpenSearch installations are preserved or wiped by default after a benchmark. To preserve an installation for a single benchmark, use the command line flag `--preserve-install`. Default is `false`. 
 
+<!-- vale off -->
 ## distributions
+<!-- vale on -->
 
 This section defines how OpenSearch versions are distributed.
 
