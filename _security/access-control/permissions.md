@@ -154,7 +154,7 @@ It is important to remember that if this option is set to `true`, the user will 
 
 ### `do_not_fail_on_forbidden_empty`
 
-When the user views visualization which returns empty result due to lack of permissions, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.` you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
+When the user views a visualization which they lack index permissions for, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.` you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
 
 ```
 _meta:
