@@ -7,12 +7,19 @@ nav_order: 330
 
 # User agent processor
 
-The `user_agent` processor is used to <explain what is used to do>.
+The `user_agent` processor is used to extract information from the user agent string, such as the browser, device, and operating system used by the client.
 
 The following is the syntax for the `user_agent` processor:
 
 ```json
-<insert syntax example>
+{
+  "processor": {
+    "user_agent": {
+      "field": "user_agent",
+      "target_field": "user_agent_info"
+    }
+  }
+}
 ```
 {% include copy-curl.html %}
 
@@ -22,7 +29,9 @@ The following table lists the required and optional parameters for the `user_age
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-<insert the parameters>
+`field` | Required | The field containing the user agent string.
+`target_field` | Optional | The field to store the extracted user agent information. If not specified, the information is stored in the `user_agent` field.
+
 
 ## Using the processor
 
