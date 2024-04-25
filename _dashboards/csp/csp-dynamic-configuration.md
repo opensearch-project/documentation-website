@@ -48,3 +48,7 @@ curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors'
 ## Precedence
 
 Dynamic configurations override YAML configurations, except for empty CSP rules. To prevent `clickjacking`, a `frame-ancestors: self` directive is automatically added to YAML-defined rules when necessary.
+
+## Fine-grained access control (FGAC)
+
+When security plugin is enabled, only users with write permission to the configuration index (`.opensearch_dashboards_config`) are able to call the mutating APIs. The API calls must have valid cookie with security information. To construct such a curl command, you can use a "copy as curl" option from the network tab of a browser development tool. For `GET` APIs, you can find an existing `GET` XHR request with type `json` from the network tab, copy as curl and then replace with the `appconfig` API names. Similarly, for `POST` and `DELETE` APIs, you can find an existing `POST` XHR request and update API name and the value of `--data-raw` accordingly. `DELETE` APIs shall have their request method updated to `-X DELETE`.
