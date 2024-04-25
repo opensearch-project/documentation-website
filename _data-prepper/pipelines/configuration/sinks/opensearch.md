@@ -159,7 +159,7 @@ Alternately, rather than admin credentials, you can specify the credentials of a
 - Index: `.opendistro-ism-config`; Index permission: `indices_all`
 - Index: `*`; Index permission: `manage_aliases`
 
-For instructions on how to map users to roles, see [Map users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles).
+For instructions on how to map users to roles, see [Map users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#mapping-users-to-roles).
 
 ## Amazon OpenSearch Service domain security
 
