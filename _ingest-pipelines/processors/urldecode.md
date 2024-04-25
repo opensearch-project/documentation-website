@@ -7,22 +7,35 @@ nav_order: 320
 
 # URL decode processor
 
-The `url_decode` processor is used to <explain what is used to do>.
+The `urldecode` processor is useful for decoding URL-encoded strings that may be present in log data or other text fields. This can make the data more readable and easier to analyze, especially when dealing with URLs or query parameters that contain special characters or spaces.
 
-The following is the syntax for the `url_decode` processor:
+The following is the syntax for the `urldecode` processor:
 
 ```json
-<insert syntax example>
+{
+  "urldecode": {
+    "field": "field_to_decode",
+    "target_field": "decoded_field"
+  }
+}
 ```
 {% include copy-curl.html %}
 
 ## Configuration parameters
 
-The following table lists the required and optional parameters for the `url_decode` processor.
+The following table lists the required and optional parameters for the `urldecode` processor.
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-<insert the parameters>
+`field`  | Required  | The field containing the URL-encoded string to be decoded. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`target_field`  | Required  | The field where the decoded string is stored. If not specified, the decoded string is stored in the same field as the original encoded string. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor ignores missing values in the `field` and leaves the `target_field` unchanged. Default is `false`. |
+`override_target`  | Optional  | Determines what happens when `target_field` exists in the document. If set to `true`, the processor overwrites the existing `target_field` value with the new value. If set to `false`, the existing value remains and the processor does not overwrite it. Default is `false`. |
+`description`  | Optional  | A brief description of the processor.  |
+`if` | Optional | A condition for running the processor. |
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, failures are ignored. Default is `false`. |
+`on_failure` | Optional | A list of processors to run if the processor fails. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 
 ## Using the processor
 
@@ -30,10 +43,21 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline, named <name>, that uses the `url_decode` processor to <do what?>: 
+The following query creates a pipeline named `urldecode_pipeline` that uses the `urldecode` processor to decode the URL-encoded string in the `encoded_url` field and store the decoded string in the `decoded_url` field: 
 
 ```json
-<insert pipeline code example>
+PUT _ingest/pipeline/urldecode_pipeline
+{
+  "description": "Decode URL-encoded strings",
+  "processors": [
+    {
+      "urldecode": {
+        "field": "encoded_url",
+        "target_field": "decoded_url"
+      }
+    }
+  ]
+}
 ```
 {% include copy-curl.html %}
 
@@ -45,7 +69,16 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-<insert code example>
+POST _ingest/pipeline/urldecode_pipeline/_simulate
+{
+  "docs": [
+    {
+      "_source": {
+        "encoded_url": "https://example.com/search?q=hello%20world"
+      }
+    }
+  ]
+}
 ```
 {% include copy-curl.html %}
 
@@ -54,7 +87,23 @@ To test the pipeline, run the following query:
 The following example response confirms that the pipeline is working as expected:
 
 ```json
-<insert response example>
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "decoded_url": "https://example.com/search?q=hello world",
+          "encoded_url": "https://example.com/search?q=hello%20world"
+        },
+        "_ingest": {
+          "timestamp": "2024-04-25T23:16:44.886165001Z"
+        }
+      }
+    }
+  ]
+}
 ```
 
 ### Step 3: Ingest a document 
@@ -62,16 +111,32 @@ The following example response confirms that the pipeline is working as expected
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-<insert code example>
+PUT testindex1/_doc/1?pipeline=url_decode_pipeline
+{
+  "encoded_url": "https://example.com/search?q=url%20decode%20test"
+}
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The request indexes the document into the index <index name> and will index all documents with <what does this response tell the user?>.
+The request indexes the document into the index `testindex1` and will index all documents with the 
+`encoded_url` field, which will be processed by the `urldecode_pipeline` to populate the `decoded_url` field.
 
 ```json
-<insert code example>
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 67,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 68,
+  "_primary_term": 47
+}
 ```
 
 ### Step 4 (Optional): Retrieve the document
@@ -79,8 +144,25 @@ The request indexes the document into the index <index name> and will index all 
 To retrieve the document, run the following query:
 
 ```json
-<insert code example>
+GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-<Provide any other information and code examples relevant to the user or use cases.>
+#### Response
+
+The response includes the original `encoded_url` field and the `decoded_url` field:
+
+```json
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 67,
+  "_seq_no": 68,
+  "_primary_term": 47,
+  "found": true,
+  "_source": {
+    "decoded_url": "https://example.com/search?q=url decode test",
+    "encoded_url": "https://example.com/search?q=url%20decode%20test"
+  }
+}
+```
