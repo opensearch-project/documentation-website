@@ -54,7 +54,6 @@ To create a monitor from within a visualization, follow these steps:
 
 1. Save your dashboard. If you are unfamiliar with saving dashboards, see [Saving dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#saving-dashboards).
 2. Select **Alerting** from the **Options** dropdown menu.
-3. 
 
 
 ## Associating monitors with visualizations
