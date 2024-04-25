@@ -106,8 +106,8 @@ While an OpenSearch Benchmark summary report provides many metrics related to th
 
 Metrics unique to the cluster begin at the `index` task line. The following two use cases can give you an idea of what metrics might be relevant to you:
 
-- To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run. 
-- To assess the measurable latency and service time of the queries in the workload, the `match_all` and `term` give both the number of query operations performed per second and the measurable latency of the query.
+- To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run, as well as the ingestion error rate. 
+- To assess the measurable latency and service time of the queries in the workload, the `match_all` and `term` give both the number of query operations performed per second and the measurable latency of the query, as well as the error rate when running query operations.
 
 
 ## Result storage
