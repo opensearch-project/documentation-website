@@ -175,6 +175,50 @@ For the warmup operation to function properly, follow these best practices:
 
 * Don't index any documents that you want to load into the cache. Writing new information to segments prevents the warmup API operation from loading the native library indexes until they're searchable. This means that you would have to run the warmup operation again after indexing finishes.
 
+## k-NN Clear Cache
+Introduced 2.14
+{: .label .label-purple }
+
+During approximate k-Nearest Neighbor (k-NN) search or warmup operation, the native library indices(for `nmslib` and `faiss` engines) are loaded into native memory. Currently, the possible ways to evict an index from cache or native memory is by either deleting the index or by setting a 
+couple of k-NN cluster settings(`knn.cache.item.expiry.enabled` and `knn.cache.item.expiry.minutes`) which will remove the index out of the cache if they are idle for a given amount of time. But, there is no way to evict a given index out of cache without deleting the index. To solve this problem, 
+we can use the k-NN clear cache api operation which helps to clear given set of indices out of the cache.
+
+This clear cache api evicts all the native library files for all the shards(primaries and replicas) of all the indices specified in the request. Like [warmup operation](#warmup-operation) this k-NN clear cache api is idempotent where if an index has been already evicted from cache it has no impact.
+
+**Note**: This api operation works only with indices created using `nmslib` and `faiss` engines and has no impact on the indices created using `lucene` engine.
+
+### Usage
+This request evicts the native library indices of these three indices from cache:
+```json
+GET /_plugins/_knn/clear_cache/index1,index2,index3?pretty
+{
+  "_shards" : {
+    "total" : 6,
+    "successful" : 6,
+    "failed" : 0
+  }
+}
+```
+`total` indicates number of shards the api attempted to clear from cache. The response also includes the number of shards the plugin succeeded and failed to clear.
+
+k-NN clear cache api can also be used with index patterns to clear one or more indices that matches the given pattern from cache like shown below:
+```json
+GET /_plugins/_knn/clear_cache/index*?pretty
+{
+  "_shards" : {
+    "total" : 6,
+    "successful" : 6,
+    "failed" : 0
+  }
+}
+```
+
+The api call does not return results until the operation finishes or the request times out. If the request times out, the operation still continues on the cluster. To monitor the request, use the OpenSearch `_tasks` API:
+```json
+GET /_tasks
+```
+After the operation has finished, use the [k-NN `_stats` API operation](#stats) to see the indices that are evicted from cache by the k-NN plugin.
+
 ## Get Model
 Introduced 1.2
 {: .label .label-purple }
