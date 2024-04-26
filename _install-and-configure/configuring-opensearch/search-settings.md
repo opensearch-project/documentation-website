@@ -35,6 +35,8 @@ OpenSearch supports the following search settings:
 
 - `search.highlight.term_vector_multi_value` (Static, Boolean): Specifies to highlight snippets across values of a multi-valued field. Default is `true`.
 
+- `search.max_aggregation_rewrite_filters` (Dynamic, integer): The maximum allowed number of rewrite filters during aggregation. Set to 0 to disable the filter rewrite optimization in aggregation.
+
 ## Point in Time settings
 
 For information about PIT settings, see [PIT settings]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time-api/#pit-settings).
