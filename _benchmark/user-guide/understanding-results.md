@@ -119,7 +119,7 @@ When stored in-memory, results can be found in the `/.benchmark/benchmarks/test_
 While [running a test](https://opensearch.org/docs/latest/benchmark/reference/commands/execute-test/#general-settings), you can also customize where the results are stored, using any combination of the following command flags:
 
 * `--results-file`: When provided a file path, writes the summary report to the file indicated in the path.
-* `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
+* `--results-format`: Defines the output format for the summary report results, either `markdown` or `csv`. Default is `markdown`.
 * `--show-in-results`:  Defines which values are shown in the published summary report, either `available`, `all-percentiles`, or `all`. Default is `available`.
 * `--user-tag`: Defines user-specific key-value pairs to be used in the metric record as meta information, for example, `intention:baseline-ticket-12345`. This is useful when storing metrics and results in an external metric store.
 
