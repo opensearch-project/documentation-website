@@ -27,10 +27,9 @@ The following table lists the required and optional parameters for the `urldecod
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The field containing the URL-encoded string to be decoded. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`target_field`  | Required  | The field where the decoded string is stored. If not specified, the decoded string is stored in the same field as the original encoded string. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
+`field`  | Required  | The field containing the URL-encoded string to be decoded. |
+`target_field`  | Optional  | The field where the decoded string is stored. If not specified, the decoded string is stored in the same field as the original encoded string. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor ignores missing values in the `field` and leaves the `target_field` unchanged. Default is `false`. |
-`override_target`  | Optional  | Determines what happens when `target_field` exists in the document. If set to `true`, the processor overwrites the existing `target_field` value with the new value. If set to `false`, the existing value remains and the processor does not overwrite it. Default is `false`. |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, failures are ignored. Default is `false`. |
