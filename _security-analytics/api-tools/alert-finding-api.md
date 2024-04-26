@@ -11,7 +11,8 @@ nav_order: 50
 The following APIs can be used for tasks related to alerts and findings.
 
 ---
-## Get Alerts
+
+## Get alerts
 
 Provides an option for retrieving alerts related to a specific detector type or detector ID.
 
@@ -21,12 +22,12 @@ You can specify the following parameters when requesting an alert.
 
 Parameter | Description 
 :--- | :---
-`detectorId` | The ID of the detector used to fetch alerts. Optional when the `detectorType` is specified. Otherwise required.
-`detectorType` | The type of detector used to fetch alerts. Optional when the `detectorId` is specified. Otherwise required.
+`detector_id` | The ID of the detector used to fetch alerts. Optional when the `detectorType` is specified. Otherwise required.
+`detectorType` | The type of detector used to fetch alerts. Optional when the `detector_Id` is specified. Otherwise required.
 `severityLevel` | Used to filter by alert severity level. Optional.
-`alertState` | Used to filter by alert state. Possible values: ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, DELETED. Optional.
+`alertState` | Used to filter by alert state. Possible values are ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, or DELETED. Optional.
 `sortString` | This field specifies which string Security Analytics uses to sort the alerts. Optional.
-`sortOrder` | The order used to sort the list of findings, either `ascending` or `descending`. Optional.
+`sortOrder` | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional.
 `missing` | A list of fields for which there are no found alias mappings. Optional.
 `size` | An optional limit for the maximum number of results returned in the response. Optional.
 `startIndex` | The pagination indicator. Optional.
@@ -83,7 +84,10 @@ State | Description
 `DELETED` | Someone deleted the detector or trigger associated with this alert while the alert was ongoing.
 
 ---
-## Acknowledge Alerts
+
+## Acknowledge alerts
+
+Sends an acknowledgement when an alert is triggered.
 
 ### Example request
 
@@ -134,11 +138,240 @@ POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
 ```
 
 ---
-## Get Findings
 
-The Get findings API based on detector attributes.
+## Get findings
+
+The Get findings API returns findings based on the detector attributes.
+
+### Parameters
+
+You can specify the following parameters when getting findings.
+
+Parameter | Description 
+:--- | :---
+`detector_id` | The ID of the detector used to fetch alerts. Optional.
+`detectorType` | The type of detector used to fetch alerts. Optional.
+`sortOrder` | The order used to sort the list of findings. Possible values are `asc` or `desc`. Optional.
+`size` | An optional limit for the maximum number of results returned in the response. Optional.
+`startIndex` | The pagination indicator. Optional.
+`detectionType` |  The detection rule type that dictates the retrieval type for the findings. When the detection type is `threat`, it fetches threat intelligence feeds. When the detection type is `rule`, findings are fetched based on the detector's rule. Optional.
+`severity` |  The severity of the detector rule used to fetch alerts. Severity can be `critical`, `high`, `medium`, or `low`. Optional.
 
 ### Example request
+
+```json
+GET /_plugins/_security_analytics/findings/_search
+{
+  "total_findings": 2,
+  "findings": [
+    {
+      "detectorId": "b9ZN040Bjlggkcgx1d1W",
+      "id": "35efb736-c5d9-499d-b9b5-31f0a7d61251",
+      "related_doc_ids": [
+        "1"
+      ],
+      "index": "smallidx",
+      "queries": [
+        {
+          "id": "QdZN040Bjlggkcgxdd3X",
+          "name": "QdZN040Bjlggkcgxdd3X",
+          "fields": [],
+          "query": "field1: *value1*",
+          "tags": [
+            "high",
+            "ad_ldap"
+          ]
+        }
+      ],
+      "timestamp": 1708647166500,
+      "document_list": [
+        {
+          "index": "smallidx",
+          "id": "1",
+          "found": true,
+          "document": "{\n  \"field1\": \"value1\"\n}\n"
+        }
+      ]
+    },
+    {
+      "detectorId": "O9ZM040Bjlggkcgx6N1S",
+      "id": "a5022930-4503-4ca8-bf0a-320a2b1fb433",
+      "related_doc_ids": [
+        "1"
+      ],
+      "index": "smallidx",
+      "queries": [
+        {
+          "id": "KtZM040Bjlggkcgxkd04",
+          "name": "KtZM040Bjlggkcgxkd04",
+          "fields": [],
+          "query": "field1: *value1*",
+          "tags": [
+            "critical",
+            "ad_ldap"
+          ]
+        }
+      ],
+      "timestamp": 1708647166500,
+      "document_list": [
+        {
+          "index": "smallidx",
+          "id": "1",
+          "found": true,
+          "document": "{\n  \"field1\": \"value1\"\n}\n"
+        }
+      ]
+    }
+  ]
+}
+
+```
+
+```json
+GET /_plugins/_security_analytics/findings/_search?severity=high
+{
+    "total_findings": 1,
+    "findings": [
+        {
+            "detectorId": "b9ZN040Bjlggkcgx1d1W",
+            "id": "35efb736-c5d9-499d-b9b5-31f0a7d61251",
+            "related_doc_ids": [
+                "1"
+            ],
+            "index": "smallidx",
+            "queries": [
+                {
+                    "id": "QdZN040Bjlggkcgxdd3X",
+                    "name": "QdZN040Bjlggkcgxdd3X",
+                    "fields": [],
+                    "query": "field1: *value1*",
+                    "tags": [
+                        "high",
+                        "ad_ldap"
+                    ]
+                }
+            ],
+            "timestamp": 1708647166500,
+            "document_list": [
+                {
+                    "index": "smallidx",
+                    "id": "1",
+                    "found": true,
+                    "document": "{\n  \"field1\": \"value1\"\n}\n"
+                }
+            ]
+        }
+    ]
+}
+        
+```
+
+```json
+GET /_plugins/_security_analytics/findings/_search?detectionType=rule
+{
+    "total_findings": 2,
+    "findings": [
+        {
+            "detectorId": "b9ZN040Bjlggkcgx1d1W",
+            "id": "35efb736-c5d9-499d-b9b5-31f0a7d61251",
+            "related_doc_ids": [
+                "1"
+            ],
+            "index": "smallidx",
+            "queries": [
+                {
+                    "id": "QdZN040Bjlggkcgxdd3X",
+                    "name": "QdZN040Bjlggkcgxdd3X",
+                    "fields": [],
+                    "query": "field1: *value1*",
+                    "tags": [
+                        "high",
+                        "ad_ldap"
+                    ]
+                }
+            ],
+            "timestamp": 1708647166500,
+            "document_list": [
+                {
+                    "index": "smallidx",
+                    "id": "1",
+                    "found": true,
+                    "document": "{\n  \"field1\": \"value1\"\n}\n"
+                }
+            ]
+        },
+        {
+            "detectorId": "O9ZM040Bjlggkcgx6N1S",
+            "id": "a5022930-4503-4ca8-bf0a-320a2b1fb433",
+            "related_doc_ids": [
+                "1"
+            ],
+            "index": "smallidx",
+            "queries": [
+                {
+                    "id": "KtZM040Bjlggkcgxkd04",
+                    "name": "KtZM040Bjlggkcgxkd04",
+                    "fields": [],
+                    "query": "field1: *value1*",
+                    "tags": [
+                        "critical",
+                        "ad_ldap"
+                    ]
+                }
+            ],
+            "timestamp": 1708647166500,
+            "document_list": [
+                {
+                    "index": "smallidx",
+                    "id": "1",
+                    "found": true,
+                    "document": "{\n  \"field1\": \"value1\"\n}\n"
+                }
+            ]
+        }
+    ]
+}
+
+
+```
+```json
+GET /_plugins/_security_analytics/findings/_search?detectionType=rule&severity=high
+{
+    "total_findings": 1,
+    "findings": [
+        {
+            "detectorId": "b9ZN040Bjlggkcgx1d1W",
+            "id": "35efb736-c5d9-499d-b9b5-31f0a7d61251",
+            "related_doc_ids": [
+                "1"
+            ],
+            "index": "smallidx",
+            "queries": [
+                {
+                    "id": "QdZN040Bjlggkcgxdd3X",
+                    "name": "QdZN040Bjlggkcgxdd3X",
+                    "fields": [],
+                    "query": "field1: *value1*",
+                    "tags": [
+                        "high",
+                        "ad_ldap"
+                    ]
+                }
+            ],
+            "timestamp": 1708647166500,
+            "document_list": [
+                {
+                    "index": "smallidx",
+                    "id": "1",
+                    "found": true,
+                    "document": "{\n  \"field1\": \"value1\"\n}\n"
+                }
+            ]
+        }
+    ]
+}
+        
+```
 
 ```json
 GET /_plugins/_security_analytics/findings/_search?*detectorType*=

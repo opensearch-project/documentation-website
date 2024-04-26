@@ -6,10 +6,14 @@ nav_order: 10
 redirect_from:
    - /api-reference/ingest-apis/processors/append/
 ---
- 
+
+This documentation describes using the `append` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `add_entries` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/add-entries/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+{: .note}
+
 # Append processor
 
 The `append` processor is used to add values to a field:
+
 - If the field is an array, the `append` processor appends the specified values to that array.
 - If the field is a scalar field, the `append` processor converts it to an array and appends the specified values to that array.
 - If the field does not exist, the `append` processor creates an array with the specified values.

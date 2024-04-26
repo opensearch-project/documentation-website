@@ -5,17 +5,18 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /data-prepper/
 redirect_from: 
   - /clients/data-prepper/index/
-  - /data-prepper/
   - /monitoring-plugins/trace/data-prepper/
+  - /data-prepper/index/
 ---
 
 # Data Prepper
 
-Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization.
+Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization. Data Prepper is the preferred data ingestion tool for OpenSearch. It is recommended for most data ingestion use cases in OpenSearch and for processing large, complex datasets.
 
-Data Prepper lets users build custom pipelines to improve the operational view of applications. Two common uses for Data Prepper are trace and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/index/) can help you visualize the flow of events and identify performance problems, and [log analytics]({{site.url}}{{site.baseurl}}/observability-plugin/log-analytics/) can improve searching, analyzing and provide insights into your application.
+With Data Prepper you can build custom pipelines to improve the operational view of applications. Two common use cases for Data Prepper are trace analytics and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/index/) can help you visualize event flows and identify performance problems. [Log analytics]({{site.url}}{{site.baseurl}}/observability-plugin/log-analytics/) equips you with tools to enhance your search capabilities, conduct comprehensive analysis, and gain insights into your applications' performance and behavior.
 
 ## Concepts
 

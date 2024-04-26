@@ -9,7 +9,7 @@ redirect_from:
 
 # Managing OpenSearch Dashboards plugins
 
-OpenSearch Dashboards provides a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
+OpenSearch Dashboards provides a command line tool called `opensearch-dashboards-plugin` for managing plugins. This tool allows you to:
 
 - List installed plugins.
 - Install plugins.
@@ -36,7 +36,7 @@ The following table lists available OpenSearch Dashboards plugins.
 | Anomaly Detection Dashboards | [anomaly-detection-dashboards-plugin](https://github.com/opensearch-project/anomaly-detection-dashboards-plugin) | 1.0.0 |
 | Custom Import Maps Dashboards | [dashboards-maps](https://github.com/opensearch-project/dashboards-maps) | 2.2.0 |
 | Search Relevance Dashboards | [dashboards-search-relevance](https://github.com/opensearch-project/dashboards-search-relevance) | 2.4.0 |
-| Gantt Chart Dashboards | [gantt-chart](https://github.com/opensearch-project/dashboards-visualizations/tree/main/gantt-chart) | 1.0.0 |
+| Gantt Chart Dashboards | [gantt-chart](https://github.com/opensearch-project/dashboards-visualizations) | 1.0.0 |
 | Index Management Dashboards | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
 | Notebooks Dashboards | [dashboards-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 |
 | Notifications Dashboards | [dashboards-notifications](https://github.com/opensearch-project/dashboards-notifications) | 2.0.0 |

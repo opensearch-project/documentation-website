@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Enabling telemetry devices
-nav_order: 15
+nav_order: 30
 parent: User guide
 ---
 
