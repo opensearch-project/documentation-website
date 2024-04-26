@@ -121,7 +121,7 @@ PUT testindex1/_doc/1?pipeline=trim_pipeline
 
 #### Response
 
-The request indexes the document into the index `testindex1` and indexes all documents with the `raw_text` field, which is processed by the `trim_pipeline` to populate the `trimmed_text` field.
+The request indexes the document into the index `testindex1` and indexes all documents with the `raw_text` field, which is processed by the `trim_pipeline`, to populate the `trimmed_text` field.
 
 ```json
   "_index": "testindex1",
