@@ -199,7 +199,7 @@ POST /_ingest/pipeline/_simulate
 {
   "pipeline" :
   {
-    "description": "Splits text on whitespace characters",
+    "description": "Splits text on white space characters",
     "processors": [
       {
         "csv" : {

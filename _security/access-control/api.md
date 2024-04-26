@@ -29,6 +29,13 @@ plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
 {% include copy.html %}
 
+If you're working with APIs that manage `Distinguished names` or `Certificates` that require super admin access, enable the REST API admin configuration in your `opensearch.yml` file as shown in the following setting example:
+
+```yml
+plugins.security.restapi.admin.enabled: true
+```
+{% include copy.html %}
+
 These roles can now access all APIs. To prevent access to certain APIs:
 
 ```yml
@@ -1290,6 +1297,91 @@ PATCH _plugins/_security/api/securityconfig
 }
 ```
 
+### Configuration upgrade check
+
+Introduced 2.13
+{: .label .label-purple }
+
+Checks the current configuration bundled with the host's Security plugin and compares it to the version of the OpenSearch Security plugin the user downloaded. Then, the API responds indicating whether or not an upgrade can be performed and what resources can be updated.
+
+With each new OpenSearch version, there are changes to the default security configuration. This endpoint helps cluster operators determine whether the cluster is missing defaults or has stale definitions of defaults.
+{: .note}
+
+#### Request
+
+```json
+GET _plugins/_security/api/_upgrade_check
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status" : "OK",
+  "upgradeAvailable" : true,
+  "upgradeActions" : {
+    "roles" : {
+      "add" : [ "flow_framework_full_access" ]
+    }
+  }
+}
+```
+
+#### Response fields
+
+| Field    | Data type  | Description                   |
+|:---------|:-----------|:------------------------------|
+| `upgradeAvailable`   | Boolean     | Responds with `true` when an upgrade to the security configuration is available.  |
+| `upgradeActions`  | Object list    | A list of security objects that would be modified when upgrading the host's Security plugin.  |
+
+### Configuration upgrade
+
+Introduced 2.13
+{: .label .label-purple }
+
+Adds and updates resources on a host's existing security configuration from the configuration bundled with the latest version of the Security plugin.
+
+These bundled configuration files can be found in the `<OPENSEARCH_HOME>/security/config` directory. Default configuration files are updated when OpenSearch is upgraded, whereas the cluster configuration is only updated by the cluster operators. This endpoint helps cluster operator upgrade missing defaults and stale default definitions. 
+
+
+#### Request
+
+```json
+POST _plugins/_security/api/_upgrade_perform
+{
+  "configs" : [ "roles" ]
+}
+```
+{% include copy-curl.html %}
+
+#### Request fields
+
+| Field           | Data type  | Description                                                                                                       | Required |
+|:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
+| `configs`              | Array    | Specifies the configurations to be upgraded. This field can include any combination of the following configurations: `actiongroups`,`allowlist`, `audit`, `internalusers`, `nodesdn`, `roles`, `rolesmappings`, `tenants`.<br>  Default is all supported configurations.  | No      |
+
+
+#### Example response
+
+```json
+{
+  "status" : "OK",
+  "upgrades" : {
+    "roles" : {
+      "add" : [ "flow_framework_full_access" ]
+    }
+  }
+}
+```
+
+#### Response fields
+
+| Field    | Data type  | Description                   |
+|:---------|:-----------|:------------------------------|
+| `upgrades`    | Object    | A container for the upgrade results, organized by configuration type, such as `roles`. Each changed configuration type will be represented as a key in this object.           |
+| `roles`     | Object    | Contains a list of role-based action keys of objects modified by the upgrade. |
+
 ---
 
 ## Distinguished names
@@ -1623,7 +1715,7 @@ GET _plugins/_security/health
 
 The following API is available for audit logging in the Security plugin.
 
-### Enable Audit Logs
+### Enable audit logs
 
 This API allows you to enable or disable audit logging, define the configuration for audit logging and compliance, and make updates to settings.
 

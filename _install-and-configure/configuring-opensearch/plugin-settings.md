@@ -25,6 +25,10 @@ For information about asynchronous search settings, see [Asynchronous Search set
 
 For information about cross-cluster replication settings, see [Replication settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/settings/).
 
+## Flow Framework plugin settings
+
+For information about automatic workflow settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-settings/).
+
 ## Geospatial plugin settings
 
 For information about the Geospatial plugin's IP2Geo processor settings, see [Cluster settings]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ip2geo/#cluster-settings).
@@ -78,6 +82,10 @@ The Notifications plugin supports the following settings. All settings in this l
 - `opensearch.notifications.core.tooltip_support` (Boolean): Enables tooltip support for the Notifications plugin. Use the `GET /_plugins/_notifications/features` API to retrieve the value of this setting. Default is `true`.
 
 - `opensearch.notifications.general.filter_by_backend_roles` (Boolean): Enables filtering by backend roles (role-based access control for the notification channels). Default is `false`.
+
+## Query Insights plugin settings
+
+For information about Query Insights plugin settings, see [Query insights settings]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/index#query-insights-settings).
 
 ## Security plugin settings
 

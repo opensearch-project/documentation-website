@@ -20,9 +20,15 @@ By default, ML tasks and models only run on ML nodes. When configured without th
 node.roles: [ ml ]
 ```
 
+### Setting up a cluster with a dedicated ML node
+
+To set up a cluster with a dedicated ML node, see the sample [Docker compose file](https://github.com/opensearch-project/ml-commons/blob/main/docs/docker/docker-compose.yml).
+
 ## Run tasks and models on ML nodes only
 
 If `true`, ML Commons tasks and models run ML tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. 
+
+We suggest running ML workloads on a dedicated ML node rather than on data nodes. Starting with OpenSearch 2.5, ML tasks run on ML nodes only by default. To test models on a data node, set `plugins.ml_commons.only_run_on_ml_node` to `false`.
 
 We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on production clusters. 
 {: .tip}
@@ -220,6 +226,8 @@ Sets a circuit breaker that checks all system memory usage before running an ML 
 
 Values are based on the percentage of memory available. When set to `0`, no ML tasks will run. When set to `100`, the circuit breaker closes and no threshold exists.
 
+Starting with OpenSearch 2.5, ML Commons runs a native memory circuit breaker to avoid an out-of-memory error when loading too many models. By default, the native memory threshold is 90%. If memory usage exceeds the threshold, ML Commons returns an error. For testing purposes, you can disable the circuit breaker by setting `plugins.ml_commons.native_memory_threshold` to 100.
+
 ### Setting
 
 ```
@@ -230,6 +238,33 @@ plugins.ml_commons.native_memory_threshold: 90
 
 - Default value: 90
 - Value range: [0, 100]
+
+## Set JVM heap memory threshold
+
+Sets a circuit breaker that checks JVM heap memory usage before running an ML task. If the heap usage exceeds the threshold, OpenSearch triggers a circuit breaker and throws an exception to maintain optimal performance.
+
+Values are based on the percentage of JVM heap memory available. When set to `0`, no ML tasks will run. When set to `100`, the circuit breaker closes and no threshold exists.
+
+### Setting
+
+```
+plugins.ml_commons.jvm_heap_memory_threshold: 85
+```
+
+### Values
+
+- Default value: 85
+- Value range: [0, 100]
+
+## Exclude node names
+
+Use this setting to specify the names of nodes on which you don't want to run ML tasks. The value should be a valid node name or a comma-separated node name list.
+
+### Setting
+
+```
+plugins.ml_commons.exclude_nodes._name: node1, node2
+```
 
 ## Allow custom deployment plans
 
@@ -244,6 +279,21 @@ plugins.ml_commons.allow_custom_deployment_plan: false
 ### Values
 
 - Default value: false
+- Valid values: `false`, `true`
+
+## Enable auto deploy
+
+This setting is applicable when you send a prediction request for an externally hosted model that has not been deployed. When set to `true`, this setting automatically deploys the model to the cluster if the model has not been deployed already. 
+
+### Setting
+
+```
+plugins.ml_commons.model_auto_deploy.enable: false
+```
+
+### Values
+
+- Default value: `true`
 - Valid values: `false`, `true`
 
 ## Enable auto redeploy
@@ -318,10 +368,110 @@ plugins.ml_commons.connector_access_control_enabled: true
 
 ### Values
 
-- Default value: false
+- Default value: `false`
+- Valid values: `false`, `true`
+
+## Enable a local model
+
+This setting allows a cluster admin to enable running local models on the cluster. When this setting is `false`, users will not be able to run register, deploy, or predict operations on any local model.
+
+### Setting
+
+```
+plugins.ml_commons.local_model.enabled: true
+```
+
+### Values
+
+- Default value: `true`
+- Valid values: `false`, `true`
+
+## Node roles that can run externally hosted models
+
+This setting allows a cluster admin to control the types of nodes on which externally hosted models can run.  
+
+### Setting
+
+```
+plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
+```
+
+### Values
+
+- Default value: `["data", "ml"]`, which allows externally hosted models to run on data nodes and ML nodes.
+
+
+## Node roles that can run local models
+
+This setting allows a cluster admin to control the types of nodes on which local models can run. The `plugins.ml_commons.only_run_on_ml_node` setting only allows the model to run on ML nodes. For a local model, if `plugins.ml_commons.only_run_on_ml_node` is set to `true`, then the model will always run on ML nodes. If `plugins.ml_commons.only_run_on_ml_node` is set to `false`, then the model will run on nodes defined in the `plugins.ml_commons.task_dispatcher.eligible_node_role.local_model` setting.
+
+### Setting
+
+```
+plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
+```
+
+### Values
+
+- Default value: `["data", "ml"]`
+
+## Enable remote inference
+
+This setting allows a cluster admin to enable remote inference on the cluster. If this setting is `false`, users will not be able to run register, deploy, or predict operations on any externally hosted model or create a connector for remote inference.
+
+### Setting
+
+```
+plugins.ml_commons.remote_inference.enabled: true
+```
+
+### Values
+
+- Default value: `true`
+- Valid values: `false`, `true`
+
+## Enable agent framework
+
+When set to `true`, this setting enables the agent framework (including agents and tools) on the cluster and allows users to run register, execute, delete, get, and search operations on an agent.
+
+### Setting
+
+```
+plugins.ml_commons.agent_framework_enabled: true
+```
+
+### Values
+
+- Default value: `true`
+- Valid values: `false`, `true`
+
+## Enable memory
+
+When set to `true`, this setting enables conversational memory, which stores all messages from a conversation for conversational search.
+
+### Setting
+
+```
+plugins.ml_commons.memory_feature_enabled: true
+```
+
+### Values
+
+- Default value: `true`
 - Valid values: `false`, `true`
 
 
+## Enable RAG pipeline
 
+When set to `true`, this setting enables the search processors for retrieval-augmented generation (RAG). RAG enhances query results by generating responses using relevant information from memory and previous conversations.
 
+### Setting
 
+```
+plugins.ml_commons.agent_framework_enabled: true
+```
+
+### Values
+
+- Default value: `true`
+- Valid values: `false`, `true`

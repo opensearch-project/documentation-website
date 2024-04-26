@@ -5,6 +5,9 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /install-and-configure/
+redirect_from:
+  - /install-and-configure/index/
 ---
 
 # Install and upgrade OpenSearch

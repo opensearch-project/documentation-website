@@ -29,9 +29,9 @@ GET _msearch
 
 ```
 GET _msearch
-GET <indices>/_msearch
+GET <index>/_msearch
 POST _msearch
-POST <indices>/_msearch
+POST <index>/_msearch
 ```
 
 
@@ -88,7 +88,24 @@ request_cache | Boolean | Whether to cache results, which can improve latency fo
 routing | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.
 
 
-## Response
+## Example
+
+The following example `msearch` API request runs queries against multiple indexes:
+
+### Request
+
+```json
+GET _msearch
+{ "index": "opensearch_dashboards_sample_data_logs"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10}
+{ "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} } }
+
+```
+{% include copy-curl.html %}
+
+
+### Response
 
 OpenSearch returns an array with the results of each search in the same order as the multi-search request.
 

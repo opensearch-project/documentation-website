@@ -313,9 +313,11 @@ A space corresponds to the function used to measure the distance between two poi
     <td>\[ score = 2 - d \]</td>
   </tr>
   <tr>
-    <td>innerproduct (not supported for Lucene)</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]</td>
-    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]</td>
+    <td>innerproduct (supported for Lucene in OpenSearch version 2.13 and later)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]
+    </td>
+    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]
+    </td>
   </tr>
   <tr>
     <td>hammingbit</td>
@@ -326,3 +328,8 @@ A space corresponds to the function used to measure the distance between two poi
 
 
 Cosine similarity returns a number between -1 and 1, and because OpenSearch relevance scores can't be below 0, the k-NN plugin adds 1 to get the final score.
+
+With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...`]) as input. This is because the magnitude of
+such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests 
+containing the zero vector will be rejected and a corresponding exception will be thrown.
+{: .note }

@@ -219,84 +219,6 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Shard request cache memory size in bytes.
       </td>
     </tr>
-    <tr>
-      <td>Refresh_Event
-      </td>
-      <td>The total number of refreshes executed in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Refresh_Time
-      </td>
-      <td>The total time (milliseconds) spent executing refreshes in the past five seconds
-      </td>
-    </tr>
-    <tr>
-      <td>Flush_Event
-      </td>
-      <td>The total number of flushes executed in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Flush_Time
-      </td>
-      <td>The total time (milliseconds) spent executing flushes in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Merge_Event
-      </td>
-      <td>The total number of merges executed in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Merge_Time
-      </td>
-      <td>The total time (milliseconds) spent executing merges in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Merge_CurrentEvent
-      </td>
-      <td>The current number of merges executing.
-      </td>
-    </tr>
-    <tr>
-      <td>Indexing_Buffer
-      </td>
-      <td>Index buffer memory size in bytes.
-      </td>
-    </tr>
-    <tr>
-      <td>Segments_Total
-      </td>
-      <td>The number of segments.
-      </td>
-    </tr>
-    <tr>
-      <td>IndexWriter_Memory
-      </td>
-      <td>Estimated memory usage by the index writer in bytes.
-      </td>
-    </tr>
-    <tr>
-      <td>Bitset_Memory
-      </td>
-      <td>Estimated memory usage for the cached bit sets in bytes.
-      </td>
-    </tr>
-    <tr>
-      <td>VersionMap_Memory
-      </td>
-      <td>Estimated memory usage of the version map in bytes.
-      </td>
-    </tr>
-    <tr>
-      <td>Shard_Size_In_Bytes
-      </td>
-      <td>Estimated disk usage of the shard in bytes.
-      </td>
-    </tr>
   </tbody>
 </table>
 
@@ -821,27 +743,173 @@ The following metrics are relevant to the cluster as a whole and do not require 
    </tbody>
 </table>
 
+## Relevant dimensions: `NodeID`, `searchbp_mode`
+
+<table>
+  <thead style="text-align: left">
+  <tr>
+    <th>Metric</th>
+    <th>Description</th>
+  </tr>
+ </thead>
+ <tbody> 
+    <tr>
+    <td>SearchBP_Shard_Stats_CancellationCount
+    </td>
+    <td>The number of tasks marked for cancellation at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_LimitReachedCount
+    </td>
+    <td>The number of times that the cancellable task total exceeded the set cancellation threshold at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_Heap_Usage_CancellationCount
+    </td>
+    <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_Heap_Usage_CurrentMax
+    </td>
+    <td>The maximum heap usage for tasks currently running at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_Heap_Usage_RollingAvg
+    </td>
+    <td> The rolling average heap usage for the _n_ most recent tasks at the shard task level. The default value for _n_ is `100`.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_CPU_Usage_CancellationCount
+    </td>
+    <td>The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_CPU_Usage_CurrentMax
+    </td>
+    <td>The maximum CPU time for all tasks currently running on the node at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_CPU_Usage_CurrentAvg
+    </td>
+    <td>The average CPU time for all tasks currently running on the node at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_ElaspedTime_Usage_CancellationCount
+    </td>
+    <td>The number of tasks marked for cancellation because of excessive time elapsed since the node last restarted at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_ElaspedTime_Usage_CurrentMax
+    </td>
+    <td>The maximum time elapsed for all tasks currently running on the node at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Shard_Stats_Resource_ElaspedTime_Usage_CurrentAvg
+    </td>
+    <td>The average time elapsed for all tasks currently running on the node at the shard task level.
+    </td>
+  </tr>
+  <tr>
+    <td>Searchbp_Task_Stats_CancellationCount
+    </td>
+    <td>The number of tasks marked for cancellation at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_LimitReachedCount
+    </td>
+    <td>The number of times that the cancellable task total exceeded the set cancellation threshold at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_Heap_Usage_CancellationCount
+    </td>
+    <td>The number of tasks marked for cancellation because of excessive heap usage since the node last restarted at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_Heap_Usage_CurrentMax
+    </td>
+    <td>The maximum heap usage for tasks currently running at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_Heap_Usage_RollingAvg
+    </td>
+    <td> The rolling average heap usage for the _n_ most recent tasks at the search task level. The default value for _n_ is `10`.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_CPU_Usage_CancellationCount
+    </td>
+    <td>The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_CPU_Usage_CurrentMax
+    </td>
+    <td>The maximum CPU time for all tasks currently running on the node at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_CPU_Usage_CurrentAvg
+    </td>
+    <td>The average CPU time for all tasks currently running on the node at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_ElaspedTime_Usage_CancellationCount
+    </td>
+    <td>The number of tasks marked for cancellation because of excessive time elapsed since the node last restarted at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_ElaspedTime_Usage_CurrentMax
+    </td>
+    <td>The maximum time elapsed for all tasks currently running on the node at the search task level.
+    </td>
+  </tr>
+  <tr>
+    <td>SearchBP_Task_Stats_Resource_ElaspedTime_Usage_CurrentAvg
+    </td>
+    <td>The average time elapsed for all tasks currently running on the node at the search task level.
+    </td>
+  </tr>
+ </tbody>
+</table> 
+
 
 ## Dimensions reference
 
 | Dimension            | Return values                                   |
 |----------------------|-------------------------------------------------|
-| ShardID              | The ID of the shard, for example, `1`.           |
-| IndexName            | The name of the index, for example, `my-index`.   |
-| Operation            | The type of operation, for example, `shardbulk`.  |
-| ShardRole            | The shard role, for example, `primary` or `replica`.                            |
-| Exception            | OpenSearch exceptions, for example, `org.opensearch.index_not_found_exception`. |
-| Indices              | The list of indexes in the request URL.        |
-| HTTPRespCode         | The response code from OpenSearch, for example, `200`. |
-| MemType              | The memory type, for example, `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, or `Heap`. |
-| DiskName             | The name of the disk, for example, `sda1`.        |
-| DestAddr             | The destination address, for example, `010015AC`. |
-| Direction            | The direction, for example, `in` or `out`.                                    |
-| ThreadPoolType       | The OpenSearch thread pools, for example, `index`, `search`, or `snapshot`. |
-| CBType               | The circuit breaker type, for example, `accounting`, `fielddata`, `in_flight_requests`, `parent`, or `request`. |
-| ClusterManagerTaskInsertOrder| The order in which the task was inserted, for example, `3691`. |
-| ClusterManagerTaskPriority   | The priority of the task, for example, `URGENT`. OpenSearch executes higher-priority tasks before lower-priority ones, regardless of `insert_order`. |
-| ClusterManagerTaskType       | The task type, for example, `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, or `Update snapshot state`. |
-| ClusterManagerTaskMetadata   | The metadata for the task (if any).                 |
-| CacheType            | The cache type, for example, `Field_Data_Cache`, `Shard_Request_Cache`, or `Node_Query_Cache`. |
-
+| `ShardID`              | The ID of the shard, for example, `1`.           |
+| `IndexName`            | The name of the index, for example, `my-index`.   |
+| `Operation`            | The type of operation, for example, `shardbulk`.  |
+| `ShardRole`            | The shard role, for example, `primary` or `replica`.                            |
+| `Exception`            | OpenSearch exceptions, for example, `org.opensearch.index_not_found_exception`. |
+| `Indices`              | The list of indexes in the request URL.        |
+| `HTTPRespCode`         | The OpenSearch response code, for example, `200`. |
+| `MemType`              | The memory type, for example, `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, or `Heap`. |
+| `DiskName`             | The name of the disk, for example, `sda1`.        |
+| `DestAddr`             | The destination address, for example, `010015AC`. |
+| `Direction`            | The direction, for example, `in` or `out`.                                    |
+| `ThreadPoolType`       | The OpenSearch thread pools, for example, `index`, `search`, or `snapshot`. |
+| `CBType`               | The circuit breaker type, for example, `accounting`, `fielddata`, `in_flight_requests`, `parent`, or `request`. |
+| `ClusterManagerTaskInsertOrder`| The order in which the task was inserted, for example, `3691`. |
+| `ClusterManagerTaskPriority`   | The priority of the task, for example, `URGENT`. OpenSearch executes higher-priority tasks before lower-priority ones, regardless of `insert_order`. |
+| `ClusterManagerTaskType`       | The task type, for example, `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, or `Update snapshot state`. |
+| `ClusterManagerTaskMetadata`   | The metadata for the task (if any).                 |
+| `CacheType`            | The cache type, for example, `Field_Data_Cache`, `Shard_Request_Cache`, or `Node_Query_Cache`. |
+| `NodeID`               | The ID of the node.                                |
+| `Searchbp_mode`        | The search backpressure mode, for example, `monitor_only` (default), `enforced`, or `disabled`. |
