@@ -31,9 +31,9 @@ The following sequence describes the authentication flow when using cross-cluste
 
 ## Prerequisite
 
-In order to use proxy mode, you need to ensure that:
-- the source cluster's nodes is able to connect to the configured proxy_address. 
-- the proxy should be able to route connections to the remote cluster nodes.
+To use proxy mode, fulfill the following prerequisites:
+- Make sure that he source cluster's nodes are able to connect to the configured `proxy_address`. 
+- Make sure that the proxy can route connections to the remote cluster nodes.
 
 
 ## Setting permissions
@@ -304,8 +304,8 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 }'
 ```
 
-## OpenSearch behind a proxy
-You can configure cross-cluster search on a cluster running behind a proxy. There are many ways to configure a reverse proxy and various proxies to choose from. The following example demonstrates the basic NGINX reverse proxy configuration without TLS termination. OpenSearch is expected to be running with both transport and HTTP TLS encryption enabled. For more information about configuring TLS encryption, see [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
+## Proxy settings
+You can configure cross-cluster search on a cluster running behind a proxy. There are many ways to configure a reverse proxy and various proxies to choose from. The following example demonstrates the basic NGINX reverse proxy configuration without TLS termination, though there are many proxies and reverse proxies to choose from.  For this example to work, OpenSearch is expected to be running with both transport and HTTP TLS encryption enabled. For more information about configuring TLS encryption, see [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
 
 ### Proxy configuration
 The basic NGINX configuration for HTTP and transport communication follows:
