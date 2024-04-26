@@ -18,7 +18,7 @@ The first job of the script is to initialize the `.opendistro_security` index. T
 
 The script can be found at `/plugins/opensearch-security/tools/securityadmin.sh`. This is a relative path showing where the `securityadmin.sh` script is located. The absolute path depends on the directory where you've installed OpenSearch. For example, if you use Docker to install OpenSearch, the path will resemble the following: `/usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh`.
 
-`securityadmin.sh` requires that SSL/TLS HTTP is enabled on your OpenSearch cluster. In other words, make sure that the `plugins.security.ssl.http.enabled: true` is set in `opensearch.yml` before proceeding. If you are not using SSL/TLS on HTTP layer in your cluster but still need to use `securityadmin.sh`, you can enable SSL/TLS on HTTP layer on a single node, for instance `ingest` node and run the `securityadmin.sh` on this node.
+`securityadmin.sh` requires that SSL/TLS HTTP is enabled for your OpenSearch cluster. In other words, make sure that your `opensearch.yml` has `plugins.security.ssl.http.enabled: true` before proceeding. If you are not using SSL/TLS on HTTP layer in your cluster but still need to use `securityadmin.sh`, you can enable SSL/TLS on HTTP layer on a single node, for instance `ingest` node and run the `securityadmin.sh` on this node.
 {: .note}
 
 ## A word of caution
