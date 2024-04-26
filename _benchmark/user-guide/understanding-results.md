@@ -110,7 +110,7 @@ Metrics unique to the cluster begin at the `index` task line. The following two 
 - To assess the measurable latency and service time of the queries in the workload, the `match_all` and `term` give both the number of query operations performed per second and the measurable latency of the query, as well as the error rate when running query operations.
 
 
-## Result storage
+## Results storage
 
 Results from OpenSearch Benchmark are stored in two ways, either in-memory or in an external metric store. 
 
