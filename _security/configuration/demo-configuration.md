@@ -27,7 +27,7 @@ The demo configuration is automatically called as part of the setup for each sup
 Use the following steps to set up the Security plugin using Docker:
 
 1. Download [docker-compose.yml](https://opensearch.org/downloads.html).
-2. In the `docker-compose.yml` file, set `DISABLE_SECURITY_PLUGIN` to `false`.
+2. In the `docker-compose.yml` file, set environment variable `DISABLE_SECURITY_PLUGIN` to `true`.
 3. Run the following command:
 
 ```bash
