@@ -16,7 +16,7 @@ Introduced 2.11
 When selecting a model, choose one of the following options:
 
 - Use a sparse encoding model at both ingestion time and search time (high performance, relatively high latency).
-- Use a sparse encoding model at ingestion time and a tokenizer at search time (relatively low performance, low latency). The tokenizers doesn't conduct model inference, but for consistent experience we still deploy and invoke them via ml-commons model APIs.
+- Use a sparse encoding model at ingestion time and a tokenizer at search time (relatively low performance, low latency). The tokenizers doesn't conduct model inference, but for consistent experience we still deploy and invoke them using ml-commons model APIs.
 
 **PREREQUISITE**<br>
 Before using neural sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -29,7 +29,7 @@ To use neural sparse search, follow these steps:
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
-1. [Search the index using neural search](#step-4-search-the-index-using-neural-search).
+1. [Search the index using neural search](#step-4-search-the-index-using-neural-sparse-search).
 
 ## Step 1: Create an ingest pipeline
 
