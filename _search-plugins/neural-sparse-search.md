@@ -241,7 +241,7 @@ The response contains the matching documents:
 }
 ```
 
-You can also use the neural_sparse query with sparse vector embeddings:
+You can also use the `neural_sparse` query with sparse vector embeddings:
 ```json
 GET my-nlp-index/_search
 {
