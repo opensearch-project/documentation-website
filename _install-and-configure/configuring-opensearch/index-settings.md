@@ -86,14 +86,11 @@ OpenSearch supports the following static index-level index settings:
 
 - `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size) with a trad-eoff in speed (slower compression and decompression speeds lead to greater indexing and search latencies). Can only be specified if index.codec is set to `zstd` and `zstd_no_dict` in OpenSearch 2.9 and later, and `qat_lz4` and `qat_deflate` in OpenSearch 2.14 and later. Valid values are integers in the [1, 6] range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is 3.
 
-- `index.codec.qatmode` (String): The hardware acceleration mode used for `qat_lz4` and `qat_deflate` compression codecs: 
+- `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4` and `qat_deflate` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto`. 
 
     Valid values are: 
         
-    - `auto`
-    - `hardware`
 
-    Optional. Default is `auto`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/).
 
 - `index.routing_partition_size` (Integer): The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than a single shard. To enable routing, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 
