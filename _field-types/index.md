@@ -29,12 +29,12 @@ When you index a document, OpenSearch adds fields automatically with dynamic map
 Type | Description
 :--- | :---
 null | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if that field has no values.
-boolean | OpenSearch accepts `true` and `false` as boolean values. An empty string is equal to `false.`
+boolean | OpenSearch accepts `true` and `false` as Boolean values. An empty string is equal to `false.`
 float | A single-precision 32-bit floating point number.
 double | A double-precision 64-bit floating point number.
 integer | A signed 32-bit number.
 object | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
-array | Arrays in OpenSearch can only store values of one type, such as an array of just integers or strings. Empty arrays are treated as though they are fields with no values.
+array | Arrays in OpenSearch can only store values of one type, such as an array of only integers or strings. Empty arrays are treated as though they are fields with no values.
 text | A string sequence of characters that represent full-text values.
 keyword | A string sequence of structured characters, such as an email address or ZIP code.
 date detection string | Enabled by default, if new string fields match a date's format, then the string is processed as a `date` field. For example, `date: "2012/03/11"` is processed as a date.
@@ -88,18 +88,18 @@ Mapping parameters are used to configure the behavior of fields in an index. The
 
 Parameter | Description
 :--- | :---
-`analyzer` | Specifies the analyzer used to analyze string fields.
-`boost` | Specifies a field-level query time to boost.
-`coerce` | Tries to convert the value to the specified data type.
-`copy_to` | Copies the values of this field to another field.
-`doc_values` | Specifies whether the field should be stored on disk to make sorting and aggregation faster.
-`dynamic` | Determines whether new fields should be added dynamically.
-`enabled` | Specifies whether the field is enabled or disabled. 
-`format` | Specifies the date format for date fields. 
-`ignore_above` | Skips indexing values that are longer than the specified length.
-`ignore_malformed` | Specifies whether malformed values should be ignored. 
-`index` | Specifies whether the field should be indexed.
-`index_options` | Specifies what information should be stored in the index for scoring purposes.
+`analyzer` | Specifies the analyzer used to analyze string fields. Default is the `standard` analyzer, which is a general-purpose analyzer that splits text on white space and punctuation, converts to lowercase, and removes stop words. Allowed values are `standard`, `simple`, `whitespace`, and <SME: List any others>. 
+`boost` | Specifies a field-level query time to boost. Default boost value is `1.0`, which means no boost is applied. Allowed values are any floating-point number.
+`coerce` | Tries to convert the value to the specified data type. Default value is `true`, which means OpenSearch tries to coerce the value to the expected value type. Allowed values are `true` or `false`.
+`copy_to` | Copies the values of this field to another field. There is no default value for this parameter. It is an optional parameter that allows you to copy the value of a field to another field. 
+`doc_values` | Specifies whether the field should be stored on disk to make sorting and aggregation faster. Default value is `true`, which means the doc values are enabled. Allowed values are a single field name or a list of field names. Allowed values are `true` or `false`.
+`dynamic` | Determines whether new fields should be added dynamically. Default value is `true`, which means new fields can be added dynamically. Allowed values are `true`, `false`, or `strict`.
+`enabled` | Specifies whether the field is enabled or disabled. Default value is `true`, which means the field is enabled. Allowed values are `true` or `false`.
+`format` | Specifies the date format for date fields. There is no default value for this parameter. It is used for date fields to specify the date format. Allowed values are any valid date format string, such as `yyyy-MM-dd` or `epoch_millis`.
+`ignore_above` | Skips indexing values that are longer than the specified length. Default value is `2147483647`, which means there is no limit on the length of the field value. Allowed values are any positive integer.
+`ignore_malformed` | Specifies whether malformed values should be ignored. Default value is `false`, which means malformed values are not ignored. . Allowed values are `true` or `false`.
+`index` | Specifies whether the field should be indexed. Default value is `true`, which means the field is indexed. Allowed values are `true`, `false`, or `not_analyzed`.
+`index_options` | Specifies what information should be stored in the index for scoring purposes. Default value `docs`, which means only the document numbers are stored in the index. is Allowed values are `docs`, `freqs`, `positions`, or `offsets`.
 
 ## Mapping limit settings
 
@@ -114,11 +114,8 @@ OpenSearch has certain limits or settings related to mappings, such as the setti
 | index.mapping.field_name_length.limit | 50000 | [1,50000] | Dynamic | Limits the maximum length of field names that can be defined in an index mapping. |
 | index.mapper.dynamic | true | {true,false} | Dynamic | Determines whether new fields should be added dynamically to the mapping when they are encountered in a document. |
 
-## Runtime fields
-
-You can define fields at query time, rather than at index time, by using runtime fields. this can be useful for creating fields based on the values of other fields, or for performing transformations on data during the query process. Runtime fields are defined in the query itself and do not affect the underlying data in the index.
-
 ---
+
 ## Mapping example usage
 
 The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed IP addresses that do not conform to the [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
@@ -250,27 +247,3 @@ The response contains the specified fields:
   }
 }
 ```
-
-## Delete a mapping
-
-The syntax for deleting a mapping depends on whether you want to delete the entire mapping for an index or the mapping for a specific field. The syntax for deleting a mapping is as follows:
-
-```json
-DELETE /<index_name>/_mapping
-DELETE /<field_name/_mapping>
-```
-
-For example, to delete the entire mapping for the `sample-index1` index, you can use the following commands:
-
-```json
-<insert command>
-```
-
-If you want to delete the mapping for a specific field, you can <insert instructional text> For example, to delete the mapping for the `year` field, use the following command:
-
-```json
-<insert command>
-```
-
-Deleting a field mapping will remove the mapping definition for that field across all indexes or the specified index. It will not delete the actual data stored in those fields.
-{: .note}
