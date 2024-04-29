@@ -88,7 +88,6 @@ OpenSearch supports the following static index-level index settings:
 
 - `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4` and `qat_deflate` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto`. 
 
-    Valid values are: 
         
 
 
