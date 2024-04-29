@@ -17,7 +17,7 @@ The `_meta` field is a mapping property that allows you to associate custom meta
 
 ## Usage
 
-You can define the `_meta` field when creating a new index or updating an existing index's mapping: 
+You can define the `_meta` field when creating a new index or updating an existing index's mapping, as shown in the following example: 
 
 ```json
 PUT my-index
@@ -44,7 +44,7 @@ PUT my-index
 
 In this example, three custom metadata fields are added: application, version, and author. These fields can be used by your application to store any relevant information about the index, such as the application it belongs to, the version of the application, or the author of the index.
 
-You can update the `_meta` field using the [put mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) operation:
+You can update the `_meta` field using the [put mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) operation, as shown in the following example:
 
 ```json
 PUT my-index/_mapping
@@ -60,7 +60,7 @@ PUT my-index/_mapping
 
 ## Retrieving meta information
 
-You can retrieve the `_meta` information for an index using the [get mapping API]({{site.url}}{{site.baseurl}}/field-types/#get-a-mapping) operation:
+You can retrieve the `_meta` information for an index using the [get mapping API]({{site.url}}{{site.baseurl}}/field-types/#get-a-mapping) operation, as shown in the following example:
 
 ```json
 GET my-index/_mapping
