@@ -139,7 +139,7 @@ Make sure to configure these settings on all of your nodes.
 
 ## Step 4: Configure discovery hosts and initial cluster manager nodes for a cluster
 
-Now that you've configured the network hosts, you need to configure the discovery hosts and specify the cluster manager nodes for the initial cluster election. 
+Now that you've configured the network hosts, you need to configure the discovery hosts and specify the cluster manager nodes for the initial cluster election. Note that this is the node name and not the IP Address, hostname, nor fully qualified hostname.
 
 For example, the setting looks like the following:
 
