@@ -130,6 +130,53 @@ The response contains only the public document, indicating that the pipeline was
 ```
 </details>
 
+You can also search on multiple indices having the same default pipeline. For example, below `alias1` has 2 indices `my_index1` and `my_index2` and both indices have same default pipeline `my_pipeline` attached to them..
+
+```json
+GET /alias1/_search
+```
+{% include copy-curl.html %}
+
+The response contains only the public document, indicating that the pipeline was applied by default:
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+    "took": 59,
+    "timed_out": false,
+    "_shards": {
+        "total": 2,
+        "successful": 2,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 1,
+            "relation": "eq"
+        },
+        "max_score": 0.0,
+        "hits": [
+            {
+                "_index": "my_index1",
+                "_id": "1",
+                "_score": 0.0,
+                "_source": {
+                    "message": "This is a public message",
+                    "visibility": "public"
+                }
+            }
+        ]
+    }
+}
+```
+</details>
+
 ### Disabling the default pipeline for a request
 
 If you want to run a search request without applying the default pipeline, you can set the `search_pipeline` query parameter to `_none`:
