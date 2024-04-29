@@ -53,6 +53,6 @@ Dynamic configurations override YAML configurations, except for empty CSP rules.
 
 When the Security plugin is enabled, only users with write permission to the configuration index `.opensearch_dashboards_config` are able to call the mutating APIs. The API calls must have a valid cookie with the security information. To construct the cURL command, you can use a `Copy as cURL` option from the network tab of a browser development tool. For GET APIs, you can find an existing GET XHR request with type `json` from the network tab, copy it as cURL, and then replace it with the `appconfig` API names. Similarly, for POST and DELETE APIs, you can find an existing POST XHR request and update API name and the value of `--data-raw` accordingly. DELETE APIs must have their request method updated to `-X DELETE`.
 
-An example of copying as curl in Firefox is shown in the following image.
+An example of `Copy as cURL` in Firefox is shown in the following image.
 
 ![Copying as curl in Firefox]({{site.url}}{{site.baseurl}}/images/dashboards/copy-as-curl.png)
