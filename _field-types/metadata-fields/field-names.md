@@ -14,5 +14,28 @@ The `field_names` only indexes field names when both `doc_values` and `norms` ar
 
 ## Mapping example
 
-<SME: Please provide a mapping example.>
-
+{
+  "mappings": {
+    "properties": {
+      "field_names": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text",
+        "doc_values": false,
+        "norms": false
+      },
+      "description": {
+        "type": "text",
+        "doc_values": true,
+        "norms": false
+      },
+      "price": {
+        "type": "float",
+        "doc_values": false,
+        "norms": true
+      }
+    }
+  }
+}
+{% include copy-curl.html %}
