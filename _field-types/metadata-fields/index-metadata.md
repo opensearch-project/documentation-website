@@ -71,4 +71,26 @@ In this example:
 
 ## Querying on the `_index` field
 
-<SME: Please provide information necessary for users to understand how this works for them.>
+The `_index` field is a special field in OpenSearch that represents the index a document was indexed into. You can use this field in your queries to filter results based on the index.
+
+Some common use cases for querying on the `_index` field include:
+
+- Filtering search results to only include documents from specific indexes.
+- Performing aggregations to get counts or statistics for each index.
+- Sorting search results by the index they belong to.
+- Retrieving the index name for each document in the search results.
+
+The `_index` field is automatically added to every document, so you can use it in your queries just like any other field. For example, you can use the `terms` query to match documents from multiple indexes:
+
+```json
+ {
+  "query": {
+    "terms": {
+      "_index": ["products", "customers"]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+This query returns all documents from the `products` and `customers` indexes.
