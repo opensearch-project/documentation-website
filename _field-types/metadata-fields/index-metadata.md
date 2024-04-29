@@ -80,7 +80,7 @@ Some common use cases for querying on the `_index` field include:
 - Sorting search results by the index they belong to.
 - Retrieving the index name for each document in the search results.
 
-The `_index` field is automatically added to every document, so you can use it in your queries just like any other field. For instance, you can use the `terms` query to match documents from multiple indexes, as shown in the following example:
+The `_index` field is automatically added to every document, so you can use it in your queries like any other field. For instance, you can use the `terms` query to match documents from multiple indexes, as shown in the following example:
 
 ```json
  {
