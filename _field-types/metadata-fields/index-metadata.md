@@ -18,7 +18,7 @@ PUT products/_doc/1
   "name": "Widget X"
 }
 
-PUT customers/_doc/2?refresh=true
+PUT customers/_doc/2
 {
   "name": "John Doe"
 }
