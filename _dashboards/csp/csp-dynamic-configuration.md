@@ -38,7 +38,7 @@ curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' -X DELETE -H 'osd-
 
 ## Get `frame-ancestors` in CSP rules
 
-Use the following CURL command to get `frame-ancestors` in CSP rules:
+Use the following cURL command to get `frame-ancestors` in CSP rules:
 
 ```
 curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors'
