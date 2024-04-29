@@ -35,6 +35,8 @@ OpenSearch supports the following cluster-level index settings. All settings in 
 
 - `indices.recovery.max_concurrent_remote_store_streams` (Integer): The number of streams to the remote repository that can be opened in parallel when recovering a remote store index. Default is `20`. 
 
+- `indices.replication.max_bytes_per_sec` (String): Limits the total inbound and outbound replication traffic for each node. If a value is not specified the configured value of `indices.recovery.max_bytes_per_sec` will be used, which is by default 40mb.  If you set the replication traffic value to less than or equal to 0mb, rate limiting will be disabled, which causes replication data to be transferred at the highest possible rate.
+
 - `indices.fielddata.cache.size` (String): The maximum size of the field data cache. May be specified as an absolute value (for example, `8GB`) or a percentage of the node heap (for example, `50%`). This value is static so you must specify it in the `opensearch.yml` file. If you don't specify this setting, the maximum size is unlimited. This value should be smaller than the `indices.breaker.fielddata.limit`. For more information, see [Field data circuit breaker]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/circuit-breaker/#field-data-circuit-breaker-settings).
 
 ## Index-level index settings
