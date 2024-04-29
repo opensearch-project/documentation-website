@@ -10,7 +10,7 @@ parent: Metadata fields
 
 When querying across multiple indexes, you may need to filter results based on the index a document was indexed into. The `index` field matches documents based on their index. 
 
-The following example creates two indexes, `products` and `customers` and adds a document to each index:
+The following example creates two indexes, `products` and `customers`, and adds a document to each index:
 
 ```json
 PUT products/_doc/1
@@ -25,7 +25,7 @@ PUT customers/_doc/2
 ```
 {% include copy-curl.html %}
 
-Now, you can query both indexes and filter the results using the `_index` field:
+Now, you can query both indexes and filter the results using the `_index` field, as shown in the following example:
 
 ```json
 GET products,customers/_search
@@ -80,7 +80,7 @@ Some common use cases for querying on the `_index` field include:
 - Sorting search results by the index they belong to.
 - Retrieving the index name for each document in the search results.
 
-The `_index` field is automatically added to every document, so you can use it in your queries just like any other field. For example, you can use the `terms` query to match documents from multiple indexes:
+The `_index` field is automatically added to every document, so you can use it in your queries just like any other field. For instance, you can use the `terms` query to match documents from multiple indexes, as shown in the following example:
 
 ```json
  {
