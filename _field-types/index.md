@@ -99,7 +99,7 @@ Parameter | Description
 `ignore_above` | Skips indexing values that are longer than the specified length. Default value is `2147483647`, which means there is no limit on the length of the field value. Allowed values are any positive integer.
 `ignore_malformed` | Specifies whether malformed values should be ignored. Default value is `false`, which means malformed values are not ignored. . Allowed values are `true` or `false`.
 `index` | Specifies whether the field should be indexed. Default value is `true`, which means the field is indexed. Allowed values are `true`, `false`, or `not_analyzed`.
-`index_options` | Specifies what information should be stored in the index for scoring purposes. Default value `docs`, which means only the document numbers are stored in the index. is Allowed values are `docs`, `freqs`, `positions`, or `offsets`.
+`index_options` | Specifies what information should be stored in the index for scoring purposes. Default value `docs`, which means only the document numbers are stored in the index. Allowed values are `docs`, `freqs`, `positions`, or `offsets`.
 
 ## Mapping limit settings
 
