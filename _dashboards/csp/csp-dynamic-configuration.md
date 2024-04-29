@@ -30,7 +30,7 @@ curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' -X POST -H 'Accept
 
 ## Delete `frame-ancestors` in CSP rules
 
-Use the following CURL command to delete `frame-ancestors` in CSP rules:
+Use the following cURL command to delete `frame-ancestors` in CSP rules:
 
 ```
 curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' -X DELETE -H 'osd-xsrf: osd-fetch' -H 'Sec-Fetch-Dest: empty'
