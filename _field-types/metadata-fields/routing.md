@@ -23,7 +23,7 @@ shard_num = hash(_routing) % num_primary_shards
 You can specify a custom routing value when indexing a document, as shown in the following example: 
 
 ```json
-PUT my-index-001/_doc/1?routing=JohnDoe1
+PUT sample-index1/_doc/1?routing=JohnDoe1
 {
   "title": "This is a document"
 }
@@ -35,7 +35,7 @@ In this example, the document is routed using the value `JohnDoe1` instead of th
 You must provide the same routing value when retrieving, deleting, or updating the document, as shown in the following example:
 
 ```json
-GET my-index-001/_doc/1?routing=JohnDoe1
+GET sample-index1/_doc/1?routing=JohnDoe1
 ```
 {% include copy-curl.html %}
 
@@ -44,7 +44,7 @@ GET my-index-001/_doc/1?routing=JohnDoe1
 You can query documents based in their routing value using the `_routing` field, as shown in the following example. This query only searches the shard(s) associated with the `JohnDoe1` routing value.
 
 ```json
-GET my-index-001/_search
+GET sample-index1/_search
 {
   "query": {
     "terms": {
@@ -61,7 +61,7 @@ You can make custom routing a required field for all CRUD operations on an index
 .
 
 ```json
-PUT my-index-002
+PUT sample-index2
 {
   "mappings": {
     "_routing": {
@@ -77,7 +77,7 @@ PUT my-index-002
 You can configure an index to route documents to a subset of shards, rather than a single shard. This is done using the `index.routing_partition_size` setting, as shown in the following example: 
 
 ```json
-PUT my-index-003
+PUT sample-index3
 {
   "settings": {
     "index.routing_partition_size": 4
