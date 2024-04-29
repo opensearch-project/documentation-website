@@ -282,10 +282,12 @@ config:
 config:
   idp:
     pemtrustedcas_content: |-
+      -----BEGIN CERTIFICATE-----
       MIID/jCCAuagAwIBAgIBATANBgkqhkiG9w0BAQUFADCBjzETMBEGCgmSJomT8ixk
       ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
       bGUgQ29tIEluYy4xITAfBgNVBAsMGEV4YW1wbGUgQ29tIEluYy4gUm9vdCBDQTEh
       ...
+      -----END CERTIFICATE-----
 ```
 
 Name | Description
