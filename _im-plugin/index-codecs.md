@@ -35,7 +35,7 @@ When an index segment is created, it uses the current index codec for compressio
 As of OpenSearch 2.14, hardware-accelerated compression codecs for the `DEFLATE` and `LZ4` compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel®️ Xeon®️ processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use that platform's corresponding software implementations. 
 
 The new hardware-accelerated codecs can be used by setting one of the following values of the `index.codec` setting:
-* `qat_lz4` (OpenSearch 2.14 and later) -- uses hardware-accelerated LZ4. 
+* `qat_lz4` (OpenSearch 2.14 and later): Hardware-accelerated `LZ4`. 
 * `qat_deflate` (OpenSearch 2.14 and later): Hardware-accelerated `DEFLATE`. 
 
 `qat_deflate` offers a much better compression ratio than `qat_lz4` with a modest drop in compression and decompression speed.
