@@ -44,7 +44,8 @@ Field | Data type | Required/Optional | Description
 `max_token_score` | Float | Optional | (Deprecated) The theoretical upper bound of the score for all tokens in the vocabulary (required for performance optimization). For OpenSearch-provided [pretrained sparse embedding models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models), we recommend setting `max_token_score` to 2 for `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` and to 3.5 for `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1`. This field has been deprecated as of OpenSearch 2.12.
 
 #### Example request
-1. query by raw text
+**Query by raw text**
+
 ```json
 GET my-nlp-index/_search
 {
