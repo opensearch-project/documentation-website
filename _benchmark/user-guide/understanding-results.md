@@ -6,17 +6,17 @@ parent: User guide
 ---
 
 
-At the end of each test run, OpenSearch Benchmark creates a summary of test results metrics like service time, throughput, latency, and more. These metrics provide insights into how the workload selected performed on a benchmarked OpenSearch cluster.
+At the end of each test run, OpenSearch Benchmark creates a summary of test result metrics like service time, throughput, latency, and more. These metrics provide insights into how the selected workload performed on a benchmarked OpenSearch cluster.
 
-The following guide gives information about how to understand the results of the summary report.
+The following guide provides information about how to understand the results of the summary report.
 
 ## OpenSearch Benchmark runs
 
-OpenSearch Benchmark runs a series of nightly tests targeting the OpenSearch development cluster. The results of these test runs can be found on https://opensearch.org/benchmarks. The results show the metrics that span different test runs and target both recent and future versions of OpenSearch.
+OpenSearch Benchmark runs a series of nightly tests targeting the OpenSearch development cluster. The results of these test runs can be found at https://opensearch.org/benchmarks. The results display metrics spanning different test runs and target both recent and future versions of OpenSearch.
 
-## Selecting metrics to compare
+## Summary report metrics
 
-While an OpenSearch Benchmark summary report provides metrics related to the performance of your cluster, how to compare and use those metrics depends on your use case. For example, some users might be interested in the number of documents the workload can index, while another might be interested in the amount of latency or service time it takes for a document to be queried. The following example shows a summary report with metrics during a typical workload run:
+While an OpenSearch Benchmark summary report provides metrics related to the performance of your cluster, how you compare and use those metrics depends on your use case. For example, some users might be interested in the number of documents the workload can index, while another might be interested in the amount of latency or service time needed for a document to be queried. The following example summary report shows metrics for a typical workload run:
 
 ```bash
 ------------------------------------------------------
@@ -104,22 +104,22 @@ While an OpenSearch Benchmark summary report provides metrics related to the per
 |                                                     error rate |                                       term |           0 |      % |
 ```
 
-Metrics that are unique to the cluster begin at the `index` task line. The following two use cases are examples of metrics that might be relevant to you:
+Metrics that are unique to the cluster begin at the `index` task line. The following are examples of metrics that might be relevant to you:
 
-- To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run, as well as the ingestion error rate. 
-- To assess the measurable latency and service time of the queries in the workload, the `match_all` and `term` tasks provide both the number of query operations performed per second and the measurable latency of the query, as well as the error rate when running query operations.
+- To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run as well as the ingestion error rate. 
+- To assess the measurable latency and service time of the queries in the workload, the `match_all` and `term` tasks provide the number of query operations performed per second, the measurable query latency, and the query operation error rate.
 
 
-## Results storage
+## Storing results
 
-Results from OpenSearch Benchmark are stored in-memory or in an external metric store. 
+OpenSearch Benchmark results are stored in-memory or in external storage. 
 
-When stored in-memory, results can be found in the `/.benchmark/benchmarks/test_executions/<test_execution_id>` directory. Results are named based off of the `test_execution_id` given to the workload test during its most recent run. 
+When stored in-memory, results can be found in the `/.benchmark/benchmarks/test_executions/<test_execution_id>` directory. Results are named in accordance with the `test_execution_id` of the most recent workload test. 
 
 While [running a test](https://opensearch.org/docs/latest/benchmark/reference/commands/execute-test/#general-settings), you can customize where the results are stored using any combination of the following command flags:
 
 * `--results-file`: When provided a file path, writes the summary report to the file indicated in the path.
 * `--results-format`: Defines the output format for the summary report results, either `markdown` or `csv`. Default is `markdown`.
-* `--show-in-results`:  Defines which values are shown in the published summary report, either `available`, `all-percentiles`, or `all`. Default is `available`.
-* `--user-tag`: Defines user-specific key-value pairs to be used in the metric record as meta information, for example, `intention:baseline-ticket-12345`. This is useful when storing metrics and results in an external metric store.
+* `--show-in-results`: Defines which values are shown in the published summary report, either `available`, `all-percentiles`, or `all`. Default is `available`.
+* `--user-tag`: Defines user-specific key-value pairs used in the metrics record as meta information, for example, `intention:baseline-ticket-12345`. This is useful when storing metrics and results in external storage.
 
