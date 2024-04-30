@@ -49,6 +49,42 @@ GET /_plugins/_notifications/features
 }
 ```
 
+## List all notification channels
+
+To retrieve a list of all notification channels, send a GET request to the `channels` resource.
+
+#### Example request
+
+```json
+GET /_plugins/_notifications/channels
+```
+
+#### Example response
+
+```json
+{
+  "start_index" : 0,
+  "total_hits" : 2,
+  "total_hit_relation" : "eq",
+  "channel_list" : [
+    {
+      "config_id" : "sample-id",
+      "name" : "Sample Slack Channel",
+      "description" : "This is a Slack channel",
+      "config_type" : "slack",
+      "is_enabled" : true
+    },
+    {
+      "config_id" : "sample-id2",
+      "name" : "Test chime channel",
+      "description" : "A test chime channel",
+      "config_type" : "chime",
+      "is_enabled" : true
+    }
+  ]
+}
+```
+
 ## List all notification configurations
 
 To retrieve a list of all notification configurations, send a GET request to the `configs` resource.
