@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Understanding results
+title: Understanding benchmark results
 nav_order: 22
 parent: User guide
 ---
