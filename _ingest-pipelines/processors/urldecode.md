@@ -7,7 +7,7 @@ nav_order: 320
 
 # URL decode processor
 
-The `urldecode` processor is useful for decoding URL-encoded strings that may be present in log data or other text fields. This can make the data more readable and easier to analyze, especially when dealing with URLs or query parameters that contain special characters or spaces.
+The `urldecode` processor is useful for decoding URL-encoded strings in log data or other text fields. This can make the data more readable and easier to analyze, especially when working with URLs or query parameters that contain special characters or spaces.
 
 The following is the syntax for the `urldecode` processor:
 
