@@ -46,7 +46,7 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline named `user_agent_pipeline` that uses the `user_agent` processor to  to extract user agent information: 
+The following query creates a pipeline named `user_agent_pipeline` that uses the `user_agent` processor to extract user agent information: 
 
 ```json
 PUT _ingest/pipeline/user_agent_pipeline
