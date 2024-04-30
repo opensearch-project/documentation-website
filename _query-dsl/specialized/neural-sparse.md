@@ -25,7 +25,7 @@ Include the following request fields in the `neural_sparse` query:
   }
 }
 ```
-2. query by sparse vector:
+### Example: Query by sparse vector
 ```json
 "neural_sparse": {
   "<vector_field>": {
