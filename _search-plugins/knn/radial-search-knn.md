@@ -136,23 +136,14 @@ PUT _bulk?refresh=true
 {"index": {"_index": "knn-index-test", "_id": "1"}}
 {"my_vector": [7.0, 8.2], "price": 4.4}
 {"index": {"_index": "knn-index-test", "_id": "2"}}
-{"my_vector": [9.0, 6.4], "price": 14.2}
+{"my_vector": [7.1, 7.4], "price": 14.2}
 {"index": {"_index": "knn-index-test", "_id": "3"}}
-{"my_vector": [3.5, 6.0], "price": 19.1}
+{"my_vector": [7.3, 8.3], "price": 19.1}
 {"index": {"_index": "knn-index-test", "_id": "4"}}
-{"my_vector": [1.5, 9.8], "price": 1.2}
+{"my_vector": [6.5, 8.8], "price": 1.2}
 {"index": {"_index": "knn-index-test", "_id": "5"}}
-{"my_vector": [3.3, 2.3], "price": 16.5}
-{"index": {"_index": "knn-index-test", "_id": "6"}}
-{"my_vector": [2.6, 8.4], "price": 10.7}
-{"index": {"_index": "knn-index-test", "_id": "7"}}
-{"my_vector": [1.9, 5.5], "price": 11.0}
-{"index": {"_index": "knn-index-test", "_id": "8"}}
-{"my_vector": [4.6, 8.5], "price": 18.7}
-{"index": {"_index": "knn-index-test", "_id": "9"}}
-{"my_vector": [3.0, 3.9], "price": 7.1}
-{"index": {"_index": "knn-index-test", "_id": "10"}}
-{"my_vector": [9.5, 9.8], "price": 3.4}
+{"my_vector": [5.7, 7.9], "price": 16.5}
+
 ```
 {% include copy-curl.html %}
 
@@ -161,11 +152,118 @@ PUT _bulk?refresh=true
 ```json
 GET knn-index-test/_search
 {
+    "query": {
+        "knn": {
+            "my_vector": {
+                "vector": [
+                    7.1,
+                    8.3
+                ],
+                "max_distance": 2
+            }
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+All documents that fall within the squared Euclidean distance (`l2^2`) of 2 are returned.
+
+<details markdown="block">
+  <summary>
+    Results
+  </summary>
+  {: .text-delta}
+
+```json
+{
+    "took": 6,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 0.98039204,
+        "hits": [
+            {
+                "_index": "knn-index-test",
+                "_id": "1",
+                "_score": 0.98039204,
+                "_source": {
+                    "my_vector": [
+                        7.0,
+                        8.2
+                    ],
+                    "price": 4.4
+                }
+            },
+            {
+                "_index": "knn-index-test",
+                "_id": "3",
+                "_score": 0.9615384,
+                "_source": {
+                    "my_vector": [
+                        7.3,
+                        8.3
+                    ],
+                    "price": 19.1
+                }
+            },
+            {
+                "_index": "knn-index-test",
+                "_id": "4",
+                "_score": 0.62111807,
+                "_source": {
+                    "my_vector": [
+                        6.5,
+                        8.8
+                    ],
+                    "price": 1.2
+                }
+            },
+            {
+                "_index": "knn-index-test",
+                "_id": "2",
+                "_score": 0.5524861,
+                "_source": {
+                    "my_vector": [
+                        7.1,
+                        7.4
+                    ],
+                    "price": 14.2
+                }
+            }
+        ]
+    }
+}
+```
+</details>
+
+### Perform radial search with `max_distance` and filter
+
+```json
+GET knn-index-test/_search
+{
   "query": {
     "knn": {
       "my_vector": {
-        "vector": [6.9, 8.5],
-        "max_distance": 6
+        "vector": [7.1, 8.3],
+        "max_distance": 2,
+        "filter": {
+          "range": {
+            "price": {
+              "gte": 1,
+              "lte": 5
+            }
+          }
+        }
       }
     }
   }
@@ -173,11 +271,17 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents that fall within the squared Euclidean distance (`l2^2`) of 6 are returned:
+All documents that fall within the squared Euclidean distance (`l2^2`) of 6 and have price within the range of 1 to 5 are returned.
+
+<details markdown="block">
+  <summary>
+    Results
+  </summary>
+  {: .text-delta}
 
 ```json
 {
-    "took": 5,
+    "took": 4,
     "timed_out": false,
     "_shards": {
         "total": 1,
@@ -190,12 +294,12 @@ All documents that fall within the squared Euclidean distance (`l2^2`) of 6 are 
             "value": 2,
             "relation": "eq"
         },
-        "max_score": 0.9090908,
+        "max_score": 0.98039204,
         "hits": [
             {
                 "_index": "knn-index-test",
                 "_id": "1",
-                "_score": 0.9090908,
+                "_score": 0.98039204,
                 "_source": {
                     "my_vector": [
                         7.0,
@@ -206,20 +310,21 @@ All documents that fall within the squared Euclidean distance (`l2^2`) of 6 are 
             },
             {
                 "_index": "knn-index-test",
-                "_id": "8",
-                "_score": 0.15898249,
+                "_id": "4",
+                "_score": 0.62111807,
                 "_source": {
                     "my_vector": [
-                        4.6,
-                        8.5
+                        6.5,
+                        8.8
                     ],
-                    "price": 18.7
+                    "price": 1.2
                 }
             }
         ]
     }
 }
 ```
+</details>
 
 ### Perform radial search with `min_score`
 
@@ -229,15 +334,22 @@ GET knn-index-test/_search
   "query": {
     "knn": {
       "my_vector": {
-        "vector": [6.9, 8.5],
-        "min_score": 0.9
+        "vector": [7.1, 8.3],
+        "min_score": 0.95
       }
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
-All documents with a score of 0.9 or higher are returned:
+All documents with a score of 0.9 or higher are returned.
+
+<details markdown="block">
+  <summary>
+    Results
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -251,15 +363,98 @@ All documents with a score of 0.9 or higher are returned:
     },
     "hits": {
         "total": {
-            "value": 1,
+            "value": 2,
             "relation": "eq"
         },
-        "max_score": 0.9090908,
+        "max_score": 0.98039204,
         "hits": [
             {
                 "_index": "knn-index-test",
                 "_id": "1",
-                "_score": 0.9090908,
+                "_score": 0.98039204,
+                "_source": {
+                    "my_vector": [
+                        7.0,
+                        8.2
+                    ],
+                    "price": 4.4
+                }
+            },
+            {
+                "_index": "knn-index-test",
+                "_id": "3",
+                "_score": 0.9615384,
+                "_source": {
+                    "my_vector": [
+                        7.3,
+                        8.3
+                    ],
+                    "price": 19.1
+                }
+            }
+        ]
+    }
+}
+```
+</details>
+
+### Perform radial search with `min_score` and filter
+
+```json
+GET knn-index-test/_search
+{
+    "query": {
+        "knn": {
+            "my_vector": {
+                "vector": [
+                    7.1,
+                    8.3
+                ],
+                "min_score": 0.95,
+                "filter": {
+                    "range": {
+                        "price": {
+                            "gte": 1,
+                            "lte": 5
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+All documents with a score of 0.9 or higher and have price within the range of 1 to 5 are returned:
+
+<details markdown="block">
+  <summary>
+    Results
+  </summary>
+  {: .text-delta}
+
+```json
+{
+    "took": 4,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 1,
+            "relation": "eq"
+        },
+        "max_score": 0.98039204,
+        "hits": [
+            {
+                "_index": "knn-index-test",
+                "_id": "1",
+                "_score": 0.98039204,
                 "_source": {
                     "my_vector": [
                         7.0,
@@ -272,3 +467,87 @@ All documents with a score of 0.9 or higher are returned:
     }
 }
 ```
+</details>
+
+## Utilize k-NN radial search during neural search
+
+To utilize radial search during a neural search, you can use the `max_distance` or `min_score` parameters, In this example, the neural search set up come from [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/)
+
+```json
+GET /my-nlp-index/_search
+{
+  "_source": {
+    "excludes": [
+      "passage_embedding"
+    ]
+  },
+  "query": {
+    "neural": {
+      "passage_embedding": {
+        "query_text": "wild west",
+        "model_id": "LOpfLI8Bps3LV2YNFK5N",
+        "min_score": 0.015
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+All documents with score of 0.015 or higher are returned.
+
+<details markdown="block">
+  <summary>
+    Results
+  </summary>
+  {: .text-delta}
+
+```json
+{
+    "took": 40,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 3,
+            "relation": "eq"
+        },
+        "max_score": 0.015851954,
+        "hits": [
+            {
+                "_index": "my-nlp-index",
+                "_id": "4",
+                "_score": 0.015851954,
+                "_source": {
+                    "text": "A man who is riding a wild horse in the rodeo is very near to falling off .",
+                    "id": "4427058951.jpg"
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "2",
+                "_score": 0.015748847,
+                "_source": {
+                    "text": "A wild animal races across an uncut field with a minimal amount of trees .",
+                    "id": "1775029934.jpg"
+                }
+            },
+            {
+                "_index": "my-nlp-index",
+                "_id": "5",
+                "_score": 0.01517796,
+                "_source": {
+                    "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse .",
+                    "id": "2691147709.jpg"
+                }
+            }
+        ]
+    }
+}
+```
+</details>
