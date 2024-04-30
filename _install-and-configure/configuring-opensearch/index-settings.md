@@ -51,7 +51,7 @@ OpenSearch supports the following cluster-level index settings. All settings in 
   - `fnv_1a_composite_1`: Uses FNV1a hash function and generates a custom encoded hash value which scales well with most remote store options. The FNV1a function generates 64 bit value. The custom encoding uses most significant 6 bits to create an url-safe base64 character, and next 14 bits to create binary string.
   Default is `fnv_1a_composite_1`.
 
-- `cluster.remote_store.translog.transfer_timeout` (Time unit): Controls the timeout value while uploading translog and checkpoint file during sync to remote store. This setting is applicable only for remote store enabled cluster. Default value is 30s.
+- `cluster.remote_store.translog.transfer_timeout` (Time unit): Controls the timeout value while uploading translog and checkpoint file during sync to remote store. This setting is applicable only for remote store enabled cluster. Default value is `30s`.
 
 - `cluster.remote_store.index.segment_metadata.retention.max_count` (Integer): Controls the minimum number of metadata files to keep in segment repository on remote store. Value below 1 will disable deletion of stale segment metadata files. Default value is 10.
 
