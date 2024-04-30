@@ -59,7 +59,8 @@ GET my-nlp-index/_search
   }
 }
 ```
-2. query by sparse vector:
+**Query by sparse vector**
+
 ```json
 GET my-nlp-index/_search
 {
