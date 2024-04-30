@@ -35,7 +35,7 @@ OpenSearch supports the following cluster-level index settings. All settings in 
 
 - `indices.recovery.max_concurrent_remote_store_streams` (Integer): The number of streams to the remote repository that can be opened in parallel when recovering a remote store index. Default is `20`. 
 
-- `indices.time_series_index.default_index_merge_policy` (String): This setting allows you to specify the default merge policy for time-series indexes, particularly for those with an `@timestamp` field, such as data streams. The two available options are `tiered` (default) and `log_byte_size`. Using `log_byte_size` for time-series indexes is recommended for enhancing the performance of range queries with the `@timestamp` field. To override the merge policy on a per-index basis, you can use the `index.merge.policy` index setting. 
+- `indices.replication.max_bytes_per_sec` (String): Limits the total inbound and outbound replication traffic for each node. If a value is not specified in the configured value the `indices.recovery.max_bytes_per_sec` setting is used, which defaults to 40 mb. If you set the replication traffic value to less than or equal to 0 mb, rate limiting is disabled, which causes replication data to be transferred at the highest possible rate.
 
 - `indices.fielddata.cache.size` (String): The maximum size of the field data cache. May be specified as an absolute value (for example, `8GB`) or a percentage of the node heap (for example, `50%`). This value is static so you must specify it in the `opensearch.yml` file. If you don't specify this setting, the maximum size is unlimited. This value should be smaller than the `indices.breaker.fielddata.limit`. For more information, see [Field data circuit breaker]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/circuit-breaker/#field-data-circuit-breaker-settings).
 
@@ -79,10 +79,17 @@ OpenSearch supports the following static index-level index settings:
     - `best_compression`
     - `zstd` (OpenSearch 2.9 and later)
     - `zstd_no_dict`(OpenSearch 2.9 and later)
+    - `qat_lz4` (OpenSearch 2.14 and later, on supported systems)
+    - `qat_deflate` (OpenSearch 2.14 and later, on supported systems)
         
-    For `zstd` and `zstd_no_dict`, you can specify the compression level in the `index.codec.compression_level` setting. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `default`.
+For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the compression level in the `index.codec.compression_level` setting. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `default`.
 
-- `index.codec.compression_level` (Integer): The compression level setting provides a tradeoff between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size) with a tradeoff in speed (slower compression and decompression speeds lead to greater indexing and search latencies). Can only be specified if `index.codec` is set to `zstd` and `zstd_no_dict` compression levels in OpenSearch 2.9 and later. Valid values are integers in the [1, 6] range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is 3. 
+- `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size), but slower compression and decompression speeds lead to higher indexing and search latencies. This setting can only be specified if `index.codec` is set to `zstd` and `zstd_no_dict` in OpenSearch 2.9 and later or `qat_lz4` and `qat_deflate` in OpenSearch 2.14 and later. Valid values are integers in the [1, 6] range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is 3.
+
+- `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4` and `qat_deflate` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto`. 
+
+        
+
 
 - `index.routing_partition_size` (Integer): The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than a single shard. To enable routing, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 
