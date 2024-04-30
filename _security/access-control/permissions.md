@@ -149,12 +149,12 @@ config:
       basic_internal_auth_domain:
       ...
 ```
-It is important to remember that if this option is set to `true`, the user will be served the data as if it is the complete set. There is no indication that some data may be omitted.
+It is important to remember that if this option is set to `true`, the user is served the data as if it is the complete set. There is no indication that some data may be omitted.
 {: .warning }
 
 ### `do_not_fail_on_forbidden_empty`
 
-When the user views a visualization for which they lack index permissions, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.`, you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
+When the user views a visualization for which they lack index permissions, they see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.`, you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
 
 ```
 _meta:
@@ -521,9 +521,10 @@ These permissions apply to an index or index pattern. You might want a user to h
 
 ## Security REST permissions
 
-These permissions apply to REST APIs to control access to the endpoints. Granting access to any of these will allow a user the permission to change fundamental operational components of the Security plugin.
 Allowing access to these endpoints has the potential to trigger operational changes in the cluster. Proceed with caution.
 {: .warning }
+
+The following permissions apply to REST APIs to control access to the endpoints. Granting access to any of these APIs allows a user the permission to change fundamental operational components of the Security plugin:
 
 - restapi:admin/actiongroups
 - restapi:admin/allowlist
