@@ -175,7 +175,7 @@ For the warmup operation to function properly, follow these best practices:
 
 * Don't index any documents that you want to load into the cache. Writing new information to segments prevents the warmup API operation from loading the native library indexes until they're searchable. This means that you would have to run the warmup operation again after indexing finishes.
 
-## k-NN Clear Cache
+## k-NN clear cache
 Introduced 2.14
 {: .label .label-purple }
 
