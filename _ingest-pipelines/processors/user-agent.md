@@ -32,7 +32,7 @@ Parameter | Required/Optional | Description |
 `field` | Required | The field containing the user agent string.
 `target_field` | Optional | The field in which to store the extracted user agent information. If not specified, then the information is stored in the `user_agent` field.
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor does not modify the document if the `field` does not exist. Default is `false`. |
-`regex_file` | Optional | A file containing regular expression patterns used to parse the user agent string. This file should be located in the `config/ingest-user-agent` directory within the OpenSearch package. If not specified, the default file `regexes.yaml` shipped with OpenSearch is used. You can find the default file at `regexes.yaml`.
+`regex_file` | Optional | A file containing regular expression patterns used to parse the user agent string. This file should be located in the `config/ingest-user-agent` directory within the OpenSearch package. If not specified, then the default file `regexes.yaml` is used.
 `properties` | Optional | A list of properties to be extracted from the user agent string and added to the `target_field`. If not specified, the default properties are `name`, `major`, `minor`, `patch`, `build`, `os`, `os_name`, `os_major`, `os_minor`, and `device`.
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
