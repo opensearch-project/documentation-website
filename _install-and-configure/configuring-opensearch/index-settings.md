@@ -79,12 +79,12 @@ OpenSearch supports the following static index-level index settings:
     - `best_compression`
     - `zstd` (OpenSearch 2.9 and later)
     - `zstd_no_dict`(OpenSearch 2.9 and later)
-    - `qat_lz4`(OpenSearch 2.14 and later, on supported systems)
-    - `qat_deflate`(OpenSearch 2.14 and later, on supported systems)
+    - `qat_lz4` (OpenSearch 2.14 and later, on supported systems)
+    - `qat_deflate` (OpenSearch 2.14 and later, on supported systems)
         
-    For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate` you can specify the compression level in the `index.codec.compression_level` setting. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `default`.
+For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the compression level in the `index.codec.compression_level` setting. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `default`.
 
-- `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size) with a trad-eoff in speed (slower compression and decompression speeds lead to greater indexing and search latencies). Can only be specified if index.codec is set to `zstd` and `zstd_no_dict` in OpenSearch 2.9 and later, and `qat_lz4` and `qat_deflate` in OpenSearch 2.14 and later. Valid values are integers in the [1, 6] range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is 3.
+- `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size), but slower compression and decompression speeds lead to higher indexing and search latencies. This setting can only be specified if `index.codec` is set to `zstd` and `zstd_no_dict` in OpenSearch 2.9 and later or `qat_lz4` and `qat_deflate` in OpenSearch 2.14 and later. Valid values are integers in the [1, 6] range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is 3.
 
 - `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4` and `qat_deflate` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto`. 
 
