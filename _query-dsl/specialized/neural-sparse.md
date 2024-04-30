@@ -15,7 +15,8 @@ Use the `neural_sparse` query for vector field search in [neural sparse search](
 ## Request fields
 
 Include the following request fields in the `neural_sparse` query:
-1. query by raw text:
+### Example: Query by raw text
+
 ```json
 "neural_sparse": {
   "<vector_field>": {
