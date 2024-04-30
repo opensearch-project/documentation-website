@@ -148,7 +148,7 @@ Before the document is ingested into the index, the ingest pipeline runs the `sp
 
 To perform a neural sparse search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
 
-The following example request uses a `neural_sparse` query to search for relevant documents using raw query text:
+The following example request uses a `neural_sparse` query to search for relevant documents using a raw text query:
 
 ```json
 GET my-nlp-index/_search
