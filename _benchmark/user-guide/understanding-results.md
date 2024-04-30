@@ -114,7 +114,7 @@ Metrics that are unique to the cluster begin at the `index` task line. The follo
 
 Results from OpenSearch Benchmark are stored in-memory or in an external metric store. 
 
-When stored in-memory, results can be found in the `/.benchmark/benchmarks/test_executions/<test_execution_id>` directory. Results are named based off of the `test_execution_id` given to the workload test during its last run. 
+When stored in-memory, results can be found in the `/.benchmark/benchmarks/test_executions/<test_execution_id>` directory. Results are named based off of the `test_execution_id` given to the workload test during its most recent run. 
 
 While [running a test](https://opensearch.org/docs/latest/benchmark/reference/commands/execute-test/#general-settings), you can customize where the results are stored using any combination of the following command flags:
 
