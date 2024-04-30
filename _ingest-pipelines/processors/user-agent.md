@@ -7,7 +7,7 @@ nav_order: 330
 
 # User agent processor
 
-The `user_agent` processor is used to extract information from the user agent string, such as the browser, device, and operating system used by the client. The user_agent processor is particularly useful for analyzing user behavior and identifying trends based on the devices, operating systems, and browsers used by your users. It can also be helpful for troubleshooting issues that may be specific to certain user agent configurations.
+The `user_agent` processor is used to extract information from the user agent string, such as the browser, device, and operating system used by the client. The `user_agent` processor is particularly useful for analyzing user behavior and identifying trends based on user devices, operating systems, and browsers. It can also be helpful for troubleshooting issues specific to certain user agent configurations.
 
 The following is the syntax for the `user_agent` processor:
 
