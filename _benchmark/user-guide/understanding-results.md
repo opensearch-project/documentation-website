@@ -6,7 +6,7 @@ parent: User guide
 ---
 
 
-At the end of each test run, a summary table is produced which includes metrics like service time, throughput, latency, and more. These metrics provide insights into how the workload selected performed on a benchmarked OpenSearch cluster.
+At the end of each test run, OpenSearch Benchmark creates a summary of test results metrics like service time, throughput, latency, and more. These metrics provide insights into how the workload selected performed on a benchmarked OpenSearch cluster.
 
 The following guide gives information about how to understand the results of the summary report.
 
