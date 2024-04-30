@@ -136,7 +136,7 @@ PUT testindex1/_doc/1?pipeline=user_agent_pipeline
 
 #### Response
 
-The request indexes the document into the index `testindex1` and will index all documents with the user agent string parsed into it components:
+The preceding request parses the `user_agent` string into its components and indexes the document, along with all documents containing those components, into the `testindex1` index, as shown in the following response:
 
 ```json
 {
@@ -165,7 +165,7 @@ GET testindex1/_doc/1
 
 #### Response
 
-The response includes the original `user_agent` field and the parsed `user_agent_info` field with the device, operating system, and browser information: 
+The response includes the original `user_agent` field and the parsed `user_agent_info` field containing the device, operating system, and browser information: 
 
 ```json
 {
