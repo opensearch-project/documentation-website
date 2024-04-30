@@ -16,7 +16,7 @@ Introduced 2.11
 When selecting a model, choose one of the following options:
 
 - Use a sparse encoding model at both ingestion time and search time (high performance, relatively high latency).
-- Use a sparse encoding model at ingestion time and a tokenizer at search time for relatively low performance and low latency. The tokenism doesn't conduct model inference, therefore for a more consistent experience, deploy and invoke tokenizer using the ML commons Model API.
+- Use a sparse encoding model at ingestion time and a tokenizer at search time for relatively low performance and low latency. The tokenism doesn't conduct model inference, so you can deploy and invoke a tokenizer using the ML Commons Model API for a more consistent experience.
 
 **PREREQUISITE**<br>
 Before using neural sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
