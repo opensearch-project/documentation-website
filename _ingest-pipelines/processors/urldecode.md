@@ -119,7 +119,7 @@ PUT testindex1/_doc/1?pipeline=url_decode_pipeline
 
 #### Response
 
-The request indexes the document into the index `testindex1` and will index all documents with the 
+The request indexes the document into the index `testindex1` and will index all documents containing the 
 `encoded_url` field, which will be processed by the `urldecode_pipeline` to populate the `decoded_url` field.
 
 ```json
