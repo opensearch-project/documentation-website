@@ -104,6 +104,7 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Step 3: Ingest a document 
 
@@ -119,8 +120,7 @@ PUT testindex1/_doc/1?pipeline=url_decode_pipeline
 
 #### Response
 
-The request indexes the document into the index `testindex1` and will index all documents containing the 
-`encoded_url` field, which will be processed by the `urldecode_pipeline` to populate the `decoded_url` field.
+The preceding request indexes the document into the index `testindex1` and indexes all documents containing the `encoded_url` field, which is processed by the `urldecode_pipeline` to populate the `decoded_url` field, as shown in the following response:
 
 ```json
 {
@@ -137,6 +137,7 @@ The request indexes the document into the index `testindex1` and will index all 
   "_primary_term": 47
 }
 ```
+{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
@@ -165,3 +166,4 @@ The response includes the original `encoded_url` field and the `decoded_url` fie
   }
 }
 ```
+{% include copy-curl.html %}
