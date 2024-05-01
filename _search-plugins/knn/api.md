@@ -152,7 +152,7 @@ GET /_plugins/_knn/warmup/index1,index2,index3?pretty
 
 `total` indicates how many shards the k-NN plugin attempted to warm up. The response also includes the number of shards the plugin succeeded and failed to warm up.
 
-The call does not return results until the warmup operation finishes or the request times out. If the request times out, the operation still continues on the cluster. To monitor the warmup operation, use the OpenSearch `_tasks` API:
+The call does not return results until the warmup operation finishes or the request times out. If the request times out, then the operation continues on the cluster. To monitor the warmup operation, use the OpenSearch `_tasks` API:
 
 ```json
 GET /_tasks
