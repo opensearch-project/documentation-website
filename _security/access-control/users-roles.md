@@ -253,7 +253,7 @@ Defining a user is described in the [defining users](https://opensearch.org/docs
 ### Admin users
 Admins in OpenSearch are users with elevated rights to perform administrative tasks within the cluster. Admins have broader access and control over cluster configurations and settings compared to regular users. They are responsible for managing users, roles, permissions, and backend settings.
 
-Admins can be given access to manage users, roles, and permissions via a yaml file, OpenSearch Dashboards or the REST API with the aim to allow administrative privileges to perform essential administrative tasks.
+Admins can be given access to manage users, roles, and permissions using a `yml` file, OpenSearch Dashboards or the REST API with the aim to allow administrative privileges to perform essential administrative tasks.
 
 To grant users admin privileges the admin certificates are added to the `opensearch.yml` defined by their Distinguished Names (DNs), for more information see [configure the admin certificate](https://opensearch.org/docs/latest/security/configuration/security-admin/#configure-the-admin-certificate).
 
