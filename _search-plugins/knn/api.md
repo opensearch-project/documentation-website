@@ -211,7 +211,7 @@ GET /_plugins/_knn/clear_cache/index*?pretty
 }
 ```
 
-The API call does not return results until the operation finishes or the request times out. If the request times out, the operation continues on the cluster. To monitor the request, use the `_tasks` API, as shown in the following example:
+The API call does not return results until the operation finishes or the request times out. If the request times out, then the operation continues on the cluster. To monitor the request, use the `_tasks` API, as shown in the following example:
 
 ```json
 GET /_tasks
