@@ -28,7 +28,7 @@ To enable site embedding for OpenSearch Dashboards, update the `frame-ancestors`
 curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'osd-xsrf: osd-fetch' -H 'Sec-Fetch-Dest: empty' --data-raw '{"newValue":"{new site}"}'
 ```
 
-## Delete `frame-ancestors` in CSP rules
+## Delete `frame-ancestors` in the CSP rules
 
 Use the following cURL command to delete `frame-ancestors` in CSP rules:
 
