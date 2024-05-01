@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuring Content Security Policy directive `frame-ancestors` dynamically
+title: Configuring the Content Security Policy `frame-ancestors` directive dynamically
 nav_order: 110
 has_children: false
 ---
