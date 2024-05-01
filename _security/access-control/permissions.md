@@ -503,7 +503,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/write/bulk*` |  Permission to run a bulk request. |
 | `indices:data/write/delete` |  Permission to [delete documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/). |
 | `indices:data/write/delete/byquery` |  Permission to delete all documents that [match a query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/). |
-| `indices:data/write/plugins/replication/changes` |  Permission to make changes to data replication configurations and settings within indexes. |
+| `indices:data/write/plugins/replication/changes` |  Permission to change data replication configurations and settings within indexes. |
 | `indices:data/write/index` |  Permission to add documents to existing indexes. See also [Index document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/ ). |
 | `indices:data/write/reindex` |  Permission to run a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/). |
 | `indices:data/write/update` | Permission to update an index. |
