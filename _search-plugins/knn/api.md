@@ -168,7 +168,7 @@ For the warmup operation to function properly, follow these best practices:
 
 * Confirm that all native library indexes you want to warm up can fit into native memory. For more information about the native memory limit, see the [knn.memory.circuit_breaker.limit statistic]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings). High graph memory usage causes cache thrashing, which can lead to operations constantly failing and attempting to run again.
 
-* Do not index any documents that you want to load into the cache. Writing new information to segments prevents the warmup API operation from loading the native library indexes until they are searchable. This means that you would have to run the warmup operation again after indexing finishes.
+* Do not index any documents that you want to load into the cache. Writing new information to segments prevents the warmup API operation from loading the native library indexes until they are searchable. This means that you would have to run the warmup operation again after indexing.
 
 ## k-NN clear cache
 Introduced 2.14
