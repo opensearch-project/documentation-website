@@ -178,7 +178,7 @@ During approximate k-NN search or warmup operations, the native library indexes 
 
 The k-NN clear cache API evicts all native library files for all shards (primaries and replicas) of all indexes specified in the request. Similarly to how the [warmup operation](#warmup-operation) behaves, the k-NN clear cache API is idempotent, meaning that if you try to clear the cache for an index that has already been evicted from the cache, it does not have any additional effect.
 
-This API operation works only with indexes created using the `nmslib` and `faiss` engines. The API operation has no impact on the indexes created using `lucene` engine.
+This API operation only works with indexes created using the `nmslib` and `faiss` engines. It has no effect on indexes created using the `lucene` engine.
 {: .note}
 
 #### Usage
