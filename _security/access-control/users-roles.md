@@ -242,3 +242,22 @@ Map the role to your user:
 1. Choose the **Mapped users** tab and **Manage mapping**.
 1. For **Internal users**, add your bulk access user.
 1. Choose **Map**.
+
+
+## Admin and super admin roles in OpenSearch security
+
+User roles are pivotal for controlling access to various cluster resources and functionalities. Depending on the access given to a user, the user may be considered a regular user, admin or super admin.
+
+Defining a user is described in the [defining users](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-users) section of the documentation. More information about defining roles can be found in [defining roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-roles)
+
+### Admin users
+Admins in OpenSearch are users with elevated rights to perform administrative tasks within the cluster. Admins have broader access and control over cluster configurations and settings compared to regular users. They are responsible for managing users, roles, permissions, and backend settings.
+
+Admins can be given access to manage users, roles, and permissions via a yaml file, OpenSearch Dashboards or the REST API with the aim to allow administrative privileges to perform essential administrative tasks.
+
+To grant users admin privileges the admin certificates are added to the `opensearch.yml` defined by their Distinguished Names (DNs), for more information see [configure the admin certificate](https://opensearch.org/docs/latest/security/configuration/security-admin/#configure-the-admin-certificate).
+
+### Super admin
+Super admins hold the highest level of administrative authority within the OpenSearch environment.
+
+Super admins can change Security plugin configurations using tools like `securityadmin.sh` or the REST API and have access to the security index or `.opendistro_security` index and applying or editing security configurations. This role is typically reserved for select users and is maintained carefully.
