@@ -524,7 +524,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 Allowing access to these endpoints has the potential to trigger operational changes in the cluster. Proceed with caution.
 {: .warning }
 
-The following permissions apply to REST APIs to control access to the endpoints. Granting access to any of these APIs allows a user the permission to change fundamental operational components of the Security plugin:
+The following REST API permissions control access to the endpoints. Granting access to any of these APIs allows a user to change fundamental operational components of the Security plugin:
 
 - restapi:admin/actiongroups
 - restapi:admin/allowlist
