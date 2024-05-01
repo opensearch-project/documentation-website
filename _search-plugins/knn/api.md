@@ -340,7 +340,7 @@ You can create and train a model that can be used for initializing k-NN native l
 
 Query parameter |  Description
 :--- | :---
-`model_id` | (Optional) The unique identifier of the fetched model. If not specified, a random id is generated.
+`model_id` | (Optional) The unique identifier of the fetched model. If not specified, then a random ID is generated.
 `node_id` | (Optional) Specifies the preferred node to execute the training process. If provided, the specified node is used for training if it has the necessary capabilities and resources available.
 
 Request parameter |  Description
