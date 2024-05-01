@@ -131,7 +131,7 @@ The native library indexes used to perform approximate k-NN search are stored as
 
 If the plugin has not loaded the files into native memory, then it loads them when it receives a search request. The loading time can cause high latency during initial queries. To avoid this, users often run random queries during a warmup period. After this warmup period, the files are loaded into native memory, and their production workloads can begin. This loading process is indirect and requires extra effort.
 
-As an alternative, you can avoid this latency issue by running the k-NN plugin warmup API operation on whatever indexes you are interested in searching. This operation loads all the native library files for all of the shards (primaries and replicas) of all the indexes specified in the request into native memory.
+As an alternative, you can avoid this latency issue by running the k-NN plugin warmup API operation on the indexes you want to search. This operation loads all the native library files for all the shards (primaries and replicas) of all the indexes specified in the request into native memory.
 
 After the process finishes, you can start searching against the indexes with no initial latency penalties. The warmup API operation is idempotent, so if a segment's native library files are already loaded into memory, this operation has no impact. It only loads files that are not currently in memory.
 
