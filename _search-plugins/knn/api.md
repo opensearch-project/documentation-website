@@ -241,7 +241,7 @@ Response field |  Description
 
 ### Usage
 
-The following examples show how to retrieve information about a specific model using the k-NN plugin API. The first example returns all the available information about the model, while the second example shows how to selectively retrieve only the fields you are interested in.
+The following examples show how to retrieve information about a specific model using the k-NN plugin API. The first example returns all the available information about the model, while the second example shows how to selectively retrieve fields.
 
 ```json
 GET /_plugins/_knn/models/test-model?pretty
