@@ -50,7 +50,7 @@ Statistic |  Description
 `training_memory_usage` | The amount of native memory training is using on the node in kilobytes.
 `training_memory_usage_percentage` | The amount of native memory training is using on the node as a percentage of the maximum cache capacity.
 
-Some stats contain *graph* in the name. In these cases, *graph* is synonymous with *native library index*. The term *graph* is a legacy detail, coming from when the plugin only supported the HNSW algorithm, which consists of hierarchical graphs.
+Some statistics contain *graph* in the name. In these cases, *graph* is synonymous with *native library index*. The term *graph* is reflective of when the plugin only supported the HNSW algorithm, which consists of hierarchical graphs.
 {: .note}
 
 #### Usage
