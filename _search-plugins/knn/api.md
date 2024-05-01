@@ -164,7 +164,7 @@ After the operation has finished, use the [k-NN `_stats` API operation](#stats) 
 
 For the warmup operation to function properly, follow these best practices:
 
-* Do not run merge operations on indexes that you want to warm up. During merge, the k-NN plugin creates new segments, and old segments are sometimes deleted. For example, you could encounter a situation in which the warmup API operation loads native library indexes A and B into native memory, but segment C is created from segments A and B being merged. The native library indexes for A and B would no longer be in memory, and native library index C would also not be in memory. In this case, the initial penalty for loading native library index C is still present.
+* Do not run merge operations on indexes that you want to warm up. During merge, the k-NN plugin creates new segments, and old segments are sometimes deleted. For example, you could encounter a situation in which the warmup API operation loads native library indexes A and B into native memory but segment C is created from segments A and B being merged. Native library indexes A and B would no longer be in memory, and native library index C would also not be in memory. In this case, the initial penalty for loading native library index C is still present.
 
 * Confirm that all native library indexes you want to warm up can fit into native memory. For more information about the native memory limit, see the [knn.memory.circuit_breaker.limit statistic]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings). High graph memory usage causes cache thrashing, which can lead to operations constantly failing and attempting to run again.
 
