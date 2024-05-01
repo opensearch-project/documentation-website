@@ -296,7 +296,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    }
    ```
 
-### Microsoft Azure
+### Microsoft azure
 
 1. To use a Microsoft Azure Blob Storage as a snapshot repository, install the `repository-azure` plugin on all nodes:
 
@@ -320,10 +320,10 @@ Use the following steps to register a snapshot repository backed by an Azure sto
 
 Useful information when using token credential:
 
-   - At the moment, azure managde identity is only token credential support.
+   - At the moment, azure managed identity is the only token credential support.
    - Token credential is disabled by default.
-   - If both token credential and sas token are configured, token credential will be used for authentication instead
-     of sas token. Similar behaviour when both token credential and account key are configured.
+   - If both token credential and SAS token are configured, token credential will be used for authentication instead
+     of SAS token. Similar behaviour when both token credential and account key are configured.
 
 ## Take snapshots
 
