@@ -149,7 +149,7 @@ config:
       basic_internal_auth_domain:
       ...
 ```
-It is important to remember that if this option is set to `true`, then the user is served the data as if it is the complete set. There is no indication that some data may be omitted.
+It is important to remember that if this option is set to `true`, then the user is served the data as if it is the complete dataset. There is no indication that some data may be omitted.
 {: .warning }
 
 ### `do_not_fail_on_forbidden_empty`
