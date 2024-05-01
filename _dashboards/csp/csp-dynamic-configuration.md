@@ -13,7 +13,7 @@ Content Security Policy (CSP) is a security standard intended to prevent cross-s
 
 ## Configuration
 
-The `applicationConfig` plugin provides read and write APIs that allow OpenSearch Dashboards users to manage dynamic configurations as key-value pairs in an index. The `cspHandler` plugin registers a pre-response handler to `HttpServiceSetup`, which gets the `frame-ancestors` value from the dependent `applicationConfig` plugin and then rewrites to the CSP header. Enable both plugins within your `opensearch_dashboards.yml` file to use this feature. The configuration is shown in the following example. Refer to [`cspHandler` plugin](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/csp_handler/README.md) for configuration details.
+The `applicationConfig` plugin provides read and write APIs that allow OpenSearch Dashboards users to manage dynamic configurations as key-value pairs in an index. The `cspHandler` plugin registers a pre-response handler to `HttpServiceSetup`, which gets the `frame-ancestors` value from the dependent `applicationConfig` plugin and then rewrites to the CSP header. Enable both plugins in your `opensearch_dashboards.yml` file to use this feature. The configuration is shown in the following example. Refer to [`cspHandler` plugin](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/csp_handler/README.md) for more information.
 
 ```
 application_config.enabled: true
