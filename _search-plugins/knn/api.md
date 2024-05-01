@@ -336,7 +336,7 @@ DELETE /_plugins/_knn/models/{model_id}
 
 ## Train model
 
-Create and train a model that can be used for initializing k-NN native library indexes during indexing. This API pulls training data from a `knn_vector` field in a training index, creates and trains a model, and then serializes it to the model system index. Training data must match the dimension passed in the request body. This request returns when training begins. To monitor the model's state, use the [Get model API](#get-model).  
+You can create and train a model that can be used for initializing k-NN native library indexes during indexing. This API pulls training data from a `knn_vector` field in a training index, creates and trains a model, and then serializes it to the model system index. Training data must match the dimension passed in the request body. This request is returned when training begins. To monitor the model's state, use the [Get model API](#get-model).  
 
 Query parameter |  Description
 :--- | :---
