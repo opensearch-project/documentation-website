@@ -18,7 +18,7 @@ The first job of the script is to initialize the `.opendistro_security` index. T
 
 The script can be found at `/plugins/opensearch-security/tools/securityadmin.sh`. This is a relative path showing where the `securityadmin.sh` script is located. The absolute path depends on the directory where you've installed OpenSearch. For example, if you use Docker to install OpenSearch, the path will resemble the following: `/usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh`.
 
-`securityadmin.sh` requires that SSL/TLS HTTP is enabled for your OpenSearch cluster. In other words, make sure that your `opensearch.yml` has `plugins.security.ssl.http.enabled: true` before proceeding. If you are not using SSL/TLS on HTTP layer in your cluster but still need to use `securityadmin.sh`, you can enable SSL/TLS on HTTP layer on a single node, for instance `ingest` node and run the `securityadmin.sh` on this node. This can be achieved by configuring [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls) settings on only one node. OpenSearch restart on this node is necessary following the change in `opensearch.yml` file.
+`securityadmin.sh` requires that SSL/TLS HTTP is enabled for your OpenSearch cluster. Make sure that your `opensearch.yml` has `plugins.security.ssl.http.enabled: true` before proceeding. If you are not using SSL/TLS on HTTP layer in your cluster but need to use `securityadmin.sh`, you can enable SSL/TLS on HTTP layer on a single node, for example, the`ingest` node, then run the `securityadmin.sh` on this node. Enable this setting by configuring the [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls) settings on only one node. Restarting OpenSearch on this node is necessary following  any change to the `opensearch.yml` file.
 {: .note}
 
 ## A word of caution
@@ -102,7 +102,7 @@ To print all available command line options, run the script with no arguments:
 ./plugins/opensearch-security/tools/securityadmin.sh
 ```
 
-## Using securityadmin with PEM files
+## Using `securityadmin` with PEM files
 
 To load your initial configuration (all YAML files), you might use the following command:
 
@@ -127,9 +127,9 @@ Name | Description
 `-keypass` | The password of the private key of the admin certificate, if any.
 `-cacert` | The location of the PEM file containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
 
-## Using securityadmin with keystore and truststore files
+## Using `securityadmin` with keystore and truststore files
 
-You can also use keystore files in JKS format in conjunction with `securityadmin.sh`:
+You can use keystore files in JKS format together with `securityadmin.sh`:
 
 ```bash
 ./securityadmin.sh -cd ../../../config/opensearch-security -icl -nhnv
@@ -137,20 +137,20 @@ You can also use keystore files in JKS format in conjunction with `securityadmin
   -ks <path/to/keystore> -kspass <keystore password>
 ```
 
-Use the following options to control the key and truststore settings.
+Use the following options to control the keystore and truststore settings.
 
 Name | Description
 :--- | :---
 `-ks` | The location of the keystore containing the admin certificate and all intermediate certificates, if any. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
-`-kspass` | The password for the keystore.
-`-kst` | The key store type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
+`-kspass` | The keystore's password.
+`-kst` | The keystore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
 `-ksalias` | The alias of the admin certificate, if any.
 `-ts` | The location of the truststore containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
-`-tspass` | The password for the truststore.
+`-tspass` | The truststore's password.
 `-tst` | The truststore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
 `-tsalias` | The alias for the root certificate, if any.
 
-The Certificate Authority used to sign `admin` certificate, does not need to be the same Certificate Authority that was used to sign transport or HTTP certificates, however it needs to be added to the truststore to be able to validate the certificate. Further details are available in [Generate node and client certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#optional-generate-node-and-client-certificates)
+The Certificate Authority used to sign the `admin` certificate does not need to be the same Certificate Authority used to sign transport or HTTP certificates. It does, however, need to be added to the truststore to be able to validate the certificate. See [Generate node and client certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#optional-generate-node-and-client-certificates) for more information.
 {: .note}
 
 ## Sample commands
