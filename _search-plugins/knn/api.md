@@ -176,7 +176,7 @@ Introduced 2.14
 
 During approximate k-NN search or warmup operations, the native library indexes (`nmslib` and `faiss` engines) are loaded into native memory. Currently, you can evict an index from cache or native memory by either deleting the index or setting the k-NN cluster settings `knn.cache.item.expiry.enabled` and `knn.cache.item.expiry.minutes`, which removes the index from the cache if it is idle for a given period of time. However, you cannot evict an index from the cache without deleting the index. To solve this problem, you can use the k-NN clear cache API operation, which clears a given set of indexes from the cache.
 
-The k-NN clear cache API evicts all native library files for all shards (primaries and replicas) of all indexes specified in the request. Similar to how the [warmup operation](#warmup-operation) behaves, the k-NN clear cache API is idempotent, meaning that if you try to clear the cache for an index that has already been evicted from the cache, it does not have any additional impact or effect.
+The k-NN clear cache API evicts all native library files for all shards (primaries and replicas) of all indexes specified in the request. Similarly to how the [warmup operation](#warmup-operation) behaves, the k-NN clear cache API is idempotent, meaning that if you try to clear the cache for an index that has already been evicted from the cache, it does not have any additional effect.
 
 This API operation works only with indexes created using the `nmslib` and `faiss` engines. The API operation has no impact on the indexes created using `lucene` engine.
 {: .note}
