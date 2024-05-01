@@ -234,7 +234,7 @@ Response field |  Description
 `state` | The model's current state, which can be `created`, `failed`, or `training`.
 `timestamp` | The date and time when the model was created.
 `description` | A user-provided description of the model.
-`error` | The error message explaining why the model is in the failed state.
+`error` | An error message explaining why the model is in a failed state.
 `space_type` | The space type this model is trained for, for example, Euclidean and cosine.
 `dimension` | The dimensionality of the vector space this model is designed for.
 `engine` | The native library used to create model, either `faiss` or `nmslib`. 
