@@ -217,7 +217,7 @@ The API call does not return results until the operation finishes or the request
 GET /_tasks
 ```
 
-When the operation finishes, use the [k-NN `_stats` API operation](#stats) to view which indexes have been evicted from the cache.
+When the operation finishes, use the [k-NN `_stats` API operation](#stats) to see which indexes have been evicted from the cache.
 
 ## Get model
 
