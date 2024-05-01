@@ -237,7 +237,7 @@ Response field |  Description
 `error` | An error message explaining why the model is in a failed state.
 `space_type` | The space type for which this model is trained, for example, Euclidean or cosine.
 `dimension` | The dimensionality of the vector space for which this model is designed.
-`engine` | The native library used to create model, either `faiss` or `nmslib`. 
+`engine` | The native library used to create the model, either `faiss` or `nmslib`. 
 
 ### Usage
 
