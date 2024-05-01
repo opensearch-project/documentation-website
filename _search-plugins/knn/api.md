@@ -351,7 +351,7 @@ Request parameter |  Description
 `max_training_vector_count` | (Optional) The maximum number of vectors from the training index to be used for training. Defaults to all the vectors in the index.
 `search_size` | (Optional) The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`.
 `description` | (Optional) A user-provided description of the model.
-`method` | The configuration of the ANN method used for searching. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). The method requires training to be valid.
+`method` | The configuration of the approximate k-NN method used for searching. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). The method requires training to be valid.
    
 #### Usage
 
