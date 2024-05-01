@@ -131,7 +131,7 @@ Keep in mind that enabling this feature and mapping system index permissions to 
 
 ### `do_not_fail_on_forbidden`
 
-If the user attempts to query multiple indexes, some of which they lack permission for, by default they get an `error` in OpenSearch Dashboards UI or an `exception` using `cURL` or API. If instead, you want the user to receive the results from the search for any of the indexes they _do_ have permission for, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
+If a user attempts to query multiple indexes, some of which they lack permissions for, by default they get an `error` in the OpenSearch Dashboards UI or an `exception` when using `cURL` or an API. If you instead want the user to receive the search results for any of the indexes for which they _do_ have permissions, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
 
 ```
 _meta:
