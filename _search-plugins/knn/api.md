@@ -346,7 +346,7 @@ Query parameter |  Description
 Request parameter |  Description
 :--- | :---
 `training_index` | The index from which the training data is obtained.
-`training_field` | The `knn_vector` field in the `training_index` from which the training data is retrieved. The dimension of this field must match `dimension` passed in this request.  
+`training_field` | The `knn_vector` field in the `training_index` from which the training data is retrieved. The dimension of this field must match the `dimension` passed in this request.  
 `dimension` | The dimension of the model being trained.
 `max_training_vector_count` | (Optional) The maximum number of vectors from the training index to be used for training. Defaults to all the vectors in the index.
 `search_size` | (Optional) The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`.
