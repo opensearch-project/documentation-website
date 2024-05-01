@@ -22,7 +22,7 @@ csp_handler.enabled: true
 
 ## Enable site embedding for OpenSearch Dashboards
 
-To enable site embedding for OpenSearch Dashboards, update the directive `frame-ancestors` in the CSP rules using CURL. When using CURL commands with single quotation marks inside the `data-raw` parameter, escape them with a backslash (`\`). For example, use `'\''` to represent `'`. The configuration is shown in the following example. Refer to [`applicationConfig` plugin](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/application_config/README.md) for configuration details.
+To enable site embedding for OpenSearch Dashboards, update the `frame-ancestors` directive in the CSP rules using cURL. When using cURL commands with single quotation marks in the `data-raw` parameter, escape them with a backslash (`\`). For example, use `'\''` to represent `'`. The configuration is shown in the following example. Refer to [`applicationConfig` plugin](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/application_config/README.md) for more information.
 
 ```
 curl '{osd endpoint}/api/appconfig/csp.rules.frame-ancestors' -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'osd-xsrf: osd-fetch' -H 'Sec-Fetch-Dest: empty' --data-raw '{"newValue":"{new site}"}'
