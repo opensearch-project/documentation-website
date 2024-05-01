@@ -5,7 +5,7 @@ nav_order: 110
 has_children: false
 ---
 
-# Configuring Content Security Policy directive `frame-ancestors` dynamically
+# Configuring the CSP `frame-ancestors` directive dynamically
 Introduced 2.13
 {: .label .label-purple }
 
