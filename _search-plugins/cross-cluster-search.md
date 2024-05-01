@@ -29,7 +29,7 @@ The following sequence describes the authentication flow when using cross-cluste
 1. The call, including the authenticated user, is forwarded to the remote cluster.
 1. The user's permissions are evaluated on the remote cluster.
 
-## Prerequisite
+## Prerequisites
 
 To use proxy mode, fulfill the following prerequisites:
 - Make sure that he source cluster's nodes are able to connect to the configured `proxy_address`. 
