@@ -196,7 +196,7 @@ GET /_plugins/_knn/clear_cache/index1,index2,index3?pretty
 }
 ```
 
-The `total` parameter indicates number of shards the API attempted to clear from the cache. The response includes the number of shards the plugin succeeded and failed to clear.
+The `total` parameter indicates the number of shards that the API attempted to clear from the cache. The response includes both the number of cleared shards and the number of shards that the plugin failed to clear.
 
 k-NN clear cache API can be used with index patterns to clear one or more indexes that match the given pattern from the cache, as shown in the following example:
 
