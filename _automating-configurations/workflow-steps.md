@@ -25,7 +25,7 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 
 |Step type	|Corresponding API	|Description	|
 |---	|---	|---	|
-|`noop`	|No API	| A no-operation (no-op) step that does nothing. It may be useful in some cases for synchronizing parallel steps. If the `user_inputs` field contains a `delay` key, this step will wait for the specified time.	|
+| `noop` |  No API | A no-operation (no-op) step that does nothing. A no-op is sometimes useful for synchronizing parallel steps. If the `user_inputs` field contains a `delay` key, this step will wait for the specified time.	|
 |`create_connector`	|[Create Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/)	|Creates a connector to a model hosted on a third-party platform.	|
 |`delete_connector`	|[Delete Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/delete-connector/)	|Deletes a connector to a model hosted on a third-party platform.	|
 |`register_model_group`	|[Register Model Group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/)	|Registers a model group. The model group will be deleted automatically once no model is present in the group.	|
