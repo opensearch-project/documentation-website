@@ -137,14 +137,14 @@ APT, the primary package management tool for Debian–based operating systems, a
 1. Choose the version of OpenSearch you want to install: 
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
    ```bash
-   sudo apt-get install opensearch
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
    ```
    {% include copy.html %}
 
    - To install a specific version of OpenSearch:
    ```bash
    # Specify the version manually using opensearch=<version>
-   sudo apt-get install opensearch={{site.opensearch_version}}
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
    ```
 
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
