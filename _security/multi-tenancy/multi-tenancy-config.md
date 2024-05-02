@@ -153,7 +153,7 @@ To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site
 ## `kibana_server` role
 
 OpenSearch Dashboards uses the`kibana_server` role to perform necessary OpenSearch operations. By default, `kibanauser` is mapped to this role through the `role_mappings.yml` file. You can view the full list of permissions assigned to this role by sending a GET request to the `_plugins/_security/api/roles/kibana_server` API (include the admin certificate, key, and certificate authority file in the GET request).
-Following is the full list of permissions assigned to this role:
+The following list includes the permissions assigned to this role:
 
 ```
 {
