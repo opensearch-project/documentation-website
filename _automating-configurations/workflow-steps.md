@@ -29,7 +29,7 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 |`create_connector`	|[Create Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/)	|Creates a connector to a model hosted on a third-party platform.	|
 |`delete_connector`	|[Delete Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/delete-connector/)	|Deletes a connector to a model hosted on a third-party platform.	|
 |`register_model_group`	|[Register Model Group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/)	|Registers a model group. The model group will be deleted automatically once no model is present in the group.	|
-|`register_remote_model`	|[Register Model (remote)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-model-hosted-on-a-third-party-platform)	|Registers a model hosted on a third-party platform. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.	| 
+|`register_remote_model`	|[Register Model (remote)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-model-hosted-on-a-third-party-platform)	| Registers a model hosted on a third-party platform. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.	| 
 |`register_local_pretrained_model`	|[Register Model (pretrained)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-pretrained-text-embedding-model)	| Registers an OpenSearch-provided pretrained text embedding model that is hosted on your OpenSearch cluster. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.	|
 |`register_local_sparse_encoding_model`	|[Register Model (sparse)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-pretrained-sparse-encoding-model)	| Registers an OpenSearch-provided pretrained sparse encoding model that is hosted on your OpenSearch cluster. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.	|
 |`register_local_custom_model`	|[Register Model (custom)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#register-a-custom-model)	| Registers a custom model that is hosted on your OpenSearch cluster. If the `user_inputs` field contains a `deploy` key that is set to `true`, also deploys the model.		|
@@ -45,14 +45,14 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 
 ## Additional fields
 
-You can include the following additional fields in the `user_inputs` field when indicated.
+You can include the following additional fields in the `user_inputs` field when indicated if the field is supported by the indicated step type.
 
-|Field	|Data type	|Description	|
+|Field	|Data type	| Step type | Description	|
 |---	|---	|---	|
-|`node_timeout`	|Time units	|A user-provided timeout for this step. For example, `20s` for a 20-second timeout.	|
-|`deploy`	|Boolean	|Applicable to the Register Model step type. If set to `true`, also executes the Deploy Model step.	|
-|`tools_order`	|List	|Applicable only to the Register Agent step type. Specifies the ordering of `tools`. For example, specify `["foo_tool", "bar_tool"]` to sequence those tools in that order.	|
-|`delay`	|Time units	|Applicable to the No-op step type. Waits the specified time. For example, `250ms` will wait for 250 milliseconds before continuing the workflow.	|
+|`node_timeout`	| Time units	| All | A user-provided timeout for this step. For example, `20s` for a 20-second timeout.	|
+|`deploy`	| Boolean	| Register Model | If set to `true`, also executes the Deploy Model step.	|
+|`tools_order`	| List	| Register Model | Specifies the ordering of `tools`. For example, specify `["foo_tool", "bar_tool"]` to sequence those tools in that order.	|
+|`delay`	| Time units	| No-op | Waits the specified time. For example, `250ms` will wait for 250 milliseconds before continuing the workflow.	|
 
 You can include the following additional fields in the `previous_node_inputs` field when indicated.
 
