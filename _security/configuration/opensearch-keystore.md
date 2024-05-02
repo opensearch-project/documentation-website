@@ -9,7 +9,7 @@ nav_order: 50
 
 `opensearch-keystore` is a utility script used to manage an OpenSearch keystore. An OpenSearch keystore provides a secure method of storing sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings. It is included in the OpenSearch distribution. 
 
-This keystore is separate from the keystore and truststore used to store TLS certificates in JKS or PKCS12/PFX format for securing the transport and HTTP layers. For information about those keystores, refer to [Keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#keystore-and-truststore-files).
+This keystore is separate from the keystore and truststore used to store TLS certificates in JKS or PKCS12/PFX format in order to secure the transport and HTTP layers. For information about those keystores, refer to [Keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#keystore-and-truststore-files).
 {: .note} 
 
 ## Usage
