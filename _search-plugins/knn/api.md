@@ -266,7 +266,7 @@ GET /_plugins/_knn/models/test-model?pretty&filter_path=model_id,state
 }
 ```
 
-## Search model
+## Search for a model
 
 You can use an OpenSearch query to search for a model in the index. See the following usage example. 
 
