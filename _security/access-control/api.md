@@ -1299,7 +1299,7 @@ PATCH _plugins/_security/api/securityconfig
 
 ### Configuration upgrade check
 
-Introduced 2.13
+Introduced 2.14
 {: .label .label-purple }
 
 Checks the current configuration bundled with the host's Security plugin and compares it to the version of the OpenSearch Security plugin the user downloaded. Then, the API responds indicating whether or not an upgrade can be performed and what resources can be updated.
@@ -1337,7 +1337,7 @@ GET _plugins/_security/api/_upgrade_check
 
 ### Configuration upgrade
 
-Introduced 2.13
+Introduced 2.14
 {: .label .label-purple }
 
 Adds and updates resources on a host's existing security configuration from the configuration bundled with the latest version of the Security plugin.

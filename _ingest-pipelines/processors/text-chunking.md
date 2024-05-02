@@ -47,11 +47,11 @@ The following table lists the required and optional parameters for the `text_chu
 The following table lists the optional parameters for the `fixed_token_length` algorithm.
 
 | Parameter  | Data type | Required/Optional  | Description  |
-|:---|:---|:---|:---|
-| `token_limit`	     | Integer	   | Optional	 | The token limit for chunking algorithms. Valid values are integers of at least `1`. Default is `384`.	                                                  |
-| `tokenizer`	       | String	    | Optional	 | The [word tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/index/#word-tokenizers) name. Default is `standard`.	 |
-| `overlap_rate`	    | String	    | Optional	 | The degree of overlap in the token algorithm. Valid values are floats between `0` and `0.5`, inclusive. Default is `0`.	                                              |
-| `max_chunk_limit`	 | Integer	   | Optional	 | The chunk limit for chunking algorithms. Default is 100. To disable this parameter, set it to `-1`.	|
+|:---|:----------|:---|:---|
+| `token_limit`	     | Integer	  | Optional	 | The token limit for chunking algorithms. Valid values are integers of at least `1`. Default is `384`.	                                                  |
+| `tokenizer`	       | String	   | Optional	 | The [word tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/index/#word-tokenizers) name. Default is `standard`.	 |
+| `overlap_rate`	    | Float     | Optional	 | The degree of overlap in the token algorithm. Valid values are floats between `0` and `0.5`, inclusive. Default is `0`.	                                              |
+| `max_chunk_limit`	 | Integer   | Optional	 | The chunk limit for chunking algorithms. Default is 100. To disable this parameter, set it to `-1`.	|
 
 The default value of `token_limit` is `384` so that output passages don't exceed the token limit constraint of the downstream text embedding models. For [OpenSearch-supported pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models), like `msmarco-distilbert-base-tas-b` and `opensearch-neural-sparse-encoding-v1`, the input token limit is `512`. The `standard` tokenizer tokenizes text into words. According to [OpenAI](https://platform.openai.com/docs/introduction), 1 token equals approximately 0.75 words of English text. The default token limit is calculated as 512 * 0.75 = 384.
 {: .note}
