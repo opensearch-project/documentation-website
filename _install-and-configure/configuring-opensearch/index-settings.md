@@ -39,23 +39,20 @@ OpenSearch supports the following cluster-level index settings. All settings in 
 
 - `indices.fielddata.cache.size` (String): The maximum size of the field data cache. May be specified as an absolute value (for example, `8GB`) or a percentage of the node heap (for example, `50%`). This value is static so you must specify it in the `opensearch.yml` file. If you don't specify this setting, the maximum size is unlimited. This value should be smaller than the `indices.breaker.fielddata.limit`. For more information, see [Field data circuit breaker]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/circuit-breaker/#field-data-circuit-breaker-settings).
 
-- `cluster.remote_store.index.path.type` (Static, string): The path strategy for the data stored in remote store. This setting is effective only for remote store enabled clusters.
-  Valid values are:
+- `cluster.remote_store.index.path.type` (String): The path strategy for the data stored in the remote store. This setting is effective only for remote store enabled clusters. This setting supports the following values:
   - `fixed`: Stores the data in path structure - `<repository_base_path>/<index_uuid>/<shard_id>/`.
   - `hashed_prefix`: Stores the data in path structure - `hash(<shard-data-idenitifer>)/<repository_base_path>/<index_uuid>/<shard_id>/`.
   - `hashed_infix`: Stores the data in path structure - `<repository_base_path>/hash(<shard-data-idenitifer>)/<index_uuid>/<shard_id>/`.
   `shard-data-idenitifer` is characterised by index_uuid, shard_id, kind of data (translog, segments) and type of data (data, metadata, lock_files).
   Default is `fixed`.
 
-- `cluster.remote_store.index.path.hash_algorithm` (Static, string): The hash function used for the derivation of hash value when `cluster.remote_store.index.path.type` is set to `hashed_prefix` or `hashed_infix`. This setting is effective only for remote store enabled clusters.
-  Valid values are:
-  - `fnv_1a_base64`: Uses FNV1a hash function and generates an url-safe 20 bit base64 encoded hash value.
-  - `fnv_1a_composite_1`: Uses FNV1a hash function and generates a custom encoded hash value which scales well with most remote store options. The FNV1a function generates 64 bit value. The custom encoding uses most significant 6 bits to create an url-safe base64 character, and next 14 bits to create binary string.
-  Default is `fnv_1a_composite_1`.
+- `cluster.remote_store.index.path.hash_algorithm` (String): The hash function used for the derivation of hash value when `cluster.remote_store.index.path.type` is set to `hashed_prefix` or `hashed_infix`. This setting is effective only for remote store enabled clusters. This setting supports the following values:
+  - `fnv_1a_base64`: Uses the FNV1a hash function and generates an url-safe 20 bit base64-encoded hash value.
+  - `fnv_1a_composite_1`: Uses the FNV1a hash function and generates a custom encoded hash value which scales well with most remote store options. The FNV1a function generates 64 bit value. The custom encoding uses most significant 6 bits to create a url-safe base64 character and the next 14 bits to create binary string. Default is `fnv_1a_composite_1`.
 
-- `cluster.remote_store.translog.transfer_timeout` (Time unit): Controls the timeout value while uploading translog and checkpoint file during sync to remote store. This setting is applicable only for remote store enabled cluster. Default value is `30s`.
+- `cluster.remote_store.translog.transfer_timeout` (Time unit): Controls the timeout value while uploading translog and checkpoint files during a sync to the remote store. This setting is applicable only for remote store enabled clusters. Default is `30s`.
 
-- `cluster.remote_store.index.segment_metadata.retention.max_count` (Integer): Controls the minimum number of metadata files to keep in segment repository on remote store. Value below 1 will disable deletion of stale segment metadata files. Default value is 10.
+- `cluster.remote_store.index.segment_metadata.retention.max_count` (Integer): Controls the minimum number of metadata files to keep in segment repository on remote store. A value below `1` disables deletion of stale segment metadata files. Default is `10`.
 
 
 ## Index-level index settings
