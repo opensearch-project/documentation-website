@@ -45,7 +45,7 @@ Statistic |  Description
 `faiss_initialized` | Boolean value indicating whether the *faiss* JNI library has been loaded and initialized on the node.
 `model_index_status` | Status of model system index. Valid values are "red", "yellow", "green". If the index does not exist, this will be null.
 `indexing_from_model_degraded` | Boolean value indicating if indexing from a model is degraded. This will happen if there is not enough JVM memory to cache the models.
-`training_requests` | The number of training requests made to the node.
+`ing_requests` | The number of training requests made to the node.
 `training_errors` | The number of training errors that have occurred on the node.
 `training_memory_usage` | The amount of native memory training is using on the node in kilobytes.
 `training_memory_usage_percentage` | The amount of native memory training is using on the node as a percentage of the maximum cache capacity.
@@ -334,9 +334,9 @@ DELETE /_plugins/_knn/models/{model_id}
 }
 ```
 
-## Train model
+## Train a model
 
-You can create and train a model that can be used for initializing k-NN native library indexes during indexing. This API pulls training data from a `knn_vector` field in a training index, creates and trains a model, and then serializes it to the model system index. Training data must match the dimension passed in the request body. This request is returned when training begins. To monitor the model's state, use the [Get model API](#get-model).  
+You can create and train a model that can be used for initializing k-NN native library indexes during indexing. This API pulls training data from a `knn_vector` field in a training index, creates and trains a model, and then serializes it to the model system index. Training data must match the dimension passed in the request body. This request is returned when training begins. To monitor the model's state, use the [Get model API](#get-a-model).  
 
 Query parameter |  Description
 :--- | :---
