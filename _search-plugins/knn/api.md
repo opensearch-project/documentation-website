@@ -129,7 +129,7 @@ GET /_plugins/_knn/HYMrXXsBSamUkcAjhjeN0w/stats/circuit_breaker_triggered,graph_
 
 The native library indexes used to perform approximate k-NN search are stored as special files with other Apache Lucene segment files. To perform a search on these indexes using the k-NN plugin, the plugin needs to load these files into native memory.
 
-If the plugin has not loaded the files into native memory, then it loads them when it receives a search request. The loading time can cause high latency during initial queries. To avoid this, users often run random queries during a warmup period. After this warmup period, the files are loaded into native memory, and their production workloads can begin. This loading process is indirect and requires extra effort.
+If the plugin has not loaded the files into native memory, then it loads them when it receives a search request. The loading time can cause high latency during initial queries. To avoid this, users often run random queries during a warmup period. After this warmup period, the files are loaded into native memory, and their production workloads can launch. This loading process is indirect and requires extra effort.
 
 As an alternative, you can avoid this latency issue by running the k-NN plugin warmup API operation on the indexes you want to search. This operation loads all the native library files for all the shards (primaries and replicas) of all the indexes specified in the request into native memory.
 
@@ -164,7 +164,7 @@ After the operation has finished, use the [k-NN `_stats` API operation](#stats) 
 
 For the warmup operation to function properly, follow these best practices:
 
-* Do not run merge operations on indexes that you want to warm up. During merge, the k-NN plugin creates new segments, and old segments are sometimes deleted. For example, you could encounter a situation in which the warmup API operation loads native library indexes A and B into native memory but segment C is created from segments A and B being merged. Native library indexes A and B would no longer be in memory, and native library index C would also not be in memory. In this case, the initial penalty for loading native library index C is still present.
+* Do not run merge operations on indexes that you want to warm up. During a merge operation, the k-NN plugin creates new segments, and old segments are sometimes deleted. For example, you could encounter a situation in which the warmup API operation loads native library indexes A and B into native memory but segment C is created from segments A and B being merged. Native library indexes A and B would no longer be in memory, and native library index C would also not be in memory. In this case, the initial penalty for loading native library index C still exists.
 
 * Confirm that all native library indexes you want to warm up can fit into native memory. For more information about the native memory limit, see the [knn.memory.circuit_breaker.limit statistic]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings). High graph memory usage causes cache thrashing, which can lead to operations constantly failing and attempting to run again.
 
@@ -340,18 +340,18 @@ You can create and train a model that can be used for initializing k-NN native l
 
 Query parameter |  Description
 :--- | :---
-`model_id` | (Optional) The unique identifier of the fetched model. If not specified, then a random ID is generated.
-`node_id` | (Optional) Specifies the preferred node on which to execute the training process. If provided, the specified node is used for training if it has the necessary capabilities and resources available.
+`model_id` | The unique identifier of the fetched model. If not specified, then a random ID is generated. Optional. 
+`node_id` | Specifies the preferred node on which to execute the training process. If provided, the specified node is used for training if it has the necessary capabilities and resources available. Optional.
 
 Request parameter |  Description
 :--- | :---
-`training_index` | The index from which the training data is obtained.
+`training_index` | The index from which the training data is retrieved.
 `training_field` | The `knn_vector` field in the `training_index` from which the training data is retrieved. The dimension of this field must match the `dimension` passed in this request.  
 `dimension` | The dimension of the model being trained.
-`max_training_vector_count` | (Optional) The maximum number of vectors from the training index to be used for training. Defaults to all the vectors in the index.
-`search_size` | (Optional) The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`.
-`description` | (Optional) A user-provided description of the model.
-`method` | The configuration of the approximate k-NN method used for searching. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). The method requires training to be valid.
+`max_training_vector_count` | The maximum number of vectors from the training index to be used for training. Defaults to all the vectors in the index. Optional.
+`search_size` | The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`. Optional.
+`description` | A user-provided description of the model. Optional.
+`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [k-NN index method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). The method requires training to be valid.
    
 #### Usage
 
