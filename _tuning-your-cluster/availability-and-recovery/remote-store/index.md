@@ -62,11 +62,13 @@ During the bootstrapping process, the remote-backed repositories listed in `open
 
 You can use the following [cluster settings]({{site.url}}{{site.baseurl}}//api-reference/cluster-api/cluster-settings/) to tune how remote-backed clusters handle each workload.
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| cluster.default.index.refresh_interval | Time unit | Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and also support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. |
-| cluster.minimum.index.refresh_interval | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum, index creation fails. |
-| cluster.remote_store.translog.buffer_interval | Time unit | The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. |
+| Field                                         | Data type | Description                                                                                                                                                                                                                                                                                                                             |
+|:----------------------------------------------|:----------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| cluster.default.index.refresh_interval        | Time unit | Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and also support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. |
+| cluster.minimum.index.refresh_interval        | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum, index creation fails.                                       |
+| cluster.remote_store.translog.buffer_interval | Time unit | The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present.                                                                                                                   |
+| cluster.remote_store.translog.max_readers     | Integer   | Sets the maximum number of open translog files for remote backed indices. This setting is introduced to limit the total number of translog files per shard. Upon breaching which, flush will be triggered and translog files will be trimmed.                                                                                           |
+
 
 
 ## Restoring from a backup
