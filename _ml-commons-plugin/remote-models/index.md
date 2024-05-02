@@ -322,6 +322,10 @@ The response contains the inference results provided by the OpenAI model:
 
 To learn how to use the model for vector search, see [Using an ML model for neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/#using-an-ml-model-for-neural-search).
 
+## Step 7 (Optional): Undeploy the model 
+
+Undeploy the model automatically by defining a TTL in the model settings or use the Undeploy API to undeploy the model manually. To learn more about model undeploy, see [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
+
 ## Next steps
 
 - For more information about connectors, including example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
