@@ -27,7 +27,7 @@ config:
 | `multitenancy_enabled` | Enable or disable multi-tenancy. Default is `true`. |
 | `private_tenant_enabled` | Enable or disable the private tenant. Default is `true`. |
 | `default_tenant` | Use to set the tenant that is available when users log in. |
-| `server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `kibanaserver`. If a different user is configured, make sure this user is mapped to `kibana_server` role via `role_mappings.yml` file, to give the appropriate permissions listed in [kibana_server role details]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#kibana_server-role-details) |
+| `server_username` | Must match the name of the OpenSearch Dashboards server user in `opensearch_dashboards.yml`. Default is `kibanaserver`. If a different user is configured, then make sure that user is mapped to the `kibana_server` role through the `role_mappings.yml` file in order to give them the appropriate permissions listed in [kibana_server role details]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#kibana_server-role-details). |
 | `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`. |
 | `do_not_fail_on_forbidden` | When `true`, the Security plugin removes any content that a user is not allowed to see from the search results. When `false`, the plugin returns a security exception. Default is `false`. |
 
@@ -150,9 +150,9 @@ The Security plugin scrubs these index names of special characters, so they migh
 
 To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/) of all tenant indexes using an index pattern such as `.kibana*`.
 
-## `kibana_server` role details
+## `kibana_server` role
 
-`kibana_server` role is used by OpenSearch Dashboards to perform necessary operations on OpenSearch. By default `kibanauser` is mapped to this role via `role_mappings.yml`. You can view the full list of permissions assigned to this role by running `GET` request on `_plugins/_security/api/roles/kibana_server` API using admin certificate, key and certificate authority file.
+OpenSearch Dashboards uses the`kibana_server` role to perform necessary OpenSearch operations. By default, `kibanauser` is mapped to this role through the `role_mappings.yml` file. You can view the full list of permissions assigned to this role by running the GET request on the `_plugins/_security/api/roles/kibana_server` API using the admin certificate, key, and certificate authority file.
 Following is the full list of permissions assigned to this role:
 
 ```
