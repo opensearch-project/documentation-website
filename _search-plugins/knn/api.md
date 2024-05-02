@@ -318,7 +318,7 @@ GET/POST /_plugins/_knn/models/_search?pretty&_source_excludes=model_blob
 }
 ```
 
-## Delete model
+## Delete a model
 
 You can delete a model in the cluster by using the DELETE operation. See the following usage example. 
 
