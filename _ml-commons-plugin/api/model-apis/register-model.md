@@ -57,7 +57,9 @@ Field | Data type | Required/Optional | Description
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
-`is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`rate_limiter` | Object | Optional | Limits the number of times any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
+`interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
 
 #### Example request: OpenSearch-provided text embedding model
 
@@ -90,7 +92,9 @@ Field | Data type | Required/Optional | Description
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
-`is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`rate_limiter` | Object | Optional | Limits the number of times any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
+`interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
 
 #### Example request: OpenSearch-provided sparse encoding model
 
@@ -124,7 +128,9 @@ Field | Data type | Required/Optional | Description
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
-`is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`rate_limiter` | Object | Optional | Limits the number of times any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
+`interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
 
 #### The `model_config` object
 
@@ -182,8 +188,10 @@ Field | Data type | Required/Optional | Description
 `connector` | Object | Required | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). You must provide either `connector_id` or `connector`.
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
-`is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
+`rate_limiter` | Object | Optional | Limits the number of times any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
 `guardrails`| Object | Optional | The guardrails for the model input. For more information, see [Guardrails](#the-guardrails-parameter).|
+`interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
 
 #### Example request: Externally hosted with a standalone connector
 
@@ -240,12 +248,13 @@ POST /_plugins/_ml/models/_register
 
 #### Example response
 
-OpenSearch responds with the `task_id` and task `status`.
+OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 
 ```json
 {
   "task_id" : "ew8I44MBhyWuIwnfvDIH", 
-  "status" : "CREATED"
+  "status" : "CREATED",
+  "model_id": "t8qvDY4BChVAiNVEuo8q"
 }
 ```
 
@@ -304,12 +313,100 @@ For a complete example, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons
 
 #### Example response
 
-OpenSearch responds with the `task_id` and task `status`:
+OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 
 ```json
 {
-  "task_id" : "ew8I44MBhyWuIwnfvDIH",
-  "status" : "CREATED"
+    "task_id": "tsqvDY4BChVAiNVEuo8F",
+    "status": "CREATED",
+    "model_id": "t8qvDY4BChVAiNVEuo8q"
+}
+```
+
+### The `interface` parameter
+
+Interface introduces a highly flexible way for adding arbitrary metadata annotations to all local DL models and remote models in JSON schema syntax. This annotation will initiate a validation check on the input and output fields of the model during model invocation. The validation check will ensure that the input and output fields are in the correct format before and after the model performs.
+
+To register a model with model interface, provide the `interface` parameter, which supports the following fields. 
+
+Input and output fields will be evaluated against the JSON schema provided separately. User does not necessarily need to provide both input and output fields simultaneously.
+
+User can check [JSON schema syntax doc](https://json-schema.org/understanding-json-schema/) to get more information about JSON schema syntax.
+
+Field | Data type | Description                         
+:---  | :--- |:------------------------------------
+`input`| Object | The JSON schema for the model input. |
+`output`| Object | The JSON schema for the model output. |
+
+#### Example request: Externally hosted model with an interface
+
+```json
+POST /_plugins/_ml/models/_register
+{
+    "name": "openAI-gpt-3.5-turbo",
+    "function_name": "remote",
+    "description": "test model",
+    "connector_id": "A-j7K48BZzNMh1sWVdJu",
+    "interface": {
+        "input": {
+            "properties": {
+                "parameters": {
+                    "properties": {
+                        "messages": {
+                            "type": "string",
+                            "description": "This is a test description field"
+                        }
+                    }
+                }
+            }
+        },
+        "output": {
+            "properties": {
+                "inference_results": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "output": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "description": "This is a test description field"
+                                        },
+                                        "dataAsMap": {
+                                            "type": "object",
+                                            "description": "This is a test description field"
+                                        }
+                                    }
+                                },
+                                "description": "This is a test description field"
+                            },
+                            "status_code": {
+                                "type": "integer",
+                                "description": "This is a test description field"
+                            }
+                        }
+                    },
+                    "description": "This is a test description field"
+                }
+            }
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+OpenSearch responds with the `task_id`, task `status`, and `model_id`:
+
+```json
+{
+    "task_id": "tsqvDY4BChVAiNVEuo8F",
+    "status": "CREATED",
+    "model_id": "t8qvDY4BChVAiNVEuo8q"
 }
 ```
 
