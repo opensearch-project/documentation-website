@@ -25,7 +25,7 @@ The following table lists the workflow step types. The `user_inputs` fields for 
 
 |Step type	|Corresponding API	|Description	|
 |---	|---	|---	|
-|`noop`	|No API	| A no-operation (no-op) step that does nothing. It may be useful in some cases for synchronizing parallel steps.	|
+|`noop`	|No API	| A no-operation (no-op) step that does nothing. It may be useful in some cases for synchronizing parallel steps. If the `user_inputs` field contains a `delay` key, this step will wait for the specified time.	|
 |`create_connector`	|[Create Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/)	|Creates a connector to a model hosted on a third-party platform.	|
 |`delete_connector`	|[Delete Connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/delete-connector/)	|Deletes a connector to a model hosted on a third-party platform.	|
 |`register_model_group`	|[Register Model Group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/)	|Registers a model group. The model group will be deleted automatically once no model is present in the group.	|
@@ -52,6 +52,7 @@ You can include the following additional fields in the `user_inputs` field when 
 |`node_timeout`	|Time units	|A user-provided timeout for this step. For example, `20s` for a 20-second timeout.	|
 |`deploy`	|Boolean	|Applicable to the Register Model step type. If set to `true`, also executes the Deploy Model step.	|
 |`tools_order`	|List	|Applicable only to the Register Agent step type. Specifies the ordering of `tools`. For example, specify `["foo_tool", "bar_tool"]` to sequence those tools in that order.	|
+|`delay`	|Time units	|Applicable to the No-op step type. Waits the specified time. For example, `250ms` will wait for 250 milliseconds before continuing the workflow.	|
 
 You can include the following additional fields in the `previous_node_inputs` field when indicated.
 
