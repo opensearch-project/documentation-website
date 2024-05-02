@@ -150,7 +150,7 @@ The Security plugin scrubs these index names of special characters, so they migh
 
 To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/) of all tenant indexes using an index pattern such as `.kibana*`.
 
-## `kibana_server` role
+## `kibana_server` role details
 
 OpenSearch Dashboards uses the`kibana_server` role to perform necessary OpenSearch operations. By default, `kibanauser` is mapped to this role through the `role_mappings.yml` file. You can view the full list of permissions assigned to this role by sending a GET request to the `_plugins/_security/api/roles/kibana_server` API (include the admin certificate, key, and certificate authority file in the GET request).
 The following list includes the permissions assigned to this role:
