@@ -221,7 +221,7 @@ When the operation finishes, use the [k-NN `_stats` API operation](#stats) to se
 
 ## Get a model
 
-The get model retrieves information about models present in the cluster. Some native library index configurations require a training step before indexing and querying can begin. The output of training is a model that can be used to initialize native library index files during indexing. The model is serialized in the k-NN model system index. See the following GET example:
+The GET model operation retrieves information about models present in the cluster. Some native library index configurations require a training step before indexing and querying can begin. The output of training is a model that can be used to initialize native library index files during indexing. The model is serialized in the k-NN model system index. See the following GET example:
 
 ```
 GET /_plugins/_knn/models/{model_id}
