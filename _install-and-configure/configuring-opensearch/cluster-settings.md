@@ -96,8 +96,8 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `REPLICA_FIRST` – Replica shards are relocated first, before primary shards. This prioritization may help prevent a cluster's health status from going red when carrying out shard relocation in a mixed-version, segment-replication-enabled OpenSearch cluster. In this situation, primary shards relocated to OpenSearch nodes of a newer version could try to copy segment files to replica shards on an older version of OpenSearch, which would result in shard failure. Relocating replica shards first may help to avoid this in multi-version clusters. 
     - `NO_PREFERENCE` – The default behavior in which the order of shard relocation has no importance. 
 
-- `cluster.allocator.gateway.batch_size` (Integer): Limits the number of shards we send in one batch to data nodes for fetching metadata. Default is `2000`.
-- `cluster.allocator.existing_shards_allocator.batch_enabled` (Boolean): Boolean setting to enable/disable batch allocation of unassigned shards already existing on disk. This will allow sending all Unassigned Shards to the ExistingShard Allocator to make decision to allocate in one or more go. Default is `False`.
+- `cluster.allocator.gateway.batch_size` (Integer): Limits the number of shards sent in one batch to data nodes for fetching metadata. Default is `2000`.
+- `cluster.allocator.existing_shards_allocator.batch_enabled` (Boolean): Enables batch allocation of unassigned shards already existing on the disk. This allows for sending all `Unassigned`shards to the `ExistingShard` allocator. The allocator decides how to allocate the unassigned shards. Default is `False`.
 ## Cluster-level shard, block, and task settings
 
 OpenSearch supports the following cluster-level shard, block, and task settings:
