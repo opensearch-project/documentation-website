@@ -51,7 +51,7 @@ You can include the following additional fields in the `user_inputs` field when 
 |---	|---	|---	|
 |`node_timeout`	| Time units	| All | A user-provided timeout for this step. For example, `20s` for a 20-second timeout.	|
 |`deploy`	| Boolean	| Register Model | If set to `true`, also executes the Deploy Model step.	|
-|`tools_order`	| List	| Register Model | Specifies the ordering of `tools`. For example, specify `["foo_tool", "bar_tool"]` to sequence those tools in that order.	|
+|`tools_order`	| List	| Register Agent | Specifies the ordering of `tools`. For example, specify `["foo_tool", "bar_tool"]` to sequence those tools in that order.	|
 |`delay`	| Time units	| No-op | Waits the specified time. For example, `250ms` will wait for 250 milliseconds before continuing the workflow.	|
 
 You can include the following additional fields in the `previous_node_inputs` field when indicated.
