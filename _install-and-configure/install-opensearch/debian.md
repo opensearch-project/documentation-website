@@ -38,6 +38,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
 1. From the CLI, install using `dpkg`.
+
    For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
    ```bash
    # x64
@@ -137,6 +138,7 @@ APT, the primary package management tool for Debian–based operating systems, a
 
 1. Choose the version of OpenSearch you want to install: 
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
+
    ```bash
    # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
@@ -147,6 +149,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    {% include copy.html %}
 
    - To install a specific version of OpenSearch:
+
    ```bash
    # Specify the version manually using opensearch=<version>
 
