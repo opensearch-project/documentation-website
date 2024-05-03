@@ -109,6 +109,8 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.check_pending_flush.enabled` (Boolean): This setting controls the Apache Lucene `checkPendingFlushOnUpdate` index writer setting, which specifies whether an indexing thread should check for pending flushes on an update in order to flush indexing buffers to disk. Default is `true`.
 
+- `index.use_compound_file` (Boolean): This setting controls the Apache Lucene `useCompoundFile` index writer settings, which specifies whether index segment files will be packaged into a compound file. Default is `true`
+
 ### Updating a static index setting
 
 You can update a static index setting only on a closed index. The following example demonstrates updating the index codec setting.
