@@ -45,7 +45,7 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
-   For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
+   For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
    ```bash
    # x64
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
@@ -137,14 +137,23 @@ APT, the primary package management tool for Debian–based operating systems, a
 1. Choose the version of OpenSearch you want to install: 
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
    ```bash
+   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
+
+   # For OpenSearch versions before 2.12:
+   sudo apt-get install opensearch
    ```
    {% include copy.html %}
 
    - To install a specific version of OpenSearch:
    ```bash
    # Specify the version manually using opensearch=<version>
+
+   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
+
+   # For OpenSearch versions before 2.12:
+   sudo apt-get install opensearch={{site.opensearch_version}}
    ```
 
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
