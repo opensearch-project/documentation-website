@@ -301,15 +301,32 @@ Use the following steps to register a snapshot repository backed by an Azure sto
 1. To use a Microsoft Azure Blob Storage as a snapshot repository, install the `repository-azure` plugin on all nodes:
 
    ```bash
-   sudo ./bin/opensearch-plugin install repository-azure
+   ./bin/opensearch-plugin install repository-azure
    ```
+
+1. To use `repository-azure` plugin after installation, you need to define your azure storage settings before
+   initialising the node:
+
+   1. Define your azure storage account name in secure setting:
+
+      ```bash
+      ./bin/opensearch-keystore add azure.client.default.account
+      ```
+
+   1. Specify your azure storage account key or SAS token in secure setting. Choose one option, either the key or the
+      token, but not both:
+
+      ```bash
+      ./bin/opensearch-keystore add azure.client.default.key
+      ./bin/opensearch-keystore add azure.client.default.sas_token   
+      ```
 
 1. (Optional) If you're using token credential instead of SAS token or an account key:
 
    1. Define your azure storage account name in secure setting:
 
       ```bash
-      sudo ./bin/opensearch-keystore add azure.client.default.account
+      ./bin/opensearch-keystore add azure.client.default.account
       ```
 
    1. Add your token credential type to `opensearch.yml`:
@@ -320,10 +337,10 @@ Use the following steps to register a snapshot repository backed by an Azure sto
 
 Useful information when using token credential:
 
-   - At the moment, azure managed identity is the only token credential support.
-   - Token credential is disabled by default.
-   - If both token credential and SAS token are configured, token credential will be used for authentication instead
-     of SAS token. Similar behaviour when both token credential and account key are configured.
+- At the moment, azure managed identity is the only token credential support.
+- Token credential is disabled by default.
+- If both token credential and SAS token are configured, token credential will be used for authentication instead
+  of SAS token. Similar behaviour when both token credential and account key are configured.
 
 ## Take snapshots
 
