@@ -16,6 +16,7 @@ When a shard moves to a different node, the shard-level statistics for the shard
 
 ```json
 GET /_stats
+GET /_stats/<metric>
 GET /<index_ids>/_stats
 GET /<index_ids>/_stats/<metric>
 ```
