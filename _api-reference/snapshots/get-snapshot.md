@@ -5,18 +5,20 @@ parent: Snapshot APIs
 nav_order: 6
 ---
 
-## Get snapshot.
+# Get snapshot.
+**Introduced 1.0**
+{: .label .label-purple }
 
 Retrieves information about a snapshot.
 
-### Path parameters
+## Path parameters
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | repository | String | The repository that contains the snapshot to retrieve. |
 | snapshot | String | Snapshot to retrieve.
 
-### Query parameters
+## Query parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -71,7 +73,7 @@ Upon success, the response returns snapshot information:
   ]
 }
 ````
-### Response fields
+## Response fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

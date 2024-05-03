@@ -47,18 +47,9 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
 ### Option 1: Test your OpenSearch settings with security enabled
 
-1. Run the demo batch script.
+1. Run the demo batch script from Command prompt or Powershell.
 
-   There are two ways of running the batch script:
-
-   1. Run the batch script using the Windows UI:
-
-      1. Navigate to the top directory of your OpenSearch installation and open the `opensearch-{{site.opensearch_version}}` folder.
-      1. Run the batch script by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
-
-   1. Run the batch script from Command prompt or Powershell:
-
-      1. Open Command Prompt by entering `cmd`, or Powershell by entering `powershell`, in the search box next to **Start** on the taskbar. 
+      1. Open Command Prompt by entering `cmd` or Powershell by entering `powershell` in the search box next to **Start** on the taskbar. 
       1. Change to the top directory of your OpenSearch installation.
          ```bat
          cd \path\to\opensearch-{{site.opensearch_version}}
@@ -66,6 +57,11 @@ An OpenSearch node in its default configuration (with demo certificates and user
          {% include copy.html %}
 
       1. Run the batch script.
+         For OpenSearch 2.12 or later, use the following command to specify a custom admin password:
+         ```bat
+         > set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+         ```
+         {% include copy.html %}
          ```bat
          .\opensearch-windows-install.bat
          ```
@@ -74,7 +70,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
 1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200:
       ```bat
-      curl.exe -X GET https://localhost:9200 -u "admin:admin" --insecure
+      curl.exe -X GET https://localhost:9200 -u "admin:<custom-admin-password>" --insecure
       ```
       {% include copy.html %}
 
@@ -100,7 +96,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```
    - Query the plugins endpoint:
       ```bat
-      curl.exe -X GET https://localhost:9200/_cat/plugins?v -u "admin:admin" --insecure
+      curl.exe -X GET https://localhost:9200/_cat/plugins?v -u "admin:<custom-admin-password>" --insecure
       ```
       {% include copy.html %}
 
@@ -205,7 +201,7 @@ The following recommended settings will allow you to:
 - Set initial and maximum JVM heap sizes.
 - Define an environment variable that points to the bundled JDK.
 
-If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/) for guidance before proceeding.
+If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
 {:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
@@ -259,6 +255,6 @@ The Performance Analyzer plugin is not available on Windows. All other OpenSearc
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

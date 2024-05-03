@@ -24,7 +24,7 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 ---
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Table of contents
   </summary>
@@ -101,6 +101,8 @@ You will most likely not need to specify any parameters except for `location`. F
 
    After the Docker cluster starts, skip to step 7.
 
+   If you're using [AWS IAM instance profile](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) to allow OpenSearch nodes on AWS EC2 instances to inherit roles for policies when granting access to AWS S3 buckets, skip to step 8.
+
 1. Add your AWS access and secret keys to the OpenSearch keystore:
 
    ```bash
@@ -124,7 +126,6 @@ You will most likely not need to specify any parameters except for `location`. F
 1. (Optional) Add other settings to `opensearch.yml`:
 
    ```yml
-   s3.client.default.disable_chunked_encoding: false # Disables chunked encoding for compatibility with some storage services, but you probably don't need to change this value.
    s3.client.default.endpoint: s3.amazonaws.com # S3 has alternate endpoints, but you probably don't need to change this value.
    s3.client.default.max_retries: 3 # number of retries if a request fails
    s3.client.default.path_style_access: false # whether to use the deprecated path-style bucket URLs.
@@ -134,7 +135,7 @@ You will most likely not need to specify any parameters except for `location`. F
    s3.client.default.proxy.port: 8080 # port for your proxy server
    s3.client.default.read_timeout: 50s # the S3 connection timeout
    s3.client.default.use_throttle_retries: true # whether the client should wait a progressively longer amount of time (exponential backoff) between each successive retry
-   s3.client.default.region: us-east-2 # AWS region to use
+   s3.client.default.region: us-east-2 # AWS region to use. For non-AWS S3 storage, this value is required but has no effect.
    ```
 
 1. (Optional) If you don't want to use AWS access and secret keys, you could configure the S3 plugin to use AWS Identity and Access Management (IAM) roles for service accounts:

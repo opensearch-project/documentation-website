@@ -120,6 +120,9 @@ plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opend
 node.max_local_storage_nodes: 3
 ```
 
+For a full list of `opensearch.yml` Security plugin settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
+{: .note}
+
 ### Refining your configuration
 
 The `plugins.security.allow_default_init_securityindex` setting, when set to `true`, sets the Security plugin to its default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
@@ -134,6 +137,21 @@ An authentication cache for the Security plugin exists to help speed up authenti
 plugins.security.cache.ttl_minutes: 60
 ```
 
+### Enabling user access to system indexes
+
+Mapping a system index permission to a user allows that user to modify the system index specified in the permission's name (the one exception is the Security plugin's [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/)). The `plugins.security.system_indices.permission.enabled` setting provides a way for administrators to make this permission available for or hidden from role mapping.
+
+When set to `true`, the feature is enabled and users with permission to modify roles can create roles that include permissions that grant access to system indexes:
+
+```yml
+plugins.security.system_indices.permission.enabled: true
+```
+
+When set to `false`, the permission is disabled and only admins with an admin certificate can make changes to system indexes. By default, the permission is set to `false` in a new cluster.
+
+To learn more about system index permissions, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
+
+
 ### Password settings
 
 If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
@@ -147,7 +165,7 @@ plugins.security.restapi.password_validation_error_message: "Password must be mi
 
 In addition, a score-based password strength estimator allows you to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [zxcvbn library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
 
-For information about creating users, see [Create users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users).
+For information about defining users, see [Defining users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#defining-users).
 
 This feature is not compatible with users specified as reserved. For information about reserved resources, see [Reserved and hidden resources]({{site.url}}{{site.baseurl}}/security/access-control/api#reserved-and-hidden-resources).
 {: .important }

@@ -5,7 +5,9 @@ parent: Snapshot APIs
 nav_order: 8
 ---
 
-## Get snapshot status
+# Get snapshot status
+**Introduced 1.0**
+{: .label .label-purple }
 
 Returns details about a snapshot’s state during and after snapshot creation.
 
@@ -14,7 +16,7 @@ To learn about snapshot creation, see [Create snapshot]({{site.url}}{{site.baseu
 If you use the Security plugin, you must have the `monitor_snapshot`, `create_snapshot`, or `manage cluster` privileges.
 {: .note}
 
-### Path parameters
+## Path parameters
 
 Path parameters are optional. 
 
@@ -27,14 +29,14 @@ Three request variants provide flexibility:
 
 * `GET _snapshot/_status` returns the status of all currently running snapshots in all repositories.
 
-* `GET _snapshot/<repository>/_status` returns the status of only currently running snapshots in the specified repository. This is the preferred variant.
+* `GET _snapshot/<repository>/_status` returns all currently running snapshots in the specified repository. This is the preferred variant.
 
-* `GET _snapshot/<repository>/<snapshot>/_status` returns the status of all snapshots in the specified repository whether they are running or not.
+* `GET _snapshot/<repository>/<snapshot>/_status` returns detailed status information for a specific snapshot in the specified repository, regardless of whether it's currently running or not. 
 
 Using the API to return state for other than currently running snapshots can be very costly for (1) machine machine resources and (2) processing time if running in the cloud. For each snapshot, each request causes file reads from all a snapshot's shards. 
 {: .warning}
 
-### Request fields
+## Request fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -367,7 +369,7 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 }
 ````
 
-### Response fields
+## Response fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -418,4 +420,4 @@ All property values are Integers.
 :--- | :--- | :--- |
 | shards_stats | Object | See [Shard stats](#shard-stats). |
 | stats | Object | See [Snapshot file stats](#snapshot-file-stats). |
-| shards | list of Objects | List of objects containing information about the shards that include the snapshot. Properies of the shards are listed below in bold text. <br /><br /> **stage**: Current state of shards in the snapshot. Shard states are: <br /><br /> * DONE: Number of shards in the snapshot that were successfully stored in the repository. <br /><br /> * FAILURE: Number of shards in the snapshot that were not successfully stored in the repository. <br /><br /> * FINALIZE: Number of shards in the snapshot that are in the finalizing stage of being stored in the repository. <br /><br />* INIT: Number of shards in the snapshot that are in the initializing stage of being stored in the repository.<br /><br />* STARTED:  Number of shards in the snapshot that are in the started stage of being stored in the repository.<br /><br /> **stats**: See [Snapshot file stats](#snapshot-file-stats). <br /><br /> **total**: Total number and size of files referenced by the snapshot. <br /><br /> **start_time_in_millis**: Time (in milliseconds) when snapshot creation began. <br /><br /> **time_in_millis**: Total time (in milliseconds) that the snapshot took to complete.  |
+| shards | list of Objects | List of objects containing information about the shards that include the snapshot. OpenSearch returns the following properties about the shards. <br /><br /> **stage**: Current state of shards in the snapshot. Shard states are: <br /><br /> * DONE: Number of shards in the snapshot that were successfully stored in the repository. <br /><br /> * FAILURE: Number of shards in the snapshot that were not successfully stored in the repository. <br /><br /> * FINALIZE: Number of shards in the snapshot that are in the finalizing stage of being stored in the repository. <br /><br />* INIT: Number of shards in the snapshot that are in the initializing stage of being stored in the repository.<br /><br />* STARTED:  Number of shards in the snapshot that are in the started stage of being stored in the repository.<br /><br /> **stats**: See [Snapshot file stats](#snapshot-file-stats). <br /><br /> **total**: Total number and size of files referenced by the snapshot. <br /><br /> **start_time_in_millis**: Time (in milliseconds) when snapshot creation began. <br /><br /> **time_in_millis**: Total time (in milliseconds) that the snapshot took to complete.  |

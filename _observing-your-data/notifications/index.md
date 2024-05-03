@@ -14,7 +14,7 @@ The Notifications plugin provides a central location for all of your notificatio
 
 You can use either OpenSearch Dashboards or the REST API to configure notifications. Dashboards offers a more organized way of selecting a channel type and selecting which OpenSearch plugin sources you want to use, whereas the REST API lets you programmatically define your notification channels for better versioning and reuse later on.
 
-1. Use the Dashboards UI to first create a channel that receives notifications from other plugins. Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks. After you’ve configured your channel and plugin sources, send messages and start tracking your notifications from the Notifications plugin's dashboard.
+1. Use the Dashboards UI to first create a channel that receives notifications from other plugins. Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, Microsoft Teams, and custom webhooks. After you’ve configured your channel and plugin sources, send messages and start tracking your notifications from the Notifications plugin's dashboard.
 
 2. Use the Notifications REST API to configure all of your channel's settings. To use the API, you must have your notification's name, description, channel type, which OpenSearch plugins to use as sources, and other associated URLs or groups.
 
@@ -23,7 +23,7 @@ You can use either OpenSearch Dashboards or the REST API to configure notificati
 In OpenSearch Dashboards, choose **Notifications**, **Channels**, and **Create channel**.
 
 1. In the **Name and description** section, specify a name and optional description for your channel.
-2. In the **Configurations** section, select the channel type and enter the necessary information for each type. For more information about configuring a channel that uses Amazon SNS or email, refer to the sections below. If you want to use Amazon Chime or Slack, you need to specify the webhook URL. For more information about using webhooks, see the documentation for [Slack](https://api.slack.com/messaging/webhooks) and [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
+2. In the **Configurations** section, select the channel type and enter the necessary information for each type. For more information about configuring a channel that uses Amazon SNS or email, refer to the sections below. If you want to use Amazon Chime or Slack, you need to specify the webhook URL. For more information about using webhooks, see the documentation for [Slack](https://api.slack.com/messaging/webhooks), [Microsoft Teams](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/what-are-webhooks-and-connectors), or [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
 
 If you want to use custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you might need to add a header with an authorization key and a value of `Basic <Base64-encoded-credential-string>`. You might also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
 
@@ -100,6 +100,9 @@ Then add this policy into the IAM user’s trust relationship to actually assume
 }
 ```
 
+### Host deny list
+
+Define IP ranges or hostnames where OpenSearch nodes should not initiate requests. 
 
 ## Email as a channel type
 
@@ -123,8 +126,8 @@ To send or receive notifications with email, choose **Email** as the channel typ
 If your email provider requires SSL or TLS, you must authenticate each sender account before you can send an email. Enter the sender account credentials in the OpenSearch keystore using the command line interface (CLI). Run the following commands (in your OpenSearch directory) to enter your user name and password. The &lt;sender_name&gt; is the name you entered for **Sender** earlier.
 
 ```json
-opensearch.notifications.core.email.<sender_name>.username
-opensearch.notifications.core.email.<sender_name>.password
+/usr/share/opensearch/bin/opensearch-keystore add opensearch.notifications.core.email.<sender_name>.username
+/usr/share/opensearch/bin/opensearch-keystore add opensearch.notifications.core.email.<sender_name>.password
 ```
 
 To change or update your credentials (after you’ve added them to the keystore on every node), call the reload API to automatically update those credentials without restarting OpenSearch.

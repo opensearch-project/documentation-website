@@ -45,7 +45,15 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
+   For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration.  To set a custom admin password, use one the following commands:
+   ```bash
+   # x64
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
    
+   # arm64
+   sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
+   ```
+
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
     sudo systemctl enable opensearch
@@ -175,7 +183,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
 1. Send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200:
       ```bash
-      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
+      curl -X GET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
       ```
       {% include copy.html %}
 
@@ -201,7 +209,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```
    - Query the plugins endpoint:
     ```bash
-    curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+    curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:<custom-admin-password>' --insecure
     ```
     {% include copy.html %}
 
@@ -240,7 +248,7 @@ The following recommended settings will allow you to:
 - Configure your own TLS certificates—no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
 
-If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/) for guidance before proceeding.
+If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) for guidance before proceeding.
 {:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to mitigate any issues caused by a bad configuration.
@@ -396,7 +404,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 ### Configure a user
 
-Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to add a new internal user and how to replace the `admin` default password using a script.
 
 1. Navigate to the Security plugins tools directory.
    ```bash
@@ -432,7 +440,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
    ```
    {% include copy.html %}
 
-1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example:
+1. Add a new internal user and replace the hash inside `internal_users.yml` with the output provided by `hash.sh` in step 2. The file should look similar to the following example:
    ```bash
    ---
    # This is the internal user database
@@ -450,6 +458,15 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       backend_roles:
       - "admin"
       description: "Admin user"
+
+   user1:
+      hash: "$2y$12$zoHpvTCRjjQr6h0PEaabueCaGam3/LDvT6rZZGDGMusD7oehQjw/O"
+      reserved: false
+      backend_roles: []
+      description: "New internal user"
+
+   # Other users 
+   ...
    ```
    {% include copy.html %}
 
@@ -511,7 +528,7 @@ OpenSearch instances installed using `dpkg` or `apt-get` can be easily upgraded 
 
 ### Manual upgrade with DPKG 
 
-Download the Debian package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+Download the Debian package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
 ```bash
@@ -533,9 +550,18 @@ sudo apt-get upgrade opensearch=<version>
 ```
 {% include copy.html %}
 
+### Automatically restart the service after a package upgrade (2.13.0+)
+
+To automatically restart OpenSearch after a package upgrade, enable the `opensearch.service` through `systemd`:
+
+```bash
+sudo systemctl enable opensearch.service
+```
+{% include copy.html %}
+
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)

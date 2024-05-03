@@ -3,6 +3,7 @@ layout: default
 title: Asynchronous search security
 nav_order: 2
 parent: Asynchronous search
+grand_parent: Improving search performance
 has_children: false
 redirect_from:
  - /search-plugins/async/security/

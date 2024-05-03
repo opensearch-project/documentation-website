@@ -1,14 +1,14 @@
 ---
 layout: default
-title: k-NN
-nav_order: 50
+title: k-NN search
+nav_order: 20
 has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/knn/
 ---
 
-# k-NN
+# k-NN search
 
 Short for *k-nearest neighbors*, the k-NN plugin enables users to search for the k-nearest neighbors to a query point across an index of vectors. To determine the neighbors, you can specify the space (the distance function) you want to use to measure the distance between points.
 

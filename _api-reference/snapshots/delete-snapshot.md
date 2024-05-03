@@ -6,6 +6,8 @@ nav_order: 7
 ---
 
 ## Delete snapshot
+**Introduced 1.0**
+{: .label .label-purple }
 
 Deletes a snapshot from a repository.
 
@@ -15,7 +17,7 @@ Deletes a snapshot from a repository.
 
 * To view a list of your snapshots, see [cat snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots).
 
-### Path parameters
+## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---

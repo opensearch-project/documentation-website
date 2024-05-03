@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Commands
-parent: PPL &ndash; Piped Processing Language
+parent: PPL
 grand_parent: SQL and PPL
 nav_order: 2
 redirect_from:
@@ -762,7 +762,7 @@ The example shows how to classify three Iris species (Iris setosa, Iris virginic
 PPL query:
 
 ```sql
-os> source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_length_in_cm, petal_width_in_cm | kmeans 3
+os> source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_length_in_cm, petal_width_in_cm | kmeans centroids=3
 ```
 
 sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm | ClusterID

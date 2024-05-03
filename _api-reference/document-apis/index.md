@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Document APIs
+**Introduced 1.0**
+{: .label .label-purple }
 
 The document APIs allow you to handle documents relative to your index, such as adding, updating, and deleting documents.
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Boolean queries
+title: Boolean
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 10
@@ -10,7 +10,7 @@ redirect_from:
   - /query-dsl/query-dsl/compound/bool/
 ---
 
-# Boolean queries
+# Boolean query
 
 A Boolean (`bool`) query can combine several query clauses into one advanced query. The clauses are combined with Boolean logic to find matching documents returned in the results.
 

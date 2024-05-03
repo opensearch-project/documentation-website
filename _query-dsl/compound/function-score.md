@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Function score queries
+title: Function score
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 60
@@ -9,7 +9,7 @@ redirect_from:
   - /query-dsl/query-dsl/compound/function-score/
 ---
 
-# Function score queries
+# Function score query
 
 Use a `function_score` query if you need to alter the relevance scores of documents returned in the results. A `function_score` query defines a query and one or more functions that can be applied to all results or subsets of the results to recalculate their relevance scores.
 

@@ -1,13 +1,15 @@
 ---
 layout: default
 title: Ingest APIs
-has_children: true
+has_children: false
 nav_order: 40
 redirect_from:
   - /opensearch/rest-api/ingest-apis/index/
 ---
 
 # Ingest APIs
+**Introduced 1.0**
+{: .label .label-purple }
 
 Ingest APIs are a valuable tool for loading data into a system. Ingest APIs work together with [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) and [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) to process or transform data from a variety of sources and in a variety of formats. 
 

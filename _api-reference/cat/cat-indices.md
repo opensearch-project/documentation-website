@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # CAT indices
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT indices operation lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.
@@ -44,9 +44,9 @@ GET _cat/indices
 
 ## URL parameters
 
-All CAT indices URL parameters are optional.
+All URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index/), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

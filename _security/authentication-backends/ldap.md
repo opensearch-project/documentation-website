@@ -155,12 +155,17 @@ By default, the Security plugin validates the TLS certificate of the LDAP server
 
 ```
 plugins.security.ssl.transport.pemtrustedcas_filepath: ...
-plugins.security.ssl.http.truststore_filepath: ...
+plugins.security.ssl.transport.truststore_filepath: ...
 ```
 
 If your server uses a certificate signed by a different CA, import this CA into your truststore or add it to your trusted CA file on each node.
 
-You can also use a separate root CA in PEM format by setting one of the following configuration options:
+You can also use a separate root CA in PEM format.
+
+When configuring a separate root CA for LDAP, make sure to include the setting in all instances of the LDAP `config:` settings, including in both the `authc` and `authz` options of the configuration.
+{: .note}
+
+To configure a separate root CA, use one of the following configuration options:
 
 ```yml
 config:
@@ -170,10 +175,12 @@ config:
 ```yml
 config:
   pemtrustedcas_content: |-
+    -----BEGIN CERTIFICATE-----
     MIID/jCCAuagAwIBAgIBATANBgkqhkiG9w0BAQUFADCBjzETMBEGCgmSJomT8ixk
     ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
     bGUgQ29tIEluYy4xITAfBgNVBAsMGEV4YW1wbGUgQ29tIEluYy4gUm9vdCBDQTEh
     ...
+    -----END CERTIFICATE-----
 ```
 
 
@@ -199,16 +206,20 @@ or
 ```yml
 config:
   pemkey_content: |-
+    -----BEGIN PRIVATE KEY-----
     MIID2jCCAsKgAwIBAgIBBTANBgkqhkiG9w0BAQUFADCBlTETMBEGCgmSJomT8ixk
     ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
     bGUgQ29tIEluYy4xJDAiBgNVBAsMG0V4YW1wbGUgQ29tIEluYy4gU2lnbmluZyBD
     ...
+    -----END PRIVATE KEY-----
   pemkey_password: private_key_password
   pemcert_content: |-
+    -----BEGIN CERTIFICATE-----
     MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCHRZwzwGlP2FvL
     oEzNeDu2XnOF+ram7rWPT6fxI+JJr3SDz1mSzixTeHq82P5A7RLdMULfQFMfQPfr
     WXgB4qfisuDSt+CPocZRfUqqhGlMG2l8LgJMr58tn0AHvauvNTeiGlyXy0ShxHbD
     ...
+    -----END CERTIFICATE-----
 ```
 
 Name | Description
@@ -504,10 +515,12 @@ Name | Description
 `resolve_nested_roles`  | Boolean. Whether or not to resolve nested roles. Default is `false`.
 `max_nested_depth`  | Integer. When `resolve_nested_roles` is `true`, this defines the maximum number of nested roles to traverse. Setting smaller values can reduce the amount of data retrieved from LDAP and improve authentication times at the cost of failing to discover deeply nested roles. Default is `30`.
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
+`exclude_roles`  | Array of roles that should be excluded when retrieving roles. Wildcards are supported.
 `nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
 `custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
+`custom_return_attributes`  | String array. Specifies which attributes to request from the LDAP server.
 
 
 ### Complete authorization example

@@ -2,17 +2,16 @@
 layout: default
 title: Count
 nav_order: 21
-redirect_from: 
+redirect_from:
  - /opensearch/rest-api/count/
 ---
 
 # Count
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The count API gives you quick access to the number of documents that match a query.
 You can also use it to check the document count of an index, data stream, or cluster.
-
 
 ## Example
 
@@ -62,7 +61,7 @@ GET _count
 ```
 {% include copy-curl.html %}
 
-Alternatively, you could use the [cat indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) and [cat count]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) APIs to see the number of documents per index or data stream.
+Alternatively, you could use the [cat indexes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) and [cat count]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) APIs to see the number of documents per index or data stream.
 {: .note }
 
 

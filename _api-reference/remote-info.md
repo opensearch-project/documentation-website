@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 # Remote cluster information
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 This operation provides connection information for any remote OpenSearch clusters that you've configured for the local cluster, such as the remote cluster alias, connection mode (`sniff` or `proxy`), IP addresses for seed nodes, and timeout settings.

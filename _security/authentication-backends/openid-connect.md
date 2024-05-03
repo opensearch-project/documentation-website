@@ -33,19 +33,26 @@ To integrate with an OpenID IdP, set up an authentication domain and choose `ope
 This is the minimal configuration:
 
 ```yml
-openid_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 0
-  http_authenticator:
-    type: openid
-    challenge: false
-    config:
-      subject_key: preferred_username
-      roles_key: roles
-      openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
-  authentication_backend:
-    type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      openid_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+          type: openid
+          challenge: false
+          config:
+            subject_key: preferred_username
+            roles_key: roles
+            openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+        authentication_backend:
+          type: noop
 ```
 
 The following table shows the configuration parameters.
@@ -194,10 +201,12 @@ config:
   openid_connect_idp:
     enable_ssl: true
     pemtrustedcas_content: |-
+      -----BEGIN CERTIFICATE-----
       MIID/jCCAuagAwIBAgIBATANBgkqhkiG9w0BAQUFADCBjzETMBEGCgmSJomT8ixk
       ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
       bGUgQ29tIEluYy4xITAfBgNVBAsMGEV4YW1wbGUgQ29tIEluYy4gUm9vdCBDQTEh
       ...
+      -----END CERTIFICATE-----
 ```
 
 
@@ -225,16 +234,20 @@ config:
   openid_connect_idp:
     enable_ssl: true
     pemkey_content: |-
+      -----BEGIN PRIVATE KEY-----
       MIID2jCCAsKgAwIBAgIBBTANBgkqhkiG9w0BAQUFADCBlTETMBEGCgmSJomT8ixk
       ARkWA2NvbTEXMBUGCgmSJomT8ixkARkWB2V4YW1wbGUxGTAXBgNVBAoMEEV4YW1w
       bGUgQ29tIEluYy4xJDAiBgNVBAsMG0V4YW1wbGUgQ29tIEluYy4gU2lnbmluZyBD
-    ...
+      ...
+      -----END PRIVATE KEY-----
     pemkey_password: private_key_password
     pemcert_content: |-
+      -----BEGIN CERTIFICATE-----
       MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCHRZwzwGlP2FvL
       oEzNeDu2XnOF+ram7rWPT6fxI+JJr3SDz1mSzixTeHq82P5A7RLdMULfQFMfQPfr
       WXgB4qfisuDSt+CPocZRfUqqhGlMG2l8LgJMr58tn0AHvauvNTeiGlyXy0ShxHbD
-    ...
+      ...
+      -----END CERTIFICATE-----
 ```
 
 Name | Description
@@ -302,6 +315,12 @@ Name | Description
 `opensearch_security.openid.logout_url` | The logout URL of your IdP. Optional. Only necessary if your IdP does not publish the logout URL in its metadata.
 `opensearch_security.openid.base_redirect_url` | The base of the redirect URL that will be sent to your IdP. Optional. Only necessary when OpenSearch Dashboards is behind a reverse proxy, in which case it should be different than `server.host` and `server.port` in `opensearch_dashboards.yml`.
 `opensearch_security.openid.trust_dynamic_headers` | Compute `base_redirect_url` from the reverse proxy HTTP headers (`X-Forwarded-Host` / `X-Forwarded-Proto`). Optional. Default is `false`.
+`opensearch_security.openid.root_ca` | Path to the root CAs (PEM format) that your IdP's certificate can match or chain to. Optional.
+`opensearch_security.openid.certificate` | Cert chains (PEM format) to be used for mTLS when obtaining endpoints from your IdP. Optional.
+`opensearch_security.openid.private_key` | Private keys (PEM format) to be used for mTLS when obtaining endpoints from your IdP. Optional.
+`opensearch_security.openid.passphrase` | Passphrase used for a single `private_key` or a `pfx`. Optional.
+`opensearch_security.openid.pfx` | PFX or PKCS12 encoded private key and certificate chain to be used for mTLS when obtaining endpoints from your IdP. Alternative to `certificate` and `private_key`. Optional.
+`opensearch_security.openid.verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Default is `true`. Optional. 
 
 
 ### Configuration example
@@ -319,6 +338,11 @@ opensearch_security.openid.client_id: "opensearch-dashboards-sso"
 # The client secret of the OpenID Connect client
 opensearch_security.openid.client_secret: "a59c51f5-f052-4740-a3b0-e14ba355b520"
 
+# mTLS Options for obtaining endpoints from IdP
+opensearch_security.openid.root_ca: /usr/share/opensearch-dashboards/config/certs/ca.pem
+opensearch_security.openid.certificate: /usr/share/opensearch-dashboards/config/certs/cert.pem
+opensearch_security.openid.private_key: /usr/share/opensearch-dashboards/config/certs/key.pem
+
 # Use HTTPS instead of HTTP
 opensearch.url: "https://<hostname>.com:<http port>"
 
@@ -330,7 +354,7 @@ opensearch.password: "kibanaserver"
 opensearch.ssl.verificationMode: none
 
 # allowlist basic headers and multi-tenancy header
-opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
+opensearch.requestHeadersAllowlist: ["Authorization", "securitytenant"]
 ```
 
 To include OpenID Connect with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
@@ -359,26 +383,33 @@ Because OpenSearch Dashboards requires that the internal OpenSearch Dashboards s
 Modify and apply the following example settings in `config.yml`:
 
 ```yml
-basic_internal_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 0
-  http_authenticator:
-    type: basic
-    challenge: false
-  authentication_backend:
-    type: internal
-openid_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 1
-  http_authenticator:
-    type: openid
-    challenge: false
-    config:
-      subject_key: preferred_username
-      roles_key: roles
-      openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
-  authentication_backend:
-    type: noop
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      basic_internal_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+          type: basic
+          challenge: false
+        authentication_backend:
+          type: internal
+      openid_auth_domain:
+        http_enabled: true
+        transport_enabled: true
+        order: 1
+        http_authenticator:
+          type: openid
+          challenge: false
+          config:
+            subject_key: preferred_username
+            roles_key: roles
+            openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+        authentication_backend:
+          type: noop
 ```

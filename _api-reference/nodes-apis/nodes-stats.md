@@ -6,6 +6,8 @@ nav_order: 20
 ---
 
 # Nodes stats
+**Introduced 1.0**
+{: .label .label-purple }
 
 The nodes stats API returns statistics about your cluster.
 
@@ -27,8 +29,8 @@ The following table lists the available path parameters. All path parameters are
 Parameter | Type | Description
 :--- | :--- | :---
 nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
-metric | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,fs`. See the list of all metrics below. Defaults to all metrics.
-index_metric | String | A comma-separated list of index metric groups that will be included in the response. For example, `docs,store`. See the list of all index metrics below. Defaults to all index metrics.
+metric | String | A comma-separated list of metric groups that are included in the response. For example, `jvm,fs`. See the following list of all index metrics. Defaults to all metrics.
+index_metric | String | A comma-separated list of index metric groups that are included in the response. For example, `docs,store`. See the following list of all index metrics. Defaults to all index metrics.
 
 The following table lists all available metric groups.
 
@@ -49,6 +51,8 @@ adaptive_selection | Statistics about adaptive replica selection, which selects 
 script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
+resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
+admission_control | Statistics about admission control.
 
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
 
@@ -108,7 +112,7 @@ GET _nodes/stats/
 
 Select the arrow to view the example response.
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -184,7 +188,39 @@ Select the arrow to view the example response.
           "point_in_time_current": 0,
           "suggest_total": 0,
           "suggest_time_in_millis": 0,
-          "suggest_current": 0
+          "suggest_current": 0,
+          "request" : {
+            "dfs_pre_query" : {
+              "time_in_millis" : 0,
+              "current" : 0,
+              "total" : 0
+            },
+            "query" : {
+              "time_in_millis" : 200,
+              "current" : 2,
+              "total" : 12
+            },
+            "fetch" : {
+              "time_in_millis" : 37,
+              "current" : 3,
+              "total" : 4
+            },
+            "dfs_query" : {
+              "time_in_millis" : 0,
+              "current" : 0,
+              "total" : 0
+            },
+            "expand" : {
+              "time_in_millis" : 9,
+              "current" : 1,
+              "total" : 0
+            },
+            "can_match" : {
+              "time_in_millis" : 0,
+              "current" : 0,
+              "total" : 0
+            }
+          }
         },
         "merges" : {
           "current" : 0,
@@ -245,6 +281,32 @@ Select the arrow to view the example response.
           "version_map_memory_in_bytes" : 0,
           "fixed_bit_set_memory_in_bytes" : 288,
           "max_unsafe_auto_id_timestamp" : -1,
+          "remote_store" : {
+            "upload" : {
+              "total_upload_size" : {
+                "started_bytes" : 152419,
+                "succeeded_bytes" : 152419,
+                "failed_bytes" : 0
+              },
+              "refresh_size_lag" : {
+                "total_bytes" : 0,
+                "max_bytes" : 0
+              },
+              "max_refresh_time_lag_in_millis" : 0,
+              "total_time_spent_in_millis" : 516,
+              "pressure" : {
+                "total_rejections" : 0
+              }
+            },
+            "download" : {
+              "total_download_size" : {
+                "started_bytes" : 0,
+                "succeeded_bytes" : 0,
+                "failed_bytes" : 0
+              },
+              "total_time_spent_in_millis" : 0
+            }
+          },
           "file_sizes" : { }
         },
         "translog" : {
@@ -252,7 +314,21 @@ Select the arrow to view the example response.
           "size_in_bytes" : 1452,
           "uncommitted_operations" : 12,
           "uncommitted_size_in_bytes" : 1452,
-          "earliest_last_modified_age" : 164160
+          "earliest_last_modified_age" : 164160,
+          "remote_store" : {
+            "upload" : {
+              "total_uploads" : {
+                "started" : 57,
+                "failed" : 0,
+                "succeeded" : 57
+              },
+              "total_upload_size" : {
+                "started_bytes" : 16830,
+                "failed_bytes" : 0,
+                "succeeded_bytes" : 16830
+              }
+            }
+          }
         },
         "request_cache" : {
           "memory_size_in_bytes" : 1649,
@@ -506,6 +582,19 @@ Select the arrow to view the example response.
           "full_states" : 2,
           "incompatible_diffs" : 0,
           "compatible_diffs" : 10
+        },
+        "cluster_state_stats" : {
+          "overall" : {
+            "update_count" : 9,
+            "total_time_in_millis" : 807,
+            "failed_count" : 0
+          },
+          "remote_upload" : {
+            "success_count" : 9,
+            "failed_count" : 0,
+            "total_time_in_millis" : 116,
+            "cleanup_attempt_failed_count" : 0
+          }
         }
       },
       "ingest" : {
@@ -637,6 +726,34 @@ Select the arrow to view the example response.
         },
         "enabled" : false,
         "enforced" : false
+      },
+      "resource_usage_stats": {
+        "nxLWtMdXQmWA-ZBVWU8nwA": {
+          "timestamp": 1698401391000,
+          "cpu_utilization_percent": "0.1",
+          "memory_utilization_percent": "3.9",
+          "io_usage_stats": {
+            "max_io_utilization_percent": "99.6"
+          }
+        }
+      },
+      "admission_control": {
+        "global_cpu_usage": {
+          "transport": {
+            "rejection_count": {
+              "search": 3,
+              "indexing": 1
+            }
+          }
+        },
+        "global_io_usage": {
+          "transport": {
+            "rejection_count": {
+              "search": 3,
+              "indexing": 1
+            }
+          }
+        }
       }
     }
   }
@@ -690,6 +807,8 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
+[resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
+[admission_control](#admission_control) | Object | Statistics related to admission control for the node.
 
 ### `indices`
 
@@ -723,22 +842,45 @@ get.missing_total | Integer | The number of failed get operations.
 get.missing_time_in_millis | Integer | The total time for all failed get operations, in milliseconds.
 get.current | Integer | The number of get operations that are currently running.
 search | Object | Statistics about the search operations for the node.
-search.point_in_time_total | Integer | The total number of Point in Time contexts that have been created (completed and active) since the node last restarted.
-search.point_in_time_time_in_millis | Integer |  The amount of time that Point in Time contexts have been held open since the node last restarted, in milliseconds.
-search.point_in_time_current | Integer | The number of Point in Time contexts currently open.
+search.concurrent_avg_slice_count	| Integer | The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	
+search.concurrent_query_total	|Integer | The total number of query operations that use concurrent segment search.	
+search.concurrent_query_time_in_millis	| Integer | The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	
+search.concurrent_query_current	|Integer | The number of currently running query operations that use concurrent segment search.	
 search.open_contexts | Integer | The number of open search contexts.
-search.query_total | Integer | The total number of query operations.
-search.query_time_in_millis | Integer | The total time for all query operations, in milliseconds.
-search.query_current | Integer | The number of query operations that are currently running.
-search.fetch_total | Integer | The total number of fetch operations.
-search.fetch_time_in_millis | Integer | The total time for all fetch operations, in milliseconds.
-search.fetch_current | Integer | The number of fetch operations that are currently running.
-search.scroll_total | Integer | The total number of scroll operations.
-search.scroll_time_in_millis | Integer | The total time for all scroll operations, in milliseconds.
-search.scroll_current | Integer | The number of scroll operations that are currently running.
-search.suggest_total | Integer | The total number of suggest operations.
-search.suggest_time_in_millis | Integer | The total time for all suggest operations, in milliseconds.
-search.suggest_current | Integer | The number of suggest operations that are currently running.
+search.query_total | Integer | The total number of shard query operations.
+search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.
+search.query_current | Integer | The number of shard query operations that are currently running.
+search.fetch_total | Integer | The total number of shard fetch operations.
+search.fetch_time_in_millis | Integer | The total amount of time for all shard fetch operations, in milliseconds.
+search.fetch_current | Integer | The number of shard fetch operations that are currently running.
+search.scroll_total | Integer | The total number of shard scroll operations.
+search.scroll_time_in_millis | Integer | The total amount of time for all shard scroll operations, in milliseconds.
+search.scroll_current | Integer | The number of shard scroll operations that are currently running.
+search.point_in_time_total | Integer | The total number of shard Point in Time (PIT) contexts that have been created (completed and active) since the node last restarted.
+search.point_in_time_time_in_millis | Integer |  The amount of time that shard PIT contexts have been held open since the node last restarted, in milliseconds.
+search.point_in_time_current | Integer | The number of shard PIT contexts currently open.
+search.suggest_total | Integer | The total number of shard suggest operations.
+search.suggest_time_in_millis | Integer | The total amount of time for all shard suggest operations, in milliseconds.
+search.suggest_current | Integer | The number of shard suggest operations that are currently running.
+search.request | Object | Statistics about coordinator search operations for the node.
+search.request.dfs_pre_query.time_in_millis | Integer | The total amount of time for all coordinator depth-first search (DFS) prequery operations, in milliseconds.
+search.request.dfs_pre_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
+search.request.dfs_pre_query.total | Integer | The total number of coordinator DFS prequery operations.
+search.request.query.time_in_millis | Integer | The total amount of time for all coordinator query operations, in milliseconds.
+search.request.query.current | Integer | The number of coordinator query operations that are currently running.
+search.request.query.total | Integer | The total number of coordinator query operations.
+search.request.fetch.time_in_millis | Integer | The total amount of time for all coordinator fetch operations, in milliseconds.
+search.request.fetch.current | Integer | The number of coordinator fetch operations that are currently running.
+search.request.fetch.total | Integer | The total number of coordinator fetch operations.
+search.request.dfs_query.time_in_millis | Integer | The total amount of time for all coordinator DFS prequery operations, in milliseconds.
+search.request.dfs_query.current | Integer | The number of coordinator DFS prequery operations that are currently running.
+search.request.dfs_query.total | Integer | The total number of coordinator DFS prequery operations.
+search.request.expand.time_in_millis | Integer | The total amount of time for all coordinator expand operations, in milliseconds.
+search.request.expand.current | Integer | The number of coordinator expand operations that are currently running.
+search.request.expand.total | Integer | The total number of coordinator expand operations.
+search.request.can_match.time_in_millis | Integer | The total amount of time for all coordinator match operations, in milliseconds.
+search.request.can_match.current | Integer | The number of coordinator match operations that are currently running.
+search.request.can_match.total | Integer | The total number of coordinator match operations.
 merges | Object | Statistics about merge operations for the node.
 merges.current | Integer | The number of merge operations that are currently running.
 merges.current_docs | Integer | The number of document merges that are currently running.
@@ -792,6 +934,29 @@ segments.index_writer_memory_in_bytes | Integer | The total amount of memory use
 segments.version_map_memory_in_bytes | Integer | The total amount of memory used by all version maps, in bytes. 
 segments.fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
 segments.max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
+segments.segment_replication | Object | Segment replication statistics for all primary shards when segment replication is enabled on the node. 
+segments.segment_replication.max_bytes_behind | long | The maximum number of bytes behind the primary replica.
+segments.segment_replication.total_bytes_behind | long | The total number of bytes behind the primary replicas. 
+segments.segment_replication.max_replication_lag | long | The maximum amount of time, in milliseconds, taken by a replica to catch up to its primary. 
+segments.remote_store | Object | Statistics about remote segment store operations.
+segments.remote_store.upload | Object | Statistics related to uploads to the remote segment store.
+segments.remote_store.upload.total_upload_size | Object | The amount of data, in bytes, uploaded to the remote segment store.
+segments.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes to upload to the remote segment store after the upload has started.
+segments.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote segment store.
+segments.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes that failed to upload to the remote segment store.
+segments.remote_store.upload.refresh_size_lag | Object | The amount of lag during upload between the remote segment store and the local store.
+segments.remote_store.upload.refresh_size_lag.total_bytes | Integer | The total number of bytes that lagged during the upload refresh between the remote segment store and the local store.
+segments.remote_store.upload.refresh_size_lag.max_bytes | Integer | The maximum amount of lag, in bytes, during the upload refresh between the remote segment store and the local store.
+segments.remote_store.upload.max_refresh_time_lag_in_millis | Integer | The maximum duration, in milliseconds, that the remote refresh is behind the local refresh.
+segments.remote_store.upload.total_time_spent_in_millis | Integer | The total amount of time, in milliseconds, spent on uploads to the remote segment store.
+segments.remote_store.upload.pressure | Object | Statistics related to segment store upload backpressure.
+segments.remote_store.upload.pressure.total_rejections | Integer | The total number of requests rejected due to segment store upload backpressure.
+segments.remote_store.download | Object | Statistics related to downloads to the remote segment store.
+segments.remote_store.download.total_download_size | Object | The total amount of data download from the remote segment store.
+segments.remote_store.download.total_download_size.started_bytes | Integer | The number of bytes downloaded from the remote segment store after the download starts.
+segments.remote_store.download.total_download_size.succeeded_bytes | Integer | The number of bytes successfully downloaded from the remote segment store.
+segments.remote_store.download.total_download_size.failed_bytes | Integer | The number of bytes that failed to download from the remote segment store.
+segments.remote_store.download.total_time_spent_in_millis | Integer | The total duration, in milliseconds, spent on downloads from the remote segment store.
 segments.file_sizes | Integer | Statistics about the size of the segment files.
 translog | Object | Statistics about transaction log operations for the node.
 translog.operations | Integer | The number of translog operations.
@@ -799,6 +964,16 @@ translog.size_in_bytes | Integer | The size of the translog, in bytes.
 translog.uncommitted_operations | Integer | The number of uncommitted translog operations.
 translog.uncommitted_size_in_bytes | Integer | The size of uncommitted translog operations, in bytes.
 translog.earliest_last_modified_age | Integer | The earliest last modified age for the translog.
+translog.remote_store | Object | Statistics related to operations from the remote translog store.
+translog.remote_store.upload | Object | Statistics related to uploads to the remote translog store.
+translog.remote_store.upload.total_uploads | Object | The number of syncs to the remote translog store.
+translog.remote_store.upload.total_uploads.started | Integer | The number of upload syncs to the remote translog store that have started.
+translog.remote_store.upload.total_uploads.failed | Integer | The number of failed upload syncs to the remote translog store.
+translog.remote_store.upload.total_uploads.succeeded | Integer | The number of successful upload syncs to the remote translog store.
+translog.remote_store.upload.total_upload_size | Object | The total amount of data uploaded to the remote translog store.
+translog.remote_store.upload.total_upload_size.started_bytes | Integer | The number of bytes actively uploading to the remote translog store after the upload has started.
+translog.remote_store.upload.total_upload_size.failed_bytes | Integer | The number of bytes that failed to upload to the remote translog store.
+translog.remote_store.upload.total_upload_size.succeeded_bytes | Integer | The number of bytes successfully uploaded to the remote translog store.
 request_cache | Object | Statistics about the request cache for the node.
 request_cache.memory_size_in_bytes | Integer | The memory size used by the request cache, in bytes.
 request_cache.evictions | Integer | The number of request cache evictions.
@@ -808,7 +983,6 @@ recovery | Object | Statistics about recovery operations for the node.
 recovery.current_as_source | Integer | The number of recovery operations that have used an index shard as a source.
 recovery.current_as_target | Integer | The number of recovery operations that have used an index shard as a target.
 recovery.throttle_time_in_millis | Integer | The delay of recovery operations due to throttling, in milliseconds.
-
 
 ### `os`
 
@@ -852,7 +1026,6 @@ cpu.percent | Integer | The percentage of CPU usage for the process.
 cpu.total_in_millis | Integer | The total CPU time used by the process on which the JVM is running, in milliseconds.
 mem  | Object | Statistics about the memory for the node.
 mem.total_virtual_in_bytes | Integer | The total amount of virtual memory that is guaranteed to be available to the process that is currently running, in bytes.
-
 
 ### `jvm`
 
@@ -899,7 +1072,7 @@ classes.total_unloaded_count | Integer | The total number of classes unloaded by
 
 ### `thread_pool`
 
-The `thread_pool` object contains a list of all thread pools. Each thread pool is a nested object specified by its ID with the properties listed below.
+The `thread_pool` object contains a list of all thread pools. Each thread pool is a nested object that is specified by its ID and contains the following properties.
 
 Field | Field type | Description
 :--- | :--- | :---
@@ -909,6 +1082,7 @@ active | Integer | The number of active threads in the pool.
 rejected | Integer | The number of tasks that have been rejected.
 largest | Integer | The peak number of threads in the pool.
 completed | Integer | The number of tasks completed.
+total_wait_time | Integer | The total amount of time tasks spent waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
 
 ### `fs`
 
@@ -921,7 +1095,7 @@ total | Object | Statistics for all file stores of the node.
 total.total_in_bytes | Integer | The total memory size of all file stores, in bytes. 
 total.free_in_bytes | Integer | The total unallocated disk space in all file stores, in bytes.
 total.available_in_bytes | Integer | The total disk space available to the JVM on all file stores. Represents the actual amount of memory, in bytes, that OpenSearch can use.
-data | Array | The list of all file stores. Each file store has the properties listed below.
+data | Array | The list of all file stores. Each file store has the following properties.
 data.path | String | The path to the file store.
 data.mount | String | The mount point of the file store.
 data.type | String | The type of the file store (for example, overlay).
@@ -986,6 +1160,16 @@ published_cluster_states | Object | Statistics for the published cluster states 
 published_cluster_states.full_states | Integer | The number of published cluster states.
 published_cluster_states.incompatible_diffs | Integer | The number of incompatible differences between published cluster states.
 published_cluster_states.compatible_diffs | Integer | The number of compatible differences between published cluster states.
+cluster_state_stats | Object | Cluster state update statistics published by the active leader.
+cluster_state_stats.overall | Object | Overall cluster state update statistics.
+cluster_state_stats.overall.update_count | Integer | The total number of successful cluster state updates.
+cluster_state_stats.overall.total_time_in_millis | Integer | The total amount of time taken for all cluster state updates, in milliseconds.
+cluster_state_stats.overall.failed_count | Integer | The total number of failed cluster state updates.
+cluster_state_stats.remote_upload | Object | Cluster state update statistics related to remote uploads.
+cluster_state_stats.remote_upload.success_count | Integer | The total number of successful cluster state updates uploaded to the remote store.
+cluster_state_stats.remote_upload.failed_count | Integer | The total number of cluster state updates that failed to upload to the remote store.
+cluster_state_stats.remote_upload.total_time_in_millis | Integer | The total amount of time taken for all cluster state updates uploaded to the remote store, in milliseconds.
+cluster_state_stats.remote_upload.cleanup_attempt_failed_count | Integer | The total number of failures encountered while trying to clean up older cluster states from the remote store.
 
 ### `ingest`
 
@@ -998,7 +1182,7 @@ total.count | Integer | The total number of documents ingested by the node.
 total.time_in_millis | Integer | The total amount of time for preprocessing ingest documents, in milliseconds.
 total.current | Integer | The total number of documents that are currently being ingested by the node.
 total.failed | Integer | The total number of failed ingestions for the node.
-pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object specified by its ID with the properties listed below.
+pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object that is specified by its ID and has the following properties.
 pipelines._id_.count | Integer | The number of documents preprocessed by the ingest pipeline.
 pipelines._id_.time_in_millis | Integer | The total amount of time for preprocessing documents in the ingest pipeline, in milliseconds.
 pipelines._id_.failed | Integer | The total number of failed ingestions for the ingest pipeline.
@@ -1034,7 +1218,7 @@ pipelines._id_.response_processors | Array of objects | Statistics for the searc
 
 ### `adaptive_selection`
 
-The `adaptive_selection` object contains the adaptive selection statistics. Each entry is specified by the node ID and has the properties listed below. 
+The `adaptive_selection` object contains the adaptive selection statistics. Each entry is specified by the node ID and has the following properties. 
 
 Field | Field type | Description
 :--- | :--- | :---
@@ -1071,6 +1255,28 @@ total_rejections_breakup_shadow_mode.no_successful_request_limits | Integer | Th
 total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
+
+### `resource_usage_stats`
+
+The `resource_usage_stats` object contains the resource usage statistics. Each entry is specified by the node ID and has the following properties.
+
+Field | Field type | Description
+:--- |:-----------| :---
+timestamp | Integer    | The last refresh time for the resource usage statistics, in milliseconds since the epoch.
+cpu_utilization_percent | Float      | Statistics for the average CPU usage of any OpenSearch processes within the time period configured in the `node.resource.tracker.global_cpu_usage.window_duration` setting.
+memory_utilization_percent | Float      | The node JVM memory usage statistics within the time period configured in the `node.resource.tracker.global_jvmmp.window_duration` setting.
+max_io_utilization_percent  | Float     |  (Linux only) Statistics for the average IO usage of any OpenSearch processes within the time period configured in the `node.resource.tracker.global_io_usage.window_duration` setting.
+
+### `admission_control`
+
+The `admission_control` object contains the rejection count of search and indexing requests based on resource consumption and has the following properties.
+
+Field | Field type | Description
+:--- | :--- | :---
+admission_control.global_cpu_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node CPU usage limit was met. In this case, additional search requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.search.cpu_usage.limit` setting.
+admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was met. Any additional indexing requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.indexing.cpu_usage.limit` setting.
+admission_control.global_io_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node IO usage limit was met. Any additional search requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.search.io_usage.limit` setting (Linux only).
+admission_control.global_io_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node IO usage limit was met. Any additional indexing requests are rejected until the system recovers. The IO usage limit is configured in the `admission_control.indexing.io_usage.limit` setting (Linux only).
 
 ## Required permissions
 

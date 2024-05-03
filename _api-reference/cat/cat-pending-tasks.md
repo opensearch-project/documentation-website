@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # CAT pending tasks
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT pending tasks operation lists the progress of all pending tasks, including task priority and time in queue.

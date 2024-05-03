@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 # Explain
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 Wondering why a specific document ranks higher (or lower) for a query? You can use the explain API for an explanation of how the relevance score (`_score`) is calculated for every result.

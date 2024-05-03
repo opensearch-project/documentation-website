@@ -4,6 +4,9 @@ title: OpenSearch Integrations
 nav_order: 1
 has_children: false
 nav_exclude: true
+permalink: /integrations/
+redirect_from:
+  - /integrations/index/
 ---
 
 # OpenSearch Integrations

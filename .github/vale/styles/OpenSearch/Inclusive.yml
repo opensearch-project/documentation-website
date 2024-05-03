@@ -7,8 +7,6 @@ swap:
   'abort': stop, end, or cancel
   'black day': blocked day
   'blacklist': deny list
-  'execute': run, process, apply, start, launch, or initiate
-  'hang': stop responding
   'kill': stop, end, clear, remove, or cancel
   'master account': 'management account'
   'master': cluster manager

@@ -14,7 +14,10 @@ exceptions:
   - AWS
   - BASIC
   - BM25
+  - CSV
   - CPU
+  - CRUD
+  - DNS
   - DOS
   - FAQ
   - FTP

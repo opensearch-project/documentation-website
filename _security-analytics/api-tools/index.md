@@ -19,4 +19,5 @@ The APIs for Security Analytics are separated into the following categories:
 * [Mappings APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/)
 * [Alerts and findings APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/alert-finding-api/)
 * [Correlation engine APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/correlation-eng/)
+* [Log type APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/log-type-api/)
 

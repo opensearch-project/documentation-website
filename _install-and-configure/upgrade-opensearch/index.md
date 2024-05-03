@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Upgrading OpenSearch
-nav_order: 4
+nav_order: 20
 has_children: true
 redirect_from:
   - /upgrade-opensearch/index/

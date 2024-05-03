@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 # Scroll
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 You can use the `scroll` operation to retrieve a large number of results. For example, for machine learning jobs, you can request an unlimited number of results in batches.

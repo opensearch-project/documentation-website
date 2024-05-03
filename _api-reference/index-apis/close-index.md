@@ -8,12 +8,12 @@ redirect_from:
 ---
 
 # Close index
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The close index API operation closes an index. Once an index is closed, you cannot add data to it or search for any data within the index.
 
-## Example
+#### Example
 
 ```json
 POST /sample-index/_close

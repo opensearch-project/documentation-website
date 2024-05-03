@@ -5,6 +5,8 @@ nav_order: 60
 ---
 
 # Ranking evaluation
+**Introduced 1.0**
+{: .label .label-purple }
 
 The [rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) eval endpoint allows you to evaluate the quality of ranked search results.
 

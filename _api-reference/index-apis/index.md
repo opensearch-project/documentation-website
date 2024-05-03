@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Index APIs
+**Introduced 1.0**
+{: .label .label-purple }
 
 The index API operations let you interact with indexes in your cluster. Using these operations, you can create, delete, close, and complete other index-related operations.
 

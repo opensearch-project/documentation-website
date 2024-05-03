@@ -1,8 +1,7 @@
 ---
 layout: default
-title: CAT nodes operation
+title: CAT nodes
 parent: CAT API
-
 nav_order: 40
 has_children: false
 redirect_from:
@@ -10,7 +9,7 @@ redirect_from:
 ---
 
 # CAT nodes
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT nodes operation lists node-level information, including node roles and load metrics.

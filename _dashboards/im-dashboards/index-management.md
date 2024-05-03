@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Indexes
-parent: Index management in Dashboards
+parent: Index Management
 nav_order: 16
 redirect_from:
   - /dashboards/admin-ui-index/index-management/

@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Get index
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 You can use the get index API operation to return information about an index.

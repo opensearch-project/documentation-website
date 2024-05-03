@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Get document
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 After adding a JSON document to your index, you can use the get document API operation to retrieve the document's information and data.

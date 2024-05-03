@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # CAT snapshots
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The CAT snapshots operation lists all snapshots for a repository.

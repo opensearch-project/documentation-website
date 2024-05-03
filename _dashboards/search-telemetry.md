@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Managing search telemetry settings
-nav_order: 100
+title: Search telemetry
+nav_order: 140
 ---
 
 
-# Managing search telemetry settings
+# Search telemetry
 
 You can use search telemetry to analyze search request performance by success or failure in OpenSearch Dashboards. OpenSearch stores telemetry data in the `.kibana_1` index.
 

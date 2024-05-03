@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # Create or update mappings
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 If you want to create or add mappings and fields to an index, you can use the put mapping API operation. For an existing mapping, this operation updates the mapping.

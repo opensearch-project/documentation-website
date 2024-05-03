@@ -7,7 +7,7 @@ has_children: false
 ---
 
 # CAT segment replication
-Introduced 2.7
+**Introduced 2.7**
 {: .label .label-purple }
 
 The CAT segment replication operation returns information about active and last completed [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/index) events on each replica shard, including related shard-level metrics. These metrics provide information about how far behind the primary shard the replicas are lagging.
@@ -47,7 +47,7 @@ Parameter | Data type  | Description
 `v` | Boolean    | If `true`, the response includes column headings. Defaults to `false`.
 `s` | String     | Specifies to sort the results. For example, `s=shardId:desc` sorts by shardId in descending order.
 
-## Examples 
+## Example
 
 The following examples illustrate various segment replication responses.
 

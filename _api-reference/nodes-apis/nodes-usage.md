@@ -6,6 +6,8 @@ nav_order: 40
 ---
 
 # Nodes usage
+**Introduced 1.0**
+{: .label .label-purple }
 
 The nodes usage endpoint returns low-level information about REST action usage on nodes.
 

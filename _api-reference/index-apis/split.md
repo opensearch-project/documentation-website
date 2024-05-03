@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Split index
+**Introduced 1.0**
+{: .label .label-purple }
 
 The split index API operation splits an existing read-only index into a new index, cutting each primary shard into some amount of primary shards in the new index.
 

@@ -55,6 +55,8 @@ GET products/_search
 ```
 {% include copy-curl.html %}
 
+For more information about supported date formats, see [Formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats).
+
 ### Format
 
 To use a date format other than the field's mapped format in a query, specify it in the `format` field.
@@ -88,7 +90,7 @@ OpenSearch populates missing date components with the following values:
 - `SECOND_OF_MINUTE`: `59`
 - `NANO_OF_SECOND`: `999_999_999`
 
-If the year is missing, it is not populated. 
+If the year is missing, it is not populated.
 
 For example, consider the following request that specifies only the year in the start date:
 
@@ -129,7 +131,7 @@ GET products/_search
 ```
 {% include copy-curl.html %}
 
-In the preceding example, `2019/01/01` is the anchor date (the starting point) for the date math. After the two pipe characters (`||`), you are specifying a mathematical expression relative to the anchor date. In this example, you are subtracting 1 year (`-1y`) and 1 day (`-1d`). 
+In the preceding example, `2019/01/01` is the anchor date (the starting point) for the date math. After the two pipe characters (`||`), you are specifying a mathematical expression relative to the anchor date. In this example, you are subtracting 1 year (`-1y`) and 1 day (`-1d`).
 
 You can also round off dates by adding a forward slash to the date or time unit.
 
@@ -165,7 +167,7 @@ Parameter | Rounding rule | Example: The value `2022-05-18||/M` is rounded to
 
 ### Time zone
 
-To convert `date` values to [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) using a [UTC offset](https://en.wikipedia.org/wiki/UTC_offset), use the `time_zone` parameter:
+By default, dates are assumed to be in [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time). If you specify a `time_zone` parameter in the query, the provided date values are converted to UTC. You can specify the `time_zone` parameter as a [UTC offset](https://en.wikipedia.org/wiki/UTC_offset), such as `-04:00`, or an [IANA time zone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), such as `America/New_York`. For example, the following query specifies that the `gte` date provided in the query is in the `-04:00` time zone:
 
 ```json
 GET /products/_search
@@ -173,8 +175,8 @@ GET /products/_search
   "query": {
     "range": {
       "created": {
-        "time_zone": "-04:00",        
-        "gte": "2022-04-17T06:00:00" 
+        "time_zone": "-04:00",
+        "gte": "2022-04-17T06:00:00"
       }
     }
   }
@@ -182,9 +184,9 @@ GET /products/_search
 ```
 {% include copy-curl.html %}
 
-The preceding query specifies the `-04:00` offset, so the `gte` parameter is converted to `2022-04-17T10:00:00 UTC`.   
+The `gte` parameter in the preceding query is converted to `2022-04-17T10:00:00 UTC`, which is the UTC equivalent of `2022-04-17T06:00:00-04:00`.
 
-The `time_zone` parameter does not affect the `now` value.
+The `time_zone` parameter does not affect the `now` value because `now` always corresponds to the current system time in UTC.
 {: .note}
 
 ## Parameters
@@ -198,7 +200,7 @@ GET _search
     "range": {
       "<field>": {
         "gt": 10,
-        ... 
+        ...
       }
     }
   }
@@ -213,7 +215,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `format` | String | A [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats) for dates in this query. Default is the field's mapped format.
 `relation` | String | Indicates how the range query matches values for [`range`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) fields. Valid values are:<br> - `INTERSECTS` (default): Matches documents whose `range` field value intersects the range provided in the query.  <br> - `CONTAINS`: Matches documents whose `range` field value contains the entire range provided in the query. <br> - `WITHIN`: Matches documents whose `range` field value is entirely within the range provided in the query.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
+`boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
 `time_zone` | String | The time zone used to convert [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values to UTC in the query. Valid values are ISO 8601 [UTC offsets](https://en.wikipedia.org/wiki/List_of_UTC_offsets) and [IANA time zone IDs](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For more information, see [Time zone](#time-zone).
 
 If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, range queries on [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) and [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) fields are not run.

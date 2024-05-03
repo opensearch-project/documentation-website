@@ -1,6 +1,6 @@
 ---
 layout: default
-title: xy queries
+title: xy
 parent: Geographic and xy queries
 grand_parent: Query DSL
 nav_order: 50
@@ -10,7 +10,7 @@ redirect_from:
   - /query-dsl/query-dsl/geo-and-xy/xy/
 ---
 
-# xy queries
+# xy query
 
 To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point) and [xy shape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape) fields, use an xy query. 
 
@@ -180,9 +180,9 @@ When constructing an xy query, you can also reference the name of a shape pre-in
 
 Parameter | Description
 :--- | :---
-index | The name of the index that contains the pre-indexed shape.
-id | The document ID of the document that contains the pre-indexed shape.
-path | The field name of the field that contains the pre-indexed shape as a path.
+`index` | The name of the index that contains the pre-indexed shape.
+`id` | The document ID of the document that contains the pre-indexed shape.
+`path` | The field name of the field that contains the pre-indexed shape as a path.
 
 The following example illustrates referencing the name of a shape pre-indexed in another index. In this example, the index `pre-indexed-shapes` contains the shape that defines the boundaries, and the index `testindex` contains the shapes whose locations are checked against those boundaries.
 

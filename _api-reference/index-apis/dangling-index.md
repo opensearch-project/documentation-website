@@ -1,11 +1,13 @@
 ---
 layout: default
 title: Dangling indexes
-parent: index-apis
+parent: Index APIs
 nav_order: 30
 ---
 
 # Dangling indexes API
+**Introduced 1.0**
+{: .label .label-purple }
 
 After a node joins a cluster, dangling indexes occur if any shards exist in the node's local directory that do not already exist in the cluster. Dangling indexes can be listed, deleted, or imported.
 

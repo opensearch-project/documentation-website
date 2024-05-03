@@ -7,11 +7,10 @@ redirect_from:
 ---
 
 # Multi-search
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 As the name suggests, the multi-search operation lets you bundle multiple search requests into a single request. OpenSearch then executes the searches in parallel, so you get back the response more quickly compared to sending one request per search. OpenSearch executes each search independently, so the failure of one doesn't affect the others.
-
 
 ## Example
 
@@ -30,9 +29,9 @@ GET _msearch
 
 ```
 GET _msearch
-GET <indices>/_msearch
+GET <index>/_msearch
 POST _msearch
-POST <indices>/_msearch
+POST <index>/_msearch
 ```
 
 
@@ -64,7 +63,7 @@ allow_no_indices | Boolean | Whether to ignore wildcards that don't match any in
 cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is:<br> 1. Child-level parameter<br> 2. Parent-level parameter<br> 3. [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings).<br>Default is -1. | Yes
 css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
 expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
-ignore_unavailable | Boolean | If an index from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
+ignore_unavailable | Boolean | If an index or shard from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
 max_concurrent_searches | Integer | The maximum number of concurrent searches. The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster. | No
 max_concurrent_shard_requests | Integer | Maximum number of concurrent shard requests that each search executes per node. Default is 5. Higher values can improve performance, but risk overloading the cluster. | No
 pre_filter_shard_size | Integer | Default is 128. | No
@@ -89,7 +88,24 @@ request_cache | Boolean | Whether to cache results, which can improve latency fo
 routing | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.
 
 
-## Response
+## Example
+
+The following example `msearch` API request runs queries against multiple indexes:
+
+### Request
+
+```json
+GET _msearch
+{ "index": "opensearch_dashboards_sample_data_logs"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10}
+{ "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} } }
+
+```
+{% include copy-curl.html %}
+
+
+### Response
 
 OpenSearch returns an array with the results of each search in the same order as the multi-search request.
 

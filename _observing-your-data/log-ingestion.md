@@ -12,7 +12,7 @@ Log ingestion provides a way to transform unstructured log data into structured 
 
 ## Get started with log ingestion
 
-OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/) and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)---that fit into the OpenSearch ecosystem. The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
+OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/). The Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
 
 ### Basic flow of data
 
@@ -63,7 +63,7 @@ This should result in a single document being written to the OpenSearch cluster 
 Run the following command to see one of the raw documents in the OpenSearch cluster:
 
 ```bash
-curl -X GET -u 'admin:admin' -k 'https://localhost:9200/apache_logs/_search?pretty&size=1'
+curl -X GET -u 'admin:<custom-admin-password>' -k 'https://localhost:9200/apache_logs/_search?pretty&size=1'
 ```
 
 The response should show the parsed log data:

@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # Cluster health
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The most basic cluster health request returns a simple status of the health of your cluster. OpenSearch expresses cluster health in three colors: green, yellow, and red. A green status means all primary shards and their replicas are allocated to nodes. A yellow status means all primary shards are allocated to nodes, but some replicas aren't. A red status means at least one primary shard is not allocated to any node.

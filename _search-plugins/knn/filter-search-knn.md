@@ -2,7 +2,8 @@
 layout: default
 title: k-NN search with filters
 nav_order: 20
-parent: k-NN
+parent: k-NN search
+grand_parent: Search methods
 has_children: false
 has_math: true
 ---
@@ -13,7 +14,7 @@ To refine k-NN results, you can filter a k-NN search using one of the following 
 
 - [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned (if there are at least `k` results in total). This approach is supported by the following engines:
   - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 
-  - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 or later) 
+  - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 and later) or IVF algorithm (k-NN plugin versions 2.10 and later)
 
 -  [Post-filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter. You can use the following two filtering strategies for this approach:
     - [Boolean post-filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently, and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
@@ -25,7 +26,7 @@ The following table summarizes the preceding filtering use cases.
 
 Filter | When the filter is applied | Type of search | Supported engines and methods | Where to place the `filter` clause
 :--- | :--- | :--- | :---
-Efficient k-NN filtering | During search (a hybrid of pre- and post-filtering) | Approximate | - `lucene` (`hnsw`) <br> - `faiss` (`hnsw`) | Inside the k-NN query clause.
+Efficient k-NN filtering | During search (a hybrid of pre- and post-filtering) | Approximate | - `lucene` (`hnsw`) <br> - `faiss` (`hnsw`, `ivf`) | Inside the k-NN query clause.
 Boolean filter | After search (post-filtering) | Approximate | - `lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. Must be a leaf clause.
 The `post_filter` parameter | After search (post-filtering) | Approximate | - `lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. 
 Scoring script filter | Before search (pre-filtering) | Exact | N/A | Inside the script score query clause.
@@ -42,12 +43,12 @@ Once you've estimated the number of documents in your index, the restrictiveness
 
 | Number of documents in an index | Percentage of documents the filter returns | k | Filtering method to use for higher recall | Filtering method to use for lower latency |
 | :-- | :-- | :-- | :-- | :-- |
-| 10M | 2.5 | 100 | Scoring script | Scoring script |
-| 10M | 38 | 100 | Efficient k-NN filtering | Boolean filter |
-| 10M | 80 | 100 | Scoring script | Efficient k-NN filtering |
-| 1M | 2.5 | 100 | Efficient k-NN filtering | Scoring script |
-| 1M | 38 | 100 | Efficient k-NN filtering | Efficient k-NN filtering/scoring script |
-| 1M | 80 | 100 | Efficient k-NN filtering | Boolean filter |
+| 10M | 2.5 | 100 | Efficient k-NN filtering/Scoring script | Scoring script |
+| 10M | 38 | 100 | Efficient k-NN filtering | Efficient k-NN filtering |
+| 10M | 80 | 100 | Efficient k-NN filtering | Efficient k-NN filtering |
+| 1M | 2.5 | 100 | Efficient k-NN filtering/Scoring script | Scoring script |
+| 1M | 38 | 100 | Efficient k-NN filtering | Efficient k-NN filtering |
+| 1M | 80 | 100 | Efficient k-NN filtering | Efficient k-NN filtering |
 
 ## Efficient k-NN filtering
 
@@ -67,7 +68,7 @@ The following flow chart outlines the Lucene algorithm.
 
 ![Lucene algorithm for filtering]({{site.url}}{{site.baseurl}}/images/lucene-algorithm.png)
 
-For more information about the Lucene filtering implementation and the underlying `KnnVectorQuery`, see the [Apache Lucene documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
+For more information about the Lucene filtering implementation and the underlying `KnnVectorQuery`, see the [Apache Lucene documentation](https://lucene.apache.org/core/9_2_0/core/org/apache/lucene/search/KnnVectorQuery.html).
 
 ### Using a Lucene k-NN filter
 
@@ -261,13 +262,16 @@ For more ways to construct a filter, see [Constructing a filter](#constructing-a
 
 ### Faiss k-NN filter implementation 
 
-Starting with k-NN plugin version 2.9, you can use `faiss` filters for k-NN searches.
+For k-NN searches, you can use `faiss` filters with an HNSW algorithm (k-NN plugin versions 2.9 and later) or IVF algorithm (k-NN plugin versions 2.10 and later).
 
 When you specify a Faiss filter for a k-NN search, the Faiss algorithm decides whether to perform an exact k-NN search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
 
 - N: The number of documents in the index.
 - P: The number of documents in the document subset after the filter is applied (P <= N).
 - k: The maximum number of vectors to return in the response.
+- R: The number of results returned after performing the filtered approximate nearest neighbor search.
+- FT (filtered threshold): An index-level threshold defined in the [`knn.advanced.filtered_exact_search_threshold` setting]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings/) that specifies to switch to exact search.
+- MDC (max distance computations): The maximum number of distance computations allowed in exact search if `FT` (filtered threshold) is not set. This value cannot be changed.
 
 The following flow chart outlines the Faiss algorithm.
 

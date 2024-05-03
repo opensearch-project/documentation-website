@@ -18,15 +18,26 @@ You can connect data visualizations to OpenSearch datasets and then create, run,
 Before getting started, you must have:
 
 - Installed OpenSearch and OpenSearch Dashboards version 2.9 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
-- Installed the Alerting and Notifications Dashboards plugins. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
+- Installed the Anomaly Detection plugin version 2.9 or later. See [Installing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins).
+- Installed the Anomaly Detection Dashboards plugin version 2.9 or later. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
 
 ## General requirements for anomaly detection visualizations
 
-Anomaly detection visualizations are intended for use with time-series data (real-time or historical). The following visualization types are used frequently for time-series data: line, area, vertical bar, and time-series visual builder (TSVB).
+Anomaly detection visualizations are displayed as time-series charts that give you a snapshot of when anomalies have occurred from different anomaly detectors you have configured for the visualization. You can display up to 10 metrics on your chart, and each series can be shown as a line on the chart.
+
+Keep in mind the following requirements when setting up or creating anomaly detection visualizations. The visualization:
+
+- Must be a [Vizlib line chart](https://community.vizlib.com/support/solutions/articles/35000107262-vizlib-line-chart-introduction)
+- Must contain at least a Y-axis metric aggregation
+- Must not have non-Y-axis metric aggregation types
+- Must use the date histogram aggregation type for the X-axis bucket
+- Must have an X-axis on the bottom
+- Must define one X-axis aggregation bucket
+- Must have a valid time-based X-axis
 
 ## Configuring admin settings
 
-Users can only access, create, or manage alerts for resources for which they have permissions. Access to anomaly detection dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards permissions. It is enabled by default and appears as a feature under **Dashboards Management** > **Advanced Settings** > **Visualization**. If the setting is disabled, it does not appear under **Dashboards Management**. You can disable the setting at the cluster level in the `opensearch-dashboards.yml` file.
+Users can only access, create, or manage anomaly detectors for resources for which they have permissions. Access to anomaly detection dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards permissions. It is enabled by default and appears as a feature under **Dashboards Management** > **Advanced Settings** > **Visualization**. If the setting is disabled, it does not appear under **Dashboards Management**. You can disable the setting at the cluster level in the `opensearch-dashboards.yml` file.
 
 ## Creating anomaly detectors
 

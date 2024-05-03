@@ -10,10 +10,10 @@ redirect_from:
 ---
 
 # CAT repositories
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
-The CAT repositories operation lists all completed and ongoing index and shard recoveries.
+The CAT repositories operation lists all snapshot repositories for a cluster.
 
 ## Example
 

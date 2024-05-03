@@ -24,7 +24,9 @@ Field | Description | Type | Required | Read Only
 :--- | :--- |:--- |:--- |
 `policy_id` |  The name of the policy. | `string` | Yes | Yes
 `description` |  A human-readable description of the policy. | `string` | Yes | No
-`ism_template` | Specify an ISM template pattern that matches the index to apply the policy. | `nested list of objects` | No | No
+`ism_template` | Specify an ISM template to automatically apply the policy to the newly created index. | `nested list of objects` | No | No
+`ism_template.index_patterns` | Specify a pattern that matches the newly created index name. | `list of strings` | No | No
+`ism_template.priority` | Specify a priority to disambiguate when multiple policies match the newly created index name. | `number` | No | No
 `last_updated_time`  |  The time the policy was last updated. | `timestamp` | Yes | Yes
 `error_notification` |  The destination and message template for error notifications. The destination could be Amazon Chime, Slack, or a webhook URL. | `object` | No | No
 `default_state` | The default starting state for each index that uses this policy. | `string` | Yes | No
@@ -117,8 +119,8 @@ Reduces the number of Lucene segments by merging the segments of individual shar
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `max_num_segments` | The number of segments to reduce the shard to. | `number` | Yes
-wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
-task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`. | No
+`wait_for_completion` | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
+`task_execution_timeout` | Time | The explicit task execution timeout. Only useful when `wait_for_completion` is set to `false`. Default is `1h`. | No
 
 ```json
 {
@@ -166,7 +168,7 @@ Parameter | Description | Type | Required
 }
 ```
 
-For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
+For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/intro/#primary-and-replica-shards).
 
 ### shrink
 
@@ -187,18 +189,20 @@ Allows you to reduce the number of primary shards in your indexes. With this act
         "my-alias": {}
       }
     ],
+    "switch_aliases": true,
     "force_unsafe": false
 }
 ```
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`num_new_shards` | The maximum number of primary shards in the shrunken index. | integer | `5` | Yes, however it cannot be used with `max_shard_size` or `percentage_of_source_shards`
-`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however it cannot be used with `num_new_shards` or `percentage_of_source_shards`
+`num_new_shards` | The maximum number of primary shards in the shrunken index. | Integer | `5` | Yes. It, however, cannot be used with `max_shard_size` or `percentage_of_source_shards`.
+`max_shard_size` | The maximum size in bytes of a shard for the target index. | Keyword | `5gb` | Yes, however, it cannot be used with `num_new_shards` or `percentage_of_source_shards`.
 `percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
-`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | `string` or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
-`aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
-`force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
+`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | String or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
+`aliases` | Aliases to add to the new index. | Object | `myalias` | No. It must be an array of alias objects.
+`switch_aliases` | If `true`, copies the aliases from the source index to the target index. If there is a name conflict with an alias from the `aliases` field, the alias in the `aliases` field is used instead of the name. | Boolean | `true` | No. The default implicit value is `false`, which means no aliases are copied by default.
+`force_unsafe` | If `true`, shrinks the index even if it has no replicas. | Boolean | `false` | No
 
 If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/). For example,
 
@@ -274,6 +278,7 @@ Parameter | Description | Type | Example | Required
 `min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
 `min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
 `min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See **Important** note above. | `string` | `5d` or `7h` | No
+`copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | `boolean` | `true` or `false` | No
 
 ```json
 {
@@ -921,7 +926,7 @@ Note: The `index` and `remove_index` parameters are not allowed with alias actio
 
 The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indexes based on their levels of activity.
 
-In this case, an index is initially in a `hot` state. After a day, it changes to a `warm` state, where the number of replicas increases to 5 to improve the read performance.
+In this case, an index is initially in a `hot` state. After 7 days, it changes to a `warm` state, where the number of replicas is reduced to 1 and the indexes are moved to nodes with the `warm` attribute.
 
 After 30 days, the policy moves this index into a `delete` state. The service sends a notification to a Chime room that the index is being deleted, and then permanently deletes it.
 
@@ -937,7 +942,7 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "rollover": {
-              "min_index_age": "1d",
+              "min_index_age": "7d",
               "min_primary_shard_size": "30gb"
             }
           }
@@ -953,7 +958,14 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "replica_count": {
-              "number_of_replicas": 5
+              "number_of_replicas": 1
+            }
+          },
+          {
+            "allocation": {
+              "require": {
+                "temp": "warm"
+              }
             }
           }
         ],

@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 # Search
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The Search API operation lets you execute a search request to search your cluster for data.
@@ -56,9 +56,10 @@ expand_wildcards | String | Specifies the type of index that wildcard expression
 explain | Boolean | Whether to return details about how OpenSearch computed the document's score. Default is false.
 from | Integer | The starting index to search from. Default is 0.
 ignore_throttled | Boolean | Whether to ignore concrete, expanded, or indexes with aliases if indexes are frozen. Default is true.
-ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response. Default is false.
+ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
 lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
 max_concurrent_shard_requests | Integer | How many concurrent shard requests this request should execute on each node. Default is 5.
+phase_took | Boolean | Whether to return phase-level `took` time values in the response. Default is false.
 pre_filter_shard_size | Integer | A prefilter size threshold that triggers a prefilter operation if the request exceeds the threshold. Default is 128 shards.
 preference | String | Specifies the shards or nodes on which OpenSearch should perform the search. For valid values, see [The `preference` query parameter](#the-preference-query-parameter). 
 q | String | Lucene query string’s query.
@@ -85,6 +86,7 @@ track_scores | Boolean | Whether to return document scores. Default is false.
 track_total_hits | Boolean or Integer | Whether to return how many documents matched the query.
 typed_keys | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is true.
 version | Boolean | Whether to include the document version as a match.
+include_named_queries_score | Boolean | Whether to return scores with named queries. Default is false.
 
 ### The `preference` query parameter
 
@@ -106,6 +108,7 @@ All fields are optional.
 
 Field | Type | Description
 :--- | :--- | :---
+aggs | Object | In the optional `aggs` parameter, you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports. For more information, see [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/).
 docvalue_fields | Array of objects | The fields that OpenSearch should return using their docvalue forms. Specify a format to return results in a certain format, such as date and time.
 fields | Array | The fields to search for in the request. Specify a format to return results in a certain format, such as date and time.
 explain | String | Whether to return details about how OpenSearch computed the document's score. Default is false.
@@ -172,4 +175,51 @@ version | Boolean | Whether to include the document version in the response.
     ]
   }
 }
+```
+
+## The `ext` object
+
+Starting with OpenSearch 2.10, plugin authors can add an `ext` object to the search response. The purpose of the `ext` object is to contain plugin-specific response fields. For example, in conversational search, the result of Retrieval Augmented Generation (RAG) is a single "hit" (answer). Plugin authors can include this answer in the search response as part of the `ext` object so that it is separate from the search hits. In the following example response, the RAG result is in the `ext.retrieval_augmented_generation.answer` field:
+
+```json
+{
+  "took": 3,
+  "timed_out": false,
+  "_shards": {
+    "total": 3,
+    "successful": 3,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 110,
+      "relation": "eq"
+    },
+    "max_score": 0.55129033,
+    "hits": [
+      {
+       "_index": "...",
+        "_id": "...",
+        "_score": 0.55129033,
+        "_source": {
+          "text": "...",
+          "title": "..."
+        }
+      },
+      {
+      ...
+      }
+      ...
+      {
+      ...
+      }
+    ],
+  }, // end of hits
+  "ext": {
+    "retrieval_augmented_generation": { // a search response processor
+      "answer": "RAG answer"
+    }
+  }
+} 
 ```

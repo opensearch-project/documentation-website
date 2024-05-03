@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 # Cluster allocation explain
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The most basic cluster allocation explain request finds an unassigned shard and explains why it can't be allocated to a node.

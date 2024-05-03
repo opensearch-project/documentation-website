@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Multi-get documents
-Introduced 1.0 
+**Introduced 1.0**
 {: .label .label-purple }
 
 The multi-get operation allows you to run multiple GET operations in one request, so you can get back all documents that match your criteria.

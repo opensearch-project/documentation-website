@@ -5,10 +5,11 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
+permalink: /security/
 redirect_from:
   - /security-plugin/
   - /security-plugin/index/
-  - /security/
+  - /security/index/
 ---
 
 # About Security in OpenSearch
@@ -65,7 +66,7 @@ OpenSearch includes other features that complement the security infrastructure.
 ### Dashboards multi-tenancy
 
 One such feature is OpenSearch Dashboards multi-tenancy. Tenants are work spaces that include visualizations, index patterns, and other Dashboards objects. Multi-tenancy allows for the sharing of tenants among users of Dashboards and leverages OpenSearch roles to manage access to tenants and safely make them available to others.
-For more information on creating tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
+For more information about creating tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
 
 ### Cross-cluster search
 

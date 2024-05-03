@@ -35,6 +35,16 @@ To edit a detector, begin by selecting the link to the detector in the Detector 
 After you select the **Alert triggers** tab, you also have the option to add additional alerts for the detector by selecting **Add another alert condition** at the bottom of the page.
 {: .tip }
 
+### Threat intelligence feeds
+
+A threat intelligence feed is a real-time, continuous data stream that gathers information related to risks or threats. A piece of information in the tactical threat intelligence feed suggesting that your cluster may have been compromised, such as a login from an unknown user or location or anomalous activity like an increase in read volume, is called an *indicator of compromise* (IoC). These IoCs can be used by investigators to help isolate security incidents. 
+
+As of OpenSearch 2.12, you can enable threat intelligence for Sigma rules related to malicious IP addresses. 
+
+To enable threat intelligence feeds, select the **Enable threat intelligence-based detection** option. 
+
+Threat intelligence feeds only work with **standard** log types.
+
 ---
 ## Detector actions
 
@@ -53,3 +63,5 @@ Threat detector actions allow you to stop and start detectors or delete a detect
 1. Select **Delete** in the dropdown list. The Delete detector popup window opens and asks you to verify that you want to delete the detector or detectors.
 1. Select **Cancel** to decline the action. Select **Delete detector** to delete the detector or detectors permanently from the list.
 
+## Related articles
+[Creating detectors]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/)
