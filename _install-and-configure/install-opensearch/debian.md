@@ -140,7 +140,8 @@ APT, the primary package management tool for Debian–based operating systems, a
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
 
    ```bash
-   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
+   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation.
+   # To set a custom admin password, use the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
 
    # For OpenSearch versions before 2.12:
@@ -153,7 +154,8 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```bash
    # Specify the version manually using opensearch=<version>
 
-   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
+   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation.
+   # To set a custom admin password, use the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
 
    # For OpenSearch versions before 2.12:

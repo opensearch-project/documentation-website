@@ -47,7 +47,8 @@ This guide assumes that you are comfortable working from the Linux command line 
 1. From the CLI, you can install the package with `rpm` or `yum`.
 
    ```bash
-   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
+   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation.
+   # To set a custom admin password, use one the following commands:
 
    ## Install the x64 package using yum.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
@@ -129,7 +130,8 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
 
    ```bash
-   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
+   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation.
+   # To set a custom admin password, use the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch
 
    # For OpenSearch versions before 2.12:
@@ -140,7 +142,8 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    - To install a specific version of OpenSearch:
 
    ```bash
-   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation. To set a custom admin password, use one the following commands:
+   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation.
+   # To set a custom admin password, use the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install 'opensearch-{{site.opensearch_version}}'
 
    # For OpenSearch versions before 2.12:
