@@ -146,7 +146,7 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    # Use one of the following commands to define a custom admin password:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install 'opensearch-{{site.opensearch_version}}'
 
-   # For OpenSearch versions before 2.12:
+   # Use the following command for OpenSearch versions 2.12 and earlier:
    sudo yum install 'opensearch-{{site.opensearch_version}}'
    ```
    {% include copy.html %}
