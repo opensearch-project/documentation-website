@@ -143,6 +143,8 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.search.idle.after` (Time unit): The amount of time a shard should wait for a search or get request until it goes idle. Default is `30s`.
 
+- `index.search.default_pipeline` (String): The default search pipeline for the index to be used on each search request. If the default pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name _none specifies that the index does not have an search pipeline.
+
 - `index.refresh_interval` (Time unit): How often the index should refresh, which publishes its most recent changes and makes them available for searching. Can be set to `-1` to disable refreshing. Default is `1s`.
 
 - `index.max_result_window` (Integer): The maximum value of `from` + `size` for searches of the index. `from` is the starting index to search from, and `size` is the number of results to return. Default is 10000.
