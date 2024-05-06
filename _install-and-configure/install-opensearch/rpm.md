@@ -44,7 +44,7 @@ This guide assumes that you are comfortable working from the Linux command line 
     ```
     {% include copy.html %}
    
-1. From the CLI, you can install the package with `rpm` or `yum`.
+1. From the CLI, you can install the package with `rpm` or `yum`:
 
    ```bash
    # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a security demo configuration.
