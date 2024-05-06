@@ -154,7 +154,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```bash
    # Specify the version manually using opensearch=<version>
 
-   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a security demo configuration.
+   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
    # Use one of the following commands to define a custom admin password:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
 
