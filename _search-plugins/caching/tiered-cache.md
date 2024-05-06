@@ -85,6 +85,7 @@ Setting | Data type | Default | Description
 ### Additional settings for the `tiered_spillover` store
 
 The following table lists additional settings for the `tiered_spillover` store setting.
+
 Setting | Data type | Default | Description
 :--- | :--- | :--- | :---
 `indices.request.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy which is used to determine whether to cache a query onto disk cache based on its took time. This is a dynamic setting. Optional.
