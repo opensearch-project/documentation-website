@@ -62,7 +62,7 @@ This guide assumes that you are comfortable working from the Linux command line 
    ## Install the arm64 package using rpm.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-arm64.rpm
    
-   #  Use one of the following commands for OpenSearch versions 2.12 and earlier:
+   # Use the following command for OpenSearch versions 2.11 and earlier:
 
    ## Install the x64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
@@ -134,7 +134,7 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    # To set a custom admin password, use the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch
 
-   #  Use the following command for OpenSearch versions 2.12 and earlier:
+   # Use the following command for OpenSearch versions 2.11 and earlier:
    sudo yum install opensearch
    ```
    {% include copy.html %}
@@ -142,11 +142,11 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    - To install a specific version of OpenSearch:
 
    ```bash
-   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
-   # Use one of the following commands to define a custom admin password:
+   # For OpenSearch versions 2.12 and later, a custom admin password is required in order to set up a demo security configuration for a new installation.
+   # To set a custom admin password, use the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install 'opensearch-{{site.opensearch_version}}'
 
-   # Use the following command for OpenSearch versions 2.12 and earlier:
+   # Use the following command for OpenSearch versions 2.11 and earlier:
    sudo yum install 'opensearch-{{site.opensearch_version}}'
    ```
    {% include copy.html %}

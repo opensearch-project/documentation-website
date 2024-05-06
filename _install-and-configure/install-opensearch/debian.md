@@ -47,7 +47,7 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
-   Use one of the following commands for OpenSearch versions 2.12 and earlier:
+   Use the following command for OpenSearch versions 2.11 and earlier:
    ```bash
    # x64
    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
@@ -144,7 +144,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    # Use one of the following commands to define a custom admin password:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
 
-   # For OpenSearch versions before 2.12:
+   # Use the following command for OpenSearch versions 2.11 and earlier:
    sudo apt-get install opensearch
    ```
    {% include copy.html %}
@@ -158,7 +158,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    # Use one of the following commands to define a custom admin password:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
 
-   #  Use one of the following commands for OpenSearch versions 2.12 and earlier:
+   # Use the following command for OpenSearch versions 2.11 and earlier:
    sudo apt-get install opensearch={{site.opensearch_version}}
    ```
 
