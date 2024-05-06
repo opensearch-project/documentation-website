@@ -130,7 +130,7 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
 
    ```bash
-   # For OpenSearch 2.12 and greater, a custom admin password is required in order to set up a security demo configuration for new installation.
+   # For OpenSearch versions 2.12 and later, a custom admin password is required in order to set up a demo security configuration for a new installation.
    # To set a custom admin password, use the following commands:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch
 
