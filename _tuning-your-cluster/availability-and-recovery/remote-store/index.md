@@ -68,6 +68,7 @@ You can use the following [cluster settings]({{site.url}}{{site.baseurl}}//api-r
 | cluster.minimum.index.refresh_interval | Time unit | Sets the minimum refresh interval and applies it to all indexes in the cluster. The `cluster.default.index.refresh_interval` setting should be higher than this setting's value. If, during index creation, the `index.refresh_interval` setting is lower than the minimum, index creation fails. |
 | cluster.remote_store.translog.buffer_interval | Time unit | The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. |
 | cluster.remote_store.translog.max_readers | Integer | Sets the maximum number of open translog files for remote-backed indexes. This limits the total number of translog files per shard. Upon breaching this limit, a flush will be triggered and the translog files will be trimmed. Default is `1000` and the minimum required is `100`.|
+
 ## Restoring from a backup
 
 To restore an index from a remote backup, such as in the event of a node failure, use one of the following options:
