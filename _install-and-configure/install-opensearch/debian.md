@@ -47,7 +47,7 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
-   For OpenSearch versions before 2.12:
+   Use one of the following commands for OpenSearch versions 2.12 and earlier:
    ```bash
    # x64
    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
