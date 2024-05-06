@@ -130,6 +130,7 @@ GET my-knn-index-1/_search
 `k` is the number of neighbors the search of each graph will return. You must also include the `size` option, which
 indicates how many results the query actually returns. The plugin returns `k` amount of results for each shard
 (and each segment) and `size` amount of results for the entire query. The plugin supports a maximum `k` value of 10,000.
+Starting from OpenSearch version 2.14.0, in addition to use `k`, `min_score` and `max_distance` can be optionally utilized for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 
 ### Building a k-NN index from a model
 
@@ -247,6 +248,10 @@ To learn about using filters with k-NN search, see [k-NN search with filters]({{
 ### Using approximate k-NN with nested fields
 
 To learn about using k-NN search with nested fields, see [k-NN search with nested fields]({{site.url}}{{site.baseurl}}/search-plugins/knn/nested-search-knn/).
+
+### Using approximate radial search
+
+To learn more about radial search feature, see [k-NN radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 
 ## Spaces
 
