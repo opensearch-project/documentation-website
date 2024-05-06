@@ -60,6 +60,19 @@ POST /_plugins/_ml/models/_undeploy
 
 Starting with OpenSearch version 2.14, models can be automatically undeployed from memory based on the predefined time-to-live (TTL) when the model was last accessed or used. To define a TTL that auto undeploys a model, include the following ModelDeploySetting in your ML mode.
 
+#### Example request: Creating a model with TTL
+```json
+POST /_plugins/_ml/models/_register
+ {
+   "name": "Sample Model Name",
+   "function_name": "remote",
+   "description": "test model",
+   "connector_id": "-g1nOo8BOaAC5MIJ3_4R",
+   "deploy_setting": {"model_ttl_minutes": 100}
+ }
+```
+
+#### Example request: Updating a model with TTL 
 ```json
 PUT /_plugins/_ml/models/COj7K48BZzNMh1sWedLK
 {
