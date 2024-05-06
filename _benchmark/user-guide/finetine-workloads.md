@@ -9,7 +9,7 @@ parent: User guide
 
 While custom workloads can help make benchmarks more specific to your application's needs, they sometimes require additional work to make sure they closely resemble a production cluster.
 
-OpenSearch Benchmark’s `create-workload` feature can extract documents from all indexes or specific indexes selected by the user. The `create-workload` feature understands that all workloads have unique characteristics which allows you to finetune workload runs to your specific needs.
+You can finetune your custom workloads to more closely match your benchmarking needs by using the 'create-workload' feature. `create-workload` can extract documents from all indexes or specific indexes selected by the user. The `create-workload` feature understands that all workloads have unique characteristics which allows you to finetune workload runs to your specific needs.
 
 ## Characteristics to consider 
 
