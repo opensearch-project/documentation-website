@@ -250,7 +250,7 @@ These steps explain how to register a snapshot repository backed by an Azure sto
      azure-snapshot-storage-account-key: ### Insert base64 encoded key
    ```
 
-1. Deploy OpenSearch using Helm with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable.
+1. [Deploy OpenSearch using Helm](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable.
    ```yaml
    extraInitContainers:
    - name: keystore-generator
