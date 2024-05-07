@@ -13,8 +13,7 @@ The ml_inference processor is used to generate inferences from machine learning 
 
 
 **PREREQUISITE**<br>
-Before using the ml_inference processor, you must have a machine learning model connected to the OpenSearch cluster through the ML Commons plugin.  For more information, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
-
+Before using the ml_inference processor, you must have a machine learning model connected to the OpenSearch cluster through the ML Commons plugin. For more information, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
 
 The following is the syntax for the `ml-inference` processor:
