@@ -57,7 +57,7 @@ To create a new data source connection:
 
     - On the **Data Sources** main page, select the connection you want to modify. The **Connection Details** window opens.
 
-    - To mark the current data source as default, 
+    - To mark the selected data source as the default, select the **Set as default** option. 
 
     - To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
         
