@@ -133,7 +133,8 @@ The response confirms that in addition to the `passage_text` field, the processo
             0.017304314,
             -0.021530833,
             0.050184276,
-            0.08962978
+            0.08962978,
+            ...
           ],
           "passage_text" : "hello world"
         },
