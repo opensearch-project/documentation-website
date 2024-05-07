@@ -37,7 +37,7 @@ Field | Data type |  Description
 `rate_limiter.limit` | Integer | The maximum number of times any user can call the Predict API on the model per `unit` of time. By default, there is no limit on the number of Predict API calls. Once you set a limit, you cannot reset it to no limit. As an alternative, you can specify a high limit value and a small time unit, for example, 1 request per nanosecond.
 `rate_limiter.unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, and `SECONDS`.
 `guardrails`| Object | The guardrails for the model.
-`interface`| Object | Optional | The interface for the model.
+`interface`| Object | The interface for the model.
 
 #### Example request: Disabling a model
 

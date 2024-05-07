@@ -56,10 +56,7 @@ Field | Data type | Required/Optional | Description
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `description` | String | Optional| The model description. |
-`model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
-`is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
-`rate_limiter` | Object | Optional | Limits the number of times any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
-`interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
+`model_group_id` | String | Optional | The model group ID of the model group to register this model to.
 
 #### Example request: OpenSearch-provided text embedding model
 
@@ -91,10 +88,7 @@ Field | Data type | Required/Optional | Description
 `model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
-`model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
-`is_enabled`| Boolean | Optional | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
-`rate_limiter` | Object | Optional | Limits the number of times any user can call the Predict API on the model. For more information, see [Rate limiting inference calls]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#rate-limiting-inference-calls).
-`interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
+`model_group_id` | String | Optional | The model group ID of the model group to register this model to.
 
 #### Example request: OpenSearch-provided sparse encoding model
 
@@ -325,18 +319,17 @@ OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 
 ### The `interface` parameter
 
-Interface introduces a highly flexible way for adding arbitrary metadata annotations to all local DL models and remote models in JSON schema syntax. This annotation will initiate a validation check on the input and output fields of the model during model invocation. The validation check will ensure that the input and output fields are in the correct format before and after the model performs.
-
-To register a model with model interface, provide the `interface` parameter, which supports the following fields. 
-
-Input and output fields will be evaluated against the JSON schema provided separately. User does not necessarily need to provide both input and output fields simultaneously.
-
-User can check [JSON schema syntax doc](https://json-schema.org/understanding-json-schema/) to get more information about JSON schema syntax.
+The model interface provides a highly flexible way for adding arbitrary metadata annotations to all local deep-learning models and remote models in a JSON schema syntax. This annotation initiates a validation check on the input and output fields of the model during the model's invocation. The validation check ensures that the input and output fields are in the correct format before and after the model performs a prediction.
+To register a model with a model interface, provide the `interface` parameter, which supports the following fields.
 
 Field | Data type | Description                         
 :---  | :--- |:------------------------------------
 `input`| Object | The JSON schema for the model input. |
 `output`| Object | The JSON schema for the model output. |
+
+Input and output fields will be evaluated against the JSON schema provided separately. User does not necessarily need to provide both input and output fields simultaneously.
+
+To learn more about the JSON schema syntax, see [Understanding JSON schema](https://json-schema.org/understanding-json-schema/).
 
 #### Example request: Externally hosted model with an interface
 
