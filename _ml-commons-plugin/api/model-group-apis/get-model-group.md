@@ -8,6 +8,9 @@ nav_order: 30
 
 # Get a model group
 
+This API is available from 2.13 release
+{: .important}
+
 If model access control is enabled on your cluster, only the owner or users with matching backend roles can get the model group. Any users can get any public model group.
 
 If model access control is disabled on your cluster, users with the `get model group API` permission can get any model group.
