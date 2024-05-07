@@ -130,14 +130,14 @@ The response contains only the public document, indicating that the pipeline was
 ```
 </details>
 
-You can also search on multiple indices having the same default pipeline. For example, below `alias1` has 2 indices `my_index1` and `my_index2` and both indices have same default pipeline `my_pipeline` attached to them..
+You can search across multiple indexes that share the same default pipeline. For example, `alias1` has two indexes, `my_index1` and `my_index2`, both of which have the default pipeline `my_pipeline` attached to them.
 
 ```json
 GET /alias1/_search
 ```
 {% include copy-curl.html %}
 
-The response contains only the public document, indicating that the pipeline was applied by default:
+The response includes only the public version of the document, confirming that the default pipeline was successfully applied:
 
 <details open markdown="block">
   <summary>
