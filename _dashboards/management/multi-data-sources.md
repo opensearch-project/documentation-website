@@ -147,7 +147,7 @@ data_source.hideLocalCluster: true
 Introduced 2.14
 {: .label .label-purple }
 
-The following plugins now support mulitple data sources
+The following plugins now support multiple data sources
 
 ### Index management
 
@@ -177,13 +177,13 @@ When the data source feature is enabled, you can navigate to **Security** under 
 
 ### Maps
 
-When the data source feature is enabled, you can navigate to **Maps** under the **OpenSearch Plugins** menu. To edit an existing map, select it from the maps list page, which opens the edit page. On the edit page, you can view all available data sources and the ones currently used in the map. To add a new layer, select **Add layer**, then select **Documents** from the prompt, which opens a flyout. In the flyout, select the index pattern and geospatial field. Note that the data source name is prefixed to the index pattern name. After selecting **Update**, the new layer is added. Select the database icon to verify that a new data source is now being used in the map. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Maps** under the **OpenSearch Plugins** menu. To edit an existing map, select it from the maps list page, which opens the edit page. On the edit page, you can view all available data sources and the ones currently used in the map. To add a new layer, select **Add layer**, then select **Documents** from the prompt, which opens a flyout. In the flyout, select the index pattern and geospatial field. Note that the data source name is prefixed to the index pattern name. After selecting **Update**, the new layer is added. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon to verify that a new data source is now being used in the map. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/maps_mds1.gif" alt="Multiple data sources in Maps plugin"/>
 
 ### Machine learning
 
-When the data source feature is enabled, you can navigate to **Machine Learning** under the **OpenSearch Plugins** menu. Initially, the models within the default data source are displayed. To view models from a different data source, switch to that data source from the navigation bar. To inspect the details of a specific model, select the inspect icon to the right of the model entry. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Machine Learning** under the **OpenSearch Plugins** menu. Initially, the models within the default data source are displayed. To view models from a different data source, switch to that data source from the navigation bar. To inspect the details of a specific model, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} icon to the right of the model entry. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ml_mds1.gif" alt="Multiple data sources in Machine Learning Plugin"/>
 
