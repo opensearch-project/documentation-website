@@ -36,7 +36,7 @@ Statistic |  Description
 `cache_capacity_reached` | Whether `knn.memory.circuit_breaker.limit` has been reached. This statistic is only relevant to approximate k-NN search.
 `load_success_count` | The number of times k-NN successfully loaded a native library index into the cache. This statistic is only relevant to approximate k-NN search.
 `load_exception_count` | The number of times an exception occurred when trying to load a native library index into the cache. This statistic is only relevant to approximate k-NN search.
-`indices_in_cache` | For each OpenSearch index  with a `knn_vector` field and approximate k-NN turned on, this statistic provides the number of native library indexes that OpenSearch index has and the total `graph_memory_usage` that the OpenSearch index is using, in kilobytes.
+`indices_in_cache` | For each OpenSearch index with a `knn_vector` field and approximate k-NN turned on, this statistic provides the number of native library indexes that OpenSearch index has and the total `graph_memory_usage` that the OpenSearch index is using, in kilobytes.
 `script_compilations` | The number of times the k-NN script has been compiled. This value should usually be 1 or 0, but if the cache containing the compiled scripts is filled, the k-NN script might be recompiled. This statistic is only relevant to k-NN score script search.
 `script_compilation_errors` | The number of errors during script compilation. This statistic is only relevant to k-NN score script search.
 `script_query_requests` | The total number of script queries. This statistic is only relevant to k-NN score script search.
@@ -44,7 +44,7 @@ Statistic |  Description
 `nmslib_initialized` | Boolean value indicating whether the *nmslib* JNI library has been loaded and initialized on the node.
 `faiss_initialized` | Boolean value indicating whether the *faiss* JNI library has been loaded and initialized on the node.
 `model_index_status` | Status of model system index. Valid values are "red", "yellow", "green". If the index does not exist, this will be null.
-`indexing_from_model_degraded` | Boolean value indicating if indexing from a model is degraded. This will happen if there is not enough JVM memory to cache the models.
+`indexing_from_model_degraded` | Boolean value indicating if indexing from a model is degraded. This happens if there is not enough JVM memory to cache the models.
 `ing_requests` | The number of training requests made to the node.
 `training_errors` | The number of training errors that have occurred on the node.
 `training_memory_usage` | The amount of native memory training is using on the node in kilobytes.
