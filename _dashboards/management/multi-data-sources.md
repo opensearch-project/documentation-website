@@ -55,7 +55,7 @@ To create a new data source connection:
 
 4. Edit or update a data source connection.
 
-    - To make changes to the data source connection or mark a different data source as default, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
+    - On the **Data Sources** main page, select the connection you want to modify. The **Connection Details** window opens.
 
     - To mark the current data source as default, 
 
