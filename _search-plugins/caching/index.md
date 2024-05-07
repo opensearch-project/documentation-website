@@ -10,7 +10,7 @@ nav_order: 100
 
 OpenSearch relies on different on-heap cache types to accelerate data retrieval, providing significant improvement in search latency. However, cache size is limited by the amount of memory available on a node. When processing a larger dataset that can potentially be cached, the cache size limit can result in many pieces of data either being removed from the cache or not being cached, causing the query to be incomplete. This impacts performance because OpenSearch needs to process the query again, causing high resource consumption.
 
-Undertstanding how your data uses the cache can help improve your clusters performance and prevent you from using too much memory, keeping the cost of querying your data down.
+Understanding how your data uses the cache can help improve your clusters performance and prevent you from using too much memory, keeping the cost of querying your data down.
 
 ## Supported on-heap cache types
 
