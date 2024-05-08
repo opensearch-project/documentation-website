@@ -1,6 +1,6 @@
 ---
 layout: default
-title: k-NN radial search
+title: Radial search
 nav_order: 28
 parent: k-NN search
 grand_parent: Search methods
@@ -8,9 +8,9 @@ has_children: false
 has_math: true
 ---
 
-# k-NN radial search
+# Radial search
 
-Radial search enhances the k-NN plugin's capabilities beyond mere approximate top-k searches. It empowers users to search all points within a vector space that reside within a specified max distance/min score threshold from a query point. This provides increased flexibility and utility in search operations.
+Radial search enhances the k-NN plugin's capabilities beyond approximate top-`k` searches. With radial search, you can search all points within a vector space that reside within a specified maximum distance or minimum score threshold from a query point. This provides increased flexibility and utility in search operations.
 
 ## Parameter type
 
@@ -18,11 +18,11 @@ Radial search enhances the k-NN plugin's capabilities beyond mere approximate to
 
 `min_score` enables the specification of a similarity score, facilitating the retrieval of points that meet or exceed this score in relation to the query point. This method is ideal for scenarios where relative similarity, based on a specific metric, is more critical than physical proximity.
 
-Note: Only exactly one of `k`, `max_distance`, `min_score` is required to be specified during the approximate search. For more information about the vector spaces, see [Spaces](#spaces).
+Only exactly one query variable, either `k`, `max_distance` or `min_score`, is required to be specified during the approximate search. For more information about the vector spaces, see [Spaces](#spaces).
 
 ## Supported cases
 
-You can perform radial search with Lucene or Faiss engines. The following table summarizes the radial search use cases by engines.
+You can perform radial search with either the Lucene or Faiss engines. The following table summarizes the radial search use cases by engines.
 
 | Engine supported  | Filter supported  | Nested field supported | Search type  |
 |------------------|------------------|------------------------|----------------|
@@ -31,8 +31,7 @@ You can perform radial search with Lucene or Faiss engines. The following table 
 
 ## Spaces
 
-A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin supports the following spaces. 
-
+A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. When using k-NN, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, radial search uses the following formula, 1 / (1 + distance). The k-NN plugin supports the following spaces.
 Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
 {: note.}
 
@@ -55,7 +54,7 @@ Not every method supports each of these spaces. Be sure to check out [the method
     <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
   <tr>
-    <td>linf</td>
+    <td><c>linf</c></td>
     <td>\[ d(\mathbf{x}, \mathbf{y}) = max(|x_i - y_i|) \]</td>
     <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
@@ -64,7 +63,7 @@ Not every method supports each of these spaces. Be sure to check out [the method
     <td>\[ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 1 - 
     {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} &middot; \sqrt{\sum_{i=1}^n y_i^2}}\]
     where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent the norms of vectors x and y respectively.</td>
-    <td><b>nmslib</b> and <b>faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {2 - d \over 2}\]</td>
+    <td><b>nmslib</b> and <b>Faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {2 - d \over 2}\]</td>
   </tr>
   <tr>
     <td>innerproduct (supported for Lucene in OpenSearch version 2.13 and later)</td>
@@ -80,7 +79,7 @@ Not every method supports each of these spaces. Be sure to check out [the method
 </table>
 
 The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equates
-smaller scores with closer results, they return `1 - cosineSimilarity` for cosine similarity space---that's why `1 -` is
+smaller scores with closer results, they return `1 - cosineSimilarity` for the cosine similarity space. This is why `1 -` is
 included in the distance function.
 {: .note }
 
@@ -91,11 +90,11 @@ containing the zero vector will be rejected and a corresponding exception will b
 
 ## Get started to use radial search
 
-In the following section, we provide a detailed example illustrating how to utilize radial search.
+In the following section provides detailed examples of how to use radial search.
 
 ### Create index
 
-To use k-NN index with radial search, you must create a k-NN index by setting `index.knn` to `true`. Specify one or more fields of the `knn_vector` data type.
+To use k-NN index with radial search, create a k-NN index by setting `index.knn` to `true`. Specify one or more fields of the `knn_vector` data type, as shown in the following example:
 
 ```json
 PUT knn-index-test
@@ -129,7 +128,7 @@ PUT knn-index-test
 
 ### Ingest data
 
-After you create the index, add some data to it.
+After you create the index, add some data similar to the following:
 
 ```json
 PUT _bulk?refresh=true
@@ -147,7 +146,7 @@ PUT _bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-### Perform radial search with `max_distance`
+### The following example shows a radial search performed with max_distance:
 
 ```json
 GET knn-index-test/_search
@@ -167,7 +166,7 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents that fall within the squared Euclidean distance (`l2^2`) of 2 are returned.
+All documents that fall within the squared Euclidean distance (`l2^2`) of 2 are returned, as shown in the following response:
 
 <details markdown="block">
   <summary>
@@ -248,6 +247,8 @@ All documents that fall within the squared Euclidean distance (`l2^2`) of 2 are 
 
 ### Perform radial search with `max_distance` and filter
 
+The following example shows a radial search performed with `max_distance` and a response filter:
+
 ```json
 GET knn-index-test/_search
 {
@@ -271,7 +272,7 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents that fall within the squared Euclidean distance (`l2^2`) of 6 and have price within the range of 1 to 5 are returned.
+All documents that fall within the squared Euclidean distance (`l2^2`) of 2 and have price within the range of 1 to 5 are returned, as shown in the following response:
 
 <details markdown="block">
   <summary>
@@ -328,6 +329,8 @@ All documents that fall within the squared Euclidean distance (`l2^2`) of 6 and 
 
 ### Perform radial search with `min_score`
 
+The following example shows a radial search with `min_score`:
+
 ```json
 GET knn-index-test/_search
 {
@@ -343,7 +346,7 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents with a score of 0.9 or higher are returned.
+All documents with a score of 0.9 or higher are returned, as shown in the following response:
 
 <details markdown="block">
   <summary>
@@ -400,6 +403,8 @@ All documents with a score of 0.9 or higher are returned.
 
 ### Perform radial search with `min_score` and filter
 
+The following example shows a radial search with `min_score` and a response filter:
+
 ```json
 GET knn-index-test/_search
 {
@@ -426,7 +431,7 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents with a score of 0.9 or higher and have price within the range of 1 to 5 are returned:
+All documents with a score of 0.9 or higher and have price within the range of 1 to 5 are returned, as shown in the following example:
 
 <details markdown="block">
   <summary>
