@@ -154,5 +154,5 @@ Once you have created an ingest pipeline, you need to create an index for ingest
 
 ## Limitation
 
-The `ml_inference` processor currently supports only remote models connected through a connector. Local models uploaded to the OpenSearch cluster are not yet supported. Check the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/1) for updates on upcoming features.
+The `ml_inference` processor currently supports only remote models connected through a connector. Local models uploaded to an OpenSearch cluster are not yet supported. Check the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/1) for updates on upcoming features.
 
