@@ -151,7 +151,7 @@ The following plugins now support multiple data sources
 
 ### Index management
 
-When the data source feature is enabled, you can navigate to **Index Management** under the **Management** menu. Using indexes as an example, you can view all connected data sources and select a specific one from the navigation bar at the upper right. By default, the indexes from the designated default data source is selected are displayed. However, you can select any connected data source to view its corresponding indexes. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Index Management** under the **Management** menu. Using indexes as an example, you can view all connected data sources and select a specific one from the navigation bar on the upper right. By default, the indexes from the designated default data source are displayed. However, you can select any connected data source to view its corresponding indexes. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds1.gif" alt="Multiple data sources in ISM list page"/>
 
