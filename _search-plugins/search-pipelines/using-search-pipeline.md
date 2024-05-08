@@ -130,7 +130,7 @@ The response contains only the public document, indicating that the pipeline was
 ```
 </details>
 
-You can search across multiple indexes that share the same default pipeline. For example, `alias1` has two indexes, `my_index1` and `my_index2`, both of which have the default pipeline `my_pipeline` attached to them.
+You can search across multiple indexes that share the same default pipeline. For example, `alias1` has two indexes, `my_index1` and `my_index2`, both of which have the default pipeline `my_pipeline` attached to them:
 
 ```json
 GET /alias1/_search
