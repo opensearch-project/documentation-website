@@ -324,7 +324,7 @@ To learn how to use the model for vector search, see [Using an ML model for neur
 
 ## Step 7 (Optional): Undeploy the model 
 
-Undeploy the model automatically by defining a TTL in the model settings or use the Undeploy API to undeploy the model manually. To learn more about model undeploy, see [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
+You can undeploy the model automatically by defining a TTL in the model settings or by using the Undeploy API to undeploy the model manually. For more information, see [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
 
 ## Next steps
 
