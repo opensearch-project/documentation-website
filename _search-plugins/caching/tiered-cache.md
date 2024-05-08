@@ -88,5 +88,5 @@ The following table lists additional settings for the `tiered_spillover` store s
 
 Setting | Data type | Default | Description
 :--- | :--- | :--- | :---
-`indices.request.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy which is used to determine whether to cache a query onto disk cache based on its took time. This is a dynamic setting. Optional.
+`indices.request.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query onto disk cache based on its took time. This is a dynamic setting. Optional.
 `indices.request.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Setting to enable or disable the disk cache dynamically within tiered spillover cache. Note: After disabling disk cache, entries are not removed automatically and requires a manual cache clear. Optional.
