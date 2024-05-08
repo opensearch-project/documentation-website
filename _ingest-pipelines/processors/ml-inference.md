@@ -119,7 +119,7 @@ POST _ingest/pipeline/ml_inference_pipeline/_simulate
 
 #### Response
 
-The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_embedding` field:
+The response confirms that, in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_embedding` field:
 
 ```json
 {
