@@ -62,7 +62,7 @@ The following table lists the required and optional parameters for the `ml-infer
 
 ## Using the processor
 
-Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. Only remote models currently are supported. For more information about creating remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
+Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. Only remote models are currently supported. For more information about creating remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
 **Step 1: Create a pipeline.**
 
