@@ -16,7 +16,7 @@ Introduced 2.11
 When selecting a model, choose one of the following options:
 
 - Use a sparse encoding model at both ingestion time and search time (high performance, relatively high latency).
-- Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
+- Use a sparse encoding model at ingestion time and a tokenizer at search time for relatively low performance and low latency. The tokenism doesn't conduct model inference, so you can deploy and invoke a tokenizer using the ML Commons Model API for a more consistent experience.
 
 **PREREQUISITE**<br>
 Before using neural sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
@@ -29,7 +29,7 @@ To use neural sparse search, follow these steps:
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
-1. [Search the index using neural search](#step-4-search-the-index-using-neural-search).
+1. [Search the index using neural search](#step-4-search-the-index-using-neural-sparse-search).
 
 ## Step 1: Create an ingest pipeline
 
@@ -144,11 +144,11 @@ PUT /my-nlp-index/_doc/2
 
 Before the document is ingested into the index, the ingest pipeline runs the `sparse_encoding` processor on the document, generating vector embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
 
-## Step 4: Search the index using neural search
+## Step 4: Search the index using neural sparse search
 
 To perform a neural sparse search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
 
-The following example request uses a `neural_sparse` query to search for relevant documents:
+The following example request uses a `neural_sparse` query to search for relevant documents using a raw text query:
 
 ```json
 GET my-nlp-index/_search
@@ -237,6 +237,27 @@ The response contains the matching documents:
         }
       }
     ]
+  }
+}
+```
+
+You can also use the `neural_sparse` query with sparse vector embeddings:
+```json
+GET my-nlp-index/_search
+{
+  "query": {
+    "neural_sparse": {
+      "passage_embedding": {
+        "query_tokens": {
+          "hi" : 4.338913,
+          "planets" : 2.7755864,
+          "planet" : 5.0969057,
+          "mars" : 1.7405145,
+          "earth" : 2.6087382,
+          "hello" : 3.3210192
+        }
+      }
+    }
   }
 }
 ```

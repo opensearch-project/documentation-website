@@ -64,6 +64,10 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.allocation.balance.prefer_primary` (Boolean): When set to `true`, OpenSearch attempts to evenly distribute the primary shards between the cluster nodes. Enabling this setting does not always guarantee an equal number of primary shards on each node, especially in the event of failover. Changing this setting to `false` after it was set to `true` does not invoke redistribution of primary shards. Default is `false`.
 
+- `cluster.routing.allocation.rebalance.primary.enable` (Boolean): When set to `true`, OpenSearch attempts to rebalance the primary shards between the cluster nodes. When enabled, the cluster tries to maintain the number of primary shards on each node, with the maximum buffer defined by the `cluster.routing.allocation.rebalance.primary.buffer` setting. Changing this setting to `false` after it was set to `true` does not invoke the redistribution of primary shards. Default is `false`.
+
+- `cluster.routing.allocation.rebalance.primary.buffer` (Floating point): Defines the maximum allowed buffer of primary shards between nodes when `cluster.routing.allocation.rebalance.primary.enable` is enabled. Default is `0.1`.
+
 - `cluster.routing.allocation.disk.threshold_enabled` (Boolean): When set to `false`, disables the disk allocation decider. This will also remove any existing `index.blocks.read_only_allow_delete index blocks` when disabled. Default is `true`. 
 
 - `cluster.routing.allocation.disk.watermark.low` (String): Controls the low watermark for disk usage. When set to a percentage, OpenSearch will not allocate shards to nodes with that percentage of disk used. This can also be entered as ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. This setting does not affect the primary shards of newly created indexes, but will prevent their replicas from being allocated. Default is `85%`. 
