@@ -165,7 +165,7 @@ When the data source feature is enabled, you can navigate to **Anomaly Detection
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ad_mds1.gif" alt="Multiple data sources in Anomaly Detection dashboard page"/>
 
-When you select **Detectors** from the side bar, the page displays the detectors currently configured for the currently selected data source. You can view and configure individual detectors by selecting them from the list. These steps are shown in the following GIF.
+When you select **Detectors** from the side bar, the page displays the detectors currently configured for the selected data source. You can view and configure individual detectors by selecting them from the list. These steps are shown in the following GIF.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ad_mds2.gif" alt="Multiple data sources in Anomaly Detection detector page"/>
 
