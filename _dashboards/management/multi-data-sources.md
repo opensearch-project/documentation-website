@@ -161,7 +161,7 @@ To perform operations on a specific index within a data source, select the indiv
 
 ### Anomaly detection
 
-When the data source feature is enabled, you can navigate to **Anomaly Detection** under the **OpenSearch Plugins** menu. In the navigation bar at the upper right, you can view all connected data sources and select a specific data source to view the dashboard from that source if the data source has detectors. If the selected data source does not have any detectors, the page prompts you to `Create detector`. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Anomaly Detection** under the **OpenSearch Plugins** menu. On the navigation bar on the upper right, you can view all connected data sources and select a specific data source to view the dashboard from that source if it has detectors. If the selected data source does not have any detectors, the page prompts you to `Create detector`. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ad_mds1.gif" alt="Multiple data sources in Anomaly Detection dashboard page"/>
 
