@@ -201,7 +201,7 @@ When data source feature is enabled, you can navigate to **Search Relevance** un
 
 ## Next steps 
 
-After configuring multiple data sources, you can begin exploring the data from each source. Refer to the following resources for more information:
+After configuring multiple data sources, you can analyze the data from each source. Refer to the following resources for more information:
 
 - Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
 - Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
