@@ -30,7 +30,7 @@ The following table describes the **General** settings:
 
 Setting | Description
 :--- | :---
-`csv:quoteValues`  | Defines whether to Enclose values containing special characters or multiline values with a double quotation mark `"`. Default is `On`.  |
+`csv:quoteValues`  | Defines whether to enclose values containing special characters or multiline values with a double quotation mark `"`. Default is `On`.  |
 `csv:separator`  | Defines whether to use a specific character or string to delimit exported values. Default is `,`.  |
 `dateFormat`  | Defines the format for displaying dates. Default is `MMM D, YYYY @ HH:mm:ss.SSS`.  |
 `dateFormat:dow`  | Defines the day on which to start the week. Default is `Sunday`.  |
