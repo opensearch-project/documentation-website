@@ -2,7 +2,7 @@
 layout: default
 title: Best Practices
 parent: Best Practices
-nav_order: 100 
+nav_order: 11
 ---
 
 # Best Practices for OpenSearch Security plugin
