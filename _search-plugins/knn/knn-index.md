@@ -72,7 +72,7 @@ For the ARM64 architecture, only one performance-boosting Faiss library (`libope
 
 ## Method definitions
 
-A method definition refers to the underlying configuration of the approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+A method definition refers to the underlying configuration of the approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 
 A method definition will always contain the name of the method, the space_type the method is built for, the engine
 (the library) to use, and a map of parameters.
@@ -137,7 +137,7 @@ For more information about setting these parameters, refer to the [Faiss documen
 
 #### IVF training requirements
 
-The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there are `nlist` training data points, but it is [recommended that you use more than this](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be composed of either the same data that is going to be ingested or a separate dataset.
+The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model), passing the IVF method definition. IVF requires that, at a minimum, there are `nlist` training data points, but it is [recommended that you use more than this](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be composed of either the same data that is going to be ingested or a separate dataset.
 
 ### Supported Lucene methods
 
