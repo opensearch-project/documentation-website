@@ -145,7 +145,8 @@ Variable | Data type | Description
 
 Per bucket, and per document monitors support printing sample documents in notification messages; and per document monitors support printing the list of queries that triggered the creation of the finding associated with the alert. Each new alert that's generated during a monitor execution will be added to a list (i.e., `newAlerts` for per bucket monitors, and `alerts` for per document monitors) within the `ctx` variable. Each alert has its own list of `sample_documents`, and each per document monitor alert has its own list of `associated_queries`. The message template can be formatted to iterate through the list of alerts, and the list of `associated_queries`, and `sample_documents` for each alert.
 
-To learn more about security in the Alerting plugin, see [Alerting security](https://opensearch.org/docs/latest/observing-your-data/alerting/security/).
+An Alerting monitor executes using the permissions of the user that created it. Please be mindful of the Notifications plugin channel to which alert messages are sent, and the content of the message mustache template. To learn more about security in the Alerting plugin, see [Alerting security](https://opensearch.org/docs/latest/observing-your-data/alerting/security/).
+{: .note}
 
 #### Sample documents variables
 
@@ -181,7 +182,7 @@ Variable | Data type | Description
 
 ##### Mustache template example
 
-The `_source` object in this example is based on the `opensearch_dashboards_sample_data_ecommerce` index that's available on OpenSearch Dashboards.
+The `_source` object in this example is based on the `opensearch_dashboards_sample_data_ecommerce` index that's available on OpenSearch Dashboards. In this example, the message template is accessing the `ctx.alerts` variable of a per document monitor.
 {: .note}
 
 ```groovy
