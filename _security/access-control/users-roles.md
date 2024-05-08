@@ -255,9 +255,16 @@ Admins in OpenSearch are users with elevated rights to perform administrative ta
 
 Admins can be given access to manage users, roles, and permissions using a `yml` file, OpenSearch Dashboards or the REST API with the aim to allow administrative privileges to perform essential administrative tasks.
 
-To grant users admin privileges the admin certificates are added to the `opensearch.yml` defined by their Distinguished Names (DNs), for more information see [configure the admin certificate](https://opensearch.org/docs/latest/security/configuration/security-admin/#configure-the-admin-certificate).
-
 ### Super admin
 Super admins hold the highest level of administrative authority within the OpenSearch environment.
 
-Super admins can change Security plugin configurations using tools like `securityadmin.sh` or the REST API and have access to the security index or `.opendistro_security` index and applying or editing security configurations. This role is typically reserved for select users and is maintained carefully.
+Super admins can change Security plugin configurations using tools like `securityadmin.sh` or the REST API. Super admins have access to the security index or `.opendistro_security` index and can apply or edit security configurations. 
+
+This role is typically reserved for select users and is maintained carefully.
+
+### Applying Changes to Configuration Files
+Changes to admin roles, including the addition or modification of admin certificates, are applied through configuration files. The process involves editing relevant configuration files, such as `opensearch.yml`, and applying the changes using tools like `securityadmin.sh` (or on Windows, use `securityadmin.bat`), for more information, visit the [Security Admin](https://opensearch.org/docs/latest/security/configuration/security-admin/) documentation.
+
+For detailed instructions on configuring admin certificates, refer to the [configuring admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-admin-certificates) documentation.
+
+For applying changes to configuration files and managing admin roles, consult the [Security Admin](https://opensearch.org/docs/latest/security/configuration/security-admin/) documentation.
