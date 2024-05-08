@@ -30,7 +30,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 In addition to existing custom OpenSearch on-heap cache stores, cache plugins provide the following cache stores: 
 
-- **Disk cache**: Stores the precomputed result of a query on disk. Use a disk cache to cache much larger datasets, provided that the disk latency is acceptable.
+- **Disk cache**: Stores the precomputed result of a query on disk. Use a disk cache to cache much larger datasets, provided that the disk's latency is within an acceptable range.
 - **Tiered cache**: A multi-level cache in which each tier has its own characteristics and performance levels. For example, a tiered cache can contain both on-heap and disk tiers. By combining different tiers, you can achieve a balance between cache performance and size. To learn more, see [Tiered cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/).
 
 In OpenSearch 2.14, the request cache is integrated with cache plugins. You can use a tiered or disk cache as a request-level cache.
