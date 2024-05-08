@@ -60,8 +60,7 @@ Port number | OpenSearch component
 443 | OpenSearch Dashboards in AWS OpenSearch Service with encryption in transit (TLS)
 5601 | OpenSearch Dashboards
 9200 | OpenSearch REST API
-9250 | Cross-cluster search
-9300 | Node communication and transport
+9300 | Node communication and transport (internal), cross cluster search
 9600 | Performance Analyzer
 
 ## Important settings
