@@ -56,7 +56,7 @@ Field | Data type | Required/Optional | Description
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `description` | String | Optional| The model description. |
-`model_group_id` | String | Optional | The model group ID of the model group to register this model to.
+`model_group_id` | String | Optional | The ID of the model group to which to register the model.
 
 #### Example request: OpenSearch-provided text embedding model
 
