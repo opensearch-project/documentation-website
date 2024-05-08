@@ -132,7 +132,7 @@ Variable | Data type | Description
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message displayed if the trigger was unable to retrieve results or could not be evaluated, typically due to a compile error or null pointer exception. Null otherwise.
 `ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
-`ctx.alerts` | Array | Newly created alerts. Includes `ctx.alerts.0.finding_ids` that triggered the alert, and `ctx.alerts.0.related_doc_ids` associated with the findings. Only available with document-level monitors.
+`ctx.alerts` | Array | Newly created alerts. Includes the `ctx.alerts.0.finding_ids` that triggered the alert and the `ctx.alerts.0.related_doc_ids` associated with the findings. Only available with document-level monitors.
 `ctx.dedupedAlerts` | Array | Alerts that have been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless numbers of the same alert. Only available with bucket-level monitors.
 `ctx.newAlerts` | Array | Newly created alerts. Only available with bucket-level monitors.
 `ctx.completedAlerts` | Array | Alerts that are no longer ongoing. Only available with bucket-level monitors.
@@ -151,7 +151,7 @@ To learn more about security in the Alerting plugin, see [Alerting security](htt
 
 Variable | Data type | Description
 :--- | :--- | : ---
-`_index` | String | The index containing the 
+`_index` | String | The index containing the sample document.
 `_id` | String | The document ID for the document in its index.
 `_score` | Float | A positive 32-bit floating point number illustrating the relevance of the returned document.
 `_source` | Object | The JSON payload of the sample document.
@@ -181,7 +181,8 @@ Variable | Data type | Description
 
 ##### Mustache template example
 
-**Note**: The `_source` object in this example is based on the `opensearch_dashboards_sample_data_ecommerce` index that's available on OpenSearch Dashboards.
+The `_source` object in this example is based on the `opensearch_dashboards_sample_data_ecommerce` index that's available on OpenSearch Dashboards.
+{: .note}
 
 ```groovy
 Alerts
