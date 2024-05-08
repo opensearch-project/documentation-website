@@ -18,11 +18,13 @@ This quickstart guide provides tutorials on using OpenSearch Dashboards applicat
 
 The OpenSearch Dashboards' default view is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}//images/dashboards/home-page-nav.png" alt="OpenSearch Dashboards interface default view" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/home-page-nav.png" alt="OpenSearch Dashboards interface default view" width="700">
 
 ## Docking the navigation menu
 
-To dock or undock the navigation pane, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} icon and then **Dock navigation** or **Undock navigation**. 
+To dock or undock the navigation menu, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} icon and then **Dock navigation** or **Undock navigation**. A view of the docked navigation menu is shown in the following image:
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/navigation-pane.png" alt="OpenSearch Dashboards navigation menu" width="700">
 
 Before continuing with the following tutorials, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
@@ -90,7 +92,7 @@ Interactive dashboards allow you to analyze data in more depth and filter it in 
 
 Using the **[Flights] Global Flight Dashboard** dashboard, follow these steps to further analyze and filter the sample flight data:
 
-1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically, as shown in the following GIF.
+1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically, adding the filter `Carrier: OpenSearch-Air` on the upper-left filter bar. The following GIF illustrates this step.
 2. Choose **Save** to save the dashboard.
 
 ![Filter data demo]({{site.url}}{{site.baseurl}}/images/dashboards/airline-carrier.gif)

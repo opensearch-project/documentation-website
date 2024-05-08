@@ -37,11 +37,11 @@ Setting | Description
 `dateFormat:scaled`  | Defines the format for timestamps. The timestamps format changes depending on the time between measurements (hour, minutes, seconds, and milliseconds). The keys are time periods in [ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html) format: `YYYY-MM-DD`.   |
 `dateFormat:tz`  | Defines the time zone for OpenSearch Dashboards. Default is the time zone detected by your browser.  |
 `dateNanosFormat`  | Defines the format for representing dates with nanoseconds. Default is `MMM D, YYYY @ HH:mm:ss.SSSSSSSSS`.  |
-`defaultIndex`  | Defines the default index for all indexes in an OpenSearch cluster. Default is `null`.  |
+`defaultIndex`  | Defines the default index for all indexes in an OpenSearch cluster. If no indexes are added, `defaultIndex` is set to null. However, if one or more indexes are added, `defaultIndex` is assigned the value of the first index in the list. Default is `null`.  |
 `defaultRoute`  | Defines the gateway point. Use this setting to change the landing page for OpenSearch Dashboards. The setting must be a relative URL. Default is `/app/home`. |
 `fields:popularLimit` | Defines the number of N fields to be displayed. Default is `10`.  |
 `filterEditor:suggestValues` | Defines whether the filter editor suggests field values. Default is `Off`.  |
-`filters:pinnedByDefault`  | Defines whether filters are automatically pinned. Default is `Off.`  |
+`filters:pinnedByDefault`  | Defines whether filters are automatically pinned. To keep a filter visible across all applications, you can select the filter and then the **Pin across all apps** option. Default is `Off.`  |
 `format:bytes:defaultPattern`  | Defines the default numeral format for the bytes format. Default is `0,0.[0]b`.  |
 `format:currency:defaultPattern` | Defines the default numeral format for the currency format. Default is `($0,0.[00])`.  |
 `format:defaultTypeMap` | Defines the default format name for each field type using a mapping. If the field type isn't specified, `_default_` is used.  |
@@ -55,15 +55,15 @@ Setting | Description
 `metaFields` | Enables fields that are not part of the `_source` field to be merged into the document. Default is `_source`, `_id`, `_type`, `_index`, and `_score`.  |
 `metrics:max_buckets` | Defines the maximum number of buckets that a single data source can return. Default is `2000`.  |
 `query:allowLeadingWildcards`  | Defines whether `*` is allowed as the first character in a query clause. Default is `On`.  | 
-`query:queryString:options`  |  Defines the options for the Lucene query string parser. Default is `true`.  |
-`reporting:useFOR`  | Enables or disables `ForeignObject` rendering for embedding of external content into reports. Default is `On`.  |
-`reporting:useOcr`  | Enables or disables optical character recognition (OCR) to be run on PRF reports. Default is `Off`.  |
+`query:queryString:options`  |  Defines the options for the Lucene query string parser. Default is `{ "analyze_wildcard": true }`.  |
+`reporting:useFOR`  | Enables or disables `ForeignObject` rendering for embedding of external content into reports. The `reporting:useFOR` and `reporting:useOcr` options are visible only after installing the reporting plugin. Default is `On`.  |
+`reporting:useOcr`  | Enables or disables optical character recognition (OCR) to be run on PRF reports. The `reporting:useFOR` and `reporting:useOcr` options are visible only after installing the reporting plugin. Default is `Off`.  |
 `savedObjects:listingLimit`  | Defines the number of objects to fetch when viewing a listing page. Default is `1000`.  |
 `savedObjects:perPage`  | Defines the number of objects to display on each page of the load dialog. Default is `20`.  |
 `search:queryLanguage`  | Defines the query language for OpenSearch Dashboards. Default is `DQL`.  |
 `shortDots:enable`  | Enables or disables the shortening of long fields. Default is `Off`.  |
 `sort:options`  | Defines the options for the sort parameter. Default is `boolean`.  |
-`state:storeInSessionStorage`  | Enables or disables the storing of URLs. Default is `Off`.  |
+`state:storeInSessionStorage`  | Enables or disables the session storage of URLs. Default is `Off`.  |
 `timepicker:quickRanges`  | Defines the quick-select time ranges to display in the time filter.  |
 `timepicker:refreshIntervalDefaults` | Defines the time filter's default refresh interval in milliseconds. Default is `0`.  |
 `timepicker:timeDefaults`  | Defines the default time period to analyze data. Default is `Last 15 minutes`.  |
