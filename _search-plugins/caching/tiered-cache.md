@@ -41,7 +41,7 @@ In OpenSearch 2.14, a request cache can be used in a tiered cache. To begin, con
 
 ### Cache store name
 
-To use the OpenSearch-provided tiered spillover cache implementation, set the cache store name to `tiered_spillover` as shown in the following example:
+To use the OpenSearch-provided tiered spillover cache implementation, set the cache store name to `tiered_spillover`, as shown in the following example:
 
 ```yaml
 indices.request.cache.store.name: tiered_spillover: true
