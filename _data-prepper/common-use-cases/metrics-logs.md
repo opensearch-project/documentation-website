@@ -13,7 +13,7 @@ The overall pipeline contains two pipelines:
 
 - `apache-log-pipeline-with-metrics` -- Receives logs through an HTTP client like FluentBit, uses `grok` to extract important values from the logs by matching the value in the `log` key against the [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog), and then forwards the grokked logs to both the `log-to-metrics-pipeline` pipeline and to an OpenSearch index named `logs`.
 
-- `log-to-metrics-pipeline` -– Receives the grokked logs from the `apache-log-pipeline-with-metrics` pipeline, aggregates the logs and derives histogram metrics of `bytes` based on the values in the `clientip` and `request` keys. Finally, it sends the histogram metrics to an OpenSearch index named `histogram_metrics`.
+- `log-to-metrics-pipeline` -- Receives the grokked logs from the `apache-log-pipeline-with-metrics` pipeline, aggregates the logs, and derives histogram metrics of `bytes` based on the values in the `clientip` and `request` keys. Finally, it sends the histogram metrics to an OpenSearch index named `histogram_metrics`.
 
 ```json
 apache-log-pipeline-with-metrics:
