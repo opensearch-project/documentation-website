@@ -64,7 +64,7 @@ The following table lists the required and optional parameters for the `ml-infer
 
 Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. Only remote models are currently supported. For more information about creating remote models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
-**Step 1: Create a pipeline.**
+**Step 1: Create a pipeline**
 
 The following example creates an ingest pipeline where the model requires an `input` field, produces a `data` field for prediction, and converts the `passage_text` field into text embeddings stored in the `passage_embedding` field. The `input_map` and `output_map` mappings support standard JSON path notation for complex data structures.
 
