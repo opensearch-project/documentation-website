@@ -155,7 +155,7 @@ When the data source feature is enabled, you can navigate to **Index Management*
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds1.gif" alt="Multiple data sources in ISM list page"/>
 
-To perform operations on a specific index within a data source, select the individual index from the list. To create a new index, select the `Create Index` button, which opens a form. Fill in the required information and select the `Create` button. The index is created within the selected data source. The following GIF illustrates these steps. 
+To perform operations on a specific index within a data source, select the individual index from the list. To create a new index, select the **Create Index** button, which opens a form. Fill in the required information and select the **Create** button. The index is created within the selected data source. The following GIF illustrates these steps. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/ism_mds2.gif" alt="Multiple data sources in ISM create page"/>
 
