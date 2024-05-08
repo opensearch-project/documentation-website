@@ -171,7 +171,7 @@ When you select **Detectors** from the side bar, the page displays the detectors
 
 ### Security
 
-When the data source feature is enabled, you can navigate to **Security** under the **Management** menu. Using roles management as an example, you can view all connected data sources in the navigation bar at the upper right and select a specific data source to view its existing roles. To create a new role, select the **Create role** button, which takes to a new create page. Fill in the required information and select **Create** to add the new role to the selected data source. The following GIF illustrates these steps.
+When the data source feature is enabled, you can navigate to **Security** under the **Management** menu. Using role management as an example, you can view all connected data sources in the navigation bar on the upper right and select a specific data source to view its existing roles. To create a new role, select the **Create role** button, which takes to a new create page. Enter the required information and select **Create** to add the new role to the selected data source. The following GIF illustrates these steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/security_mds1.gif" alt="Multiple data sources in Security plugin"/>
 
