@@ -9,7 +9,7 @@ nav_order: 15
 
 You can use Data Prepper to derive metrics from logs. The following example pipeline receives incoming logs using the [`http` source plugin]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/http-source) and the [`grok` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/). It then uses the [`aggregate` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/aggregate/) to extract the metric bytes aggregated during a 30-second window and derives histograms from the results.
 
-The overall pipeline contains two pipelines:
+The primary pipeline contains two pipelines:
 
 - `apache-log-pipeline-with-metrics` -- Receives logs through an HTTP client like FluentBit, uses `grok` to extract important values from the logs by matching the value in the `log` key against the [Apache Common Log Format](https://httpd.apache.org/docs/2.4/logs.html#accesslog), and then forwards the grokked logs to both the `log-to-metrics-pipeline` pipeline and to an OpenSearch index named `logs`.
 
