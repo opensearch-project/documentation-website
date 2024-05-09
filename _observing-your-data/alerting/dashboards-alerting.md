@@ -11,7 +11,7 @@ Introduced 2.9
 
 Create, manage, and take action on your alerts in a single, consolidated view and identify and resolve issues quickly through the **Dashboards** application in OpenSearch Dashboards. 
 
-<img src="{{site.url}}{{site.baseurl}}//images/dashboards/dashboards-app.png" alt="Alerting interface in OpenSearch Dashboards" width="250"/>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization" width="800" height="800">
 
 ## Getting started 
 
@@ -82,13 +82,66 @@ To configure alerts, follow these steps:
 
 ## Building alerting quieries
 
-<SME: Please provide an example query that can be input using OpenSearch Dashboards. What are the steps the user will follow?>
-
 An alerting query consists of the monitor, triggers, and actions. The monitor determines the frequency at which the query is executed. Triggers define the specific conditions that, when met, cause an alert to be raised. Actions specify the notifications that are sent when an alert is triggered. The monitor runs the query, triggers evaluate the results for the defined conditions, and actions initiate the specified notifications when those conditions are satisfied. This structure enables you to establish flexible alerting rules that continuously monitor your OpenSearch data and promptly notify you of significant events.
 
 The following is an example query:
 
-<SME: insert example query>
+```json
+{
+  "name": "High Error Rate Alert",
+  "description": "Alerts when the error rate exceeds 5% in the last 10 minutes",
+  "schedule": {
+    "interval": {
+      "period": 10,
+      "unit": "MINUTES"
+    }
+  },
+  "trigger": {
+    "condition": {
+      "script": {
+        "source": "
+          int totalRequests = ctx.payload.aggregations.total_requests.value;
+          int errorRequests = ctx.payload.aggregations.error_requests.value;
+          double errorRate = (double)errorRequests / totalRequests * 100;
+          return errorRate > 5;
+        "
+      }
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "indices": ["my-application-logs"],
+        "body": {
+          "size": 0,
+          "aggs": {
+            "total_requests": {
+              "count": {}
+            },
+            "error_requests": {
+              "filter": {
+                "term": {
+                  "status_code": 500
+                }
+              },
+              "count": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Notify on Slack",
+      "type": "slack",
+      "slack": {
+        "message": "High error rate detected in the last 10 minutes: {{ctx.payload.aggregations.error_requests.value}} out of {{ctx.payload.aggregations.total_requests.value}} requests ({{ctx.payload.condition.met_percentage}}%)"
+      }
+    }
+  ]
+}
+```
 
 ## Viewing events
 
