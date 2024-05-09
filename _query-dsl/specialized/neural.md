@@ -38,7 +38,9 @@ Field | Data type | Required/Optional | Description
 `filter` | Object | Optional | A query that can be used to reduce the number of documents considered. For more information about filter usage, see [k-NN search with filters]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/). **Important**: Filter can only be used with the `faiss` or `lucene` engines.
 
 #### Example request
-The following examples shows a search with a top 100 k-NN and a filter that includes a range query and a term query:
+
+The following example shows a search with a top 100 k-NN and a filter that includes a range query and a term query:
+
 ```json
 GET /my-nlp-index/_search
 {
@@ -75,6 +77,7 @@ GET /my-nlp-index/_search
 {% include copy-curl.html %}
 
 The following search query includes a k-NN radial search `min_score` of `0.95` and a filter that includes a range query and a term query:
+
 ```json
 GET /my-nlp-index/_search
 {
@@ -111,6 +114,7 @@ GET /my-nlp-index/_search
 {% include copy-curl.html %}
 
 The following search query includes a k-NN radial search `max_distance` of `10` and a filter that includes a range query and a term query:
+
 ```json
 GET /my-nlp-index/_search
 {
