@@ -32,29 +32,6 @@ For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compressi
 When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
 {: .note}
 
-<<<<<<< HEAD
-=======
-As of OpenSearch 2.14, hardware-accelerated compression codecs for the `DEFLATE` and `LZ4` compression algorithms are available. These hardware-accelerated codecs are available on the latest 4th and 5th Gen Intel®️ Xeon®️ processors running Linux kernel 3.10 and later. For all other systems and platforms, the codecs use that platform's corresponding software implementations. 
-
-The new hardware-accelerated codecs can be used by setting one of the following `index.codec` values:
-* `qat_lz4` (OpenSearch 2.14 and later): Hardware-accelerated `LZ4`
-* `qat_deflate` (OpenSearch 2.14 and later): Hardware-accelerated `DEFLATE`
-
-`qat_deflate` offers a much better compression ratio than `qat_lz4`, with a modest drop in compression and decompression speed.
-{: .note}
-
-The `index.codec.compression_level` setting can be used to specify the compression level for both `qat_lz4` and `qat_deflate`. 
-
-The `index.codec.qatmode` setting controls the behavior of the hardware accelerator and uses one of the following values:
-
-* `auto`: If hardware acceleration fails, then the algorithm switches to software acceleration.
-* `hardware`: Guarantees hardware-only compression. If hardware is not available, then an exception occurs until hardware exists.
-
-For information about the `index.codec.qatmode` setting's effects on snapshots, see the [Snapshots](#snapshots) section.
-
-For more information about hardware acceleration on Intel, see the [Intel (R) QAT accelerator overview](https://www.intel.com/content/www/us/en/developer/topic-technology/open/quick-assist-technology/overview.html).
-
->>>>>>> 6b14df46 (Fix broken external links (#7122))
 ## Choosing a codec 
 
 The choice of index codec impacts the amount of disk space required to store the index data. Codecs like `best_compression`, `zstd`, and `zstd_no_dict` can achieve higher compression ratios, resulting in smaller index sizes. Conversely, the `default` codec doesn’t prioritize compression ratio, resulting in larger index sizes but faster search operations than `best_compression`.
