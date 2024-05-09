@@ -18,14 +18,14 @@ Radial search enhances the k-NN plugin's capabilities beyond approximate top-`k`
 
 `min_score` enables the specification of a similarity score, facilitating the retrieval of points that meet or exceed this score in relation to the query point. This method is ideal for scenarios where relative similarity, based on a specific metric, is more critical than physical proximity.
 
-Only exactly one query variable, either `k`, `max_distance` or `min_score`, is required to be specified during the approximate search. For more information about the vector spaces, see [Spaces](#spaces).
+Only one query variable, either `k`, `max_distance`, or `min_score`, is required to be specified during radial search. For more information about the vector spaces, see [Spaces](#spaces).
 
 ## Supported cases
 
 You can perform radial search with either the Lucene or Faiss engines. The following table summarizes the radial search use cases by engines.
 
 | Engine supported  | Filter supported  | Nested field supported | Search type  |
-|------------------|------------------|------------------------|----------------|
+| :--- | :--- | :--- | :--- |
 | Lucene           | true             | false                  | approximate    |
 | Faiss            | true             | true                   | approximate    |
 
@@ -83,16 +83,16 @@ smaller scores with closer results, they return `1 - cosineSimilarity` for the c
 included in the distance function.
 {: .note }
 
-With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as input. This is because the magnitude of
+With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as an input. This is because the magnitude of
 such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests
 containing the zero vector will be rejected and a corresponding exception will be thrown.
 {: .note }
 
-## Get started to use radial search
+## Examples
 
-In the following section provides detailed examples of how to use radial search.
+The following examples can help you get started with radial search.
 
-### Create index
+### Prerequisites
 
 To use k-NN index with radial search, create a k-NN index by setting `index.knn` to `true`. Specify one or more fields of the `knn_vector` data type, as shown in the following example:
 
@@ -126,8 +126,6 @@ PUT knn-index-test
 ```
 {% include copy-curl.html %}
 
-### Ingest data
-
 After you create the index, add some data similar to the following:
 
 ```json
@@ -146,7 +144,9 @@ PUT _bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-### The following example shows a radial search performed with max_distance:
+### Example: Radial search with `max_distance`
+
+The following example shows a radial search performed with `max_distance`:
 
 ```json
 GET knn-index-test/_search
@@ -245,7 +245,7 @@ All documents that fall within the squared Euclidean distance (`l2^2`) of 2 are 
 ```
 </details>
 
-### Perform radial search with `max_distance` and filter
+### Example: Radial search with `max_distance` and filter
 
 The following example shows a radial search performed with `max_distance` and a response filter:
 
@@ -327,9 +327,9 @@ All documents that fall within the squared Euclidean distance (`l2^2`) of 2 and 
 ```
 </details>
 
-### Perform radial search with `min_score`
+### Example: Radial search with `min_score`
 
-The following example shows a radial search with `min_score`:
+The following example shows a radial search performed with `min_score`:
 
 ```json
 GET knn-index-test/_search
@@ -401,9 +401,9 @@ All documents with a score of 0.9 or higher are returned, as shown in the follow
 ```
 </details>
 
-### Perform radial search with `min_score` and filter
+### Example: Radial search with `min_score` and filter
 
-The following example shows a radial search with `min_score` and a response filter:
+The following example shows a radial search performed with `min_score` and a response filter:
 
 ```json
 GET knn-index-test/_search
