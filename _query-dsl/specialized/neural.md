@@ -39,7 +39,7 @@ Field | Data type | Required/Optional | Description
 
 #### Example request
 
-The following example shows a search with a top 100 k-NN and a filter that includes a range query and a term query:
+The following example shows a search with a `k` value of `100` and a filter that includes a range query and a term query:
 
 ```json
 GET /my-nlp-index/_search
