@@ -2,12 +2,12 @@
 layout: default
 title: Expression syntax
 parent: Pipelines
-nav_order: 12
+nav_order: 15
 ---
 
 # Expression syntax 
 
-The following sections provide information about expression syntax in Data Prepper.
+Expressions provide flexibility in data manipulation, filtering, and routing in Data Prepper. The following sections provide detailed information about the expression syntax used in Data Prepper.
 
 ## Supported operators
 
@@ -15,23 +15,19 @@ Operators are listed in order of precedence (top to bottom, left to right).
 
 | Operator             | Description                                           | Associativity |
 |----------------------|-------------------------------------------------------|---------------|
-| `()`                 | Priority Expression                                   | left-to-right |
-| `not`<br> `+`<br>  `-`| Unary Logical NOT<br>Unary Positive<br>Unary negative | right-to-left |
-| `<`, `<=`, `>`, `>=` | Relational Operators                                  | left-to-right |
-| `==`, `!=`           | Equality Operators                                    | left-to-right |
-| `and`, `or`          | Conditional Expression                                | left-to-right |
+| `()`                 | Priority expression                                   | left-to-right |
+| `not`<br> `+`<br>  `-`| Unary logical NOT<br>Unary positive<br>Unary negative | right-to-left |
+| `<`, `<=`, `>`, `>=` | Relational operators                                  | left-to-right |
+| `==`, `!=`           | Equality operators                                    | left-to-right |
+| `and`, `or`          | Conditional expression                                | left-to-right |
 
 ## Reserved for possible future functionality
 
-Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
+The reserved symbol sets include `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, and `${<text>}`.
 
 ## Set initializer
 
-The set initializer defines a set or term and/or expressions.
-
-### Examples
-
-The following are examples of set initializer syntax.
+The set initializer defines a set or term and expressions. Set initializer syntax examples include the following:
 
 #### HTTP status codes
 
@@ -45,7 +41,7 @@ The following are examples of set initializer syntax.
 {"Created", "Accepted"}
 ```
 
-#### Handle multiple event types with different keys
+#### Multiple event types with different keys
 
 ```
 {/request_payload, /request_message}
@@ -53,9 +49,7 @@ The following are examples of set initializer syntax.
 
 ## Priority expression
 
-A priority expression identifies an expression that will be evaluated at the highest priority level. A priority expression must contain an expression or value; empty parentheses are not supported.
-
-### Example
+A priority expression identifies an expression that will be evaluated at the highest priority level. A priority expression must contain an expression or value. Empty parentheses are not supported. A priority expression is shown in the following example:
 
 ```
 /is_cool == (/name == "Steven")
@@ -63,9 +57,7 @@ A priority expression identifies an expression that will be evaluated at the hig
 
 ## Relational operators
 
-Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON Pointers that resolve to numbers.
-
-### Syntax
+Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON pointers that resolve to numbers. The following example shows the syntax for relational operators:
 
 ```
 <Number | JSON Pointer> < <Number | JSON Pointer>
@@ -74,7 +66,7 @@ Relational operators are used to test the relationship of two numeric values. Th
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
 
-### Example
+#### Example usage
 
 ```
 /status_code >= 200 and /status_code < 300
@@ -82,25 +74,25 @@ Relational operators are used to test the relationship of two numeric values. Th
 
 ## Equality operators
 
-Equality operators are used to test whether two values are equivalent.
+Equality operators are used to test whether two values are equivalent. The following example shows the syntax for equality operators:
 
-### Syntax
 ```
 <Any> == <Any>
 <Any> != <Any>
 ```
 
-### Examples
+#### Example usage
+
 ```
 /is_cool == true
 3.14 != /status_code
 {1, 2} == /event/set_property
 ```
-## Using equality operators to check for a JSON Pointer 
 
-Equality operators can also be used to check whether a JSON Pointer exists by comparing the value with `null`.
+### Equality operators to check for JSON Pointer 
 
-### Syntax
+Equality operators can be used to check whether a JSON pointer exists by comparing the value with `null`. The following example shows the syntax:
+
 ```
 <JSON Pointer> == null
 <JSON Pointer> != null
@@ -108,24 +100,25 @@ null == <JSON Pointer>
 null != <JSON Pointer>
 ```
 
-### Example
+#### Example usage
+
 ```
 /response == null
 null != /response
 ```
 
-#### Conditional expression
+## Conditional expressions
 
-A conditional expression is used to chain together multiple expressions and/or values.
+A conditional expression is used to chain together multiple expressions and/or values. The following example shows the syntax:
 
-#### Syntax
 ```
 <Any> and <Any>
 <Any> or <Any>
 not <Any>
 ```
 
-### Example
+#### Example usage
+
 ```
 /status_code == 200 and /message == "Hello world"
 /status_code == 200 or /status_code == 202
@@ -134,9 +127,12 @@ not /status_code in {200, 202}
 /response != null
 ```
 
-## Definitions
+## Key terms
 
-This section provides expression definitions. 
+To effectively understand and work with the expression syntax in Data Prepper pipelines, it's necessary to know the following key terms and their definitions. 
+
+### Expression
+An expression is a generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expression's imminent children can contain 0–1 _Operators_.
 
 ### Literal
 A literal is a fundamental value that has no children:
@@ -153,8 +149,7 @@ An expression string takes the highest priority in a Data Prepper expression and
 ### Statement
 A statement is the highest-priority component of an expression string.
 
-### Expression
-An expression is a generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expression's imminent children can contain 0–1 _Operators_.
+
 
 ### Primary
 
