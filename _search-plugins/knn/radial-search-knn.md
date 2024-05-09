@@ -16,13 +16,13 @@ Radial search enhances the k-NN plugin's capabilities beyond approximate top-`k`
 
 `max_distance` allows users to specify a physical distance within the vector space, identifying all points that are within this distance from the query point. This approach is particularly useful for applications requiring spatial proximity or absolute distance measurements.
 
-`min_score` enables the specification of a similarity score, facilitating the retrieval of points that meet or exceed this score in relation to the query point. This method is ideal for scenarios where relative similarity, based on a specific metric, is more critical than physical proximity.
+`min_score` enables the specification of a similarity score, facilitating the retrieval of points that meet or exceed this score in relation to the query point. This method is ideal in scenarios where relative similarity, based on a specific metric, is more critical than physical proximity.
 
 Only one query variable, either `k`, `max_distance`, or `min_score`, is required to be specified during radial search. For more information about the vector spaces, see [Spaces](#spaces).
 
 ## Supported cases
 
-You can perform radial search with either the Lucene or Faiss engines. The following table summarizes the radial search use cases by engines.
+You can perform radial search with either the Lucene or Faiss engines. The following table summarizes radial search use cases by engine.
 
 | Engine supported  | Filter supported  | Nested field supported | Search type  |
 | :--- | :--- | :--- | :--- |
@@ -31,8 +31,8 @@ You can perform radial search with either the Lucene or Faiss engines. The follo
 
 ## Spaces
 
-A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. When using k-NN, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, radial search uses the following formula, 1 / (1 + distance). The k-NN plugin supports the following spaces.
-Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
+A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. When using k-NN, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, radial search uses the following formula: 1 / (1 + distance). The k-NN plugin supports the following spaces.
+Not every method supports each of these spaces. Be sure to refer to [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to verify that the space you want to use is supported.
 {: note.}
 
 <table>
@@ -78,23 +78,23 @@ Not every method supports each of these spaces. Be sure to check out [the method
   </tr>
 </table>
 
-The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equates
-smaller scores with closer results, they return `1 - cosineSimilarity` for the cosine similarity space. This is why `1 -` is
+The cosine similarity formula does not include the `1 -` prefix. However, because similarity search libraries equate
+lower scores with closer results, they return `1 - cosineSimilarity` for the cosine similarity space. This is why `1 -` is
 included in the distance function.
 {: .note }
 
 With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as an input. This is because the magnitude of
 such a vector is 0, which raises a `divide by 0` exception in the corresponding formula. Requests
-containing the zero vector will be rejected and a corresponding exception will be thrown.
+containing a zero vector will be rejected, and a corresponding exception will be thrown.
 {: .note }
 
 ## Examples
 
-The following examples can help you get started with radial search.
+The following examples can help you to get started with radial search.
 
 ### Prerequisites
 
-To use k-NN index with radial search, create a k-NN index by setting `index.knn` to `true`. Specify one or more fields of the `knn_vector` data type, as shown in the following example:
+To use a k-NN index with radial search, create a k-NN index by setting `index.knn` to `true`. Specify one or more fields of the `knn_vector` data type, as shown in the following example:
 
 ```json
 PUT knn-index-test
@@ -245,7 +245,7 @@ All documents that fall within the squared Euclidean distance (`l2^2`) of 2 are 
 ```
 </details>
 
-### Example: Radial search with `max_distance` and filter
+### Example: Radial search with `max_distance` and a filter
 
 The following example shows a radial search performed with `max_distance` and a response filter:
 
@@ -272,7 +272,7 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents that fall within the squared Euclidean distance (`l2^2`) of 2 and have price within the range of 1 to 5 are returned, as shown in the following response:
+All documents that fall within the squared Euclidean distance (`l2^2`) of 2 and have a price within the range of 1 to 5 are returned, as shown in the following response:
 
 <details markdown="block">
   <summary>
@@ -401,7 +401,7 @@ All documents with a score of 0.9 or higher are returned, as shown in the follow
 ```
 </details>
 
-### Example: Radial search with `min_score` and filter
+### Example: Radial search with `min_score` and a filter
 
 The following example shows a radial search performed with `min_score` and a response filter:
 
@@ -431,7 +431,7 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents with a score of 0.9 or higher and have price within the range of 1 to 5 are returned, as shown in the following example:
+All documents that have a score of 0.9 or higher and a price within the range of 1 to 5 are returned, as shown in the following example:
 
 <details markdown="block">
   <summary>
