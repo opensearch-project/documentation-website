@@ -9,7 +9,7 @@ nav_order: 61
 Introduced 1.0
 {: .label .label-purple }
 
-The Refresh API refreshes one or more indexes in an OpenSearch cluster. In the case of data streams, the Refresh API will refresh a streams backing indexes. 
+The Refresh API refreshes one or more indexes in an OpenSearch cluster. In the case of data streams, the Refresh API refreshes a stream's backing indexes. 
 
 OpenSearch, by default, will refresh indexes every second on indexes that have received one search request or more in the last 30 seconds. To change the default interval, use the `index.refresh_interval` setting in `opensearch.yml`.
 
@@ -39,7 +39,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `ignore_unavailable` | Boolean | When `false`, the request returns an error when it targets a missing or closed index. Default is `false`.
-| `allow_no_indices` | Boolean | When `false`, the Refresh API will return an error when an wildcard expression, index alias, or `_all` targets only closed or missing indexes, even when the request is made against open indexes. Default is `true`. |
+| `allow_no_indices` | Boolean | When `false`, the Refresh API returns an error when a wildcard expression, index alias, or `_all` targets only closed or missing indexes, even when the request is made against open indexes. Default is `true`. |
 | `expand_wildcard` | String | The type of index that the wildcard patterns can match. If the request targets data streams, this argument determines whether the wildcard expressions match any hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, and `none`.
 
 
