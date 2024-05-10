@@ -19,7 +19,7 @@ The setting needed to enable encryption on the REST layer is `plugins.security.s
 Additional configuration options, like specifying paths to certificates, keys and certificate authority files are available at [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/)
 
 ### Replace all demo certificates with your own PKI
-The certificates that get generated when initializing OpenSearch cluster with `install_demo_configuration.sh` are not suitable for production. These should be replaces as soon as possible with your own certificates.
+The certificates that get generated when initializing OpenSearch cluster with `install_demo_configuration.sh` are not suitable for production. These should be replaced as soon as possible with your own certificates.
 
 There are many ways to create your own certificates and certificate authority. One approach can be using `openssl` described in detail in [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), alternatively there are tools available online which can simplify the certificate creation process.
 
@@ -60,10 +60,10 @@ Detailed examples and additional configurations are available at:
 
 ## 6. Strip audit logging configuration to essentials only
 
-If not strictly required by compliance regulations, consider turning off audit logging because it:
- - incurs a performance penalty
- - consumes a significant amount of disk space
- - complicates a secure setup.
+If not strictly required by compliance regulations, consider turning off audit logging leaving it enabled could:
+ - incur a performance penalty
+ - consume a significant amount of disk space
+ - complicate a secure setup.
 
 If this feature is indeed essential for your cluster, you should configure it to what is really needed by your compliance regulations.
 
