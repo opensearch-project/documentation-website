@@ -95,7 +95,7 @@ Setting | Description
 `discover:sampleSize`  | Defines the number of rows to show in a table. Default is `20`.  |
 `discover:searchOnPageLoad`  | Defines whether a search is run when **Discover** first loads. The setting does not affect the loading of saved searches. Default is `On`.  |
 `discover:sort:defaultOrder`  | Defines how to sort time-based index patterns. Default is `Descending`.  |
-`doc_table:hideTimeColumn`  | Defines whether to hide the `Time` column in the **Discover** application and in all saved searches on dashboards. Default is `Off`.  |
+`doc_table:hideTimeColumn`  | Defines whether to hide the `Time` column in the **Discover** application and in all saved dashboard searches. Default is `Off`.  |
 `doc_table:highlight`  | Defines whether to highlight results in the **Discover** application and saved searches on dashboards. Highlighting can make it easier to find and identify results, but it can also slow down requests when working with big documents.  |
 
 ## Notifications settings
