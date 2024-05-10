@@ -147,7 +147,7 @@ Setting | Description
 `visualization:dimmingOpacity`  | Defines the opacity of chart items that are dimmed when another chart element is highlighted. The lower the value, the more the highlighted element will stand out. The value must be between `0` and `1`. Default is `0.5`.  |
 `visualization:enablePluginAugmentation`  | Enables or disables access to plugin functionality through line chart visualizations. Default is `On`.  |
 ` line chart visualizations`  | Defines the maximum number of associated augmentations per visualization. Default is `10`. Associating more than 10 plugin resources per visualization can cause performance issues.  |
-`visualization:heatmap:maxBuckets`  | Defines the maximum number of buckets that a single data source can return in a heatmap visualization. A higher number of buckets can negatively impact browser rendering performance. Default is `50`. |
+`visualization:heatmap:maxBuckets`  | Defines the maximum number of buckets that a single data source can return in a heat map visualization. A higher number of buckets can negatively impact browser rendering performance. Default is `50`. |
 `visualization:regionmap:customVectorMapMaxSize`  | Defines the maximum number of features that can be loaded from a custom vector map. Default is `1000`.  |
 `visualization:regionmap:showWarnings`  | Enables or disables whether a warning is shown when terms cannot be joined to a shape on a region map. Default is `On`.  |
 `visualization:tileMap:WMSdefaults`  | Defines the default [properties](https://leafletjs.com/reference.html#tilelayer-wms) for the WMS map server in coordinate maps. Default is `enabled: false`.  |
