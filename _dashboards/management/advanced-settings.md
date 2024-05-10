@@ -149,7 +149,7 @@ Setting | Description
 ` line chart visualizations`  | Defines the maximum number of associated augmentations per visualization. Default is `10`. Associating more than 10 plugin resources per visualization can cause performance issues.  |
 `visualization:heatmap:maxBuckets`  | Defines the maximum number of buckets that a single data source can return in a heat map visualization. A higher number of buckets can negatively impact browser rendering performance. Default is `50`. |
 `visualization:regionmap:customVectorMapMaxSize`  | Defines the maximum number of features that can be loaded from a custom vector map. Default is `1000`.  |
-`visualization:regionmap:showWarnings`  | Enables or disables whether a warning is shown when terms cannot be joined to a shape on a region map. Default is `On`.  |
+`visualization:regionmap:showWarnings`  | Specifies whether a warning is shown when terms cannot be joined to a shape on a region map. Default is `On`.  |
 `visualization:tileMap:WMSdefaults`  | Defines the default [properties](https://leafletjs.com/reference.html#tilelayer-wms) for the WMS map server in coordinate maps. Default is `enabled: false`.  |
 `visualization:tileMap:maxPrecision`  | Defines the maximum geohash precision that can be displayed on maps, with 7 being high, 10 being very high, and 12 being the maximum. Default is `7`.  |
 `visualize:disableBucketAgg`  | Deactivates specific becket aggregations from visualizations. The setting takes a comma-separated list of bucket aggregation names, such as `significant_terms` amd `terms`.  |
