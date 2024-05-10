@@ -131,7 +131,7 @@ When the setting is enabled, you can change the OpenSearch Dashboards appearance
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/theme-icon.png" class="inline-icon" alt="theme icon"/>{:/} icon on the upper right.
 2. Choose one of the following theme settings: **Light**, **Dark**, or **Use browser settings**. 
-3. Select **Apply**. The interface appearance automatically changes. 
+3. Select **Apply**. The appearance theme changes automatically. 
 
 A view is shown in the following image.
 
