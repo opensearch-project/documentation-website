@@ -62,11 +62,9 @@ Equality operators are used to test whether two values are equivalent. These ope
 
 Here are some examples of using equality operators:
 
-```
-/is_cool == true
-3.14 != /status_code
-{1, 2} == /event/set_property
-``` 
+- `/is_cool == true`: Checks if the value referenced by the JSON pointer is equal to the Boolean value.
+- `3.14 != /status_code`: Checks if the numeric value is not equal to the value referenced by the JSON pointer.
+- `{1, 2} == /event/set_property`: Checks is the array is equal to the value referenced by the JSON pointer. 
 
 ### Conditional expressions
 
