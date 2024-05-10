@@ -107,7 +107,7 @@ Setting | Description
 `notifications:banner`  | Defines the custom banner for temporary user notifications. Supports [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).  |
 `notifications:lifetime:banner`  | Defines the display duration for banner notifications. Default is `3000000` milliseconds. Set field to `Infinity` to disable notifications.  |
 `notifications:lifetime:error`  | Defines the display duration for error notifications. Default is `300000` milliseconds. Set field to `Infinity` to disable notifications.  |
-`notifications:lifetime:info`  | Defines the duration for which information notifications are displayed. Default is `5000` milliseconds.Set field to `Infinity` to disable notifications.  |
+`notifications:lifetime:info`  | Defines the display duration for information notifications. Default is `5000` milliseconds. Set field to `Infinity` to disable notifications.  |
 `notifications:lifetime:warning`  | Defines the duration for which warning notifications are displayed. Default is `10000` milliseconds.Set field to `Infinity` to disable notifications.
 
 ## Search settings
