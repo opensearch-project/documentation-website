@@ -57,7 +57,7 @@ Setting | Description
 `query:allowLeadingWildcards`  | Defines whether `*` is allowed as the first character in a query clause. Default is `On`.  | 
 `query:queryString:options`  |  Defines the options for the Lucene query string parser. Default is `{ "analyze_wildcard": true }`.  |
 `reporting:useFOR`  | Enables or disables `ForeignObject` rendering for embedding of external content into reports. The `reporting:useFOR` and `reporting:useOcr` options are visible only after installing the reporting plugin. Default is `On`.  |
-`reporting:useOcr`  | Enables or disables optical character recognition (OCR) on PRF reports. The `reporting:useFOR` and `reporting:useOcr` options are visible only after installing the reporting plugin. Default is `Off`.  |
+`reporting:useOcr`  | Enables or disables optical character recognition (OCR) on PDF reports. The `reporting:useFOR` and `reporting:useOcr` options are visible only after installing the reporting plugin. Default is `Off`.  |
 `savedObjects:listingLimit`  | Defines the number of objects to fetch when viewing a listing page. Default is `1000`.  |
 `savedObjects:perPage`  | Defines the number of objects to display on each page of the load dialog. Default is `20`.  |
 `search:queryLanguage`  | Defines the query language for OpenSearch Dashboards. Default is `DQL`.  |
