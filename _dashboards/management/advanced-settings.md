@@ -139,7 +139,7 @@ Setting | Description
 
 ## Visualization settings
 
-The following table describes the **Visualization** settings:
+The following table describes the **Visualization** settings.
 
 Setting | Description
 :--- | :--- 
