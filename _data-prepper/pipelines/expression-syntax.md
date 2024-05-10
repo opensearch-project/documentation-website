@@ -76,7 +76,7 @@ Conditional expressions allow you to combine multiple expressions or values usin
 not <Any>
 ```
 
-The following are examples of using conditional expressions: 
+The following are some examples of using conditional expressions: 
 
 ```
 /status_code == 200 and /message == "Hello world"
