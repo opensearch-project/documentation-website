@@ -109,7 +109,7 @@ The resulting view is shown in the following image.
 Introduced 2.14
 {: .label .label-purple }
 
-Light mode is the default appearance theme in OpenSearch Dashboards. You can customize the appearance theme to suit your preferences. The available options include light mode, dark mode, and using your browser's settings.
+Light mode is the default OpenSearch Dashboards appearance theme. You can customize the appearance theme to suit your preferences. The available options include light mode, dark mode, and your browser's settings.
 
 ### Enabling the appearance theme setting
 
