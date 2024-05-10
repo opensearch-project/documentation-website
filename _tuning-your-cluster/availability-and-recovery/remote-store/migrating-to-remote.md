@@ -16,17 +16,17 @@ Introduced 2.14
 
 Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
 
-We support migrating a document-replication based cluster to Remote-backed storage through Rolling Upgrade mechanism
+We support migrating a document-replication based cluster to Remote-backed storage through Rolling Upgrade mechanism.
 
-Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
+Rolling upgrades, sometimes referred to as "node replacement upgrades", can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
 ## Preparing to migrate
 
-Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indices before you make any changes to your OpenSearch cluster.
 
-Users need to move to OpenSearch 2.15 version as a pre-requisite of this migration.
+Users need to move to OpenSearch 2.14 version as a pre-requisite of this migration.
 
-**Important:** OpenSearch nodes cannot be migrated back to document replication as of 2.15. If you need to revert the migration, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
+**Important:** OpenSearch nodes cannot be migrated back to document replication as of 2.14. If you need to revert the migration, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .important}
 
 ## Performing the upgrade
