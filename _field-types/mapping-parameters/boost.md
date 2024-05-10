@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Analyzer
+title: Boost
 Parent: Mapping parameters
 Grand_parent: Mapping and field types
 nav_order: 10
