@@ -22,7 +22,7 @@ The OpenSearch Dashboards default view is shown in the following image.
 
 ## Docking the navigation menu
 
-To dock or undock the navigation menu, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} icon on the upper-left toolbar and then select **Dock navigation** or **Undock navigation** on the menu's lower left. A view of a docked navigation menu is shown in the preceding image.
+To dock or undock the navigation menu, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/menu-icon.png" class="inline-icon" alt="menu icon"/>{:/} icon on the upper-left toolbar and then select **Dock navigation** or **Undock navigation** on the lower left of the menu. A docked navigation menu is shown in the preceding image.
 
 Before continuing with the following tutorials, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
