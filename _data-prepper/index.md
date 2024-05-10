@@ -27,7 +27,7 @@ Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.ba
 - (Optional) One [buffer]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
 - (Optional) One or more [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
 
-Each pipeline contains two required components: `source` and `sink`. If a buffer, a processor, or both are missing from the pipeline, Data Prepper uses the default `bounded_blocking` buffer and a no-op processor. Note that a single instance of Data Prepper can have one or more pipelines. 
+Each pipeline contains two required components: `source` and `sink`. If a `buffer`, a `processor`, or both are missing from the pipeline, Data Prepper uses the default `bounded_blocking` buffer and a no-op processor. Note that a single instance of Data Prepper can have one or more pipelines. 
 
 ## Basic pipeline configurations
 
