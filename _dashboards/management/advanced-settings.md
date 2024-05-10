@@ -104,7 +104,7 @@ The following table describes the **Notifications** settings.
 
 Setting | Description
 :--- | :---
-`notifications:banner`  | Defines the custom banner for temporary notices to users. Supports [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).  |
+`notifications:banner`  | Defines the custom banner for temporary user notifications. Supports [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).  |
 `notifications:lifetime:banner`  | Defines the duration for which banner notifications are displayed. Default is `3000000` milliseconds. Set field to `Infinity` to disable notifications.  |
 `notifications:lifetime:error`  | Defines the duration for which error notifications are displayed. Default is `300000` milliseconds. Set field to `Infinity` to disable notifications.  |
 `notifications:lifetime:info`  | Defines the duration for which information notifications are displayed. Default is `5000` milliseconds.Set field to `Infinity` to disable notifications.  |
