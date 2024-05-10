@@ -95,12 +95,13 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
      }
    }
    ```
-1. Set the `remote_store.compatibility_mode` to `mixed` to allow remote-store backed nodes to join the cluster
+1. Set the `remote_store.compatibility_mode` to `mixed` to allow remote-store backed nodes to join the cluster. Set `migration.direction` to ensure new indices are allocated to remote backed data nodes.
    ```json
    PUT "/_cluster/settings?pretty"
    {
        "persistent": {
-           "remote_store.compatibility_mode": "mixed"
+           "remote_store.compatibility_mode": "mixed",
+            "migration.direction" :  "remote_store"
        }
    }
    ```
@@ -110,7 +111,8 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
      "acknowledged" : true,
      "persistent" : { 
       "remote_store" : {
-      "compatibility_mode" : "mixed"
+      "compatibility_mode" : "mixed",
+      "migration.direction" :  "remote_store"
       },
       "transient" : { }
    }
@@ -123,6 +125,7 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
    # Repository name
    node.attr.remote_store.segment.repository: my-repo-1
    node.attr.remote_store.translog.repository: my-repo-2
+   node.attr.remote_store.state.repository: my-repo-3
    
    # Segment repository settings
    node.attr.remote_store.repository.my-repo-1.type: s3
@@ -135,6 +138,15 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
    node.attr.remote_store.repository.my-repo-2.settings.bucket: <Bucket Name 2>
    node.attr.remote_store.repository.my-repo-2.settings.base_path: <Bucket Base Path 2>
    node.attr.remote_store.repository.my-repo-2.settings.region: us-east-1
+   
+   # Enable Remote cluster state cluster setting
+   cluster.remote_store.state.enabled: true
+   
+   # Remote cluster state repository settings
+   node.attr.remote_store.repository.my-remote-state-repo.type: s3
+   node.attr.remote_store.repository.my-remote-state-repo.settings.bucket: <Bucket Name 3>
+   node.attr.remote_store.repository.my-remote-state-repo.settings.base_path: <Bucket Base Path 3>
+   node.attr.remote_store.repository.my-remote-state-repo.settings.region: <Bucket region>
    
    ```
 1. Stop the node you are migrating. Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
@@ -191,6 +203,24 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
      "active_shards_percent_as_number" : 100.0
    }
    ```
+1. Clear the `remote_store.compatibility_mode` to not allow non-remote nodes to join back the cluster and `migration.direction` as well.
+   ```json
+   PUT "/_cluster/settings?pretty"
+   {
+       "persistent": {
+           "remote_store.compatibility_mode": null,
+            "migration.direction" :  null
+       }
+   }
+   ```
+   The response should look similar to the following example:
+   ```json
+   {
+     "acknowledged" : true,
+     "persistent" : { },
+      "transient" : { }
+   }
+   ```
 1. The migration to remote store is now complete, and you can begin enjoying the durability and performance benefits.
 
 
@@ -198,8 +228,8 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
 
 You can use the following cluster settings to enable migration. 
 
-| Field | Data type | Description                                                                                                                                                                              |
-| :--- |:----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| remote_store.compatibility_mode | String   | Defaults to`strict` mode only allows either non-remote or remote nodes depending upon the initial cluster type. When `mixed`, it allows remote and non-remote nodes to join the cluster. |                                                                                                      |
-| migration.direction | String | Defaults to `none` . `remote_store` direction creates new shards only on remote store backed nodes.                                                                                      |                                                                                                                                                                                            
+| Field | Data type | Description                                                                                                                                                                                              |
+| :--- |:----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| remote_store.compatibility_mode | String   | Defaults to`strict` mode where it only allows either non-remote or remote nodes depending upon the initial cluster type. When set to `mixed`, it allows remote and non-remote nodes to join the cluster. |                                                                                                      |
+| migration.direction | String | Defaults to `none` . `remote_store` direction creates new shards only on remote store backed nodes.                                                                                                      |                                                                                                                                                                                            
 
