@@ -125,7 +125,7 @@ Setting | Description
 
 ## Timeline settings
 
-The following table describes the **Timeline** settings:
+The following table describes the **Timeline** settings.
 
 Setting | Description
 :--- | :--- 
