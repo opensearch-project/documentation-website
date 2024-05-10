@@ -71,7 +71,7 @@ Setting | Description
 
 ## Appearance settings
 
-The following table describes the **Appearance** settings:
+The following table describes the **Appearance** settings.
 
 Setting | Description
 :--- | :---
