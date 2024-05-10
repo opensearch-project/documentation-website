@@ -112,7 +112,7 @@ Setting | Description
 
 ## Search settings
 
-The following table describes the **Search** settings:
+The following table describes the **Search** settings.
 
 Setting | Description
 :--- | :--- 
