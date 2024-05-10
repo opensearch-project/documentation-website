@@ -121,7 +121,7 @@ Admins can change the appearance theme for all users of their OpenSearch Dashboa
 
 1. Navigate to **Management** > **Dashboards Management** > **Advanced Settings**.
 2. Scroll to the **Appearance** section and toggle `theme:darkMode` on or off.
-3. Select the **Save changes** button, then the **Reload** button. The updated theme is applied immediately.
+3. Select the **Save changes** button and then the **Reload** button. The updated theme is applied immediately.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dark-mode.png" alt="Dark mode view" width="700">
 
