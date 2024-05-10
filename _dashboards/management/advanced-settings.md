@@ -26,7 +26,7 @@ The following tables describe the core advanced settings.
 
 ### General settings
 
-The following table describes the **General** settings:
+The following table describes the **General** settings.
 
 Setting | Description
 :--- | :---
