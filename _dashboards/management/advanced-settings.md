@@ -37,7 +37,7 @@ Setting | Description
 `dateFormat:scaled`  | Defines the format for timestamps. The timestamp format changes depending on the amount of time between measurements (hour, minutes, seconds, and milliseconds). The keys are time periods in [ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html) format: `YYYY-MM-DD`.   |
 `dateFormat:tz`  | Defines the time zone for OpenSearch Dashboards. Default is the time zone detected by your browser.  |
 `dateNanosFormat`  | Defines the format for representing dates with nanoseconds. Default is `MMM D, YYYY @ HH:mm:ss.SSSSSSSSS`.  |
-`defaultIndex`  | Defines the default index for all indexes in an OpenSearch cluster. If no indexes are added, `defaultIndex` is set to null. However, if one or more indexes are added, `defaultIndex` is assigned the value of the first index in the list. Default is `null`.  |
+`defaultIndex`  | Defines the default index for all indexes in an OpenSearch cluster. If no indexes are added, `defaultIndex` is set to `null`. However, if one or more indexes are added, `defaultIndex` is assigned the value of the first index in the list. Default is `null`.  |
 `defaultRoute`  | Defines the gateway point. Use this setting to change the landing page for OpenSearch Dashboards. The setting must be a relative URL. Default is `/app/home`. |
 `fields:popularLimit` | Defines the number of N fields to be displayed. Default is `10`.  |
 `filterEditor:suggestValues` | Defines whether the filter editor suggests field values. Default is `Off`.  |
