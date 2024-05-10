@@ -100,7 +100,7 @@ Setting | Description
 
 ## Notifications settings
 
-The following table describes the **Notifications** settings:
+The following table describes the **Notifications** settings.
 
 Setting | Description
 :--- | :---
