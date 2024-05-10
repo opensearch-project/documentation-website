@@ -98,9 +98,9 @@ Syntax components are the building blocks of expressions in Data Prepper. They a
 
 Set initializers define sets or terms and expressions. They are enclosed in curly brackets `{}`. Set initializer syntax examples include:
 
-- **HTTP status codes:** `{200, 201, 202}`
-- **HTTP response payloads:** `{"Created", "Accepted"}`
-- **Multiple event types with different keys:** `{/request_payload, /request_message}`
+- HTTP status codes: `{200, 201, 202}`
+-  HTTP response payloads: `{"Created", "Accepted"}`
+- Multiple event types with different keys: `{/request_payload, /request_message}`
 
 ### Priority expressions
 
