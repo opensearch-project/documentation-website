@@ -138,6 +138,31 @@ td {
         <th>Elasticsearch Version</th>
     </tr>
     <tr>
+        <td>9.10.0</td>
+        <td>2.13.0</td>
+        <td>8.13</td>
+    </tr>
+    <tr>
+        <td>9.8.0</td>
+        <td>2.12.0</td>
+        <td>8.11.0</td>
+    </tr>
+    <tr>
+        <td>9.7.0</td>
+        <td>2.11.1<br>2.9.0</td>
+        <td>8.9.0</td>
+    </tr>
+    <tr>
+        <td>9.6.0</td>
+        <td>2.8.0</td>
+        <td>8.8.0</td>
+    </tr>
+    <tr>
+        <td>9.5.0</td>
+        <td>2.7.0<br>2.6.0</td>
+        <td>8.7.0</td>
+    </tr>
+    <tr>
         <td>9.4.2</td>
         <td>2.5.0<br>2.4.1</td>
         <td>8.6</td>
