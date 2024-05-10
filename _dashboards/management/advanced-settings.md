@@ -63,7 +63,7 @@ Setting | Description
 `search:queryLanguage`  | Defines the query language for OpenSearch Dashboards. Default is `DQL`.  |
 `shortDots:enable`  | Enables or disables the shortening of long fields. Default is `Off`.  |
 `sort:options`  | Defines the options for the sort parameter. Default is `boolean`.  |
-`state:storeInSessionStorage`  | Enables or disables the session storage of URLs. Default is `Off`.  |
+`state:storeInSessionStorage`  | Enables or disables URL session storage. Default is `Off`.  |
 `timepicker:quickRanges`  | Defines the quick-select time ranges to display in the time filter.  |
 `timepicker:refreshIntervalDefaults` | Defines the time filter's default refresh interval in milliseconds. Default is `0`.  |
 `timepicker:timeDefaults`  | Defines the default time period to analyze data. Default is `Last 15 minutes`.  |
