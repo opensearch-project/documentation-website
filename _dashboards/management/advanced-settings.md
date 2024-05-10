@@ -82,7 +82,7 @@ Setting | Description
 
 ## Discover settings
 
-The following table describes the **Discover** settings:
+The following table describes the **Discover** settings.
 
 Setting | Description
 :--- | :---
