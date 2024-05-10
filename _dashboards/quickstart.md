@@ -16,7 +16,7 @@ This quickstart guide provides tutorials on using OpenSearch Dashboards applicat
 - **Using the Dashboards application:** Create and store data visualizations.
 - **Customizing the appearance theme:** Quickly change the OpenSearch Dashboards appearance theme from the home page.
 
-The OpenSearch Dashboards' default view is shown in the following image.
+The OpenSearch Dashboards default view is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/home-page-nav.png" alt="OpenSearch Dashboards interface default view" width="700">
 
