@@ -117,9 +117,9 @@ The following table describes the **Search** settings.
 Setting | Description
 :--- | :--- 
 `courier:batchSearches`  | Enables or disables how dashboard panels load. When disabled, panels load individually, and search requests end when the user navigates away or updates the query. When enabled, all panels load together when all data is loaded, and searches do not end. Default is `Off`.  |
-`courier:customRequestPreference`  | Specifies whether to use the [request preference]({{site.url}}{{site.baseurl}}//api-reference/popular-api/) when the setting is set to `custom`. Default is `_local`.  |
+`courier:customRequestPreference`  | Specifies whether to use the [request preference]({{site.url}}{{site.baseurl}}//api-reference/popular-api/) with the `custom` setting. Default is `_local`.  |
 `courier:ignoreFilterIfFieldNotInIndex`  | Enables or disables support for dashboards that contain visualizations using different indexes. When disabled, all filters are applied to all visualizations. When enabled, visualization filters are ignored if the visualization's index does not contain the field being filtered. Default is `Off`.  |
-`courier:maxConcurrentShardRequests`  | Defines the maximum number of concurrent shard requests that can be made for `_msearch` requests sent by OpenSearch Dashboards. Set to `0` to disable the setting and to use the default value set by OpenSearch. Default is `0`.  |
+`courier:maxConcurrentShardRequests`  | Defines the maximum number of concurrent shard requests that OpenSearch Dashboards can initiate for `_msearch` requests. Set to `0` to disable the setting and to use the default value set by OpenSearch. Default is `0`.  |
 `courier:setRequestPreference`  | Defines which shards handle your search requests. Options include **Session ID**, **Custom**, and **None**. **Session ID** restricts operations so that all search requests run on the same shard and reuses shard caches across requests, which can improve performance. **Custom** is used to define your own preference. Use `courier:customRequestPreference` to customize your preference value. **None** means that no preference is set. This option can provide better performance because requests can be spread across all shard copies. However, results might be inconsistent because different shards might be in different refresh states. Default is `Session ID`.  |
 `search:includeFrozen`  | Specifies whether to include frozen indexes in search results. If enabled, frozen indexes are included in search results. Searching through frozen indexes can increase the search time. Default is `Off`.  |
 
@@ -130,7 +130,7 @@ The following table describes the **Timeline** settings.
 Setting | Description
 :--- | :--- 
 `timeline:es.default_index`  | Defines the default OpenSearch index to be searched with the `.opensearch()` function. If not set, then the `.opensearch()` function will search all indexes. Default is `_all`.  | 
-`timeline:es.timefield`  | Defines the default field that contains a timestamp when using the `.opensearch()` function. If not set, then the `.opensearch()` function is used in the `@timestmap` field. Default is `@timestmap`.  |
+`timeline:es.timefield`  | Defines the default timestamp field when using the `.opensearch()` function. If not set, then the `.opensearch()` function is used in the `@timestmap` field. Default is `@timestmap`.  |
 `timeline:graphite.url`  | (Experimental) Defines the graphite host URL.  |
 `timeline:max_buckets`   | Defines the maximum number of buckets that a single data source can return. Default is `2000`.  |
 `timeline:min_interval`  | Defines the minimum interval to calculate when using the `auto` interval. Default is `1ms`.  |
@@ -152,5 +152,5 @@ Setting | Description
 `visualization:regionmap:showWarnings`  | Specifies whether a warning is shown when terms cannot be joined to a shape on a region map. Default is `On`.  |
 `visualization:tileMap:WMSdefaults`  | Defines the default [properties](https://leafletjs.com/reference.html#tilelayer-wms) for the Web Map Service (WMS) map server in coordinate maps. Default is `enabled: false`.  |
 `visualization:tileMap:maxPrecision`  | Defines the maximum geohash precision that can be displayed on maps, with 7 being high, 10 being very high, and 12 being the maximum. Default is `7`.  |
-`visualize:disableBucketAgg`  | Deactivates specific bucket aggregations from visualizations. The setting takes a comma-separated list of bucket aggregation names, such as `significant_terms` amd `terms`.  |
+`visualize:disableBucketAgg`  | Deactivates specific bucket aggregations in visualizations. The setting takes a comma-separated list of bucket aggregation names, such as `significant_terms` and `terms`.  |
 `visualize:enableLabs`  | Enables or disables experimental visualizations. When enabled, you can create, view, and edit experimental visualizations. When disabled, you can only use production-ready visualizations. Default is `On`.  |
