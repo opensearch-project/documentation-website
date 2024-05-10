@@ -77,7 +77,7 @@ Setting | Description
 :--- | :---
 `accessibility:disableAnimations`  | Enables or disables animations. Default is `Off`.  |
 `pageNavigation`  | Defines the navigation pane style. Default is `Modern`.  |
-`theme:darkMode` | Enables or disables dark mode. Default is `Off`. Dark mode is available only in OpenSearch Dashboards version 2.10 or later. |
+`theme:darkMode` | Enables or disables dark mode. Default is `Off`. Dark mode is available only in OpenSearch Dashboards versions 2.10 and later. |
 `theme:version`  | Defines the theme to use for the current and subsequent versions of OpenSearch Dashboards. Default is `v7`.  |
 
 ## Discover settings
