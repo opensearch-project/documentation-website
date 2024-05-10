@@ -130,7 +130,7 @@ The following table describes the **Timeline** settings.
 Setting | Description
 :--- | :--- 
 `timeline:es.default_index`  | Defines the default OpenSearch index to be searched with the `.opensearch()` function. If not set, then the `.opensearch()` function will search all indexes. Default is `_all`.  | 
-`timeline:es.timefield`  | Defines the default field that contains a timestamp when using the `.opensearch()` function. If this setting is not set, the `.opensearch()` function will be used in the `@timestmap` field. Default is `@timestmap`.  |
+`timeline:es.timefield`  | Defines the default field that contains a timestamp when using the `.opensearch()` function. If not set, then the `.opensearch()` function is used in the `@timestmap` field. Default is `@timestmap`.  |
 `timeline:graphite.url`  | (Experimental) Defines the graphite host URL.  |
 `timeline:max_buckets`   | Defines the maximum number of buckets that a single data source can return. Default is `2000`.  |
 `timeline:min_interval`  | Defines the minimum interval to calculate when using the `auto` interval. Default is `1ms`.  |
