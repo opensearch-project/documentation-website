@@ -88,7 +88,7 @@ Setting | Description
 :--- | :---
 `context:defaultSize`  | Defines the number of surrounding entries to show in the context view. Default is `5`.  |
 `context:step`  | Defines the number by which to increment or decrement the context size. Default is `5`.  |
-`context:tieBreakerFields`  | Defines the fields that are used to break a tie between document that have the same timestamp value. The first field that is present and sortable in the current index pattern is used. Default is `_doc`.  |
+`context:tieBreakerFields`  | Defines the fields that are used to break a tie between documents that have the same timestamp value. The first field that is present and sortable in the current index pattern is used. Default is `_doc`.  |
 `defaultColumns`  | Defines the columns that appear by default on the **Discover** page. Default is `_source`.  |
 `discover:aggs:terms:size`  | Defines the number of terms that are visualized when selecting the **Visualize** button in the field drop down. Default is `20`.  |
 `discover:modifyColumnsOnSwitch`  | Defines whether unavailable columns are removed from a new index pattern. Default is `On`.  |
