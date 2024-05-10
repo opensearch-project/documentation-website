@@ -44,7 +44,7 @@ Setting | Description
 `filters:pinnedByDefault`  | Defines whether filters are automatically pinned. To keep a filter visible across all applications, you can select the filter and then the **Pin across all apps** option. Default is `Off.`  |
 `format:bytes:defaultPattern`  | Defines the default numeral format for the bytes format. Default is `0,0.[0]b`.  |
 `format:currency:defaultPattern` | Defines the default numeral format for the currency format. Default is `($0,0.[00])`.  |
-`format:defaultTypeMap` | Defines the default format name for each field type using a mapping. If the field type isn't specified, `_default_` is used.  |
+`format:defaultTypeMap` | Defines the default format name for each field type using a mapping. If the field type isn't specified, then `_default_` is used.  |
 `format:number:defaultLocale`  | Defines the language locale for numerals. Default is `en`.  |
 `format:number:defaultPattern`  | Defines the default numeral format for the number format. Default is `0,0.[000]`.  |
 `format:percent:defaultPattern`  | Defines the default numeral format for the percent format. Default is `0,0.[000]%`.  |
