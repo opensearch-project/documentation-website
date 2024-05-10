@@ -125,7 +125,7 @@ Admins can change the appearance theme for all users of their OpenSearch Dashboa
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dark-mode.png" alt="Dark mode view" width="700">
 
-### Changing your appearance theme from the Home page
+### Changing the appearance theme from the home page
 
 If the setting is enabled, you can change your OpenSearch Dashboards appearance theme from the **Home** page:
 
