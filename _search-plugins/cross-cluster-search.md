@@ -29,12 +29,6 @@ The following sequence describes the authentication flow when using cross-cluste
 1. The call, including the authenticated user, is forwarded to the remote cluster.
 1. The user's permissions are evaluated on the remote cluster.
 
-## Prerequisites
-
-To use proxy mode, fulfill the following prerequisites:
-- Make sure that the source cluster's nodes are able to connect to the configured `proxy_address`. 
-- Make sure that the proxy can route connections to the remote cluster nodes.
-
 
 ## Setting permissions
 
@@ -307,6 +301,11 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ## Proxy settings
 You can configure cross-cluster search on a cluster running behind a proxy. There are many ways to configure a reverse proxy and various proxies to choose from. The following example demonstrates the basic NGINX reverse proxy configuration without TLS termination, though there are many proxies and reverse proxies to choose from. For this example to work, OpenSearch must have both transport and HTTP TLS encryption enabled. For more information about configuring TLS encryption, see [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
 
+### Prerequisites
+To use proxy mode, fulfill the following prerequisites:
+- Make sure that the source cluster's nodes are able to connect to the configured `proxy_address`. 
+- Make sure that the proxy can route connections to the remote cluster nodes.
+
 ### Proxy configuration
 The following is the basic NGINX configuration for HTTP and transport communication:
 
@@ -320,18 +319,18 @@ stream {
     }
     server {
         listen 8300;
-        ssl_certificate /.../opensearch-<VERSION>/config/esnode.pem;
-        ssl_certificate_key /.../opensearch-<VERSION>/config/esnode-key.pem;
-        ssl_trusted_certificate /.../opensearch-<VERSION>/config/root-ca.pem;
+        ssl_certificate /.../{{site.opensearch_version}}/config/esnode.pem;
+        ssl_certificate_key /.../{{site.opensearch_version}}/config/esnode-key.pem;
+        ssl_trusted_certificate /.../{{site.opensearch_version}}/config/root-ca.pem;
         proxy_pass opensearch-transport;
         ssl_preread on;
     }
     server {
         listen 443;
         listen [::]:443;
-        ssl_certificate /.../opensearch-<VERSION>/config/esnode.pem;
-        ssl_certificate_key /.../opensearch-<VERSION>/config/esnode-key.pem;
-        ssl_trusted_certificate /.../opensearch-<VERSION>/config/root-ca.pem;
+        ssl_certificate /.../{{site.opensearch_version}}/config/esnode.pem;
+        ssl_certificate_key /.../{{site.opensearch_version}}/config/esnode-key.pem;
+        ssl_trusted_certificate /.../{{site.opensearch_version}}/config/root-ca.pem;
         proxy_pass opensearch-http;
         ssl_preread on;
     }
@@ -355,4 +354,4 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
   }
 }'
 ```
-Note the previously defined port `8300` configured in the [Proxy configuration]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#proxy-configuration) section.
+Note the previously configured port `8300` in the [Proxy configuration]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#proxy-configuration) section.
