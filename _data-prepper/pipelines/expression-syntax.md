@@ -60,7 +60,7 @@ Equality operators are used to test whether two values are equivalent. These ope
 <Any> != <Any>
 ```
 
-Here are some examples of using equality operators:
+The following are some examples of using equality operators:
 
 - `/is_cool == true`: Checks if the value referenced by the JSON pointer is equal to the Boolean value.
 - `3.14 != /status_code`: Checks if the numeric value is not equal to the value referenced by the JSON pointer.
