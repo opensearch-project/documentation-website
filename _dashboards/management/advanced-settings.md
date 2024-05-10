@@ -116,7 +116,7 @@ The following table describes the **Search** settings.
 
 Setting | Description
 :--- | :--- 
-`courier:batchSearches`  | Enables or disables how dashboard panels load. When disabled, panels load individually, and search requests end when users navigate away or update the query. When enabled, all panels load together when all data is loaded, and searches do not end. Default is `Off`.  |
+`courier:batchSearches`  | Enables or disables how dashboard panels load. When disabled, panels load individually, and search requests end when the user navigates away or updates the query. When enabled, all panels load together when all data is loaded, and searches do not end. Default is `Off`.  |
 `courier:customRequestPreference`  | Enables or disables whether to use the [request preference]({{site.url}}{{site.baseurl}}//api-reference/popular-api/) when setting is set to `custom`. Default is `_local`.  |
 `courier:ignoreFilterIfFieldNotInIndex`  | Enables or disables support for dashboards that contain visualizations using different indexes. When disabled, all filters are applied to all visualizations. When enabled, filters are ignored for a visualization if the visualization's index does not contain the field being filtered. Default is `Off`.  |
 `courier:maxConcurrentShardRequests`  | Defines the maximum number of concurrent shard requests that can be made for `_msearch` requests sent by OpenSearch Dashboards. Set it to `0` to disable the setting and to use the default value set by OpenSearch. Default is `0`.  |
