@@ -34,7 +34,7 @@ Setting | Description
 `csv:separator`  | Defines whether to use a specific character or string to delimit exported values. Default is `,`.  |
 `dateFormat`  | Defines the format for displaying dates. Default is `MMM D, YYYY @ HH:mm:ss.SSS`.  |
 `dateFormat:dow`  | Defines the day on which to start the week. Default is `Sunday`.  |
-`dateFormat:scaled`  | Defines the format for timestamps. The timestamps format changes depending on the time between measurements (hour, minutes, seconds, and milliseconds). The keys are time periods in [ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html) format: `YYYY-MM-DD`.   |
+`dateFormat:scaled`  | Defines the format for timestamps. The timestamp format changes depending on the amount of time between measurements (hour, minutes, seconds, and milliseconds). The keys are time periods in [ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html) format: `YYYY-MM-DD`.   |
 `dateFormat:tz`  | Defines the time zone for OpenSearch Dashboards. Default is the time zone detected by your browser.  |
 `dateNanosFormat`  | Defines the format for representing dates with nanoseconds. Default is `MMM D, YYYY @ HH:mm:ss.SSSSSSSSS`.  |
 `defaultIndex`  | Defines the default index for all indexes in an OpenSearch cluster. If no indexes are added, `defaultIndex` is set to null. However, if one or more indexes are added, `defaultIndex` is assigned the value of the first index in the list. Default is `null`.  |
