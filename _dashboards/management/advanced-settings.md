@@ -65,7 +65,7 @@ Setting | Description
 `sort:options`  | Defines the options for the sort parameter. Default is `boolean`.  |
 `state:storeInSessionStorage`  | Enables or disables URL session storage. Default is `Off`.  |
 `timepicker:quickRanges`  | Defines the quick-select time ranges to display in the time filter.  |
-`timepicker:refreshIntervalDefaults` | Defines the time filter's default refresh interval in milliseconds. Default is `0`.  |
+`timepicker:refreshIntervalDefaults` | Defines the time filter's default refresh interval, in milliseconds. Default is `0`.  |
 `timepicker:timeDefaults`  | Defines the default time period to analyze data. Default is `Last 15 minutes`.  |
 `truncate:maxHeight`  | Defines the maximum height of a table cell. Default is `115` pixels.
 
