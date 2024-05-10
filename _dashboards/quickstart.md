@@ -127,7 +127,7 @@ Admins can change the appearance theme for all users of their OpenSearch Dashboa
 
 ### Changing the appearance theme from the home page
 
-If the setting is enabled, you can change your OpenSearch Dashboards appearance theme from the **Home** page:
+When the setting is enabled, you can change the OpenSearch Dashboards appearance theme from the **Home** page:
 
 1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/theme-icon.png" class="inline-icon" alt="theme icon"/>{:/} icon on the upper right.
 2. Choose one of the following theme settings: **Light**, **Dark**, or **Use browser settings**. 
