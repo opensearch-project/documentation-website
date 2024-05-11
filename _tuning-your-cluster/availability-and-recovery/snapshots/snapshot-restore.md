@@ -209,9 +209,9 @@ You will most likely not need to specify any parameters except for `bucket` and 
 
 ### Azure storage account
 
-These steps explain how to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
+Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
 
-1. Create an Azure storage account. Then create a container within the storage account.
+1. Create an Azure storage account. Then create a container within the storage account. For more information, see the [Azure Storage documentation](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction).
 
 1. Create a Docker image with the `repository-azure` plugin.
 
@@ -250,7 +250,8 @@ These steps explain how to register a snapshot repository backed by an Azure sto
      azure-snapshot-storage-account-key: ### Insert base64 encoded key
    ```
 
-1. [Deploy OpenSearch using Helm](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable.
+1. [Deploy OpenSearch using Helm](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable:
+
    ```yaml
    extraInitContainers:
    - name: keystore-generator
@@ -283,7 +284,7 @@ These steps explain how to register a snapshot repository backed by an Azure sto
      tag: {{site.opensearch_version}}
    ```
 
-1. Register the repository using the REST API. Replace `snapshot_container` with the name you specified earlier in step 1.
+1. Register the repository using the Snapshot API. Replace `snapshot_container` with the name you specified earlier in step 1, as shown in the following command:
    ```json
    PUT /_snapshot/my-azure-snapshot
    {
