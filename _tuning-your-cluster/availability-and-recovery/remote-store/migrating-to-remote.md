@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Migrating to Remote-backed storage
+title: Migrating to remote-backed storage
 nav_order: 5
 parent: Remote-backed storage
 grand_parent: Availability and recovery
