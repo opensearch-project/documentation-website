@@ -8,7 +8,8 @@ nav_order: 59
 
 # select_entries
 
-The `select_entries` processor selects entries from a Data Prepper event. Only the selected entries will remain in the event, and all other entries will be removed from the event.
+The `select_entries` processor selects entries from a Data Prepper event.
+Only the selected entries remain in the processed event and while all other entries are removed. However, the processor does not remove any events from the Data Prepper pipeline.
 
 ## Configuration
 
@@ -17,9 +18,9 @@ You can configure the `select_entries` processor using the following options.
 | Option | Required | Description |
 | :--- | :--- | :--- |
 | `include_keys` | Yes | A list of keys to be selected from an event. |
-| `select_when` | No | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. |
+| `select_when` | No | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. If the condition is not met, then the event continues through the pipeline unmodified with all the original fields present. |
 
-### Usage
+## Usage
 
 The following example shows how to configure the `select_entries` processor in the `pipeline.yaml` file:
 
@@ -30,9 +31,8 @@ pipeline:
   ....  
   processor:
     - select_entries:
-        entries:
-        - include_keys: [ "key1", "key2" ]
-          add_when: '/some_key == "test"'
+        include_keys: [ "key1", "key2" ]
+        select_when: '/some_key == "test"'
   sink:
 ```
 {% include copy.html %}

@@ -44,7 +44,7 @@ PUT /test-index
 
 ## Lucene byte vector
 
-Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine in order to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
+Starting with k-NN plugin version 2.9, you can use `byte` vectors with the `lucene` engine to reduce the amount of storage space needed. For more information, see [Lucene byte vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector#lucene-byte-vector).
 
 ## SIMD optimization for the Faiss engine
 
@@ -72,7 +72,7 @@ For the ARM64 architecture, only one performance-boosting Faiss library (`libope
 
 ## Method definitions
 
-A method definition refers to the underlying configuration of the approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+A method definition refers to the underlying configuration of the approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 
 A method definition will always contain the name of the method, the space_type the method is built for, the engine
 (the library) to use, and a map of parameters.
@@ -137,10 +137,7 @@ For more information about setting these parameters, refer to the [Faiss documen
 
 #### IVF training requirements
 
-The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the
-[Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there should be `nlist` training
-data points, but it is [recommended that you use more](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset).
-Training data can be composed of either the same data that is going to be ingested or a separate dataset.
+The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model), passing the IVF method definition. IVF requires that, at a minimum, there are `nlist` training data points, but it is [recommended that you use more than this](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be composed of either the same data that is going to be ingested or a separate dataset.
 
 ### Supported Lucene methods
 
@@ -175,8 +172,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the old `e
 
 ### Supported Faiss encoders
 
-You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. The k-NN plugin currently supports the
-`flat`, `pq`, and `sq` encoders in the Faiss library.
+You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. The k-NN plugin currently supports the `flat`, `pq`, and `sq` encoders in the Faiss library.
 
 The following example method definition specifies the `hnsw` method and a `pq` encoder:
 
@@ -204,7 +200,7 @@ Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` (Default) | false | Encode vectors as floating-point arrays. This encoding does not reduce memory footprint.
 `pq` | true | An abbreviation for _product quantization_, it is a lossy compression technique that uses clustering to encode a vector into a fixed size of bytes, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-`sq` | false | An abbreviation for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-scalar-quantization).
+`sq` | false | An abbreviation for _scalar quantization_. Starting with k-NN plugin version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization#faiss-16-bit-scalar-quantization).
 
 #### PQ parameters
 
@@ -314,21 +310,19 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 
 ### Choosing the right method
 
-There are a lot of options to choose from when building your `knn_vector` field. To determine the correct methods and parameters to choose, you should first understand what requirements you have for your workload and what trade-offs you are willing to make. Factors to consider are (1) query latency, (2) query quality, (3) memory limits, (4) indexing latency.
+There are several options to choose from when building your `knn_vector` field. To determine the correct methods and parameters, you should first understand the requirements of your workload and what trade-offs you are willing to make. Factors to consider are (1) query latency, (2) query quality, (3) memory limits, and (4) indexing latency.
 
-If memory is not a concern, HNSW offers a very strong query latency/query quality tradeoff.
+If memory is not a concern, HNSW offers a strong query latency/query quality trade-off.
 
-If you want to use less memory and index faster than HNSW, while maintaining similar query quality, you should evaluate IVF.
+If you want to use less memory and increase indexing speed as compared to HNSW while maintaining similar query quality, you should evaluate IVF.
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector) in order to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
+You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/#faiss-16-bit-scalar-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#lucene-byte-vector) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-vector-quantization/). 
 
 ### Memory estimation
 
-In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates
-native library indexes to a portion of the remaining RAM. This portion's size is determined by
-the `circuit_breaker_limit` cluster setting. By default, the limit is set at 50%.
+In a typical OpenSearch cluster, a certain portion of RAM is reserved for the JVM heap. The k-NN plugin allocates native library indexes to a portion of the remaining RAM. This portion's size is determined by the `circuit_breaker_limit` cluster setting. By default, the limit is set to 50%.
 
 Having a replica doubles the total number of vectors.
 {: .note }
