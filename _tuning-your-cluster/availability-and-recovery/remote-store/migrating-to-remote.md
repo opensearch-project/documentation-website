@@ -16,9 +16,9 @@ Introduced 2.14
 
 Remote-backed storage offers a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. To use this feature, [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) must be enabled.
 
-You can migrate a document-replication based cluster to remote-backed storage through the rolling ppgrade mechanism.
+You can migrate a document-replication based cluster to remote-backed storage through the rolling upgrade mechanism.
 
-Rolling upgrades, sometimes referred to as "node replacement upgrades", can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
+Rolling upgrades, sometimes referred to as "node replacement upgrades", can be performed on running clusters with virtually no downtime. Nodes are individually stopped and migrated in place. Alternatively, nodes can be stopped and replaced, one at a time, by remote-backed hosts. During this process you can continue to index and query data in your cluster.
 
 ## Preparing to migrate
 
@@ -36,7 +36,7 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
    GET "/_cluster/health?pretty"
    ```
 
-You should receive a response similar to the following:
+   You should receive a response similar to the following:
 
    ```json
    {
@@ -84,7 +84,6 @@ You should receive a response similar to the following:
      "transient" : { }
    }
    ```
-
 
 1. Perform the following flush operation on the cluster to commit transaction log entries to the Lucene index:
 
@@ -163,15 +162,11 @@ You should receive a response similar to the following:
 
 1. Stop the node you are migrating. Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
 
-
 1. Deploy a new container running the same version of OpenSearch and mapped to the same volume as the container you deleted.
-
 
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster. Wait for the cluster to become green again.
 
-
 1. Repeat steps 2 through 5 for each node in your cluster. 
-
 
 1. Reenable shard replication, using a command similar to the following:
 
