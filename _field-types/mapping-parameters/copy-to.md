@@ -12,6 +12,8 @@ has_toc: false
 
 The `copy-to` parameter allows you to copy the values of multiple fields into a single field. This can be useful if you often search across multiple fields, as it allows you to search the group field instead. 
 
+The field value is copied, not the terms resulting from the analysis process. The original `_source` field remains unmodified, and the same value can be copied to multiple fields using the `copy_to` parameter. However, recursive copying through intermediary fields is not supported; instead, use `copy_to` directly from the originating field to multiple target fields.
+
 For example, if you want to search for products by their name and description, you can use the `copy-to` parameter to copy those values into a single field, as follows:
 
 ```json
