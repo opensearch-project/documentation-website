@@ -233,8 +233,8 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
    PUT "/_cluster/settings?pretty"
    {
        "persistent": {
-           "remote_store.compatibility_mode": null,
-            "migration.direction" :  null
+           "remote_store.compatibility_mode": strict,
+            "migration.direction" :  none
        }
    }
    ```
@@ -243,7 +243,7 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
    ```json
    {
      "acknowledged" : true,
-     "persistent" : { },
+     "persistent" : { strict },
       "transient" : { }
    }
    ```
@@ -255,8 +255,8 @@ The migration to the remote store is now complete.
 
 Use the following cluster settings to enable migration to a remote-backed cluster.
 
-| Field | Data type | Description                                                                                                                                                                                              |
-| :--- |:----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `remote_store.compatibility_mode` | String   | Defaults to `strict` mode, which only allows either non-remote or remote nodes, depending upon the initial cluster type. When set to `mixed`, it allows remote and non-remote nodes to join the cluster. |                                                                                                      |
-| `migration.direction` | String |  Creates new shards only on remote-backed storage nodes.  Default is `None`.                                                                                                    |                                                                                                                                                                                            
+| Field | Data type | Description |
+| :--- |:--- |:---|
+| `remote_store.compatibility_mode` | String  | When set to `strict`, only allows the creation of either non-remote or remote nodes, depending upon the initial cluster type. When set to `mixed`, allows both remote and non-remote nodes to join the cluster. Default is `strict`. |  
+| `migration.direction` | String |  Creates new shards only on remote-backed storage nodes.  Default is `None`. |                                                                                                                                                                                            
 
