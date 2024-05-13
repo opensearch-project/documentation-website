@@ -7,7 +7,7 @@ nav_order: 60
 # Getting started with OpenSearch security
 The simplest way to get started with security in OpenSearch is using the demo configuration. Naturally, this is configuration should never be used in production, as it uses demo certificates and default passwords. All of this configuration should be updated with your custom details prior to moving to production.
 
-# OpenSearch Demo configuration
+# OpenSearch demo configuration
 OpenSearch comes bundled with a number of useful scripts, one of which is `install_demo_configuration.sh` (or `install_demo_configuration.bat` for windows).
 This script is normally located in `plugins/opensearch-security/tools` and can perform the following actions:
 - create demo certificates for TLS encryption on transport and REST layer.
@@ -40,7 +40,7 @@ You should see similar output to the following:
 }
 ```
 # OpenSearch Dashboards
-In order to quickly get started with OpenSearch Dashboards, you can add the below configuration to `opensearch_dashboards.yml`:
+In order to quickly get started with OpenSearch Dashboards, you can add the following configuration to `opensearch_dashboards.yml`:
 ```
 opensearch.hosts: [https://localhost:9200]
 opensearch.ssl.verificationMode: none
