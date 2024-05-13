@@ -114,6 +114,21 @@ null != <JSON Pointer>
 null != /response
 ```
 
+## Type check operator
+Type check operator tests if a json pointer is of a certain type
+
+### Syntax
+```
+<JSON Pointer> typeof <DataType>
+```
+Supported <DataType> are `integer`, `long`, `boolean`, `double`, `string`, `map`, and `array`.
+
+### Example
+```
+/response typeof integer
+/message typeof string
+```
+
 #### Conditional expression
 
 A conditional expression is used to chain together multiple expressions and/or values.
@@ -218,6 +233,7 @@ White space is **required** surrounding set initializers, priority expressions, 
 | `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
 | `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
 | `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
+| `typeof`             | type check operator      | Yes                   | `/a typeof integer`<br>`/a typeof long`<br>`/a typeof string`<br> `/a typeof double`<br> `/a typeof boolean`<br>`/a typeof map`<br>`/a typeof array` |`/a typeof /b`<br>`/a typeof 2`                      |
 
 
 ## Functions
