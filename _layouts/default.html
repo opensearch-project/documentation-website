@@ -254,8 +254,26 @@ layout: table_wrappers
       anchors.add().remove('.subfooter h1, .subfooter h2');
     </script>
   {% endif %}
+  <script src="{{ '/assets/js/timeme.min.js' | relative_url }}"></script>
+  <script type="text/javascript">
+    // Initialize library and start tracking time
+    TimeMe.initialize({
+	    currentPageName: window.location.pathname,
+	    idleTimeoutInSeconds: 5 // seconds
+    });
+  </script>
+  <script type="module" src="{{ '/assets/js/ubi.js' | relative_url }}"></script>
+  <script type="text/javascript">
+    // Initialize library and start tracking time
+    TimeMe.initialize({
+	    currentPageName: window.location.pathname,
+	    idleTimeoutInSeconds: 5 // seconds
+    });
+    TimeMe.startTimer(window.location.pathname);
+  </script>
+
   {% if site.search_enabled == false and site.use_custom_search == true %}
-  <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+  <script type="module" defer src="{{ '/assets/js/search.js' | relative_url }}"></script>
   {% endif %}
   <script src="{{ '/assets/js/copy-button.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/nav-scroll.js' | relative_url }}"></script>

@@ -18,7 +18,6 @@ layout: table_wrappers
 
   {% include header.html %}
 
-
 <div class="main-content-wrap-home">
   <div id="main-content" class="main-content" role="main">
       {{ content }}
@@ -30,7 +29,18 @@ layout: table_wrappers
 </div>
 
   {% include footer.html %}
-  <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/timeme.min.js' | relative_url }}"></script>
+  <script type="text/javascript">
+    // Initialize library and start tracking time
+    TimeMe.initialize({
+	    currentPageName: window.location.pathname,
+	    idleTimeoutInSeconds: 5 // seconds
+    });
+    TimeMe.startTimer(window.location.pathname);
+  </script>
+
+  <script type="module" src="{{ '/assets/js/ubi.js' | relative_url }}"></script>
+  <script type="module" defer src="{{ '/assets/js/search.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/home-listener.js' | relative_url }}"></script>
 </body>
 </html>
