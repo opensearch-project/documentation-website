@@ -7,18 +7,17 @@ nav_order: 60
 # Getting started with OpenSearch security
 The simplest way to get started with security in OpenSearch is using the demo configuration. Naturally, this is configuration should never be used in production, as it uses demo certificates and default passwords. All of this configuration should be updated with your custom details prior to moving to production.
 
-# Demo configuration
-## OpenSearch
+# OpenSearch Demo configuration
 OpenSearch comes bundled with a number of useful scripts, one of which is `install_demo_configuration.sh` (or `install_demo_configuration.bat` for windows).
 This script is normally located in `plugins/opensearch-security/tools` and can perform the following actions:
 - create demo certificates for TLS encryption on transport and REST layer.
 - configure demo users, roles, role mappings.
-- configure security plugin to use internal database for authentication and authorization.
+- configure Security plugin to use internal database for authentication and authorization.
 - update `opensearch.yml` file with basic configuration needed to get the cluster started.
 
 Prior to running the `install_demo_configuration.sh` script you must create environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with strong password, as this will be used as password for admin user to authenticate with OpenSearch. Once this is completed, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
 
-Once this is complete, you can start OpenSearch and test out the configuration by running the below command:
+Once this is complete, you can start OpenSearch and test out the configuration by running the following command:
 `curl -k -XGET -uadmin:<password> https://<opensearch-ip>:9200`
 You should see similar output to the following:
 ```
@@ -40,8 +39,8 @@ You should see similar output to the following:
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 ```
-## OpenSearch Dashboards
-OpenSearch Dashboards comes built in with basic configuration already available in `config/opensearch_dashboards.yml`
+# OpenSearch Dashboards
+In order to quickly get started with OpenSearch Dashboards, you can add the below configuration to `opensearch_dashboards.yml`:
 ```
 opensearch.hosts: [https://localhost:9200]
 opensearch.ssl.verificationMode: none
@@ -65,8 +64,8 @@ Once OpenSearch Dashboards is started, you should see following two lines in the
 You can now access the OpenSearch Dashboards using http://localhost:5601 in your browser. Using username `admin` and password that was configured in `OPENSEARCH_INITIAL_ADMIN_PASSWORD` environment variable.
 
 # Adding users
-There are three ways to add users, roles, etc.
-  - updating appropriate yaml file (`internal_users.yml` file for adding/updating/removing users) 
+There are three ways to add users, roles, and other security configuration.
+  - updating appropriate configuration files (`internal_users.yml` file for adding/updating/removing users) 
   - using API
   - using OpenSearch Dashboards UI
 
@@ -100,7 +99,7 @@ The structure of the role in `roles.yml` file is as follows:
         - <index permissions>
 ```
 
-Using this structure you can configure a new role to give access to specific indices, see the following configuration:
+Using this structure you can configure a new role to give access to specific indexes, see the following configuration:
 
 ```
 human_resources:
@@ -140,6 +139,6 @@ kibana_user:
 ```
 
 # Uploading the configuration to security index
-The final step in configuring users, roles and any other security configuration is uploading it to OpenSearch security index. Simply updating the files, without uploading, will not have any impact on the configuration that is running in OpenSearch. 
+The final step in configuring users, roles and any other security configuration is uploading it to OpenSearch security index. Only updating the files, without uploading, will not have any impact on the configuration that is running in OpenSearch. 
 To upload configuration, following command can be used with admin certificate that was generated with demo install:
 `plugins/opensearch-security/tools/securityadmin.sh -cd "config/opensearch-security" -icl -key "../kirk-key.pem" -cert "../kirk.pem" -cacert "../root-ca.pem" -nhnv`
