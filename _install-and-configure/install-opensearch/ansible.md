@@ -11,7 +11,7 @@ redirect_from:
 
 You can use an Ansible playbook to install and configure a production-ready OpenSearch cluster along with OpenSearch Dashboards.
 
-The Ansible playbook only supports deployment of OpenSearch and OpenSearch Dashboards to CentOS7 hosts.
+The Ansible playbook only supports deployment of OpenSearch and OpenSearch Dashboards to the most popular Linux distributions (CentOS 7, RHEL7, Amazon Linux 2, Ubuntu 20.04) hosts.
 {: .note }
 
 ## Prerequisites
