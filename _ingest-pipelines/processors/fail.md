@@ -103,7 +103,7 @@ The following example response confirms that the pipeline is working as expected
 
 ### Step 3: Ingest a document 
 
-The following query ingests a document into an index named `logstash-logs`:
+The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=fail-log-pipeline  
@@ -115,7 +115,7 @@ PUT testindex1/_doc/1?pipeline=fail-log-pipeline
 
 #### Response
 
-The request will fail to index the log event into the index `logstash-logs` due to the intentional failure in the pipeline. The response will include the custom error message specified in the fail processor.
+The request will fail to index the log event into the index `testindex1` due to the intentional failure in the pipeline. The response will include the custom error message specified in the fail processor.
 
 ```json
 
