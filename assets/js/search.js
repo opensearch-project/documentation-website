@@ -3,7 +3,9 @@ import * as UBI from "./ubi.js";
 (() => {
 
     document.addEventListener('DOMContentLoaded', () => {
+        
         UBI.initialize();
+        TimeMe.startTimer( window.location.pathname );
         //
         // Search field behaviors
         //
@@ -92,13 +94,10 @@ import * as UBI from "./ubi.js";
             return sanitizeText(crumbs.join(' › '));
         }
 
-
-
         const doSearch = async () => {
             const query = elInput.value.replace(/[^a-z0-9-_. ]+/ig, ' ');
             if (query.length < 3) return hideResults(true);
             if (query === lastQuery) return;
-
 
             recordEvent('search', {
                 search_term: query,
@@ -286,41 +285,40 @@ import * as UBI from "./ubi.js";
 
         const navToHighlightedResult = () => {
             const searchResultClassName = 'top-banner-search--field-with-results--field--wrapper--search-component--search-results--result';
-            const link = elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`);
-            if(link != null)
-                link.click?.();
+            elResults.querySelector(`.${searchResultClassName}.highlighted a[href]`)?.click?.();
         };
 
         /**
          * Find item and position clicked
          * Modifies the ubi event data if the item is found
-         * @param {*} ubi_event 
+         * @param {*} ubiEvent
          * @param {*} link 
          * @returns 
          */
-        const setUbiClickData = (ubi_event, link) => {
-            ubi_event.event_attributes.position = new UBI.UbiPosition({x:link.offsetLeft, y:link.offsetTop});
+        const setUbiClickData = (ubiEvent, link) => {
+            ubiEvent.event_attributes.position = new UBI.UbiPosition({x:link.offsetLeft, y:link.offsetTop});
+
 
             if(link.hasAttribute('id')){
                 let id = link.id;
                 //try to find the item ordinal within the result list
-                let result_ids = sessionStorage.getItem('result_ids');
-                if(result_ids != null && result_ids.length > 0){
-                    result_ids = result_ids.split(',');
-                    let ordinal = result_ids.findIndex(i=>i===id);
+                let resultIds = sessionStorage.getItem('result_ids');
+                if(resultIds != null && resultIds.length > 0){
+                    resultIds = resultIds.split(',');
+                    let ordinal = resultIds.findIndex( i => i===id );
                     //if found, ordinal starts at 1
                     if(ordinal != -1){
-                        ubi_event.event_attributes.position.ordinal = ordinal + 1;
-                        if(ubi_event.message == undefined || ubi_event.message == null){
-                            ubi_event.message = `Clicked item ${ordinal+1} out of ${result_ids.length}`
+                        ubiEvent.event_attributes.position.ordinal = ordinal + 1;
+                        if(ubiEvent.message == undefined || ubi_event.message == null){
+                            ubiEvent.message = `Clicked item ${ordinal+1} out of ${result_ids.length}`
                         }
                         
                         try{
-                            let search_results = JSON.parse(sessionStorage.getItem('search_results'));
-                            let obj = search_results[id];
+                            let searchResults = JSON.parse(sessionStorage.getItem('search_results'));
+                            let obj = searchResults[id];
                             if(obj != null){
-                                ubi_event.event_attributes.object = obj;
-                                ubi_event.event_attributes.position.trail = getBreadcrumbs(obj);
+                                ubiEvent.event_attributes.object = obj;
+                                ubiEvent.event_attributes.position.trail = getBreadcrumbs(obj);
                             }
                         }catch(e){
                             console.warn(e);
@@ -328,12 +326,17 @@ import * as UBI from "./ubi.js";
                     }
                 }
             }
-            return ubi_event;
+            return ubiEvent;
         };
 
 
         const makeUbiEvent = (name, event_type, data) => {
             let e = new UBI.UbiEvent(name);
+            let t = TimeMe.getTimeOnPageInSeconds(window.location.pathname);
+            if(t != null){
+                e.event_attributes['dwell_seconds'] = t;
+            }
+
             if(name == 'search'){
                 e.message_type = 'QUERY';
                 e.message = data.search_term;
@@ -368,8 +371,6 @@ import * as UBI from "./ubi.js";
                 logUbiEvent(name, data);
             } catch (e) {
                 // Do nothing
-                //xxyy
-                console.warn(e);
             }
         };
     });

@@ -8,6 +8,14 @@ const nav = document.getElementById('site-nav');
 const versionPanel = document.getElementById('version-panel');
 document.addEventListener('DOMContentLoaded', updateTextArea);
 
+window.addEventListener("DOMContentLoaded", function (e) {
+    TimeMe.startTimer(window.location.pathname);
+});
+
+window.addEventListener("beforeunload", function (e) {
+    TimeMe.stopTimer(window.location.pathname);
+});
+
 document.addEventListener('click', function(event) {
     const { target } = event;
     if (target.matches('.feedback-issue')) {

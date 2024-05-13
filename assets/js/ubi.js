@@ -42,7 +42,7 @@ function guiid() {
  * 		and userError() was called instead
  * @returns 
  */
-export function initialize(){
+export async function initialize(){
 	let i = 1;
 	/*
 	let data = {
@@ -177,6 +177,7 @@ export function getPageId(){
 
 export async function logEvent(event){
 	try {
+		//=>146.190.147.150
 		fetch('http://localhost:9200/ubi/docs', {
 			method: 'POST',
 			headers: {
