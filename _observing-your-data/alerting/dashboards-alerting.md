@@ -11,7 +11,7 @@ Introduced 2.9
 
 Create, manage, and take action on your alerts in a single, consolidated view and identify and resolve issues quickly through the **Dashboards** application in OpenSearch Dashboards. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization" width="800" height="800">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization" width="700"
 
 ## Getting started 
 
@@ -35,7 +35,7 @@ Alerting visualizations are displayed as time-series charts that give you a view
 
 Consider the following requirements when setting up or creating alerting visualizations: 
 
-- The visualization must be a [Vizlib line chart](https://community.vizlib.com/support/solutions/articles/35000107262-vizlib-line-chart-introduction).
+- The visualization must use the [Vizlib Line Chart](https://documentation.insightsoftware.com/vizlibdocumentation/Content/Library/Line_Chart/Vizlib_Line_Chart_-_Overview.htm) extension.
 - The visualization must contain at least a Y-axis metric aggregation.
 - The visualization must not have non-Y-axis metric aggregation types.
 - The visualization must use the date histogram aggregation type for the X-axis bucket.
@@ -82,9 +82,13 @@ To configure alerts, follow these steps:
 
 ## Building alerting quieries
 
-An alerting query consists of the monitor, triggers, and actions. The monitor determines the frequency at which the query is executed. Triggers define the specific conditions that, when met, cause an alert to be raised. Actions specify the notifications that are sent when an alert is triggered. The monitor runs the query, triggers evaluate the results for the defined conditions, and actions initiate the specified notifications when those conditions are satisfied. This structure enables you to establish flexible alerting rules that continuously monitor your OpenSearch data and promptly notify you of significant events.
+An alerting query consists of the monitor, triggers, and actions. 
 
-The following is an example query:
+The monitor determines the frequency at which the query is executed. Triggers define the specific conditions that, when met, cause an alert to be raised. Actions specify the notifications that are sent when an alert is triggered. 
+
+The monitor runs the query, triggers evaluate the results for the defined conditions, and actions initiate the specified notifications when those conditions are satisfied. This structure enables you to establish flexible alerting rules that continuously monitor your OpenSearch data and promptly notify you of significant events.
+
+The following is an example alerting query:
 
 ```json
 {
@@ -145,7 +149,10 @@ The following is an example query:
 
 ## Viewing events
 
+To view alerting events, follow these steps:
 
+1. Select **Alerting** from the **OpenSearch Plugins** main menu.
+2. 
 
 ## Next steps
 

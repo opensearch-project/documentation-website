@@ -12,11 +12,11 @@ redirect_from:
 
 # Observability
 
-Observability is collection of plugins and applications that let you visualize data-driven events by using Piped Processing Language to explore, discover, and query data stored in OpenSearch.
+Observability in OpenSearch is collection of plugins and applications that allow you to visualize and analyze data-driven events. These tools use the Piped Processing Language (PPL) to explore and query data stored in OpenSearch clusters. Observability in OpenSearch includes features like event analytics, operational panels, log analytics, and notebooks, providing a comprehensive workflow for gaining insights, monitoring system performance, and proactively identifying and resolving potential issues.
 
-Your experience of exploring data might differ, but if you're new to exploring data to create visualizations, we recommend trying a workflow like the following:
+If you are new to Observability in OpenSearch, the following workflow is recommended:
 
-1. Explore data within a certain timeframe using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
+1. Explore data using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
 2. Use [event analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics) to turn data-driven events into visualizations.
   ![Sample Event Analytics View]({{site.url}}{{site.baseurl}}/images/event-analytics.png)
 3. Create [operational panels]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels) and add visualizations to compare data the way you like.
