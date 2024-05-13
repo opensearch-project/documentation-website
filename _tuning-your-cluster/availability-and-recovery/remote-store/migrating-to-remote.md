@@ -32,6 +32,7 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
 ## Performing the upgrade
 
 1. Verify the health of your OpenSearch cluster before you begin using the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/). Resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. You can query the `_cluster/health` API endpoint using a command similar to the following:
+
    ```json
    GET "/_cluster/health?pretty"
    ```
@@ -57,6 +58,7 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
        "active_shards_percent_as_number":100.0
    }
    ```
+   
 1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster. You can disable shard replication by querying the `_cluster/settings` API endpoint, as shown in the following example:
 
    ```json
@@ -128,8 +130,9 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
    }
    }
    ```
-2. Review your cluster and identify the first node to upgrade.
-2. Provide the remote store repository details as node attributes in `opensearch.yml`, as shown in the following example:
+   
+1. Review your cluster and identify the first node to upgrade.
+1. Provide the remote store repository details as node attributes in `opensearch.yml`, as shown in the following example:
 
    ```yml
    # Repository name
@@ -178,6 +181,7 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
        }
    }
    ```
+   
    You should receive a response similar to the following:
    
    ```json
@@ -195,6 +199,7 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
      "transient" : { }
    }
    ```
+   
 1. Confirm that the cluster is healthy using the Cluster Health API, as shown in the following command:
 
    ```bash
@@ -221,6 +226,7 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
      "active_shards_percent_as_number" : 100.0
    }
    ```
+   
 1. Clear the `remote_store.compatibility_mode` and `migration.direction` settings so that non-remote nodes are not allowed to join the cluster by using the following command:
  
    ```json
@@ -241,6 +247,7 @@ As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document repl
       "transient" : { }
    }
    ```
+   
 The migration to the remote store is complete. 
 
 
