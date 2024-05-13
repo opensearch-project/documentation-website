@@ -136,7 +136,7 @@ Variable | Data type | Description
 `ctx.dedupedAlerts` | Array | Alerts that have been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless numbers of the same alert. Only available with bucket-level monitors.
 `ctx.newAlerts` | Array | Newly created alerts. Only available with bucket-level monitors.
 `ctx.completedAlerts` | Array | Alerts that are no longer ongoing. Only available with bucket-level monitors.
-`bucket_keys` | String | A comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through `ctx.dedupedAlerts.0.bucket_keys`.
+`bucket_keys` | String | A comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through the `ctx.dedupedAlerts.0.bucket_keys` variable.
 `parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts.0.parent_bucket_path`.
 `associated_queries` | Array | An array of document-level monitor queries that triggered the creation of the finding associated with the alert. Only available with document-level monitors. Accessed through `ctx.alerts.0.associated_queries`.
 `sample_documents` | Array | An array of sample documents that matched the monitor query. Only available with bucket-level, and document-level monitors. Accessed through `ctx.newAlerts.0.sample_documents`, and `ctx.alerts.0.sample_documents`, respectively.
