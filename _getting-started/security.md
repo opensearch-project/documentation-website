@@ -111,6 +111,7 @@ human_resources:
 ```
 Note that the cluster permissions are not listed in this example, as these are provided by built in role `kibana_user` which is already mapped using `kibanauser` backend role.
 
+
 # Mapping users to roles
 When user logs in to OpenSearch, they need to be mapped to appropriate role in order to obtain the correct permissions. This mapping is done via `roles_mapping.yml` file, with the following structure:
 ```
@@ -136,6 +137,19 @@ kibana_user:
   backend_roles:
   - "kibanauser"
   description: "Maps kibanauser to kibana_user"
+```
+
+If you do not want to map the user to built in role `kibana_user` and only want to give the user full access to a subset of indexes, you can use the following role configuration and delete the role mapping for `kibana_user`:
+
+```
+<rolename>:
+  cluster_permissions:
+    - "indices:data/write/bulk"
+  index_permissions:
+    - index_patterns:
+      - "humanresource"
+      allowed_actions:
+        - "indices_all"
 ```
 
 # Uploading the configuration to security index
