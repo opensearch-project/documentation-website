@@ -9,7 +9,6 @@ nav_order: 40
 
 Data Prepper allows you to load logs from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3), including traditional logs, JSON documents, and CSV logs.
 
-
 ## Architecture
 
 Data Prepper can read objects from S3 buckets using an [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) (Amazon SQS) queue and [Amazon S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html).
@@ -27,7 +26,6 @@ The data flow involving the components is as follows:
 3. Data Prepper polls Amazon SQS for messages and then receives a message.
 4. Data Prepper downloads the content from the S3 object.
 5. Data Prepper sends a document to OpenSearch for the content in the S3 object.
-
 
 ## Pipeline overview
 
@@ -56,8 +54,7 @@ Use the following steps to begin loading logs from S3 with Data Prepper.
 
 ### Setting permissions for Data Prepper
 
-To view S3 logs, Data Prepper needs access to Amazon SQS and S3.
-Use the following example to set up permissions:
+To view S3 logs, Data Prepper needs access to Amazon SQS and S3. Use the following example to set up permissions:
 
 ```json
 {
@@ -93,7 +90,7 @@ If your S3 objects or SQS queues do not use KMS, you can remove the `kms:Decrypt
 
 ### SQS dead-letter queue
 
-The are two options for how to handle errors resulting from processing S3 objects.
+The two options for how to handle errors resulting from processing S3 objects are as follows:
 
 - Use an SQS dead-letter queue (DLQ) to track the failure. This is the recommended approach.
 - Delete the message from SQS. You must manually find the S3 object and correct the error.
@@ -105,7 +102,7 @@ The following diagram shows the system architecture when using SQS with DLQ.
 To use an SQS dead-letter queue, perform the following steps:
 
 1. Create a new SQS standard queue to act as the DLQ.
-2. Configure your SQS redrive policy [to use DLQ](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-dead-letter-queue.html). Consider using a low value such as 2 or 3 for the **Maximum Receives** setting.
+2. Configure your SQS re-drive policy [to use DLQ](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-dead-letter-queue.html). Consider using a low value such as 2 or 3 for the **Maximum Receives** setting.
 3. Configure the Data Prepper `s3` source to use `retain_messages` for `on_error`. This is the default behavior.
 
 ## Pipeline design
