@@ -14,28 +14,30 @@ This is an experimental feature and is not recommended for use in a production e
 Introduced 2.14
 {: .label .label-purple }
 
-Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
+Remote-backed storage offers a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. To use this feature, [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) must be enabled.
 
-We support migrating a document-replication based cluster to Remote-backed storage through Rolling Upgrade mechanism.
+You can migrate a document-replication based cluster to remote-backed storage through the rolling ppgrade mechanism.
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades", can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
 ## Preparing to migrate
 
-Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indices before you make any changes to your OpenSearch cluster.
+Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
-Users need to move to OpenSearch 2.14 version as a pre-requisite of this migration.
+Before migrating to remote-backed storage, upgrade to OpenSearch 2.14.
 
-**Important:** OpenSearch nodes cannot be migrated back to document replication as of 2.14. If you need to revert the migration, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
+As of OpenSearch 2.14, OpenSearch nodes cannot be migrated back to document replication. If you need to revert the migration, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .important}
 
 ## Performing the upgrade
 
-1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information. The following command queries the `_cluster/health` API endpoint:
+1. Verify the health of your OpenSearch cluster before you begin using the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/). Resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. You can query the `_cluster/health` API endpoint using a command similar to the following:
    ```json
    GET "/_cluster/health?pretty"
    ```
-   The response should look similar to the following example:
+
+You should receive a response similar to the following:
+
    ```json
    {
        "cluster_name":"opensearch-dev-cluster",
@@ -55,7 +57,8 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
        "active_shards_percent_as_number":100.0
    }
    ```
-1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster. You can disable shard replication by querying the `_cluster/settings` API endpoint:
+1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster. You can disable shard replication by querying the `_cluster/settings` API endpoint, as shown in the following example:
+
    ```json
    PUT "/_cluster/settings?pretty"
    {
@@ -64,7 +67,8 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
        }
    }
    ```
-   The response should look similar to the following example:
+   You should receive a response similar to the following:
+   
    ```json
    {
      "acknowledged" : true,
@@ -81,11 +85,15 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
    }
    ```
 
-1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
+
+1. Perform the following flush operation on the cluster to commit transaction log entries to the Lucene index:
+
    ```json
    POST "/_flush?pretty"
    ```
-   The response should look similar to the following example:
+
+   You should receive a response similar to the following:
+   
    ```json
    {
      "_shards" : {
@@ -95,7 +103,9 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
      }
    }
    ```
-1. Set the `remote_store.compatibility_mode` to `mixed` to allow remote-store backed nodes to join the cluster. Set `migration.direction` to ensure new indices are allocated to remote backed data nodes.
+
+1. Set the `remote_store.compatibility_mode` setting to `mixed` to allow remote-store backed nodes to join the cluster. Then, set `migration.direction` to `remote_store`, which makes new indexes are allocated to remote backed data nodes. The following example updates the aforementioned setting using the Cluster settings API:
+
    ```json
    PUT "/_cluster/settings?pretty"
    {
@@ -105,7 +115,8 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
        }
    }
    ```
-   The response should look similar to the following example:
+   You should receive a response similar to the following:
+   
    ```json
    {
      "acknowledged" : true,
@@ -119,7 +130,7 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
    }
    ```
 2. Review your cluster and identify the first node to upgrade.
-2. Provide the remote store repository details as node attributes in `opensearch.yml`, as shown in the following example.
+2. Provide the remote store repository details as node attributes in `opensearch.yml`, as shown in the following example:
 
    ```yml
    # Repository name
@@ -149,11 +160,21 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
    node.attr.remote_store.repository.my-remote-state-repo.settings.region: <Bucket region>
    
    ```
+
 1. Stop the node you are migrating. Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
+
+
 1. Deploy a new container running the same version of OpenSearch and mapped to the same volume as the container you deleted.
+
+
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster. Wait for the cluster to become green again.
+
+
 1. Repeat steps 2 through 5 for each node in your cluster. 
-1. Reenable shard replication:
+
+
+1. Reenable shard replication, using a command similar to the following:
+
    ```json
    PUT "/_cluster/settings?pretty"
    {
@@ -162,7 +183,8 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
        }
    }
    ```
-   The response should look similar to the following example:
+   You should receive a response similar to the following:
+   
    ```json
    {
      "acknowledged" : true,
@@ -178,11 +200,12 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
      "transient" : { }
    }
    ```
-1. Confirm that the cluster is healthy:
+1. Confirm that the cluster is healthy using the Cluster Health API, as shown in the following command:
+
    ```bash
    GET "/_cluster/health?pretty"
    ```
-   The response should look similar to the following example:
+   You should receive a response similar to the following:
    ```json
    {
      "cluster_name" : "opensearch-dev-cluster",
@@ -203,7 +226,8 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
      "active_shards_percent_as_number" : 100.0
    }
    ```
-1. Clear the `remote_store.compatibility_mode` to not allow non-remote nodes to join back the cluster and `migration.direction` as well.
+1. Clear the `remote_store.compatibility_mode` and `migration.direction` settings so that non-remote nodes are not allowed to join the cluster by using the following command:
+ 
    ```json
    PUT "/_cluster/settings?pretty"
    {
@@ -213,7 +237,8 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
        }
    }
    ```
-   The response should look similar to the following example:
+
+   You should receive a response similar to the following:
    ```json
    {
      "acknowledged" : true,
@@ -221,12 +246,12 @@ Users need to move to OpenSearch 2.14 version as a pre-requisite of this migrati
       "transient" : { }
    }
    ```
-1. The migration to remote store is now complete, and you can begin enjoying the durability and performance benefits.
+The migration to the remote store is complete. 
 
 
 ## Related cluster settings
 
-You can use the following cluster settings to enable migration. 
+Use the following cluster settings to enable migration to a remote-backed cluster.
 
 | Field | Data type | Description                                                                                                                                                                                              |
 | :--- |:----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
