@@ -239,7 +239,8 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    docker build -t opensearch-custom:{{site.opensearch_version}} -f Dockerfile .
    ```
 
-1. Create a Kubernetes secret containing the Azure storage account key
+1. Create a Kubernetes secret containing the Azure storage account key using the following manifest and command:
+
    ```yaml
    apiVersion: v1
    kind: Secret
