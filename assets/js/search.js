@@ -3,9 +3,6 @@ import * as UBI from "./ubi.js";
 (() => {
 
     document.addEventListener('DOMContentLoaded', () => {
-        
-        UBI.initialize();
-        TimeMe.startTimer( window.location.pathname );
         //
         // Search field behaviors
         //
@@ -298,7 +295,6 @@ import * as UBI from "./ubi.js";
         const setUbiClickData = (ubiEvent, link) => {
             ubiEvent.event_attributes.position = new UBI.UbiPosition({x:link.offsetLeft, y:link.offsetTop});
 
-
             if(link.hasAttribute('id')){
                 let id = link.id;
                 //try to find the item ordinal within the result list
@@ -310,7 +306,7 @@ import * as UBI from "./ubi.js";
                     if(ordinal != -1){
                         ubiEvent.event_attributes.position.ordinal = ordinal + 1;
                         if(ubiEvent.message == undefined || ubi_event.message == null){
-                            ubiEvent.message = `Clicked item ${ordinal+1} out of ${result_ids.length}`
+                            ubiEvent.message = `Clicked item ${ordinal+1} out of ${resultIds.length}`
                         }
                         
                         try{

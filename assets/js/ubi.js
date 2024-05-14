@@ -44,14 +44,7 @@ function guiid() {
  */
 export async function initialize(){
 	let i = 1;
-	/*
-	let data = {
-		"search_term": "anything",
-		"docs_version": "latest"
-	};
-	let payload = new UbiEvent('earch', {data_object:data});
-	console.log(payload.toJson());
-	*/
+
 	try{
 		if(!sessionStorage.hasOwnProperty('session_id'))
 			sessionStorage.setItem('session_id', guiid());
@@ -172,7 +165,35 @@ export function getSessionId(){
 
 export function getPageId(){
 	return location.pathname;
+}
+window.addEventListener("DOMContentLoaded", function (e) {
+    try{
+        initialize();
+		TimeMe.currentPageName = this.window.location.href;
+        TimeMe.startTimer(window.location.pathname);
+    }catch(e){
 
+    }
+});
+
+window.addEventListener("beforeunload", function (e) {
+    try{
+        TimeMe.stopTimer(window.location.pathname);
+        logDwellTime('page_exit', window.location.pathname, 
+            TimeMe.getTimeOnPageInSeconds(window.location.pathname));
+    }catch(e){
+
+    }
+});
+
+export async function logDwellTime(action_name, page, seconds){
+	console.log(`${page} => ${seconds}`);
+	let e = new UbiEvent(action_name, {
+		message:`On page ${page} for ${seconds} seconds`,
+		event_attributes:{dwell_seconds:seconds},
+		data_object:TimeMe
+	});
+	logEvent(e);
 }
 
 export async function logEvent(event){
@@ -195,9 +216,11 @@ export async function logEvent(event){
 	}
 
 }
-/**
+
+/*********************************************************************************************
  * Ubi Event data structures
- */
+ * The following structures help ensure adherence to the UBI event schema
+ *********************************************************************************************/
 
 export class UbiEventData {
 	constructor(type, id=null, description=null, details=null) {
@@ -229,18 +252,20 @@ export class UbiEventAttributes {
 	 * The object member is reserved for further, relevant object payloads or classes
 	 */
 	constructor({attributes={}, object=null, position=null}={}) {
-		this.object = object;
-		this.position = position;
-		for(var entry in Object.entries(attributes)){
-			this[entry.key] = entry.value;
+		if(attributes != null){
+			Object.assign(this, attributes);
 		}
+		if(object != null && object != {}){
+			this.object = object;
+		}
+		this.position = position;
 	}
 }
 
 
 
 export class UbiEvent {
-	constructor(action_name, {message=null, attributes={}, data_object={}}={}) {
+	constructor(action_name, {message=null, event_attributes={}, data_object={}}={}) {
 		this.action_name = action_name;
 		this.user_id = getUserId();
 		this.query_id = getQueryId();
@@ -252,7 +277,7 @@ export class UbiEvent {
 		if( message )
 			this.message = message;
 
-		this.event_attributes = new UbiEventAttributes({attributes:attributes});
+		this.event_attributes = new UbiEventAttributes({attributes:event_attributes, object:data_object});
 	}
 
 	/**
