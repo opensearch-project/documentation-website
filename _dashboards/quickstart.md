@@ -115,7 +115,7 @@ Light mode is the default OpenSearch Dashboards appearance theme. You can custom
 
 The appearance theme setting is enabled or disabled through **Advanced Settings** and requires admin permissions. 
 
-### Changing the appearance theme for all users
+### Changing the appearance theme settings
 
 Admins can change the appearance theme for all users of their OpenSearch Dashboards instance through **Advanced Settings**:
 
