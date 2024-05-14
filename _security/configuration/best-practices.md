@@ -109,3 +109,9 @@ Creating passwords configuration is a very straight forward procedure, especiall
 ## 10. Stay informed and apply updates
 
 Regularly monitor security advisories and updates from the OpenSearch project to stay informed about potential vulnerabilities or bugs. Promptly apply updates to the Security plugin and it's dependencies to maintain a secure environment.
+
+## Bonus tip: Diagnose permission issues efficiently
+
+Keeping on top of any issues that arise in a timely manor will help to ensure things continue to run smooth. Should you run into difficulties there are places you can reach out to for help, such as:
+- Through GitHub, you can log an issue at [opensearch-project / security](https://github.com/opensearch-project/security/security), or also at [opensearch-project / OpenSearch](https://github.com/opensearch-project/OpenSearch/security)
+- [Or by reaching out on the forums](https://forum.opensearch.org/tag/cve).
