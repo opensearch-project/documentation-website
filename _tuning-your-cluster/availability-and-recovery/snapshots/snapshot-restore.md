@@ -207,15 +207,13 @@ You will most likely not need to specify any parameters except for `location`. F
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
 
-### Azure storage account
+### Registering an Azure storage account
 
 Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
 
 1. Create an Azure storage account. Then create a container within the storage account. For more information, see the [Azure Storage documentation](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction).
 
 1. Create a Docker image with the `repository-azure` plugin.
-
-   create-keystore.yaml
 
    ```bash
    #!/bin/bash
@@ -226,7 +224,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    cp /usr/share/opensearch/config/opensearch.keystore /tmp/keystore/opensearch.keystore
    ```
 
-   Dockerfile
+1. Create a Docker file. This file contains the details of your keystore, the OpenSearch instance, and the Azure repository. To create the file, copy the following example and save it as `Dockerfile`: 
 
    ```docker
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
@@ -235,10 +233,11 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    COPY --chmod=0775 create-keystore.sh create-keystore.sh
    ```
 
+1. Use the following `docker build` command to build an OpenSearch image from your Dockerfile:
+
    ```
    docker build -t opensearch-custom:{{site.opensearch_version}} -f Dockerfile .
    ```
-
 
 1. Create a Kubernetes secret containing the Azure storage account key
    ```yaml
