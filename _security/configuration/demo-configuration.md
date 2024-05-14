@@ -40,7 +40,14 @@ docker-compose up
 
 1. Download the following sample [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) file.
 2. Create a `.env` file.
-3. Add the variable `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and set the variable with a strong string password.
+3. Add the variable `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and set the variable with a strong password. The password must pass the following complexity requirements:
+
+  - Minimum 8 characters
+  - Must contain at least one uppercase letter [A--Z]
+  - One lowercase letter [a--z]
+  - One digit [0--9]
+  - One special character
+
 4. Run `docker-compose up`.
 
 ### TAR (Linux)
