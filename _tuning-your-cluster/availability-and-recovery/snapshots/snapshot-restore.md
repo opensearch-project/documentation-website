@@ -211,7 +211,7 @@ You will most likely not need to specify any parameters except for `bucket` and 
 
 Use the following steps to register a snapshot repository backed by an Azure storage account for an OpenSearch cluster deployed using Helm.
 
-1. Create an Azure storage account. Then create a container within the storage account. For more information, see the [Azure Storage documentation](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction).
+1. Create an Azure storage account. Then create a container within the storage account. For more information, see [Introduction to Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction).
 
 1. Create a Docker image with the `repository-azure` plugin.
 
@@ -224,7 +224,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    cp /usr/share/opensearch/config/opensearch.keystore /tmp/keystore/opensearch.keystore
    ```
 
-1. Create a Docker file. This file contains the details of your keystore, the OpenSearch instance, and the Azure repository. To create the file, copy the following example and save it as `Dockerfile`: 
+1. Create a Docker file. This file contains the details of your keystore, the OpenSearch instance, and the Azure repository. To create the file, copy the following example and save it as a `Dockerfile`: 
 
    ```docker
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
@@ -239,7 +239,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    docker build -t opensearch-custom:{{site.opensearch_version}} -f Dockerfile .
    ```
 
-1. Create a Kubernetes secret containing the Azure storage account key using the following manifest and command:
+1. Create a Kubernetes secret containing the Azure storage account key by using the following manifest and command:
 
    ```yaml
    apiVersion: v1
@@ -284,7 +284,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
      tag: {{site.opensearch_version}}
    ```
 
-1. Register the repository using the Snapshot API. Replace `snapshot_container` with the name you specified earlier in step 1, as shown in the following command:
+1. Register the repository using the Snapshot API. Replace `snapshot_container` with the name you specified in step 1, as shown in the following command:
    ```json
    PUT /_snapshot/my-azure-snapshot
    {
