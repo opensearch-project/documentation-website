@@ -60,12 +60,12 @@ Detailed examples and additional configurations are available at:
 
 ## 6. Strip audit logging configuration to essentials only
 
-If not strictly required by compliance regulations, consider turning off audit logging leaving it enabled could:
- - incur a performance penalty
- - consume a significant amount of disk space
- - complicate a secure setup.
 
-If this feature is indeed essential for your cluster, you should configure it to what is really needed by your compliance regulations.
+Extensive audit logging can degrade system performance, this is because
+- each logged event adds to the processing load
+- audit logs can quickly grow in size, consuming significant disk space.
+
+So to ensure optimum use we should disable unneeded logging and be selective in logs that are used. If not strictly required by compliance regulations, consider turing off audit logging. If this feature is indeed essential for your cluster, you should configure it to what is really needed by your compliance regulations.
 
 Whenever possible adhere to these recommendations:
 - `audit.log_request_body: false`
@@ -89,6 +89,9 @@ config:
 
 We recommend to use securityadmin.sh to manage configuration of your clusters, `securityadmin.sh` is a command-line tool provided by OpenSearch for managing security configurations. It allows administrators to efficiently manage security settings, including roles, role mappings, and other security-related configurations, within an OpenSearch cluster.
 
+Changes with made with `securityadmin.sh` should be preceded by a backup of the current configuration, otherwise configuration can be lost! For more detailed information visit the [security admin configuration](https://opensearch.org/docs/latest/security/configuration/security-admin/) section in the documentation. 
+
+
 ### Benefits of using securityadmin.sh:
 1. Consistency: By using securityadmin.sh, administrators can ensure consistency across security configurations within the cluster. This helps maintain a standardized and secure environment.
 2. Automation: securityadmin.sh enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
@@ -104,7 +107,9 @@ For more detailed information on using securityadmin.sh and managing security co
 
 If you are initializing OpenSearch with demo configuration there are many passwords that are provided out the box in `internal_users.yml`, for example internal users such as `admin`, `kibanaserver`, `logstash`, and others.
 You should change the passwords for these users to strong complex passwords, either at start up or as soon as possible once the cluster is running.
-Creating passwords configuration is a very straight forward procedure, especially using scripts that come bundled with OpenSearch like hash.sh or hash.bat, which are located in the `plugin/opensearch-security/tools` directory. 
+Creating passwords configuration is a very straight forward procedure, especially using scripts that come bundled with OpenSearch like `hash.sh` or `hash.bat`, which are located in the `plugin/OpenSearch security/tools` directory. 
+The `kibanaserver` user is a crucial component that allows OpenSearch Dashboards to communicate with the OpenSearch cluster. By default, this user is preconfigured with a default password in the demo configuration. This should be reaplaced with a strong, unique password in the OpenSearch configuration and then the `opensearch_dashboards.yml` file should be updated to reflect this change.
+
 
 ## 10. Stay informed and apply updates
 
@@ -113,5 +118,5 @@ Regularly monitor security advisories and updates from the OpenSearch project to
 ## Bonus tip: Diagnose permission issues efficiently
 
 Keeping on top of any issues that arise in a timely manor will help to ensure things continue to run smooth. Should you run into difficulties there are places you can reach out to for help, such as:
-- Through GitHub, you can log an issue at [opensearch-project / security](https://github.com/opensearch-project/security/security), or also at [opensearch-project / OpenSearch](https://github.com/opensearch-project/OpenSearch/security)
+- Through GitHub, you can log an issue at [OpenSearch-project/security](https://github.com/opensearch-project/security/security), or also at [OpenSearch-project/OpenSearch](https://github.com/opensearch-project/OpenSearch/security)
 - [Or by reaching out on the forums](https://forum.opensearch.org/tag/cve).
