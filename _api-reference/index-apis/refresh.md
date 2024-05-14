@@ -11,7 +11,12 @@ Introduced 1.0
 
 The Refresh API refreshes one or more indexes in an OpenSearch cluster. In the case of data streams, the Refresh API refreshes a stream's backing indexes. 
 
-OpenSearch, by default, will refresh indexes every second on indexes that have received one search request or more in the last 30 seconds. To change the default interval, use the `index.refresh_interval` setting in `opensearch.yml`.
+OpenSearch's refresh behavior depends on whether or not the `index.refresh_interval` is set:
+
+- When set, refreshes occur based on the `index.refresh_interval` setting (in seconds).
+- When not set, refreshes occur every second until the shard receives no search requests for at least the number set in the `index.search.idle.after` setting (in seconds). Default is 30s. 
+
+After a shard goes idle, it will not refresh until the next search request or until a Refresh API request. The first search request on an idle shard will wait for the refresh operation to complete.
 
 To use the Refresh API, you must have write access to the indexes you want to refresh.
 
