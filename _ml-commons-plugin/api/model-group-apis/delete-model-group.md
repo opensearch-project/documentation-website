@@ -3,7 +3,7 @@ layout: default
 title: Delete model group
 parent: Model group APIs
 grand_parent: ML Commons APIs
-nav_order: 40
+nav_order: 50
 ---
 
 # Delete a model group
