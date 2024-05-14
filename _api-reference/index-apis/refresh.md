@@ -35,7 +35,7 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `index` | String | A comma-separated list of wildcard expression of index names you want to refresh. |
+| `index` | String | A comma-separated list of index names you want to refresh. Wildcards are accepted.|
 
 ## Query parameters
 
