@@ -213,7 +213,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
 
 1. Create an Azure storage account. Then create a container within the storage account. For more information, see [Introduction to Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction).
 
-1. Create a Docker image with the `repository-azure` plugin.
+1. Create an OpenSearch keystore file using a bash script. To create the bash script, copy the contents of the following example into a file named `create-keystore.sh`:
 
    ```bash
    #!/bin/bash
