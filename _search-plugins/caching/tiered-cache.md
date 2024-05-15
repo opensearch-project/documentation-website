@@ -91,6 +91,8 @@ Setting | Data type | Default | Description
 `indices.request.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query into a disk cache based on its took time. This is a dynamic setting. Optional.
 `indices.request.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional.
 
+### Configuring cleanup
+
 The following table lists the settings related to deletion of stale entries from the cache.
 
 | Setting                                              | Data type | Default | Description                                                                                                 |
