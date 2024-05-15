@@ -135,7 +135,7 @@ plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
 
-For security reasons, you can't use wildcards or regular expressions here. For more information on admin and super admin users, visit [Admin and super admin roles in OpenSearch security](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles-in-opensearch-security)
+For security reasons, you can't use wildcards or regular expressions here. For more information about admin and super admin users, visit [Admin and super admin roles in OpenSearch security](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles-in-opensearch-security)
 
 ## (Advanced) OpenSSL
 

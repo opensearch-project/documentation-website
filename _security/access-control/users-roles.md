@@ -266,7 +266,7 @@ Admin users can perform these tasks using tools such as configuration files `ope
 Super admins hold the highest level of administrative authority within the OpenSearch environment. Therefore, this role is typically reserved for select users and is maintained carefully.
 
 Super admin users have unrestricted access to all settings and data within the cluster, allowing them to:
-- Modify security plugin configurations
+- Modify Security plugin configurations
 - Access and manage the security index `.opendistro_security`
 - Override any security limitations
 
