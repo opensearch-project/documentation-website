@@ -2,9 +2,9 @@
 layout: default
 title: Concepts
 nav_order: 3
-parent: User Guide
+parent: User guide
 redirect_from: 
-  - /benchmark/user-guide/concepts/concepts/
+  - /benchmark/user-guide/concepts/
 ---
 
 # Concepts
@@ -45,7 +45,7 @@ While the definition for _throughput_ remains consistent with other client-serve
 | Metric | Common definition | **OpenSearch Benchmark definition**	|
 | :--- | :--- |:--- |
 | **Throughput** | The number of operations completed in a given period of time.	| The number of operations completed in a given period of time. |
-| **Service time**	| The amount of time that the server takes to process a request, from the point it receives the request to the point the response is returned. </br></br> It includes the time spent waiting in server-side queues but _excludes_ network latency, load balancer overhead, and deserialization/serialization. | The amount of time that it takes for `opensearch-py` to send a request and receive a response from the OpenSearch cluster. </br> </br> It includes the amount of time that it takes for the server to process a request and also _includes_ network latency, load balancer overhead, and deserialization/serialization.  |
+| **Service time**	| The amount of time that the server takes to process a request, from the point it receives the request to the point the response is returned. It includes the time spent waiting in server-side queues but _excludes_ network latency, load balancer overhead, and deserialization/serialization. | The amount of time that it takes for `opensearch-py` to send a request and receive a response from the OpenSearch cluster. It includes the amount of time that it takes for the server to process a request and also _includes_ network latency, load balancer overhead, and deserialization/serialization.  |
 | **Latency** | The total amount of time, including the service time and the amount of time that the request waits before responding. | Based on the `target-throughput` set by the user, the total amount of time that the request waits before receiving the response, in addition to any other delays that occur before the request is sent. |
 
 For more information about service time and latency in OpenSearch Benchmark, see the [Service time](#service-time) and [Latency](#latency) sections.

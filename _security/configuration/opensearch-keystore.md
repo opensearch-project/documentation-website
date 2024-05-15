@@ -9,6 +9,9 @@ nav_order: 50
 
 `opensearch-keystore` is a utility script used to manage an OpenSearch keystore. An OpenSearch keystore provides a secure method of storing sensitive information, such as passwords and keys, used in an OpenSearch cluster. The script allows you to securely create, list, add, and remove settings. It is included in the OpenSearch distribution. 
 
+This keystore is separate from the keystore and truststore used to store TLS certificates in JKS or PKCS12/PFX format in order to secure the transport and HTTP layers. For information about those keystores, refer to [Keystore and truststore files]({{site.url}}{{site.baseurl}}/security/configuration/tls/#keystore-and-truststore-files).
+{: .note} 
+
 ## Usage
 
 In order to use the `opensearch-keystore` script, you must have access to the file system containing the OpenSearch installation and the ability to execute OpenSearch scripts.
@@ -123,6 +126,9 @@ The following command removes a keystore setting:
 
 No response exists for this command. To confirm that the setting was deleted, use `opensearch-keystore list`.
 
-## KeyStore entries as OpenSearch settings
+For a complete list of secure settings that can be configured using `opensearch-keystore`, refer to [(Advanced) Using encrypted password settings for SSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-using-encrypted-password-settings-for-ssl).
+{: .note}
+
+## Keystore entries as OpenSearch settings
 
 After a setting has been added to a keystore, it is implicitly added to the OpenSearch configuration as if it were another entry in `opensearch.yml`. To modify a keystore entry use `./bin/opensearch-keystore upgrade <setting>`. To remove an entry, use `./bin/opensearch-keystore remove <setting>`.
