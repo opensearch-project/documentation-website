@@ -19,27 +19,26 @@ The SSL/TLS is enabled by default for transport layer which is used by node to n
 
 The following setting is required to enable encryption at REST layer: `plugins.security.ssl.http.enabled: true`
 
-Additional configuration options, like specifying paths to certificates, keys and certificate authority files are available at [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/)
+For additional configuration options, such as specifying certificate paths, keys and certificate-authority files you can refer the steps on [configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/)
 
 ### Replace all demo certificates with your own PKI
 The certificates generated when initializing OpenSearch cluster with `install_demo_configuration.sh` are not suitable for production. These should be replaced with your own certificates.
 
-There are many ways to create your own certificates and certificate authority. One approach can be using `openssl` described in detail in [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), alternatively there are tools available online which can simplify the certificate creation process.
+You can generate custom certificates in a few different ways. One approach is by using openssl, described in detail on [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), alternatively there are tools available online which can simplify the certificate creation process.
 
 ## 2. Prefer client certificate authentication for API authentication
 
-Using client certificate authentication helps to avoid dealing with (potentially weak) passwords and is more machine-to-machine friendly. Additionally, performance overhead is also low, as the authentication is done on TLS level.
+Client certificate authentication offers a secure alternative to passwords and is more suitable for machine-to-machine interactions. It also ensures low performance overhead since the authentication occurs at the TLS level. Nearly all client software, such as curl, and client libraries support this authentication method.
 
-Almost all client software (like curl) or client libraries support this authentication mechanism.
+For detailed configuration instructions, refer to [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication).
 
 Details on configuring client certificate authentication can be found at [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication)
 
-
 ## 3. Prefer SSO using SAML or OpenID for Dashboards authentication
 
-Implementing Single Sign-On (SSO) using protocols like Security Assertion Markup Language (SAML) or OpenID for Dashboards authentication enhances security by delegating credentials management to a dedicated system.
+Implementing Single Sign-On (SSO) with protocols like Security Assertion Markup Language (SAML) or OpenID for Dashboards authentication enhances security by delegating credential management to a dedicated system.
 
-This reduces direct involvement with passwords in OpenSearch, streamlining authentication processes and preventing clutter in the internal user database. For more information visit the [SAML section of the OpenSearch documentation]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/).
+This approach minimizes direct interaction with passwords in OpenSearch, streamlines authentication processes, and prevents clutter in the internal user database. For more information, visit the [SAML section of the OpenSearch documentation]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/).
 
 ## 4. Limit the number of roles assigned to a user
 
@@ -50,11 +49,11 @@ Additional best practices for role management may include:
 1. Role granularity: Define roles based on specific job functions or access requirements to minimize unnecessary privileges.
 2. Regular review: Regularly review and audit assigned roles to ensure alignment with organizational policies and access needs.
 
-For more information about roles visit the documentation on [defining users and roles in OpenSearch]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/).
+For more information about roles, visit the documentation on [defining users and roles in OpenSearch]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/).
 
 ## 5. Verify DLS, FLS and field masking
 
-If you have configured DLS (document level security) or FLS (field level security) or field masking, ensure you double check your role definitions. Especially if user is mapped to multiple roles. Testing by making a GET request to `_plugins/_security/authinfo` is highly recommended. 
+If you have configured DLS (Document Level Security), FLS (Field Level Security), or field masking, ensure you double-check your role definitions, especially if a user is mapped to multiple roles. It is highly recommended to test this by making a GET request to `_plugins/_security/authinfo`.
 
 Detailed examples and additional configurations are available at:
  - [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/)
@@ -63,23 +62,26 @@ Detailed examples and additional configurations are available at:
 
 ## 6. Strip audit logging configuration to essentials only
 
-Extensive audit logging can degrade system performance, this is because
-- each logged event adds to the processing load
-- audit logs can quickly grow in size, consuming significant disk space.
+Extensive audit logging can degrade system performance due to the following reasons:
 
-So to ensure optimum use we should disable unneeded logging and be selective in logs that are used. If not strictly required by compliance regulations, consider turning off audit logging. If this feature is indeed essential for your cluster, you should configure it to what is really needed by your compliance regulations.
+- Each logged event adds to the processing load.
+- Audit logs can quickly grow in size, consuming significant disk space.
 
-Whenever possible adhere to these recommendations:
-- `audit.log_request_body: false`
-- `audit.resolve_bulk_requests: false`
-- `compliance.write_log_diffs`
-- As few as possible entries for `compliance.read_watched_fields`
-- As few as possible entries for `compliance.write_watched_indices`
+To ensure optimal performance, disable unnecessary logging and be selective about which logs are used. If not strictly required by compliance regulations, consider turning off audit logging. If audit logging is essential for your cluster, configure it according to your compliance requirements.
+
+Whenever possible, adhere to these recommendations:
+
+- Set `audit.log_request_body` to `false`.
+- Set `audit.resolve_bulk_requests` to `false`.
+- Enable `compliance.write_log_diffs`.
+- Minimize entries for `compliance.read_watched_fields`.
+- Minimize entries for `compliance.write_watched_indices`.
 
 ## 7. Explore disabling private tenant
 
-In many cases the use of private tenants is not needed, however the feature is switched on by default. As a result every OpenSearch Dashboards user is provided with their own private tenant and therefore new index to save objects. This can add up to large number of unnecessary indexes. Determine if this feature is indeed needed and it isn't, disable it with the following configuration in `config.yml` file:
-```
+In many cases, the use of private tenants is unnecessary, yet this feature is enabled by default. As a result, every OpenSearch Dashboards user is provided with their own private tenant and a corresponding new index to save objects. This can lead to a large number of unnecessary indexes. Evaluate whether this feature is needed, and if it isn't, disable it by adding the following configuration to the `config.yml` file:
+
+```yaml
 config:
   dynamic:
     kibana:
