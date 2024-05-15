@@ -66,27 +66,28 @@ The `ehcache_disk` setting is the disk cache implementation from [Ehcache](https
 
 The following table lists the cache store settings for the `opensearch_onheap` store.
 
-Setting | Data type | Default | Description
-:--- | :--- | :--- | :---
-`indices.request.cache.opensearch_onheap.size` | Percentage | 1% of the heap size | The size of the on-heap cache. Optional.
-`indices.request.cache.opensearch_onheap.expire` | Time unit | `MAX_VALUE` (disabled) | Specifies a time-to-live (TTL) for the cached results. Optional.
+| Setting                                          | Data type  | Default                | Description                                                      |
+|:-------------------------------------------------|:-----------|:-----------------------|:-----------------------------------------------------------------|
+| `indices.request.cache.opensearch_onheap.size`   | Percentage | 1% of the heap size    | The size of the on-heap cache. Optional.                         |
+| `indices.request.cache.opensearch_onheap.expire` | Time unit  | `MAX_VALUE` (disabled) | Specifies a time-to-live (TTL) for the cached results. Optional. |
 
 The following table lists the disk cache store settings for the `ehcache_disk` store.
 
-Setting | Data type | Default | Description
-:--- | :--- | :--- | :---
-`indices.request.cache.ehcache_disk.max_size_in_bytes` | Long | `1073741824` (1 GB)  | Defines the size of the disk cache. Optional.
-`indices.request.cache.ehcache_disk.storage.path` | String | `""` | Defines the storage path for the disk cache. Required.
-`indices.request.cache.ehcache_disk.expire_after_access` | Time unit | `MAX_VALUE` (disabled) | Specifies a TTL for the cached results. Optional.
-`indices.request.cache.ehcache_disk.alias` | String | `ehcacheDiskCache#INDICES_REQUEST_CACHE` | Specifies an alias for the disk cache. Optional.
-`indices.request.cache.ehcache_disk.segments` | Integer | `16` | Defines the number of segments into which the disk cache is separated. Used for concurrency. Optional.
-`indices.request.cache.ehcache_disk.concurrency` | Integer | `1` | Defines the number of distinct write queues created for the disk store, where a group of segments shares a write queue. Optional.
+| Setting                                                  | Data type | Default                                  | Description                                                                                                                       |
+|:---------------------------------------------------------|:----------|:-----------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------|
+| `indices.request.cache.ehcache_disk.max_size_in_bytes`   | Long      | `1073741824` (1 GB)                      | Defines the size of the disk cache. Optional.                                                                                     |
+| `indices.request.cache.ehcache_disk.storage.path`        | String    | `""`                                     | Defines the storage path for the disk cache. Required.                                                                            |
+| `indices.request.cache.ehcache_disk.expire_after_access` | Time unit | `MAX_VALUE` (disabled)                   | Specifies a TTL for the cached results. Optional.                                                                                 |
+| `indices.request.cache.ehcache_disk.alias`               | String    | `ehcacheDiskCache#INDICES_REQUEST_CACHE` | Specifies an alias for the disk cache. Optional.                                                                                  |
+| `indices.request.cache.ehcache_disk.segments`            | Integer   | `16`                                     | Defines the number of segments into which the disk cache is separated. Used for concurrency. Optional.                            |
+| `indices.request.cache.ehcache_disk.concurrency`         | Integer   | `1`                                      | Defines the number of distinct write queues created for the disk store, where a group of segments shares a write queue. Optional. |
 
 ### Additional settings for the `tiered_spillover` store
 
 The following table lists additional settings for the `tiered_spillover` store setting.
 
-Setting | Data type | Default | Description
-:--- | :--- | :--- | :---
-`indices.request.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query into a disk cache based on its took time. This is a dynamic setting. Optional.
-`indices.request.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional.
+| Setting                                                                          | Data type | Default | Description                                                                                                                                                                                                        |
+|:---------------------------------------------------------------------------------|:----------|:--------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `indices.request.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms`  | A policy used to determine whether to cache a query into a disk cache based on its took time. This is a dynamic setting. Optional.                                                                                 |
+| `indices.request.cache.tiered_spillover.disk.store.enabled`                      | Boolean   | `True`  | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional. |
+
