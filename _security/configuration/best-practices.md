@@ -14,12 +14,15 @@ Setting up secure practices in OpenSearch is crucial for protecting your data. H
 Although it requires a bit more effort at the beginning, it provides you with all the flexibility needed to set up SSL/TLS in the most secure and performant way.
 
 ### Enable SSL/TLS for node and REST layer traffic
+
 The SSL/TLS is enabled by default for transport layer which is used by node to node communication. The SSL/TLS on REST layer is disabled by default.
-The setting needed to enable encryption on the REST layer is `plugins.security.ssl.http.enabled: true`
+
+The following setting is required to enable encryption at REST layer: `plugins.security.ssl.http.enabled: true`
+
 Additional configuration options, like specifying paths to certificates, keys and certificate authority files are available at [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/)
 
 ### Replace all demo certificates with your own PKI
-The certificates that get generated when initializing OpenSearch cluster with `install_demo_configuration.sh` are not suitable for production. These should be replaced as soon as possible with your own certificates.
+The certificates generated when initializing OpenSearch cluster with `install_demo_configuration.sh` are not suitable for production. These should be replaced with your own certificates.
 
 There are many ways to create your own certificates and certificate authority. One approach can be using `openssl` described in detail in [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), alternatively there are tools available online which can simplify the certificate creation process.
 
@@ -96,7 +99,7 @@ Before making changes with `securityadmin.sh`, always create a backup of the cur
 2. Automation: securityadmin.sh enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
 3. Version Control: Security configurations managed through securityadmin.sh can be version-controlled using standard version control systems like Git. This facilitates tracking changes, auditing, and reverting to previous configurations if necessary.
 
-To prevent any configuration overrides, it is important to note that configuration changes made through the OpenSearch Dashboards UI or using the OpenSearch API provide a convenient way to modify security configurations. To ensure updates made in this way are maintained through the securityadmin.sh tool, a backup of configuration should first be made to ensure all configuration are captured prior to uploading the modified configuration using securityadmin.sh
+To prevent configuration overrides, it's important to note that changes made through the OpenSearch Dashboards UI or using the OpenSearch API provide a convenient way to modify security settings. To ensure these updates are preserved when using the `securityadmin.sh` tool, first create a backup of the current configuration. This ensures all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
 
 For more detailed information on using securityadmin.sh and managing security configurations in OpenSearch, refer to the following resources:
 - OpenSearch Security Documentation: [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
