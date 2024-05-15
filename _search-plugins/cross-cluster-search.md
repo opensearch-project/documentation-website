@@ -299,14 +299,18 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 
 ## Proxy settings
+
 You can configure cross-cluster search on a cluster running behind a proxy. There are many ways to configure a reverse proxy and various proxies to choose from. The following example demonstrates the basic NGINX reverse proxy configuration without TLS termination, though there are many proxies and reverse proxies to choose from. For this example to work, OpenSearch must have both transport and HTTP TLS encryption enabled. For more information about configuring TLS encryption, see [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
 
 ### Prerequisites
+
 To use proxy mode, fulfill the following prerequisites:
+
 - Make sure that the source cluster's nodes are able to connect to the configured `proxy_address`. 
 - Make sure that the proxy can route connections to the remote cluster nodes.
 
 ### Proxy configuration
+
 The following is the basic NGINX configuration for HTTP and transport communication:
 
 ```
@@ -336,9 +340,11 @@ stream {
     }
 }
 ```
+
 The listening ports for HTTP and transport communication are set to `443` and `8300`, respectively. 
 
 ### OpenSearch configuration
+
 The remote cluster can be configured to point to the `proxy` by using the following command:
 
 ```bash
@@ -354,4 +360,5 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
   }
 }'
 ```
+
 Note the previously configured port `8300` in the [Proxy configuration]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#proxy-configuration) section.
