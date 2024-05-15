@@ -246,25 +246,36 @@ Map the role to your user:
 
 ## Admin and super admin roles in OpenSearch security
 
-User roles are pivotal for controlling access to various cluster resources and functionalities. Depending on the access given to a user, the user may be considered a regular user, admin or super admin.
+User roles in OpenSearch are essential for controlling access to cluster resources and functionalities. Users can be categorized as regular users, admin users, or super admin users based on their access rights and responsibilities.
 
 Defining a user is described in the [defining users](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-users) section of the documentation. More information about defining roles can be found in [defining roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-roles)
 
+
+### Regular users
+Regular users have basic access permissions to interact with the OpenSearch cluster, such as querying data and using dashboards, but they do not have administrative privileges.
+
 ### Admin users
-Admins in OpenSearch are users with elevated rights to perform administrative tasks within the cluster. Admins have broader access and control over cluster configurations and settings compared to regular users. They are responsible for managing users, roles, permissions, and backend settings.
+Admin users in OpenSearch have elevated permissions allowing them to perform various administrative tasks within the cluster. They have broader access compared to regular users, which includes:
+- Managing users and roles
+- Configuring permissions
+- Adjusting backend settings
 
-Admins can be given access to manage users, roles, and permissions using a `yml` file, OpenSearch Dashboards or the REST API with the aim to allow administrative privileges to perform essential administrative tasks.
+Admin users can perform these tasks using tools such as configuration files `opensearch.yml`, OpenSearch Dashboards, or the REST API. More details on configuring users and roles can be found in the [predefined roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#predefined-roles) documentation.
 
-### Super admin
-Super admins hold the highest level of administrative authority within the OpenSearch environment.
+### Super admin users
+Super admins hold the highest level of administrative authority within the OpenSearch environment. Therefore, this role is typically reserved for select users and is maintained carefully.
 
-Super admins can change Security plugin configurations using tools like `securityadmin.sh` or the REST API. Super admins have access to the security index or `.opendistro_security` index and can apply or edit security configurations. 
+Super admin users have unrestricted access to all settings and data within the cluster, allowing them to:
+- Modify security plugin configurations
+- Access and manage the security index `.opendistro_security`
+- Override any security limitations
 
-This role is typically reserved for select users and is maintained carefully.
+#### Authentication of super admin role
 
-### Applying Changes to Configuration Files
-Changes to admin roles, including the addition or modification of admin certificates, are applied through configuration files. The process involves editing relevant configuration files, such as `opensearch.yml`, and applying the changes using tools like `securityadmin.sh` (or on Windows, use `securityadmin.bat`), for more information, visit the [Security Admin](https://opensearch.org/docs/latest/security/configuration/security-admin/) documentation.
-
-For detailed instructions on configuring admin certificates, refer to the [configuring admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-admin-certificates) documentation.
-
-For applying changes to configuration files and managing admin roles, consult the [Security Admin](https://opensearch.org/docs/latest/security/configuration/security-admin/) documentation.
+Super admins are authenticated through certificates, not passwords. The necessary certificates are defined in the `admin_dn` section of the `opensearch.yml` file and must be signed with the same root CA to verify and connect it to the cluster.
+```
+YAML
+plugins.security.authcz.admin_dn:
+- CN=kirk,OU=client,O=client,L=test, C=de
+``` 
+More information on this can be found at [Configuring super admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-super-admin-certificates).

@@ -126,17 +126,16 @@ plugins.security.nodes_dn:
 If your node certificates have an Object ID (OID) identifier in the SAN section, you can omit this configuration.
 
 
-## Configuring admin certificates
+## Configuring super admin certificates
 
-Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
+Super admin certificates are regular client certificates that have elevated rights to perform administrative security and OpenSearch related tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
 plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
 
-For security reasons, you can't use wildcards or regular expressions here.
-
+For security reasons, you can't use wildcards or regular expressions here. For more information on admin and super admin users, visit [Admin and super admin roles in OpenSearch security](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles-in-opensearch-security)
 
 ## (Advanced) OpenSSL
 
