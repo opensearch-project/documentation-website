@@ -124,7 +124,7 @@ testClusters {
 
 ### Enable distributed tracing
 
-Once you've enabled the feature flag, 
+Once you've enabled the feature flag, do the following:
 
 1. Enable the tracing framework feature by adding the following setting in the `opensearch.yaml` file.
 
