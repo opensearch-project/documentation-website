@@ -236,7 +236,6 @@ plugins.security.ssl.http.enabled_protocols:
   - "TLSv1.2"
 ```
 
-
 ## (Advanced) Disabling client initiated renegotiation for Java 8
 
 Set `-Djdk.tls.rejectClientInitiatedRenegotiation=true` to disable secure client initiated renegotiation, which is enabled by default. This can be set via `OPENSEARCH_JAVA_OPTS` in `config/jvm.options`.

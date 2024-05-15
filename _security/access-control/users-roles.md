@@ -243,7 +243,6 @@ Map the role to your user:
 1. For **Internal users**, add your bulk access user.
 1. Choose **Map**.
 
-
 ## Admin and super admin roles in OpenSearch security
 
 User roles in OpenSearch are essential for controlling access to cluster resources and functionalities. Users can be categorized as regular users, admin users, or super admin users based on their access rights and responsibilities.
