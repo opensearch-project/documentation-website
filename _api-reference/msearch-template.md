@@ -6,13 +6,12 @@ redirect_from:
  - /opensearch/rest-api/multi-search/
 ---
 
-# Multi-search Template API
+# Multi-search Template 
 
 **Introduced 1.0**
 {: .label .label-purple }
 
 The Multi-search Template API runs multiple search template requests in a single API request.
-
 
 ## Path and HTTP methods
 
@@ -23,11 +22,9 @@ GET /{index}/_msearch/template
 POST /{index}/_msearch/template
 ```
 
-
 ## Request body
 
 The multi-search template request body follows this pattern, similar to the [Multi-search API]({{site.url}}{{site.baseurl}}/api-reference/multi-search/):
-
 
 ```
 Metadata\n
@@ -41,7 +38,6 @@ Query\n
 - Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
 
 Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
-
 
 ## URL parameters and metadata options
 
@@ -76,25 +72,64 @@ routing | String | Comma-separated custom routing values, for example, `"routing
 
 ## Example
 
-The following example Multi-search Template API request runs queries against a single index using multiple templates:
+The following example `msearch/template` API request runs queries against a single index using multiple templates, named `line_search_template` and `play_search_template`:
 
 ### Request
 
 ```json
 GET _msearch/template
 {"index":"shakespeare"}
-{"id":"if_search_template","params":{"play_name":"Henry IV","limit":false,"size":2}}
+{"id":"line_search_template","params":{"text_entry":"All the world's a stage","limit":false,"size":2}}
 {"index":"shakespeare"}
 {"id":"play_search_template","params":{"play_name":"Henry IV"}}
-
 ```
 {% include copy-curl.html %}
 
 
 ### Response
 
-OpenSearch returns an array with the results of each search in the same order as the multi-search request.
+OpenSearch returns an array with the results of each search in the same order as the Multi-search template request:
 
 ```json
-
+{
+  "took": 5,
+  "responses": [
+    {
+      "took": 5,
+      "timed_out": false,
+      "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+      },
+      "hits": {
+        "total": {
+          "value": 0,
+          "relation": "eq"
+        },
+        "max_score": null,
+        "hits": []
+      }
+    },
+    {
+      "took": 3,
+      "timed_out": false,
+      "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+      },
+      "hits": {
+        "total": {
+          "value": 0,
+          "relation": "eq"
+        },
+        "max_score": null,
+        "hits": []
+      }
+    }
+  ]
+}
 ```

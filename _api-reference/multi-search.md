@@ -6,7 +6,7 @@ redirect_from:
  - /opensearch/rest-api/multi-search/
 ---
 
-# Multi-search
+# Multi-search 
 **Introduced 1.0**
 {: .label .label-purple }
 
