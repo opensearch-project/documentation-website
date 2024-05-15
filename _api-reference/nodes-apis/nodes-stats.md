@@ -90,9 +90,11 @@ GET _nodes/stats/indices/docs,search
 
 You can also use specific `index_metric` values for the `caches` metric to specify which caches to return statistics for. 
 The following index metrics are supported: 
+
 - request_cache
 
-For example, the following query requests statistics for `request_cache`: 
+For example, the following query requests statistics for the `request_cache`: 
+
 ```json
 GET _nodes/stats/caches/request_cache
 ```
@@ -108,7 +110,7 @@ completion_fields | String | The fields to include in completion statistics. Sup
 fielddata_fields | String | The fields to include in fielddata statistics. Supports comma-separated lists and wildcard expressions. 
 fields | String | The fields to include. Supports comma-separated lists and wildcard expressions. 
 groups | String | A comma-separated list of search groups to include in the search statistics. 
-level | String | Specifies whether statistics for the `indices` metric are aggregated at the cluster, index, or shard level. Valid values are `indices`, `node`, and `shard`. When used for the `caches` metric, `indices`, `shard`, and `tier` are valid. `tier` will be ignored if the [tiered spillover cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) is not in use. 
+level | String | Specifies whether statistics for the `indices` metric are aggregated at the cluster-, index-, or shard-level. Valid values are `indices`, `node`, and `shard`. When used for the `caches` metric, `indices`, `shard`, and `tier` are valid. The `tier` value is ignored if the [tiered spillover cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) is not in use. 
 timeout | Time | Sets the time limit for node response. Default is `30s`.
 include_segment_file_sizes | Boolean | If segment statistics are requested, this field specifies to return the aggregated disk usage of every Lucene index file. Default is `false`. 
 
@@ -1302,7 +1304,7 @@ admission_control.global_io_usage.transport.rejection_count.indexing | Integer |
 
 ### `caches`
 
-Because this API supports the experimental [tiered caching feature]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/), its responses may change. If the tiered caching feature flag is not enabled, it will return 0 for all values.
+Because this API supports the experimental [tiered caching feature]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/), the responses found in this section may change. If the tiered caching feature flag is not enabled, the API will return `0` for all values.
 {: .warning}
 
 The `caches` object contains cache stats. Currently its only sub-metric is `request_cache`. The total values within each sub-metric are always returned regardless of the value of the query parameter `level`. 
@@ -1318,7 +1320,7 @@ request_cache.item_count | Integer | The total number of items in the request ca
 request_cache.store_name | String | The name of the store type used by the request cache. See [tiered cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) for more information. 
 
 If the `level` query parameter is set to one of its valid values `indices`, `shard`, or `tier`, additional fields will be present in `caches.request_cache` which break down the values by these levels. 
-For example if `level=indices,tier`, the tiered cache is in use, and the node has indexes named `index0` and `index1`, we also have the same 5 metrics for each combination of level values: 
+For example if `level=indices,tier`, the tiered cache is in use, and the node has indexes named `index0` and `index1`, the `caches` object will contain same 5 metrics for each combination of level values: 
 
 Field | Field type | Description
 :--- | :--- | :---

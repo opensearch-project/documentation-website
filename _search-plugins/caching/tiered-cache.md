@@ -93,8 +93,8 @@ Setting | Data type | Default | Description
 
 ## Getting stats for the `tiered_spillover` store 
 
-To assess the impact of using the tiered spillover cache, you may want to see cache stats for each tier separately. To do this, use the API 
+To assess the impact of using the tiered spillover cache, use the [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#caches), as shown in the following example: 
+
 ```json
 GET /_nodes/stats/caches/request_cache?level=tier
 ```
-See the [nodes stats API page]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#caches) for more information. 
