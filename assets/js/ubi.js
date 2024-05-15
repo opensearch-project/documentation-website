@@ -1,3 +1,4 @@
+
 function guiid() {
   let id = '123456-insecure';
   try {
@@ -42,7 +43,7 @@ export async function initialize(){
 
   try {
     if(!sessionStorage.hasOwnProperty('session_id')) {
-      sessionStorage.setItem('session_id', guiid());
+      sessionStorage.setItem('session_id', 'S-' + guiid());
     }
 
     if(sessionStorage.hasOwnProperty('user_id')){
@@ -50,40 +51,15 @@ export async function initialize(){
       return;
     }
     
-    var rq = new XMLHttpRequest;
-
-    rq.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if(this.response != null) {
-
-          //make a new user id: user ip + '::' + hash( userAgent )
-          let client_id = '';
-          if( window.navigator != null && window.navigator.userAgent != null){
-            client_id = window.navigator.userAgent;
-          } else {
-            client_id = guiid();
-          }
-          let user_id = hash( this.response.ip ) + '::' + hash( client_id );
-          sessionStorage.setItem('user_id', user_id);
-          console.log('user_id: ' + user_id);
-
-        }
-      }
-    };
-
-    rq.onerror = function(){
+    // currently, the only cookie is gtag's client_id et al.
+    if(document.cookie && document.cookie.length > 0){
+      setUserId(hash(document.cookie));
+      return;
+    } else {
+      //back up user_id method
       userError();
-      if(this.error != null && this.error != ''){
-        console.error('ERROR Retrieving user info: ' + this.error);
-      }
-      else
-        console.error('UNSPECIFIED ERROR Retrieving user info');
     }
 
-    rq.open("GET", "https://api64.ipify.org?format=json", true);
-    rq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    rq.responseType = "json";
-    rq.send();
 
   } catch(error){
     console.log(error)
@@ -91,18 +67,20 @@ export async function initialize(){
 }
 
 /**
-* back up method to make a user individual
+* Back up method to make a user individual
+* Note that this is basically the same as a session id since it would 
+*   generate each time a user lands on the site
 * @returns
 */
 function userError(){
-  let user_id = 'USER-' + guiid();
-  sessionStorage.setItem('user_id', user_id);
+  let user_id = guiid();
+  setUserId(user_id);
   return user_id;
 }
 
 
 export function genQueryId(){
-  const qid = 'QUERY-' + guiid();
+  const qid = 'Q-' + guiid();
   sessionStorage.setItem('query_id', qid);
   return qid;
 }
@@ -113,7 +91,7 @@ export function getQueryId(){
 /**
  * Save explicitly, if conditions are right
  */
-export function saveQueryId(query_id){
+export function setQueryId(query_id){
   sessionStorage.setItem('query_id', query_id);
 }
 
@@ -124,7 +102,7 @@ export function clearCache() {
 
 export function cacheQueryResults(results){
   let qid = genQueryId();
-  saveQueryId(qid);
+  setQueryId(qid);
 
   if(results.length > 0){
     let search_results = {};
@@ -140,6 +118,10 @@ export function cacheQueryResults(results){
     return [qid, result_ids];
   }
   return [qid, []];
+}
+
+export function setUserId(user_id){
+  sessionStorage.setItem('user_id', 'U-' + user_id);
 }
 
 export function getUserId(){
@@ -167,10 +149,13 @@ export function getPageId(){
 window.addEventListener("DOMContentLoaded", function (e) {
   try{
     initialize();
-    TimeMe.currentPageName = this.window.location.href;
+    TimeMe.initialize({
+      currentPageName: window.location.href,
+      idleTimeoutInSeconds: 5 
+    });
     TimeMe.startTimer(window.location.pathname);
-  } catch(e){
-
+  } catch(error){
+    console.warn(error);
   }
 });
 
@@ -179,8 +164,8 @@ window.addEventListener("beforeunload", function (e) {
     TimeMe.stopTimer(window.location.pathname);
     logDwellTime('page_exit', window.location.pathname,
     TimeMe.getTimeOnPageInSeconds(window.location.pathname));
-  } catch(e){
-
+  } catch(error){
+    console.warn(error);
   }
 });
 
@@ -252,10 +237,12 @@ export class UbiEventAttributes {
     if(attributes != null){
       Object.assign(this, attributes);
     }
-    if(object != null && object != {}){
+    if(object != null && Object.keys(object).length > 0){
       this.object = object;
     }
-    this.position = position;
+    if(position != null && Object.keys(position).length > 0){
+      this.position = position;
+    }
   }
 }
 
@@ -284,7 +271,8 @@ export class UbiEvent {
    * @returns
    */
   static replacer(key, value){
-    if(value == null) {
+    if(value == null || 
+      (value.constructor == Object && Object.keys(value).length === 0)) {
       return undefined;
     }
     return value;
