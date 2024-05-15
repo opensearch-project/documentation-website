@@ -11,7 +11,7 @@ Setting up secure practices in OpenSearch is crucial for protecting your data. H
 
 ## 1. Use your own PKI (public key infrastructure) to setup SSL/TLS for OpenSearch
 
-Although it requires a bit more effort at the beginning, it provides you with all the flexibility to set up SSL/TLS in the most secure and performant way.
+Although it requires a bit more effort at the beginning, it provides you with all the flexibility needed to set up SSL/TLS in the most secure and performant way.
 
 ### Enable SSL/TLS for node and REST layer traffic
 The SSL/TLS is enabled by default for transport layer which is used by node to node communication. The SSL/TLS on REST layer is disabled by default.
