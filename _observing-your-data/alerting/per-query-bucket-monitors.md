@@ -15,7 +15,7 @@ Per bucket monitors are a type of alert monitor that can be used to identify and
 
 Both monitor types support querying remote indexes using the same `cluster-name:index-name` pattern used by [cross-cluster search](https://opensearch.org/docs/latest/security/access-control/cross-cluster-search/) or by using OpenSearch Dashboards 2.12 or later.
 
-**Note:** A user will need the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to configure cross-cluster monitors via the dashboards UI.
+**Note:** A user will need the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to configure cross-cluster monitors using the dashboards UI.
 1. `cluster:admin/opensearch/alerting/remote/indexes/get`
 2. `indices:admin/resolve/index`
 3. `cluster:monitor/health`
