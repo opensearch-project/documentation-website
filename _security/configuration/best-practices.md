@@ -63,7 +63,6 @@ Detailed examples and additional configurations are available at:
 ## 6. Strip audit logging configuration to essentials only
 
 Extensive audit logging can degrade system performance due to the following reasons:
-
 - Each logged event adds to the processing load.
 - Audit logs can quickly grow in size, consuming significant disk space.
 
