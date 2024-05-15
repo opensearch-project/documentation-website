@@ -7,7 +7,7 @@ nav_order: 11
 
 # Best Practices for OpenSearch Security plugin
 
-Setting up secure practices in OpenSearch is crucial for protecting your data. Here are our top 10 guidelines offer clear steps on keeping your system safe.
+Setting up secure practices in OpenSearch is crucial for protecting your data. Here are our top 10 guidelines that offer clear steps on keeping your system safe.
 
 ## 1. Use your own PKI (public key infrastructure) to setup SSL/TLS for OpenSearch
 
