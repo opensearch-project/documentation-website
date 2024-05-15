@@ -78,6 +78,16 @@ See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#crea
 
 By default, the Security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
 
+You can override the default Blake2b algorithm in `opensearch.yml`:
+
+```yml
+plugins.security.masked_fields.algorithm.default: SHA-256
+```
+
+Property | Description
+:--- | :---
+`plugins.security.masked_fields.algorithm.default` | The default masking algorithm to use. The algorithm must be provided by your JVM. Optional.
+
 To specify a different algorithm, add it after the masked field:
 
 ```yml
