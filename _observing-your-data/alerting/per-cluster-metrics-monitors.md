@@ -115,6 +115,9 @@ The `script` parameter points the `source` to the Painless script `for (cluster 
 ```
 The dashboards interface supports the selection of clusters to be monitored and the desired API. A view of the interface is shown in the following image.
 
+The following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required in order to create a cross-cluster monitor through the dashboards UI: `cluster:admin/opensearch/alerting/remote/indexes/get`, `indices:admin/resolve/index`, `cluster:monitor/health`, and `indices:admin/mappings/get`.
+{: .note}
+
 <img src="{{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-cluster-metrics-monitors.png" alt="Cluster metrics monitor" width="700"/>
 
 ### Limitations
