@@ -252,21 +252,28 @@ The following example queries show how you can use the alerting query structure 
 ```
 {% include copy-curl.html %}
 
-## Viewing events
+## Viewing alerting events
 
-To view alerting events using OpenSearch Dashboards, follow these steps:
+To view alerting events, follow these steps:
 
-1. Open your local instance of OpenSearch Dashboards. Thus is typically `http://localhost:5601/app/home#/`.
-2. Navigate to **Discover** from the main menu.
-3. Select the appropriate index pattern from the upper-left dropdown menu. An index pattern defines the mappings between fields in your data and how they should be interpreted by OpenSearch Dashboards.  
-4. Explore events. You can use the search bar at top to filter events based on specific criteria.
-5. Filter and search events based on specific criteria. For example, you can drag and drop any field under **Available fields** to **Selected fields**. 
-6. Customize columns. Hover over field names in the events table to reveal icons for customizing displayed columns.
-7. Analyze events. You can create visualizations such as bar charts or line graphs to visualize trends or patterns in your data.
+1. Open your local instance of OpenSearch Dashboards. This is typically `http://localhost:5601/app/home#/`.
+2. Navigate to **Alerting** from the main menu. You should see a list of all the alerting monitors you have configured. Select the monitor for which you want to view alerts.
+3. In the monitor details view, you'll see several tabs. Select the **Alerts** tab.  
+4. Explore events. The **Alerts** tab displays a list of all the alert instances that have been triggered for this monitor. Each alert shows details such as start and end time, status (Active, Acknowledged, Resolved), reason, and severity.
+5. Filter and search events based on specific criteria. For example, you can filter alerts by status using the filter dropdown at the top of the alerts table. 
+6. To view more details about a specific alter instance, select the alert in the table. This opens a flyout panel with additional information such as duration, context, history, and actions taken. 
+7. Acknowledge or resolve an alert if it is in an active state.
 
-Here's an example an events dashboard within **Discover**.
+You can also access alerting events from the main OpenSearch Dashboards interface. Follow these steps:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viewing-events.png" alt="Viewing events dashboard">
+1. Open a dashboard or visualization that has an associated alerting monitor.
+2. If there are active alerts for the associated monitor, then an alerting indicator (triangle icon) is shown on the visualization.
+3. Hover over the alert indicator to see a summary of the active alerts.
+4. Select the alert indicator to open the alert details flyout, which provides the same information as the **Alerts** tab in the Alerting plugin.
+
+Here's an example an alerting events dashboard.
+
+<insert-alerting-dashboard-events-view>
 
 ## Next steps
 
