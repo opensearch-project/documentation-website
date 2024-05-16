@@ -129,6 +129,50 @@ Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseur
 Keep in mind that enabling this feature and mapping system index permissions to normal users gives those users access to indexes that may contain sensitive information and configurations essential to a cluster's health. We also recommend caution when mapping users to `restapi:admin/roles` because this permission gives a user not only the ability to assign the system index permission to another user but also the ability to self-assign access to any system index.
 {: .warning }
 
+### `do_not_fail_on_forbidden`
+
+If a user attempts to query multiple indexes, some of which they lack permissions for, by default they get an `error` in the OpenSearch Dashboards UI or an `exception` when using `cURL` or an API. If you instead want the user to receive the search results for any of the indexes for which they _do_ have permissions, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
+
+```
+_meta:
+  type: "config"
+  config_version: 2
+config:
+  dynamic:
+    http:
+      anonymous_auth_enabled: false
+      xff:
+        enabled: false
+        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
+    do_not_fail_on_forbidden: true
+    authc:
+      basic_internal_auth_domain:
+      ...
+```
+It is important to remember that if this option is set to `true`, then the user is served the data as if it is the complete dataset. There is no indication that some data may be omitted.
+{: .warning }
+
+### `do_not_fail_on_forbidden_empty`
+
+When a user attempts to view a visualization for which they lack index permissions, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.`, you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
+
+```
+_meta:
+  type: "config"
+  config_version: 2
+config:
+  dynamic:
+    http:
+      anonymous_auth_enabled: false
+      xff:
+        enabled: false
+        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
+    do_not_fail_on_forbidden: true
+    do_not_fail_on_forbidden_empty: true
+    authc:
+      basic_internal_auth_domain:
+      ...
+```
 
 ## Cluster permissions
 
@@ -188,6 +232,7 @@ See [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api
 - cluster:admin/opendistro/alerting/monitor/get
 - cluster:admin/opendistro/alerting/monitor/search
 - cluster:admin/opendistro/alerting/monitor/write
+- cluster:admin/opensearch/alerting/remote/indexes/get
 
 ### Asynchronous Search permissions
 
@@ -459,7 +504,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/write/bulk*` |  Permission to run a bulk request. |
 | `indices:data/write/delete` |  Permission to [delete documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/). |
 | `indices:data/write/delete/byquery` |  Permission to delete all documents that [match a query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/). |
-| `indices:data/write/plugins/replication/changes` |  Permission to make changes to data replication configurations and settings within indices. |
+| `indices:data/write/plugins/replication/changes` |  Permission to change data replication configurations and settings within indexes. |
 | `indices:data/write/index` |  Permission to add documents to existing indexes. See also [Index document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/ ). |
 | `indices:data/write/reindex` |  Permission to run a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/). |
 | `indices:data/write/update` | Permission to update an index. |
@@ -477,9 +522,10 @@ These permissions apply to an index or index pattern. You might want a user to h
 
 ## Security REST permissions
 
-These permissions apply to REST APIs to control access to the endpoints. Granting access to any of these will allow a user the permission to change fundamental operational components of the Security plugin.
 Allowing access to these endpoints has the potential to trigger operational changes in the cluster. Proceed with caution.
 {: .warning }
+
+The following REST API permissions control access to the endpoints. Granting access to any of these APIs allows a user to change fundamental operational components of the Security plugin:
 
 - restapi:admin/actiongroups
 - restapi:admin/allowlist
