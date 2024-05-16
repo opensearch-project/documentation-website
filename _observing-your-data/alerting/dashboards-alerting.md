@@ -11,7 +11,7 @@ Introduced 2.9
 
 OpenSearch Dashboards provides a consolidated view for creating, managing, and taking action on alerts through the **Dashboards** application. This feature allows you to identify and resolve issues quickly by visualizing alerts and their associated data on dashboards. An example dashboard is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization" width="700"
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization">
 
 ## Getting started 
 
@@ -129,12 +129,13 @@ Here is an example of the alerting query structure:
   ]
 }
 ```
+{% include copy-curl.html %}
 
 In this example:
 
 - The `monitor` runs every 10 minutes (`"period": 10, "unit": "MINUTES"`).
 - The `trigger` object specifies the conditions that, when met, raise an alert. The condition is defined using a script, which can access the search query results through the `ctx.payload` object.
-- The `input` object contains the search query that will be executed by the monitor. The query is defined using [OpenSearch Query DSL]() and can include aggregations, filters, and other query components.
+- The `input` object contains the search query that will be executed by the monitor. The query is defined using [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) and can include aggregations, filters, and other query components.
 - The `actions` array specifies the notifications that are sent when the trigger condition is met. Each action has a type (Slack, email, webhook) and a corresponding configuration object. 
 
 #### Query examples
@@ -190,6 +191,7 @@ The following example queries show how you can use the alerting query structure 
   ]
 }
 ```
+{% include copy-curl.html %}
 
 **Low disk space alert**
 ```json
@@ -246,6 +248,7 @@ The following example queries show how you can use the alerting query structure 
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Viewing events
 
@@ -261,7 +264,7 @@ To view alerting events using OpenSearch Dashboards, follow these steps:
 
 Here's an example an events dashboard within **Discover**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viewing-events.png" alt="Viewing events dashboard" width="700"
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viewing-events.png" alt="Viewing events dashboard" width="700">
 
 ## Next steps
 
