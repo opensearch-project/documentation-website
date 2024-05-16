@@ -253,15 +253,15 @@ To view alerting events using OpenSearch Dashboards, follow these steps:
 
 1. Open your local instance of OpenSearch Dashboards. Thus is typically `http://localhost:5601/app/home#/`.
 2. Navigate to **Discover** from the main menu.
-3. Select the appropriate index pattern from the upper-left dropdown menu. An index pattern defines the mappings between fields in  your data and how they should be interpreted by OpenSearch Dashboards.  
+3. Select the appropriate index pattern from the upper-left dropdown menu. An index pattern defines the mappings between fields in your data and how they should be interpreted by OpenSearch Dashboards.  
 4. Explore events. You can use the search bar at top to filter events based on specific criteria.
 5. Filter and search events based on specific criteria. For example, you can drag and drop any field under **Available fields** to **Selected fields**. 
 6. Customize columns. Hover over field names in the events table to reveal icons for customizing displayed columns.
 7. Analyze events. You can create visualizations such as bar charts or line graphs to visualize trends or patterns in your data.
 
-Here's an example an events view within **Discover** in OpenSearch Dashboards.
+Here's an example an events dashboard within **Discover**.
 
-
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viewing-events.png" alt="Viewing events dashboard" width="700"
 
 ## Next steps
 
