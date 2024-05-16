@@ -110,7 +110,7 @@ completion_fields | String | The fields to include in completion statistics. Sup
 fielddata_fields | String | The fields to include in fielddata statistics. Supports comma-separated lists and wildcard expressions. 
 fields | String | The fields to include. Supports comma-separated lists and wildcard expressions. 
 groups | String | A comma-separated list of search groups to include in the search statistics. 
-level | String | Specifies whether statistics for the `indices` metric are aggregated at the cluster-, index-, or shard-level. Valid values are `indices`, `node`, and `shard`. When used for the `caches` metric, `indices`, `shard`, and `tier` are valid. The `tier` value is ignored if the [tiered spillover cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) is not in use. 
+level | String | Specifies whether statistics for the `indices` metric are aggregated at the cluster, index, or shard level. Valid values are `indices`, `node`, and `shard`. When used for the `caches` metric, `indices`, `shard`, and `tier` are valid. The `tier` value is ignored if the [tiered spillover cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) is not in use. 
 timeout | Time | Sets the time limit for node response. Default is `30s`.
 include_segment_file_sizes | Boolean | If segment statistics are requested, this field specifies to return the aggregated disk usage of every Lucene index file. Default is `false`. 
 
@@ -1307,27 +1307,27 @@ admission_control.global_io_usage.transport.rejection_count.indexing | Integer |
 Because this API supports the experimental [tiered caching feature]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/), the responses found in this section may change. If the tiered caching feature flag is not enabled, the API will return `0` for all values.
 {: .warning}
 
-The `caches` object contains cache statistics, such as the `request_cache` statistics. The total values within each sub-metric are always returned regardless of the value of the query parameter `level`. 
+The `caches` object contains cache statistics, such as the `request_cache` statistics. The total values within each sub-metric are always returned, regardless of the value of the query parameter `level`. 
 
 Field | Field type | Description
 :--- | :--- | :---
 request_cache | Object | Statistics for the request cache. 
 request_cache.size_in_bytes | Integer | The total size in bytes of the request cache. 
-request_cache.evictions | Integer | The total evictions from the request cache. 
+request_cache.evictions | Integer | The total number of evictions from the request cache. 
 request_cache.hit_count | Integer | The total hit count for the request cache.
 request_cache.miss_count | Integer | The total miss count for the request cache.
 request_cache.item_count | Integer | The total number of items in the request cache.
 request_cache.store_name | String | The name of the store type used by the request cache. See [tiered cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) for more information. 
 
 If the `level` query parameter is set to one of its valid values `indices`, `shard`, or `tier`, additional fields will be present in `caches.request_cache` which break down the values by these levels. 
-For example if `level=indices,tier`, the tiered cache is in use, and the node has indexes named `index0` and `index1`, the `caches` object will contain same 5 metrics for each combination of level values: 
+For example, if `level=indices,tier`, the tiered cache is in use, and the node has indexes named `index0` and `index1`, then the `caches` object will contain the same five metrics for each combination of level values, as shown in the following table. 
 
 Field | Field type | Description
 :--- | :--- | :---
-request_cache.indices.index0.tier.on_heap | Object | Contains the 5 metrics for `index0` on the heap tier. 
-request_cache.indices.index0.tier.disk | Object | Contains the 5 metrics for `index0` on the disk tier. 
-request_cache.indices.index1.tier.on_heap | Object | Contains the 5 metrics for `index1` on the heap tier. 
-request_cache.indices.index1.tier.disk | Object | Contains the 5 metrics for `index1` on the disk tier. 
+request_cache.indices.index0.tier.on_heap | Object | Contains the five metrics for `index0` on the heap tier. 
+request_cache.indices.index0.tier.disk | Object | Contains the five metrics for `index0` on the disk tier. 
+request_cache.indices.index1.tier.on_heap | Object | Contains the five metrics for `index1` on the heap tier. 
+request_cache.indices.index1.tier.disk | Object | Contains the five metrics for `index1` on the disk tier. 
 
 ## Required permissions
 
