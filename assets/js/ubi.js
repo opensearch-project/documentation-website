@@ -29,11 +29,10 @@ export function hash(str, seed=42) {
 
 
 /**
- * In place of true authentication, this makes a hash out of the user's IP address and browser
- * for tracking individual user behavior
- *     user_id = hash( user ip ) + '::' + hash( userAgent )
+ * In place of true authentication, this makes a hash out of the user's cookie,
+ *  which at the moment is _ga...
  *
- * NOTE: if this function is called, but user_id starts with 'USER-',
+ * NOTE: if this function is called, but user_id starts with 'U-',
  *     the function below did not complete successfully,
  *     and userError() was called instead
  * @returns
@@ -42,6 +41,8 @@ export async function initialize(){
   let i = 1;
 
   try {
+
+  
     if(!sessionStorage.hasOwnProperty('session_id')) {
       sessionStorage.setItem('session_id', 'S-' + guiid());
     }
@@ -146,6 +147,27 @@ export function getPageId(){
   return location.pathname;
 }
 
+function getTrail(){
+  let trail = sessionStorage.getItem('trail');
+  if(trail == null)
+    return '';
+  return trail;
+}
+
+function setTrail(){
+  let trail = getTrail();
+  if(trail && trail.length > 0){
+    if(!trail.startsWith(window.location.pathname)){
+      trail += ` › ${window.location.pathname}`;
+    }
+  } else {
+    trail = window.location.pathname;
+  }
+  sessionStorage.setItem('trail', trail);
+
+  return trail;
+}
+
 window.addEventListener("DOMContentLoaded", function (e) {
   try{
     initialize();
@@ -153,6 +175,7 @@ window.addEventListener("DOMContentLoaded", function (e) {
       currentPageName: window.location.href,
       idleTimeoutInSeconds: 5 
     });
+    setTrail();
     TimeMe.startTimer(window.location.pathname);
   } catch(error){
     console.warn(error);
@@ -163,7 +186,7 @@ window.addEventListener("beforeunload", function (e) {
   try{
     TimeMe.stopTimer(window.location.pathname);
     logDwellTime('page_exit', window.location.pathname,
-    TimeMe.getTimeOnPageInSeconds(window.location.pathname));
+      TimeMe.getTimeOnPageInSeconds(window.location.pathname));
   } catch(error){
     console.warn(error);
   }
@@ -220,7 +243,11 @@ export class UbiPosition{
     this.ordinal = ordinal;
     this.x = x;
     this.y = y;
-    this.trail = trail;
+    if(trail)
+      this.trail = trail;
+    else {
+      console.log(document.referrer);
+    }
   }
 }
 
@@ -242,6 +269,31 @@ export class UbiEventAttributes {
     }
     if(position != null && Object.keys(position).length > 0){
       this.position = position;
+    }
+    this.setDefaultValues();
+  }
+
+  setDefaultValues(){
+    try{
+        if(!this.hasOwnProperty('dwell_seconds') && typeof TimeMe !== 'undefined'){
+          this.dwell_seconds = TimeMe.getTimeOnPageInSeconds(window.location.pathname);
+        }
+
+        if(!this.hasOwnProperty('browser')){
+          this.browser = window.navigator.userAgent;
+        }
+
+        if(!this.hasOwnProperty('position') || this.position == null){
+          const trail = getTrail();
+          if(trail.length > 0){
+            this.position = new UbiPosition({trail:trail});
+          }
+        }
+
+        // TODO: set IP
+    }
+    catch(error){
+
     }
   }
 }
