@@ -93,7 +93,7 @@ Setting | Data type | Default | Description
 
 ### Configuring cleanup
 
-The following table lists the settings related to deletion of stale entries from the cache.
+The following table lists the settings related to the deletion of stale entries from the cache.
 
 Setting | Data type | Default | Description
 :--- | :--- |:--------| :---
