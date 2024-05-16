@@ -88,7 +88,7 @@ GET _nodes/stats/indices/docs,search
 ```
 {% include copy-curl.html %}
 
-You can also use specific `index_metric` values for the `caches` metric to specify which caches to return statistics for. 
+You can also use specific `index_metric` values in the `caches` metric to specify which caches will return statistics. 
 The following index metrics are supported: 
 
 - request_cache
