@@ -97,5 +97,5 @@ The following table lists the settings related to the deletion of stale entries 
 
 Setting | Data type | Default | Description
 :--- | :--- |:--------| :---
-`indices.requests.cache.cleanup.staleness_threshold` | String | `0%`    | Defines the percentage of stale keys in the cache post which all stale cache entries are deleted. Optional.
+`indices.requests.cache.cleanup.staleness_threshold` | String | `0%`    | Defines the percentage of stale keys in the cache post. After identification, all stale cache entries are deleted. Optional.
 `indices.requests.cache.cleanup.interval` | Time unit | `1m`  | Defines the frequency at which the request cache's stale entries are deleted. Optional.
