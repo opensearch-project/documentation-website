@@ -84,7 +84,6 @@ You can override the default algorithm in `opensearch.yml`:
 plugins.security.masked_fields.algorithm.default: SHA-256
 ```
 
-:--- | :---
 `plugins.security.masked_fields.algorithm.default` | The default masking algorithm to use. The algorithm must be provided by your JVM. Optional.
 
 To specify a different algorithm, add it after the masked field:
