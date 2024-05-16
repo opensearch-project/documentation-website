@@ -9,9 +9,7 @@ nav_order: 50
 Introduced 2.9
 {: .label .label-purple }
 
-OpenSearch Dashboards provides a consolidated view for creating, managing, and taking action on alerts through the **Dashboards** application. This feature allows you to identify and resolve issues quickly by visualizing alerts and their associated data on dashboards. An example dashboard is shown in the following image.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization">
+OpenSearch Dashboards provides a consolidated view for creating, managing, and taking action on alerts through the **Dashboards** application. This feature allows you to identify and resolve issues quickly by visualizing alerts and their associated data on dashboards. 
 
 ## Getting started 
 
@@ -53,6 +51,8 @@ You can only create [per query and per bucket monitors]({{site.url}}{{site.baseu
 1. Save your dashboard. If you are unfamiliar with saving dashboards, see [Saving dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/#saving-dashboards).
 2. Select **Alerting** from the **Options** dropdown menu.
 
+<insert-visual-representation-of-these-steps>
+
 ## Associating monitors with visualizations
 
 You can associate certain monitor types with a visualization using **Dashboards** instead of the plugin page, This association links the monitor to automatically display alerts on the related visualization chart. 
@@ -65,6 +65,8 @@ Continuing with the alerting visualization created in the preceding section, ass
 4. View the monitor's basic information. To view comprehensive details, select **View monitor page** to open the Alerting plugin page.
 5. Select **Associate monitor**. An existing monitor is associated with the visualization.
 
+<insert-visual-representation-of-these-steps>
+
 ##  Configuring alerts through OpenSearch Dashboards
 
 To configure alerts, follow these steps:
@@ -76,6 +78,8 @@ To configure alerts, follow these steps:
 5. Unlink or edit a monitor. 
    1. Unlink a monitor from the visualization by selecting the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class="inline-icon" alt="link icon"/>{:/} icon under **Actions**. This only unlinks the monitor from the visualization; it does not delete the monitor.
    2. Edit the monitor's metrics by selecting the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/} icon.
+
+<insert-visual-representation-of-these-steps>
 
 ## Building alerting quieries
 
@@ -264,6 +268,8 @@ To view alerting events, follow these steps:
 6. To view more details about a specific alter instance, select the alert in the table. This opens a flyout panel with additional information such as duration, context, history, and actions taken. 
 7. Acknowledge or resolve an alert if it is in an active state.
 
+<insert-visual-representation-of-these-steps>
+
 You can also access alerting events from the main OpenSearch Dashboards interface. Follow these steps:
 
 1. Open a dashboard or visualization that has an associated alerting monitor.
@@ -273,7 +279,7 @@ You can also access alerting events from the main OpenSearch Dashboards interfac
 
 Here's an example an alerting events dashboard.
 
-<insert-alerting-dashboard-events-view>
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization">
 
 ## Next steps
 
