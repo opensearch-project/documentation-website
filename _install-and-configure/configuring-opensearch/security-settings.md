@@ -35,7 +35,7 @@ The Security plugin supports the following common settings:
 
 - `config.dynamic.http.anonymous_auth_enabled` (Static): Enables anonymous authentication. This will cause all HTTP authenticators to not challenge. Default is `false`.
 
-- `http.detailed_errors.enabled` (Static): Enables detailed error message for REST calls performed against the OpenSearch cluster. If set to `true`,  provides `root_cause` together with the error code. Default is `true`.  
+- `http.detailed_errors.enabled` (Static): Enables a detailed error message for REST calls performed against the OpenSearch cluster. If set to `true`,  provides the `root_cause` together with the error code. Default is `true`.  
 
 ## REST management API settings
 
