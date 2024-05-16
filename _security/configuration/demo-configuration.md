@@ -34,7 +34,7 @@ docker-compose up
 ```
 {% include copy.html %}
 
-If you want to disable the Security plugin when using Docker, set the `DISABLE_SECURITY_PLUGIN` environment variable  to `true` in the `docker-compose.yml` file. Disabling the Security plugin is not recommended. For more information, see the [Docker release notes](https://github.com/opensearch-project/opensearch-build/tree/main/docker/release#disable-security-plugin-security-dashboards-plugin-security-demo-configurations-and-related-configurations) in GitHub.
+If you want to disable the Security plugin when using Docker, set the `DISABLE_SECURITY_PLUGIN` environment variable  to `true` in the `docker-compose.yml` file. Disabling the Security plugin is not recommended. For more information, see the [Docker image release README](https://github.com/opensearch-project/opensearch-build/tree/main/docker/release#disable-security-plugin-security-dashboards-plugin-security-demo-configurations-and-related-configurations) in GitHub.
 
 ### Setting up a custom admin password
 **Note**: For OpenSearch versions 2.12 and later, you must set the initial admin password before installation. To customize the admin password, you can take the following steps:
