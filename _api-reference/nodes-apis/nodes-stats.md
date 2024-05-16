@@ -1312,14 +1312,14 @@ The `caches` object contains cache statistics, such as the `request_cache` stati
 Field | Field type | Description
 :--- | :--- | :---
 request_cache | Object | Statistics for the request cache. 
-request_cache.size_in_bytes | Integer | The total size in bytes of the request cache. 
+request_cache.size_in_bytes | Integer | The total size, in bytes, of the request cache. 
 request_cache.evictions | Integer | The total number of evictions from the request cache. 
 request_cache.hit_count | Integer | The total hit count for the request cache.
 request_cache.miss_count | Integer | The total miss count for the request cache.
 request_cache.item_count | Integer | The total number of items in the request cache.
 request_cache.store_name | String | The name of the store type used by the request cache. See [tiered cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) for more information. 
 
-If the `level` query parameter is set to one of its valid values `indices`, `shard`, or `tier`, additional fields will be present in `caches.request_cache` which break down the values by these levels. 
+If the `level` query parameter is set to one of its valid values, `indices`, `shard`, or `tier`, additional fields will be present in `caches.request_cache` that break down the values by these levels. 
 For example, if `level=indices,tier`, the tiered cache is in use, and the node has indexes named `index0` and `index1`, then the `caches` object will contain the same five metrics for each combination of level values, as shown in the following table. 
 
 Field | Field type | Description
