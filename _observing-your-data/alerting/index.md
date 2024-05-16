@@ -14,7 +14,7 @@ Alerting in OpenSearch enables proactive monitoring and timely response to poten
 
 In OpenSearch, you can configure alerts by creating monitors that run on a defined schedule and query indexes. You define triggers that specify conditions for generating alert events, such as thresholds on a specific field. You can also configure actions for the alerts, such as sending notifications through email, Slack, or custom webhooks. OpenSearch Dashboards brings alerting and monitoring directly into the dashboard experience, allowing you to overlay alerts and anomalies visually on time-series charts for enhanced insights. 
 
-An example configuration is shown in the following image.
+Here is an example configuration.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-config.png" alt="Alerting monitor configuration" width="500"/>
 
@@ -34,7 +34,7 @@ Notification | Message that is sent to users when an alert is triggered.
 
 Some key alerting settings in OpenSearch include the ability to customize trigger conditions, severity levels, notification channels, and recurrence intervals for monitors. You can modify settings like notification message templates, throttling to avoid duplicate alerts, and status expiration periods. 
 
-<SME: Do we have specific settings to include in this section? If so, please provide the setting name, description, and default setting.>
+See [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) and [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/) for deeper discussion of the settings.
 
 ## Alerting states
 
