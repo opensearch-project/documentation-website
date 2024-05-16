@@ -277,4 +277,7 @@ YAML
 plugins.security.authcz.admin_dn:
 - CN=kirk,OU=client,O=client,L=test, C=de
 ``` 
+
+If the superadmin certificate is signed by a different CA, then admin's CA must be concatenated with node's CA in the file defined in `plugins.security.ssl.http.pemtrustedcas_filepath` in `opensearch.yml`. 
+
 More information on this can be found at [Configuring super admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-super-admin-certificates).
