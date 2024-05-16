@@ -5,19 +5,22 @@ nav_order: 60
 ---
 
 # Getting started with OpenSearch security
-The simplest way to get started with security in OpenSearch is using the demo configuration. Naturally, this is configuration should never be used in production, as it uses demo certificates and default passwords. All of this configuration should be updated with your custom details prior to moving to production.
+
+The most straight forward way to get started with security in OpenSearch is using the demo configuration. Some parts of this configuration should never be used in production, for example demo certificates and default passwords. These parts of demo configuration should be updated with your custom details prior to moving to production.
 
 # OpenSearch demo configuration
-OpenSearch comes bundled with a number of useful scripts, one of which is `install_demo_configuration.sh` (or `install_demo_configuration.bat` for windows).
-This script is normally located in `plugins/opensearch-security/tools` and can perform the following actions:
-- create demo certificates for TLS encryption on transport and REST layer.
-- configure demo users, roles, role mappings.
-- configure Security plugin to use internal database for authentication and authorization.
-- update `opensearch.yml` file with basic configuration needed to get the cluster started.
 
-Prior to running the `install_demo_configuration.sh` script you must create environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with strong password, as this will be used as password for admin user to authenticate with OpenSearch. Once this is completed, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
+OpenSearch comes bundled with a number of useful scripts, one of which is `install_demo_configuration.sh` (or `install_demo_configuration.bat` for Windows).
+This script is usually located in `plugins/opensearch-security/tools` and performs the following actions:
 
-Once this is complete, you can start OpenSearch and test out the configuration by running the following command:
+- creates demo certificates for TLS encryption on transport and REST layer.
+- configures demo users, roles, role mappings.
+- configures Security plugin to use internal database for authentication and authorization.
+- updates `opensearch.yml` file with basic configuration needed to get the cluster started.
+
+Prior to running the `install_demo_configuration.sh` script you must create environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` set to strong password, as this will be used as password for admin user to authenticate with OpenSearch. Once this is set, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
+
+After the script is executed, you can start OpenSearch and test out the configuration by running the following command:
 `curl -k -XGET -uadmin:<password> https://<opensearch-ip>:9200`
 You should see similar output to the following:
 ```
@@ -39,7 +42,9 @@ You should see similar output to the following:
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 ```
+
 # OpenSearch Dashboards
+
 In order to quickly get started with OpenSearch Dashboards, you can add the following configuration to `opensearch_dashboards.yml`:
 ```
 opensearch.hosts: [https://localhost:9200]
@@ -64,7 +69,9 @@ Once OpenSearch Dashboards is started, you should see following two lines in the
 You can now access the OpenSearch Dashboards using http://localhost:5601 in your browser. Using username `admin` and password that was configured in `OPENSEARCH_INITIAL_ADMIN_PASSWORD` environment variable.
 
 # Adding users
-There are three ways to add users, roles, and other security configuration.
+
+There are three ways to add users, roles, and other security configuration:
+
   - updating appropriate configuration files (`internal_users.yml` file for adding/updating/removing users) 
   - using API
   - using OpenSearch Dashboards UI
@@ -113,6 +120,7 @@ Note that the cluster permissions are not listed in this example, as these are p
 
 
 # Mapping users to roles
+
 When user logs in to OpenSearch, they need to be mapped to appropriate role in order to obtain the correct permissions. This mapping is done via `roles_mapping.yml` file, with the following structure:
 ```
 <role_name>:
@@ -139,20 +147,8 @@ kibana_user:
   description: "Maps kibanauser to kibana_user"
 ```
 
-If you do not want to map the user to built in role `kibana_user` and only want to give the user full access to a subset of indexes, you can use the following role configuration and delete the role mapping for `kibana_user`:
-
-```
-<rolename>:
-  cluster_permissions:
-    - "indices:data/write/bulk"
-  index_permissions:
-    - index_patterns:
-      - "humanresource"
-      allowed_actions:
-        - "indices_all"
-```
-
 # Uploading the configuration to security index
-The final step in configuring users, roles and any other security configuration is uploading it to OpenSearch security index. Only updating the files, without uploading, will not have any impact on the configuration that is running in OpenSearch. 
-To upload configuration, following command can be used with admin certificate that was generated with demo install:
+
+The final step in configuring users, roles and any other security configuration is uploading it to OpenSearch security index. Only updating the files, without uploading them, will not have any impact on the configuration that is running in OpenSearch. 
+To upload configuration, following command can be used with admin certificate that was generated during `install_demo_configuration.sh` execution:
 `plugins/opensearch-security/tools/securityadmin.sh -cd "config/opensearch-security" -icl -key "../kirk-key.pem" -cert "../kirk.pem" -cacert "../root-ca.pem" -nhnv`
