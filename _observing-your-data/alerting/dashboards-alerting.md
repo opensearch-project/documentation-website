@@ -79,9 +79,11 @@ To configure alerts, follow these steps:
 
 ## Building alerting quieries
 
-An alerting query consists of the monitor, triggers, and actions. 
+An alerting query consists of the monitor, triggers, and actions: 
 
-The monitor determines the frequency at which the query is executed. Triggers define the specific conditions that, when met, cause an alert to be raised. Actions specify the notifications that are sent when an alert is triggered. 
+- The monitor determines the frequency at which the query is executed. 
+- Triggers define the specific conditions that, when met, cause an alert to be raised. 
+- Actions specify the notifications that are sent when an alert is triggered. 
 
 The monitor runs the query, triggers evaluate the results for the defined conditions, and actions initiate the specified notifications when those conditions are satisfied. This structure enables you to establish flexible alerting rules that continuously monitor your OpenSearch data and promptly notify you of significant events.
 
@@ -264,7 +266,7 @@ To view alerting events using OpenSearch Dashboards, follow these steps:
 
 Here's an example an events dashboard within **Discover**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viewing-events.png" alt="Viewing events dashboard" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viewing-events.png" alt="Viewing events dashboard">
 
 ## Next steps
 
