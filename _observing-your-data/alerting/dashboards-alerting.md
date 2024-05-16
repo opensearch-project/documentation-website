@@ -23,7 +23,7 @@ Before getting started with Alerting in OpenSearch Dashboards, you must have:
 
 ## Configuring admin settings
 
-Users can only access, create, or manage alerts for resources for which they have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards permissions. 
+Users can only access, create, or manage alerts on resources for which they have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards permissions. 
 
 The alerting dashboards and visualizations setting is enabled by default and is configurable from within **Dashboards Management** > **Advanced Settings** > **Visualization**. If the setting is disabled, the feature does not appear in the settings pane. 
 
