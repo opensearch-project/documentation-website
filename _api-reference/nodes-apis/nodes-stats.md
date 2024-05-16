@@ -1307,7 +1307,7 @@ admission_control.global_io_usage.transport.rejection_count.indexing | Integer |
 Because this API supports the experimental [tiered caching feature]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/), the responses found in this section may change. If the tiered caching feature flag is not enabled, the API will return `0` for all values.
 {: .warning}
 
-The `caches` object contains cache stats. Currently its only sub-metric is `request_cache`. The total values within each sub-metric are always returned regardless of the value of the query parameter `level`. 
+The `caches` object contains cache statistics, such as the `request_cache` statistics. The total values within each sub-metric are always returned regardless of the value of the query parameter `level`. 
 
 Field | Field type | Description
 :--- | :--- | :---
