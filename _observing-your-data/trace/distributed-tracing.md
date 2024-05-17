@@ -133,7 +133,7 @@ telemetry.feature.tracer.enabled=true
 ```
 {% include copy.html %}
 
-2. Then, enable the tracer in the running cluster by adding the following dynamic setting:
+2. Enable the tracer in the running cluster by adding the following dynamic setting:
 
 ```bash
 telemetry.tracer.enabled=true
