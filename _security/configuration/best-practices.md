@@ -1,21 +1,20 @@
 ---
 layout: default
 title: Best Practices
-parent: Best Practices
 nav_order: 11
 ---
 
-# Best Practices for OpenSearch Security plugin
+# Best Practices for OpenSearch Security
 
-Setting up secure practices in OpenSearch is crucial for protecting your data. Here are our top 10 guidelines that offer clear steps on keeping your system safe.
+Setting up secure practices in OpenSearch is crucial for protecting your data. Here are 10 best practices that offer clear steps on keeping your system safe.
 
-## 1. Use your own PKI (public key infrastructure) to setup SSL/TLS for OpenSearch
+## 1. Use your own public key infrastructure (PKI) to setup SSL/TLS for OpenSearch
 
-Although it requires a bit more effort at the beginning, it provides you with all the flexibility needed to set up SSL/TLS in the most secure and performant way.
+Although using your own PKI, such as [AWS Certificate Manager](https://docs.aws.amazon.com/crypto/latest/userguide/awspki-service-acm.html), requires more effort at the beginning, a custom PKI provides you with all the flexibility needed to set up SSL/TLS in the most secure and performant way.
 
 ### Enable SSL/TLS for node and REST layer traffic
 
-The SSL/TLS is enabled by default for transport layer which is used by node to node communication. The SSL/TLS on REST layer is disabled by default.
+The SSL/TLS is enabled by default for the transport layer, which is used by node to node communication. The SSL/TLS on the REST layer is disabled by default.
 
 The following setting is required to enable encryption at REST layer: `plugins.security.ssl.http.enabled: true`
 
@@ -34,7 +33,7 @@ For detailed configuration instructions, refer to [Enabling client certificate a
 
 Details on configuring client certificate authentication can be found at [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication)
 
-## 3. Prefer SSO using SAML or OpenID for Dashboards authentication
+## 3. Prefer Single Sign-on (SSO) using SAML or OpenID for Dashboards authentication
 
 Implementing Single Sign-On (SSO) with protocols like Security Assertion Markup Language (SAML) or OpenID for Dashboards authentication enhances security by delegating credential management to a dedicated system.
 
@@ -44,7 +43,7 @@ This approach minimizes direct interaction with passwords in OpenSearch, streaml
 
 Prioritizing fewer, more intricate roles over numerous, simplistic roles for users enhances security and simplifies administration.
 
-Additional best practices for role management may include:
+Additional best practices for role management might include:
 
 1. Role granularity: Define roles based on specific job functions or access requirements to minimize unnecessary privileges.
 2. Regular review: Regularly review and audit assigned roles to ensure alignment with organizational policies and access needs.
@@ -53,7 +52,7 @@ For more information about roles, visit the documentation on [defining users and
 
 ## 5. Verify DLS, FLS and field masking
 
-If you have configured DLS (Document Level Security), FLS (Field Level Security), or field masking, ensure you double-check your role definitions, especially if a user is mapped to multiple roles. It is highly recommended to test this by making a GET request to `_plugins/_security/authinfo`.
+If you have configured Document Level Security (DLS), Field Level Security (FLS), or field masking, make you double-check your role definitions, especially if a user is mapped to multiple roles. It is highly recommended to test this by making a GET request to `_plugins/_security/authinfo`.
 
 Detailed examples and additional configurations are available at:
  - [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/)
@@ -90,21 +89,21 @@ config:
 
 ## 8. Manage the configuration via securityadmin.sh
 
-We recommend to use securityadmin.sh to manage configuration of your clusters, `securityadmin.sh` is a command-line tool provided by OpenSearch for managing security configurations. It allows administrators to efficiently manage security settings, including roles, role mappings, and other security-related configurations, within an OpenSearch cluster.
+Use `securityadmin.sh` to manage the configuration of your clusters. `securityadmin.sh` is a command-line tool provided by OpenSearch for managing security configurations. It allows administrators to efficiently manage security settings, including roles, role mappings, and other security-related configurations within an OpenSearch cluster.
 
 Before making changes with `securityadmin.sh`, always create a backup of the current configuration to prevent potential loss. For more detailed information, visit the [security admin configuration](https://opensearch.org/docs/latest/security/configuration/security-admin/) section in the documentation.
 
 ### Benefits of using securityadmin.sh
 
-1. Consistency: By using securityadmin.sh, administrators can ensure consistency across security configurations within the cluster. This helps maintain a standardized and secure environment.
-2. Automation: securityadmin.sh enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
-3. Version Control: Security configurations managed through securityadmin.sh can be version-controlled using standard version control systems like Git. This facilitates tracking changes, auditing, and reverting to previous configurations if necessary.
+1. Consistency: By using `securityadmin.sh`, administrators can ensure consistency across security configurations within the cluster. This helps maintain a standardized and secure environment.
+2. Automation: `securityadmin.sh` enables automation of security configuration tasks, making it easier to deploy and manage security settings across multiple nodes or clusters.
+3. Version Control: Security configurations managed through `securityadmin.sh` can be version-controlled using standard version control systems like Git. This facilitates tracking changes, auditing, and reverting to previous configurations if necessary.
 
 To prevent configuration overrides, it's important to note that changes made through the OpenSearch Dashboards UI or using the OpenSearch API provide a convenient way to modify security settings. To ensure these updates are preserved when using the `securityadmin.sh` tool, first create a backup of the current configuration. This ensures all configurations are captured before uploading the modified configuration with `securityadmin.sh`.
 
 For more detailed information on using securityadmin.sh and managing security configurations in OpenSearch, refer to the following resources:
-- OpenSearch Security Documentation: [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
-- OpenSearch Security Documentation: [Modifying the YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/)
+-  [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)
+- [Modifying the YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/)
 
 ## 9. Replace all default passwords
 
