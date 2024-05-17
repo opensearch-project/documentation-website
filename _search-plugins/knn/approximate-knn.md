@@ -127,10 +127,14 @@ GET my-knn-index-1/_search
 }
 ```
 
-`k` is the number of neighbors the search of each graph will return. You must also include the `size` option, which
-indicates how many results the query actually returns. The plugin returns `k` amount of results for each shard
-(and each segment) and `size` amount of results for the entire query. The plugin supports a maximum `k` value of 10,000.
-Starting in OpenSearch 2.14, in addition to using the `k` variable, both the `min_score` and `max_distance` variables can be used for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
+In the preceding query, `k` is the number of neighbors the search of each graph returns. You must also include the `size` option, indicating the final number of results you want the query to return.  
+
+For NMSLIB and Faiss engines, `k` is the maximum number of documents returned for all segments of a shard. For the Lucene engine, `k` is the number of documents returned for a shard. The maximum value of `k` is 10,000.
+
+For any engine, each shard returns `size` results to the coordinator node. Thus, the total number of results the coordinator node receives is `size * number of shards`. After the coordinator node consolidates the results received from all nodes, the query returns the top `size` results.
+
+Starting with OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
+
 ### Building a k-NN index from a model
 
 For some of the algorithms that we support, the native library index needs to be trained before it can be used. It would be expensive to training every newly created segment, so, instead, we introduce the concept of a *model* that is used to initialize the native library index during segment creation. A *model* is created by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model), passing in the source of training data as well as the method definition of the model. Once training is complete, the model will be serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
