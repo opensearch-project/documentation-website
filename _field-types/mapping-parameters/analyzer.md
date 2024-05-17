@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Analyzer
-Parent: Mapping parameters
-Grand_parent: Mapping and field types
+title: analyzer
+parent: Mapping parameters
+grand_parent: Mapping and field types
 nav_order: 5
 has_children: false
 has_toc: false
 ---
 
-# Analyzer
+# `analyzer`
 
 The `analyzer` mapping parameter is used to define the text analysis process that is applied to a text field during both indexing and searching operations.
 

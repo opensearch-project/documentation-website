@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Boost
-Parent: Mapping parameters
-Grand_parent: Mapping and field types
+title: boost
+parent: Mapping parameters
+grand_parent: Mapping and field types
 nav_order: 10
 has_children: false
 has_toc: false
 ---
 
-# Boost
+# `boost` 
 
 The `boost` mapping parameter is used to increase or decrease the relevance score of a field during search queries. It allows you to give more or less weight to specific fields when calculating the overall relevance score for a document.
 
