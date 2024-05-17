@@ -99,3 +99,12 @@ Setting | Data type | Default | Description
 :--- | :--- |:--------| :---
 `indices.requests.cache.cleanup.staleness_threshold` | String | `0%`    | Defines the percentage of stale keys in the cache post. After identification, all stale cache entries are deleted. Optional.
 `indices.requests.cache.cleanup.interval` | Time unit | `1m`  | Defines the frequency at which the request cache's stale entries are deleted. Optional.
+
+## Getting statistics for the `tiered_spillover` store 
+
+To assess the impact of using the tiered spillover cache, use the [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#caches), as shown in the following example: 
+
+```json
+GET /_nodes/stats/caches/request_cache?level=tier
+```
+
