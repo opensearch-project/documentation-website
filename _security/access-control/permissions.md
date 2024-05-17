@@ -232,6 +232,7 @@ See [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api
 - cluster:admin/opendistro/alerting/monitor/get
 - cluster:admin/opendistro/alerting/monitor/search
 - cluster:admin/opendistro/alerting/monitor/write
+- cluster:admin/opensearch/alerting/remote/indexes/get
 
 ### Asynchronous Search permissions
 

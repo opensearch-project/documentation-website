@@ -113,9 +113,9 @@ Light mode is the default OpenSearch Dashboards appearance theme. You can custom
 
 ### Enabling the appearance theme setting
 
-The appearance theme setting is enabled or disabled through **Advanced Settings** and requires admin permissions. If you do not see the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/theme-icon.png" class="inline-icon" alt="theme icon"/>{:/} icon on the upper right of the **Home** page, then the setting is likely disabled. To enable it, contact your admin. 
+The appearance theme setting is enabled or disabled through **Advanced Settings** and requires admin permissions. 
 
-### Changing the appearance theme for all users
+### Changing the appearance theme settings
 
 Admins can change the appearance theme for all users of their OpenSearch Dashboards instance through **Advanced Settings**:
 
@@ -124,18 +124,6 @@ Admins can change the appearance theme for all users of their OpenSearch Dashboa
 3. Select the **Save changes** button and then the **Reload** button. The updated theme is applied immediately.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dark-mode.png" alt="Dark mode view" width="700">
-
-### Changing the appearance theme from the home page
-
-When the setting is enabled, you can change the OpenSearch Dashboards appearance theme from the **Home** page:
-
-1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/theme-icon.png" class="inline-icon" alt="theme icon"/>{:/} icon on the upper right.
-2. Choose one of the following theme settings: **Light**, **Dark**, or **Use browser settings**. 
-3. Select **Apply**. The appearance theme changes automatically. 
-
-The appearance theme feature on the home page is shown in the following image.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/appearance-home.png" alt="Theme icon on Home page" width="250">
 
 ## Next steps
 
