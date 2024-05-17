@@ -126,7 +126,7 @@ testClusters {
 
 Once you've enabled the feature flag, do the following:
 
-1. Enable the tracing framework feature by adding the following setting in the `opensearch.yaml` file.
+1. Enable the tracing framework feature by adding the following setting in the `opensearch.yaml` file:
 
 ```bash
 telemetry.feature.tracer.enabled=true
