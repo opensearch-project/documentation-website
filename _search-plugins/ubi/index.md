@@ -4,7 +4,10 @@ title: User behavior insights
 parent: Search relevance
 has_children: false
 nav_order: 220
+redirect_from:
+  - /search-plugins/ubi/
 ---
+
 
 # User behavior insights
 
