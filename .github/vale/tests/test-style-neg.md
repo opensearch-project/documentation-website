@@ -6,6 +6,10 @@ This sentence tests cybersecurity.
 
 This sentence tests dash---spacing.
 
+This sentence tests:
+
+    - Dash --- spacing in a list.
+
 This sentence tests numbers above 1.2 in versions 1.2 and earlier.
 
 This sentence tests upper-right and lower left.
