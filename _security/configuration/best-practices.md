@@ -4,13 +4,13 @@ title: Best Practices
 nav_order: 11
 ---
 
-# Best Practices for OpenSearch Security
+# Best practices for OpenSearch security
 
 Setting up secure practices in OpenSearch is crucial for protecting your data. Here are 10 best practices that offer clear steps on keeping your system safe.
 
-## 1. Use your own public key infrastructure (PKI) to setup SSL/TLS for OpenSearch
+## 1. Use your own public key infrastructure to setup SSL/TLS for OpenSearch
 
-Although using your own PKI, such as [AWS Certificate Manager](https://docs.aws.amazon.com/crypto/latest/userguide/awspki-service-acm.html), requires more effort at the beginning, a custom PKI provides you with all the flexibility needed to set up SSL/TLS in the most secure and performant way.
+Although using your own public key infrastructure (PKI), such as [AWS Certificate Manager](https://docs.aws.amazon.com/crypto/latest/userguide/awspki-service-acm.html), requires more effort at the beginning, a custom PKI provides you with all the flexibility needed to set up SSL/TLS in the most secure and performant way.
 
 ### Enable SSL/TLS for node and REST layer traffic
 
@@ -33,7 +33,7 @@ For detailed configuration instructions, refer to [Enabling client certificate a
 
 Details on configuring client certificate authentication can be found at [Enabling client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/#enabling-client-certificate-authentication)
 
-## 3. Prefer Single Sign-on (SSO) using SAML or OpenID for Dashboards authentication
+## 3. Prefer single sign-on (SSO) using SAML or OpenID for dashboards authentication
 
 Implementing Single Sign-On (SSO) with protocols like Security Assertion Markup Language (SAML) or OpenID for Dashboards authentication enhances security by delegating credential management to a dedicated system.
 
