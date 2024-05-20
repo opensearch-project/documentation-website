@@ -53,6 +53,7 @@ indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
 resource_usage_stats | Node-level resource usage statistics, such as CPU and JVM memory.
 admission_control | Statistics about admission control.
+caches | Statistics about caches. 
 
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. You can use these only when you use the following query types:
 
@@ -87,6 +88,18 @@ GET _nodes/stats/indices/docs,search
 ```
 {% include copy-curl.html %}
 
+You can also use specific `index_metric` values in the `caches` metric to specify which caches will return statistics. 
+The following index metrics are supported: 
+
+- request_cache
+
+For example, the following query requests statistics for the `request_cache`: 
+
+```json
+GET _nodes/stats/caches/request_cache
+```
+{% include copy-curl.html %}
+
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -97,7 +110,7 @@ completion_fields | String | The fields to include in completion statistics. Sup
 fielddata_fields | String | The fields to include in fielddata statistics. Supports comma-separated lists and wildcard expressions. 
 fields | String | The fields to include. Supports comma-separated lists and wildcard expressions. 
 groups | String | A comma-separated list of search groups to include in the search statistics. 
-level | String | Specifies whether statistics are aggregated at the cluster, index, or shard level. Valid values are `indices`, `node`, and `shard`.
+level | String | Specifies whether statistics for the `indices` metric are aggregated at the cluster, index, or shard level. Valid values are `indices`, `node`, and `shard`. When used for the `caches` metric, `indices`, `shard`, and `tier` are valid. The `tier` value is ignored if the [tiered spillover cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) is not in use. 
 timeout | Time | Sets the time limit for node response. Default is `30s`.
 include_segment_file_sizes | Boolean | If segment statistics are requested, this field specifies to return the aggregated disk usage of every Lucene index file. Default is `false`. 
 
@@ -754,6 +767,16 @@ Select the arrow to view the example response.
             }
           }
         }
+      },
+      "caches" : {
+        "request_cache" : {
+          "size_in_bytes" : 1649,
+          "evictions" : 0,
+          "hit_count" : 0,
+          "miss_count" : 18,
+          "item_count" : 18,
+          "store_name" : "opensearch_onheap"
+        }
       }
     }
   }
@@ -809,6 +832,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
 [resource_usage_stats](#resource_usage_stats) | Object | Statistics related to resource usage for the node.
 [admission_control](#admission_control) | Object | Statistics related to admission control for the node.
+[caches](#caches) | Object | Statistics related to caches on the node.
 
 ### `indices`
 
@@ -1277,6 +1301,33 @@ admission_control.global_cpu_usage.transport.rejection_count.search | Integer | 
 admission_control.global_cpu_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node CPU usage limit was met. Any additional indexing requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.indexing.cpu_usage.limit` setting.
 admission_control.global_io_usage.transport.rejection_count.search | Integer | The total number of search rejections in the transport layer when the node IO usage limit was met. Any additional search requests are rejected until the system recovers. The CPU usage limit is configured in the `admission_control.search.io_usage.limit` setting (Linux only).
 admission_control.global_io_usage.transport.rejection_count.indexing | Integer | The total number of indexing rejections in the transport layer when the node IO usage limit was met. Any additional indexing requests are rejected until the system recovers. The IO usage limit is configured in the `admission_control.indexing.io_usage.limit` setting (Linux only).
+
+### `caches`
+
+Because this API supports the experimental [tiered caching feature]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/), the responses found in this section may change. If the tiered caching feature flag is not enabled, the API will return `0` for all values.
+{: .warning}
+
+The `caches` object contains cache statistics, such as the `request_cache` statistics. The total values within each sub-metric are always returned, regardless of the value of the query parameter `level`. 
+
+Field | Field type | Description
+:--- | :--- | :---
+request_cache | Object | Statistics for the request cache. 
+request_cache.size_in_bytes | Integer | The total size, in bytes, of the request cache. 
+request_cache.evictions | Integer | The total number of evictions from the request cache. 
+request_cache.hit_count | Integer | The total hit count for the request cache.
+request_cache.miss_count | Integer | The total miss count for the request cache.
+request_cache.item_count | Integer | The total number of items in the request cache.
+request_cache.store_name | String | The name of the store type used by the request cache. See [tiered cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/tiered-cache/) for more information. 
+
+If the `level` query parameter is set to one of its valid values, `indices`, `shard`, or `tier`, additional fields will be present in `caches.request_cache` that categorize the values by these levels. 
+For example, if `level=indices,tier`, the tiered cache is in use, and the node has indexes named `index0` and `index1`, then the `caches` object will contain the same five metrics for each combination of level values, as shown in the following table.
+
+Field | Field type | Description
+:--- | :--- | :---
+request_cache.indices.index0.tier.on_heap | Object | Contains the five metrics for `index0` on the heap tier. 
+request_cache.indices.index0.tier.disk | Object | Contains the five metrics for `index0` on the disk tier. 
+request_cache.indices.index1.tier.on_heap | Object | Contains the five metrics for `index1` on the heap tier. 
+request_cache.indices.index1.tier.disk | Object | Contains the five metrics for `index1` on the disk tier. 
 
 ## Required permissions
 
