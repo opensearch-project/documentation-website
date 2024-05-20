@@ -159,6 +159,7 @@ Variable | Data type | Description
 
 ##### Mustache template example
 
+{% raw %}
 ```groovy
 Alerts:
 {{#ctx.alerts}}
@@ -171,6 +172,7 @@ Alerts:
     {{/associated_queries}}
 {{/ctx.alerts}}
 ```
+{% endraw %}
 
 #### Associated query variables
 
@@ -185,6 +187,7 @@ Variable | Data type | Description
 The `_source` object in this example is based on the `opensearch_dashboards_sample_data_ecommerce` index available in OpenSearch Dashboards. In this example, the message template is accessing the `ctx.alerts` variable of a per document monitor.
 {: .note}
 
+{% raw %}
 ```groovy
 Alerts
 {{#ctx.alerts}}
@@ -200,3 +203,4 @@ Alerts
     {{/sample_documents}}
 {{/ctx.alerts}}
 ```
+{% endraw %}
