@@ -189,7 +189,7 @@ Cross-references to API documentation in the permissions that follow are only in
 | `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#delete-a-template). |
 | `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#retrieve-a-template). |
 | `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#create-a-template). |
-| `indices:data/read/scroll` |  Permission to scroll data. |
+| `indices:data/read/scroll` |  Permission to scroll data. (Need to configure as both cluster level and index level permission) |
 | `indices:data/read/scroll/clear` | Permission to clear read scroll data. (Need to configure as both cluster level and index level permission) |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
 | `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. (Need to configure as both cluster level and index level permission) |
@@ -510,6 +510,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request. (Need to configure as both cluster level and index level permission) |
 | `indices:data/read/plugins/replication/file_chunk` | Permission to check files during segment replication. |
 | `indices:data/read/plugins/replication/changes` | Permission to make changes to segment replication settings. |
+| `indices:data/read/scroll` |  Permission to scroll data. (Need to configure as both cluster level and index level permission) |
 | `indices:data/read/scroll/clear` | Permission to clear read scroll data. (Need to configure as both cluster level and index level permission) |
 | `indices:data/read/search` |  Permission to [search]({{site.url}}{{site.baseurl}}/api-reference/search/) data. |
 | `indices:data/read/search*` |  Permission to search data. |
