@@ -35,6 +35,39 @@ The following options are supported in the request body of the Render Template A
 | `params` | No | Object | A list of key value pairs which replace Mustache variables found in the search template. The key value pairs must exist inside the documents being searched. |
 | `source` | Conditional | Object | An inline search template to render if a search template is not specified. Supports the same parameters as a [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) API request, as well as [Mustache](https://mustache.github.io/mustache.5.html) variables. | 
 
+## Example request
+
+The following example requests validates a search template with the ID `play_search_template`:
+
+```json
+POST _render/template
+{
+  "id": "play_search_template",
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+```
+{% include copy.html %}
+
+## Example response
+
+OpenSearch responds with information about the templates output:
+
+```json
+{
+  "template_output": {
+    "from": "0",
+    "size": "10",
+    "query": {
+      "match": {
+        "play_name": "Henry IV"
+      }
+    }
+  }
+}
+```
+
 
 
 
