@@ -10,7 +10,7 @@ nav_order: 36
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Flush API manually flushes in-memory data from an index onto disk. This ensures that any memeory from the index stored in the buffer persists on disk, as opposed to writing all buffer data to the disk, which can affect the performance of your cluster.
+The Flush API manually flushes in-memory data from an index onto disk. This ensures that any memory from the index stored in the buffer persists on disk, as opposed to writing all buffer data to the disk, which can affect the performance of your cluster.
 
 ## Path and HTTP methods
 
