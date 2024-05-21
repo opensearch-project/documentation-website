@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Best Practices
+parent: Configuration
 nav_order: 11
 ---
 
