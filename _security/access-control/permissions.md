@@ -514,7 +514,6 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/read/search` |  Permission to [search]({{site.url}}{{site.baseurl}}/api-reference/search/) data. |
 | `indices:data/read/search*` |  Permission to search data. |
 | `indices:data/read/search/template` |  Permission to read a search template. |
-
 | `indices:data/read/tv` |  Permission to retrieve information and statistics for terms in the fields of a particular document. |
 | `indices:data/write/delete` |  Permission to [delete documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/). |
 | `indices:data/write/delete/byquery` |  Permission to delete all documents that [match a query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/). |
