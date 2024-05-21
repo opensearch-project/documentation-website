@@ -182,7 +182,7 @@ Cross-references to API documentation in the permissions that follow are only in
 {: .note }
 
 
-### Cluster wide indices permissions
+### Cluster wide index permissions
 
 | **Permission** | **Description** |
 | :--- | :--- |
