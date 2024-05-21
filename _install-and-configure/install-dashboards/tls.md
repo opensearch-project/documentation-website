@@ -40,6 +40,7 @@ Setting | Description
 The following `opensearch_dashboards.yml` configuration shows OpenSearch and OpenSearch Dashboards running on the same machine with the demo configuration:
 
 ```yml
+server.host: '0.0.0.0'
 server.ssl.enabled: true
 server.ssl.certificate: /usr/share/opensearch-dashboards/config/client-cert.pem
 server.ssl.key: /usr/share/opensearch-dashboards/config/client-cert-key.pem
