@@ -32,7 +32,7 @@ export function hash(str, seed=42) {
  * In place of true authentication, this makes a hash out of the user's cookie,
  *  which at the moment is _ga...
  *
- * NOTE: if this function is called, but user_id starts with 'U-',
+ * NOTE: if this function is called, but client_id starts with 'U-',
  *     the function below did not complete successfully,
  *     and userError() was called instead
  * @returns
@@ -41,26 +41,24 @@ export async function initialize(){
   let i = 1;
 
   try {
-
   
     if(!sessionStorage.hasOwnProperty('session_id')) {
       sessionStorage.setItem('session_id', 'S-' + guiid());
     }
 
-    if(sessionStorage.hasOwnProperty('user_id')){
+    if(sessionStorage.hasOwnProperty('client_id')){
       console.log('Already initialized UBI');
       return;
     }
     
     // currently, the only cookie is gtag's client_id et al.
     if(document.cookie && document.cookie.length > 0){
-      setUserId(hash(document.cookie));
+      setClientId(hash(document.cookie));
       return;
     } else {
-      //back up user_id method
+      //back up client_id method
       userError();
     }
-
 
   } catch(error){
     console.log(error)
@@ -74,11 +72,10 @@ export async function initialize(){
 * @returns
 */
 function userError(){
-  let user_id = guiid();
-  setUserId(user_id);
-  return user_id;
+  let client_id = guiid();
+  setClientId(client_id);
+  return client_id;
 }
-
 
 export function genQueryId(){
   const qid = 'Q-' + guiid();
@@ -121,15 +118,14 @@ export function cacheQueryResults(results){
   return [qid, []];
 }
 
-export function setUserId(user_id){
-  sessionStorage.setItem('user_id', 'U-' + user_id);
+export function setClientId(client_id){
+  sessionStorage.setItem('client_id', 'U-' + client_id);
 }
 
-export function getUserId(){
-  if(sessionStorage.hasOwnProperty('user_id')){
-    return sessionStorage.getItem('user_id');
+export function getClientId(){
+  if(sessionStorage.hasOwnProperty('client_id')){
+    return sessionStorage.getItem('client_id');
   }
-
   return userError();
 }
 
@@ -196,7 +192,7 @@ export async function logDwellTime(action_name, page, seconds){
   console.log(`${page} => ${seconds}`);
   let e = new UbiEvent(action_name, {
     message:`On page ${page} for ${seconds} seconds`,
-    event_attributes:{dwell_seconds:seconds},
+    event_attributes:{dwell_time:seconds},
     data_object:TimeMe
   });
   logEvent(e);
@@ -275,8 +271,8 @@ export class UbiEventAttributes {
 
   setDefaultValues(){
     try{
-        if(!this.hasOwnProperty('dwell_seconds') && typeof TimeMe !== 'undefined'){
-          this.dwell_seconds = TimeMe.getTimeOnPageInSeconds(window.location.pathname);
+        if(!this.hasOwnProperty('dwell_time') && typeof TimeMe !== 'undefined'){
+          this.dwell_time = TimeMe.getTimeOnPageInSeconds(window.location.pathname);
         }
 
         if(!this.hasOwnProperty('browser')){
@@ -289,7 +285,6 @@ export class UbiEventAttributes {
             this.position = new UbiPosition({trail:trail});
           }
         }
-
         // TODO: set IP
     }
     catch(error){
@@ -303,7 +298,7 @@ export class UbiEventAttributes {
 export class UbiEvent {
   constructor(action_name, {message=null, event_attributes={}, data_object={}}={}) {
     this.action_name = action_name;
-    this.user_id = getUserId();
+    this.client_id = getClientId();
     this.query_id = getQueryId();
     this.session_id = getSessionId();
     this.page_id = getPageId();
