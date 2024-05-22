@@ -20,7 +20,7 @@ In most cases, you want to configure both authentication and authorization. You 
 We provide a fully functional example that can help you understand how to use an LDAP server for both authentication and authorization.
 
 1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example-v2.13.zip).
-1. Update `.env` file with with strong password for `admin` user.
+1. Update `.env` file with strong password for `admin` user.
 1. At the command line, run `docker-compose up`.
 1. Review the files:
 
