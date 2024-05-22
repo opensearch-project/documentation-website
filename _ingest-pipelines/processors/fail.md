@@ -115,7 +115,7 @@ PUT testindex1/_doc/1?pipeline=fail-log-pipeline
 
 #### Response
 
-The request will fail to index the log event into the index `testindex1` due to the intentional failure in the pipeline. The response will include the custom error message specified in the fail processor.
+The request fails to index the log event into the index `testindex1` due to the string `credit card` being present in `user_info`. The following response includes the custom error message specified in the fail processor:
 
 ```json
 
