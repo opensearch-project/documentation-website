@@ -7,7 +7,7 @@ nav_order: 100
 
 # Fail processor
 
-The `fail` processor can be useful for performing data transformations and enrichment during the indexing process. The primary use case for the `fail` processor is to fail an indexing operation when certain conditions are met.
+The `fail` processor is useful for performing data transformations and enrichment during the indexing process. The primary use case for the `fail` processor is to fail an indexing operation when certain conditions are met.
 
 The following is the syntax for the `fail` processor:
 
