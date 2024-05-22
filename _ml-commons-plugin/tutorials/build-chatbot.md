@@ -10,7 +10,7 @@ nav_order: 60
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
 {: .warning}
 
-Some questions require more than one call to an large language model (LLM) to produce an answer. For example, an LLM can't answer how many errors there are in your log index for last week because its knowledge base does not contain your proprietary data. You can use an agent to solve such complex problems. The agent can run tools to obtain more information and send it to the LLM as context.
+Some questions require more than one call to an large language model (LLM) to produce an answer. For example, an LLM can't answer how many errors there are in your log index for last week because its knowledge base does not contain your proprietary data. You can use an agent to solve such complex problems. The agent can run tools to obtain more information and send the additional information to the LLM as context.
 
 This tutorial describes how to build your own chatbot in OpenSearch using a `conversational` agent. For more information about agents, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
@@ -183,26 +183,25 @@ The agent is configured with the following information:
 - Meta information: `name`, `type`, `description`.
 - LLM information: The agent uses an LLM to reason and select the next step, including choosing an appropriate tool and preparing the tool input.
 - Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description` and `parameters`.
-- Memory: Stores chat messages. OpenSearch 2.12 only supports one memory type: `conversation_index`.
-
+- Memory: Stores chat messages. Currently, OpenSearch only supports one memory type: `conversation_index`.
 
 Note the following parameter explanations:
 
-- `conversational`: This agent type has a built-in prompt. To override it with your own prompt, see [Step 4](#step-4).
+- `conversational`: This agent type has a built-in prompt. To override it with your own prompt, see [Step 4](#step-4-optional-create-an-agent-with-a-custom-prompt).
 - `app_type`: Specify this parameter for reference purposes in order to differentiate between multiple agents.
 - `llm`: Defines the LLM configuration:
    - `"max_iteration": 5`:  The agent runs the LLM a maximum of 5 times.
    - `"response_filter": "$.completion"`: Needed to retrieve the LLM answer from the Bedrock Claude model response.
    - `"message_history_limit": 5`: The agent retrieves a maximum of 5 most recent history messages and adds them to the LLM context. Set this parameter to`0` to omit message history in the context.
    - `disable_trace`: If `true`, the agent does not store trace data in memory. Trace data is included in each message and provides a detailed recount of steps performed while generating the message.
-- `memory`: Defines how to store messages. OpenSearch 2.12 only supports the `conversation_index` memory, which stores messages in a memory index.
+- `memory`: Defines how to store messages. Currently, OpenSearch only supports the `conversation_index` memory, which stores messages in a memory index.
 - Tools: 
    - An LLM will reason to decide which tool to run and will prepare the tool's input. 
-   - To include the tool's output in the response, specify `"include_output_in_agent_response": true`. In this tutorial, you will include the `PPLTool` output in the response (see the sample response in step 3.2). 
-   - By default, the tool's `name` is the same as the tool's `type`, and each tool has its default description. You can override the tool's `name` and `description`.
-   - Each tool in the `tools` list must have a unique name. For example, the demo agent below defines two tools of the `VectorDBTool` type with different names (`population_data_knowledge_base` and `stock_price_data_knowledge_base`). Each tool has a custom description so the LLM can easily understand what the tool does.
+   - To include the tool's output in the response, specify `"include_output_in_agent_response": true`. In this tutorial, you will include the `PPLTool` output in the response (see the example response in [Test the agent](#test-the-agent)). 
+   - By default, the tool's `name` is the same as the tool's `type`, and each tool has a default description. You can override the tool's `name` and `description`.
+   - Each tool in the `tools` list must have a unique name. For example, the following demo agent defines two tools of the `VectorDBTool` type with different names (`population_data_knowledge_base` and `stock_price_data_knowledge_base`). Each tool has a custom description so the LLM can easily understand what the tool does.
    
-   For more information about tools, see the [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+   For more information about tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 This example configures several sample tools in an agent. You can configure other tools that are relevant to your use case as needed.
 {: .note}
@@ -306,11 +305,11 @@ Note the following testing tips:
    - Enabling verbose mode : `"verbose": true`.
    - Calling the Get Trace API: `GET _plugins/_ml/memory/message/your_message_id/traces`.
 
-- An LLM may sometimes hallucinate. It may choose a wrong tool to solve your problem, especially when you configured many tools. You can use these options to avoid hallucinations:
+- An LLM may sometimes hallucinate. It may choose a wrong tool to solve your problem, especially when you have configured many tools. You can use these options to avoid hallucinations:
    - Avoid configuring many tools in an agent.
    - Provide a detailed tool description to clarify what the tool can do. 
-   - Specify the tool to use in the LLM question, for example, `Can you use the PPLTool to query index opensearch_dashboards_sample_data_ecommerce to calculate how many orders there were during last week?`.
-   - Specify the tool to use when executing an agent, for example, specify to only use the `PPLTool` and `CatIndexTool` in the current request.
+   - Specify the tool to use in the LLM question, for example, `Can you use the PPLTool to query the opensearch_dashboards_sample_data_ecommerce index to calculate how many orders there were during last week?`.
+   - Specify the tool to use when executing an agent. For example, specify to only use the `PPLTool` and `CatIndexTool` in the current request.
 
 Test the agent:
 
@@ -341,7 +340,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-Because you specified`"include_output_in_agent_response": true` for the `PPLTool`, the response contains `PPLTool.output` in the `additional_info` object:
+Because you specified `"include_output_in_agent_response": true` for the `PPLTool`, the response contains `PPLTool.output` in the `additional_info` object:
 
 ```json
 {
@@ -533,7 +532,7 @@ Assistant:"""
 
 The prompt consists of two parts:
 
-- `${parameters.prompt.prefix}`: Describes what the AI Assistant can do. You can change this parameter based on your use case. For example `You are a professional data analyst. You will always answer question based on the tool response first. If you don't know the answer, just say you don't know.`
+- `${parameters.prompt.prefix}`: Describes what the AI Assistant can do. You can change this parameter based on your use case. For example `You are a professional data analyst. You will always answer questions based on the tool response first. If you don't know the answer, just say you don't know.`
 - `${parameters.prompt.suffix}`: This is the main part that defines the tools, chat history, prompt format instructions, a question, and a scratchpad. 
 
 The default `prompt.suffix` is the following:
@@ -562,11 +561,11 @@ ${parameters.scratchpad}"""
 
 The `prompt.suffix` consists of the following placeholders:
 
-- `${parameters.tool_descriptions}`: This placeholder will be filled with the agent's tool information: the tool name and description. If you remove this part, the agent will not use any tools.
-- `${parameters.prompt.format_instruction}`: This part defines the LLM response format. This is critical. We recommend not removing this part.
-- `${parameters.chat_history}`: This placeholder will be filled with the message history of the current memory. If you don't set the `memory_id` when you run the agent, or there are no history messages, this part will be empty. If you don't need chat history, you can remove this part.
+- `${parameters.tool_descriptions}`: This placeholder will be filled with the agent's tool information: the tool name and description. If you omit this placeholder, the agent will not use any tools.
+- `${parameters.prompt.format_instruction}`: This placeholder defines the LLM response format. This placeholder is critical and we recommend not removing it.
+- `${parameters.chat_history}`: This placeholder will be filled with the message history of the current memory. If you don't set the `memory_id` when you run the agent, or there are no history messages, this placeholder will be empty. If you don't need chat history, you can remove this placeholder.
 - `${parameters.question}`: This placeholder will be filled with your question.
-- `${parameters.scratchpad}`: This part will be filled with the detailed steps in agent execution. These steps are the same as those you can view by specifying verbose mode or obtaining trace data (see an example in step 3.2). This is critical for the LLM to reason and select the next step based on the outcome of the previous steps. We recommend not removing this part.
+- `${parameters.scratchpad}`: This placeholder will be filled with the detailed steps in agent execution. These steps are the same as those you can view by specifying verbose mode or obtaining trace data (see an example in [Test the agent](#test-the-agent)). This placeholder is critical for the LLM to reason and select the next step based on the outcome of the previous steps. We recommend not removing this placeholder.
 
 ### Custom prompt examples
 
