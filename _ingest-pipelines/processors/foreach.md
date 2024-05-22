@@ -49,42 +49,22 @@ Follow these steps to use the processor in a pipeline.
 The following query creates a pipeline named `test-foreach` that uses the `foreach` processor to extract information from a nested JSON structure: 
 
 ```json
-PUT _ingest/pipeline/example-foreach
+PUT _ingest/pipeline/test-foreach
 {
-  "version": 2,
-  "example-foreach": {
-    "source": {
-      "http": {
-        "path": "/data"
-      }
-    },
-    "processors": [
-      {
-        "foreach": {
-          "field": "data.orders",
-          "processor": {
-            "rename": {
-              "field": "_ingest._value.order_id",
-              "target_field": "order_id"
-            }
-          },
-          "on_failure": [
-            {
-              "set": {
-                "field": "_index",
-                "value": "failed-orders"
-              }
-            }
-          ]
+  "description": "Extracts nested JSON data",
+  "processors": [
+    {
+      "foreach": {
+        "field": "users",
+        "processor": {
+          "json": {
+            "field": "_ingest._value",
+            "target_field": "user_data"
+          }
         }
       }
-    ],
-    "sink": {
-      "opensearch": {
-        "index": "orders"
-      }
     }
-  }
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -106,33 +86,100 @@ To test the pipeline, run the following query:
 The following example response confirms that the pipeline is working as expected:
 
 ```json
-<insert response example>
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "user_data": {
+            "name": "Jane Smith",
+            "age": 28
+          },
+          "users": [
+            """{"name":"John Doe","age":32}""",
+            """{"name":"Jane Smith","age":28}"""
+          ]
+        },
+        "_ingest": {
+          "_value": null,
+          "timestamp": "2024-05-22T18:27:27.299741001Z"
+        }
+      }
+    }
+  ]
+}
 ```
+{% include copy-curl.html %}
 
 ### Step 3: Ingest a document 
 
 The following query ingests a document into an index named `testindex1`:
 
 ```json
-<insert code example>
+PUT testindex1/_doc/1?pipeline=test-foreach
+{
+  "users": [
+    "{\"name\":\"John Doe\",\"age\":32}",
+    "{\"name\":\"Jane Smith\",\"age\":28}"
+  ]
+}
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The request indexes the document into the index <index name> and will index all documents with <what does this response tell the user?>.
+The request indexes the document into the index `testindex1` and indexes all documents with the extracted JSON data from the `users` field:
 
 ```json
-<insert code example>
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 2,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 1,
+  "_primary_term": 1
+}
 ```
+{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
 ```json
-<insert code example>
+GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-<Provide any other information and code examples relevant to the user or use cases.>
+#### Response
+
+The response shows the document with the extracted JSON data from the `users` field:
+
+```json
+{
+  "_index": "testindex1",
+  "_id": "1",
+  "_version": 2,
+  "_seq_no": 1,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "user_data": {
+      "name": "Jane Smith",
+      "age": 28
+    },
+    "users": [
+      """{"name":"John Doe","age":32}""",
+      """{"name":"Jane Smith","age":28}"""
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
