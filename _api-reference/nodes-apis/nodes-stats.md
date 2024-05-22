@@ -1021,20 +1021,20 @@ cpu.load_average | Object | Statistics about load averages for the system.
 cpu.load_average.1m | Float | The load average for the system for the time period of one minute.
 cpu.load_average.5m | Float | The load average for the system for the time period of five minutes.
 cpu.load_average.15m | Float | The load average for the system for the time period of 15 minutes.
-cpu.mem | Object | Statistics about memory usage for the node.
-cpu.mem.total_in_bytes | Integer | The total amount of physical memory, in bytes.
-cpu.mem.free_in_bytes | Integer | The total amount of free physical memory, in bytes.
-cpu.mem.used_in_bytes | Integer | The total amount of used physical memory, in bytes.
-cpu.mem.free_percent | Integer | The percentage of memory that is free.
-cpu.mem.used_percent | Integer | The percentage of memory that is used.
-cpu.swap | Object | Statistics about swap space for the node.
-cpu.swap.total_in_bytes | Integer | The total amount of swap space, in bytes.
-cpu.swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
-cpu.swap.used_in_bytes | Integer | The total amount of used swap space, in bytes.
-cpu.cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
-cpu.cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
-cpu.cgroup.cpu | Object | Statistics about the CPU control group for the node.
-cpu.cgroup.memory | Object | Statistics about the memory control group for the node.
+mem | Object | Statistics about memory usage for the node.
+mem.total_in_bytes | Integer | The total amount of physical memory, in bytes.
+mem.free_in_bytes | Integer | The total amount of free physical memory, in bytes.
+mem.used_in_bytes | Integer | The total amount of used physical memory, in bytes.
+mem.free_percent | Integer | The percentage of memory that is free.
+mem.used_percent | Integer | The percentage of memory that is used.
+swap | Object | Statistics about swap space for the node.
+swap.total_in_bytes | Integer | The total amount of swap space, in bytes.
+swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
+swap.used_in_bytes | Integer | The total amount of used swap space, in bytes.
+cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
+cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
+cgroup.cpu | Object | Statistics about the CPU control group for the node.
+cgroup.memory | Object | Statistics about the memory control group for the node.
 
 ### `process`
 
