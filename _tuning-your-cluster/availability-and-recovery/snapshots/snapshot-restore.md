@@ -296,51 +296,60 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    }
    ```
 
-### Microsoft azure
+### Set up Microsoft Azure Blob Storage
 
-1. To use a Microsoft Azure Blob Storage as a snapshot repository, install the `repository-azure` plugin on all nodes:
+To use Microsoft Azure Blob Storage as a snapshot repository, install the `repository-azure` plugin on all nodes using the following command:
+
+```bash
+./bin/opensearch-plugin install repository-azure
+```
+
+To use `repository-azure` plugin after installation, define your Azure Blob Storage settings before initializing the node.
+
+Define your Azure Storage account name using the following secure setting:
+
+```bash
+./bin/opensearch-keystore add azure.client.default.account
+```
+
+Then, use one of the following options to set up your account keys for Azure Blod Storage.
+
+#### Azure storage account key
+
+Use the following setting to specify your Azure Storage account key:
+
+```bash 
+./bin/opensearch-keystore add azure.client.default.key
+```
+
+#### Shared access signatures (SAS)
+
+Use the following setting when accessing Azure with an SAS token
+      
+```bash
+./bin/opensearch-keystore add azure.client.default.sas_token      
+```
+
+#### Azure credential token 
+
+If you're using a non-SAS token credential or an account key, use the following steps:
+
+1. Define your Azure storage account name in secure setting:
 
    ```bash
-   ./bin/opensearch-plugin install repository-azure
+   ./bin/opensearch-keystore add azure.client.default.account
    ```
 
-1. To use `repository-azure` plugin after installation, you need to define your azure storage settings before
-   initialising the node:
+2. Add your token credential type to `opensearch.yml`, using either the `managed` or `managed_identity` values:
 
-   1. Define your azure storage account name in secure setting:
+   ```yml
+   azure.client.default.token_credential_type: "managed_identity" 
 
-      ```bash
-      ./bin/opensearch-keystore add azure.client.default.account
-      ```
+Remember the following information when using Azure token credentials:
 
-   1. Specify your azure storage account key or SAS token in secure setting. Choose one option, either the key or the
-      token, but not both:
-
-      ```bash
-      ./bin/opensearch-keystore add azure.client.default.key
-      ./bin/opensearch-keystore add azure.client.default.sas_token   
-      ```
-
-1. (Optional) If you're using token credential instead of SAS token or an account key:
-
-   1. Define your azure storage account name in secure setting:
-
-      ```bash
-      ./bin/opensearch-keystore add azure.client.default.account
-      ```
-
-   1. Add your token credential type to `opensearch.yml`:
-
-      ```yml
-      azure.client.default.token_credential_type: "managed" # Both "managed" or "managed_identity" are valid values, and the value is not case-sensitive.
-      ```
-
-Useful information when using token credential:
-
-- At the moment, azure managed identity is the only token credential support.
-- Token credential is disabled by default.
-- If both token credential and SAS token are configured, token credential will be used for authentication instead
-  of SAS token. Similar behaviour when both token credential and account key are configured.
+- As of OpenSearch 2.14, one Azure Managed Identity tokens are supported.
+- Token credential support is disabled in `opensearch.yml` by default.
+- Token credentials will take precedent over Azure Storage account keys or SAS tokens when multiple options are configured. 
 
 ## Take snapshots
 
