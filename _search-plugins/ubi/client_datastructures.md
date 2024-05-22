@@ -6,7 +6,7 @@ has_children: false
 nav_order: 7
 ---
 
-The datastructures that we use for indexing events adhere to the following nested structure that aligns with the Ubi schemas.  See the [schemas](.././schemas.md) for descriptions and examples of the following fields.
+The data structures that we use for indexing events adhere to the following nested structure that aligns with the UBI schemas. See the [schemas](.././schemas.md) for descriptions and examples of the following fields.
 
 `struct UbiEvent {`
 - application
@@ -47,7 +47,7 @@ The datastructures that we use for indexing events adhere to the following neste
 
 Typescript versions of these classes can be found in [ts/UbiEvent.ts](./ts/UbiEvent.ts).
 
-Example javascript code:
+Example JavaScript code:
 ```js
     // basic message format
     let e = new UbiEvent('chorus', 'add_to_cart', user_id, query_id);
@@ -69,7 +69,7 @@ Example javascript code:
     console.log(e.toJson());
 ```
 
-With very similar [python data structures](./py/ubi.py):
+With very similar [Python data structures](./py/ubi.py):
 ```python
 if __name__ == '__main__':
 	e = UbiEvent(application='chorus', action_name='add_to_cart', 

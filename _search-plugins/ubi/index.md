@@ -18,20 +18,24 @@ It is a causal system, linking a user's query to all subsequent user interaction
 TODO: link a client implementation
 {: .warn }
 
+<!-- vale off -->
+
 | Explanation & Reference | Description
 | :--------- | :------- |
-| [Ubi Plugin Admin]({{site.url}}{{site.baseurl}}/search-plugins/ubi/documentation) | How to install and use the UBI Plugin |
-| [Ubi Request/Response Specification](https://github.com/o19s/ubi) | Schema standard for making Ubi requests and responses  |
-| [Ubi OpenSearch Schema Documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas) | Documentation on the individual Query and Event stores for OpenSearch |
-| [`query_id` Data Flow]({{site.url}}{{site.baseurl}}/search-plugins/ubi/query_id) | How the `query_id` ties the search to results and user events |
+| [UBI Request/Response Specification](https://github.com/o19s/ubi/) | Schema standard for making UBI requests and responses  |
+| [UBI OpenSearch Schema Documentation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual Query and Event stores for OpenSearch |
+| [`query_id` Data Flow]({{site.url}}{{site.baseurl}}/search-plugins/ubi/query_id/) | How the `query_id` ties the search to results and user events |
 
 
 | Tutorials & How-to Guides | Description
 | :--------- | :------- |
-| [ javascript client structures ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data_structures)  | Sample javascript structures for populating the Event store |
-| [Ubi Sql queries ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql_queries)  | How to write analytic queries for Ubi data |
-| [Ubi Dashboard]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi_dashboard_tutorial) | Teaches you how to build an OpenSearch dashboard with UBI data |
+| [UBI Plugin Admin]({{site.url}}{{site.baseurl}}/search-plugins/ubi/documentation/) | How to install and use the UBI Plugin |
+| [ JavaScript client structures ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data_structures/)  | Sample JavaScript structures for populating the Event store |
+| [UBI SQL queries ]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql_queries/)  | How to write analytic queries for UBI data in SQL |
+| [UBI Dashboard]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi_dashboard_tutorial/) | Teaches you how to build an OpenSearch dashboard with UBI data |
 | ... | teaches how to do something |
+
+<!-- vale on -->
 
 Documentation adapted using concepts from [Diátaxis](https://diataxis.fr/)
 {: .tip }

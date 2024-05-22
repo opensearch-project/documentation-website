@@ -6,11 +6,11 @@ has_children: false
 nav_order: 7
 ---
 
-# Sample data structures
-The data structures below can be used to create events that follow the [UBI event schema](schemas.md).
+# Sample Client data structures
+The client data structures can be used to create events that follow the [UBI event schema]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas).
 
-The developer just needs to decide on implementations for the following functions:
-- `getUserId()`
+The developer provides an implementation for the following functions:
+- `getClientId()`
 - `getQueryId()`
 - `getSessionId()`
 - `getPageId()`- e.g.:
@@ -111,7 +111,7 @@ export class UbiEvent {
 }
 ```
 
-# Sample Usage
+# Sample usage
 
 ```js
 export async function logDwellTime(action_name, page, seconds){
