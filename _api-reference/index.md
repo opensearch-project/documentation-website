@@ -5,8 +5,10 @@ nav_order: 1
 has_toc: false
 has_children: true
 nav_exclude: true
+permalink: /api-reference/
 redirect_from:
   - /opensearch/rest-api/index/
+  - /api-reference/index/
 ---
 
 # REST API reference
@@ -59,6 +61,7 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
 - [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
 - [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+- [Hot reload TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#hot-reloading-tls-certificates)
 
 
 
