@@ -33,4 +33,5 @@ TODO: link a client implementation
 | [Ubi Dashboard]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi_dashboard_tutorial) | Teaches you how to build an OpenSearch dashboard with UBI data |
 | ... | teaches how to do something |
 
-Documentation adapted using concepts from (Diátaxis)[https://diataxis.fr/]
+Documentation adapted using concepts from [Diátaxis](https://diataxis.fr/)
+{: .tip }
