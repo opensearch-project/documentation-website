@@ -343,7 +343,8 @@ If you're using a non-SAS token credential or an account key, use the following 
 2. Add your token credential type to `opensearch.yml`, using either the `managed` or `managed_identity` values:
 
    ```yml
-   azure.client.default.token_credential_type: "managed_identity" 
+   azure.client.default.token_credential_type: "managed_identity"
+   ``` 
 
 Remember the following information when using Azure token credentials:
 
