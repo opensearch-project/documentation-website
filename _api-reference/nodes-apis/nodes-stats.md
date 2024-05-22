@@ -1107,7 +1107,7 @@ active | Integer | The number of active threads in the pool.
 rejected | Integer | The number of tasks that have been rejected.
 largest | Integer | The peak number of threads in the pool.
 completed | Integer | The number of tasks completed.
-total_wait_time_in_nanos | Integer | The total amount of time tasks spent waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
+total_wait_time_in_nanos | Integer | The total amount of time that tasks spend waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
 
 ### `fs`
 
