@@ -25,7 +25,7 @@ The following table lists the required and optional parameters for the `fail` pr
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`message` | Required | Custom error message to be included in the failure response.
+`message` | Required | A custom error message to be included in the failure response.
 `description`  | Optional  | A brief description of the processor.  |  
 `if` | Optional | A condition for running the processor. |  
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |  
