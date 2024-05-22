@@ -4,9 +4,11 @@ title: Aggregations
 has_children: true
 nav_order: 5
 nav_exclude: true
+permalink: /aggregations/
 redirect_from:
   - /opensearch/aggregations/
   - /query-dsl/aggregations/
+  - /aggregations/index/
 ---
 
 # Aggregations

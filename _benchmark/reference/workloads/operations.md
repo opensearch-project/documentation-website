@@ -6,11 +6,15 @@ grand_parent: OpenSearch Benchmark Reference
 nav_order: 100
 ---
 
+<!-- vale off -->
 # operations
+<!-- vale on -->
 
 The `operations` element contains a list of all available operations for specifying a schedule.
 
+<!-- vale off -->
 ## bulk
+<!-- vale on -->
 
 The `bulk` operation type allows you to run [bulk](/api-reference/document-apis/bulk/) requests as a task. 
 
@@ -74,7 +78,9 @@ If `detailed-results` is `true`, the following metadata is returned:
 - `bulk-request-size-bytes`: The total size of the bulk request body, in bytes.
 - `total-document-size-bytes`: The total size of all documents within the bulk request body, in bytes.
 
+<!-- vale off -->
 ## create-index
+<!-- vale on -->
 
 The `create-index` operation runs the [Create Index API](/api-reference/index-apis/create-index/). It supports the following two modes of index creation:
 
@@ -147,7 +153,9 @@ The `create-index` operation returns the following metadata:
 `unit`: Always `ops`, indicating the number of operations inside the workload.
 `success`: A Boolean indicating whether the operation has succeeded.
 
+<!-- vale off -->
 ## delete-index
+<!-- vale on -->
 
 The `delete-index` operation runs the [Delete Index API](api-reference/index-apis/delete-index/). Like with the [`create-index`](#create-index) operation, you can delete all indexes found in the `indices` section of the workload or delete one or more indexes based on the string passed in the `index` setting.
 
@@ -203,7 +211,9 @@ The `delete-index` operation returns the following metadata:
 `unit`: Always `ops`, for the number of operations inside the workload.
 `success`: A Boolean indicating whether the operation has succeeded.
 
+<!-- vale off -->
 ## cluster-health
+<!-- vale on -->
 
 The `cluster-health` operation runs the [Cluster Health API](api-reference/cluster-api/cluster-health/), which checks the cluster health status and returns the expected status according to the parameters set for `request-params`. If an unexpected cluster health status is returned, the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when the health check fails.
 
@@ -245,7 +255,9 @@ The `cluster-health` operation returns the following metadata:
 - `cluster-status`: The current cluster status.
 - `relocating-shards`: The number of shards currently relocating to a different node.
 
+<!-- vale off -->
 ## refresh
+<!-- vale on -->
 
 The `refresh` operation runs the Refresh API. The `operation` returns no metadata.
 
@@ -269,7 +281,9 @@ Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `index` | No | String | The names of the indexes or data streams to refresh.
 
+<!-- vale off -->
 ## search
+<!-- vale on -->
 
 The `search` operation runs the [Search API](/api-reference/search/), which you can use to run queries in OpenSearch Benchmark indexes.
 

@@ -4,8 +4,10 @@ title: Tools
 nav_order: 50
 has_children: false
 nav_exclude: true
+permalink: /tools/
 redirect_from:
   - /clients/agents-and-ingestion-tools/index/
+  - /tools/index/
 ---
 
 # OpenSearch tools
@@ -104,6 +106,8 @@ Some users report compatibility issues with ingest pipelines on these versions o
 
 Beats versions newer than 7.12.x are not supported by OpenSearch. If you must update the Beats agent(s) in your environment to a newer version, you can work around the incompatibility by directing traffic from Beats to Logstash and using the Logstash Output plugin to ingest the data to OpenSearch.
 {: .warning }
+
+For recommendations about log and metrics collection tools, see the [Frequently Asked Questions](https://opensearch.org/faq/#q1.20).
 
 ## OpenSearch CLI
 

@@ -17,6 +17,7 @@ The following table describes options you can configure for the `file` sink.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 path | Yes | String | Path for the output file (e.g. `logs/my-transformed-log.log`).
+append | No | Boolean | When `true`, the sink file is opened in append mode.
 
 ## Usage
 

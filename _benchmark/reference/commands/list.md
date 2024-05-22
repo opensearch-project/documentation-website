@@ -7,7 +7,9 @@ grand_parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/commands/list/
 ---
 
+<!-- vale off -->
 # list
+<!-- vale on -->
 
 The `list` command lists the following elements used by OpenSearch Benchmark:
 
