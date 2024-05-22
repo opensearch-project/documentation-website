@@ -288,8 +288,8 @@ import * as UBI from "./ubi.js";
         /**
          * Find item and position clicked
          * Modifies the ubi event data if the item is found
-         * @param {*} ubiEvent
-         * @param {*} link 
+         * @param {*} ubiEvent - UBI.UbiEventData object
+         * @param {*} link - link clicked
          * @returns 
          */
         const setUbiClickData = (ubiEvent, link) => {
