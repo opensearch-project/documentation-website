@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Best Practices
+title: Best practices
 parent: Configuration
 nav_order: 11
 ---
@@ -119,9 +119,7 @@ The `kibanaserver` user is a crucial component that allows OpenSearch Dashboards
 
 Regularly monitor OpenSearch Project security advisories and updates to stay informed about potential vulnerabilities or bugs. Promptly apply updates to the Security plugin and its dependencies to maintain a secure environment.
 
-## Bonus tip: Diagnose permission issues efficiently
-
-Addressing issues promptly will help to ensure smooth operations. If you encounter difficulties, you can seek help through various channels:
+## Getting help
 
 - Create an issue on GitHub at [OpenSearch-project/security](https://github.com/opensearch-project/security/security) or [OpenSearch-project/OpenSearch](https://github.com/opensearch-project/OpenSearch/security).
 - Ask a question on the [OpenSearch forum](https://forum.opensearch.org/tag/cve).
