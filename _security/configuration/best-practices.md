@@ -115,11 +115,7 @@ You should change the passwords for these users to strong, complex passwords eit
 The `kibanaserver` user is a crucial component that allows OpenSearch Dashboards to communicate with the OpenSearch cluster. By default, this user is preconfigured with a default password in the demo configuration. This should be replaced with a strong, unique password in the OpenSearch configuration, and the `opensearch_dashboards.yml` file should be updated to reflect this change.
 
 
-## 10. Stay informed and apply updates
-
-Regularly monitor OpenSearch Project security advisories and updates to stay informed about potential vulnerabilities or bugs. Promptly apply updates to the Security plugin and its dependencies to maintain a secure environment.
-
-## Getting help
+## 10. Getting help
 
 - Create an issue on GitHub at [OpenSearch-project/security](https://github.com/opensearch-project/security/security) or [OpenSearch-project/OpenSearch](https://github.com/opensearch-project/OpenSearch/security).
 - Ask a question on the [OpenSearch forum](https://forum.opensearch.org/tag/cve).
