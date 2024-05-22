@@ -185,7 +185,7 @@ The agent is configured with the following information:
 - Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description` and `parameters`.
 - Memory: Stores chat messages. Currently, OpenSearch only supports one memory type: `conversation_index`.
 
-Note the following parameter explanations:
+The agent contains the following parameters:
 
 - `conversational`: This agent type has a built-in prompt. To override it with your own prompt, see [Step 4](#step-4-optional-create-an-agent-with-a-custom-prompt).
 - `app_type`: Specify this parameter for reference purposes in order to differentiate between multiple agents.
