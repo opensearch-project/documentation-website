@@ -6,7 +6,9 @@ grand_parent: OpenSearch Benchmark Reference
 nav_order: 110
 ---
 
+<!-- vale off -->
 # test_procedures
+<!-- vale on -->
 
 If your workload only defines one benchmarking scenario, specify the schedule at the top level. Use the `test-procedures` element to specify additional properties, such as a name or description. A test procedure is like a benchmarking scenario. If you have multiple test procedures, you can define a variety of challenges.
 
@@ -20,8 +22,9 @@ Parameter | Required | Type | Description
 `default` | No | Boolean | When set to `true`, selects the default test procedure if you did not specify a test procedure on the command line. If the workload only defines one test procedure, it is implicitly selected as the default. Otherwise, you must define `"default": true` on exactly one challenge.
 [`schedule`](#Schedule) | Yes | Array |  Defines the order in which workload tasks are run.
 
-
+<!-- vale off -->
 ## schedule
+<!-- vale on -->
 
 The `schedule` element contains a list of a tasks, which are operations supported by OpenSearch Benchmark, that are run by the workload during the benchmark test. 
 

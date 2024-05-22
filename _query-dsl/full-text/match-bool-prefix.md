@@ -94,7 +94,7 @@ GET testindex/_search
 
 The response contains both documents:
 
-<details closed markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
