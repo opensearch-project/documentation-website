@@ -33,7 +33,7 @@ The Security plugin supports the following common settings:
 
 - `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must be at least 32 characters. Only ASCII characters are allowed. Optional.
 
-- `plugins.security.compliance.immutable_indices` (Static): Documents in indices marked as immutable follow the write-once, read-many paradigm. Documents created in these indexes cannot be changed and are therefore immutable.
+- `plugins.security.compliance.immutable_indices` (Static): Documents in indexes that are marked as immutable follow the write-once, read-many paradigm. Documents created in these indexes cannot be changed and are therefore immutable.
 
 - `config.dynamic.http.anonymous_auth_enabled` (Static): Enables anonymous authentication. This will cause all HTTP authenticators to not challenge. Default is `false`.
 
