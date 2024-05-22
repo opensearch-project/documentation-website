@@ -24,7 +24,10 @@ For additional configuration options, such as specifying certificate paths, keys
 ### Replace all demo certificates with your own PKI
 The certificates generated when initializing an OpenSearch cluster with `install_demo_configuration.sh` are not suitable for production. These should be replaced with your own certificates.
 
-You can generate custom certificates in a few different ways. One approach is to use OpenSSL, described in detail at [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/). Alternatively, there are online tools available that can simplify the certificate creation process.
+You can generate custom certificates in a few different ways. One approach is to use OpenSSL, described in detail at [Generating self-signed certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/). Alternatively, there are online tools available that can simplify the certificate creation process, such as:
+
+- [SearchGuard TLS Tool](https://docs.search-guard.com/latest/offline-tls-tool)
+- [TLSTool by dylandreimerink](https://github.com/dylandreimerink/tlstool)
 
 ## 2. Prefer client certificate authentication for API authentication
 
