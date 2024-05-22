@@ -123,10 +123,14 @@ from .ubi_log_queries
 where query_id ='1065c70f-d46a-442f-8ce4-0b5e7a71a892'
 order by timestamp
 ```
+
 (In this generated data, the `query` field is plain text; however in the real implementation the query will be in the internal DSL of the query and parameters.)
+
+<!-- vale off -->
 query_response_id|query_id|user_id|query|query_response_objects_ids|session_id|timestamp
 ---|---|---|---|---|---|---
 1065c70f-d46a-442f-8ce4-0b5e7a71a892|1065c70f-d46a-442f-8ce4-0b5e7a71a892|155_7e3471ff-14c8-45cb-bc49-83a056c37192|Blanditiis quo sint repudiandae a sit.|8659955|fa6e3b1c-3212-44d2-b16b-690b4aeddbba_1975|2027-04-17 10:16:45
+<!-- vale on -->
 
 In the event log
 Search for the events that correspond to the query above, `1065c70f-d46a-442f-8ce4-0b5e7a71a892`.

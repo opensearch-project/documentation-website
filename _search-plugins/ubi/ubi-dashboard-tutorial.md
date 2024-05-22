@@ -7,7 +7,7 @@ nav_order: 7
 ---
 
 # Build an analytic dashboard for UBI
-Whether you've been collecting user events and queries for a while, or [you uploaded some sample events](https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/003_import_preexisting_event_data.md), now you're ready to visualize them in the dashboard using User Behavior Insights.
+Whether you've been collecting user events and queries for a while, or [you uploaded some sample events](https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/003_import_preexisting_event_data.md), now you're ready to visualize them in the dashboard using User Behavior Insights (UBI).
 
 
 ## 1) Fire up the OpenSearch dashboards
@@ -46,8 +46,8 @@ Most of the visualization require some sort of aggregate function on an bucket/f
 
 Save that visualization and it will be added to your new dashboard. Now that you have a visualization on your dashboard, you can save your dashboard.
 
-## 4) Add a "Tag Cloud" vizualization to your dashboard
-Let's add a word cloud for trending searches. Choose the Tag Cloud visualization of the terms in the `message` field where the javascript client logs the raw text that the user searches on. (Note: the true query, as processed by OpenSearch with filters, boosting, and so on will be in the `.{store}_queries` index, but what we are looking at is the `message` field of the `.{store}_events` index, where the JavaScript client captures what the user actually typed. )
+## 4) Add a "tag cloud" vizualization to your dashboard
+Let's add a word cloud for trending searches. Choose the Tag Cloud visualization of the terms in the `message` field where the JavaScript client logs the raw text that the user searches on. (Note: the true query, as processed by OpenSearch with filters, boosting, and so on will be in the `.{store}_queries` index, but what we are looking at is the `message` field of the `.{store}_events` index, where the JavaScript client captures what the user actually typed. )
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud1.png "Word Cloud")
 
 **But there's a problem!** The `message` field is on *every* event --not only query/search events-- and can be used in anyway the client developer decides to use it; so, it can contain error messages, debug messages, click information, and so on.
@@ -62,7 +62,7 @@ To add a histogram, first, add a vertical bar chart.
 
 <img src="{{site.url}}{{site.baseurl}}/images/ubi/visualizations2.png" alt="Vertical Bar Chart" width="300"/>
 
-The data field we want to examine is `event_attributes.position.ordinal`, meaning the user clicked on the *n*th item in a list. The y-axis will be the number of times that *n-th* was clicked. The x-axis will be the ordinal number itself that was clicked, using the `Histogram` aggregation.
+The data field we want to examine is `event_attributes.position.ordinal`, meaning the user clicked on the *n-th* item in a list. The y-axis will be the number of times that *n-th* was clicked. The x-axis will be the ordinal number itself that was clicked, using the `Histogram` aggregation.
 
 ![Vertical Bar Chart]({{site.url}}{{site.baseurl}}/images/ubi/histogram.png "Vertical Bar Chart")
 
@@ -73,4 +73,4 @@ For example, let's see how the click position changes when there is a purchase, 
 Or let's see what event messages include "\*UBI\*" somewhere between the wildcards.
 ![UBI]({{site.url}}{{site.baseurl}}/images/ubi/ubi.png "UBI")
 
-You now have a basic dashboard that lets you look at the data. In the next katas we'll focus on some typical ecommerce driven scenarios.
+You now have a basic dashboard that lets you look at the data. In the next kata we'll focus on some typical ecommerce driven scenarios.
