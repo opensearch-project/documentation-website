@@ -1,38 +1,52 @@
+---
+layout: default
+title: Ubi plugin management
+parent: User behavior insights
+has_children: false
+nav_order: 2
+---
+
+
 # OpenSearch User Behavior Insights
 
-This repository contains the OpenSearch plugin for the User Behavior Insights (UBI) capability. This plugin
+This *repository* contains the OpenSearch plugin for the User Behavior Insights (UBI) capability. This plugin
 facilitates persisting client-side events (e.g. item clicks, scroll depth) and OpenSearch queries for the purpose of analyzing the data
 to improve search relevance and user experience.
 
 ## Quick Start
 
 Build the plugin.  Note that you will have to match up the JDK 11 on your system to java home in the `gradle.properties` file:
-
-`./gradlew build`
+```bash
+./gradlew build
+```
+{% include copy.html %}
 
 Build the OpenSearch docker image and add the plugin, then start the containers:
 
-```
+```bash
 docker compose build
 docker compose up
 ```
+{% include copy.html %}
 
 Or to start a three-node OpenSearch cluster:
 
-```
+```bash
 docker compose build
 docker compose -f docker-compose-cluster.yaml up
 ```
+{% include copy.html %}
 
 Initialize the `awesome` UBI store:
 
-```
+```bash
 curl -X PUT "http://localhost:9200/_plugins/ubi/awesome?index=ecommerce&object_id=id"
 ```
+{% include copy-curl.html %}
 
 Send an event to the `awesome` store:
 
-```
+```bash
 curl -X POST http://localhost:9200/_plugins/ubi/mystore -H "Content-Type: application/json" -d '
 {
   "action_name": "search",
@@ -40,30 +54,35 @@ curl -X POST http://localhost:9200/_plugins/ubi/mystore -H "Content-Type: applic
   "timestamp": 1705596607509
 }'
 ```
+{% include copy-curl.html %}
 
 Get events:
 
-```
+```bash
 curl -s http://localhost:9200/.awesome_events/_search | jq
 ```
+{% include copy-curl.html %}
 
 Do a search of the `ecommerce` index:
 
-```
+```bash
 curl -s http://localhost:9200/ecommerce/_search -H "X-ubi-store: awesome" | jq
 ```
+{% include copy-curl.html %}
 
 Get queries:
 
-```
+```bash
 curl -s http://localhost:9200/.awesome_queries/_search | jq
 ```
+{% include copy-curl.html %}
 
 Delete the store:
 
-```
+```bash
 curl -X DELETE http://localhost:9200/_plugins/ubi/awesome
 ```
+{% include copy-curl.html %}
 
 ## UBI Store
 
@@ -95,14 +114,16 @@ To create a UBI store to contain events and queries, send a `PUT` request:
 ```
 curl -X PUT http://localhost:9200/_plugins/ubi/mystore?index=ecommerce
 ```
+{% include copy-curl.html %}
 
 ### Deleting a UBI Store
 
 To delete a store, send a `DELETE` request:
 
-```
+```bash
 curl -X DELETE http://localhost:9200/_plugins/ubi/mystore
 ```
+{% include copy-curl.html %}
 
 This will delete the UBI store and all contained events and queries. Please use this with caution.
 
@@ -110,15 +131,16 @@ This will delete the UBI store and all contained events and queries. Please use 
 
 To get a list of stores, send a `GET` request:
 
-```
+```bash
 curl -X GET http://localhost:9200/_plugins/ubi
 ```
+{% include copy-curl.html %}
 
 ### Persist a Client-Side Event into a UBI Store
 
 To persist a client-side event into a store, send a `POST` request where the body of the request is the event:
 
-```
+```bash
 curl -X POST http://localhost:9200/_plugins/ubi/mystore -H "Content-Type: application/json" -d '
 {
   "action_name": "search",
@@ -126,6 +148,7 @@ curl -X POST http://localhost:9200/_plugins/ubi/mystore -H "Content-Type: applic
   "timestamp": 1705596607509
 }'
 ```
+{% include copy-curl.html %}
 
 ## Capturing Queries with UBI
 
@@ -149,9 +172,10 @@ To make this association, queries need to have a header value that indicates the
 
 The following query tells the plugin that the query being run should be persisted to the store `mystore` and be associated with user ID `john`:
 
-```
+```bash
 curl http://localhost:9200/ecommerce/_search -H "X-ubi-store: mystore" -H "X-ubi-user-id: 12345"
 ```
+{% include copy-curl.html %}
 
 With this query, when the plugin sees a query, the plugin will be able to associate the query with an individual user and know to persist the query in the UBI store `mystore`.
 

@@ -1,3 +1,11 @@
+---
+layout: default
+title: Ubi queries with sql
+parent: User behavior insights
+has_children: false
+nav_order: 7
+---
+
 # Sample UBI SQL queries
 These can be performed on the OpenSearch Dashboards/Query Workbench: 
 http(s):\//`{server}`:5601/app/opensearch-query-workbench

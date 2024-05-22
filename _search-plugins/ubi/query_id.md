@@ -1,3 +1,10 @@
+---
+layout: default
+title: Ubi data flow
+parent: User behavior insights
+has_children: false
+nav_order: 7
+---
 
 # Basic Ubi flow
 **Executive Summary**: Once a user performs search, that search is tied to a `query_id`.  Then any following user events until the next search are logged and indexed by the search's `query_id`. If the user finds something of interest, that something's identifier (`object_id` or `key_value`) is logged in the event store with the `query_id`.

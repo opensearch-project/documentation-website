@@ -1,3 +1,11 @@
+---
+layout: default
+title: Client Data structures old
+parent: User behavior insights
+has_children: false
+nav_order: 7
+---
+
 The datastructures that we use for indexing events adhere to the following nested structure that aligns with the Ubi schemas.  See the [schemas](.././schemas.md) for descriptions and examples of the following fields.
 
 `struct UbiEvent {`

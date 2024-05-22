@@ -1,3 +1,10 @@
+---
+layout: default
+title: Client data structures
+parent: User behavior insights
+has_children: false
+nav_order: 7
+---
 
 # Sample data structures
 The data structures below can be used to create events that follow the [UBI event schema](schemas.md).

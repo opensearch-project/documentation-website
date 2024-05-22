@@ -1,3 +1,10 @@
+---
+layout: default
+title: Ubi index schemas
+parent: User behavior insights
+has_children: false
+nav_order: 7
+---
 
 # Key User Behavior Insights concepts
 **User Behavior Insights** (Ubi) **Logging** is really just a matter of linking and indexing queries, results and events within OpenSearch.
