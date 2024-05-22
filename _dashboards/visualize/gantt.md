@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using Gantt charts
+title: Gantt charts
 parent: Building data visualizations
 nav_order: 30
 redirect_from:
@@ -18,7 +18,7 @@ To create a Gantt chart, perform the following steps:
 1. In the visualizations menu, choose **Create visualization** and **Gantt Chart**.
 1. Choose a source for the chart (e.g. some log data).
 1. Under **Metrics**, choose **Event**. For log data, each log is an event.
-1. Select the **Start Time** and **Duration** fields from your data set. The start time is the timestamp for the beginning of an event. The duration is the amount of time to add to the start time.
+1. Select the **Start Time** and **Duration** fields from your dataset. The start time is the timestamp for the beginning of an event. The duration is the amount of time to add to the start time.
 1. Under **Results**, choose the number of events to display on the chart. Gantt charts sequence events from earliest to latest based on start time.
 1. Choose **Panel settings** to adjust axis labels, time format, and colors.
 1. Choose **Update**.

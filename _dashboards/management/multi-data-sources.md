@@ -203,14 +203,15 @@ When the data source feature is enabled, you can navigate to **Search Relevance*
 
 After configuring multiple data sources, you can analyze the data from each source. Refer to the following resources for more information:
 
-- Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
-- Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
-- Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
-- Learn about the [Integrations tool]({{site.url}}{{site.baseurl}}/integrations/index/), which gives you the flexibility to use various data ingestion methods and connect data from the Dashboards UI.
+- [Managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
+- [Indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
+- [Connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
+- [Integrations tool]({{site.url}}{{site.baseurl}}/integrations/index/), which gives you the flexibility to use various data ingestion methods and connect data from the OpenSearch Dashboards UI.
+- Creating [Vega]() and [TSVB]() visualizations from multiple sources
 
 ## Limitations
 
 The following features are not supported when using multiple data sources:
 
 * Timeline visualization types
-* Some external plugins, such as the `gantt-chart` plugin
+* Certain external plugins, such as the `gantt-chart` plugin
