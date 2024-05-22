@@ -136,7 +136,7 @@ The request fails to index the log event into the index `testindex1` due to the 
 
 ### Step 4 (Optional): Retrieve the document
 
-Because the log event was not indexed due to the pipeline failure, attempting to retrieve it will result in a document not found error:
+Because the log event was not indexed due to the pipeline failure, attempting to retrieve it results in the document not found error `"found": false`:
 
 ```json
 GET testindex1/_doc/1
