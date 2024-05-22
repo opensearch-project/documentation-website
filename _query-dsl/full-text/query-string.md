@@ -50,7 +50,7 @@ You can use query string syntax in the following cases:
     GET _search?q=wind
   ```
 
-A query string consists of _terms_ and _operators_. A term is a single word (for example, in the query `wind rises`, the terms are `wind` and `rises`). If several terms are surrounded by quotation marks, they are treated as one phrase where words are marched in the order they appear (for example, `"wind rises"`). Operators (such as `OR`, `AND`, and `NOT`) specify the Boolean logic used to interpret text in the query string. 
+A query string consists of _terms_ and _operators_. A term is a single word (for example, in the query `wind rises`, the terms are `wind` and `rises`). If several terms are surrounded by quotation marks, they are treated as one phrase where words are matched in the order they appear (for example, `"wind rises"`). Operators (such as `OR`, `AND`, and `NOT`) specify the Boolean logic used to interpret text in the query string. 
 
 The examples in this section use an index containing the following mapping and documents:
 

@@ -2,7 +2,7 @@
 layout: default
 title: Create connector
 parent: Connector APIs
-grand_parent: ML Commons API
+grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
@@ -15,6 +15,10 @@ Creates a standalone connector. For more information, see [Connectors]({{site.ur
 ```json
 POST /_plugins/_ml/connectors/_create
 ```
+
+## Request fields
+
+For a list of request fields, see [Blueprint configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
 
 #### Example request
 

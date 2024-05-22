@@ -7,7 +7,9 @@ grand_parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/commands/compare/
 ---
 
+<!-- vale off -->
 # compare
+<!-- vale on -->
 
 The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision. 
 
@@ -36,7 +38,7 @@ a33845cc-c2e5-4488-a2db-b0670741ff9b  20230523T213145Z           geonames       
 
 ```
 
-Then, use `compare` to call a `--baseline` test and a  `--contender` test for comparison.
+Then use `compare` to call a `--baseline` test and a  `--contender` test for comparison.
 
 ```
 opensearch-benchmark compare --baseline=417ed42-6671-9i79-11a1-e367636068ce --contender=beb154e4-0a05-4f45-ad9f-e34f9a9e51f7

@@ -4,7 +4,9 @@ title: Common issues
 nav_order: 1
 has_toc: false
 nav_exclude: true
-redirect_from: /troubleshoot/
+permalink: /troubleshoot/
+redirect_from:
+  - /troubleshoot/index/
 ---
 
 # Common issues
@@ -28,7 +30,7 @@ If you run legacy Kibana OSS scripts against OpenSearch Dashboards---for example
 In this case, your scripts likely include the `"kbn-xsrf: true"` header. Switch it to the `osd-xsrf: true` header:
 
 ```
-curl -XPOST -u 'admin:admin' 'https://DASHBOARDS_ENDPOINT/api/saved_objects/_import' -H 'osd-xsrf:true' --form file=@export.ndjson
+curl -XPOST -u 'admin:<custom-admin-password>' 'https://DASHBOARDS_ENDPOINT/api/saved_objects/_import' -H 'osd-xsrf:true' --form file=@export.ndjson
 ```
 
 
