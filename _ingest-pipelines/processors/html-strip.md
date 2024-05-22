@@ -7,7 +7,7 @@ nav_order: 140
 
 # HTML strip processor
 
-The `html_strip` processor is used to <explain what is used to do>.
+The `html_strip` processor removes HTML tags from string fields in incoming documents. The processor is useful when indexing data from web pages or other sources that may contain HTML markup. By removing the HTML tags, you can ensure that the indexed content is clean and easily searchable. HTML tags are replaced with newline characters (`\n`).
 
 The following is the syntax for the `html_strip` processor:
 
@@ -22,7 +22,14 @@ The following table lists the required and optional parameters for the `html_str
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-<insert the parameters>
+`field` | Required | The string field from which to remove HTML tags.
+`target_field` | Optional | The field to assign the cleaned value to. If not specified, field is updated in-place.
+`ignore_missing` | Optional | Default is `false`. If `true`, the processor quietly exits without modifying the document when field does not exist.
+`description` | Optional | Description of the processor's purpose or configuration.
+`if` | Optional | Conditionally execute the processor.
+`ignore_failure` | Optional | Ignore failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`on_failure` | Optional | Handle failures for the processor. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`tag` | Optional | Identifier for the processor. Useful for debugging and metrics.
 
 ## Using the processor
 
@@ -30,10 +37,21 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a pipeline, named <name>, that uses the `html_strip` processor to <do what?>: 
+The following query creates a pipeline named `strip-html-pipeline` that uses the `html_strip` processor to remove HTML tags from the description field and store the processed value in a new field named `cleaned_description`:
 
 ```json
-<insert pipeline code example>
+PUT _ingest/pipeline/strip-html-pipeline
+{
+  "description": "A pipeline to strip HTML from description field",
+  "processors": [
+    {
+      "html_strip": {
+        "field": "description",
+        "target_field": "cleaned_description"
+      }
+    }
+  ]
+}
 ```
 {% include copy-curl.html %}
 
@@ -45,7 +63,16 @@ It is recommended that you test your pipeline before you ingest documents.
 To test the pipeline, run the following query:
 
 ```json
-<insert code example>
+POST _ingest/pipeline/strip-html-pipeline/_simulate
+{
+  "docs": [
+    {
+      "_source": {
+        "description": "This is a <b>test</b> description with <i>some</i> HTML tags."
+      }
+    }
+  ]
+}
 ```
 {% include copy-curl.html %}
 
@@ -54,33 +81,85 @@ To test the pipeline, run the following query:
 The following example response confirms that the pipeline is working as expected:
 
 ```json
-<insert response example>
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "description": "This is a <b>test</b> description with <i>some</i> HTML tags.",
+          "cleaned_description": "This is a test description with some HTML tags."
+        },
+        "_ingest": {
+          "timestamp": "2024-05-22T21:46:11.227974965Z"
+        }
+      }
+    }
+  ]
+}
 ```
+{% include copy-curl.html %}
 
 ### Step 3: Ingest a document 
 
-The following query ingests a document into an index named `testindex1`:
+The following query ingests a document into an index named `products`:
 
 ```json
-<insert code example>
+PUT products/_doc/1?pipeline=strip-html-pipeline
+{
+  "name": "Product 1",
+  "description": "This is a <b>test</b> product with <i>some</i> HTML tags."
+}
 ```
 {% include copy-curl.html %}
 
 #### Response
 
-The request indexes the document into the index <index name> and will index all documents with <what does this response tell the user?>.
+The response shows that the request has indexed the document into the index `products` and will index all documents with the `description` field containing HTML tags, while storing the cleaned version in the `cleaned_description` field.
 
 ```json
-<insert code example>
+{
+  "_index": "products",
+  "_id": "1",
+  "_version": 1,
+  "result": "created",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 0,
+  "_primary_term": 1
+}
 ```
+{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
 ```json
-<insert code example>
+GET products/_doc/1
 ```
 {% include copy-curl.html %}
 
-<Provide any other information and code examples relevant to the user or use cases.>
+#### Response
+
+The response includes both the original `description` field and the `cleaned_description` field with HTML tags removed.
+
+```json
+{
+  "_index": "products",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "cleaned_description": "This is a test product with some HTML tags.",
+    "name": "Product 1",
+    "description": "This is a <b>test</b> product with <i>some</i> HTML tags."
+  }
+}
+```
