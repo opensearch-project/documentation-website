@@ -40,6 +40,7 @@ indices | Index statistics, such as size, document count, and search, index, and
 os | Statistics about the host OS, including load, memory, and swapping.
 process | Statistics about processes, including their memory consumption, open file descriptors, and CPU usage.
 jvm | Statistics about the JVM, including memory pool, buffer pool, and garbage collection, and the number of loaded classes.
+thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
@@ -1106,7 +1107,7 @@ active | Integer | The number of active threads in the pool.
 rejected | Integer | The number of tasks that have been rejected.
 largest | Integer | The peak number of threads in the pool.
 completed | Integer | The number of tasks completed.
-total_wait_time | Integer | The total amount of time tasks spent waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
+total_wait_time_in_nanos | Integer | The total amount of time that tasks spend waiting in the thread pool queue. Currently, only `search`, `search_throttled`, and `index_searcher` thread pools support this metric.
 
 ### `fs`
 
