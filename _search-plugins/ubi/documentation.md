@@ -90,10 +90,10 @@ The plugin has a concept of a "store", which is a logical collection of the even
 index is used to store events, and the other index is for storing queries.
 
 ### OpenSearch data mappings
-Ubi has 2 primary indexes:
+UBI has 2 primary indexes:
 - **UBI Queries** stores all queries and results.
 - **UBI Events** store that the Ubi client writes events to.
-*Follow the [schema deep dive]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas) to understand how these two indexes make UBI into a causal framework for search.*
+*Follow the [schema deep dive]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) to understand how these two indexes make UBI into a causal framework for search.*
 
 ## Plugin API
 
@@ -125,9 +125,9 @@ DELETE http://localhost:9200/_plugins/ubi/mystore
 ```
 {% include copy-curl.html %}
 
-This will delete the UBI store and all contained events and queries. Please use this with caution.
+This will delete the UBI store and all contained events and queries. Use this with caution.
 
-### Get a List of UBI stores
+### Get a list of UBI stores
 
 To get a list of stores, send a `GET` request:
 
@@ -136,7 +136,7 @@ GET http://localhost:9200/_plugins/ubi
 ```
 {% include copy-curl.html %}
 
-### Persist a Client-Side Event into a UBI store
+### Persist a client-side event into a UBI store
 
 To persist a client-side event into a store, send a `POST` request where the body of the request is the event:
 
@@ -162,7 +162,7 @@ the plugin cannot associate a query with the client-side events associated with 
 To make this association, queries need to have a header value that indicates the user ID.
 
 
-### Example Queries
+### Example queries
 
 The following query tells the plugin that the query being run should be persisted to the store `mystore` and be associated with user ID `john`:
 

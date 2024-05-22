@@ -6,8 +6,8 @@ has_children: false
 nav_order: 7
 ---
 
-# Sample Client data structures
-The client data structures can be used to create events that follow the [UBI event schema]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas).
+# Sample client data structures
+The client data structures can be used to create events that follow the [UBI event schema]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/).
 
 The developer provides an implementation for the following functions:
 - `getClientId()`
