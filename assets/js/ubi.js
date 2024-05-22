@@ -144,22 +144,21 @@ export function getPageId(){
 }
 
 function getTrail(){
-  let trail = sessionStorage.getItem('trail');
-  if(trail == null)
-    return '';
-  return trail;
+  try {
+    const trail = JSON.parse(sessionStorage.getItem('trail'));
+    if (Array.isArray(trail)) return trail;
+  } catch (ex) { /* Do nothing */ }
+
+  return [];
 }
 
 function setTrail(){
-  let trail = getTrail();
-  if(trail && trail.length > 0){
-    if(!trail.startsWith(window.location.pathname)){
-      trail += ` › ${window.location.pathname}`;
-    }
-  } else {
-    trail = window.location.pathname;
-  }
-  sessionStorage.setItem('trail', trail);
+  const trail = getTrail();
+  // No need to add the current pathname if it is already the last element in trail
+  if (trail.length && trail[trail.length - 1] === window.location.pathname)
+    return trail;
+
+  sessionStorage.setItem('trail', trail.concat(window.location.pathname));
 
   return trail;
 }
